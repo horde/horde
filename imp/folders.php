@@ -253,7 +253,7 @@ case 'folders_empty_mailbox_confirm':
             }
 
             try {
-                $elt_info = $imp_imap->ob()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
+                $elt_info = $injector->getInstance('IMP_Imap')->getOb()->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 $elt_info = null;
             }
@@ -420,7 +420,7 @@ if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
     foreach ($newmsgs as $mbox => $nm) {
-        $imp_imap->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+        $injector->getInstance('IMP_Imap')->getOb()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
     IMP::newmailAlerts($newmsgs);

@@ -366,7 +366,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result = new stdClass;
         $result->poll = array();
 
-        foreach ($GLOBALS['imp_imap']->ob()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+        foreach ($GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->statusMultiple($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
             $result->poll[$key] = intval($val['unseen']);
         }
 
@@ -420,7 +420,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         if ($this->_vars->add) {
             $imptree->addPollList($this->_vars->view);
             try {
-                if ($info = $GLOBALS['imp_imap']->ob()->status($this->_vars->view, Horde_Imap_Client::STATUS_UNSEEN)) {
+                if ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->_vars->view, Horde_Imap_Client::STATUS_UNSEEN)) {
                     $result->poll = array($this->_vars->view => intval($info['unseen']));
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
@@ -526,7 +526,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function moveMessages()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (!$this->_vars->mboxto || empty($indices)) {
             return false;
         }
@@ -580,7 +580,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function copyMessages()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (!$this->_vars->mboxto || empty($indices)) {
             return false;
         }
@@ -615,7 +615,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function flagMessages()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (!$this->_vars->flags || empty($indices)) {
             return false;
         }
@@ -676,7 +676,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteMessages()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (empty($indices)) {
             return false;
         }
@@ -738,7 +738,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function reportSpam()
     {
         $change = $this->_changed(false);
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         $result = false;
 
         if (IMP_Spam::reportSpam($indices, $this->_vars->spam ? 'spam' : 'notspam')) {
@@ -770,7 +770,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function blacklist()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (empty($indices)) {
             return false;
         }
@@ -820,7 +820,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function showPreview()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         if (count($indices) != 1) {
             return false;
         }
@@ -843,7 +843,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             /* We know we are going to be exclusively dealing with this
              * mailbox, so select it on the IMAP server (saves some STATUS
              * calls). Open R/W to clear the RECENT flag. */
-            $GLOBALS['imp_imap']->ob()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
+            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
             $show_msg = new IMP_Views_ShowMessage();
             $result->preview = (object)$show_msg->showMessage($args);
             if (isset($result->preview->error)) {
@@ -1205,7 +1205,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function purgeDeleted()
     {
-        $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
         $change = $this->_changed($indices);
 
         if (is_null($change)) {
@@ -1258,7 +1258,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         try {
-            $fetch_ret = $GLOBALS['imp_imap']->ob()->fetch($this->_vars->view, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_vars->view, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($this->_vars->uid)));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -1537,7 +1537,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose);
         if (!($imp_contents = $imp_compose->getContentsOb())) {
-            $indices = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($this->_vars->uid);
+            $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
             $i = each($indices);
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($i['key'], reset($i['value']));
         }
@@ -1597,7 +1597,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     protected function _checkUidvalidity($result = false)
     {
         try {
-            $GLOBALS['imp_imap']->checkUidvalidity($this->_vars->view);
+            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->checkUidvalidity($this->_vars->view);
         } catch (IMP_Exception $e) {
             if (!is_object($result)) {
                 $result = new stdClass;
@@ -1633,7 +1633,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $del = new stdClass;
         $del->mbox = $this->_vars->view;
-        $del->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
+        $del->uids = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->toSequenceString($indices, array('mailbox' => true));
         $del->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                               $GLOBALS['prefs']->getValue('use_trash'));
 
@@ -1688,7 +1688,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['imp_imap']->ob()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (Horde_Imap_Client_Exception $e) {
                 $GLOBALS['notification']->push($e);
                 return null;
@@ -1767,7 +1767,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         try {
-            $count = ($info = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN))
+            $count = ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN))
                 ? intval($info['unseen'])
                 : 0;
         } catch (Horde_Imap_Client_Exception $e) {

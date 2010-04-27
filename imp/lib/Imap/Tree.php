@@ -202,7 +202,7 @@ class IMP_Imap_Tree
     public function __construct()
     {
         if ($_SESSION['imp']['protocol'] == 'imap') {
-            $ns = $GLOBALS['imp_imap']->getNamespaceList();
+            $ns = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
             $this->_namespaces = empty($GLOBALS['conf']['user']['allow_folders'])
@@ -305,11 +305,12 @@ class IMP_Imap_Tree
         }
 
         try {
-            $result = $GLOBALS['imp_imap']->ob()->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $result = $imp_imap->listMailboxes($searches, $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('attributes' => true, 'delimiter' => true, 'sort' => true));
 
             /* INBOX must always appear. */
             if (empty($result['INBOX'])) {
-                $result = array_merge($GLOBALS['imp_imap']->ob()->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)), $result);
+                $result = array_merge($imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)), $result);
             }
         } catch (Horde_Imap_Client_Exception $e) {}
 
@@ -648,7 +649,7 @@ class IMP_Imap_Tree
 
         if (!empty($id)) {
             try {
-                $this->_insert($GLOBALS['imp_imap']->ob()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
+                $this->_insert($GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->listMailboxes($id, Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true, 'sort' => true)));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
@@ -1451,7 +1452,7 @@ class IMP_Imap_Tree
     {
         if (!in_array($mailbox, array(self::OTHER_KEY, self::SHARED_KEY, self::VFOLDER_KEY)) &&
             (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)) {
-            return $GLOBALS['imp_imap']->getNamespace($mailbox);
+            return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getNamespace($mailbox);
         }
         return null;
     }
@@ -1888,7 +1889,7 @@ class IMP_Imap_Tree
                 /* If we need message information for this folder, update
                  * it now. */
                 try {
-                    if ($msgs_info = $GLOBALS['imp_imap']->ob()->status($mailbox['v'], Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                    if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($mailbox['v'], Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
                         $row['polled'] = true;
                         if (!empty($msgs_info['recent'])) {
                             $row['recent'] = $msgs_info['recent'];
@@ -2030,7 +2031,7 @@ class IMP_Imap_Tree
     public function createMailboxName($parent, $new)
     {
         $ns_info = empty($parent)
-            ? $GLOBALS['imp_imap']->defaultNamespace()
+            ? $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->defaultNamespace()
             : $this->_getNamespace($parent);
 
         if (is_null($ns_info)) {

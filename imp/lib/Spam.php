@@ -38,7 +38,7 @@ class IMP_Spam
 
         foreach ($msgList as $mbox => $msgIndices) {
             try {
-                $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->checkUidvalidity($mbox);
             } catch (IMP_Exception $e) {
                 continue;
             }

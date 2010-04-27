@@ -94,7 +94,7 @@ class IMP_Contents
 
             /* Get the Horde_Mime_Part object for the given UID. */
             try {
-                $ret = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
+                $ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
                 ), array('ids' => array($this->_uid)));
             } catch (Horde_Imap_Client_Exception $e) {
@@ -148,7 +148,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_uid)));
             return $res[$this->_uid]['bodytext'][0];
@@ -207,7 +207,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
+            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
             if (empty($options['mimeheaders'])) {
                 if (!empty($res[$this->_uid]['bodypartdecode'][$id])) {
                     $this->lastBodyPartDecode = $res[$this->_uid]['bodypartdecode'][$id];
@@ -245,7 +245,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_uid)));
@@ -279,7 +279,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
+            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => $parse, 'peek' => true))
             ), array('ids' => array($this->_uid)));
             return $res[$this->_uid]['headertext'][0];

@@ -23,7 +23,8 @@ extends Horde_Notification_Handler_Decorator_Base
     public function notify($options)
     {
         if (in_array('status', $options['listeners']) &&
-            ($ob = $GLOBALS['imp_imap']->ob())) {
+            ($ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()) &&
+            $ob->ob) {
             /* Display IMAP alerts. */
             foreach ($ob->alerts() as $alert) {
                 $GLOBALS['notification']->push($alert, 'horde.warning');

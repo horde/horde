@@ -68,9 +68,10 @@ class IMP_Ui_Message
      */
     public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
     {
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
         $pref_val = $GLOBALS['prefs']->getValue('disposition_send_mdn');
 
-        if (!$pref_val || $GLOBALS['imp_imap']->isReadOnly($mailbox)) {
+        if (!$pref_val || $imp_imap->isReadOnly($mailbox)) {
             return false;
         }
 
@@ -87,11 +88,11 @@ class IMP_Ui_Message
         /* See if we have already processed this message. */
         /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
         try {
-            $status = $GLOBALS['imp_imap']->ob()->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array('\\*', $status['permflags']) ||
                 in_array('$mdnsent', $status['permflags'])) {
                 $mdn_flag = true;
-                $res = $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(
+                $res = $imp_imap->fetch($mailbox, array(
                         Horde_Imap_Client::FETCH_FLAGS => true
                     ), array('ids' => array($uid)));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]['flags']);

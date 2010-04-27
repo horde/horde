@@ -92,22 +92,24 @@ class IMP_Message
             break;
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
         foreach ($msgList as $mbox => $msgIndices) {
             $error = null;
 
-            if ($GLOBALS['imp_imap']->isReadOnly($targetMbox)) {
+            if ($imp_imap->isReadOnly($targetMbox)) {
                 $error = _("The target directory is read-only.");
             }
 
             if (!$error &&
                 ($action == 'move') &&
-                $GLOBALS['imp_imap']->isReadOnly($mbox)) {
+                $imp_imap->isReadOnly($mbox)) {
                 $error = _("The source directory is read-only.");
             }
 
             if (!$error) {
                 try {
-                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                    $imp_imap->checkUidvalidity($mbox);
                 } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -116,7 +118,7 @@ class IMP_Message
             /* Attempt to copy/move messages to new mailbox. */
             if (!$error) {
                 try {
-                    $GLOBALS['imp_imap']->ob()->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
+                    $imp_imap->copy($mbox, $targetMbox, array('ids' => $msgIndices, 'move' => $imap_move));
 
                     $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
                     if (($action == 'move') && $imp_mailbox->isBuilt()) {
@@ -184,16 +186,18 @@ class IMP_Message
             }
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
         foreach ($msgList as $mbox => $msgIndices) {
             $error = null;
 
-            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
+            if ($imp_imap->isReadOnly($mbox)) {
                 $error = _("This folder is read-only.");
             }
 
             if (!$error) {
                 try {
-                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                    $imp_imap->checkUidvalidity($mbox);
                 } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -211,7 +215,7 @@ class IMP_Message
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($mbox != $trash)) {
                 try {
-                    $GLOBALS['imp_imap']->ob()->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
+                    $imp_imap->copy($mbox, $trash, array('ids' => $msgIndices, 'move' => true));
 
                     $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
                     if ($imp_mailbox->isBuilt()) {
@@ -227,7 +231,7 @@ class IMP_Message
                 $fetch = null;
                 if ($maillog_update) {
                     try {
-                        $fetch = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
+                        $fetch = $imp_imap->fetch($mbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $msgIndices));
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
 
@@ -251,7 +255,7 @@ class IMP_Message
                 }
 
                 try {
-                    $GLOBALS['imp_imap']->ob()->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
+                    $imp_imap->store($mbox, array('add' => array('\\deleted'), 'ids' => $msgIndices));
                     if ($expunge_now) {
                         $this->expungeMailbox($indices_array);
                     }
@@ -460,14 +464,15 @@ class IMP_Message
         }
         $uid = reset($uid);
 
-        if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
+        if ($imp_imap->isReadOnly($mbox)) {
             throw new IMP_Exception(_("Cannot strip the MIME part as the mailbox is read-only."));
         }
 
-        $uidvalidity = $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+        $uidvalidity = $imp_imap->checkUidvalidity($mbox);
 
         $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $uid);
-        $imap_ob = $GLOBALS['imp_imap']->ob();
         $message = $contents->getMIMEMessage();
         $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 
@@ -481,7 +486,7 @@ class IMP_Message
         $parts = array(
             array(
                 't' => 'url',
-                'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => 'HEADER')))
+                'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => 'HEADER')))
             )
         );
 
@@ -516,11 +521,11 @@ class IMP_Message
             } else {
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => $id . '.MIME')))
+                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id . '.MIME')))
                 );
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imap_ob->utils->createUrl(array_merge($url_array, array('section' => $id)))
+                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id)))
                 );
             }
         }
@@ -532,7 +537,7 @@ class IMP_Message
 
         /* Get the headers for the message. */
         try {
-            $res = $imap_ob->fetch($mbox, array(
+            $res = $imp_imap->fetch($mbox, array(
                 Horde_Imap_Client::FETCH_DATE => true,
                 Horde_Imap_Client::FETCH_FLAGS => true
             ), array('ids' => array($uid)));
@@ -545,7 +550,7 @@ class IMP_Message
                 unset($res['flags'][$pos]);
             }
 
-            $new_uid = $imap_ob->append($mbox, array(
+            $new_uid = $imp_imap->append($mbox, array(
                 array(
                     'data' => $parts,
                     'flags' => $res['flags'],
@@ -587,17 +592,18 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         foreach ($msgList as $mbox => $msgIndices) {
             $error = null;
 
-            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
+            if ($imp_imap->isReadOnly($mbox)) {
                 $error = _("This folder is read-only.");
             }
 
             if (!$error) {
                 try {
-                    $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+                    $imp_imap->checkUidvalidity($mbox);
                 } catch (IMP_Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -606,7 +612,7 @@ class IMP_Message
             if (!$error) {
                 /* Flag/unflag the messages now. */
                 try {
-                    $GLOBALS['imp_imap']->ob()->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
+                    $imp_imap->store($mbox, array_merge($action_array, array('ids' => $msgIndices)));
                 } catch (Horde_Imap_Client_Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -641,10 +647,11 @@ class IMP_Message
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         foreach ($mboxes as $val) {
             try {
-                $GLOBALS['imp_imap']->ob()->store($val, $action_array);
+                $imp_imap->store($val, $action_array);
             } catch (Horde_Imap_Client_Exception $e) {
                 return false;
             }
@@ -678,11 +685,12 @@ class IMP_Message
             return $msg_list ? array() : null;
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $process_list = $update_list = array();
 
         foreach (array_keys($mbox_list) as $key) {
-            if (!$GLOBALS['imp_imap']->isReadOnly($key)) {
+            if (!$imp_imap->isReadOnly($key)) {
                 if ($imp_search->isSearchMbox($key)) {
                     foreach ($imp_search->getSearchFolders($key) as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
@@ -698,14 +706,14 @@ class IMP_Message
              * UIDVALIDITY. */
             if (is_array($val)) {
                 try {
-                    $GLOBALS['imp_imap']->checkUidvalidity($key);
+                    $imp_imap->checkUidvalidity($key);
                 } catch (IMP_Exception $e) {
                     continue;
                 }
             }
 
             try {
-                $update_list[$key] = $GLOBALS['imp_imap']->ob()->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
+                $update_list[$key] = $imp_imap->expunge($key, array('ids' => is_array($val) ? $val : array(), 'list' => $msg_list));
 
                 $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($key);
                 if ($imp_mailbox->isBuilt()) {
@@ -726,6 +734,7 @@ class IMP_Message
     {
         global $notification, $prefs;
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
         $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $trash_folder = ($prefs->getValue('use_trash'))
             ? IMP::folderPref($prefs->getValue('trash_folder'), true)
@@ -734,7 +743,7 @@ class IMP_Message
         foreach ($mbox_list as $mbox) {
             $display_mbox = IMP::displayFolder($mbox);
 
-            if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
+            if ($imp_imap->isReadOnly($mbox)) {
                 $notification->push(sprintf(_("Could not delete messages from %s. This mailbox is read-only."), $display_mbox), 'horde.error');
                 continue;
             }
@@ -748,7 +757,7 @@ class IMP_Message
             /* Make sure there is at least 1 message before attempting to
                delete. */
             try {
-                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
                 if (empty($status['messages'])) {
                     $notification->push(sprintf(_("The mailbox %s is already empty."), $display_mbox), 'horde.message');
                     continue;
@@ -758,7 +767,7 @@ class IMP_Message
                     $this->flagAllInMailbox(array('\\deleted'), array($mbox), true);
                     $this->expungeMailbox(array($mbox => 1));
                 } else {
-                    $ret = $GLOBALS['imp_imap']->ob()->search($mbox);
+                    $ret = $imp_imap->search($mbox);
                     $indices = array($mbox => $ret['match']);
                     $this->delete($indices);
                 }
@@ -780,7 +789,7 @@ class IMP_Message
     public function sizeMailbox($mbox, $formatted = true)
     {
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(Horde_Imap_Client::FETCH_SIZE => true), array('sequence' => true));
+            $res = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch($mbox, array(Horde_Imap_Client::FETCH_SIZE => true), array('sequence' => true));
 
             $size = 0;
             reset($res);

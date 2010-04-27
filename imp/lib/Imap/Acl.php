@@ -43,11 +43,12 @@ class IMP_Imap_Acl
             throw new IMP_Exception(_("ACLs not configured for this server."));
         }
 
-        if (!$GLOBALS['imp_imap']->ob()->queryCapability('ACL')) {
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        if (!$imp_imap->queryCapability('ACL')) {
             throw new IMP_Exception(_("IMAP server does not support ACLs."));
         }
 
-        $this->_protected = array($GLOBALS['imp_imap']->ob()->getParam('username'));
+        $this->_protected = array($imp_imap->getParam('username'));
 
         $this->_rightsList = array(
             'l' => array(
@@ -80,7 +81,7 @@ class IMP_Imap_Acl
             )
         );
 
-        if ($GLOBALS['imp_imap']->ob()->queryCapability('RIGHTS')) {
+        if ($imp_imap->queryCapability('RIGHTS')) {
             // RFC 4314 compliant rights
             $this->_rightsList = array_merge($this->_rightsList, array(
                 'k' => array(
@@ -126,7 +127,7 @@ class IMP_Imap_Acl
     public function getACL($mbox)
     {
         try {
-            return $GLOBALS['imp_imap']->ob()->getACL($mbox);
+            return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(_("Could not retrieve ACL"));
         }
@@ -144,7 +145,7 @@ class IMP_Imap_Acl
     public function editACL($mbox, $user, $acl)
     {
         try {
-            $GLOBALS['imp_imap']->ob()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
+            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->setACL($mbox, $user, array('remove' => empty($acl), 'rights' => implode('', $acl)));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new IMP_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
@@ -161,7 +162,7 @@ class IMP_Imap_Acl
     public function canEdit($mbox, $user)
     {
         try {
-            $rights = $GLOBALS['imp_imap']->ob()->listACLRights($mbox, $user);
+            $rights = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->listACLRights($mbox, $user);
             $rights = array_merge($rights['required'], $rights['optional']);
             foreach ($rights as $val) {
                 if (strpos($val, 'a') !== false) {

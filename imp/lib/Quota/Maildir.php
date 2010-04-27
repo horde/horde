@@ -52,7 +52,7 @@ class IMP_Quota_Maildir extends IMP_Quota
         $full = $this->_params['path'] . '/maildirsize';
 
         // Substitute the username in the string if needed.
-        $full = str_replace('~U', $GLOBALS['imp_imap']->ob()->getParam('username'), $full);
+        $full = str_replace('~U', $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getParam('username'), $full);
 
         // Read in the quota file and parse it, if possible.
         if (!is_file($full)) {

@@ -1212,10 +1212,10 @@ class IMP_Prefs_Ui
 
         $sent_mail_folder = $ui->vars->sent_mail_folder;
         if (empty($sent_mail_folder)) {
-            $sent_mail_new = $GLOBALS['imp_imap']->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, Horde_Nls::getCharset(), 'UTF7-IMAP'));
+            $sent_mail_new = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, Horde_Nls::getCharset(), 'UTF7-IMAP'));
         } elseif ($sent_mail_folder == '-1') {
             if ($sent_mail_default = $prefs->getValue('sent_mail_folder')) {
-                $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_default);
+                $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sent_mail_default);
             }
         }
 
@@ -1684,7 +1684,7 @@ class IMP_Prefs_Ui
             $prefs->setValue($pref, '');
         } else {
             if (!empty($new)) {
-                $folder = $GLOBALS['imp_imap']->appendNamespace($new);
+                $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
                 if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'))) {
                     $folder = null;
                 }

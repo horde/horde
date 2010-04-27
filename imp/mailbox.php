@@ -70,6 +70,7 @@ if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
 
 $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Imap_Flags');
+$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 $open_compose_window = null;
 
 /* Run through the action handlers */
@@ -87,7 +88,7 @@ if ($actionID && ($actionID != 'message_missing')) {
  * the RECENT flag. */
 if (!$search_mbox) {
     try {
-        $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
     } catch (Horde_Imap_Client_Exception $e) {
         $actionID = null;
     }
@@ -185,7 +186,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $redirect = IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => $imp_imap->ob()->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))));
+    $redirect = IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => $imp_imap->getUtils()->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))));
     header('Location: ' . $redirect);
     exit;
 }
@@ -374,7 +375,7 @@ if ($open_compose_window === false) {
 if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
-    $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
 
     if (!Horde_Util::getFormData('no_newmail_popup')) {
         /* Newmail alerts. */

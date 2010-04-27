@@ -131,9 +131,11 @@ class IMP_Views_ListMessages
             $md->flags = array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('imap' => true, 'mailbox' => $is_search ? null : $mbox)));
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
         /* These entries may change during a session, so always need to
          * update them. */
-        $md->readonly = intval($GLOBALS['imp_imap']->isReadOnly($mbox));
+        $md->readonly = intval($imp_imap->isReadOnly($mbox));
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
@@ -155,8 +157,8 @@ class IMP_Views_ListMessages
             !empty($args['cache'])) {
             $uid_expire = false;
             try {
-                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                $parsed = $GLOBALS['imp_imap']->ob()->parseCacheId($args['cacheid']);
+                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                $parsed = $imp_imap->parseCacheId($args['cacheid']);
                 $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
             } catch (Horde_Imap_Cache_Exception $e) {
                 $uid_expire = true;
@@ -178,7 +180,7 @@ class IMP_Views_ListMessages
         /* Get the cached list. */
         $cached = $changed = array();
         if (!empty($args['cache'])) {
-            $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
+            $cached = $imp_imap->getUtils()->fromSequenceString($args['cache']);
             if ($is_search) {
                 $cached = array_flip($cached);
             } else {
@@ -189,11 +191,11 @@ class IMP_Views_ListMessages
                  * update the browser cache (done below). */
                 if ($args['change'] && $args['cacheid']) {
                     if (!isset($parsed)) {
-                        $parsed = $GLOBALS['imp_imap']->ob()->parseCacheId($args['cacheid']);
+                        $parsed = $imp_imap->parseCacheId($args['cacheid']);
                     }
                     if (!empty($parsed['highestmodseq'])) {
                         try {
-                            $res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(Horde_Imap_Client::FETCH_UID => 1), array('changedsince' => $parsed['highestmodseq']));
+                            $res = $imp_imap->fetch($mbox, array(Horde_Imap_Client::FETCH_UID => 1), array('changedsince' => $parsed['highestmodseq']));
                             if (!empty($res)) {
                                 $changed = array_flip(array_keys($res));
                             }
@@ -298,7 +300,7 @@ class IMP_Views_ListMessages
         /* Get unseen/thread information. */
         if (!$is_search) {
             try {
-                if ($info = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
+                if ($info = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
                     $md->unseen = intval($info['unseen']);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}

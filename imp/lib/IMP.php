@@ -407,7 +407,7 @@ class IMP
             return $cache[$folder];
         }
 
-        $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
+        $ns_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getNamespace($folder);
         $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
 
         /* Substitute any translated prefix text. */
@@ -496,7 +496,8 @@ class IMP
                     }
                 }
 
-                if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
+                if (!empty($mailbox) &&
+                    !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
                     $menu_trash_url = self::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
                     $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
                 }
@@ -726,8 +727,9 @@ class IMP
      */
     static public function folderPref($folder, $append)
     {
-        $def_ns = $GLOBALS['imp_imap']->defaultNamespace();
-        $empty_ns = $GLOBALS['imp_imap']->getNamespace('');
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $def_ns = $imp_imap->defaultNamespace();
+        $empty_ns = $imp_imap->getNamespace('');
 
         if ($append) {
             /* Converting from preference value. */
@@ -735,11 +737,11 @@ class IMP
                 strpos($folder, $empty_ns['delimiter']) === 0) {
                 /* Prefixed with delimiter => from empty namespace. */
                 $folder = substr($folder, strlen($empty_ns['delimiter']));
-            } elseif (($ns = $GLOBALS['imp_imap']->getNamespace($folder, true)) == null) {
+            } elseif (($ns = $imp_imap->getNamespace($folder, true)) == null) {
                 /* No namespace prefix => from personal namespace. */
                 $folder = $def_ns['name'] . $folder;
             }
-        } elseif (($ns = $GLOBALS['imp_imap']->getNamespace($folder)) !== null) {
+        } elseif (($ns = $imp_imap->getNamespace($folder)) !== null) {
             /* Converting to preference value. */
             if ($ns['name'] == $def_ns['name']) {
                 /* From personal namespace => strip namespace. */

@@ -82,7 +82,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function createFolder($folder)
     {
-        $fname = $GLOBALS['imp_imap']->appendNamespace($folder);
+        $fname = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($folder);
         return $GLOBALS['injector']->getInstance('IMP_Folder')->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
             ? $fname
             : false;
@@ -204,7 +204,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function imapOb($mailbox, $indices)
     {
-        return $GLOBALS['imp_imap']->ob();
+        return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->ob;
     }
 
     /**

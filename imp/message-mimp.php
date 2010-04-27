@@ -101,10 +101,10 @@ $uid = $index_ob['uid'];
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $imp_imap->ob()->fetch($mailbox_name, array(
+    $flags_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($uid)));
-    $fetch_ret = $imp_imap->ob()->fetch($mailbox_name, array(
+    $fetch_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
     ), array('ids' => array($uid)));

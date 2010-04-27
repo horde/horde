@@ -237,14 +237,15 @@ class IMP_Compose
         /* Add information necessary to log replies/forwards when finally
          * sent. */
         if ($this->getMetadata('reply_type')) {
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
             try {
-                $imap_url = $GLOBALS['imp_imap']->ob()->utils->createUrl(array(
+                $imap_url = $imp_imap->getUtils()->createUrl(array(
                     'type' => $_SESSION['imp']['protocol'],
-                    'username' => $GLOBALS['imp_imap']->ob()->getParam('username'),
-                    'hostspec' => $GLOBALS['imp_imap']->ob()->getParam('hostspec'),
+                    'username' => $imp_imap->getParam('username'),
+                    'hostspec' => $imp_imap->getParam('hostspec'),
                     'mailbox' => $this->getMetadata('mailbox'),
                     'uid' => $this->getMetadata('uid'),
-                    'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->getMetadata('mailbox'))
+                    'uidvalidity' => $imp_imap->checkUidvalidity($this->getMetadata('mailbox'))
                 ));
 
                 switch ($this->getMetadata('reply_type')) {
@@ -304,7 +305,7 @@ class IMP_Compose
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
+            $ids = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($old_uid), array('nuke' => true));
@@ -392,15 +393,16 @@ class IMP_Compose
         }
 
         if ($val) {
-            $imap_url = $GLOBALS['imp_imap']->ob()->utils->parseUrl(rtrim(ltrim($val, '<'), '>'));
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {
                 if (($imap_url['type'] == $_SESSION['imp']['protocol']) &&
-                    ($imap_url['username'] == $GLOBALS['imp_imap']->ob()->getParam('username')) &&
+                    ($imap_url['username'] == $imp_imap->getParam('username')) &&
                     // Ignore hostspec and port, since these can change
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
-                    ($GLOBALS['imp_imap']->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
+                    ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
                     $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($imap_url['mailbox'], $imap_url['uid'])) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
@@ -659,7 +661,7 @@ class IMP_Compose
             }
 
             try {
-                $GLOBALS['imp_imap']->ob()->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -1281,7 +1283,7 @@ class IMP_Compose
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
 
         $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
@@ -1522,7 +1524,7 @@ class IMP_Compose
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $subject = $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
             $header['title'] = _("Forward") . ': ' . $subject;
             $header['subject'] = 'Fwd: ' . $subject;
         } else {
@@ -1695,7 +1697,7 @@ class IMP_Compose
             } else {
                 $name = Horde_String::truncate($name, 80);
             }
-            return 'Fwd: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->getBaseSubject($name, array('keepblob' => true));
         } else {
             return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
@@ -2713,8 +2715,9 @@ class IMP_Compose
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
-            $params['username'] = $GLOBALS['imp_imap']->ob()->getParam('username');
-            $params['password'] = $GLOBALS['imp_imap']->ob()->getParam('password');
+            $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $params['username'] = $imap_ob->getParam('username');
+            $params['password'] = $imap_ob->getParam('password');
         }
 
         return array(

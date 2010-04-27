@@ -108,10 +108,12 @@ class IMP_Filter
             return false;
         }
 
-        /* Get the list of from addresses. */
         $addr = array();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
+        /* Get the list of from addresses. */
         foreach ($msgList as $mbox => $msgIndices) {
-            $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+            $imp_imap->checkUidvalidity($mbox);
 
             foreach ($msgIndices as $idx) {
                 $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);

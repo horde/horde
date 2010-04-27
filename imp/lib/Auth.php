@@ -41,8 +41,10 @@ class IMP_Auth
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
         // Check for valid IMAP Client object.
-        if (!$GLOBALS['imp_imap']->ob()) {
+        if (!$imp_imap->ob) {
             if (!isset($credentials['userId']) ||
                 !isset($credentials['password'])) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
@@ -59,14 +61,14 @@ class IMP_Auth
                 return true;
             }
 
-            if (!$GLOBALS['imp_imap']->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
+            if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
                 self::_logMessage('failed');
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
         }
 
         try {
-            $GLOBALS['imp_imap']->ob()->login();
+            $imp_imap->login();
         } catch (Horde_Imap_Client_Exception $e) {
             self::_logMessage($e->getMessage(), 'ERR');
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
@@ -139,7 +141,7 @@ class IMP_Auth
         }
 
         $auth_id = Horde_Auth::getAuth();
-        $imap_ob = $GLOBALS['imp_imap']->ob();
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         $msg = sprintf(
             $status_msg . '%s [%s]%s to {%s:%s [%s]}',
@@ -204,7 +206,7 @@ class IMP_Auth
         );
 
         /* Load the server configuration. */
-        $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
+        $ptr = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->loadServerConfig($credentials['server']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
@@ -286,7 +288,7 @@ class IMP_Auth
      */
     static protected function _canAutoLogin($server_key = null, $force = false)
     {
-        if (($servers = $GLOBALS['imp_imap']->loadServerConfig()) === false) {
+        if (($servers = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->loadServerConfig()) === false) {
             return false;
         }
 
@@ -380,7 +382,8 @@ class IMP_Auth
 
         $sess = &$_SESSION['imp'];
 
-        $ptr = $GLOBALS['imp_imap']->loadServerConfig($sess['server_key']);
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+        $ptr = $imp_imap->loadServerConfig($sess['server_key']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
@@ -414,7 +417,7 @@ class IMP_Auth
             }
 
             /* Set the IMAP threading algorithm. */
-            $sess['imap']['thread'] = in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', $GLOBALS['imp_imap']->ob()->queryCapability('THREAD'))
+            $sess['imap']['thread'] = in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', $imp_imap->queryCapability('THREAD'))
                 ? 'REFERENCES'
                 : 'ORDEREDSUBJECT';
         }

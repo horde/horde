@@ -57,7 +57,7 @@ if ($vars->actionID) {
 }
 
 /* Determine if mailbox is readonly. */
-$peek = $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+$peek = $readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($imp_mbox['mailbox']);
 if ($readonly &&
     in_array($vars->actionID, array('delete_message', 'undelete_message', 'move_message', 'flag_message', 'strip_attachment', 'strip_all'))) {
     $vars->actionID = null;
@@ -201,10 +201,10 @@ try {
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $imp_imap->ob()->fetch($mailbox_name, array(
+    $flags_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($uid)));
-    $fetch_ret = $imp_imap->ob()->fetch($mailbox_name, array(
+    $fetch_ret = $injector->getInstance('IMP_Imap')->getOb()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($uid)));

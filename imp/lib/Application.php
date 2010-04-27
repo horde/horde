@@ -84,7 +84,6 @@ class IMP_Application extends Horde_Registry_Application
      * Initialization function.
      *
      * Global variables defined:
-     *   $imp_imap     - An IMP_Imap object
      *   $imp_mbox     - Current mailbox information
      */
     protected function _init()
@@ -97,6 +96,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Smime' => new IMP_Injector_Binder_Smime(),
             'IMP_Folder' => new IMP_Injector_Binder_Folder(),
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),
+            'IMP_Imap' => new IMP_Injector_Binder_Imap(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
             'IMP_Mailbox' => new IMP_Injector_Binder_Mailbox(),
             'IMP_Quota' => new IMP_Injector_Binder_Quota(),
@@ -107,9 +107,6 @@ class IMP_Application extends Horde_Registry_Application
         foreach ($binders as $key => $val) {
             $GLOBALS['injector']->addBinder($key, $val);
         }
-
-        // Initialize global $imp_imap object.
-        $GLOBALS['imp_imap'] = new IMP_Imap();
 
         // Set default message character set.
         if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {

@@ -31,9 +31,11 @@ class IMP_Ui_Block
             $imp_filter->filter('INBOX');
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+
         /* Get list of mailboxes to poll. */
         $poll = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true);
-        $status = $GLOBALS['imp_imap']->ob()->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
+        $status = $imp_imap->statusMultiple($poll, Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT);
 
         $anyUnseen = false;
         $html = $onclick = '';
@@ -85,7 +87,7 @@ class IMP_Ui_Block
             /* Open the mailbox R/W to ensure the 'recent' flags are cleared
              * from the current mailbox. */
             foreach ($newmsgs as $mbox => $nm) {
-                $GLOBALS['imp_imap']->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+                $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
             }
         } elseif (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {
