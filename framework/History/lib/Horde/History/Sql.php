@@ -51,7 +51,7 @@ class Horde_History_Sql extends Horde_History
      *
      * @throws Horde_History_Exception
      */
-    public function __construct(DB_common $db)
+    public function __construct($db)
     {
         $this->handleError($db);
         $this->_write_db = $db;
@@ -66,7 +66,7 @@ class Horde_History_Sql extends Horde_History
      *
      * @throws Horde_History_Exception
      */
-    public function setReadDb(DB_common $db)
+    public function setReadDb($db)
     {
         $this->handleError($db);
         $this->_db = $db;
