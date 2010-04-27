@@ -390,9 +390,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             $task['due'] = $due->timestamp();
         }
 
-        $task['alarm'] = $task['alarm']['on']
-            ? $task['alarm']['value'] * $task['alarm']['unit']
-            : 0;
+        if ($task['alarm']['on']) {
+            $value = $task['alarm']['value'];
+            $unit = $task['alarm']['unit'];
+            if ($value == 0) {
+                $value = $unit = 1;
+            }
+            $task['alarm'] = $value * $unit;
+        } else {
+            $task['alarm'] = 0;
+        }
 
         $result = new stdClass;
         try {
