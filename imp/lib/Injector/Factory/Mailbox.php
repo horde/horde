@@ -52,7 +52,7 @@ class IMP_Injector_Factory_Mailbox
     }
 
     /**
-     * Return the Horde_Mailbox:: instance.
+     * Return the IMP_Mailbox:: instance.
      *
      * @param string $mailbox  The mailbox name.
      * @param string $msgmbox  The mailbox name of the current index.

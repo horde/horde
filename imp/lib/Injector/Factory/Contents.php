@@ -52,7 +52,7 @@ class IMP_Injector_Factory_Contents
     }
 
     /**
-     * Return the Horde_Editor:: instance.
+     * Return the IMP_Contents:: instance.
      *
      * @param string $mailbox  The mailbox name.
      * @param integer $uid     The message UID.

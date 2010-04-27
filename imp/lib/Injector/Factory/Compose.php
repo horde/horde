@@ -52,7 +52,7 @@ class IMP_Injector_Factory_Compose
     }
 
     /**
-     * Return the Horde_Compose:: instance.
+     * Return the IMP_Compose:: instance.
      *
      * @param string $cacheid  The cache ID string.
      *
