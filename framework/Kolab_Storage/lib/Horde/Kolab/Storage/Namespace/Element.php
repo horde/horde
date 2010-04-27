@@ -49,6 +49,16 @@ abstract class Horde_Kolab_Storage_Namespace_Element
     }
 
     /**
+     * Return the delimiter for this namespace.
+     *
+     * @return string The delimiter.
+     */
+    public function getDelimiter()
+    {
+        return $this->_delimiter;
+    }
+
+    /**
      * Does the folder name lie in this namespace?
      *
      * @param string $name The name of the folder.

@@ -14,7 +14,7 @@
 /**
  * This decorator triggers a URL following certain actions on the folder.
  *
- * Copyright 2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,6 +25,27 @@
 class Horde_Kolab_Storage_Folder_Decorator_Trigger
 extends Horde_Kolab_Storage_Folder_Decorator_Base
 {
+    /**
+     * An output for log messages.
+     *
+     * @var Horde_Log_Logger
+     */
+    private $_logger;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Kolab_Storage_Folder $folder The folder to be decorated.
+     * @param Horde_Log_Logger           $logger The logger.
+     */
+    public function __construct(
+        Horde_Kolab_Storage_Folder $folder,
+        Horde_Log_Logger $logger
+    ) {
+        $this->_logger = $logger;
+        parent::__construct($folder);
+    }
+
     /**
      * Saves the folder.
      *
@@ -92,7 +113,7 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
      * @param string $id     IMAP id of the message to be moved.
      * @param string $folder Name of the receiving folder.
      *
-     * @return boolean True if successful.
+     * @return NULL
      */
     public function moveMessage($id, $folder)
     {
@@ -101,12 +122,6 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
         //@todo: shouldn't we trigger both folders here?
 
         $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return true;
     }
 
     /**
@@ -123,11 +138,6 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
 
         //@todo: shouldn't we trigger both folders here?
         $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-        return $success;
     }
 
     /**
@@ -141,20 +151,13 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
      * @param array  $old_object   The array that holds the current data of the
      *                             object.
      *
-     * @return boolean True on success.
+     * @return NULL
      */
     public function saveObject(&$object, $data_version, $object_type, $id = null,
                                &$old_object = null)
     {
         $this->_folder->saveObject($object, $data_version, $object_type, $id, $old_object);
-        try {
-            $this->trigger();
-        } catch (Horde_Kolab_Storage_Exception $e) {
-            Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()), 'ERR');
-        }
-
-        return true;
+        $this->trigger();
     }
 
     /**
@@ -165,10 +168,9 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
      *
      * @return NULL
      */
-    public function setACL($user, $acl)
+    public function setAcl($user, $acl)
     {
-        $this->_folder->setACL($user, $acl);
-
+        $this->_folder->setAcl($user, $acl);
         $this->trigger();
     }
 
@@ -179,10 +181,9 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
      *
      * @return NULL
      */
-    public function deleteACL($user)
+    public function deleteAcl($user)
     {
-        $this->_folder->deleteACL($user);
-
+        $this->_folder->deleteAcl($user);
         $this->trigger();
     }
 

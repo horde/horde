@@ -7,3 +7,7 @@
  - Do not hide the prefix of the shared namespace?
 
  - Fix the triggering decorator
+
+ - Test the Driver implementations
+
+   - getNamespace() [DONE]

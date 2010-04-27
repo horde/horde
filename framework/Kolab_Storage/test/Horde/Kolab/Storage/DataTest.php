@@ -51,6 +51,8 @@ class Horde_Kolab_Storage_DataTest extends PHPUnit_Framework_TestCase
      */
     public function testGetCacheKey()
     {
+        $this->markTestIncomplete();
+
         $data = new Horde_Kolab_Storage_Data('test');
 
         $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/Test');
@@ -155,6 +157,8 @@ class Horde_Kolab_Storage_DataTest extends PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
+        $this->markTestIncomplete();
+
         require_once 'Horde/Group.php';
         require_once 'Horde/Group/mock.php';
 

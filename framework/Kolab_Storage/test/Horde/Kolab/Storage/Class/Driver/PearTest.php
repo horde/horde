@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Class_Driver_MockTest
+class Horde_Kolab_Storage_Class_Driver_PearTest
 extends PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -43,26 +43,11 @@ extends PHPUnit_Framework_TestCase
         $this->group = new Group_mock();
     }
 
-    public function testGetAnnotationReturnsAnnotationValue()
-    {
-        $this->markTestIncomplete();
-
-        $data = array();
-        $data['INBOX/Contacts']['annotations']['/vendor/kolab/folder-type']['value.shared'] = 'contact.default';
-        $driver = new Horde_Kolab_Storage_Driver_Mock(
-            $this->group,
-            $data
-        );
-        $this->assertEquals(
-            'contact.default',
-            $driver->getAnnotation('/vendor/kolab/folder-type', 'value.shared', 'INBOX/Contacts')
-        );
-    }
-
     public function testGetNamespaceReturnsNamespaceHandler()
     {
         Horde_Nls::setCharset('UTF8');
-        $driver = new Horde_Kolab_Storage_Driver_Mock(
+        $driver = new Horde_Kolab_Storage_Driver_Pear(
+            $this->_getNamespaceMock(),
             $this->group,
             array()
         );
@@ -75,7 +60,8 @@ extends PHPUnit_Framework_TestCase
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
         Horde_Nls::setCharset('UTF8');
-        $driver = new Horde_Kolab_Storage_Driver_Mock(
+        $driver = new Horde_Kolab_Storage_Driver_Pear(
+            $this->_getNamespaceMock(),
             $this->group,
             array()
         );
@@ -103,5 +89,41 @@ extends PHPUnit_Framework_TestCase
             ),
             $namespaces
         );
+    }
+
+    private function _getNamespaceMock()
+    {
+        $imap = $this->getMock('Net_IMAP', array(), array(), '', false, false);
+        $imap->expects($this->once())
+            ->method('hasCapability')
+            ->with('NAMESPACE')
+            ->will($this->returnValue(true));
+        $imap->expects($this->once())
+            ->method('getNamespace')
+            ->will(
+                $this->returnValue(
+                    array(
+                        'personal' => array(
+                            array(
+                                'name' => 'INBOX',
+                                'delimter' => '/',
+                            )
+                        ),
+                        'others' => array(
+                            array(
+                                'name' => 'user',
+                                'delimter' => '/',
+                            )
+                        ),
+                        'shared' => array(
+                            array(
+                                'name' => '',
+                                'delimter' => '/',
+                            )
+                        ),
+                    )
+                )
+            );
+        return $imap;
     }
 }

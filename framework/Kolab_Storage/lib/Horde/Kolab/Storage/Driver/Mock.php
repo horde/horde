@@ -420,15 +420,4 @@ extends Horde_Kolab_Storage_Driver_Base
         return $this->_imap->setMetadata($mailbox_name,
                                          array($entry => $value));
     }
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler()
-    {
-        return $this->_groups;
-    }
-
 }

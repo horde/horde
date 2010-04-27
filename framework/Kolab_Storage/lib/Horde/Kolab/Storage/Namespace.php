@@ -28,6 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Namespace
+implements Iterator
 {
     /** The possible namespace types (RFC 2342 [5]) */
     const PERSONAL = 'personal';
@@ -70,6 +71,13 @@ abstract class Horde_Kolab_Storage_Namespace
      * @var Horde_Kolab_Storage_Namespace_Element
      */
     protected $_primaryPersonalNamespace;
+
+    /**
+     * A helper for iteration over the namespaces.
+     *
+     * @var array
+     */
+    protected $_iteration;
 
     /**
      * Constructor.
@@ -187,5 +195,32 @@ abstract class Horde_Kolab_Storage_Namespace
             $namespace = $this->_primaryPersonalNamespace;
         }
         return Horde_String::convertCharset($namespace->generateName($path), $this->_charset, 'UTF7-IMAP');
+    }
+
+    function rewind()
+    {
+        $this->_iterator = $this->_namespaces;
+        $this->_iterator[] = $this->_any;
+        return reset($this->_iterator);
+    }
+
+    function current()
+    {
+        return current($this->_iterator);
+    }
+
+    function key()
+    {
+        return key($this->_iterator);
+    }
+
+    function next()
+    {
+        return next($this->_iterator);
+    }
+
+    function valid()
+    {
+        return key($this->_iterator) !== null;
     }
 }

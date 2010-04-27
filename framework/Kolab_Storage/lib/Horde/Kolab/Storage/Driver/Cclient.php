@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Driver_Cclient
-implements Horde_Kolab_Storage_Driver
+extends Horde_Kolab_Storage_Driver_Base
 {
     /**
      * The group handler for this connection.
@@ -393,36 +393,4 @@ implements Horde_Kolab_Storage_Driver
         return $this->_imap->setMetadata($mailbox_name,
                                          array($entry => $value));
     }
-
-
-    /**
-     * Retrieve the namespace information for this connection.
-     *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
-     */
-    public function getNamespace()
-    {
-        if ($this->_imap->queryCapability('NAMESPACE') === true) {
-            return new Horde_Kolab_Storage_Namespace_Imap(
-                $this->_imap->getNamespaces(),
-                isset($this->_params['namespaces']) ? $this->_params['namespaces'] : array()
-            );
-        } else if (isset($this->_params['namespaces'])) {
-            return new Horde_Kolab_Storage_Namespace_Config(
-                $this->_params['namespaces']
-            );
-        }
-        return new Horde_Kolab_Storage_Namespace_Fixed();
-    }
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler()
-    {
-        return $this->_groups;
-    }
-
 }

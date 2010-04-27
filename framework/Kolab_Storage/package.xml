@@ -32,7 +32,7 @@
   <active>yes</active>
  </lead>
  <date>2010-04-27</date>
- <time>11:44:55</time>
+ <time>23:01:21</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -135,6 +135,17 @@
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="script">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Storage">
+       <file name="test_drivers.php" role="script">
+	 <tasks:replace from="@PHP-TEST-DIR@" to="test_dir" type="pear-config" />
+       </file>
+      </dir> <!-- /script/Horde/Kolab/Storage -->
+     </dir> <!-- /script/Horde/Kolab -->
+    </dir> <!-- /script/Horde -->
+   </dir> <!-- /script -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Kolab">
@@ -144,6 +155,9 @@
          <file name="MockTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Class/Driver -->
        </dir> <!-- /test/Horde/Kolab/Storage/Class -->
+       <dir name="Server">
+        <file name="DriverTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Storage/Server -->
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AttachmentTest.php" role="test" />
@@ -280,6 +294,7 @@
    <install as="Horde/Kolab/Storage/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Personal.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Namespace/Element/Shared.php" />
    <install as="Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Namespace/Element/SharedWithPrefix.php" />
+   <install as="test_drivers" name="script/Horde/Kolab/Storage/test_drivers.php" />
    <install as="Horde/Kolab/Storage/AclTest.php" name="test/Horde/Kolab/Storage/AclTest.php" />
    <install as="Horde/Kolab/Storage/AllTests.php" name="test/Horde/Kolab/Storage/AllTests.php" />
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
@@ -294,6 +309,7 @@
    <install as="Horde/Kolab/Storage/StorageTest.php" name="test/Horde/Kolab/Storage/StorageTest.php" />
    <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
    <install as="Horde/Kolab/Storage/Class/Driver/MockTest.php" name="test/Horde/Kolab/Storage/Class/Driver/MockTest.php" />
+   <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
   </filelist>
  </phprelease>
  <changelog>

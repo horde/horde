@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Driver_Pear
-implements Horde_Kolab_Storage_Driver
+extends Horde_Kolab_Storage_Driver_Base
 {
     /**
      * The group handler for this connection.
@@ -38,12 +38,17 @@ implements Horde_Kolab_Storage_Driver
     /**
      * Constructor.
      *
-     * @param array  $params Connection parameters.
+     * @param Net_IMAP $imap   The IMAP connection handler.
+     * @param Group    $groups The groups handler.
+     * @param array    $params Connection parameters.
      */
     public function __construct(
-        Group $groups
+        Net_IMAP $imap,
+        Group $groups,
+        $params = array()
     ) {
-        $this->_groups = $groups;
+        $this->_imap = $imap;
+        parent::__construct($groups, $params);
     }
 
     /**
@@ -402,27 +407,30 @@ implements Horde_Kolab_Storage_Driver
      */
     public function getNamespace()
     {
-        if ($this->_imap->queryCapability('NAMESPACE') === true) {
+        if ($this->_imap->hasCapability('NAMESPACE') === true) {
+            $namespaces = array();
+            foreach ($this->_imap->getNamespace() as $type => $elements) {
+                foreach ($elements as $namespace) {
+                    switch ($type) {
+                    case 'personal':
+                        $namespace['type'] = 'personal';
+                        break;
+                    case 'others':
+                        $namespace['type'] = 'other';
+                        break;
+                    case 'shared':
+                        $namespace['type'] = 'shared';
+                        break;
+                    }
+                    $namespace['delimiter'] = $namespace['delimter'];
+                    $namespaces[] = $namespace;
+                }
+            }
             return new Horde_Kolab_Storage_Namespace_Imap(
-                $this->_imap->getNamespaces(),
-                isset($this->_params['namespaces']) ? $this->_params['namespaces'] : array()
-            );
-        } else if (isset($this->_params['namespaces'])) {
-            return new Horde_Kolab_Storage_Namespace_Config(
-                $this->_params['namespaces']
+                $namespaces,
+                $this->getParam('namespaces', array())
             );
         }
-        return new Horde_Kolab_Storage_Namespace_Fixed();
+        return parent::getNamespace();
     }
-
-    /**
-     * Get the group handler for this connection.
-     *
-     * @return Horde_Group The group handler.
-     */
-    public function getGroupHandler()
-    {
-        return $this->_groups;
-    }
-
 }

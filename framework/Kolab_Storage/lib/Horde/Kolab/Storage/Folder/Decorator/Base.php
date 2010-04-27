@@ -157,9 +157,9 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return array An array with IMAP ACL.
      */
-    public function getACL()
+    public function getAcl()
     {
-        return $this->_folder->getACL();
+        return $this->_folder->getAcl();
     }
 
     /**
@@ -170,9 +170,9 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setACL($user, $acl)
+    public function setAcl($user, $acl)
     {
-        $this->_folder->setACL($user, $acl);
+        $this->_folder->setAcl($user, $acl);
     }
 
     /**
@@ -182,9 +182,9 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function deleteACL($user)
+    public function deleteAcl($user)
     {
-        $this->_folder->deleteACL($user);
+        $this->_folder->deleteAcl($user);
     }
 
 }

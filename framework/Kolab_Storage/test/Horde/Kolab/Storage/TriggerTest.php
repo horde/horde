@@ -40,4 +40,7 @@ class Horde_Kolab_Storage_TriggerTest extends PHPUnit_Framework_TestCase
         $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
     }
 
+    public function testNothing()
+    {
+    }
 }
