@@ -25,13 +25,13 @@ Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($imp_mbox['mailbox'], $imp_mbox['thismailbox'], $imp_mbox['uid']);
+$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, IMP::$thismailbox, IMP::$uid);
 if (!$imp_mailbox->isValidIndex(false)) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('a', 'm'));
+    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('a', 'm'));
     exit;
 }
 
-$readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+$readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 
 $imp_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
@@ -87,7 +87,7 @@ if ($imp_ui->moveAfterAction()) {
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
     ($msg_delete && $prefs->getValue('mailbox_return'))) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->setRaw(true)->add('s', $msg_index));
+    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('s', $msg_index));
     exit;
 }
 
@@ -131,8 +131,8 @@ $msgindex = $imp_mailbox->getMessageIndex();
 $msgcount = $imp_mailbox->getMessageCount();
 
 /* Generate the mailbox link. */
-$mailbox_link = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox'])->add('s', $msgindex);
-$self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $uid, $mailbox_name);
+$mailbox_link = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msgindex);
+$self_link = IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $uid, $mailbox_name);
 
 /* Initialize Horde_Template. */
 $t = $injector->createInstance('Horde_Template');
@@ -288,13 +288,13 @@ if (IMP::canCompose()) {
 
 /* Generate previous/next links. */
 if ($prev_msg = $imp_mailbox->getIMAPIndex(-1)) {
-    $menu[] = array(_("Previous Message"), IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $prev_msg['uid'], $prev_msg['mailbox']));
+    $menu[] = array(_("Previous Message"), IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $prev_msg['uid'], $prev_msg['mailbox']));
 }
 if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
-    $menu[] = array(_("Next Message"), IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $next_msg['uid'], $next_msg['mailbox']));
+    $menu[] = array(_("Next Message"), IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $next_msg['uid'], $next_msg['mailbox']));
 }
 
-$menu[] = array(sprintf(_("To %s"), IMP::getLabel($imp_mbox['mailbox'])), $mailbox_link);
+$menu[] = array(sprintf(_("To %s"), IMP::getLabel(IMP::$mailbox)), $mailbox_link);
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] ||

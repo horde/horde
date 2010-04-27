@@ -25,7 +25,7 @@ class IMP_Ui_Mimp
     public function getMenu($page, $items = array())
     {
         if (!in_array($page, array('mailbox', 'message')) ||
-            ($GLOBALS['imp_mbox']['mailbox'] != 'INBOX')) {
+            (IMP::$mailbox != 'INBOX')) {
             $items[] = array(_("Inbox"), IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX'));
         }
 

@@ -104,7 +104,7 @@ switch ($vars->a) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft($imp_mbox['thismailbox'], $imp_mbox['uid']);
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox, IMP::$uid);
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -143,7 +143,7 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(IMP::$uid, IMP::$thismailbox))) {
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
@@ -156,7 +156,7 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(IMP::$uid, IMP::$thismailbox))) {
         break;
     }
     $fwd_msg = $imp_compose->forwardMessage('forward_attach', $imp_contents, false);
@@ -169,7 +169,7 @@ case 'f':
 // 'rc' = redirect compose
 case 'rc':
     $title = _("Redirect");
-    if (!($imp_contents = $imp_ui->getIMPContents($imp_mbox['uid'], $imp_mbox['thismailbox']))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(IMP::$uid, IMP::$thismailbox))) {
         // TODO: Error message
         break;
     }

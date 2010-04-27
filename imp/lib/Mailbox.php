@@ -694,7 +694,7 @@ class IMP_Mailbox
 
         if ($this->_searchmbox) {
             if (is_null($mbox)) {
-                $mbox = $GLOBALS['imp_mbox']['thismailbox'];
+                $mbox = IMP::$thismailbox;
             }
 
             /* Need to compare both mbox name and message UID to obtain the

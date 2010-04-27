@@ -82,9 +82,6 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      * Initialization function.
-     *
-     * Global variables defined:
-     *   $imp_mbox     - Current mailbox information
      */
     protected function _init()
     {
@@ -114,8 +111,6 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Mime_Headers::$defaultCharset = $def_charset;
         }
 
-        // Initialize global $imp_mbox array. This call also initializes the
-        // IMP_Search object.
         IMP::setCurrentMailboxInfo();
 
         $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());

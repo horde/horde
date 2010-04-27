@@ -17,7 +17,7 @@ class IMP_Injector_Binder_Search implements Horde_Injector_Binder
     public function create(Horde_Injector $injector)
     {
         return new IMP_Search(array(
-            'id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null
+            'id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox(IMP::$mailbox)) ? IMP::$mailbox : null
         ));
     }
 

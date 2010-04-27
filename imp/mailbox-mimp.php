@@ -34,10 +34,10 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 /* Determine if mailbox is readonly. */
-$readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+$readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 
 /* Get the base URL for this page. */
-$mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
+$mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
 
 /* Perform message actions (via advanced UI). */
 switch ($vars->checkbox) {
@@ -81,7 +81,7 @@ case 'm':
 // 'e' = expunge mailbox
 case 'e':
     if (!$readonly) {
-        $injector->getInstance('IMP_Message')->expungeMailbox(array($imp_mbox['mailbox'] => 1));
+        $injector->getInstance('IMP_Message')->expungeMailbox(array(IMP::$mailbox => 1));
     }
     break;
 
@@ -92,9 +92,9 @@ case 'c':
 
 // 's' = search
 case 's':
-    $title = sprintf(_("Search %s"), IMP::getLabel($imp_mbox['mailbox']));
+    $title = sprintf(_("Search %s"), IMP::getLabel(IMP::$mailbox));
 
-    $t->set('mailbox', $imp_mbox['mailbox']);
+    $t->set('mailbox', IMP::$mailbox);
     $t->set('menu', $imp_ui_mimp->getMenu('search'));
     $t->set('title', $title);
     $t->set('url', $mailbox_url);
@@ -111,23 +111,23 @@ case 'rs':
         $query = new Horde_Imap_Client_Search_Query();
         $query->text($vars->search, false);
 
-        /* Create the search query and reset the global $imp_mbox variable. */
-        $sq = $imp_search->createSearchQuery($query, array($imp_mbox['mailbox']), array(), _("Search Results"));
+        /* Create the search query and reset the global mailbox variable. */
+        $sq = $imp_search->createSearchQuery($query, array(IMP::$mailbox), array(), _("Search Results"));
         IMP::setCurrentMailboxInfo($imp_search->createSearchID($sq));
 
         /* Need to re-calculate these values. */
-        $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
-        $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
+        $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
+        $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox);
     }
     break;
 }
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb($imp_mbox['mailbox']);
+$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox);
 $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->s);
 
 /* Generate page title. */
-$title = IMP::getLabel($imp_mbox['mailbox']);
+$title = IMP::getLabel(IMP::$mailbox);
 
 /* Modify title for display on page. */
 if ($pageOb['msgcount']) {
@@ -145,9 +145,9 @@ $t->set('title', $title);
 $curr_time = time();
 $curr_time -= $curr_time % 60;
 $msgs = array();
-$sortpref = IMP::getSort($imp_mbox['mailbox']);
+$sortpref = IMP::getSort(IMP::$mailbox);
 
-$imp_ui = new IMP_Ui_Mailbox($imp_mbox['mailbox']);
+$imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
 
 /* Build the array of message information. */
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
@@ -197,8 +197,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Generate the target link. */
     $msg['target'] = in_array('\\draft', $ob['flags'])
-        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'uid' => $ob['uid'], 'bodypart' => 1))
-        : IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
+        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => IMP::$mailbox, 'uid' => $ob['uid'], 'bodypart' => 1))
+        : IMP::generateIMPUrl('message-mimp.php', IMP::$mailbox, $ob['uid'], $ob['mailbox']);
 
     $msgs[] = $msg;
 }
@@ -206,7 +206,7 @@ $t->set('msgs', $msgs);
 
 $mailbox = $mailbox_url->copy()->add('p', $pageOb['page']);
 $menu = array(array(_("Refresh"), $mailbox));
-$search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
+$search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
 
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&

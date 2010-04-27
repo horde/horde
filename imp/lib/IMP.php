@@ -41,16 +41,53 @@ class IMP
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
 
-    /* Storage place for an altered version of the current URL. */
+    /**
+     * Storage place for an altered version of the current URL.
+     *
+     * @var string
+     */
     static public $newUrl = null;
 
-    /* displayFolder() cache. */
+    /**
+     * The current active mailbox (may be search mailbox).
+     *
+     * @var string
+     */
+    static public $mailbox = '';
+
+    /**
+     * The real IMAP mailbox of the current index.
+     *
+     * @var string
+     */
+    static public $thismailbox = '';
+
+    /**
+     * The IMAP UID.
+     *
+     * @var integer
+     */
+    static public $uid = '';
+
+    /**
+     * displayFolder() cache.
+     *
+     * @var array
+     */
     static private $_displaycache = array();
 
-    /* hideDeletedMsgs() cache. */
+    /**
+     * hideDeletedMsgs() cache.
+     *
+     * @var array
+     */
     static private $_delhide = null;
 
-    /* prepareMenu() cache. */
+    /**
+     * prepareMenu() cache.
+     *
+     * @var array
+     */
     static private $_menuTemplate = null;
 
     /**
@@ -511,7 +548,7 @@ class IMP
         }
 
         if (self::canCompose()) {
-            $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
+            $menu->add(self::composeLink(array('mailbox' => self::$mailbox)), _("_New Message"), 'compose.png');
         }
 
         if ($conf['user']['allow_folders']) {
@@ -549,7 +586,7 @@ class IMP
                 : '';
 
             $t->set('ak', $ak);
-            $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
+            $t->set('flist', self::flistSelect(array('selected' => self::$mailbox, 'inc_vfolder' => true)));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
         $t->set('menu_string', self::getMenu()->render());
@@ -897,7 +934,7 @@ class IMP
         global $prefs;
 
         if (is_null($mbox)) {
-            $mbox = $GLOBALS['imp_mbox']['mailbox'];
+            $mbox = self::$mailbox;
         }
 
         $search_mbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
@@ -998,7 +1035,7 @@ class IMP
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
 
         if (is_null($mbox)) {
-            $mbox = $GLOBALS['imp_mbox']['mailbox'];
+            $mbox = self::$mailbox;
         }
 
         $prefmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox)
@@ -1043,15 +1080,8 @@ class IMP
     }
 
     /**
-     * Sets mailbox/index information for current page load.
-     *
-     * The global $imp_mbox objects will contain an array with the following
-     * elements:
-     * <pre>
-     * 'mailbox' - (string) The current active mailbox (may be search mailbox).
-     * 'thismailbox' -(string) The real IMAP mailbox of the current index.
-     * 'uid' - (integer) The IMAP UID.
-     * </pre>
+     * Sets mailbox/index information for current page load. This information
+     * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
      *
      * @param boolean $mbox  Use this mailbox, instead of form data.
      */
@@ -1059,17 +1089,13 @@ class IMP
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            $GLOBALS['imp_mbox'] = array(
-                'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
-                'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
-                'uid' => Horde_Util::getFormData('uid')
-            );
+            self::$mailbox = empty($mbox) ? 'INBOX' : $mbox;
+            self::$thismailbox = Horde_Util::getFormData('thismailbox', $mbox);
+            self::$uid = Horde_Util::getFormData('uid');
         } else {
-            $GLOBALS['imp_mbox'] = array(
-                'mailbox' => $mbox,
-                'thismailbox' => $mbox,
-                'uid' => null
-            );
+            self::$mailbox = $mbox;
+            self::$thismailbox = $mbox;
+            self::$uid = null;
         }
     }
 

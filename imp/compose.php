@@ -725,7 +725,7 @@ if ($redirect) {
         'compose_requestToken' => Horde::getRequestToken('imp.compose'),
         'compose_formToken' => Horde_Token::generateId('compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => htmlspecialchars($imp_mbox['mailbox']),
+        'mailbox' => htmlspecialchars(IMP::$mailbox),
         'attachmentAction' => '',
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode

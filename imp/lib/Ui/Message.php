@@ -640,7 +640,7 @@ class IMP_Ui_Message
     public function moveAfterAction()
     {
         return (($_SESSION['imp']['protocol'] != 'pop') &&
-                !IMP::hideDeletedMsgs($GLOBALS['imp_mbox']['mailbox']) &&
+                !IMP::hideDeletedMsgs(IMP::$mailbox) &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 
