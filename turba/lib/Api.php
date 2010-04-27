@@ -485,13 +485,14 @@ class Turba_Api extends Horde_Registry_Api
      * @param integer $timestamp     The time to start the search.
      * @param string|array $sources  The source(s) for which to retrieve the
      *                               history.
+     * @param integer $end           The optinal ending timestamp.
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
      * @throws Horde_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $sources = null)
+    public function listBy($action, $timestamp, $sources = null, $end = null)
     {
         global $prefs, $cfgSources;
 
@@ -510,6 +511,10 @@ class Turba_Api extends Horde_Registry_Api
 
         $uids = array();
         $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
+        if (!empty($end)) {
+            $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
+        }
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Horde_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -521,10 +526,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $histories = $history->getByTimestamp(
-                '>', $timestamp,
-                array(array('op' => '=',
-                            'field' => 'action',
-                            'value' => $action)),
+                '>', $timestamp, $filter,
                 'turba:' . $driver->getName());
 
             // Strip leading turba:addressbook:.

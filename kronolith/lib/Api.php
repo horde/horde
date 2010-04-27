@@ -478,6 +478,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string  $action     The action to check for - add, modify, or delete.
      * @param integer $timestamp  The time to start the search.
      * @param string  $calendar   The calendar to search in.
+     * @param integer $end        The optional ending timestamp
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
@@ -485,7 +486,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $calendar = null)
+    public function listBy($action, $timestamp, $calendar = null, $end = null)
     {
         if (empty($calendar)) {
             $calendar = Kronolith::getDefaultCalendar();
@@ -496,7 +497,11 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'kronolith:' . $calendar);
+        $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
+        if (!empty($end)) {
+            $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
+        }
+        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, $filter, 'kronolith:' . $calendar);
 
         // Strip leading kronolith:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));

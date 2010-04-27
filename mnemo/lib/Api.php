@@ -235,10 +235,11 @@ function _mnemo_list($notepad = null)
  * @param string  $action     The action to check for - add, modify, or delete.
  * @param integer $timestamp  The time to start the search.
  * @param string  $notepad    The notepad to search in.
+ * @param integer $end        The optional ending timestamp.
  *
  * @return array  An array of UIDs matching the action and time criteria.
  */
-function _mnemo_listBy($action, $timestamp, $notepad = null)
+function _mnemo_listBy($action, $timestamp, $notepad = null, $end = null)
 {
     require_once dirname(__FILE__) . '/base.php';
 
@@ -252,8 +253,12 @@ function _mnemo_listBy($action, $timestamp, $notepad = null)
         return PEAR::raiseError(_("Permission Denied"));
     }
 
+    $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
+    if (!empty($end)) {
+        $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
+    }
     $history = $GLOBALS['injector']->getInstance('Horde_History');
-    $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'mnemo:' . $notepad);
+    $histories = $history->getByTimestamp('>', $timestamp, $filter, 'mnemo:' . $notepad);
     if (is_a($histories, 'PEAR_Error')) {
         return $histories;
     }

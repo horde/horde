@@ -677,13 +677,14 @@ class Nag_Api extends Horde_Registry_Api
      * @param integer $timestamp  The time to start the search.
      * @param string  $tasklist   The tasklist to be used. If 'null', the
      *                            user's default tasklist will be used.
+     * @param integer $end        The optional ending timestamp.
      *
      * @return array  An array of UIDs matching the action and time criteria.
      *
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    public function listBy($action, $timestamp, $tasklist = null)
+    public function listBy($action, $timestamp, $tasklist = null, $end = null)
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
@@ -692,9 +693,13 @@ class Nag_Api extends Horde_Registry_Api
         if (!array_key_exists($tasklist,
             Nag::listTasklists(false, Horde_Perms::READ))) {
                 return PEAR::raiseError(_("Permission Denied"));
-            }
+        }
 
-        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'nag:' . $tasklist);
+        $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
+        if (!empty($end)) {
+            $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
+        }
+        $histories = $GLOBALS['injector']->getInstance('Horde_History')->getByTimestamp('>', $timestamp, $filter, 'nag:' . $tasklist);
 
         // Strip leading nag:username:.
         return preg_replace('/^([^:]*:){2}/', '', array_keys($histories));
