@@ -7,8 +7,15 @@ v2.0-git
 
 
 ----------
-v1.2.4-cvs
+v1.2.5-cvs
 ----------
+
+
+
+
+------
+v1.2.4
+------
 
 [jan] Correctly escape addresses in procmail driver (Bug #8875).
 [jan] Fix procmail scripts when using composite headers (Bug #8804).

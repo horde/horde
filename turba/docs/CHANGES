@@ -7,14 +7,20 @@ v3.0-git
       (Request #8504).
 
 ----------
-v2.3.4-cvs
+v2.3.5-cvs
 ----------
+
+
+
+
+------
+v2.3.4
+------
 
 [jan] Remove deleted contacts from distribution lists in the same address book.
 [mjr] Allow creation of default, personal address book when other read-only
       sources are present.
-[mjr] Log deletion in History  when deleting all of a user's contacts
-      (Bug #8755).
+[mjr] Log in history when deleting all of a user's contacts (Bug #8755).
 [jan] Only export non-empty fields if exporting manually.
 [jan] Add export to vCard 3.0.
 [jan] Only synchronize those fields that are supported by the client

@@ -28,18 +28,25 @@ v3.0-git
 
 
 ----------
-v2.3.4-cvs
+v2.3.5-cvs
 ----------
+
+
+
+
+------
+v2.3.4
+------
 
 [jan] Delete Horde alarms when resetting an event alarm.
 [jan] Set an alarm to one minute, if users try to set an alarm without time.
+[gwr] Fix editing the start date of recurring events (kolab/issue3885).
 
 
 ------
 v2.3.3
 ------
 
-[gwr] Fix editing the start date of recurring events (kolab/issue3885).
 [jan] Fix editing URLs of remote calendars.
 [gwr] Fix recurring weekly events with fixed number of occurences but multiple
       incidences per week (kolab/issue3846).

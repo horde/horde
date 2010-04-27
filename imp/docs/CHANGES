@@ -161,14 +161,22 @@ v5.0-git
 
 
 ----------
-v4.3.7-cvs
+v4.3.8-cvs
 ----------
+
+
+
+
+------
+v4.3.7
+------
 
 [mms] Fix spellcheck-on-send when using fckeditor and no errors exist
       (Bug #8833).
-[mms] Fix authenticate API call (Bug #8872; robin.west@dal.ca).
-[mms] Optimize folder tree initialization (Ticket #8805).
-[mms] Add command line fetchmail script (tjacyno@galasoft.net, Ticket #8812).
+[mms] Fix authenticate API call and synchronization when using realms
+      (robin.west@dal.ca, Bugs #6749, #8872).
+[mms] Optimize folder tree initialization (Request #8805).
+[mms] Add command line fetchmail script (tjacyno@galasoft.net, Request #8812).
 [jan] Workaround broken PHP number formatting with some locales (Bug #8780).
 
 
