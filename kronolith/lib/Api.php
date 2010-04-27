@@ -492,8 +492,8 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendar = Kronolith::getDefaultCalendar();
         }
 
-        if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, Horde_Perms::READ))) {
+        if ($calendar === false || 
+            !array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::READ))) {
             throw new Horde_Exception_PermissionDenied();
         }
 
