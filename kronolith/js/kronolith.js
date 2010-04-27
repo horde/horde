@@ -27,6 +27,7 @@ KronolithCore = {
     loading: 0,
     fbLoading: 0,
     redBoxLoading: false,
+    inOptions: false,
     date: Date.today(),
     tasktype: 'incomplete',
     growls: 0,
@@ -238,39 +239,44 @@ KronolithCore = {
         this.redirect(Kronolith.conf.URI_AJAX + 'logOut');
     },
 
-    redirect: function(url)
+    redirect: function(url, force)
     {
-        url = this.addSID(url);
-        if (parent.frames.horde_main) {
-            parent.location = url;
-        } else {
-            window.location = url;
-        }
-    },
+        var ptr = parent.frames.horde_main ? parent : window;
 
-    addSID: function(url)
-    {
-        if (!Kronolith.conf.SESSION_ID) {
-            return url;
+        ptr.location.assign(this.addURLParam(url));
+
+        // Catch browsers that don't redirect on assign().
+        if (force && !Prototype.Browser.WebKit) {
+            (function() { ptr.location.reload(); }).delay(0.5);
         }
-        return this.addURLParam(url, Kronolith.conf.SESSION_ID.toQueryParams());
     },
 
     addURLParam: function(url, params)
     {
         var q = url.indexOf('?');
+        params = $H(params);
+
+        if (Kronolith.conf.SESSION_ID) {
+            params.update(Kronolith.conf.SESSION_ID.toQueryParams());
+        }
 
         if (q != -1) {
-            params = $H(url.toQueryParams()).merge(params).toObject();
+            params.update(url.toQueryParams());
             url = url.substring(0, q);
         }
-        return url + '?' + Object.toQueryString(params);
+
+        return params.size() ? (url + '?' + params.toQueryString()) : url;
     },
 
     go: function(fullloc, data)
     {
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
+
+        if (this.inOptions && loc != 'options') {
+            this.redirect(window.location.href.sub(window.location.hash, '#' + fullloc), true);
+            return;
+        }
 
         switch (loc) {
         case 'day':
@@ -489,6 +495,7 @@ KronolithCore = {
             if (data) {
                 url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
             }
+            this.inOptions = true;
             this.closeView('iframe');
             this.iframeContent(url);
             this.setTitle(Kronolith.text.prefs);
