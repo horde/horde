@@ -162,7 +162,6 @@
 <div id="kronolithBody">
 <div id="kronolithLoading" style="display:none"></div>
 <?php
-$img_blank = Horde::img('blank.gif', '', array('height' => 8, 'width' => 8));
 require dirname(__FILE__) . '/month.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';
