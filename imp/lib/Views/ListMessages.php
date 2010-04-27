@@ -68,10 +68,10 @@ class IMP_Views_ListMessages
 
             /* Set the search in the IMP session. */
             if ($is_search) {
-                $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+                $GLOBALS['injector']->getInstance('IMP_Search')->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
             }
         } else {
-            $is_search = $GLOBALS['imp_search']->isSearchMbox($mbox);
+            $is_search = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
         }
 
         /* Set the current time zone. */

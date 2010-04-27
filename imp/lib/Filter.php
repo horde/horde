@@ -35,8 +35,9 @@ class IMP_Filter
             return;
         }
 
-        $mbox_list = $GLOBALS['imp_search']->isSearchMbox($mbox)
-            ? $GLOBALS['imp_search']->getSearchFolders($mbox)
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $mbox_list = $imp_search->isSearchMbox($mbox)
+            ? $imp_search->getSearchFolders($mbox)
             : array($mbox);
 
         foreach ($mbox_list as $val) {

@@ -24,6 +24,8 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
     exit;
 }
 
+$imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
 /* If search_basic_mbox is set, we are processing the search query. */
 $search_mailbox = Horde_Util::getFormData('search_basic_mbox');
 if ($search_mailbox) {
@@ -31,7 +33,7 @@ if ($search_mailbox) {
     $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
 
     /* Redirect to the mailbox screen. */
-    header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $GLOBALS['imp_search']->createSearchID($id)));
+    header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $imp_search->createSearchID($id)));
     exit;
 }
 

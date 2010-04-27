@@ -47,6 +47,7 @@ try {
 } catch (Horde_Exception_HookNotSet $e) {}
 
 /* Is this a search mailbox? */
+$imp_search = $injector->getInstance('IMP_Search');
 $search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
 $vfolder = $imp_search->isVFolder();
 
@@ -184,7 +185,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $redirect = IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => $GLOBALS['imp_imap']->ob()->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))));
+    $redirect = IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => $imp_imap->ob()->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))));
     header('Location: ' . $redirect);
     exit;
 }
@@ -227,7 +228,7 @@ $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
 /* Determine if we are going to show the Hide/Purge Deleted Message links. */
 if (!$prefs->getValue('use_trash') &&
-    !$GLOBALS['imp_search']->isVINBOXFolder()) {
+    !$imp_search->isVINBOXFolder()) {
     $showdelete = array('hide' => ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD), 'purge' => true);
 } else {
     $showdelete = array('hide' => false, 'purge' => false);

@@ -280,7 +280,7 @@ class IMP_Imap_Tree
         $this->_insert($this->_getList($this->_showunsub), $this->_showunsub ? null : true);
 
         /* Add virtual folders to the tree. */
-        $this->insertVFolders($GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER));
+        $this->insertVFolders($GLOBALS['injector']->getInstance('IMP_Search')->listQueries(IMP_Search::LIST_VFOLDER));
     }
 
 
@@ -787,7 +787,7 @@ class IMP_Imap_Tree
 
         $id = $this->_convertName($id, true);
         $vfolder_base = ($id == self::VFOLDER_KEY);
-        $search_id = $GLOBALS['imp_search']->createSearchID($id);
+        $search_id = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($id);
 
         if ($vfolder_base ||
             (isset($this->_tree[$search_id]) &&
@@ -1211,7 +1211,7 @@ class IMP_Imap_Tree
 
         if ($changed) {
             $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
-            $GLOBALS['imp_search']->createVINBOXFolder();
+            $GLOBALS['injector']->getInstance('IMP_Search')->createVINBOXFolder();
             $this->changed = true;
         }
     }
@@ -1247,7 +1247,7 @@ class IMP_Imap_Tree
 
         if ($removed) {
             $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
-            $GLOBALS['imp_search']->createVINBOXFolder();
+            $GLOBALS['injector']->getInstance('IMP_Search')->createVINBOXFolder();
             $this->changed = true;
         }
     }
@@ -1513,7 +1513,7 @@ class IMP_Imap_Tree
         $adds = $id = array();
 
         foreach ($id_list as $key => $val) {
-            $id[$GLOBALS['imp_search']->createSearchID($key)] = $val;
+            $id[$GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($key)] = $val;
         }
 
         foreach (array_keys($id) as $key) {
@@ -1954,14 +1954,16 @@ class IMP_Imap_Tree
 
             /* Virtual folders. */
             if ($this->isVFolder($mailbox)) {
+                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
                 $row['vfolder'] = true;
-                $row['editvfolder'] = $GLOBALS['imp_search']->isEditableVFolder($mailbox['v']);
-                if ($GLOBALS['imp_search']->isVTrashFolder($mailbox['v'])) {
+                $row['editvfolder'] = $imp_search->isEditableVFolder($mailbox['v']);
+                if ($imp_search->isVTrashFolder($mailbox['v'])) {
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/trash.png';
                     $row['alt'] = _("Virtual Trash Folder");
                     $row['class'] = 'trashImg';
-                } elseif ($GLOBALS['imp_search']->isVINBOXFolder($mailbox['v'])) {
+                } elseif ($imp_search->isVINBOXFolder($mailbox['v'])) {
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/inbox.png';
                     $row['alt'] = _("Virtual INBOX Folder");

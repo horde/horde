@@ -24,6 +24,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 Horde_Nls::setTimeZone();
+
+$imp_search = $injector->getInstance('IMP_Search');
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $vars = Horde_Variables::getDefaultVariables();
 

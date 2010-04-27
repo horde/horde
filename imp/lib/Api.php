@@ -156,7 +156,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
-        return $GLOBALS['imp_search']->runSearchQuery($query, $mailbox);
+        return $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $mailbox);
     }
 
     /**

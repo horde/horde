@@ -335,11 +335,13 @@ class IMP_Auth
                 ? 'INBOX'
                 : $GLOBALS['prefs']->getValue('initial_page');
 
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
             if (!$GLOBALS['prefs']->getValue('use_vinbox') &&
-                $GLOBALS['imp_search']->isVINBOXFolder($init_url)) {
+                $imp_search->isVINBOXFolder($init_url)) {
                 $init_url = 'folders.php';
-            } elseif (($GLOBALS['imp_search']->createSearchID($init_url) == $init_url) &&
-                      !$GLOBALS['imp_search']->isVFolder($init_url)) {
+            } elseif (($imp_search->createSearchID($init_url) == $init_url) &&
+                      !$imp_search->isVFolder($init_url)) {
                 $init_url = 'INBOX';
                 if (!$GLOBALS['prefs']->isLocked('initial_page')) {
                     $GLOBALS['prefs']->setValue('initial_page', $init_url);
@@ -487,7 +489,7 @@ class IMP_Auth
         }
 
         /* Set up search information for the session. */
-        $GLOBALS['imp_search']->initialize();
+        $GLOBALS['injector']->getInstance('IMP_Search')->initialize();
 
         /* If the user wants to run filters on login, make sure they get
            run. */

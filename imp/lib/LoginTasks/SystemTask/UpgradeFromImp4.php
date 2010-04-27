@@ -263,7 +263,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
 
             /* This will overwrite the existing entry. */
             $query = $imp_ui_search->createQuery($rules);
-            $GLOBALS['imp_search']->addVFolder($query, $ui['folders'], $rules, $ui['vfolder_label'], $id);
+            $GLOBALS['injector']->getInstance('IMP_Search')->addVFolder($query, $ui['folders'], $rules, $ui['vfolder_label'], $id);
         }
     }
 

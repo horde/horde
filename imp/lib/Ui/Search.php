@@ -25,8 +25,8 @@ class IMP_Ui_Search
         $query = new Horde_Imap_Client_Search_Query();
 
         $search_array = array();
-        $search_fields = $GLOBALS['imp_search']->searchFields();
-        $flag_fields = $GLOBALS['imp_search']->flagFields();
+        $search_fields = $GLOBALS['injector']->getInstance('IMP_Search')->searchFields();
+        $flag_fields = $GLOBALS['injector']->getInstance('IMP_Search')->flagFields();
         $imp_flags = $GLOBALS['injector']->getInstance('IMP_Imap_Flags');
         $or_search = false;
 
@@ -138,7 +138,7 @@ class IMP_Ui_Search
         $c_list = array();
 
         if ($criteria) {
-            $search_fields = $GLOBALS['imp_search']->searchFields();
+            $search_fields = $GLOBALS['injector']->getInstance('IMP_Search')->searchFields();
             $tmp = new stdClass;
             $tmp->t = $criteria;
             $tmp->v = ($search_fields[$criteria]['type'] == 'size')
@@ -158,7 +158,7 @@ class IMP_Ui_Search
         }
 
         /* Set the search in the IMP session. */
-        return $GLOBALS['imp_search']->createSearchQuery($this->createQuery($c_list), array($mbox), $c_list, _("Search Results"), IMP_Search::MBOX_PREFIX . IMP_Search::BASIC_SEARCH);
+        return $GLOBALS['injector']->getInstance('IMP_Search')->createSearchQuery($this->createQuery($c_list), array($mbox), $c_list, _("Search Results"), IMP_Search::MBOX_PREFIX . IMP_Search::BASIC_SEARCH);
     }
 
 }

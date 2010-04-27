@@ -86,7 +86,6 @@ class IMP_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $imp_imap     - An IMP_Imap object
      *   $imp_mbox     - Current mailbox information
-     *   $imp_search   - An IMP_Search object
      */
     protected function _init()
     {
@@ -101,6 +100,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
             'IMP_Mailbox' => new IMP_Injector_Binder_Mailbox(),
             'IMP_Quota' => new IMP_Injector_Binder_Quota(),
+            'IMP_Search' => new IMP_Injector_Binder_Search(),
             'IMP_Sentmail' => new IMP_Injector_Binder_Sentmail()
         );
 
@@ -492,7 +492,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         $this->init();
         $this->mailboxesChanged();
-        $GLOBALS['imp_search']->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
     }
 
     /* Helper methods. */

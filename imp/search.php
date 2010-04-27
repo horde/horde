@@ -39,6 +39,8 @@ if (!$browser->hasFeature('javascript') ||
     exit;
 }
 
+$imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
 $charset = Horde_Nls::getCharset();
 $criteria = Horde_Util::getFormData('criteria_form');
 $dimp_view = ($_SESSION['imp']['view'] == 'dimp');
@@ -72,7 +74,7 @@ if (!empty($criteria)) {
     }
 
     /* Redirect to the mailbox page. */
-    $id = $GLOBALS['imp_search']->createSearchID($id);
+    $id = $imp_search->createSearchID($id);
     if ($dimp_view) {
         /* Output javascript code to close the IFRAME and load the search
          * mailbox in DIMP. */

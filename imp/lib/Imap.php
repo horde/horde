@@ -286,7 +286,7 @@ class IMP_Imap
             // TODO: POP3 also?
             if (!$res &&
                 ($_SESSION['imp']['protocol'] == 'imap') &&
-                !$GLOBALS['imp_search']->isSearchMbox($mailbox)) {
+                !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox)) {
                 try {
                     $status = $this->_ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
                     $res = $status['uidnotsticky'];

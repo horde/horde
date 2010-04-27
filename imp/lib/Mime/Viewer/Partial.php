@@ -87,7 +87,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
         /* Perform the search to find the other parts of the message. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->headerText('Content-Type', $id);
-        $indices = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $mbox);
 
         /* If not able to find the other parts of the message, prepare a
          * status message. */

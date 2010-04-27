@@ -78,7 +78,7 @@ class IMP
     static public function getLabel($mbox)
     {
         $label = IMP_Search::isSearchMbox($mbox)
-            ? $GLOBALS['imp_search']->getLabel($mbox)
+            ? $GLOBALS['injector']->getInstance('IMP_Search')->getLabel($mbox)
             : self::displayFolder($mbox);
 
         try {
@@ -195,15 +195,16 @@ class IMP
 
         /* Add the list of virtual folders to the list. */
         if (!empty($options['inc_vfolder'])) {
-            $vfolders = $GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER);
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            $vfolders = $imp_search->listQueries(IMP_Search::LIST_VFOLDER);
             if (!empty($vfolders)) {
                 $vfolder_list = array();
-                $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
+                $vfolder_sel = $imp_search->searchMboxID();
                 foreach ($vfolders as $id => $val) {
                     $vfolder_list[] = array(
                         'l' => Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
                         'sel' => ($vfolder_sel == $id),
-                        'v' => htmlspecialchars($GLOBALS['imp_search']->createSearchID($id))
+                        'v' => htmlspecialchars($imp_search->createSearchID($id))
                     );
                 }
                 $t->set('vfolder', $vfolder_list);
@@ -487,7 +488,7 @@ class IMP
                 $prefs->getValue('empty_trash_menu')) {
                 $mailbox = null;
                 if ($prefs->getValue('use_vtrash')) {
-                    $mailbox = $GLOBALS['imp_search']->createSearchID($prefs->getValue('vtrash_id'));
+                    $mailbox = $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($prefs->getValue('vtrash_id'));
                 } else {
                     $trash_folder = self::folderPref($prefs->getValue('trash_folder'), true);
                     if (!is_null($trash_folder)) {
@@ -695,7 +696,7 @@ class IMP
         } else {
             /* We are dealing with format #2. */
             while (list($key, $val) = each($indices)) {
-                if ($GLOBALS['imp_search']->isSearchMbox($key)) {
+                if ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($key)) {
                     $msgList += self::parseIndicesList($val);
                 } else {
                     /* Make sure we don't have any duplicate keys. */
@@ -816,12 +817,12 @@ class IMP
 
         if (is_null($delhide) || $force) {
             if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                $delhide = !$GLOBALS['imp_search']->isVTrashFolder();
+                $delhide = !$GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder();
             } else {
                 $sortpref = self::getSort();
                 $delhide = ($GLOBALS['prefs']->getValue('delhide') &&
                             !$GLOBALS['prefs']->getValue('use_trash') &&
-                            ($GLOBALS['imp_search']->isSearchMbox($mbox) ||
+                            ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox) ||
                              ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD)));
             }
         }
@@ -897,7 +898,7 @@ class IMP
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
         }
 
-        $search_mbox = $GLOBALS['imp_search']->isSearchMbox($mbox);
+        $search_mbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
         $prefmbox = $search_mbox
             ? $mbox
             : self::folderPref($mbox, false);
@@ -973,10 +974,10 @@ class IMP
          * implementation. We will always prefer REFERENCES, but will fallback
          * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
         return ($_SESSION['imp']['protocol'] == 'imap') &&
-               !$GLOBALS['imp_search']->isSearchMbox($mbox) &&
+               !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox) &&
                (!$GLOBALS['prefs']->getValue('use_trash') ||
                 !$GLOBALS['prefs']->getValue('use_vtrash') ||
-                $GLOBALS['imp_search']->isVTrashFolder($mbox));
+                $GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder($mbox));
     }
 
     /**
@@ -998,7 +999,7 @@ class IMP
             $mbox = $GLOBALS['imp_mbox']['mailbox'];
         }
 
-        $prefmbox = $GLOBALS['imp_search']->isSearchMbox($mbox)
+        $prefmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox)
             ? $mbox
             : self::folderPref($mbox, false);
 
@@ -1041,7 +1042,6 @@ class IMP
 
     /**
      * Sets mailbox/index information for current page load.
-     * Sets the global $imp_search object.
      *
      * The global $imp_mbox objects will contain an array with the following
      * elements:
@@ -1069,9 +1069,6 @@ class IMP
                 'uid' => null
             );
         }
-
-        // Initialize IMP_Search object.
-        $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
     }
 
     /**
@@ -1155,7 +1152,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));

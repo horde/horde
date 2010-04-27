@@ -42,8 +42,10 @@ if (!empty($request)) {
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-/* Obtain some information describing the mailbox state. */
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb($mailbox);
+$imp_search = $injector->getInstance('IMP_Search');
+
+/* Obtain some information describing the mailbox state. */
 $total_num = $imp_mailbox->getMessageCount();
 $unseen_num = ($imp_search->isVINBOXFolder($mailbox))
     ? $imp_mailbox->getMessageCount()

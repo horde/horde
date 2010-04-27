@@ -113,9 +113,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        if ($GLOBALS['imp_search']->isEditableVFolder($this->_vars->mbox)) {
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $GLOBALS['imp_search']->getLabel($this->_vars->mbox)), 'horde.success');
-            $GLOBALS['imp_search']->deleteSearchQuery($this->_vars->mbox);
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
+        if ($imp_search->isEditableVFolder($this->_vars->mbox)) {
+            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($this->_vars->mbox)), 'horde.success');
+            $imp_search->deleteSearchQuery($this->_vars->mbox);
             $result = true;
         } else {
             $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($this->_vars->mbox));
@@ -1678,7 +1680,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     protected function _changed($rw = null)
     {
         /* Only update search mailboxes on forced refreshes. */
-        if ($GLOBALS['imp_search']->isSearchMbox($this->_vars->view)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($this->_vars->view)) {
             return ($this->_action == 'viewPort') || $this->_vars->forceUpdate;
         }
 
@@ -1894,7 +1896,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $ob->po = 1;
         }
         if ($elt['vfolder']) {
-            $ob->v = $GLOBALS['imp_search']->isEditableVFolder($elt['value']) ? 2 : 1;
+            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($elt['value']) ? 2 : 1;
         }
         if (!$elt['sub']) {
             $ob->un = 1;

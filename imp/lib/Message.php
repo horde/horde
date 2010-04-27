@@ -238,7 +238,7 @@ class IMP_Message
                 if ($this->_usepop ||
                     !empty($options['nuke']) ||
                     ($use_trash && ($mbox == $trash)) ||
-                    ($use_vtrash && ($GLOBALS['imp_search']->isVTrashFolder()))) {
+                    ($use_vtrash && ($GLOBALS['injector']->getInstance('IMP_Search')->isVTrashFolder()))) {
                     /* Purge messages immediately. */
                     $expunge_now = true;
                 } else {
@@ -540,7 +540,7 @@ class IMP_Message
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
-            if ($GLOBALS['imp_search']->isVINBOXFolder($mbox) &&
+            if ($GLOBALS['injector']->getInstance('IMP_Search')->isVINBOXFolder($mbox) &&
                 ($pos = array_search('\\seen', $res['flags']))) {
                 unset($res['flags'][$pos]);
             }
@@ -678,12 +678,13 @@ class IMP_Message
             return $msg_list ? array() : null;
         }
 
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $process_list = $update_list = array();
 
         foreach (array_keys($mbox_list) as $key) {
             if (!$GLOBALS['imp_imap']->isReadOnly($key)) {
-                if ($GLOBALS['imp_search']->isSearchMbox($key)) {
-                    foreach ($GLOBALS['imp_search']->getSearchFolders($key) as $skey) {
+                if ($imp_search->isSearchMbox($key)) {
+                    foreach ($imp_search->getSearchFolders($key) as $skey) {
                         $process_list[$skey] = $mbox_list[$key];
                     }
                 } else {
@@ -723,8 +724,9 @@ class IMP_Message
      */
     public function emptyMailbox($mbox_list)
     {
-        global $imp_search, $notification, $prefs;
+        global $notification, $prefs;
 
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $trash_folder = ($prefs->getValue('use_trash'))
             ? IMP::folderPref($prefs->getValue('trash_folder'), true)
             : null;

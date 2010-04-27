@@ -53,7 +53,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_spam_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $spam_folder);
+        $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $spam_folder);
         if (empty($msg_ids)) {
             return false;
         }

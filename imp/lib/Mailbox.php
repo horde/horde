@@ -72,7 +72,7 @@ class IMP_Mailbox
     public function __construct($mailbox, $uid = null)
     {
         $this->_mailbox = $mailbox;
-        $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
+        $this->_searchmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox);
 
         if (is_null($uid)) {
             unset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
@@ -296,7 +296,7 @@ class IMP_Mailbox
             }
 
             try {
-                foreach ($GLOBALS['imp_search']->runSearch($query, $this->_mailbox) as $val) {
+                foreach ($GLOBALS['injector']->getInstance('IMP_Search')->runSearch($query, $this->_mailbox) as $val) {
                     list($idx, $mbox) = explode(IMP::IDX_SEP, $val);
                     $this->_sorted[] = $idx;
                     $this->_sortedMbox[] = $mbox;
@@ -317,7 +317,7 @@ class IMP_Mailbox
                     $query->flag('\\deleted', false);
                 }
                 try {
-                    $res = $GLOBALS['imp_search']->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
+                    $res = $GLOBALS['injector']->getInstance('IMP_Search')->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
                     $this->_sorted = $res['sort'];
                 } catch (Horde_Imap_Client_Exception $e) {
                     $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');

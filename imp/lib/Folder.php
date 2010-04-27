@@ -195,7 +195,7 @@ class IMP_Folder
         $this->clearFlistCache();
 
         /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
 
         /* Clear the folder from the sort prefs. */
         foreach ($deleted as $val) {
@@ -264,7 +264,7 @@ class IMP_Folder
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($folder);
 
         /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->initialize(true);
+        $GLOBALS['injector']->getInstance('IMP_Search')->initialize(true);
 
         return true;
     }

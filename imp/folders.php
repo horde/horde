@@ -100,6 +100,7 @@ case 'delete_folder':
 case 'delete_search_query':
     $queryid = Horde_Util::getFormData('queryid');
     if (!empty($queryid)) {
+        $imp_search = $injector->getInstance('IMP_Search');
         $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($queryid)), 'horde.success');
         $imp_search->deleteSearchQuery($queryid);
     }
@@ -437,6 +438,7 @@ $rowct = 0;
 foreach ($raw_rows as $key => $val) {
     $val['nocheckbox'] = !empty($val['vfolder']);
     if (!empty($val['vfolder']) && $val['editvfolder']) {
+        $imp_search = $injector->getInstance('IMP_Search');
         $val['delvfolder'] = Horde::link($imp_search->deleteUrl($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
         $val['editvfolder'] = Horde::link($imp_search->editUrl($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
     }
