@@ -1,6 +1,6 @@
 <?php
 /**
- * The driver definition for accessing Kolab storage.
+ * The basic driver decorator definition for accessing Kolab storage.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * The driver definition for accessing Kolab storage.
+ * The basic driver decorator definition for accessing Kolab storage.
  *
- * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,14 +25,17 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_Driver
+class Horde_Kolab_Storage_Driver_Decorator_Base
+implements Horde_Kolab_Storage_Driver
 {
     /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.
      */
-    public function getAuth();
+    public function getAuth()
+    {
+    }
 
     /**
      * Does the given folder exist?
@@ -41,7 +44,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return boolean True in case the folder exists, false otherwise.
      */
-    public function exists($folder);
+    public function exists($folder)
+    {
+    }
 
     /**
      * Opens the given folder.
@@ -51,7 +56,9 @@ interface Horde_Kolab_Storage_Driver
      * @return mixed  True in case the folder was opened successfully, a PEAR
      *                error otherwise.
      */
-    public function select($folder);
+    public function select($folder)
+    {
+    }
 
     /**
      * Returns the status of the current folder.
@@ -60,7 +67,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return array  An array that contains 'uidvalidity' and 'uidnext'.
      */
-    public function status($folder);
+    public function status($folder)
+    {
+    }
 
     /**
      * Returns the message ids of the messages in this folder.
@@ -69,7 +78,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return array  The message ids.
      */
-    public function getUids($folder);
+    public function getUids($folder)
+    {
+    }
 
     /**
      * Create the specified folder.
@@ -79,7 +90,9 @@ interface Horde_Kolab_Storage_Driver
      * @return mixed True in case the operation was successfull, a
      *               PEAR error otherwise.
      */
-    public function create($folder);
+    public function create($folder)
+    {
+    }
 
     /**
      * Delete the specified folder.
@@ -89,7 +102,9 @@ interface Horde_Kolab_Storage_Driver
      * @return mixed True in case the operation was successfull, a
      *               PEAR error otherwise.
      */
-    public function delete($folder);
+    public function delete($folder)
+    {
+    }
 
     /**
      * Rename the specified folder.
@@ -100,7 +115,9 @@ interface Horde_Kolab_Storage_Driver
      * @return mixed True in case the operation was successfull, a
      *               PEAR error otherwise.
      */
-    public function rename($old, $new);
+    public function rename($old, $new)
+    {
+    }
 
     /**
      * Appends a message to the current folder.
@@ -111,7 +128,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function appendMessage($mailbox, $msg);
+    public function appendMessage($mailbox, $msg)
+    {
+    }
 
     /**
      * Deletes messages from the current folder.
@@ -120,7 +139,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function deleteMessages($mailbox, $uids);
+    public function deleteMessages($mailbox, $uids)
+    {
+    }
 
     /**
      * Moves a message to a new folder.
@@ -130,7 +151,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function moveMessage($old_folder, $uid, $new_folder);
+    public function moveMessage($old_folder, $uid, $new_folder)
+    {
+    }
 
     /**
      * Expunges messages in the current folder.
@@ -140,7 +163,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  True or a PEAR error in case of an error.
      */
-    public function expunge($mailbox);
+    public function expunge($mailbox)
+    {
+    }
 
     /**
      * Retrieves the message headers for a given message id.
@@ -152,7 +177,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  The message header or a PEAR error in case of an error.
      */
-    public function getMessageHeader($mailbox, $uid, $peek_for_body = true);
+    public function getMessageHeader($mailbox, $uid, $peek_for_body = true)
+    {
+    }
 
     /**
      * Retrieves the message body for a given message id.
@@ -163,7 +190,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return mixed  The message body or a PEAR error in case of an error.
      */
-    public function getMessageBody($mailbox, $uid);
+    public function getMessageBody($mailbox, $uid)
+    {
+    }
 
     /**
      * Retrieve the access rights for a folder.
@@ -172,7 +201,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return An array of rights.
      */
-    public function getAcl(Horde_Kolab_Storage_Folder $folder);
+    public function getAcl(Horde_Kolab_Storage_Folder $folder)
+    {
+    }
 
     /**
      * Set the access rights for a folder.
@@ -183,7 +214,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return NULL
      */
-    public function setAcl($folder, $user, $acl);
+    public function setAcl($folder, $user, $acl)
+    {
+    }
 
     /**
      * Delete the access rights for user on a folder.
@@ -193,7 +226,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return NULL
      */
-    public function deleteAcl($folder, $user);
+    public function deleteAcl($folder, $user)
+    {
+    }
 
     /**
      * Fetches the annotation on a folder.
@@ -203,7 +238,9 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return string The annotation value.
      */
-    public function getAnnotation($entry, $folder);
+    public function getAnnotation($entry, $folder)
+    {
+    }
 
     /**
      * Sets the annotation on a folder.
@@ -214,19 +251,25 @@ interface Horde_Kolab_Storage_Driver
      *
      * @return NULL
      */
-    public function setAnnotation($entry, $value, $folder);
+    public function setAnnotation($entry, $value, $folder)
+    {
+    }
 
     /**
      * Retrieve the namespace information for this connection.
      *
      * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
      */
-    public function getNamespace();
+    public function getNamespace()
+    {
+    }
 
     /**
      * Get the group handler for this connection.
      *
      * @return Horde_Group The group handler.
      */
-    public function getGroupHandler();
+    public function getGroupHandler()
+    {
+    }
 }

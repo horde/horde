@@ -1,0 +1,74 @@
+<?php
+/**
+ * Test the Kolab mock driver.
+ *
+ * PHP version 5
+ *
+ * @category   Kolab
+ * @package    Kolab_Storage
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ */
+
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../Autoload.php';
+
+/**
+ * Test the Kolab mock driver.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category   Kolab
+ * @package    Kolab_Storage
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ */
+class Horde_Kolab_Storage_Class_Driver_MockTest
+extends PHPUnit_Framework_TestCase
+{
+    public function setUp()
+    {
+        require_once 'Horde/Group.php';
+        require_once 'Horde/Group/mock.php';
+
+        $this->group = new Group_mock();
+    }
+
+    public function testGetAnnotationReturnsAnnotationValue()
+    {
+        $data = array();
+        $data['INBOX/Contacts']['annotations']['/vendor/kolab/folder-type']['value.shared'] = 'contact.default';
+        $driver = new Horde_Kolab_Storage_Driver_Mock(
+            $this->group,
+            $data
+        );
+        $this->assertEquals(
+            'contact.default',
+            $driver->getAnnotation('/vendor/kolab/folder-type', 'value.shared', 'INBOX/Contacts')
+        );
+    }
+
+    public function testGetNamespaceReturnsNamespaceHandler()
+    {
+        Horde_Nls::setCharset('UTF8');
+        $data = array();
+        $data['INBOX/Contacts']['annotations']['/vendor/kolab/folder-type']['value.shared'] = 'contact.default';
+        $driver = new Horde_Kolab_Storage_Driver_Mock(
+            $this->group,
+            $data
+        );
+        $this->assertType(
+            'Horde_Kolab_Storage_Namespace',
+            $driver->getNamespace()
+        );
+    }
+}

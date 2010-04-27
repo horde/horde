@@ -1,6 +1,6 @@
 <?php
 /**
- * An IMAP based driver for accessing Kolab storage.
+ * An Kolab storage mock driver.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * The IMAP driver class for accessing Kolab storage.
+ * An Kolab storage mock driver.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,28 +25,35 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Driver_Imap
+class Horde_Kolab_Storage_Driver_Mock
 extends Horde_Kolab_Storage_Driver_Base
 {
     /**
-     * The IMAP connection
+     * The data of the mailbox currently opened
      *
-     * @var Horde_Imap_Client
+     * @var array
      */
-    private $_imap;
+    private $_mbox = null;
 
     /**
-     * Constructor.
+     * The name of the mailbox currently opened
      *
-     * @param array  $params Connection parameters.
+     * @var array
      */
-    public function __construct(
-        Horde_Imap_Client_Base $imap,
-        Group $groups,
-        $params = array()
-    ) {
-        $this->_imap   = $imap;
-        parent::__construct($groups, $params);
+    private $_mboxname = null;
+
+    /**
+     * Parse the folder name into an id for this mock driver.
+     *
+     * @return string The folder id.
+     */
+    private function _parseFolder($folder)
+    {
+        if (substr($folder, 0, 5) == 'INBOX') {
+            $user = split('@', $this->_user);
+            return 'user/' . $user[0] . substr($folder, 5);
+        }
+        return $folder;
     }
 
     /**
@@ -79,7 +86,12 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function select($folder)
     {
-        $this->_imap->openMailbox($folder, Horde_Imap_Client::OPEN_AUTO);
+        $folder = $this->_parseFolder($folder);
+        if (!isset($GLOBALS['KOLAB_TESTING'][$folder])) {
+            throw new Horde_Kolab_Storage_Exception(sprintf("IMAP folder %s does not exist!", $folder));
+        }
+        $this->_mbox = &$GLOBALS['KOLAB_TESTING'][$folder];
+        $this->_mboxname = $folder;
         return true;
     }
 
@@ -374,12 +386,24 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getAnnotation($entry, $mailbox_name)
     {
-        try {
-            $result = $this->_imap->getMetadata($mailbox_name, $entry);
-        } catch (Exception $e) {
-            return '';
+        $mailbox_name = $this->_parseFolder($mailbox_name);
+        $old_mbox = null;
+        if ($mailbox_name != $this->_mboxname) {
+            $old_mbox = $this->_mboxname;
+            $result = $this->select($mailbox_name);
+            if (is_a($result, 'PEAR_Error')) {
+                return $result;
+            }
         }
-        return isset($result[$mailbox_name][$entry]) ? $result[$mailbox_name][$entry] : '';
+        if (!isset($this->_mbox['annotations'][$entries])
+            || !isset($this->_mbox['annotations'][$entries][$value])) {
+            return false;
+        }
+        $annotation = $this->_mbox['annotations'][$entries][$value];
+        if ($old_mbox) {
+            $this->select($old_mbox);
+        }
+        return $annotation;
     }
 
     /**
@@ -397,20 +421,14 @@ extends Horde_Kolab_Storage_Driver_Base
                                          array($entry => $value));
     }
 
-
     /**
-     * Retrieve the namespace information for this connection.
+     * Get the group handler for this connection.
      *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
+     * @return Horde_Group The group handler.
      */
-    public function getNamespace()
+    public function getGroupHandler()
     {
-        if ($this->_imap->queryCapability('NAMESPACE') === true) {
-            return new Horde_Kolab_Storage_Namespace_Imap(
-                $this->_imap->getNamespaces(),
-                $this->getParam('namespaces', array())
-            );
-        }
-        return parent::getNamespace();
+        return $this->_groups;
     }
+
 }
