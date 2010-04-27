@@ -530,7 +530,7 @@ class Horde_Release
         }
 
         $url_changelog = $this->_oldVersion
-            ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
+            ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?rt=horde&r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
             : '';
 
         // Params to add new release on FM
