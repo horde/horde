@@ -466,7 +466,7 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    public function addToCache(&$folder)
+    public function addToCache($folder)
     {
         $this->_initiateCache();
 
@@ -496,7 +496,7 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    public function removeFromCache(&$folder)
+    public function removeFromCache($folder)
     {
         $this->_initiateCache();
 
@@ -528,7 +528,7 @@ class Horde_Kolab_Storage
      * @return Horde_Kolab_Folder The folder object representing
      *                            the share.
      */
-    public function &getShare($share, $type)
+    public function getShare($share, $type)
     {
         $share = $this->getByShare($share, $type);
         return $share;
@@ -547,7 +547,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getData(Horde_Kolab_Storage_Folder &$folder,
+    public function getData(Horde_Kolab_Storage_Folder $folder,
                              $data_type = null, $data_format = 1)
     {
         if (empty($data_type)) {
@@ -570,7 +570,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getShareData($share, $type, $data_type = null, $data_format = 1)
+    public function getShareData($share, $type, $data_type = null, $data_format = 1)
     {
         $folder = $this->getShare($share, $type);
         $data   = $this->getData($folder, $data_type, $data_format);
@@ -589,7 +589,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getFolderData($folder, $data_type = null, $data_format = 1)
+    public function getFolderData($folder, $data_type = null, $data_format = 1)
     {
         $folder = $this->getFolder($folder);
         $data   = $this->getData($folder, $data_type, $data_format);
