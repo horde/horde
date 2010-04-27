@@ -27,7 +27,14 @@ if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
+
+/* Suppress menus in options screen and indicate that notifications should use
+ * the ajax mode. */
 Horde_Core_Prefs_Ui::hideMenu(true);
+$_SESSION['horde_notification']['override'] = array(
+    KRONOLITH_BASE . '/lib/Notification/Listener/AjaxStatus.php',
+    'Kronolith_Notification_Listener_AjaxStatus'
+);
 
 $alarm_methods = $alarm_params = '';
 foreach (Horde_Alarm::notificationMethods() as $method => $params) {
