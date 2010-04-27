@@ -116,9 +116,11 @@ class Horde_Kolab_Storage
      */
     public function __construct(
         Horde_Kolab_Storage_Driver $master,
+        Horde_Cache $cache,
         $params = array()
     ) {
         $this->_master = $master;
+        $this->_cache  = new Horde_Kolab_Storage_Cache($cache);
 
         $this->_params = $params;
 
@@ -218,6 +220,16 @@ class Horde_Kolab_Storage
         $data = @serialize($this);
         return $this->_cache->set($signature, $data,
                                   $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
+    }
+
+    /**
+     * Return the data cache associated with this storage instance.
+     *
+     * @return Horde_Kolab_Storage_Cache The cache object
+     */
+    public function getDataCache()
+    {
+        return $this->_cache;
     }
 
     /**

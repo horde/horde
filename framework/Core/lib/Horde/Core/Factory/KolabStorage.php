@@ -113,6 +113,7 @@ class Horde_Core_Factory_KolabStorage
 
         return new Horde_Kolab_Storage(
             $master,
+            $this->_injector->getInstance('Horde_Cache'),
             $params
         );
     }

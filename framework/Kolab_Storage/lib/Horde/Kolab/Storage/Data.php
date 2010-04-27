@@ -14,11 +14,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Kolab_Data class represents a data type in a Kolab storage
  * folder on the Kolab server.
  *
@@ -116,17 +111,6 @@ class Horde_Kolab_Storage_Data
         } else {
             $this->_type_key = '';
         }
-        $this->__wakeup();
-    }
-
-    /**
-     * Initializes the object.
-     *
-     * @return NULL
-     */
-    public function __wakeup()
-    {
-        $this->_cache = &Horde_Kolab_Storage_Cache::singleton();
     }
 
     /**
@@ -145,14 +129,26 @@ class Horde_Kolab_Storage_Data
     /**
      * Set the folder handler for this data instance.
      *
+     * @param Kolab_Folder $folder The handler for the folder.
+     *
+     * @return NULL
+     */
+    public function setFolder($folder)
+    {
+        $this->_folder    = $folder;
+        $this->_cache_key = $this->getCacheKey();
+    }
+
+    /**
+     * Set the folder handler for this data instance.
+     *
      * @param Kolab_Folder &$folder The handler for the folder.
      *
      * @return NULL
      */
-    public function setFolder(&$folder)
+    public function setCache($cache)
     {
-        $this->_folder    = &$folder;
-        $this->_cache_key = $this->getCacheKey();
+        $this->_cache = $cache;
     }
 
     /**
@@ -475,10 +471,10 @@ class Horde_Kolab_Storage_Data
 
         /* Log the action on this item in the history log. */
         try {
-            $GLOBALS['injector']->getInstance('Horde_History')
-                ->log($app . ':' . $this->_folder->getShareId() . ':' . $object_uid,
-                      array('action' => $action, 'ts' => $mod_ts),
-                      true);
+            /* $GLOBALS['injector']->getInstance('Horde_History') */
+            /*     ->log($app . ':' . $this->_folder->getShareId() . ':' . $object_uid, */
+            /*           array('action' => $action, 'ts' => $mod_ts), */
+            /*           true); */
         } catch (Horde_Exception $e) {
         }
     }

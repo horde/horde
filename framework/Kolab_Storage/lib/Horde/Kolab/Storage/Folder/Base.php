@@ -687,7 +687,7 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return Horde_Kolab_Storage_Data The data handler.
      */
-    function &getData($object_type = null, $data_version = 1)
+    public function getData($object_type = null, $data_version = 1)
     {
         if (empty($object_type)) {
             $object_type = $this->getType();
@@ -712,6 +712,7 @@ implements Horde_Kolab_Storage_Folder
             }
             $data = new Horde_Kolab_Storage_Data($type, $object_type, $data_version);
             $data->setFolder($this);
+            $data->setCache($this->_storage->getDataCache());
             $data->synchronize();
             $this->_data[$key] = &$data;
         }
@@ -937,11 +938,9 @@ implements Horde_Kolab_Storage_Folder
             }
         }
 
-        $session = &Horde_Kolab_Session_Singleton::singleton();
-
         // Update email headers
-        $new_headers->addHeader('From', $session->user_mail);
-        $new_headers->addHeader('To', $session->user_mail);
+        $new_headers->addHeader('From', $this->_driver->getAuth());
+        $new_headers->addHeader('To', $this->_driver->getAuth());
         $new_headers->addHeader('Date', date('r'));
         $new_headers->addHeader('X-Kolab-Type', $handlers['XML']->getMimeType());
         $new_headers->addHeader('Subject', $object['uid']);
@@ -1124,7 +1123,7 @@ implements Horde_Kolab_Storage_Folder
     }
 
     /**
-     * Get annotation values on IMAP server that do not support
+     * Get annotation values on IMAP servers that do not support
      * METADATA.
      *
      * @return array|PEAR_Error  The anotations of this folder.
