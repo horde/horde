@@ -1159,7 +1159,10 @@ table.kronolithView td.kronolithFirstCol {
     bottom: 0;
     left: 0;
 }
-#kronolithViewMonthContainer table.kronolithView td.kronolithFirstCol {
+#kronolithViewMonthBody td {
+    padding-bottom: 16px;
+}
+#kronolithViewMonthBody td.kronolithFirstCol {
     vertical-align: top;
 }
 .kronolithMore {
@@ -1171,7 +1174,10 @@ table.kronolithView td.kronolithFirstCol {
 .kronolithMore:hover {
     text-decoration: underline;
 }
-#kronolithViewWeek .kronolithAllDay .kronolithMore {
+#kronolithViewMonth .kronolithMore {
+    position: absolute;
+}
+#kronolithViewWeek .kronolithMore {
     margin-left: 5%;
 }
 
