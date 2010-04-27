@@ -32,12 +32,7 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
+        $driver = basename($driver);
 
         if (empty($driver) || $driver == 'none') {
             return new Horde_Cache_Null($params);
