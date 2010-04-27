@@ -545,7 +545,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $res = array();
             foreach ($pattern as $val) {
                 if (strlen($val)) {
-                    $res = array_merge($res, $this->_getMailboxList($val, $mode);
+                    $res = array_merge($res, $this->_getMailboxList($val, $mode));
                 }
             }
             return array_unique($res);
