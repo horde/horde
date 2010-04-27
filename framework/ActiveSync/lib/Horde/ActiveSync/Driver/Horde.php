@@ -250,17 +250,15 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      * Get a list of server changes that occured during the specified time
      * period.
      *
-     * @param string $folderId    The server id of the collection to check.
-     * @param timestamp $from_ts  The starting timestamp
-     * @param timestamp $to_ts    The ending timestamp
+     * @param string $folderId  The server id of the collection to check.
+     * @param integer $from_ts  The starting timestamp
+     * @param integer $to_ts    The ending timestamp
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
      */
     public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)
     {
-        // FIXME: Need to filter the results by $from_ts OR need to fix
-        // Horde_History to query for a timerange instead of a single timestamp
         $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
         switch ($folderId) {
         case self::APPOINTMENTS_FOLDER:
@@ -276,9 +274,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 }
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->calendar_listBy('add', $from_ts);
-                $edits = $this->_connector->calendar_listBy('modify', $from_ts);
-                $deletes = $this->_connector->calendar_listBy('delete', $from_ts);
+                $adds = $this->_connector->calendar_listBy('add', $from_ts, $to_ts);
+                $edits = $this->_connector->calendar_listBy('modify', $from_ts, $to_ts);
+                $deletes = $this->_connector->calendar_listBy('delete', $from_ts, $to_ts);
             }
             break;
         case self::CONTACTS_FOLDER:
@@ -287,9 +285,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $adds = $this->_connector->contacts_list();
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->contacts_listBy('add', $from_ts);
-                $edits = $this->_connector->contacts_listBy('modify', $from_ts);
-                $deletes = $this->_connector->contacts_listBy('delete', $from_ts);
+                $adds = $this->_connector->contacts_listBy('add', $from_ts, $to_ts);
+                $edits = $this->_connector->contacts_listBy('modify', $from_ts, $to_ts);
+                $deletes = $this->_connector->contacts_listBy('delete', $from_ts, $to_ts);
             }
             break;
         case self::TASKS_FOLDER:
@@ -298,9 +296,9 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $adds = $this->_connector->tasks_listTasks();
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->tasks_listBy('add', $from_ts);
-                $edits = $this->_connector->tasks_listBy('modify', $from_ts);
-                $deletes = $this->_connector->tasks_listBy('delete', $from_ts);
+                $adds = $this->_connector->tasks_listBy('add', $from_ts, $to_ts);
+                $edits = $this->_connector->tasks_listBy('modify', $from_ts, $to_ts);
+                $deletes = $this->_connector->tasks_listBy('delete', $from_ts, $to_ts);
             }
             break;
         }

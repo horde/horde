@@ -665,7 +665,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 }
 
                 /* No existing changes, poll the backend */
-                $changes = $this->_backend->getServerChanges($folderId, $this->_lastSyncTS, $this->_thisSyncTS, $cutoffdate);
+                $changes = $this->_backend->getServerChanges($folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
             }
             /* Unfortunately we can't use an empty synckey to detect an initial
              * sync. The AS protocol doesn't start looking for changes until

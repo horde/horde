@@ -42,8 +42,8 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     /**
      * Get a list of events from horde's calendar api
      *
-     * @param timestamp $startstamp    The start of time period.
-     * @param timestamp $endstamp      The end of time period
+     * @param integer $startstamp    The start of time period.
+     * @param integer $endstamp      The end of time period
      *
      * @return array
      */
@@ -64,14 +64,15 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     /**
      * Get a list of event uids that have had $action happen since $from_ts.
      *
-     * @param string $action      The action to check for (add, modify, delete)
-     * @param timestamp $from_ts  The timestamp to start checking from
+     * @param string $action    The action to check for (add, modify, delete)
+     * @param integer $from_ts  The timestamp to start checking from
+     * @param integer $to_ts    The ending timestamp
      *
      * @return array  An array of event uids
      */
-    public function calendar_listBy($action, $from_ts)
+    public function calendar_listBy($action, $from_ts, $to_ts)
     {
-        return $this->_registry->calendar->listBy($action, (int)$from_ts);
+        return $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
     }
 
     /**
@@ -130,7 +131,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      * @param string $uid     The UID of the event we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
      *
-     * @return timestamp
+     * @return integer
      */
     public function calendar_getActionTimestamp($uid, $action)
     {
@@ -205,7 +206,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      * @param string $uid     The UID of the contact to search
      * @param string $action  The action to lookup
      *
-     * @return timestamp
+     * @return integer
      */
     public function contacts_getActionTimestamp($uid, $action)
     {
@@ -215,14 +216,14 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     /**
      * Get a list of contact uids that have had $action happen since $from_ts.
      *
-     * @param string $action      The action to check for (add, modify, delete)
-     * @param timestamp $from_ts  The timestamp to start checking from
-     *
+     * @param string $action    The action to check for (add, modify, delete)
+     * @param integer $from_ts  The timestamp to start checking from
+     * @param integer $to_ts    The ending timestamp
      * @return array  An array of event uids
      */
-    public function contacts_listBy($action, $from_ts)
+    public function contacts_listBy($action, $from_ts, $to_ts)
     {
-        return $this->_registry->contacts->listBy($action, (int)$from_ts);
+        return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
     }
 
     /**
@@ -297,7 +298,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      * @param string $uid     The UID of the task we are interested in.
      * @param string $action  The action we are interested in (add, modify...)
      *
-     * @return timestamp
+     * @return integer
      */
     public function tasks_getActionTimestamp($uid, $action)
     {
@@ -307,14 +308,15 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     /**
      * Get a list of task uids that have had $action happen since $from_ts.
      *
-     * @param string $action      The action to check for (add, modify, delete)
-     * @param timestamp $from_ts  The timestamp to start checking from
+     * @param string $action    The action to check for (add, modify, delete)
+     * @param integer $from_ts  The timestamp to start checking from
+     * @param integer $to_ts    The ending timestamp
      *
      * @return array  An array of event uids
      */
     public function tasks_listBy($action, $from_ts)
     {
-        return $this->_registry->tasks->listBy($action, (int)$from_ts);
+        return $this->_registry->tasks->listBy($action, $from_ts, null, $to_ts);
     }
 
     /**
