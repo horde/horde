@@ -466,10 +466,9 @@ class Horde_Release
                 die("\nThere was an error running the command\n$cmd\n");
             }
             print "Installing framework packages\n";
-            if (file_exists("./$directory/scripts/create-symlinks.php")) {
-                system("php ./$directory/scripts/create-symlinks.php --copy --src=./$directory/framework --dest=./$directory/lib");
-            } else {
-                system("horde-fw-symlinks.php --copy --src ./$directory/framework --dest ./$directory/lib");
+            passthru("install_framework --copy --src ./$directory/framework --dest ./$directory/lib", $result);
+            if ($result) {
+                exit;
             }
         }
     }
