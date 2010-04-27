@@ -124,10 +124,10 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->method('getNamespace')
             ->will(
                 $this->returnValue(
-                    new Horde_Kolab_Storage_Namespace_Imap(
+                    new Horde_Kolab_Storage_Driver_Namespace_Imap(
                         array(
                             array(
-                                'type' => Horde_Kolab_Storage_Namespace::PERSONAL,
+                                'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
                                 'name' => 'INBOX/',
                                 'delimiter' => '/',
                                 'add' => true,
@@ -257,10 +257,10 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
             ->method('getNamespace')
             ->will(
                 $this->returnValue(
-                    new Horde_Kolab_Storage_Namespace_Imap(
+                    new Horde_Kolab_Storage_Driver_Namespace_Imap(
                         array(
                             array(
-                                'type' => Horde_Kolab_Storage_Namespace::PERSONAL,
+                                'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
                                 'name' => 'INBOX/',
                                 'delimiter' => '/',
                                 'add' => true,

@@ -66,7 +66,7 @@ class Horde_Kolab_Storage_FolderTest extends PHPUnit_Framework_TestCase
         $GLOBALS['language'] = 'de_DE';
         $folder = new Horde_Kolab_Storage_Folder_Base(
             'INBOX/Contacts',
-            new Horde_Kolab_Storage_Namespace_Fixed()
+            new Horde_Kolab_Storage_Driver_Namespace_Fixed()
         );
         $this->assertEquals('INBOX/Contacts', $folder->name);
         $this->assertTrue(is_array($folder->_data));
@@ -84,7 +84,7 @@ class Horde_Kolab_Storage_FolderTest extends PHPUnit_Framework_TestCase
         $connection = $this->getMock('Horde_Kolab_Storage_Driver');
         $connection->expects($this->once())
             ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Namespace_Fixed()));
+            ->will($this->returnValue(new Horde_Kolab_Storage_Driver_Namespace_Fixed()));
         $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/Contacts');
         $folder->restore($storage, $connection);
         $folder->setName('TestAÖÜ');

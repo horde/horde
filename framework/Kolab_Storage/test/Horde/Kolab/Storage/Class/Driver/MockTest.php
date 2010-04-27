@@ -67,7 +67,7 @@ extends PHPUnit_Framework_TestCase
             array()
         );
         $this->assertType(
-            'Horde_Kolab_Storage_Namespace',
+            'Horde_Kolab_Storage_Driver_Namespace',
             $driver->getNamespace()
         );
     }

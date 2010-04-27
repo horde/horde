@@ -403,12 +403,12 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Retrieve the namespace information for this connection.
      *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
+     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
      */
     public function getNamespace()
     {
         if ($this->_imap->queryCapability('NAMESPACE') === true) {
-            return new Horde_Kolab_Storage_Namespace_Imap(
+            return new Horde_Kolab_Storage_Driver_Namespace_Imap(
                 $this->_imap->getNamespaces(),
                 $this->getParam('namespaces', array())
             );

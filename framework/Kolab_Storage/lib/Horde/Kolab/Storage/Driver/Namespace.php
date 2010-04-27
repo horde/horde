@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Kolab_Storage_Namespace:: class handles IMAP namespaces and allows
+ * The Horde_Kolab_Storage_Driver_Namespace:: class handles IMAP namespaces and allows
  * to derive folder information from folder names.
  *
  * PHP version 5
@@ -13,7 +13,7 @@
  */
 
 /**
- * The Horde_Kolab_Storage_Namespace:: class handles IMAP namespaces and allows
+ * The Horde_Kolab_Storage_Driver_Namespace:: class handles IMAP namespaces and allows
  * to derive folder information from folder names.
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Namespace
+abstract class Horde_Kolab_Storage_Driver_Namespace
 implements Iterator
 {
     /** The possible namespace types (RFC 2342 [5]) */
@@ -60,7 +60,7 @@ implements Iterator
      * The namespace that matches any folder name not matching to another
      * namespace.
      *
-     * @var Horde_Kolab_Storage_Namespace_Element
+     * @var Horde_Kolab_Storage_Driver_Namespace_Element
      */
     protected $_any;
 
@@ -68,7 +68,7 @@ implements Iterator
      * Indicates the personal namespace that the class will use to create new
      * folders.
      *
-     * @var Horde_Kolab_Storage_Namespace_Element
+     * @var Horde_Kolab_Storage_Driver_Namespace_Element
      */
     protected $_primaryPersonalNamespace;
 
@@ -107,7 +107,7 @@ implements Iterator
      *
      * @param string $name The name of the folder.
      *
-     * @return Horde_Kolab_Storage_Namespace_Element The corresponding namespace.
+     * @return Horde_Kolab_Storage_Driver_Namespace_Element The corresponding namespace.
      *
      * @throws Horde_Kolab_Storage_Exception If the namespace of the folder
      *                                       cannot be determined.

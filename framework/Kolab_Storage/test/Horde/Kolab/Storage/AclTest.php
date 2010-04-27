@@ -45,17 +45,17 @@ class Horde_Kolab_Storage_AclTest extends PHPUnit_Framework_TestCase
                     array(
                         array(
                             'name'      => 'INBOX/',
-                            'type'      =>  Horde_Kolab_Storage_Namespace::PERSONAL,
+                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
                             'delimiter' => '/',
                         ),
                         array(
                             'name'      => 'user/',
-                            'type'      =>  Horde_Kolab_Storage_Namespace::OTHER,
+                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::OTHER,
                             'delimiter' => '/',
                         ),
                         array(
                             'name'      => '',
-                            'type'      =>  Horde_Kolab_Storage_Namespace::SHARED,
+                            'type'      =>  Horde_Kolab_Storage_Driver_Namespace::SHARED,
                             'delimiter' => '/',
                         )
                     )

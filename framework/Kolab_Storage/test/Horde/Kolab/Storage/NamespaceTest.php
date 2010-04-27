@@ -266,43 +266,43 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
     private function _getNamespaces()
     {
         return array(
-            new Horde_Kolab_Storage_Namespace_Fixed(),
-            new Horde_Kolab_Storage_Namespace_Config(
+            new Horde_Kolab_Storage_Driver_Namespace_Fixed(),
+            new Horde_Kolab_Storage_Driver_Namespace_Config(
                 array(
                     array(
-                        'type' => Horde_Kolab_Storage_Namespace::PERSONAL,
+                        'type' => Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
                         'name' => 'INBOX/',
                         'delimiter' => '/',
                         'add' => true,
                     ),
                     array(
-                        'type' => Horde_Kolab_Storage_Namespace::OTHER,
+                        'type' => Horde_Kolab_Storage_Driver_Namespace::OTHER,
                         'name' => 'user/',
                         'delimiter' => '/',
                     ),
                     array(
-                        'type' => Horde_Kolab_Storage_Namespace::SHARED,
+                        'type' => Horde_Kolab_Storage_Driver_Namespace::SHARED,
                         'name' => '',
                         'delimiter' => '/',
                         'prefix' => 'shared.'
                     ),
                 )
             ),
-            new Horde_Kolab_Storage_Namespace_Imap(
+            new Horde_Kolab_Storage_Driver_Namespace_Imap(
                 array(
                     array(
                         'name'      => 'INBOX/',
-                        'type'      =>  Horde_Kolab_Storage_Namespace::PERSONAL,
+                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::PERSONAL,
                         'delimiter' => '/',
                     ),
                     array(
                         'name'      => 'user/',
-                        'type'      =>  Horde_Kolab_Storage_Namespace::OTHER,
+                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::OTHER,
                         'delimiter' => '/',
                     ),
                     array(
                         'name'      => '',
-                        'type'      =>  Horde_Kolab_Storage_Namespace::SHARED,
+                        'type'      =>  Horde_Kolab_Storage_Driver_Namespace::SHARED,
                         'delimiter' => '/',
                     ),
                 ),

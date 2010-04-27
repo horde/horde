@@ -258,7 +258,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     /**
      * Retrieve the namespace information for this connection.
      *
-     * @return Horde_Kolab_Storage_Namespace The initialized namespace handler.
+     * @return Horde_Kolab_Storage_Driver_Namespace The initialized namespace handler.
      */
     public function getNamespace()
     {
