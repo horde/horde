@@ -49,15 +49,19 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function calendar_listEvents($startstamp, $endstamp)
     {
-        $result = $this->_registry->calendar->listEvents(
-                $startstamp,   // Start
-                $endstamp,     // End
-                null,          // Calendar
-                false,         // Recurrence
-                false,         // Alarms only
-                false,         // Show remote
-                true,          // Hide exception events
-                false);        // Don't return multi-day events on *each* day
+        try {
+            $result = $this->_registry->calendar->listEvents(
+                    $startstamp,   // Start
+                    $endstamp,     // End
+                    null,          // Calendar
+                    false,         // Recurrence
+                    false,         // Alarms only
+                    false,         // Show remote
+                    true,          // Hide exception events
+                    false);        // Don't return multi-day events on *each* day
+        } catch (Exception $e) {
+            return array();
+        }
         return $result;
     }
 
@@ -72,7 +76,11 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      */
     public function calendar_listBy($action, $from_ts, $to_ts)
     {
-        return $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
+        try {
+            return $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
+        } catch (Exception $e) {
+            return array();
+        }
     }
 
     /**
