@@ -152,7 +152,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $changes = unserialize($results['sync_data']);
             $this->_changes = ($changes !== false) ? $changes : null;
             if ($this->_changes) {
-                $this->_logger->debug(sprintf('[%s] Found %n changes remaining from previous SYNC.', $this->_devId, count($this->_changes)));
+                $this->_logger->debug(sprintf('[%s] Found %d changes remaining from previous SYNC.', $this->_devId, count($this->_changes)));
             }
         }
     }
