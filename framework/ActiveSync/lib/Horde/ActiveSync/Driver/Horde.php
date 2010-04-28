@@ -120,7 +120,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     {
         $this->_logger->debug('Horde::getFolderList()');
         /* Make sure we have the APIs needed for each folder class */
-        $supported = $this->_connector->horde_listApis();
+        try {
+            $supported = $this->_connector->horde_listApis();
+        } catch (Exception $e) {
+            $this->_logger->err($e->getMessage());
+            return array();
+        }
         $folders = array();
 
         if (array_search('calendar', $supported)){
@@ -232,7 +237,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             break;
 
         case self::TASKS_FOLDER:
-            $tasks = $this->_connector->tasks_listTasks();
+            try {
+                $tasks = $this->_connector->tasks_listTasks();
+            } catch (Horde_Exception $e) {
+               $this->_logger->err($e->getMessage());
+               return array();
+            }
             foreach ($tasks as $task)
             {
                 $messages[] = $this->_smartStatMessage($folderid, $task, false);
@@ -266,7 +276,12 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 /* Can't use History if it's a first sync */
                 $startstamp = (int)$cutoffdate;
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
-                $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
+                try {
+                    $events = $this->_connector->calendar_listEvents($startstamp, $endstamp);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
                 foreach ($events as $day) {
                     foreach($day as $e) {
                         $adds[] = $e->uid;
@@ -274,31 +289,56 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 }
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->calendar_listBy('add', $from_ts, $to_ts);
-                $edits = $this->_connector->calendar_listBy('modify', $from_ts, $to_ts);
-                $deletes = $this->_connector->calendar_listBy('delete', $from_ts, $to_ts);
+                try {
+                    $adds = $this->_connector->calendar_listBy('add', $from_ts, $to_ts);
+                    $edits = $this->_connector->calendar_listBy('modify', $from_ts, $to_ts);
+                    $deletes = $this->_connector->calendar_listBy('delete', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
             }
             break;
         case self::CONTACTS_FOLDER:
             /* Can't use History for first sync */
             if ($from_ts == 0) {
-                $adds = $this->_connector->contacts_list();
+                try {
+                    $adds = $this->_connector->contacts_list();
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->contacts_listBy('add', $from_ts, $to_ts);
-                $edits = $this->_connector->contacts_listBy('modify', $from_ts, $to_ts);
-                $deletes = $this->_connector->contacts_listBy('delete', $from_ts, $to_ts);
+                try {
+                    $adds = $this->_connector->contacts_listBy('add', $from_ts, $to_ts);
+                    $edits = $this->_connector->contacts_listBy('modify', $from_ts, $to_ts);
+                    $deletes = $this->_connector->contacts_listBy('delete', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
             }
             break;
         case self::TASKS_FOLDER:
             /* Can't use History for first sync */
             if ($from_ts == 0) {
-                $adds = $this->_connector->tasks_listTasks();
+                try {
+                    $adds = $this->_connector->tasks_listTasks();
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
                 $edits = $deletes = array();
             } else {
-                $adds = $this->_connector->tasks_listBy('add', $from_ts, $to_ts);
-                $edits = $this->_connector->tasks_listBy('modify', $from_ts, $to_ts);
-                $deletes = $this->_connector->tasks_listBy('delete', $from_ts, $to_ts);
+                try {
+                    $adds = $this->_connector->tasks_listBy('add', $from_ts, $to_ts);
+                    $edits = $this->_connector->tasks_listBy('modify', $from_ts, $to_ts);
+                    $deletes = $this->_connector->tasks_listBy('delete', $from_ts, $to_ts);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    return array();
+                }
             }
             break;
         }
@@ -599,19 +639,24 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             $mod = $hint;
             $this->_modCache[$statKey] = $mod;
         } else {
-            switch ($folderid) {
-            case self::APPOINTMENTS_FOLDER:
-                $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
-                break;
-            case self::CONTACTS_FOLDER:
-                $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify');
-                break;
-            case self::TASKS_FOLDER:
-                $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
+            try {
+                switch ($folderid) {
+                case self::APPOINTMENTS_FOLDER:
+                    $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
+                    break;
+                case self::CONTACTS_FOLDER:
+                    $mod = $this->_connector->contacts_getActionTimestamp($id, 'modify');
+                    break;
+                case self::TASKS_FOLDER:
+                    $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
 
-                break;
-            default:
-                return false;
+                    break;
+                default:
+                    return false;
+                }
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                return array('id' => '', 'mod' => 0, 'flags' => 1);
             }
             $this->_modCache[$statKey] = $mod;
         }
