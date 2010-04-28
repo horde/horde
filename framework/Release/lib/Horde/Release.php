@@ -470,6 +470,18 @@ class Horde_Release
             if ($result) {
                 exit;
             }
+
+            print "Setting include path\n";
+            $filename = $directory . '/lib/core.php';
+            $newfilename = $filename . '.new';
+            $oldfp = fopen($filename, 'r');
+            $newfp = fopen($newfilename, 'w');
+            while ($line = fgets($oldfp)) {
+                fwrite($newfp, str_replace('// ini_set(\'include_path\'', 'ini_set(\'include_path\'', $line));
+            }
+            fclose($oldfp);
+            fclose($newfp);
+            system("mv -f $newfilename $filename");
         }
     }
 
