@@ -2418,6 +2418,10 @@ class Turba_Driver
             }
         }
 
+        if (empty($this->fileas)) {
+            $message->fileas = Turba::formatName($object);
+        }
+
         return $message;
     }
 
