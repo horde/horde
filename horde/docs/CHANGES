@@ -38,10 +38,17 @@ v4.0-cvs
 
 
 ----------
-v3.3.8-cvs
+v3.3.9-cvs
 ----------
 
 
+
+
+------
+v3.3.8
+------
+
+[jan] Fix framework include path.
 
 
 ------
