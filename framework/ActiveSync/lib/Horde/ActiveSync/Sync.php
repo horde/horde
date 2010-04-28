@@ -223,7 +223,7 @@ class Horde_ActiveSync_Sync
 
     public function getChangeCount()
     {
-        return $this->_stateMachine->getChangeCount();
+        return count($this->_changes);
     }
 
     /**
