@@ -234,34 +234,4 @@ class Horde_Injector implements Horde_Injector_Scope
 
         return $this->_instances[$interface];
     }
-
-    /**
-     */
-    public function getMethodDependencies(ReflectionMethod $method)
-    {
-        $dependencies = array();
-
-        try {
-            foreach ($method->getParameters() as $parameter) {
-                $dependencies[] = $this->_getParameterDependency($parameter);
-            }
-        } catch (Exception $e) {
-            throw new Horde_Injector_Exception("$method has unfulfilled dependencies ($parameter)", 0, $e);
-        }
-
-        return $dependencies;
-    }
-
-    /**
-     */
-    private function _getParameterDependency(ReflectionParameter $parameter)
-    {
-        if ($parameter->getClass()) {
-            return $this->getInstance($parameter->getClass()->getName());
-        } elseif ($parameter->isOptional()) {
-            return $parameter->getDefaultValue();
-        }
-
-        throw new Horde_Injector_Exception("Untyped parameter \$" . $parameter->getName() . "can't be fulfilled");
-    }
 }

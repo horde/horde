@@ -62,6 +62,7 @@
        <file name="Closure.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Implementation.php" role="php" />
+       <file name="ImplementationWithSetters.php" role="php" />
       </dir> <!-- /lib/Horde/Injector/Binder -->
       <file name="Binder.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -109,6 +110,7 @@
    <install as="Horde/Injector/Binder/Closure.php" name="lib/Horde/Injector/Binder/Closure.php" />
    <install as="Horde/Injector/Binder/Factory.php" name="lib/Horde/Injector/Binder/Factory.php" />
    <install as="Horde/Injector/Binder/Implementation.php" name="lib/Horde/Injector/Binder/Implementation.php" />
+   <install as="Horde/Injector/Binder/ImplementationWithSetters.php" name="lib/Horde/Injector/Binder/ImplementationWithSetters.php" />
    <install as="Horde/Injector/AllTests.php" name="test/Horde/Injector/AllTests.php" />
    <install as="Horde/Injector/BinderTest.php" name="test/Horde/Injector/BinderTest.php" />
    <install as="Horde/Injector/InjectorTest.php" name="test/Horde/Injector/InjectorTest.php" />

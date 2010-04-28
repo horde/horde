@@ -18,11 +18,11 @@ class Horde_Injector_TopLevel implements Horde_Injector_Scope
      * Get an Implementation Binder that maps the $interface to itself
      *
      * @param string $interface The interface to retrieve binding information for
-     * @return Horde_Injector_Binder_Implementation a new binding object that maps the interface to itself
+     * @return Horde_Injector_Binder_ImplementationWithSetters a new binding object that maps the interface to itself, with setter injection
      */
     public function getBinder($interface)
     {
-        return new Horde_Injector_Binder_Implementation($interface, $interface);
+        return new Horde_Injector_Binder_ImplementationWithSetters($interface, $interface);
     }
 
     /**
