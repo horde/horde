@@ -365,7 +365,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         foreach ($deletes as $deleted) {
             $changes[] = array(
                 'id' => $deleted,
-                'type' => 'deletion');
+                'type' => 'delete');
         }
 
         return $changes;
