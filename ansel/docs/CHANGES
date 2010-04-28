@@ -7,16 +7,25 @@ v2.0-git
 
 
 ----------
-v1.1.1-cvs
+v1.1.2-cvs
 ----------
 
-[mjr] Fix default value for image_faces value in the database schema (Bug #8925)
+
+
+
+------
+v1.1.1
+------
+
+[mjr] Fix default value for image_faces value in the database schema
+      (Bug #8925).
 [mjr] Fix sending ecards when SMTP auth is set, but no global username/password
-      exists in the configuration (Bug #8924 horde (at) albasoft (dot) com).
-[mjr] Fix escaping location query for Postgres (Bug #8919).
-[mjr] Properly url encode and escape html when processing tags.
+      exists in the configuration (horde@albasoft@com, Bug #8924).
+[mjr] Fix escaping location query for PostgreSQL (Bug #8919).
+[mjr] Properly url-encode and escape html when processing tags.
 [mjr] Protect against divide-by-zero errors (Bug #8761).
 [jan] Fix invalid class name in block for recently geotagged images.
+
 
 ----
 v1.1
@@ -96,7 +105,7 @@ v1.0-RC1
       captions to the ansel.php CLI (dorm@dorm.org, Request #3986).
 [cjh] Implement drag-and-drop sorting of images.
 [mas] Fix undefined index warning if no galleries are defined (Bug #2172).
-[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Swedish translation (Andreas DahlÃ©n <andreas@dahlen.ws>).
 [jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
 [cjh] Use new Horde_Menu CSS styled menu.

@@ -9,9 +9,17 @@ v3.0-git
 
 
 ----------
-v2.1.1-cvs
+v2.1.2-cvs
 ----------
 
+
+
+
+------
+v2.1.1
+------
+
+[jan] Fix method name when displaying patchsets (Bug #8714).
 [mms] Upgrade prototype.js to v1.6.1.
 
 
