@@ -56,13 +56,10 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
             $query = new Horde_Imap_Client_Search_Query();
             $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
             $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $mbox);
-            if (empty($msg_ids)) {
-                continue;
-            }
 
             /* Go through the message list and delete the messages. */
-            if ($imp_message->delete(array($mbox => $msg_ids), array('nuke' => true))) {
-                $msgcount = count($msg_ids);
+            if ($imp_message->delete($msg_ids, array('nuke' => true))) {
+                $msgcount = $msg_ids->count();
                 if ($msgcount == 1) {
                     $GLOBALS['notification']->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');
                 } else {

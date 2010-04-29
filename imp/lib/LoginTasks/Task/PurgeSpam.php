@@ -54,17 +54,15 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
         $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $spam_folder);
-        if (empty($msg_ids)) {
-            return false;
-        }
 
         /* Go through the message list and delete the messages. */
-        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete(array($spam_folder => $msg_ids), array('nuke' => true))) {
+        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
             $msgcount = count($msg_ids);
             $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Spam folder.", "Purging %d messages from Spam folder.", $msgcount), $msgcount), 'horde.message');
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

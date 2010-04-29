@@ -32,7 +32,7 @@ if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$ma
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, IMP::$thismailbox, IMP::$uid);
+$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex(false)) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -67,7 +67,7 @@ if ($readonly &&
 $index_array = $imp_mailbox->getIMAPIndex();
 $mailbox_name = $index_array['mailbox'];
 $uid = $index_array['uid'];
-$indices_array = array($mailbox_name => array($uid));
+$indices = new IMP_Indices($mailbox_name, $uid);
 
 $imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_hdr_ui = new IMP_Ui_Headers();
@@ -78,25 +78,25 @@ case 'blacklist':
 case 'whitelist':
     $imp_filter = new IMP_Filter();
     if ($vars->actionID == 'blacklist') {
-        $imp_filter->blacklistMessage($indices_array);
+        $imp_filter->blacklistMessage($indices);
     } else {
-        $imp_filter->whitelistMessage($indices_array);
+        $imp_filter->whitelistMessage($indices);
     }
     break;
 
 case 'delete_message':
 case 'undelete_message':
     if ($vars->actionID == 'undelete_message') {
-        $imp_message->undelete($indices_array);
+        $imp_message->undelete($indices);
     } else {
-        $imp_message->delete($indices_array);
+        $imp_message->delete($indices);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
             exit;
         }
         if ($imp_ui->moveAfterAction()) {
-            $imp_mailbox->setIndex(1, 'offset');
+            $imp_mailbox->setIndex(1);
         }
     }
     break;
@@ -110,7 +110,7 @@ case 'copy_message':
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices_array, $vars->newMbox);
+        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, $vars->newMbox);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -122,10 +122,10 @@ case 'copy_message':
 case 'spam_report':
 case 'notspam_report':
     $action = str_replace('_report', '', $vars->actionID);
-    switch (IMP_Spam::reportSpam($indices_array, $action)) {
+    switch (IMP_Spam::reportSpam($indices, $action)) {
     case 1:
         if ($imp_ui->moveAfterAction()) {
-            $imp_mailbox->setIndex(1, 'offset');
+            $imp_mailbox->setIndex(1);
         }
         break;
     }
@@ -137,10 +137,10 @@ case 'notspam_report':
     break;
 
 case 'flag_message':
-    if (isset($vars->flag) && !empty($indices_array)) {
+    if (isset($vars->flag) && $indices->count()) {
         $peek = true;
         $flag = $imp_flags->parseFormId($vars->flag);
-        $imp_message->flag(array($flag['flag']), $indices_array, $flag['set']);
+        $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -161,7 +161,7 @@ case 'add_address':
 case 'strip_all':
 case 'strip_attachment':
     try {
-        $imp_message->stripPart($indices_array, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
+        $imp_message->stripPart($indices, ($vars->actionID == 'strip_all') ? null : $vars->imapid);
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
@@ -189,7 +189,7 @@ $uid = $index_array['uid'];
 
 /* Parse the message. */
 try {
-    $imp_contents = $injector->getInstance('IMP_Contents')->getOb($mailbox_name, $uid);
+    $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
     $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');

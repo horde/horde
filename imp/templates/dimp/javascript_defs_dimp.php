@@ -49,7 +49,7 @@ $code['conf'] = array_filter(array(
     'URI_SEARCH' => (string) Horde::applicationUrl('search.php'),
     'URI_VIEW' => (string) Horde::applicationUrl('view.php'),
 
-    'IDX_SEP' => IMP::IDX_SEP,
+    'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables

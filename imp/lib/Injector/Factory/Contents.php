@@ -54,19 +54,20 @@ class IMP_Injector_Factory_Contents
     /**
      * Return the IMP_Contents:: instance.
      *
-     * @param string $mailbox  The mailbox name.
-     * @param integer $uid     The message UID.
+     * @param IMP_Indices $indices  An indices object.
      *
      * @return IMP_Contents  The singleton contents instance.
      * @throws IMP_Exception
      */
-    public function getOb($mailbox, $uid)
+    public function getOb($indices)
     {
-        $uid = $uid . IMP::IDX_SEP . $mailbox;
-        if (!isset($this->_instances[$uid])) {
-            $this->_instances[$uid] = new IMP_Contents($uid);
+        $key = strval($indices);
+
+        if (!isset($this->_instances[$key])) {
+            $this->_instances[$key] = new IMP_Contents($indices);
         }
-        return $this->_instances[$uid];
+
+        return $this->_instances[$key];
     }
 
 }

@@ -118,7 +118,7 @@ class IMP_Views_ShowMessage
 
         /* Parse MIME info and create the body of the message. */
         try {
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mailbox, $uid);
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mailbox, $uid));
         } catch (IMP_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';

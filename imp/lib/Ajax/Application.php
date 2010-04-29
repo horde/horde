@@ -526,8 +526,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function moveMessages()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (!$this->_vars->mboxto || empty($indices)) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (!$this->_vars->mboxto || !$indices->count()) {
             return false;
         }
 
@@ -580,8 +580,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function copyMessages()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (!$this->_vars->mboxto || empty($indices)) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (!$this->_vars->mboxto || !$indices->count()) {
             return false;
         }
 
@@ -615,8 +615,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function flagMessages()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (!$this->_vars->flags || empty($indices)) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (!$this->_vars->flags || !$indices->count()) {
             return false;
         }
 
@@ -676,8 +676,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function deleteMessages()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (empty($indices)) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (!$indices->count()) {
             return false;
         }
 
@@ -738,7 +738,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function reportSpam()
     {
         $change = $this->_changed(false);
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
+        $indices = new IMP_Indices($this->_vars->uid);
         $result = false;
 
         if (IMP_Spam::reportSpam($indices, $this->_vars->spam ? 'spam' : 'notspam')) {
@@ -770,8 +770,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function blacklist()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (empty($indices)) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if (!$indices->count()) {
             return false;
         }
 
@@ -820,30 +820,26 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function showPreview()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        if (count($indices) != 1) {
+        $indices = new IMP_Indices($this->_vars->uid);
+        list($mbox, $idx) = $indices->getSingle();
+        if (!$idx) {
             return false;
         }
 
-        $change = $this->_changed($indices);
+        $change = $this->_changed(false);
         if (is_null($change)) {
             return false;
         }
 
-        $ptr = each($indices);
         $args = array(
-            'mailbox' => $ptr['key'],
+            'mailbox' => $mbox,
             'preview' => true,
-            'uid' => intval(reset($ptr['value']))
+            'uid' => intval($idx)
         );
         $result = new stdClass;
         $result->preview = new stdClass;
 
         try {
-            /* We know we are going to be exclusively dealing with this
-             * mailbox, so select it on the IMAP server (saves some STATUS
-             * calls). Open R/W to clear the RECENT flag. */
-            $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
             $show_msg = new IMP_Views_ShowMessage();
             $result->preview = (object)$show_msg->showMessage($args);
             if (isset($result->preview->error)) {
@@ -1205,8 +1201,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function purgeDeleted()
     {
-        $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-        $change = $this->_changed($indices);
+        $indices = new IMP_Indices($this->_vars->uid);
+        $change = $this->_changed(true);
 
         if (is_null($change)) {
             return false;
@@ -1537,9 +1533,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Compose')->getOb($this->_vars->imp_compose);
         if (!($imp_contents = $imp_compose->getContentsOb())) {
-            $indices = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->fromSequenceString($this->_vars->uid);
-            $i = each($indices);
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($i['key'], reset($i['value']));
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($this->_vars->uid));
         }
 
         return array($imp_compose, $imp_contents);
@@ -1613,9 +1607,9 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *
      * See the list of variables needed for _viewPortData().
      *
-     * @param array $indices         The list of indices that were deleted.
-     * @param boolean $changed       If true, add ViewPort information.
-     * @param boolean $nothread      If true, don't do thread sort check.
+     * @param IMP_Indices $indices  An indices object.
+     * @param boolean $changed      If true, add ViewPort information.
+     * @param boolean $nothread     If true, don't do thread sort check.
      *
      * @return object  An object with the following entries:
      * <pre>
@@ -1629,11 +1623,12 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *          as the values.
      * </pre>
      */
-    protected function _generateDeleteResult($indices, $change, $nothread = false)
+    protected function _generateDeleteResult($indices, $change,
+                                             $nothread = false)
     {
         $del = new stdClass;
         $del->mbox = $this->_vars->view;
-        $del->uids = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getUtils()->toSequenceString($indices, array('mailbox' => true));
+        $del->uids = strval($indices);
         $del->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                               $GLOBALS['prefs']->getValue('use_trash'));
 

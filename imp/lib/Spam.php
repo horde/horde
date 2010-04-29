@@ -17,8 +17,8 @@ class IMP_Spam
      * Reports a list of messages as spam, based on the local configuration
      * parameters.
      *
-     * @param mixed $indices  See IMP::parseIndicesList().
-     * @param string $action  Either 'spam' or 'notspam'.
+     * @param IMP_Indices $indices  An indices object.
+     * @param string $action        Either 'spam' or 'notspam'.
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
@@ -30,15 +30,16 @@ class IMP_Spam
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
         if (empty($GLOBALS['conf'][$action]['reporting']) ||
-            !($msgList = IMP::parseIndicesList($indices))) {
+            !$indices->count()) {
             return 0;
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
         $report_count = 0;
 
-        foreach ($msgList as $mbox => $msgIndices) {
+        foreach ($indices->indices() as $mbox => $msgIndices) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->checkUidvalidity($mbox);
+                $imp_imap->checkUidvalidity($mbox);
             } catch (IMP_Exception $e) {
                 continue;
             }
@@ -47,7 +48,7 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
                 } catch (IMP_Exception $e) {
                     continue;
                 }

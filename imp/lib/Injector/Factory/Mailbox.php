@@ -54,23 +54,18 @@ class IMP_Injector_Factory_Mailbox
     /**
      * Return the IMP_Mailbox:: instance.
      *
-     * @param string $mailbox  The mailbox name.
-     * @param string $msgmbox  The mailbox name of the current index.
-     * @param integer $uid     The message UID of the current index.
+     * @param string $mailbox       The mailbox name.
+     * @param IMP_Indices $indices  An indices object.
      *
      * @return IMP_Mailbox  The singleton mailbox instance.
      * @throws IMP_Exception
      */
-    public function getOb($mailbox, $msgmbox = null, $uid = null)
+    public function getOb($mailbox, $indices = null)
     {
-        $uid = (is_null($msgmbox) || is_null($uid))
-            ? null
-            : $uid . IMP::IDX_SEP . $msgmbox;
-
         if (!isset($this->_instances[$mailbox])) {
-            $this->_instances[$mailbox] = new IMP_Mailbox($mailbox, $uid);
-        } elseif (!is_null($uid)) {
-            $this->_instances[$mailbox]->setIndex($uid);
+            $this->_instances[$mailbox] = new IMP_Mailbox($mailbox, $indices);
+        } elseif (!is_null($indices)) {
+            $this->_instances[$mailbox]->setIndex($indices);
         }
 
         return $this->_instances[$mailbox];

@@ -71,7 +71,7 @@ if (in_array($vars->type, array('reply', 'reply_all', 'reply_auto', 'reply_list'
     }
 
     try {
-        $imp_contents = $injector->getInstance('IMP_Contents')->getOb($vars->folder, $vars->uid);
+        $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($vars->folder, $vars->uid));
     } catch (Horde_Exception $e) {
         $notification->push(_("Requested message not found."), 'horde.error');
         $vars->uid = $vars->folder = null;
@@ -143,7 +143,7 @@ case 'forward_redirect':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft($vars->folder, $vars->uid);
+        $result = $imp_compose->resumeDraft(new IMP_Indices($vars->folder, $vars->uid));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;

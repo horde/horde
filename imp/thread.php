@@ -21,7 +21,7 @@ Horde_Nls::setTimeZone();
 $mode = Horde_Util::getFormData('mode', 'thread');
 
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
-$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, IMP::$thismailbox, IMP::$uid);
+$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 
 $error = false;
 if ($mode == 'thread') {
@@ -31,8 +31,8 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $msglist = $imp_imap->getUtils()->fromSequenceString(Horde_Util::getFormData('msglist'));
-    if (empty($msglist)) {
+    $imp_indices = new IMP_Indices(Horde_Util::getFormData('msglist'));
+    if (!$imp_indices->count()) {
         $error = true;
     }
 }
@@ -71,15 +71,13 @@ if ($mode == 'thread') {
 
     $imp_thread = new IMP_Imap_Thread($threadob);
     $threadtree = $imp_thread->getThreadImageTree($thread, false);
-    $loop_array = array(IMP::$mailbox => $thread);
-} else {
-    $loop_array = IMP::parseIndicesList($msglist);
+    $imp_indices = new IMP_Indices(IMP::$mailbox, $thread);
 }
 
 $charset = Horde_Nls::getCharset();
 $imp_ui = new IMP_Ui_Message();
 
-foreach ($loop_array as $mbox => $idxlist) {
+foreach ($imp_indices->indices() as $mbox => $idxlist) {
     $fetch_res = $imp_imap->fetch($mbox, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true
     ), array('ids' => $idxlist));
@@ -89,7 +87,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = $injector->getInstance('IMP_Contents')->getOb($mbox, $idx);
+        $contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
@@ -148,7 +146,7 @@ if ($mode == 'thread') {
         'mailbox_token' => Horde::getRequestToken('imp.mailbox')
     ));
     foreach ($thread as $val) {
-        $delete_link->add(array('indices[]' => $val . IMP::IDX_SEP . IMP::$mailbox, 'start' => $imp_mailbox->getArrayIndex($val)));
+        $delete_link->add(array('indices[]' => strval(new IMP_Indices(IMP::$mailbox, $val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
     $template->set('delete', Horde::link('#', _("Delete Thread"), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete all messages in this thread?")) . "')) { window.location = '" . $delete_link . "'; } return false;") . Horde::img('delete.png', _("Delete Thread")) . '</a>');
 }

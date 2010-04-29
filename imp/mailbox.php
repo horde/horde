@@ -49,6 +49,7 @@ try {
 /* Is this a search mailbox? */
 $imp_search = $injector->getInstance('IMP_Search');
 $search_mbox = $imp_search->isSearchMbox(IMP::$mailbox);
+$vars = Horde_Variables::getDefaultVariables();
 $vfolder = $imp_search->isVFolder();
 
 /* There is a chance that this page is loaded directly via message.php. If so,
@@ -57,26 +58,20 @@ $vfolder = $imp_search->isVFolder();
 $mailbox_url = Horde::applicationUrl('mailbox.php');
 $mailbox_imp_url = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox);
 if (!Horde_Util::nonInputVar('from_message_page')) {
-    $actionID = Horde_Util::getFormData('actionID');
-    $start = Horde_Util::getFormData('start');
-}
-
-/* Get form data and make sure it's the type that we're expecting. */
-$targetMbox = Horde_Util::getFormData('targetMbox');
-$newMbox = Horde_Util::getFormData('newMbox');
-if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
-    $indices = array($indices);
+    $actionID = $vars->actionID;
+    $start = $vars->start;
 }
 
 $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+$indices = new IMP_Indices($vars->indices);
 $open_compose_window = null;
 
 /* Run through the action handlers */
 if ($actionID && ($actionID != 'message_missing')) {
     try {
-        Horde::checkRequestToken('imp.mailbox', Horde_Util::getFormData('mailbox_token'));
+        Horde::checkRequestToken('imp.mailbox', $vars->mailbox_token);
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $actionID = null;
@@ -103,7 +98,7 @@ if ($readonly &&
 
 switch ($actionID) {
 case 'change_sort':
-    IMP::setSort(Horde_Util::getFormData('sortby'), Horde_Util::getFormData('sortdir'));
+    IMP::setSort($vars->sortby, $vars->sortdir);
     break;
 
 case 'blacklist':
@@ -129,31 +124,28 @@ case 'message_missing':
     break;
 
 case 'fwd_digest':
-    if (!empty($indices)) {
-        $options = array('fwddigest' => serialize($indices), 'actionID' => 'fwd_digest');
+    if ($indices->count()) {
+        $options = array('fwddigest' => strval($indices), 'actionID' => 'fwd_digest');
         $open_compose_window = IMP::openComposeWin($options);
     }
     break;
 
 case 'delete_messages':
-    if (!empty($indices)) {
-        $injector->getInstance('IMP_Message')->delete($indices);
-    }
+    $injector->getInstance('IMP_Message')->delete($indices);
     break;
 
 case 'undelete_messages':
-    if (!empty($indices)) {
-        $injector->getInstance('IMP_Message')->undelete($indices);
-    }
+    $injector->getInstance('IMP_Message')->undelete($indices);
     break;
 
 case 'move_messages':
 case 'copy_messages':
-    if (!empty($indices) && !empty($targetMbox)) {
-        if (!empty($newMbox) && ($newMbox == 1)) {
-            $targetMbox = IMP::folderPref($targetMbox, true);
+    if (isset($vars->targetMbox) && $indices->count()) {
+        if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
+            $targetMbox = IMP::folderPref($vars->targetMbox, true);
             $newMbox = true;
         } else {
+            $targetMbox = $vars->targetMbox;
             $newMbox = false;
         }
         $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, $newMbox);
@@ -162,7 +154,7 @@ case 'copy_messages':
 
 case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
-    if ($flag && !empty($indices)) {
+    if ($flag && $indices->count()) {
         $flag = $imp_flags->parseFormId($flag);
         $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $indices, $flag['set']);
     }
@@ -186,7 +178,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $redirect = IMP::generateIMPUrl('thread.php', IMP::$mailbox, null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => $imp_imap->getUtils()->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))));
+    $redirect = IMP::generateIMPUrl('thread.php', IMP::$mailbox, null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => strval($indices)));
     header('Location: ' . $redirect);
     exit;
 }
@@ -219,7 +211,7 @@ if ($conf['user']['allow_folders']) {
 
 /* Build the list of messages in the mailbox. */
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox);
-$pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('page'), $start);
+$pageOb = $imp_mailbox->buildMailboxPage($vars->page, $start);
 $show_preview = $prefs->getValue('preview_enabled');
 
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => true, 'structure' => $prefs->getValue('atc_flag')));
@@ -377,7 +369,7 @@ if (!empty($newmsgs)) {
      * the current mailbox. */
     $imp_imap->openMailbox(IMP::$mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
-    if (!Horde_Util::getFormData('no_newmail_popup')) {
+    if (!$vars->no_newmail_popup) {
         /* Newmail alerts. */
         IMP::newmailAlerts($newmsgs);
     }
@@ -581,7 +573,7 @@ $messages = $threadlevel = array();
 /* Get thread object, if necessary. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
     $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadImageTree(reset($mbox_info['uids']), $sortpref['dir']);
+    $threadtree = $imp_thread->getThreadImageTree(reset($mbox_info['uids']->indices()), $sortpref['dir']);
 }
 
 $mh_count = 0;
@@ -712,7 +704,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'preview' => '',
         'status' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
-        'uid' => $ob['uid'] . IMP::IDX_SEP . htmlspecialchars($ob['mailbox']),
+        'uid' => htmlspecialchars(new IMP_Indices($ob['mailbox'], $ob['uid']))
     );
 
     /* Since this value will be used for an ID element, it cannot contain

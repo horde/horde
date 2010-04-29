@@ -140,10 +140,10 @@ var DimpCore = {
         if (b.getMetaData('search')) {
             s.get('uid').each(function(r) {
                 var parts = r.split(DIMP.conf.IDX_SEP);
-                if (tmp[parts[1]]) {
-                    tmp[parts[1]].push(parts[0]);
+                if (tmp[parts[0]]) {
+                    tmp[parts[0]].push(parts[1]);
                 } else {
-                    tmp[parts[1]] = [ parts[0] ];
+                    tmp[parts[0]] = [ parts[1] ];
                 }
             });
         } else {

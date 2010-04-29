@@ -180,21 +180,18 @@ class IMP_Ui_Compose
     }
 
     /**
-     * Get the IMP_Contents:: object for a Mailbox -> UID combo.
+     * Get the IMP_Contents:: object for a Mailbox/UID.
      *
-     * @param integer $uid     Message UID.
-     * @param string $mailbox  Message mailbox.
+     * @param IMP_Indices $indices  An indices object.
      *
      * @return boolean|IMP_Contents  The contents object, or false on error.
      */
-    public function getIMPContents($uid, $mailbox)
+    public function getIMPContents($indices)
     {
-        if (!empty($uid)) {
-            try {
-                return $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mailbox, $uid);
-            } catch (IMP_Exception $e) {
-                $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
-            }
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
+        } catch (IMP_Exception $e) {
+            $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
         }
 
         return false;

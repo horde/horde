@@ -25,7 +25,7 @@ Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, IMP::$thismailbox, IMP::$uid);
+$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('a', 'm'));
     exit;
@@ -33,7 +33,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 
 $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 
-$imp_mimp = $injector->getInstance('IMP_Ui_Mimp');
+$imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 
@@ -49,18 +49,18 @@ case 'u':
     }
     $index_ob = $imp_mailbox->getIMAPIndex();
     $msg_index = $imp_mailbox->getMessageIndex();
-    $index_array = array($index_ob['mailbox'] => array($index_ob['uid']));
+    $imp_indices = new IMP_Indices($index_ob['mailbox'], $index_ob['uid']);
     $imp_message = $injector->getInstance('IMP_Message');
 
     if ($vars->a == 'd') {
         try {
             Horde::checkRequestToken('imp.message-mimp', $vars->mt);
-            $msg_delete = (bool)$imp_message->delete($index_array);
+            $msg_delete = (bool)$imp_message->delete($imp_indices);
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
     } else {
-        $imp_message->undelete($index_array);
+        $imp_message->undelete($imp_indices);
     }
     break;
 
@@ -71,7 +71,7 @@ case 'ri':
     $index_ob = $imp_mailbox->getIMAPIndex();
     $msg_index = $imp_mailbox->getMessageIndex();
 
-    $msg_delete = (IMP_Spam::reportSpam(array($index_ob['mailbox'] => array($index_ob['uid'])), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
+    $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($index_ob['mailbox'], $index_ob['uid']), $vars->a == 'rs' ? 'spam' : 'innocent') === 1);
     break;
 
 // 'pa' = part action
@@ -79,7 +79,7 @@ case 'ri':
 }
 
 if ($imp_ui->moveAfterAction()) {
-    $imp_mailbox->setIndex(1, 'offset');
+    $imp_mailbox->setIndex(1);
 }
 
 /* We may have done processing that has taken us past the end of the
@@ -120,7 +120,7 @@ $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
 try {
-    $imp_contents = $injector->getInstance('IMP_Contents')->getOb($mailbox_name, $uid);
+    $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->setRaw(true)->add('a', 'm'));
     exit;
@@ -308,7 +308,7 @@ if ($conf['notspam']['reporting'] &&
     $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp'))));
 }
 
-$t->set('menu', $imp_mimp->getMenu('message', $menu));
+$t->set('menu', $imp_ui_mimp->getMenu('message', $menu));
 
 $hdrs = array();
 foreach ($display_headers as $head => $val) {

@@ -246,14 +246,14 @@ class IMP_Search
      * @param string $id  The search query id to use (by default, will use the
      *                    current ID set in the object).
      *
-     * @return array  The sorted list.
+     * @return IMP_Indices  An indices object.
      * @throws Horde_Imap_Client_Exception
      */
     public function runSearch($ob, $id = null)
     {
         $id = $this->_strip($id);
         $mbox = '';
-        $sorted = array();
+        $sorted = new IMP_Indices();
 
         if (empty($_SESSION['imp']['search'][$id])) {
             return $sorted;
@@ -274,9 +274,7 @@ class IMP_Search
 
         foreach ($search['f'] as $val) {
             $results = $this->imapSearch($val, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
-            foreach ($results['sort'] as $val2) {
-                $sorted[] = $val2 . IMP::IDX_SEP . $val;
-            }
+            $sorted->add($val, $results['sort']);
         }
 
         return $sorted;
@@ -293,16 +291,16 @@ class IMP_Search
      * @param integer $sortby   The sort criteria.
      * @param integer $sortdir  The sort directory.
      *
-     * @return array  The sorted list.
+     * @return IMP_Indices  An indices object.
      */
     public function runSearchQuery($query, $mailbox, $sortby = null,
                                    $sortdir = null)
     {
         try {
             $results = $this->imapSearch($mailbox, $query, array('reverse' => $sortdir, 'sort' => array($sortby)));
-            return $results['sort'];
+            return new IMP_Indices($mailbox, $results['sort']);
         } catch (Horde_Imap_Client_Exception $e) {
-            return array();
+            return new IMP_Indices();
         }
     }
 

@@ -75,8 +75,6 @@ if ($vars->actionID) {
 
 $save_sent_mail = $vars->save_sent_mail;
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
-$thismailbox = $vars->thismailbox;
-$uid = $vars->uid;
 
 /* Check for duplicate submits. */
 if ($vars->compose_formToken) {
@@ -206,7 +204,7 @@ if ($_SESSION['imp']['file_upload']) {
 $title = _("New Message");
 switch ($vars->actionID) {
 case 'mailto':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
     $imp_headers = $imp_contents->getHeaderOb();
@@ -234,7 +232,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft($thismailbox, $uid);
+        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
@@ -257,7 +255,7 @@ case 'reply':
 case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
 
@@ -293,7 +291,7 @@ case 'forward_attach':
 case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
 
@@ -307,7 +305,7 @@ case 'forward_both':
     break;
 
 case 'redirect_compose':
-    if (!($imp_contents = $imp_ui->getIMPContents($uid, $thismailbox))) {
+    if (!($imp_contents = $imp_ui->getIMPContents(new IMP_Indices(IMP::$thismailbox, IMP::$uid)))) {
         break;
     }
     $imp_compose->redirectMessage($imp_contents);
@@ -470,12 +468,9 @@ case 'send_message':
     exit;
 
 case 'fwd_digest':
-    $indices = $vars->fwddigest;
-    if (!empty($indices)) {
-        $msglist = unserialize(urldecode($indices));
-        if (($subject_header = $imp_compose->attachIMAPMessage($msglist)) !== false) {
-            $header['subject'] = $subject_header;
-        }
+    if (isset($vars->fwddigest) &&
+        (($subject_header = $imp_compose->attachIMAPMessage(new IMP_Indices($vars->fwddigest))) !== false)) {
+        $header['subject'] = $subject_header;
     }
     break;
 

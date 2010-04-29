@@ -123,7 +123,7 @@ class IMP_Ui_Message
             $success = true;
 
             if ($mdn_flag) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array('$MDNSent'), $uid . IMP::IDX_SEP . $mailbox, true);
+                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array('$MDNSent'), new IMP_Indices($mailbox, $uid), true);
             }
         } catch (Exception $e) {
             $success = false;

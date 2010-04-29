@@ -120,7 +120,7 @@ class IMP_Compose
      */
     public function destroy($action)
     {
-        $uids = array();
+        $uids = new IMP_Indices();
 
         switch ($action) {
         case 'save_draft':
@@ -129,19 +129,16 @@ class IMP_Compose
 
         case 'send':
             /* Delete the auto-draft and the original resumed draft. */
-            $uids[] = $this->getMetadata('draft_uid_resume');
+            $uids->add($this->getMetadata('draft_uid_resume'));
             // Fall-through
 
         case 'cancel':
             /* Delete the auto-draft, but save the original resume draft. */
-            $uids[] = $this->getMetadata('draft_uid');
-            $uids = array_filter($uids);
+            $uids->add($this->getMetadata('draft_uid'));
             break;
         }
 
-        if (!empty($uids)) {
-            $GLOBALS['injector']->getInstance('IMP_Message')->delete($uids, array('nuke' => true));
-        }
+        $GLOBALS['injector']->getInstance('IMP_Message')->delete($uids, array('nuke' => true));
 
         $this->deleteAllAttachments();
         $obs = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
@@ -308,10 +305,10 @@ class IMP_Compose
             $ids = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($old_uid), array('nuke' => true));
+                $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
             }
 
-            $this->_metadata['draft_uid'] = reset($ids) . IMP::IDX_SEP . $drafts_mbox;
+            $this->_metadata['draft_uid'] = new IMP_Indices($drafts_mbox, reset($ids));
             $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -322,8 +319,7 @@ class IMP_Compose
     /**
      * Resumes a previously saved draft message.
      *
-     * @param string $mailbox  Draft mailbox.
-     * @param integer $uid     Message UID.
+     * @param IMP_Indices $indices  An indices object.
      *
      * @return mixed  An array with the following keys:
      * <pre>
@@ -334,10 +330,10 @@ class IMP_Compose
      * </pre>
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($mailbox, $uid)
+    public function resumeDraft($indices)
     {
         try {
-            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mailbox, $uid);
+            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($indices);
         } catch (IMP_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -403,7 +399,7 @@ class IMP_Compose
                     // even though the server is the same. UIDVALIDITY should
                     // catch any true server/backend changes.
                     ($imp_imap->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
-                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($imap_url['mailbox'], $imap_url['uid'])) {
+                    $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
                     $this->_metadata['uid'] = $imap_url['uid'];
@@ -411,7 +407,7 @@ class IMP_Compose
             } catch (Exception $e) {}
         }
 
-        $this->_metadata['draft_uid_resume'] = $uid . IMP::IDX_SEP . $mailbox;
+        $this->_metadata['draft_uid_resume'] = $indices;
         $this->_modified = true;
 
         return array(
@@ -589,7 +585,7 @@ class IMP_Compose
             }
 
             $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
-            $reply_uid = array($this->getMetadata('uid') . IMP::IDX_SEP . $this->getMetadata('mailbox'));
+            $reply_uid = new IMP_Indices($this);
 
             switch ($this->getMetadata('reply_type')) {
             case 'forward':
@@ -1560,7 +1556,7 @@ class IMP_Compose
 
         if ($attach &&
             in_array($type, array('forward_attach', 'forward_both'))) {
-            $this->attachIMAPMessage(array($contents->getUid() . IMP::IDX_SEP . $contents->getMailbox()));
+            $this->attachIMAPMessage(new IMP_Indices($contents));
         }
 
         return array(
@@ -1656,38 +1652,36 @@ class IMP_Compose
     }
 
     /**
-     * Add mail message(s) from the mail server as a message/rfc822 attachment.
+     * Add mail message(s) from the mail server as a message/rfc822
+     * attachment.
      *
-     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param IMP_Indices $indices  An indices object.
      *
      * @return mixed  String or false.
      */
     public function attachIMAPMessage($indices)
     {
-        $msgList = IMP::parseIndicesList($indices);
-        if (empty($msgList)) {
+        if (!$indices->count()) {
             return false;
         }
 
         $attached = 0;
-        foreach ($msgList as $mbox => $indicesList) {
-            foreach ($indicesList as $idx) {
-                ++$attached;
-                $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
-                $headerob = $contents->getHeaderOb();
+        foreach ($indices as $mbox => $idx) {
+            ++$attached;
+             $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
+             $headerob = $contents->getHeaderOb();
 
-                $part = new Horde_Mime_Part();
-                $part->setCharset(Horde_Nls::getCharset());
-                $part->setType('message/rfc822');
-                $part->setName(_("Forwarded Message"));
-                $part->setContents($contents->fullMessageText(array('stream' => true)));
+             $part = new Horde_Mime_Part();
+             $part->setCharset(Horde_Nls::getCharset());
+             $part->setType('message/rfc822');
+             $part->setName(_("Forwarded Message"));
+             $part->setContents($contents->fullMessageText(array('stream' => true)));
 
-                try {
-                    $this->addMIMEPartAttachment($part);
-                } catch (IMP_Compose_Exception $e) {
-                    $GLOBALS['notification']->push($e);
-                    return false;
-                }
+             try {
+                 $this->addMIMEPartAttachment($part);
+             } catch (IMP_Compose_Exception $e) {
+                 $GLOBALS['notification']->push($e);
+                 return false;
             }
         }
 
@@ -2684,7 +2678,7 @@ class IMP_Compose
     public function getContentsOb()
     {
         return $this->getMetadata('reply_type')
-            ? $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($this->getMetadata('mailbox'), $this->getMetadata('uid'))
+            ? $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
     }
 

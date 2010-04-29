@@ -66,15 +66,15 @@ class IMP_Mailbox
     /**
      * Constructor.
      *
-     * @param string $mailbox  The mailbox to work with.
-     * @param string $uid      UID string (UID . IMP::IDX_SEP . Mailbox).
+     * @param string $mailbox       The mailbox to work with.
+     * @param IMP_Indices $indices  An indices object.
      */
-    public function __construct($mailbox, $uid = null)
+    public function __construct($mailbox, $indices = null)
     {
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox);
 
-        if (is_null($uid)) {
+        if (is_null($indices)) {
             unset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
         } else {
             /* Try to rebuild sorted information from the session cache. */
@@ -83,7 +83,7 @@ class IMP_Mailbox
                 $this->_sorted = $this->_searchmbox ? $tmp->s : $tmp;
                 $this->_sortedMbox = $this->_searchmbox ? $tmp->m : array();
             }
-            $this->setIndex($uid);
+            $this->setIndex($indices);
         }
 
         register_shutdown_function(array($this, 'shutdown'));
@@ -163,8 +163,7 @@ class IMP_Mailbox
      *                           Horde_Imap_Client::fetch() for format.
      *              'uid' - (string) The unique ID of the message.
      *
-     * 'uids' - (array) The array of UIDs. It is in the same format as used
-     *          for IMP::parseIndicesList().
+     * 'uids' - (IMP_Indices) An indices object.
      * </pre>
      */
     public function getMailboxArray($msgnum, $options = array())
@@ -238,7 +237,7 @@ class IMP_Mailbox
                           !in_array('\\seen', $v['flags'])))) {
                         if (empty($preview_info[$k])) {
                             try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $k);
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $k));
                                 $prev = $imp_contents->generatePreview();
                                 $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
                                 if (!is_null($cache)) {
@@ -265,7 +264,10 @@ class IMP_Mailbox
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
-        return array('overview' => $overview, 'uids' => $uids);
+        return array(
+            'overview' => $overview,
+            'uids' => new IMP_Indices($uids)
+        );
     }
 
     /**
@@ -298,8 +300,7 @@ class IMP_Mailbox
             }
 
             try {
-                foreach ($GLOBALS['injector']->getInstance('IMP_Search')->runSearch($query, $this->_mailbox) as $val) {
-                    list($idx, $mbox) = explode(IMP::IDX_SEP, $val);
+                foreach ($GLOBALS['injector']->getInstance('IMP_Search')->runSearch($query, $this->_mailbox) as $mbox => $idx) {
                     $this->_sorted[] = $idx;
                     $this->_sortedMbox[] = $mbox;
                 }
@@ -441,7 +442,7 @@ class IMP_Mailbox
     {
         if ($rebuild) {
             $this->_rebuild();
-            $this->setIndex(0, 'offset');
+            $this->setIndex(0);
         }
         return !is_null($this->_arrayIndex);
     }
@@ -611,33 +612,25 @@ class IMP_Mailbox
     /**
      * Updates the message array index.
      *
-     * @param mixed $data   If $type is 'offset', the number of messages to
-     *                      increase array index by.  If type is 'uid', sets
-     *                      array index to the value of the given message
-     *                      UID string (UID . IMP::IDX_SEP . Mailbox).
-     * @param string $type  Either 'offset' or 'uid'.
+     * @param mixed $data  If an integer, the number of messages to increase
+     *                     array index by. If an indices object, sets array
+     *                     index to the index value.
      */
-    public function setIndex($data, $type = 'uid')
+    public function setIndex($data)
     {
-        switch ($type) {
-        case 'offset':
-            if (!is_null($this->_arrayIndex)) {
-                $this->_arrayIndex += $data;
-                if (empty($this->_sorted[$this->_arrayIndex])) {
-                    $this->_arrayIndex = null;
-                }
-                $this->_rebuild();
-            }
-            break;
-
-        case 'uid':
-            list($uid, $mailbox) = explode(IMP::IDX_SEP, $data);
+        if ($data instanceof IMP_Indices) {
+            list($mailbox, $uid) = $data->getSingle();
             $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
             if (empty($this->_arrayIndex)) {
                 $this->_rebuild(true);
                 $this->_arrayIndex = $this->getArrayIndex($uid, $mailbox);
             }
-            break;
+        } elseif (!is_null($this->_arrayIndex)) {
+            $this->_arrayIndex += $data;
+            if (empty($this->_sorted[$this->_arrayIndex])) {
+                $this->_arrayIndex = null;
+            }
+            $this->_rebuild();
         }
     }
 
@@ -739,18 +732,17 @@ class IMP_Mailbox
     /**
      * Returns the current sorted array without the given messages.
      *
-     * @param mixed $msgs  The list of indices to remove (see
-     *                     IMP::parseIndicesList()) or true to remove all
-     *                     messages in the mailbox.
+     * @param mixed $indices  An IMP_Indices object or true to remove all
+     *                        messages in the mailbox.
      */
-    public function removeMsgs($msgs)
+    public function removeMsgs($indices)
     {
-        if ($msgs === true) {
+        if ($indices === true) {
             $this->_rebuild(true);
             return;
         }
 
-        if (empty($msgs)) {
+        if (!$indices->count()) {
             return;
         }
 
@@ -758,15 +750,13 @@ class IMP_Mailbox
         $sortcount = count($this->_sorted);
 
         /* Remove the current entry and recalculate the range. */
-        foreach (IMP::parseIndicesList($msgs) as $key => $val) {
-            foreach ($val as $uid) {
-                $val = $this->getArrayIndex($uid, $key);
-                unset($this->_sorted[$val]);
-                if ($this->_searchmbox) {
-                    unset($this->_sortedMbox[$val]);
-                }
-                ++$msgcount;
+        foreach ($indices as $mbox => $uid) {
+            $val = $this->getArrayIndex($uid, $mbox);
+            unset($this->_sorted[$val]);
+            if ($this->_searchmbox) {
+                unset($this->_sortedMbox[$val]);
             }
+            ++$msgcount;
         }
 
         $this->_sorted = array_values($this->_sorted);
@@ -779,7 +769,7 @@ class IMP_Mailbox
 
         /* Update the current array index to its new position in the message
          * array. */
-        $this->setIndex(0, 'offset');
+        $this->setIndex(0);
     }
 
     /**

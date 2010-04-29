@@ -31,9 +31,6 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* IMP internal string used to separate indexes. */
-    const IDX_SEP = '\0';
-
     /* Preferences constants. */
     const PREF_NO_FOLDER = 'nofolder\0';
     const PREF_VTRASH = 'vtrash\0';
@@ -692,60 +689,6 @@ class IMP
         }
 
         return $ret;
-    }
-
-    /**
-     * Get message indices list.
-     *
-     * @param array $indices  The following inputs are allowed:
-     * <pre>
-     * 1. An array of messages indices in the following format:
-     *    msg_id IMP::IDX_SEP msg_mbox
-     *      msg_id      = Message index of the message
-     *      IMP::IDX_SEP = IMP constant used to separate index/mailbox
-     *      msg_folder  = The full mailbox name containing the message index
-     * 2. An array with the full folder name as keys and an array of message
-     *    indices as the values.
-     * </pre>
-     *
-     * @return mixed  Returns an array with the folder as key and an array
-     *                of message indices as the value (See #2 above).
-     *                Else, returns false.
-     */
-    static public function parseIndicesList($indices)
-    {
-        if (!is_array($indices) || empty($indices)) {
-            return array();
-        }
-
-        $msgList = array();
-
-        reset($indices);
-        if (!is_array(current($indices))) {
-            /* Build the list of indices/mailboxes if input is format #1. */
-            while (list(,$msgIndex) = each($indices)) {
-                if (strpos($msgIndex, self::IDX_SEP) === false) {
-                    return false;
-                } else {
-                    list($val, $key) = explode(self::IDX_SEP, $msgIndex);
-                    $msgList[$key][] = $val;
-                }
-            }
-        } else {
-            /* We are dealing with format #2. */
-            while (list($key, $val) = each($indices)) {
-                if ($GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($key)) {
-                    $msgList += self::parseIndicesList($val);
-                } else {
-                    /* Make sure we don't have any duplicate keys. */
-                    $msgList[$key] = is_array($val)
-                        ? array_keys(array_flip($val))
-                        : array($val);
-                }
-            }
-        }
-
-        return $msgList;
     }
 
     /**

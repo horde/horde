@@ -23,19 +23,22 @@ class IMP_Block_Newmail extends Horde_Block
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);
         $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
+        $indices = reset($ids);
 
         $html = '<table cellspacing="0" width="100%">';
-        if (empty($ids)) {
+        if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
             $charset = Horde_Nls::getCharset();
             $imp_ui = new IMP_Ui_Mailbox('INBOX');
-            $shown = empty($this->_params['msgs_shown']) ? 3 : $this->_params['msgs_shown'];
+            $shown = empty($this->_params['msgs_shown'])
+                ? 3
+                : $this->_params['msgs_shown'];
 
             try {
                 $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->fetch('INBOX', array(
                     Horde_Imap_Client::FETCH_ENVELOPE => true
-                ), array('ids' => array_slice($ids, 0, $shown)));
+                ), array('ids' => array_slice($indices, 0, $shown)));
                 reset($fetch_ret);
             } catch (Horde_Imap_Client_Exception $e) {
                 $fetch_ret = array();
@@ -52,7 +55,7 @@ class IMP_Block_Newmail extends Horde_Block
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 
-            $more_msgs = count($ids) - $shown;
+            $more_msgs = count($indices) - $shown;
             $text = ($more_msgs > 0)
                 ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
                 : _("Go to your Inbox...");

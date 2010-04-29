@@ -54,12 +54,12 @@ case 'u':
     if ($vars->checkbox == 'd') {
         try {
             Horde::checkRequestToken('imp.message-mimp', $vars->mt);
-            $imp_message->delete($vars->indices);
+            $imp_message->delete(new IMP_Indices($vars->indices));
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
     } else {
-        $imp_message->undelete($vars->indices);
+        $imp_message->undelete(new IMP_Indices($vars->indices));
     }
     break;
 
@@ -67,7 +67,7 @@ case 'u':
 // 'ri' = report innocent
 case 'rs':
 case 'ri':
-    IMP_Spam::reportSpam($vars->indices, $vars->a == 'rs' ? 'spam' : 'innocent');
+    IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->a == 'rs' ? 'spam' : 'innocent');
     break;
 }
 
@@ -155,7 +155,7 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 /* Get thread information. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
     $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
-    $threadtree = $imp_thread->getThreadTextTree(reset($mbox_info['uids']), $sortpref['dir']);
+    $threadtree = $imp_thread->getThreadTextTree(reset($mbox_info['uids']->indices()), $sortpref['dir']);
 } else {
     $imp_thread = null;
     $threadtree = array();
@@ -166,7 +166,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg = array(
         'status' => '',
         'subject' => trim($imp_ui->getSubject($ob['envelope']['subject'])),
-        'uid' => $ob['uid'] . IMP::IDX_SEP . $ob['mailbox']
+        'uid' => strval(new IMP_Indices($ob['mailbox'], $ob['uid']))
     );
 
     /* Format the from header. */

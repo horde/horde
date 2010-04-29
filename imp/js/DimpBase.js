@@ -2236,7 +2236,7 @@ var DimpBase = {
         if (vs.getBuffer().getMetaData('search')) {
             $H(r.uids).each(function(pair) {
                 pair.value.each(function(v) {
-                    uids.push(v + DIMP.conf.IDX_SEP + pair.key);
+                    uids.push(pair.key + DIMP.conf.IDX_SEP + v);
                 });
             });
 

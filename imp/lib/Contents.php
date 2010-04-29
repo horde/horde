@@ -81,8 +81,8 @@ class IMP_Contents
     /**
      * Constructor.
      *
-     * @param mixed $in  Either a UID string (UID . IMP::IDX_SEP . Mailbox) or
-     *                   a Horde_Mime_Part object.
+     * @param mixed $in  An IMP_Indices or Horde_Mime_Part object.
+     *
      * @throws IMP_Exception
      */
     public function __construct($in)
@@ -90,7 +90,7 @@ class IMP_Contents
         if ($in instanceof Horde_Mime_Part) {
             $this->_message = $in;
         } else {
-            list($this->_uid, $this->_mailbox) = explode(IMP::IDX_SEP, $in);
+            list($this->_mailbox, $this->_uid) = $in->getSingle();
 
             /* Get the Horde_Mime_Part object for the given UID. */
             try {

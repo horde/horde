@@ -331,10 +331,10 @@ class IMP_Views_ListMessages
         $ret = array();
 
         for ($i = $start; $i <= $end; ++$i) {
-            $uid = $sorted_list['s'][$i] .
-                (isset($sorted_list['m'][$i])
-                    ? IMP::IDX_SEP . $sorted_list['m'][$i]
-                    : '');
+            $uid = $sorted_list['s'][$i];
+            if (isset($sorted_list['m'][$i])) {
+                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
+            }
             if ($uid) {
                 $ret[$uid] = $i;
             }
@@ -427,10 +427,10 @@ class IMP_Views_ListMessages
                 $msg['listmsg'] = 1;
             }
 
-            /* Need both UID and mailbox to create a unique ID string if
+            /* Need both mailbox and UID to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[$ob['uid'] . IMP::IDX_SEP . $ob['mailbox']] = $msg;
+                $msgs[$ob['mailbox'] . IMP_Dimp::IDX_SEP . $ob['uid']] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }

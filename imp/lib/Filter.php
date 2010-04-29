@@ -49,9 +49,9 @@ class IMP_Filter
      * Adds the From address from the message(s) to the blacklist and deletes
      * the message(s).
      *
-     * @param array $indices      See IMP::parseIndicesList().
-     * @param boolean $show_link  Show link to the blacklist management in the
-     *                            notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param boolean $show_link    Show link to the blacklist management in
+     *                              the notification message?
      *
      * @return boolean  True if the messages(s) were deleted.
      * @throws Horde_Exception
@@ -75,9 +75,9 @@ class IMP_Filter
     /**
      * Adds the From address from the message(s) to the whitelist.
      *
-     * @param array $indices      See IMP::parseIndicesList().
-     * @param boolean $show_link  Show link to the whitelist management in the
-     *                            notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param boolean $show_link    Show link to the whitelist management in
+     *                              the notification message?
      *
      * @return boolean  True if the messages(s) were whitelisted.
      * @throws Horde_Exception
@@ -90,36 +90,36 @@ class IMP_Filter
     /**
      * Internal function to handle adding addresses to [black|white]list.
      *
-     * @param array $indices   See IMP::parseIndicesList().
-     * @param string $descrip  The textual description to use.
-     * @param string $reg1     The name of the mail/ registry call to use for
-     *                         adding the addresses.
-     * @param string $reg2     The name of the mail/ registry call to use for
-     *                         linking to the filter management page.
-     * @param boolean $link    Show link to the whitelist management in the
-     *                         notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param string $descrip       The textual description to use.
+     * @param string $reg1          The name of the mail/ registry call to use
+     *                              for adding the addresses.
+     * @param string $reg2          The name of the mail/ registry call to use
+     *                              for linking to the filter management page.
+     * @param boolean $link         Show link to the whitelist management in
+     *                              the notification message?
      *
      * @return boolean  True on success.
      * @throws IMP_Exception
      */
     protected function _processBWlist($indices, $descrip, $reg1, $reg2, $link)
     {
-        if (!($msgList = IMP::parseIndicesList($indices))) {
+        if (!$indices->count()) {
             return false;
         }
 
         $addr = array();
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
-        /* Get the list of from addresses. */
-        foreach ($msgList as $mbox => $msgIndices) {
+        foreach (array_keys($indices) as $mbox) {
             $imp_imap->checkUidvalidity($mbox);
+        }
 
-            foreach ($msgIndices as $idx) {
-                $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb($mbox, $idx);
-                $hdr = $contents->getHeaderOb();
-                $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
-            }
+        /* Get the list of from addresses. */
+        foreach ($indices as $mbox => $idx) {
+            $contents = $GLOBALS['injector']->getInstance('IMP_Contents')->getOb(new IMP_Indices($mbox, $idx));
+            $hdr = $contents->getHeaderOb();
+            $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
         }
 
         $GLOBALS['registry']->call('mail/' . $reg1, array($addr));
@@ -132,4 +132,5 @@ class IMP_Filter
 
         return true;
     }
+
 }
