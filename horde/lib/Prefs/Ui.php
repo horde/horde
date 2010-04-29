@@ -136,6 +136,9 @@ class Horde_Prefs_Ui
 
         case 'syncmlmanagement':
             return $this->_syncmlManagement($ui);
+
+        case 'activesyncmanagement':
+            return $this->_activesyncManagement($ui);
         }
 
         return '';
@@ -161,6 +164,10 @@ class Horde_Prefs_Ui
 
         case 'syncmlmanagement':
             $this->_updateSyncmlManagement($ui);
+            break;
+
+        case 'activesyncmanagement':
+            $this->_updateActiveSyncManagement($ui);
             break;
         }
 
@@ -373,9 +380,55 @@ class Horde_Prefs_Ui
                 );
             }
         }
-        $t->set('devices', $devices);
+        $t->set('devices', $partners);
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/syncml.html');
+    }
+
+    /**
+     * Create code for ActiveSync management.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return string HTML UI code.
+     */
+    protected function _activesyncManagement($ui)
+    {
+        if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
+            $state_params = $GLOBALS['conf']['activesync']['state']['params'];
+            $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+            $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        } else {
+            return _("ActiveSync not activated.");
+        }
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+        $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
+        $devs = array();
+        $reseturl = $ui->selfUrl()->add('reset', 1);
+        $i = 1;
+        foreach ($devices as $device) {
+            $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
+            $device['reset'] = $reseturl;
+            $device['ts'] = strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $stateMachine->getLastSyncTimestamp($device['device_id']));
+            switch ($device['device_rwstatus']) {
+            case Horde_ActiveSync::RWSTATUS_PENDING:
+                $status = '<span class="notice">Wipe is pending</span>';
+                break;
+            case Horde_ActiveSync::RWSTATUS_WIPED:
+                $status = '<span class="notice">Device is wiped</span>';
+                break;
+            default:
+                $status = 'Device is partnered';
+            }
+            $device['status'] = $status . '<br />Device id: ' . $device['device_id'] . '<br />User Agent: ' . $device['device_agent'];
+            $devs[] = $device;
+        }
+
+        $t->set('devices', $devs);
+
+        return $t->fetch(HORDE_TEMPLATES . '/prefs/activesync.html');
     }
 
     /**
@@ -506,4 +559,22 @@ class Horde_Prefs_Ui
         }
     }
 
+    /**
+     * Update ActiveSync actions
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+     protected function _updateActiveSyncManagement($ui)
+     {
+        $state_params = $GLOBALS['conf']['activesync']['state']['params'];
+        $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+        $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        if ($ui->vars->wipe) {
+            $stateMachine->setDeviceRWStatus($ui->vars->wipe, Horde_ActiveSync::RWSTATUS_PENDING);
+            $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped durint the next SYNC request."), $ui->vars->wipe));
+        } elseif ($ui->vars->reset) {
+            // @TODO
+            //$stateMachine->removeState();
+        }
+     }
 }
