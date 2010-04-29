@@ -17,12 +17,18 @@ class Horde_Injector_Binder_ImplementationWithSetters extends Horde_Injector_Bin
         $reflectionClass = new ReflectionClass($this->_implementation);
         $this->_validateImplementation($reflectionClass);
         $instance = $this->_getInstance($injector, $reflectionClass);
-        $setters = $this->_findSetters($reflectionClass);
-        foreach ($setters as $setter) {
-            $this->bindSetter($setter);
-        }
+        $this->_bindAnnotatedSetters($reflectionClass);
         $this->_callSetters($injector, $instance);
         return $instance;
+    }
+
+    /**
+     */
+    private function _bindAnnotatedSetters(ReflectionClass $reflectionClass)
+    {
+        foreach ($this->_findSetters($reflectionClass) as $setter) {
+            $this->bindSetter($setter);
+        }
     }
 
     /**
