@@ -757,7 +757,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * Explicitly remove a state from storage.
      *
      * @param string $synckey  The specific state to remove
-     * @param string $devId    Remove all state for this device (ignores synckey)
+     * @param string $devId    Remove all information for this device (ignores synckey)
      *
      * @throws Horde_ActiveSyncException
      */
@@ -768,6 +768,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         if ($devId) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
+            $device_query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
             $values = array($devId);
             $this->_logger->debug('[' . $devId . '] Removing device state.');
         } else {
@@ -780,6 +781,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         try {
             $this->_db->delete($state_query, $values);
             $this->_db->delete($map_query, $values);
+            if ($device_query) {
+                $this->_db->delete($device_query, $values);
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
