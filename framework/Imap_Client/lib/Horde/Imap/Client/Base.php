@@ -2834,7 +2834,7 @@ abstract class Horde_Imap_Client_Base
             if (is_array($val)) {
                 if (isset($val['t'])) {
                     if ($val['t'] == Horde_Imap_Client::DATA_NUMBER) {
-                        $out .= intval($val['v']) . ' ';
+                        $out .= intval($val['v']);
                     } elseif (($val['t'] != Horde_Imap_Client::DATA_ATOM) &&
                               preg_match('/[\x80-\xff\n\r]/', $val['v'])) {
                         $out = is_null($callback)
@@ -2843,7 +2843,7 @@ abstract class Horde_Imap_Client_Base
                              * However, this is the only valid fallback here -
                              * thus the need for a callback function to
                              * correctly handle. */
-                            ? $out . $this->utils->escape($val['v'], true) . ' '
+                            ? $out . $this->utils->escape($val['v'], true)
                             : call_user_func_array($callback, array($out, $val['v']));
                     } else {
                         switch ($val['t']) {
@@ -2878,17 +2878,17 @@ abstract class Horde_Imap_Client_Base
                                 : 'NIL';
                             break;
                         }
-
-                        $out .= ' ';
                     }
                 } else {
-                    $out = rtrim($this->parseCommandArray($val, $out . '(', $callback)) . ') ';
+                    $out = rtrim($this->parseCommandArray($val, $out . '(', $callback)) . ')';
                 }
+
+                $out .= ' ';
             } elseif (is_resource($val)) {
                 /* Resource indicates literal data. Absolutely nothing we can
                  * do without a callback function here. */
                 if (!is_null($callback)) {
-                    $out = call_user_func_array($callback, array($out, $val));
+                    $out = call_user_func_array($callback, array($out, $val)) . ' ';
                 }
             } else {
                 $out .= $val . ' ';
