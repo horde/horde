@@ -404,25 +404,25 @@ class Horde_Prefs_Ui
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+        $t->set('reset', $ui->selfUrl()->add('reset', 1));
         $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
         $devs = array();
-        $reseturl = $ui->selfUrl()->add('reset', 1);
         $i = 1;
         foreach ($devices as $device) {
             $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
-            $device['reset'] = $reseturl;
-            $device['ts'] = strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $stateMachine->getLastSyncTimestamp($device['device_id']));
+            $ts = $stateMachine->getLastSyncTimestamp($device['device_id']);
+            $device['ts'] = empty($ts) ? _("None") : strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $ts);
             switch ($device['device_rwstatus']) {
             case Horde_ActiveSync::RWSTATUS_PENDING:
-                $status = '<span class="notice">Wipe is pending</span>';
+                $status = '<span class="notice">' . _("Wipe is pending") . '</span>';
                 break;
             case Horde_ActiveSync::RWSTATUS_WIPED:
-                $status = '<span class="notice">Device is wiped</span>';
+                $status = '<span class="notice">' . _("Device is wiped") . '</span>';
                 break;
             default:
-                $status = 'Device is partnered';
+                $status = $device['device_policykey'] ?_("Provisioned") : _("Not Provisioned");
             }
-            $device['status'] = $status . '<br />Device id: ' . $device['device_id'] . '<br />User Agent: ' . $device['device_agent'];
+            $device['status'] = $status . '<br />' . _("Device id:") . $device['device_id'] . '<br />' . _("Policy Key:") . $device['device_policykey'] . '<br />' . _("User Agent:") . $device['device_agent'];
             $devs[] = $device;
         }
 
@@ -569,12 +569,16 @@ class Horde_Prefs_Ui
         $state_params = $GLOBALS['conf']['activesync']['state']['params'];
         $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if ($ui->vars->wipe) {
             $stateMachine->setDeviceRWStatus($ui->vars->wipe, Horde_ActiveSync::RWSTATUS_PENDING);
-            $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped durint the next SYNC request."), $ui->vars->wipe));
+            $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped during the next SYNC request."), $ui->vars->wipe));
         } elseif ($ui->vars->reset) {
-            // @TODO
-            //$stateMachine->removeState();
+            $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
+            foreach ($devices as $device) {
+                $stateMachine->removeState(null, $device['device_id']);
+            }
+            $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
         }
      }
 }
