@@ -588,8 +588,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * storage clean.
      *
      */
-    public function removeState($syncKey)
+    public function removeState($syncKey = null, $devId = null)
     {
+        if ($devId) {
+            throw new Horde_ActiveSync_Exception('Not implemented.');
+        }
         $this->_gc($syncKey, true);
     }
 

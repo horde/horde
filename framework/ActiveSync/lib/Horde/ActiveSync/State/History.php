@@ -757,17 +757,29 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * Explicitly remove a state from storage.
      *
      * @param string $synckey  The specific state to remove
+     * @param string $devId    Remove all state for this device (ignores synckey)
      *
      * @throws Horde_ActiveSyncException
      */
-    public function removeState($synckey)
+    public function removeState($synckey = null, $devId = null)
     {
-        $this->_logger->debug('[' . $this->_devId . '] Removing device state.');
-        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?';
-        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_key = ?';
+        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE';
+        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE';
+        if ($devId) {
+            $state_query .= ' sync_devid = ?';
+            $map_query .= ' sync_devid = ?';
+            $values = array($devId);
+            $this->_logger->debug('[' . $devId . '] Removing device state.');
+        } else {
+            $state_query .= ' sync_key = ?';
+            $map_query .= ' sync_key = ?';
+            $values = array($synckey);
+            $this->_logger->debug('[' . $this->_devId . '] Removing device state.');
+        }
+
         try {
-            $this->_db->delete($state_query, array($synckey));
-            $this->_db->delete($map_query, array($synckey));
+            $this->_db->delete($state_query, $values);
+            $this->_db->delete($map_query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
