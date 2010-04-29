@@ -15,7 +15,12 @@
  </tr>
 <loop:devices>
  <tr class="<tag:devices.class />">
-  <td><input type="radio" name="wipe" value="<tag:devices.device_id />" /></td>
+ <if:devices.device_policykey>
+    <td><input type="radio" name="wipe" value="<tag:devices.device_id />" /></td>
+ <else:devices.device_policykey>
+    <td><gettext>Not Provisioned</gettext></td>
+ </else:devices.device_policykey>
+ </if:devices.device_policykey>
   <td><tag:devices.device_type /></td>
   <td><tag:devices.ts /></td>
   <td><tag:devices.status /></td>
