@@ -356,12 +356,12 @@ class Horde_Prefs_Ui
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
-        $devices = array();
+        $partners = array();
         $selfurl = $ui->selfUrl()->add('deleteanchor', 1);
 
         foreach ($devices as $device => $anchors) {
             foreach ($anchors as $anchor) {
-                $devices[] = array(
+                $partners[] = array(
                     'anchor' => htmlspecialchars($anchor['syncml_clientanchor']),
                     'db' => htmlspecialchars($anchor['syncml_db']),
                     'delete' => $selfurl->copy()->add(array(
