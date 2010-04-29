@@ -101,6 +101,14 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             /* Check to be sure that we *need* to PROVISION */
             if ($this->_provisioning === false) {
                 $policyStatus = self::STATUS_NOTDEFINED;
+                $this->_encoder->startWBXML();
+                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+                $this->_encoder->content($status);
+                $this->_encoder->endTag();
+                $this->_encoder->endTag();
+
+                return true;
             }
 
             /* POLICYKEY is only sent by client in phase 3 */
