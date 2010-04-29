@@ -3881,6 +3881,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 return $data;
             }
 
+            $old_len = $len;
+
             // Add data to a stream, if desired.
             if (!empty($this->_temp['literalstream']) &&
                 in_array(end($this->_temp['token']['ptr'][$this->_temp['token']['paren']]), $this->_temp['literalstream'])) {
@@ -3918,7 +3920,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 rewind($data);
             }
 
-            fwrite($this->_debug, '(' . microtime(true) . ') S: ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
+            fwrite($this->_debug, '(' . microtime(true) . ') S: ' . ($binary ? '[BINARY DATA - ' . $old_len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
         }
 
         return is_null($len) ? rtrim($data) : $data;
