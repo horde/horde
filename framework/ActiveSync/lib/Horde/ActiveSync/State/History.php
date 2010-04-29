@@ -26,7 +26,8 @@
  *        device_agent   - The user agent string sent by the device
  *        device_ping    - The device's current PING state information.
  *        device_policykey  - The current policykey for this device
- *        deivce_rwstatus   - The current remote wipe status for this device
+ *        device_rwstatus   - The current remote wipe status for this device
+ *        device_user       - The user this device belongs to.
  * </pre>
  *
  * Copyright 2010 The Horde Project (http://www.horde.org)
@@ -505,11 +506,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @return array  An array of device hashes
      * @throws Horde_ActiveSync_Exception
      */
-    public function listDevices()
+    public function listDevices($user = null)
     {
         $sql = 'SELECT * from ' . $this->_syncDeviceTable;
+        $values = array();
+        if ($user) {
+            $sql .= ' WHERE device_user = ?';
+            $values[] = $user;
+        }
         try {
-            return $this->_db->selectAll($sql);
+            return $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
