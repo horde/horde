@@ -473,11 +473,16 @@ var ViewPort = Class.create({
     {
         var h,
             c = this.opts.content,
+            c_opts = {},
             lh = this._getLineHeight(),
             sp = this.split_pane;
 
         if (size) {
             this.page_size = size;
+        }
+
+        if (this.view && sp.curr != this.pane_mode) {
+            c_opts.updated = this.createSelection('div', this.visibleRows()).get('domid');
         }
 
         // Get split pane dimensions
@@ -548,14 +553,15 @@ var ViewPort = Class.create({
         }
 
         if (this.view) {
-            this.requestContentRefresh(this.currentOffset());
+            this.requestContentRefresh(this.currentOffset(), c_opts);
         }
     },
 
     // offset = (integer) TODO
-    requestContentRefresh: function(offset)
+    // opts = (object) See _updateContent()
+    requestContentRefresh: function(offset, opts)
     {
-        if (!this._updateContent(offset)) {
+        if (!this._updateContent(offset, opts)) {
             return false;
         }
 
@@ -1248,7 +1254,9 @@ var ViewPort = Class.create({
     createSelection: function(format, data, view)
     {
         var buffer = this._getBuffer(view);
-        return buffer ? new ViewPort_Selection(buffer, format, data) : new ViewPort_Selection(this._getBuffer(this.view));
+        return buffer
+            ? new ViewPort_Selection(buffer, format, data)
+            : new ViewPort_Selection(this._getBuffer(this.view));
     },
 
     getSelection: function(view)
