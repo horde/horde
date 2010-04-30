@@ -843,7 +843,7 @@ class Whups {
         // Admins can delete attachments.
         if (Whups::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
             $url = Horde_Util::addParameter(
-                Horde::applicationUrl('ticket/deleteAttachment.php'),
+                Horde::applicationUrl('ticket/delete_attachment.php'),
                 array('file' => $file['name'],
                       'id' => $ticket,
                       'url' => Horde::selfUrl(true, false, true)));
