@@ -1174,6 +1174,86 @@ class Whups_Driver_sql extends Whups_Driver {
     }
 
     /**
+     * Deletes all changes of a transaction.
+     *
+     * @param integer $transaction  A transaction id.
+     */
+    function deleteHistory($transaction)
+    {
+        $transaction = (int)$transaction;
+
+        /* Deleting comments. */
+        $query = 'SELECT log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
+        $values = array('comment', $transaction);
+        Horde::logMessage(
+            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                    $query, implode(',', $values)), 'DEBUG');
+        $comments = $this->_db->getCol($query, 'log_value', $values);
+        if (is_a($comments, 'PEAR_Error')) {
+            Horde::logMessage($comments, 'ERR');
+            return $comments;
+        }
+
+        if ($comments) {
+            $query = sprintf('DELETE FROM whups_comments WHERE comment_id IN (%s)',
+                             implode(',', $comments));
+            Horde::logMessage(
+                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"', $query), 'DEBUG');
+            $result = $this->_write_db->query($query);
+            if (is_a($result, 'PEAR_Error')) {
+                Horde::logMessage($result, 'ERR');
+                return $result;
+            }
+        }
+
+        /* Deleting attachments. */
+        if (isset($GLOBALS['conf']['vfs']['type'])) {
+            $query = 'SELECT ticket_id, log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
+            $values = array('attachment', $transaction);
+            Horde::logMessage(
+                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                        $query, implode(',', $values)), 'DEBUG');
+            $attachments = $this->_db->query($query, $values);
+            if (is_a($attachments, 'PEAR_Error')) {
+                Horde::logMessage($attachments, 'ERR');
+                return $attachments;
+            }
+            require_once 'VFS.php';
+            $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'],
+                                   Horde::getDriverConfig('vfs'));
+            if (is_a($vfs, 'PEAR_Error')) {
+                return $vfs;
+            }
+
+            while ($attachment = $attachments->fetchRow(DB_FETCHMODE_ASSOC)) {
+                $dir = WHUPS_VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
+                if ($vfs->exists($dir, $attachment['log_value'])) {
+                    try {
+                        $result = $vfs->deleteFile($dir, $attachment['log_value']);
+                    } catch (VFS_Exception $e) {
+                        return PEAR::raiseError($e->getMessage());
+                    }
+                } else {
+                    Horde::logMessage(sprintf(_("Attachment %s not found."),
+                                              $attachment['log_value']),
+                                      'WARN');
+                }
+            }
+        }
+
+        $query = 'DELETE FROM whups_logs WHERE transaction_id = ?';
+        Horde::logMessage(
+            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                    $query, implode(',', $values)),
+           'DEBUG');
+        $result = $this->_write_db->query($query, array($transaction));
+        if (is_a($result, 'PEAR_Error')) {
+            Horde::logMessage($result, 'ERR');
+        }
+        return $result;
+    }
+
+    /**
      * Return a list of queues with open tickets, and the number of
      * open tickets in each.
      *

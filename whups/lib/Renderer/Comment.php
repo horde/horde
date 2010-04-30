@@ -167,6 +167,18 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
         }
 
         if (count($changes)) {
+            // Admins can delete entries.
+            $delete_link = '';
+            if (Whups::hasPermission($vars->get('queue'), 'queue', Horde_Perms::DELETE)) {
+                $delete_link = Horde::applicationUrl('ticket/delete_history.php')
+                    ->add(array('transaction' => $transaction,
+                                'id' => $vars->get('ticket_id'),
+                                'url' => Horde::selfUrl(true, false, true)))
+                    ->link(array('title' => _("Delete entry"), 'onclick' => 'return window.confirm(\'' . addslashes(_("Permanently delete entry?")) . '\');'))
+                    . Horde::img('delete.png', _("Delete entry"))
+                    . '</a>';
+            }
+
             ob_start();
             $class = $private ? 'pc' : 'c';
 ?>
@@ -176,7 +188,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
   <td width="20%" class="<?php echo $class ?>_l nowrap" valign="top"><?php echo strftime($prefs->getValue('date_format'), $vars->get('timestamp')) ?></td>
   <td width="20%" class="<?php echo $class ?>_m" valign="top"><?php echo $vars->get('user_id') ? Whups::formatUser($vars->get('user_id'), false, true, true) : '&nbsp;' ?></td>
   <td width="30%" class="<?php echo $class ?>_m" valign="top"><?php echo implode('<br />', $changes) ?></td>
-  <td width="30%" class="<?php echo $class ?>_r rightAlign" valign="top"><?php if ($comment && !$private) echo $reply ?></td>
+  <td width="30%" class="<?php echo $class ?>_r rightAlign" valign="top"><?php if ($comment && !$private) echo $reply . ' '; echo $delete_link; ?></td>
  </tr>
 <?php if ($comment): ?>
  <tr><td colspan="4" class="<?php echo $class ?>_b">
