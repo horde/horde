@@ -42,14 +42,12 @@ class Horde_Block_Horde_fb_stream extends Horde_Block {
      */
     public function __construct($params = array(), $row = null, $col = null)
     {
-        if (empty($GLOBALS['conf']['facebook']['key']) || empty($GLOBALS['conf']['facebook']['secret'])) {
-            return _("The Facebook Stream block requires a facebook api key and secret to be configured. ");
+        $GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
+        try {
+            $this->_facebook = $GLOBALS['injector']->getInstance('Facebook');
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
         }
-        $context = array('http_client' => new Horde_Http_Client(),
-                         'http_request' => new Horde_Controller_Request_Http(),);
-        $this->_facebook = new Horde_Service_Facebook($GLOBALS['conf']['facebook']['key'],
-                                                      $GLOBALS['conf']['facebook']['secret'],
-                                                      $context);
         $this->_fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         if (!empty($this->_fbp['sid'])) {
@@ -161,7 +159,7 @@ EOF;
             $stream = $facebook->streams->get('', array(), '', '', $this->_params['count'], $this->_params['filter']);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link($endpoint) . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link(Horde::url('services/prefs.php?app=horde&group=facebook')) . _("preferences") . '</a>');
             return $html;
         }
 
@@ -171,7 +169,7 @@ EOF;
                 $notifications = $facebook->notifications->get();
             } catch (Horde_Service_Facebook_Exception $e) {
                 $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());
-                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link($endpoint) . _("preferences") . '</a>');
+                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link(Horde::url('services/prefs.php?app=horde&group=facebook')) . _("preferences") . '</a>');
                 return $html;
             }
         }
@@ -193,7 +191,7 @@ EOF;
             $status = $facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link($endpoint) . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link(Horde::url('services/prefs.php?app=horde&group=facebook')) . _("preferences") . '</a>');
             return $html;
         }
         $status = array_pop($status);
