@@ -82,6 +82,7 @@ Application Framework.
        <file name="Template.php" role="php" />
        <file name="Token.php" role="php" />
        <file name="Vfs.php" role="php" />
+       <file name="Facebook.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
        <file name="Editor.php" role="php" />
@@ -231,6 +232,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Binder/Token.php" as="Horde/Core/Binder/Token.php" />
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
+   <install name="lib/Horde/Core/Binder/Facebook.php" as="Horde/Core/Binder/Facebook.php" />
    <install name="lib/Horde/Core/Factory/Editor.php" as="Horde/Core/Factory/Editor.php" />
    <install name="lib/Horde/Core/Factory/Identity.php" as="Horde/Core/Factory/Identity.php" />
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />

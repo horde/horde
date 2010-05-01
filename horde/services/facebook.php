@@ -13,24 +13,13 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-if (empty($conf['facebook']['enabled']) ||
-    empty($conf['facebook']['key']) ||
-    empty($conf['facebook']['secret'])) {
-
+$GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
+try {
+    $facebook = $GLOBALS['injector']->getInstance('Facebook');
+} catch (Horde_Exception $e) {
     $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');
     header('Location: ' . $horde_url);
-    exit;
 }
-
-// Facebook key and secret
-$apikey = $conf['facebook']['key'];
-$secret = $conf['facebook']['secret'];
-
-// Create required objects
-$context = array('http_client' => new Horde_Http_Client(),
-                 'http_request' => new Horde_Controller_Request_Http());
-
-$facebook = new Horde_Service_Facebook($apikey, $secret, $context);
 
 // See why we are here.
 if ($token = Horde_Util::getFormData('auth_token')) {
