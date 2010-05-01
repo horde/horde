@@ -523,6 +523,8 @@ class Horde_Prefs_Ui
                 $notify->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
             }
             /* URL links */
+            $url = $facebook->auth->getLoginUrl(Horde::url('services/facebook.php', true));
+            $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
             $t->set('user_pic_url', $user_info[0]['pic_with_logo']);
             $t->set('user_name', $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name']);
