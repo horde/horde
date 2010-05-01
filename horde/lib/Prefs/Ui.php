@@ -115,6 +115,10 @@ class Horde_Prefs_Ui
         if (empty($conf['imsp']['enabled'])) {
             $ui->suppressGroups[] = 'imspauth';
         }
+
+        if (empty($conf['activesync']['enabled'])) {
+            $ui->suppressGroups[] = 'activesync';
+        }
     }
 
     /**

@@ -606,7 +606,6 @@ $_prefs['twitter'] = array(
 
 
 // *** IMSP Intergration Preferences ***
-
 $prefGroups['imspauth'] = array(
     'column' => _("Other Information"),
     'label' => _("Alternate IMSP Login"),
@@ -626,8 +625,6 @@ $_prefs['imsp_auth_pass'] = array(
     'desc' => _("Alternate IMSP Password")
 );
 
-
-
 // *** SyncML Preferences ***
 $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
@@ -640,7 +637,17 @@ $_prefs['syncmlmanagement'] = array(
     'type' => 'special'
 );
 
+// *** ActiveSync Preferences ***
+$prefGroups['activesync'] = array(
+    'column' => _("Other Information"),
+    'label' => _("ActiveSync"),
+    'desc' => _("Manage your ActiveSync devices."),
+    'members' => array('activesyncmanagement')
+);
 
+$_prefs['activesyncmanagement'] = array(
+    'type' => 'special'
+);
 
 // *** Internal Preferences ***
 
