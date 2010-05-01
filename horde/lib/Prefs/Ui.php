@@ -103,7 +103,7 @@ class Horde_Prefs_Ui
         if (empty($conf['facebook']['enabled']) ||
             empty($conf['facebook']['key']) ||
             empty($conf['facebook']['secret'])) {
-            $ui->suppressGroups[] = 'facebook';
+            //$ui->suppressGroups[] = 'facebook';
         }
 
         if (empty($conf['twitter']['enabled']) ||
@@ -143,9 +143,12 @@ class Horde_Prefs_Ui
 
         case 'activesyncmanagement':
             return $this->_activesyncManagement($ui);
-        }
+
+        case 'facebookmanagement':
+            return $this->_facebookManagement($ui);
 
         return '';
+        }
     }
 
     /**
@@ -172,6 +175,10 @@ class Horde_Prefs_Ui
 
         case 'activesyncmanagement':
             $this->_updateActiveSyncManagement($ui);
+            break;
+
+        case 'facebookmanagement':
+            $this->_updateFacebookManagement($ui);
             break;
         }
 
@@ -439,6 +446,112 @@ class Horde_Prefs_Ui
     }
 
     /**
+     * Facebook session management
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return string  The HTML code to display the Facebook prefs.
+     */
+    protected function _facebookManagement($ui)
+    {
+        global $prefs;
+
+        /* Horde_Service_Facebook */
+        $GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
+        try {
+            $facebook = $GLOBALS['injector']->getInstance('Facebook');
+        } catch (Horde_Exception $e) {
+            return _($e->getMessage());
+        }
+
+        /* Horde_Template */
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        /* Check for facebook session */
+        $fbp = unserialize($prefs->getValue('facebook'));
+        $uid = !empty($fbp['uid']) ? $fbp['uid'] : 0;
+        $sid = !empty($fbp['sid']) ? $fbp['sid'] : 0;
+
+        /* Ensure we have authorized horde */
+        if (!empty($uid)) {
+            try {
+                $have_app = $facebook->users->isAppUser($uid);
+            } catch (Horde_Service_Facebook_Exception $e) {
+                return $e->getMessage();
+            }
+        }
+
+        /* Def. have a user that has authroized horde. See if the session key we
+         * have is still valid. */
+        if (!empty($have_app) && !empty($sid)) {
+            $facebook->auth->setUser($uid, $sid, 0);
+            try {
+                /* Verify the userid matches the one we expect for the session */
+                $session_uid = $facebook->auth->getLoggedInUser();
+                if ($uid != $session_uid) {
+                    // This should never happen.
+                    $haveSession = false;
+                } else {
+                    $haveSession = true;
+                }
+            } catch (Horde_Service_Facebook_Exception $e) {
+                $haveSession = false;
+                $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => 0)));
+            }
+        }
+
+        /* We have a session, build the template */
+        if (!empty($haveSession)) {
+            try {
+                $t->set('have_offline',
+                        $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE, $uid));
+                $t->set('have_publish',
+                        $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid));
+                $t->set('have_read',
+                        $facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid));
+            } catch (Horde_Service_Facebook_Exception $e) {
+                $error = $e->getMessage();
+            }
+
+            /* Get the user info - facebook's TOS recommends placing the photo
+             * and using fb-like css for this. */
+            $fql = 'SELECT first_name, last_name, status, pic_with_logo, current_location FROM user WHERE uid IN (' . $uid . ')';
+            try {
+                $user_info = $facebook->fql->run($fql);
+            } catch (Horde_Service_Facebook_Exception $e) {
+                $notify->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
+            }
+            /* URL links */
+            $url = Horde_Util::addParameter(Horde::selfUrl(true), array('action' => 'revokeApplication'));
+            $t->set('offline_url', Horde::signQueryString($url));
+            $t->set('have_session', true);
+            $t->set('user_pic_url', $user_info[0]['pic_with_logo']);
+            $t->set('user_name', $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name']);
+
+            /* publish links */
+            $url = $facebook->auth->getExtendedPermUrl(
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM,
+                Horde::url($ui->selfUrl(), true));
+            $t->set('publish_url', $url);
+
+            /* Read links */
+            $url = $facebook->auth->getExtendedPermUrl(
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM,
+                Horde::url($ui->selfUrl(), true));
+            $t->set('read_url', $url);
+
+            return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
+        }
+
+        /* No existing session */
+        $t->set('have_session', false);
+        $t->set('authUrl', $facebook->auth->getLoginUrl(Horde::url('services/facebook.php', true)));
+
+        return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
+    }
+
+    /**
      * Update category related preferences.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
@@ -591,6 +704,58 @@ class Horde_Prefs_Ui
             $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
         } elseif ($ui->vars->removedevice) {
             $stateMachine->removeState(null, $ui->vars->removedevice);
+        }
+    }
+
+    /**
+     * Update facebook related prefs
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    protected function _updateFacebookManagement($ui)
+    {
+        global $prefs;
+
+        /* Horde_Service_Facebook */
+        $GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
+        try {
+            $facebook = $GLOBALS['injector']->getInstance('Facebook');
+        } catch (Horde_Exception $e) {
+            return _($e->getMessage());
+        }
+        switch ($ui->vars->fbactionID) {
+        case 'revokeInfinite':
+            $fbp = unserialize($prefs->getValue('facebook'));
+            if (!$fbp) {
+                // Something wrong
+            }
+            $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
+            $facebook->auth->revokeExtendedPermission(
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE,
+                $facebook->auth->getUser());
+            break;
+        case 'revokeApplication':
+            $fbp = unserialize($prefs->getValue('facebook'));
+            if (!$fbp) {
+                // Something wrong
+            }
+            $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
+            $facebook->auth->revokeAuthorization();
+            // Clear prefs.
+            $prefs->setValue('facebook', array('uid' => '',
+                                               'sid' => ''));
+
+            break;
+        case 'revokePublish':
+            $fbp = unserialize($prefs->getValue('facebook'));
+            if (!$fbp) {
+                // Something wrong
+            }
+            $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
+            $facebook->auth->revokeExtendedPermission(
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM,
+                $facebook->auth->getUser());
+            break;
         }
     }
 
