@@ -6,21 +6,26 @@
  <gettext>Device Management</gettext>
 </div>
 <if:devices>
+<input type="hidden" id="removedevice" name="removedevice" />
+<input type="hidden" name="wipeid" id="wipeid" />
 <table class="horde-table striped">
  <tr>
-     <th><gettext>Select for wipe</gettext></th>
+     <th><gettext></gettext></th>
      <th><gettext>Device</gettext></th>
      <th><gettext>Last Sync Time</gettext></th>
      <th><gettext>Status</gettext></th>
  </tr>
 <loop:devices>
  <tr class="<tag:devices.class />">
- <if:devices.device_policykey>
-    <td><input type="radio" name="wipe" value="<tag:devices.device_id />" /></td>
- <else:devices.device_policykey>
-    <td><gettext>Not Provisioned</gettext></td>
- </else:devices.device_policykey>
- </if:devices.device_policykey>
+  <td>
+   <if:devices.device_policykey>
+    <input class="button" type="button" value="<gettext>Wipe</gettext>" onclick="HordeActiveSyncPrefs.requestRemoteWipe('<tag:devices.device_id />');" />
+   </if:devices.device_policykey>
+   <if:devices.ispending>
+    <input class="button" type="button" value="<gettext>Cancel Wipe</gettext>" onclick="HordeActiveSyncPrefs.cancelRemoteWipe('<tag:devices.device_id />');" />
+   </if:devices.ispending>
+   <input class="button" type="button" value="<gettext>Remove</gettext>" onclick="HordeActiveSyncPrefs.removeDevice('<tag:devices.device_id />');" />
+  </td>
   <td><tag:devices.device_type /></td>
   <td><tag:devices.ts /></td>
   <td><tag:devices.status /></td>

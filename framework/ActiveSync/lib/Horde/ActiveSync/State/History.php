@@ -745,9 +745,18 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->getDeviceInfo($devId);
         }
 
-        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_rwstatus = ? WHERE device_id = ?';
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_rwstatus = ?';
+        $values = array($status);
+
+        if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
+            /* Need to clear the policykey to force a provision */
+            $query .= ',device_policykey = ?';
+            $values[] = 0;
+        }
+        $query .= ' WHERE device_id = ?';
+        $values[] = $devId;
         try {
-            $this->_db->update($query, array($status, $devId));
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -781,7 +790,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         try {
             $this->_db->delete($state_query, $values);
             $this->_db->delete($map_query, $values);
-            if ($device_query) {
+            if (!empty($device_query)) {
                 $this->_db->delete($device_query, $values);
             }
         } catch (Horde_Db_Exception $e) {
