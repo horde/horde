@@ -362,6 +362,7 @@ class Horde_Prefs_Ui
      */
     protected function _syncmlManagement($ui)
     {
+        Horde::addScriptFile('syncmlprefs.js', 'horde');
         $devices = SyncML_Backend::factory('Horde')->getUserAnchors(Horde_Auth::getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -375,10 +376,8 @@ class Horde_Prefs_Ui
                 $partners[] = array(
                     'anchor' => htmlspecialchars($anchor['syncml_clientanchor']),
                     'db' => htmlspecialchars($anchor['syncml_db']),
-                    'delete' => $selfurl->copy()->add(array(
-                        'db' => $anchor['syncml_db'],
-                        'deviceid' => $device
-                    )),
+                    'deviceid' => $device,
+                    'rawdb' => $anchor ['syncml_db'],
                     'device' => htmlspecialchars($device),
                     'time' => strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $anchor['syncml_serveranchor'])
                 );
@@ -550,8 +549,8 @@ class Horde_Prefs_Ui
     {
         $backend = SyncML_Backend::factory('Horde');
 
-        if ($ui->vars->deleteanchor) {
-            $res = $backend->removeAnchor(Horde_Auth::getAuth(), $ui->vars->deviceid, $ui->vars->db);
+        if ($ui->vars->removedb && $ui->vars->removedevice) {
+            $res = $backend->removeAnchor(Horde_Auth::getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
             if ($res instanceof PEAR_Error) {
                 $GLOBALS['notification']->push(_("Error deleting synchronization session:") . ' ' . $res->getMessage(), 'horde.error');
             } else {
