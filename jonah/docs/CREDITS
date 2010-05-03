@@ -1,0 +1,39 @@
+========================
+ Jonah Development Team
+========================
+
+
+Core Developers
+===============
+
+Chuck Hagenbuch <chuck@horde.org>
+
+- original concept
+- original code
+
+Jan Schneider <jan@horde.org>
+
+- composite channels
+- aggregator
+- comments
+
+Jon Parise <jon@csh.rit.edu>
+
+- documentation
+- testing
+
+
+Localization
+============
+
+=====================   ======================================================
+Chinese Traditional     Chih-Wei Yeh <cwyeh@ccca.nctu.edu.tw>
+Dutch                   Resan Sa-Ardnuam <horde@sa-ardnuam.nl>
+Finnish                 Leena Heino <Leena.Heino@uta.fi>
+French                  Eric Rostetter <eric.rostetter@physics.utexas.edu>
+German                  Jan Schneider <jan@horde.org>
+Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
+Spanish                 Mario Andrés Yepes C <marioy@iname.com>
+                        Manuel Perez Ayala <mperaya@alcazaba.unex.es>
+Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+=====================   ======================================================

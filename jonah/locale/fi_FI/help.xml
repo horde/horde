@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- $Horde: jonah/locale/fi_FI/help.xml,v 1.2 2005/03/16 15:30:25 jan Exp $ -->
+<help>
+  <entry id="Overview" md5="54ee98f8dbd02ccb30a2591bf2547def" state="uptodate">
+    <title>Yleiskuva</title>
+    <heading>Esittely</heading>
+    <para>
+    T&#xE4;m&#xE4;n ohjelman avulla voidaan esitt&#xE4;&#xE4; uutisia ja muita tietoja monesta eri l&#xE4;hteest&#xE4;. Sinun on mahdollista tilata vain ne kanavat, joissa on sinua kiinnostavia tietoja ja siten saat vain sinua kiinnostavia tietoja.
+    </para>
+</entry>
+  <entry id="channel-type" md5="7ce7889043201876ac3b9014798b23cd" state="uptodate">
+    <title>Kanavatyypit</title>
+    <heading>Sis&#xE4;iset kanavat</heading>
+    <para>
+    Kanavat, joita hoidetaan sis&#xE4;isesti t&#xE4;m&#xE4;n ohjelmiston kautta.
+    </para>
+
+    <heading>Ulkoiset kanavat</heading>
+    <para>
+    Kanavat, joita hoitaa ja joita tarjoaa jokin ulkopuolinen taho kuten esimerkiksi jokin toinen www-sivusto.
+    </para>
+
+    <heading>Yhdistetyt kanavat</heading>
+    <para>
+    Kanavat, joiden sis&#xE4;lt&#xF6; on yhdistelm&#xE4; monesta ulkopuolisesta kanavasta. Sis&#xE4;iset kanavat voidaan my&#xF6;s liitt&#xE4;&#xE4; t&#xE4;h&#xE4;n kanvaan k&#xE4;ytt&#xE4;en RSS-jakelua.
+    </para>
+
+    <heading>Kootut kanavat</heading>
+    <para>
+    Kanavat, joiden sis&#xE4;lt&#xF6; koostuu monesta sis&#xE4;isest&#xE4; kanavasta.
+    </para>
+</entry>
+</help>
