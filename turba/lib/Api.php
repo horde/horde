@@ -687,7 +687,7 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             case 'activesync':
-                $hash = $driver->fromASContact($content);
+                $content = $driver->fromASContact($content);
                 break;
 
             default:
