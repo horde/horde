@@ -3732,10 +3732,10 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithViewAgenda':
+            case 'kronolithViewAgendaBody':
                 var tmp = orig;
-                if (tmp.tagName != 'td') {
-                    tmp.up('td');
+                if (tmp.tagName != 'TR') {
+                    tmp = tmp.up('tr');
                 }
                 if (tmp && tmp.retrieve('date')) {
                     this.go('day:' + tmp.retrieve('date'));
