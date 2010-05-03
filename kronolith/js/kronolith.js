@@ -4063,11 +4063,19 @@ KronolithCore = {
                               { type: type, calendar: calendar },
                               function(r) {
                                   if (r.response.deleted) {
-                                      var div = this.getCalendarList(type, Kronolith.conf.calendars[type][calendar].owner).select('div').find(function(element) {
-                                          return element.retrieve('calendar') == calendar;
-                                      });
+                                      var container = this.getCalendarList(type, Kronolith.conf.calendars[type][calendar].owner),
+                                          noItems = container.previous(),
+                                          div = container.select('div').find(function(element) {
+                                              return element.retrieve('calendar') == calendar;
+                                          });
                                       div.previous('span').remove();
                                       div.remove();
+                                      if (noItems &&
+                                          noItems.tagName == 'DIV' &&
+                                          noItems.className == 'kronolithDialogInfo' &&
+                                          !container.childElements().size()) {
+                                          noItems.show();
+                                      }
                                       this.deleteCache(null, calendar);
                                       $('kronolithBody').select('div').findAll(function(el) {
                                           return el.retrieve('calendar') == calendar;
