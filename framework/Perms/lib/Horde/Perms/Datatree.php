@@ -83,7 +83,7 @@ class Horde_Perms_Datatree extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        $perm = new Horde_Perms_Permission_DataTreeObject($name, $type, $params);
+        $perm = new Horde_Perms_Permission_DataTreeObject($name, $this->_cacheVersion, $type, $params);
         $perm->setDataTree($this->_datatree);
 
         return $perm;
@@ -106,6 +106,7 @@ class Horde_Perms_Datatree extends Horde_Perms
         $perm = $this->_cache->get('perm_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($perm === false) {
             $perm = $this->_datatree->getObject($name, 'Horde_Perms_Permission_DataTreeObject');
+            $perm->setCacheVersion($this->_cacheVersion);
             $this->_cache->set('perm_' . $this->_cacheVersion . $name, serialize($perm), $GLOBALS['conf']['cache']['default_lifetime']);
             $this->_permsCache[$name] = $perm;
         } else {
@@ -123,9 +124,12 @@ class Horde_Perms_Datatree extends Horde_Perms
      */
     public function getPermissionById($cid)
     {
-        return ($cid == Horde_Perms::ROOT)
-            ? $this->newPermission(Horde_Perms::ROOT)
-            : $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_DataTreeObject');
+        if ($cid == Horde_Perms::ROOT) {
+            return $this->newPermission(Horde_Perms::ROOT);
+        }
+        $perm = $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_DataTreeObject');
+        $perm->setCacheVersion($this->_cacheVersion);
+        return $perm;
     }
 
     /**

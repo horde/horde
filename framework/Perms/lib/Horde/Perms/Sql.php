@@ -91,7 +91,7 @@ class Horde_Perms_Sql extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        return new Horde_Perms_Permission_SqlObject($name, $type, $params);
+        return new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion, $type, $params);
     }
 
     /**
@@ -122,7 +122,7 @@ class Horde_Perms_Sql extends Horde_Perms
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($name);
+            $object = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion);
             $object->setId($result['perm_id']);
             $object->setData(unserialize($result['perm_data']));
 
@@ -163,7 +163,7 @@ class Horde_Perms_Sql extends Horde_Perms
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($result['perm_name']);
+            $object = new Horde_Perms_Permission_SqlObject($result['perm_name'], $this->_cacheVersion);
             $object->setId($id);
             $object->setData(unserialize($result['perm_data']));
             $object->setSQLOb($this->_write_db);

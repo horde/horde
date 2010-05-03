@@ -78,8 +78,8 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
         }
 
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $cache->expire('perm_sql_' . $name);
-        $cache->expire('perm_sql_exists_' . $name);
+        $cache->expire('perm_sql_' . $this->_cacheVersion . $name);
+        $cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
     }
 
 }

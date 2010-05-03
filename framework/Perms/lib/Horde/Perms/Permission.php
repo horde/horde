@@ -21,20 +21,39 @@ class Horde_Perms_Permission
     public $name;
 
     /**
+     * Incrementing version number if cached classes change.
+     *
+     * @var integer
+     */
+    private $_cacheVersion;
+
+    /**
      * Constructor.
      *
-     * @param string $name   The name of the perm.
-     * @param string $type   The permission type.
-     * @param array $params  A hash with any parameters that the permission
-     *                       type needs.
+     * @param string $name           The name of the perm.
+     * @param integer $cacheVersion  The revision number of the class.
+     * @param string $type           The permission type.
+     * @param array $params          A hash with any parameters that the
+     *                               permission type needs.
      */
-    public function __construct($name, $type = 'matrix', $params = null)
+    public function __construct($name, $cacheVersion = null, $type = 'matrix', $params = null)
     {
         $this->setName($name);
+        $this->setCacheVersion($cacheVersion);
         $this->data['type'] = $type;
         if (is_array($params)) {
             $this->data['params'] = $params;
         }
+    }
+
+    /**
+     * Sets the revision number of the class.
+     *
+     * @param integer $cacheVersion  The revision number of the class.
+     */
+    public function setCacheVersion($cacheVersion)
+    {
+        $this->_cacheVersion = $cacheVersion;
     }
 
     /**

@@ -555,8 +555,8 @@ class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
         parent::save();
 
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $cache->expire('perm_' . $name);
-        $cache->expire('perm_exists_' . $name);
+        $cache->expire('perm_' . $this->_cacheVersion . $name);
+        $cache->expire('perm_exists_' . $this->_cacheVersion . $name);
     }
 
 }
