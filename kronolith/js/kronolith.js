@@ -3088,6 +3088,9 @@ KronolithCore = {
                 if (data.tags) {
                     cal.tg = data.tags.split(',');
                 }
+                if (!Kronolith.conf.calendars[type]) {
+                    Kronolith.conf.calendars[type] = [];
+                }
                 Kronolith.conf.calendars[type][r.response.calendar] = cal;
                 this.insertCalendarInList(type, r.response.calendar, cal);
             }
