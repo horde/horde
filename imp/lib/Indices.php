@@ -30,7 +30,8 @@ class IMP_Indices implements Iterator
     public function __construct()
     {
         if (func_num_args()) {
-            call_user_func_array(array($this, 'add'), func_get_args());
+            $args = func_get_args();
+            call_user_func_array(array($this, 'add'), $args);
         }
     }
 
