@@ -20,7 +20,7 @@ if (!$uid || !$folder) {
 }
 
 $imp_ui = new IMP_Ui_Message();
-$readonly = $imp_imap->isReadOnly($folder);
+$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($folder);
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
