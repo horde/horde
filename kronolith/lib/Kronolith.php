@@ -244,9 +244,6 @@ class Kronolith
         $subscriptionTasks = Horde::url($registry->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/nag/' : '/rpc.php/nag/'), true, -1);
 
         // Calendars
-        $code['conf']['calendars']['internal'] =
-            $code['conf']['calendars']['tasklists'] =
-            $code['conf']['calendars']['remote'] = array();
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
                 if ($calendar->get('owner') != Horde_Auth::getAuth() &&
