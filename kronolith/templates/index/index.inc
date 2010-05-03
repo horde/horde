@@ -97,7 +97,7 @@
     <span><?php echo _("My Calendars") ?></span>
   </h3>
 
-  <div id="kronolithMyCalendars" class="kronolithCalendars" style="display:none">
+  <div id="kronolithMyCalendars" class="kronolithCalendars">
   </div>
 
   <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
@@ -108,7 +108,7 @@
     <span><?php echo _("My Task Lists") ?></span>
   </h3>
 
-  <div id="kronolithMyTasklists" class="kronolithCalendars" style="display:none">
+  <div id="kronolithMyTasklists" class="kronolithCalendars">
   </div>
   <?php endif; ?>
 
@@ -118,7 +118,7 @@
   </h3>
 
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
+  <div id="kronolithSharedCalendars" class="kronolithCalendars">
   </div>
 
   <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
@@ -128,7 +128,7 @@
   </h3>
 
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithSharedTasklists" class="kronolithCalendars" style="display:none">
+  <div id="kronolithSharedTasklists" class="kronolithCalendars">
   </div>
   <?php endif; ?>
 
@@ -140,14 +140,14 @@
   </h3>
 
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
-  <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
+  <div id="kronolithRemoteCalendars" class="kronolithCalendars">
   </div>
 
   <h3>
     <span><?php echo _("Holidays") ?></span>
   </h3>
 
-  <div id="kronolithHolidayCalendars" class="kronolithCalendars" style="display:none">
+  <div id="kronolithHolidayCalendars" class="kronolithCalendars">
   </div>
   </div>
 

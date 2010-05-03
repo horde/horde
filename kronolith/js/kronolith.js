@@ -952,49 +952,16 @@ KronolithCore = {
      */
     updateCalendarList: function()
     {
-        var my = 0, shared = 0, ext = $H(), extNames = $H(),
-            remote, holidays, api, div;
+        var ext = $H(), extNames = $H();
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
-            if (cal.value.owner) {
-                my++;
-            } else {
-                shared++;
-            }
             this.insertCalendarInList('internal', cal.key, cal.value);
         }, this);
-        if (my) {
-            $('kronolithMyCalendars').show();
-        } else {
-            $('kronolithMyCalendars').hide();
-        }
-        if (shared) {
-            $('kronolithSharedCalendars').show();
-        } else {
-            $('kronolithSharedCalendars').hide();
-        }
 
         if (Kronolith.conf.tasks) {
-            my = 0;
-            shared = 0;
             $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
-                if (cal.value.owner) {
-                    my++;
-                } else {
-                    shared++;
-                }
                 this.insertCalendarInList('tasklists', cal.key, cal.value);
             }, this);
-            if (my) {
-                $('kronolithMyTasklists').show();
-            } else {
-                $('kronolithMyTasklists').hide();
-            }
-            if (shared) {
-                $('kronolithSharedTasklists').show();
-            } else {
-                $('kronolithSharedTasklists').hide();
-            }
         }
 
         $H(Kronolith.conf.calendars.external).each(function(cal) {
@@ -1015,25 +982,13 @@ KronolithCore = {
             }, this);
         }, this);
 
-        remote = $H(Kronolith.conf.calendars.remote);
-        remote.each(function(cal) {
+        $H(Kronolith.conf.calendars.remote).each(function(cal) {
             this.insertCalendarInList('remote', cal.key, cal.value);
         }, this);
-        if (remote.size()) {
-            $('kronolithRemoteCalendars').show();
-        } else {
-            $('kronolithRemoteCalendars').hide();
-        }
 
-        holidays = $H(Kronolith.conf.calendars.holiday);
-        holidays.each(function(cal) {
+        $H(Kronolith.conf.calendars.holiday).each(function(cal) {
             this.insertCalendarInList('holiday', cal.key, cal.value);
         }, this);
-        if (holidays.size()) {
-            $('kronolithHolidayCalendars').show();
-        } else {
-            $('kronolithHolidayCalendars').hide();
-        }
     },
 
     /**
