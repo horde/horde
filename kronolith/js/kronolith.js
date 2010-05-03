@@ -2571,14 +2571,18 @@ KronolithCore = {
                 }
                 form.down('.kronolithCalendarSubscribe').hide();
                 form.down('.kronolithCalendarUnsubscribe').hide();
-                if (newCalendar || calendar == Kronolith.conf.user) {
-                    form.down('.kronolithCalendarDelete').hide();
-                } else {
-                    form.down('.kronolithCalendarDelete').show();
-                }
                 $('kronolithCalendar' + type + 'LinkPerms').up('li').show();
                 if (!Object.isUndefined(info) && info.owner) {
                     this.setPermsFields(type, info.perms);
+                }
+            }
+            if (type == 'remote' || type == 'internal' || type == 'tasklists') {
+                if (newCalendar ||
+                    (type == 'internal' && calendar == Kronolith.conf.user) ||
+                    (type == 'tasklists' && calendar == 'tasks/' + Kronolith.conf.user)) {
+                    form.select('.kronolithCalendarDelete').invoke('hide');
+                } else {
+                    form.select('.kronolithCalendarDelete').invoke('show');
                 }
             }
             form.down('.kronolithCalendarSave').show();
