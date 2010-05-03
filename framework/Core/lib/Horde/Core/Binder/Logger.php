@@ -62,7 +62,7 @@ class Horde_Core_Binder_Logger implements Horde_Injector_Binder
             break;
         }
 
-        if (!is_string($conf['log']['priority'])) {
+        if (!defined('Horde_Log::' . $conf['log']['priority'])) {
             $conf['log']['priority'] = 'NOTICE';
         }
         $handler->addFilter(constant('Horde_Log::' . $conf['log']['priority']));
