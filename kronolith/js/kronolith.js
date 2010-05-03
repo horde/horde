@@ -4343,8 +4343,6 @@ KronolithCore = {
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
             $('kronolithEventTopTags').update();
         } else {
-            kronolithEAttendeesAc.reset();
-            kronolithETagAc.reset();
             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
             if (date) {
