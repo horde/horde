@@ -56,7 +56,7 @@ if ($this->allows(WICKED_MODE_REMOVE)) {
                        'widget', '', '', _("_Delete"));
 }
 
-if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
+if ($this->allows(WICKED_MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
                               'referrer', $this->pageName());

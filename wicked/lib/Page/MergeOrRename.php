@@ -56,6 +56,9 @@ class MergeOrRename extends Page {
     function allows($mode)
     {
         if ($mode == WICKED_MODE_EDIT) {
+            if (!parent::allows(WICKED_MODE_REMOVE)) {
+                return false;
+            }
             $page = Page::getPage($this->referrer());
             if ($page->isLocked(Wicked::lockUser())) {
                 return false;
