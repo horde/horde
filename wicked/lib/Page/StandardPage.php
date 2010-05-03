@@ -141,7 +141,7 @@ class StandardPage extends Page {
             if (Horde_Auth::isAdmin()) {
                 return true;
             }
-            if (($this->getPermissions() & PERMS_EDIT) == 0) {
+            if (($this->getPermissions() & Horde_Perms::EDIT) == 0) {
                 return false;
             }
             break;
