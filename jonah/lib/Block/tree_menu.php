@@ -20,7 +20,7 @@ class Horde_Block_jonah_tree_menu extends Horde_Block {
         }
 
         $url = Horde::applicationUrl('stories/');
-        $icondir = $GLOBALS['registry']->getImageDir();
+        $icondir = Horde_Themes::img(null, array('notheme' => true, 'nohorde' => true));
         $news = Jonah_News::factory();
         $channels = $news->getChannels('internal');
         if (is_a($channels, 'PEAR_Error')) {
