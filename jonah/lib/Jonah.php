@@ -133,7 +133,7 @@ class Jonah {
             }
         }
 
-        global $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         $out = array();
 
