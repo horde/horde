@@ -100,9 +100,14 @@ class IMP_Indices implements Iterator
 
         case 2:
             $secondarg = func_get_arg(1);
-            $indices = array(
-                func_get_arg(0) => (is_array($secondarg) ? array_keys(array_flip($secondarg)) : array($secondarg))
-            );
+            $secondarg = is_array($secondarg)
+                ? array_keys(array_flip($secondarg))
+                : array($secondarg);
+            if (!empty($secondarg)) {
+                $indices = array(
+                    func_get_arg(0) => $secondarg
+                );
+            }
             break;
         }
 
