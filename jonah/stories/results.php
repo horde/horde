@@ -116,7 +116,11 @@ $template->set('stories', $stories, true);
 $template->set('read', true, true);
 $template->set('comments', $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages'), true);
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/stories/index.html');

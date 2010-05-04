@@ -135,12 +135,18 @@ foreach ($ids as $id) {
     $form->insertVariableBefore('channel_name', '', 'subchannel' . $id, 'link', false, false, null, array(_getLinks($channel_id, $id, $name, $url)));
 }
 
-$main = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'aggregate.php', 'post');
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'aggregate.php', 'post');
+$main = Horde::endBuffer();
 
 $template = new Horde_Template();
 $template->set('main', $main);
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/main/main.html');

@@ -87,7 +87,11 @@ $template->set('listheaders', array(array('attrs' => ' class="sortdown"', 'label
 $template->set('channels', $channels, true);
 $template->set('menu', Jonah::getMenu('string'));
 $template->set('search_img', Horde_Themes::img('search.png'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 $title = _("Feeds");
 Horde::addScriptFile('prototype.js', 'horde', true);

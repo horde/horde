@@ -69,9 +69,17 @@ Horde::addScriptFile('open_calendar.js', 'horde');
 
 /* Render the form. */
 $template = new Horde_Template();
-$template->set('main', Horde_Util::bufferOutput(array($form, 'renderActive'), $form->getRenderer(), $vars, 'edit.php', 'post'));
+
+Horde::startBuffer();
+$form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
+$template->set('main', Horde::endBuffer());
+
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 $title = $form->getTitle();
 require JONAH_TEMPLATES . '/common-header.inc';

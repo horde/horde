@@ -106,7 +106,11 @@ if ($conf['comments']['allow']) {
 }
 
 $view_template->set('menu', Jonah::getMenu('string'));
-$view_template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $view_template->fetch(JONAH_TEMPLATES . '/stories/view.html');

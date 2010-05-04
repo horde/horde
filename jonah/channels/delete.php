@@ -79,9 +79,18 @@ if ($form_submit == _("Delete")) {
 }
 
 $template = new Horde_Template();
-$template->set('main', Horde_Util::bufferOutput(array($form, 'renderActive'), new Horde_Form_Renderer(), $vars, 'delete.php', 'post'));
+
+// Buffer the main form and send to the template
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'delete.php', 'post');
+$template->set('main', Horde::endBuffer());
+
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/main/main.html');

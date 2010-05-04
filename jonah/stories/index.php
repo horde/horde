@@ -124,7 +124,11 @@ $template->set('stories', $stories, true);
 $template->set('read', $channel['channel_type'] == JONAH_INTERNAL_CHANNEL || $channel['channel_type'] == JONAH_COMPOSITE_CHANNEL, true);
 $template->set('comments', $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == JONAH_INTERNAL_CHANNEL, true);
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 $title = $channel['channel_name'];
 require JONAH_TEMPLATES . '/common-header.inc';

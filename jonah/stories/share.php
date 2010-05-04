@@ -124,8 +124,15 @@ if ($form->validate($vars)) {
 }
 
 $share_template = new Horde_Template();
-$share_template->set('main', Horde_Util::bufferOutput(array($form, 'renderActive'), new Horde_Form_Renderer(), $vars, 'share.php', 'post'));
-$share_template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the form and notifications and send to the template
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'share.php', 'post');
+$share_template->set('main', Horde::endBuffer());
+
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $share_template->fetch(JONAH_TEMPLATES . '/stories/share.html');

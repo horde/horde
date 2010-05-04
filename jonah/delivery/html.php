@@ -62,7 +62,11 @@ $template->set('format', $criteria['channel_format']);
 $template->set('options', $options);
 $template->set('stories', $news->renderChannel($criteria['channel_id'], $criteria['channel_format']));
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+// Buffer the notifications and send to the template
+Horde::startBuffer();
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/delivery/html.html');
