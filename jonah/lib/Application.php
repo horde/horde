@@ -25,8 +25,6 @@ require_once HORDE_BASE . '/lib/core.php';
 class Jonah_Application extends Horde_Registry_Application
 {
     public $version = 'H4 (1.0-git)';
-    
-    public $driver = null;
 
     /**
      * Initialization function.
@@ -35,7 +33,7 @@ class Jonah_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $this->driver = Jonah_Driver::factory();
+        $GLOBALS['jonah_driver'] = Jonah_Driver::factory();
     }
 
     /**
