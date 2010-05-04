@@ -24,9 +24,6 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function listFeeds($type = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         $channels = $news->getChannels($type);
 
@@ -46,8 +43,6 @@ class Jonah_Api extends Horde_Registry_Api
     public function stories($channel_id, $max_stories = 10, $start_at = 0,
                             $order = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
         $news = Jonah_News::factory();
         $stories = $news->getStories($channel_id, $max_stories, $start_at, false,
                                      time(), false, $order);
@@ -74,9 +69,6 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function story($channel_id, $story_id, $read = true)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         $story = $news->getStory($channel_id, $story_id, $read);
         if (is_a($story, 'PEAR_Error')) {
@@ -104,9 +96,6 @@ class Jonah_Api extends Horde_Registry_Api
         if (!$GLOBALS['conf']['comments']['allow']) {
             return false;
         }
-
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
 
         $news = Jonah_News::factory();
         $story = $news->getStory(null, $story_id);
@@ -140,9 +129,6 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function listTagInfo($tags = array(), $channel_id = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         return $news->listTagInfo($tags, $channel_id);
     }
@@ -156,9 +142,6 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function getTagIds($names)
     {
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         return $news->getTagIds($names);
     }
@@ -189,9 +172,6 @@ class Jonah_Api extends Horde_Registry_Api
                                $order = 0, $raw = false)
     {
         global $registry;
-
-        require_once dirname(__FILE__) . '/base.php';
-        require_once JONAH_BASE . '/lib/News.php';
 
         $news = Jonah_News::factory();
         $results = $news->searchTags($names, $max, $from, $channel_id, $order);
@@ -242,8 +222,6 @@ class Jonah_Api extends Horde_Registry_Api
     public function storyCount($channel_id)
     {
         global $registry;
-
-        require_once dirname(__FILE__) . '/base.php';
 
         $results = $GLOBALS['jonah_driver']->getStoryCount($channel_id);
         if (is_a($results, 'PEAR_Error')) {

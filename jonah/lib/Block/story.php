@@ -26,10 +26,6 @@ class Horde_Block_Jonah_story extends Horde_Block {
      */
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
         $channel_choices = array();
@@ -56,10 +52,6 @@ class Horde_Block_Jonah_story extends Horde_Block {
      */
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (empty($this->_params['source']) ||
             empty($this->_params['story'])) {
             return _("Story");
@@ -78,10 +70,6 @@ class Horde_Block_Jonah_story extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (empty($this->_params['source']) || empty($this->_params['story'])) {
             return _("No story is selected.");
         }

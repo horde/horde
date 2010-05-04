@@ -37,9 +37,6 @@ class Horde_Block_jonah_cloud extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
 
         /* Get the tags */

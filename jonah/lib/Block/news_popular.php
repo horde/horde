@@ -24,9 +24,6 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
         require JONAH_BASE . '/config/templates.php';
 
         $params['source'] = array('name' => _("Feed"),
@@ -59,10 +56,6 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
 
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
         $channel = $news->getChannel($this->_params['source']);
         if (is_a($channel, 'PEAR_Error')) {
@@ -83,10 +76,6 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (empty($this->_params['source'])) {
             return _("No feed specified.");
         }

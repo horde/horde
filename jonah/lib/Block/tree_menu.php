@@ -14,9 +14,6 @@ class Horde_Block_jonah_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
             !in_array('internal', $GLOBALS['conf']['news']['enable'])) {
             return;

@@ -14,7 +14,8 @@
 
 $session_control = 'readonly';
 @define('AUTH_HANDLER', true);
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah');
 require JONAH_BASE . '/config/templates.php';
 
 /* Get the id and format of the feed to display. */

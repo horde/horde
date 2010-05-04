@@ -13,8 +13,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
-require_once JONAH_BASE . '/lib/News.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah');
 require_once JONAH_BASE . '/lib/Forms/Story.php';
 require_once 'Horde/Form/Action.php';
 require_once 'Horde/Form/Renderer.php';

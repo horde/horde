@@ -42,9 +42,8 @@ function _mail($story_part, $from, $recipients, $subject, $note)
 
 $session_control = 'readonly';
 @define('AUTH_HANDLER', true);
-@define('JONAH_BASE', dirname(__FILE__) . '/..');
-require_once JONAH_BASE . '/lib/base.php';
-require_once JONAH_BASE . '/lib/News.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah');
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 

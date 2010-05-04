@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: jonah/dispatcher.php,v 1.9 2009/06/10 05:24:46 slusarz Exp $
- *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -11,9 +9,8 @@
  */
 $session_control = 'readonly';
 @define('AUTH_HANDLER', true);
-@define('JONAH_BASE', dirname(__FILE__));
-require_once JONAH_BASE . '/lib/base.php';
-require_once JONAH_BASE . '/lib/News.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah');
 require JONAH_BASE . '/config/templates.php';
 
 // Grab, and hopefully match, the URL

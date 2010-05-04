@@ -11,9 +11,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('JONAH_BASE', dirname(__FILE__) . '/..');
-require_once JONAH_BASE . '/lib/base.php';
-require_once JONAH_BASE . '/lib/News.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah');
 
 if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
     $notification->push(_("You are not authorised for this action."), 'horde.warning');

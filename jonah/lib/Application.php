@@ -2,11 +2,41 @@
 /**
  * Jonah application API.
  *
- * @package Kronolith
+ * @package Jonah
  */
+if (!defined('JONAH_BASE')) {
+    define('JONAH_BASE', dirname(__FILE__). '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(JONAH_BASE. '/config/horde.local.php')) {
+        include JONAH_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', JONAH_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Jonah_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (1.0-cvs)';
+    public $version = 'H4 (1.0-git)';
+    
+    public $driver = null;
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     */
+    protected function _init()
+    {
+        $this->driver = Jonah_Driver::factory();
+    }
 
     /**
      * Returns a list of available permissions.
@@ -15,8 +45,6 @@ class Jonah_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $news = Jonah_News::factory();
         $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
 

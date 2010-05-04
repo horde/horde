@@ -27,10 +27,6 @@ class Horde_Block_Jonah_delivery extends Horde_Block {
 
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $news = Jonah_News::factory();
 
         $channels = array();

@@ -26,10 +26,6 @@ class Horde_Block_Jonah_latest extends Horde_Block {
      */
     function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         $params['source'] = array('name' => _("News Source"),
                                   'type' => 'enum',
                                   'values' => array());
@@ -57,10 +53,6 @@ class Horde_Block_Jonah_latest extends Horde_Block {
      */
     function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (empty($this->_params['source'])) {
             return _("Latest News");
         }
@@ -78,10 +70,6 @@ class Horde_Block_Jonah_latest extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once JONAH_BASE . '/lib/Jonah.php';
-        require_once JONAH_BASE . '/lib/News.php';
-
         if (empty($this->_params['source'])) {
             return _("No channel specified.");
         }

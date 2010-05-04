@@ -12,12 +12,19 @@
 
 $parts = explode('/', Horde_Util::getPathInfo());
 $lastpart = null;
-$deliverytype = null;
+$deliveryType = null;
 $criteria = array();
 foreach ($parts as $part) {
     if (empty($part)) {
         // Double slash in the URL path.  Ignore this empty part.
         continue;
+    }
+
+    // Check for REST-style content type
+    if (strpos($part, '.') !== false) {
+        $deliveryType = substr($part, strrpos($part, '.') + 1);
+        $part = substr($part, 0, strrpos($part, '.'));
+        
     }
 
     switch($part) {
