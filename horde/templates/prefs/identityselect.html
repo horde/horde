@@ -18,10 +18,14 @@
 <div>
  <select name="identity" id="identity">
   <option value="-2" selected="selected"><gettext>None</gettext></option>
+  <option value="" disabled="disabled">- - - - - - - - - -</option>
   <option value="-1"><gettext>Create New Identity</gettext></option>
+<if:entry>
+  <option value="" disabled="disabled">- - - - - - - - - -</option>
 <loop:entry>
   <option value="<tag:entry.i />"<if:entry.sel> selected="selected"</if:entry.sel>><tag:entry.label /></option>
 </loop:entry>
+</if:entry>
  </select>
 </div>
 
