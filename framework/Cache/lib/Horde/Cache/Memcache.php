@@ -56,7 +56,7 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      */
     public function __sleep()
     {
-        return array();
+        return array('_memcache');
     }
 
     /**
