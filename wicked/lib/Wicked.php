@@ -160,7 +160,7 @@ class Wicked {
             $conf['wicked']['guest_address'] :
             $conf['wicked']['notify_address'];
         if (Horde_Auth::getAuth()) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $from = $identity->getValue('fullname');
             if (empty($from)) {
                 $from = $registry->get('name');

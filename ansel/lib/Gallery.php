@@ -446,7 +446,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function getOwner()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($this->data['share_owner']);
+        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($this->data['share_owner']);
     }
 
     /**

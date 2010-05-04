@@ -704,7 +704,7 @@ class Ansel
                                            $owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($owner);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;

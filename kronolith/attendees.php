@@ -179,7 +179,7 @@ $view = Horde_Util::getFormData('view', 'Day');
 // Pre-format our delete image/link.
 $delimg = Horde::img('delete.png', _("Remove Attendee"));
 
-$ident = $injector->getInstance('Horde_Prefs_Identity')->getOb();
+$ident = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
 $identities = $ident->getAll('id');
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs(null, $vars);

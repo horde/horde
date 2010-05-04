@@ -1140,7 +1140,7 @@ class Kronolith
         if (Horde_Auth::getAuth() &&
             !count($GLOBALS['display_calendars']) &&
             !$GLOBALS['kronolith_shares']->exists(Horde_Auth::getAuth())) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = Horde_Auth::getOriginalAuth();
@@ -1197,7 +1197,7 @@ class Kronolith
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -1216,7 +1216,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
             $emails[$uid] = $ident->getValue('from_addr');
             if (empty($emails[$uid])) {
                 $emails[$uid] = $uid;
@@ -1234,7 +1234,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
 
             $addrs = $ident->getAll('from_addr');
             $addrs[] = $uid;
@@ -2017,7 +2017,7 @@ class Kronolith
             return;
         }
 
-        $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($event->creator);
+        $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($event->creator);
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
@@ -2172,7 +2172,7 @@ class Kronolith
             throw new Kronolith_Exception($share);
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
@@ -2208,7 +2208,7 @@ class Kronolith
             if (!$vals) {
                 continue;
             }
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;

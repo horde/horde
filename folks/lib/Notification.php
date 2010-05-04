@@ -221,7 +221,7 @@ class Folks_Notification {
      */
     protected function _getUserFromAddr($user)
     {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($user)->getValue('from_addr');
+        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user)->getValue('from_addr');
     }
 
     /**

@@ -74,7 +74,7 @@ if ($conf['compose']['link_attachments_notify']) {
             $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
             $prefs->retrieve();
 
-            $mail_identity = $injector->getInstance('Horde_Prefs_Identity')->getOb($mail_user);
+            $mail_identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */

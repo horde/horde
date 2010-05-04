@@ -86,7 +86,7 @@ if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
 }
 
 $owner = $share->get('owner');
-$identity = $injectory->getInstance('Horde_Prefs_Identity')->getOb($owner);
+$identity = $injectory->getInstance('Horde_Prefs_Identity')->getIdentity($owner);
 $history = $injector->getInstance('Horde_History');
 $now = new Horde_Date(time());
 

@@ -23,7 +23,7 @@ if (!Horde_Menu::showService('problem')) {
     _returnToPage();
 }
 
-$identity = $injector->getInstance('Horde_Prefs_Identity')->getOb();
+$identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
 $email = $identity->getValue('from_addr');
 if (!$email) {
     $email = Horde_Util::getFormData('email', Horde_Auth::getAuth());

@@ -457,7 +457,7 @@ class Horde_Alarm
             if (empty($alarm['user'])) {
                 return;
             }
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($alarm['user']);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($alarm['user']);
             $email = $identity->getDefaultFromAddress(true);
         } else {
             $email = $alarm['params']['mail']['email'];

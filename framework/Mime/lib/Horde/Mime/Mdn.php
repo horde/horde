@@ -141,7 +141,7 @@ class Horde_Mime_Mdn
                              $mod = array(), $err = array())
     {
         /* Set up some variables we use later. */
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
         $from_addr = $identity->getDefaultFromAddress();
 
         $to = $this->getMdnReturnAddr();

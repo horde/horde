@@ -28,7 +28,7 @@ $date = Ansel::getDateParameter();
 
 /* Are we watermarking the image? */
 if ($watermark) {
-    $identity = $injector->getInstance('Horde_Prefs_Identity')->getOb();
+    $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
     $name = $identity->getValue('fullname');
     if (empty($name)) {
         $name = Horde_Auth::getAuth();

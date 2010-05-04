@@ -61,7 +61,7 @@ class Horde_Core_Factory_Identity
      * @return Horde_Identity  The singleton identity instance.
      * @throws Horde_Exception
      */
-    public function getOb($user = null, $driver = null)
+    public function getIdentity($user = null, $driver = null)
     {
         $class = empty($driver)
             ? 'Horde_Prefs_Identity'

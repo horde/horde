@@ -67,7 +67,7 @@ class Fima_DeleteLedgerForm extends Horde_Form {
         if (count(Fima::listLedgers(true)) == 0) {
             // If the default share doesn't exist then create it.
             if (!$GLOBALS['fima_shares']->exists(Horde_Auth::getAuth())) {
-                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
                     $name = Horde_Auth::getOriginalAuth();

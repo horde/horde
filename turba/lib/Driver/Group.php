@@ -135,7 +135,7 @@ class Turba_Driver_Group extends Turba_Driver
         $members = $groups->listAllUsers($this->_gid);
         $addressbook = array();
         foreach ($members as $member) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($member);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($member);
             $name = $identity->getValue('fullname');
             $email = $identity->getValue('from_addr');
             // We use the email as the key since we could have multiple users

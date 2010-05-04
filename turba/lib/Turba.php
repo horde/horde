@@ -278,7 +278,7 @@ class Turba {
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -536,7 +536,7 @@ class Turba {
     {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = Horde_Auth::getOriginalAuth();

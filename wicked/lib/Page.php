@@ -257,7 +257,7 @@ class Page {
             return _("Guest");
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getOb($modify);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($modify);
         $name = $identity->getValue('fullname');
         if (!empty($name)) {
             $modify = $name;
