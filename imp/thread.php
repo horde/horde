@@ -133,7 +133,7 @@ foreach ($imp_indices->indices() as $mbox => $idxlist) {
 }
 
 /* Flag messages as seen. */
-$injector->getInstance('IMP_Message')->flag(array('\\seen'), $loop_array);
+$injector->getInstance('IMP_Message')->flag(array('\\seen'), $imp_indices);
 
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
