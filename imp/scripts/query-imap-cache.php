@@ -40,6 +40,8 @@ foreach ($options[0] as $val) {
     }
 }
 
+$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
+
 if (is_null($server)) {
     $keys = array_keys($imp_imap->loadServerConfig());
 

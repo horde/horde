@@ -34,6 +34,7 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 /* Determine if mailbox is readonly. */
+$imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 $readonly = $imp_imap->isReadOnly(IMP::$mailbox);
 
 /* Get the base URL for this page. */

@@ -31,7 +31,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
     exit;
 }
 
-$readonly = $imp_imap->isReadOnly(IMP::$mailbox);
+$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly(IMP::$mailbox);
 
 $imp_ui_mimp = $injector->getInstance('IMP_Ui_Mimp');
 $imp_hdr_ui = new IMP_Ui_Headers();
