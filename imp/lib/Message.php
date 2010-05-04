@@ -663,15 +663,15 @@ class IMP_Message
      *          DEFAULT: false
      * </pre>
      *
-     * @return array  If 'list' option is true, an array of mailbox names as
-     *                keys and UIDs as values that were expunged.
+     * @return IMP_Indices  If 'list' option is true, an indices object
+     *                      containing the messages that have been expunged.
      */
     public function expungeMailbox($mbox_list, $options = array())
     {
         $msg_list = !empty($options['list']);
 
         if (empty($mbox_list)) {
-            return $msg_list ? array() : null;
+            return $msg_list ? new IMP_Indices() : null;
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
@@ -711,7 +711,9 @@ class IMP_Message
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
-        return $msg_list ? $update_list : null;
+        if ($msg_list) {
+            return new IMP_Indices($update_list);
+        }
     }
 
     /**

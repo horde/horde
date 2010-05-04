@@ -1201,9 +1201,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function purgeDeleted()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
         $change = $this->_changed(true);
-
         if (is_null($change)) {
             return false;
         }
@@ -1215,11 +1213,10 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         $expunged = $GLOBALS['injector']->getInstance('IMP_Message')->expungeMailbox(array($this->_vars->view => 1), array('list' => true));
 
-        if (empty($expunged[$this->_vars->view])) {
+        if (!($expunge_count = $expunged->count())) {
             return false;
         }
 
-        $expunge_count = count($expunged[$this->_vars->view]);
         $display_folder = IMP::displayFolder($this->_vars->view);
         if ($expunge_count == 1) {
             $GLOBALS['notification']->push(sprintf(_("1 message was purged from \"%s\"."), $display_folder), 'horde.success');
