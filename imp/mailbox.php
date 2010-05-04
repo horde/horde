@@ -303,17 +303,10 @@ if ($preview_tooltip) {
     $strip_preview = $prefs->getValue('preview_strip_nl');
 }
 
-$vtrash = null;
-if ($search_mbox) {
-    $unread = 0;
-    if ($imp_search->isVINBOXFolder()) {
-        $unread = $imp_mailbox->getMessageCount();
-    } elseif ($imp_search->isVTrashFolder()) {
-        $vtrash = $imp_search->createSearchID($search_mbox);
-    }
-} else {
-    $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
-}
+$unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
+$vtrash = $imp_search->isVTrashFolder()
+    ? $imp_search->createSearchID($search_mbox)
+    : null;
 
 horde::addInlineScript(array(
     'ImpMailbox.unread = ' . intval($unread)

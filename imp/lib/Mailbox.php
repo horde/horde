@@ -374,9 +374,16 @@ class IMP_Mailbox
      */
     protected function _msgFlagSearch($type, $results, $uid)
     {
-        $count = $results == Horde_Imap_Client::SORT_RESULTS_COUNT;
+        $count = ($results == Horde_Imap_Client::SORT_RESULTS_COUNT);
 
         if ($this->_searchmbox || empty($this->_sorted)) {
+            if ($count &&
+                $this->_searchmbox &&
+                ($type == 'unseen') &&
+                $GLOBALS['injector']->getInstance('IMP_Search')->isVINBOXFolder($this->_mailbox)) {
+                return $this->getMessageCount();
+            }
+
             return $count ? 0 : array();
         }
 
