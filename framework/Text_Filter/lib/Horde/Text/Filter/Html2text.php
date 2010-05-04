@@ -99,15 +99,16 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
      */
     public function postProcess($text)
     {
-        $text = Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8');
-
         if (extension_loaded('dom')) {
+            $text = Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8');
+
             $old_error = libxml_use_internal_errors(true);
             $doc = DOMDocument::loadHTML('<?xml encoding="UTF-8">' . $text);
             if ($old_error) {
                 libxml_use_internal_errors(false);
             }
-            $text = $this->_node($doc, $doc);
+
+            $text = Horde_String::convertCharset($this->_node($doc, $doc), 'UTF-8', $this->_params['charset']);
         }
 
         /* Bring down number of empty lines to 2 max, and remove trailing
