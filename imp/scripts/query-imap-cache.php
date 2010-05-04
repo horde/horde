@@ -43,16 +43,21 @@ foreach ($options[0] as $val) {
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 
 if (is_null($server)) {
-    $keys = array_keys($imp_imap->loadServerConfig());
-
     /* Set first entry to 1, not 0. */
-    array_unshift($keys, '');
-    unset($keys[0]);
+    $sconfig = $slookup = array('');
+    $i = 1;
+
+    foreach ($imp_imap->loadServerConfig() as $key => $val) {
+        $sconfig[$i] = $val['name'] . ' [' . $key . ']';
+        $slookup[$i++] = $key;
+    }
+
+    unset($sconfig[0]);
 
     while (is_null($server)) {
-        $server = $cli->prompt('Server:', $keys);
+        $server = $cli->prompt('Server:', $sconfig);
     }
-    $server = $keys[$server];
+    $server = $slookup[$server];
 } else {
     $cli->message('Server: ' . $server);
 }
