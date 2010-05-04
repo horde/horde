@@ -51,6 +51,15 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
     }
 
     /**
+     * Do cleanup prior to serialization and provide a list of variables
+     * to serialize.
+     */
+    public function __sleep()
+    {
+        return array();
+    }
+
+    /**
      * Attempts to retrieve cached data from the memcache and return it to
      * the caller.
      *
