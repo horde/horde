@@ -31,7 +31,8 @@ $params = array();
 
 /* Look at the Content-type of the request, if it is available, to try
  * and determine what kind of request this is. */
-if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false) ||
+if ((!empty($_SERVER['CONTENT_TYPE']) &&
+     strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false) ||
     strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false) {
 
     /* ActiveSync Request */
@@ -78,21 +79,21 @@ if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'appli
                                                  $request);
         $params['server']->setLogger($params['logger']);
     }
-} elseif ($_SERVER['PATH_INFO'] ||
-    in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
+} elseif (!empty($_SERVER['PATH_INFO']) ||
+          in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
     $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
-} elseif ($request->getServer('CONTENT_TYPE')) {
-    if (strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.syncml+xml') !== false) {
+} elseif ($_SERVER['CONTENT_TYPE']) {
+    if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
         $session_control = 'none';
         $nocompress = true;
-    } elseif (strpos($request->getServer('CONTENT_TYPE'), 'application/vnd.syncml+wbxml') !== false) {
+    } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+wbxml') !== false) {
         $serverType = 'Syncml_Wbxml';
         $session_control = 'none';
         $nocompress = true;
-    } elseif (strpos($request->getServer('CONTENT_TYPE'), 'text/xml') !== false) {
+    } elseif (strpos($_SERVER['CONTENT_TYPE'], 'text/xml') !== false) {
         $input = Horde_Rpc::getInput();
         /* Check for SOAP namespace URI. */
         if (strpos($input, 'http://schemas.xmlsoap.org/soap/envelope/') !== false) {
@@ -100,7 +101,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'appli
         } else {
             $serverType = 'Xmlrpc';
         }
-    } elseif (strpos($request->getServer('CONTENT_TYPE'), 'application/json') !== false) {
+    } elseif (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
         $serverType = 'Jsonrpc';
     } else {
         header('HTTP/1.0 501 Not Implemented');
