@@ -335,7 +335,17 @@ var DimpCore = {
     addPopdown: function(p, t, d)
     {
         var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
-        $(p).insert({ after: elt });
+        p = $(p);
+
+        p.insert({ after: elt });
+
+        this.addContextMenu({
+            disable: d,
+            id: p.identify(),
+            left: true,
+            offset: p.up(),
+            type: t
+        });
 
         this.addContextMenu({
             disable: d,
