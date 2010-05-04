@@ -427,13 +427,15 @@ class IMP_Compose
      * @param boolean $html    Whether this is an HTML message.
      * @param array $opts      An array of options w/the following keys:
      * <pre>
-     * 'save_sent' = (bool) Save sent mail?
-     * 'sent_folder' = (string) The sent-mail folder (UTF7-IMAP).
-     * 'save_attachments' = (bool) Save attachments with the message?
      * 'encrypt' => (integer) A flag whether to encrypt or sign the message.
      *              One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
      *              IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
+     * 'identity' => (IMP_Prefs_Identity) If set, checks for proper tie-to
+     *               addresses.
      * 'priority' => (string) The message priority ('high', 'normal', 'low').
+     * 'save_sent' = (bool) Save sent mail?
+     * 'sent_folder' = (string) The sent-mail folder (UTF7-IMAP).
+     * 'save_attachments' = (bool) Save attachments with the message?
      * 'readreceipt' => (bool) Add return receipt headers?
      * 'useragent' => (string) The User-Agent string to use.
      * </pre>
@@ -453,6 +455,20 @@ class IMP_Compose
          * characters can be in the address fields. */
         $recip = $this->recipientList($header);
         $header = array_merge($header, $recip['header']);
+
+        /* Check for correct identity usage. */
+        if (!$this->getMetadata('identity_check') &&
+            (count($recip['list']) === 1) &&
+            isset($opts['identity'])) {
+            $identity_search = $opts['identity']->getMatchingIdentity($recip['list']);
+            if (!is_null($identity_search) &&
+                ($opts['identity']->getDefault() != $identity_search)) {
+                $this->_metadata['identity_check'] = true;
+                $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
+                $e->tied_identity = $identity_search;
+                throw $e;
+            }
+        }
 
         $barefrom = Horde_Mime_Address::bareAddress($header['from'], $_SESSION['imp']['maildomain']);
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];

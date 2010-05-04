@@ -418,11 +418,12 @@ case 'send_message':
     }
 
     $options = array(
+        'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
+        'identity' => $identity,
+        'priority' => $vars->priority,
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => $vars->save_attachments_select,
-        'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
-        'priority' => $vars->priority,
         'readreceipt' => $vars->request_read_receipt
     );
 
@@ -433,6 +434,12 @@ case 'send_message':
         $get_sig = false;
         $code = $e->getCode();
         $notification->push($e->getMessage(), strpos($code, 'horde.') === 0 ? $code : 'horde.error');
+
+        /* Switch to tied identity. */
+        if (!is_null($e->tied_identity)) {
+            $identity->setDefault($e->tied_identity);
+            $notification->push(_("Your identity has been switched to the identity associated with the current recipient address. The identity will not be checked again during this compose action."));
+        }
 
         // TODO
         switch ($e->encrypt) {
@@ -717,14 +724,14 @@ if ($redirect) {
 
     $hidden = array(
         'actionID' => '',
-        'user' => Horde_Auth::getAuth(),
-        'compose_requestToken' => Horde::getRequestToken('imp.compose'),
+        'attachmentAction' => '',
         'compose_formToken' => Horde_Token::generateId('compose'),
+        'compose_requestToken' => Horde::getRequestToken('imp.compose'),
         'composeCache' => $composeCacheID,
         'mailbox' => htmlspecialchars(IMP::$mailbox),
-        'attachmentAction' => '',
         'oldrtemode' => $rtemode,
-        'rtemode' => $rtemode
+        'rtemode' => $rtemode,
+        'user' => Horde_Auth::getAuth()
     );
 
     if ($_SESSION['imp']['file_upload']) {

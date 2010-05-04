@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Compose_Exception extends Horde_Exception_Prior
+class IMP_Compose_Exception extends IMP_Exception
 {
     /**
      * Stores information on whether an encryption dialog window needs
@@ -20,5 +20,12 @@ class IMP_Compose_Exception extends Horde_Exception_Prior
      * @var string
      */
     public $encrypt = null;
+
+    /**
+     * If set, indicates that this identity matches the given to address.
+     *
+     * @var integer
+     */
+    public $tied_identity = null;
 
 }

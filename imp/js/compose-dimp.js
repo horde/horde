@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl_p, knl_sm, last_msg, loaded, rte,
-    //   skip_spellcheck, spellcheck, sc_submit, uploading
+    //   editor_wait, is_popup, knl_p, knl_sm, last_msg, loaded, old_identity,
+    //   rte, skip_spellcheck, spellcheck, sc_submit, uploading
 
     confirmCancel: function()
     {
@@ -289,6 +289,11 @@ var DimpCompose = {
                 this.resizeMsgArea();
                 break;
             }
+        } else if (!Object.isUndefined(d.identity)) {
+            this.old_identity = $F('identity');
+            $('identity').setValue(d.identity);
+            this.changeIdentity();
+            $('noticerow', 'identitychecknotice').invoke('show');
         }
 
         this.setDisabled(false);
@@ -486,15 +491,7 @@ var DimpCompose = {
         switch (opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
-            $('composeMessage').stopObserving('keydown').observe('keydown', function() {
-                $('fwdattachnotice').fade({
-                    afterFinish: function() {
-                        $('fwdattachnotice').up('TR').hide();
-                        this.resizeMsgArea();
-                    }.bind(this),
-                    duration: 0.4
-                });
-            }.bind(this));
+            $('composeMessage').stopObserving('keydown').observe('keydown', this.fadeNotice.bind(this, 'fwdattachnotice'));
             break
 
         case 'forward_body':
@@ -521,6 +518,21 @@ var DimpCompose = {
                 this.focusEditor();
             }
         }
+    },
+
+    fadeNotice: function(elt)
+    {
+        elt = $(elt);
+
+        elt.fade({
+            afterFinish: function() {
+                if (!elt.siblings().any(Element.visible)) {
+                    elt.up('TR').hide();
+                    this.resizeMsgArea();
+                }
+            }.bind(this),
+            duration: 0.4
+        });
     },
 
     setBodyText: function(msg)
@@ -776,24 +788,22 @@ var DimpCompose = {
                 this.setSaveSentMail($F(elt));
                 break;
 
-            case 'replyallnotice':
-            case 'replylistnotice':
             case 'fwdattachnotice':
             case 'fwdbodynotice':
-                elt.fade({
-                    afterFinish: function() {
-                        elt.up('TR').hide();
-                        this.resizeMsgArea();
-                    }.bind(this),
-                    duration: 0.4
-                });
+            case 'identitychecknotice':
+            case 'replyallnotice':
+            case 'replylistnotice':
+                this.fadeNotice(elt);
                 if (!orig.match('SPAN.closeImg')) {
                     if (id.startsWith('reply')) {
                         $('to_loading_img').show();
                         DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                    } else {
+                    } else if (id.startsWith('fwd')) {
                         DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
                         $('composeMessage').stopObserving('keydown');
+                    } else if (id == 'identitychecknotice') {
+                        $('identity').setValue(this.old_identity);
+                        this.changeIdentity();
                     }
                 }
                 e.stop();

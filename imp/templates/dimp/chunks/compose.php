@@ -130,6 +130,7 @@ $compose_disable = !IMP::canCompose();
       <li id="replylistnotice" style="display:none"><span class="iconImg closeImg"></span><?php echo _("You are currently replying to the mailing list. Click here to reply to the original sender instead.") ?></li>
       <li id="fwdattachnotice" style="display:none"><span class="iconImg closeImg"></span><?php echo _("Click here to add the original message text to the body.") ?></li>
       <li id="fwdbodynotice" style="display:none"><span class="iconImg closeImg"></span><?php echo _("Click here to add the original message as an attachment.") ?></li>
+      <li id="identitychecknotice" style="display:none"><span class="iconImg closeImg"></span><?php echo _("Your identity has been switched to the identity associated with the current recipient address. Click here to revert to the original identity. The identity will not be checked again during this compose action.") ?></li>
      </ul>
     </td>
    </tr>

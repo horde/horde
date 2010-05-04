@@ -371,7 +371,8 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
             /* Search 'tieto' addresses first. */
             /* Check for this address explicitly. */
-            if ($search_ties && isset($this->_cached['tie_addresses'][$find_address])) {
+            if ($search_ties &&
+                isset($this->_cached['tie_addresses'][$find_address])) {
                 return $this->_cached['tie_addresses'][$find_address];
             }
 

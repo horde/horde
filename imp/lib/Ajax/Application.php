@@ -1337,6 +1337,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * <pre>
      * 'action' - (string) The AJAX action string
      * 'draft_delete' - (integer) TODO
+     * 'identity' - (integer) If set, this is the identity that is tied to
+     *              the current recipient address.
      * 'log' - (array) TODO
      * 'mailbox' - (array) TODO
      * 'reply_folder' - (string) TODO
@@ -1370,6 +1372,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree->eltDiffStart();
 
         $options = array(
+            'identity' => $identity,
             'priority' => $this->_vars->priority,
             'readreceipt' => $this->_vars->request_read_receipt,
             'save_attachments' => $this->_vars->save_attachments_select,
@@ -1387,6 +1390,11 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
             $GLOBALS['notification']->push($e);
+
+            if (!is_null($e->tied_identity)) {
+                $result->identity = $e->tied_identity;
+            }
+
             return $result;
         }
 

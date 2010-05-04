@@ -268,9 +268,10 @@ case _("Send"):
         }
 
         $options = array(
+            'identity' => $identity,
+            'readreceipt' => ($conf['compose']['allow_receipts'] && ($prefs->getValue('disposition_request_read') == 'always')),
             'save_sent' => $save_sent_mail,
-            'sent_folder' => $sent_mail_folder,
-            'readreceipt' => ($conf['compose']['allow_receipts'] && ($prefs->getValue('disposition_request_read') == 'always'))
+            'sent_folder' => $sent_mail_folder
         );
 
         try {
@@ -283,6 +284,12 @@ case _("Send"):
             }
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e);
+
+            /* Switch to tied identity. */
+            if (!is_null($e->tied_identity)) {
+                $identity->setDefault($e->tied_identity);
+                $notification->push(_("Your identity has been switched to the identity associated with the current recipient address. The identity will not be checked again during this compose action."));
+            }
         }
         break;
     }
