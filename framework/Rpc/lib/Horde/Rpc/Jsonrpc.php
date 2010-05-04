@@ -177,7 +177,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
         }
 
         /*@TODO Use Horde_Http_Request */
-        $http = new HTTP_Request($url, $options);
+        $http = new HTTP_Request((string)$url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);
         }

@@ -142,7 +142,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        $http = new HTTP_Request($url, $options);
+        $http = new HTTP_Request((string)$url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);
         }
