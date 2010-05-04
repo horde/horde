@@ -118,7 +118,7 @@ foreach ($imp_indices->indices() as $mbox => $idxlist) {
 
         /* Create links to current message and mailbox. */
         if ($mode == 'thread') {
-            $curr_msg['link'] = Horde::widget('#display', _("Back to Thread Display"), 'widget', '', '', _("Back to Thread Display"), true);
+            $curr_msg['link'] = Horde::widget('#display', _("Thread List"), 'widget', '', '', _("Thread List"), true);
         } else {
             $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
         }
