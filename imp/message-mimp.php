@@ -78,7 +78,7 @@ case 'ri':
 // Need to build message information, so don't do action until below.
 }
 
-if ($imp_ui->moveAfterAction()) {
+if ($msg_delete && $imp_ui->moveAfterAction()) {
     $imp_mailbox->setIndex(1);
 }
 
