@@ -38,7 +38,7 @@ if (empty($criteria['feed_type'])) {
 
 $channel = $news->getChannel($criteria['channel_id']);
 if (is_a($channel, 'PEAR_Error')) {
-    Horde::logMessage($channel, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($channel, 'ERR');
     header('HTTP/1.0 404 Not Found');
     echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -58,7 +58,7 @@ if (!empty($criteria['tag_id'])) {
     $stories = $news->getStories($criteria['channel_id'], 10, 0, false, time());
 }
 if (is_a($stories, 'PEAR_Error')) {
-    Horde::logMessage($stories, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($stories, 'ERR');
     $stories = array();
 }
 

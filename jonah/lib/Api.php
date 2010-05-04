@@ -72,7 +72,7 @@ class Jonah_Api extends Horde_Registry_Api
         $news = Jonah_News::factory();
         $story = $news->getStory($channel_id, $story_id, $read);
         if (is_a($story, 'PEAR_Error')) {
-            Horde::logMessage($story, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($story, 'ERR');
             return false;
         }
         if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {

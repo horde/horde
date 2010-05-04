@@ -134,7 +134,7 @@ class Jonah_News {
     {
         $channel = $this->getChannel($channel_id);
         if (is_a($channel, 'PEAR_Error')) {
-            Horde::logMessage($channel, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($channel, 'ERR');
             return array();
         }
 
@@ -744,7 +744,7 @@ class Jonah_News {
     {
         $xml = Jonah::_readURL($url);
         if (is_a($xml, 'PEAR_Error')) {
-            Horde::logMessage($xml, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($xml, 'ERR');
             return array('timestamp' => $timestamp);
         }
 
@@ -756,7 +756,7 @@ class Jonah_News {
             if (isset($GLOBALS['notification'])) {
                 $GLOBALS['notification']->push(sprintf(_("Error parsing external feed from %s: %s"), $url, $parser->error), 'warning');
             } else {
-                Horde::logMessage(sprintf("Error parsing external feed from %s: %s", $url, $parser->error), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage(sprintf("Error parsing external feed from %s: %s", $url, $parser->error), 'ERR');
             }
         }
         $stories = $parser->structure;

@@ -22,6 +22,7 @@ class Horde_Block_Jonah_news extends Horde_Block {
 
     function _params()
     {
+        require_once dirname(__FILE__) . '/../../lib/Application.php';
         require JONAH_BASE . '/config/templates.php';
 
         $params['source'] = array('name' => _("Feed"),

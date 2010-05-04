@@ -91,11 +91,11 @@ if ($conf['sharing']['allow']) {
 if ($conf['comments']['allow']) {
     if (!$registry->hasMethod('forums/doComments')) {
         $err = 'User comments are enabled but the forums API is not available.';
-        Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($err, 'ERR');
     } else {
         $comments = $registry->call('forums/doComments', array('jonah', $story_id, 'commentCallback'));
         if (is_a($comments, 'PEAR_Error')) {
-            Horde::logMessage($threads, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($threads, 'ERR');
             $comments = '';
         }
         $comments = $comments['threads'] . '<br />' . $comments['comments'];

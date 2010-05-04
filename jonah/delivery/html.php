@@ -38,7 +38,7 @@ if (empty($criteria['channel_format'])) {
 /* Get requested channel. */
 $channel = $news->getChannel($criteria['channel_id']);
 if (is_a($channel, 'PEAR_Error')) {
-    Horde::logMessage($channel, __FILE__, __LINE__, PEAR_LOG_ERR);
+    Horde::logMessage($channel, 'ERR');
     $notification->push(_("Invalid channel."), 'horde.error');
     $url = Horde::applicationUrl('delivery/index.php', true);
     header('Location: ' . $url);

@@ -61,7 +61,7 @@ foreach ($parts as $part) {
         } else {
             // An unknown directive
             Horde::logMessage("Malformed request URL: " . Horde_Util::getPathInfo(),
-                              __FILE__, __LINE__, PEAR_LOG_WARNING);
+                              'WARN');
             exit;
         }
         break;

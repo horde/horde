@@ -34,7 +34,7 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     /* Log the pending outbound message. */
     Horde::logMessage(sprintf('<%s> is sending "%s" to (%s)',
                               $from, $subject, $recipients),
-                      __FILE__, __LINE__, PEAR_LOG_INFO);
+                      'INFO');
 
     /* Send the message and return the result. */
     return $mail->send(Horde::getMailerConfig());
