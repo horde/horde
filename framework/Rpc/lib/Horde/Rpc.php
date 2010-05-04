@@ -205,17 +205,19 @@ class Horde_Rpc
      *
      * This statically called method is actually the RPC client.
      *
-     * @param string $driver    The protocol driver to use. Currently 'soap',
-     *                          'xmlrpc' and 'jsonrpc' are available.
-     * @param string $url       The path to the RPC server on the called host.
-     * @param string $method    The method to call.
-     * @param array $params     A hash containing any necessary parameters for
-     *                          the method call.
-     * @param $options          Associative array of parameters depending on
-     *                          the selected protocol driver.
+     * @param string $driver         The protocol driver to use. Currently
+     *                               'soap', 'xmlrpc' and 'jsonrpc' are
+     *                               available.
+     * @param string|Horde_Url $url  The path to the RPC server on the called
+     *                               host.
+     * @param string $method         The method to call.
+     * @param array $params          A hash containing any necessary parameters
+     *                               for the method call.
+     * @param $options               Associative array of parameters depending
+     *                               on the selected protocol driver.
      *
-     * @return mixed            The returned result from the method or a PEAR
-     *                          error object on failure.
+     * @return mixed  The returned result from the method
+     * @throws Horde_Rpc_Exception
      */
     public static function request($driver, $url, $method, $params = null, $options = array())
     {
