@@ -27,7 +27,10 @@ function _hordeTestError($msg)
 
 /* If we can't find the Autoloader, then the framework is not setup. A user
  * must at least correctly install the framework. */
-ini_set('include_path', dirname(__FILE__) . '/lib' . PATH_SEPARATOR . dirname(dirname(__FILE__)) . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
+ini_set('include_path', dirname(__FILE__) . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
+if (file_exists(dirname(__FILE__) . '/config/horde.local.php')) {
+    include dirname(__FILE__) . '/config/horde.local.php';
+}
 if (!@include_once 'Horde/Autoloader.php') {
     _hordeTestError(sprintf('Could not find Horde\'s framework libraries in the following path(s): %s. Please read horde/docs/INSTALL for information on how to install these libraries.', get_include_path()));
 }
