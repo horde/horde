@@ -172,6 +172,14 @@ $user_identity = $injector->getInstance('IMP_Identity');
 $basic_headers = $imp_ui->basicHeaders();
 $display_headers = $msgAddresses = array();
 
+if (($subject = $mime_headers->getValue('subject'))) {
+    /* Filter the subject text, if requested. */
+    $subject = Horde_String::truncate(IMP::filterText($subject), 50);
+} else {
+    $subject = _("[No Subject]");
+}
+$display_headers['subject'] = $subject;
+
 $format_date = $imp_ui->getLocalTime($envelope['date']);
 if (!empty($format_date)) {
     $display_headers['date'] = $format_date;
@@ -188,15 +196,6 @@ foreach (array('to', 'cc', 'bcc') as $val) {
         $display_headers[$val] = $addr_val;
     }
 }
-
-/* Process the subject now. */
-if (($subject = $mime_headers->getValue('subject'))) {
-    /* Filter the subject text, if requested. */
-    $subject = Horde_String::truncate(IMP::filterText($subject), 50);
-} else {
-    $subject = _("[No Subject]");
-}
-$display_headers['subject'] = $subject;
 
 /* Check for the presence of mailing list information. */
 $list_info = $imp_ui->getListInformation($mime_headers);
@@ -353,7 +352,7 @@ foreach ($inlineout['atc_parts'] as $key) {
 $t->set('atc', $atc);
 
 $title = $display_headers['subject'];
-$t->set('title', ($status ? $status . ' | ' : '') . $display_headers['subject'] . ' ' . sprintf(_("(%d of %d)"), $msgindex, $msgcount));
+$t->set('title', ($status ? $status . ' ' : '') . sprintf(_("(Message %d of %d)"), $msgindex, $msgcount));
 
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
