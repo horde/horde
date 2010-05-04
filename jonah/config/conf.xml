@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: jonah/config/conf.xml,v 1.37 2008/06/29 23:17:13 chuck Exp $ -->
+<!-- $Id$ -->
 <configuration>
 
  <configsection name="news">

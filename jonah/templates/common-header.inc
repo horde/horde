@@ -5,9 +5,6 @@ if (isset($language)) {
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
-<!-- Jonah: Copyright 1999-2009 The Horde Project.  Jonah is under a Horde license. -->
-<!--   Horde Project: http://www.horde.org/ | Jonah: http://www.horde.org/jonah/    -->
-<!--               Horde Licenses: http://www.horde.org/licenses/                   -->
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html>' ?>
 <head>
 <?php

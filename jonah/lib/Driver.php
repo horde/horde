@@ -1,16 +1,7 @@
 <?php
 /**
- * @package Jonah
- */
-
-/** Horde_Array */
-require_once 'Horde/Array.php';
-
-/**
  * Jonah_Driver:: is responsible for storing, searching, sorting and filtering
  * locally generated and managed articles.  Aggregation is left to Hippo.
- *
- * $Horde: jonah/lib/Driver.php,v 1.7 2009/07/09 08:18:26 slusarz Exp $
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *

@@ -6,8 +6,6 @@ $block_name = _("Most Popular Stories");
  * This class extends Horde_Block:: to provide an api to embed news
  * in other Horde applications.
  *
- * $Horde: jonah/lib/Block/news_popular.php,v 1.9 2009/07/09 08:18:26 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -80,7 +78,6 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
             return _("No feed specified.");
         }
 
-        require_once 'Horde/Template.php';
         $news = Jonah_News::factory();
         $params = $this->_params();
 

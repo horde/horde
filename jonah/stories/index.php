@@ -2,8 +2,6 @@
 /**
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
- * $Horde: jonah/stories/index.php,v 1.70 2009/11/24 04:15:38 chuck Exp $
- *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  *

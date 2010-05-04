@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: jonah/delivery/rss.php,v 1.41 2010/01/04 02:23:14 chuck Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
@@ -10,11 +8,11 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
-require_once dirname(__FILE__) . '/lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah');
-require_once JONAH_BASE . '/lib/version.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 
 $news = Jonah_News::factory();
 
@@ -65,7 +63,7 @@ if (is_a($stories, 'PEAR_Error')) {
 
 $template = new Horde_Template();
 $template->set('charset', Horde_Nls::getCharset());
-$template->set('jonah', 'Jonah ' . JONAH_VERSION . ' (http://www.horde.org/jonah/)');
+$template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 if (!empty($criteria['tag_id'])) {
     $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, @htmlspecialchars($channel['channel_name'], ENT_COMPAT, Horde_Nls::getCharset())));

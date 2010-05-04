@@ -1,5 +1,4 @@
 Jonah
-Version 0.1
 
 What is Jonah?
 --------------
@@ -18,7 +17,7 @@ Jonah Documentation
 LICENSE       - Jonah's license
 README        - This file
 docs/CHANGES  - A list of changes by release
-docs/CREDITS  - Who developed this 
+docs/CREDITS  - Who developed this
 docs/HELP     - How you can help
 docs/INSTALL  - Installation instructions and notes
 

@@ -2,16 +2,13 @@
 /**
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
- * $Horde: jonah/channels/aggregate.php,v 1.19 2009/11/24 04:15:37 chuck Exp $
- *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
  *
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('JONAH_BASE', dirname(__FILE__) . '/..');
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah');
 
 function _getLinks($id, $subid, $name, $title)

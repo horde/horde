@@ -5,8 +5,6 @@ $block_name = _("Tag Cloud");
 /**
  * Display Tag Cloud
  *
- * $Horde: jonah/lib/Block/cloud.php,v 1.11 2009/12/10 17:42:36 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

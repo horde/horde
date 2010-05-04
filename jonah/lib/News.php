@@ -1,16 +1,7 @@
 <?php
 /**
- * @package Jonah
- */
-
-/** Horde_Array */
-require_once 'Horde/Array.php';
-
-/**
  * Jonah_News:: is the main class for handling news headlines for Jonah both
  * from internal Jonah generated news sources and external channels.
- *
- * $Horde: jonah/lib/News.php,v 1.164 2010/02/01 10:32:05 jan Exp $
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -406,9 +397,6 @@ class Jonah_News {
      */
     function fetchExternalStories($channel_id, $url, $interval)
     {
-        require_once 'Horde/Cache.php';
-        require_once 'Horde/Serialize.php';
-
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $timestamp = time();
         if (is_a($cache, 'Horde_Cache') && ($stories = $cache->get($url, $interval))) {

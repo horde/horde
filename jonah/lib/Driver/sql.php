@@ -19,8 +19,6 @@
  * The table structure can be created by the scripts/db/jonah_news.sql
  * script. The needed tables are jonah_channels and jonah_stories.
  *
- * $Horde: jonah/lib/Driver/sql.php,v 1.10 2010/02/01 10:32:04 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -796,8 +794,6 @@ class Jonah_Driver_sql extends Jonah_Driver {
      */
     function listTagInfo($tags = array(), $channel_id = null)
     {
-        require_once 'Horde/Cache.php';
-
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
         }
@@ -1039,7 +1035,6 @@ class Jonah_Driver_sql extends Jonah_Driver {
         }
 
         /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
         $this->_db = &DB::connect($this->_params,
                                   array('persistent' => !empty($this->_params['persistent'])));
         if (is_a($this->_db, 'PEAR_Error')) {

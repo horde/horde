@@ -4,6 +4,7 @@
  *
  * @package Jonah
  */
+
 if (!defined('JONAH_BASE')) {
     define('JONAH_BASE', dirname(__FILE__). '/..');
 }

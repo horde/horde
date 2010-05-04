@@ -4,8 +4,6 @@ $block_name = _("Menu List");
 $block_type = 'tree';
 
 /**
- * $Horde: jonah/lib/Block/tree_menu.php,v 1.7 2009/12/03 15:28:22 chuck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_jonah_tree_menu extends Horde_Block {

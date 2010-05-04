@@ -17,8 +17,6 @@ require_once 'Horde/Form/Action.php';
  * This class extends Horde_Form to provide the form to add/edit
  * feeds.
  *
- * $Horde: jonah/lib/Forms/Feed.php,v 1.16 2009/06/10 05:24:48 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

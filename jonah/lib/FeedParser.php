@@ -9,8 +9,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * $Horde: jonah/lib/FeedParser.php,v 1.23 2009/06/10 05:24:47 slusarz Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Jonah
  */

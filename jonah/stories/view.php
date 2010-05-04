@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: jonah/stories/view.php,v 1.57 2009/12/10 17:42:36 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -10,10 +8,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('JONAH_BASE', dirname(__FILE__) . '/..');
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah');
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none'
+));
 
 $news = Jonah_News::factory();
 

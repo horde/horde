@@ -17,8 +17,6 @@ require_once 'Horde/Form/Action.php';
  * This class extends Horde_Form to provide the form to add/edit
  * stories.
  *
- * $Horde: jonah/lib/Forms/Story.php,v 1.14 2009/02/16 16:47:03 chuck Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

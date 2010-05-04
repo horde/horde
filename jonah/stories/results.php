@@ -2,9 +2,8 @@
 /**
  * Display list of articles that match a tag query from an internal
  * channel.
- *
- * $Horde: jonah/stories/results.php,v 1.5 2009/11/24 04:15:38 chuck Exp $
  */
+
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah');
 

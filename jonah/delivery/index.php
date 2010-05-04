@@ -24,7 +24,6 @@ foreach ($parts as $part) {
     if (strpos($part, '.') !== false) {
         $deliveryType = substr($part, strrpos($part, '.') + 1);
         $part = substr($part, 0, strrpos($part, '.'));
-        
     }
 
     switch($part) {

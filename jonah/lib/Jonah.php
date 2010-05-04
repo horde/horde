@@ -6,14 +6,11 @@
 /**
  * Jonah Base Class.
  *
- * $Horde: jonah/lib/Jonah.php,v 1.141 2009/11/24 04:15:37 chuck Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Eric Rechlin <eric@hpcalc.org>
  * @package Jonah
  */
 class Jonah {
-
 
     /**
      * Internal Jonah channel.
@@ -55,7 +52,6 @@ class Jonah {
             $options = array_merge($options, $conf['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
         $http = new HTTP_Request($url, $options);
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {

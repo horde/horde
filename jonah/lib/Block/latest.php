@@ -6,8 +6,6 @@ $block_name = _("Latest News");
  * This class extends Horde_Block:: to provide the api to embed news
  * in other Horde applications.
  *
- * $Horde: jonah/lib/Block/latest.php,v 1.24 2009/07/09 08:18:26 slusarz Exp $
- *
  * Copyright 2002-2007 Roel Gloudemans <roel@gloudemans.info>
  *
  * See the enclosed file LICENSE for license information (BSD). If you

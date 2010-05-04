@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: jonah/stories/pdf.php,v 1.8 2009/06/10 17:20:11 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -19,11 +17,11 @@ function _exit($message)
     exit;
 }
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah');
-require_once 'File/PDF.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 
 $news = Jonah_News::factory();
 

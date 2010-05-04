@@ -1,5 +1,3 @@
--- $Horde: jonah/scripts/sql/jonah.sql,v 1.17 2009/10/20 21:28:30 jan Exp $
-
 CREATE TABLE jonah_channels (
     channel_id        INT NOT NULL,
     channel_slug      VARCHAR(64) NOT NULL,

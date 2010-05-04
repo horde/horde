@@ -6,8 +6,6 @@ $block_name = _("Feed");
  * This class extends Horde_Block:: to provide an api to embed news
  * in other Horde applications.
  *
- * $Horde: jonah/lib/Block/news.php,v 1.49 2009/07/09 08:18:26 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -22,7 +20,7 @@ class Horde_Block_Jonah_news extends Horde_Block {
 
     function _params()
     {
-        require_once dirname(__FILE__) . '/../../lib/Application.php';
+        require_once dirname(__FILE__) . '/../Application.php';
         require JONAH_BASE . '/config/templates.php';
 
         $params['source'] = array('name' => _("Feed"),
@@ -82,7 +80,6 @@ class Horde_Block_Jonah_news extends Horde_Block {
             return _("No feed specified.");
         }
 
-        require_once 'Horde/Template.php';
         $news = Jonah_News::factory();
         $params = $this->_params();
 

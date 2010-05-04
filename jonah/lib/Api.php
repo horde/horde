@@ -2,8 +2,6 @@
 /**
  * Jonah external API interface.
  *
- * $Horde: jonah/lib/Api.php,v 1.1 2009/11/11 01:32:03 mrubinsk Exp $
- *
  * This file defines Jonah's external API interface. Other
  * applications can interact with Jonah through this API.
  *

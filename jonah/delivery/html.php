@@ -2,8 +2,6 @@
 /**
  * Script to handle requests for html delivery of stories.
  *
- * $Horde: jonah/delivery/html.php,v 1.24 2009/06/10 05:24:47 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -12,10 +10,11 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
-require_once dirname(__FILE__) . '/lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 require JONAH_BASE . '/config/templates.php';
 
 // TODO - check if a user, have button to add channel to their

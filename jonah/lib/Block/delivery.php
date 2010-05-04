@@ -6,8 +6,6 @@ $block_name = _("Feeds");
  * This class extends Horde_Block:: to provide a list of deliverable internal
  * channels.
  *
- * $Horde: jonah/lib/Block/delivery.php,v 1.22 2009/06/10 05:24:47 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

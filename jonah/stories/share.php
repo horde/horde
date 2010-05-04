@@ -13,12 +13,11 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     global $conf;
 
     /* Create the MIME message. */
-    require_once JONAH_BASE . '/lib/version.php';
     $mail = new Horde_Mime_Mail(array('subject' => $subject,
                                       'to' => $recipients,
                                       'from' => $from,
                                       'charset' => Horde_Nls::getCharset()));
-    $mail->addHeader('User-Agent', 'Jonah ' . JONAH_VERSION);
+    $mail->addHeader('User-Agent', 'Jonah ' . $GLOBALS['registry']->getVersion());
 
     /* If a note has been provided, add it to the message as a text part. */
     if (strlen($note) > 0) {
@@ -40,10 +39,12 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     return $mail->send(Horde::getMailerConfig());
 }
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$jonah = Horde_Registry::appInit('jonah');
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
+
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 

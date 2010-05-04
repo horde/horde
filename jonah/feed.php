@@ -2,8 +2,6 @@
 /**
  * Script to handle requests for html delivery of stories.
  *
- * $Horde: jonah/feed.php,v 1.6 2009/06/10 05:24:46 slusarz Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -12,10 +10,13 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 $jonah = Horde_Registry::appInit('jonah');
+
 require JONAH_BASE . '/config/templates.php';
 
 /* Get the id and format of the feed to display. */

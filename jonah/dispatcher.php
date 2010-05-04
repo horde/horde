@@ -7,10 +7,14 @@
  *
  * @author Ben Klang <ben@alkaloid.net>
  */
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
-require_once dirname(__FILE__) . '/lib/Application.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$jonah = Horde_Registry::appInit('jonah', array(
+    'authentication' => 'none',
+    'session_control' => 'readonly'
+));
 $jonah = Horde_Registry::appInit('jonah');
+
 require JONAH_BASE . '/config/templates.php';
 
 // Grab, and hopefully match, the URL

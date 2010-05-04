@@ -6,8 +6,6 @@ $block_name = _("Story");
  * This class extends Horde_Block:: to provide the api to embed news
  * in other Horde applications.
  *
- * $Horde: jonah/lib/Block/story.php,v 1.11 2009/07/09 08:18:26 slusarz Exp $
- *
  * Copyright 2002-2007 Roel Gloudemans <roel@gloudemans.info>
  *
  * See the enclosed file LICENSE for license information (BSD). If you
