@@ -264,8 +264,10 @@ class StandardPage extends Page {
     {
         $requestor = $this->_lock['lock_owner'];
         if ($requestor) {
-            $identity = Horde_Prefs_Identity::factory('none', $requestor);
-            $name = $identity->getValue('fullname');
+            $name = $GLOBALS['injector']
+                ->getInstance('Horde_Prefs_Identity')
+                ->getOb($requestor)
+                ->getValue('fullname');
             if (!strlen($name)) {
                 $name = $requestor;
             }
