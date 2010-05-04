@@ -13,9 +13,6 @@
 @define('JONAH_BASE', dirname(__FILE__) . '/..');
 require_once dirname(__FILE__) . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah');
-require_once JONAH_BASE . '/lib/News.php';
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
 
 function _getLinks($id, $subid, $name, $title)
 {
@@ -42,7 +39,7 @@ $ids = preg_split('/:/', $channel['channel_url'], -1, PREG_SPLIT_NO_EMPTY);
 
 /* Get the vars for channel type. */
 $channel_type = $channel['channel_type'];
-if ($channel_type != JONAH_AGGREGATED_CHANNEL) {
+if ($channel_type != Jonah::AGGREGATED_CHANNEL) {
     $notification->push(_("This is no aggregated channel."), 'horde.error');
     header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('channels/edit.php', true), 'channel_id', $channel_id));
     exit;
@@ -68,7 +65,7 @@ if ($form->validate($vars)) {
                         'channel_name' => $vars->get('channel_name'),
                         'channel_link' => $vars->get('channel_link'),
                         'channel_img' => $vars->get('channel_img'),
-                        'channel_type' => JONAH_EXTERNAL_CHANNEL);
+                        'channel_type' => Jonah::EXTERNAL_CHANNEL);
     if ($vars->get('subchannel_id')) {
         $subchannel['channel_id'] = $vars->get('subchannel_id');
     }

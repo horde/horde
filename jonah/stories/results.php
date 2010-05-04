@@ -25,7 +25,7 @@ if (!is_null($channel_id)) {
     $channel_ids = array($channel_id);
 } else {
     $channel_ids = array();
-    $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
+    $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
     foreach ($channels as $ch) {
         if (Jonah::checkPermissions(Jonah::typeToPermName($ch['channel_type']), Horde_Perms::SHOW, $ch['channel_id'])) {
             $channel_ids[] = $ch['channel_id'];
@@ -79,14 +79,14 @@ foreach ($stories as $key => $story) {
     $stories[$key]['pdf_link'] = Horde::link($url, _("PDF version")) . Horde_Themes::img('mime/pdf.png') . '</a>';
 
     /* Edit story link. */
-    if (Jonah::checkPermissions(Jonah::typeToPermName(JONAH_INTERNAL_CHANNEL), Horde_Perms::EDIT, $channel_id)) {
+    if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::EDIT, $channel_id)) {
         $url = Horde::applicationUrl('stories/edit.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
         $stories[$key]['edit_link'] = Horde::link($url, _("Edit story")) . Horde_Themes::img('edit.png') . '</a>';
     }
 
     /* Delete story link. */
-    if (Jonah::checkPermissions(Jonah::typeToPermName(JONAH_INTERNAL_CHANNEL), Horde_Perms::DELETE, $channel_id)) {
+    if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::DELETE, $channel_id)) {
         $url = Horde::applicationUrl('stories/delete.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
         $stories[$key]['delete_link'] = Horde::link($url, _("Delete story")) . Horde_Themes::img('delete.png') . '</a>';

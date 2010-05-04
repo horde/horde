@@ -15,9 +15,9 @@ class Jonah_Api extends Horde_Registry_Api
      * Get a list of stored channels.
      *
      * @param integer $type  The type of channel to filter for. Possible
-     *                       values are either JONAH_INTERNAL_CHANNEL
+     *                       values are either Jonah::INTERNAL_CHANNEL
      *                       to fetch only a list of internal channels,
-     *                       or JONAH_EXTERNAL_CHANNEL for only external.
+     *                       or Jonah::EXTERNAL_CHANNEL for only external.
      *                       If null both channel types are returned.
      *
      * @return mixed         An array of channels or PEAR_Error on error.
@@ -163,7 +163,7 @@ class Jonah_Api extends Horde_Registry_Api
      * @param integer $max       The maximum number of stories to return.
      * @param integer $from      The number of the story to start with.
      * @param array $channel_id  An array of channel_ids to limit the search to.
-     * @param integer $order     How to order the results (a JONAH_ORDER_* constant)
+     * @param integer $order     How to order the results (a Jonah::ORDER_* constant)
      * @param boolean $raw       Return the raw story data?
      *
      * @return mixed  An array of results | PEAR_Error

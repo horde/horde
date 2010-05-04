@@ -67,7 +67,7 @@ if ($formname && !$changed_type) {
             $notification->push(sprintf(_("There was an error saving the feed: %s"), $save->getMessage()), 'horde.error');
         } else {
             $notification->push(sprintf(_("The feed \"%s\" has been saved."), $info['channel_name']), 'horde.success');
-            if ($channel_type == JONAH_AGGREGATED_CHANNEL) {
+            if ($channel_type == Jonah::AGGREGATED_CHANNEL) {
                 $notification->push(_("You can now edit the sub-feeds."), 'horde.message');
             } else {
                 header('Location: ' . Horde::applicationUrl('channels/index.php', true));

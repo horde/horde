@@ -30,7 +30,7 @@ class Horde_Block_Jonah_delivery extends Horde_Block {
         $news = Jonah_News::factory();
 
         $channels = array();
-        $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
+        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
         if (is_a($channels, 'PEAR_Error')) {
             $channels = array();
         }

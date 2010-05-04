@@ -40,7 +40,7 @@ if (is_a($channels, 'PEAR_Error')) {
         /* Edit channel link. */
         $url = Horde::applicationUrl('channels/edit.php');
         $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
-        $channels[$key]['edit_link'] = Horde::link($url, _("Edit channel"), '', '', '', _("Edit channel")) . Horde_Themes::img('edit.png') . '</a>';
+        $channels[$key]['edit_link'] = Horde::link($url, _("Edit channel"), '', '', '', _("Edit channel")) . Horde::img('edit.png') . '</a>';
 
         /* Delete channel link. */
         $url = Horde::applicationUrl('channels/delete.php');
@@ -57,15 +57,15 @@ if (is_a($channels, 'PEAR_Error')) {
         $channels[$key]['refresh_link'] = '';
 
         switch ($channel['channel_type']) {
-        case JONAH_INTERNAL_CHANNEL:
+        case Jonah::INTERNAL_CHANNEL:
             /* Add story link. */
             $url = Horde::applicationUrl('stories/edit.php');
             $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
             $channels[$key]['addstory_link'] = Horde::link($url, _("Add story"), '', '', '', _("Add story")) . Horde_Themes::img('new.png') . '</a>';
             break;
 
-        case JONAH_EXTERNAL_CHANNEL:
-        case JONAH_AGGREGATED_CHANNEL:
+        case Jonah::EXTERNAL_CHANNEL:
+        case Jonah::AGGREGATED_CHANNEL:
             /* Refresh cache link. */
             $url = Horde::applicationUrl('stories/index.php');
             $url = Horde_Util::addParameter($url, array('channel_id' => $channel['channel_id'], 'refresh' => '1', 'url' => Horde::selfUrl()));

@@ -4,33 +4,6 @@
  */
 
 /**
- * Internal Jonah channel.
- */
-define('JONAH_INTERNAL_CHANNEL', 0);
-
-/**
- * External channel.
- */
-define('JONAH_EXTERNAL_CHANNEL', 1);
-
-/**
- * Aggregated channel.
- */
-define('JONAH_AGGREGATED_CHANNEL', 2);
-
-/**
- * Composite channel.
- */
-define('JONAH_COMPOSITE_CHANNEL', 3);
-
-/**
- */
-define('JONAH_ORDER_PUBLISHED', 0);
-define('JONAH_ORDER_READ', 1);
-define('JONAH_ORDER_COMMENTS', 2);
-
-
-/**
  * Jonah Base Class.
  *
  * $Horde: jonah/lib/Jonah.php,v 1.141 2009/11/24 04:15:37 chuck Exp $
@@ -40,6 +13,33 @@ define('JONAH_ORDER_COMMENTS', 2);
  * @package Jonah
  */
 class Jonah {
+
+
+    /**
+     * Internal Jonah channel.
+     */
+    const INTERNAL_CHANNEL = 0;
+
+    /**
+     * External channel.
+     */
+    const EXTERNAL_CHANNEL = 1;
+
+    /**
+     * Aggregated channel.
+     */
+    const AGGREGATED_CHANNEL = 2;
+
+    /**
+     * Composite channel.
+     */
+    const COMPOSITE_CHANNEL = 3;
+
+    /**
+     */
+    const ORDER_PUBLISHED = 0;
+    const ORDER_READ = 1;
+    const ORDER_COMMENTS = 2;
 
     /**
      */
@@ -103,16 +103,16 @@ class Jonah {
     function getChannelTypeLabel($type)
     {
         switch ($type) {
-        case JONAH_INTERNAL_CHANNEL:
+        case Jonah::INTERNAL_CHANNEL:
             return _("Local Feed");
 
-        case JONAH_EXTERNAL_CHANNEL:
+        case Jonah::EXTERNAL_CHANNEL:
             return _("External Feed");
 
-        case JONAH_AGGREGATED_CHANNEL:
+        case Jonah::AGGREGATED_CHANNEL:
             return _("Aggregated Feed");
 
-        case JONAH_COMPOSITE_CHANNEL:
+        case Jonah::COMPOSITE_CHANNEL:
             return _("Composite Feed");
         }
     }
@@ -174,9 +174,9 @@ class Jonah {
      */
     function typeToPermName($type)
     {
-        if ($type == JONAH_INTERNAL_CHANNEL) {
+        if ($type == Jonah::INTERNAL_CHANNEL) {
             return 'internal_channels';
-        } elseif ($type == JONAH_EXTERNAL_CHANNEL) {
+        } elseif ($type == Jonah::EXTERNAL_CHANNEL) {
             return 'external_channels';
         }
     }
@@ -249,7 +249,7 @@ class Jonah {
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $news = Jonah_News::factory();
             $channel = $news->getChannel($channel_id);
-            if ($channel['channel_type'] == JONAH_INTERNAL_CHANNEL &&
+            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
                 Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
                 $menu->addArray(array('url' => Horde::applicationUrl('stories/edit.php?channel_id=' . (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
             }

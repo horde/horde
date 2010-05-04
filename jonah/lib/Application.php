@@ -46,7 +46,7 @@ class Jonah_Application extends Horde_Registry_Application
     public function perms()
     {
         $news = Jonah_News::factory();
-        $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
+        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
 
         /* Loop through internal channels and add their ids to the
          * perms. */
@@ -72,7 +72,7 @@ class Jonah_Application extends Horde_Registry_Application
             $perms['tree']['jonah']['news']['internal_channels'][$channel['channel_id']] = false;
         }
 
-        $channels = $news->getChannels(JONAH_EXTERNAL_CHANNEL);
+        $channels = $news->getChannels(Jonah::EXTERNAL_CHANNEL);
 
         /* Loop through external channels and add their ids to the
          * perms. */

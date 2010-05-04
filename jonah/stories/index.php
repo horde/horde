@@ -77,8 +77,8 @@ foreach ($stories as $key => $story) {
     $stories[$key]['delete_link'] = '';
 
     /* These links only if internal channel. */
-    if ($channel['channel_type'] == JONAH_INTERNAL_CHANNEL ||
-        $channel['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+    if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL ||
+        $channel['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
         $stories[$key]['view_link'] = Horde::link(Horde::url($story['story_link']), $story['story_desc']) . htmlspecialchars($story['story_title']) . '</a>';
 
         /* PDF link. */
@@ -121,8 +121,8 @@ $template->set('header', htmlspecialchars($channel['channel_name']));
 $template->set('refresh', Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), array('refresh' => 1)), _("Refresh Channel")) . Horde_Themes::img('reload.png') . '</a>');
 $template->set('listheaders', array(_("Story"), _("Date")));
 $template->set('stories', $stories, true);
-$template->set('read', $channel['channel_type'] == JONAH_INTERNAL_CHANNEL || $channel['channel_type'] == JONAH_COMPOSITE_CHANNEL, true);
-$template->set('comments', $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == JONAH_INTERNAL_CHANNEL, true);
+$template->set('read', $channel['channel_type'] == Jonah::INTERNAL_CHANNEL || $channel['channel_type'] == Jonah::COMPOSITE_CHANNEL, true);
+$template->set('comments', $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == Jonah::INTERNAL_CHANNEL, true);
 $template->set('menu', Jonah::getMenu('string'));
 
 // Buffer the notifications and send to the template

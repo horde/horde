@@ -176,7 +176,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
         }
 
         $result['channel_name'] = Horde_String::convertCharset($result['channel_name'], $this->_params['charset']);
-        if ($result['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+        if ($result['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
             $channels = explode(':', $result['channel_url']);
             if (count($channels)) {
                 $sql = 'SELECT MAX(channel_updated) FROM jonah_channels WHERE channel_id IN (' . implode(',', $channels) . ')';
@@ -509,7 +509,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *                stories from the given channel.
      */
     function _legacyGetStories($channel_id, $max, $from = 0, $date = null,
-                         $unreleased = false, $order = JONAH_ORDER_PUBLISHED)
+                         $unreleased = false, $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -534,13 +534,13 @@ class Jonah_Driver_sql extends Jonah_Driver {
         }
 
         switch ($order) {
-        case JONAH_ORDER_PUBLISHED:
+        case Jonah::ORDER_PUBLISHED:
             $sql .= ' ORDER BY story_published DESC';
             break;
-        case JONAH_ORDER_READ:
+        case Jonah::ORDER_READ:
             $sql .= ' ORDER BY story_read DESC';
             break;
-        case JONAH_ORDER_COMMENTS:
+        case Jonah::ORDER_COMMENTS:
             //@TODO
             break;
         }
@@ -827,7 +827,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
             $channels = array();
             foreach ($channel_id as $cid) {
                 $c = $this->_getChannel($cid);
-                if ($c['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+                if ($c['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
                     $channels = array_merge($channels, explode(':', $c['channel_url']));
                 }
             }
@@ -857,7 +857,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      * @return mixed  Array of stories| PEAR_Error
      */
     function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
-                            $order = JONAH_ORDER_PUBLISHED)
+                            $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -883,7 +883,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
                 $channels = array();
                 foreach ($channel_id as $cid) {
                     $c = $this->_getChannel($cid);
-                    if ($c['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+                    if ($c['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
                         $temp = explode(':', $c['channel_url']);
                         // Save a map of channels that are from composites.
                         foreach ($temp as $t) {
@@ -900,13 +900,13 @@ class Jonah_Driver_sql extends Jonah_Driver {
             }
 
             switch ($order) {
-            case JONAH_ORDER_PUBLISHED:
+            case Jonah::ORDER_PUBLISHED:
                 $sql .= ' ORDER BY story_published DESC';
                 break;
-            case JONAH_ORDER_READ:
+            case Jonah::ORDER_READ:
                 $sql .= ' ORDER BY story_read DESC';
                 break;
-            case JONAH_ORDER_COMMENTS:
+            case Jonah::ORDER_COMMENTS:
                 //@TODO
                 break;
             }
@@ -957,7 +957,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      * @see Jonah_Driver_sql::searchTagsById()
      */
     function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
-                        $order = JONAH_ORDER_PUBLISHED)
+                        $order = Jonah::ORDER_PUBLISHED)
     {
         $ids = $this->getTagIds($names);
         if (is_a($ids, 'PEAR_Error')) {

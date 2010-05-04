@@ -56,7 +56,7 @@ class FeedForm extends Horde_Form
     function getInfo(&$vars, &$info)
     {
         parent::getInfo($vars, $info);
-        if ($vars->get('channel_type') == JONAH_COMPOSITE_CHANNEL &&
+        if ($vars->get('channel_type') == Jonah::COMPOSITE_CHANNEL &&
             is_array($vars->get('subchannels'))) {
                 $info['channel_url'] = implode(':', $vars->get('subchannels'));
         }
@@ -71,7 +71,7 @@ class FeedForm extends Horde_Form
         }
 
         switch ($type) {
-        case JONAH_INTERNAL_CHANNEL:
+        case Jonah::INTERNAL_CHANNEL:
             $this->addVariable(_("Description"), 'channel_desc', 'text', false);
             $this->addVariable(
                 _("Channel Slug"), 'channel_slug', 'text', true, false,
@@ -85,7 +85,7 @@ class FeedForm extends Horde_Form
             $this->addVariable(_("Story URL if not the default one. %c gets replaced by the feed ID, %s by the story ID."), 'channel_story_url', 'text', false);
             break;
 
-        case JONAH_EXTERNAL_CHANNEL:
+        case Jonah::EXTERNAL_CHANNEL:
             $interval = Jonah_News::getIntervalLabel();
             $v = &$this->addVariable(_("Caching"), 'channel_interval', 'enum', false, false, _("The interval before stories in this feed are rechecked for updates. If none, then stories will always be refetched from the source."), array($interval));
             $v->setDefault('86400');
@@ -94,7 +94,7 @@ class FeedForm extends Horde_Form
             $this->addVariable(_("Image"), 'channel_img', 'text', false);
             break;
 
-        case JONAH_AGGREGATED_CHANNEL:
+        case Jonah::AGGREGATED_CHANNEL:
             $this->addHidden('', 'channel_url', 'text', false);
             $interval = Jonah_News::getIntervalLabel();
             $this->addVariable(_("Description"), 'channel_desc', 'text', false);
@@ -108,9 +108,9 @@ class FeedForm extends Horde_Form
             }
             break;
 
-        case JONAH_COMPOSITE_CHANNEL:
+        case Jonah::COMPOSITE_CHANNEL:
             global $news;
-            $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
+            $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
             $enum = array();
             foreach ($channels as $channel) {
                 $enum[$channel['channel_id']] = $channel['channel_name'];

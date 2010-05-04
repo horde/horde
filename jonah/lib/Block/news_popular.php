@@ -33,7 +33,7 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
         $news = Jonah_News::factory();
         $channels = $news->getChannels();
         foreach ($channels as  $channel) {
-            if ($channel['channel_type'] == JONAH_INTERNAL_CHANNEL) {
+            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL) {
                 $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
             }
         }
@@ -90,7 +90,7 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
         }
 
 
-        return $news->renderChannel($this->_params['source'], $view, $this->_params['max'], 0, JONAH_ORDER_READ);
+        return $news->renderChannel($this->_params['source'], $view, $this->_params['max'], 0, Jonah::ORDER_READ);
     }
 
 }

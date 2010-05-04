@@ -27,7 +27,7 @@ class Horde_Block_Jonah_story extends Horde_Block {
     function _params()
     {
         $news = Jonah_News::factory();
-        $channels = $news->getChannels(JONAH_INTERNAL_CHANNEL);
+        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
         $channel_choices = array();
         foreach ($channels as $channel) {
             $channel_choices[$channel['channel_id']] = $channel['channel_name'];

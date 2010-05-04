@@ -131,7 +131,7 @@ class Jonah_Driver {
      *
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
+     *                             Jonah::ORDER_* constants.
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
@@ -194,14 +194,14 @@ class Jonah_Driver {
      *                             Defaults to false - only published stories.
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
+     *                             Jonah::ORDER_* constants.
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
      */
     function legacyGetStories($channel, $max = 10, $from = 0, $refresh = false,
                         $date = null, $unreleased = false,
-                        $order = JONAH_ORDER_PUBLISHED)
+                        $order = Jonah::ORDER_PUBLISHED)
     {
         global $conf, $registry;
 
@@ -278,7 +278,7 @@ class Jonah_Driver {
             if (is_a($channel, 'PEAR_Error')) {
                 return $channel;
             }
-            if ($channel['channel_type'] == JONAH_EXTERNAL_CHANNEL) {
+            if ($channel['channel_type'] == Jonah::EXTERNAL_CHANNEL) {
                 return $this->_getExternalStory($channel, $story_id);
             }
         }
@@ -358,12 +358,12 @@ class Jonah_Driver {
      *                             null, all stories will be returned.
      * @param integer $from        The number of the story to start with.
      * @param integer $order       How to sort the results for internal channels
-     *                             Possible values are the JONAH_ORDER_*
+     *                             Possible values are the Jonah::ORDER_*
      *                             constants.
      *
      * @return string  The rendered story listing.
      */
-    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = JONAH_ORDER_PUBLISHED)
+    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
     {
         $channel = $this->getChannel($channel_id);
         if (is_a($channel, 'PEAR_Error')) {
@@ -579,7 +579,7 @@ class Jonah_Driver {
     }
 
     function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
-                            $order = JONAH_ORDER_PUBLISHED)
+                            $order = Jonah::ORDER_PUBLISHED)
     {
         return PEAR::raiseError(_("Tag support not enabled in backend."));
     }

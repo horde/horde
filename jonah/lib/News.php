@@ -84,7 +84,7 @@ class Jonah_News {
     /**
      * Checks if the channel is editable by first checking if the $channel_id
      * returns a valid channel array and then whether the channel type is
-     * JONAH_INTERNAL_CHANNEL, which is the only one to allow stories to be
+     * Jonah::INTERNAL_CHANNEL, which is the only one to allow stories to be
      * added.
      *
      * @param integer $channel_id  The channel id to check.
@@ -101,7 +101,7 @@ class Jonah_News {
         }
 
         /* Check if the channel type allows adding of stories. */
-        if ($channel['channel_type'] != JONAH_INTERNAL_CHANNEL) {
+        if ($channel['channel_type'] != Jonah::INTERNAL_CHANNEL) {
             return PEAR::raiseError(sprintf(_("Feed \"%s\" is not authored on this system."), $channel['channel_name']));
         }
 
@@ -123,14 +123,14 @@ class Jonah_News {
      *                             Defaults to false - only published stories.
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
+     *                             Jonah::ORDER_* constants.
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
      */
     function getStories($channel_id, $max = 10, $from = 0, $refresh = false,
                         $date = null, $unreleased = false,
-                        $order = JONAH_ORDER_PUBLISHED)
+                        $order = Jonah::ORDER_PUBLISHED)
     {
         $channel = $this->getChannel($channel_id);
         if (is_a($channel, 'PEAR_Error')) {
@@ -141,10 +141,10 @@ class Jonah_News {
         /* Fetch the stories according to channel type, using a
          * template method pattern for each type. */
         $funcs = array(
-            JONAH_INTERNAL_CHANNEL => '_getInternalStories',
-            JONAH_EXTERNAL_CHANNEL => '_getExternalStories',
-            JONAH_AGGREGATED_CHANNEL => '_getAggregatedStories',
-            JONAH_COMPOSITE_CHANNEL => '_getCompositeStories',
+            Jonah::INTERNAL_CHANNEL => '_getInternalStories',
+            Jonah::EXTERNAL_CHANNEL => '_getExternalStories',
+            Jonah::AGGREGATED_CHANNEL => '_getAggregatedStories',
+            Jonah::COMPOSITE_CHANNEL => '_getCompositeStories',
         );
 
         $func = $funcs[$channel['channel_type']];
@@ -155,7 +155,7 @@ class Jonah_News {
      */
     function _getInternalStories($channel, $max = 10, $from = 0, $refresh = false,
                                  $date = null, $unreleased = false,
-                                 $order = JONAH_ORDER_PUBLISHED)
+                                 $order = Jonah::ORDER_PUBLISHED)
     {
         return $GLOBALS['jonah_driver']->legacyGetStories($channel, $max, $from, $refresh, $date, $unreleased, $order);
     }
@@ -164,7 +164,7 @@ class Jonah_News {
      */
     function _getExternalStories($channel, $max = 10, $from = 0, $refresh = false,
                                  $date = null, $unreleased = false,
-                                 $order = JONAH_ORDER_PUBLISHED)
+                                 $order = Jonah::ORDER_PUBLISHED)
     {
         if ($refresh) {
             $channel['channel_interval'] = -1;
@@ -189,18 +189,18 @@ class Jonah_News {
      */
     function _getAggregatedStories($channel, $max = 10, $from = 0, $refresh = false,
                                    $date = null, $unreleased = false,
-                                   $order = JONAH_ORDER_PUBLISHED)
+                                   $order = Jonah::ORDER_PUBLISHED)
     {
         switch ($order) {
-        case JONAH_ORDER_PUBLISHED:
+        case Jonah::ORDER_PUBLISHED:
             $sort = 'story_published';
             break;
 
-        case JONAH_ORDER_READ:
+        case Jonah::ORDER_READ:
             $sort = 'story_read';
             break;
 
-        case JONAH_ORDER_COMMENTS:
+        case Jonah::ORDER_COMMENTS:
             //@TODO
             break;
         }
@@ -268,18 +268,18 @@ class Jonah_News {
      */
     function _getCompositeStories($channel, $max = 10, $from = 0, $refresh = false,
                                   $date = null, $unreleased = false,
-                                  $order = JONAH_ORDER_PUBLISHED)
+                                  $order = Jonah::ORDER_PUBLISHED)
     {
         switch ($order) {
-        case JONAH_ORDER_PUBLISHED:
+        case Jonah::ORDER_PUBLISHED:
             $sort = 'story_published';
             break;
 
-        case JONAH_ORDER_READ:
+        case Jonah::ORDER_READ:
             $sort = 'story_read';
             break;
 
-        case JONAH_ORDER_COMMENTS:
+        case Jonah::ORDER_COMMENTS:
             //@TODO
             break;
         }
@@ -341,7 +341,7 @@ class Jonah_News {
             if (is_a($channel, 'PEAR_Error')) {
                 return $channel;
             }
-            if ($channel['channel_type'] == JONAH_EXTERNAL_CHANNEL) {
+            if ($channel['channel_type'] == Jonah::EXTERNAL_CHANNEL) {
                 return $this->_getExternalStory($channel, $story_id);
             }
         }
@@ -468,16 +468,16 @@ class Jonah_News {
             return $types;
         }
         if (in_array('external', $GLOBALS['conf']['news']['enable'])) {
-            $types[JONAH_EXTERNAL_CHANNEL] = _("External Feed");
+            $types[Jonah::EXTERNAL_CHANNEL] = _("External Feed");
         }
         if (in_array('internal', $GLOBALS['conf']['news']['enable'])) {
-            $types[JONAH_INTERNAL_CHANNEL] = _("Local Feed");
+            $types[Jonah::INTERNAL_CHANNEL] = _("Local Feed");
         }
         if (in_array('aggregated', $GLOBALS['conf']['news']['enable'])) {
-            $types[JONAH_AGGREGATED_CHANNEL] = _("Aggregated Feed");
+            $types[Jonah::AGGREGATED_CHANNEL] = _("Aggregated Feed");
         }
         if (in_array('composite', $GLOBALS['conf']['news']['enable'])) {
-            $types[JONAH_COMPOSITE_CHANNEL] = _("Composite Feed");
+            $types[Jonah::COMPOSITE_CHANNEL] = _("Composite Feed");
         }
 
         return $types;
@@ -492,9 +492,9 @@ class Jonah_News {
     function getDefaultType()
     {
         if (in_array('external', $GLOBALS['conf']['news']['enable'])) {
-            return JONAH_EXTERNAL_CHANNEL;
+            return Jonah::EXTERNAL_CHANNEL;
         } else {
-            return JONAH_INTERNAL_CHANNEL;
+            return Jonah::INTERNAL_CHANNEL;
         }
     }
 
@@ -507,12 +507,12 @@ class Jonah_News {
      *                             null, all stories will be returned.
      * @param integer $from        The number of the story to start with.
      * @param integer $order       How to sort the results for internal channels
-     *                             Possible values are the JONAH_ORDER_*
+     *                             Possible values are the Jonah::ORDER_*
      *                             constants.
      *
      * @return string  The rendered story listing.
      */
-    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = JONAH_ORDER_PUBLISHED)
+    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
     {
         $channel = $this->getChannel($channel_id);
         if (is_a($channel, 'PEAR_Error')) {
@@ -749,7 +749,6 @@ class Jonah_News {
         }
 
         /* Parse the feed. */
-        require_once JONAH_BASE . '/lib/FeedParser.php';
         $charset = empty($xml['charset']) ? 'utf-8' : $xml['charset'];
         $parser = new Jonah_FeedParser($charset);
         if (!$parser->parse($xml['body'])) {
@@ -825,7 +824,7 @@ class Jonah_News {
     }
 
     function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
-                            $order = JONAH_ORDER_PUBLISHED)
+                            $order = Jonah::ORDER_PUBLISHED)
     {
         return PEAR::raiseError(_("Tag support not enabled in backend."));
     }

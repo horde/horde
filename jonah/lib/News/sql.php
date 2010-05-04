@@ -118,9 +118,9 @@ class Jonah_News_sql extends Jonah_News {
      * Get a list of stored channels.
      *
      * @param integer $type  The type of channel to filter for. Possible
-     *                       values are either JONAH_INTERNAL_CHANNEL
+     *                       values are either Jonah::INTERNAL_CHANNEL
      *                       to fetch only a list of internal channels,
-     *                       or JONAH_EXTERNAL_CHANNEL for only external.
+     *                       or Jonah::EXTERNAL_CHANNEL for only external.
      *                       If null both channel types are returned.
      *
      * @return mixed         An array of channels or PEAR_Error on error.
@@ -177,7 +177,7 @@ class Jonah_News_sql extends Jonah_News {
         }
 
         $result['channel_name'] = Horde_String::convertCharset($result['channel_name'], $this->_params['charset']);
-        if ($result['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+        if ($result['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
             $channels = explode(':', $result['channel_url']);
             if (count($channels)) {
                 $sql = 'SELECT MAX(channel_updated) FROM jonah_channels WHERE channel_id IN (' . implode(',', $channels) . ')';
@@ -341,13 +341,13 @@ class Jonah_News_sql extends Jonah_News {
      * @param boolean $unreleased  Whether to return not yet released stories.
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
+     *                             Jonah::ORDER_* constants.
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
      */
     function _getStories($channel_id, $max, $from = 0, $date = null,
-                         $unreleased = false, $order = JONAH_ORDER_PUBLISHED)
+                         $unreleased = false, $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -372,13 +372,13 @@ class Jonah_News_sql extends Jonah_News {
         }
 
         switch ($order) {
-        case JONAH_ORDER_PUBLISHED:
+        case Jonah::ORDER_PUBLISHED:
             $sql .= ' ORDER BY story_published DESC';
             break;
-        case JONAH_ORDER_READ:
+        case Jonah::ORDER_READ:
             $sql .= ' ORDER BY story_read DESC';
             break;
-        case JONAH_ORDER_COMMENTS:
+        case Jonah::ORDER_COMMENTS:
             //@TODO
             break;
         }
@@ -665,7 +665,7 @@ class Jonah_News_sql extends Jonah_News {
             $channels = array();
             foreach ($channel_id as $cid) {
                 $c = $this->_getChannel($cid);
-                if ($c['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+                if ($c['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
                     $channels = array_merge($channels, explode(':', $c['channel_url']));
                 }
             }
@@ -690,12 +690,12 @@ class Jonah_News_sql extends Jonah_News {
      *                             present in these channels
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
+     *                             Jonah::ORDER_* constants.
      *
      * @return mixed  Array of stories| PEAR_Error
      */
     function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
-                            $order = JONAH_ORDER_PUBLISHED)
+                            $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -721,7 +721,7 @@ class Jonah_News_sql extends Jonah_News {
                 $channels = array();
                 foreach ($channel_id as $cid) {
                     $c = $this->_getChannel($cid);
-                    if ($c['channel_type'] == JONAH_COMPOSITE_CHANNEL) {
+                    if ($c['channel_type'] == Jonah::COMPOSITE_CHANNEL) {
                         $temp = explode(':', $c['channel_url']);
                         // Save a map of channels that are from composites.
                         foreach ($temp as $t) {
@@ -738,13 +738,13 @@ class Jonah_News_sql extends Jonah_News {
             }
 
             switch ($order) {
-            case JONAH_ORDER_PUBLISHED:
+            case Jonah::ORDER_PUBLISHED:
                 $sql .= ' ORDER BY story_published DESC';
                 break;
-            case JONAH_ORDER_READ:
+            case Jonah::ORDER_READ:
                 $sql .= ' ORDER BY story_read DESC';
                 break;
-            case JONAH_ORDER_COMMENTS:
+            case Jonah::ORDER_COMMENTS:
                 //@TODO
                 break;
             }
@@ -795,7 +795,7 @@ class Jonah_News_sql extends Jonah_News {
      * @see Jonah_News_sql::searchTagsById()
      */
     function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
-                        $order = JONAH_ORDER_PUBLISHED)
+                        $order = Jonah::ORDER_PUBLISHED)
     {
         $ids = $this->getTagIds($names);
         if (is_a($ids, 'PEAR_Error')) {

@@ -51,7 +51,7 @@ $form->setButtons(array(_("Delete"), _("Do not delete")));
 $form->addHidden('', 'channel_id', 'int', true, true);
 
 $msg = _("Really delete this News Channel?");
-if ($vars->get('channel_type') == JONAH_INTERNAL_CHANNEL) {
+if ($vars->get('channel_type') == Jonah::INTERNAL_CHANNEL) {
     $msg .= ' ' . _("All stories created in this channel will be lost!");
 } else {
     $msg .= ' ' . _("Any cached stories for this channel will be lost!");
