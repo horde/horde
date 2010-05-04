@@ -214,15 +214,6 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             $patterns[$pattern] = '<$1' . $this->_params['replace'] . '_tag';
         }
 
-        /* Strip out data URLs living in an A HREF element (Bug #8715). */
-        $malicious = '/<((?:a|&#0*65;?|&#0*41;?|&#0*97;?|&#0*61;?)\b[^>]+?)' .
-            '(?:h|&#0*72;?|&#0*48;?|&#0*104;?|&#0*68;?)\s*' .
-            '(?:r|&#0*82;?|&#x0*52;?|&#0*114;?|&#x0*72;?)\s*' .
-            '(?:e|&#0*69;?|&#0*45;?|&#0*101;?|&#0*65;?)\s*' .
-            '(?:f|&#0*70;?|&#0*46;?|&#0*102;?|&#0*66;?)\s*=' .
-            '("|\')?\s*data:(?(2)[^"\')>]*|[^\s)>]*)(?(2)\\2)/is';
-        $patterns[$malicious] = '<$1';
-
         /* Comment out style/link tags. */
         if ($this->_params['strip_styles']) {
             if ($this->_params['strip_style_attributes']) {
@@ -290,6 +281,20 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
      */
     public function postProcess($text)
     {
+        /* Strip out data URLs living in an A HREF element (Bug #8715).
+         * Done here because we need to match more than 1 possible data
+         * entry per tag. */
+        $data_from = '/<((?:a|&#0*65;?|&#0*41;?|&#0*97;?|&#0*61;?)\b[^>]+?)' .
+            '(?:h|&#0*72;?|&#0*48;?|&#0*104;?|&#0*68;?)\s*' .
+            '(?:r|&#0*82;?|&#x0*52;?|&#0*114;?|&#x0*72;?)\s*' .
+            '(?:e|&#0*69;?|&#0*45;?|&#0*101;?|&#0*65;?)\s*' .
+            '(?:f|&#0*70;?|&#0*46;?|&#0*102;?|&#0*66;?)\s*=' .
+            '("|\')?\s*data:(?(2)[^"\')>]*|[^\s)>]*)(?(2)\\2)/is';
+        $data_to = '<$1';
+        do {
+            $text = preg_replace($data_from, $data_to, $text, -1, $count);
+        } while ($count);
+
         ini_restore('pcre.backtrack_limit');
 
         // Restore CDATA data
