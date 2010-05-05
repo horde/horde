@@ -34,6 +34,14 @@ date_default_timezone_set('America/New_York');
  */
 class Horde_Db_AllTests extends Horde_Test_AllTests
 {
+    /**
+     * Main entry point for running the suite.
+     */
+    public static function main()
+    {
+        PHPUnit_TextUI_TestRunner::run(self::suite());
+    }
+
     public static function suite()
     {
         // Catch strict standards

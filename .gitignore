@@ -32,6 +32,8 @@ framework/*/test/*/*/*/*.out
 !framework/SyncML/tests/testpacket.php
 !framework/SyncML/tests/testsync.php
 !framework/XML_WBXML/tests/decode.php
+framework/Db/test/Horde/Db/Adapter/conf.php
+framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 
 # Dynamically generated content that may live in the repo directories
 /lib/

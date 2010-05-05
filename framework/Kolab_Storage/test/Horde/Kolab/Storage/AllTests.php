@@ -42,7 +42,7 @@ class Horde_Kolab_Storage_AllTests extends Horde_Test_AllTests
             self::$_file = $file;
         }
 
-        PHPUnit_TextUI_TestRunner::run(self::detectTestFixture(self::suite()));
+        PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
     /**
@@ -63,9 +63,9 @@ class Horde_Kolab_Storage_AllTests extends Horde_Test_AllTests
      */
     public static function detectTestFixture(PHPUnit_Framework_TestSuite $suite)
     {
-        $config = getenv('KOLAB_TEST_CONFIG');
+        $config = getenv('KOLAB_STORAGE_TEST_CONFIG');
         if ($config === false) {
-            $config = '/kolab/etc/kolab/php_unit_server_testing.php';
+            $config = dirname(__FILE__) . '/conf.php';
         }
         if (file_exists($config)) {
             require $config;

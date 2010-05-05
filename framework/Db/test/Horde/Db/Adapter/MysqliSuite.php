@@ -62,17 +62,19 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
         if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
         $cache = new CacheMock;
 
-        $config = array(
-            'host' => 'localhost',
-            'username' => '',
-            'password' => '',
-            'dbname' => 'test',
-            'cache' => $cache,
-        );
-        if (isset($_ENV['HORDE_DB_TEST_DSN_MYSQLI']))
-            $config = array_merge($config, @json_decode($_ENV['HORDE_DB_TEST_DSN_MYSQLI'], true));
+        $config = getenv('DB_ADAPTER_MYSQLI_TEST_CONFIG');
+        if ($config === false) {
+            $config = dirname(__FILE__) . '/conf.php';
+        }
+        if (file_exists($config)) {
+            require $config;
+            $conf['db']['adapter']['mysqli']['test']['cache'] = $cache;
+        }
+        if (!isset($conf['db']['adapter']['mysqli']['test'])) {
+            throw new Exception('No configuration for mysqli test.');
+        }
 
-        $conn = new Horde_Db_Adapter_Mysqli($config);
+        $conn = new Horde_Db_Adapter_Mysqli($conf['db']['adapter']['mysqli']['test']);
         return array($conn, $cache);
     }
 

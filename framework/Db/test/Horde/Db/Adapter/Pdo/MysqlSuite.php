@@ -62,17 +62,19 @@ class Horde_Db_Adapter_Pdo_MysqlSuite extends PHPUnit_Framework_TestSuite
         if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
         $cache = new CacheMock;
 
-        $config = array(
-            'host' => 'localhost',
-            'username' => '',
-            'password' => '',
-            'dbname' => 'test',
-            'cache' => $cache,
-        );
-        if (isset($_ENV['HORDE_DB_TEST_DSN_PDO_MYSQL']))
-            $config = array_merge($config, @json_decode($_ENV['HORDE_DB_TEST_DSN_PDO_MYSQL'], true));
+        $config = getenv('DB_ADAPTER_PDO_MYSQL_TEST_CONFIG');
+        if ($config === false) {
+            $config = dirname(__FILE__) . '/../conf.php';
+        }
+        if (file_exists($config)) {
+            require $config;
+            $conf['db']['adapter']['pdo']['mysql']['test']['cache'] = $cache;
+        }
+        if (!isset($conf['db']['adapter']['pdo']['mysql']['test'])) {
+            throw new Exception('No configuration for pdo mysql test.');
+        }
 
-        $conn = new Horde_Db_Adapter_Pdo_Mysql($config);
+        $conn = new Horde_Db_Adapter_Pdo_Mysql($conf['db']['adapter']['pdo']['mysql']['test']);
         return array($conn, $cache);
     }
 
