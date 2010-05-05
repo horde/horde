@@ -1,0 +1,17 @@
+<form action="filters.php" method="post" name="rulesetsmenu">
+ <tag:forminput />
+ <div id="menu">
+<if:options>
+  <div style="float:right">
+   <label for="ruleset" class="hidden"><gettext>Select ruleset to display:</gettext></label>
+   <select id="ruleset" name="ruleset" onchange="document.rulesetsmenu.submit(); return false;">
+    <option value=""><gettext>Select ruleset to display:</gettext></option>
+<loop:options>
+    <option value="<tag:options.val />"<if:options.selected> selected="selected"</if:options.selected>><tag:options.name /></option>
+</loop:options>
+   </select>
+  </div>
+</if:options>
+  <tag:menu_string />
+ </div>
+</form>

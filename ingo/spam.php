@@ -152,6 +152,7 @@ $title = _("Spam Filtering");
 Ingo::prepareMenu();
 Ingo::addNewFolderJs();
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+Ingo::menu();
+Ingo::status();
 $form->renderActive($renderer, $vars, 'spam.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

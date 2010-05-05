@@ -102,6 +102,7 @@ Ingo::prepareMenu();
 Ingo::addNewFolderJs();
 $title = _("Blacklist Edit");
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+Ingo::menu();
+Ingo::status();
 require INGO_TEMPLATES . '/blacklist/blacklist.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

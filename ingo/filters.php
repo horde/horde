@@ -143,7 +143,8 @@ Horde::addScriptFile('filters.js', 'ingo');
 Ingo::prepareMenu();
 $title = _("Filter Rules");
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+Ingo::menu();
+Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
 
 /* Common URLs. */

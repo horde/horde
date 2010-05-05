@@ -23,11 +23,11 @@ class Ingo
     const USER_HEADER = '++USER_HEADER++';
 
     /**
-     * getMenu() cache.
+     * prepareMenu() cache.
      *
-     * @var string
+     * @var Horde_Template
      */
-    static private $_menuCache = null;
+    static private $_menuTemplate = null;
 
     /**
      * hasSharePermission() cache.
@@ -417,6 +417,8 @@ class Ingo
 
     /**
      * Build Ingo's list of menu items.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
      */
     static public function getMenu()
     {
@@ -456,11 +458,46 @@ class Ingo
      */
     static public function prepareMenu()
     {
-        if (!self::$_menuCache) {
-            self::$_menuCache = self::getMenu()->render();
+        if (isset(self::$_menuTemplate)) {
+            return;
         }
 
-        return self::$_menuCache;
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('forminput', Horde_Util::formInput());
+
+        if (!empty($GLOBALS['ingo_shares']) &&
+            (count($GLOBALS['all_rulesets']) > 1)) {
+            $options = array();
+            foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
+                $options[] = array(
+                    'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
+                    'selected' => ($_SESSION['ingo']['current_share'] == $id),
+                    'val' => htmlspecialchars($id)
+                );
+            }
+            $t->set('options', $options);
+        }
+
+        $t->set('menu_string', self::getMenu()->render());
+
+        self::$_menuTemplate = $t;
+    }
+
+    /**
+     * Outputs IMP's menu to the current output stream.
+     */
+    static public function menu()
+    {
+        self::prepareMenu();
+        echo self::$_menuTemplate->fetch(INGO_TEMPLATES . '/menu/menu.html');
+    }
+
+    /**
+     * Outputs IMP's status/notification bar.
+     */
+    static public function status()
+    {
+        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
     }
 
     /**

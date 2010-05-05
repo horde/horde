@@ -52,7 +52,8 @@ case 'show_active':
 $title = _("Filter Script Display");
 Ingo::prepareMenu();
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+Ingo::menu();
+Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';
 if (!empty($script)) {
     require INGO_TEMPLATES . '/script/activate.inc';

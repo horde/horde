@@ -55,6 +55,7 @@ $wl_rule = $filters->findRule(Ingo_Storage::ACTION_WHITELIST);
 $title = _("Whitelist Edit");
 Ingo::prepareMenu();
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+Ingo::menu();
+Ingo::status();
 require INGO_TEMPLATES . '/whitelist/whitelist.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
