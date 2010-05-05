@@ -363,7 +363,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->_conn->addColumn("users", "moment_of_truth", 'datetime');
         $this->_conn->addColumn("users", "male",            'boolean');
 
-        $this->_conn->insert('INSERT INTO USERS (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
+        $this->_conn->insert('INSERT INTO users (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
                              "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', 1, 1)");
 
         $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
