@@ -331,21 +331,24 @@ var DimpCore = {
 
     // p = (Element) Parent element
     // t = (string) Context menu type
+    // trigger = (boolean) Trigger popdown on button click?
     // d = (boolean) Disabled?
-    addPopdown: function(p, t, d)
+    addPopdown: function(p, t, trigger, d)
     {
         var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
         p = $(p);
 
         p.insert({ after: elt });
 
-        this.addContextMenu({
-            disable: d,
-            id: p.identify(),
-            left: true,
-            offset: p.up(),
-            type: t
-        });
+        if (trigger) {
+            this.addContextMenu({
+                disable: d,
+                id: p.identify(),
+                left: true,
+                offset: p.up(),
+                type: t
+            });
+        }
 
         this.addContextMenu({
             disable: d,

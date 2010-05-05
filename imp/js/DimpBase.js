@@ -2965,8 +2965,8 @@ var DimpBase = {
         this._setQsearchText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        DimpCore.addPopdown('button_other', 'otheractions');
-        DimpCore.addPopdown('folderopts_link', 'folderopts');
+        DimpCore.addPopdown('button_other', 'otheractions', true);
+        DimpCore.addPopdown('folderopts_link', 'folderopts', true);
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
@@ -2981,8 +2981,8 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdown('button_reply', 'reply', true);
-            DimpCore.addPopdown('button_forward', 'forward', true);
+            DimpCore.addPopdown('button_reply', 'reply', false, true);
+            DimpCore.addPopdown('button_forward', 'forward', false, true);
         }
 
         DimpCore.addContextMenu({
