@@ -1,0 +1,15 @@
+<?php
+// PEAR DB configuration.
+$conf['alarm']['test']['pear']['phptype'] = 'mysql';
+$conf['alarm']['test']['pear']['hostspec'] = 'localhost';
+$conf['alarm']['test']['pear']['username'] = '';
+$conf['alarm']['test']['pear']['password'] = '';
+$conf['alarm']['test']['pear']['database'] = 'horde';
+$conf['alarm']['test']['pear']['charset'] = 'utf-8';
+// Horde_Db configuration.
+$conf['alarm']['test']['horde']['adapter'] = 'pdo_mysql';
+$conf['alarm']['test']['horde']['host'] = 'localhost';
+$conf['alarm']['test']['horde']['username'] = '';
+$conf['alarm']['test']['horde']['password'] = '';
+$conf['alarm']['test']['horde']['dbname'] = 'horde';
+$conf['alarm']['test']['horde']['charset'] = 'utf-8';
