@@ -53,64 +53,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
     protected $_write_db;
 
     /**
-     * Converts a value from the driver's charset.
-     *
-     * @param mixed $value  Value to convert.
-     *
-     * @return mixed  Converted value.
-     */
-    protected function _fromDriver($value)
-    {
-        return Horde_String::convertCharset($value, $this->_params['charset']);
-    }
-
-    /**
-     * Converts a value to the driver's charset.
-     *
-     * @param mixed $value  Value to convert.
-     *
-     * @return mixed  Converted value.
-     */
-    protected function _toDriver($value)
-    {
-        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
-    }
-
-    /**
-     * Returns an alarm hash from the backend.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
-     *
-     * @return array  An alarm hash.
-     * @throws Horde_Alarm_Exception
-     */
-    protected function _get($id, $user)
-    {
-        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
-                         $this->_params['table'],
-                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-
-        if ($this->_logger) {
-            $this->_logger->log('SQL query by Horde_Alarm_sql::_get(): ' . $query, 'DEBUG');
-        }
-
-        $alarm = $this->_db->getRow($query, array($id, $user), DB_FETCHMODE_ASSOC);
-        if ($alarm instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($alarm, 'INFO');
-            }
-            throw new Horde_Alarm_Exception($alarm);
-        }
-
-        if (empty($alarm)) {
-            throw new Horde_Alarm_Exception('Alarm not found');
-        }
-
-        return $this->_getHash($alarm);
-    }
-
-    /**
      * Returns a list of alarms from the backend.
      *
      * @param Horde_Date $time  The time when the alarms should be active.
@@ -175,6 +117,40 @@ class Horde_Alarm_Sql extends Horde_Alarm
             'snooze' => empty($alarm['alarm_snooze']) ? null : new Horde_Date($alarm['alarm_snooze'], 'UTC'),
             'internal' => empty($alarm['alarm_internal']) ? null : @unserialize($alarm['alarm_internal'])
         );
+    }
+
+    /**
+     * Returns an alarm hash from the backend.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user
+     *
+     * @return array  An alarm hash.
+     * @throws Horde_Alarm_Exception
+     */
+    protected function _get($id, $user)
+    {
+        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
+                         $this->_params['table'],
+                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_get(): ' . $query, 'DEBUG');
+        }
+
+        $alarm = $this->_db->getRow($query, array($id, $user), DB_FETCHMODE_ASSOC);
+        if ($alarm instanceof PEAR_Error) {
+            if ($this->_logger) {
+                $this->_logger->log($alarm, 'INFO');
+            }
+            throw new Horde_Alarm_Exception($alarm);
+        }
+
+        if (empty($alarm)) {
+            throw new Horde_Alarm_Exception('Alarm not found');
+        }
+
+        return $this->_getHash($alarm);
     }
 
     /**
@@ -339,34 +315,6 @@ class Horde_Alarm_Sql extends Horde_Alarm
     }
 
     /**
-     * Dismisses an alarm.
-     *
-     * @param string $id          The alarm's unique id.
-     * @param string $user        The alarm's user
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    protected function _dismiss($id, $user)
-    {
-        $query = sprintf('UPDATE %s set alarm_dismissed = 1 WHERE alarm_id = ? AND %s',
-                         $this->_params['table'],
-                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array($id, $user);
-
-        if ($this->_logger) {
-            $this->_logger->log('SQL query by Horde_Alarm_sql::_dismiss(): ' . $query, 'DEBUG');
-        }
-
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'INFO');
-            }
-            throw new Horde_Alarm_Exception($result);
-        }
-    }
-
-    /**
      * Returns whether an alarm is snoozed.
      *
      * @param string $id        The alarm's unique id.
@@ -395,6 +343,34 @@ class Horde_Alarm_Sql extends Horde_Alarm
         }
 
         return $result;
+    }
+
+    /**
+     * Dismisses an alarm.
+     *
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    protected function _dismiss($id, $user)
+    {
+        $query = sprintf('UPDATE %s set alarm_dismissed = 1 WHERE alarm_id = ? AND %s',
+                         $this->_params['table'],
+                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
+        $values = array($id, $user);
+
+        if ($this->_logger) {
+            $this->_logger->log('SQL query by Horde_Alarm_sql::_dismiss(): ' . $query, 'DEBUG');
+        }
+
+        $result = $this->_write_db->query($query, $values);
+        if ($result instanceof PEAR_Error) {
+            if ($this->_logger) {
+                $this->_logger->log($result, 'INFO');
+            }
+            throw new Horde_Alarm_Exception($result);
+        }
     }
 
     /**
@@ -540,6 +516,30 @@ class Horde_Alarm_Sql extends Horde_Alarm
             $db->query($query);
             break;
         }
+    }
+
+    /**
+     * Converts a value from the driver's charset.
+     *
+     * @param mixed $value  Value to convert.
+     *
+     * @return mixed  Converted value.
+     */
+    protected function _fromDriver($value)
+    {
+        return Horde_String::convertCharset($value, $this->_params['charset']);
+    }
+
+    /**
+     * Converts a value to the driver's charset.
+     *
+     * @param mixed $value  Value to convert.
+     *
+     * @return mixed  Converted value.
+     */
+    protected function _toDriver($value)
+    {
+        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
     }
 
 }

@@ -86,225 +86,6 @@ abstract class Horde_Alarm
     }
 
     /**
-     * Returns an alarm hash from the backend.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
-     *
-     * @return array  An alarm hash. Contains the following:
-     * <pre>
-     * id: Unique alarm id.
-     * user: The alarm's user. Empty if a global alarm.
-     * start: The alarm start as a Horde_Date.
-     * end: The alarm end as a Horde_Date.
-     * methods: The notification methods for this alarm.
-     * params: The paramters for the notification methods.
-     * title: The alarm title.
-     * text: An optional alarm description.
-     * snooze: The snooze time (next time) of the alarm as a Horde_Date.
-     * internal: Holds internally used data.
-     * </pre>
-     * @throws Horde_Alarm_Exception
-     */
-    public function get($id, $user)
-    {
-        $alarm = $this->_get($id, $user);
-
-        if (isset($alarm['mail']['body'])) {
-            $alarm['mail']['body'] = $this->_fromDriver($alarm['mail']['body']);
-        }
-
-        return $alarm;
-    }
-
-    /**
-     * Returns an alarm hash from the backend.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
-     *
-     * @return array  An alarm hash.
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _get($id, $user);
-
-    /**
-     * Stores an alarm hash in the backend.
-     *
-     * The alarm will be added if it doesn't exist, and updated otherwise.
-     *
-     * @param array $alarm         An alarm hash. See self::get() for format.
-     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    public function set($alarm, $keepsnooze = false)
-    {
-        if (isset($alarm['mail']['body'])) {
-            $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
-        }
-
-        if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
-            $this->_update($alarm, $keepsnooze);
-        } else {
-            $this->_add($alarm);
-        }
-    }
-
-    /**
-     * Updates an alarm hash in the backend.
-     *
-     * @param array $alarm         An alarm hash.
-     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _update($alarm, $keepsnooze = false);
-
-    /**
-     * Adds an alarm hash to the backend.
-     *
-     * @param array $alarm  An alarm hash.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _add($alarm);
-
-    /**
-     * Returns whether an alarm with the given id exists already.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
-     *
-     * @return boolean  True if the specified alarm exists.
-     */
-    public function exists($id, $user)
-    {
-        try {
-            return $this->_exists($id, $user);
-        } catch (Horde_Alarm_Exception $e) {
-            return false;
-        }
-    }
-
-    /**
-     * Returns whether an alarm with the given id exists already.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user
-     *
-     * @return boolean  True if the specified alarm exists.
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _exists($id, $user);
-
-    /**
-     * Delays (snoozes) an alarm for a certain period.
-     *
-     * @param string $id        The alarm's unique id.
-     * @param string $user      The notified user.
-     * @param integer $minutes  The delay in minutes. A negative value
-     *                          dismisses the alarm completely.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    public function snooze($id, $user, $minutes)
-    {
-        if (empty($user)) {
-            throw new Horde_Alarm_Exception('This alarm cannot be snoozed.');
-        }
-
-        $alarm = $this->get($id, $user);
-
-        if ($alarm) {
-            if ($minutes > 0) {
-                $alarm['snooze'] = new Horde_Date(time());
-                $alarm['snooze']->min += $minutes;
-                $this->_snooze($id, $user, $alarm['snooze']);
-                return;
-            }
-
-            $this->_dismiss($id, $user);
-        }
-    }
-
-    /**
-     * Delays (snoozes) an alarm for a certain period.
-     *
-     * @param string $id          The alarm's unique id.
-     * @param string $user        The alarm's user
-     * @param Horde_Date $snooze  The snooze time.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _snooze($id, $user, $snooze);
-
-    /**
-     * Dismisses an alarm.
-     *
-     * @param string $id          The alarm's unique id.
-     * @param string $user        The alarm's user
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _dismiss($id, $user);
-
-    /**
-     * Returns whether an alarm is snoozed.
-     *
-     * @param string $id        The alarm's unique id.
-     * @param string $user      The alarm's user
-     * @param Horde_Date $time  The time when the alarm may be snoozed.
-     *                          Defaults to now.
-     *
-     * @return boolean  True if the alarm is snoozed.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    public function isSnoozed($id, $user, $time = null)
-    {
-        if (is_null($time)) {
-            $time = new Horde_Date(time());
-        }
-        return (bool)$this->_isSnoozed($id, $user, $time);
-    }
-
-    /**
-     * Returns whether an alarm is snoozed.
-     *
-     * @param string $id        The alarm's unique id.
-     * @param string $user      The alarm's user
-     * @param Horde_Date $time  The time when the alarm may be snoozed.
-     *
-     * @return boolean  True if the alarm is snoozed.
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _isSnoozed($id, $user, $time);
-
-    /**
-     * Deletes an alarm from the backend.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user. All users' alarms if null.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    function delete($id, $user = null)
-    {
-        $this->_delete($id, $user);
-    }
-
-    /**
-     * Deletes an alarm from the backend.
-     *
-     * @param string $id    The alarm's unique id.
-     * @param string $user  The alarm's user. All users' alarms if null.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _delete($id, $user = null);
-
-    /**
      * Retrieves active alarms from all applications and stores them in the
      * backend.
      *
@@ -409,6 +190,237 @@ abstract class Horde_Alarm
     abstract protected function _list($user, $time);
 
     /**
+     * Returns an alarm hash from the backend.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user
+     *
+     * @return array  An alarm hash. Contains the following:
+     * <pre>
+     * id: Unique alarm id.
+     * user: The alarm's user. Empty if a global alarm.
+     * start: The alarm start as a Horde_Date.
+     * end: The alarm end as a Horde_Date.
+     * methods: The notification methods for this alarm.
+     * params: The paramters for the notification methods.
+     * title: The alarm title.
+     * text: An optional alarm description.
+     * snooze: The snooze time (next time) of the alarm as a Horde_Date.
+     * internal: Holds internally used data.
+     * </pre>
+     * @throws Horde_Alarm_Exception
+     */
+    public function get($id, $user)
+    {
+        $alarm = $this->_get($id, $user);
+
+        if (isset($alarm['mail']['body'])) {
+            $alarm['mail']['body'] = $this->_fromDriver($alarm['mail']['body']);
+        }
+
+        return $alarm;
+    }
+
+    /**
+     * Returns an alarm hash from the backend.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user
+     *
+     * @return array  An alarm hash.
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _get($id, $user);
+
+    /**
+     * Stores an alarm hash in the backend.
+     *
+     * The alarm will be added if it doesn't exist, and updated otherwise.
+     *
+     * @param array $alarm         An alarm hash. See self::get() for format.
+     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    public function set($alarm, $keepsnooze = false)
+    {
+        if (isset($alarm['mail']['body'])) {
+            $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
+        }
+
+        if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
+            $this->_update($alarm, $keepsnooze);
+        } else {
+            $this->_add($alarm);
+        }
+    }
+
+    /**
+     * Adds an alarm hash to the backend.
+     *
+     * @param array $alarm  An alarm hash.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _add($alarm);
+
+    /**
+     * Updates an alarm hash in the backend.
+     *
+     * @param array $alarm         An alarm hash.
+     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _update($alarm, $keepsnooze = false);
+
+    /**
+     * Updates internal alarm properties, i.e. properties not determined by
+     * the application setting the alarm.
+     *
+     * @param string $id       The alarm's unique id.
+     * @param string $user     The alarm's user
+     * @param array $internal  A hash with the internal data.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _internal($id, $user, $internal);
+
+    /**
+     * Returns whether an alarm with the given id exists already.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user
+     *
+     * @return boolean  True if the specified alarm exists.
+     */
+    public function exists($id, $user)
+    {
+        try {
+            return $this->_exists($id, $user);
+        } catch (Horde_Alarm_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns whether an alarm with the given id exists already.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user
+     *
+     * @return boolean  True if the specified alarm exists.
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _exists($id, $user);
+
+    /**
+     * Delays (snoozes) an alarm for a certain period.
+     *
+     * @param string $id        The alarm's unique id.
+     * @param string $user      The notified user.
+     * @param integer $minutes  The delay in minutes. A negative value
+     *                          dismisses the alarm completely.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    public function snooze($id, $user, $minutes)
+    {
+        if (empty($user)) {
+            throw new Horde_Alarm_Exception('This alarm cannot be snoozed.');
+        }
+
+        $alarm = $this->get($id, $user);
+
+        if ($alarm) {
+            if ($minutes > 0) {
+                $alarm['snooze'] = new Horde_Date(time());
+                $alarm['snooze']->min += $minutes;
+                $this->_snooze($id, $user, $alarm['snooze']);
+                return;
+            }
+
+            $this->_dismiss($id, $user);
+        }
+    }
+
+    /**
+     * Delays (snoozes) an alarm for a certain period.
+     *
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     * @param Horde_Date $snooze  The snooze time.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _snooze($id, $user, $snooze);
+
+    /**
+     * Returns whether an alarm is snoozed.
+     *
+     * @param string $id        The alarm's unique id.
+     * @param string $user      The alarm's user
+     * @param Horde_Date $time  The time when the alarm may be snoozed.
+     *                          Defaults to now.
+     *
+     * @return boolean  True if the alarm is snoozed.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    public function isSnoozed($id, $user, $time = null)
+    {
+        if (is_null($time)) {
+            $time = new Horde_Date(time());
+        }
+        return (bool)$this->_isSnoozed($id, $user, $time);
+    }
+
+    /**
+     * Returns whether an alarm is snoozed.
+     *
+     * @param string $id        The alarm's unique id.
+     * @param string $user      The alarm's user
+     * @param Horde_Date $time  The time when the alarm may be snoozed.
+     *
+     * @return boolean  True if the alarm is snoozed.
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _isSnoozed($id, $user, $time);
+
+    /**
+     * Dismisses an alarm.
+     *
+     * @param string $id          The alarm's unique id.
+     * @param string $user        The alarm's user
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _dismiss($id, $user);
+
+    /**
+     * Deletes an alarm from the backend.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user. All users' alarms if null.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    function delete($id, $user = null)
+    {
+        $this->_delete($id, $user);
+    }
+
+    /**
+     * Deletes an alarm from the backend.
+     *
+     * @param string $id    The alarm's unique id.
+     * @param string $user  The alarm's user. All users' alarms if null.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract protected function _delete($id, $user = null);
+
+    /**
      * Notifies the user about any active alarms.
      *
      * @param string $user      Notify this user, all users if null, or guest
@@ -511,18 +523,6 @@ abstract class Horde_Alarm
     }
 
     /**
-     * Updates internal alarm properties, i.e. properties not determined by
-     * the application setting the alarm.
-     *
-     * @param string $id       The alarm's unique id.
-     * @param string $user     The alarm's user
-     * @param array $internal  A hash with the internal data.
-     *
-     * @throws Horde_Alarm_Exception
-     */
-    abstract protected function _internal($id, $user, $internal);
-
-    /**
      * Notifies about an alarm with an SMS through the sms/send API method.
      *
      * @param array $alarm  An alarm hash.
@@ -598,6 +598,13 @@ abstract class Horde_Alarm
      * @throws Horde_Alarm_Exception
      */
     abstract protected function _gc();
+
+    /**
+     * Attempts to initialize the backend.
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    abstract public function initialize();
 
     /**
      * Converts a value from the driver's charset.
