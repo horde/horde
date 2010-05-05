@@ -9,6 +9,7 @@
 
 class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 {
+    protected static $pearConf;
     protected static $db;
     protected static $migrator;
     protected static $alarm;
@@ -35,6 +36,8 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
             return;
         }
 
+        self::$pearConf = $conf['alarm']['test']['pear'];
+
         $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($conf['alarm']['test']['horde']['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
         self::$db = new $class($conf['alarm']['test']['horde']);
@@ -42,8 +45,6 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         self::$migrator = new Horde_Db_Migration_Migrator(self::$db, $logger, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
         self::$migrator->up();
-
-        self::$alarm = Horde_Alarm::factory('sql', $conf['alarm']['test']['pear']);
     }
 
     public static function tearDownAfterClass()
@@ -51,6 +52,14 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
         self::$migrator->down();
     }
 
+    public function testFactory()
+    {
+        self::$alarm = Horde_Alarm::factory('Sql', self::$pearConf);
+    }
+
+    /**
+     * @depends testFactory
+     */
     public function testSet()
     {
         $now = time();
