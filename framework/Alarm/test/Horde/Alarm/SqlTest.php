@@ -9,7 +9,11 @@
 
 class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    protected static $db;
+    protected static $migrator;
+    protected static $alarm;
+
+    public static function setUpBeforeClass()
     {
         // @todo: remove when we no longer depend on DB.
         error_reporting(E_ALL);
@@ -31,18 +35,18 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
 
         $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($conf['alarm']['test']['horde']['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
-        $this->db = new $class($conf['alarm']['test']['horde']);
+        self::$db = new $class($conf['alarm']['test']['horde']);
 
-        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
-        $this->migrator = new Horde_Db_Migration_Migrator($this->db, $logger, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
-        $this->migrator->up();
+        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, $logger, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
+        self::$migrator->up();
 
-        $this->alarm = Horde_Alarm::factory('sql', $conf['alarm']['test']['pear']);
+        self::$alarm = Horde_Alarm::factory('sql', $conf['alarm']['test']['pear']);
     }
 
-    public function tearDown()
+    public static function tearDownAfterClass()
     {
-        $this->migrator->down();
+        self::$migrator->down();
     }
 
     public function testSet()
@@ -57,6 +61,14 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
                       'methods' => array(),
                       'params' => array(),
                       'title' => 'This is a personal alarm.');
-        $this->alarm->set($hash);
+        self::$alarm->set($hash);
+    }
+
+    /**
+     * @depends testSet
+     */
+    public function testExists()
+    {
+        $this->assertTrue(self::$alarm->exists('personalalarm', 'john'));
     }
 }

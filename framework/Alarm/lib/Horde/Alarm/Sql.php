@@ -306,7 +306,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
             throw new Horde_Alarm_Exception($result);
         }
 
-        return $result;
+        return $result == 1;
     }
 
     /**
