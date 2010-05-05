@@ -435,9 +435,19 @@ div.vpRowVert.flagUnseen {
     margin-right: 4px;
     vertical-align: top;
 }
-.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
+.dimpActions a:hover {
     background-color: #e3e3e3;
     text-decoration: none;
+}
+.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg, span.popdownImg {
+    filter: alpha(opacity=50);
+    -moz-opacity: .5;
+    opacity: .5;
+}
+.dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
 }
 .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg {
     border: 0;
