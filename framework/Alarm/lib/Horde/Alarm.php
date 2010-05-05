@@ -613,10 +613,7 @@ abstract class Horde_Alarm
      *
      * @return mixed  Converted value.
      */
-    protected function _fromDriver($value)
-    {
-        return $value;
-    }
+    abstract protected function _fromDriver($value);
 
     /**
      * Converts a value to the driver's charset.
@@ -625,9 +622,6 @@ abstract class Horde_Alarm
      *
      * @return mixed  Converted value.
      */
-    protected function _toDriver($value)
-    {
-        return $value;
-    }
+    abstract protected function _toDriver($value);
 
 }
