@@ -43,29 +43,32 @@ class Horde_Db_Migration_Migrator
      */
     protected $_schemaTableName = 'schema_info';
 
-
-    /*##########################################################################
-    # Constructor
-    ##########################################################################*/
-
     /**
+     * Constructor.
+     *
      * @param   string  $direction
      * @param   string  $migrationsPath
      * @param   integer $targetVersion
      */
-    public function __construct(Horde_Db_Adapter_Base $connection, Horde_Log_Logger $logger, $options = array())
+    public function __construct(Horde_Db_Adapter_Base $connection,
+                                Horde_Log_Logger $logger = null,
+                                array $options = array())
     {
         if (!$connection->supportsMigrations()) {
             $msg = 'This database does not yet support migrations';
             throw new Horde_Db_Migration_Exception($msg);
         }
 
-        $this->_connection     = $connection;
-        $this->_logger         = $logger;
-        $this->_inflector      = new Horde_Support_Inflector();
+        $this->_connection = $connection;
+        $this->_logger     = $logger ? $logger : new Horde_Support_Stub();
+        $this->_inflector  = new Horde_Support_Inflector();
 
-        if (isset($options['migrationsPath'])) { $this->_migrationsPath = $options['migrationsPath']; }
-        if (isset($options['schemaTableName'])) { $this->_schemaTableName = $options['schemaTableName']; }
+        if (isset($options['migrationsPath'])) {
+            $this->_migrationsPath = $options['migrationsPath'];
+        }
+        if (isset($options['schemaTableName'])) {
+            $this->_schemaTableName = $options['schemaTableName'];
+        }
 
         $this->_initializeSchemaInformation();
     }

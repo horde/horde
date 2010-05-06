@@ -42,8 +42,7 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
         $class = 'Horde_Db_Adapter_' . $adapter;
         self::$db = new $class($conf['alarm']['test']['horde']);
 
-        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, $logger, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
+        self::$migrator = new Horde_Db_Migration_Migrator(self::$db, null, array('migrationsPath' => dirname(dirname(dirname(dirname(__FILE__)))) . '/migrations'));
         self::$migrator->up();
     }
 
