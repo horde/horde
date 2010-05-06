@@ -142,6 +142,21 @@ class Turba_Api extends Horde_Registry_Api
         return $prefs->getValue('default_dir');
     }
 
+    /**
+     * Retrieve the UID for the Global Address List source, or false if none
+     * configured.
+     *
+     * @return string | boolean  The UID or false if none configured.
+     */
+    public function getGalUid()
+    {
+        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
+            return $GLOBALS['conf']['gal']['addressbook'];
+        }
+
+        return false;
+    }
+
     private function _modified($uid)
     {
         $modified = $this->getActionTimestamp($uid, 'modify');
