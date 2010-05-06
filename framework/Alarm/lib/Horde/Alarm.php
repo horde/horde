@@ -46,12 +46,8 @@ abstract class Horde_Alarm
      * @return Horde_Alarm  The newly created concrete instance.
      * @throws Horde_Alarm_Exception
      */
-    static public function factory($driver = null, $params = array())
+    static public function factory($driver, array $params = array())
     {
-        if (empty($driver)) {
-            return new Horde_Alarm($params);
-        }
-
         $driver = ucfirst(basename($driver));
         $class = __CLASS__ . '_' . $driver;
 
@@ -75,7 +71,7 @@ abstract class Horde_Alarm
      * 'ttl' - (integer) Time to live value, in seconds.
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
@@ -157,8 +153,8 @@ abstract class Horde_Alarm
      * @return array  A list of alarm hashes.
      * @throws Horde_Alarm_Exception
      */
-    public function listAlarms($user = null, $time = null, $load = false,
-                               $preload = true)
+    public function listAlarms($user = null, Horde_Date $time = null,
+                               $load = false, $preload = true)
     {
         if (empty($time)) {
             $time = new Horde_Date(time());
@@ -187,7 +183,7 @@ abstract class Horde_Alarm
      * @return array  A list of alarm hashes.
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _list($user, $time);
+    abstract protected function _list($user, Horde_Date $time);
 
     /**
      * Returns an alarm hash from the backend.
@@ -242,7 +238,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    public function set($alarm, $keepsnooze = false)
+    public function set(array $alarm, $keepsnooze = false)
     {
         if (isset($alarm['mail']['body'])) {
             $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
@@ -262,7 +258,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _add($alarm);
+    abstract protected function _add(array $alarm);
 
     /**
      * Updates an alarm hash in the backend.
@@ -272,7 +268,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _update($alarm, $keepsnooze = false);
+    abstract protected function _update(array $alarm, $keepsnooze = false);
 
     /**
      * Updates internal alarm properties, i.e. properties not determined by
@@ -284,7 +280,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _internal($id, $user, $internal);
+    abstract protected function _internal($id, $user, array $internal);
 
     /**
      * Returns whether an alarm with the given id exists already.
@@ -353,7 +349,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _snooze($id, $user, $snooze);
+    abstract protected function _snooze($id, $user, Horde_Date $snooze);
 
     /**
      * Returns whether an alarm is snoozed.
@@ -367,7 +363,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    public function isSnoozed($id, $user, $time = null)
+    public function isSnoozed($id, $user, Horde_Date $time = null)
     {
         if (is_null($time)) {
             $time = new Horde_Date(time());
@@ -385,7 +381,7 @@ abstract class Horde_Alarm
      * @return boolean  True if the alarm is snoozed.
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _isSnoozed($id, $user, $time);
+    abstract protected function _isSnoozed($id, $user, Horde_Date $time);
 
     /**
      * Dismisses an alarm.
@@ -433,7 +429,7 @@ abstract class Horde_Alarm
      * @throws Horde_Alarm_Exception
      */
     public function notify($user = null, $load = true, $preload = true,
-                           $exclude = array())
+                           array $exclude = array())
     {
         try {
             $alarms = $this->listAlarms($user, null, $load, $preload);
@@ -470,7 +466,7 @@ abstract class Horde_Alarm
      *
      * @param array $alarm  An alarm hash.
      */
-    protected function _notify($alarm)
+    protected function _notify(array $alarm)
     {
         static $sound_played;
 
@@ -491,7 +487,7 @@ abstract class Horde_Alarm
      * @throws Horde_Mime_Exception
      * @throws Horde_Alarm_Exception
      */
-    protected function _mail($alarm)
+    protected function _mail(array $alarm)
     {
         if (!empty($alarm['internal']['mail']['sent'])) {
             return;
@@ -527,7 +523,7 @@ abstract class Horde_Alarm
      *
      * @param array $alarm  An alarm hash.
      */
-    protected function _sms($alarm)
+    protected function _sms(array $alarm)
     {
     }
 

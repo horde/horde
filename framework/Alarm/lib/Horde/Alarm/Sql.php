@@ -62,7 +62,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @return array  A list of alarm hashes.
      * @throws Horde_Alarm_Exception
      */
-    protected function _list($user, $time)
+    protected function _list($user, Horde_Date $time)
     {
         $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_dismissed = 0 AND ((alarm_snooze IS NULL AND alarm_start <= ?) OR alarm_snooze <= ?) AND (alarm_end IS NULL OR alarm_end >= ?)%s ORDER BY alarm_start, alarm_end',
                          $this->_params['table'],
@@ -103,7 +103,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
 
     /**
      */
-    protected function _getHash($alarm)
+    protected function _getHash(array $alarm)
     {
         return array(
             'id' => $alarm['alarm_id'],
@@ -160,7 +160,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _add($alarm)
+    protected function _add(array $alarm)
     {
         $query = sprintf('INSERT INTO %s (alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', $this->_params['table']);
         $values = array(
@@ -195,7 +195,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _update($alarm, $keepsnooze = false)
+    protected function _update(array $alarm, $keepsnooze = false)
     {
         $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
@@ -235,7 +235,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _internal($id, $user, $internal)
+    protected function _internal($id, $user, array $internal)
     {
         $query = sprintf('UPDATE %s set alarm_internal = ? WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
@@ -294,7 +294,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _snooze($id, $user, $snooze)
+    protected function _snooze($id, $user, Horde_Date $snooze)
     {
         $query = sprintf('UPDATE %s set alarm_snooze = ? WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
@@ -324,7 +324,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @return boolean  True if the alarm is snoozed.
      * @throws Horde_Alarm_Exception
      */
-    protected function _isSnoozed($id, $user, $time)
+    protected function _isSnoozed($id, $user, Horde_Date $time)
     {
         $query = sprintf('SELECT 1 FROM %s WHERE alarm_id = ? AND %s AND (alarm_dismissed = 1 OR (alarm_snooze IS NOT NULL AND alarm_snooze >= ?))',
                          $this->_params['table'],
@@ -481,7 +481,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
 
     /**
      */
-    protected function _initConn($db)
+    protected function _initConn(DB_common $db)
     {
         // Set DB portability options.
         switch ($db->phptype) {
