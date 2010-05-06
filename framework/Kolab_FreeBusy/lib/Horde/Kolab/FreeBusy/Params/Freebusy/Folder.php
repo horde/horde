@@ -47,7 +47,7 @@ implements Horde_Kolab_FreeBusy_Params_Owner
     private $_owner;
 
     /**
-     * The extrated folder name.
+     * The extracted folder name.
      *
      * @var string
      */

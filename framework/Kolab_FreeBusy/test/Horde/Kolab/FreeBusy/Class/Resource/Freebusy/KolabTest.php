@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
             ->method('getKolabAttribute')
             ->with('incidences-for')
             ->will($this->returnValue('admins'));
-        $resource = new Horde_Kolab_FreeBusy_Resource_Freebusy_Kolab($folder);
+        $resource = new Horde_Kolab_FreeBusy_Resource_Event_Kolab($folder);
         $this->assertEquals('admins', $resource->getRelevance());
     }
 
@@ -52,7 +52,7 @@ extends PHPUnit_Framework_TestCase
         $folder->expects($this->once())
             ->method('getXfbaccess')
             ->will($this->returnValue(array('a' => 'a')));
-        $resource = new Horde_Kolab_FreeBusy_Resource_Freebusy_Kolab($folder);
+        $resource = new Horde_Kolab_FreeBusy_Resource_Event_Kolab($folder);
         $this->assertEquals(array('a' => 'a'), $resource->getAttributeAcl());
     }
 
@@ -111,7 +111,7 @@ extends PHPUnit_Framework_TestCase
         $folder->expects($this->once())
             ->method('getData')
             ->will($this->returnValue($data));
-        $resource = new Horde_Kolab_FreeBusy_Resource_Freebusy_Kolab($folder);
+        $resource = new Horde_Kolab_FreeBusy_Resource_Event_Kolab($folder);
         return $resource;
     }
 }
