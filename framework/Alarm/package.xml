@@ -33,6 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Alarm">
       <file name="Exception.php" role="php" />
+      <file name="Object.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Alarm -->
      <file name="Alarm.php" role="php" />
@@ -80,6 +81,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Alarm/Exception.php" as="Horde/Alarm/Exception.php" />
+   <install name="lib/Horde/Alarm/Object.php" as="Horde/Alarm/Object.php" />
    <install name="lib/Horde/Alarm/Sql.php" as="Horde/Alarm/Sql.php" />
    <install name="lib/Horde/Alarm.php" as="Horde/Alarm.php" />
   </filelist>
