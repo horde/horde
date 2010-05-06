@@ -23,7 +23,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Notification
  */
-class Horde_Notification_Storage_Session
+class Horde_Notification_Storage_Object
 implements Horde_Notification_Storage_Interface
 {
     /**
