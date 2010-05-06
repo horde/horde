@@ -52,7 +52,7 @@ abstract class Horde_Alarm
         $class = __CLASS__ . '_' . $driver;
 
         if (!class_exists($class)) {
-            throw new Horde_Alarm_Exception('Could not find driver.');
+            $class = __CLASS__ . '_Null';
         }
 
         $alarm = new $class($params);
