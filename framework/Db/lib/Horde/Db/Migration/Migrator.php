@@ -49,20 +49,20 @@ class Horde_Db_Migration_Migrator
      * @param   string  $direction
      * @param   string  $migrationsPath
      * @param   integer $targetVersion
+     *
+     * @throws Horde_Db_Migration_Exception
      */
     public function __construct(Horde_Db_Adapter_Base $connection,
                                 Horde_Log_Logger $logger = null,
                                 array $options = array())
     {
         if (!$connection->supportsMigrations()) {
-            $msg = 'This database does not yet support migrations';
-            throw new Horde_Db_Migration_Exception($msg);
+            throw new Horde_Db_Migration_Exception('This database does not yet support migrations');
         }
 
         $this->_connection = $connection;
-        $this->_logger     = $logger ? $logger : new Horde_Support_Stub();
-        $this->_inflector  = new Horde_Support_Inflector();
-
+        $this->_logger = $logger ? $logger : new Horde_Support_Stub();
+        $this->_inflector = new Horde_Support_Inflector();
         if (isset($options['migrationsPath'])) {
             $this->_migrationsPath = $options['migrationsPath'];
         }
@@ -73,13 +73,8 @@ class Horde_Db_Migration_Migrator
         $this->_initializeSchemaInformation();
     }
 
-
-    /*##########################################################################
-    # Public
-    ##########################################################################*/
-
     /**
-     * @param   string            $targetVersion
+     * @param string $targetVersion
      */
     public function migrate($targetVersion = null)
     {
@@ -87,19 +82,14 @@ class Horde_Db_Migration_Migrator
 
         if ($targetVersion == null || $currentVersion < $targetVersion) {
             $this->up($targetVersion);
-
-        // migrate down
         } elseif ($currentVersion > $targetVersion) {
+            // migrate down
             $this->down($targetVersion);
-
-        // You're on the right version
-        } elseif ($currentVersion == $targetVersion) {
-            return;
         }
     }
 
     /**
-     * @param   string  $targetVersion
+     * @param string $targetVersion
      */
     public function up($targetVersion = null)
     {
@@ -109,7 +99,7 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @param   string  $targetVersion
+     * @param string $targetVersion
      */
     public function down($targetVersion = null)
     {
@@ -118,22 +108,16 @@ class Horde_Db_Migration_Migrator
         $this->_doMigrate();
     }
 
-
-    /*##########################################################################
-    # Accessor
-    ##########################################################################*/
-
     /**
-     * @return  integer
+     * @return integer
      */
     public function getCurrentVersion()
     {
-        $sql = 'SELECT version FROM ' . $this->_schemaTableName;
-        return $this->_connection->selectValue($sql);
+        return $this->_connection->selectValue('SELECT version FROM ' . $this->_schemaTableName);
     }
 
     /**
-     * @param  string  $migrationsPath  Path to migration files
+     * @param string $migrationsPath  Path to migration files.
      */
     public function setMigrationsPath($migrationsPath)
     {
@@ -141,7 +125,7 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @param  Horde_Log_Logger $logger
+     * @param Horde_Log_Logger $logger
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
@@ -149,43 +133,35 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @param  Horde_Support_Inflector $inflector
+     * @param Horde_Support_Inflector $inflector
      */
     public function setInflector(Horde_Support_Inflector $inflector)
     {
         $this->_inflector = $inflector;
     }
 
-
-    /*##########################################################################
-    # Protected
-    ##########################################################################*/
-
     /**
-     * Perform migration
+     * Performs the migration.
      */
     protected function _doMigrate()
     {
         foreach ($this->_getMigrationClasses() as $migration) {
             if ($this->_hasReachedTargetVersion($migration->version)) {
-                $msg = "Reached target version: $this->_targetVersion";
-                $this->_logger->info($msg);
+                $this->_logger->info('Reached target version: ' . $this->_targetVersion);
                 return;
             }
-            if ($this->_isIrrelevantMigration($migration->version)) { continue; }
+            if ($this->_isIrrelevantMigration($migration->version)) {
+                continue;
+            }
 
-            // log
-            $msg = "Migrating to ".get_class($migration)." (".$migration->version.")";
-            $this->_logger->info($msg);
-
-            // migrate
+            $this->_logger->info('Migrating to ' . get_class($migration) . ' (' . $migration->version . ')');
             $migration->migrate($this->_direction);
             $this->_setSchemaVersion($migration->version);
         }
     }
 
     /**
-     * @return  array
+     * @return array
      */
     protected function _getMigrationClasses()
     {
@@ -197,39 +173,43 @@ class Horde_Db_Migration_Migrator
             $migrations[$version] = $this->_getMigrationClass($name, $version);
         }
 
-        // sort by version
+        // Sort by version.
         ksort($migrations);
         $sorted = array_values($migrations);
+
         return $this->_isDown() ? array_reverse($sorted) : $sorted;
     }
 
     /**
-     * @param   array   $migrations
-     * @param   integer $version
+     * @param array   $migrations
+     * @param integer $version
+     *
+     * @throws Horde_Db_Migration_Exception
      */
     protected function _assertUniqueMigrationVersion($migrations, $version)
     {
         if (isset($migrations[$version])) {
-            $msg = "Multiple migrations have the version number $version";
-            throw new Horde_Db_Migration_Exception($msg);
+            throw new Horde_Db_Migration_Exception('Multiple migrations have the version number ' . $version);
         }
     }
 
     /**
-     * Get the list of migration files
-     * @return  array
+     * Returns the list of migration files.
+     *
+     * @return array
      */
     protected function _getMigrationFiles()
     {
-        $files = glob("$this->_migrationsPath/[0-9]*_*.php");
+        $files = glob($this->_migrationsPath . '/[0-9]*_*.php');
         return $this->_isDown() ? array_reverse($files) : $files;
     }
 
     /**
-     * Actually return object, and not class
+     * Actually returns object, and not class.
      *
-     * @param   string  $migrationName
-     * @param   integer $version
+     * @param string  $migrationName
+     * @param integer $version
+     *
      * @return  Horde_Db_Migration_Base
      */
     protected function _getMigrationClass($migrationName, $version)
@@ -242,8 +222,9 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @param   string  $migrationFile
-     * @return  array   ($version, $name)
+     * @param string $migrationFile
+     *
+     * @return array  ($version, $name)
      */
     protected function _getMigrationVersionAndName($migrationFile)
     {
@@ -258,14 +239,14 @@ class Horde_Db_Migration_Migrator
     {
         try {
             $schemaTable = $this->_connection->createTable($this->_schemaTableName, array('primaryKey' => false));
-              $schemaTable->column('version', 'integer');
+            $schemaTable->column('version', 'integer');
             $schemaTable->end();
             return $this->_connection->insert('INSERT INTO ' . $this->_schemaTableName . ' (version) VALUES (0)');
         } catch (Exception $e) {}
     }
 
     /**
-     * @param   integer $version
+     * @param integer $version
      */
     protected function _setSchemaVersion($version)
     {
@@ -275,7 +256,7 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @return  boolean
+     * @return boolean
      */
     protected function _isUp()
     {
@@ -283,7 +264,7 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @return  boolean
+     * @return boolean
      */
     protected function _isDown()
     {
@@ -291,18 +272,21 @@ class Horde_Db_Migration_Migrator
     }
 
     /**
-     * @return  boolean
+     * @return boolean
      */
     protected function _hasReachedTargetVersion($version)
     {
-        if ($this->_targetVersion === null) { return false; }
+        if ($this->_targetVersion === null) {
+            return false;
+        }
 
-        return ($this->_isUp()   && $version-1 >= $this->_targetVersion) ||
-               ($this->_isDown() && $version   <= $this->_targetVersion);
+        return ($this->_isUp()   && $version - 1 >= $this->_targetVersion) ||
+               ($this->_isDown() && $version     <= $this->_targetVersion);
     }
 
     /**
-     * @param   integer $version
+     * @param integer $version
+     *
      * @return  boolean
      */
     protected function _isIrrelevantMigration($version)
