@@ -38,7 +38,7 @@ extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('The Horde_Alarm package is not installed!');
         }
 
-        $this->alarm = $this->getMock('Horde_Alarm');
+        $this->alarm = $this->getMockForAbstractClass('Horde_Alarm');
         $this->alarm_handler = new Horde_Notification_Handler_Decorator_Alarm(
             $this->alarm, null
         );
