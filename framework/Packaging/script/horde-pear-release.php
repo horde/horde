@@ -44,6 +44,7 @@ $package = PEAR_PackageFileManager2::importOptions(
         'clearcontents' => false,
         'clearchangelog' => false,
         'simpleoutput' => true,
+        'ignore' => array('*~', 'conf.php'),
         'include' => '*',
         'dir_roles' =>
         array(
