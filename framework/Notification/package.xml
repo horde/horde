@@ -50,6 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Notification/Listener -->
       <dir name="Storage">
        <file name="Interface.php" role="php" />
+       <file name="Object.php" role="php" />
        <file name="Session.php" role="php" />
       </dir> <!-- /lib/Horde/Notification/Storage -->
       <file name="Event.php" role="php" />
@@ -126,6 +127,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Notification/Listener/Javascript.php" as="Horde/Notification/Listener/Javascript.php" />
    <install name="lib/Horde/Notification/Listener/Status.php" as="Horde/Notification/Listener/Status.php" />
    <install name="lib/Horde/Notification/Storage/Interface.php" as="Horde/Notification/Storage/Interface.php" />
+   <install name="lib/Horde/Notification/Storage/Object.php" as="Horde/Notification/Storage/Object.php" />
    <install name="lib/Horde/Notification/Storage/Session.php" as="Horde/Notification/Storage/Session.php" />
    <install name="lib/Horde/Notification/Event.php" as="Horde/Notification/Event.php" />
    <install name="lib/Horde/Notification/Handler.php" as="Horde/Notification/Handler.php" />
