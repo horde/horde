@@ -13,11 +13,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Horde_History:: class provides a method of tracking changes in Horde
  * objects, stored in a SQL table.
  *
