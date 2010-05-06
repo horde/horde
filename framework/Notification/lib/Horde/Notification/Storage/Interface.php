@@ -65,6 +65,6 @@ interface Horde_Notification_Storage_Interface
      *                                         this listener.
      * @param Horde_Notification_Event $event  The event to store.
      */
-    public function push($listener, Notification_Event_Listener $event);
+    public function push($listener, Horde_Notification_Event $event);
 
 }

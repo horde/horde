@@ -83,9 +83,9 @@ implements Horde_Notification_Storage_Interface
      *
      * @param string $listener                    The event will be stored for
      *                                            this listener.
-     * @param Notification_Event_Listener $event  The event to store.
+     * @param Horde_Notification_Event $event  The event to store.
      */
-    public function push($listener, Notification_Event_Listener $event)
+    public function push($listener, Horde_Notification_Event $event)
     {
         $this->_notifications[$listener][] = $event;
     }
