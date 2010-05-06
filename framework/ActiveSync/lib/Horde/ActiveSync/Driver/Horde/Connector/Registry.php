@@ -227,11 +227,29 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      * @param string $action    The action to check for (add, modify, delete)
      * @param integer $from_ts  The timestamp to start checking from
      * @param integer $to_ts    The ending timestamp
+     *
      * @return array  An array of event uids
      */
     public function contacts_listBy($action, $from_ts, $to_ts)
     {
         return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
+    }
+
+    public function contacts_search($query)
+    {
+        $gal = $this->contacts_getGal();
+        $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
+        return $this->_registry->contacts->search(array($query), array($gal), $fields, true, true);
+    }
+
+    /**
+     * Get the GAL source uid.
+     *
+     * @return string | boolean
+     */
+    public function contacts_getGal()
+    {
+        return $this->_registry->contacts->getGalUid();
     }
 
     /**

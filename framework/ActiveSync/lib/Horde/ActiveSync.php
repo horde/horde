@@ -150,43 +150,6 @@ define("SYNC_VALIDATECERT_CERTIFICATECHAIN","ValidateCert:CertificateChain");
 define("SYNC_VALIDATECERT_CHECKCRL","ValidateCert:CheckCRL");
 define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
 
-//Search
-define("SYNC_SEARCH_SEARCH", "Search:Search");
-define("SYNC_SEARCH_STORE", "Search:Store");
-define("SYNC_SEARCH_NAME", "Search:Name");
-define("SYNC_SEARCH_QUERY", "Search:Query");
-define("SYNC_SEARCH_OPTIONS", "Search:Options");
-define("SYNC_SEARCH_RANGE", "Search:Range");
-define("SYNC_SEARCH_STATUS", "Search:Status");
-define("SYNC_SEARCH_RESPONSE", "Search:Response");
-define("SYNC_SEARCH_RESULT", "Search:Result");
-define("SYNC_SEARCH_PROPERTIES", "Search:Properties");
-define("SYNC_SEARCH_TOTAL", "Search:Total");
-define("SYNC_SEARCH_EQUALTO", "Search:EqualTo");
-define("SYNC_SEARCH_VALUE", "Search:Value");
-define("SYNC_SEARCH_AND", "Search:And");
-define("SYNC_SEARCH_OR", "Search:Or");
-define("SYNC_SEARCH_FREETEXT", "Search:FreeText");
-define("SYNC_SEARCH_DEEPTRAVERSAL", "Search:DeepTraversal");
-define("SYNC_SEARCH_LONGID", "Search:LongId");
-define("SYNC_SEARCH_REBUILDRESULTS", "Search:RebuildResults");
-define("SYNC_SEARCH_LESSTHAN", "Search:LessThan");
-define("SYNC_SEARCH_GREATERTHAN", "Search:GreaterThan");
-define("SYNC_SEARCH_SCHEMA", "Search:Schema");
-define("SYNC_SEARCH_SUPPORTED", "Search:Supported");
-
-//GAL
-define("SYNC_GAL_DISPLAYNAME", "GAL:DisplayName");
-define("SYNC_GAL_PHONE", "GAL:Phone");
-define("SYNC_GAL_OFFICE", "GAL:Office");
-define("SYNC_GAL_TITLE", "GAL:Title");
-define("SYNC_GAL_COMPANY", "GAL:Company");
-define("SYNC_GAL_ALIAS", "GAL:Alias");
-define("SYNC_GAL_FIRSTNAME", "GAL:FirstName");
-define("SYNC_GAL_LASTNAME", "GAL:LastName");
-define("SYNC_GAL_HOMEPHONE", "GAL:HomePhone");
-define("SYNC_GAL_MOBILEPHONE", "GAL:MobilePhone");
-define("SYNC_GAL_EMAILADDRESS", "GAL:EmailAddress");
 
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
@@ -279,7 +242,6 @@ class Horde_ActiveSync
     const FLAG_NEWMESSAGE = 'NewMessage';
 
     /* Folder types */
-    // Other constants
     const FOLDER_TYPE_OTHER =  1;
     const FOLDER_TYPE_INBOX =  2;
     const FOLDER_TYPE_DRAFTS =  3;
@@ -301,14 +263,29 @@ class Horde_ActiveSync
     const FOLDER_TYPE_RECIPIENT_CACHE =  19;
     const FOLDER_TYPE_DUMMY =  '__dummy.Folder.Id__';
 
+    /** Origin of changes **/
     const CHANGE_ORIGIN_PIM = 0;
     const CHANGE_ORIGIN_SERVER = 1;
     const CHANGE_ORIGIN_NA = 3;
 
+    /** Remote wipe **/
     const RWSTATUS_NA = 0;
     const RWSTATUS_OK = 1;
     const RWSTATUS_PENDING = 2;
     const RWSTATUS_WIPED = 3;
+
+    /** GAL **/
+    const GAL_DISPLAYNAME = 'GAL:DisplayName';
+    const GAL_PHONE = 'GAL:Phone';
+    const GAL_OFFICE = 'GAL:Office';
+    const GAL_TITLE = 'GAL:Title';
+    const GAL_COMPANY = 'GAL:Company';
+    const GAL_ALIAS = 'GAL:Alias';
+    const GAL_FIRSTNAME = 'GAL:FirstName';
+    const GAL_LASTNAME = 'GAL:LastName';
+    const GAL_HOMEPHONE = 'GAL:HomePhone';
+    const GAL_MOBILEPHONE = 'GAL:MobilePhone';
+    const GAL_EMAILADDRESS = 'GAL:EmailAddress';
 
     /**
      * Logger
@@ -847,137 +824,6 @@ class Horde_ActiveSync
         self::versionHeader();
         self::commandsHeader();
         header("Cache-Control: private");
-    }
-
-    /**
-     * @param $devid
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleSearch($devid, $protocolversion)
-    {
-        $searchrange = '0';
-        if (!$this->_decoder->getElementStartTag(SYNC_SEARCH_SEARCH)) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementStartTag(SYNC_SEARCH_STORE)) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementStartTag(SYNC_SEARCH_NAME)) {
-            return false;
-        }
-        $searchname = $this->_decoder->getElementContent();
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementStartTag(SYNC_SEARCH_QUERY)) {
-            return false;
-        }
-        $searchquery = $this->_decoder->getElementContent();
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        if ($this->_decoder->getElementStartTag(SYNC_SEARCH_OPTIONS)) {
-            while(1) {
-                if ($this->_decoder->getElementStartTag(SYNC_SEARCH_RANGE)) {
-                    $searchrange = $this->_decoder->getElementContent();
-                    if (!$this->_decoder->getElementEndTag()) {
-                        return false;
-                    }
-                }
-                $e = $this->_decoder->peek();
-                if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                    $this->_decoder->getElementEndTag();
-                    break;
-                }
-            }
-        }
-        if (!$this->_decoder->getElementEndTag()) {//store
-            return false;
-        }
-
-        if (!$this->_decoder->getElementEndTag()) {//search
-            return false;
-        }
-
-        if (strtoupper($searchname) != "GAL") {
-            $this->_logger->err('Searchtype ' . $searchname . 'is not supported');
-            return false;
-        }
-        //get search results from backend
-        $rows = $this->_driver->getSearchResults($searchquery, $searchrange);
-
-        $this->_encoder->startWBXML();
-        $this->_encoder->startTag(SYNC_SEARCH_SEARCH);
-
-            $this->_encoder->startTag(SYNC_SEARCH_STATUS);
-            $this->_encoder->content(1);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(SYNC_SEARCH_RESPONSE);
-                $this->_encoder->startTag(SYNC_SEARCH_STORE);
-
-                    $this->_encoder->startTag(SYNC_SEARCH_STATUS);
-                    $this->_encoder->content(1);
-                    $this->_encoder->endTag();
-
-                    if (is_array($rows) && !empty($rows)) {
-                        $searchrange = $rows['range'];
-                        unset($rows['range']);
-                        foreach ($rows as $u) {
-                            $this->_encoder->startTag(SYNC_SEARCH_RESULT);
-                                $this->_encoder->startTag(SYNC_SEARCH_PROPERTIES);
-
-                                    $this->_encoder->startTag(SYNC_GAL_DISPLAYNAME);
-                                    $this->_encoder->content($u["fullname"]);
-                                    $this->_encoder->endTag();
-
-                                    $this->_encoder->startTag(SYNC_GAL_PHONE);
-                                    $this->_encoder->content($u["businessphone"]);
-                                    $this->_encoder->endTag();
-
-                                    $this->_encoder->startTag(SYNC_GAL_ALIAS);
-                                    $this->_encoder->content($u["username"]);
-                                    $this->_encoder->endTag();
-
-                                    //it's not possible not get first and last name of an user
-                                    //from the gab and user functions, so we just set fullname
-                                    //to lastname and leave firstname empty because nokia needs
-                                    //first and lastname in order to display the search result
-                                    $this->_encoder->startTag(SYNC_GAL_FIRSTNAME);
-                                    $this->_encoder->content("");
-                                    $this->_encoder->endTag();
-
-                                    $this->_encoder->startTag(SYNC_GAL_LASTNAME);
-                                    $this->_encoder->content($u["fullname"]);
-                                    $this->_encoder->endTag();
-
-                                    $this->_encoder->startTag(SYNC_GAL_EMAILADDRESS);
-                                    $this->_encoder->content($u["emailaddress"]);
-                                    $this->_encoder->endTag();
-
-                                $this->_encoder->endTag();//result
-                            $this->_encoder->endTag();//properties
-                        }
-                        $this->_encoder->startTag(SYNC_SEARCH_RANGE);
-                        $this->_encoder->content($searchrange);
-                        $this->_encoder->endTag();
-
-                        $this->_encoder->startTag(SYNC_SEARCH_TOTAL);
-                        $this->_encoder->content(count($rows));
-                        $this->_encoder->endTag();
-                    }
-
-                $this->_encoder->endTag();//store
-            $this->_encoder->endTag();//response
-        $this->_encoder->endTag();//search
-
-
-        return true;
     }
 
     /**

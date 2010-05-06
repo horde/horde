@@ -519,11 +519,12 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Returns array of items which contain contact information
      *
-     * @param string $searchquery
+     * @param string $query
+     * @param string $range
      *
      * @return array
      */
-    public function getSearchResults($searchquery)
+    public function getSearchResults($query, $range)
     {
         throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
     }

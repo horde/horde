@@ -574,14 +574,49 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Returns array of items which contain contact information
      *
-     * @param string $searchquery
+     * @param string $query  The text string to match against any textual ANR
+     *                       (Automatic Name Resolution) properties. Exchange's
+     *                       searchable ANR properties are currently:
+     *                       firstname, lastname, alias, displayname, email
+     * @param string $range  The range to return (for example, 1-50).
      *
-     * @return array
+     * @return array with 'rows' and 'range' keys
      */
-    public function getSearchResults($searchquery)
+    public function getSearchResults($query, $range)
     {
-        $this->_logger->err('getSearchResults not yet implemented');
-        return array();
+        /* Get results */
+        $return = array('rows' => array(),
+                        'range' => $range);
+        try {
+            $results = $this->_connector->contacts_search($query);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            return $return;
+        }
+
+        /* Honor range */
+        $count = count($results);
+
+        $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
+
+        preg_match('/(.*)\-(.*)/', $range, $matches);
+		$return_count = $matches[2] - $matches[1];
+        $rows = array_slice($results, $matches[1], $return_count + 1, true);
+        $rows = array_pop($rows);
+        foreach ($rows as $row) {
+            $return['rows'][] = array(
+                Horde_ActiveSync::GAL_ALIAS => $row['alias'],
+                Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
+                Horde_ActiveSync::GAL_EMAILADDRESS => $row['email'],
+                Horde_ActiveSync::GAL_FIRSTNAME => $row['firstname'],
+                Horde_ActiveSync::GAL_LASTNAME => $row['lastname'],
+                Horde_ActiveSync::GAL_COMPANY => $row['company'],
+                Horde_ActiveSync::GAL_HOMEPHONE => $row['homePhone'],
+                Horde_ActiveSync::GAL_PHONE => $row['workPhone']
+            );
+        }
+
+        return $return;
     }
 
     /**
