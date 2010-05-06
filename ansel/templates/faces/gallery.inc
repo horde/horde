@@ -37,9 +37,7 @@ var imgids = <?php echo Horde_Serialize::serialize($imageids, Horde_Serialize::J
 function proccessImageFaces(image_id, reget) {
     var url = '<?php echo Horde::applicationUrl('faces/image.php'); ?>';
     $('processface' + image_id).innerHTML = '<?php echo _("Loading...") ?>';
-    var params = new Object();
-    params.reload = reget;
-    params.image = image_id;
+    var params = {'reload':reget, 'image': image_id};
     new Ajax.Updater({success:'processface' + image_id},
                      url,
                      {
@@ -50,15 +48,25 @@ function proccessImageFaces(image_id, reget) {
 }
 
 function deleteFace(image_id, face_id) {
-    var url = '<?php echo Horde_Util::addParameter(Horde::applicationUrl('faces/delete.php'), 'face', null, false); ?>';
-    new Ajax.Request(url + face_id + '&image=' + image_id);
+    var url = '<?php echo Horde::applicationUrl(Util::addParameter('xrequest.php', array('requestType' => 'EditFaces'))); ?>';
+    var params = {'image': image_id, face: face_id};
+    new Ajax.Request(url + '/action=delete',
+                     {
+                         method: 'post',
+                         parameters: params
+                     });
     $('face' + face_id).remove();
 }
 
 function setFaceName(image_id, face_id) {
-    var params = 'action=setname/face=' + face_id + '/image=' + image_id + '/facename=' + encodeURIComponent($F('facename' + face_id));
-    var url = '<?php echo Horde::applicationUrl(Horde_Util::addParameter('xrequest.php', array('requestType' => 'EditFaces'))); ?>';
-    new Ajax.Updater({success: 'face' + face_id}, url + '/' + params);
+    var params = {face: face_id, 'image': image_id, facename: encodeURIComponent($F('facename' + face_id))};
+    var url = '<?php echo Horde::applicationUrl(Util::addParameter('xrequest.php', array('requestType' => 'EditFaces'))); ?>';
+    new Ajax.Updater({success: 'face' + face_id},
+                     url + '/action=setname',
+                     {
+                         method: 'post',
+                         parameters: params
+                     });
 }
 
 Event.observe(window, 'load', function() {

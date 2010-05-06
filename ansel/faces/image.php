@@ -17,8 +17,8 @@ $faces = Ansel_Faces::factory();
 
 $name = '';
 $autocreate = true;
-$image_id = (int)Horde_Util::getFormData('image');
-$reload = (int)Horde_Util::getFormData('reload');
+$image_id = (int)Horde_Util::getPost('image');
+$reload = (int)Horde_Util::gePost('reload');
 $result = $faces->getImageFacesData($image_id);
 
 // Attempt to get faces from the picture if we don't already have results,
