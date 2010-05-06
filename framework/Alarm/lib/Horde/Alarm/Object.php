@@ -73,7 +73,7 @@ class Horde_Alarm_Object extends Horde_Alarm
             if (empty($alarm['dismissed']) &&
                 ((empty($alarm['snooze']) && $alarm['start']->compareDateTime($time) <= 0) ||
                  $alarm['snooze']->compareDateTime($time) <= 0) &&
-                (empty($alarm['end']) || $alarm['end']->compareDateTime($time) => 0) &&
+                (empty($alarm['end']) || $alarm['end']->compareDateTime($time) >= 0) &&
                 (is_null($user) || empty($alarm['uid']) || $alarm['uid'] = $user)) {
                 $alarms[] = $alarm;
             }
