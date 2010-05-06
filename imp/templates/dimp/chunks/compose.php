@@ -13,6 +13,7 @@
  */
 
 $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
+$encrypt_list = (($GLOBALS['prefs']->isLocked('default_encrypt')) && ($GLOBALS['prefs']->getValue('use_pgp') || $GLOBALS['prefs']->getValue('use_smime')));
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
 /* Determine if compose mode is disabled. */
@@ -74,6 +75,12 @@ $compose_disable = !IMP::canCompose();
    <div>
     <?php echo _("Priority:") ?> <span id="priority_label"></span>
     <input id="priority" name="priority" type="hidden" value="normal" />
+   </div>
+<?php endif; ?>
+<?php if (!is_null($encrypt_list)): ?>
+   <div>
+    <?php echo _("Encryption:") ?> <span id="encrypt_label"></span>
+    <input id="encrypt" name="encrypt" type="hidden" value="<?php echo IMP::ENCRYPT_NONE ?>" />
    </div>
 <?php endif; ?>
   </div>

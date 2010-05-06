@@ -212,6 +212,12 @@ $scripts = array(
     array('TextareaResize.js', 'horde')
 );
 
+if (!($prefs->isLocked('default_encrypt')) &&
+    ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
+    $scripts[] = array('dialog.js', 'imp');
+    $scripts[] = array('redbox.js', 'horde');
+}
+
 IMP::status();
 IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');

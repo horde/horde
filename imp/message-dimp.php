@@ -76,6 +76,12 @@ if (!$disable_compose) {
     $scripts[] = array('compose-base.js', 'imp');
     $scripts[] = array('compose-dimp.js', 'imp');
 
+    if (!($prefs->isLocked('default_encrypt')) &&
+        ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
+        $scripts[] = array('dialog.js', 'imp');
+        $scripts[] = array('redbox.js', 'horde');
+        }
+
     $js_onload = $compose_result['jsonload'];
 }
 

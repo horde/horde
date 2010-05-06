@@ -10,8 +10,10 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl_p, knl_sm, last_msg, loaded, old_identity,
-    //   rte, skip_spellcheck, spellcheck, sc_submit, uploading
+    //   editor_wait, is_popup, knl, last_msg, loaded, old_action,
+    //   old_identity, rte, skip_spellcheck, spellcheck, sc_submit, uploading
+
+    knl: {},
 
     confirmCancel: function()
     {
@@ -74,7 +76,7 @@ var DimpCompose = {
     {
         var identity = IMP_Compose_Base.getIdentity($F('identity'));
 
-        this.setSentMailLabel(identity.id.smf_name, identity.id.smf_display, true);
+        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         $('bcc').setValue(identity.id.bcc);
         this.setSaveSentMail(identity.id.smf_save);
 
@@ -95,45 +97,53 @@ var DimpCompose = {
         }
     },
 
-    setSentMailLabel: function(s, l, sel)
+    createPopdown: function(id, opts)
     {
-        var label = $('sent_mail_folder_label');
+        this.knl[id] = {
+            knl: new KeyNavList(opts.base, {
+                esc: true,
+                list: opts.data,
+                onChoose: this.setPopdownLabel.bind(this, id)
+            }),
+            opts: opts
+        };
+
+        $(opts.label).insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl[id].knl.show(); this.knl[id].knl.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+    },
+
+    setPopdownLabel: function(id, s, l)
+    {
+        var k = this.knl[id],
+            label = $(k.opts.label),
+            input = $(k.opts.input);
 
         if (!label) {
             return;
         }
 
         if (!l) {
-            l = DIMP.conf_compose.flist.find(function(f) {
+            l = k.opts.data.find(function(f) {
                 return f.v == s;
             });
-            l = l.f || l.v;
+            l = (id == 'sm')
+                ? (l.f || l.v)
+                : l.l;
         }
 
-        $('save_sent_mail_folder').setValue(s);
-        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
+        $(input).setValue(s);
+        $(label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
-        if (DIMP.conf_compose.flist && sel) {
-            this.knl_sm.setSelected(s);
+        if (id == 'sm') {
+            k.knl.setSelected(s);
         }
     },
 
-    setPriorityLabel: function(s, l)
+    retrySubmit: function(action)
     {
-        var label = $('priority_label');
-
-        if (!label) {
-            return;
+        if (this.old_action) {
+            this.uniqueSubmit(this.old_action);
+            this.old_action = null;
         }
-
-        if (!l) {
-            l = DIMP.conf_compose.priority.find(function(f) {
-                return f.v == s;
-            });
-        }
-
-        $('priority').setValue(s);
-        $('priority_label').setText(l.l);
     },
 
     uniqueSubmit: function(action)
@@ -289,11 +299,18 @@ var DimpCompose = {
                 this.resizeMsgArea();
                 break;
             }
-        } else if (!Object.isUndefined(d.identity)) {
-            this.old_identity = $F('identity');
-            $('identity').setValue(d.identity);
-            this.changeIdentity();
-            $('noticerow', 'identitychecknotice').invoke('show');
+        } else {
+            if (!Object.isUndefined(d.identity)) {
+                this.old_identity = $F('identity');
+                $('identity').setValue(d.identity);
+                this.changeIdentity();
+                $('noticerow', 'identitychecknotice').invoke('show');
+            }
+
+            if (!Object.isUndefined(d.encryptjs)) {
+                this.old_action = d.action;
+                eval(d.encryptjs.join(';'));
+            }
         }
 
         this.setDisabled(false);
@@ -467,7 +484,7 @@ var DimpCompose = {
         if (DIMP.conf_compose.cc) {
             this.toggleCC('cc', true);
         }
-        this.setSentMailLabel(identity.id.smf_name, identity.id.smf_display, true);
+        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         this.setSaveSentMail(identity.id.smf_save);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
@@ -866,26 +883,37 @@ var DimpCompose = {
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
         }
 
-        /* Create folderlist. */
+        /* Create sent-mail list. */
         if (DIMP.conf_compose.flist) {
-            this.knl_sm = new KeyNavList('save_sent_mail', {
-                esc: true,
-                list: DIMP.conf_compose.flist,
-                onChoose: this.setSentMailLabel.bind(this)
+            this.createPopdown('sm', {
+                base: 'save_sent_mail',
+                data: DIMP.conf_compose.flist,
+                input: 'save_sent_mail_folder',
+                label: 'sent_mail_folder_label'
             });
-            this.knl_sm.setSelected(IMP_Compose_Base.getIdentity($F('identity')).id.smf_name);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+            this.setPopdownLabel('sm', IMP_Compose_Base.getIdentity($F('identity')).id.smf_name);
         }
 
         /* Create priority list. */
         if (DIMP.conf_compose.priority) {
-            this.knl_p = new KeyNavList('priority_label', {
-                esc: true,
-                list: DIMP.conf_compose.priority,
-                onChoose: this.setPriorityLabel.bind(this)
+            this.createPopdown('p', {
+                base: 'priority_label',
+                data: DIMP.conf_compose.priority,
+                input: 'priority',
+                label: 'priority_label'
             });
-            this.setPriorityLabel('normal');
-            $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+            this.setPopdownLabel('p', $F('priority'));
+        }
+
+        /* Create encryption list. */
+        if (DIMP.conf_compose.encrypt) {
+            this.createPopdown('e', {
+                base: $('encrypt_label').up(),
+                data: DIMP.conf_compose.encrypt,
+                input: 'encrypt',
+                label: 'encrypt_label'
+            });
+            this.setPopdownLabel('e', $F('encrypt'));
         }
 
         // Automatically resize compose address fields.
@@ -921,3 +949,15 @@ document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCom
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
+
+/* Catch dialog actions. */
+document.observe('IMPDialog:success', function(e) {
+    switch (e.memo) {
+    case 'pgpPersonal':
+    case 'pgpSymmetric':
+    case 'smimePersonal':
+        IMPDialog.noreload = true;
+        DimpCompose.retrySubmit();
+        break;
+    }
+});

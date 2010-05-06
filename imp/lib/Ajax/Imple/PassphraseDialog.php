@@ -136,7 +136,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
                     $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                     if ((($vars->type == 'pgpPersonal') &&
                          $imp_pgp->storePassphrase('personal', $vars->dialog_input)) ||
-                        (($vars->type == 'pgpSymmeetric') &&
+                        (($vars->type == 'pgpSymmetric') &&
                          $imp_pgp->storePassphrase('symmetric', $vars->dialog_input, $vars->symmetricid))) {
                         $result->success = 1;
                     } else {

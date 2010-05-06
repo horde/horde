@@ -195,6 +195,19 @@ if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-
             )
         );
     }
+
+    if (!($GLOBALS['prefs']->isLocked('default_encrypt')) &&
+        ($GLOBALS['prefs']->getValue('use_pgp') ||
+         $GLOBALS['prefs']->getValue('use_smime'))) {
+        $encrypt = array();
+        foreach (IMP::encryptList(null, true) as $key => $val) {
+            $encrypt[] = array(
+                'l' => htmlspecialchars($val),
+                'v' => intval($key)
+            );
+        }
+        $code['conf_compose']['encrypt'] = $encrypt;
+    }
 }
 
 Horde::addInlineScript(array(

@@ -827,7 +827,7 @@ class IMP
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
         }
 
-        $enc_opts = array(self::ENCRYPT_NONE => _("No Encryption"));
+        $enc_opts = array(self::ENCRYPT_NONE => _("None"));
         $output = '';
 
         if (!empty($GLOBALS['conf']['gnupg']['path']) &&

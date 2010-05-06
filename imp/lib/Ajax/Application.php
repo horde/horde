@@ -1324,6 +1324,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * See the list of variables needed for _dimpComposeSetup(). Additional
      * variables used:
      * <pre>
+     * 'encrypt' - (integer) The encryption method to use
+     *             (IMP ENCRYPT constants).
      * 'html' - (integer) In HTML compose mode?
      * 'message' - (string) The message text.
      * 'priority' - TODO
@@ -1337,6 +1339,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * <pre>
      * 'action' - (string) The AJAX action string
      * 'draft_delete' - (integer) TODO
+     * 'encryptjs' - (array) Javascript to run after encryption failure.
      * 'identity' - (integer) If set, this is the identity that is tied to
      *              the current recipient address.
      * 'log' - (array) TODO
@@ -1372,6 +1375,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree->eltDiffStart();
 
         $options = array(
+            'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->_vars->encrypt),
             'identity' => $identity,
             'priority' => $this->_vars->priority,
             'readreceipt' => $this->_vars->request_read_receipt,
@@ -1389,10 +1393,36 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, Horde_Nls::getEmailCharset(), $this->_vars->html, $options);
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
-            $GLOBALS['notification']->push($e);
 
             if (!is_null($e->tied_identity)) {
                 $result->identity = $e->tied_identity;
+            }
+
+            if ($e->encrypt) {
+                $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
+                switch ($e->encrypt) {
+                case 'pgp_symmetric_passphrase_dialog':
+                    $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
+                    break;
+
+                case 'pgp_passphrase_dialog':
+                    $imp_ui->passphraseDialog('pgp');
+                    break;
+
+                case 'smime_passphrase_dialog':
+                    $imp_ui->passphraseDialog('smime');
+                    break;
+                }
+
+                Horde::startBuffer();
+                Horde::outputInlineScript(true);
+                if ($js_inline = Horde::endBuffer()) {
+                    $result->encryptjs = array($js_inline);
+                }
+            } else {
+                /* Don't push notification if showing passphrase dialog -
+                 * passphrase dialog contains the necessary information. */
+                $GLOBALS['notification']->push($e);
             }
 
             return $result;
@@ -1516,7 +1546,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             return array($result);
         }
 
-        $imp_ui = new IMP_Ui_Compose();
+        $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
         if ($GLOBALS['prefs']->getValue('compose_cc')) {
             $headers['cc'] = $imp_ui->getAddressList($this->_vars->cc);

@@ -409,7 +409,7 @@ div.vpRowVert.flagUnseen {
     text-decoration: underline;
 }
 
-#priority_label {
+#encrypt_label, #priority_label {
     cursor: default;
     font-weight: bold;
 }

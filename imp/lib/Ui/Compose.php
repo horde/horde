@@ -260,7 +260,7 @@ class IMP_Ui_Compose
             break;
         }
 
-        Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('params' => $params, 'type' => $type))->attach();
+        Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('onload' => true, 'params' => $params, 'type' => $type))->attach();
     }
 
     /**
