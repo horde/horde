@@ -124,10 +124,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         global $registry;
 
-        $apimap = array('calendar' => '/listEvents',
-                        'contacts' => '/listContacts',
-                        'tasks' => '/listTasks',
-                        'notes' => '/listNotes');
+        $apimap = array('calendar' => 'listEvents',
+                        'contacts' => 'listContacts',
+                        'tasks' => 'listTasks',
+                        'notes' => 'listNotes');
 
         $adds = $mods = $dels = array();
         $database = $this->_normalize($databaseURI);
