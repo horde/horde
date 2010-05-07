@@ -250,7 +250,7 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_DESCRIP_LINK |
             IMP_Contents::SUMMARY_DOWNLOAD |
             IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-            IMP_Contents::SUMMARY_PRINT;
+            IMP_Contents::SUMMARY_PRINT_STUB;
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
