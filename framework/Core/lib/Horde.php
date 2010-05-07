@@ -1836,8 +1836,10 @@ HTML;
 
     /**
      * Print pending inline javascript to the output buffer.
+     *
+     * @param boolean $nowrap  Don't wrap inline script.
      */
-    static public function outputInlineScript()
+    static public function outputInlineScript($nowrap = false)
     {
         if (empty(self::$_inlineScript)) {
             return;
@@ -1861,7 +1863,9 @@ HTML;
             $script[] = $val;
         }
 
-        echo self::wrapInlineScript($script);
+        echo $nowrap
+            ? implode('', $script)
+            : self::wrapInlineScript($script);
 
         self::$_inlineScript = array();
     }
