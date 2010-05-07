@@ -42,7 +42,7 @@ class Horde_Alarm_Null extends Horde_Alarm
      */
     protected function _get($id, $user)
     {
-        return array();
+        throw new Horde_Alarm_Exception('Alarm not found');
     }
 
     /**
