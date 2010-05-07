@@ -31,7 +31,7 @@ implements Horde_Notification_Storage_Interface
      *
      * @var array
      */
-    protected $_notifications = array();
+    public $notifications = array();
 
     /**
      * Return the given stack by reference from the notification store.
@@ -42,7 +42,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function &get($key)
     {
-        return $this->_notifications[$key];
+        return $this->notifications[$key];
     }
 
     /**
@@ -53,7 +53,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function set($key, $value)
     {
-        $this->_notifications[$key] = $value;
+        $this->notifications[$key] = $value;
     }
 
     /**
@@ -65,7 +65,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function exists($key)
     {
-        return isset($this->_notifications[$key]);
+        return isset($this->notifications[$key]);
     }
 
     /**
@@ -75,7 +75,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function clear($key)
     {
-        unset($this->_notifications[$key]);
+        unset($this->notifications[$key]);
     }
 
     /**
@@ -87,7 +87,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function push($listener, Horde_Notification_Event $event)
     {
-        $this->_notifications[$listener][] = $event;
+        $this->notifications[$listener][] = $event;
     }
 
 }
