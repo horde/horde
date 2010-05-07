@@ -9,8 +9,8 @@
  */
 
 /**
- * The Horde_Alarm_sql:: class is a Horde_Alarm storage implementation using
- * the PEAR DB package.
+ * The Horde_Alarm_sql class is a Horde_Alarm storage implementation using the
+ * PEAR DB package.
  *
  * Required values for $params:<pre>
  * 'phptype' - (string) The database type (e.g. 'pgsql', 'mysql', etc.).
@@ -235,7 +235,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _internal($id, $user, array $internal)
+    public function internal($id, $user, array $internal)
     {
         $query = sprintf('UPDATE %s set alarm_internal = ? WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
@@ -243,7 +243,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $values = array(serialize($internal), $id, $user);
 
         if ($this->_logger) {
-            $this->_logger->log('SQL query by Horde_Alarm_sql::_internal(): ' . $query, 'DEBUG');
+            $this->_logger->log('SQL query by Horde_Alarm_sql::internal(): ' . $query, 'DEBUG');
         }
 
         $result = $this->_write_db->query($query, $values);

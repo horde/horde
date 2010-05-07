@@ -9,8 +9,8 @@
  */
 
 /**
- * The Horde_Alarm_Object:: class is a Horde_Alarm storage implementation
- * using an object instance.
+ * The Horde_Alarm_Object class is a Horde_Alarm storage implementation using
+ * an object instance.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Alarm
@@ -146,7 +146,7 @@ class Horde_Alarm_Object extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _internal($id, $user, array $internal)
+    public function internal($id, $user, array $internal)
     {
         $alarm = &$this->_findAlarm($id, $user);
         $alarm['internal'] = $internal;

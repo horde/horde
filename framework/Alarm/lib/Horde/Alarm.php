@@ -280,7 +280,7 @@ abstract class Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    abstract protected function _internal($id, $user, array $internal);
+    abstract public function internal($id, $user, array $internal);
 
     /**
      * Returns whether an alarm with the given id exists already.

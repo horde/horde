@@ -78,7 +78,7 @@ class Horde_Alarm_Null extends Horde_Alarm
      *
      * @throws Horde_Alarm_Exception
      */
-    protected function _internal($id, $user, array $internal)
+    public function internal($id, $user, array $internal)
     {
     }
 
