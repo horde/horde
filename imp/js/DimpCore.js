@@ -266,9 +266,18 @@ var DimpCore = {
         this.popupWindow(this.addURLParam(url, args), 'compose' + new Date().getTime());
     },
 
-    popupWindow: function(url, name)
+    popupWindow: function(url, name, onload)
     {
-        if (!(window.open(url, name.replace(/\W/g, '_'), 'width=' + DIMP.conf.popup_width + ',height=' + DIMP.conf.popup_height + ',status=1,scrollbars=yes,resizable=yes'))) {
+        var opts = {
+            height: DIMP.conf.popup_height,
+            name: name.gsub(/\W/, '_'),
+            noalert: true,
+            onload: onload,
+            url: url,
+            width: DIMP.conf.popup_width
+        };
+
+        if (!Horde.popup(opts)) {
             this.showNotifications([ { type: 'horde.warning', message: DIMP.text.popup_block } ]);
         }
     },
