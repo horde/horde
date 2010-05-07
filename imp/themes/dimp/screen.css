@@ -383,6 +383,9 @@ div.vpRowVert.flagUnseen {
     display: inline !important;
     padding-right: 1px;
 }
+#folderopts:hover {
+    font-weight: normal !important;
+}
 
 /* Message options. */
 .dimpOptions {
