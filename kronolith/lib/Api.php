@@ -508,6 +508,75 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Method for obtaining all server changes between two timestamps. Basically
+     * a wrapper around listBy(), but returns an array containing all adds,
+     * edits and deletions. If $ignoreExceptions is true, events representing
+     * recurring event exceptions will not be included in the results.
+     *
+     * @param integer $start             The starting timestamp
+     * @param integer $end               The ending timestamp.
+     * @param boolean $ignoreExceptions  Do not include exceptions in results.
+     *
+     * @return array  An hash with 'add', 'modify' and 'delete' arrays.
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Kronolith_Exception
+     */
+    public function getChanges($start, $end, $ignoreExceptions = true)
+    {
+        /* Only get the calendar once */
+        $c = Kronolith::getDefaultCalendar();
+        if ($c === false ||
+            !array_key_exists($c, Kronolith::listCalendars(false, Horde_Perms::READ))) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        /* Need to get changes, then ensure they are not from an exception */
+        $changes = array('add' => array(),
+                         'modify' => array(),
+                         'delete' => array());
+
+        /* New events */
+        $uids = $this->listBy('add', $start, $c, $end);
+        if ($ignoreExceptions) {
+            foreach ($uids as $uid) {
+                try {
+                    $event = Kronolith::getDriver()->getByUID($uid);
+                } catch (Kronolith_Exception $e) {
+                    continue;
+                }
+                if (empty($event->baseid)) {
+                    $changes['add'][] = $uid;
+                }
+            }
+        } else {
+            $changes['add'] = $uids;
+        }
+
+        /* Edits */
+        $uids = $this->listBy('modify', $start, $c, $end);
+        if ($ignoreExceptions) {
+            foreach ($uids as $uid) {
+                try {
+                    $event = Kronolith::getDriver()->getByUID($uid);
+                } catch (Kronolith_Exception $e) {
+                    continue;
+                }
+                if (empty($event->baseid)) {
+                    $changes['modify'][] = $uid;
+                }
+            }
+        } else {
+            $changes['modify'] = $uids;
+        }
+        
+        /* No way to figure out if this was an exception, so we must include all */
+        $changes['delete'] = $this->listBy('delete', $start, $c, $end);
+
+        return $changes;
+    }
+
+
+    /**
      * Returns the timestamp of an operation for a given uid an action
      *
      * @param string $uid      The uid to look for.
