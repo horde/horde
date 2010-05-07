@@ -120,7 +120,7 @@
  *   params: (string) Current view.
  *
  * ViewPort:select
- *   Fired when rows are deselected.
+ *   Fired when rows are selected.
  *   params: (object) opts = (object) Boolean options [delay, right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *

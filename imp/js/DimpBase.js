@@ -502,7 +502,7 @@ var DimpBase = {
             }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.getSelection().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    var row = this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))).search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.rownum = row.get('rownum').first();
                     }
