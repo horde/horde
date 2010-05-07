@@ -309,13 +309,18 @@ class IMP_Views_ShowMessage
                     $result['js'] = array_merge($result['js'], $res[1]);
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
-        } elseif (!$preview) {
+
+            /* Need to grab cached inline scripts. */
+            Horde::startBuffer();
+            Horde::outputInlineScript(true);
+            if ($js_inline = Horde::endBuffer()) {
+                $result['js'][] = $js_inline;
+            }
+        } else {
             try {
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
-        }
 
-        if (!$preview) {
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
             $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $uid, $mailbox)));
         }
