@@ -290,9 +290,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $edits = $deletes = array();
             } else {
                 try {
-                    $adds = $this->_connector->calendar_listBy('add', $from_ts, $to_ts);
-                    $edits = $this->_connector->calendar_listBy('modify', $from_ts, $to_ts);
-                    $deletes = $this->_connector->calendar_listBy('delete', $from_ts, $to_ts);
+                      $changes = $this->_connector->calendar_getChanges($from_ts, $to_ts);
+                      // @TODO: these assignments are just until all collections are refactored.
+                      $adds = $changes['add'];
+                      $edits = $changes['modify'];
+                      $deletes = $changes['delete'];
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     return array();

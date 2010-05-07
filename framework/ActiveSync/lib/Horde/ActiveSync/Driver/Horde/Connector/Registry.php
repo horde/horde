@@ -77,9 +77,29 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     public function calendar_listBy($action, $from_ts, $to_ts)
     {
         try {
-            return $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
+            $uids = $this->_registry->calendar->listBy($action, $from_ts, null, $to_ts);
         } catch (Exception $e) {
             return array();
+        }
+    }
+
+    /**
+     * Obtain all calendar server chages that occured in the specified time
+     * interval.
+     *
+     * @param integer $from_ts  Starting timestamp
+     * @param integer $to_ts    Ending timestamp
+     *
+     * @return array  Hash of add, modify, and delete arrays
+     */
+    public function calendar_getChanges($from_ts, $to_ts)
+    {
+       try {
+            return $this->_registry->calendar->getChanges($from_ts, $to_ts);
+        } catch (Exception $e) {
+            return array('add' => array(),
+                         'modify' => array(),
+                         'delete' => array());
         }
     }
 
