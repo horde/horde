@@ -941,7 +941,7 @@ var ViewPort = Class.create({
                     (elt = $(r.VP_domid))) {
                     tmp.push(elt);
                 } else {
-                    fdiv.update(this.prepareRow(r));
+                    fdiv.insert({ top: this.prepareRow(r) });
                     added[r.VP_domid] = 1;
                     tmp.push(fdiv.down());
                 }
