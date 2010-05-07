@@ -17,9 +17,9 @@ $_SERVER['SERVER_NAME'] = 'mail.example.com';
 
 class Mail_dummy extends Mail
 {
-    var $send_output;
+    public $send_output;
 
-    function send($recipients, $headers, $body)
+    public function send($recipients, $headers, $body)
     {
         list(,$text_headers) = Mail::prepareHeaders($headers);
         $this->send_output = $text_headers . "\n\n" . $body;

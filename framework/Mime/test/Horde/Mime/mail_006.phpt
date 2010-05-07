@@ -25,18 +25,15 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 4.0
+User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
 This message is in MIME format.
 
 --=_%s
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
 
 This is
 the body
@@ -51,7 +48,6 @@ bHRlciBEZWljaC4K
 --=_%s
 Content-Type: text/html; charset=iso-8859-15; name=my_name.html
 Content-Disposition: attachment; filename=my_name.html
-Content-Transfer-Encoding: 7bit
 
 <?php
 /**
@@ -70,11 +66,14 @@ require dirname(__FILE__) . '/../../../lib/Horde/Mime/Mail.php';
 require dirname(__FILE__) . '/../../../lib/Horde/Mime/Part.php';
 $_SERVER['SERVER_NAME'] = 'mail.example.com';
 
-class Mail_dummy extends Mail {
-    function send($recipients, $headers, $body)
+class Mail_dummy extends Mail
+{
+    public $send_output;
+
+    public function send($recipients, $headers, $body)
     {
         list(,$text_headers) = Mail::prepareHeaders($headers);
-        return $text_headers . "\n\n" . $body;
+        $this->send_output = $text_headers . "\n\n" . $body;
     }
 }
 

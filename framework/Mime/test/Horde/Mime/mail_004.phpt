@@ -27,18 +27,15 @@ Subject: My Subject
 To: recipient@example.com
 From: sender@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 4.0
+User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: multipart/mixed; boundary="=_%s"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
 This message is in MIME format.
 
 --=_%s
 Content-Type: text/plain; charset=iso-8859-15; format=flowed; DelSp=Yes
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
 
 This is
 the body
@@ -46,7 +43,6 @@ the body
 --=_%s
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
 
 This is a plain text
 --=_%s

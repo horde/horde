@@ -23,12 +23,10 @@ echo $dummy->send_output;
 Subject: My Subject
 To: recipient@example.com
 Message-ID: <%d.%s@mail.example.com>
-User-Agent: Horde Application Framework 4.0
+User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d
 Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do  
 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad  
