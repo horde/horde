@@ -25,7 +25,8 @@ class IMP_Contents
     const SUMMARY_DOWNLOAD_ZIP = 256;
     const SUMMARY_IMAGE_SAVE = 512;
     const SUMMARY_PRINT = 1024;
-    const SUMMARY_STRIP_LINK = 2048;
+    const SUMMARY_PRINT_STUB = 2048;
+    const SUMMARY_STRIP_LINK = 4096;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -569,6 +570,7 @@ class IMP_Contents
      *   Output: parts = 'img_save'
      *
      * IMP_Contents::SUMMARY_PRINT
+     * IMP_Contents::SUMMARY_PRINT_STUB
      *   Output: parts = 'print'
      *
      * IMP_Contents::SUMMARY_STRIP_LINK
@@ -660,16 +662,19 @@ class IMP_Contents
 
         /* Display the image save link if the required registry calls are
          * present. */
-        if (($mask && self::SUMMARY_IMAGE_SAVE) &&
+        if (($mask & self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
             $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('mbox' => $this->_mailbox, 'uid' => $this->_uid, 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
         }
 
         /* Add print link? */
-        if (($mask && self::SUMMARY_PRINT) &&
+        if ((($mask & self::SUMMARY_PRINT) ||
+             ($mask & self::SUMMARY_PRINT_STUB)) &&
             $this->canDisplay($id, self::RENDER_FULL)) {
-            $part['print'] = $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array));
+            $part['print'] = ($mask & self::SUMMARY_PRINT)
+                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array))
+                : Horde::link('#', _("Print"), 'printAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
