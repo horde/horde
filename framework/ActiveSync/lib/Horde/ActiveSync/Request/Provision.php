@@ -106,6 +106,13 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
                 $this->_encoder->content($status);
                 $this->_encoder->endTag();
+                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
+                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
+                $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+                $this->_encoder->content($policyStatus);
+                $this->_encoder->endTag();
+                $this->_encoder->endTag();
+                $this->_encoder->endTag();
                 $this->_encoder->endTag();
 
                 return true;
@@ -141,7 +148,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
-                // @TODO: look at status here??
                 $status = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementEndTag()) {
@@ -170,6 +176,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 /* Set the final key */
                 $policykey = $this->_state->generatePolicyKey();
                 $this->_state->setPolicyKey($this->_device->id, $policykey);
+                $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
             }
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
