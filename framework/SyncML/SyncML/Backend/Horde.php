@@ -124,48 +124,46 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         global $registry;
 
+        $apimap = array('calendar' => '/listEvents',
+                        'contacts' => '/listContacts',
+                        'tasks' => '/listTasks',
+                        'notes' => '/listNotes');
+
         $adds = $mods = $dels = array();
         $database = $this->_normalize($databaseURI);
         $slowsync = $from_ts == 0;
 
         // Handle additions:
-        if ($slowsync) {
-            // Return all db entries directly rather than bother history. But
-            // first check if we only want to sync data from a given start
-            // date:
-            $start = trim(SyncML_Backend::getParameter($databaseURI, 'start'));
-            if (!empty($start)) {
-                if (strlen($start) == 4) {
-                    $start .= '0101000000';
-                } elseif (strlen($start) == 6) {
-                    $start .= '01000000';
-                } elseif (strlen($start) == 8) {
-                    $start .= '000000';
+        try {
+            if ($slowsync) {
+                // Return all db entries directly rather than bother history. But
+                // first check if we only want to sync data from a given start
+                // date:
+                $start = trim(SyncML_Backend::getParameter($databaseURI, 'start'));
+                if (!empty($start)) {
+                    if (strlen($start) == 4) {
+                        $start .= '0101000000';
+                    } elseif (strlen($start) == 6) {
+                        $start .= '01000000';
+                    } elseif (strlen($start) == 8) {
+                        $start .= '000000';
+                    }
+                    $start = new Horde_Date($start);
+                    $this->logMessage('Slow-syncing all events starting from ' . (string)$start, 'DEBUG');
+                    $data = $registry->{$database}->{$apimap[$database]}(
+                                SyncML_Backend::getParameter($databaseURI, 'source'), $start);
+                } else {
+                    $data = $registry->{$database}->{$apimap[$database]}(
+                                SyncML_Backend::getParameter($databaseURI, 'source'));
                 }
-                $start = new Horde_Date($start);
-                $this->logMessage('Slow-syncing all events starting from ' . (string)$start, 'DEBUG');
-                $data = $registry->call(
-                    $database . '/list',
-                    array(SyncML_Backend::getParameter($databaseURI, 'source'),
-                          $start));
             } else {
-                $data = $registry->call(
-                    $database . '/list',
-                    array(SyncML_Backend::getParameter($databaseURI, 'source')));
+                $data = $registry->{$database}->listBy(
+                    'add', $from_ts, SyncML_Backend::getParameter($databaseURI, 'source'), $to_ts);
             }
-        } else {
-            $data = $registry->call(
-                $database . '/listBy',
-                array('action' => 'add',
-                      'timestamp' => $from_ts,
-                      'source' => SyncML_Backend::getParameter($databaseURI, 'source'),
-                      'end' => $to_ts));
-        }
-
-        if (is_a($data, 'PEAR_Error')) {
+        } catch (Horde_Exception $e) {
             $this->logMessage("$database/list or $database/listBy failed while retrieving server additions:"
-                              . $data->getMessage(), 'ERR');
-            return $data;
+                              . $e->getMessage(), 'ERR');
+            return;
         }
 
         $add_ts = array();
@@ -186,8 +184,14 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                     continue;
                 }
             }
-            $add_ts[$suid] = $registry->call($database . '/getActionTimestamp',
-                                             array($suid, 'add', SyncML_Backend::getParameter($databaseURI, 'source')));
+            try {
+                $add_ts[$suid] = $registry->{$database}->getActionTimestamp(
+                    $suid, 'add', SyncML_Backend::getParameter($databaseURI, 'source'));
+            } catch (Horde_Exception $e) {
+                $this->logMessage($e->getMessage(), 'ERR');
+                return;
+            }
+
             $sync_ts = $this->_getChangeTS($database, $suid);
             if ($sync_ts && $sync_ts >= $add_ts[$suid]) {
                 // Change was done by us upon request of client.  Don't mirror
@@ -208,17 +212,14 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         // Handle changes:
-        $data = $registry->call(
-            $database. '/listBy',
-            array('action' => 'modify',
-                  'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI,'source'),
-                  'end' => $to_ts));
-        if (is_a($data, 'PEAR_Error')) {
+        try {
+            $data = $registry->$database->listBy(
+               'modify', $from_ts, SyncML_Backend::getParameter($databaseURI,'source'), $to_ts);
+        } catch (Horde_Exception $e) {
             $this->logMessage(
                 "$database/listBy failed while retrieving server modifications:"
-                . $data->getMessage(), 'WARN');
-            return $data;
+                . $e->getMessage(), 'WARN');
+            return;
         }
 
         $mod_ts = array();
@@ -231,8 +232,8 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             // Only server needs to check for client sent entries and update
             // map.
             if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
-                $mod_ts[$suid] = $registry->call($database . '/getActionTimestamp',
-                                                 array($suid, 'modify', SyncML_Backend::getParameter($databaseURI,'source')));
+                $mod_ts[$suid] = $registry->$database->getActionTimestamp(
+                                     $suid, 'modify', SyncML_Backend::getParameter($databaseURI,'source'));
                 $sync_ts = $this->_getChangeTS($database, $suid);
                 if ($sync_ts && $sync_ts >= $mod_ts[$suid]) {
                     // Change was done by us upon request of client.  Don't
@@ -257,28 +258,21 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         // Handle deletions.
-        $data = $registry->call(
-            $database . '/listBy',
-            array('action' => 'delete',
-                  'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI, 'source'),
-                  'end' => $to_ts));
-
-        if (is_a($data, 'PEAR_Error')) {
+        try {
+            $data = $registry->$database->listBy(
+                        'delete', $from_ts, SyncML_Backend::getParameter($databaseURI, 'source'), $to_ts);
+        } catch (Horde_Exception $e) {
             $this->logMessage(
                 "$database/listBy failed while retrieving server deletions:"
-                . $data->getMessage(), 'WARN');
-            return $data;
+                . $e->getMessage(), 'WARN');
+            return;
         }
 
         foreach ($data as $suid) {
             // Only server needs to check for client sent entries.
             if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
-                $suid_ts = $registry->call(
-                    $database . '/getActionTimestamp',
-                    array($suid,
-                          'delete',
-                          SyncML_Backend::getParameter($databaseURI,'source')));
+                $suid_ts = $registry->$database->getActionTimestamp(
+                    $suid, 'delete', SyncML_Backend::getParameter($databaseURI,'source'));
 
                 // Check if the entry has been added or modified after the
                 // last sync.
