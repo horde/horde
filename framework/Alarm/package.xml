@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Alarm</name>
  <channel>pear.horde.org</channel>
  <summary>Horde alarm libraries</summary>
@@ -16,7 +13,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-02-11</date>
+ <date>2010-05-07</date>
+ <time>17:43:45</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -26,13 +24,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>
+* Initial Horde 4 package.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Alarm">
+      <dir name="Handler">
+       <file name="Mail.php" role="php" />
+       <file name="Notify.php" role="php" />
+      </dir> <!-- /lib/Horde/Alarm/Handler -->
       <file name="Exception.php" role="php" />
+      <file name="Handler.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Object.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -40,12 +45,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Alarm.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="migrations">
+    <file name="1_horde_alarms_table.php" role="php" />
+   </dir> <!-- /migrations -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Alarm">
       <file name="AllTests.php" role="test" />
-      <file name="SqlTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
+      <file name="HandlerTest.php" role="test" />
+      <file name="NullTest.php" role="test" />
+      <file name="ObjectTest.php" role="test" />
+      <file name="SqlTest.php" role="test" />
      </dir> <!-- /test/Horde/Alarm -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -74,18 +85,39 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Notification</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Alarm/Exception.php" as="Horde/Alarm/Exception.php" />
-   <install name="lib/Horde/Alarm/Null.php" as="Horde/Alarm/Null.php" />
-   <install name="lib/Horde/Alarm/Object.php" as="Horde/Alarm/Object.php" />
-   <install name="lib/Horde/Alarm/Sql.php" as="Horde/Alarm/Sql.php" />
-   <install name="lib/Horde/Alarm.php" as="Horde/Alarm.php" />
+   <install as="Horde/Alarm.php" name="lib/Horde/Alarm.php" />
+   <install as="Horde/Alarm/Exception.php" name="lib/Horde/Alarm/Exception.php" />
+   <install as="Horde/Alarm/Handler.php" name="lib/Horde/Alarm/Handler.php" />
+   <install as="Horde/Alarm/Null.php" name="lib/Horde/Alarm/Null.php" />
+   <install as="Horde/Alarm/Object.php" name="lib/Horde/Alarm/Object.php" />
+   <install as="Horde/Alarm/Sql.php" name="lib/Horde/Alarm/Sql.php" />
+   <install as="Horde/Alarm/Handler/Mail.php" name="lib/Horde/Alarm/Handler/Mail.php" />
+   <install as="Horde/Alarm/Handler/Notify.php" name="lib/Horde/Alarm/Handler/Notify.php" />
+   <install as="Horde/Alarm/AllTests.php" name="test/Horde/Alarm/AllTests.php" />
+   <install as="Horde/Alarm/conf.php.dist" name="test/Horde/Alarm/conf.php.dist" />
+   <install as="Horde/Alarm/HandlerTest.php" name="test/Horde/Alarm/HandlerTest.php" />
+   <install as="Horde/Alarm/NullTest.php" name="test/Horde/Alarm/NullTest.php" />
+   <install as="Horde/Alarm/ObjectTest.php" name="test/Horde/Alarm/ObjectTest.php" />
+   <install as="Horde/Alarm/SqlTest.php" name="test/Horde/Alarm/SqlTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -100,7 +132,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>beta</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Initial release.</notes>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-05-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial Horde 4 package.
+   </notes>
   </release>
  </changelog>
 </package>

@@ -37,16 +37,14 @@ $_SESSION['horde_notification']['override'] = array(
 );
 
 $alarm_methods = $alarm_params = '';
-foreach (Horde_Alarm::notificationMethods() as $method => $params) {
-    $alarm_methods .= ' <input type="checkbox" name="event_alarms[]" id="kronolithEventAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithEventAlarm' . $method . '">' . $params['__desc'] . '</label>';
-    if (count($params) < 2) {
+foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {
+    $alarm_methods .= ' <input type="checkbox" name="event_alarms[]" id="kronolithEventAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithEventAlarm' . $method . '">' . $handler->getDescription() . '</label>';
+    $params = $handler->getParameters();
+    if (!count($params)) {
         continue;
     }
     $alarm_params .= ' <div id="kronolithEventAlarm' . $method . 'Params" style="display:none">';
     foreach ($params as $name => $param) {
-        if (substr($name, 0, 2) == '__') {
-            continue;
-        }
         $alarm_params .= ' <label for="kronolithEventAlarmParam' . $name
             . '">' . $param['desc'] . '</label> ';
         $name_att = 'name="event_alarms_' . $name . '"';

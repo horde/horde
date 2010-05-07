@@ -13,8 +13,8 @@ Horde_Registry::appInit('horde', array('admin' => true));
 
 $horde_alarm = $injector->getInstance('Horde_Alarm');
 $methods = array();
-foreach ($horde_alarm->notificationMethods() as $name => $method) {
-    $methods[$name] = $method['__desc'];
+foreach ($horde_alarm->handlers() as $name => $method) {
+    $methods[$name] = $method->getDescription();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -26,15 +26,13 @@ $form->addVariable(_("Alarm start"), 'start', 'datetime', true);
 $form->addVariable(_("Alarm end"), 'end', 'datetime', false);
 $form->addVariable(_("Alarm text"), 'text', 'longtext', false);
 $form->addVariable(_("Alarm methods"), 'methods', 'multienum', true, false, null, array($methods, min(5, count($methods))));
-foreach ($horde_alarm->notificationMethods() as $name => $method) {
-    if (count($method) < 2) {
+foreach ($horde_alarm->handlers() as $name => $method) {
+    $params = $method->getParameters();
+    if (!count($params)) {
         continue;
     }
-    $form->addVariable($method['__desc'], '', 'header', false);
-    foreach ($method as $param => $param_info) {
-        if (substr($param, 0, 2) == '__') {
-            continue;
-        }
+    $form->addVariable($method->getDescription(), '', 'header', false);
+    foreach ($params as $param => $param_info) {
         $form->addVariable($param_info['desc'], $name . '_' . $param, $param_info['type'], false);
     }
 }

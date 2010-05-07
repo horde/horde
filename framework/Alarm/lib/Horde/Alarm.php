@@ -34,6 +34,20 @@ abstract class Horde_Alarm
     );
 
     /**
+     * All registered notification handlers.
+     *
+     * @var array
+     */
+    protected $_handlers = array();
+
+    /**
+     * Whether handler classes have been dynamically loaded already.
+     *
+     * @var boolean
+     */
+    protected $_handlersLoaded = false;
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param string $driver  The type of concrete subclass to
@@ -444,91 +458,31 @@ abstract class Horde_Alarm
             return;
         }
 
-        $methods = array_keys($this->notificationMethods());
+        $handlers = $this->handlers();
         foreach ($alarms as $alarm) {
             foreach ($alarm['methods'] as $alarm_method) {
-                if (in_array($alarm_method, $methods) &&
+                if (isset($handlers[$alarm_method]) &&
                     !in_array($alarm_method, $exclude)) {
-                    try {
-                        $this->{'_' . $alarm_method}($alarm);
-                    } catch (Horde_Alarm_Exception $e) {
-                        if ($this->_logger) {
-                            $this->_logger->log($e, 'ERR');
-                        }
-                    }
+                    $handlers[$alarm_method]->notify($alarm);
                 }
             }
         }
     }
 
     /**
-     * Notifies about an alarm through Horde_Notification.
+     * Registers a notification handler.
      *
-     * @param array $alarm  An alarm hash.
+     * @param string $name                  A handler name.
+     * @param Horde_Alarm_Handler $handler  A notification handler.
      */
-    protected function _notify(array $alarm)
+    public function addHandler($name, Horde_Alarm_Handler $handler)
     {
-        static $sound_played;
-
-        $GLOBALS['notification']->push($alarm['title'], 'horde.alarm', array('alarm' => $alarm));
-        if (!empty($alarm['params']['notify']['sound']) &&
-            !isset($sound_played[$alarm['params']['notify']['sound']])) {
-            $GLOBALS['notification']->attach('audio');
-            $GLOBALS['notification']->push($alarm['params']['notify']['sound'], 'audio');
-            $sound_played[$alarm['params']['notify']['sound']] = true;
-        }
+        $this->_handlers[$name] = $handler;
+        $handler->alarm = $this;
     }
 
     /**
-     * Notifies about an alarm by email.
-     *
-     * @param array $alarm  An alarm hash.
-     *
-     * @throws Horde_Mime_Exception
-     * @throws Horde_Alarm_Exception
-     */
-    protected function _mail(array $alarm)
-    {
-        if (!empty($alarm['internal']['mail']['sent'])) {
-            return;
-        }
-
-        if (empty($alarm['params']['mail']['email'])) {
-            if (empty($alarm['user'])) {
-                return;
-            }
-            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($alarm['user']);
-            $email = $identity->getDefaultFromAddress(true);
-        } else {
-            $email = $alarm['params']['mail']['email'];
-        }
-
-        $mail = new Horde_Mime_Mail(array(
-            'subject' => $alarm['title'],
-            'body' => empty($alarm['params']['mail']['body']) ? $alarm['text'] : $alarm['params']['mail']['body'],
-            'to' => $email,
-            'from' => $email,
-            'charset' => Horde_Nls::getCharset()
-        ));
-        $mail->addHeader('Auto-Submitted', 'auto-generated');
-        $mail->addHeader('X-Horde-Alarm', $alarm['title'], Horde_Nls::getCharset());
-        $mail->send($GLOBALS['injector']->getInstance('Mail'));
-
-        $alarm['internal']['mail']['sent'] = true;
-        $this->_internal($alarm['id'], $alarm['user'], $alarm['internal']);
-    }
-
-    /**
-     * Notifies about an alarm with an SMS through the sms/send API method.
-     *
-     * @param array $alarm  An alarm hash.
-     */
-    protected function _sms(array $alarm)
-    {
-    }
-
-    /**
-     * Returns a list of available notification methods and method parameters.
+     * Returns a list of available notification handlers and parameters.
      *
      * The returned list is a hash with method names as the keys and
      * optionally associated parameters as values. The parameters are hashes
@@ -539,40 +493,27 @@ abstract class Horde_Alarm
      *
      * @return array  List of methods and parameters.
      */
-    public function notificationMethods()
+    public function handlers()
     {
-        static $methods;
-
-        if (!isset($methods)) {
-            $methods = array(
-                'notify' => array(
-                    '__desc' => _("Inline"),
-                    'sound' => array(
-                        'type' => 'sound',
-                        'desc' => _("Play a sound?"),
-                        'required' => false
-                    )
-                ),
-                'mail' => array(
-                    '__desc' => _("Email"),
-                    'email' => array(
-                        'type' => 'text',
-                        'desc' => _("Email address (optional)"),
-                        'required' => false
-                    )
-                )
-            );
-            /*
-            if ($GLOBALS['registry']->hasMethod('sms/send')) {
-                $methods['sms'] = array(
-                    'phone' => array('type' => 'text',
-                                     'desc' => _("Cell phone number"),
-                                     'required' => true));
+        if (!$this->_handlersLoaded) {
+            foreach (new GlobIterator(dirname(__FILE__) . '/Alarm/Handler/*.php') as $file) {
+                if (!$file->isFile()) {
+                    continue;
+                }
+                $handler = Horde_String::lower($file->getBasename('.php'));
+                if (isset($this->_handlers[$handler])) {
+                    continue;
+                }
+                require_once $file->getPathname();
+                $class = 'Horde_Alarm_Handler_' . $file->getBasename('.php');
+                if (class_exists($class, false)) {
+                    $this->addHandler($handler, new $class());
+                }
             }
-            */
+            $this->_handlerLoaded = true;
         }
 
-        return $methods;
+        return $this->_handlers;
     }
 
     /**
