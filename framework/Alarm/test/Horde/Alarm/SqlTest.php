@@ -97,8 +97,8 @@ class Horde_Alarm_SqlTest extends PHPUnit_Framework_TestCase
         $this->assertNull($alarm['text']);
         $this->assertNull($alarm['snooze']);
         $this->assertNull($alarm['internal']);
-        $this->assertTrue($alarm['start'] instanceof Horde_Date);
-        $this->assertTrue($alarm['end'] instanceof Horde_Date);
+        $this->assertThat($alarm['start'], $this->isInstanceOf('Horde_Date'));
+        $this->assertThat($alarm['end'], $this->isInstanceOf('Horde_Date'));
         $this->assertEquals(0, $alarm['start']->compareDateTime(self::$date));
         return $alarm;
     }
