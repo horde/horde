@@ -1155,7 +1155,7 @@ abstract class Kronolith_Event
 
             /* Exceptions are tricky. Exceptions, even those are that represent
              * deleted instances of a recurring event, must be added. To do this
-             * we need query storage for all the events that represent exceptions
+             * we query the storage for all the events that represent exceptions
              * (those with the baseid == $this->uid) and then remove the
              * exceptionoriginaldate from the list of exceptions we know about.
              * Any dates left in this list when we are done, must represent
@@ -1207,6 +1207,10 @@ abstract class Kronolith_Event
                         }
                         $e->setResponseType($status);
 
+                        /* Tags/Categories */
+                        foreach ($exception->tags as $tag) {
+                            $e->addCategory(Horde_String::convertCharset($tag, $charset, 'utf-8'));
+                        }
                         $message->addexception($e);
 
                     }
