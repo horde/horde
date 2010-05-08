@@ -562,6 +562,17 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 }
             }
 
+            /* If this event is an exception, we need to modify the base event's
+             * history log also, or some synch clients will never pick up the
+             *  change*/
+             if ($event->baseid) {
+                try {
+                    $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
+             }
+
             /* Update tags */
             $tagger = Kronolith::getTagger();
             $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
@@ -765,7 +776,20 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             Kronolith::sendNotification($event, 'delete');
         }
 
-        /* Now check for any exceptions */
+        /* See if this event represents an exception - if so, touch the base
+         * event's history. The $isRecurring check is to prevent an infinite
+         * loop in the off chance that an exception is entered as a recurring
+         * event.
+         */
+        if ($event->baseid && !$isRecurring) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
+
+        /* Now check for any exceptions that THIS event may have */
         if ($isRecurring) {
             $query = 'SELECT event_id FROM ' . $this->_params['table'] . ' WHERE event_baseid = ? AND calendar_id = ?';
             $values = array($original_uid, $this->calendar);
