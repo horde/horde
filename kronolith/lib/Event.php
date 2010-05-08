@@ -1655,7 +1655,8 @@ abstract class Kronolith_Event
     public function recurs()
     {
         return isset($this->recurrence) &&
-            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
+            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE) &&
+            empty($this->baseid);
     }
 
     /**
