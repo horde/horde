@@ -273,7 +273,7 @@ if ($event->alarm) {
 <tr>
 <?php if (!empty($event->baseid)):?>
  <td>&nbsp;</td>
- <td colspan="4"><?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s"), $event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')));?></td>
+ <td colspan="4"><?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s at %s"), $event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')), $this->event->exceptionoriginaldate->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')));?></td>
 <?php else:?>
  <td class="rightAlign" valign="top"><strong><?php echo Horde::label('recurnone', _("Pattern")) ?></strong></td>
  <td valign="top" colspan="4">

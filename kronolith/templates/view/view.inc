@@ -95,7 +95,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td class="rightAlign" valign="top"><strong><?php echo _("Pattern") ?>&nbsp;&nbsp;</strong></td>
  <td valign="top">
 <?php if ($this->event->baseid):?>
-   <?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s"), $this->event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')));?>
+   <?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s at %s"), $this->event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')), $this->event->exceptionoriginaldate->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')));?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
    <?php echo _("Daily: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("day(s)") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)):
