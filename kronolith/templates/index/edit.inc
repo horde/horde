@@ -165,7 +165,9 @@
     <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="3" class="kronolithEventValue" />', '</label>') ?>
     <br />
   </div>
-  <div id="kronolithEventRepeatException" style="display:none"><?php printf(_("This is an exception to a recurring event originally scheduled on %s"), '<span id="recur_exception_original"></span>')?></div>
+  <div id="kronolithEventRepeatException" style="display:none">
+    <?php printf(_("This is an exception to a recurring event originally scheduled on %s"), '<span id="recur_exception_original"></span>')?>
+  </div>
 </div>
 
 <div id="kronolithEventTabUrl" class="kronolithTabsOption" style="display:none">
