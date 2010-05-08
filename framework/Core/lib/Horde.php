@@ -1368,12 +1368,12 @@ HTML;
         }
 
         /* If no directory has been specified, get it from the registry. */
-        $dir = empty($options['dir'])
-            ? Horde_Themes::img()
-            : $options['dir'];
+        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+            $src = Horde_Themes::img($src, $options);
+        }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($dir . '/' . $src);
+        $src = self::base64ImgData($src);
         if (substr($src, 0, 10) != 'data:image') {
             $src = self::url($src, true, -1);
         }

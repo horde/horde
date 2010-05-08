@@ -83,7 +83,7 @@ function arrowHandler(e)
         }
 ?>
     <div class="slideControls">
-     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => Horde_Themes::img(null, 'horde'), 'attr' => 'class="imgloading"'));?>
+     <?php echo Horde::fullSrcImg(Horde_Themes::img('loading.gif', array('app' => 'horde')), array('attr' => 'class="imgloading"'));?>
      <?php
      if (empty($this->_params['hide_slideshow'])) {
          echo '<a style="display:none;" href="' . $this->_urls['slideshow'] . '" class="ssPlay" title="' . _("Start Slideshow") . '">' .
@@ -110,7 +110,7 @@ function arrowHandler(e)
      </div>
     </div>
     <div class="slideControls">
-     <?php echo Horde::fullSrcImg('loading.gif', array('dir' => Horde_Themes::img(null, 'horde'), 'attr' => 'class="imgloading"'));?>
+     <?php echo Horde::fullSrcImg(Horde_Themes::img('loading.gif', array('app' => 'horde')), array('attr' => 'class="imgloading"'));?>
      <?php
      if (empty($this->_params['hide_slideshow'])) {
          echo '<a style="display:none;" href="' . $this->_urls['slideshow'] . '" class="ssPlay" title="' . _("Start Slideshow") . '">' .
