@@ -127,9 +127,8 @@ class Horde_Alarm_Object extends Horde_Alarm
     {
         $user = isset($alarm['user']) ? $alarm['user'] : null;
         $al = &$this->_findAlarm($alarm['id'], $user);
-
         foreach (array('start', 'end', 'methods', 'params', 'title', 'text') as $property) {
-            $al[$property] = $alarm[$property];
+            $al[$property] = isset($alarm[$property]) ? $alarm[$property] : null;
         }
         if (!$keepsnooze) {
             $al['snooze'] = null;
