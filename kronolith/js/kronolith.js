@@ -4517,12 +4517,12 @@ KronolithCore = {
             } else {
                 $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
             }
-        }
-
-        if (ev.bid) {
+        } else if (ev.bid) {
             div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
             this.toggleRecurrence('Exception');
+        } else {
+            this.toggleRecurrence('None');
         }
 
         /* Attendees */
@@ -4714,6 +4714,8 @@ KronolithCore = {
         } else if (recur != 'None') {
             $('kronolithEventRepeat' + recur).show();
             $('kronolithEventRepeatLength').show();
+            $('kronolithEventRepeatType').show();
+        } else {
             $('kronolithEventRepeatType').show();
         }
     },
