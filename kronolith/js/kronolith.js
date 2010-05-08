@@ -1833,6 +1833,9 @@ KronolithCore = {
         if (event.r) {
             div.insert(' ')
                 .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'recur-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.recur[event.r] }));
+        } else if (event.bid) {
+            div.insert(' ')
+                .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'exception-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.recur['Exception'] }));
         }
         return div;
     },
