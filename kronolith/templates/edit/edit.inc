@@ -271,6 +271,10 @@ if ($event->alarm) {
 </tr>
 <tbody id="section_recurrence">
 <tr>
+<?php if (!empty($event->baseid)):?>
+ <td>&nbsp;</td>
+ <td colspan="4"><?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s"), $event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')));?></td>
+<?php else:?>
  <td class="rightAlign" valign="top"><strong><?php echo Horde::label('recurnone', _("Pattern")) ?></strong></td>
  <td valign="top" colspan="4">
   <table cellspacing="0" width="100%">
@@ -386,6 +390,7 @@ endif;
  <?php endforeach; ?>
  </td>
 </tr>
+ <?php endif;?>
 <?php endif; ?>
 </tbody>
 

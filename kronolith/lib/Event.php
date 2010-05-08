@@ -1666,9 +1666,13 @@ abstract class Kronolith_Event
      */
     public function getRecurName()
     {
-        return $this->recurs()
-            ? $this->recurrence->getRecurName()
-            : _("No recurrence");
+        if (empty($this->baseid)) {
+            return $this->recurs()
+                ? $this->recurrence->getRecurName()
+                : _("No recurrence");
+        } else {
+            return _("Exception");
+        }
     }
 
     /**
