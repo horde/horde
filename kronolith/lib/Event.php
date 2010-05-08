@@ -2570,6 +2570,9 @@ abstract class Kronolith_Event
             if ($this->recurs()) {
                 $title = Kronolith::recurToString($this->recurrence->getRecurType());
                 $status .= Horde::fullSrcImg('recur-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconRecur')));
+            } elseif ($this->baseid) {
+                $title = _("Exception");
+                $status .= Horde::fullSrcImg('exception-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconRecur')));
             }
 
             if ($this->private) {
