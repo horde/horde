@@ -4519,6 +4519,12 @@ KronolithCore = {
             }
         }
 
+        if (ev.bid) {
+            div = $('kronolithEventRepeatException');
+            div.down('span').update(ev.eod);
+            this.toggleRecurrence('Exception');
+        }
+
         /* Attendees */
         this.freeBusy = $H();
         if (this.attendeeStartDateHandler) {
@@ -4703,9 +4709,12 @@ KronolithCore = {
     toggleRecurrence: function(recur)
     {
         $('kronolithEventTabRecur').select('div').invoke('hide');
-        if (recur != 'None') {
+        if (recur == 'Exception') {
+            $('kronolithEventRepeatException').show();
+        } else if (recur != 'None') {
             $('kronolithEventRepeat' + recur).show();
             $('kronolithEventRepeatLength').show();
+            $('kronolithEventRepeatType').show();
         }
     },
 

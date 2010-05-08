@@ -1534,6 +1534,11 @@ abstract class Kronolith_Event
         }
         if ($this->recurs()) {
             $json->r = $this->recurrence->getRecurType();
+        } elseif ($this->baseid) {
+            $json->bid = $this->baseid;
+            if ($this->exceptionoriginaldate) {
+                $json->eod = sprintf(_("%s at %s"), $this->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')), $this->exceptionoriginaldate->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')));
+            }
         }
 
         if ($full) {
