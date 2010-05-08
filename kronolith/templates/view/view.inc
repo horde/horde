@@ -86,7 +86,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <?php endif; ?>
 
 
-<?php if ($this->event->recurs()): ?>
+<?php if ($this->event->recurs() || !empty($this->event->baseid)): ?>
 <!-- recurrence -->
 <tr>
  <td colspan="2" class="control"><strong><?php echo _("Recurrence") ?></strong></td>
@@ -94,7 +94,9 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <tr>
  <td class="rightAlign" valign="top"><strong><?php echo _("Pattern") ?>&nbsp;&nbsp;</strong></td>
  <td valign="top">
-<?php if ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
+<?php if ($this->event->baseid):?>
+   <?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s"), $this->event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')));?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
    <?php echo _("Daily: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("day(s)") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)):
     $weekdays = array();
@@ -121,6 +123,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
 </tr>
 
 <!-- recur end date -->
+<?php if ($this->event->recurs()): ?>
 <tr>
  <td class="rightAlign"><strong><?php echo _("Recur Until") ?>&nbsp;&nbsp;</strong></td>
  <td><?php echo $this->event->recurrence->hasRecurEnd() ? $this->event->recurrence->recurEnd->strftime($dateFormat) . ($this->event->recurrence->recurEnd->hour == 23 && $this->event->recurrence->recurEnd->min == 59 ? '' : ' ' . $this->event->recurrence->recurEnd->format($timeFormat)) : ($this->event->recurrence->getRecurCount() ? sprintf(_("%d times"), $this->event->recurrence->getRecurCount()) : _("No end date")) ?></td>
@@ -132,7 +135,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td class="rightAlign"><strong><?php echo _("Exceptions") ?>&nbsp;&nbsp;</strong></td>
  <td><?php echo $this->event->exceptionsList(); ?></td>
 </tr>
-<?php endif; endif; ?>
+<?php endif; endif; endif; ?>
 
 <!-- tags  -->
 <?php if (!empty($tags)):?>
