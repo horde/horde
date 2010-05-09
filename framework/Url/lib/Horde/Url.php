@@ -69,7 +69,7 @@ class Horde_Url
             $this->url = $url->url;
             $this->parameters = $url->parameters;
             $this->pathInfo = $url->pathInfo;
-            if (is_null($raw)) {
+            if (!is_null($raw)) {
                 $this->raw = $url->raw;
             }
             return;
