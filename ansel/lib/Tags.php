@@ -39,6 +39,9 @@ class Ansel_Tags {
         $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_tags (tag_id, tag_name) VALUES(?, ?)');
         foreach ($tags as $tag) {
             if (!empty($tag)) {
+                if (!preg_match("/^[a-zA-Z0-9%_+.!*',()~-]*$/", $tag)) {
+                    return PEAR::raiseError(_("Invalid characters in tag"));
+                }
                 $tag = Horde_String::lower(trim($tag));
                 $sql = $GLOBALS['ansel_db']->prepare('SELECT tag_id FROM ansel_tags WHERE tag_name = ?');
                 $result = $sql->execute(Horde_String::convertCharset($tag, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']));
