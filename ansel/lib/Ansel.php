@@ -205,11 +205,11 @@ class Ansel
                     } elseif ($groupby == 'none') {
                        $url = 'all/';
                     }
-
+                    $url = new Horde_Url($url);
                     // Keep the URL as clean as possible - don't append the page
                     // number if it's zero, which would be the default.
                     if (!empty($data['page'])) {
-                        $url = Horde_Util::addParameter($url, 'page', $data['page']);
+                        $url->add('page', $data['page']);
                     }
                     return Horde::applicationUrl($url, $full, $append_session);
                 }
@@ -271,38 +271,35 @@ class Ansel
                         $extras['force_grouping'] = $data['force_grouping'];
                     }
 
+                    $url = new Horde_Url($url);
                     if (count($extras)) {
-                        $url = Horde_Util::addParameter($url, $extras);
+                        $url = $url->add($extras);
                     }
 
-                }
-
-                if ($data['view'] == 'Results')  {
-                    $url = 'tag/' . (!empty($data['tag'])
+                } elseif ($data['view'] == 'Results')  {
+                    $url = new Horde_Url('tag/' . (!empty($data['tag'])
                                      ? urlencode($data['tag']) . '/'
-                                     : '');
+                                     : ''));
 
                     if (!empty($data['actionID'])) {
-                        $url = Horde_Util::addParameter($url, 'actionID',
-                                                  $data['actionID']);
+                        $url = $url->add(array('actionID' => $data['actionID']));
                     }
 
                     if (!empty($data['owner'])) {
-                        $url = Horde_Util::addParameter($url, 'owner',
-                                                  $data['owner']);
+                        $url = $url->add('owner', $data['owner']);
                     }
                 }
 
                 // Keep the URL as clean as possible - don't append the page
                 // number if it's zero, which would be the default.
                 if (!empty($data['page'])) {
-                    $url = Horde_Util::addParameter($url, 'page', $data['page']);
+                    $url = $url->add('page', $data['page']);
                 }
 
                 if (!empty($data['year'])) {
-                    $url = Horde_Util::addParameter($url, array('year' => $data['year'],
-                                                          'month' => (empty($data['month']) ? 0 : $data['month']),
-                                                          'day' => (empty($data['day']) ? 0 : $data['day'])));
+                    $url = $url->add(array('year' => $data['year'],
+                                           'month' => (empty($data['month']) ? 0 : $data['month']),
+                                           'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
                 // If we are using GalleryLightbox, AND we are linking to an
@@ -314,27 +311,24 @@ class Ansel
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url .= '#' . $data['image'];
+                    $url = new Horde_Url($url .= '#' . $data['image']);
                 }
 
                 return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                $url = Horde::applicationUrl(
-                         Horde_Util::addParameter('view.php', $data),
-                         $full,
-                         $append_session);
-
+                $url = new Horde_Url('view.php');
+                $url->add($data);
+                $url = Horde::applicationUrl($url, $full, $append_session);
+                $url->setRaw(true);
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url .= '#' . $data['image'];
+                    $url = '#' . $data['image'];
                 }
 
                 return $url;
-
             }
-            break;
 
         case 'group':
             if ($rewrite) {
@@ -352,51 +346,44 @@ class Ansel
                     $url = 'all/';
                 }
                 unset($data['groupby']);
+                $url = new Horde_Url($url);
                 if (count($data)) {
-                    $url = Horde_Util::addParameter($url,$data);
+                    $url = $url->add($data);
                 }
                 return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('group.php', $data),
-                    $full,
-                    $append_session);
+                $url = new Horde_Url('group.php');
+                $url = Horde::applicationUrl($url, $full, $append_session);
+                $url->add($data);
+                return $url;
             }
-            break;
 
         case 'rss_user':
             if ($rewrite) {
-                $url = 'user/' . urlencode($data['owner']) . '/rss';
+                $url = new Horde_Url('user/' . urlencode($data['owner']) . '/rss');
                 return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('rss.php',
-                                       array('stream_type' => 'user',
-                                             'id' => $data['owner'])),
-                    $full, $append_session);
+                $url = Horde::applicationUrl(new Horde_Ulr('rss.php'), $full, $append_session);
+                $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
+                return $url;
             }
-            break;
 
         case 'rss_gallery':
             if ($rewrite) {
                 $id = (!empty($data['slug'])) ? $data['slug'] : 'id/' . (int)$data['gallery'];
-                $url = 'gallery/' . $id . '/rss';
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::applicationUrl(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('rss.php',
-                                       array('stream_type' => 'gallery',
-                                             'id' => (int)$data['gallery'])),
-                    $full, $append_session);
+                $url = new Horde_Url('rss.php');
+                $url->add(array('stream_type' => 'gallery',
+                                'id' => (int)$data['gallery']));
+
+                return Horde::applicationUrl($url, $full, $append_session);
             }
-            break;
 
         case 'default_view':
             switch ($prefs->getValue('defaultview')) {
             case 'browse':
-                $url = 'browse.php';
-                return Horde::applicationUrl($url, $full, $append_session);
-                break;
+                return Horde::applicationUrl(new Horde_Url('browse.php'), $full, $append_session);
 
             case 'galleries':
                 $url = Ansel::getUrlFor('view', array('view' => 'List'), true);
@@ -411,6 +398,7 @@ class Ansel
                                        true);
                break;
             }
+
             return $url;
         }
     }
