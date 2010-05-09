@@ -10,7 +10,7 @@ v3.0-cvs
 v2.2.4-cvs
 ----------
 
-
+[mjr] Do not remove history entries when removing user data (Bug: 8755).
 
 ------
 v2.2.3

@@ -32,7 +32,7 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
-
+[mjr] Do not remove history entries when removing user data (Bug: 8755).
 
 
 ------

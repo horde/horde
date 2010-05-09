@@ -437,9 +437,6 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Remove all events owned by the user in all calendars. */
         $result = Kronolith::getDriver()->removeUserData($user);
 
-        /* Now delete history as well. */
-        $GLOBALS['injector']->getInstance('Horde_History')->removeByParent('kronolith:' . $user);
-
         /* Get the user's default share */
         try {
             $share = $GLOBALS['kronolith_shares']->getShare($user);

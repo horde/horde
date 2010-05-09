@@ -126,23 +126,6 @@ function _mnemo_removeUserData($user)
             }
         }
 
-        /* Now delete history as well. */
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        if (method_exists($history, 'removeByParent')) {
-            $histories = $history->removeByParent('mnemo:' . $user);
-        } else {
-            /* Remove entries 100 at a time. */
-            $all = $history->getByTimestamp('>', 0, array(), 'mnemo:' . $user);
-            if (is_a($all, 'PEAR_Error')) {
-                Horde::logMessage($all, 'ERR');
-            } else {
-                $all = array_keys($all);
-                while (count($d = array_splice($all, 0, 100)) > 0) {
-                    $history->removebyNames($d);
-                }
-            }
-        }
-
         /* Remove the share itself */
         if (!empty($share)) {
             $result = $GLOBALS['mnemo_shares']->removeShare($share);

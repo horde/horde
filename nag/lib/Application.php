@@ -266,9 +266,6 @@ class Nag_Application extends Horde_Registry_Application
             }
         }
 
-        /* Now delete history as well. */
-        $GLOBALS['injector']->getInstance('Horde_History')->removeByParent('nag:' . $user);
-
         /* ...and finally, delete the actual share */
         if (!empty($share)) {
             $result = $GLOBALS['nag_shares']->removeShare($share);
