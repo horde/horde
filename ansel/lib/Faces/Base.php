@@ -587,12 +587,12 @@ class Ansel_Faces_Base
     /**
      * Create a face image from the given data.
      *
-     * @param integer $face_id   Face id to generate
-     * @param integer $image     Image face belongs to
-     * @param integer $x1        The top left corner of the cropped image.
-     * @param integer $y1        The top right corner of the cropped image.
-     * @param integer $x2        The bottom left corner of the cropped image.
-     * @param integer $y2        The bottom right corner of the cropped image.
+     * @param integer $face_id    Face id to generate
+     * @param Ansel_Image $image  Image face belongs to
+     * @param integer $x1         The top left corner of the cropped image.
+     * @param integer $y1         The top right corner of the cropped image.
+     * @param integer $x2         The bottom left corner of the cropped image.
+     * @param integer $y2         The bottom right corner of the cropped image.
      *
      * @return integer the face id
      */
@@ -603,17 +603,17 @@ class Ansel_Faces_Base
 
         // Crop to the face
         try {
-            $result = $image->_image->crop($x1, $y1, $x2, $y2);
+            $result = $image->getHordeImage()->crop($x1, $y1, $x2, $y2);
         } catch (Horde_Image_Exception $e) {
             throw new Horde_Exception($e->getMessage());
         }
         // Resize and save
         $ext = Ansel_Faces::getExtension();
         $path = Ansel_Faces::getVFSPath($image->id);
-        $image->_image->resize(50, 50, false);
+        $image->getHordeImage()->resize(50, 50, false);
         try {
             $GLOBALS['ansel_vfs']->writeData($path . 'faces', $face_id . $ext,
-                                             $image->_image->raw(), true);
+                                             $image->getHordeImage()->raw(), true);
         } catch (VFS_Exception $e) {
             throw new Horde_Exception_Prior($e);
         }
