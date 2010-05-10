@@ -60,7 +60,7 @@
   <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
   <select name="targetcalendar" id="kronolithEventTarget"></select>
   <span class="kronolithSeparator">|</span>
-  <?php printf(_("This event is %s private %s (hides details if calendar is public)"), '<input type="checkbox" name="private" id="kronolithEventPrivate" /> <label for="kronolithEventPrivate">', '</label>') ?>
+  <?php printf(_("This event is %s private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
 </div>
 
 <div class="tabset">
@@ -175,11 +175,9 @@
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
-  <label>
-    <?php echo _("Add attendees e-mail addresses") ?>:<br />
-    <input id="kronolithEventAttendees" name="attendees" />
-    <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-  </label>
+  <label for="kronolithEventAttendees"><?php echo _("Add attendees e-mail addresses") ?>:</label> <span class="kronolithSeparator">&mdash; <?php echo _("separate e-mail addresses with a comma") ?></span><br />
+  <input id="kronolithEventAttendees" name="attendees" />
+  <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
   <label>
     <input type="checkbox" name="sendupdates" value="1" />
