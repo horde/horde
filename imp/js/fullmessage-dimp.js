@@ -155,6 +155,15 @@ var DimpFullmessage = {
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
                     e.stop();
                     return;
+                } else if (elt.hasClassName('stripAtc')) {
+                    DimpCore.reloadMessage({
+                        actionID: 'strip_attachment',
+                        mailbox: this.mailbox,
+                        id: elt.readAttribute('mimeid'),
+                        uid: this.uid
+                    });
+                    e.stop();
+                    return;
                 }
                 break;
             }
@@ -220,6 +229,10 @@ var DimpFullmessage = {
         if (this.log) {
             $('msgLogInfo').show();
             DimpCore.updateMsgLog(this.log);
+        }
+
+        if (this.strip && DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
+            DIMP.baseWindow.DimpBase.poll();
         }
 
         $('dimpLoading').hide();

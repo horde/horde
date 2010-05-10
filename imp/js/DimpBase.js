@@ -9,8 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, pollPE, pp, resize, rownum,
-    //   search, splitbar, template, uid, viewport
+    //   cfolderaction, folder, folderswitch, pollPE, pp, preview_replace,
+    //   resize, rownum, search, splitbar, template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -629,7 +629,9 @@ var DimpBase = {
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
-                this.clearPreviewPane();
+                if (!this.preview_replace) {
+                    this.clearPreviewPane();
+                }
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
@@ -1218,6 +1220,25 @@ var DimpBase = {
         }
 
         location.hash = encodeURIComponent('msg:' + row.view + ':' + row.imapuid);
+    },
+
+    _stripAttachmentCallback: function(r)
+    {
+        // Let the normal viewport refresh code and preview display code
+        // handle replacing the current preview. Set preview_replace to
+        // prevent a refresh flicker, since viewport refreshing would normally
+        // cause the preview pane to be cleared.
+        if (DimpCore.inAjaxCallback) {
+            this.preview_replace = true;
+            this.uid = r.response.newuid;
+            this._stripAttachmentCallback.bind(this, r).defer();
+            return;
+        }
+
+        this.preview_replace = false;
+
+        // Remove old cache value.
+        this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
     },
 
     // opts = mailbox, uid
@@ -2088,6 +2109,11 @@ var DimpBase = {
                     return;
                 } else if (elt.hasClassName('printAtc')) {
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP.printWindow);
+                    e.stop();
+                    return;
+                } else if (elt.hasClassName('stripAtc')) {
+                    this.loadingImg('msg', true);
+                    DimpCore.doAction('stripAttachment', this.viewport.addRequestParams({ id: elt.readAttribute('mimeid') }), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._stripAttachmentCallback.bind(this) });
                     e.stop();
                     return;
                 }

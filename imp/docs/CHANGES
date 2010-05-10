@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add strip attachments support in DIMP.
 [mms] Add PGP & S/MIME compose support to DIMP.
 [mms] Check for incorrect identity on compose if a single recipient address
       is tied to a different identity than the sending identity.

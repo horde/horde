@@ -27,6 +27,7 @@ class IMP_Contents
     const SUMMARY_PRINT = 1024;
     const SUMMARY_PRINT_STUB = 2048;
     const SUMMARY_STRIP_LINK = 4096;
+    const SUMMARY_STRIP_STUB = 8192;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -574,6 +575,7 @@ class IMP_Contents
      *   Output: parts = 'print'
      *
      * IMP_Contents::SUMMARY_STRIP_LINK
+     * IMP_Contents::SUMMARY_STRIP_STUB
      *   Output: parts = 'strip'
      * </pre>
      *
@@ -679,12 +681,17 @@ class IMP_Contents
 
         /* Strip Attachment? Allow stripping of base parts other than the
          * base multipart and the base text (body) part. */
-        if (($mask & self::SUMMARY_STRIP_LINK) &&
+        if ((($mask & self::SUMMARY_STRIP_LINK) ||
+             ($mask & self::SUMMARY_STRIP_STUB)) &&
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
-            $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
+            if ($mask & self::SUMMARY_STRIP_LINK) {
+                $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
+            } else {
+                $part['strip'] = Horde::link('#', _("Strip Attachment"), 'deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
+            }
         }
 
         return $part;

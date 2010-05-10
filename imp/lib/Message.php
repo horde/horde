@@ -444,6 +444,7 @@ class IMP_Message
      * @param string $partid        The MIME ID of the part to strip. All
      *                              parts are stripped if null.
      *
+     * @return IMP_Indices  Returns the new indices object.
      * @throws IMP_Exception
      */
     public function stripPart($indices, $partid = null)
@@ -558,6 +559,8 @@ class IMP_Message
         /* We need to replace the old index in the query string with the
          * new index. */
         $_SERVER['QUERY_STRING'] = str_replace($uid, $new_uid, $_SERVER['QUERY_STRING']);
+
+        return new IMP_Indices($mbox, $new_uid);
     }
 
     /**

@@ -13,20 +13,34 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
-$folder = Horde_Util::getFormData('folder');
-$uid = Horde_Util::getFormData('uid');
-if (!$uid || !$folder) {
+$vars = Horde_Variables::getDefaultVariables();
+
+if (!$vars->uid || !$vars->folder) {
     exit;
 }
 
 $imp_ui = new IMP_Ui_Message();
-$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($folder);
+$js_onload = $js_out = array();
+$readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly($vars->folder);
+
+switch ($vars->actionID) {
+case 'strip_attachment':
+    try {
+        $indices = $injector->getInstance('IMP_Message')->stripPart(new IMP_Indices($vars->folder, $vars->uid), $vars->id);
+        $js_out[] = 'DimpFullmessage.strip = 1';
+        list(,$vars->uid) = $indices->getSingle();
+        $notification->push(_("Attachment successfully stripped."), 'horde.success');
+    } catch (IMP_Exception $e) {
+        $notification->push($e);
+    }
+    break;
+}
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'mailbox' => $folder,
+    'mailbox' => $vars->folder,
     'preview' => false,
-    'uid' => $uid
+    'uid' => $vars->uid
 );
 
 $show_msg = new IMP_Views_ShowMessage();
@@ -47,7 +61,6 @@ $scripts = array(
     array('md5.js', 'horde')
 );
 
-$js_onload = $js_out = array();
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
@@ -59,11 +72,11 @@ $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
     $compose_args = array(
-        'folder' => $folder,
+        'folder' => $vars->folder,
         'messageCache' => '',
         'popup' => false,
         'qreply' => true,
-        'uid' => $uid,
+        'uid' => $vars->uid,
     );
     $compose_result = IMP_Views_Compose::showCompose($compose_args);
 

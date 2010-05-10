@@ -15,10 +15,10 @@
    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
    <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?></div>
    <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?></div>
-<?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
+<?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($vars->folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
    <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
-<?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
+<?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($vars->folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
    <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
 <?php if (!$readonly): ?>

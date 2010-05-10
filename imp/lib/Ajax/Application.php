@@ -1237,7 +1237,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *
      * Variables used:
      * <pre>
-     * 'uid' - (string) Indices of the messages to isend MDN for (IMAP sequence
+     * 'uid' - (string) Indices of the messages to send MDN for (IMAP sequence
      *         string).
      * 'view' - (string) The current full mailbox.
      * </pre>
@@ -1262,6 +1262,59 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imp_ui->MDNCheck($this->_vars->view, $this->_vars->uid, reset($fetch_ret[$this->_vars->uid]['headertext']), true);
 
         return true;
+    }
+
+    /**
+     * AJAX action: strip attachment.
+     *
+     * See the list of variables needed for _changed() and
+     * _checkUidvalidity().  Additional variables used:
+     * <pre>
+     * 'uid' - (string) Index of the messages to preview (IMAP sequence
+     *         string) - must be single index.
+     * </pre>
+     *
+     * @return mixed  False on failure, the return from showPreview() on
+     *                success along with these properties:
+     * <pre>
+     * 'newuid' - (integer) UID of new message.
+     * 'oldmbox' - (string) Mailbox of old message.
+     * 'olduid' - (integer) UID of old message.
+     * 'ViewPort' - (object) See _viewPortData().
+     * </pre>
+     */
+    public function stripAttachment()
+    {
+        $indices = new IMP_Indices($this->_vars->uid);
+        if ($indices->count() != 1) {
+            return false;
+        }
+
+        $change = $this->_changed(false);
+        if (is_null($change)) {
+            return false;
+        }
+
+        try {
+            $new_indices = $GLOBALS['injector']->getInstance('IMP_Message')->stripPart($indices, $this->_vars->id);
+        } catch (IMP_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return false;
+        }
+
+        $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
+
+        $this->_vars->uid = strval($new_indices);
+
+        $result = $this->showPreview();
+        $new_indices_list = $new_indices->getSingle();
+        $result->newuid = intval($new_indices_list[1]);
+        $old_indices_list = $indices->getSingle();
+        $result->oldmbox = $old_indices_list[0];
+        $result->olduid = intval($old_indices_list[1]);
+        $result->ViewPort = $this->_viewPortData(true);
+
+        return $result;
     }
 
     /**
@@ -1732,7 +1785,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * Generate the information necessary for a ViewPort request from/to the
      * browser.
      *
-     * @param boolean $change        True if cache information has changed.
+     * @param boolean $change  True if cache information has changed.
      *
      * @return array  See IMP_Views_ListMessages::listMessages().
      */
