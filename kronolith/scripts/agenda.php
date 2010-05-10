@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
 send_agendas();
@@ -24,7 +24,7 @@ function send_agendas()
         $runtime = time();
     }
 
-    $calendars = $GLOBALS['shares']->listAllShares();
+    $calendars = $GLOBALS['kronolith_shares']->listAllShares();
 
     // If there are no calendars to check, we're done.
     if (!count($calendars)) {
@@ -41,7 +41,7 @@ function send_agendas()
     $users = array();
     foreach (array_keys($calendars) as $calendarId) {
         try {
-            $calendar = $GLOBALS['shares']->getShare($calendarId);
+            $calendar = $GLOBALS['kronolith_shares']->getShare($calendarId);
         } catch (Exception $e) {
             continue;
         }
@@ -86,18 +86,18 @@ function send_agendas()
         // If we found an email address, generate the agenda.
         switch ($agenda_calendars) {
         case 'owner':
-            $calendars = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, $user);
+            $calendars = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, $user);
             break;
 
         case 'read':
-            $calendars = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, null);
+            $calendars = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, null);
             break;
 
         case 'show':
         default:
             $calendars = array();
             $shown_calendars = unserialize($prefs->getValue('display_cals'));
-            $cals = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, null);
+            $cals = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, null);
             foreach ($cals as $calId => $cal) {
                 if (in_array($calId, $shown_calendars)) {
                     $calendars[$calId] = $cal;
@@ -113,7 +113,7 @@ function send_agendas()
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     // The event list contains events starting at 12am.
-                    if ($event->start->mday != $runtime->mday) {
+                    if ($event->start->compareDate($runtime)) {
                         continue;
                     }
                     $eventlist[$event->start->strftime('%Y%m%d%H%M%S')] = $event;
@@ -131,16 +131,16 @@ function send_agendas()
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
         Horde_Nls::setLanguageEnvironment($lang);
-        $mime_mail = new Horde_Mime_Mail(array('subject' => sprintf(_("Your daily agenda for %s"), strftime($dateFormat, $runtime)),
+        $mime_mail = new Horde_Mime_Mail(array('subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($dateFormat)),
                                                'to' => $email,
                                                'from' => $GLOBALS['conf']['reminder']['from_addr'],
                                                'charset' => Horde_Nls::getCharset()));
-        $mime_mail->addHeader('User-Agent', 'Kronolith ' . $registry->getVersion());
+        $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
 
         $pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
 
         $message = sprintf(_("Your daily agenda for %s"),
-                           strftime($dateFormat, $runtime))
+                           $runtime->strftime($dateFormat))
             . "\n\n";
         foreach ($eventlist as $event) {
             if ($event->isAllDay()) {
