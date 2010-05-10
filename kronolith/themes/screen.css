@@ -1184,9 +1184,6 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewMonth .kronolithMore {
     position: absolute;
 }
-#kronolithViewWeek .kronolithMore {
-    margin-left: 5%;
-}
 
 /* Main view agenda. */
 #kronolithViewAgenda td.kronolithFirstCol {
@@ -1395,8 +1392,7 @@ div.kronolithEvent {
     float: left;
 }
 #kronolithViewWeek .kronolithAllDay div.kronolithEvent {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-right: 10%;
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;

@@ -1522,7 +1522,7 @@ KronolithCore = {
         case 'week':
             var storage = view + 'Sizes',
                 div = _createElement(event),
-                margin = view == 'day' ? 2.5 : 5,
+                margin = view == 'day' ? 5 : 10,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                           color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 
@@ -1560,8 +1560,7 @@ KronolithCore = {
 
             div.setStyle({
                 top: (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 | 0) + 'px',
-                width: 100 - margin * 2 + '%',
-                left: margin + '%'
+                width: 100 - margin + '%'
             })
                 .insert(innerDiv.setStyle(style));
             if (draggerTop) {
@@ -1760,7 +1759,7 @@ KronolithCore = {
             width = 100 / columns;
             this.dayGroups[pos].each(function(ev) {
                 ev.columns = columns;
-                $(ev.nodeId).setStyle({ width: width - margin * 2 + '%', left: (width * (ev.column - 1)) + margin + '%' });
+                $(ev.nodeId).setStyle({ width: width - margin + '%', left: (width * (ev.column - 1)) + '%' });
             });
             this.dayEvents.push(event.value);
 
