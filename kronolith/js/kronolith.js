@@ -458,12 +458,13 @@ KronolithCore = {
                 // New event on a certain date.
                 this.editEvent(null, null, locParts[0]);
                 break;
-            case 3:
-                // Editing event.
-                this.editEvent(locParts[0], locParts[1], locParts[2]);
-                break;
             default:
-                return;
+                // Editing event.
+                var date = locParts.pop(),
+                    event = locParts.pop(),
+                    calendar = locParts.join(':');
+                this.editEvent(calendar, event, date);
+                break;
             }
             this.addHistory(fullloc);
             break;
