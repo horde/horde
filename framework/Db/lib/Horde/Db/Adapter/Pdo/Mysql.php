@@ -96,8 +96,8 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
                 throw new Horde_Db_Exception($msg);
             }
 
-            if (preg_match('/[^\d\.]/', $dsnOpts['host'])) {
-                $msg = 'pdo_mysql ignores port unless IP address is used for host';
+            if ($dsnOpts['host'] == 'localhost') {
+                $msg = 'pdo_mysql ignores port if using "localhost" for host';
                 throw new Horde_Db_Exception($msg);
             }
         }
