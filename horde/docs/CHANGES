@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[jan] Send alarm emails again if the alarm has changed (Bug #8717).
 [mms] Add advanced preferences options screen.
 [mms] Complete rewrite of options UI display.
 [mjr] Horde_Image can now act as an Iterator for multi-page images.
