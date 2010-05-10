@@ -2670,14 +2670,9 @@ var DimpBase = {
         if (opts.vs) {
             vs = opts.vs;
         } else if (opts.uid) {
-            if (opts.mailbox) {
-                vs = this.viewport.getSelection().search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } });
-                if (!vs.size() && opts.mailbox != this.folder) {
-                    vs = this.viewport.getSelection(opts.mailbox).search({ imapuid: { equal: [ opts.uid ] } });
-                }
-            } else {
-                vs = this.viewport.createSelection('dataob', opts.uid);
-            }
+            vs = opts.mailbox
+                ? this.viewport.createSelection('rownum', this.viewport.getAllRows()).search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } })
+                : this.viewport.createSelection('dataob', opts.uid);
         } else {
             vs = this.viewport.getSelected();
         }
