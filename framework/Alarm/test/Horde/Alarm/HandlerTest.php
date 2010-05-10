@@ -83,11 +83,17 @@ MIME-Version: 1\.0
 Action is required\.
 
 EOR;
+        $regexp = trim(str_replace("\r\n", "\n", $regexp));
 
-        $this->assertRegExp('/' . trim(str_replace("\r\n", "\n", $regexp)) . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
+        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
         self::$mail->sentOutput = null;
         self::$alarm->notify('john', false);
         $this->assertNull(self::$mail->sentOutput);
+
+        /* Test re-sending mails after changing the alarm. */
+        self::$alarm->set(self::$alarm->get('personalalarm', 'john'));
+        self::$alarm->notify('john', false);
+        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
     }
 }
 

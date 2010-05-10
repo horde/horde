@@ -247,19 +247,27 @@ abstract class Horde_Alarm
      *
      * The alarm will be added if it doesn't exist, and updated otherwise.
      *
-     * @param array $alarm         An alarm hash. See self::get() for format.
-     * @param boolean $keepsnooze  Whether to keep the snooze value unchanged.
+     * @param array $alarm   An alarm hash. See self::get() for format.
+     * @param boolean $keep  Whether to keep the snooze value and notification
+     *                       status unchanged. If true, the alarm will get
+     *                       "un-snoozed", and notifications (like mails) are
+     *                       sent again.
      *
      * @throws Horde_Alarm_Exception
      */
-    public function set(array $alarm, $keepsnooze = false)
+    public function set(array $alarm, $keep = false)
     {
         if (isset($alarm['mail']['body'])) {
             $alarm['mail']['body'] = $this->_toDriver($alarm['mail']['body']);
         }
 
         if ($this->exists($alarm['id'], isset($alarm['user']) ? $alarm['user'] : '')) {
-            $this->_update($alarm, $keepsnooze);
+            $this->_update($alarm, $keep);
+            if (!$keep) {
+                foreach ($this->_handlers as &$handler) {
+                    $handler->reset($alarm);
+                }
+            }
         } else {
             $this->_add($alarm);
         }

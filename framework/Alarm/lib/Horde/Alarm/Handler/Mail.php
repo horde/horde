@@ -105,6 +105,18 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
     }
 
     /**
+     * Resets the internal status of the handler, so that alarm notifications
+     * are sent again.
+     *
+     * @param array $alarm  An alarm hash.
+     */
+    public function reset(array $alarm)
+    {
+        $alarm['internal']['mail']['sent'] = false;
+        $this->alarm->internal($alarm['id'], $alarm['user'], $alarm['internal']);
+    }
+
+    /**
      * Returns a human readable description of the handler.
      *
      * @return string

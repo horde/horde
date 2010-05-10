@@ -39,6 +39,16 @@ abstract class Horde_Alarm_Handler
     abstract public function notify(array $alarm);
 
     /**
+     * Resets the internal status of the handler, so that alarm notifications
+     * are sent again.
+     *
+     * @param array $alarm  An alarm hash.
+     */
+    public function reset(array $alarm)
+    {
+    }
+
+    /**
      * Returns a human readable description of the handler.
      *
      * @return string
