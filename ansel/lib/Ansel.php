@@ -363,7 +363,7 @@ class Ansel
                 $url = new Horde_Url('user/' . urlencode($data['owner']) . '/rss');
                 return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                $url = Horde::applicationUrl(new Horde_Ulr('rss.php'), $full, $append_session);
+                $url = Horde::applicationUrl(new Horde_Url('rss.php'), $full, $append_session);
                 $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
                 return $url;
             }
