@@ -5,31 +5,30 @@
 $style = $gallery->getStyle();
 $image_src = Ansel::getImageUrl($image_id, 'screen');
 
-echo Horde::link($galleryurl) . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';
-echo Horde::link($imageview_url) . Horde::img('galleries.png') . ' ' . _("Cancel") . '</a> ';
+echo $galleryurl->link() . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';
+echo $imageview_url->link() . Horde::img('galleries.png') . ' ' . _("Cancel") . '</a> ';
 
 if (Ansel::isAvailable('rotate')) {
-    echo Horde::link(Horde::applicationUrl(Util::addParameter($imageurl, 'actionID', 'previewrotate270'))) . Horde::img('image/rotate-270.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Rotate Left") . '</a> ';
-    echo Horde::link(Horde::applicationUrl(Util::addParameter($imageurl, 'actionID', 'previewrotate180'))) . Horde::img('image/rotate-180.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Rotate 180") . '</a> ';
-    echo Horde::link(Horde::applicationUrl(Util::addParameter($imageurl, 'actionID', 'previewrotate90'))) . Horde::img('image/rotate-90.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Rotate Right") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewrotate270')->link() . Horde::img('image/rotate-270.png') . ' ' . _("Rotate Left") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewrotate180')->link() . Horde::img('image/rotate-180.png') . ' ' . _("Rotate 180") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewrotate90')->link() . Horde::img('image/rotate-90.png') . ' ' . _("Rotate Right") . '</a> ';
 }
 if (Ansel::isAvailable('flip')) {
-    echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageurl, 'actionID', 'previewflip'))) . Horde::img('image/flip.png') . ' ' . _("Flip") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewflip')->link() . Horde::img('image/flip.png') . ' ' . _("Flip") . '</a> ';
 }
 if (Ansel::isAvailable('mirror')) {
-    echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageurl, 'actionID', 'previewmirror'))) . Horde::img('image/mirror.png') . ' ' . _("Mirror") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewmirror')->link() . Horde::img('image/mirror.png') . ' ' . _("Mirror") . '</a> ';
 }
 if (Ansel::isAvailable('grayscale')) {
-    echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageurl, 'actionID', 'previewgrayscale'))) . Horde::img('image/grayscale.png') . ' ' . _("Grayscale") . '</a> ';
+    echo $imageurl->copy()->add('actionID', 'previewgrayscale')->link() . Horde::img('image/grayscale.png') . ' ' . _("Grayscale") . '</a> ';
 }
 if (Ansel::isAvailable('TextWatermark')) {
     echo Horde::link('#', '', '', '_blank', Horde::popupJs(Horde::applicationUrl($imageurl), array('params' => array('actionID' => 'setwatermark', 'share' => $gallery->getName()), 'width' => 450, 'height' => 250, 'urlencode' => true)) . 'return false;') . Horde::img('text.png') . ' ' . _("Watermark") . '</a> ';
 }
 
 $selfUrl = Horde::selfUrl(true);
-echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($selfUrl, array('actionID' => 'cropedit')))) . Horde::img('image/crop.png') . _("Crop") . '</a>';
-echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($selfUrl, array('actionID' => 'resizeedit')))) . Horde::img('image/ratio.png') . _("Resize") . '</a>';
-
+echo $selfUrl->copy()->add('actionID', 'cropedit')->link() . Horde::img('image/crop.png') . _("Crop") . '</a>';
+echo $selfUrl->copy()->add('actionID', 'resizeedit')->link() . Horde::img('image/ratio.png') . _("Resize") . '</a>';
 ?>
 </div>
 <br />

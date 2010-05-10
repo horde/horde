@@ -284,12 +284,13 @@ case 'resizeedit':
                                            'page' => $page),
                                      $date),
                                      true);
-    $imageurl = Horde_Util::addParameter('image.php', array_merge(
-                                            array('gallery' => $gallery_id,
-                                                  'slug' => $gallery->get('slug'),
-                                                  'image' => $image_id,
-                                                  'page' => $page),
-                                            $date));
+    $imageurl = Horde::applicationUrl('image.php');
+    $imageurl->add(array_merge(
+                    array('gallery' => $gallery_id,
+                          'slug' => $gallery->get('slug'),
+                          'image' => $image_id,
+                          'page' => $page),
+                    $date));
 
     $galleryurl = Ansel::getUrlFor('view', array_merge(
                                        array('gallery' => $gallery_id,
@@ -370,14 +371,14 @@ case 'watermark':
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
         $image->updateData($image->raw('screen'), 'screen');
-        $imageurl = Horde_Util::addParameter('image.php',array_merge(
-                                       array('gallery' => $gallery_id,
-                                             'image' => $image_id,
-                                             'actionID' => 'editimage',
-                                             'page' => $page),
-                                       $date));
-
-        header('Location: ' . Horde::applicationUrl($imageurl, true));
+        $imageurl = Horde::applicationUrl('image.php', true);
+        $imageurl->add(array_merge(
+                       array('gallery' => $gallery_id,
+                             'image' => $image_id,
+                             'actionID' => 'editimage',
+                             'page' => $page),
+                       $date));
+        header('Location: ' . $imageurl);
         exit;
     }
 
@@ -436,21 +437,22 @@ case 'resize':
             $image->load('full');
             $width = Horde_Util::getFormData('width');
             $height = Horde_Util::getFormData('height');
-            $result = $image->_image->resize($width, $height, true);
+            $result = $image->resize($width, $height, true);
             break;
         }
         if (empty($error)) {
-            $image->updateData($image->_image->raw());
+            $image->updateData($image->raw());
         }
     }
 
-    $imageurl = Horde_Util::addParameter('image.php', array_merge(
-                                                array('gallery' => $gallery_id,
-                                                      'image' => $image_id,
-                                                      'actionID' => 'editimage',
-                                                      'page' => $page),
-                                                $date));
-    header('Location: ' . Horde::applicationUrl($imageurl, true));
+    $imageurl = Horde::applicationUrl('image.php', true);
+    $imageurl->add(array_merge(
+                    array('gallery' => $gallery_id,
+                          'image' => $image_id,
+                          'actionID' => 'editimage',
+                          'page' => $page),
+                    $date));
+    header('Location: ' . $imageurl);
     exit;
 
 case 'setwatermark':
@@ -473,19 +475,20 @@ case 'setwatermark':
     exit;
 
 case 'previewcustomwatermark':
-    $imageurl = Horde_Util::addParameter('image.php', array_merge(
-                                   array('gallery' => $gallery_id,
-                                         'image' => $image_id,
-                                         'page' => $page,
-                                         'watermark' => $watermark,
-                                         'font' => $watermark_font,
-                                         'whalign' => $watermark_halign,
-                                         'wvalign' => $watermark_valign,
-                                         'actionID' => 'previewwatermark'),
-                                   $date));
+    $imageurl = Horde::applicationUrl('image.php', true);
+    $imageurl->add(array_merge(
+                       array('gallery' => $gallery_id,
+                             'image' => $image_id,
+                             'page' => $page,
+                             'watermark' => $watermark,
+                             'font' => $watermark_font,
+                             'whalign' => $watermark_halign,
+                             'wvalign' => $watermark_valign,
+                             'actionID' => 'previewwatermark'),
+                       $date));
 
     echo Horde::wrapInlineScript(array(
-        'window.opener.location.href = "' . Horde::applicationUrl($imageurl)->setRaw(true) . '";',
+        'window.opener.location.href = "' . $imageurl . '";',
         'window.close();'
     ));
     exit;
@@ -759,7 +762,7 @@ case 'imagecrop':
             $image = &$ansel_storage->getImage($image_id);
             $image->load('full');
             $image->crop($x1, $y1, $x2, $y2);
-            $image->_image->display();
+            $image->display();
         }
         exit;
 
