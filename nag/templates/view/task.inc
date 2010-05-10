@@ -48,7 +48,7 @@
                 echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
             }
         } else {
-            echo Nag::formatCompletion($task->completed) . '</a></td>';
+            echo Nag::formatCompletion($task->completed) . '</a>';
         }
         if (isset($completed)) {
             echo ' <small>' . strftime($prefs->getValue('date_format'), $completed) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $completed) . '</small>';
