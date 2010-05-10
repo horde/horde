@@ -869,7 +869,12 @@ var DimpCompose = {
         }
 
         /* Attach event handlers. */
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
+        if (Prototype.Browser.IE) {
+            // IE doesn't bubble change events.
+            $('identity', 'upload').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
         Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
