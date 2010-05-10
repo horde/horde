@@ -297,6 +297,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                             $endInterval = null,
                                             $conditions = '', $vals = array())
     {
+        if ($this->getParam('utc')) {
+            if (!is_null($startInterval)) {
+                $startInterval = clone $startInterval;
+                $startInterval->setTimezone('UTC');
+            }
+            if (!is_null($endInterval)) {
+                $endInterval = clone $endInterval;
+                $endInterval->setTimezone('UTC');
+            }
+        }
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
             ' event_title, event_recurcount, event_url,' .
