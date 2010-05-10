@@ -349,7 +349,6 @@ class Kronolith
             'noalerts' => _("No Notifications"),
             'alerts' => sprintf(_("%s notifications"), '#{count}'),
             'hidelog' => _("Hide Notifications"),
-            'week' => sprintf(_("Week %s"), '#{week}'),
             'agenda' => _("Agenda"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'allday' => _("All day"),

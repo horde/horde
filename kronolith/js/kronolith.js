@@ -558,7 +558,7 @@ KronolithCore = {
 
             $('kronolithViewWeek')
                 .down('caption span')
-                .update(this.setTitle(Kronolith.text.week.interpolate({ week: date.getRealWeek() })));
+                .update(this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d')));
 
             for (i = 0; i < 24; i++) {
                 day = dates[0].clone();
