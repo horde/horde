@@ -50,7 +50,7 @@ class Horde_Alarm_Handler_Notify extends Horde_Alarm_Handler
         }
         $this->_notification = $params['notification'];
         */
-        $this->_notification = $GLOBALS['injector']->getInstance('Horde_Notification');
+        $this->_notification = isset($params['notification']) ? $params['notification'] : $GLOBALS['injector']->getInstance('Horde_Notification');
     }
 
     /**

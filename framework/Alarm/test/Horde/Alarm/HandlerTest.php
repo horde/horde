@@ -10,9 +10,20 @@
 class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
 {
     protected static $alarm;
+    protected static $storage;
+    protected static $mail;
 
     public function setUp()
     {
+        if (!class_exists('Horde_Notification')) {
+            $this->markTestSkipped('Horde_Notification not installed');
+            return;
+        }
+        if (!class_exists('Mail')) {
+            $this->markTestSkipped('Mail not installed');
+            return;
+        }
+
         self::$alarm = Horde_Alarm::factory('Object');
         $now = time();
         $hash = array('id' => 'personalalarm',
@@ -24,40 +35,38 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
                       'title' => 'This is a personal alarm.',
                       'text' => 'Action is required.');
         self::$alarm->set($hash);
+
+        self::$storage = new Horde_Notification_Storage_Object();
+        $notification = new Horde_Notification_Handler(self::$storage);
+        $handler = new Horde_Alarm_Handler_Notify(array('notification' => $notification));
+        self::$alarm->addHandler('notify', $handler);
+
+        $handler = new Horde_Alarm_Handler_Desktop(array('notification' => $notification, 'icon' => 'test.png'));
+        self::$alarm->addHandler('desktop', $handler);
+
+        self::$mail = new Horde_Alarm_HandlerTest_Mail();
+        $factory = new Horde_Alarm_HandlerTest_IdentityFactory();
+        $handler = new Horde_Alarm_Handler_Mail(array('mail' => self::$mail, 'identity' => $factory, 'charset' => 'us-ascii'));
+        self::$alarm->addHandler('mail', $handler);
     }
 
     public function testNotify()
     {
-        if (!class_exists('Horde_Notification')) {
-            $this->markTestSkipped('Horde_Notification not installed');
-            return;
-        }
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('notify');
         self::$alarm->set($alarm);
-        $storage = new Horde_Notification_Storage_Object();
-        $handler = new Horde_Alarm_Handler_Notify(array('notification' => new Horde_Notification_Handler($storage)));
-        self::$alarm->addHandler('notify', $handler);
         self::$alarm->notify('john', false);
 
-        $this->assertEquals(1, count($storage->notifications['_unattached']));
-        $this->assertEquals('This is a personal alarm.', $storage->notifications['_unattached'][0]->message);
-        $this->assertEquals('horde.alarm', $storage->notifications['_unattached'][0]->type);
+        $this->assertEquals(1, count(self::$storage->notifications['_unattached']));
+        $this->assertEquals('This is a personal alarm.', self::$storage->notifications['_unattached'][0]->message);
+        $this->assertEquals('horde.alarm', self::$storage->notifications['_unattached'][0]->type);
     }
 
     public function testMail()
     {
-        if (!class_exists('Mail')) {
-            $this->markTestSkipped('Mail not installed');
-            return;
-        }
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');
         self::$alarm->set($alarm);
-        $mail = new Horde_Alarm_HandlerTest_Mail();
-        $factory = new Horde_Alarm_HandlerTest_IdentityFactory();
-        $handler = new Horde_Alarm_Handler_Mail(array('mail' => $mail, 'identity' => $factory, 'charset' => 'us-ascii'));
-        self::$alarm->addHandler('mail', $handler);
         self::$alarm->notify('john', false);
         $regexp = <<<EOR
 Subject: This is a personal alarm\.
@@ -75,10 +84,10 @@ Action is required\.
 
 EOR;
 
-        $this->assertRegExp('/' . trim(str_replace("\r\n", "\n", $regexp)) . '/', trim(str_replace("\r\n", "\n", $mail->sentOutput)));
-        $mail->sentOutput = null;
+        $this->assertRegExp('/' . trim(str_replace("\r\n", "\n", $regexp)) . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
+        self::$mail->sentOutput = null;
         self::$alarm->notify('john', false);
-        $this->assertNull($mail->sentOutput);
+        $this->assertNull(self::$mail->sentOutput);
     }
 }
 

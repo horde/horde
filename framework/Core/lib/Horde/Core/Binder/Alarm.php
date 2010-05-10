@@ -23,6 +23,10 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
         $handler_params = array(
             'notification' => $injector->getInstance('Horde_Notification'));
         $alarm->addHandler('notify', new Horde_Alarm_Handler_Notification($handler_params));
+        $handler_params = array(
+            'notification' => $injector->getInstance('Horde_Notification'),
+            'icon' => (string)Horde_Themes::img('alerts/alarm.png'));
+        $alarm->addHandler('desktop', new Horde_Alarm_Handler_Desktop($handler_params));
         */
         $handler_params = array(
             'identity' => $injector->getInstance('Horde_Prefs_Identity'),

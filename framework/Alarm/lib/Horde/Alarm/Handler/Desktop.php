@@ -52,11 +52,11 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
         }
         $this->_notification = $params['notification'];
         if (isset($params['icon'])) {
-            $this->_icon = $param['icon'];
+            $this->_icon = $params['icon'];
         }
         */
-        $this->_notification = $GLOBALS['injector']->getInstance('Horde_Notification');
-        $this->_icon = (string)Horde_Themes::img('alerts/alarm.png');
+        $this->_notification = isset($params['notification']) ? $params['notification'] : $GLOBALS['injector']->getInstance('Horde_Notification');
+        $this->_icon = isset($params['icon']) ? $params['icon'] : (string)Horde_Themes::img('alerts/alarm.png');
     }
 
     /**
