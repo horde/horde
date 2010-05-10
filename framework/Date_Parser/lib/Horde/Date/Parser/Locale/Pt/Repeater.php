@@ -29,7 +29,7 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
     public $dayPortionScanner = array(
         '/^manh(a|ã)?$/' => 'morning',
         '/^tarde?$/' => 'afternoon',
-        '/^(fim (d(e|a) )?tarde)?$/' => 'evening',
+        '/^(fim\s(d(e|a)\s)?tarde)?$/' => 'evening',
         '/^noite?$/' => 'night',
     );
 
