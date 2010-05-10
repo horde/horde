@@ -75,7 +75,7 @@ var DimpBase = {
 
     selectAll: function()
     {
-        this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { range: true });
+        this.viewport.select(this.viewport.getAllRows(), { range: true });
     },
 
     isSelected: function(format, data)
@@ -502,7 +502,7 @@ var DimpBase = {
             }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))).search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    var row = this.viewport.createSelection('rownum', this.viewport.getAllRows()).search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.rownum = row.get('rownum').first();
                     }
@@ -2282,7 +2282,7 @@ var DimpBase = {
         if (r.response &&
             r.response.mbox == this.folder) {
             r.response.flags.each(function(f) {
-                this.updateFlag(this.viewport.createSelection('rownum', $A($R(1, this.viewport.getMetaData('total_rows')))), f, r.response.set);
+                this.updateFlag(this.viewport.createSelection('rownum', this.viewport.getAllRows()), f, r.response.set);
             }, this);
         }
     },

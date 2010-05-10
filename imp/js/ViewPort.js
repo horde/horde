@@ -1251,6 +1251,14 @@ var ViewPort = Class.create({
         }
     },
 
+    getAllRows: function(view)
+    {
+        var buffer = this._getBuffer(view);
+        return buffer
+            ? buffer.getAllRows()
+            : [];
+    },
+
     createSelection: function(format, data, view)
     {
         var buffer = this._getBuffer(view);
