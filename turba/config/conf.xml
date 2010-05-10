@@ -25,7 +25,7 @@
    <configstring name="addressbook" desc="If using a synchronization solution
    that supports Exchange-style Global Address List (GAL) searches enter the
    name of the addressbook that should act as the GAL. This is normally a
-   globally accessable, readonly addressbook.">localsql</configstring>
+   globally accessable, readonly addressbook." required="false">localsql</configstring>
  </configsection>
 
  <configsection name="shares">
