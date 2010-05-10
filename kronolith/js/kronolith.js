@@ -38,6 +38,7 @@ KronolithCore = {
     mapInitialized: false,
     search: 'future',
     effectDur: 0.4,
+    macos: navigator.appVersion.indexOf('Mac') !=- 1,
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -3347,11 +3348,26 @@ KronolithCore = {
         var kc = e.keyCode || e.charCode,
             form = e.findElement('FORM'), trigger = e.findElement();
 
-        if (trigger.id == 'kronolithEventLocation' && kc == Event.KEY_RETURN) {
-            this.ensureMap();
-            this.geocode($F('kronolithEventLocation'));
-            e.stop();
-            return;
+        switch (trigger.id) {
+        case 'kronolithEventLocation':
+            if (kc == Event.KEY_RETURN) {
+                this.ensureMap();
+                this.geocode($F('kronolithEventLocation'));
+                e.stop();
+                return;
+            }
+            break;
+
+        case 'kronolithCalendarinternalUrlSub':
+        case 'kronolithCalendarinternalUrlFeed':
+        case 'kronolithCalendartasklistsUrlSub':
+            if (String.fromCharCode(kc) != 'C' ||
+                (this.macos && !e.metaKey) ||
+                (!this.macos && !e.ctrlKey)) {
+                e.stop();
+                return;
+            }
+            break;
         }
 
         if (form) {
