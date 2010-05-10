@@ -13,10 +13,6 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!class_exists('Horde_Notification')) {
-            $this->markTestSkipped('Horde_Notification not installed');
-            return;
-        }
         self::$alarm = Horde_Alarm::factory('Object');
         $now = time();
         $hash = array('id' => 'personalalarm',
@@ -32,6 +28,10 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
 
     public function testNotify()
     {
+        if (!class_exists('Horde_Notification')) {
+            $this->markTestSkipped('Horde_Notification not installed');
+            return;
+        }
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('notify');
         self::$alarm->set($alarm);
@@ -47,6 +47,10 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
 
     public function testMail()
     {
+        if (!class_exists('Mail')) {
+            $this->markTestSkipped('Mail not installed');
+            return;
+        }
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');
         self::$alarm->set($alarm);
