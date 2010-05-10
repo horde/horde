@@ -65,12 +65,12 @@ class VFS_SmbTest extends PHPUnit_Framework_TestCase
                     'date' => 1243426505,
                     'size' => -1,
                     ),
-                'Datei mit SOnderzeichen ¿ Ã§ µ ° juhuuu.txt' =>
+                'Datei mit SOnderzeichen ¿ € § µ ° juhuuu.txt' =>
                 array (
                     'owner' => '',
                     'group' => '',
                     'perms' => '',
-                    'name' => 'Datei mit SOnderzeichen ¿ Ã§ µ ° juhuuu.txt',
+                    'name' => 'Datei mit SOnderzeichen ¿ € § µ ° juhuuu.txt',
                     'type' => 'txt',
                     'date' => 1243426538,
                     'size' => '0',

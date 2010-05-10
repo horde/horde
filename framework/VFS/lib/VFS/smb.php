@@ -353,46 +353,32 @@ class VFS_smb extends VFS
         $files = array();
         for ($r = 0; $r < $num_lines; $r++) {
             // Match file listing.
-            if (!preg_match('/^(\s\s.+\s{6,})/', $res[$r])) {
+            if (!preg_match('/^  (.+?) +([A-Z]*) +(\d+)  (\w\w\w \w\w\w [ \d]\d \d\d:\d\d:\d\d \d\d\d\d)$/', $res[$r], $match)) {
                 continue;
             }
 
-            // Split into columns at every six spaces
-            $split1 = preg_split('/\s{6,}/', trim($res[$r]));
             // If the file name isn't . or ..
-            if ($split1[0] == '.' || $split1[0] == '..') {
+            if ($match[1] == '.' || $match[1] == '..') {
                 continue;
             }
 
-            if (isset($split1[2])) {
-                // If there is a small file size, inf could be split
-                // into 3 cols.
-                $split1[1] .= ' ' . $split1[2];
-            }
-            // Split file inf at every one or more spaces.
-            $split2 = preg_split('/\s+/', $split1[1]);
-            if (is_numeric($split2[0])) {
-                // If there is no file attr, shift cols over.
-                array_unshift($split2, '');
-            }
-            $my_name = $split1[0];
+            $my_name = $match[1];
 
             // Filter out dotfiles if they aren't wanted.
             if (!$dotfiles && substr($my_name, 0, 1) == '.') {
                 continue;
             }
 
-            $my_size = $split2[1];
+            $my_size = $match[3];
             $ext_name = explode('.', $my_name);
 
-            if ((strpos($split2[0], 'D') !== false)) {
+            if ((strpos($match[2], 'D') !== false)) {
                 $my_type = '**dir';
                 $my_size = -1;
             } else {
                 $my_type = self::strtolower($ext_name[count($ext_name) - 1]);
             }
-            $my_date = strtotime($split2[4] . ' ' . $split2[3] . ' ' .
-                                 $split2[6] . ' ' . $split2[5]);
+            $my_date = strtotime($match[4]);
             $filedata = array('owner' => '',
                               'group' => '',
                               'perms' => '',
