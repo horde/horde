@@ -30,14 +30,14 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
         self::$alarm->set($hash);
     }
 
-    public function testNotification()
+    public function testNotify()
     {
         $alarm = self::$alarm->get('personalalarm', 'john');
-        $alarm['methods'] = array('notification');
+        $alarm['methods'] = array('notify');
         self::$alarm->set($alarm);
         $storage = new Horde_Notification_Storage_Object();
-        $handler = new Horde_Alarm_Handler_Notification(array('notification' => new Horde_Notification_Handler($storage)));
-        self::$alarm->addHandler('notification', $handler);
+        $handler = new Horde_Alarm_Handler_Notify(array('notification' => new Horde_Notification_Handler($storage)));
+        self::$alarm->addHandler('notify', $handler);
         self::$alarm->notify('john', false);
 
         $this->assertEquals(1, count($storage->notifications['_unattached']));
