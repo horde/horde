@@ -152,11 +152,10 @@ var KeyNavList = Class.create({
     {
         var l = parseInt(this.div.getStyle('left'), 10);
             t = parseInt(this.div.getStyle('top'), 10),
-            v = document.viewport.getDimensions(),
-            w = (this.div.offsetWidth * 2) - this.div.scrollWidth;
+            v = document.viewport.getDimensions();
 
         if ((this.div.getWidth() + l + 10) > v.width) {
-            l = (v.width - w - 10);
+            l = (v.width - this.div.scrollWidth - 10);
             this.div.setStyle({ left: l + 'px' });
         }
 
@@ -164,7 +163,7 @@ var KeyNavList = Class.create({
             this.div.setStyle({
                 height: (v.height - t - 10) + 'px',
                 left: (l - 10) + 'px',
-                width: (w + 10) + 'px'
+                width: (this.div.scrollWidth + 10) + 'px'
             });
         }
 
