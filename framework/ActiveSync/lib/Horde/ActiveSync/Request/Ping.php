@@ -40,7 +40,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
     protected function _checkHeartbeat($lifetime)
     {
-        if ($this->_ping_settings['forcedheartbeat']) {
+        if (!empty($this->_ping_settings['forcedheartbeat'])) {
             return $this->_ping_settings['forcedheartbeat'];
         }
         if ($lifetime !== 0 && $lifetime < $this->_ping_settings['heartbeatmin']) {
