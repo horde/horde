@@ -152,7 +152,7 @@ var DimpFullmessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.getAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
                     e.stop();
                     return;
                 }

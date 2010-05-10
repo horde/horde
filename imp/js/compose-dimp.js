@@ -669,7 +669,7 @@ var DimpCompose = {
             /* Logic: Determine the size of a given textarea row, divide that
              * size by the available height, round down to the lowest integer
              * row, and resize the textarea. */
-            rows = parseInt(mah / (msg.clientHeight / msg.getAttribute('rows')), 10);
+            rows = parseInt(mah / (msg.clientHeight / msg.readAttribute('rows')), 10);
             if (!isNaN(rows)) {
                 msg.writeAttribute({ rows: rows, disabled: false });
                 if (de.scrollHeight - de.clientHeight) {
