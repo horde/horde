@@ -1154,6 +1154,9 @@ table.kronolithView td.kronolithFirstCol {
 .kronolithViewBody table.kronolithView {
     margin-top: -2px;
 }
+.kronolithViewBodyContainer {
+    position: relative;
+}
 
 /* Main view month */
 #kronolithViewMonthContainer {

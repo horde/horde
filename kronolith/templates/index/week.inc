@@ -47,6 +47,8 @@
 </div>
 
 <div class="kronolithViewBody">
+<div class="kronolithViewBodyContainer">
+
 <table class="kronolithView kronolithViewDay">
   <tbody id="kronolithViewWeekBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
@@ -71,6 +73,8 @@
   <div class="kronolithEventsWeek"></div>
   <div class="kronolithEventsWeek"></div>
   <div class="kronolithEventsWeek"></div>
+</div>
+
 </div>
 </div>
 
