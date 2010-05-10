@@ -475,11 +475,6 @@ class Ansel_Image Implements Iterator
      */
     public function updateData($data, $view = 'full')
     {
-        // TODO: Get rid of this, $data should only be valid data.
-        if ($data instanceof PEAR_Error) {
-            throw new Ansel_Exception($data);
-        }
-
         /* Delete old cached data if we are replacing the full image */
         if ($view == 'full') {
             $this->deleteCache();

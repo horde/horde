@@ -165,13 +165,21 @@ class Ansel_GalleryMode_Normal {
                                                      $count);
     }
 
-
+    /**
+     *
+     * @param array $images           The image ids to move.
+     * @param Ansel_Gallery $gallery  The gallery to move images into.
+     *
+     * @throws Ansel_Exception
+     * @throws Horde_Exception_PermissionDenied
+     * @return boolean
+     */
     function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return PEAR::raiseError(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
+          throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
         } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-            return PEAR::raiseError(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
         /* Sanitize image ids, and see if we're removing our default image. */
@@ -184,8 +192,8 @@ class Ansel_GalleryMode_Normal {
         }
 
         $result = $this->_gallery->_shareOb->_write_db->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new Ansel_Exception($result->getMessage());
         }
 
         $this->_gallery->updateImageCount(count($ids), false);
@@ -200,14 +208,18 @@ class Ansel_GalleryMode_Normal {
         return true;
     }
 
+    /**
+     *
+     * @param integer | Ansel_Image $image  The image id or object
+     * @param boolean $isStack              This represents a stack image
+     *
+     * @return boolean
+     */
     function removeImage($image, $isStack)
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
-        if (!is_a($image, 'Ansel_Image')) {
+        if (!($image instanceof Ansel_Image)) {
             $img = &$this->_gallery->getImage($image);
-            if (is_a($img, 'PEAR_Error')) {
-                return $img;
-            }
             $image = $img;
         } else {
             /* Make sure the image is in this gallery. */
