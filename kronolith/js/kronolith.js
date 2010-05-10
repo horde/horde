@@ -3373,6 +3373,11 @@ KronolithCore = {
                     e.stop();
                     break;
 
+                case 'kronolithQuickinsertForm':
+                    this.quickSaveEvent();
+                    e.stop();
+                    break;
+
                 case 'kronolithCalendarForminternal':
                 case 'kronolithCalendarFormtasklists':
                 case 'kronolithCalendarFormremote':
