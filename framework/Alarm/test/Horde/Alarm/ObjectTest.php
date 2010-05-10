@@ -124,6 +124,13 @@ class Horde_Alarm_ObjectTest extends PHPUnit_Framework_TestCase
         $list = self::$alarm->listAlarms('john', self::$end);
         $this->assertEquals(1, count($list));
         $this->assertEquals('personalalarm', $list[0]['id']);
+
+        /* Test resetting snooze after changing the alarm. */
+        $alarm = self::$alarm->get('personalalarm', 'john');
+        self::$alarm->set($alarm, true);
+        $this->assertTrue(self::$alarm->isSnoozed('personalalarm', 'john'));
+        self::$alarm->set($alarm);
+        $this->assertFalse(self::$alarm->isSnoozed('personalalarm', 'john'));
     }
 
     /**
