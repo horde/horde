@@ -93,7 +93,7 @@ extends PHPUnit_Framework_TestCase
 
     private function _getNamespaceMock()
     {
-        $imap = $this->getMock('Net_IMAP', array(), array(), '', false, false);
+        $imap = $this->getMock('Net_IMAP', array('hasCapability', 'getNameSpace'), array(), '', false, false);
         $imap->expects($this->once())
             ->method('hasCapability')
             ->with('NAMESPACE')
