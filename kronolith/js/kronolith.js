@@ -2205,7 +2205,7 @@ KronolithCore = {
                 $('kronolithTaskForm').focusFirstElement();
             } catch(e) {}
             RedBox.onDisplay = this.redBoxOnDisplay;
-        };
+        }.bind(this);
 
         this.openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
         $('kronolithTaskForm').enable();
