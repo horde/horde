@@ -596,9 +596,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
             return $return;
         }
 
-        /* Honor range */
+        /* Honor range, and don't bother if no results */
         $count = count($results);
-
+        if (!$count) {
+            return $return;
+        }
         $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
 
         preg_match('/(.*)\-(.*)/', $range, $matches);
