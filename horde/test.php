@@ -43,10 +43,10 @@ if (!file_exists(dirname(__FILE__) . '/config/registry.php')) {
 require_once dirname(__FILE__) . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array('authentication' => 'none'));
-    $is_init = true;
-} catch (Horde_Exception $e) {
+    $init_exception = null;
+} catch (Exception $e) {
     define('HORDE_TEMPLATES', dirname(__FILE__) . '/templates');
-    $is_init = false;
+    $init_exception = $e;
 }
 
 if (!empty($conf['testdisable'])) {
@@ -133,16 +133,23 @@ if ($app == 'horde') {
 <ul>
 <?php
     /* Get Horde module version information. */
-    if ($is_init) {
-        $app_list = $registry->listApps(null, true);
-        unset($app_list[$app]);
-        ksort($app_list);
-        foreach (array_keys($app_list) as $val) {
-            echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
-                ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+    if (!$init_exception) {
+        try {
+            $app_list = $registry->listApps(null, true);
+            unset($app_list[$app]);
+            ksort($app_list);
+            foreach (array_keys($app_list) as $val) {
+                echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
+                    ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+            }
+        } catch (Exception $e) {
+            $init_exception = $e;
         }
-    } else {
-        echo '<li style="color:red"><strong>Horde is not correctly configured so no application information can be displayed. Please follow the instructions in horde/docs/INSTALL and ensure horde/config/conf.php and horde/config/registry.php are correctly configured.</strong></li>';
+    }
+
+    if (!$init_exception) {
+        echo '<li style="color:red"><strong>Horde is not correctly configured so no application information can be displayed. Please follow the instructions in horde/docs/INSTALL and ensure horde/config/conf.php and horde/config/registry.php are correctly configured.</strong></li>' .
+            '<li><strong>Error message:</strong> ' . $e->getMessage() . '</li>';
     }
 ?>
 </ul>
@@ -190,7 +197,7 @@ if ($config_output = $test_ob->requiredFileCheck()) {
 
 <h1>PHP Sessions</h1>
 <ul>
-<?php if ($is_init): ?>
+<?php if (!$init_exception): ?>
  <li>Session counter: <?php echo ++$_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
  <li>To unregister the session: <a href="<?php $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
 <?php else: ?>
