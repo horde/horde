@@ -1015,19 +1015,25 @@ abstract class Kronolith_Event
         /* Sensitivity */
         $this->private = ($message->getSensitivity() == 'private' || $message->getSensitivity() == 'confidential') ? true :  false;
 
-        /* Response Status */
-        $status = $message->getResponseType();
+        /* Busy Status */
+        $status = $message->getBusyStatus();
         switch ($status) {
-        case 'declined':
-            $status = 'CANCELLED';
+        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
+            $status = Kronolith::STATUS_CONFIRMED;
             break;
-        case 'accepted':
-            $status = 'CONFIRMED';
+
+        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
+            $status = Kronolith::STATUS_FREE;
             break;
-        case 'tentative':
-            $status = 'TENTATIVE';
+
+        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
+            $status = Kronolith::STATUS_TENTATIVE;
+            break;
+        // @TODO: not sure how "Out" should show in kronolith...
+        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
+            $status = Kronolith::STATUS_CONFIRMED;
         default:
-            $status = 'FREE';
+            $status = Kronolith::STATUS_NONE;
         }
         $this->status = constant('Kronolith::STATUS_' . $status);
 
@@ -1133,16 +1139,16 @@ abstract class Kronolith_Event
         /* Response Status */
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
-            $status = 'declined';
+            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
             break;
         case Kronolith::STATUS_CONFIRMED:
-            $status = 'accepted';
+            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY;
             break;
         case Kronolith::STATUS_TENTATIVE:
-            $status = 'tentative';
+            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE;
         case Kronolith::STATUS_FREE:
         case Kronolith::STATUS_NONE:
-            $status = 'none';
+            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
         }
         $message->setResponseType($status);
 
