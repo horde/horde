@@ -1035,7 +1035,7 @@ abstract class Kronolith_Event
         default:
             $status = Kronolith::STATUS_NONE;
         }
-        $this->status = constant('Kronolith::STATUS_' . $status);
+        $this->status = $status;
 
         /* Alarm */
         if ($alarm = $message->getReminder()) {
