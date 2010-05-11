@@ -17,7 +17,7 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
 
     /* Attendee Status */
     const STATUS_UNKNOWN = 0;
-    const STATUS_TENATIVE = 2;
+    const STATUS_TENTATIVE = 2;
     const STATUS_ACCEPT = 3;
     const STATUS_DECLINE = 4;
     const STATUS_NORESPONSE = 5;
