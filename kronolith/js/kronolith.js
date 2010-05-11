@@ -4350,6 +4350,7 @@ KronolithCore = {
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('span').hide();
             $('kronolithEventSaveAsNew').hide();
+            this.toggleRecurrence('None');
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
