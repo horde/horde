@@ -7,8 +7,12 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        $driver = $GLOBALS['conf']['mailer']['type'];
-        $params = $GLOBALS['conf']['mailer']['params'];
+        $driver = isset($GLOBALS['conf']['mailer']['type'])
+            ? $GLOBALS['conf']['mailer']['type']
+            : 'null';
+        $params = isset($GLOBALS['conf']['mailer']['params'])
+            ? $GLOBALS['conf']['mailer']['params']
+            : array();
 
         if (($driver == 'smtp') &&
             $params['auth'] &&
