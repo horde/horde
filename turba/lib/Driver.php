@@ -2517,17 +2517,25 @@ class Turba_Driver
 
         /* Countries */
         include 'Horde/Nls/Countries.php';
-        $country = array_search($message->homecountry, $countries);
-        if ($country === false) {
-            $country = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
+        if (!empty($message->homecountry)) {
+            $country = array_search($message->homecountry, $countries);
+            if ($country === false) {
+                $country = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
+            }
+            $hash['homeCountry'] = $country;
+        } elseif (!$message->isGhosted('businesscountry')) {
+            $hash['homeCountry'] = null;
         }
-        $hash['homeCountry'] = $country;
-        $country = array_search($message->businesscountry, $countries);
-        if ($country === false) {
-            $country = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
-        }
-        $hash['workCountry'] = $country;
 
+        if (!empty($message->businesscountry)) {
+            $country = array_search($message->businesscountry, $countries);
+            if ($country === false) {
+                $country = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
+            }
+            $hash['workCountry'] = $country;
+        } elseif (!$message->isGhosted('businesscountry')) {
+            $hash['workCountry'] = null;
+        }
         return $hash;
     }
 
