@@ -59,7 +59,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     /* Busy status */
     const BUSYSTATUS_FREE = 0;
-    const BUSYSTATUS_TENATIVE = 1;
+    const BUSYSTATUS_TENTATIVE = 1;
     const BUSYSTATUS_BUSY = 2;
     const BUSYSTATUS_OUT = 3;
 
@@ -76,7 +76,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /* Response status */
     const RESPONSE_NONE = 0;
     const RESPONSE_ORGANIZER = 1;
-    const RESPONSE_TENATIVE = 2;
+    const RESPONSE_TENTATIVE = 2;
     const RESPONSE_ACCEPTED =3;
     const RESPONSE_DECLINED = 4;
     const RESPONSE_NORESPONSE = 5; // Not sure what difference this is to NONE?
@@ -521,7 +521,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Sets the busy status for this appointment
      *
      * Should be one of:
-     *   free, tenative, busy, out
+     *   free, tentative, busy, out
      *
      *
      * @param string  $busy  The busy status to use
@@ -532,8 +532,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         case 'free':
             $busy = self::BUSYSTATUS_FREE;
             break;
-        case 'tenative':
-            $busy = self::BUSYSTATUS_TENATIVE;
+        case 'tentative':
+            $busy = self::BUSYSTATUS_TENTATIVE;
             break;
         case 'busy':
             $busy = self::BUSYSTATUS_BUSY;
@@ -551,7 +551,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Return the busy status for this appointment.
      *
-     * @return string  One of free, tenative, busy, out
+     * @return string  One of free, tentative, busy, out
      */
     public function getBusyStatus()
     {
@@ -559,8 +559,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         case self::BUSYSTATUS_FREE:
             return 'free';
             break;
-        case self::BUSYSTATUS_TENATIVE:
-            return 'tenative';
+        case self::BUSYSTATUS_TENTATIVE:
+            return 'tentative';
             break;
         case self::BUSYSTATUS_BUSY:
             return 'busy';
@@ -575,7 +575,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     /**
      * Set user response type. Should be one of:
-     *   none, organizer, tenative, accepted, declined
+     *   none, organizer, tentative, accepted, declined
      *
      * @param string $response  The response type
      */
@@ -588,8 +588,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         case 'organizer':
             $response = self::RESPONSE_ORGANIZER;
             break;
-        case 'tenative':
-            $response = self::RESPONSE_TENATIVE;
+        case 'tentative':
+            $response = self::RESPONSE_TENTATIVE;
             break;
         case 'accepted':
             $response = self::RESPONSE_ACCEPTED;
@@ -618,8 +618,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         case self::RESPONSE_ORGANIZER:
             return 'organizer';
             break;
-        case self::RESPONSE_TENATIVE:
-            return 'tenative';
+        case self::RESPONSE_TENTATIVE:
+            return 'tentative';
             break;
         case self::RESPONSE_ACCEPTED:
             return 'accepted';

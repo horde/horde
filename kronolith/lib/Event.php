@@ -1024,8 +1024,8 @@ abstract class Kronolith_Event
         case 'accepted':
             $status = 'CONFIRMED';
             break;
-        case 'tenative':
-            $status = 'TENATIVE';
+        case 'tentative':
+            $status = 'TENTATIVE';
         default:
             $status = 'FREE';
         }
@@ -1139,7 +1139,7 @@ abstract class Kronolith_Event
             $status = 'accepted';
             break;
         case Kronolith::STATUS_TENTATIVE:
-            $status = 'tenative';
+            $status = 'tentative';
         case Kronolith::STATUS_FREE:
         case Kronolith::STATUS_NONE:
             $status = 'none';
@@ -1200,7 +1200,7 @@ abstract class Kronolith_Event
                             $status = 'accepted';
                             break;
                         case Kronolith::STATUS_TENTATIVE:
-                            $status = 'tenative';
+                            $status = 'tentative';
                         case Kronolith::STATUS_FREE:
                         case Kronolith::STATUS_NONE:
                             $status = 'none';
