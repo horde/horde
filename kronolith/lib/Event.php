@@ -1150,7 +1150,7 @@ abstract class Kronolith_Event
         case Kronolith::STATUS_NONE:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
         }
-        $message->setResponseType($status);
+        $message->setBusyStatus($status);
 
         /* DTStamp */
         $message->setDTStamp($_SERVER['REQUEST_TIME']);
