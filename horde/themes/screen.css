@@ -766,7 +766,6 @@ ul.sound-list {
     background-color: #fff;
     display: block;
     text-align: left;
-    overflow: hidden;
     margin: 20px auto 0 auto;
     position: absolute;
 }
