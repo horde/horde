@@ -147,9 +147,9 @@ if ($app == 'horde') {
         }
     }
 
-    if (!$init_exception) {
+    if ($init_exception) {
         echo '<li style="color:red"><strong>Horde is not correctly configured so no application information can be displayed. Please follow the instructions in horde/docs/INSTALL and ensure horde/config/conf.php and horde/config/registry.php are correctly configured.</strong></li>' .
-            '<li><strong>Error message:</strong> ' . $e->getMessage() . '</li>';
+            '<li><strong>Error:</strong> ' . $e->getMessage() . '</li>';
     }
 ?>
 </ul>
