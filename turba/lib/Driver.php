@@ -2340,7 +2340,7 @@ class Turba_Driver
                 $message->homepostalcode = Horde_String::convertCharset($hash['homePostalCode'], $charset, 'utf-8');
                 break;
             case 'homeCountry':
-                $message->homecountry = Horde_String::convertCharset($hash['homeCountry'], $charset, 'utf-8');
+                $message->homecountry = Horde_String::convertCharset(self::getCountry($hash['homeCountry']), $charset, 'utf-8');
                 break;
             case 'workStreet':
                 $message->businessstreet = Horde_String::convertCharset($hash['workStreet'], $charset, 'utf-8');
@@ -2450,12 +2450,10 @@ class Turba_Driver
             'homecity' => 'homeCity',
             'homestate' => 'homeProvince',
             'homepostalcode' => 'homePostalCode',
-            'homecountry' => 'homeCountry',
             'businessstreet' => 'workStreet',
             'businesscity' => 'workCity',
             'businessstate' => 'workProvince',
             'businesspostalcode' => 'workPostalCode',
-            'businesscountry' => 'workCountry',
             'jobtitle' => 'title',
             'companyname' => 'company',
             'department' => 'department',
@@ -2516,6 +2514,19 @@ class Turba_Driver
         } elseif (!$message->isGhosted('anniversary')) {
             $hash['anniversary'] = null;
         }
+
+        /* Countries */
+        include 'Horde/Nls/Countries.php';
+        $country = array_search($message->homecountry, $countries);
+        if ($country === false) {
+            $country = Horde_String::convertCharset($message->homecountry, 'utf-8', $charset);
+        }
+        $hash['homeCountry'] = $country;
+        $country = array_search($message->businesscountry, $countries);
+        if ($country === false) {
+            $country = Horde_String::convertCharset($message->businesscountry, 'utf-8', $charset);
+        }
+        $hash['workCountry'] = $country;
 
         return $hash;
     }
