@@ -520,57 +520,21 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Sets the busy status for this appointment
      *
-     * Should be one of:
-     *   free, tentative, busy, out
-     *
-     *
-     * @param string  $busy  The busy status to use
+     * @param integer  $busy  The BUSYSTATUS constant
      */
     public function setBusyStatus($busy)
     {
-        switch ($busy) {
-        case 'free':
-            $busy = self::BUSYSTATUS_FREE;
-            break;
-        case 'tentative':
-            $busy = self::BUSYSTATUS_TENTATIVE;
-            break;
-        case 'busy':
-            $busy = self::BUSYSTATUS_BUSY;
-            break;
-        case 'out':
-            $busy = self::BUSYSTATUS_OUT;
-            break;
-        default:
-            return;
-        }
-
         $this->_properties['busystatus'] = $busy;
     }
 
     /**
      * Return the busy status for this appointment.
      *
-     * @return string  One of free, tentative, busy, out
+     * @return integer The BUSYSTATUS constant
      */
     public function getBusyStatus()
     {
-        switch ($this->_getAttribute('busystatus')) {
-        case self::BUSYSTATUS_FREE:
-            return 'free';
-            break;
-        case self::BUSYSTATUS_TENTATIVE:
-            return 'tentative';
-            break;
-        case self::BUSYSTATUS_BUSY:
-            return 'busy';
-            break;
-        case self::BUSYSTATUS_OUT:
-            return 'out';
-            break;
-        default:
-            return;
-        }
+        return $this->_getAttribute('busystatus');
     }
 
     /**
