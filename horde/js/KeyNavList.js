@@ -47,13 +47,12 @@ var KeyNavList = Class.create({
             onChoose: Prototype.emptyFunction,
             onHide: Prototype.emptyFunction,
             onShow: Prototype.emptyFunction,
-            domParent: null,
+            domParent: document.body,
             keydownObserver: document
         }, opts || {});
 
         this.div = new Element('DIV', { className: 'KeyNavList' }).hide().insert(new Element('UL'));
-        var parent = (this.opts.domParent) ? $(this.opts.domParent) : document.body;
-        parent.appendChild(this.div);
+        this.opts.domParent.appendChild(this.div);
 
         if (this.opts.list) {
             this.update(this.opts.list);
@@ -150,19 +149,19 @@ var KeyNavList = Class.create({
 
     _sizeDiv: function()
     {
-        var l = parseInt(this.div.getStyle('left'), 10);
-            t = parseInt(this.div.getStyle('top'), 10),
+        var divL = this.div.getLayout(),
+            dl = divL.get('left'), dt = divL.get('top'),
+            off = this.opts.domParent.cumulativeOffset(),
             v = document.viewport.getDimensions();
 
-        if ((this.div.getWidth() + l + 10) > v.width) {
-            l = (v.width - this.div.scrollWidth - 10);
-            this.div.setStyle({ left: l + 'px' });
+        if ((divL.get('border-box-width') + dl + off.left + 10) > v.width) {
+            dl = (v.width - this.div.scrollWidth - off.left - 10);
+            this.div.setStyle({ left: dl + 'px' });
         }
 
-        if ((this.div.getHeight() + t + 10) > v.height) {
+        if ((divL.get('border-box-height') + dt + off.top + 10) > v.height) {
             this.div.setStyle({
-                height: (v.height - t - 10) + 'px',
-                left: (l - 10) + 'px',
+                height: (v.height - dt - off.top - 10) + 'px',
                 width: (this.div.scrollWidth + 10) + 'px'
             });
         }
