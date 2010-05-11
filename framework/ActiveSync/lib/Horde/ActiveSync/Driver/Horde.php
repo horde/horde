@@ -604,7 +604,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
 
         preg_match('/(.*)\-(.*)/', $range, $matches);
-		$return_count = $matches[2] - $matches[1];
+        $return_count = $matches[2] - $matches[1];
         $rows = array_slice($results, $matches[1], $return_count + 1, true);
         $rows = array_pop($rows);
         foreach ($rows as $row) {
