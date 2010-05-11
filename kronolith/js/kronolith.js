@@ -3344,6 +3344,10 @@ KronolithCore = {
     /* Keydown event handler */
     keydownHandler: function(e)
     {
+        if (e.stopped) {
+            return;
+        }
+
         var kc = e.keyCode || e.charCode,
             form = e.findElement('FORM'), trigger = e.findElement();
 
@@ -4791,6 +4795,35 @@ KronolithCore = {
         }
     },
 
+    /**
+     * Attaches a KeyNavList drop down to one of the time fields.
+     *
+     * @param string|Element field  A time field (id).
+     *
+     * @return KeyNavList  The drop down list object.
+     */
+    attachTimeDropDown: function(field)
+    {
+        var list = [], d = new Date(), time, opts;
+
+        d.setHours(0);
+        d.setMinutes(0);
+        do {
+            time = d.toString(Kronolith.conf.time_format);
+            list.push({ l: time, v: time });
+            d.add(30).minutes();
+        } while (d.getHours() != 0 || d.getMinutes() != 0);
+
+        field = $(field);
+        opts = {
+            list: list,
+            domParent: field.up('.kronolithDialog'),
+            onChoose: function(value) { field.setValue(value); this.updateTimeFields(field.identify()); }.bind(this)
+        }
+
+        return new KeyNavList(field, opts);
+    },
+
     checkTime: function(e) {
         var elm = e.element();
         if ($F(elm)) {
@@ -4892,6 +4925,25 @@ KronolithCore = {
         time.setMinutes(minute);
 
         $(field).setValue(time.toString(Kronolith.conf.time_format));
+        this.updateTimeFields(field);
+
+        /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
+         * Need to stop or else multiple scroll events may be fired. We
+         * lose the ability to have the mousescroll bubble up, but that is
+         * more desirable than having the wrong scrolling behavior. */
+        if (Prototype.Browser.Gecko && !e.stop) {
+            Event.stop(e);
+        }
+    },
+
+    /**
+     * Updates the time fields of the event dialog after either has been
+     * changed.
+     *
+     * @param string field  The id of the field that has been changed.
+     */
+    updateTimeFields: function(field)
+    {
         switch (field) {
         case 'kronolithEventStartTime':
             this.updateEndTime();
@@ -4906,14 +4958,6 @@ KronolithCore = {
                 this.duration = Math.abs(end.getTime() - start.getTime()) / 60000;
             }
             break;
-        }
-
-        /* Mozilla bug https://bugzilla.mozilla.org/show_bug.cgi?id=502818
-         * Need to stop or else multiple scroll events may be fired. We
-         * lose the ability to have the mousescroll bubble up, but that is
-         * more desirable than having the wrong scrolling behavior. */
-        if (Prototype.Browser.Gecko && !e.stop) {
-            Event.stop(e);
         }
     },
 
@@ -5118,11 +5162,6 @@ KronolithCore = {
             this.redBoxLoading = false;
         }.bind(this);
 
-        document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
-        document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
-        document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
-        document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
-
         $('kronolithSearchTerm').observe('focus', function() {
             if ($F(this) == this.readAttribute('default')) {
                 this.clear();
@@ -5135,12 +5174,22 @@ KronolithCore = {
         });
 
         $('kronolithEventStartDate', 'kronolithEventEndDate', 'kronolithTaskDueDate').compact().invoke('observe', 'blur', this.checkDate.bind(this));
-        $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact().invoke('observe', 'blur', this.checkTime.bind(this));
+        var timeFields = $('kronolithEventStartTime', 'kronolithEventEndTime', 'kronolithTaskDueTime').compact();
+        timeFields.invoke('observe', 'blur', this.checkTime.bind(this));
+        timeFields.each(function(field) {
+            var dropDown = this.attachTimeDropDown(field);
+            field.observe('click', function() { dropDown.show() });
+        }, this);
         $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
 
         if (Kronolith.conf.has_tasks) {
             $('kronolithTaskDueDate', 'kronolithEventDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
         }
+
+        document.observe('keydown', KronolithCore.keydownHandler.bindAsEventListener(KronolithCore));
+        document.observe('keyup', KronolithCore.keyupHandler.bindAsEventListener(KronolithCore));
+        document.observe('click', KronolithCore.clickHandler.bindAsEventListener(KronolithCore));
+        document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
 
         // Mouse wheel handler.
         dateFields = [ 'kronolithEventStartDate', 'kronolithEventEndDate' ];
