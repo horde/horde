@@ -509,59 +509,21 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set user response type. Should be one of:
      *   none, organizer, tentative, accepted, declined
      *
-     * @param string $response  The response type
+     * @param integer $response  The response type constant
      */
     public function setResponseType($response)
     {
-        switch ($response) {
-        case 'none':
-            $response = self::RESPONSE_NONE;
-            break;
-        case 'organizer':
-            $response = self::RESPONSE_ORGANIZER;
-            break;
-        case 'tentative':
-            $response = self::RESPONSE_TENTATIVE;
-            break;
-        case 'accepted':
-            $response = self::RESPONSE_ACCEPTED;
-            break;
-        case 'declined':
-            $response = self::RESPONSE_DECLINED;
-            break;
-        default:
-            return;
-        }
-
         $this->_properties['responsetype'] = $response;
     }
 
     /**
      * Get response type
      *
-     * @return string one of: none, organizer, tenatve, accepted, declined
+     * @return integer  The responsetype constant
      */
     public function getResponseType()
     {
-        switch ($this->_getAttribute('responsetype')) {
-        case self::RESPONSE_NONE:
-            return 'none';
-            break;
-        case self::RESPONSE_ORGANIZER:
-            return 'organizer';
-            break;
-        case self::RESPONSE_TENTATIVE:
-            return 'tentative';
-            break;
-        case self::RESPONSE_ACCEPTED:
-            return 'accepted';
-            break;
-        case self::RESPONSE_DECLINED:
-            return 'declined';
-            break;
-        default:
-            return;
-        }
+        return $this->_getAttribute('responsetype');
     }
 
     /**
