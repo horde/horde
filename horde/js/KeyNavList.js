@@ -195,7 +195,7 @@ var KeyNavList = Class.create({
             this.opts.onChoose(this.getCurrentEntry());
             this.hide();
             e.stop();
-            break;
+            return;
 
         case Event.KEY_ESC:
             this.hide();
