@@ -1013,7 +1013,7 @@ abstract class Kronolith_Event
         $this->allday = $dates['allday'];
 
         /* Sensitivity */
-        $this->private = ($message->getSensitivity() == 'private' || $message->getSensitivity() == 'confidential') ? true :  false;
+        $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
 
         /* Busy Status */
         $status = $message->getBusyStatus();
@@ -1134,9 +1134,11 @@ abstract class Kronolith_Event
         );
 
         /* Privacy */
-        $message->setSensitivity($this->private ? 'private' : 'normal');
+        $message->setSensitivity($this->private ?
+            Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
+            Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
 
-        /* Response Status */
+        /* Busy Status */
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;

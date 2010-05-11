@@ -468,53 +468,21 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Should be one of:
      *   normal, personal, private, confidential
      *
-     * @param string $sensitivity
+     * @param integer $sensitivity  The SENSITIVITY constant
      */
     public function setSensitivity($sensitivity)
     {
-        switch ($sensitivity) {
-        case 'normal':
-            $sensitivity = self::SENSITIVITY_NORMAL;
-            break;
-        case 'personal':
-            $sensitivity = self::SENSITIVITY_PERSONAL;
-            break;
-        case 'private':
-            $sensitivity = self::SENSITIVITY_PRIVATE;
-            break;
-        case 'confidential':
-            $sensitivity = self::SENSITIVITY_CONFIDENTIAL;
-            break;
-        default:
-            return;
-        }
-
         $this->_properties['sensitivity'] = $sensitivity;
     }
 
     /**
      * Return the sensitivity setting for this appointment
      *
-     * @return string  One of: normal, personal, private, confidential
+     * @return integer  The SENSITIVITY constant
      */
     public function getSensitivity()
     {
-        switch ($this->_getAttribute('sensitivity')) {
-        case self::SENSITIVITY_NORMAL:
-            return 'normal';
-            break;
-        case self::SENSITIVITY_PERSONAL:
-            return 'personal';
-            break;
-        case self::SENSITIVITY_PRIVATE:
-            return 'private';
-            break;
-        case self::SENSITIVITY_CONFIDENTIAL:
-            return 'confidential';
-            break;
-        default:
-            return;
-        }
+        return $this->_getAttribute('sensitivity');
     }
 
     /**
