@@ -9,6 +9,6 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Lock
+ * @package  Lock
  */
 class Horde_Lock_Exception extends Horde_Exception_Prior {}

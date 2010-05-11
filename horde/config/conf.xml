@@ -1176,8 +1176,8 @@
   <configsection name="lock">
    <configheader>Lock System Settings</configheader>
    <configswitch name="driver" desc="If you want to enable resource locking
-   you must choose a driver here.">Sql
-    <case name="none" desc="Disable Horde Locks"/>
+   you must choose a driver here.">Null
+    <case name="Null" desc="Disable Horde Locks"/>
     <case name="Sql" desc="SQL-based locking">
      <configsection name="params">
       <configsql switchname="driverconfig">

@@ -48,8 +48,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * @author  Ben Klang <ben@alkaloid.net>
- * @package Horde_Lock
+ * @author   Ben Klang <ben@alkaloid.net>
+ * @category Horde
+ * @package  Lock
  */
 class Horde_Lock_Sql extends Horde_Lock_Driver
 {
@@ -219,6 +220,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
         if ($this->_logger) {
             $this->_logger->log(sprintf('Lock %s reset successfully.', $lockid), 'DEBUG');
         }
+
         return true;
     }
 
@@ -309,15 +311,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     {
         if ($this->_connected) {
             return;
-        }
-
-        try {
-            Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'Lock SQL');
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
-            throw new Horde_Lock_Exception($e);
         }
 
         $this->_write_db = DB::connect(

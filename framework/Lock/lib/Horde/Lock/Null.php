@@ -1,50 +1,18 @@
 <?php
 /**
- * The Horde_Lock_Driver class defines the Horde_Lock driver API.
+ * A null driver for Horde_Lock.
  *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * @author   Ben Klang <ben@alkaloid.net>
+ * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
  * @package  Lock
  */
-abstract class Horde_Lock_Driver
+class Horde_Lock_Null extends Horde_Lock_Driver
 {
-    /**
-     * Driver parameters.
-     *
-     * @var array
-     */
-    protected $_params;
-
-    /**
-     * Logger.
-     *
-     * @var Horde_Log_Logger
-     */
-    protected $_logger;
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Configuration parameters:
-     * <pre>
-     * 'logger' - (Horde_Log_Logger) A logger instance.
-     * </pre>
-     */
-    public function __construct($params = array())
-    {
-        if (!empty($params['logger'])) {
-            $this->_logger = $params['logger'];
-            unset($params['logger']);
-        }
-
-        $this->_params = $params;
-    }
-
     /**
      * Return an array of information about the requested lock.
      *
@@ -53,7 +21,10 @@ abstract class Horde_Lock_Driver
      * @return array  Lock information.
      * @throws Horde_Lock_Exception
      */
-    abstract public function getLockInfo($lockid);
+    public function getLockInfo($lockid)
+    {
+        return array();
+    }
 
     /**
      * Return a list of valid locks with the option to limit the results
@@ -71,8 +42,10 @@ abstract class Horde_Lock_Driver
      *                return an empty array.
      * @throws Horde_Lock_Exception
      */
-    abstract public function getLocks($scope = null, $principal = null,
-                                      $type = null);
+    public function getLocks($scope = null, $principal = null, $type = null)
+    {
+        return array();
+    }
 
     /**
      * Extend the valid lifetime of a valid lock to now + $extend.
@@ -84,7 +57,10 @@ abstract class Horde_Lock_Driver
      * @return boolean  Returns true on success.
      * @throws Horde_Lock_Exception
      */
-    abstract public function resetLock($lockid, $extend);
+    public function resetLock($lockid, $extend)
+    {
+        return true;
+    }
 
     /**
      * Sets a lock on the requested principal and returns the generated lock
@@ -121,9 +97,11 @@ abstract class Horde_Lock_Driver
      * @return mixed   A string lock ID.
      * @throws Horde_Lock_Exception
      */
-    abstract public function setLock($requestor, $scope, $principal,
-                                     $lifetime = 1,
-                                     $exclusive = Horde_Lock::TYPE_SHARED);
+    public function setLock($requestor, $scope, $principal, $lifetime = 1,
+                            $exclusive = Horde_Lock::TYPE_SHARED)
+    {
+        return strval(new Horde_Support_Uuid());
+    }
 
     /**
      * Removes a lock given the lock ID.
@@ -137,6 +115,9 @@ abstract class Horde_Lock_Driver
      * @return boolean  Returns true on success.
      * @throws Horde_Lock_Exception
      */
-    abstract public function clearLock($lockid);
+    public function clearLock($lockid)
+    {
+        return true;
+    }
 
 }

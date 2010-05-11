@@ -8,21 +8,15 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * @author  Ben Klang <ben@alkaloid.net>
- * @package Horde_Lock
+ * @author   Ben Klang <ben@alkaloid.net>
+ * @category Horde
+ * @package  Lock
  */
 class Horde_Lock
 {
     /* Class constants. */
     const TYPE_EXCLUSIVE = 1;
     const TYPE_SHARED = 2;
-
-    /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
 
     /**
      * Attempts to return a concrete instance based on $driver.
@@ -46,35 +40,6 @@ class Horde_Lock
         }
 
         throw new Horde_Lock_Exception('Horde_Lock driver (' . $class . ') not found');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance based on
-     * $driver. It will only create a new instance if no instance
-     * with the same parameters currently exists.
-     *
-     * This should be used if multiple authentication sources (and, thus,
-     * multiple Horde_Lock instances) are required.
-     *
-     * @param string $driver  The type of concrete Horde_Lock subclass to
-     *                        return.
-     *                        This is based on the storage driver ($driver).
-     *                        The code is dynamically included.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Horde_Lock_Driver  The concrete reference.
-     * @throws Horde_Lock_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-        if (empty(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$signature];
     }
 
 }

@@ -52,10 +52,9 @@ echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 
 $app = Horde_Util::getFormData('module');
 $show = 'edit';
-$vars = &Horde_Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 if ($app) {
-
     $napp = ($app == 'horde') ? '' : $app;
     $pofile = HORDE_BASE . '/' . $napp . '/po/' . $lang . '.po';
     $po = new File_Gettext_PO();
@@ -65,7 +64,7 @@ if ($app) {
     $lockscope = sprintf("babel-%s-%s", $app, $lang);
 
     // Initialize Horde_Lock class
-    $locks = Horde_Lock::singleton('Sql', Horde::getDriverConfig('lock', 'Sql'));
+    $locks = $injector->getInstance('Horde_Lock');
 
 //    $curlocks = $locks->getLocks($lockscope);
 //    var_dump($curlocks);
