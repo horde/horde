@@ -37,7 +37,7 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
 /* Set up autoload paths for core Horde libs (located in lib/). This can't
  * be defined in Horde_Autoloader since the current directory path can not be
  * determined there. */
-include_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPattern('/^Horde(?:$|_)/i', $dirname);
 
 /* Default exception handler for uncaught exceptions. The default fatal
