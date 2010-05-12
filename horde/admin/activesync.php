@@ -92,7 +92,7 @@ foreach ($devices as $device) {
     $node_params = array();
     if (array_search($device['device_user'], $users) === false) {
         $users[] = $device['device_user'];
-        $tree->addNode($device['device_user'], 'root', $device['device_user'], 0, true, $user_node);
+        $tree->addNode($device['device_user'], 'root', $device['device_user'], 0, false, $user_node);
     }
 
     /* Load this device */

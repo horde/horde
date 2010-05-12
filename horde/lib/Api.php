@@ -14,7 +14,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function admin_list()
     {
-        return array(
+        $admin = array(
             'configuration' => array(
                 'link' => '%application%/admin/setup/',
                 'name' => _("_Setup"),
@@ -66,6 +66,16 @@ class Horde_Api extends Horde_Registry_Api
                 'icon' => 'shell.png'
             )
         );
+
+        if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
+            $admin['activesync'] = array(
+                'link' => '%application%/admin/activesync.php',
+                'name' => _("ActiveSync Devices"),
+                'icon' => 'mobile.png'
+            );
+        }
+
+        return $admin;
     }
 
     /**
