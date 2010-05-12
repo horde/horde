@@ -784,10 +784,6 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function setDeviceRWStatus($devId, $status)
     {
-        if (empty($this->_deviceInfo) || $devId != $this->_deviceInfo->id) {
-            throw new Horde_ActiveSync_Exception('Device not loaded');
-        }
-
         $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_rwstatus = ?';
         $values = array($status);
 
