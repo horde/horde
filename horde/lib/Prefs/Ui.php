@@ -416,13 +416,12 @@ class Horde_Prefs_Ui
         $t->setOption('gettext', true);
         $selfurl = $ui->selfUrl();
         $t->set('reset', $selfurl->copy()->add('reset', 1));
-        $t->set('username', Horde_Auth::getAuth());
         $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
         $devs = array();
         $i = 1;
         foreach ($devices as $device) {
             $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
-            $stateMachine->getDeviceInfo($device['device_id'], Horde_Auth::getAuth());
+            $stateMachine->loadDeviceInfo($device['device_id'], Horde_Auth::getAuth());
             $ts = $stateMachine->getLastSyncTimestamp();
             $device['ts'] = empty($ts) ? _("None") : strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $ts);
             switch ($device['device_rwstatus']) {
@@ -696,19 +695,21 @@ class Horde_Prefs_Ui
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
         $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if ($ui->vars->wipeid) {
+            $stateMachine->loadDeviceInfo($ui->vars->wipeid, Horde_Auth::getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
             $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped during the next SYNC request."), $ui->vars->wipe));
         } elseif ($ui->vars->cancelwipe) {
+            $stateMachine->loadDeviceInfo($ui->vars->cancelwipe, Horde_Auth::getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);
             $GLOBALS['notification']->push(sprintf(_("The Remote Wipe for device id %s has been cancelled."), $ui->vars->wipe));
         } elseif ($ui->vars->reset) {
             $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
             foreach ($devices as $device) {
-                $stateMachine->removeState(null, $device['device_id'], $ui->vars->removeuser);
+                $stateMachine->removeState(null, $device['device_id'], Horde_Auth::getAuth());
             }
             $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
         } elseif ($ui->vars->removedevice) {
-            $stateMachine->removeState(null, $ui->vars->removedevice, $ui->vars->removeuser);
+            $stateMachine->removeState(null, $ui->vars->removedevice, Horde_Auth::getAuth());
         }
     }
 

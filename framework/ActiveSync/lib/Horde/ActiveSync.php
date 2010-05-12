@@ -862,7 +862,7 @@ class Horde_ActiveSync
             $state->setDeviceInfo($device);
         } elseif (!empty($devId)) {
             // @TODO: Check if the empty check is necessary
-            $device = $state->getDeviceInfo($devId, $this->_driver->getUser());
+            $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
         /* Load the request handler to handle the request */

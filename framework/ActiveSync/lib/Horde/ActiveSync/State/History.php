@@ -394,7 +394,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function initPingState($device)
     {
-        /* This would normally already be loaded by getDeviceInfo() but we
+        /* This would normally already be loaded by loadDeviceInfo() but we
          * should verify we have the correct device loaded etc... */
          if (!isset($this->_pingState) || $this->_devId !== $device->id) {
              throw new Horde_ActiveSync_Exception('Device not loaded');
@@ -414,7 +414,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @return object  The device obejct
      * @throws Horde_ActiveSync_Exception
      */
-    public function getDeviceInfo($devId, $user)
+    public function loadDeviceInfo($devId, $user)
     {
         //@TODO - combine _devId and _deviceInfo
         /* See if we have it already */

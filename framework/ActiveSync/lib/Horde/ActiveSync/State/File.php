@@ -343,7 +343,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return object  The device info object
      * @throws Horde_ActiveSync_Exception
      */
-    public function getDeviceInfo($devId, $user)
+    public function loadDeviceInfo($devId, $user)
     {
         $this->_devId = $devId;
         $file = $this->_stateDir . '/' . $user . '/info-' . $devId;
@@ -502,7 +502,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function setPolicyKey($devId, $key)
     {
-        $info = $this->getDeviceInfo($devId);
+        $info = $this->loadDeviceInfo($devId);
         $info->policykey = $key;
         $this->setDeviceInfo($info);
         $this->_logger->info('[' . $devId . '] New policykey saved: ' . $key);
@@ -518,7 +518,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      */
     public function setDeviceRWStatus($devId, $status)
     {
-        $info = $this->getDeviceInfo($devId);
+        $info = $this->loadDeviceInfo($devId);
         $info->rwstatus = $status;
         $this->setDeviceInfo($info);
         $this->_logger->info('[' . $devId . '] Setting DeviceRWStatus: ' . $status);

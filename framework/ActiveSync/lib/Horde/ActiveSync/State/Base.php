@@ -558,7 +558,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return StdClass
      */
-    abstract public function getDeviceInfo($device, $user);
+    abstract public function loadDeviceInfo($device, $user);
 
     /**
      * Check that a given device id is known to the server. This is regardless
