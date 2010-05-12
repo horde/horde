@@ -52,7 +52,7 @@ if (!empty($git)) {
 }
 
 print "\nLINKING horde\n";
-file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
+file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php define('HORDE_BASE', '$web_dir'); ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($horde_git . '/horde'), RecursiveIteratorIterator::SELF_FIRST);
 while ($it->valid()) {
     if (!$it->isDot()) {
