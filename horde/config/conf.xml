@@ -1991,6 +1991,8 @@
           data:">horde_activesync_state</configstring>
           <configstring name="maptable" desc="Name of table to hold mapping data
           for device-sent changes.">horde_activesync_map</configstring>
+          <configstring name="userstable" desc="Name of table to hold user-device
+          data:">horde_activesync_device_users</configstring>
          </configsection>
        </case>
        <case name="file" desc="Generic file based driver">

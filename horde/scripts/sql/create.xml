@@ -1345,6 +1345,13 @@
     <notnull>false</notnull>
    </field>
 
+   <field>
+    <name>sync_user</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
    <index>
     <name>activesync_state_primary</name>
     <primary>true</primary>
@@ -1409,6 +1416,13 @@
     <notnull>false</notnull>
    </field>
 
+   <field>
+    <name>sync_user</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
    <index>
     <name>activesync_map_message_idx</name>
     <field>
@@ -1420,6 +1434,13 @@
     <name>activesync_map_devid_idx</name>
     <field>
      <name>sync_devid</name>
+    </field>
+   </index>
+
+   <index>
+    <name>activesync_map_user_idx</name>
+    <field>
+     <name>sync_user</name>
     </field>
    </index>
 
@@ -1452,12 +1473,6 @@
    </field>
 
    <field>
-    <name>device_ping</name>
-    <type>clob</type>
-    <notnull>false</notnull>
-   </field>
-
-   <field>
     <name>device_supported</name>
     <type>clob</type>
     <notnull>false</notnull>
@@ -1475,6 +1490,29 @@
     <notnull>false</notnull>
    </field>
 
+   <index>
+    <name>activesync_device_primary</name>
+    <primary>true</primary>
+    <field>
+     <name>device_id</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name>horde_activesync_device_users</name>
+
+  <declaration>
+   <field>
+    <name>device_ping</name>
+    <type>clob</type>
+    <notnull>false</notnull>
+   </field>
+
    <field>
     <name>device_folders</name>
     <type>clob</type>
@@ -1489,15 +1527,7 @@
    </field>
 
    <index>
-    <name>activesync_device_primary</name>
-    <primary>true</primary>
-    <field>
-     <name>device_id</name>
-    </field>
-   </index>
-
-   <index>
-    <name>activesync_device_user_message_idx</name>
+    <name>activesync_device_user_idx</name>
     <field>
      <name>device_user</name>
     </field>
@@ -1506,5 +1536,4 @@
   </declaration>
 
  </table>
-
 </database>

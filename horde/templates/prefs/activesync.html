@@ -9,6 +9,7 @@
 <input type="hidden" id="removedevice" name="removedevice" />
 <input type="hidden" name="wipeid" id="wipeid" />
 <input type="hidden" name="cancelwipe" id="cancelwipe" />
+<input type="hidden" name="removeuser" id="removeuser" value="<tag:username />" />
 <table class="horde-table striped">
  <tr>
      <th></th>
@@ -25,7 +26,7 @@
    <if:devices.ispending>
     <input class="button" type="button" value="<gettext>Cancel Wipe</gettext>" onclick="HordeActiveSyncPrefs.cancelRemoteWipe('<tag:devices.device_id />');" />
    </if:devices.ispending>
-   <input class="button" type="button" value="<gettext>Remove</gettext>" onclick="HordeActiveSyncPrefs.removeDevice('<tag:devices.device_id />');" />
+   <input class="button" type="button" value="<gettext>Remove</gettext>" onclick="HordeActiveSyncPrefs.removeDevice('<tag:devices.device_id />', '<tag:devices.device_user />');" />
   </td>
   <td><tag:devices.device_type /></td>
   <td><tag:devices.ts /></td>

@@ -226,9 +226,13 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         /* Fixtures - don't really need data, since the change is not actually done */
         $message = new Horde_ActiveSync_Message_Contact();
 
+        /* Mock device object */
+        $device = new stdClass();
+        $device->supported = array();
+
         /* Try adding a new contact */
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 0, $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 0, $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -237,7 +241,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
        /* Try editing a contact */
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'localhost@123.123', $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'localhost@123.123', $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -247,7 +251,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         /* Try adding a new appointment */
         $message = new Horde_ActiveSync_Message_Appointment();
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 0, $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 0, $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -256,7 +260,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
        /* Try editing an appointment */
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 'localhost@123.123', $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 'localhost@123.123', $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -266,7 +270,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         /* Try adding a new task */
         $message = new Horde_ActiveSync_Message_Task();
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 0, $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 0, $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -275,7 +279,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
        /* Try editing an appointment */
         try {
-            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 'localhost@123.123', $message);
+            $results = $driver->ChangeMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 'localhost@123.123', $message, $device);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->fail($e->getMessage());
         }

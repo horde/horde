@@ -337,27 +337,21 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     /**
      * Obtain the device object.
      *
-     * @param string $devId
+     * @param string $devId  The device id to obtain
+     * @param string $user   The user account to use
      *
-     * @return StdClass
+     * @return object  The device info object
+     * @throws Horde_ActiveSync_Exception
      */
-    public function getDeviceInfo($devId)
+    public function getDeviceInfo($devId, $user)
     {
         $this->_devId = $devId;
-        $file = $this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId;
+        $file = $this->_stateDir . '/' . $user . '/info-' . $devId;
         if (file_exists($file)) {
             return unserialize(file_get_contents($file));
+        } else {
+            throw new Horde_ActiveSync_Exception('Device not found.');
         }
-
-        /* Default structure */
-        $device = new StdClass();
-        $device->policykey = 0;
-        $device->rwstatus = Horde_ActiveSync::RWSTATUS_NA;
-        $device->deviceType = '';
-        $device->userAgent = '';
-        $device->id = $devId;
-
-        return $device;
     }
 
     /**
@@ -381,12 +375,13 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * of Provisioning status.
      *
      * @param string $devId
+     * @param string $user
      *
      * @return boolean
      */
-    public function deviceExists($devId)
+    public function deviceExists($devId, $user)
     {
-        return file_exists($this->_stateDir . '/' . $this->_backend->getUser() . '/info-' . $devId);
+        return file_exists($this->_stateDir . '/' . $user . '/info-' . $devId);
     }
 
     /**
@@ -609,7 +604,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      * @return integer  The timestamp of the last sync, regardless of collection
      * @throws Horde_ActiveSync_Exception
      */
-    public function getLastSyncTimestamp($devId)
+    public function getLastSyncTimestamp()
     {
         throw new Horde_ActiveSync_Exception('Not Implemented');
     }

@@ -850,7 +850,7 @@ class Horde_ActiveSync
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
         $state = $this->_driver->getStateObject();
-        if (!empty($devId) && !$state->deviceExists($devId)) {
+        if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
             $get = $this->_request->getGetParams();
             $device = new StdClass();
             $device->userAgent = $this->_request->getHeader('User-Agent');
@@ -860,6 +860,9 @@ class Horde_ActiveSync
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
             $state->setDeviceInfo($device);
+        } elseif (!empty($devId)) {
+            // @TODO: Check if the empty check is necessary
+            $device = $state->getDeviceInfo($devId, $this->_driver->getUser());
         }
 
         /* Load the request handler to handle the request */
@@ -871,7 +874,7 @@ class Horde_ActiveSync
                                   $this->_encoder,
                                   $this->_request,
                                   $this,
-                                  $devId,
+                                  $device,
                                   $this->_provisioning);
             $request->setLogger($this->_logger);
 

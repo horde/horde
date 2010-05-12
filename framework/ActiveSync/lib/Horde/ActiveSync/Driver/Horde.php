@@ -478,7 +478,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      * @param string $id        The server's uid for the message if this is a
      *                          change to an existing message.
      * @param Horde_ActiveSync_Message_Base $message  The activesync message
-     * @param stdClass $device  The device information
+     * @param object $device  The device information
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#changeMessage($folderid, $id, $message)
      */

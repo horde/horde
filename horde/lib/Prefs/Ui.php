@@ -416,12 +416,14 @@ class Horde_Prefs_Ui
         $t->setOption('gettext', true);
         $selfurl = $ui->selfUrl();
         $t->set('reset', $selfurl->copy()->add('reset', 1));
+        $t->set('username', Horde_Auth::getAuth());
         $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
         $devs = array();
         $i = 1;
         foreach ($devices as $device) {
             $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
-            $ts = $stateMachine->getLastSyncTimestamp($device['device_id']);
+            $stateMachine->getDeviceInfo($device['device_id'], Horde_Auth::getAuth());
+            $ts = $stateMachine->getLastSyncTimestamp();
             $device['ts'] = empty($ts) ? _("None") : strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $ts);
             switch ($device['device_rwstatus']) {
             case Horde_ActiveSync::RWSTATUS_PENDING:
@@ -702,11 +704,11 @@ class Horde_Prefs_Ui
         } elseif ($ui->vars->reset) {
             $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
             foreach ($devices as $device) {
-                $stateMachine->removeState(null, $device['device_id']);
+                $stateMachine->removeState(null, $device['device_id'], $ui->vars->removeuser);
             }
             $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
         } elseif ($ui->vars->removedevice) {
-            $stateMachine->removeState(null, $ui->vars->removedevice);
+            $stateMachine->removeState(null, $ui->vars->removedevice, $ui->vars->removeuser);
         }
     }
 

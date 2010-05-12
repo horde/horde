@@ -110,7 +110,7 @@ abstract class Horde_ActiveSync_Request_Base
                                 Horde_ActiveSync_Wbxml_Encoder $encoder,
                                 Horde_Controller_Request_Http $request,
                                 Horde_ActiveSync $as,
-                                $devId,
+                                $device,
                                 $provisioning)
     {
         /* Backend driver */
@@ -133,7 +133,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_state = &$driver->getStateObject();
 
         /* Device info */
-        $this->_device = $this->_state->getDeviceInfo($devId);
+        $this->_device = $device;
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class Horde_ActiveSync_Request_Base
          * header - which is against the specification. Check the user agent
          * for Android (maybe need version sniffing in the future) and set the
          * policykey to null for those devices. */
-         $this->_device = $this->_state->getDeviceInfo($this->_device->id);
+         $this->_device = $this->_state->getDeviceInfo($this->_device->id, $this->_driver->getUser());
          if (strpos($this->_device->userAgent, 'Android') !== false) {
              $sentKey = null;
          }

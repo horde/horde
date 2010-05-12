@@ -93,7 +93,7 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Device info cache
      *
-     * @var array
+     * @var object
      */
     protected $_deviceInfo;
 
@@ -123,6 +123,9 @@ abstract class Horde_ActiveSync_State_Base
     public function __construct($params = array())
     {
         $this->_params = $params;
+        if (empty($params['logger'])) {
+            $this->_logger = new Horde_Support_Stub();
+        }
     }
 
     /**
@@ -167,8 +170,13 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function getPolicyKey($devId)
     {
-        $info = $this->getDeviceInfo($devId);
-        return $info->policykey;
+        //@TODO - combine _devId and _deviceInfo
+        /* See if we have it already */
+        if (empty($this->_deviceInfo) || $this->_devId != $devId) {
+            throw new Horde_ActiveSync_Exception('Device not loaded.');
+        }
+
+        return $this->_deviceInfo->policykey;
     }
 
     /**
@@ -180,8 +188,13 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function getDeviceRWStatus($devId)
     {
-        $info = $this->getDeviceInfo($devId);
-        return $info->rwstatus;
+        //@TODO - combine _devId and _deviceInfo
+        /* See if we have it already */
+        if (empty($this->_deviceInfo) || $this->_devId != $devId) {
+            throw new Horde_ActiveSync_Exception('Device not loaded.');
+        }
+
+        return $this->_deviceInfo->rwstatus;
     }
 
     /**
@@ -441,9 +454,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Load/initialize the ping state for the specified device.
      *
-     * @param string $devId
+     * @param object $device
      */
-    abstract public function initPingState($devId);
+    abstract public function initPingState($device);
 
     /**
      * Load the ping state for the given device id
@@ -474,6 +487,29 @@ abstract class Horde_ActiveSync_State_Base
      * @return void
      */
     abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA);
+
+    /**
+     * Save folder data for a specific device. This is needed for BC with older
+     * activesync versions that use GETHIERARCHY requests to get the folder info
+     * instead of maintaining the folder state with FOLDERSYNC requests.
+     *
+     * @param object $device  The device object
+     * @param array $folders  The folder data
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function setFolderData($device, $folders);
+
+    /**
+     * Get the folder data for a specific device
+     *
+     * @param object $device  The device object
+     * @param string $class   The folder class to fetch (Calendar, Contacts etc.)
+     *
+     * @return mixed  Either an array of folder data || false
+     */
+    abstract public function getFolderData($device, $class);
 
     /**
      * Get all items that have changed since the last sync time
@@ -517,27 +553,28 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Obtain the device object.
      *
-     * @param string $devId
+     * @param object $device
+     * @param string $user
      *
      * @return StdClass
      */
-    abstract public function getDeviceInfo($devId);
+    abstract public function getDeviceInfo($device, $user);
 
     /**
      * Check that a given device id is known to the server. This is regardless
      * of Provisioning status.
      *
-     * @param string $devId
+     * @param string $devId  The device id to check
+     * @param string $user   The device should be owned by this user.
      *
      * @return boolean
      */
-    abstract public function deviceExists($devId);
+    abstract public function deviceExists($devId, $user);
 
     /**
      * Set new device info
      *
-     * @param string $devId   The device id.
-     * @param StdClass $data  The device information
+     * @param object $device  The device information
      *
      * @return boolean
      */
@@ -577,13 +614,11 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function listDevices();
 
     /**
-     * Get the last time a particular device issued a SYNC request.
-     *
-     * @param string $devId  The device id
+     * Get the last time the currently loaded device issued a SYNC request.
      *
      * @return integer  The timestamp of the last sync, regardless of collection
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function getLastSyncTimestamp($devId);
+    abstract public function getLastSyncTimestamp();
 
 }
