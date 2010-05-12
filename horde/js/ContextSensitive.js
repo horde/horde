@@ -273,18 +273,25 @@ var ContextSensitive = Class.create({
     _displayMenu: function(elt, x, y)
     {
         // Get window/element dimensions
-        var id = elt.identify(),
-            size = elt.getDimensions(),
+        var eltL, h, w,
+            id = elt.identify(),
             v = document.viewport.getDimensions();
 
+        elt.setStyle({ visibility: 'hidden' }).show();
+        eltL = elt.getLayout(),
+        h = eltL.get('border-box-height');
+        w = eltL.get('border-box-width');
+        elt.hide().setStyle({ visibility: null });
+
         // Make sure context window is entirely on screen
-        if ((y + size.height) > v.height) {
-            y = v.height - size.height - 10;
+        if ((y + h) > v.height) {
+            y = v.height - h - 2;
         }
-        if ((x + size.width) > v.width) {
+
+        if ((x + w) > v.width) {
             x = this.current.size()
-                ? ($(this.current.last()).viewportOffset()[0] - size.width)
-                : (v.width - size.width - 10);
+                ? ($(this.current.last()).viewportOffset()[0] - w)
+                : (v.width - w - 2);
         }
 
         this.baseelt.fire('ContextSensitive:show', id);
