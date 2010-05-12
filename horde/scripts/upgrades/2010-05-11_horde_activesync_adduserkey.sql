@@ -4,7 +4,7 @@ ALTER TABLE horde_activesync_device DROP COLUMN device_user;
 ALTER TABLE horde_activesync_device DROP COLUMN device_ping;
 ALTER TABLE horde_activesync_device DROP COLUMN device_folders;
 
-DROP INDEX activesync_device_user_idx;
+DROP INDEX activesync_device_user_idx ON horde_activesync_device;
 
 CREATE TABLE horde_activesync_device_users (
     device_id         VARCHAR(255) NOT NULL,
