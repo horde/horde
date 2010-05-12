@@ -77,7 +77,7 @@ $compose_disable = !IMP::canCompose();
     <input id="priority" name="priority" type="hidden" value="normal" />
    </div>
 <?php endif; ?>
-<?php if (!is_null($encrypt_list)): ?>
+<?php if ($encrypt_list): ?>
    <div>
     <?php echo _("Encryption:") ?> <span id="encrypt_label"></span>
     <input id="encrypt" name="encrypt" type="hidden" value="<?php echo IMP::ENCRYPT_NONE ?>" />
