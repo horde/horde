@@ -168,11 +168,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
     {
         $varname = htmlspecialchars($var->getVarName());
         $image = $var->type->getImage($vars, $var);
-
         Horde::addScriptFile('image.js', 'horde');
-        $graphics_dir = Horde_Themes::img(null, 'horde');
-        $img_dir = $graphics_dir . '/image';
-
         $html = '';
 
         /* Check if there is existing img information stored. */
@@ -220,25 +216,25 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             }
 
             /* Reset. */
-            $html .= Horde::link('#', _("Reset"), '', '', 'showImage(\'' . $img . '\', \'_p_' . $varname . '\', true);') . Horde::img('refresh.png', _("Reset"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Reset"), '', '', 'showImage(\'' . $img . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/refresh.png', _("Reset")) . '</a>';
 
             /* Rotate 270. */
-            $html .= Horde::link('#', _("Rotate Left"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-270.png', _("Rotate Left"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Rotate Left"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-270.png', _("Rotate Left")) . '</a>';
 
             /* Rotate 180. */
-            $html .= Horde::link('#', _("Rotate 180"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-180.png', _("Rotate 180"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Rotate 180"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-180.png', _("Rotate 180")) . '</a>';
 
             /* Rotate 90. */
-            $html .= Horde::link('#', _("Rotate Right"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-90.png', _("Rotate Right"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Rotate Right"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-90.png', _("Rotate Right")) . '</a>';
 
             /* Flip image. */
-            $html .= Horde::link('#', _("Flip"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('flip.png', _("Flip"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Flip"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/flip.png', _("Flip")) . '</a>';
 
             /* Mirror image. */
-            $html .= Horde::link('#', _("Mirror"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('mirror.png', _("Mirror"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Mirror"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/mirror.png', _("Mirror")) . '</a>';
 
             /* Apply grayscale. */
-            $html .= Horde::link('#', _("Grayscale"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('grayscale.png', _("Grayscale"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Grayscale"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/grayscale.png', _("Grayscale")) . '</a>';
 
             /* Resize width. */
             $html .= sprintf('%s<input type="text" size="4" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
