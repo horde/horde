@@ -51,6 +51,7 @@ foreach ($devices as $device) {
         $users[] = $device['device_user'];
         $tree->addNode($device['device_user'], 'root', $device['device_user'], 0, true, $user_node);
     }
+    $stateMachine->loadDeviceInfo($device['device_id'], $device['device_user']);
     $ts = new Horde_Date($stateMachine->getLastSyncTimestamp($device['device_id']));
     $tree->addNode($device['device_id'],
                    $device['device_user'],
