@@ -31,7 +31,7 @@ if (!defined('HORDE_BASE')) {
 
 ini_set('include_path', $dirname . PATH_SEPARATOR . ini_get('include_path'));
 if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
-    include HORDE_BASE . '/config/horde.local.php';
+    include_once HORDE_BASE . '/config/horde.local.php';
 }
 
 /* Set up autoload paths for core Horde libs (located in lib/). This can't
