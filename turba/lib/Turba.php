@@ -457,6 +457,9 @@ class Turba {
 
         // Add vbooks now that all available address books are loaded.
         foreach ($vbooks as $name => $params) {
+            if (!isset($newSources[$params['source']])) {
+                continue;
+            }
             $newSources[$name] = array(
                 'title' => $shares[$name]->get('name'),
                 'type' => 'vbook',
