@@ -545,16 +545,16 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function listDevices($user = null)
     {
+        $query = 'SELECT d.device_id device_id, device_type, device_agent,'
+            . ' device_policykey, device_rwstatus, device_user FROM '
+            . $this->_syncDeviceTable . ' d INNER JOIN ' . $this->_syncUsersTable
+            . ' u ON d.device_id = u.device_id';
+        $values = array();
         if (!empty($user)) {
-            $query = 'SELECT d.device_id device_id, device_type, device_agent,'
-                . ' device_policykey, device_rwstatus, device_user FROM '
-                . $this->_syncDeviceTable . ' d INNER JOIN ' . $this->_syncUsersTable
-                . ' u ON d.device_id = u.device_id WHERE u.device_user = ?';
-            $values = array($user);
-        } else {
-            $query = 'SELECT * from ' . $this->_syncDeviceTable;
-            $values = array();
+            $query .= ' WHERE u.device_user = ?';
+            $values[] = $user;
         }
+
         try {
             return $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
