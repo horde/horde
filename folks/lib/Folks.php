@@ -247,7 +247,7 @@ class Folks {
             }
         }
 
-        return $mail->send($GLOBALS['injector']->getInstance('Mail'));
+        return $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 
     /**

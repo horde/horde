@@ -13,7 +13,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * vCard
 * vNote
 * vTodo
-  
  </description>
  <lead>
   <name>Jan Schneider</name>
@@ -63,17 +62,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.2.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>iCalendar</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_MIME</name>
+    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

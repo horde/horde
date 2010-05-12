@@ -79,7 +79,7 @@ class Folks_Notification_mail extends Folks_Notification {
                 continue;
             }
             $mail->addHeader('To', $to, Horde_Nls::getCharset(), true);
-            $mail->send($GLOBALS['injector']->getInstance('Mail'));
+            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
         }
 
         return true;

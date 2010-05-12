@@ -431,7 +431,7 @@ class Horde_Prefs_Identity
         $body->setContents(Horde_String::wrap($message, 76, "\n"));
         $body->setCharset(Horde_Nls::getCharset());
 
-        $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Mail'));
+        $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Horde_Mail'));
 
         return new Horde_Notification_Event(sprintf(_("A message has been sent to \"%s\" to verify that this is really your address. The new email address is activated as soon as you confirm this message."), $new_addr));
     }

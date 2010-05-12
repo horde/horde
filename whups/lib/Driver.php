@@ -450,8 +450,9 @@ class Whups_Driver {
                 continue;
             }
 
-            $addr_arr = Horde_Mime_Address::parseAddressList($to);
-            if (!is_a($addr_arr, 'PEAR_Error') && isset($addr_arr[0])) {
+            try {
+                $addr_arr = Horde_Mime_Address::parseAddressList($to);
+                if (isset($addr_arr[0])) {
                 $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
                 if (!empty($seen_email_addresses[$bare_address])) {
                     continue;
@@ -461,7 +462,7 @@ class Whups_Driver {
                 if (empty($full_name) && isset($addr_arr[0]['personal'])) {
                     $full_name = $addr_arr[0]['personal'];
                 }
-            }
+            } catch (Horde_Mime_Exception $e) {}
 
             // use email address as fallback
             if (empty($full_name)) {
@@ -489,7 +490,7 @@ class Whups_Driver {
             $mail->addHeader('To', $to, Horde_Nls::getCharset());
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Mail'), true);
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
                                  Horde_Auth::getAuth());

@@ -77,7 +77,7 @@ if ($form->validate()) {
         'from' => $emails[0],
         'charset' => Horde_Nls::getCharset()));
     $mail->addHeader('User-Agent', 'Agora ' . $registry->getVersion());
-    $mail->send($injector->getInstance('Mail'));
+    $mail->send($injector->getInstance('Horde_Mail'));
 
     $notification->push($subject, 'horde.success');
     header('Location: ' . $url);

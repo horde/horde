@@ -7,7 +7,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <channel>pear.php.net</channel>
  <summary>SMS functionality.</summary>
  <description>This package provides SMS functionality and access to SMS gateways.
-  
  </description>
  <lead>
   <name>Marko Djukic</name>
@@ -74,7 +73,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
    <package>
     <name>Mail</name>
-    <channel>pear.php.net</channel>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Net_SMPP_Client</name>

@@ -86,8 +86,7 @@ below at Prerequisites_.
 
 3. Install PEAR/PECL packages::
 
-     pear install -o Crypt_Blowfish Date DB File Mail Net_DNS \
-                     Services_Weather
+     pear install -o Crypt_Blowfish Date DB File Net_DNS Services_Weather
      pear -d preferred_state=beta install -a HTTP_WebDAV_Server
      pecl install -o fileinfo idn lzf [memcache]
 
@@ -320,12 +319,6 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       To install, enter the following at the command prompt::
 
         pear install Crypt_Blowfish
-
-   b. Mail (>= 1.2.0)
-
-      To install, enter the following at the command prompt::
-
-        pear install Mail
 
    These PEAR modules are **RECOMMENDED** to be installed:
 

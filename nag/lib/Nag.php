@@ -1036,7 +1036,7 @@ class Nag
 
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s',
                                               $task->name, implode(', ', $df_recipients)), 'INFO');
-                    $mail->send($GLOBALS['injector']->getInstance('Mail'));
+                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
         }

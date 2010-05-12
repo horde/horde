@@ -15,6 +15,13 @@
 class Horde_Mime_Address
 {
     /**
+     * RFC 822 parser instance.
+     *
+     * @var Horde_Mail_Rfc822
+     */
+    static protected $_rfc822;
+
+    /**
      * Builds an RFC compliant email address.
      *
      * @param string $mailbox   Mailbox name.
@@ -374,20 +381,24 @@ class Horde_Mime_Address
             return array();
         }
 
+        if (!self::$_rfc822) {
+            self::$_rfc822 = new Horde_Mail_Rfc822();
+        }
+
         $options = array_merge(array(
             'defserver' => null,
             'nestgroups' => false,
             'validate' => false
         ), $options);
 
-        static $parser;
-        if (!isset($parser)) {
-            $parser = new Mail_RFC822();
-        }
-
-        $ret = $parser->parseAddressList($address, $options['defserver'], $options['nestgroups'], $options['validate']);
-        if (is_a($ret, 'PEAR_Error')) {
-            throw new Horde_Mime_Exception($ret);
+        try {
+            $ret = self::$_rfc822->parseAddressList($address, array(
+                'default_domain' => $options['defserver'],
+                'nest_groups' => $options['nestgroups'],
+                'validate' => $options['validate']
+            ));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_Mime_Exception($e);
         }
 
         /* Convert objects to arrays. */

@@ -1901,24 +1901,30 @@ class Kronolith
             return;
         }
 
-        $parser = new Mail_RFC822;
+        $parser = new Horde_Mail_Rfc822();
         $attendees = array();
+
         foreach (Horde_Mime_Address::explode($newAttendees) as $newAttendee) {
             // Parse the address without validation to see what we can get out
             // of it. We allow email addresses (john@example.com), email
             // address with user information (John Doe <john@example.com>),
             // and plain names (John Doe).
-            $newAttendeeParsed = $parser->parseAddressList($newAttendee, '',
-                                                           false, false);
+            try {
+                $newAttendeeParsed = $parser->parseAddressList($newAttendee, array(
+                    'default_domain' => null,
+                    'nest_groups' => false,
+                    'validate' => false
+                ));
+                $error = (!isset($newAttendeeParsed[0]) || !isset($newAttendeeParsed[0]->mailbox));
+            } catch (Horde_Mail_Exception $e) {
+                $error = true;
+            }
 
             // If we can't even get a mailbox out of the address, then it is
             // likely unuseable. Reject it entirely.
-            if ($newAttendeeParsed instanceof PEAR_Error ||
-                !isset($newAttendeeParsed[0]) ||
-                !isset($newAttendeeParsed[0]->mailbox)) {
+            if ($error) {
                 $notification->push(
-                    sprintf(_("Unable to recognize \"%s\" as an email address."),
-                            $newAttendee),
+                    sprintf(_("Unable to recognize \"%s\" as an email address."), $newAttendee),
                     'horde.error');
                 continue;
             }
@@ -1943,7 +1949,9 @@ class Kronolith
 
                 try {
                     $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name));
-                    $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, '', null, true);
+                    $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, array(
+                        'default_domain' => null
+                    ));
 
                     $email = $newAttendeeParsedPart->mailbox . '@'
                         . $newAttendeeParsedPart->host;
@@ -2129,7 +2137,7 @@ class Kronolith
             $mail->setBasePart($multipart);
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Mail'));
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
                     'horde.success'
@@ -2261,7 +2269,7 @@ class Kronolith
                     $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($GLOBALS['injector']->getInstance('Mail'), false, false);
+                    $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
                 }
             }
         }

@@ -726,10 +726,9 @@ class IMP_Compose
     public function sendMessage($email, $headers, $message)
     {
         $email = $this->_prepSendMessage($email, $headers, $message);
-        $mailer = $this->getMailOb();
 
         try {
-            $message->send($email, $headers, $mailer);
+            $message->send($email, $headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
         } catch (Horde_Mime_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -1626,15 +1625,13 @@ class IMP_Compose
 
         $header_text = trim($resent_headers->toString(array('encode' => Horde_Nls::getCharset()))) . "\n" . trim($contents->getHeaderOb(false));
 
-        $mailer = $this->getMailOb(array(
-            'raw' => array('from' => $headers->getValue('from'), 'headertext' => $header_text)
-        ));
-
         $to = $this->_prepSendMessage($recipients);
+        $hdr_array = $headers->toArray(array('charset' => Horde_Nls::getCharset()));
+        $hdr_array['_raw'] = $header_text;
 
         try {
-            Horde_Mime_Mail::sendPearMail($mailer, $to, $headers->toArray(array('charset' => Horde_Nls::getCharset())), $contents->getBody());
-        } catch (Horde_Mime_Exception $e) {
+            $GLOBALS['injector']->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
+        } catch (Horde_Mail_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
 
@@ -2699,62 +2696,6 @@ class IMP_Compose
     }
 
     /* Static utility functions. */
-
-    /**
-     * Return mail driver/params necessary to send a message.
-     *
-     * @return array  'driver' => mail driver; 'params' => list of params.
-     */
-    static public function getMailDriver()
-    {
-        /* We don't actually want to alter the contents of the $conf['mailer']
-         * array, so we make a copy of the current settings. We will apply our
-         * modifications (if any) to the copy, instead. */
-        $params = $GLOBALS['conf']['mailer']['params'];
-
-        /* Force the SMTP host and port value to the current SMTP server if
-         * one has been selected for this connection. */
-        if (!empty($_SESSION['imp']['smtp'])) {
-            $params = array_merge($params, $_SESSION['imp']['smtp']);
-        }
-
-        /* If SMTP authentication has been requested, use either the username
-         * and password provided in the configuration or populate the username
-         * and password fields based on the current values for the user. Note
-         * that we assume that the username and password values from the
-         * current IMAP / POP3 connection are valid for SMTP authentication as
-         * well. */
-        if (!empty($params['auth']) && empty($params['username'])) {
-            $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
-            $params['username'] = $imap_ob->getParam('username');
-            $params['password'] = $imap_ob->getParam('password');
-        }
-
-        return array(
-            'driver' => $GLOBALS['conf']['mailer']['type'],
-            'params' => $params
-        );
-    }
-
-    /**
-     * Return a Mail object with the current driver parameters.
-     *
-     * @param array $options  Additional options to pass to
-     *                        Horde_Mime_Mail::getMailOb().
-     *
-     * @return Mail  A Mail object.
-     * @throws IMP_Compose_Exception
-     */
-    static public function getMailOb($options = array())
-    {
-        $mail_driver = self::getMailDriver();
-
-        try {
-            return Horde_Mime_Mail::getMailOb($mail_driver['driver'], $mail_driver['params'], $options);
-        } catch (Horde_Mime_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-    }
 
     /**
      * Formats the address properly.

@@ -19,8 +19,8 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Horde_Notification not installed');
             return;
         }
-        if (!class_exists('Mail')) {
-            $this->markTestSkipped('Mail not installed');
+        if (!class_exists('Horde_Mail')) {
+            $this->markTestSkipped('Horde_Mail not installed');
             return;
         }
 
@@ -44,7 +44,7 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
         $handler = new Horde_Alarm_Handler_Desktop(array('notification' => $notification, 'icon' => 'test.png'));
         self::$alarm->addHandler('desktop', $handler);
 
-        self::$mail = new Horde_Alarm_HandlerTest_Mail();
+        self::$mail = Horde_Mail::factory('Mock');
         $factory = new Horde_Alarm_HandlerTest_IdentityFactory();
         $handler = new Horde_Alarm_Handler_Mail(array('mail' => self::$mail, 'identity' => $factory, 'charset' => 'us-ascii'));
         self::$alarm->addHandler('mail', $handler);
@@ -85,15 +85,21 @@ Action is required\.
 EOR;
         $regexp = trim(str_replace("\r\n", "\n", $regexp));
 
-        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
-        self::$mail->sentOutput = null;
+        $last_sent = end(self::$mail->sentMessages);
+        $sent_message = $last_sent['header_text'] . "\n\n" . $last_sent['body'];
+        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", $sent_message)));
+
+        self::$mail->sentMessages = array();
         self::$alarm->notify('john', false);
-        $this->assertNull(self::$mail->sentOutput);
+        $this->assertEquals(self::$mail->sentMessages, array());
 
         /* Test re-sending mails after changing the alarm. */
         self::$alarm->set(self::$alarm->get('personalalarm', 'john'));
         self::$alarm->notify('john', false);
-        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", self::$mail->sentOutput)));
+
+        $last_sent = end(self::$mail->sentMessages);
+        $sent_message = $last_sent['header_text'] . "\n\n" . $last_sent['body'];
+        $this->assertRegExp('/' . $regexp . '/', trim(str_replace("\r\n", "\n", $sent_message)));
     }
 }
 
@@ -110,16 +116,5 @@ class Horde_Alarm_HandlerTest_Identity
     public function getDefaultFromAddress()
     {
         return 'john@example.com';
-    }
-}
-
-class Horde_Alarm_HandlerTest_Mail extends Mail
-{
-    public $sentOutput;
-
-    public function send($recipients, $headers, $body)
-    {
-        list(, $textHeaders) = Mail::prepareHeaders($headers);
-        $this->sentOutput = $textHeaders . "\n\n" . $body;
     }
 }

@@ -49,7 +49,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
         } else {
             $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
         }
-        $mailer = $GLOBALS['injector']->getInstance('Mail');
+        $mailer = $GLOBALS['injector']->getInstance('Horde_Mail');
 
         /* TODO: Probably want to bind a factory to injector for this? */
         $params['registry'] = $GLOBALS['registry'];

@@ -343,8 +343,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
                     // Send the reply.
                     try {
-                        $mailer = IMP_Compose::getMailOb();
-                        $mime->send($organizerEmail, $msg_headers, $mailer);
+                        $mime->send($organizerEmail, $msg_headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
                         $msgs[] = array('success', _("Reply Sent."));
                     } catch (Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
@@ -444,8 +443,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
                     // Send the reply.
                     try {
-                        $mailer = IMP_Compose::getMailOb();
-                        $mime->send($organizerEmail, $msg_headers, $mailer);
+                        $mime->send($organizerEmail, $msg_headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
                         $msgs[] = array('success', _("Reply Sent."));
                     } catch (Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));

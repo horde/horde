@@ -112,7 +112,7 @@ case 'send_problem_report':
             }
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Mail'));
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
 
                 /* We succeeded. */
                 Horde::logMessage(

@@ -508,8 +508,7 @@ class Horde_Hooks
 //            "\n" .
 //            sprintf(_("You can approve this signup at %s"), Horde::applicationUrl('admin/user.php', true, -1));
 //
-//        $mailer = Mail::factory($GLOBALS['conf']['mailer']['type'], $GLOBALS['conf']['mailer']['params']);
-//        $mailer->send($_SERVER['SERVER_ADMIN'], $headers, $msg);
+//        $GLOBALS['injector']->getInstance('Horde_Mail')->send($_SERVER['SERVER_ADMIN'], $headers, $msg);
 //    }
 //
 //    // Helper function for signup_queued Example #1

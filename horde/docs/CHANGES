@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[mms] Remove reliance on PEAR Mail library.
 [jan] Send alarm emails again if the alarm has changed (Bug #8717).
 [mms] Add advanced preferences options screen.
 [mms] Complete rewrite of options UI display.

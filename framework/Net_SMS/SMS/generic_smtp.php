@@ -99,7 +99,7 @@ class Net_SMS_generic_smtp extends Net_SMS {
     {
         return array(
             'carrier'     => array('label' => _("Carrier"), 'type' => 'text'),
-            'mailBackend' => array('label' => _("PEAR::Mail backend"), 'type' => 'text')
+            'mailBackend' => array('label' => _("Horde_Mail:: backend"), 'type' => 'text')
         );
     }
 
@@ -120,9 +120,7 @@ class Net_SMS_generic_smtp extends Net_SMS {
      */
     function _send($message, $to)
     {
-        require_once 'Mail.php';
-        $m = &Mail::factory($this->_params['mailBackend'],
-                            $this->_params['mailParams']);
+        $m = Horde_Mail::factory($this->_params['mailBackend'], $this->_params['mailParams']);
 
         if (isset($message['carrier'])) {
             $dest = $this->_getDest($to, $message['carrier']);
@@ -130,11 +128,11 @@ class Net_SMS_generic_smtp extends Net_SMS {
             $dest = $this->_getDest($to);
         }
 
-        $res = $m->send($dest, $this->_params['mailHeaders'], $message['text']);
-        if (PEAR::isError($res)) {
-            return array(0, $res->getMessage());
-        } else {
+        try {
+            $m->send($dest, $this->_params['mailHeaders'], $message['text']);
             return array(1, null);
+        } catch (Horde_Mail_Exception $e) {
+            return array(0, $e->getMessage());
         }
     }
 

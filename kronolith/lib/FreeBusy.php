@@ -135,17 +135,17 @@ class Kronolith_FreeBusy
      */
     public static function get($email, $json = false)
     {
-        /* Properly handle RFC822-compliant email addresses. */
-        static $rfc822;
-        if (is_null($rfc822)) {
-            $rfc822 = new Mail_RFC822();
+        $default_domain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        try {
+            $res = $rfc822->parseAddressList($email, array(
+                'default_domain' => $default_domain
+            ));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
-        $default_domain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
-        $res = $rfc822->parseAddressList($email, $default_domain);
-        if ($res instanceof PEAR_Error) {
-            throw new Kronolith_Exception($res);
-        }
         if (!count($res)) {
             throw new Kronolith_Exception(_("No valid email address found"));
         }

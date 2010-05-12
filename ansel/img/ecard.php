@@ -83,7 +83,7 @@ case 'send':
     $alt->setBasePart($alternative);
 
     /* Send. */
-    $result = $alt->send($injector->getInstance('Mail'));
+    $result = $alt->send($injector->getInstance('Horde_Mail'));
     if (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error sending your message: %s"), $result->getMessage()), 'horde.error');
     } else {

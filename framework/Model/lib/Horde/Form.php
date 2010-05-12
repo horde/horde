@@ -1661,8 +1661,10 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
             $message = _("Email addresses must match.");
             return false;
         } else {
-            $parser = new Mail_RFC822();
-            $parsed_email = $parser->parseAddressList($value['original'], false, true);
+            $parser = new Horde_Mail_Rfc822();
+            $parsed_email = $parser->parseAddressList($value['original'], array(
+                'default_domain' => false
+            ));
 
             if (count($parsed_email) > 1) {
                 $message = _("Only one email address allowed.");

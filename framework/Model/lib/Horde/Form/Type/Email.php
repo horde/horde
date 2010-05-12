@@ -429,11 +429,12 @@ class Horde_Form_Type_EmailConfirm extends Horde_Form_Type {
             $message = _("Email addresses must match.");
             return false;
         } else {
-            require_once 'Horde/MIME.php';
-            $parsed_email = MIME::parseAddressList($value['original'], false,
-                                                   true);
-            if (is_a($parsed_email, 'PEAR_Error')) {
-                $message = $parsed_email->getMessage();
+            try {
+                $parsed_email = Horde_Mime_Address::parseAddressList($value['original'], array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mime_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
             if (count($parsed_email) > 1) {

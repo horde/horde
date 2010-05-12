@@ -22,7 +22,7 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
         }
 
         try {
-            return Horde_Mime_Mail::getMailOb($driver, $params);
+            return Horde_Mail::factory($driver, $params);
         } catch (Horde_Mime_Exception $e) {
             throw new Horde_Exception($e);
         }

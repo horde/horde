@@ -55,7 +55,7 @@ $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\
 
 $mail = new Horde_Mime_Mail(array('subject' => $row['title'], 'body' => $body, 'to' => $to, 'from' => $from, 'charset' => Horde_Nls::getCharset()));
 try {
-    $mail->send($GLOBALS['injector']->getInstance('Mail'));
+    $mail->send($injector->getInstance('Horde_Mail'));
     $notification->push(sprintf(_("News succesfully send to %s"), $to), 'horde.success');
 } catch (Horde_Mime_Exception $e) {
     $notification->push($e);

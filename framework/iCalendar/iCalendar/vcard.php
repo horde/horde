@@ -132,15 +132,10 @@ class Horde_iCalendar_vcard extends Horde_iCalendar {
             return $address;
         }
 
-        static $rfc822;
-        if (is_null($rfc822)) {
-            $rfc822 = new Mail_RFC822();
-        }
-
-        if (!$rfc822->validateMailbox($address)) {
-            return $address;
-        }
-        return Horde_Mime_Address::writeAddress($address->mailbox, $address->host);
+        $rfc822 = new Horde_Mail_Rfc822();
+        return $rfc822->validateMailbox($address)
+            ? Horde_Mime_Address::writeAddress($address->mailbox, $address->host)
+            : $address;
     }
 
 }

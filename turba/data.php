@@ -54,10 +54,7 @@ function _getBareEmail($address, $allow_multi = false)
         return $address;
     }
 
-    static $rfc822;
-    if (is_null($rfc822)) {
-        $rfc822 = new Mail_RFC822();
-    }
+    $rfc822 = new Horde_Mail_Rfc822();
 
     // Split multiple email addresses
     if ($allow_multi) {

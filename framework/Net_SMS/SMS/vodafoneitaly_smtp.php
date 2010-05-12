@@ -57,12 +57,11 @@ class Net_SMS_vodafoneitaly_smtp extends Net_SMS {
             $headers['From'] = $this->_params['user'];
             $to = $matches[2] . '@sms.vodafone.it';
 
-            $mailer = Mail::factory('mail');
-            $result = $mailer->send($to, $headers, $message['text']);
-            if (is_a($result, 'PEAR_Error')) {
-                return array(0, $result->getMessage());
-            } else {
+            try {
+                Horde_Mail::factory('Mail')->send($to, $headers, $message['text']);
                 return array(1, null);
+            } catch (Horde_Mail_Exception $e) {
+                return array(0, $e->getMessage());
             }
         } else {
             return array(0, _("You need to provide an Italian phone number"));

@@ -291,11 +291,7 @@ function getBareEmail($address)
         return $address;
     }
 
-    static $rfc822;
-    if (is_null($rfc822)) {
-        $rfc822 = new Mail_RFC822();
-    }
-
+    $rfc822 = new Horde_Mail_Rfc822();
     $rfc822->validateMailbox($address);
     return Horde_Mime_Address::writeAddress($address->mailbox, $address->host);
 }

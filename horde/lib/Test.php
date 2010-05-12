@@ -291,11 +291,6 @@ class Horde_Test
         'HTTP_WebDAV_Server' => array(
             'error' => 'The HTTP_WebDAV_Server is required if you want to use the WebDAV interface of Horde, e.g. to access calendars or tasklists with external clients.'
         ),
-        'Mail' => array(
-            'path' => 'Mail/RFC822.php',
-            'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.',
-            'required' => true
-        ),
         'MDB2' => array(
             'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
         ),

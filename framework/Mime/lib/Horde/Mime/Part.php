@@ -1471,42 +1471,48 @@ class Horde_Mime_Part
      * @param string $email                The address list to send to.
      * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
      *                                     holding this message's headers.
-     * @param Mail $mailer                 A Mail driver.
+     * @param Horde_Mail_Driver $mailer    A Horde_Mail_Driver object.
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
      */
     public function send($email, $headers, $mailer)
     {
-        if (!($mailer instanceof Mail)) {
-            throw new InvalidArgumentException('Invalid Mail object passed to send().');
+        if (!($mailer instanceof Horde_Mail_Driver)) {
+            throw new InvalidArgumentException('Invalid Horde_Mail_Driver object passed to send().');
         }
 
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
 
         /* Does the SMTP backend support 8BITMIME (RFC 1652) or
-         * BINARYMIME (RFC 3030) extensions? Requires PEAR's Mail package
-         * version 1.2+ and Net_SMTP version 1.3+. */
+         * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
+         * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Mail_smtp) {
-            $net_smtp = $mailer->getSMTPObject();
-            if (!($net_smtp instanceof PEAR_Error)) {
-                $smtp_ext = $net_smtp->getServiceExtensions();
+        if ($mailer instanceof Horde_Mail_Smtp) {
+            try {
+                $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {
                     $encode |= self::ENCODE_8BIT;
                 }
                 if (isset($smtp_ext['BINARYMIME'])) {
                     $encode |= self::ENCODE_BINARY;
                 }
-            }
+            } catch (Horde_Mail_Exception $e) {}
         }
 
+        $msg = $this->toString(array(
+            'encode' => $encode,
+            'headers' => false,
+            'stream' => true
+        ));
+
         /* Make sure the message has a trailing newline. */
-        $msg = $this->toString(array('encode' => $encode, 'headers' => false));
-        if (substr($msg, -1) != "\n") {
-            $msg .= "\n";
+        fseek($msg, -1, SEEK_END);
+        if (fgetc($msg) != "\n") {
+            fputs($msg, "\n");
         }
+        rewind($msg);
 
         /* Add MIME Headers if they don't already exist. */
         if (!$headers->getValue('MIME-Version')) {
@@ -1528,7 +1534,11 @@ class Horde_Mime_Part
 
         $this->_basepart = $old_basepart;
 
-        Horde_Mime_Mail::sendPearMail($mailer, Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
+        try {
+            $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_Mime_Exception($e);
+        }
     }
 
     /**

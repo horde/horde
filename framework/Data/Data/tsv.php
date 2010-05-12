@@ -157,10 +157,12 @@ class Horde_Data_tsv extends Horde_Data {
                         }
                         $row[1] = preg_replace('/^([^,"]+),\s*(.*)$/', '$2 $1', $row[1]);
                         /* Address can be a full RFC822 address */
-                        require_once 'Horde/MIME.php';
-                        $addr_arr = MIME::parseAddressList($row[2]);
-                        if (is_a($addr_arr, 'PEAR_Error') ||
-                            empty($addr_arr[0]->mailbox)) {
+                        try {
+                            $addr_arr = Horde_Mime_Address::parseAddressList($row[2]);
+                        } catch (Horde_Mime_Exception $e) {
+                            continue;
+                        }
+                        if (empty($addr_arr[0]->mailbox)) {
                             continue;
                         }
                         $row[2] = $addr_arr[0]->mailbox . '@' . $addr_arr[0]->host;

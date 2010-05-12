@@ -258,8 +258,7 @@ class Babel {
 	$body = $mime->get();
 	$hdrs = $mime->headers($headers);
 
-	$mail_object = &Mail::factory("mail");
-	return $mail_object->send($email['to'], $hdrs, $body);
+	return $GLOBALS['injector']->getInstance('Horde_Mail')->send($email['to'], $hdrs, $body);
     }
 
 

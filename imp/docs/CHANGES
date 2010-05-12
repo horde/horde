@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Pass compose message data to mailer backend via stream; much more
+      efficient, especially with larger messages (Request #8909).
 [mms] Add strip attachments support in DIMP.
 [mms] Add PGP & S/MIME compose support to DIMP.
 [mms] Check for incorrect identity on compose if a single recipient address

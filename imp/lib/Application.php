@@ -95,6 +95,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Identity' => new IMP_Injector_Binder_Identity(),
             'IMP_Imap' => new IMP_Injector_Binder_Imap(),
             'IMP_Imap_Tree' => new IMP_Injector_Binder_Imaptree(),
+            'IMP_Mail' => new IMP_Injector_Binder_Mail(),
             'IMP_Mailbox' => new IMP_Injector_Binder_Mailbox(),
             'IMP_Quota' => new IMP_Injector_Binder_Quota(),
             'IMP_Search' => new IMP_Injector_Binder_Search(),

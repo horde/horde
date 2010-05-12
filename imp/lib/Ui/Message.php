@@ -117,8 +117,7 @@ class IMP_Ui_Message
 
         /* Send out the MDN now. */
         try {
-            $mailer = IMP_Compose::getMailOb();
-            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $mailer);
+            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $GLOBALS['injector']->getInstance('IMP_Mail'));
             IMP_Maillog::log('mdn', $msg_id, 'displayed');
             $success = true;
 
