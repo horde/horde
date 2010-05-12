@@ -64,7 +64,7 @@
   </div>
 
   <div id="kronolithMinical" class="kronolithMinical">
-    <table cellspacing="1" cellpadding="0" border="0">
+    <table>
     <caption>
       <a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
       <a id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>

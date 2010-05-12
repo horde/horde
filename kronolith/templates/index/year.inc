@@ -25,7 +25,7 @@
 <div id="kronolithYear10" class="kronolithMinical"></div>
 <div id="kronolithYear11" class="kronolithMinical"></div>
 
-<table id="kronolithYearTemplate" style="display:none" cellspacing="1" cellpadding="0" border="0">
+<table id="kronolithYearTemplate" style="display:none">
   <caption>
     <span class="kronolithMinicalDate">&nbsp;</span>
   </caption>

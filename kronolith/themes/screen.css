@@ -516,7 +516,7 @@ body.kronolithAjax {
 }
 #kronolithMenuCalendars {
     position: absolute;
-    top: 265px;
+    top: 245px;
     bottom: 0;
     width: 100%;
     overflow: auto;
@@ -525,8 +525,8 @@ body.kronolithAjax {
 }
 #kronolithMenu h3 {
     position: relative;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 2px;
     font-size: 100%;
     font-weight: bold;
     border-bottom: 1px #999 dotted;
@@ -534,7 +534,7 @@ body.kronolithAjax {
 }
 #kronolithSearchForm {
     position: relative;
-    top: 15px;
+    top: 10px;
 }
 #kronolithSearchTerm {
     width: 126px;
@@ -558,9 +558,6 @@ body.kronolithAjax {
     background: transparent url("graphics/plus.png") no-repeat right center;
     text-indent: -10000px;
     cursor: pointer;
-}
-#kronolithMenu div.kronolithCalendars {
-    margin-bottom: 15px;
 }
 #kronolithMenu div.kronolithCalendars div {
     margin-bottom: 2px;
@@ -899,10 +896,11 @@ div.kronolithFormActions {
 }
 .kronolithMinical table {
     width: 100%;
+    border-spacing: 1px;
 }
-.kronolithMinical caption {
+.kronolithMinical caption, #kronolithBody .kronolithMinical caption {
     position: relative;
-    margin-bottom: 10px;
+    margin: 0 1px 1px 1px;
     height: 20px;
     line-height: 20px;
     font-weight: bold;
@@ -1131,6 +1129,8 @@ table.kronolithView td.kronolithFirstCol {
 .kronolithFirstCol span {
     display: block;
     margin-bottom: 5px;
+    margin-left: 2px;
+    white-space: nowrap;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
 }
@@ -1379,10 +1379,10 @@ div.kronolithEvent {
     width: auto;
     line-height: 15px;
     margin: 1px;
-    padding: 2px 5px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    padding: 3px 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #kronolithViewDay .kronolithAllDay div.kronolithEvent,
 #kronolithViewWeek .kronolithAllDay div.kronolithEvent {
@@ -1399,7 +1399,7 @@ div.kronolithEvent .kronolithDragger {
     visibility: hidden;
     left: 0;
     right: 0;
-    height: 12px;
+    height: 11px;
 }
 div.kronolithEvent.kronolithEditable {
     cursor: move;
@@ -1448,7 +1448,7 @@ div.kronolithEvent .kronolithEventInfo {
     border-radius: 5px;
     right: 0;
     left: 0;
-    padding: 5px;
+    padding: 3px 5px 4px 5px;
     overflow: hidden;
 }
 div.kronolithEditable:hover .kronolithEventInfo,
