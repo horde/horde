@@ -718,10 +718,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             }
             /* Unfortunately we can't use an empty synckey to detect an initial
              * sync. The AS protocol doesn't start looking for changes until
-             * after the device/server negotiate a synckey, so we can't use an
-             * empty synckey to determine an initial sync. What we CAN do is
-             * at least query the map table to see if there any entries in it
-             * at all for this device before going through and stating all the
+             * after the device/server negotiate a synckey. What we CAN do is
+             * at least query the map table to see if there are any entries at
+             * all for this device before going through and stating all the
              * messages. */
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($changes) . ' message changes, checking for PIM initiated changes.');
             if ($this->_havePIMChanges()) {

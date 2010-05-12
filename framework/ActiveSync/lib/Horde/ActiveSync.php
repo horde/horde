@@ -27,129 +27,86 @@
  */
 
 // POOMMAIL
-define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
-define("SYNC_POOMMAIL_ATTACHMENTS","POOMMAIL:Attachments");
-define("SYNC_POOMMAIL_ATTNAME","POOMMAIL:AttName");
-define("SYNC_POOMMAIL_ATTSIZE","POOMMAIL:AttSize");
-define("SYNC_POOMMAIL_ATTOID","POOMMAIL:AttOid");
-define("SYNC_POOMMAIL_ATTMETHOD","POOMMAIL:AttMethod");
-define("SYNC_POOMMAIL_ATTREMOVED","POOMMAIL:AttRemoved");
-define("SYNC_POOMMAIL_BODY","POOMMAIL:Body");
-define("SYNC_POOMMAIL_BODYSIZE","POOMMAIL:BodySize");
-define("SYNC_POOMMAIL_BODYTRUNCATED","POOMMAIL:BodyTruncated");
-define("SYNC_POOMMAIL_DATERECEIVED","POOMMAIL:DateReceived");
-define("SYNC_POOMMAIL_DISPLAYNAME","POOMMAIL:DisplayName");
-define("SYNC_POOMMAIL_DISPLAYTO","POOMMAIL:DisplayTo");
-define("SYNC_POOMMAIL_IMPORTANCE","POOMMAIL:Importance");
-define("SYNC_POOMMAIL_MESSAGECLASS","POOMMAIL:MessageClass");
-define("SYNC_POOMMAIL_SUBJECT","POOMMAIL:Subject");
-define("SYNC_POOMMAIL_READ","POOMMAIL:Read");
-define("SYNC_POOMMAIL_TO","POOMMAIL:To");
-define("SYNC_POOMMAIL_CC","POOMMAIL:Cc");
-define("SYNC_POOMMAIL_FROM","POOMMAIL:From");
-define("SYNC_POOMMAIL_REPLY_TO","POOMMAIL:Reply-To");
-define("SYNC_POOMMAIL_ALLDAYEVENT","POOMMAIL:AllDayEvent");
-define("SYNC_POOMMAIL_CATEGORIES","POOMMAIL:Categories");
-define("SYNC_POOMMAIL_CATEGORY","POOMMAIL:Category");
-define("SYNC_POOMMAIL_DTSTAMP","POOMMAIL:DtStamp");
-define("SYNC_POOMMAIL_ENDTIME","POOMMAIL:EndTime");
-define("SYNC_POOMMAIL_INSTANCETYPE","POOMMAIL:InstanceType");
-define("SYNC_POOMMAIL_BUSYSTATUS","POOMMAIL:BusyStatus");
-define("SYNC_POOMMAIL_LOCATION","POOMMAIL:Location");
-define("SYNC_POOMMAIL_MEETINGREQUEST","POOMMAIL:MeetingRequest");
-define("SYNC_POOMMAIL_ORGANIZER","POOMMAIL:Organizer");
-define("SYNC_POOMMAIL_RECURRENCEID","POOMMAIL:RecurrenceId");
-define("SYNC_POOMMAIL_REMINDER","POOMMAIL:Reminder");
-define("SYNC_POOMMAIL_RESPONSEREQUESTED","POOMMAIL:ResponseRequested");
-define("SYNC_POOMMAIL_RECURRENCES","POOMMAIL:Recurrences");
-define("SYNC_POOMMAIL_RECURRENCE","POOMMAIL:Recurrence");
-define("SYNC_POOMMAIL_TYPE","POOMMAIL:Type");
-define("SYNC_POOMMAIL_UNTIL","POOMMAIL:Until");
-define("SYNC_POOMMAIL_OCCURRENCES","POOMMAIL:Occurrences");
-define("SYNC_POOMMAIL_INTERVAL","POOMMAIL:Interval");
-define("SYNC_POOMMAIL_DAYOFWEEK","POOMMAIL:DayOfWeek");
-define("SYNC_POOMMAIL_DAYOFMONTH","POOMMAIL:DayOfMonth");
-define("SYNC_POOMMAIL_WEEKOFMONTH","POOMMAIL:WeekOfMonth");
-define("SYNC_POOMMAIL_MONTHOFYEAR","POOMMAIL:MonthOfYear");
-define("SYNC_POOMMAIL_STARTTIME","POOMMAIL:StartTime");
-define("SYNC_POOMMAIL_SENSITIVITY","POOMMAIL:Sensitivity");
-define("SYNC_POOMMAIL_TIMEZONE","POOMMAIL:TimeZone");
-define("SYNC_POOMMAIL_GLOBALOBJID","POOMMAIL:GlobalObjId");
-define("SYNC_POOMMAIL_THREADTOPIC","POOMMAIL:ThreadTopic");
-define("SYNC_POOMMAIL_MIMEDATA","POOMMAIL:MIMEData");
-define("SYNC_POOMMAIL_MIMETRUNCATED","POOMMAIL:MIMETruncated");
-define("SYNC_POOMMAIL_MIMESIZE","POOMMAIL:MIMESize");
-define("SYNC_POOMMAIL_INTERNETCPID","POOMMAIL:InternetCPID");
-
-// AIRNOTIFY
-define("SYNC_AIRNOTIFY_NOTIFY","AirNotify:Notify");
-define("SYNC_AIRNOTIFY_NOTIFICATION","AirNotify:Notification");
-define("SYNC_AIRNOTIFY_VERSION","AirNotify:Version");
-define("SYNC_AIRNOTIFY_LIFETIME","AirNotify:Lifetime");
-define("SYNC_AIRNOTIFY_DEVICEINFO","AirNotify:DeviceInfo");
-define("SYNC_AIRNOTIFY_ENABLE","AirNotify:Enable");
-define("SYNC_AIRNOTIFY_FOLDER","AirNotify:Folder");
-define("SYNC_AIRNOTIFY_SERVERENTRYID","AirNotify:ServerEntryId");
-define("SYNC_AIRNOTIFY_DEVICEADDRESS","AirNotify:DeviceAddress");
-define("SYNC_AIRNOTIFY_VALIDCARRIERPROFILES","AirNotify:ValidCarrierProfiles");
-define("SYNC_AIRNOTIFY_CARRIERPROFILE","AirNotify:CarrierProfile");
-define("SYNC_AIRNOTIFY_STATUS","AirNotify:Status");
-define("SYNC_AIRNOTIFY_REPLIES","AirNotify:Replies");
-define("SYNC_AIRNOTIFY_VERSION='1.1'","AirNotify:Version='1.1'");
-define("SYNC_AIRNOTIFY_DEVICES","AirNotify:Devices");
-define("SYNC_AIRNOTIFY_DEVICE","AirNotify:Device");
-define("SYNC_AIRNOTIFY_ID","AirNotify:Id");
-define("SYNC_AIRNOTIFY_EXPIRY","AirNotify:Expiry");
-define("SYNC_AIRNOTIFY_NOTIFYGUID","AirNotify:NotifyGUID");
-
-// Move
-define("SYNC_MOVE_MOVES","Move:Moves");
-define("SYNC_MOVE_MOVE","Move:Move");
-define("SYNC_MOVE_SRCMSGID","Move:SrcMsgId");
-define("SYNC_MOVE_SRCFLDID","Move:SrcFldId");
-define("SYNC_MOVE_DSTFLDID","Move:DstFldId");
-define("SYNC_MOVE_RESPONSE","Move:Response");
-define("SYNC_MOVE_STATUS","Move:Status");
-define("SYNC_MOVE_DSTMSGID","Move:DstMsgId");
-
-// MeetingResponse
-define("SYNC_MEETINGRESPONSE_CALENDARID","MeetingResponse:CalendarId");
-define("SYNC_MEETINGRESPONSE_FOLDERID","MeetingResponse:FolderId");
-define("SYNC_MEETINGRESPONSE_MEETINGRESPONSE","MeetingResponse:MeetingResponse");
-define("SYNC_MEETINGRESPONSE_REQUESTID","MeetingResponse:RequestId");
-define("SYNC_MEETINGRESPONSE_REQUEST","MeetingResponse:Request");
-define("SYNC_MEETINGRESPONSE_RESULT","MeetingResponse:Result");
-define("SYNC_MEETINGRESPONSE_STATUS","MeetingResponse:Status");
-define("SYNC_MEETINGRESPONSE_USERRESPONSE","MeetingResponse:UserResponse");
-define("SYNC_MEETINGRESPONSE_VERSION","MeetingResponse:Version");
-
-// ResolveRecipients
-define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
-define("SYNC_RESOLVERECIPIENTS_RESPONSE","ResolveRecipients:Response");
-define("SYNC_RESOLVERECIPIENTS_STATUS","ResolveRecipients:Status");
-define("SYNC_RESOLVERECIPIENTS_TYPE","ResolveRecipients:Type");
-define("SYNC_RESOLVERECIPIENTS_RECIPIENT","ResolveRecipients:Recipient");
-define("SYNC_RESOLVERECIPIENTS_DISPLAYNAME","ResolveRecipients:DisplayName");
-define("SYNC_RESOLVERECIPIENTS_EMAILADDRESS","ResolveRecipients:EmailAddress");
-define("SYNC_RESOLVERECIPIENTS_CERTIFICATES","ResolveRecipients:Certificates");
-define("SYNC_RESOLVERECIPIENTS_CERTIFICATE","ResolveRecipients:Certificate");
-define("SYNC_RESOLVERECIPIENTS_MINICERTIFICATE","ResolveRecipients:MiniCertificate");
-define("SYNC_RESOLVERECIPIENTS_OPTIONS","ResolveRecipients:Options");
-define("SYNC_RESOLVERECIPIENTS_TO","ResolveRecipients:To");
-define("SYNC_RESOLVERECIPIENTS_CERTIFICATERETRIEVAL","ResolveRecipients:CertificateRetrieval");
-define("SYNC_RESOLVERECIPIENTS_RECIPIENTCOUNT","ResolveRecipients:RecipientCount");
-define("SYNC_RESOLVERECIPIENTS_MAXCERTIFICATES","ResolveRecipients:MaxCertificates");
-define("SYNC_RESOLVERECIPIENTS_MAXAMBIGUOUSRECIPIENTS","ResolveRecipients:MaxAmbiguousRecipients");
-define("SYNC_RESOLVERECIPIENTS_CERTIFICATECOUNT","ResolveRecipients:CertificateCount");
-
-// ValidateCert
-define("SYNC_VALIDATECERT_VALIDATECERT","ValidateCert:ValidateCert");
-define("SYNC_VALIDATECERT_CERTIFICATES","ValidateCert:Certificates");
-define("SYNC_VALIDATECERT_CERTIFICATE","ValidateCert:Certificate");
-define("SYNC_VALIDATECERT_CERTIFICATECHAIN","ValidateCert:CertificateChain");
-define("SYNC_VALIDATECERT_CHECKCRL","ValidateCert:CheckCRL");
-define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
-
+//define("SYNC_POOMMAIL_ATTACHMENT","POOMMAIL:Attachment");
+//define("SYNC_POOMMAIL_ATTACHMENTS","POOMMAIL:Attachments");
+//define("SYNC_POOMMAIL_ATTNAME","POOMMAIL:AttName");
+//define("SYNC_POOMMAIL_ATTSIZE","POOMMAIL:AttSize");
+//define("SYNC_POOMMAIL_ATTOID","POOMMAIL:AttOid");
+//define("SYNC_POOMMAIL_ATTMETHOD","POOMMAIL:AttMethod");
+//define("SYNC_POOMMAIL_ATTREMOVED","POOMMAIL:AttRemoved");
+//define("SYNC_POOMMAIL_BODY","POOMMAIL:Body");
+//define("SYNC_POOMMAIL_BODYSIZE","POOMMAIL:BodySize");
+//define("SYNC_POOMMAIL_BODYTRUNCATED","POOMMAIL:BodyTruncated");
+//define("SYNC_POOMMAIL_DATERECEIVED","POOMMAIL:DateReceived");
+//define("SYNC_POOMMAIL_DISPLAYNAME","POOMMAIL:DisplayName");
+//define("SYNC_POOMMAIL_DISPLAYTO","POOMMAIL:DisplayTo");
+//define("SYNC_POOMMAIL_IMPORTANCE","POOMMAIL:Importance");
+//define("SYNC_POOMMAIL_MESSAGECLASS","POOMMAIL:MessageClass");
+//define("SYNC_POOMMAIL_SUBJECT","POOMMAIL:Subject");
+//define("SYNC_POOMMAIL_READ","POOMMAIL:Read");
+//define("SYNC_POOMMAIL_TO","POOMMAIL:To");
+//define("SYNC_POOMMAIL_CC","POOMMAIL:Cc");
+//define("SYNC_POOMMAIL_FROM","POOMMAIL:From");
+//define("SYNC_POOMMAIL_REPLY_TO","POOMMAIL:Reply-To");
+//define("SYNC_POOMMAIL_ALLDAYEVENT","POOMMAIL:AllDayEvent");
+//define("SYNC_POOMMAIL_CATEGORIES","POOMMAIL:Categories");
+//define("SYNC_POOMMAIL_CATEGORY","POOMMAIL:Category");
+//define("SYNC_POOMMAIL_DTSTAMP","POOMMAIL:DtStamp");
+//define("SYNC_POOMMAIL_ENDTIME","POOMMAIL:EndTime");
+//define("SYNC_POOMMAIL_INSTANCETYPE","POOMMAIL:InstanceType");
+//define("SYNC_POOMMAIL_BUSYSTATUS","POOMMAIL:BusyStatus");
+//define("SYNC_POOMMAIL_LOCATION","POOMMAIL:Location");
+//define("SYNC_POOMMAIL_MEETINGREQUEST","POOMMAIL:MeetingRequest");
+//define("SYNC_POOMMAIL_ORGANIZER","POOMMAIL:Organizer");
+//define("SYNC_POOMMAIL_RECURRENCEID","POOMMAIL:RecurrenceId");
+//define("SYNC_POOMMAIL_REMINDER","POOMMAIL:Reminder");
+//define("SYNC_POOMMAIL_RESPONSEREQUESTED","POOMMAIL:ResponseRequested");
+//define("SYNC_POOMMAIL_RECURRENCES","POOMMAIL:Recurrences");
+//define("SYNC_POOMMAIL_RECURRENCE","POOMMAIL:Recurrence");
+//define("SYNC_POOMMAIL_TYPE","POOMMAIL:Type");
+//define("SYNC_POOMMAIL_UNTIL","POOMMAIL:Until");
+//define("SYNC_POOMMAIL_OCCURRENCES","POOMMAIL:Occurrences");
+//define("SYNC_POOMMAIL_INTERVAL","POOMMAIL:Interval");
+//define("SYNC_POOMMAIL_DAYOFWEEK","POOMMAIL:DayOfWeek");
+//define("SYNC_POOMMAIL_DAYOFMONTH","POOMMAIL:DayOfMonth");
+//define("SYNC_POOMMAIL_WEEKOFMONTH","POOMMAIL:WeekOfMonth");
+//define("SYNC_POOMMAIL_MONTHOFYEAR","POOMMAIL:MonthOfYear");
+//define("SYNC_POOMMAIL_STARTTIME","POOMMAIL:StartTime");
+//define("SYNC_POOMMAIL_SENSITIVITY","POOMMAIL:Sensitivity");
+//define("SYNC_POOMMAIL_TIMEZONE","POOMMAIL:TimeZone");
+//define("SYNC_POOMMAIL_GLOBALOBJID","POOMMAIL:GlobalObjId");
+//define("SYNC_POOMMAIL_THREADTOPIC","POOMMAIL:ThreadTopic");
+//define("SYNC_POOMMAIL_MIMEDATA","POOMMAIL:MIMEData");
+//define("SYNC_POOMMAIL_MIMETRUNCATED","POOMMAIL:MIMETruncated");
+//define("SYNC_POOMMAIL_MIMESIZE","POOMMAIL:MIMESize");
+//define("SYNC_POOMMAIL_INTERNETCPID","POOMMAIL:InternetCPID");
+//
+//// ResolveRecipients
+//define("SYNC_RESOLVERECIPIENTS_RESOLVERECIPIENTS","ResolveRecipients:ResolveRecipients");
+//define("SYNC_RESOLVERECIPIENTS_RESPONSE","ResolveRecipients:Response");
+//define("SYNC_RESOLVERECIPIENTS_STATUS","ResolveRecipients:Status");
+//define("SYNC_RESOLVERECIPIENTS_TYPE","ResolveRecipients:Type");
+//define("SYNC_RESOLVERECIPIENTS_RECIPIENT","ResolveRecipients:Recipient");
+//define("SYNC_RESOLVERECIPIENTS_DISPLAYNAME","ResolveRecipients:DisplayName");
+//define("SYNC_RESOLVERECIPIENTS_EMAILADDRESS","ResolveRecipients:EmailAddress");
+//define("SYNC_RESOLVERECIPIENTS_CERTIFICATES","ResolveRecipients:Certificates");
+//define("SYNC_RESOLVERECIPIENTS_CERTIFICATE","ResolveRecipients:Certificate");
+//define("SYNC_RESOLVERECIPIENTS_MINICERTIFICATE","ResolveRecipients:MiniCertificate");
+//define("SYNC_RESOLVERECIPIENTS_OPTIONS","ResolveRecipients:Options");
+//define("SYNC_RESOLVERECIPIENTS_TO","ResolveRecipients:To");
+//define("SYNC_RESOLVERECIPIENTS_CERTIFICATERETRIEVAL","ResolveRecipients:CertificateRetrieval");
+//define("SYNC_RESOLVERECIPIENTS_RECIPIENTCOUNT","ResolveRecipients:RecipientCount");
+//define("SYNC_RESOLVERECIPIENTS_MAXCERTIFICATES","ResolveRecipients:MaxCertificates");
+//define("SYNC_RESOLVERECIPIENTS_MAXAMBIGUOUSRECIPIENTS","ResolveRecipients:MaxAmbiguousRecipients");
+//define("SYNC_RESOLVERECIPIENTS_CERTIFICATECOUNT","ResolveRecipients:CertificateCount");
+//
+//// ValidateCert
+//define("SYNC_VALIDATECERT_VALIDATECERT","ValidateCert:ValidateCert");
+//define("SYNC_VALIDATECERT_CERTIFICATES","ValidateCert:Certificates");
+//define("SYNC_VALIDATECERT_CERTIFICATE","ValidateCert:Certificate");
+//define("SYNC_VALIDATECERT_CERTIFICATECHAIN","ValidateCert:CertificateChain");
+//define("SYNC_VALIDATECERT_CHECKCRL","ValidateCert:CheckCRL");
+//define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
 
 /**
  * Main ActiveSync class. Entry point for performing all ActiveSync operations
@@ -157,7 +114,7 @@ define("SYNC_VALIDATECERT_STATUS","ValidateCert:Status");
  */
 class Horde_ActiveSync
 {
-    /* Constants */
+    /* Conflict resolution */
     const CONFLICT_OVERWRITE_SERVER = 0;
     const CONFLICT_OVERWRITE_PIM = 1;
 
@@ -351,472 +308,6 @@ class Horde_ActiveSync
         $this->_provisioning = $provision;
     }
 
-    /**
-     *
-     * @param $protocolversion
-     *
-     * @return true
-     */
-    public function handleMoveItems($protocolversion)
-    {
-        if (!$this->_decoder->getElementStartTag(SYNC_MOVE_MOVES)) {
-            return false;
-        }
-
-        $moves = array();
-        while ($this->_decoder->getElementStartTag(SYNC_MOVE_MOVE)) {
-            $move = array();
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_SRCMSGID)) {
-                $move['srcmsgid'] = $this->_decoder->getElementContent();
-                if(!$this->_decoder->getElementEndTag())
-                    break;
-            }
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_SRCFLDID)) {
-                $move['srcfldid'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    break;
-                }
-            }
-            if ($this->_decoder->getElementStartTag(SYNC_MOVE_DSTFLDID)) {
-                $move['dstfldid'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    break;
-                }
-            }
-            array_push($moves, $move);
-
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-        }
-
-        if (!$this->_decoder->getElementEndTag())
-            return false;
-
-        $this->_encoder->StartWBXML();
-
-        $this->_encoder->startTag(SYNC_MOVE_MOVES);
-
-        foreach ($moves as $move) {
-            $this->_encoder->startTag(SYNC_MOVE_RESPONSE);
-            $this->_encoder->startTag(SYNC_MOVE_SRCMSGID);
-            $this->_encoder->content($move['srcmsgid']);
-            $this->_encoder->endTag();
-
-            $importer = $this->_driver->GetContentsImporter($move['srcfldid']);
-            $result = $importer->importMessageMove($move['srcmsgid'], $move['dstfldid']);
-
-            // We discard the importer state for now.
-            $this->_encoder->startTag(SYNC_MOVE_STATUS);
-            $this->_encoder->content($result ? 3 : 1);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(SYNC_MOVE_DSTMSGID);
-            $this->_encoder->content(is_string($result) ? $result : $move['srcmsgid']);
-            $this->_encoder->endTag();
-            $this->_encoder->endTzg();
-        }
-        $this->_encoder->endTag();
-
-        return true;
-    }
-
-    /**
-     * @param $protocolversion
-     *
-     * @return boolean
-     */
-    public function handleNotify($protocolversion)
-    {
-        if (!$this->_decoder->getElementStartTag(SYNC_AIRNOTIFY_NOTIFY)) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementStartTag(SYNC_AIRNOTIFY_DEVICEINFO)) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-        $this->_encoder->StartWBXML();
-        $this->_encoder->startTag(SYNC_AIRNOTIFY_NOTIFY);
-        $this->_encoder->startTag(SYNC_AIRNOTIFY_STATUS);
-        $this->_encoder->content(1);
-        $this->_encoder->endTag();
-        $this->_encoder->startTag(SYNC_AIRNOTIFY_VALIDCARRIERPROFILES);
-        $this->_encoder->endTag();
-        $this->_encoder->endTag();
-
-        return true;
-    }
-
-    /**
-     * handle GetHierarchy method - simply returns current hierarchy of all
-     * folders
-     *
-     * @param string $protocolversion
-     * @param string $devid
-     *
-     * @return boolean
-     */
-    public function handleGetHierarchy($protocolversion, $devid)
-    {
-        $folders = $this->_driver->GetHierarchy();
-        if (!$folders) {
-            return false;
-        }
-
-        // save folder-ids for fourther syncing
-        $this->_stateMachine->setFolderData($devid, $folders);
-
-        $this->_encoder->StartWBXML();
-        $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERS);
-
-        foreach ($folders as $folder) {
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDER);
-            $folder->encodeStream($this->_encoder);
-            $this->_encoder->endTag();
-        }
-        $this->_encoder->endTag();
-
-        return true;
-    }
-
-    /**
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleGetAttachment($protocolversion)
-    {
-        $get = $this->_request->getGetParams();
-        $attname = $get('AttachmentName');
-        if (!isset($attname)) {
-            return false;
-        }
-
-        header("Content-Type: application/octet-stream");
-        $this->_driver->GetAttachmentData($attname);
-
-        return true;
-    }
-
-    /**
-     *
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleSmartForward($protocolversion)
-    {
-        // SmartForward is a normal 'send' except that you should attach the
-        // original message which is specified in the URL
-
-        $rfc822 = $this->readStream();
-
-        if (isset($_GET["ItemId"])) {
-            $orig = $_GET["ItemId"];
-        } else {
-            $orig = false;
-        }
-        if (isset($_GET["CollectionId"])) {
-            $parent = $_GET["CollectionId"];
-        } else {
-            $parent = false;
-        }
-
-        return $this->_driver->sendMail($rfc822, $orig, false, $parent);
-    }
-
-    /**
-     * @TODO: use Horde_Controller_Request_Http for the GET
-     *
-     * @param unknown_type $protocolversion
-     * @return unknown_type
-     */
-    public function handleSmartReply($protocolversion)
-    {
-        // Smart reply should add the original message to the end of the message body
-        $rfc822 = $this->readStream();
-
-        if (isset($_GET["ItemId"])) {
-            $orig = $_GET["ItemId"];
-        } else {
-            $orig = false;
-        }
-
-        if (isset($_GET["CollectionId"])) {
-            $parent = $_GET["CollectionId"];
-        } else {
-            $parent = false;
-        }
-
-        return $this->_driver->sendMail($rfc822, false, $orig, $parent);
-    }
-
-    /**
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleFolderCreate($protocolversion)
-    {
-        $el = $this->_decoder->getElement();
-        if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-            return false;
-        }
-
-        $create = $update = $delete = false;
-
-        if ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERCREATE) {
-            $create = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERUPDATE) {
-            $update = true;
-        } elseif ($el[Horde_ActiveSync_Wbxml::EN_TAG] == self::FOLDERHIERARCHY_FOLDERDELETE) {
-            $delete = true;
-        }
-
-        if (!$create && !$update && !$delete) {
-            return false;
-        }
-
-        // SyncKey
-        if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SYNCKEY)) {
-            return false;
-        }
-        $synckey = $this->_decoder->getElementContent();
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        // ServerID
-        $serverid = false;
-        if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_SERVERENTRYID)) {
-            $serverid = $this->_decoder->getElementContent();
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-        }
-
-        // when creating or updating more information is necessary
-        if (!$delete) {
-            // Parent
-            $parentid = false;
-            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_PARENTID)) {
-                $parentid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
-            }
-
-            // Displayname
-            if (!$this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_DISPLAYNAME)) {
-                return false;
-            }
-            $displayname = $this->_decoder->getElementContent();
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            // Type
-            $type = false;
-            if ($this->_decoder->getElementStartTag(self::FOLDERHIERARCHY_TYPE)) {
-                $type = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
-            }
-        }
-
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        // Get state of hierarchy
-        try {
-            $syncstate = $this->_stateMachine->loadState($synckey);
-            $newsynckey = $this->_stateMachine->getNewSyncKey($synckey);
-        } catch (Horde_ActiveSync_Exception $e) {
-            // @TODO - send error status keymism when refactored.
-        }
-
-        // additional information about already seen folders
-        $seenfolders = unserialize($this->_stateMachine->loadState('s' . $synckey));
-        if (!$seenfolders) {
-            $seenfolders = array();
-        }
-        // Configure importer with last state
-        $importer = $this->_driver->GetHierarchyImporter();
-        $importer->Config($syncstate);
-
-        if (!$delete) {
-            // Send change
-            $serverid = $importer->importFolderChange($serverid, $parentid, $displayname, $type);
-        } else {
-            // delete folder
-            $deletedstat = $importer->importFolderDeletion($serverid, 0);
-        }
-
-        $this->_encoder->startWBXML();
-        if ($create) {
-            // add folder id to the seen folders
-            $seenfolders[] = $serverid;
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERCREATE);
-
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content(1);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
-            $this->_encoder->content($newsynckey);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SERVERENTRYID);
-            $this->_encoder->content($serverid);
-            $this->_encoder->endTag();
-
-            $this->_encoder->endTag();
-
-            $this->_encoder->endTag();
-        } elseif ($update) {
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERUPDATE);
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content(1);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
-            $this->_encoder->content($newsynckey);
-            $this->_encoder->endTag();
-
-            $this->_encoder->endTag();
-        } elseif ($delete) {
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERDELETE);
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_STATUS);
-            $this->_encoder->content($deletedstat);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag(self::FOLDERHIERARCHY_SYNCKEY);
-            $this->_encoder->content($newsynckey);
-            $this->_encoder->endTag();
-
-            $this->_encoder->endTag();
-
-            // remove folder from the folderflags array
-            if (($sid = array_search($serverid, $seenfolders)) !== false) {
-                unset($seenfolders[$sid]);
-                $seenfolders = array_values($seenfolders);
-                $this->_logger->debug('Deleted from seenfolders: ' . $serverid);
-            }
-        }
-
-        $this->_encoder->endTag();
-        // Save the sync state for the next time
-        $this->_stateMachine->setState($newsynckey, $importer->GetState());
-        $this->_stateMachine->setState('s' . $newsynckey, serialize($seenfolders));
-        $this->_stateMachine->save();
-
-        return true;
-    }
-
-    /**
-     * handle meetingresponse method
-     */
-    public function handleMeetingResponse($protocolversion)
-    {
-        $requests = Array();
-        if (!$this->_decoder->getElementStartTag(SYNC_MEETINGRESPONSE_MEETINGRESPONSE)) {
-            return false;
-        }
-
-        while ($this->_decoder->getElementStartTag(SYNC_MEETINGRESPONSE_REQUEST)) {
-            $req = Array();
-
-            if ($this->_decoder->getElementStartTag(SYNC_MEETINGRESPONSE_USERRESPONSE)) {
-                $req['response'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
-            }
-
-            if ($this->_decoder->getElementStartTag(SYNC_MEETINGRESPONSE_FOLDERID)) {
-                $req['folderid'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
-            }
-
-            if ($this->_decoder->getElementStartTag(SYNC_MEETINGRESPONSE_REQUESTID)) {
-                $req['requestid'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
-                }
-            }
-
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            array_push($requests, $req);
-        }
-
-        if (!$this->_decoder->getElementEndTag()) {
-            return false;
-        }
-
-        // Start output, simply the error code, plus the ID of the calendar item that was generated by the
-        // accept of the meeting response
-        $this->_encoder->StartWBXML();
-        $this->_encoder->startTag(SYNC_MEETINGRESPONSE_MEETINGRESPONSE);
-
-        foreach ($requests as $req) {
-            $calendarid = '';
-            $ok = $this->_driver->MeetingResponse($req['requestid'], $req['folderid'], $req['response'], $calendarid);
-            $this->_encoder->startTag(SYNC_MEETINGRESPONSE_RESULT);
-            $this->_encoder->startTag(SYNC_MEETINGRESPONSE_REQUESTID);
-            $this->_encoder->content($req['requestid']);
-            $this->_encoder->endTag();
-            $this->_encoder->startTag(SYNC_MEETINGRESPONSE_STATUS);
-            $this->_encoder->content($ok ? 1 : 2);
-            $this->_encoder->endTag();
-            if ($ok) {
-                $this->_encoder->startTag(SYNC_MEETINGRESPONSE_CALENDARID);
-                $this->_encoder->content($calendarid);
-                $this->_encoder->endTag();
-            }
-            $this->_encoder->endTag();
-        }
-
-        $this->_encoder->endTag();
-
-        return true;
-    }
-
-
-    /**
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleFolderUpdate($protocolversion)
-    {
-        return $this->handleFolderCreate($protocolversion);
-    }
-
-    /**
-     *
-     * @param $protocolversion
-     * @return unknown_type
-     */
-    public function handleFolderDelete($protocolversion) {
-        return $this->handleFolderCreate($this->_driver, $protocolversion);
-    }
-
     static public function provisioningRequired()
     {
         self::provisionHeader();
@@ -827,8 +318,8 @@ class Horde_ActiveSync
     }
 
     /**
-     * The heart of the server. Dispatch a request to the request object to
-     * handle.
+     * The heart of the server. Dispatch a request to the appropriate request
+     * handler.
      *
      * @param string $cmd    The command we are requesting.
      * @param string $devId  The device id making the request.
@@ -845,7 +336,12 @@ class Horde_ActiveSync
             return true;
         }
 
-        /* Check that this device is known */
+        /* Delete/Update are all handled by Create as well */
+        //if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
+        //    $cmd == 'FolderCreate';
+        //}
+
+        /* Check that this device is known, if not create the record. */
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
@@ -861,7 +357,6 @@ class Horde_ActiveSync
             $device->id = $devId;
             $state->setDeviceInfo($device);
         } elseif (!empty($devId)) {
-            // @TODO: Check if the empty check is necessary
             $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
@@ -884,67 +379,13 @@ class Horde_ActiveSync
             return $result;
         }
 
-        // @TODO: Leave the following in place until all are refactored...then throw
-        // an error if the class does not exist.
-        switch($cmd) {
-            case 'SmartForward':
-                $status = $this->handleSmartForward($version);
-                break;
-            case 'SmartReply':
-                $status = $this->handleSmartReply($version);
-                break;
-            case 'GetAttachment':
-                $status = $this->handleGetAttachment($version);
-                break;
-            case 'GetHierarchy':
-                $status = $this->handleGetHierarchy($version, $devId);
-                break;
-            case 'CreateCollection':
-                $status = $this->handleCreateCollection($version);
-                break;
-            case 'DeleteCollection':
-                $status = $this->handleDeleteCollection($version);
-                break;
-            case 'MoveCollection':
-                $status = $this->handleMoveCollection($version);
-                break;
-            case 'FolderCreate':
-                $status = $this->handleFolderCreate($version);
-                break;
-            case 'FolderDelete':
-                $status = $this->handleFolderDelete($version);
-                break;
-            case 'FolderUpdate':
-                $status = $this->handleFolderUpdate($version);
-                break;
-            case 'MoveItems':
-                $status = $this->handleMoveItems($version);
-                break;
-            case 'GetItemEstimate':
-                $status = $this->handleGetItemEstimate($version, $devId);
-                break;
-            case 'MeetingResponse':
-                $status = $this->handleMeetingResponse($version);
-                break;
-            case 'Notify': // Used for sms-based notifications (pushmail)
-                $status = $this->handleNotify($version);
-                break;
-            case 'Search':
-                $status = $this->handleSearch($devId, $version);
-                break;
-
-            default:
-                $this->_logger->err('Unknown command - not implemented');
-                $status = false;
-                break;
-        }
-
-        return $status;
+        /* No idea what the client is talking about */
+        throw new Horde_ActiveSync_Exception('Invalid request or not supported: ' . $class);
     }
 
     /**
      * Send the MS_Server-ActiveSync header
-     * (This is the version Exchange 2003 implements)
+     * (This is the version Exchange 2003 advertises)
      *
      * @return void
      */
@@ -964,7 +405,8 @@ class Horde_ActiveSync
     }
 
     /**
-     * send protocol commands header
+     * Send protocol commands header. This contains appropriate command for
+     * ActiveSync version 2.5 support.
      *
      * @return void
      */
@@ -986,11 +428,10 @@ class Horde_ActiveSync
     /**
      * Obtain the policy key header from the request.
      *
-     * @return int  The policy key or zero if not set.
+     * @return integer  The policy key or '0' if not set.
      */
     public function getPolicyKey()
     {
-        /* Policy key headers may be sent in either of these forms: */
         $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         if (empty($this->_policykey)) {
             $this->_policykey = 0;
@@ -1001,6 +442,8 @@ class Horde_ActiveSync
 
     /**
      * Obtain the ActiveSync protocol version
+     *
+     * @return string
      */
     public function getProtocolVersion()
     {
