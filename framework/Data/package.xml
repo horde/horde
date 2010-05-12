@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Data</name>
+ <name>Data</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Data API</summary>
  <description>This package provides a data import and export API, with backends for:
@@ -26,37 +26,46 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2006-05-08</date>
- <time>21:12:22</time>
+ <date>2010-05-12</date>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.3</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Converted to package.xml 2.0 for pear.horde.org
+ <notes>* Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
-   <dir name="Data">
-    <file baseinstalldir="/Horde" name="csv.php" role="php" />
-    <file baseinstalldir="/Horde" name="icalendar.php" role="php" />
-    <file baseinstalldir="/Horde" name="imc.php" role="php" />
-    <file baseinstalldir="/Horde" name="outlookcsv.php" role="php" />
-    <file baseinstalldir="/Horde" name="tsv.php" role="php" />
-    <file baseinstalldir="/Horde" name="vcard.php" role="php" />
-    <file baseinstalldir="/Horde" name="vnote.php" role="php" />
-    <file baseinstalldir="/Horde" name="vtodo.php" role="php" />
-   </dir> <!-- /Data -->
-   <dir name="tests">
-    <file baseinstalldir="/Horde" name="csv_importFile_01.phpt" role="test" />
-    <file baseinstalldir="/Horde" name="simple_dos.csv" role="test" />
-    <file baseinstalldir="/Horde" name="simple_unix.csv" role="test" />
-   </dir> <!-- /tests -->
-   <file baseinstalldir="/Horde" name="Data.php" role="php" />
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Data">
+      <file name="Csv.php" role="php" />
+      <file name="Driver.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Icalendar.php" role="php" />
+      <file name="Imc.php" role="php" />
+      <file name="Outlookcsv.php" role="php" />
+      <file name="Tsv.php" role="php" />
+      <file name="Vcard.php" role="php" />
+      <file name="Vnote.php" role="php" />
+      <file name="Vtodo.php" role="php" />
+     </dir> <!-- /lib/Horde/Data -->
+     <file name="Data.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Data">
+      <file name="csv_importFile_01.phpt" role="test" />
+      <file name="simple_dos.csv" role="test" />
+      <file name="simple_unix.csv" role="test" />
+     </dir> <!-- /test/Horde/Data -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -68,7 +77,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>iCalendar</name>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>File_Csv</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -79,15 +96,43 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>iCalendar</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
-  <optional>
-   <extension>
-    <name>gettext</name>
-   </extension>
-  </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Data/Csv.php" as="Horde/Data/Csv.php" />
+   <install name="lib/Horde/Data/Driver.php" as="Horde/Data/Driver.php" />
+   <install name="lib/Horde/Data/Exception.php" as="Horde/Data/Exception.php" />
+   <install name="lib/Horde/Data/Icalendar.php" as="Horde/Data/Icalendar.php" />
+   <install name="lib/Horde/Data/Imc.php" as="Horde/Data/Imc.php" />
+   <install name="lib/Horde/Data/Outlookcsv.php" as="Horde/Data/Outlookcsv.php" />
+   <install name="lib/Horde/Data/Tsv.php" as="Horde/Data/Tsv.php" />
+   <install name="lib/Horde/Data/Vcard.php" as="Horde/Data/Vcard.php" />
+   <install name="lib/Horde/Data/Vnote.php" as="Horde/Data/Vnote.php" />
+   <install name="lib/Horde/Data/Vtodo.php" as="Horde/Data/Vtodo.php" />
+   <install name="lib/Horde/Data.php" as="Horde/Data.php" />
+  </filelist>
+ </phprelease>
  <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>21:12:22</time>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.2</release>

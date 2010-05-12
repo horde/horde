@@ -9,7 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Data.php';
 
 if (!$conf['menu']['export']) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
@@ -159,13 +158,11 @@ case 'export':
 
     switch (Horde_Util::getFormData('exportID')) {
     case EXPORT_CSV:
-        $csv = &Horde_Data::singleton('csv');
-        $csv->exportFile(_("class.csv"), $data, (Horde_Util::getFormData('student') == 'all'));
+        $injector->getInstance('Horde_Data')->getOb('Csv')->exportFile(_("class.csv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     case EXPORT_TSV:
-        $tsv = &Horde_Data::singleton('tsv');
-        $tsv->exportFile(_("class.tsv"), $data, (Horde_Util::getFormData('student') == 'all'));
+        $injector->getInstance('Horde_Data')->getOb('Tsv')->exportFile(_("class.tsv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     }

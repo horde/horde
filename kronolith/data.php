@@ -9,10 +9,9 @@
  * @package Kronolith
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
@@ -147,8 +146,7 @@ case 'export':
             }
         }
 
-        $csv = &Horde_Data::singleton('csv');
-        $csv->exportFile(_("events.csv"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_ICALENDAR:
@@ -185,34 +183,36 @@ case Horde_Data::IMPORT_FILE:
 }
 
 if (!$error) {
-    $data = &Horde_Data::singleton($import_format);
-    if ($data instanceof PEAR_Error) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
+    try {
+        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
+
         if ($actionID == Horde_Data::IMPORT_FILE) {
+            $cleanup = true;
             try {
                 $share = $kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
                 if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                     $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
-                    $next_step = $data->cleanup();
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
-                    if ($next_step instanceof PEAR_Error) {
-                        $notification->push($next_step->getMessage(), 'horde.error');
-                        $next_step = $data->cleanup();
-                    }
+                    $cleanup = false;
                 }
             } catch (Exception $e) {
                 $notification->push(_("You have specified an invalid calendar."), 'horde.error');
+            }
+
+            if ($cleanup) {
                 $next_step = $data->cleanup();
             }
         } else {
             $next_step = $data->nextStep($actionID, $param);
-            if ($next_step instanceof PEAR_Error) {
-                $notification->push($next_step->getMessage(), 'horde.error');
-                $next_step = $data->cleanup();
-            }
+        }
+    } catch (Horde_Data_Exception $e) {
+        if ($data) {
+            $notification->push($e, 'horde.error');
+            $next_step = $data->cleanup();
+        } else {
+            $notification->push(_("This file format is not supported."), 'horde.error');
+            $next_step = Horde_Data::IMPORT_FILE;
         }
     }
 }

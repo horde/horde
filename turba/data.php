@@ -10,10 +10,9 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
@@ -310,27 +309,25 @@ case 'export':
 
     switch ($exportType) {
     case Horde_Data::EXPORT_CSV:
-        $csv = Horde_Data::singleton('csv');
-        $csv->exportFile(_("contacts.csv"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_OUTLOOKCSV:
-        $csv = Horde_Data::singleton('outlookcsv');
-        $csv->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+        $injector->getInstance('Horde_Data')->getOb('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
         exit;
 
     case Horde_Data::EXPORT_TSV:
-        $tsv = Horde_Data::singleton('tsv');
-        $tsv->exportFile(_("contacts.tsv"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_VCARD:
     case 'vcard30':
-        $vcard = Horde_Data::singleton('vcard');
-        $vcard->exportFile(_("contacts.vcf"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
         exit;
 
     case 'ldif':
+        // TODO
+        //$injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))
         $ldif = Horde_Data::singleton(array('turba', 'ldif'));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
         exit;
@@ -381,6 +378,7 @@ case Horde_Data::IMPORT_DATETIME:
 }
 
 if (!$error && !empty($import_format)) {
+    // TODO
     if ($import_format == 'ldif') {
         $data = Horde_Data::singleton(array('turba', $import_format));
     } else {

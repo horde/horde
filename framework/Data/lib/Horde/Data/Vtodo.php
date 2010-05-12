@@ -7,10 +7,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_vtodo extends Horde_Data_imc {
-
-}
+class Horde_Data_Vtodo extends Horde_Data_Imc {}

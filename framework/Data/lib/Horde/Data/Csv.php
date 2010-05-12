@@ -1,6 +1,7 @@
 <?php
 /**
- * @package Horde_Data
+ * @category Horde
+ * @package  Data
  */
 
 /**
@@ -11,14 +12,26 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_csv extends Horde_Data {
+class Horde_Data_Csv extends Horde_Data_Driver
+{
+    /**
+     * File extension.
+     *
+     * @var string
+     */
+    protected $_extension = 'csv';
 
-    var $_extension = 'csv';
-    var $_contentType = 'text/comma-separated-values';
+    /**
+     * MIME content type.
+     *
+     * @var string
+     */
+    protected $_contentType = 'text/comma-separated-values';
 
     /**
      * Tries to discover the CSV file's parameters.
@@ -32,7 +45,7 @@ class Horde_Data_csv extends Horde_Data {
      * 'fields': The number of fields (columns)
      * </pre>
      */
-    function discoverFormat($filename)
+    public function discoverFormat($filename)
     {
         return Horde_File_Csv::discoverFormat($filename);
     }
@@ -46,36 +59,29 @@ class Horde_Data_csv extends Horde_Data {
      * @param string $sep       The field/column separator.
      * @param string $quote     The quoting character.
      * @param integer $fields   The number or fields/columns.
-     * @param string $charset   The file's charset. @since Horde 3.1.
-     * @param string $crlf      The file's linefeed characters. @since Horde 3.1.
+     * @param string $charset   The file's charset.
+     * @param string $crlf      The file's linefeed characters.
      *
      * @return array  A two-dimensional array of all imported data rows.  If
      *                $header was true the rows are associative arrays with the
      *                field/column names as the keys.
      *@throws Horde_File_Csv_Exception
      */
-    function importFile($filename, $header = false, $sep = '', $quote = '',
-                        $fields = null, $import_mapping = array(),
-                        $charset = null, $crlf = null)
+    public function importFile($filename, $header = false, $sep = ',',
+                               $quote = '', $fields = null,
+                               $import_mapping = array(), $charset = null,
+                               $crlf = null)
     {
-        /* Horde_File_Csv is a bit picky at what parameters it expects. */
-        $conf = array();
-        if ($fields) {
-            $conf['fields'] = $fields;
-        } else {
+        if (empty($fields)) {
             return array();
         }
-        if (!empty($quote)) {
-            $conf['quote'] = $quote;
-        }
-        if (empty($sep)) {
-            $conf['sep'] = ',';
-        } else {
-            $conf['sep'] = $sep;
-        }
-        if (!empty($crlf)) {
-            $conf['crlf'] = $crlf;
-        }
+
+        $conf = array(
+            'crlf' => $crlf,
+            'fields' => $fields,
+            'quote' => $quote,
+            'sep' => $sep
+        );
 
         /* Strip and keep the first line if it contains the field
          * names. */
@@ -113,6 +119,7 @@ class Horde_Data_csv extends Horde_Data {
         }
 
         $this->_warnings = Horde_File_Csv::warning();
+
         return $data;
     }
 
@@ -126,7 +133,8 @@ class Horde_Data_csv extends Horde_Data {
      *
      * @return string  The CSV data.
      */
-    function exportData($data, $header = false, $export_mapping = array())
+    public function exportData($data, $header = false,
+                               $export_mapping = array())
     {
         if (!is_array($data) || count($data) == 0) {
             return '';
@@ -173,11 +181,11 @@ class Horde_Data_csv extends Horde_Data {
      * @param boolean $header   If true, the rows of $data are associative
      *                          arrays with field names as their keys.
      */
-    function exportFile($filename, $data, $header = false,
-                        $export_mapping = array())
+    public function exportFile($filename, $data, $header = false,
+                               $export_mapping = array())
     {
         $export = $this->exportData($data, $header, $export_mapping);
-        $GLOBALS['browser']->downloadHeaders($filename, 'application/csv', false, strlen($export));
+        $this->_browser->downloadHeaders($filename, 'application/csv', false, strlen($export));
         echo $export;
     }
 
@@ -191,21 +199,19 @@ class Horde_Data_csv extends Horde_Data {
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
+     * @throws Horde_Data_Exception
      */
-    function nextStep($action, $param = array())
+    public function nextStep($action, $param = array())
     {
         switch ($action) {
-        case self::IMPORT_FILE:
-            $next_step = parent::nextStep($action, $param);
-            if (is_a($next_step, 'PEAR_Error')) {
-                return $next_step;
-            }
+        case Horde_Data::IMPORT_FILE:
+            parent::nextStep($action, $param);
 
             /* Move uploaded file so that we can read it again in the next
                step after the user gave some format details. */
-            $file_name = Horde::getTempFile('import', false);
+            $file_name = Horde_Util::getTempFile('import', false);
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
-                return PEAR::raiseError(_("The uploaded file could not be saved."));
+                throw new Horde_Data_Exception('The uploaded file could not be saved.');
             }
             $_SESSION['import_data']['file_name'] = $file_name;
 
@@ -217,7 +223,7 @@ class Horde_Data_csv extends Horde_Data {
             $_SESSION['import_data'] = array_merge($_SESSION['import_data'], $conf);
 
             /* Check if charset was specified. */
-            $_SESSION['import_data']['charset'] = Horde_Util::getFormData('charset');
+            $_SESSION['import_data']['charset'] = $this->_vars->charset;
 
             /* Read the file's first two lines to show them to the user. */
             $_SESSION['import_data']['first_lines'] = '';
@@ -233,25 +239,27 @@ class Horde_Data_csv extends Horde_Data {
                     $line_no++;
                 }
             }
-            return self::IMPORT_CSV;
+            return Horde_Data::IMPORT_CSV;
 
-        case self::IMPORT_CSV:
-            $_SESSION['import_data']['header'] = Horde_Util::getFormData('header');
+        case Horde_Data::IMPORT_CSV:
+            $_SESSION['import_data']['header'] = $this->_vars->header;
             $import_mapping = array();
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
-            $import_data = $this->importFile($_SESSION['import_data']['file_name'],
-                                             $_SESSION['import_data']['header'],
-                                             Horde_Util::getFormData('sep'),
-                                             Horde_Util::getFormData('quote'),
-                                             Horde_Util::getFormData('fields'),
-                                             $import_mapping,
-                                             $_SESSION['import_data']['charset'],
-                                             $_SESSION['import_data']['crlf']);
+            $import_data = $this->importFile(
+                $_SESSION['import_data']['file_name'],
+                $_SESSION['import_data']['header'],
+                $this->_vars->sep,
+                $this->_vars->quote,
+                $this->_vars->fields,
+                $import_mapping,
+                $_SESSION['import_data']['charset'],
+                $_SESSION['import_data']['crlf']
+            );
             $_SESSION['import_data']['data'] = $import_data;
             unset($_SESSION['import_data']['map']);
-            return self::IMPORT_MAPPED;
+            return Horde_Data::IMPORT_MAPPED;
 
         default:
             return parent::nextStep($action, $param);

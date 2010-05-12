@@ -1,26 +1,21 @@
 <?php
 /**
- * $Horde: mnemo/data.php,v 1.55 2009/12/04 17:42:24 jan Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Mnemo 1.0
  * @package Mnemo
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
-@define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 if (!$conf['menu']['import_export']) {
@@ -86,8 +81,7 @@ case 'export':
                 unset($note['uid']);
                 $data[] = $note;
             }
-            $csv = &Horde_Data::singleton('csv');
-            $csv->exportFile(_("notes.csv"), $data, true);
+            $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("notes.csv"), $data, true);
             exit;
         }
     }
@@ -100,15 +94,16 @@ case Horde_Data::IMPORT_FILE:
 
 $next_step = null;
 if (!$error) {
-    $data = &Horde_Data::singleton($import_format);
-    if (is_a($data, 'PEAR_Error')) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
+    try {
+        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
-        if (is_a($next_step, 'PEAR_Error')) {
-            $notification->push($next_step->getMessage(), 'horde.error');
+    } catch (Horde_Data_Exception $e) {
+        if ($data) {
+            $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
+        } else {
+            $notification->push(_("This file format is not supported."), 'horde.error');
+            $next_step = Horde_Data::IMPORT_FILE;
         }
     }
 }

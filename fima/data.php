@@ -6,16 +6,14 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
-    return IMPORT_FILE;
+    $GLOBALS['import_step'] = 1;
+    return Horde_Data::IMPORT_FILE;
 }
 
 @define('FIMA_BASE', dirname(__FILE__));
 require_once FIMA_BASE . '/lib/base.php';
-require_once 'Horde/Data.php';
 
 $ledger = Fima::getActiveLedger();
 
@@ -25,11 +23,11 @@ $file_types = array('csv'      => _("CSV"),
 
 /* Templates for the different import steps. */
 $templates = array(
-    IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
-    IMPORT_TSV => array($registry->get('templates', 'horde') . '/data/tsvinfo.inc'),
-    IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
-    IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc'),
-    IMPORT_FILE => array(FIMA_TEMPLATES . '/data/import.inc', FIMA_TEMPLATES . '/data/export.inc'),
+    Horde_Data::IMPORT_CSV => array($registry->get('templates', 'horde') . '/data/csvinfo.inc'),
+    Horde_Data::IMPORT_TSV => array($registry->get('templates', 'horde') . '/data/tsvinfo.inc'),
+    Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
+    Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc'),
+    Horde_Data::IMPORT_FILE => array(FIMA_TEMPLATES . '/data/import.inc', FIMA_TEMPLATES . '/data/export.inc'),
 );
 
 /* Field/clear name mapping. */
@@ -48,7 +46,7 @@ $param = array('time_fields' => $time_fields,
                'file_types'  => $file_types);
 $import_format = Horde_Util::getFormData('import_format', '');
 $import_step   = Horde_Util::getFormData('import_step', 0) + 1;
-$next_step     = IMPORT_FILE;
+$next_step     = Horde_Data::IMPORT_FILE;
 $actionID      = Horde_Util::getFormData('actionID');
 $error         = false;
 
@@ -56,7 +54,7 @@ $error         = false;
 switch ($actionID) {
 case 'export':
     $data = array();
-    
+
     /* Create a Fima storage instance. */
     $storage = &Fima_Driver::singleton($ledger);
     if (is_a($storage, 'PEAR_Error')) {
@@ -65,13 +63,13 @@ case 'export':
         break;
     }
     $params = $storage->getParams();
-    
+
     $filters = array(array('type', $prefs->getValue('active_postingtype')));
 
     /* Get accounts and postings. */
     $accounts = Fima::listAccounts();
     $postings = Fima::listPostings($filters);
-   
+
     foreach ($postings as $postingId => $posting) {
         $row = array();
         foreach ($posting as $key => $value) {
@@ -105,18 +103,16 @@ case 'export':
 
     switch (Horde_Util::getFormData('exportID')) {
     case EXPORT_CSV:
-        $csv = &Horde_Data::singleton('csv');
-        $csv->exportFile(_("postings.csv"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("postings.csv"), $data, true);
         exit;
 
     case EXPORT_TSV:
-        $tsv = &Horde_Data::singleton('tsv');
-        $tsv->exportFile(_("postings.tsv"), $data, true);
+        $injector->getInstance('Horde_Data')->getOb('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("postings.tsv"), $data, true);
         exit;
     }
     break;
 
-case IMPORT_FILE:
+case Horde_Data::IMPORT_FILE:
     $storage = &Fima_Driver::singleton($ledger);
     if (is_a($storage, 'PEAR_Error')) {
         $notification->push(sprintf(_("Failed to access the ledger: %s"), $storage->getMessage()), 'horde.error');
@@ -130,15 +126,16 @@ case IMPORT_FILE:
 }
 
 if (!$error) {
-    $data = &Horde_Data::singleton($import_format);
-    if (is_a($data, 'PEAR_Error')) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = IMPORT_FILE;
-    } else {
+    try {
+        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
-        if (is_a($next_step, 'PEAR_Error')) {
-            $notification->push($next_step->getMessage(), 'horde.error');
+    } catch (Horde_Data_Exception $e) {
+        if ($data) {
+            $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
+        } else {
+            $notification->push(_("This file format is not supported."), 'horde.error');
+            $next_step = Horde_Data::IMPORT_FILE;
         }
     }
 }
@@ -198,9 +195,6 @@ if (is_array($next_step)) {
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any postings."),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.error');
-    } elseif (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                    $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("%s successfully imported"),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.success');
@@ -212,7 +206,7 @@ $title = _("Import/Export Postings");
 require FIMA_TEMPLATES . '/common-header.inc';
 require FIMA_TEMPLATES . '/menu.inc';
 
-if ($next_step == IMPORT_FILE) {
+if ($next_step == Horde_Data::IMPORT_FILE) {
     /* Build the charset options. */
     $charsets = Horde_Nls::$config['encodings'];
     $all_charsets = Horde_Nls::$config['charsets'];

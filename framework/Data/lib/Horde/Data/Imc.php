@@ -10,18 +10,26 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_imc extends Horde_Data {
+class Horde_Data_Imc extends Horde_Data_Driver
+{
+    /**
+     * @var
+     */
+    protected $_iCal = false;
 
-    var $_iCal = false;
-
-    function importData($text)
+    /**
+     *
+     * @throws Horde_Data_Exception
+     */
+    public function importData($text)
     {
         $this->_iCal = new Horde_iCalendar();
         if (!$this->_iCal->parsevCalendar($text)) {
-            return PEAR::raiseError(_("There was an error importing the iCalendar data."));
+            throw new Horde_Data_Exception('There was an error importing the iCalendar data.');
         }
 
         return $this->_iCal->getComponents();
@@ -37,7 +45,7 @@ class Horde_Data_imc extends Horde_Data {
      *
      * @return string  The iCalendar data.
      */
-    function exportData($data, $method = 'REQUEST')
+    public function exportData($data, $method = 'REQUEST')
     {
         $this->_iCal = new Horde_iCalendar();
         $this->_iCal->setAttribute('METHOD', $method);
@@ -57,10 +65,10 @@ class Horde_Data_imc extends Horde_Data {
      * @param string $filename   The name of the file to be downloaded.
      * @param array $data        An array containing Horde_iCalendar_vevents
      */
-    function exportFile($filename, $data)
+    public function exportFile($filename, $data)
     {
         $export = $this->exportData($data);
-        $GLOBALS['browser']->downloadHeaders($filename, 'text/calendar', false, strlen($export));
+        $this->_browser->downloadHeaders($filename, 'text/calendar', false, strlen($export));
         echo $export;
     }
 
@@ -71,30 +79,21 @@ class Horde_Data_imc extends Horde_Data {
      * @param integer $action  The current step. One of the IMPORT_* constants.
      * @param array $param     An associative array containing needed
      *                         parameters for the current step.
+     *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
+     * @throws Horde_Data_Exception
      */
-    function nextStep($action, $param = array())
+    public function nextStep($action, $param = array())
     {
         switch ($action) {
-        case self::IMPORT_FILE:
-            $next_step = parent::nextStep($action, $param);
-            if (is_a($next_step, 'PEAR_Error')) {
-                return $next_step;
-            }
-
-            $import_data = $this->importFile($_FILES['import_file']['tmp_name']);
-            if (is_a($import_data, 'PEAR_Error')) {
-                return $import_data;
-            }
-
+        case Horde_Data::IMPORT_FILE:
+            parent::nextStep($action, $param);
+            $this->importFile($_FILES['import_file']['tmp_name']);
             return $this->_iCal->getComponents();
-            break;
-
-        default:
-            return parent::nextStep($action, $param);
-            break;
         }
+
+        return parent::nextStep($action, $param);
     }
 
 }

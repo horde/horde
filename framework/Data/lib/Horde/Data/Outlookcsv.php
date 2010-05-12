@@ -1,34 +1,41 @@
 <?php
-
-require_once 'Horde/Data/csv.php';
-
 /**
  * Horde_Data implementation for Outlook comma-separated data (CSV).
  *
- * @package Horde_Data
+ * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_outlookcsv extends Horde_Data_csv {
-
+class Horde_Data_Outlookcsv extends Horde_Data_Csv
+{
     /**
      * Builds a CSV file from a given data structure and returns it as a
      * string.
      *
-     * @param array   $data       A two-dimensional array containing the data
-     *                            set.
-     * @param boolean $header     If true, the rows of $data are associative
-     *                            arrays with field names as their keys.
+     * @param array $data      A two-dimensional array containing the data
+     *                         set.
+     * @param boolean $header  If true, the rows of $data are associative
+     *                         arrays with field names as their keys.
      *
      * @return string  The CSV data.
      */
-    function exportData($data, $header = false, $export_mapping = array())
+    public function exportData($data, $header = false,
+                               $export_mapping = array())
     {
-        if (!is_array($data) || count($data) == 0) {
+        if (!is_array($data) || (count($data) == 0)) {
             return '';
         }
 
         $export = '';
         $eol = "\r\n";
         $head = array_keys(current($data));
+
         if ($header) {
             foreach ($head as $key) {
                 if (!empty($key)) {

@@ -7,33 +7,33 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_vnote extends Horde_Data_imc {
-
+class Horde_Data_Vnote extends Horde_Data_Imc
+{
     /**
      * Exports vcalendar data as a string. Unlike vEvent, vNote data
      * is not enclosed in BEGIN|END:vCalendar.
      *
-     * @param array $data     An array containing Horde_iCalendar_vnote
+     * @param array $data     An array containing Horde_iCalendar_Vnote
      *                        objects.
      * @param string $method  The iTip method to use.
      *
      * @return string  The iCalendar data.
      */
-    function exportData($data, $method = 'REQUEST')
+    public function exportData($data, $method = 'REQUEST')
     {
-        global $prefs;
-
         $this->_iCal = new Horde_iCalendar();
-
         $this->_iCal->setAttribute('METHOD', $method);
+
         $s = '';
         foreach ($data as $event) {
-            $s.= $event->exportvCalendar();
+            $s. = $event->exportvCalendar();
         }
+
         return $s;
     }
 

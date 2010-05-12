@@ -10,10 +10,9 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
@@ -114,8 +113,7 @@ case 'export':
                 unset($task['delete_link']);
                 $data[] = $task;
             }
-            $csv = Horde_Data::singleton('csv');
-            $csv->exportFile(_("tasks.csv"), $data, true);
+            $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
             exit;
 
         case Horde_Data::EXPORT_ICALENDAR:
@@ -140,15 +138,16 @@ case Horde_Data::IMPORT_FILE:
 }
 
 if (!$error) {
-    $data = Horde_Data::singleton($import_format);
-    if (is_a($data, 'PEAR_Error')) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
+    try {
+        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
-        if (is_a($next_step, 'PEAR_Error')) {
-            $notification->push($next_step->getMessage(), 'horde.error');
+    } catch (Horde_Data_Exception $e) {
+        if ($data) {
+            $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
+        } else {
+            $notification->push(_("This file format is not supported."), 'horde.error');
+            $next_step = Horde_Data::IMPORT_FILE;
         }
     }
 }

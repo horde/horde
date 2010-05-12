@@ -1,78 +1,103 @@
 <?php
 /**
- * Abstract class to handle different kinds of Data formats and to
- * help data exchange between Horde applications and external sources.
+ * Abstract class that Data drivers extend.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data extends PEAR {
-
-// Import constants
-/** Import already mapped csv data.        */ const IMPORT_MAPPED = 1;
-/** Map date and time entries of csv data. */ const IMPORT_DATETIME =  2;
-/** Import generic CSV data.               */ const IMPORT_CSV = 3;
-/** Import MS Outlook data.                */ const IMPORT_OUTLOOK = 4;
-/** Import vCalendar/iCalendar data.       */ const IMPORT_ICALENDAR = 5;
-/** Import vCards.                         */ const IMPORT_VCARD = 6;
-/** Import generic tsv data.               */ const IMPORT_TSV = 7;
-/** Import Mulberry address book data      */ const IMPORT_MULBERRY = 8;
-/** Import Pine address book data.         */ const IMPORT_PINE = 9;
-/** Import file.                           */ const IMPORT_FILE = 11;
-/** Import data.                           */ const IMPORT_DATA = 12;
-
-// Export constants
-/** Export generic CSV data. */ const EXPORT_CSV = 100;
-/** Export iCalendar data.   */ const EXPORT_ICALENDAR = 101;
-/** Export vCards.           */ const EXPORT_VCARD = 102;
-/** Export TSV data.         */ const EXPORT_TSV = 103;
-/** Export Outlook CSV data. */ const EXPORT_OUTLOOKCSV = 104;
+abstract class Horde_Data
+{
+    /**
+     * Browser object.
+     *
+     * @var Horde_Browser
+     */
+    protected $_browser;
 
     /**
      * File extension.
      *
      * @var string
      */
-    var $_extension;
+    protected $_extension = '';
 
     /**
      * MIME content type.
      *
      * @var string
      */
-    var $_contentType = 'text/plain';
+    protected $_contentType = 'text/plain';
+
+    /**
+     * Cleanup callback function.
+     *
+     * @var callback
+     */
+    protected $_cleanupCallback;
+
+    /**
+     * Variables object.
+     *
+     * @var Horde_Variables
+     */
+    protected $_vars;
 
     /**
      * A list of warnings raised during the last operation.
      *
      * @var array
      */
-    var $_warnings = array();
+    protected $_warnings = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'browser' - (Horde_Browser) A Horde_Browser object.
+     * 'cleanup' - (callback) A callback to call at cleanup time.
+     * </pre>
+     *
+     * @throws Horde_Data_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['browser'])) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+        $this->_browser = $params['browser'];
+
+        if (isset($params['cleanup']) &&
+            is_callable($params['cleanup'])) {
+            $this->_cleanupCallback = $params['cleanup'];
+        }
+
+        $this->_vars = isset($params['vars'])
+            ? $params['vars']
+            : Horde_Variables::getDefaultVariables();
+    }
 
     /**
      * Stub to import passed data.
      */
-    function importData()
-    {
-    }
+    abstract public function importData();
 
     /**
      * Stub to return exported data.
      */
-    function exportData()
-    {
-    }
+    abstract public function exportData();
 
     /**
      * Stub to import a file.
      */
-    function importFile($filename, $header = false)
+    public function importFile($filename, $header = false)
     {
         $data = file_get_contents($filename);
         return $this->importData($data, $header);
@@ -81,9 +106,7 @@ class Horde_Data extends PEAR {
     /**
      * Stub to export data to a file.
      */
-    function exportFile()
-    {
-    }
+    abstract public function exportFile();
 
     /**
      * Tries to determine the expected newline character based on the
@@ -92,9 +115,9 @@ class Horde_Data extends PEAR {
      * @return string  The guessed expected newline characters, either \n, \r
      *                 or \r\n.
      */
-    function getNewline()
+    public function getNewline()
     {
-        switch ($GLOBALS['browser']->getPlatform()) {
+        switch ($this->_browser->getPlatform()) {
         case 'win':
             return "\r\n";
 
@@ -114,7 +137,7 @@ class Horde_Data extends PEAR {
      *
      * @return string  The file name.
      */
-    function getFilename($basename)
+    public function getFilename($basename)
     {
         return $basename . '.' . $this->_extension;
     }
@@ -124,7 +147,7 @@ class Horde_Data extends PEAR {
      *
      * @return string  The content type.
      */
-    function getContentType()
+    public function getContentType()
     {
         return $this->_contentType;
     }
@@ -135,85 +158,13 @@ class Horde_Data extends PEAR {
      *
      * @return array  A (possibly empty) list of warnings.
      */
-    function warnings()
+    public function warnings()
     {
         return $this->_warnings;
     }
 
     /**
-     * Attempts to return a concrete Horde_Data instance based on $format.
-     *
-     * @param mixed $format  The type of concrete Horde_Data subclass to
-     *                       return. If $format is an array, then we will look
-     *                       in $format[0]/lib/Data/ for the subclass
-     *                       implementation named $format[1].php.
-     *
-     * @return Horde_Data  The newly created concrete Horde_Data instance, or
-     *                     false on an error.
-     */
-    function &factory($format)
-    {
-        if (is_array($format)) {
-            $app = $format[0];
-            $format = $format[1];
-        }
-
-        $format = basename($format);
-
-        if (empty($format) || (strcmp($format, 'none') == 0)) {
-            $data = new Horde_Data();
-            return $data;
-        }
-
-        if (!empty($app)) {
-            require_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Data/' . $format . '.php';
-        } else {
-            require_once 'Horde/Data/' . $format . '.php';
-        }
-        $class = 'Horde_Data_' . $format;
-        if (class_exists($class)) {
-            $data = new $class();
-        } else {
-            $data = PEAR::raiseError('Class definition of ' . $class . ' not found.');
-        }
-
-        return $data;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Horde_Data instance
-     * based on $format. It will only create a new instance if no Horde_Data
-     * instance with the same parameters currently exists.
-     *
-     * This should be used if multiple data sources (and, thus, multiple
-     * Horde_Data instances) are required.
-     *
-     * This method must be invoked as: $var = &Horde_Data::singleton()
-     *
-     * @param string $format  The type of concrete Horde_Data subclass to
-     *                        return.
-     *
-     * @return Horde_Data  The concrete Horde_Data reference, or false on an
-     *                     error.
-     */
-    function &singleton($format)
-    {
-        static $instances = array();
-
-        $signature = serialize($format);
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Horde_Data::factory($format);
-        }
-
-        return $instances[$signature];
-    }
-
-    /**
      * Maps a date/time string to an associative array.
-     *
-     * The method signature has changed in Horde 3.1.3.
-     *
-     * @access private
      *
      * @param string $date   The date.
      * @param string $type   One of 'date', 'time' or 'datetime'.
@@ -230,7 +181,7 @@ class Horde_Data extends PEAR {
      *
      * @return string  The date or time in ISO format.
      */
-    function mapDate($date, $type, $params, $key)
+    protected function _mapDate($date, $type, $params, $key)
     {
         switch ($type) {
         case 'date':
@@ -296,40 +247,36 @@ class Horde_Data extends PEAR {
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
+     * @throws Horde_Data_Exception
      */
-    function nextStep($action, $param = array())
+    public function nextStep($action, $param = array())
     {
         /* First step. */
         if (is_null($action)) {
             $_SESSION['import_data'] = array();
-            return self::IMPORT_FILE;
+            return Horde_Data::IMPORT_FILE;
         }
 
         switch ($action) {
-        case self::IMPORT_FILE:
+        case Horde_Data::IMPORT_FILE:
             /* Sanitize uploaded file. */
-            $import_format = Horde_Util::getFormData('import_format');
             try {
-                $GLOBALS['browser']->wasFileUploaded('import_file', $param['file_types'][$import_format]);
+                $this->_browser->wasFileUploaded('import_file', $param['file_types'][$this->_vars->import_format]);
             } catch (Horde_Exception $e) {
-                PEAR::raiseError($e->getMessage());
+                throw new Horde_Data_Exception($e);
             }
             if ($_FILES['import_file']['size'] <= 0) {
                 return PEAR::raiseError(_("The file contained no data."));
             }
-            $_SESSION['import_data']['format'] = $import_format;
+            $_SESSION['import_data']['format'] = $this->_vars->import_format;
             break;
 
-        case self::IMPORT_MAPPED:
-            $dataKeys = Horde_Util::getFormData('dataKeys', '');
-            $appKeys = Horde_Util::getFormData('appKeys', '');
-            if (empty($dataKeys) || empty($appKeys)) {
-                global $registry;
-                return PEAR::raiseError(sprintf(_("You didn't map any fields from the imported file to the corresponding fields in %s."),
-                                                $registry->get('name')));
+        case Horde_Data::IMPORT_MAPPED:
+            if (!$this->_vars->dataKeys || !$this->_vars->appKeys) {
+                throw new Horde_Data_Exception('You didn\'t map any fields from the imported file to the corresponding fields.');
             }
-            $dataKeys = explode("\t", $dataKeys);
-            $appKeys = explode("\t", $appKeys);
+            $dataKeys = explode("\t", $this->_vars->dataKeys);
+            $appKeys = explode("\t", $this->_vars->appKeys);
             $map = array();
             $dates = array();
             foreach ($appKeys as $key => $app) {
@@ -353,26 +300,30 @@ class Horde_Data extends PEAR {
                 foreach ($dates as $key => $data) {
                     if (count($data['values'])) {
                         $_SESSION['import_data']['dates'] = $dates;
-                        return self::IMPORT_DATETIME;
+                        return Horde_Data::IMPORT_DATETIME;
                     }
                 }
             }
-            return $this->nextStep(self::IMPORT_DATA, $param);
+            return $this->nextStep(Horde_Data::IMPORT_DATA, $param);
 
-        case self::IMPORT_DATETIME:
-        case self::IMPORT_DATA:
-            if ($action == self::IMPORT_DATETIME) {
-                $params = array('delimiter' => Horde_Util::getFormData('delimiter'),
-                                'format' => Horde_Util::getFormData('format'),
-                                'order' => Horde_Util::getFormData('order'),
-                                'day_delimiter' => Horde_Util::getFormData('day_delimiter'),
-                                'day_format' => Horde_Util::getFormData('day_format'),
-                                'time_delimiter' => Horde_Util::getFormData('time_delimiter'),
-                                'time_format' => Horde_Util::getFormData('time_format'));
+        case Horde_Data::IMPORT_DATETIME:
+        case Horde_Data::IMPORT_DATA:
+            if ($action == Horde_Data::IMPORT_DATETIME) {
+                $params = array(
+                    'delimiter' => $this->_vars->delimiter,
+                    'format' => $this->_vars->format,
+                    'order' => $this->_vars->order,
+                    'day_delimiter' => $this->_vars->day_delimiter,
+                    'day_format' => $this->_vars->day_format,
+                    'time_delimiter' => $this->_vars->time_delimiter,
+                    'time_format' => $this->_vars->time_format
+                );
             }
+
             if (!isset($_SESSION['import_data']['data'])) {
-                return PEAR::raiseError(_("The uploaded data was lost since the previous step."));
+                throw new Horde_Data_Exception('The uploaded data was lost since the previous step.');
             }
+
             /* Build the result data set as an associative array. */
             $data = array();
             foreach ($_SESSION['import_data']['data'] as $row) {
@@ -380,7 +331,7 @@ class Horde_Data extends PEAR {
                 foreach ($row as $key => $val) {
                     if (isset($_SESSION['import_data']['map'][$key])) {
                         $mapped_key = $_SESSION['import_data']['map'][$key];
-                        if ($action == self::IMPORT_DATETIME &&
+                        if ($action == Horde_Data::IMPORT_DATETIME &&
                             !empty($val) &&
                             isset($param['time_fields']) &&
                             isset($param['time_fields'][$mapped_key])) {
@@ -397,20 +348,20 @@ class Horde_Data extends PEAR {
 
     /**
      * Cleans the session data up and removes any uploaded and moved
-     * files. If a function called "_cleanup()" exists, this gets
-     * called too.
+     * files.
      *
-     * @return mixed  If _cleanup() was called, the return value of this call.
+     * @return mixed  If callback called, the return value of this call.
      *                This should be the value of the first import step.
      */
-    function cleanup()
+    public function cleanup()
     {
         if (isset($_SESSION['import_data']['file_name'])) {
             @unlink($_SESSION['import_data']['file_name']);
         }
         $_SESSION['import_data'] = array();
-        if (function_exists('_cleanup')) {
-            return _cleanup();
+
+        if ($this->_cleanupCallback) {
+            return call_user_func($this->_cleanupCallback);
         }
     }
 

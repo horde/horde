@@ -7,14 +7,26 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Data
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
  */
-class Horde_Data_tsv extends Horde_Data {
+class Horde_Data_Tsv extends Horde_Data_Driver
+{
+    /**
+     * File extension.
+     *
+     * @var string
+     */
+    protected $_extension = 'tsv';
 
-    var $_extension = 'tsv';
-    var $_contentType = 'text/tab-separated-values';
+    /**
+     * MIME content type.
+     *
+     * @var string
+     */
+    protected $_contentType = 'text/tab-separated-values';
 
     /**
      * Convert data file contents to list of data records.
@@ -25,16 +37,18 @@ class Horde_Data_tsv extends Horde_Data {
      *
      * @return array  List of data records.
      */
-    function importData($contents, $header = false, $delimiter = "\t")
+    public function importData($contents, $header = false, $delimiter = "\t")
     {
         if ($_SESSION['import_data']['format'] == 'pine') {
             $contents = preg_replace('/\n +/', '', $contents);
         }
+
         $contents = explode("\n", $contents);
         $data = array();
         if ($header) {
             $head = explode($delimiter, array_shift($contents));
         }
+
         foreach ($contents as $line) {
             if (trim($line) == '') {
                 continue;
@@ -50,6 +64,7 @@ class Horde_Data_tsv extends Horde_Data {
                 $data[] = $newline;
             }
         }
+
         return $data;
     }
 
@@ -63,7 +78,7 @@ class Horde_Data_tsv extends Horde_Data {
      *
      * @return string  The TSV data.
      */
-    function exportData($data, $header = false)
+    public function exportData($data, $header = false)
     {
         if (!is_array($data) || count($data) == 0) {
             return '';
@@ -83,6 +98,7 @@ class Horde_Data_tsv extends Horde_Data {
             }
             $export = substr($export, 0, -1) . "\n";
         }
+
         return $export;
     }
 
@@ -97,10 +113,10 @@ class Horde_Data_tsv extends Horde_Data {
      * @param boolean $header   If true, the rows of $data are associative
      *                          arrays with field names as their keys.
      */
-    function exportFile($filename, $data, $header = false)
+    public function exportFile($filename, $data, $header = false)
     {
         $export = $this->exportData($data, $header);
-        $GLOBALS['browser']->downloadHeaders($filename, 'text/tab-separated-values', false, strlen($export));
+        $this->_browser->downloadHeaders($filename, 'text/tab-separated-values', false, strlen($export));
         echo $export;
     }
 
@@ -114,15 +130,13 @@ class Horde_Data_tsv extends Horde_Data {
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
+     * @throws Horde_Data_Exception
      */
-    function nextStep($action, $param = array())
+    public function nextStep($action, $param = array())
     {
         switch ($action) {
-        case self::IMPORT_FILE:
-            $next_step = parent::nextStep($action, $param);
-            if (is_a($next_step, 'PEAR_Error')) {
-                return $next_step;
-            }
+        case Horde_Data::IMPORT_FILE:
+            parent::nextStep($action, $param);
 
             if ($_SESSION['import_data']['format'] == 'mulberry' ||
                 $_SESSION['import_data']['format'] == 'pine') {
@@ -179,20 +193,20 @@ class Horde_Data_tsv extends Horde_Data {
                 }
                 $_SESSION['import_data']['data'] = $data;
                 $_SESSION['import_data']['map'] = $map;
-                $ret = $this->nextStep(self::IMPORT_DATA, $param);
+                $ret = $this->nextStep(Horde_Data::IMPORT_DATA, $param);
                 return $ret;
             }
 
             /* Move uploaded file so that we can read it again in the next step
                after the user gave some format details. */
             try {
-                $GLOBALS['browser']->wasFileUploaded('import_file', _("TSV file"));
+                $this->_browser->wasFileUploaded('import_file', _("TSV file"));
             } catch (Horde_Browser_Exception $e) {
-                return PEAR::raiseError($e->getMessage());
+                throw new Horde_Data_Exception($e);
             }
-            $file_name = Horde::getTempFile('import', false);
+            $file_name = Horde_Util::getTempFile('import', false);
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
-                return PEAR::raiseError(_("The uploaded file could not be saved."));
+                throw new Horde_Data_Exception('The uploaded file could not be saved.');
             }
             $_SESSION['import_data']['file_name'] = $file_name;
 
@@ -207,22 +221,18 @@ class Horde_Data_tsv extends Horde_Data {
                     $line_no++;
                 }
             }
-            return self::IMPORT_TSV;
-            break;
+            return Horde_Data::IMPORT_TSV;
 
-        case self::IMPORT_TSV:
-            $_SESSION['import_data']['header'] = Horde_Util::getFormData('header');
+        case Horde_Data::IMPORT_TSV:
+            $_SESSION['import_data']['header'] = $this->_vars->header;
             $import_data = $this->importFile($_SESSION['import_data']['file_name'],
                                              $_SESSION['import_data']['header']);
             $_SESSION['import_data']['data'] = $import_data;
             unset($_SESSION['import_data']['map']);
-            return self::IMPORT_MAPPED;
-            break;
-
-        default:
-            return parent::nextStep($action, $param);
-            break;
+            return Horde_Data::IMPORT_MAPPED;
         }
+
+        return parent::nextStep($action, $param);
     }
 
 }
