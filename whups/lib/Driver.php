@@ -453,14 +453,15 @@ class Whups_Driver {
             try {
                 $addr_arr = Horde_Mime_Address::parseAddressList($to);
                 if (isset($addr_arr[0])) {
-                $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
-                if (!empty($seen_email_addresses[$bare_address])) {
-                    continue;
-                }
-                $seen_email_addresses[$bare_address] = true;
-
-                if (empty($full_name) && isset($addr_arr[0]['personal'])) {
-                    $full_name = $addr_arr[0]['personal'];
+                    $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
+                    if (!empty($seen_email_addresses[$bare_address])) {
+                        continue;
+                    }
+                    $seen_email_addresses[$bare_address] = true;
+                    
+                    if (empty($full_name) && isset($addr_arr[0]['personal'])) {
+                        $full_name = $addr_arr[0]['personal'];
+                    }
                 }
             } catch (Horde_Mime_Exception $e) {}
 
