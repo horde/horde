@@ -844,7 +844,7 @@ class Horde_Test
         $ret .= '<h1>Local File Permissions</h1><ul>' .
             '<li>Is <tt>' . htmlspecialchars(HORDE_BASE) . '/static</tt> writable by the web server user? ';
         $ret .= is_writable(HORDE_BASE . '/static')
-            ? 'Yes'
+            ? '<strong style="color:green">Yes</strong>'
             : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
         return $ret . '</li></ul>';
     }
