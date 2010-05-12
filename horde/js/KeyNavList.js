@@ -47,12 +47,18 @@ var KeyNavList = Class.create({
             onChoose: Prototype.emptyFunction,
             onHide: Prototype.emptyFunction,
             onShow: Prototype.emptyFunction,
-            domParent: document.body,
+            domParent: null,
             keydownObserver: document
         }, opts || {});
 
         this.div = new Element('DIV', { className: 'KeyNavList' }).hide().insert(new Element('UL'));
-        this.opts.domParent.appendChild(this.div);
+
+        if (!this.opts.domParent) {
+            this.opts.domParent = document.body;
+        }
+        this.opts.domParent = $(this.opts.domParent);
+
+        this.opts.domParent.insert(this.div);
 
         if (this.opts.list) {
             this.update(this.opts.list);
