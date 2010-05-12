@@ -156,20 +156,23 @@ var KeyNavList = Class.create({
     _sizeDiv: function()
     {
         var divL = this.div.getLayout(),
-            dl = divL.get('left'), dt = divL.get('top'),
+            dl = divL.get('left'),
+            dt = divL.get('top'),
             off = this.opts.domParent.cumulativeOffset(),
             v = document.viewport.getDimensions();
-
-        if ((divL.get('border-box-width') + dl + off.left + 10) > v.width) {
-            dl = (v.width - this.div.scrollWidth - off.left - 10);
-            this.div.setStyle({ left: dl + 'px' });
-        }
 
         if ((divL.get('border-box-height') + dt + off.top + 10) > v.height) {
             this.div.setStyle({
                 height: (v.height - dt - off.top - 10) + 'px',
-                width: (this.div.scrollWidth + 10) + 'px'
+                width: (this.div.scrollWidth + 5) + 'px'
             });
+        }
+
+        /* Need to do width second - horizontal scrolling might add scroll
+         * bar. */
+        if ((divL.get('border-box-width') + dl + off.left + 5) > v.width) {
+            dl = (v.width - divL.get('border-box-width') - off.left - 5);
+            this.div.setStyle({ left: dl + 'px' });
         }
 
         if (this.iefix) {
