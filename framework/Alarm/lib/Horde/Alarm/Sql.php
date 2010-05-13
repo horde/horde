@@ -55,11 +55,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
         }
         $this->_db = $params['db'];
 
-        if (isset($params['write_db'])) {
-            $this->_write_db = $params['write_db'];
-        } else {
-            $this->_write_db = $this->_db;
-        }
+        $this->_write_db = isset($params['write_db'])
+            ? $params['write_db']
+            : $this->_db;
 
         unset($params['db'], $params['write_db']);
 

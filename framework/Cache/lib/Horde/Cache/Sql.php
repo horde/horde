@@ -74,9 +74,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         }
         $this->_db = $params['db'];
 
-        if (isset($params['write_db'])) {
-            $this->_write_db = $params['write_db'];
-        }
+        $this->_write_db = isset($params['write_db'])
+            ? $params['write_db']
+            : $this->_db;
 
         if (isset($params['use_memorycache'])) {
             $this->_mc = $params['use_memorycache'];

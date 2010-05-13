@@ -71,9 +71,9 @@ class Horde_Perms_Sql extends Horde_Perms
         }
         $this->_db = $params['db'];
 
-        if (isset($params['write_db'])) {
-            $this->_write_db = $params['write_db'];
-        }
+        $this->_write_db = isset($params['write_db'])
+            ? $params['write_db']
+            : $this->_db;
 
         unset($params['db'], $params['write_db']);
 

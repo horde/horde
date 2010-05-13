@@ -53,6 +53,10 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         }
         $this->_db = $params['db'];
 
+        $this->_write_db = isset($params['write_db'])
+            ? $params['write_db']
+            : $this->_db;
+
         if (isset($params['write_db'])) {
             $this->_write_db = $params['write_db'];
         }
@@ -79,7 +83,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         $this->_db->autoCommit(true);
         @$this->_db->disconnect();
 
-        if ($this->_write_db) {
+        if ($this->_db != $this->_write_db) {
             $this->_write_db->commit();
             $this->_write_db->autoCommit(true);
             @$this->_write_db->disconnect();
