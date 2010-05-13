@@ -732,14 +732,14 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      *         string).
      * </pre>
      *
-     * @return mixed  False on failure, or an object (see
-     *                _generateDeleteResult() for format).
+     * @return mixed  If messages were deleted, data as returned by
+     *                _generateDeleteResult(). Else, true.
      */
     public function reportSpam()
     {
         $change = $this->_changed(false);
         $indices = new IMP_Indices($this->_vars->uid);
-        $result = false;
+        $result = true;
 
         if (IMP_Spam::reportSpam($indices, $this->_vars->spam ? 'spam' : 'notspam')) {
             $result = $this->_generateDeleteResult($indices, $change);
