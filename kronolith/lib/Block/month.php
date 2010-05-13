@@ -28,6 +28,15 @@ class Horde_Block_Kronolith_month extends Horde_Block {
             $params['calendar']['values'][$id] = $cal->get('name');
         }
 
+        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
+            if (count($categories)) {
+                $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
+                $externals[$app] = array();
+                foreach ($categories as $id => $name) {
+                    $params['calendar']['values'][$api . '/' . $id] = $name;
+                }
+            }
+        }
         return $params;
     }
 
@@ -42,11 +51,16 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&
             $this->_params['calendar'] != '__all') {
-            try {
-                $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-                $url->add('display_cal', $this->_params['calendar']);
-                $title = htmlspecialchars($this->_share->get('name'));
-            } catch (Exception $e) {
+            if (strpos($this->_params['calendar'], '/') !== false) {
+                list($api, $c) = split('/', $this->_params['calendar']);
+                $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
+                $title = htmlspecialchars($app . ' ' . $c);
+            } else {
+                try {
+                    $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
+                    $url->add('display_cal', $this->_params['calendar']);
+                    $title = htmlspecialchars($this->_share->get('name'));
+                } catch (Exception $e) {}
             }
         }
         $date = new Horde_Date(time());
@@ -63,7 +77,8 @@ class Horde_Block_Kronolith_month extends Horde_Block {
     {
         global $prefs;
 
-        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
+        if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all' &&
+            strpos($this->_params['calendar'], '/') === false) {
             if (empty($this->_share)) {
                 try {
                     $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
@@ -129,7 +144,16 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         try {
             if (isset($this->_params['calendar']) &&
                 $this->_params['calendar'] != '__all') {
-                $all_events = Kronolith::listEvents($startDate,$endDate, array($this->_params['calendar']), true, false, false);
+
+                if (strpos($this->_params['calendar'], '/') !== false) {
+                    /* listTimeObjects */
+                    $driver = Kronolith::getDriver('Horde');
+                    $driver->open($this->_params['calendar']);
+                    $all_events = $driver->listEvents($startDate, $endDate, true, false, false, true);
+                } else {
+                    $all_events = Kronolith::listEvents($startDate,$endDate, array($this->_params['calendar']), true, false, false);
+                }
+
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }

@@ -36,6 +36,15 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
             $params['calendar']['values'][$id] = $cal->get('name');
         }
 
+        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
+            if (count($categories)) {
+                $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
+                $externals[$app] = array();
+                foreach ($categories as $id => $name) {
+                    $params['calendar']['values'][$api . '/' . $id] = $name;
+                }
+            }
+        }
         return $params;
     }
 
@@ -75,14 +84,21 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
         try {
             if (isset($this->_params['calendar']) &&
                 $this->_params['calendar'] != '__all') {
-                try {
-                    $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-                    if (!$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
-                        return _("Permission Denied");
-                    }
-                } catch (Exception $e) {
+
+                if (strpos($this->_params['calendar'], '/') !== false) {
+                    /* listTimeObjects */
+                    $driver = Kronolith::getDriver('Horde');
+                    $driver->open($this->_params['calendar']);
+                    $all_events = $driver->listEvents($startDate, $endDate, true, false, false, true);
+                } else {
+                    try {
+                        $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
+                        if (!$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+                            return _("Permission Denied");
+                        }
+                    } catch (Exception $e) {}
+                    $all_events = Kronolith::listEvents($startDate, $endDate, array($this->_params['calendar']), true, false, false);
                 }
-                $all_events = Kronolith::listEvents($startDate, $endDate, array($this->_params['calendar']), true, false, false);
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }
