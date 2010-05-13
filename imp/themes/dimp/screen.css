@@ -1046,6 +1046,9 @@ span.readonlyImg {
 #Growler div.imp-reply, span.imp-reply {
     background-image: url("../graphics/mail_answered.png");
 }
+#Growler div.imp-reply_all, span.imp-reply_all {
+    background-image: url("../graphics/replyall.png");
+}
 #Growler div.imp-forward, div.imp-redirect, span.imp-forward, span.imp-redirect {
     background-image: url("../graphics/mail_forwarded.png");
 }
