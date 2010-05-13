@@ -1723,8 +1723,9 @@ abstract class Kronolith_Event
      * @return string  List of exception dates and delete links.
      */
     public function exceptionsList()
-    {
-        return implode(', ', array_map(array($this, 'exceptionLink'), $this->recurrence->getExceptions()));
+    {   $exceptions = $this->recurrence->getExceptions();
+        asort($exceptions);
+        return implode(', ', array_map(array($this, 'exceptionLink'), $exceptions));
     }
 
     /**
