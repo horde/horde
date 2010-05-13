@@ -15,8 +15,8 @@ var frames = { horde_main: true },
 /* Kronolith object. */
 KronolithCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, Growler, inAjaxCallback, is_logout,
-    //   daySizes, viewLoading, groupLoading, freeBusy, colorPicker, duration
+    //   DMenu, Growler, inAjaxCallback, is_logout, weekSizes, daySizes,
+    //   viewLoading, groupLoading, freeBusy, colorPicker, duration, timeMarker
 
     view: '',
     ecache: $H(),
@@ -321,6 +321,10 @@ KronolithCore = {
                             afterFinish: function() {
                                 if (loc == 'week' || loc == 'day') {
                                     this.calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
+                                    if ($('kronolithTimeMarker')) {
+                                        this.positionTimeMarker();
+                                        $('kronolithTimeMarker').show();
+                                    }
                                 }
                                 this.viewLoading = false; }.bind(this)
                     });
@@ -531,6 +535,7 @@ KronolithCore = {
 
         switch (view) {
         case 'day':
+            var today = Date.today();
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
@@ -541,6 +546,9 @@ KronolithCore = {
                 .down('.kronolithAllDayContainer')
                 .store('date', date.dateString());
             $('kronolithEventsDay').store('date', date.dateString());
+            if (date.equals(today)) {
+                this.addTimeMarker('kronolithEventsDay');
+            }
             break;
 
         case 'week':
@@ -553,7 +561,7 @@ KronolithCore = {
                 hourRow = $('kronolithViewWeekBody').down('tr'),
                 dates = this.viewDates(date, view),
                 today = Date.today(),
-                day, i, hourCol;
+                day, dateString, i, hourCol;
 
             $('kronolithViewWeek')
                 .down('caption span')
@@ -574,16 +582,18 @@ KronolithCore = {
             }
             day = dates[0].clone();
             for (i = 0; i < 7; i++) {
-                div.store('date', day.dateString())
-                    .writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
-                th.store('date', day.dateString())
+                dateString = day.dateString();
+                div.store('date', dateString)
+                    .writeAttribute('id', 'kronolithEventsWeek' + dateString);
+                th.store('date', dateString)
                     .down('span').update(day.toString('dddd, d'));
                 td.removeClassName('kronolithToday')
                     .down('div')
-                    .writeAttribute('id', 'kronolithAllDay' + day.dateString())
-                    .store('date', day.dateString());
+                    .writeAttribute('id', 'kronolithAllDay' + dateString)
+                    .store('date', dateString);
                 if (day.equals(today)) {
                     td.addClassName('kronolithToday');
+                    this.addTimeMarker('kronolithEventsWeek' + dateString);
                 }
                 div = div.next('div');
                 th = th.next('td');
@@ -834,6 +844,59 @@ KronolithCore = {
         this[storage] = {};
         this[storage].height = layout.get('margin-box-height') + spacing;
         this[storage].spacing = this[storage].height - layout.get('padding-box-height');
+    },
+
+    /**
+     * Adds a horizontal ruler representing the current time to the specified
+     * container.
+     *
+     * @param string|Element  The container of the current day.
+     */
+    addTimeMarker: function(container)
+    {
+        if ($('kronolithTimeMarker')) {
+            $('kronolithTimeMarker').remove();
+            this.timeMarker.stop();
+        }
+        $(container).insert(new Element('div', { id: 'kronolithTimeMarker' }).setStyle({ position: 'absolute' }).hide());
+        this.timeMarker = new PeriodicalExecuter(this.positionTimeMarker.bind(this), 60);
+    },
+
+    /**
+     * Updates the horizontal ruler representing the current time.
+     */
+    positionTimeMarker: function()
+    {
+        var today = Date.today(), now;
+
+        switch (this.view) {
+        case 'day':
+            if (!this.date.equals(today)) {
+                $('kronolithTimeMarker').remove();
+                this.timeMarker.stop();
+                return;
+            }
+            break;
+        case 'week':
+            if ($('kronolithTimeMarker').up().retrieve('date') != today.dateString()) {
+                var newContainer = $('kronolithEventsWeek' + today.dateString());
+                $('kronolithTimeMarker').remove();
+                if (newContainer) {
+                    this.addTimeMarker(newContainer);
+                } else {
+                    this.timeMarker.stop();
+                }
+                return;
+            }
+            break;
+        default:
+            $('kronolithTimeMarker').remove();
+            this.timeMarker.stop();
+            return;
+        }
+
+        now = new Date();
+        $('kronolithTimeMarker').setStyle({ top: ((now.getHours() * 60 + now.getMinutes()) * this[this.view + 'Sizes'].height / 60 | 0) + 'px' });
     },
 
     /**
