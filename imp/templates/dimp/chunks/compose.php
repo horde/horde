@@ -13,7 +13,7 @@
  */
 
 $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
-$encrypt_list = (($GLOBALS['prefs']->isLocked('default_encrypt')) && ($GLOBALS['prefs']->getValue('use_pgp') || $GLOBALS['prefs']->getValue('use_smime')));
+$encrypt_list = (!$GLOBALS['prefs']->isLocked('default_encrypt') && ($GLOBALS['prefs']->getValue('use_pgp') || $GLOBALS['prefs']->getValue('use_smime')));
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
 /* Determine if compose mode is disabled. */
