@@ -14,50 +14,31 @@
  * @category Horde
  * @package  Cache
  */
-interface Horde_Cache
+class Horde_Cache
 {
     /**
-     * Attempts to retrieve a cached object and return it to the
-     * caller.
+     * Attempts to return a concrete instance based on $driver.
      *
-     * @param string $key        Object ID to query.
-     * @param integer $lifetime  Lifetime of the object in seconds.
+     * @param string $driver  The type of concrete subclass to
+     *                        return. The class name is based on the storage
+     *                        driver ($driver). The code is dynamically
+     *                        included.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
      *
-     * @return mixed  Cached data, or false if none was found.
+     * @return Horde_Cache_Base  The newly created concrete instance.
+     * @throws Horde_Cache_Exception
      */
-    public function get($key, $lifetime = 1);
+    static public function factory($driver, array $params = array())
+    {
+        $driver = ucfirst(basename($driver));
+        $class = __CLASS__ . '_' . $driver;
 
-    /**
-     * Attempts to store an object in the cache.
-     *
-     * @param string $key        Object ID used as the caching key.
-     * @param mixed $data        Data to store in the cache.
-     * @param integer $lifetime  Object lifetime - i.e. the time before the
-     *                           data becomes available for garbage
-     *                           collection.  If null use the default Horde GC
-     *                           time.  If 0 will not be GC'd.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    public function set($key, $data, $lifetime = null);
+        if (!class_exists($class)) {
+            $class = __CLASS__ . '_Null';
+        }
 
-    /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
-     */
-    public function exists($key, $lifetime = 1);
+        return new $class($params);
+    }
 
-    /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
-     */
-    public function expire($key);
 }

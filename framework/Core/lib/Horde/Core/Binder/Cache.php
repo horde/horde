@@ -43,12 +43,7 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
-        $class = 'Horde_Cache_' . ucfirst(basename($driver));
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        return Horde_Cache::factory($driver, $params);
     }
 
     public function equals(Horde_Injector_Binder $binder)

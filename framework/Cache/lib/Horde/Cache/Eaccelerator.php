@@ -18,12 +18,12 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
       * Construct a new Horde_Cache object.
       *
       * @param array $params  Parameter array.
-      * @throws Horde_Exception
+      * @throws Horde_Cache_Exception
       */
     public function __construct($params = array())
     {
         if (!function_exists('eaccelerator_gc')) {
-            throw new Horde_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
+            throw new Horde_Cache_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
         }
 
         parent::__construct($params);

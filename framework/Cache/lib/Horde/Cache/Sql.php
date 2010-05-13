@@ -65,12 +65,12 @@ class Horde_Cache_Sql extends Horde_Cache_Base
      * 'write_db' - (DB) The write DB instance.
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws Horde_Cache_Exception
      */
     public function __construct($params = array())
     {
         if (!isset($params['db'])) {
-            throw new Horde_Exception('Missing db parameter.');
+            throw new Horde_Cache_Exception('Missing db parameter.');
         }
         $this->_db = $params['db'];
 

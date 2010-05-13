@@ -19,7 +19,7 @@ class Horde_Cache_Xcache extends Horde_Cache_Base
      *
      * @param array $params  Configuration parameters:
      * <pre>
-     * 'prefix' - (string) TODO
+     * 'prefix' - (string) Key prefix.
      * </pre>
      */
     public function __construct($params = array())

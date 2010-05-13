@@ -3,12 +3,6 @@
  * The Horde_Cache_File:: class provides a filesystem implementation of the
  * Horde caching system.
  *
- * Optional parameters:<pre>
- *   'dir'     The base directory to store the cache files in.
- *   'prefix'  The filename prefix to use for the cache files.
- *   'sub'     An integer. If non-zero, the number of subdirectories to
- *             create to store the file (i.e. PHP's session.save_path).</pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -52,21 +46,29 @@ class Horde_Cache_File extends Horde_Cache_Base
     /**
      * Construct a new Horde_Cache_File object.
      *
-     * @param array $params  Parameter array.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'dir' - (string) The base directory to store the cache files in.
+     *         DEFAULT: System default
+     * 'prefix' - (string) The filename prefix to use for the cache files.
+     *            DEFAULT: 'cache_'
+     * 'sub' - (integer) If non-zero, the number of subdirectories to create
+     *         to store the file (i.e. PHP's session.save_path).
+     *         DEFAULT: 0
+     * </pre>
      */
     public function __construct($params = array())
     {
-        if (!empty($params['dir']) && @is_dir($params['dir'])) {
-            $this->_dir = $params['dir'];
-        } else {
-            $this->_dir = Horde_Util::getTempDir();
+        $this->_dir = (!empty($params['dir']) && @is_dir($params['dir']))
+            ? $params['dir']
+            : Horde_Util::getTempDir();
+
+        if (isset($params['prefix'])) {
+            $this->_prefix = $params['prefix'];
         }
 
-        foreach (array('prefix', 'sub') as $val) {
-            if (isset($params[$val])) {
-                $name = '_' . $val;
-                $this->$name = $params[$val];
-            }
+        if (isset($params['sub'])) {
+            $this->_prefix = intval($params['sub']);
         }
 
         parent::__construct($params);
@@ -104,7 +106,7 @@ class Horde_Cache_File extends Horde_Cache_Base
 
         try {
             $this->_gcDir($this->_dir, $excepts);
-        } catch (Horde_Exception $e) {}
+        } catch (Horde_Cache_Exception $e) {}
 
         $out = '';
         foreach ($excepts as $key => $val) {
@@ -277,13 +279,13 @@ class Horde_Cache_File extends Horde_Cache_Base
     /**
      * TODO
      *
-     * @throws Horde_Exception
+     * @throws Horde_Cache_Exception
      */
     protected function _gcDir($dir, &$excepts)
     {
         $d = @dir($dir);
         if (!$d) {
-            throw new Horde_Exception('Permission denied to ' . $dir);
+            throw new Horde_Cache_Exception('Permission denied to ' . $dir);
         }
 
         $c_time = time();
