@@ -3,31 +3,6 @@
  * Horde_SessionHandler implementation for PHP's PEAR database abstraction
  * layer.
  *
- * Required parameters:<pre>
- *   'phptype'  - (string) The database type (e.g. 'pgsql', 'mysql', etc.).
- *   'hostspec' - (string) The hostname of the database server.
- *   'protocol' - (string) The communication protocol ('tcp', 'unix', etc.).
- *   'username' - (string) The username with which to connect to the database.
- *   'password' - (string) The password associated with 'username'.
- *   'database' - (string) The name of the database.
- *   'options'  - (array) Additional options to pass to the database.
- *   'tty'      - (string) The TTY on which to connect to the database.
- *   'port'     - (integer) The port on which to connect to the database.
- * </pre>
- *
- * Optional parameters:<pre>
- *   'table'      - (string) The name of the sessiondata table in 'database'.
- *   'persistent' - (boolean) Use persistent DB connections?
- * </pre>
- *
- * Optional values when using separate reading and writing servers, for example
- * in replication settings:<pre>
- *   'splitread' - (boolean) Whether to implement the separation or not.
- *   'read'      - (array) Array containing the parameters which are
- *                 different for the writer database connection, currently
- *                 supports only 'hostspec' and 'port' parameters.
- * </pre>
- *
  * The table structure can be found in:
  *   horde/scripts/sql/horde_sessionhandler.sql.
  *
@@ -57,57 +32,39 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     protected $_write_db;
 
     /**
-     * Attempts to open a connection to the SQL server.
+     * Constructor.
      *
-     * @param string $save_path     The path to the session object.
-     * @param string $session_name  The name of the session.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'persistent' - (boolean) Use persistent DB connections?
+     *                DEFAULT: false
+     * 'table' - (string) The name of the tokens table in 'database'.
+     *           DEFAULT: 'horde_tokens'
+     * 'write_db' - (DB) The write DB instance.
+     * </pre>
      *
      * @throws Horde_Exception
      */
-    protected function _open($save_path = null, $session_name = null)
+    public function __construct($params = array())
     {
-        Horde::assertDriverConfig($this->_params, 'sessionhandler',
-                                  array('phptype'),
-                                  'session handler SQL');
+        if (!isset($params['db'])) {
+            throw new Horde_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
 
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (empty($this->_params['table'])) {
-            $this->_params['table'] = 'horde_sessionhandler';
+        if (isset($params['write_db'])) {
+            $this->_write_db = $params['write_db'];
         }
 
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception_Prior($this->_write_db);
-        }
+        unset($params['db'], $params['write_db']);
 
-        $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+        $params = array_merge(array(
+            'persistent' => false,
+            'table' => 'horde_sessionhandler'
+        ), $params);
 
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception_Prior($this->_db);
-            }
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db =& $this->_write_db;
-        }
+        parent::__construct($params);
     }
 
     /**
@@ -120,11 +77,13 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
         /* Close any open transactions. */
         $this->_db->commit();
         $this->_db->autoCommit(true);
-        $this->_write_db->commit();
-        $this->_write_db->autoCommit(true);
-
-        @$this->_write_db->disconnect();
         @$this->_db->disconnect();
+
+        if ($this->_write_db) {
+            $this->_write_db->commit();
+            $this->_write_db->autoCommit(true);
+            @$this->_write_db->disconnect();
+        }
     }
 
     /**

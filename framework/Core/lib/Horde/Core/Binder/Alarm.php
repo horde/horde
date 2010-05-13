@@ -9,10 +9,25 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
     {
         if (empty($GLOBALS['conf']['alarms']['driver'])) {
             $driver = null;
+            $params = array();
         } else {
             $driver = $GLOBALS['conf']['alarms']['driver'];
             $params = Horde::getDriverConfig('alarms', $driver);
         }
+
+        if (strcasecmp($driver, 'Sql') === 0) {
+            $write_db = Horde_Core_Binder_Common::createDb($params, 'alarm SQL');
+
+            /* Check if we need to set up the read DB connection
+             * separately. */
+            if (empty($params['splitread'])) {
+                $params['db'] = $write_db;
+            } else {
+                $params['write_db'] = $write_db;
+                $params['db'] = Horde_Core_Binder_Common::createDb(array_merge($params, $params['read']), 'alarm SQL');
+            }
+        }
+
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         $alarm = Horde_Alarm::factory($driver, $params);
@@ -31,7 +46,8 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
         $handler_params = array(
             'identity' => $injector->getInstance('Horde_Prefs_Identity'),
             'mail' => $injector->getInstance('Horde_Mail'),
-            'charset' => Horde_Nls::getCharset());
+            'charset' => Horde_Nls::getCharset()
+        );
         $alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));
 
         return $alarm;

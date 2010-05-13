@@ -85,6 +85,10 @@
   </required>
   <optional>
    <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Mail</name>
     <channel>pear.horde.org</channel>
    </package>

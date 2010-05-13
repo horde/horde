@@ -12,18 +12,29 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
 
     protected function _getCacheInstance($driver, $injector)
     {
+        if (empty($driver) || (strcasecmp($driver, 'None') === 0)) {
+            $driver = 'Null';
+        }
+
         $params = Horde::getDriverConfig('cache', $driver);
 
-        switch (strtolower($driver)) {
-        case 'memcache':
+        if (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
-            break;
+        } elseif (strcasecmp($driver, 'Sql') === 0) {
+            $write_db = Horde_Core_Binder_Common::createDb($params, 'cache SQL');
 
-        case 'sql':
+            /* Check if we need to set up the read DB connection
+             *              * separately. */
+            if (empty($params['splitread'])) {
+                $params['db'] = $write_db;
+            } else {
+                $params['write_db'] = $write_db;
+                $params['db'] = Horde_Core_Binder_Common::createDb(array_merge($params, $params['read']), 'cache SQL');
+            }
+
             if (!empty($params['use_memorycache'])) {
                 $params['use_memorycache'] = $this->_getCacheInstance($params['use_memorycache'], $injector);
             }
-            break;
         }
 
         if (isset($GLOBALS['conf']['cache']['default_lifetime'])) {
@@ -31,10 +42,6 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
         }
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
-
-        if (empty($driver) || $driver == 'none') {
-            $driver = 'Null';
-        }
 
         $class = 'Horde_Cache_' . ucfirst(basename($driver));
         if (class_exists($class)) {

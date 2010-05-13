@@ -46,13 +46,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     protected $_write_db;
 
     /**
-     * Boolean indicating whether or not we're connected to the SQL server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
-
-    /**
      * The memory cache object to use, if configured.
      *
      * @var Horde_Cache
@@ -60,55 +53,42 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     protected $_mc = null;
 
     /**
-     * Constructs a new Horde_Cache_Sql object.
+     * Constructor.
      *
-     * @param array $params  Configuration parameters:
+     * @param array $params  Parameters:
      * <pre>
-     * Required parameters:
-     * 'phptype' - The database type (ie. 'pgsql', 'mysql', etc.).
-     *
-     * Required by some database implementations:
-     * 'database' - The name of the database.
-     * 'hostspec' - The hostname of the database server.
-     * 'username' - The username with which to connect to the database.
-     * 'password' - The password associated with 'username'.
-     * 'options' - Additional options to pass to the database.
-     * 'tty' - The TTY on which to connect to the database.
-     * 'port' - The port on which to connect to the database.
-     *
-     * Optional parameters:
-     * 'table' - The name of the cache table in 'database'.
-     *           DEFAULT: 'horde_cache'.
-     * 'use_memorycache' -  Use this Horde_Cache memory caching object to
-     *                      cache the data (to avoid DB accesses).
-     *
-     * Optional values when using separate reading and writing servers, for
-     * example in replication settings:
-     * 'splitread' - (boolean) Whether to implement the separation.
-     * 'read' - (array) Parameters which are different for the read database
-     *          connection, currently supported only 'hostspec' and 'port'
-     *          parameters.
+     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the cache table in 'database'.
+     *           DEFAULT: 'horde_cache'
+     * 'use_memorycache' - (Horde_Cache) Use this memory caching object to
+     *                     cache the data (to avoid DB accesses).
+     * 'write_db' - (DB) The write DB instance.
      * </pre>
+     *
+     * @throws Horde_Exception
      */
     public function __construct($params = array())
     {
-        $options = array(
-            'database' => '',
-            'username' => '',
-            'password' => '',
-            'hostspec' => '',
-            'table' => '',
-        );
-        $this->_params = array_merge($options, $params);
-        if (empty($this->_params['table'])) {
-            $this->_params['table'] = 'horde_cache';
+        if (!isset($params['db'])) {
+            throw new Horde_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+
+        if (isset($params['write_db'])) {
+            $this->_write_db = $params['write_db'];
         }
 
-        if (!empty($this->_params['use_memorycache'])) {
-            $this->_mc = $this->_params['use_memorycache'];
+        if (isset($params['use_memorycache'])) {
+            $this->_mc = $params['use_memorycache'];
         }
 
-        parent::__construct($this->_params);
+        unset($params['db'], $params['use_memorycache'], $params['write_db']);
+
+        $params = array_merge(array(
+            'table' => 'horde_cache',
+        ), $params);
+
+        parent::__construct($params);
     }
 
     /**
@@ -118,15 +98,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     {
         /* Only do garbage collection 0.1% of the time we create an object. */
         if (rand(0, 999) != 0) {
-            return;
-        }
-
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
             return;
         }
 
@@ -161,15 +132,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             if ($data !== false) {
                 return $data;
             }
-        }
-
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
-            return false;
         }
 
         $timestamp = time();
@@ -230,15 +192,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             $this->_mc->set($key, $data);
         }
 
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
-            return false;
-        }
-
         $timestamp = time();
 
         // 0 lifetime indicates the object should not be GC'd.
@@ -291,15 +244,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             return true;
         }
 
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
-            return false;
-        }
-
         /* Build SQL query. */
         $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                  ' WHERE cache_id = ?';
@@ -349,15 +293,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             $this->_mc->expire($key);
         }
 
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->log($e, 'ERR');
-            }
-            return false;
-        }
-
         $query = 'DELETE FROM ' . $this->_params['table'] .
                  ' WHERE cache_id = ?';
         $values = array($key);
@@ -371,62 +306,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         }
 
         return true;
-    }
-
-    /**
-     * Opens a connection to the SQL server.
-     *
-     * @throws Horde_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_connected) {
-            return true;
-        }
-
-        Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'cache SQL');
-
-        $this->_write_db = DB::connect(
-            $this->_params,
-            array('persistent' => !empty($this->_params['persistent']),
-                  'ssl' => !empty($this->_params['ssl']))
-        );
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception($this->_write_db->getMessage());
-        }
-
-        // Set DB portability options.
-        $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-        if ($this->_write_db->phptype) {
-            $portability |= DB_PORTABILITY_RTRIM;
-        }
-        $this->_write_db->setOption('portability', $portability);
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect(
-                $params,
-                array('persistent' => !empty($params['persistent']),
-                      'ssl' => !empty($params['ssl']))
-            );
-            if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception($this->_db->getMessage());
-            }
-
-            // Set DB portability options.
-            $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-            if ($this->_db->phptype) {
-                $portability |= DB_PORTABILITY_RTRIM;
-            }
-            $this->_db->setOption('portability', $portability);
-        } else {
-            /* Default to the same DB handle for read. */
-            $this->_db = $this->_write_db;
-        }
-
-        $this->_connected = true;
     }
 
 }

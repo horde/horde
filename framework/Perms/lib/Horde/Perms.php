@@ -73,20 +73,15 @@ class Horde_Perms
      */
     static public function factory($driver = null, $params = null)
     {
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('perms', $driver);
+        $class = is_null($driver)
+            ? __CLASS__
+            : __CLASS__ . '_' . ucfirst(basename($driver));
+
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        if (is_null($driver)) {
-            return new self($params);
-        }
-
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
-        if (!class_exists($class)) {
-            throw new Horde_Perms_Exception('Bad permissions class name: ' . $class);
-        }
-
-        return new $class($params);
+        throw new Horde_Perms_Exception('Unknown driver: ' . $driver);
     }
 
     /**

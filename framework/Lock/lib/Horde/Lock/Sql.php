@@ -3,29 +3,6 @@
  * The Horde_Lock_Sql driver implements a storage backend for the Horde_Lock
  * API.
  *
- * Required parameters:<pre>
- *   'phptype'      The database type (ie. 'pgsql', 'mysql', etc.).</pre>
- *
- * Required by some database implementations:<pre>
- *   'database'     The name of the database.
- *   'hostspec'     The hostname of the database server.
- *   'username'     The username with which to connect to the database.
- *   'password'     The password associated with 'username'.
- *   'options'      Additional options to pass to the database.
- *   'tty'          The TTY on which to connect to the database.
- *   'port'         The port on which to connect to the database.</pre>
- *
- * Optional parameters:<pre>
- *   'table'               The name of the lock table in 'database'.
- *                         Defaults to 'horde_locks'.
- *
- * Optional values when using separate reading and writing servers, for example
- * in replication settings:<pre>
- *   'splitread'   Boolean, whether to implement the separation or not.
- *   'read'        Array containing the parameters which are different for
- *                 the read database connection, currently supported
- *                 only 'hostspec' and 'port' parameters.</pre>
- *
  * The table structure for the locks is as follows:
  * <pre>
  * CREATE TABLE horde_locks (
@@ -41,7 +18,6 @@
  *     PRIMARY KEY (lock_id)
  * );
  * </pre>
- *
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -70,34 +46,42 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     private $_write_db;
 
     /**
-     * Boolean indicating whether or not we're connected to the SQL server.
+     * Constructor.
      *
-     * @var boolean
-     */
-    private $_connected = false;
-
-    /**
-     * Constructs a new Horde_Lock_sql object.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the lock table in 'database'.
+     *           DEFAULT: 'horde_locks'
+     * 'write_db' - (DB) The write DB instance.
+     * </pre>
      *
-     * @param array $params  A hash containing configuration parameters.
+     * @throws Horde_Lock_Exception
      */
     public function __construct($params = array())
     {
-        $this->_params = array_merge(array(
-            'database' => '',
-            'hostspec' => '',
-            'password' => '',
-            'table' => 'horde_locks',
-            'username' => ''
+        if (!isset($params['db'])) {
+            throw new Horde_Lock_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+
+        if (isset($params['write_db'])) {
+            $this->_write_db = $params['write_db'];
+        }
+
+        unset($params['db'], $params['write_db']);
+
+        $params = array_merge(array(
+            'table' => 'horde_locks'
         ), $params);
+
+        parent::__construct($params);
 
         /* Only do garbage collection if asked for, and then only 0.1% of the
          * time we create an object. */
         if (rand(0, 999) == 0) {
             register_shutdown_function(array($this, '_doGC'));
         }
-
-        parent::__construct($this->_params);
     }
 
     /**
@@ -107,8 +91,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      */
     public function getLockInfo($lockid)
     {
-        $this->_connect();
-
         $now = time();
         $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
                'lock_origin_timestamp, lock_update_timestamp, ' .
@@ -143,8 +125,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      */
     public function getLocks($scope = null, $principal = null, $type = null)
     {
-        $this->_connect();
-
         $now = time();
         $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
                'lock_origin_timestamp, lock_update_timestamp, ' .
@@ -194,8 +174,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      */
     public function resetLock($lockid, $extend)
     {
-        $this->_connect();
-
         $now = time();
 
         if (!$this->getLockInfo($lockid)) {
@@ -233,8 +211,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     public function setLock($requestor, $scope, $principal,
                             $lifetime = 1, $type = Horde_Lock::TYPE_SHARED)
     {
-        $this->_connect();
-
         $oldlocks = $this->getLocks($scope, $principal, Horde_Lock::TYPE_EXCLUSIVE);
 
         if (count($oldlocks) != 0) {
@@ -276,8 +252,6 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
      */
     public function clearLock($lockid)
     {
-        $this->_connect();
-
         if (empty($lockid)) {
             throw new Horde_Lock_Exception('Must supply a valid lock ID.');
         }
@@ -305,74 +279,10 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     }
 
     /**
-     * Opens a connection to the SQL server.
-     */
-    private function _connect()
-    {
-        if ($this->_connected) {
-            return;
-        }
-
-        $this->_write_db = DB::connect(
-            $this->_params,
-            array('persistent' => !empty($this->_params['persistent']),
-                  'ssl' => !empty($this->_params['ssl']))
-        );
-        if ($this->_write_db instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($this->_write_db, 'ERR');
-            }
-            throw new Horde_Lock_Exception($this->_write_db);
-        }
-
-        // Set DB portability options.
-        $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-        if ($this->_write_db->phptype) {
-            $portability |= DB_PORTABILITY_RTRIM;
-        }
-        $this->_write_db->setOption('portability', $portability);
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect(
-                $params,
-                array('persistent' => !empty($params['persistent']),
-                      'ssl' => !empty($params['ssl']))
-            );
-            if ($this->_db instanceof PEAR_Error) {
-                if ($this->_logger) {
-                    $this->_logger->log($this->_db, 'ERR');
-                }
-                throw new Horde_Lock_Exception($this->_db);
-            }
-
-            // Set DB portability options.
-            $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-            if ($this->_db->phptype) {
-                $portability |= DB_PORTABILITY_RTRIM;
-            }
-            $this->_db->setOption('portability', $portability);
-        } else {
-            /* Default to the same DB handle for read. */
-            $this->_db = $this->_write_db;
-        }
-
-        $this->_connected = true;
-    }
-
-    /**
      * Do garbage collection needed for the driver.
      */
     private function _doGC()
     {
-        try {
-            $this->_connect();
-        } catch (Horde_Lock_Exception $e) {
-            return;
-        }
-
         $now = time();
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE ' .
                  'lock_expiry_timestamp < ? AND lock_expiry_timestamp != 0';

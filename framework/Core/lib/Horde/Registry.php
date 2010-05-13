@@ -248,6 +248,7 @@ class Horde_Registry
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
+            'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
@@ -1550,18 +1551,16 @@ class Horde_Registry
 
         if ($type == 'external') {
             $calls = $conf['sessionhandler']['params'];
-            session_set_save_handler($calls['open'],
-                                     $calls['close'],
-                                     $calls['read'],
-                                     $calls['write'],
-                                     $calls['destroy'],
-                                     $calls['gc']);
+            session_set_save_handler(
+                $calls['open'],
+                $calls['close'],
+                $calls['read'],
+                $calls['write'],
+                $calls['destroy'],
+                $calls['gc']
+            );
         } elseif ($type != 'none') {
-            $sh_config = Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']);
-            if (!empty($conf['sessionhandler']['memcache'])) {
-                $sh_config['memcache'] = $GLOBALS['injector']->getInstance('Horde_Memcache');
-            }
-            $this->sessionHandler = Horde_SessionHandler::factory($conf['sessionhandler']['type'], $sh_config);
+            $this->sessionHandler = $GLOBALS['injector']->getInstance('Horde_SessionHandler');
         }
     }
 

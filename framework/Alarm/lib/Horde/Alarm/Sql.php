@@ -12,23 +12,6 @@
  * The Horde_Alarm_sql class is a Horde_Alarm storage implementation using the
  * PEAR DB package.
  *
- * Required values for $params:<pre>
- * 'phptype' - (string) The database type (e.g. 'pgsql', 'mysql', etc.).
- * 'charset' - (string) The database's internal charset.</pre>
- *
- * Optional values for $params:<pre>
- * 'table' - (string) The name of the foo table in 'database'.
- *
- * Required by some database implementations:<pre>
- * 'database' - The name of the database.
- * 'hostspec' - The hostname of the database server.
- * 'protocol' - The communication protocol ('tcp', 'unix', etc.).
- * 'username' - The username with which to connect to the database.
- * 'password' - The password associated with 'username'.
- * 'options' - Additional options to pass to the database.
- * 'tty' - The TTY on which to connect to the database.
- * 'port' - The port on which to connect to the database.</pre>
- *
  * The table structure can be created by the
  * horde/scripts/sql/horde_alarm.sql script.
  *
@@ -51,6 +34,39 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @var DB
      */
     protected $_write_db;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the tokens table in 'database'.
+     *           DEFAULT: 'horde_alarms'
+     * 'write_db' - (DB) The write DB instance.
+     * </pre>
+     *
+     * @throws Horde_Alarm_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['db'])) {
+            throw new Horde_Alarm_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+
+        if (isset($params['write_db'])) {
+            $this->_write_db = $params['write_db'];
+        }
+
+        unset($params['db'], $params['write_db']);
+
+        $params = array_merge(array(
+            'table' => 'horde_alarms'
+        ), $params);
+
+        parent::__construct($params);
+    }
 
     /**
      * Returns a list of alarms from the backend.
@@ -432,68 +448,23 @@ class Horde_Alarm_Sql extends Horde_Alarm
     }
 
     /**
-     * Attempts to open a connection to the SQL server.
+     * Initialization tasks.
      *
      * @throws Horde_Alarm_Exception
      */
     public function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'sql',
-                                  array('phptype', 'charset'));
-
-        $this->_params = array_merge(array(
-            'database' => '',
-            'username' => '',
-            'hostspec' => '',
-            'table' => 'horde_alarms'
-        ), $this->_params);
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($this->_write_db, 'INFO');
-            }
-            throw new Horde_Alarm_Exception($this->_write_db);
-        }
-        $this->_initConn($this->_write_db);
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                if ($this->_logger) {
-                    $this->_logger->log($this->_db, 'INFO');
-                }
-                throw new Horde_Alarm_Exception($this->_db);
-            }
-            $this->_initConn($this->_db);
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
+        $this->_initConn($this->_db);
+        if ($this->_write_db) {
+            $this->_initConn($this->_write_db);
         }
     }
 
     /**
+     * Alarm specific initialization tasks.
      */
     protected function _initConn(DB_common $db)
     {
-        // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            break;
-        }
-
         /* Handle any database specific initialization code to run. */
         switch ($db->dbsyntax) {
         case 'oci8':

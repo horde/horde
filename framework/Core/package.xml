@@ -67,6 +67,7 @@ Application Framework.
       <dir name="Binder">
        <file name="Alarm.php" role="php" />
        <file name="Cache.php" role="php" />
+       <file name="Common.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
@@ -79,6 +80,7 @@ Application Framework.
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Secret.php" role="php" />
+       <file name="SessionHandler.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="Token.php" role="php" />
        <file name="Vfs.php" role="php" />
@@ -217,6 +219,7 @@ Application Framework.
    <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
+   <install name="lib/Horde/Core/Binder/Common.php" as="Horde/Core/Binder/Common.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
@@ -229,6 +232,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
    <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
    <install name="lib/Horde/Core/Binder/Secret.php" as="Horde/Core/Binder/Secret.php" />
+   <install name="lib/Horde/Core/Binder/SessionHandler.php" as="Horde/Core/Binder/SessionHandler.php" />
    <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
    <install name="lib/Horde/Core/Binder/Token.php" as="Horde/Core/Binder/Token.php" />
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
