@@ -41,10 +41,9 @@ CREATE TABLE horde_activesync_device_users (
     device_id         VARCHAR(255) NOT NULL,
     device_user       VARCHAR(255) NOT NULL,
     device_ping       TEXT,
-    device_folders    TEXT,
---
-    PRIMARY KEY (device_id, device_user)
+    device_folders    TEXT
 );
 
 CREATE INDEX activesync_device_user_idx ON horde_activesync_users (device_user);
+CREATE INDEX activesync_device_users_id_idx on horde_activesync_device_users (device_id);
 

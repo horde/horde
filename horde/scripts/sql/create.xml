@@ -1507,6 +1507,13 @@
   <name>horde_activesync_device_users</name>
 
   <declaration>
+
+   <field>
+    <name>device_id</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
    <field>
     <name>device_ping</name>
     <type>clob</type>

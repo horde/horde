@@ -213,9 +213,7 @@ CREATE TABLE horde_activesync_device_users (
     device_id         varchar(255) NOT NULL,
     device_user       varchar(255) NOT NULL,
     device_ping       text,
-    device_folders    text,
---
-    PRIMARY KEY (device_id, device_user)
+    device_folders    text
 );
 go
 
