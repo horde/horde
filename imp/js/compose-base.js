@@ -33,11 +33,11 @@ var IMP_Compose_Base = {
             break;
 
         case 'bottom':
-            pos = input.length;
+            pos = $F(input).length;
             break;
 
         case 'sig':
-            pos = input.replace(/\r\n/g, '\n').lastIndexOf(sig) - 1;
+            pos = $F(input).replace(/\r\n/g, '\n').lastIndexOf(sig) - 1;
             break;
 
         default:
