@@ -85,7 +85,7 @@ if ($vars->compose_formToken) {
             $notification->push(_("You have already submitted this page."), 'horde.error');
             $vars->actionID = null;
         }
-    } catch (Horde_Exception $e) {
+    } catch (Horde_Token_Exception $e) {
         $notification->push($e->getMessage());
         $vars->actionID = null;
     }

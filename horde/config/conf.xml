@@ -1198,14 +1198,14 @@
    <configswitch name="driver" desc="If you want to enable Form Tokens, select
    a driver here. This is used by the Horde::Form:: API and some other parts
    of Horde to ensure that a form can only be submitted once.">none
-    <case name="none" desc="Disable Form Tokens"/>
-    <case name="file" desc="Local filesystem token storage">
+    <case name="Null" desc="Disable Form Tokens"/>
+    <case name="File" desc="Local filesystem token storage">
      <configsection name="params">
       <configstring name="token_dir" required="false" desc="The directory where
       to keep token files"/>
      </configsection>
     </case>
-    <case name="sql" desc="SQL-based token storage">
+    <case name="Sql" desc="SQL-based token storage">
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
