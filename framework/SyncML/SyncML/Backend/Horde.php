@@ -26,26 +26,11 @@ class SyncML_Backend_Horde extends SyncML_Backend {
      *
      * @param array $params  Any parameters the backend might need.
      */
-    function SyncML_Backend_Horde($params)
+    function __construct($params)
     {
-        parent::SyncML_Backend($params);
+        parent::__construct($params);
 
-        $this->_db = DB::connect($GLOBALS['conf']['sql']);
-
-        if (is_a($this->_db, 'PEAR_Error')) {
-            Horde::logMessage($this->_db, 'ERR');
-        }
-
-        /* Set DB portability options. */
-        if (is_a($this->_db, 'DB_common')) {
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
     }
 
     /**

@@ -32,8 +32,7 @@ if (is_null($sequence)) {
 
 switch ($db_lib) {
 case 'DB':
-    require_once 'DB.php';
-    $dbh = DB::connect($conf['sql']);
+    $dbh = $injector->getInstance('Horde_Db_Pear')->getOb();
     break;
 
 case 'MDB2':

@@ -9,9 +9,6 @@
  * @author David Cummings <davidcummings@acm.org>
  * @package Vilma
  */
-
-require_once 'Horde/SQL.php';
-
 class Vilma_Driver_qmailldap extends Vilma_Driver {
 
     /**

@@ -11,21 +11,8 @@
  * @package Folks
  */
 
-// Do CLI checks and environment setup first.
-require_once 'Horde/Cli.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-$cli = Horde_Cli::init();
-
-// Load Folks.
-$folks_authentication = 'none';
-$no_compress = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true, 'no_compress' => true));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
@@ -93,8 +80,11 @@ if (!Horde_Auth::isAdmin('folks:admin')) {
 }
 
 // Connect to db
-$dbconf = Horde::getDriverConfig('storage', 'sql');
-$db = DB::connect($dbconf);
+try {
+    $db = $injector->getInstance('Horde_Db_Pear')->getOb();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
+}
 
 // Get new messages older time
 $query = 'SELECT user_uid, user_email FROM folks_users ORDER BY user_uid ASC';

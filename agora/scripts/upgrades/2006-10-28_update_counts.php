@@ -10,12 +10,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open the database. */
-$db = &DB::connect($conf['sql']);
-if ($db instanceof PEAR_Error) {
-    var_dump($db);
-    exit;
-}
-$db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+$db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 /* Get threads. */
 $sql = 'SELECT message_id, forum_id FROM agora_messages WHERE message_thread = ?';

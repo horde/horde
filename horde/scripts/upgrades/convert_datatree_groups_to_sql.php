@@ -25,7 +25,7 @@ VALUES
     (?, ?)
 ';
 
-$db = DB::connect($conf['sql']);
+$db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 foreach ($g->listGroups(true) as $id => $name) {
     if ($id == -1) {

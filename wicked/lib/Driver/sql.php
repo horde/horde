@@ -3,9 +3,6 @@
  * @package Wicked
  */
 
-/** DB */
-require_once 'DB.php';
-
 /**
  * Wicked storage implementation for PHP's PEAR database abstraction
  * layer.

@@ -33,7 +33,7 @@ class Horde_Block_Horde_metar extends Horde_Block {
 
     function _params()
     {
-        if (!@include_once 'Services/Weather.php') {
+        if (!class_exists('Services_Weather')) {
             Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
             return array(
                 'error' => array(
@@ -46,20 +46,7 @@ class Horde_Block_Horde_metar extends Horde_Block {
             global $conf;
 
             // Get locations from the database.
-            require_once 'DB.php';
-            $db = &DB::connect($conf['sql']);
-            if (is_a($db, 'PEAR_Error')) {
-                return $db;
-            }
-
-            // Set DB portability options.
-            switch ($db->phptype) {
-            case 'mssql':
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
+            $db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
             $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
             if (is_a($result, 'PEAR_Error')) {

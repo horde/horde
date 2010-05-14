@@ -13,11 +13,7 @@
 require_once dirname(__FILE__) . '/horde-base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-$dbh = DB::connect($conf['sql']);
-if (is_a($dbh, 'PEAR_Error')) {
-    throw new Horde_Exception_Prior($dbh);
-}
-$dbh->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+$dbh = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 // list databases command
 // $result = $dbh->getListOf('databases');

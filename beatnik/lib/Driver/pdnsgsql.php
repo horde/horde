@@ -50,9 +50,14 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
     *
     * @param array  $params    A hash containing connection parameters.
     */
-    function Beatnik_Driver_pdnsgsql($params = array())
+    function __construct($params = array())
     {
-        parent::Beatnik_Driver($params);
+        $params = array_merge(array(
+            'domains_table' => 'domains',
+            'records_table' => 'records'
+        ), $params);
+
+        parent::__construct($params);
     }
 
     /**
@@ -425,13 +430,6 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw $e;
-        }
-
-        if (!isset($this->_params['domains_table'])) {
-            $this->_params['domains_table'] = 'domains';
-        }
-        if (!isset($this->_params['records_table'])) {
-            $this->_params['records_table'] = 'records';
         }
 
         /* Connect to the SQL server using the supplied parameters. */

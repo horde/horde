@@ -20,20 +20,7 @@ $scope = $cli->prompt(_("Enter value for pref_scope:"));
 $name = $cli->prompt(_("Enter value for pref_name:"));
 
 /* Open the database. */
-$db = DB::connect($conf['sql']);
-if (is_a($db, 'PEAR_Error')) {
-   var_dump($db);
-   exit;
-}
-
-// Set DB portability options.
-switch ($db->phptype) {
-case 'mssql':
-    $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-    break;
-default:
-    $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-}
+$db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 if ($live) {
     $sql = 'DELETE FROM horde_prefs WHERE pref_scope = ? AND pref_name = ?';

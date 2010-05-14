@@ -10,12 +10,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open the database. */
-$db = &DB::connect($conf['sql']);
-if ($db instanceof PEAR_Error) {
-    var_dump($db);
-    exit;
-}
-$db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+$db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 /* Get messages. */
 $sql = 'SELECT DISTINCT d.datatree_id, d.datatree_parents FROM horde_datatree d, horde_datatree_attributes a '

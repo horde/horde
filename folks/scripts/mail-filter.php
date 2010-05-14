@@ -37,20 +37,8 @@ Options:
 EOU;
 }
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::init();
-
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
 
 // Read command-line parameters.
 $info = array();
@@ -119,8 +107,11 @@ if (!$imap) {
 $from_str = array('Undelivered Mail', 'MAILER-DAEMON', 'root@' . $conf['server']['name']);
 
 // Connect to db
-$dbconf = Horde::getDriverConfig('storage', 'sql');
-$db = DB::connect($dbconf);
+try {
+    $db = $injector->getInstance('Horde_Db_Pear')->getOb();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
+}
 
 // get mails
 $mails = array();

@@ -19,18 +19,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open Agora database. */
-$db_agora = &DB::connect($conf['sql']);
-if ($db instanceof PEAR_Error) {
-    var_dump($db);
-    exit;
-}
-
-/* Open Phorum database. */
-$db_phorum = &DB::connect($conf['sql']);
-if ($db_phorum instanceof PEAR_Error) {
-    var_dump($db_phorum);
-    exit;
-}
+$db_agora = $db_phorum = $injector->getInstance('Horde_Db_Pear')->getOb();
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:p:a:t:f:c:',

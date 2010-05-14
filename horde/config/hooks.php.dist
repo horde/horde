@@ -577,7 +577,7 @@ class Horde_Hooks
 //        store this in whichever backend you require.
 //        // NOTE: You NEED Turba to be correctly installed before you can use
 //        // this example. It also assumes you are using an SQL backend.
-//        $db = DB::connect($GLOBALS['conf']['sql'], true);
+//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
 //
 //        $fields = $values = array();
 //        foreach ($extra as $field => $value) {
@@ -655,7 +655,7 @@ class Horde_Hooks
 //        switch ($groupName) {
 //        case 'IT_department':
 //            $dept = 'IT';
-//            $db = DB::connect($conf['sql'], true);
+//            $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
 //            $query = 'SELECT COUNT(*) FROM departments WHERE user_name = ? AND department = ?';
 //            $values = array($userName, $dept);
 //            $result = $db->getOne($query, $values);
