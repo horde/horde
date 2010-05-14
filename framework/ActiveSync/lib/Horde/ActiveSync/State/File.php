@@ -379,8 +379,11 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @return boolean
      */
-    public function deviceExists($devId, $user)
+    public function deviceExists($devId, $user = null)
     {
+        if (empty($user)) {
+            return count(glob($this->_stateDir . '/*/info-' . $devId)) > 0;
+        }
         return file_exists($this->_stateDir . '/' . $user . '/info-' . $devId);
     }
 

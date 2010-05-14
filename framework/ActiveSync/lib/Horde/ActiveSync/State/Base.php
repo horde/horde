@@ -569,7 +569,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return boolean
      */
-    abstract public function deviceExists($devId, $user);
+    abstract public function deviceExists($devId, $user = null);
 
     /**
      * Set new device info
