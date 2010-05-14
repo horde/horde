@@ -236,7 +236,7 @@ class Horde_Registry
             'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
             // 'Horde_Browser' - initialized below
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
-            'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db('reader'),
+            'Horde_Db_Adapter_Base' => new Horde_Core_Binder_Db(),
             'Horde_Editor' => new Horde_Core_Binder_Editor(),
             'Horde_History' => new Horde_Core_Binder_History(),
             'Horde_Lock' => new Horde_Core_Binder_Lock(),
