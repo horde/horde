@@ -75,7 +75,7 @@ class Horde_Core_Factory_DbPear
             $params = array_merge($params, $params['read']);
         }
 
-        Horde::assertDriverConfig($params, 'sql', array('charset', 'phptype'), $ident, 'SQL');
+        Horde::assertDriverConfig($params, 'sql', array('charset', 'phptype'), 'SQL');
 
         /* Connect to the SQL server using the supplied parameters. */
         $db = DB::connect($params, array(
