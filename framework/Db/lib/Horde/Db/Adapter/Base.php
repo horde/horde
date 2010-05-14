@@ -25,6 +25,7 @@ abstract class Horde_Db_Adapter_Base
 {
     /**
      * Config options
+     *
      * @var array
      */
     protected $_config = array();
@@ -79,14 +80,28 @@ abstract class Horde_Db_Adapter_Base
      */
     protected $_schemaMethods = array();
 
+    /**
+     * Write DB
+     *
+     * @var Horde_Db_Adapter_Base
+     */
+    protected $_write;
+
 
     /*##########################################################################
     # Construct/Destruct
     ##########################################################################*/
 
     /**
-     * @param array $config Configuration options and optional objects (logger,
-     * cache, etc.)
+     * Constructor.
+     *
+     * @param array $config  Configuration options and optional objects:
+     * <pre>
+     * 'cache' - TODO
+     * 'charset' - (string) TODO
+     * 'logger' - TODO
+     * 'write_db' - (Horde_Db_Adapter_Base) Use this DB for write operations.
+     * </pre>
      */
     public function __construct($config)
     {
@@ -441,6 +456,10 @@ abstract class Horde_Db_Adapter_Base
      */
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null, $idValue = null, $sequenceName = null)
     {
+        if ($this->_write) {
+            return $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
+        }
+
         $this->execute($sql, $arg1, $arg2);
         return isset($idValue) ? $idValue : $this->_connection->lastInsertId();
     }
@@ -454,6 +473,10 @@ abstract class Horde_Db_Adapter_Base
      */
     public function update($sql, $arg1 = null, $arg2 = null)
     {
+        if ($this->_write) {
+            return $this->_write->update($sql, $arg1, $arg2);
+        }
+
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
     }
@@ -467,6 +490,10 @@ abstract class Horde_Db_Adapter_Base
      */
     public function delete($sql, $arg1 = null, $arg2 = null)
     {
+        if ($this->_write) {
+            return $this->_write->delete($sql, $arg1, $arg2);
+        }
+
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
     }
@@ -476,7 +503,9 @@ abstract class Horde_Db_Adapter_Base
      */
     public function transactionStarted()
     {
-        return $this->_transactionStarted;
+        return $this->_write
+            ? $this->_write->transactionStarted()
+            : $this->_transactionStarted;
     }
 
     /**
@@ -484,8 +513,12 @@ abstract class Horde_Db_Adapter_Base
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
-        $this->_connection->beginTransaction();
+        if ($this->_write) {
+            $this->_write->beginDbTransaction();
+        } else {
+            $this->_transactionStarted = true;
+            $this->_connection->beginTransaction();
+        }
     }
 
     /**
@@ -493,8 +526,12 @@ abstract class Horde_Db_Adapter_Base
      */
     public function commitDbTransaction()
     {
-        $this->_connection->commit();
-        $this->_transactionStarted = false;
+        if ($this->_write) {
+            $this->_write->commitDbTransaction();
+        } else {
+            $this->_connection->commit();
+            $this->_transactionStarted = false;
+        }
     }
 
     /**
@@ -505,8 +542,12 @@ abstract class Horde_Db_Adapter_Base
     {
         if (! $this->_transactionStarted) { return; }
 
-        $this->_connection->rollBack();
-        $this->_transactionStarted = false;
+        if ($this->_write) {
+            $this->_write->rollbackDbTransaction();
+        } else {
+            $this->_connection->rollBack();
+            $this->_transactionStarted = false;
+        }
     }
 
     /**
@@ -557,8 +598,12 @@ abstract class Horde_Db_Adapter_Base
      */
     public function insertFixture($fixture, $tableName)
     {
-        /*@TODO*/
-        return $this->execute("INSERT INTO #{quote_table_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert');
+        if ($this->_write) {
+            return $this->_write->insertFixture($fixture, $tableName);
+        } else {
+            /*@TODO*/
+            return $this->execute("INSERT INTO #{quote_table_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert');
+        }
     }
 
     public function emptyInsertStatement($tableName)
