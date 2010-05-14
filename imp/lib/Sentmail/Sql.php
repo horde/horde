@@ -15,7 +15,7 @@
  * @category Horde
  * @package  IMP
  */
-class IMP_Sentmail_Sql extends IMP_Sentmail
+class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
 {
     /**
      * Handle for the current database connection.
