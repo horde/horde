@@ -29,7 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Horde_Util::bufferOutput().
+ <notes>* Removed Horde_Util::assertDriverConfig().
+ * Removed Horde_Util::bufferOutput().
  * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
  * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
  * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
@@ -76,7 +77,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Url</name>
@@ -93,6 +94,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <extension>
     <name>xml</name>
    </extension>
+   <package>
+    <name>Imap_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>

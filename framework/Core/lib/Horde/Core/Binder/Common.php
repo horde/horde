@@ -8,7 +8,7 @@ class Horde_Core_Binder_Common
     /* Utility function to use until code is transferred to new DB code. */
     public function createDb($params, $ident)
     {
-        Horde_Util::assertDriverConfig($params, array('charset', 'phptype'), $ident);
+        Horde::assertDriverConfig($params, 'sql', array('charset', 'phptype'), $ident);
 
         $params = array_merge(array(
             'database' => '',

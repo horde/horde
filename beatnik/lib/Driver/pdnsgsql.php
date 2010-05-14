@@ -421,9 +421,7 @@ class Beatnik_Driver_pdnsgsql extends Beatnik_Driver
         }
 
         try {
-            $result = Horde_Util::assertDriverConfig($this->_params, array('phptype'),
-                                               'PowerDNS Generic SQL',
-                                               array('driver' => 'pdnsgsql'));
+            $result = Horde::assertDriverConfig($this->_params, 'pdnsqsql', array('phptype'), 'PowerDNS Generic SQL');
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw $e;

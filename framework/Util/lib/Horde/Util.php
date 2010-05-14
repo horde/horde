@@ -13,12 +13,6 @@
  */
 class Horde_Util
 {
-    /* Error code for a missing driver configuration. */
-    const DRIVER_CONFIG_MISSING = 1;
-
-    /* Error code for an incomplete driver configuration. */
-    const DRIVER_CONFIG = 2;
-
     /**
      * A list of random patterns to use for overwriting purposes.
      * See http://www.cs.auckland.ac.nz/~pgut001/pubs/secure_del.html.
@@ -659,31 +653,6 @@ class Horde_Util
         }
 
         return @dl($ext . '.' . $suffix) || @dl('php_' . $ext . '.' . $suffix);
-    }
-
-    /**
-     * Checks if all necessary parameters for a driver's configuration are set
-     * and throws an exception if something is missing.
-     *
-     * @param array $params   The configuration array with all parameters.
-     * @param array $fields   An array with mandatory parameter names for this
-     *                        driver.
-     * @param string $name    The clear text name of the driver. If not
-     *                        specified, the application name will be used.
-     *
-     * @throws Horde_Exception
-     */
-    static public function assertDriverConfig($params, $fields, $name)
-    {
-        if (!is_array($params) || !count($params)) {
-            throw new Horde_Exception(sprintf('No configuration information specified for %s.', $name), self::DRIVER_CONFIG_MISSING);
-        }
-
-        foreach ($fields as $field) {
-            if (!isset($params[$field])) {
-                throw new Horde_Exception(sprintf('Required "%s" not specified in configuration.', $field, $name), self::DRIVER_CONFIG);
-            }
-        }
     }
 
     /**
