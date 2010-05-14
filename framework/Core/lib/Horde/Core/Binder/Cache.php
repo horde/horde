@@ -21,15 +21,15 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
         if (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
         } elseif (strcasecmp($driver, 'Sql') === 0) {
-            $write_db = Horde_Core_Binder_Common::createDb($params, 'cache SQL');
+            $write_db = $injector->getInstance('Horde_Db_Pear')->getOb();
 
             /* Check if we need to set up the read DB connection
-             *              * separately. */
+             * separately. */
             if (empty($params['splitread'])) {
                 $params['db'] = $write_db;
             } else {
                 $params['write_db'] = $write_db;
-                $params['db'] = Horde_Core_Binder_Common::createDb(array_merge($params, $params['read']), 'cache SQL');
+                $params['db'] = $injector->getInstance('Horde_Db_Pear')->getOb('read');
             }
 
             if (!empty($params['use_memorycache'])) {
