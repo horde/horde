@@ -2,12 +2,6 @@
 /**
  * Implementation of the Quota API for MDaemon servers.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
- * supports the following parameters:
- * <pre>
- * 'app_location' - (string) Location of the application.
- * </pre>
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -16,8 +10,27 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package IMP
  */
-class IMP_Quota_Mdaemon extends IMP_Quota
+class IMP_Quota_Mdaemon extends IMP_Quota_Driver
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Parameters:
+     * <pre>
+     * 'app_location' - (string) [REQUIRED] Location of the application.
+     * </pre>
+     *
+     * @throws IMP_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['app_location'])) {
+            throw new IMP_Exception('Missing app_location parameter in quota config.');
+        }
+
+        parent::__construct($params);
+    }
+
     /**
      * Get quota information (used/allocated), in bytes.
      *
@@ -70,15 +83,13 @@ class IMP_Quota_Mdaemon extends IMP_Quota
         }
 
         /* Recursivly check subfolders. */
-        $d = dir($path);
-        while (($entry = $d->read()) !== false) {
-            if (($entry != '.') &&
-                ($entry != '..') &&
-                (substr($entry, -5, 5) == '.IMAP')) {
-                $size += $this->_mailboxSize($path . $entry . '\\');
+        $di = new DirectoryIterator($path);
+        foreach ($di as $filename => $entry) {
+            if (!$di->isDot() &&
+                (substr($filename, -5) == '.IMAP')) {
+                $size += $this->_mailboxSize($entry->getPathname() . '\\');
             }
         }
-        $d->close();
 
         return $size;
     }

@@ -3,22 +3,6 @@
  * Implementation of the Quota API for servers keeping quota information in a
  * custom SQL database.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
- * supports the following parameters:
- * <pre>
- * query_quota - (string) SQL query which returns single row/column with user
- *               quota (in bytes). %u is replaced with current user name, %U
- *               with the user name without the domain part, %d with the
- *               domain.
- * query_used - (string) SQL query which returns single row/column with user
- *              used space (in bytes). Placeholders are the same like in
- *              query_quota.
- * </pre>
- *
- * Additionally, the driver takes SQL connection parameters 'phptype',
- * 'hostspec',' 'username', 'password', and 'database'. See
- * horde/config/conf.php for further information on these parameters
- *
  * Copyright 2006-2007 Tomas Simonaitis <haden@homelan.lt>
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
@@ -29,7 +13,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP
  */
-class IMP_Quota_Sql extends IMP_Quota
+class IMP_Quota_Sql extends IMP_Quota_Driver
 {
     /**
      * SQL connection object.
@@ -39,21 +23,43 @@ class IMP_Quota_Sql extends IMP_Quota
     protected $_db;
 
     /**
+     * Constructor.
+     *
+     * @param array $params  Parameters:
+     * <pre>
+     * 'query_quota' - (string) SQL query which returns single row/column with
+     *                 user quota (in bytes). %u is replaced with current user
+     *                 name, %U with the user name without the domain part, %d
+     *                 with the domain.
+     * 'query_used' - (string) SQL query which returns single row/column with
+     *                user used space (in bytes). Placeholders are the same
+     *                as in 'query_quota'.
+     * </pre>
+     */
+    public function __construct(array $params = array())
+    {
+        parent::__construct(array_merge(array(
+            'query_quota' => null,
+            'query_used' => null
+        ), $params);
+    }
+
+    /**
      * Connects to the database.
      *
      * @throws IMP_Exception
      */
     protected function _connect()
     {
-        if ($this->_db) {
-            return;
-        }
+        if (!$this->_db) {
+            $this->_db = DB::connect($this->_params, array(
+                'persistent' => !empty($this->_params['persistent']),
+                'ssl' => !empty($this->_params['ssl'])
+            ));
 
-        $this->_db = DB::connect($this->_params,
-                                 array('persistent' => !empty($this->_params['persistent']),
-                                       'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_db instanceof PEAR_Error) {
-            throw new IMP_Exception(_("Unable to connect to SQL server."));
+            if ($this->_db instanceof PEAR_Error) {
+                throw new IMP_Exception(_("Unable to connect to SQL server."));
+            }
         }
     }
 
@@ -70,7 +76,10 @@ class IMP_Quota_Sql extends IMP_Quota
         $this->_connect();
 
         $user = $_SESSION['imp']['user'];
-        $quota = array('limit' => 0, 'usage' => 0);
+        $quota = array(
+            'limit' => 0,
+            'usage' => 0
+        );
 
         if (!empty($this->_params['query_quota'])) {
             @list($bare_user, $domain) = explode('@', $user, 2);

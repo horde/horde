@@ -7,16 +7,6 @@
  * authentication and file servers (e.g. via NIS/NFS).  And last, it (as
  * written) requires the POSIX PHP extensions.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
- * supports the following parameters:
- * <pre>
- * 'grep_path' - (string) [REQUIRD] Path to the grep binary.
- * 'partition' - (string) If all user mailboxes are on a single partition, the
- *               partition label.  By default, quota will determine quota
- *               information using the user's home directory value.
- * 'quota_path' - (string) [REQUIRED] Path to the quota binary.
- * </pre>
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -25,14 +15,21 @@
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @package IMP
  */
-class IMP_Quota_Command extends IMP_Quota
+class IMP_Quota_Command extends IMP_Quota_Driver
 {
     /**
      * Constructor.
      *
-     * @param array $params  Hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'grep_path' - (string) [REQUIRED] Path to the grep binary.
+     * 'partition' - (string) If all user mailboxes are on a single partition,
+     *               the partition label.  By default, quota will determine
+     *               quota information using the user's home directory value.
+     * 'quota_path' - (string) [REQUIRED] Path to the quota binary.
+     * </pre>
      */
-    protected function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $params = array_merge(array(
             'quota_path' => 'quota',
@@ -79,13 +76,15 @@ class IMP_Quota_Command extends IMP_Quota
         } else {
             $search_string = $this->_params['partition'];
         }
-        $cmdline = $this->_params['quota_path'] . ' -u ' . $_SESSION['imp']['user'] . ' | ' . $this->_params['grep_path'] . ' ' . $search_string;
+        $cmdline = $this->_params['quota_path'] . ' -u ' . escapeshellarg($_SESSION['imp']['user']) . ' | ' . escapeshellcmd($this->_params['grep_path']) . ' ' . escapeshellarg($search_string);
         exec($cmdline, $quota_data, $return_code);
         if (($return_code == 0) && (count($quota_data) == 1)) {
             $quota = split("[[:blank:]]+", trim($quota_data[0]));
             $blocksize = $this->_blockSize();
-            return array('usage' => $quota[1] * $blocksize,
-                        'limit' => $quota[2] * $blocksize);
+            return array(
+                'limit' => $quota[2] * $blocksize,
+                'usage' => $quota[1] * $blocksize
+            );
         }
 
         throw new IMP_Exception(_("Unable to retrieve quota"));

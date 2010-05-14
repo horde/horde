@@ -17,7 +17,7 @@
  * @author  Michael Redinger <Michael.Redinger@uibk.ac.at>
  * @package IMP
  */
-class IMP_Quota_Hook extends IMP_Quota
+class IMP_Quota_Hook extends IMP_Quota_Driver
 {
     /**
      * Get quota information (used/allocated), in bytes.
@@ -40,7 +40,10 @@ class IMP_Quota_Hook extends IMP_Quota
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
-        return array('usage' => $quota[0], 'limit' => $quota[1]);
+        return array(
+            'limit' => $quota[1],
+            'usage' => $quota[0]
+        );
     }
 
 }

@@ -3,14 +3,8 @@
  * Implementation of the Quota API for Mercury/32 IMAP servers.
  * For reading Quota, read size folder user.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
- * supports the following parameters:
- * <pre>
- * 'mail_user_folder' - (string) The path to folder mail mercury.
- * </pre>
- *
  *****************************************************************************
- * PROBLEM TO ACCESS NETWORK DIRECOTRY
+ * PROBLEM TO ACCESS NETWORK DIRECTORY
  *****************************************************************************
  * Matt Grimm
  * 06-Jun-2003 10:25
@@ -34,8 +28,28 @@
  * @author  Frank Lupo <frank_lupo@email.it>
  * @package IMP
  */
-class IMP_Quota_Mercury32 extends IMP_Quota
+class IMP_Quota_Mercury32 extends IMP_Quota_Driver
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Parameters:
+     * <pre>
+     * 'mail_user_folder' - (string) [REQUIRED] The path to folder mail
+                             mercury.
+     * </pre>
+     *
+     * @throws IMP_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['mail_user_folder'])) {
+            throw new IMP_Exception('Missing mail_user_folder parameter in quota config.');
+        }
+
+        parent::__construct($params);
+    }
+
     /**
      * Get quota information (used/allocated), in bytes.
      *
@@ -46,21 +60,22 @@ class IMP_Quota_Mercury32 extends IMP_Quota
      */
     public function getQuota()
     {
-        $quota = null;
+        $quota = 0;
 
-        $dir_path = $this->_params['mail_user_folder'] . '/' . $_SESSION['imp']['user'] . '/';
-        if ($dir = @opendir($dir_path)) {
-            while (($file = readdir($dir)) !== false) {
-                $quota += filesize($dir_path . $file);
-            }
-            closedir($dir);
-
-            if (!is_null($quota)) {
-                return array('usage' => $quota, 'limit' => 0);
-            }
+        try {
+            $di = new DirectoryIterator($this->_params['mail_user_folder'] . '/' . $_SESSION['imp']['user'] . '/');
+        } catch (UnexpectedValueException $e) {
+            throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
-        throw new IMP_Exception(_("Unable to retrieve quota"));
+        foreach ($di as $val) {
+            $quota += $val->getSize();
+        }
+
+        return array(
+            'limit' => 0,
+            'usage' => $quota
+        );
     }
 
 }

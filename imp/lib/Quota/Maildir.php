@@ -5,15 +5,6 @@
  * expanded to be configurable to support storage or message limits in the
  * configuration array.
  *
- * You must configure this driver in imp/config/servers.php.  The driver
- * supports the following parameters:
- * <pre>
- * path - (string) The path to the user's Maildir directory. You may use the
- *        two-character sequence "~U" to represent the user's account name,
- *        and the actual username will be substituted in that location.
- *        E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
- * </pre>
- *
  * TODO: Add config param for storage vs message quota
  *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
@@ -24,16 +15,25 @@
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @package IMP
  */
-class IMP_Quota_Maildir extends IMP_Quota
+class IMP_Quota_Maildir extends IMP_Quota_Driver
 {
     /**
      * Constructor.
      *
-     * @param array $params  Hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'path' - (string) The path to the user's Maildir directory. You may use
+     *          the two-character sequence "~U" to represent the user's
+     *          account name, and the actual username will be substituted in
+     *          that location.
+     *          E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
+     * </pre>
      */
-    protected function __construct($params = array())
+    public function __construct($params = array())
     {
-        parent::__construct(array_merge(array('path' => ''), $params));
+        parent::__construct(array_merge(array(
+            'path' => ''
+        ), $params));
     }
 
     /**
@@ -100,7 +100,10 @@ class IMP_Quota_Maildir extends IMP_Quota
             }
         }
 
-        return array('usage' => $storage_used, 'limit' => $storage_limit);
+        return array(
+            'limit' => $storage_limit,
+            'usage' => $storage_used
+        );
     }
 
 }

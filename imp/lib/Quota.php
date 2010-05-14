@@ -14,20 +14,13 @@
 class IMP_Quota
 {
     /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param string $driver  The type of concrete subclass to return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
+     * @param array $params   A hash containing any additional configuration
+     *                        parameters a subclass might need.
      *
-     * @return IMP_Quota  The concrete instance.
+     * @return IMP_Quota_Driver  The concrete instance.
      * @throws IMP_Exception
      */
     static public function factory($driver, $params = array())
@@ -40,87 +33,6 @@ class IMP_Quota
         }
 
         throw new IMP_Exception('Could not create ' . __CLASS__ .  ' instance: ' . $driver);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Hash containing connection parameters.
-     */
-    protected function __construct($params = array())
-    {
-        $this->_params = $params;
-
-        /* If 'password' exists in params, it has been encrypted in the
-         * session so we need to decrypt. */
-        if (isset($this->_params['password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $this->_params['password'] = $secret->read($secret->getKey('imp'), $this->_params['password']);
-        }
-    }
-
-    /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
-     */
-    public function getQuota()
-    {
-        return array('usage' => 0, 'limit' => 0);
-    }
-
-    /**
-     * Returns the quota messages variants, including sprintf placeholders.
-     *
-     * @return array  An array with quota message templates.
-     */
-    public function getMessages()
-    {
-        return array(
-            'long' => isset($this->_params['format']['long'])
-                ? $this->_params['format']['long']
-                : _("Quota status: %.2f %s / %.2f %s  (%.2f%%)"),
-            'short' => isset($this->_params['format']['short'])
-                ? $this->_params['format']['short']
-                : _("%.0f%% of %.0f %s"),
-            'nolimit_long' => isset($this->_params['format']['nolimit_long'])
-                ? $this->_params['format']['nolimit_long']
-                : _("Quota status: %.2f %s / NO LIMIT"),
-            'nolimit_short' => isset($this->_params['format']['nolimit_short'])
-                ? $this->_params['format']['nolimit_short']
-                : _("%.0f %s")
-        );
-    }
-
-    /**
-     * Determine the units of storage to display in the quota message.
-     *
-     * @return array  An array of size and unit type.
-     */
-    public function getUnit()
-    {
-        $unit = isset($this->_params['unit']) ? $this->_params['unit'] : 'MB';
-
-        switch ($unit) {
-        case 'GB':
-            $calc = 1024 * 1024 * 1024.0;
-            break;
-
-        case 'KB':
-            $calc = 1024.0;
-            break;
-
-        case 'MB':
-        default:
-            $calc = 1024 * 1024.0;
-            $unit = 'MB';
-            break;
-        }
-
-        return array($calc, $unit);
     }
 
 }
