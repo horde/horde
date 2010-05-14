@@ -21,29 +21,26 @@ class IMP_Sentmail
     protected $_params = array();
 
     /**
-     * Attempts to return a concrete IMP_Sentmail instance based on $driver.
+     * Attempts to return a concrete instance based on $driver.
      *
-     * @param string $driver  The type of the concrete IMP_Sentmail subclass
-     *                        to return.  The class name is based on the
-     *                        storage driver ($driver).  The code is
-     *                        dynamically included.
+     * @param string $driver  The type of the concrete subclass to return.
+     *                        The class name is based on the storage driver
+     *                        ($driver).
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      *
-     * @return IMP_Sentmail  The newly created concrete IMP_Sentmail instance.
+     * @return IMP_Sentmail  The newly created concrete instance.
+     * @throws IMP_Exception
      */
-    static public function factory($driver = null, $params = array())
+    static public function factory($driver, $params = array())
     {
-        if ($driver && ($driver != 'none')) {
-            $class = 'IMP_Sentmail_' . ucfirst(basename($driver));
-            if (class_exists($class)) {
-                try {
-                    return new $class($params);
-                } catch (IMP_Exception $e) {}
-            }
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        return new IMP_Sentmail($params);
+        throw new IMP_Exception('Driver not found: ' . $driver);
     }
 
     /**

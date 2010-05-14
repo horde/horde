@@ -2,29 +2,18 @@
 /**
  * IMP_Sentmail implementation for PHP's PEAR database abstraction layer.
  *
- * Required values for $params:
- * <pre>
- * 'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- * 'table'         The name of the foo table in 'database'.
- * </pre>
- *
- * Required by some database implementations:
- * <pre>
- * 'database'      The name of the database.
- * 'hostspec'      The hostname of the database server.
- * 'protocol'      The communication protocol ('tcp', 'unix', etc.).
- * 'username'      The username with which to connect to the database.
- * 'password'      The password associated with 'username'.
- * 'options'       Additional options to pass to the database.
- * 'tty'           The TTY on which to connect to the database.
- * 'port'          The port on which to connect to the database.
- * </pre>
- *
  * The table structure can be created by the scripts/sql/imp_sentmail.sql
  * script.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package IMP
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  IMP
  */
 class IMP_Sentmail_Sql extends IMP_Sentmail
 {
@@ -33,52 +22,47 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
      *
      * @var DB
      */
-    protected $_db;
+    protected $_db = '';
+
+    /**
+     * Handle for the current database connection, used for writing. Defaults
+     * to the same handle as $_db if a separate write database is not required.
+     *
+     * @var DB
+     */
+    protected $_write_db;
 
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the sentmail table.
+     *           DEFAULT: 'imp_sentmail'
+     * 'write_db' - (DB) The write DB instance.
+     * </pre>
      *
      * @throws IMP_Exception
      */
-    protected function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        if (!isset($params['db'])) {
+            throw new IMP_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+
+        $this->_write_db = isset($params['write_db'])
+            ? $params['write_db']
+            : $this->_db;
+
+        unset($params['db'], $params['write_db']);
+
+        $params = array_merge(array(
+            'table' => 'imp_sentmail'
+        ), $params);
+
         parent::__construct($params);
-
-        try {
-            Horde::assertDriverConfig($this->_params, 'storage', array('phptype', 'table'));
-        } catch (Horde_Exception $e) {
-            throw new IMP_Exception($e);
-        }
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_db = DB::connect($this->_params,
-                                 array('persistent' => !empty($this->_params['persistent']),
-                                       'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_db instanceof PEAR_Error) {
-            throw new IMP_Exception($this->_db);
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
     }
 
     /**
@@ -101,13 +85,13 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                         $message_id,
                         $action,
                         $recipient,
-                        (int)$success);
+                        intval($success));
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('IMP_Sentmail_Sql::_log(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
-        $result = $this->_db->query($query, $values);
+        $result = $this->_write_db->query($query, $values);
 
         /* Log errors. */
         if ($result instanceof PEAR_Error) {
@@ -208,7 +192,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         Horde::logMessage(sprintf('IMP_Sentmail_Sql::_deleteOldEntries(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
-        $result = $this->_db->query($query, array($before));
+        $result = $this->_write_db->query($query, array($before));
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
         }
