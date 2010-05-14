@@ -72,9 +72,11 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
         }
         $query = 'UPDATE horde_perms SET perm_data = ? WHERE perm_id = ?';
         $params = array(serialize($this->data), $this->getId());
-        $result = $this->_write_db->query($query, $params);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($result);
+
+        try {
+            $this->_write_db->update($query, $params);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');

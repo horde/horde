@@ -33,27 +33,18 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     private $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database isn't required.
-     *
-     * @var DB
-     */
-    private $_write_db;
 
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the lock table in 'database'.
      *           DEFAULT: 'horde_locks'
-     * 'write_db' - (DB) The write DB instance.
      * </pre>
      *
      * @throws Horde_Lock_Exception
@@ -64,12 +55,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
             throw new Horde_Lock_Exception('Missing db parameter.');
         }
         $this->_db = $params['db'];
-
-        $this->_write_db = isset($params['write_db'])
-            ? $params['write_db']
-            : $this->_db;
-
-        unset($params['db'], $params['write_db']);
+        unset($params['db']);
 
         $params = array_merge(array(
             'table' => 'horde_locks'
@@ -80,7 +66,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
         /* Only do garbage collection if asked for, and then only 0.1% of the
          * time we create an object. */
         if (rand(0, 999) == 0) {
-            register_shutdown_function(array($this, '_doGC'));
+            register_shutdown_function(array($this, 'doGC'));
         }
     }
 
@@ -98,23 +84,11 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
                ' WHERE lock_id = ? AND lock_expiry_timestamp >= ?';
         $values = array($lockid, $now);
 
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::getLockInfo(): ' . $sql, 'DEBUG');
+        try {
+            return $this->_db->selectOne($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Lock_Exception($e);
         }
-
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Lock_Exception($result);
-        }
-
-        $locks = array();
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if ($row instanceof PEAR_Error) {
-            return false;
-        }
-
-        $result->free();
-        return $row;
     }
 
     /**
@@ -146,23 +120,16 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
             $values[] = $type;
         }
 
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::getLocks(): ' . $sql, 'DEBUG');
-        }
-
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Lock_Exception($result);
+        try {
+            $result = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Lock_Exception($e);
         }
 
         $locks = array();
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        while ($row && !($row instanceof PEAR_Error)) {
+        foreach ($result as $val) {
             $locks[$row['lock_id']] = $row;
-            /* Advance to the new row in the result set. */
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
-        $result->free();
 
         return $locks;
     }
@@ -186,17 +153,10 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
                'WHERE lock_id = ?';
         $values = array($now, $expiry, $lockid);
 
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::resetLock(): ' . $sql, 'DEBUG');
-        }
-
-        $result = $this->_write_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Lock_Exception($result);
-        }
-
-        if ($this->_logger) {
-            $this->_logger->log(sprintf('Lock %s reset successfully.', $lockid), 'DEBUG');
+        try {
+            $this->_db->update($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Lock_Exception($e);
         }
 
         return true;
@@ -229,13 +189,10 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
         $values = array($lockid, $requestor, $scope, $principal, $now, $now,
                         $expiration, $type);
 
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::setLock(): ' . $sql, 'DEBUG');
-        }
-
-        $result = $this->_write_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Lock_Exception($result);
+        try {
+            $this->_db->insert($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Lock_Exception($e);
         }
 
         if ($this->_logger) {
@@ -262,13 +219,10 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
         $sql = 'DELETE FROM ' . $this->_params['table'] . ' WHERE lock_id = ?';
         $values = array($lockid);
 
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::clearLock(): ' . $sql, 'DEBUG');
-        }
-
-        $result = $this->_write_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Lock_Exception($result);
+        try {
+            $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Lock_Exception($e);
         }
 
         if ($this->_logger) {
@@ -281,22 +235,19 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
     /**
      * Do garbage collection needed for the driver.
      */
-    private function _doGC()
+    public function doGC()
     {
         $now = time();
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE ' .
                  'lock_expiry_timestamp < ? AND lock_expiry_timestamp != 0';
         $values = array($now);
 
-        $result = $this->_write_db->query($query, $values);
-        if ($this->_logger) {
-            $this->_logger->log('SQL Query by Horde_Lock_sql::_doGC(): ' .  $sql, 'DEBUG');
-            if ($result instanceof PEAR_Error) {
-                $this->_logger->log($result, 'ERR');
-            } else {
-                $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $this->_write_db->affectedRows()), 'DEBUG');
+        try {
+            $result = $this->_db->delete($query, $values);
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result), 'DEBUG');
             }
-        }
+        } catch (Horde_Db_Exception $e) {}
     }
 
 }

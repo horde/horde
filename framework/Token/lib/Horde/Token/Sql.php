@@ -25,32 +25,23 @@
 class Horde_Token_Sql extends Horde_Token_Driver
 {
     /**
-     * Handle for the current database connection.
+     * Handle for the database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
-    protected $_db = '';
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
+    protected $_db;
 
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (DB) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the tokens table in 'database'.
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the tokens table.
      *           DEFAULT: 'horde_tokens'
      * 'timeout' - (integer) The period (in seconds) after which an id is
      *             purged.
      *             DEFAULT: 86400 (24 hours)
-     * 'write_db' - (DB) The write DB instance.
      * </pre>
      *
      * @throws Horde_Token_Exception
@@ -61,14 +52,7 @@ class Horde_Token_Sql extends Horde_Token_Driver
             throw new Horde_Token_Exception('Missing db parameter.');
         }
         $this->_db = $params['db'];
-
-        if (isset($params['write_db'])) {
-            $this->_write_db = $params['write_db'];
-        } else {
-            $this->_write_db = $this->_db;
-        }
-
-        unset($params['db'], $params['write_db']);
+        unset($params['db']);
 
         $params = array_merge(array(
             'table' => 'horde_tokens',
@@ -92,12 +76,10 @@ class Horde_Token_Sql extends Horde_Token_Driver
         $values = array(time() - $this->_params['timeout']);
 
         /* Return an error if the update fails. */
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
-            throw new Horde_Token_Exception($result);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Token_Exception($e);
         }
     }
 
@@ -117,15 +99,11 @@ class Horde_Token_Sql extends Horde_Token_Driver
 
         $values = array($this->_encodeRemoteAddress(), $tokenID);
 
-        $result = $this->_db->getOne($query, $values);
-        if ($result instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
+        try {
+            return $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
-
-        return !empty($result);
     }
 
     /**
@@ -144,12 +122,10 @@ class Horde_Token_Sql extends Horde_Token_Driver
 
         $values = array($this->_encodeRemoteAddress(), $tokenID, time());
 
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
-            throw new Horde_Token_Exception($result);
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Token_Exception($e);
         }
     }
 

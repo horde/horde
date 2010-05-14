@@ -22,16 +22,7 @@ class IMP_Injector_Binder_Sentmail implements Horde_Injector_Binder
         $params = Horde::getDriverConfig('sentmail', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $write_db = $injector->getInstance('Horde_Db_Pear')->getOb();
-
-            /* Check if we need to set up the read DB connection
-             * separately. */
-            if (empty($params['splitread'])) {
-                $params['db'] = $write_db;
-            } else {
-                $params['write_db'] = $write_db;
-                $params['db'] = $injector->getInstance('Horde_Db_Pear')->getOb('read');
-            }
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
         } elseif (strcasecmp($driver, 'None') === 0) {
             $driver = 'Null';
         }

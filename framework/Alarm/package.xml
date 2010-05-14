@@ -90,8 +90,12 @@
   </required>
   <optional>
    <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Mail</name>
@@ -103,10 +107,6 @@
    </package>
    <package>
     <name>Notification</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

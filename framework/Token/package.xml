@@ -70,8 +70,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>DB</name>
-    <channel>pear.php.net</channel>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Log</name>

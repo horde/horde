@@ -20,27 +20,18 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
-    protected $_db = '';
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
+    protected $_db;
 
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (DB) [REQUIRED] The DB instance.
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the sentmail table.
      *           DEFAULT: 'imp_sentmail'
-     * 'write_db' - (DB) The write DB instance.
      * </pre>
      *
      * @throws IMP_Exception
@@ -51,12 +42,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
             throw new IMP_Exception('Missing db parameter.');
         }
         $this->_db = $params['db'];
-
-        $this->_write_db = isset($params['write_db'])
-            ? $params['write_db']
-            : $this->_db;
-
-        unset($params['db'], $params['write_db']);
+        unset($params['db']);
 
         $params = array_merge(array(
             'table' => 'imp_sentmail'
@@ -77,26 +63,18 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
     protected function _log($action, $message_id, $recipient, $success)
     {
         /* Build the SQL query. */
-        $query = sprintf('INSERT INTO %s (sentmail_id, sentmail_who, sentmail_ts, sentmail_messageid, sentmail_action, sentmail_recipient, sentmail_success) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                         $this->_params['table']);
-        $values = array($this->_db->nextId($this->_params['table']),
-                        Horde_Auth::getAuth(),
-                        time(),
-                        $message_id,
-                        $action,
-                        $recipient,
-                        intval($success));
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_log(): %s', $query), 'DEBUG');
+        $query = sprintf('INSERT INTO %s (sentmail_who, sentmail_ts, sentmail_messageid, sentmail_action, sentmail_recipient, sentmail_success) VALUES (?, ?, ?, ?, ?, ?)', $this->_params['table']);
+        $values = array(
+            Horde_Auth::getAuth(),
+            time(),
+            $message_id,
+            $action,
+            $recipient,
+            intval($success)
+        );
 
         /* Execute the query. */
-        $result = $this->_write_db->query($query, $values);
-
-        /* Log errors. */
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-        }
+        $this->_db->insert($query, $values);
     }
 
     /**
@@ -119,29 +97,19 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
             $where = sprintf(' AND sentmail_action in (%s)',
                              implode(', ', $filter));
         }
+
         $query = sprintf('SELECT sentmail_recipient, count(*) AS sentmail_count FROM %s WHERE sentmail_who = %s AND sentmail_success = 1%s GROUP BY sentmail_recipient ORDER BY sentmail_count DESC LIMIT %d',
                          $this->_params['table'],
                          $this->_db->quote(Horde_Auth::getAuth()),
                          $where,
                          $limit);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::favouriteRecipients(): %s', $query), 'DEBUG');
-
         /* Execute the query. */
-        $recipients = $this->_db->getAll($query);
-        if ($recipients instanceof PEAR_Error) {
-            Horde::logMessage($recipients, 'ERR');
-            throw new IMP_Exception($recipients);
+        try {
+            return $this->_db->selectValues($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new IMP_Exception($e);
         }
-
-        /* Extract email addresses. */
-        $favourites = array();
-        foreach ($recipients as $recipient) {
-            $favourites[] = reset($recipient);
-        }
-
-        return $favourites;
     }
 
     /**
@@ -163,17 +131,12 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
             $query .= sprintf(' AND sentmail_who = %s', $this->_db->quote(Horde_Auth::getAuth()));
         }
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::numberOfRecipients(): %s', $query), 'DEBUG');
-
         /* Execute the query. */
-        $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
-        if ($recipients instanceof PEAR_Error) {
-            Horde::logMessage($recipients, 'ERR');
-            throw new IMP_Exception($recipients);
+        try {
+            return $this->_db->selectValue($query, array(time() - $hours * 3600));
+        } catch (Horde_Db_Exception $e) {
+            throw new IMP_Exception($e);
         }
-
-        return $recipients;
     }
 
     /**
@@ -188,14 +151,10 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
         $query = sprintf('DELETE FROM %s WHERE sentmail_ts < ?',
                          $this->_params['table']);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_deleteOldEntries(): %s', $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_write_db->query($query, array($before));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-        }
+        try {
+            $this->_db->delete($query, array($before));
+        } catch (Horde_Db_Exception $e) {}
     }
 
 }

@@ -33,17 +33,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database isn't required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
 
     /**
      * The memory cache object to use, if configured.
@@ -57,12 +49,11 @@ class Horde_Cache_Sql extends Horde_Cache_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (DB) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the cache table in 'database'.
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the cache table.
      *           DEFAULT: 'horde_cache'
      * 'use_memorycache' - (Horde_Cache) Use this memory caching object to
      *                     cache the data (to avoid DB accesses).
-     * 'write_db' - (DB) The write DB instance.
      * </pre>
      *
      * @throws Horde_Cache_Exception
@@ -74,15 +65,11 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         }
         $this->_db = $params['db'];
 
-        $this->_write_db = isset($params['write_db'])
-            ? $params['write_db']
-            : $this->_db;
-
         if (isset($params['use_memorycache'])) {
             $this->_mc = $params['use_memorycache'];
         }
 
-        unset($params['db'], $params['use_memorycache'], $params['write_db']);
+        unset($params['db'], $params['use_memorycache']);
 
         $params = array_merge(array(
             'table' => 'horde_cache',
@@ -105,12 +92,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
                  ' WHERE cache_expiration < ? AND cache_expiration <> 0';
         $values = array(time());
 
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
-        }
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {}
     }
 
     /**
@@ -148,13 +132,13 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             $values[] = $maxage;
         }
 
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
+        try {
+            $result = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) (
             return false;
-        } elseif (is_null($result)) {
+        }
+
+        if (is_null($result)) {
             /* No rows were found - cache miss */
             if ($this->_logger) {
                 $this->_logger->log(sprintf('Cache miss: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
@@ -206,7 +190,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         // Remove any old cache data and prevent duplicate keys
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE cache_id=?';
         $values = array($key);
-        $this->_write_db->query($query, $values);
+        try {
+            $this->_db->query($query, $values);
+        } catch (Horde_Db_Exception $e) {}
 
         /* Build SQL query. */
         $query = 'INSERT INTO ' . $this->_params['table'] .
@@ -214,11 +200,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
                  ' VALUES (?, ?, ?, ?)';
         $values = array($key, $timestamp, $expiration, $data);
 
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
+        try {
+            $this->_db->query($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
@@ -255,11 +239,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             $values[] = time() - $lifetime;
         }
 
-        $result = $this->_db->getRow($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
+        try {
+            $result = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
@@ -297,11 +279,9 @@ class Horde_Cache_Sql extends Horde_Cache_Base
                  ' WHERE cache_id = ?';
         $values = array($key);
 
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            if ($this->_logger) {
-                $this->_logger->log($result, 'ERR');
-            }
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 

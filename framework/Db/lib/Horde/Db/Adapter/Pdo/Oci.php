@@ -89,6 +89,14 @@ class Horde_Db_Adapter_Pdo_Oci extends Horde_Db_Adapter_Pdo_Base
     }
 
     /**
+     * @return  string
+     */
+    public function adapterName()
+    {
+        return 'PDO_Oci';
+    }
+
+    /**
      * Get a description of the database table that $model is going to
      * reflect.
      */

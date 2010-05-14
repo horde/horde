@@ -134,11 +134,13 @@ abstract class Horde_Db_Adapter_Base
 
         // Create the database-specific (but not adapter specific) schema
         // object.
-        if (!$this->_schemaClass)
-            $this->_schemaClass = get_class($this).'_Schema';
+        if (!$this->_schemaClass) {
+            $this->_schemaClass = __CLASS__ . '_Schema';
+        }
         $this->_schema = new $this->_schemaClass($this, array(
             'cache' => $this->_cache,
-            'logger' => $this->_logger));
+            'logger' => $this->_logger
+        ));
         $this->_schemaMethods = array_flip(get_class_methods($this->_schema));
 
         $this->connect();
@@ -168,11 +170,7 @@ abstract class Horde_Db_Adapter_Base
     public function componentFactory($component, $args)
     {
         $class = str_replace('_Schema', '', $this->_schemaClass) . '_' . $component;
-        if (class_exists($class)) {
-            $class = new ReflectionClass($class);
-        } else {
-            $class = new ReflectionClass('Horde_Db_Adapter_Base_' . $component);
-        }
+        $class = new ReflectionClass(class_exists($class) ? $class : __CLASS__ . '_' . $component);
 
         return $class->newInstanceArgs($args);
     }
@@ -197,7 +195,7 @@ abstract class Horde_Db_Adapter_Base
             return call_user_func_array(array($this->_schema, $method), $args);
         }
 
-        throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
+        throw new BadMethodCallException('Call to undeclared method "' . $method . '"');
     }
 
 

@@ -7,25 +7,13 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        if (empty($GLOBALS['conf']['alarms']['driver'])) {
-            $driver = null;
-            $params = array();
-        } else {
-            $driver = $GLOBALS['conf']['alarms']['driver'];
-            $params = Horde::getDriverConfig('alarms', $driver);
-        }
+        $driver = empty($GLOBALS['conf']['alarms']['driver'])
+            ? 'Null'
+            : $GLOBALS['conf']['alarms']['driver'];
+        $params = Horde::getDriverConfig('alarms', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $write_db = $injector->getInstance('Horde_Db_Pear')->getOb();
-
-            /* Check if we need to set up the read DB connection
-             * separately. */
-            if (empty($params['splitread'])) {
-                $params['db'] = $write_db;
-            } else {
-                $params['write_db'] = $write_db;
-                $params['db'] = $injector->getInstance('Horde_Db_Pear')->getOb('read');
-            }
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
         }
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
@@ -36,13 +24,18 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
          * through Horde_Alarms::handlers(). */
         /*
         $handler_params = array(
-            'notification' => $injector->getInstance('Horde_Notification'));
-        $alarm->addHandler('notify', new Horde_Alarm_Handler_Notification($handler_params));
+            'notification' => $injector->getInstance('Horde_Notification')
+        );
+        $alarm->addHandler('notify', new Horde_Alarm_Handler_Notification($handler_params)
+        );
+
         $handler_params = array(
             'notification' => $injector->getInstance('Horde_Notification'),
-            'icon' => (string)Horde_Themes::img('alerts/alarm.png'));
+            'icon' => (string)Horde_Themes::img('alerts/alarm.png')
+        );
         $alarm->addHandler('desktop', new Horde_Alarm_Handler_Desktop($handler_params));
         */
+
         $handler_params = array(
             'identity' => $injector->getInstance('Horde_Prefs_Identity'),
             'mail' => $injector->getInstance('Horde_Mail'),
