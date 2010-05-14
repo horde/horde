@@ -25,7 +25,7 @@ class Horde_Perms_Permission
      *
      * @var integer
      */
-    private $_cacheVersion;
+    protected $_cacheVersion;
 
     /**
      * Constructor.
