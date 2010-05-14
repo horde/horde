@@ -70,16 +70,16 @@ $users = array();
 $tree = Horde_Tree::factory('admin_devices', 'Javascript');
 $tree->setOption(array('alternate' => true));
 $tree->setHeader(array(
-                   array('width' => '20%'),
-                   array('width' => '10%', 'html' => _("Last Sync Time")),
+                   array('width' => '30%'),
+                   array('width' => '22%', 'html' => _("Last Sync Time")),
                    array('html' => $spacer),
-                   array('width' => '10%', 'html' => _("Policy Key")),
+                   array('width' => '6%', 'html' => _("Policy Key")),
                    array('html' => $spacer),
                    array('width' => '10%', 'html' => _("Status")),
                    array('html' => $spacer),
-                   array('width' => '20%' , 'html' => _("Device ID")),
+                   array('width' => '12%' , 'html' => _("Device ID")),
                    array('html' => $spacer),
-                   array('width' => '15%', 'html' => _("Actions"))
+                   array('width' => '10%', 'html' => _("Actions"))
  ));
 $tree->addNode('root', null, _("Registered User Devices"), 0, true, $base_node_params);
 
