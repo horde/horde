@@ -133,6 +133,16 @@ abstract class Horde_Auth_Base
     abstract protected function _authenticate($userId, $credentials);
 
     /**
+     * Check existing auth for triggers that might invalidate it.
+     *
+     * @return boolean  Is existing auth valid?
+     */
+    public function checkExistingAuth()
+    {
+        return true;
+    }
+
+    /**
      * Adds a set of authentication credentials.
      *
      * @param string $userId      The userId to add.

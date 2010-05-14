@@ -76,6 +76,17 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
+     * Check existing auth for triggers that might invalidate it.
+     *
+     * @return boolean  Is existing auth valid?
+     */
+    public function checkExistingAuth()
+    {
+        return !empty($_SERVER[$this->_params['username_header']]) &&
+            $_SERVER[$this->_params['username_header']] == Horde_Auth::getAuth();
+    }
+
+    /**
      * Automatic authentication: check if the username is set in the
      * configured header.
      *

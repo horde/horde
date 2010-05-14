@@ -444,7 +444,8 @@ class Horde_Auth
             }
         }
 
-        return true;
+        $auth = self::singleton($GLOBALS['conf']['auth']['driver']);
+        return $auth->checkExistingAuth();
     }
 
     /**
