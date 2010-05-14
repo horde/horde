@@ -37,7 +37,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Horde-specific session counting script.
+ <notes>* Abstracted memcache persistent-backend code into 'Stack' driver.
+ * Renamed 'none' driver to 'Builtin'.
+ * Now throws Horde_SessionHandler_Exception.
+ * Split driver code into abstract class.
+ * Use horde/Db to access SQL databases.
+ * Do not rely on Horde::logMessage().
+ * Removed Horde-specific session counting script.
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -45,13 +51,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="SessionHandler">
+      <file name="Builtin.php" role="php" />
+      <file name="Driver.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="External.php" role="php" />
       <file name="Ldap.php" role="php" />
       <file name="Memcache.php" role="php" />
-      <file name="Mysql.php" role="php" />
       <file name="None.php" role="php" />
-      <file name="Oci8.php" role="php" />
-      <file name="Pgsql.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Stack.php" role="php" />
      </dir> <!-- /lib/Horde/SessionHandler -->
      <file name="SessionHandler.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -64,28 +72,43 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
-    <name>Memcache</name>
+    <name>Auth</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>SQL</name>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Memcache</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/SessionHandler/Builtin.php" as="Horde/SessionHandler/Builtin.php" />
+   <install name="lib/Horde/SessionHandler/Driver.php" as="Horde/SessionHandler/Driver.php" />
+   <install name="lib/Horde/SessionHandler/Exception.php" as="Horde/SessionHandler/Exception.php" />
+   <install name="lib/Horde/SessionHandler/External.php" as="Horde/SessionHandler/External.php" />
    <install name="lib/Horde/SessionHandler/Ldap.php" as="Horde/SessionHandler/Ldap.php" />
    <install name="lib/Horde/SessionHandler/Memcache.php" as="Horde/SessionHandler/Memcache.php" />
-   <install name="lib/Horde/SessionHandler/Mysql.php" as="Horde/SessionHandler/Mysql.php" />
    <install name="lib/Horde/SessionHandler/None.php" as="Horde/SessionHandler/None.php" />
-   <install name="lib/Horde/SessionHandler/Oci8.php" as="Horde/SessionHandler/Pgsql.php" />
    <install name="lib/Horde/SessionHandler/Sql.php" as="Horde/SessionHandler/Sql.php" />
+   <install name="lib/Horde/SessionHandler/Stack.php" as="Horde/SessionHandler/Stack.php" />
    <install name="lib/Horde/SessionHandler.php" as="Horde/SessionHandler.php" />
   </filelist>
  </phprelease>

@@ -22,10 +22,6 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<h1 class="header">' . _("Current Sessions");
 try {
-    if (!isset($registry->sessionHandler)) {
-        throw new Horde_Exception(_("Session handler does not support listing active sessions."));
-    }
-
     $session_info = $registry->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .

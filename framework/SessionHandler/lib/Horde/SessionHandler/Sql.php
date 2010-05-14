@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_SessionHandler implementation for PHP's PEAR database abstraction
- * layer.
+ * SessionHandler implementation for SQL databases.
  *
  * The table structure can be found in:
  *   horde/scripts/sql/horde_sessionhandler.sql.
@@ -11,82 +10,56 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_SessionHandler
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @package  SessionHandler
  */
-class Horde_SessionHandler_Sql extends Horde_SessionHandler
+class Horde_SessionHandler_Sql extends Horde_SessionHandler_Driver
 {
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
 
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'db' - (DB) [REQUIRED] The DB instance.
-     * 'persistent' - (boolean) Use persistent DB connections?
-     *                DEFAULT: false
-     * 'table' - (string) The name of the tokens table in 'database'.
-     *           DEFAULT: 'horde_tokens'
-     * 'write_db' - (DB) The write DB instance.
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the sessions table.
+     *           DEFAULT: 'horde_sessionhandler'
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!isset($params['db'])) {
-            throw new Horde_Exception('Missing db parameter.');
+            throw new InvalidArgumentException('Missing db parameter.');
         }
         $this->_db = $params['db'];
+        unset($params['db']);
 
-        $this->_write_db = isset($params['write_db'])
-            ? $params['write_db']
-            : $this->_db;
-
-        if (isset($params['write_db'])) {
-            $this->_write_db = $params['write_db'];
-        }
-
-        unset($params['db'], $params['write_db']);
-
-        $params = array_merge(array(
-            'persistent' => false,
+        parent::__construct(array_merge(array(
             'table' => 'horde_sessionhandler'
-        ), $params);
-
-        parent::__construct($params);
+        ), $params));
     }
 
     /**
      * Close the backend.
      *
-     * @throws Horde_Exception
+     * @throws Horde_SessionHandler_Exception
      */
     protected function _close()
     {
         /* Close any open transactions. */
-        $this->_db->commit();
-        $this->_db->autoCommit(true);
-        @$this->_db->disconnect();
-
-        if ($this->_db != $this->_write_db) {
-            $this->_write_db->commit();
-            $this->_write_db->autoCommit(true);
-            @$this->_write_db->disconnect();
+        try {
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_SessionHandler_Exception($e);
         }
     }
 
@@ -100,21 +73,20 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     protected function _read($id)
     {
         /* Begin a transaction. */
-        $result = $this->_write_db->autocommit(false);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return '';
-        }
+        // TODO: Rowlocking in Mysql
+        $this->_db->beginDbTransaction();
+
+        /* Build query. */
+        $query = sprintf('SELECT session_data FROM %s WHERE session_id = ?',
+                         $this->_params['table']);
+        $values = array($id);
 
         /* Execute the query. */
-        $result = Horde_SQL::readBlob($this->_write_db, $this->_params['table'], 'session_data', array('session_id' => $id));
-
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return '';
+        try {
+            return $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return false;
         }
-
-        return $result;
     }
 
     /**
@@ -132,41 +104,33 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
                          $this->_params['table']);
         $values = array($id);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::write(): query = "%s"', $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_write_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $result = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
-        if ($result) {
-            $result = Horde_SQL::updateBlob($this->_write_db, $this->_params['table'], 'session_data',
-                                            $session_data, array('session_id' => $id),
-                                            array('session_lastmodified' => time()));
-        } else {
-            $result = Horde_SQL::insertBlob($this->_write_db, $this->_params['table'], 'session_data',
-                                            $session_data, array('session_id' => $id,
-                                                                 'session_lastmodified' => time()));
-        }
+        /* Build the replace SQL query. */
+        $query = sprintf('REPLACE INTO %s ' .
+                         '(session_id, session_data, session_lastmodified) ' .
+                         'VALUES (?, ?, ?)',
+                         $this->_params['table']);
+        $values = array(
+            $id,
+            $session_data,
+            time()
+        );
 
-        if (is_a($result, 'PEAR_Error')) {
-            $this->_write_db->rollback();
-            $this->_write_db->autoCommit(true);
-            Horde::logMessage($result, 'ERR');
+        /* Execute the replace query. */
+        try {
+            $this->_db->update($query, $values);
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
             return false;
         }
 
-        $result = $this->_write_db->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $this->_write_db->autoCommit(true);
-            Horde::logMessage($result, 'ERR');
-            return false;
-        }
-
-        $this->_write_db->autoCommit(true);
         return true;
     }
 
@@ -184,19 +148,11 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
                          $this->_params['table']);
         $values = array($id);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::destroy(): query = "%s"', $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return false;
-        }
-
-        $result = $this->_write_db->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $this->_db->delete($query, $values);
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
@@ -217,13 +173,10 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
                          $this->_params['table']);
         $values = array(time() - $maxlifetime);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::gc(): query = "%s"', $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
@@ -234,28 +187,23 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
      * Get a list of the valid session identifiers.
      *
      * @return array  A list of valid session identifiers.
-     * @throws Horde_Exception
      */
     public function getSessionIDs()
     {
         $this->open();
 
         /* Build the SQL query. */
-        $query = 'SELECT session_id FROM ' . $this->_params['table'] .
-                 ' WHERE session_lastmodified >= ?';
+        $query = sprintf('SELECT session_id FROM %s' .
+                         ' WHERE session_lastmodified >= ?',
+                         $this->_params['table']);
         $values = array(time() - ini_get('session.gc_maxlifetime'));
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SessionHandler_Sql::getSessionIDs(): query = "%s"', $query), 'DEBUG');
-
         /* Execute the query. */
-        $result = $this->_db->getCol($query, 0, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
-            return false;
+        try {
+            return $this->_db->selectValues($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return array();
         }
-
-        return $result;
     }
 
 }

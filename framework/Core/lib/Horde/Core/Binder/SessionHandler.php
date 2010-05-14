@@ -9,28 +9,46 @@ class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
     {
         global $conf;
 
-        $driver = empty($conf['sessionhandler']['type'])
-            ? 'None'
-            : $conf['sessionhandler']['type'];
-
+        if (empty($conf['sessionhandler']['type'])) {
+            $driver = 'Builtin';
+        } else {
+            $driver = $conf['sessionhandler']['type'];
+            if (strcasecmp($driver, 'None')) {
+                $driver = 'Builtin';
+            }
+        }
         $params = Horde::getDriverConfig('sessionhandler', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $write_db = $injector->getInstance('Horde_Db_Pear')->getOb();
-
-            /* Check if we need to set up the read DB connection
-             * separately. */
-            if (empty($params['splitread'])) {
-                $params['db'] = $write_db;
-            } else {
-                $params['write_db'] = $write_db;
-                $params['db'] = $injector->getInstance('Horde_Db_Pear')->getOb('read');
-            }
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
         }
 
-        if (!empty($conf['sessionhandler']['memcache'])) {
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+        $logger = $injector->getInstance('Horde_Log_Logger');
+
+        if (!empty($conf['sessionhandler']['memcache']) &&
+            (strcasecmp($driver, 'Builtin') != 0) &&
+            (strcasecmp($driver, 'Memcache') != 0)) {
+            $params = array(
+                'stack' => array(
+                    array(
+                        'driver' => 'Memcache',
+                        'params' => array(
+                            'memcache' => $injector->getInstance('Horde_Memcache'),
+                            'logger' => $logger
+                        )
+                    ),
+                    array(
+                        'driver' => $driver,
+                        'params' => array_merge($params, array(
+                            'logger' => $logger
+                        ))
+                    )
+                )
+            );
+            $driver = 'Stack';
         }
+
+        $params['logger'] = $logger;
 
         return Horde_SessionHandler::factory($driver, $params);
     }

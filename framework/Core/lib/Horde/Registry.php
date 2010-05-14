@@ -1539,33 +1539,23 @@ class Horde_Registry
         if (!empty($conf['session']['use_only_cookies'])) {
             ini_set('session.use_only_cookies', 1);
             if (!empty($conf['cookie']['domain']) &&
-                strpos($conf['server']['name'], '.') === false) {
+                (strpos($conf['server']['name'], '.') === false)) {
                 throw new Horde_Exception('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.');
             }
         }
 
-        session_set_cookie_params($conf['session']['timeout'],
-                                  $conf['cookie']['path'], $conf['cookie']['domain'], $conf['use_ssl'] == 1 ? 1 : 0);
+        session_set_cookie_params(
+            $conf['session']['timeout'],
+            $conf['cookie']['path'],
+            $conf['cookie']['domain'],
+            $conf['use_ssl'] == 1 ? 1 : 0
+        );
         session_cache_limiter(is_null($this->initParams['session_cache_limiter']) ? $conf['session']['cache_limiter'] : $this->initParams['session_cache_limiter']);
         session_name(urlencode($conf['session']['name']));
 
-        $type = empty($conf['sessionhandler']['type'])
-            ? 'none'
-            : $conf['sessionhandler']['type'];
-
-        if ($type == 'external') {
-            $calls = $conf['sessionhandler']['params'];
-            session_set_save_handler(
-                $calls['open'],
-                $calls['close'],
-                $calls['read'],
-                $calls['write'],
-                $calls['destroy'],
-                $calls['gc']
-            );
-        } elseif ($type != 'none') {
-            $this->sessionHandler = $GLOBALS['injector']->getInstance('Horde_SessionHandler');
-        }
+        /* We want to create an instance here, not get, since we may be
+         * destroying the previous instances in the page. */
+        $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
     }
 
     /**

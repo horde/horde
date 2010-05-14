@@ -920,17 +920,17 @@
      <case name="kolab" desc="Kolab"/>
      <case name="ldap" desc="LDAP">
        <configsection name="params">
-        <configstring name="hostspec" desc="The hostname of the LDAP server">
+        <configstring name="hostspec" desc="the hostname of the ldap server">
         localhost</configstring>
-        <configstring name="basedn" desc="The base DN for the LDAP server"/>
-        <configstring name="binddn" required="false" desc="The DN used to bind
-        to the LDAP server"/>
-        <configstring name="password" required="false" desc="The password used
-        to bind to the LDAP server"/>
-        <configenum name="version" desc="LDAP protocol version">3
+        <configstring name="basedn" desc="the base dn for the ldap server"/>
+        <configstring name="binddn" required="false" desc="the dn used to bind
+        to the ldap server"/>
+        <configstring name="password" required="false" desc="the password used
+        to bind to the ldap server"/>
+        <configenum name="version" desc="ldap protocol version">3
          <values>
-          <value desc="LDAPv2 (deprecated)">2</value>
-          <value desc="LDAPv3">3</value>
+          <value desc="ldapv2 (deprecated)">2</value>
+          <value desc="ldapv3">3</value>
          </values>
         </configenum>
         <configboolean name="tls" desc="Enable TLS?">false</configboolean>
@@ -1284,8 +1284,8 @@
   <configsection name="sessionhandler">
    <configheader>Custom Session Handler Settings</configheader>
    <configswitch name="type" desc="What sessionhandler driver should we
-   use?">none
-    <case name="none" desc="Use the default PHP session handler (file-based by
+   use?">Builtin
+    <case name="Builtin" desc="Use the default PHP session handler (file-based by
     default)">
      <configdescription>
       If you have configured a custom session extension in php.ini, such as
@@ -1294,7 +1294,7 @@
       settings settings will be deferred to.
      </configdescription>
     </case>
-    <case name="external" desc="Use your own custom session handler">
+    <case name="External" desc="Use your own custom session handler">
      <configsection name="params">
       <configstring name="open" desc="Your open() function"/>
       <configstring name="close" desc="Your close() function"/>
@@ -1304,112 +1304,25 @@
       <configstring name="gc" desc="Your gc() function"/>
      </configsection>
     </case>
-
-    <case name="mysql" desc="MySQL based sessions">
+    <case name="Ldap" desc="LDAP">
      <configsection name="params">
-      <configboolean name="persistent" desc="Request persistent
-      connections?">false</configboolean>
-      <configboolean name="rowlocking" desc="Should we use row-level locking
-      and transactions? This is strongly recommended, but requires a table
-      type that is transaction-safe and supports row-level locking, like
-      InnoDB. If you don't have such a table type, disable this setting and we
-      will use table-level locking and no locking
-      instead.">true</configboolean>
-      <configswitch name="protocol" desc="What protocol will we use to connect
-      to the database?">unix
-       <case name="unix" desc="UNIX Sockets">
-        <configstring name="socket" required="false" desc="Location of UNIX
-        socket"></configstring>
-       </case>
-       <case name="tcp" desc="TCP/IP">
-        <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">3306</configinteger>
-       </case>
-      </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
-      <configstring name="username" desc="What username do we authenticate to
-      the database server as?">horde</configstring>
-      <configstring name="password" required="false" desc="What password do we
-      authenticate to the database server with?"/>
-      <configstring name="database" desc="What database name/tablespace are we
-      using?">horde</configstring>
-      <configstring name="table" required="false" desc="The name of the
-      session table in the database [horde_sessionhandler]"/>
+      <configstring name="hostspec" descu"LDAP
+      server/host">localhost</configstring>
+      <configinteger name="port" required="false" desc="Port LDAP is running
+      on, if non-standard">389</configinteger>
+      <configstring name="dn" required="false" desc="The DN used to bind
+      to the LDAP server"/>
+      <configstring name="password" required="false" desc="The password used
+      to bind to the LDAP server"/>
+      <configenum name="version" desc="LDAP Protocol Version">3
+       <values>
+        <value desc="LDAPv2 (Deprecated)">2</value>
+        <value desc="LDAPv3">3</value>
+       </values>
+      </configenum>
      </configsection>
     </case>
-    <case name="oci8" desc="Oracle based sessions">
-     <configsection name="params">
-      <configboolean name="persistent" desc="Request persistent connections?">
-      false</configboolean>
-      <configstring name="hostspec" desc="Database name or Easy Connect
-      parameter">horde</configstring>
-      <configstring name="username" desc="What username do we authenticate to
-      the database server as?">horde</configstring>
-      <configstring name="password" required="false" desc="What password do we
-      authenticate to the database server with?"/>
-      <configstring name="table" required="false" desc="The name of the session
-      table in the database [horde_sessionhandler]"/>
-     </configsection>
-    </case>
-    <case name="pgsql" desc="PostgreSQL based sessions">
-     <configsection name="params">
-      <configboolean name="persistent" desc="Request persistent connections?">
-      false</configboolean>
-      <configswitch name="protocol" desc="What protocol will we use to connect
-      to the database?">unix
-       <case name="unix" desc="UNIX Sockets">
-        <configstring name="socket" required="false" desc="Location of UNIX
-        socket"></configstring>
-       </case>
-       <case name="tcp" desc="TCP/IP">
-        <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
-       </case>
-      </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
-      <configstring name="username" desc="What username do we authenticate to
-      the database server as?">horde</configstring>
-      <configstring name="password" required="false" desc="What password do we
-      authenticate to the database server with?"/>
-      <configstring name="database" desc="What database name/tablespace are we
-      using?">horde</configstring>
-      <configstring name="table" required="false" desc="The name of the
-      session table in the database [horde_sessionhandler]"/>
-     </configsection>
-    </case>
-    <case name="sql" desc="Use PEAR's DB abstraction layer">
-     <configsection name="params">
-      <configboolean name="persistent" desc="Request persistent
-      connections?">false</configboolean>
-      <configswitch name="protocol" desc="What protocol will we use to connect
-      to the database?">unix
-       <case name="unix" desc="UNIX Sockets">
-        <configstring name="socket" required="false" desc="Location of UNIX
-        socket"></configstring>
-       </case>
-       <case name="tcp" desc="TCP/IP">
-        <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
-       </case>
-      </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
-      <configstring name="username" desc="What username do we authenticate to
-      the database server as?">horde</configstring>
-      <configstring name="password" required="false" desc="What password do we
-      authenticate to the database server with?"/>
-      <configstring name="database" desc="What database name/tablespace are we
-      using?">horde</configstring>
-      <configstring name="table" required="false" desc="The name of the session
-      table in the database [horde_sessionhandler]"/>
-     </configsection>
-    </case>
-    <case name="memcache" desc="Memcache only">
+    <case name="Memcache" desc="Memcache only">
      <configsection name="params">
       <configswitch name="track" required="false" desc="Keep track of active
       session information? Tracking requires a small amount of extra load.">
@@ -1422,6 +1335,14 @@
         'session.gc_maxlifetime'."></configinteger>
        </case>
       </configswitch>
+     </configsection>
+    </case>
+    <case name="Sql" desc="SQL Database">
+     <configsection name="params">
+      <configsql switchname="driverconfig">
+       <configstring name="table" required="false" desc="The name of the
+       preference table in the database [horde_sessionhandler]"/>
+      </configsql>
      </configsection>
     </case>
    </configswitch>
