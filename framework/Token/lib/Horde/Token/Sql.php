@@ -64,6 +64,8 @@ class Horde_Token_Sql extends Horde_Token_Driver
 
         if (isset($params['write_db'])) {
             $this->_write_db = $params['write_db'];
+        } else {
+            $this->_write_db = $this->_db;
         }
 
         unset($params['db'], $params['write_db']);
