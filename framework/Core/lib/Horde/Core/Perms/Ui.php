@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Perms_Ui:: class provides UI methods for the Horde permissions
+ * The Horde_Core_Perms_Ui:: class provides UI methods for the Horde permissions
  * system.
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
@@ -10,9 +10,9 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Perms
+ * @package  Core
  */
-class Horde_Perms_Ui
+class Horde_Core_Perms_Ui
 {
     /**
      * The Horde_Perms object we're displaying UI stuff for.

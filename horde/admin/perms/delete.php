@@ -28,7 +28,7 @@ try {
 }
 
 /* Set up form. */
-$ui = new Horde_Perms_Ui($perms);
+$ui = new Horde_Core_Perms_Ui($perms);
 $ui->setVars($vars);
 $ui->setupDeleteForm($permission);
 

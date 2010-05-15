@@ -30,7 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Eliminated horde/Core dependency.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -45,7 +46,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Exception.php" role="php" />
       <file name="Permission.php" role="php" />
       <file name="Sql.php" role="php" />
-      <file name="Ui.php" role="php" />
      </dir> <!-- /lib/Horde/Perms -->
      <file name="Perms.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -78,7 +78,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_Tree</name>
+    <name>Tree</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
@@ -91,7 +91,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Perms/Permission/DataTreeObject.php" as="Horde/Perms/Permission/DataTreeObject.php" />
    <install name="lib/Horde/Perms/Permission/SqlObject.php" as="Horde/Perms/Permission/SqlObject.php" />
    <install name="lib/Horde/Perms/Sql.php" as="Horde/Perms/Sql.php" />
-   <install name="lib/Horde/Perms/Ui.php" as="Horde/Perms/Ui.php" />
    <install name="lib/Horde/Perms.php" as="Horde/Perms.php" />
   </filelist>
  </phprelease>
