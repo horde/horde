@@ -95,7 +95,10 @@ class Horde_Perms_Sql extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        return new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion, $type, $params);
+        $ob = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion, $type, $params);
+        $ob->setObs($this->_cache, $this->_db);
+
+        return $ob;
     }
 
     /**
@@ -139,7 +142,7 @@ class Horde_Perms_Sql extends Horde_Perms
             $this->_permsCache[$name] = unserialize($perm);
         }
 
-        $this->_permsCache[$name]->setSQLOb($this->_db);
+        $this->_permsCache[$name]->setObs($this->_cache, $this->_db);
 
         return $this->_permsCache[$name];
     }
@@ -174,7 +177,7 @@ class Horde_Perms_Sql extends Horde_Perms
             $object = new Horde_Perms_Permission_SqlObject($result['perm_name'], $this->_cacheVersion);
             $object->setId($id);
             $object->setData(unserialize($result['perm_data']));
-            $object->setSQLOb($this->_db);
+            $object->setObs($this->_cache, $this->_db);
         }
 
         return $object;

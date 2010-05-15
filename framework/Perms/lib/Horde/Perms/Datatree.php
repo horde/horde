@@ -84,6 +84,7 @@ class Horde_Perms_Datatree extends Horde_Perms
         }
 
         $perm = new Horde_Perms_Permission_DataTreeObject($name, $this->_cacheVersion, $type, $params);
+        $perm->setCacheOb($this->_cache);
         $perm->setDataTree($this->_datatree);
 
         return $perm;
@@ -112,6 +113,9 @@ class Horde_Perms_Datatree extends Horde_Perms
         } else {
             $this->_permsCache[$name] = unserialize($perm);
         }
+
+        $this->_permsCache[$name]->setCacheOb($this->_cache);
+        $this->_permsCache[$name]->setDataTree($this->_datatree);
 
         return $this->_permsCache[$name];
     }

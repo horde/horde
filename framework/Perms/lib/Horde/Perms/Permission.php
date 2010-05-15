@@ -14,10 +14,14 @@
  */
 class Horde_Perms_Permission
 {
-    // TODO
+    /**
+     * TODO
+     */
     public $data;
 
-    // TODO
+    /**
+     * TODO
+     */
     public $name;
 
     /**
@@ -36,7 +40,8 @@ class Horde_Perms_Permission
      * @param array $params          A hash with any parameters that the
      *                               permission type needs.
      */
-    public function __construct($name, $cacheVersion = null, $type = 'matrix', $params = null)
+    public function __construct($name, $cacheVersion = null, $type = 'matrix',
+                                $params = null)
     {
         $this->setName($name);
         $this->setCacheVersion($cacheVersion);
