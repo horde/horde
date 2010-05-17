@@ -2257,6 +2257,7 @@ KronolithCore = {
         }
 
         this.closeRedBox();
+        this.quickClose();
         this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
             if (this.redBoxOnDisplay) {
@@ -2444,6 +2445,7 @@ KronolithCore = {
         }
 
         this.closeRedBox();
+        this.quickClose();
         if ($('kronolithCalendarDialog')) {
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithCalendarDialog').show());
@@ -3471,7 +3473,7 @@ KronolithCore = {
             case Event.KEY_ESC:
                 switch (form.identify()) {
                 case 'kronolithQuickinsertForm':
-                    $('kronolithQuickinsert').fade({ duration: this.effectDur });
+                    this.quickClose();
                     break;
                 case 'kronolithEventForm':
                     this.closeRedBox();
@@ -3556,8 +3558,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithQuickinsertCancel':
-                $('kronolithQuickinsert').fade({ duration: this.effectDur });
-                $('kronolithQuickinsertQ').value = '';
+                this.quickClose();
                 e.stop();
                 return;
 
@@ -4355,6 +4356,7 @@ KronolithCore = {
         }
 
         this.closeRedBox();
+        this.quickClose();
         this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
            if (this.redBoxOnDisplay) {
@@ -4479,6 +4481,15 @@ KronolithCore = {
                               $('kronolithQuickinsertQ').value = '';
                           }
                       }.bind(this));
+    },
+
+    /**
+     * Closes and resets the quick event form.
+     */
+    quickClose: function()
+    {
+        $('kronolithQuickinsert').fade({ duration: this.effectDur });
+        $('kronolithQuickinsertQ').value = '';
     },
 
     topTagsCallback: function(update, tagclass, r)
