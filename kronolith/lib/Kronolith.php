@@ -897,7 +897,7 @@ class Kronolith
         $title = trim($title);
         $description = trim($description);
 
-        $dateParser = Horde_Date_Parser::factory();
+        $dateParser = Horde_Date_Parser::factory(array('locale' => $GLOBALS['language']));
         $r = $dateParser->parse($title, array('return' => 'result'));
         if (!($d = $r->guess())) {
             throw new Horde_Exception(sprintf(_("Cannot parse event description \"%s\""), Horde_String::truncate($text)));
