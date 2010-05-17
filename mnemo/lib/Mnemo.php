@@ -422,7 +422,8 @@ class Mnemo {
         }
 
         // Make sure all notepads exist now, to save on checking later.
-        $_temp = $GLOBALS['display_notepads'];
+        $_temp = ($GLOBALS['display_notepads']) ? $GLOBALS['display_notepads'] : array();
+
         $_all = Mnemo::listNotepads();
         $GLOBALS['display_notepads'] = array();
         foreach ($_temp as $id) {
