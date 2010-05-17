@@ -11,7 +11,4 @@
  * @since   Mnemo 1.0
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('mnemo');
-
 require MNEMO_BASE . '/list.php';
