@@ -72,14 +72,14 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
             $html .= '<tr>';
 
             if (!empty($this->_params['show_actions'])) {
+                $editImg = Horde_Themes::img('edit.png', 'horde');
                 $editurl = Horde_Util::addParameter(
                     'memo.php',
                     array('memo' => $memo['memo_id'],
                           'memolist' => $memo['memolist_id']));
                 $html .= '<td width="1%">'
                     . Horde::link(htmlspecialchars(Horde::applicationUrl(Horde_Util::addParameter($editurl, 'actionID', 'modify_memo'), true)), _("Edit Note"))
-                    . Horde::img('edit.png', _("Edit Note"), '',
-                                 $GLOBALS['registry']->getImageDir('horde'))
+                    . Horde::img($editImg, _("Edit Note"))
                     . '</a></td>';
             }
 
