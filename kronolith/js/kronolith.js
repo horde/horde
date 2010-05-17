@@ -3441,13 +3441,17 @@ KronolithCore = {
             case Event.KEY_RETURN:
                 switch (form.identify()) {
                 case 'kronolithEventForm':
-                    this.saveEvent();
-                    e.stop();
+                    if (e.element().tagName != 'TEXTAREA') {
+                        this.saveEvent();
+                        e.stop();
+                    }
                     break;
 
                 case 'kronolithTaskForm':
-                    this.saveTask();
-                    e.stop();
+                    if (e.element().tagName != 'TEXTAREA') {
+                        this.saveTask();
+                        e.stop();
+                    }
                     break;
 
                 case 'kronolithSearchForm':
