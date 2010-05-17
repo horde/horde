@@ -690,7 +690,7 @@ HTML;
                 /* Horde 3 -> 4 conversion checking. This is the only place
                  * to catch PEAR_LOG errors. */
                 if (isset($conf['log']['priority']) &&
-                    (strpos($conf['log'], 'PEAR_LOG_') !== false)) {
+                    (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
                     $conf['log']['priority'] = 'INFO';
                     self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
                 } else {
