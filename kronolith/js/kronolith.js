@@ -212,12 +212,16 @@ KronolithCore = {
             case 'horde.warning':
             case 'horde.message':
             case 'horde.success':
-                this.Growler.growl(m.message.escapeHTML(), {
-                    className: m.type.replace('.', '-'),
-                    life: 8,
-                    log: true,
-                    sticky: m.type == 'horde.error'
-                });
+                this.Growler.growl(
+                    m.flags.include('content.raw')
+                        ? m.message.replace(/<a href="([^"]+)"/, '<a href="#" onclick="KronolithCore.iframeContent(\'$1\')"')
+                        : m.message.escapeHTML(),
+                    {
+                        className: m.type.replace('.', '-'),
+                        life: 8,
+                        log: true,
+                        sticky: m.type == 'horde.error'
+                    });
                 var notify = $('kronolithNotifications'),
                     className = m.type.replace(/\./, '-'),
                     order = 'horde-error,horde-warning,horde-message,horde-success,kronolithNotifications',
