@@ -1074,13 +1074,18 @@ class Horde_Registry
          *  - To all admins.
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
-        if ($checkPerms && !$this->hasPermission($app, Horde_Perms::READ)) {
-            if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+        if ($checkPerms) {
+            if (Horde_Auth::getAuth() && !Horde_Auth::checkExistingAuth()) {
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
+            if (!$this->hasPermission($app, Horde_Perms::READ)) {
+                if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+                    throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
+                }
 
-            Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), 'DEBUG');
-            throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), 'DEBUG');
+                throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+            }
         }
 
         /* Push application on the stack. */
