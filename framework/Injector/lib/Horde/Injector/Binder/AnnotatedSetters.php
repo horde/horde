@@ -22,8 +22,6 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
      */
     private $_dependencyFinder;
 
-    private $_setters = array();
-
     /**
      *
      */
@@ -38,7 +36,7 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
-        return false;
+        return $otherBinder instanceof Horde_Injector_Binder_AnnotatedSetters;
     }
 
     /**
@@ -49,19 +47,10 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
         $instance = $this->_binder->create($injector);
 
         $reflectionClass = new ReflectionClass(get_class($instance));
-        $this->_bindAnnotatedSetters($reflectionClass);
-        $this->_callSetters($injector, $instance);
+        $setters = $this->_findAnnotatedSetters($reflectionClass);
+        $this->_callSetters($setters, $injector, $instance);
 
         return $instance;
-    }
-
-    /**
-     */
-    private function _bindAnnotatedSetters(ReflectionClass $reflectionClass)
-    {
-        foreach ($this->_findAnnotatedSetters($reflectionClass) as $setter) {
-            $this->_setters[] = $setter;
-        }
     }
 
     /**
@@ -76,11 +65,8 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     {
         $setters = array();
         foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $reflectionMethod) {
-            $docBlock = $reflectionMethod->getDocComment();
-            if ($docBlock) {
-                if (strpos($docBlock, '@inject') !== false) {
-                    $setters[] = $reflectionMethod->name;
-                }
+            if ($this->_isSetterMethod($reflectionMethod)) {
+                $setters[] = $reflectionMethod;
             }
         }
 
@@ -88,15 +74,32 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     }
 
     /**
-     * TODO
+     * Is a method a setter method, by the criteria we define (has a doc comment
+     * that includes @inject).
+     *
+     * @param ReflectionMethod $reflectionMethod
      */
-    protected function _callSetters(Horde_Injector $injector, $instance)
+    private function _isSetterMethod(ReflectionMethod $reflectionMethod)
     {
-        foreach ($this->_setters as $setter) {
-            $reflectionMethod = new ReflectionMethod($instance, $setter);
-            $reflectionMethod->invokeArgs(
+        $docBlock = $reflectionMethod->getDocComment();
+        if ($docBlock) {
+            if (strpos($docBlock, '@inject') !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     */
+    private function _callSetters(array $setters, Horde_Injector $injector, $instance)
+    {
+        foreach ($setters as $setterMethod) {
+            $setterMethod->invokeArgs(
                 $instance,
-                $this->_dependencyFinder->getMethodDependencies($injector, $reflectionMethod)
+                $this->_dependencyFinder->getMethodDependencies($injector, $setterMethod)
             );
         }
     }
