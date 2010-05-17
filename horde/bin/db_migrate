@@ -40,7 +40,7 @@ if (!empty($args[1])) {
 }
 
 // Run
-$dir = $GLOBALS['registry']->get('fileroot', $app) . '/migrations/';
+$dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration/';
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
 try {

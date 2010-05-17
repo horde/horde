@@ -48,11 +48,12 @@ $package = PEAR_PackageFileManager2::importOptions(
         'include' => '*',
         'dir_roles' =>
         array(
-            'lib'     => 'php',
-            'doc'     => 'doc',
-            'example' => 'doc',
-            'script'  => 'script',
-            'test'    => 'test',
+            'lib'       => 'php',
+            'doc'       => 'doc',
+            'example'   => 'doc',
+            'script'    => 'script',
+            'test'      => 'test',
+            'migration' => 'data',
         ),
     )
 );
@@ -77,6 +78,13 @@ foreach ($files as $file) {
     case 'test':
         $package->addInstallAs(
             $file['attribs']['name'], $components[1]
+        );
+        break;
+    case 'migration':
+        $components = explode('/', $components[1]);
+        array_splice($components, count($components) - 1, 0, 'migration');
+        $package->addInstallAs(
+            $file['attribs']['name'], implode('/', $components)
         );
         break;
     case 'script':
