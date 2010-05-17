@@ -84,4 +84,13 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
             ->add('baz', 3);
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3', (string)$url);
     }
+
+    public function testAddOverwrite()
+    {
+        $url = new Horde_Url('test');
+        $url->add('foo', 1);
+        $this->assertEquals('test?foo=1', (string)$url);
+        $url->add('foo', 2);
+        $this->assertEquals('test?foo=2', (string)$url);
+    }
 }
