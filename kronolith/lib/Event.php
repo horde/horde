@@ -2590,7 +2590,7 @@ abstract class Kronolith_Event
             }
 
             if (!empty($this->attendees)) {
-                $status .= Horde::fullSrcImg('attendees.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
+                $status .= Horde::fullSrcImg('attendees-' . $icon_color . '.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
             if (!empty($this->icon)) {
