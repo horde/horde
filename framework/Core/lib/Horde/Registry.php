@@ -442,6 +442,9 @@ class Horde_Registry
         $this->_cache['interfaces'] = array();
 
         /* Read the registry configuration files. */
+        if (!file_exists(HORDE_BASE . '/config/registry.php')) {
+            throw new Horde_Exception('Missing registry.php configuration file');
+        }
         require HORDE_BASE . '/config/registry.php';
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
         foreach ($files as $r) {
