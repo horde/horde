@@ -16,7 +16,7 @@ class Nag_Hooks
     /**
      * TODO
      */
-//    function format_description($text)
+//    public function format_description($text)
 //    {
 //        $text = preg_replace('/#(\d+)/', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
 //        $text = preg_replace('/(bug|ticket|request|enhancement|issue):\s*#?(\d+)/i', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
@@ -31,7 +31,7 @@ class Nag_Hooks
     /**
      * TODO
      */
-//    function description_help()
+//    public function description_help()
 //    {
 //        return '<p>To create a link to a bug, use #123 where 123 is the bug number. To create a link to another task, use [[task: name]], where name is the beginning of the task name. To create a link to a note, use [[note: title]] where title is the beginning of the note title.</p>';
 //    }

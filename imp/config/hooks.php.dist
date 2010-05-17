@@ -28,7 +28,7 @@ class IMP_Hooks
      *                   preauthentication hook, this must be true. If false,
      *                   IMP will try to authenticate using hordeauth.
      */
-//     function preauthenticate($userId, $credentials)
+//     public function preauthenticate($userId, $credentials)
 //     {
 //         return true;
 //     }
@@ -39,7 +39,7 @@ class IMP_Hooks
      *
      * See horde/config/hooks.php.dist for more information.
      */
-//     function postauthenticate($userId, $credentials)
+//     public function postauthenticate($userId, $credentials)
 //     {
 //         return true;
 //     }
@@ -54,7 +54,7 @@ class IMP_Hooks
      *
      * @return string  The signature text to use.
      */
-//    function prefs_hook_signature($username = null)
+//    public function prefs_hook_signature($username = null)
 //    {
 //        // Example #1: Set the signature from the system taglines file; the
 //        // string "%TAG%" (if present in a user's signature) will be replaced
@@ -78,7 +78,7 @@ class IMP_Hooks
      *
      * @return string  The add_source value.
      */
-//    function prefs_hook_add_source($username = null)
+//    public function prefs_hook_add_source($username = null)
 //    {
 //        if (!$username) {
 //            return;
@@ -99,7 +99,7 @@ class IMP_Hooks
      *
      * @return string  The search_sources value.
      */
-//    function prefs_hook_search_sources($username = null)
+//    public function prefs_hook_search_sources($username = null)
 //    {
 //        if (!$username) {
 //            return;
@@ -123,7 +123,7 @@ class IMP_Hooks
      * @return mixed  The data to send to the browser (will be JSON encoded).
      * @throws Horde_Ajax_Exception
      */
-//     function ajaxaction($action, $vars)
+//     public function ajaxaction($action, $vars)
 //     {
 //        switch ($action) {
 //        case 'Foo':
@@ -147,7 +147,7 @@ class IMP_Hooks
      *
      * @return string  The MIME type of the file.
      */
-     function attachmimetype($filename, $tempfile, $type)
+     public function attachmimetype($filename, $tempfile, $type)
      {
         /* By default, we trust the MIME type reported by the browser if it is
          * something other than the generic octet-stream type. */
@@ -173,7 +173,7 @@ class IMP_Hooks
      * @param Horde_Mime_Part $message     The message content object.
      * @param Horde_Mime_Headers $headers  The message headers object.
      */
-//    function pre_sent($message, $headers)
+//    public function pre_sent($message, $headers)
 //    {
 //        // Do action here -- no return value from this hook.
 //    }
@@ -185,7 +185,7 @@ class IMP_Hooks
      * @param Horde_Mime_Part $message     The message content object.
      * @param Horde_Mime_Headers $headers  The message headers object.
      */
-//    function post_sent($message, $headers)
+//    public function post_sent($message, $headers)
 //    {
 //        // Do action here -- no return value from this hook.
 //    }
@@ -198,7 +198,7 @@ class IMP_Hooks
      *
      * @return string  The trailer text to be used.
      */
-//    function trailer($trailer)
+//    public function trailer($trailer)
 //    {
 //        // Example #1: Set the trailer from the system taglines file; the
 //        // string "%TAG%" (if present in a user's signature) will be replaced
@@ -246,7 +246,7 @@ class IMP_Hooks
      *                defined in the 'msgflags' preference. On error, return
      *                an empty array.
      */
-//    function msglist_flags($data, $mode)
+//    public function msglist_flags($data, $mode)
 //    {
 //        // Example #1: Add a icon if the message was sent from a user within
 //        // the same domain.
@@ -275,7 +275,7 @@ class IMP_Hooks
      *                 Return an empty string if the user is not to be
      *                 redirected.
      */
-//    function mbox_redirect($mailbox)
+//    public function mbox_redirect($mailbox)
 //    {
 //        // Example #1: Redirect to various Horde apps based on the mailbox
 //        // name.
@@ -330,7 +330,7 @@ class IMP_Hooks
      *               If a mailbox name doesn't appear in the list, the default
      *               mailbox icon is displayed.
      */
-//    function mbox_icons()
+//    public function mbox_icons()
 //    {
 //        // Example #1: Redirection scheme for Kolab_Cyrus
 //        static $newmailboxes;
@@ -446,7 +446,7 @@ class IMP_Hooks
      *
      * @return string  The display label for $mbox.
      */
-//    function mbox_label($mbox, $label)
+//    public function mbox_label($mbox, $label)
 //    {
 //        // Example #1: Show 'foo' as 'bar'
 //        return ($mbox == 'foo')
@@ -461,7 +461,7 @@ class IMP_Hooks
      *
      * @return boolean  Is the mailbox read-only?
      */
-//    function mbox_readonly($mailbox)
+//    public function mbox_readonly($mailbox)
 //    {
 //        // Example #1: Make messages in the 'foo' mailbox readonly.
 //        return ($mailbox == 'foo');
@@ -485,7 +485,7 @@ class IMP_Hooks
      * @param string $view  Either 'imp' or 'dimp'.
      *
      * @return array  The altered array to use in the template.
-//    function mailboxarray($msgs, $view)
+//    public function mailboxarray($msgs, $view)
 //    {
 //        // Example #1: Adds a 'foo' entry to each message element.
 //        switch ($view) {
@@ -506,7 +506,7 @@ class IMP_Hooks
      *
      * @return boolean  Is composing disabled?
      */
-//    function disable_compose()
+//    public function disable_compose()
 //    {
 //        // Example #1: Entirely disable composition.
 //        return false;
@@ -520,7 +520,7 @@ class IMP_Hooks
      *
      * @return boolean  If false, do not display the mailbox.
      */
-//    function display_folder($mailbox)
+//    public function display_folder($mailbox)
 //    {
 //        // Example #1: Do not display the mailbox 'Foo'.
 //        return ($mailbox != 'Foo');
@@ -542,7 +542,7 @@ class IMP_Hooks
      *
      * @return string  An e-mail address.
      */
-//    function spam_email($action)
+//    public function spam_email($action)
 //    {
 //        // Example #1: Create e-mail for DSPAM setup.
 //        $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
@@ -561,7 +561,7 @@ class IMP_Hooks
      * second: maximum disk space (in bytes)
      * </pre>
      */
-//    function quota($params = null)
+//    public function quota($params = null)
 //    {
 //        // Example #1: Sample function for returning the quota.
 //        // Uses the PECL ssh2 extension.
@@ -682,7 +682,7 @@ class IMP_Hooks
      *
      * @return array  The altered array to use in the template.
      */
-//    function dimp_messageview($msg)
+//    public function dimp_messageview($msg)
 //    {
 //        // Example #1: Add a new foo variable
 //        $msg['foo'] = '<div class="foo">BAR</div>';
@@ -708,7 +708,7 @@ class IMP_Hooks
      *                second element is an array of javascript commands, one
      *                command per array value.
      */
-//    function dimp_previewview($msg) {
+//    public function dimp_previewview($msg) {
 //        // Example #1: Alter the subject
 //        $msg['subject'] .= 'test';
 //
@@ -738,7 +738,7 @@ class IMP_Hooks
      *                 must be properly escaped (i.e. htmlspecialchars() used
      *                 on the portions of the string where appropriate).
      */
-//    function dimp_addressformatting($ob)
+//    public function dimp_addressformatting($ob)
 //    {
 //         // Example #1: Display only the raw text of the personal name
 //         // or, if not set, the e-mail address.
@@ -767,7 +767,7 @@ class IMP_Hooks
      * @return boolean  If true, activates the feature. By default, these
      *                  advanced features are NOT active.
      */
-//     function mimp_advanced($feature)
+//     public function mimp_advanced($feature)
 //     {
 //         switch ($feature) {
 //         case 'checkbox':

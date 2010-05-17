@@ -14,7 +14,7 @@ class Ansel_Hooks
      * when he/she tries to view an age limited content. This function must
      * return an integer value of user age
      */
-//    function user_age()
+//    public function user_age()
 //     {
 //         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote(Horde_Auth::getAuth());
 //         $result = $GLOBALS['ansel_db']->queryOne($query);
@@ -31,7 +31,7 @@ class Ansel_Hooks
      * uploads images to Ansel. This will likely go away, being replaced by
      * by an remote image import/export functionality.
      */
-//   function postupload($image_ids)
+//   public function postupload($image_ids)
 //   {
 //       $context = array('http_client' => new Horde_Http_Client(),
 //                        'http_request' => new Horde_Controller_Request_Http(),);

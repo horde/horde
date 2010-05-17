@@ -22,7 +22,7 @@ class Kronolith_Hooks
      * @return mixed  The data to send to the browser (will be JSON encoded).
      * @throws Horde_Ajax_Exception
      */
-//     function ajaxaction($action, $vars)
+//     public function ajaxaction($action, $vars)
 //     {
 //        switch ($action) {
 //        case 'Foo':

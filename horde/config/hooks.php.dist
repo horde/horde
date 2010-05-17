@@ -165,7 +165,7 @@ class Horde_Hooks
 //    // like the currently logged in user, global variables, server config,
 //    // etc. It isn't, however, something you probably want to actually use
 //    // in production, by virtue of demonstrating all those. :)
-//    function prefs_hook_theme($username = null)
+//    public function prefs_hook_theme($username = null)
 //    {
 //        if (Horde_Auth::getAuth() != 'chuck') {
 //            return 'mozilla';
@@ -188,7 +188,7 @@ class Horde_Hooks
 
 
 //    // Example preferences change hook.
-//    function prefs_change_hook_theme()
+//    public function prefs_change_hook_theme()
 //    {
 //        $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '.');
 //    }
@@ -202,7 +202,7 @@ class Horde_Hooks
 //    // any information you need. You can "global" anything else you need.
 //    // Return an address - either just the user@ side or a full address -
 //    // and it will be used.
-//    function prefs_hook_from_addr($name = null)
+//    public function prefs_hook_from_addr($name = null)
 //    {
 //        // Example #1
 //        if (is_null($name)) {
@@ -265,7 +265,7 @@ class Horde_Hooks
 
 
 //    // Examples on how to set the fullname.
-//    function prefs_hook_fullname($user = null)
+//    public function prefs_hook_fullname($user = null)
 //    {
 //        // Example #1: Set the fullname from the GECOS information in the
 //        // passwd file.
@@ -317,7 +317,7 @@ class Horde_Hooks
 
 
 //    // Preauthenticate hook. See above for description of format.
-//    function preauthenticate($userId, $credentials)
+//    public function preauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Make Horde respect the Unix convention of not
 //        // allowing login when a file named /etc/nologin exist.
@@ -371,7 +371,7 @@ class Horde_Hooks
 
 
 //    // Postauthenticate hook. See above for description of format.
-//    function postauthenticate($userId, $credentials)
+//    public function postauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Validating the user's right to login to Horde by
 //        // by consulting group membership in an LDAP directory.  That
@@ -424,7 +424,7 @@ class Horde_Hooks
 
 
     // Username conversion hook. See above for description of format.
-//    function authusername($userId, $toHorde)
+//    public function authusername($userId, $toHorde)
 //    {
 //        // Example #1: Append the virtual domain to the username.
 //        // ex. $HTTP_HOST = 'mail.mydomain.com', $userId = 'myname' returns:
@@ -453,13 +453,13 @@ class Horde_Hooks
 
 
     // Post-push hook. See above for format.
-//    function pushapp()
+//    public function pushapp()
 //    {
 //        // Code to run if the app is switched to horde
 //    }
 
     // Add CSS files hook. See above for description of format.
-//    function cssfiles($theme)
+//    public function cssfiles($theme)
 //    {
 //        return array(
 //            '/file/path/to/css' => 'uri/to/css'
@@ -474,7 +474,7 @@ class Horde_Hooks
      *
      * @return array  TODO
      */
-//    function signup_preprocess($info)
+//    public function signup_preprocess($info)
 //    {
 //         $info['user_name'] = Horde_String::lower($info['user_name']);
 //         return $info;
@@ -487,7 +487,7 @@ class Horde_Hooks
      * @param string $userId  The username.
      * @param array $data     TODO
      */
-//    function signup_queued($userId, $data)
+//    public function signup_queued($userId, $data)
 //    {
 //        // Example #1: Send a notification message to the web server
 //        // administrator's e-mail address.
@@ -512,7 +512,7 @@ class Horde_Hooks
 //    }
 //
 //    // Helper function for signup_queued Example #1
-//    function _signup_queued_walkdata($fields, $data)
+//    private function _signup_queued_walkdata($fields, $data)
 //    {
 //        $msg = '';
 //        foreach ($data as $field => $value) {
@@ -548,7 +548,7 @@ class Horde_Hooks
      * type     - Any allowed Horde_Form field type
      * </pre>
      */
-//    function signup_getextra()
+//    public function signup_getextra()
 //    {
 //        // Example #1: A hypothetical case where we would want to store
 //        // extra information about a user into a turba sql address book. All
@@ -567,7 +567,7 @@ class Horde_Hooks
      *                          the signup_getextra hook.
      * @param string $password  The password.
      */
-//    function signup_addextra($userId, $extra, $password)
+//    public function signup_addextra($userId, $extra, $password)
 //    {
 //        // Example #1: Continuation of Example #1 from signup_getextra().
 //        // Here we connect to the database using the sql parameters
@@ -607,7 +607,7 @@ class Horde_Hooks
      *
      * @return array  The altered share list.
      */
-//    function share_list($userId, $perm, $owner, $share_list)
+//    public function share_list($userId, $perm, $owner, $share_list)
 //    {
 //        return $share_list;
 //    }
@@ -624,7 +624,7 @@ class Horde_Hooks
      *
      * @return string  An error message.
      */
-//    function perms_denied($permission)
+//    public function perms_denied($permission)
 //    {
 //        // Example #1: Provide link to upgrade script.
 //        $app = (($pos = strpos($permission, ':')) === false)
@@ -646,7 +646,7 @@ class Horde_Hooks
      *
      * @return TODO
      */
-//    function group_driver($groupName, $userName)
+//    public function group_driver($groupName, $userName)
 //    {
 //        // Example #1: Look up whether or not this user is part of the
 //        // "IT_department" group using an external database.
@@ -673,7 +673,7 @@ class Horde_Hooks
      * @param TODO $share_obj TODO
      * @param string $app TODO
      */
-//    function share_init($share_obj, $app)
+//    public function share_init($share_obj, $app)
 //    {
 //        // TODO: Move to turba?
 //        if (($app == 'turba') &&
@@ -736,7 +736,7 @@ class Horde_Hooks
      *
      * @param TODO $share TODO
      */
-//    function share_modify($share)
+//    public function share_modify($share)
 //    {
 //        $params = unserialize($share->get('params'));
 //        if (is_array($params) && !empty($params['source']) &&
