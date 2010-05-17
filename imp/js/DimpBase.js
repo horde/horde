@@ -709,7 +709,7 @@ var DimpBase = {
         case 'ctx_folder_empty':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title')))) {
-                DimpCore.doAction('emptyFolder', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyFolderCallback.bind(this) });
+                DimpCore.doAction('emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
             }
             break;
 
@@ -2290,7 +2290,7 @@ var DimpBase = {
         }
     },
 
-    _emptyFolderCallback: function(r)
+    _emptyMailboxCallback: function(r)
     {
         if (r.response.mbox) {
             if (this.folder == r.response.mbox) {
