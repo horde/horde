@@ -98,10 +98,3 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
 }
-
-// Mnemo libraries.
-require_once MNEMO_BASE . '/lib/Mnemo.php';
-require_once MNEMO_BASE . '/lib/Driver.php';
-
-// Start compression, if requested.
-Horde::compressOutput();
