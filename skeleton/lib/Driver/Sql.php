@@ -92,12 +92,12 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         $result = $this->_db->query($query, $values);
 
         if (is_a($result instanceof PEAR_Error)) {
-            throw Horde_Exception_Prior($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         if ($row instanceof PEAR_Error) {
-            throw Horde_Exception_Prior($row);
+            throw new Horde_Exception_Prior($row);
         }
 
         /* Store the retrieved values in the foo variable. */
@@ -141,7 +141,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         $this->_write_db = DB::connect($this->_params,
                                        array('persistent' => !empty($this->_params['persistent'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            throw Horde_Exception_Prior($this->_write_db);
+            throw new Horde_Exception_Prior($this->_write_db);
         }
 
         // Set DB portability options.
@@ -160,7 +160,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
             $this->_db = DB::connect($params,
                                      array('persistent' => !empty($params['persistent'])));
             if ($this->_db instanceof PEAR_Error) {
-                throw Horde_Exception_Prior($this->_db);
+                throw new Horde_Exception_Prior($this->_db);
             }
 
             // Set DB portability options.
