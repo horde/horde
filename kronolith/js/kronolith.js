@@ -4178,8 +4178,9 @@ KronolithCore = {
      */
     datePickerHandler: function(e)
     {
-        e.element().previous().setValue(e.memo.toString(Kronolith.conf.date_format));
-        this.updateEndTime()
+        var field = e.element().previous();
+        field.setValue(e.memo.toString(Kronolith.conf.date_format));
+        this.updateTimeFields(field.identify());
     },
 
     onDrop: function(e)
@@ -5006,9 +5007,11 @@ KronolithCore = {
     updateTimeFields: function(field)
     {
         switch (field) {
+        case 'kronolithEventStartDate':
         case 'kronolithEventStartTime':
             this.updateEndTime();
             break;
+        case 'kronolithEventEndDate':
         case 'kronolithEventEndTime':
             var start = this.getDate('start'), end = this.getDate('end');
             if (start) {
