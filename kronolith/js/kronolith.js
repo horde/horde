@@ -2446,6 +2446,18 @@ KronolithCore = {
 
         this.closeRedBox();
         this.quickClose();
+
+        this.redBoxOnDisplay = RedBox.onDisplay;
+        RedBox.onDisplay = function() {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
+            try {
+                $('kronolithCalendarForm' + calendar.split('|')[0]).focusFirstElement();
+            } catch(e) {}
+            RedBox.onDisplay = this.redBoxOnDisplay;
+        }.bind(this);
+
         if ($('kronolithCalendarDialog')) {
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithCalendarDialog').show());
@@ -4363,10 +4375,10 @@ KronolithCore = {
         this.quickClose();
         this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
-           if (this.redBoxOnDisplay) {
-               this.redBoxOnDisplay();
-           }
-           try {
+            if (this.redBoxOnDisplay) {
+                this.redBoxOnDisplay();
+            }
+            try {
                 $('kronolithEventForm').focusFirstElement();
             } catch(e) {}
             if (Kronolith.conf.maps.driver &&
