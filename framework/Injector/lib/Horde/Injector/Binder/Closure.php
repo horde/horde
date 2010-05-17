@@ -68,7 +68,6 @@ class Horde_Injector_Binder_Closure implements Horde_Injector_Binder
      */
     public function create(Horde_Injector $injector)
     {
-
         $childInjector = $injector->createChildInjector();
         $closure = $this->_closure;
         return $closure($childInjector);

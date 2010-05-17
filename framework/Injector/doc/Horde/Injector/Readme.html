@@ -497,25 +497,6 @@ class </span><span style="color: #0000BB">DataSourceX </span><span style="color:
 
 </p>
 
-<p>Implementation binders also allow the calling of optional setter injection methods. Providing the method parameters here is done the same way as its done in the constructor, using reflection.</p>
-
-<p>
-<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindImplementation</span><span style="color: #007700">(</span><span style="color: #DD0000">'DataSourceInteface'</span><span style="color: #007700">, </span><span style="color: #DD0000">'DataSourceX'</span><span style="color: #007700">)
-         -&gt;</span><span style="color: #0000BB">bindSetter</span><span style="color: #007700">(</span><span style="color: #DD0000">'setLogger'</span><span style="color: #007700">);
-
-class </span><span style="color: #0000BB">DataSourceX </span><span style="color: #007700">{
-    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">DependencyY $dependencyY</span><span style="color: #007700">) {
-        ...
-    }
-
-    public function </span><span style="color: #0000BB">setLogger</span><span style="color: #007700">(</span><span style="color: #0000BB">Logger $logger</span><span style="color: #007700">) {
-        ...
-    }
-}
-</span></span></code></pre>
-
-</p>
-
 
 <h5 id="toc21"> Choosing a binder</h5>
 <p>Use a factory binder if:</p>

@@ -6,25 +6,26 @@ class Horde_Injector_BinderTest extends Horde_Test_Case
      */
     public function binderIsEqualProvider()
     {
+        $df = new Horde_Injector_DependencyFinder();
         return array(
             array(
-                new Horde_Injector_Binder_Implementation('foobar'),
+                new Horde_Injector_Binder_Implementation('foobar', $df),
                 new Horde_Injector_Binder_Factory('factory', 'method'),
                 false, "Implementation_Binder should not equal Factory binder"
             ),
             array(
-                new Horde_Injector_Binder_Implementation('foobar'),
-                new Horde_Injector_Binder_Implementation('foobar'),
+                new Horde_Injector_Binder_Implementation('foobar', $df),
+                new Horde_Injector_Binder_Implementation('foobar', $df),
                 true, "Implementation Binders both reference concrete class foobar"
             ),
             array(
-                new Horde_Injector_Binder_Implementation('foobar'),
-                new Horde_Injector_Binder_Implementation('otherimpl'),
+                new Horde_Injector_Binder_Implementation('foobar', $df),
+                new Horde_Injector_Binder_Implementation('otherimpl', $df),
                 false, "Implementation Binders do not have same implementation set"
             ),
             array(
                 new Horde_Injector_Binder_Factory('factory', 'method'),
-                new Horde_Injector_Binder_Implementation('foobar'),
+                new Horde_Injector_Binder_Implementation('foobar', $df),
                 false, "Implementation_Binder should not equal Factory binder"
             ),
             array(

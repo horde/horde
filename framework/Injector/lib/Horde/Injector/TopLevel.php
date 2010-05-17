@@ -22,7 +22,9 @@ class Horde_Injector_TopLevel implements Horde_Injector_Scope
      */
     public function getBinder($interface)
     {
-        return new Horde_Injector_Binder_ImplementationWithSetters($interface, $interface);
+        $dependencyFinder = new Horde_Injector_DependencyFinder();
+        $implementationBinder = new Horde_Injector_Binder_Implementation($interface, $dependencyFinder);
+        return new Horde_Injector_Binder_AnnotatedSetters($implementationBinder, $dependencyFinder);
     }
 
     /**

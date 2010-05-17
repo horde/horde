@@ -11,7 +11,7 @@
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 
-require_once 'Horde/Autoloader.php';
+require 'Horde/Autoloader.php';
 
 $a = new Horde_Injector(new Horde_Injector_TopLevel());
 $a->setInstance('a', 'a');

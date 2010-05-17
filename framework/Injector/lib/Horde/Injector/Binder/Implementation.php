@@ -12,20 +12,20 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     /**
      * TODO
      */
-    protected $_implementation;
+    private $_implementation;
+
+    /**
+     * @var Horde_Injector_DependencyFinder
+     */
+    private $_dependencyFinder;
 
     /**
      * TODO
      */
-    protected $_setters;
-
-    /**
-     * TODO
-     */
-    public function __construct($implementation)
+    public function __construct($implementation, Horde_Injector_DependencyFinder $dependencyFinder)
     {
         $this->_implementation = $implementation;
-        $this->_setters = array();
+        $this->_dependencyFinder = $dependencyFinder;
     }
 
     /**
@@ -34,15 +34,6 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     public function getImplementation()
     {
         return $this->_implementation;
-    }
-
-    /**
-     * TODO
-     */
-    public function bindSetter($method)
-    {
-        $this->_setters[] = $method;
-        return $this;
     }
 
     /**
@@ -61,9 +52,7 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     {
         $reflectionClass = new ReflectionClass($this->_implementation);
         $this->_validateImplementation($reflectionClass);
-        $instance = $this->_getInstance($injector, $reflectionClass);
-        $this->_callSetters($injector, $instance);
-        return $instance;
+        return $this->_getInstance($injector, $reflectionClass);
     }
 
     /**
@@ -82,51 +71,7 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     protected function _getInstance(Horde_Injector $injector, ReflectionClass $class)
     {
         return $class->getConstructor()
-            ? $class->newInstanceArgs($this->_getMethodDependencies($injector, $class->getConstructor()))
+            ? $class->newInstanceArgs($this->_dependencyFinder->getMethodDependencies($injector, $class->getConstructor()))
             : $class->newInstance();
-    }
-
-    /**
-     * TODO
-     */
-    protected function _callSetters(Horde_Injector $injector, $instance)
-    {
-        foreach ($this->_setters as $setter) {
-            $reflectionMethod = new ReflectionMethod($instance, $setter);
-            $reflectionMethod->invokeArgs(
-                $instance,
-                $this->_getMethodDependencies($injector, $reflectionMethod)
-            );
-        }
-    }
-
-    /**
-     */
-    protected function _getMethodDependencies(Horde_Injector $injector, ReflectionMethod $method)
-    {
-        $dependencies = array();
-
-        try {
-            foreach ($method->getParameters() as $parameter) {
-                $dependencies[] = $this->_getParameterDependency($injector, $parameter);
-            }
-        } catch (Horde_Injector_Exception $e) {
-            throw new Horde_Injector_Exception("$method has unfulfilled dependencies ($parameter)", 0, $e);
-        }
-
-        return $dependencies;
-    }
-
-    /**
-     */
-    protected function _getParameterDependency(Horde_Injector $injector, ReflectionParameter $parameter)
-    {
-        if ($parameter->getClass()) {
-            return $injector->getInstance($parameter->getClass()->getName());
-        } elseif ($parameter->isOptional()) {
-            return $parameter->getDefaultValue();
-        }
-
-        throw new Horde_Injector_Exception("Untyped parameter \$" . $parameter->getName() . "can't be fulfilled");
     }
 }

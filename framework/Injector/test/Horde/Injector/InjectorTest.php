@@ -138,14 +138,15 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
     {
         // we need to set a class for an instance on the parent
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $injector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass'));
+        $df = new Horde_Injector_DependencyFinder();
+        $injector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass', $df));
 
         // getInstance will save $returnedObject and return it again later when FooBarInterface is requested
         $returnedObject = $injector->getInstance('FooBarInterface');
 
         $childInjector = $injector->createChildInjector();
         // add same binding again to child
-        $childInjector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass'));
+        $childInjector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass', $df));
 
         $this->assertSame($returnedObject, $childInjector->getInstance('FooBarInterface'),
             "Child should have returned object reference from parent because added binder was identical to the parent binder");
