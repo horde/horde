@@ -123,8 +123,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function quickSaveEvent()
     {
+        $cal = explode('|', $this->_vars->cal, 2);
         try {
-            $event = Kronolith::quickAdd($this->_vars->text, Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
+            $event = Kronolith::quickAdd($this->_vars->text, $cal[1]);
             return $this->_saveEvent($event);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);

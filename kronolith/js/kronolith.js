@@ -4483,21 +4483,23 @@ KronolithCore = {
     quickSaveEvent: function()
     {
         var text = $F('kronolithQuickinsertQ'),
+            cal = $F('kronolithQuickinsertCalendars'),
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
         $('kronolithQuickinsert').fade({ duration: this.effectDur });
-        this.startLoading(null, start + end);
+        this.startLoading(cal, start + end);
         this.doAction('quickSaveEvent',
                       $H({ text: text,
+                           cal: cal,
                            view: this.view,
                            view_start: start,
                            view_end: end
                       }),
                       function(r) {
                           this.loadEventsCallback(r);
-                          if (Object.isUndefined(r.msgs)) {
+                          if (!r.msgs.size()) {
                               $('kronolithQuickinsertQ').value = '';
                           }
                       }.bind(this));
