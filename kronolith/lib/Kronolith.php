@@ -2099,7 +2099,7 @@ class Kronolith
                     ->add(array('c' => $event->calendar,
                                 'e' => $event->id,
                                 'u' => $email));
-                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), $attend_link->add('a', 'accept'), $attend_link->add('a', 'tentative'), $attend_link->add('a', 'decline'));
+                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), (string)$attend_link->add('a', 'accept'), (string)$attend_link->add('a', 'tentative'), (string)$attend_link->add('a', 'decline'));
             }
 
             /* Build the iCalendar data */
