@@ -71,21 +71,6 @@ $_services['replace'] = array(
 );
 
 /**
- * Returns a list of available permissions.
- *
- * @return array  An array describing all available permissions.
- */
-function _mnemo_perms()
-{
-    $perms = array();
-    $perms['tree']['mnemo']['max_notes'] = false;
-    $perms['title']['mnemo:max_notes'] = _("Maximum Number of Notes");
-    $perms['type']['mnemo:max_notes'] = 'int';
-
-    return $perms;
-}
-
-/**
  * Removes user data.
  *
  * @param string $user  Name of user to remove data for.

@@ -53,6 +53,21 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        $perms = array();
+        $perms['tree']['mnemo']['max_notes'] = false;
+        $perms['title']['mnemo:max_notes'] = _("Maximum Number of Notes");
+        $perms['type']['mnemo:max_notes'] = 'int';
+
+        return $perms;      
+    }
+
+    /**
      * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
