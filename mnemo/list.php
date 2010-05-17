@@ -7,10 +7,9 @@
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
-
-@define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
+
 /* Get the current action ID. */
 $actionID = Horde_Util::getFormData('actionID');
 

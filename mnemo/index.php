@@ -11,4 +11,4 @@
  * @since   Mnemo 1.0
  * @package Mnemo
  */
-require MNEMO_BASE . '/list.php';
+require dirname(__FILE__) . '/list.php';

@@ -11,9 +11,7 @@
  * @since   Mnemo 1.0
  * @package Mnemo
  */
-
-@define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 $title = _("Search");

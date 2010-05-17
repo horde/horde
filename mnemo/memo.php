@@ -52,8 +52,7 @@ function showPassphrase($memo)
     return false;
 }
 
-@define('MNEMO_BASE', dirname(__FILE__));
-require_once MNEMO_BASE . '/lib/Application.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Redirect to the notepad view if no action has been requested. */
