@@ -11,14 +11,7 @@
  * @since   Mnemo 1.0
  * @package Mnemo
  */
-
-@define('MNEMO_BASE', dirname(__FILE__));
-$mnemo_configured = (is_readable(MNEMO_BASE . '/config/conf.php') &&
-                     is_readable(MNEMO_BASE . '/config/prefs.php'));
-
-if (!$mnemo_configured) {
-    require MNEMO_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Mnemo', MNEMO_BASE, array('conf.php', 'prefs.php'));
-}
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('mnemo');
 
 require MNEMO_BASE . '/list.php';

@@ -49,12 +49,6 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        // Set the timezone variable.
-        Horde_Nls::setTimeZone();
-
-        // Create a share instance.
-        $GLOBALS['mnemo_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
-
         Mnemo::initialize();
     }
 
