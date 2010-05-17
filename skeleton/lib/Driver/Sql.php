@@ -91,7 +91,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         /* Execute the query. */
         $result = $this->_db->query($query, $values);
 
-        if (is_a($result instanceof PEAR_Error)) {
+        if ($result instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($result);
         }
 
