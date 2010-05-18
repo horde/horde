@@ -14,9 +14,9 @@
  </configsection>
  <configsection name="highlighter">
   <configheader>Text Highlighting Engine</configheader>
-  <configswitch name="engine" desc="Which highlighting engine should we use?">Text_Highlighter
+  <configswitch name="engine" desc="Which highlighting engine should we use?">TextHighlighter
    <case name="TextHighlighter" desc="PEAR Text_Highlighter"/>
-   <case name="Geshi" desc="GeSHi - Generic Syntax Highlighter"/>
+   <case name="LibGeshi" desc="GeSHi - Generic Syntax Highlighter"/>
   </configswitch>
  </configsection>
 
