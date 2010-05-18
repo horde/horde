@@ -1,12 +1,12 @@
 /* Insert CSS definitions here. */
 #recentPastes {
-    float: left;
-    width: 18%;
+    float: right;
+    width: 150px;
+    margin: 10px;
     height: 100%;
     border: 1px solid #c00;
     padding: 2px;
-    overflow: hidden;
-    margin: 50px 10px 10px 10px;
+    font-size: 0.8em;
 }
 
 .recentPaste {
@@ -14,9 +14,8 @@
 }
 
 #showpaste {
-    margin: 10px 35px 10px 35px;
     float: right;
-    width: 70%;
+    min-width: 700px;
 }
 
 .pasteTitle {
@@ -43,7 +42,5 @@
 
 .pasteForm {
     float: right;
-    width: 75%;
-    margin: 10px;
     border: 1px solid #ccc;
 }
