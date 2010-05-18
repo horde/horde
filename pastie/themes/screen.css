@@ -14,8 +14,7 @@
 }
 
 #showpaste {
-    float: right;
-    min-width: 700px;
+    margin: 0 175px 0 5px;
 }
 
 .pasteTitle {
@@ -33,14 +32,15 @@
 }
 
 .pasteContents {
-    padding: 10px;
-    border: 1px solid #c00;
+    padding: 2px;
     background-color: #ddd;
     list-style-position: inside;
     font-size: 1.3em;
+    overflow-x:auto;
 }
 
 .pasteForm {
-    float: right;
     border: 1px solid #ccc;
+    margin-right:175px;
 }
+
