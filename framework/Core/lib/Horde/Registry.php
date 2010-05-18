@@ -316,6 +316,16 @@ class Horde_Registry
             umask($conf['umask']);
         }
 
+        $vhost = null;
+        if (!empty($conf['vhosts'])) {
+            $vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
+            if (file_exists($vhost)) {
+                $this->_regmtime = max($this->_regmtime, filemtime($vhost));
+            } else {
+                $vhost = null;
+            }
+        }
+
         /* Always need to load applications information. */
         $this->_loadApplicationsCache($vhost);
 
@@ -346,16 +356,6 @@ class Horde_Registry
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
-
-        $vhost = null;
-        if (!empty($conf['vhosts'])) {
-            $vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
-            if (file_exists($vhost)) {
-                $this->_regmtime = max($this->_regmtime, filemtime($vhost));
-            } else {
-                $vhost = null;
-            }
-        }
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
