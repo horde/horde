@@ -27,8 +27,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function removeUserData($user)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
@@ -96,8 +94,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function listNotepads($owneronly, $permission)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         return Mnemo::listNotepads($owneronly, $permission);
     }
 
@@ -111,7 +107,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function listNotes($notepad = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
         global $conf;
 
         if (!isset($conf['storage']['driver'])) {
@@ -157,8 +152,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function listBy($action, $timestamp, $notepad = null, $end = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
             $notepad = Mnemo::getDefaultNotepad();
@@ -194,8 +187,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function getActionTimestamp($uid, $action, $notepad = null)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Make sure we have a valid notepad. */
         if (empty($notepad)) {
             $notepad = Mnemo::getDefaultNotepad();
@@ -224,7 +215,6 @@ class Mnemo_Api extends Horde_Registry_Api {
     public function import($content, $contentType, $notepad = null)
     {
         global $prefs;
-        require_once dirname(__FILE__) . '/base.php';
 
         /* Make sure we have a valid notepad and permissions to edit
          * it. */
@@ -311,8 +301,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function export($uid, $contentType)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $storage = Mnemo_Driver::singleton();
         $memo = $storage->getByUID($uid);
         if (is_a($memo, 'PEAR_Error')) {
@@ -377,7 +365,6 @@ class Mnemo_Api extends Horde_Registry_Api {
             return true;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
 
         $storage = Mnemo_Driver::singleton();
         $memo = $storage->getByUID($uid);
@@ -408,8 +395,6 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function replace($uid, $content, $contentType)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $storage = Mnemo_Driver::singleton();
         $memo = $storage->getByUID($uid);
         if (is_a($memo, 'PEAR_Error')) {
