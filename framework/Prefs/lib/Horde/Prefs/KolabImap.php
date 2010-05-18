@@ -202,7 +202,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
         // Clean the preferences since they were just saved.
         foreach ($dirty_prefs as $scope => $prefs) {
             foreach ($prefs as $name => $pref) {
-                $this->_scopes[$scope][$name]['m'] &= ~_PREF_DIRTY;
+                $this->_scopes[$scope][$name]['m'] &= ~self::DIRTY;
             }
 
             // Update the cache for this scope.
