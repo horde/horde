@@ -39,3 +39,10 @@
     background-color: #ddd;
     list-style-position: inside;
 }
+
+.pasteForm {
+    float: right;
+    width: 75%;
+    margin: 10px;
+    border: 1px solid #ccc;
+}

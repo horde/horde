@@ -1,4 +1,4 @@
-<?php
-require_once PASTIE_TEMPLATES . '/recent.inc';
-echo '<br style="clear:both;">';
-$form->renderActive(null, null, $url, 'post');
+<?php require_once PASTIE_TEMPLATES . '/recent.inc'; ?>
+<div class="pasteForm">
+<?php $form->renderActive(null, null, $url, 'post'); ?>
+</div>
