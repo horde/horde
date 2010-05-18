@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond   %{REQUEST_FILENAME}  !-d
+    RewriteCond   %{REQUEST_FILENAME}  !-f
+    RewriteRule   ^uuid/([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]+)$ view.php?uuid=$1 [QSA,L]
+</IfModule>
