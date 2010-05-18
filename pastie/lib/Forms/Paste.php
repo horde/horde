@@ -16,7 +16,19 @@ class PasteForm extends Horde_Form
     {
         parent::Horde_Form($vars, _("New Paste"));
 
-        $types = array('none', 'php');
+        $engine = 'Pastie_Highlighter_' . $GLOBALS['conf']['highlighter']['engine'];
+        $tmp = call_user_func(array($engine, 'getSyntaxes'));
+        $types = array();
+        foreach ($tmp as $type) {
+            $types[$type] = $type;
+        }
+
+        // Some highlighters have a long list of supported languages.
+        // Default to PHP if one is not already specified
+        $curtype = $vars->get('syntax');
+        if (empty($curtype)) {
+            $vars->set('syntax', 'php');
+        }
 
         $this->addVariable(_("Title"), 'title', 'text', false);
 

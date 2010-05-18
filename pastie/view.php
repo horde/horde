@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $pastie = Horde_Registry::appInit('pastie');
 
 require_once PASTIE_BASE . '/lib/Forms/Paste.php';
-$uuid = trim(Horde_Util::getPathInfo(), '/');
+$uuid = Horde_Util::getFormData('uuid');
 
 if (!empty($uuid)) {
     try {
@@ -31,7 +31,7 @@ $form = new PasteForm($vars);
 
 try {
     $engine = 'Pastie_Highlighter_' . $GLOBALS['conf']['highlighter']['engine'];
-    $output = $engine::output($paste['paste'], $paste['syntax']);
+    $output = call_user_func_array(array($engine, 'output'), array($paste['paste'], $paste['syntax']));
 } catch (Pastie_Exception $e) {
     $output = _("Error parsing the paste.");
 }
