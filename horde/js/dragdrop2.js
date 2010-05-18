@@ -309,7 +309,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var go, so, eo, po, xy;
+        var go, so, eo, po, xy, int;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -339,7 +339,11 @@ Drag = Class.create({
                 eo = this.element.cumulativeOffset();
 
                 if (this.options.ghosting) {
-                    this.ghost.setOpacity(0.7).setStyle({ zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
+                    var z = parseInt(this.element.getStyle('zIndex'), 10);
+                    if (isNaN(z)) {
+                        z = 1;
+                    }
+                    this.ghost.setOpacity(0.7).setStyle({ zIndex: z + 1 });
                 } else {
                     this.elthold = new Element('DIV').clonePosition(this.element);
                     this.element.hide().insert({ before: this.elthold });
@@ -396,10 +400,16 @@ Drag = Class.create({
                 // padding and margins, for later usage.
                 this.dim = this.ghost.getDimensions();
                 [ 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight' ].each(function(s) {
-                    this.dim.width += parseInt(this.element.getStyle(s));
+                    int = parseInt(this.element.getStyle(s));
+                    if (int) {
+                        this.dim.width += int;
+                    }
                 }, this);
                 [ 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom' ].each(function(s) {
-                    this.dim.height += parseInt(this.element.getStyle(s));
+                    int = parseInt(this.element.getStyle(s));
+                    if (int) {
+                        this.dim.height += int;
+                    }
                 }, this);
             }
 
