@@ -127,8 +127,8 @@ class Pastie_Driver_Sql extends Pastie_Driver
             throw new Pastie_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
-        $query = 'SELECT paste_id, paste_uuid, paste_title, paste_syntax, '.
-                 'paste_content, paste_owner, paste_timestamp ' .
+        $query = 'SELECT paste_id, paste_uuid, paste_bin, paste_title, ' .
+                 'paste_syntax, paste_content, paste_owner, paste_timestamp ' .
                  'FROM pastie_pastes ';
         $values = array();
         if (isset($params['id'])) {
