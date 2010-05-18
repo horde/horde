@@ -9,14 +9,15 @@
  */
 
 @define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
+//@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
+@define('HORDE_BASE', '/srv/vhost/users/bklang/sites/intranet.alkaloid.net');
 
 /* Set up the CLI environment */
 require_once HORDE_BASE . '/lib/core.php';
 if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_Cli::singleton();
+$cli = new Horde_Cli;
 $cli->init();
 
 /* Grab what we need to steal the DB config */
