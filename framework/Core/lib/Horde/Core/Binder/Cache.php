@@ -20,37 +20,37 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
         }
 
         $logger = $injector->getInstance('Horde_Log_Logger');
+        $params['logger'] = $logger;
+
+        $base_params = $params;
 
         if (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
-        } else {
-            if (strcasecmp($driver, 'Sql') === 0) {
-                $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
-            }
-
-            if (!empty($params['use_memorycache'])) {
-                $params = array(
-                    'stack' => array(
-                        array(
-                            'driver' => 'Memcache',
-                            'params' => array_merge($params, array(
-                                'logger' => $logger,
-                                'memcache' => $injector->getInstance('Horde_Memcache')
-                            ))
-                        ),
-                        array(
-                            'driver' => $driver,
-                            'params' => array_merge($params, array(
-                                'logger' => $logger
-                             ))
-                         )
-                    )
-                );
-                $driver = 'Stack';
-            }
+        } elseif (strcasecmp($driver, 'Sql') === 0) {
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
         }
 
-        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
+        if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
+            ((strcasecmp($driver, 'Sql') === 0) ||
+             (strcasecmp($driver, 'File') === 0))) {
+            if (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0) {
+                $base_params['memcache'] = $injector->getInstance('Horde_Memcache');
+            }
+
+            $params = array(
+                'stack' => array(
+                    array(
+                        'driver' => $GLOBALS['conf']['cache']['use_memorycache'],
+                        'params' => $base_params
+                    ),
+                    array(
+                        'driver' => $driver,
+                        'params' => $params
+                    )
+                )
+            );
+            $driver = 'Stack';
+        }
 
         return Horde_Cache::factory($driver, $params);
     }
@@ -59,4 +59,5 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
     {
         return false;
     }
+
 }

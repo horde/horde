@@ -1036,9 +1036,9 @@
    <configswitch name="driver" desc="If you want to enable the Horde Cache,
    select a driver here. This is used to speed up portions of Horde by storing
    commonly processed objects.">file
-    <case name="none" desc="Don't cache any objects"/>
-    <case name="apc" desc="Use the APC cache"/>
-    <case name="eaccelerator" desc="Use the eAccelerator cache (up to version
+    <case name="Null" desc="Don't cache any objects"/>
+    <case name="Apc" desc="Use the APC cache"/>
+    <case name="Eaccelerator" desc="Use the eAccelerator cache (up to version
     0.9.5)">
      <configdescription>
      eAccelerator must be built with --with-eaccelerator-shared-memory at
@@ -1048,9 +1048,7 @@
      lower.
      </configdescription>
     </case>
-    <case name="memcache" desc="Use a Memcache server"/>
-    <case name="xcache" desc="Use the xCache cache"/>
-    <case name="file" desc="Store objects in filesystem">
+    <case name="File" desc="Store objects in filesystem">
      <configsection name="params">
       <configstring name="dir" required="false" desc="The location to store the
       cached files"/>
@@ -1064,25 +1062,27 @@
       use for the cache files."/>
      </configsection>
     </case>
-    <case name="sql" desc="SQL-based cache storage">
+    <case name="Memcache" desc="Use a Memcache server"/>
+    <case name="Sql" desc="SQL-based cache storage">
      <configsection name="params">
       <configsql switchname="driverconfig">
        <configstring name="table" required="false" desc="The name of the
        cache table in the database [horde_cache]"/>
       </configsql>
-      <configswitch name="use_memorycache" required="false" desc="Use a
-      separate Horde_Cache memory cache driver to store data in memory? If
-      data is not found in memory, we will fall back to accessing the
-      SQL database. This is useful if you want the performance of an in-memory
-      cache with the more persistent storage an SQL server provides.">
-       <case name="" desc="None"/>
-       <case name="apc" desc="APC"/>
-       <case name="eaccelerator" desc="eAccelerator"/>
-       <case name="memcache" desc="Memcache"/>
-      </configswitch>
      </configsection>
     </case>
-    <case name="zps4" desc="Use the Zend Performance Suite output cache"/>
+    <case name="Xcache" desc="Use the xCache cache"/>
+    <case name="Zps4" desc="Use the Zend Performance Suite output cache"/>
+   </configswitch>
+   <configswitch name="use_memorycache" required="false" desc="Use a
+   separate memory cache driver to store data in memory? If data is not found
+   in this driver, we will fall back to accessing the persistent backend.">
+    <case name="" desc="None"/>
+    <case name="Apc" desc="APC"/>
+    <case name="Eaccelerator" desc="eAccelerator"/>
+    <case name="Memcache" desc="Memcache"/>
+    <case name="Xcache" desc="xCache"/>
+    <case name="Zps4" desc="Zend Performance Suite"/>
    </configswitch>
   </configsection>
 
