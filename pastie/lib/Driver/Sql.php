@@ -177,10 +177,10 @@ class Pastie_Driver_Sql extends Pastie_Driver
         }
     }
 
-    public function getPastes($bin)
+    public function getPastes($bin, $limit = null, $start = null)
     {
-        $query = 'SELECT paste_id, paste_uuid, paste_title, paste_syntax, '.
-                 'paste_content, paste_owner, paste_timestamp ' .
+        $query = 'SELECT paste_id, paste_uuid, paste_bin, paste_title, ' .
+                 'paste_syntax, paste_content, paste_owner, paste_timestamp ' .
                  'FROM pastie_pastes WHERE paste_bin = ? ' .
                  'ORDER BY paste_timestamp DESC';
         $values[] = 'default'; // FIXME: Horde_Share
@@ -192,7 +192,14 @@ class Pastie_Driver_Sql extends Pastie_Driver
         Horde::logMessage(sprintf('Pastie_Driver_Sql#getPastes(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
-        $result = $this->_db->query($query, $values);
+        if ($limit !== null) {
+            if ($start === null) {
+                $start = 0;
+            }
+            $result = $this->_db->limitQuery($query, $start, $limit, $values);
+        } else {
+            $result = $this->_db->query($query, $values);
+        }
 
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($result);

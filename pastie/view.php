@@ -19,7 +19,7 @@ $uuid = Horde_Util::getFormData('uuid');
 if (!empty($uuid)) {
     try {
         $paste = $pastie->driver->getPaste(array('uuid' => $uuid));
-        $recent = $pastie->driver->getPastes('default'); //FIXME: Horde_Share
+        $recent = $pastie->driver->getPastes('default', 10); //FIXME: Horde_Share
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $paste = null;
