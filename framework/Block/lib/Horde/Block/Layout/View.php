@@ -68,6 +68,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                 }
                 if (is_array($item)) {
                     $this->_applications[$item['app']] = $item['app'];
+                    $rowspan = $colspan = 1;
                     try {
                         $block = Horde_Block_Collection::getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
                         $rowspan = $item['height'];
