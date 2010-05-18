@@ -89,7 +89,7 @@
                 try {
                     n.remove();
                     if (!$('Growler').childElements().size()) {
-                        $('Growler').hide();
+                        $('Growler').hide().setOpacity(1);
                     }
                 } catch (e) {}
             }
