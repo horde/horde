@@ -38,6 +38,7 @@
     border: 1px solid #c00;
     background-color: #ddd;
     list-style-position: inside;
+    font-size: 1.3em;
 }
 
 .pasteForm {
