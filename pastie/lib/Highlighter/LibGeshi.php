@@ -16,6 +16,7 @@ class Pastie_Highlighter_LibGeshi extends Pastie_Highlighter {
             $syntax = strtolower($syntax);
             $geshi = new GeSHi($text, $syntax);
         }
+        $geshi->set_header_type(GESHI_HEADER_PRE_TABLE);
         $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS);
         return $geshi->parse_code();
     }
