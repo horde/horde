@@ -13,7 +13,7 @@ class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
             $driver = 'Builtin';
         } else {
             $driver = $conf['sessionhandler']['type'];
-            if (strcasecmp($driver, 'None')) {
+            if (!strcasecmp($driver, 'None')) {
                 $driver = 'Builtin';
             }
         }
