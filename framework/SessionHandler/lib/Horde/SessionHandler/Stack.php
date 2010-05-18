@@ -110,7 +110,7 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler_Driver
     protected function _write($id, $session_data)
     {
         /* Do writes in *reverse* order - it is OK if a write to one of the
-         * non-masters backend fails. */
+         * non-master backends fails. */
         $master = true;
 
         foreach (array_reverse($this->_stack) as $val) {
@@ -139,14 +139,18 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler_Driver
      */
     public function destroy($id)
     {
-        foreach ($this->_stack as $val) {
+        /* Only report success from master. */
+        $master = $success = true;
+
+        foreach (array_reverse($this->_stack) as $val) {
             $result = $val->destroy($id);
-            if ($result === false) {
-                return false;
+            if ($master && ($result === false)) {
+                $success = false;
             }
+            $master = false;
         }
 
-        return true;
+        return $success;
     }
 
     /**
