@@ -9,8 +9,7 @@
  */
 
 @define('AUTH_HANDLER', true);
-//@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-@define('HORDE_BASE', '/srv/vhost/users/bklang/sites/intranet.alkaloid.net');
+@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
 
 /* Set up the CLI environment */
 require_once HORDE_BASE . '/lib/core.php';
