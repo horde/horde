@@ -112,6 +112,9 @@ class Horde_Registry
      * 'nologintasks' - (boolean) If set, don't perform logintasks (never
      *                  performed if authentication is 'none').
      *                  DEFAULT: false
+     * 'session_cache_limiter' - (string) Use this value for the session cache
+     *                           limiter.
+     *                           DEFAULT: Uses the value in the configuration.
      * 'session_control' - (string) Sets special session control limitations:
      *   'netscape' - TODO; start read/write session
      *   'none' - Do not start a session
@@ -138,6 +141,7 @@ class Horde_Registry
             'cli' => null,
             'nocompress' => false,
             'nologintasks' => false,
+            'session_cache_limiter' => null,
             'session_control' => null,
             'user_admin' => null
         ), $args);
@@ -1528,9 +1532,6 @@ class Horde_Registry
 
     /**
      * Sets a custom session handler up, if there is one.
-     * If the global variable 'session_cache_limiter' is defined, its value
-     * will override the cache limiter setting found in the configuration
-     * file.
      *
      * The custom session handler object will be contained in the
      * $sessionHandler public member variable.
@@ -1552,7 +1553,7 @@ class Horde_Registry
 
         session_set_cookie_params($conf['session']['timeout'],
                                   $conf['cookie']['path'], $conf['cookie']['domain'], $conf['use_ssl'] == 1 ? 1 : 0);
-        session_cache_limiter(Horde_Util::nonInputVar('session_cache_limiter', $conf['session']['cache_limiter']));
+        session_cache_limiter(is_null($this->initParams['session_cache_limiter']) ? $conf['session']['cache_limiter'] : $this->initParams['session_cache_limiter']);
         session_name(urlencode($conf['session']['name']));
 
         $type = empty($conf['sessionhandler']['type'])
