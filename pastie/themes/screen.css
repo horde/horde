@@ -1,0 +1,25 @@
+/* Insert CSS definitions here. */
+#showpaste {
+    margin: 35px;
+}
+
+.pasteTitle {
+    font-size: 1.3em;
+}
+
+.pasteOwner {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.pasteDate {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.pasteContents {
+    padding: 10px;
+    border: 1px solid #c00;
+    background-color: #ddd;
+    list-style-position: inside;
+}
