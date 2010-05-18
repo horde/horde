@@ -60,7 +60,7 @@ function sbarToggle()
  <h4><?php echo _("Shared Notepads:") ?></h4>
  <ul id="sharednotepads">
 <?php foreach (array_keys($shared_notepads) as $id): ?>
-      <li><label><input type="checkbox" class="checkbox" name="display_notepad[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_notepads) ? ' checked="checked"' : '') . ' /> ' . ($shared_notepads[$id]->get('owner') ? '[' . htmlspecialchars(Horde_Auth::removeHook($shared_notepads[$id]->get('owner'))) . '] ' : '') . htmlspecialchars($shared_notepads[$id]->get('name')) ?></label></li>
+      <li><label><input type="checkbox" class="checkbox" name="display_notepad[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_notepads) ? ' checked="checked"' : '') . ' /> ' . ($shared_notepads[$id]->get('owner') ? '[' . htmlspecialchars($shared_notepads[$id]->get('owner')) . '] ' : '') . htmlspecialchars($shared_notepads[$id]->get('name')) ?></label></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

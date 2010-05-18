@@ -449,7 +449,7 @@ class Mnemo {
                     $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
-                        $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                        $name = Horde_Auth::getAuth();
                     }
                     $share = $GLOBALS['mnemo_shares']->newShare(Horde_Auth::getAuth());
                     $share->set('name', sprintf(_("%s's Notepad"), $name));

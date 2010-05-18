@@ -75,7 +75,7 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
                 $identity = &Identity::singleton();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                    $name = Horde_Auth::getAuth();
                 }
                 $notepad = &$GLOBALS['mnemo_shares']->newShare(Horde_Auth::getAuth());
                 if (is_a($notepad, 'PEAR_Error')) {
