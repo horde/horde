@@ -34,11 +34,7 @@ try {
     $plus = Horde::img('tree/plusonly.png', _("Expand"));
     $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
 
-    if (class_exists('Net_DNS')) {
-        $resolver = new Net_DNS_Resolver();
-        $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-        $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-    }
+    $resolver = $injector->getInstance('Net_DNS_Resolver');
 
     foreach ($session_info as $id => $data) {
         $entry = array(
@@ -49,7 +45,7 @@ try {
         );
 
         if (!empty($data['remoteAddr'])) {
-            if (class_exists('Net_DNS')) {
+            if ($resolver) {
                 $response = $resolver->query($data['remoteAddr'], 'PTR');
                 $host = $response ? $response->answer[0]->ptrdname : $data['remoteAddr'];
             } else {
