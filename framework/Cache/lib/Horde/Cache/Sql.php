@@ -38,13 +38,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     protected $_db;
 
     /**
-     * The memory cache object to use, if configured.
-     *
-     * @var Horde_Cache
-     */
-    protected $_mc = null;
-
-    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -52,8 +45,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
      * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the cache table.
      *           DEFAULT: 'horde_cache'
-     * 'use_memorycache' - (Horde_Cache) Use this memory caching object to
-     *                     cache the data (to avoid DB accesses).
      * </pre>
      *
      * @throws Horde_Cache_Exception
@@ -64,12 +55,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             throw new Horde_Cache_Exception('Missing db parameter.');
         }
         $this->_db = $params['db'];
-
-        if (isset($params['use_memorycache'])) {
-            $this->_mc = $params['use_memorycache'];
-        }
-
-        unset($params['db'], $params['use_memorycache']);
+        unset($params['db']);
 
         $params = array_merge(array(
             'table' => 'horde_cache',
@@ -111,13 +97,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         $okey = $key;
         $key = hash('md5', $key);
 
-        if ($this->_mc) {
-            $data = $this->_mc->get($key, $lifetime);
-            if ($data !== false) {
-                return $data;
-            }
-        }
-
         $timestamp = time();
         $maxage = $timestamp - $lifetime;
 
@@ -146,10 +125,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             return false;
         }
 
-        if ($this->_mc) {
-            $this->_mc->set($key, $result);
-        }
-
         if ($this->_logger) {
             $this->_logger->log(sprintf('Cache hit: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
         }
@@ -171,10 +146,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     {
         $okey = $key;
         $key = hash('md5', $key);
-
-        if ($this->_mc) {
-            $this->_mc->set($key, $data);
-        }
 
         $timestamp = time();
 
@@ -224,10 +195,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         $okey = $key;
         $key = hash('md5', $key);
 
-        if ($this->_mc && $this->_mc->exists($key, $lifetime)) {
-            return true;
-        }
-
         /* Build SQL query. */
         $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                  ' WHERE cache_id = ?';
@@ -270,10 +237,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
     public function expire($key)
     {
         $key = hash('md5', $key);
-
-        if ($this->_mc) {
-            $this->_mc->expire($key);
-        }
 
         $query = 'DELETE FROM ' . $this->_params['table'] .
                  ' WHERE cache_id = ?';
