@@ -24,7 +24,7 @@ if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
 
     try {
-        $uuid = $pastie->driver->savePaste('default', $info['paste'], $info['syntax']);
+        $uuid = $pastie->driver->savePaste('default', $info['paste'], $info['syntax'], $info['title']);
 
         $notification->push(sprintf('Paste saved. %s', $uuid), 'horde.success');
 
