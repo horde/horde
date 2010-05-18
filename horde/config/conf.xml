@@ -1306,8 +1306,8 @@
     </case>
     <case name="Ldap" desc="LDAP">
      <configsection name="params">
-      <configstring name="hostspec" descu"LDAP
-      server/host">localhost</configstring>
+      <configstring name="hostspec" desc="The hostname of the LDAP server">
+      localhost</configstring>
       <configinteger name="port" required="false" desc="Port LDAP is running
       on, if non-standard">389</configinteger>
       <configstring name="dn" required="false" desc="The DN used to bind
