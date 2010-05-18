@@ -42,12 +42,12 @@ $_prefs['show_panel'] = array(
 
 // user preferred sorting column
 $_prefs['sortby'] = array(
-    'value' => MNEMO_SORT_DESC,
+    'value' => Mnemo::SORT_DESC,
     'type' => 'enum',
     'enum' => array(
-        MNEMO_SORT_DESC => _("Note Text"),
-        MNEMO_SORT_CATEGORY => _("Note Category"),
-        MNEMO_SORT_NOTEPAD => _("Notepad")
+        Mnemo::SORT_DESC => _("Note Text"),
+        Mnemo::SORT_CATEGORY => _("Note Category"),
+        Mnemo::SORT_NOTEPAD => _("Notepad")
     ),
     'desc' => _("Default sorting criteria:")
 );
@@ -57,8 +57,8 @@ $_prefs['sortdir'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(
-        MNEMO_SORT_ASCEND => _("Ascending"),
-        MNEMO_SORT_DESCEND => _("Descending")
+        Mnemo::SORT_ASCEND => _("Ascending"),
+        Mnemo::SORT_DESCEND => _("Descending")
     ),
     'desc' => _("Default sorting direction:")
 );

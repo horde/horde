@@ -450,11 +450,11 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
                 $passphrase = Mnemo::getPassphrase($row['memo_id']);
             }
             if (empty($passphrase)) {
-                $body = PEAR::raiseError(_("This note has been encrypted."), MNEMO_ERR_NO_PASSPHRASE);
+                $body = PEAR::raiseError(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
             } else {
                 $body = $this->decrypt($body, $passphrase);
                 if (is_a($body, 'PEAR_Error')) {
-                    $body->code = MNEMO_ERR_DECRYPT;
+                    $body->code = Mnemo::ERR_DECRYPT;
                 } else {
                     $body = $body->message;
                     Mnemo::storePassphrase($row['memo_id'], $passphrase);

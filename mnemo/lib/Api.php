@@ -376,8 +376,8 @@ function _mnemo_export($uid, $contentType)
     }
 
     if (is_a($memo['body'], 'PEAR_Error')) {
-        if ($memo['body']->getCode() == MNEMO_ERR_NO_PASSPHRASE ||
-            $memo['body']->getCode() == MNEMO_ERR_DECRYPT) {
+        if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE ||
+            $memo['body']->getCode() == Mnemo::ERR_DECRYPT) {
             $memo['body'] = _("This note has been encrypted.");
         } else {
             return $memo['body'];
@@ -395,7 +395,7 @@ function _mnemo_export($uid, $contentType)
         // Create the new iCalendar container.
         $iCal = new Horde_iCalendar('1.1');
         $iCal->setAttribute('VERSION', '1.1');
-        $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . MNEMO_VERSION . '//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . Mnemo::VERSION . '//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         // Create a new vNote.

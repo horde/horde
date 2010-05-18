@@ -26,7 +26,7 @@ function showPassphrase($memo)
     /* Check for secure connection. */
     $secure_check = Horde::isConnectionSecure();
 
-    if ($memo['body']->getCode() == MNEMO_ERR_NO_PASSPHRASE) {
+    if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE) {
         if ($secure_check) {
             $notification->push(_("This note has been encrypted, please provide the password below"), 'horde.message');
             return true;
@@ -36,7 +36,7 @@ function showPassphrase($memo)
         return false;
     }
 
-    if ($memo['body']->getCode() == MNEMO_ERR_DECRYPT) {
+    if ($memo['body']->getCode() == Mnemo::ERR_DECRYPT) {
         if ($secure_check) {
             $notification->push(_("This note cannot be decrypted:") . ' ' . $memo['body']->getMessage(), 'horde.message');
             return true;

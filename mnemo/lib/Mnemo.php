@@ -11,41 +11,6 @@
  */
 
 /**
- * Sort by memo description.
- */
-define('MNEMO_SORT_DESC', 0);
-
-/**
- * Sort by memo category.
- */
-define('MNEMO_SORT_CATEGORY', 1);
-
-/**
- * Sort by notepad.
- */
-define('MNEMO_SORT_NOTEPAD', 2);
-
-/**
- * Sort in ascending order.
- */
-define('MNEMO_SORT_ASCEND', 0);
-
-/**
- * Sort in descending order.
- */
-define('MNEMO_SORT_DESCEND', 1);
-
-/**
- * No passphrase provided.
- */
-define('MNEMO_ERR_NO_PASSPHRASE', 100);
-
-/**
- * Decrypting failed
- */
-define('MNEMO_ERR_DECRYPT', 101);
-
-/**
  * Mnemo Base Class.
  *
  * @author  Jon Parise <jon@horde.org>
@@ -53,31 +18,65 @@ define('MNEMO_ERR_DECRYPT', 101);
  * @package Mnemo
  */
 class Mnemo {
+    /**
+     * Sort by memo description.
+     */
+    const SORT_DESC = 0;
+    
+    /**
+     * Sort by memo category.
+     */
+    const SORT_CATEGORY = 1;
+    
+    /**
+     * Sort by notepad.
+     */
+    const SORT_NOTEPAD = 2;
+    
+    /**
+     * Sort in ascending order.
+     */
+    const SORT_ASCEND = 0;
+    
+    /**
+     * Sort in descending order.
+     */
+    const SORT_DESCEND = 1;
+    
+    /**
+     * No passphrase provided.
+     */
+    const ERR_NO_PASSPHRASE = 100;
+    
+    /**
+     * Decrypting failed
+     */
+    const ERR_DECRYPT = 101;
 
     /**
      * Retrieves the current user's note list from storage. This function will
      * also sort the resulting list, if requested.
      *
-     * @param constant $sortby   The field by which to sort. (MNEMO_SORT_DESC,
-     *                           MNEMO_SORT_CATEGORY, MNEMO_SORT_NOTEPAD)
+     * @param constant $sortby   The field by which to sort. (self::SORT_DESC,
+     *                           self::SORT_CATEGORY, self::SORT_NOTEPAD)
      * @param constant $sortdir  The direction by which to sort.
-     *                           (MNEMO_SORT_ASC, MNEMO_SORT_DESC)
+     *                           (self::SORT_ASC, self::SORT_DESC)
      *
      * @return array  A list of the requested notes.
      *
      * @see Mnemo_Driver::listMemos()
      */
-    public static function listMemos($sortby = MNEMO_SORT_DESC,
-                       $sortdir = MNEMO_SORT_ASCEND)
+    public static function listMemos($sortby = self::SORT_DESC,
+                       $sortdir = self::SORT_ASCEND)
     {
         global $conf, $display_notepads;
         $memos = array();
 
         /* Sort the memo list. */
         $sort_functions = array(
-            MNEMO_SORT_DESC => 'ByDesc',
-            MNEMO_SORT_CATEGORY => 'ByCategory',
-            MNEMO_SORT_NOTEPAD => 'ByNotepad',
+            self::SORT_DESC => 'ByDesc',
+            self::SORT_CATEGORY => 'ByCategory',
+            self::SORT_NOTEPAD => 'ByNotepad',
         );
 
         foreach ($display_notepads as $notepad) {
@@ -93,7 +92,7 @@ class Mnemo {
         /* Sort the array if we have a sort function defined for this
          * field. */
         if (isset($sort_functions[$sortby])) {
-            $prefix = ($sortdir == MNEMO_SORT_DESCEND) ? '_rsort' : '_sort';
+            $prefix = ($sortdir == self::SORT_DESCEND) ? '_rsort' : '_sort';
             uasort($memos, array('Mnemo', $prefix . $sort_functions[$sortby]));
         }
 

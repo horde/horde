@@ -93,7 +93,7 @@ $show_passphrase = false;
 if (is_a($memo['body'], 'PEAR_Error')) {
     /* Check for secure connection. */
     $secure_check = Horde::isConnectionSecure();
-    if ($memo['body']->getCode() == MNEMO_ERR_NO_PASSPHRASE) {
+    if ($memo['body']->getCode() == Mnemo::ERR_NO_PASSPHRASE) {
         if ($secure_check) {
             $notification->push(_("This note has been encrypted, please provide the password below"), 'horde.message');
             $show_passphrase = true;
@@ -101,7 +101,7 @@ if (is_a($memo['body'], 'PEAR_Error')) {
             $notification->push(_("This note has been encrypted, and cannot be decrypted without a secure web connection"), 'horde.error');
             $memo['body'] = '';
         }
-    } elseif ($memo['body']->getCode() == MNEMO_ERR_DECRYPT) {
+    } elseif ($memo['body']->getCode() == Mnemo::ERR_DECRYPT) {
         if ($secure_check) {
             $notification->push(_("This note cannot be decrypted:") . ' ' . $memo['body']->getMessage(), 'horde.message');
             $show_passphrase = true;
