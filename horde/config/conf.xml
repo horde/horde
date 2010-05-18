@@ -1076,7 +1076,8 @@
    </configswitch>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found
-   in this driver, we will fall back to accessing the persistent backend.">
+   in this driver, we will fall back to accessing the persistent backend. This
+   setting has no effect if already using a memory caching backend.">
     <case name="" desc="None"/>
     <case name="Apc" desc="APC"/>
     <case name="Eaccelerator" desc="eAccelerator"/>
