@@ -1,3 +1,6 @@
+<?php
+require_once PASTIE_TEMPLATES . '/recent.inc';
+?>
 <div id="showpaste">
     <div class="pasteHeader">
         <h2 class="pasteTitle"><?php echo $paste['title']; ?></h2>
@@ -8,3 +11,4 @@
     <?php echo $output; ?>
     </div>
 </div>
+<br style="clear:both;">

@@ -11,6 +11,9 @@ class Pastie_Highlighter_LibGeshi extends Pastie_Highlighter {
         if ($syntax == 'none') {
             return '<pre>' . $text . '</pre>';
         } else {
+            // Since we may be coming from another syntax highlighter,
+            // we'll try downcasing the syntax name and hope we get lucky.
+            $syntax = strtolower($syntax);
             $geshi = new GeSHi($text, $syntax);
         }
         $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS);

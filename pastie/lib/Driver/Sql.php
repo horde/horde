@@ -76,7 +76,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
     public function savePaste($bin, $paste, $syntax = 'none', $title = '')
     {
         $this->_connect();
-        
+
         $id = $this->_db->nextId('mySequence');
         if (PEAR::isError($id)) {
             throw new Horde_Exception_Prior($id);
@@ -114,7 +114,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
 
     /**
      * Retrieves the paste from the database.
-     * 
+     *
      * @param array $params  Array of selectors to find the paste.
      *
      * @return array  Array of paste information
@@ -175,6 +175,53 @@ class Pastie_Driver_Sql extends Pastie_Driver
         } else {
             throw new Pastie_Exception(_("Invalid paste ID."));
         }
+    }
+
+    public function getPastes($bin)
+    {
+        $query = 'SELECT paste_id, paste_uuid, paste_title, paste_syntax, '.
+                 'paste_content, paste_owner, paste_timestamp ' .
+                 'FROM pastie_pastes WHERE paste_bin = ? ' .
+                 'ORDER BY paste_timestamp DESC';
+        $values[] = 'default'; // FIXME: Horde_Share
+
+        /* Make sure we have a valid database connection. */
+        $this->_connect();
+
+        /* Log the query at a DEBUG log level. */
+        Horde::logMessage(sprintf('Pastie_Driver_Sql#getPastes(): %s', $query), 'DEBUG');
+
+        /* Execute the query. */
+        $result = $this->_db->query($query, $values);
+
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception_Prior($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Horde_Exception_Prior($row);
+        }
+
+        $pastes = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $pastes[$row['paste_uuid']] = array(
+                'id' => $row['paste_id'],
+                'uuid' => $row['paste_uuid'],
+                'bin' => $row['paste_bin'],
+                'title' => $row['paste_title'],
+                'syntax' => $row['paste_syntax'],
+                'paste' => $row['paste_content'],
+                'owner' => $row['paste_owner'],
+                'timestamp' => new Horde_Date($row['paste_timestamp'])
+            );
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+        $result->free();
+
+        return $pastes;
     }
 
     /**

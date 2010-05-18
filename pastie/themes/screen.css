@@ -1,6 +1,22 @@
 /* Insert CSS definitions here. */
+#recentPastes {
+    float: left;
+    width: 20%;
+    height: 100%;
+    border: 1px solid #c00;
+    padding: 2px;
+    overflow: hidden;
+    margin: 50px 15px 10px 15px;
+}
+
+.recentPaste {
+    margin-top: 3px;
+}
+
 #showpaste {
-    margin: 35px;
+    margin: 10px 35px 10px 35px;
+    float: right;
+    width: 70%;
 }
 
 .pasteTitle {

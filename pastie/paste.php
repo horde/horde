@@ -36,11 +36,18 @@ if ($form->validate($vars)) {
     }
 }
 
+try {
+    $recent = $pastie->driver->getPastes('default'); //FIXME: Horde_Share
+} catch (Horde_Exception $e) {
+    $notification->push($e);
+}
+
+
 $title = $form->getTitle();
 
 require PASTIE_TEMPLATES . '/common-header.inc';
 require PASTIE_TEMPLATES . '/menu.inc';
 
-$form->renderActive(null, null, $url, 'post');
+require PASTIE_TEMPLATES . '/paste.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';
