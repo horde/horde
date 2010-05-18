@@ -316,6 +316,9 @@ class Horde_Registry
             umask($conf['umask']);
         }
 
+        /* Always need to load applications information. */
+        $this->_loadApplicationsCache($vhost);
+
         /* Start a session. */
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
@@ -353,9 +356,6 @@ class Horde_Registry
                 $vhost = null;
             }
         }
-
-        /* Always need to load applications information. */
-        $this->_loadApplicationsCache($vhost);
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
