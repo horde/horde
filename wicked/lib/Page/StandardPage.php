@@ -266,7 +266,7 @@ class StandardPage extends Page {
         if ($requestor) {
             $name = $GLOBALS['injector']
                 ->getInstance('Horde_Prefs_Identity')
-                ->getOb($requestor)
+                ->getIdentity($requestor)
                 ->getValue('fullname');
             if (!strlen($name)) {
                 $name = $requestor;
