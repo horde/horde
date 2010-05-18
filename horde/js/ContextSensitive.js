@@ -281,7 +281,7 @@ var ContextSensitive = Class.create({
         eltL = elt.getLayout(),
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
-        elt.hide().setStyle({ visibility: null });
+        elt.hide().setStyle({ visibility: 'visible' });
 
         // Make sure context window is entirely on screen
         if ((y + h) > v.height) {
