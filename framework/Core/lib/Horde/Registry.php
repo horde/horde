@@ -29,13 +29,6 @@ class Horde_Registry
     const HOOK_FATAL = 4;
 
     /**
-     * Singleton value.
-     *
-     * @var Horde_Registry
-     */
-    static protected $_instance;
-
-    /**
      * Cached information.
      *
      * @var array
