@@ -1,12 +1,12 @@
 /* Insert CSS definitions here. */
 #recentPastes {
     float: left;
-    width: 20%;
+    width: 18%;
     height: 100%;
     border: 1px solid #c00;
     padding: 2px;
     overflow: hidden;
-    margin: 50px 15px 10px 15px;
+    margin: 50px 10px 10px 10px;
 }
 
 .recentPaste {
