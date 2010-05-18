@@ -16,13 +16,13 @@ Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 /* If no 'module' parameter passed in, die with an error. */
 if (!($app = basename(Horde_Util::getFormData('app')))) {
-    throw new Horde_Exception("Do not directly access logintasks.php");
+    throw new Horde_Exception('Do not directly access logintasks.php.');
 }
 
 $registry->pushApp($app, array('logintasks' => false));
 
-if (!($tasks = Horde_LoginTasks::singleton($app))) {
-    throw new Horde_Exception("The Horde_LoginTasks:: class did not load successfully");
+if (!($tasks = $injector->getInstance('Horde_LoginTasks')->getOb($app))) {
+    throw new Horde_Exception('The Horde_LoginTasks:: class did not load successfully.');
 }
 
 /* If we are through with tasks, this call will redirect to application. */

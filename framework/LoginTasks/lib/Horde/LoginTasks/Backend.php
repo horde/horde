@@ -18,40 +18,38 @@ abstract class Horde_LoginTasks_Backend
     /**
      * Is the current session authenticated?
      *
-     * @return boolean True if the user is authenticated, false otherwise.
+     * @return boolean  True if the user is authenticated, false otherwise.
      */
     abstract public function isAuthenticated();
 
     /**
      * Retrieve a cached tasklist if it exists.
      *
-     * @return Horde_LoginTasks_Tasklist|boolean The cached task list or false
-     * if no task list was cached.
+     * @return Horde_LoginTasks_Tasklist|boolean  The cached task list or
+     *                                            false if no task list was
+     *                                            cached.
      */
     abstract public function getTasklistFromCache();
 
     /**
      * Store a login tasklist in the cache.
      *
-     * @param Horde_LoginTasks_Tasklist|boolean The tasklist to be stored.
-     *
-     * @return NULL
+     * @param Horde_LoginTasks_Tasklist|boolean $tasklist  The tasklist to be
+     *                                                     stored.
      */
     abstract public function storeTasklistInCache($tasklist);
 
     /**
      * Register the shutdown handler.
      *
-     * @param array The shutdown function
-     *
-     * @return NULL
+     * @param array $shutdown  The shutdown function.
      */
     abstract public function registerShutdown($shutdown);
 
     /**
      * Get the class names of the task classes that need to be performed.
      *
-     * @return array An array of class names.
+     * @return array  An array of class names.
      */
     abstract public function getTasks();
 
@@ -60,41 +58,37 @@ abstract class Horde_LoginTasks_Backend
      * are app names, values are last run timestamps. Special key '_once'
      * contains list of ONCE tasks previously run.
      *
-     * @return array The information about the last time the tasks were run.
+     * @return array  The information about the last time the tasks were run.
      */
     abstract public function getLastRun();
 
     /**
      * Store the information about the last time the tasks were run.
      *
-     * @param array $last The information about the last time the tasks were run.
-     *
-     * @return NULL
+     * @param array $last  The information about the last time the tasks were
+     *                     run.
      */
     abstract public function setLastRun(array $last);
 
     /**
-     * Mark the current time as time the login tasks were run for the last time.
-     *
-     * @return NULL
+     * Mark the current time as time the login tasks were run for the last
+     * time.
      */
     abstract public function markLastRun();
 
     /**
      * Redirect to the given URL.
      *
-     * @param string $url The URL to redirect to.
-     *
-     * @return NULL
+     * @param string $url  The URL to redirect to.
      */
     abstract public function redirect($url);
 
     /**
      * Return the URL of the login tasks view.
      *
-     * @param array $tasks The tasks to be displayed next.
+     * @param array $tasks  The tasks to be displayed next.
      *
-     * @return string The URL of the login tasks view
+     * @return string  The URL of the login tasks view
      */
     abstract public function getLoginTasksUrl(array $tasks = null);
 }

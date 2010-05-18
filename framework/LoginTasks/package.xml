@@ -21,8 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
-* Added system tasks.
+ <notes>* Removed Core dependency.
+ * Added system tasks.
  * Added ONCE interval.
  * Renamed Maintenance:: -&gt; Horde_LoginTasks::.
  * Initial Horde 4 package.
@@ -32,9 +32,6 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="LoginTasks">
-      <dir name="Backend">
-       <file name="Horde.php" role="php" />
-      </dir> <!-- /lib/Horde/LoginTasks/Backend -->
       <file name="Backend.php" role="php" />
       <file name="SystemTask.php" role="php" />
       <file name="Task.php" role="php" />
@@ -69,20 +66,6 @@
     <channel>pear.horde.org</channel>
    </package>
   </required>
-  <optional>
-   <package>
-    <name>Auth</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Prefs</name>
-    <channel>pear.horde.org</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -91,7 +74,6 @@
    <install as="Horde/LoginTasks/SystemTask.php" name="lib/Horde/LoginTasks/SystemTask.php" />
    <install as="Horde/LoginTasks/Task.php" name="lib/Horde/LoginTasks/Task.php" />
    <install as="Horde/LoginTasks/Tasklist.php" name="lib/Horde/LoginTasks/Tasklist.php" />
-   <install as="Horde/LoginTasks/Backend/Horde.php" name="lib/Horde/LoginTasks/Backend/Horde.php" />
    <install as="Horde/LoginTasks/AllTests.php" name="test/Horde/LoginTasks/AllTests.php" />
    <install as="Horde/LoginTasks/Autoload.php" name="test/Horde/LoginTasks/Autoload.php" />
    <install as="Horde/LoginTasks/LoginTasksTest.php" name="test/Horde/LoginTasks/LoginTasksTest.php" />

@@ -41,13 +41,6 @@ class Horde_LoginTasks
     const PRIORITY_NORMAL = 2;
 
     /**
-     * Singleton instance.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * The Horde_LoginTasks_Backend object provides all utilities we need for
      * handling the login tasks.
      *
@@ -63,36 +56,9 @@ class Horde_LoginTasks
     protected $_tasklist;
 
     /**
-     * Attempts to return a reference to a concrete Horde_LoginTasks
-     * instance based on $app. It will only create a new instance
-     * if no instance with the same parameters currently exists.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_LoginTasks::singleton($app[, $params]);
-     *
-     * @param string $app  See self::__construct().
-     *
-     * @return Horde_LoginTasks  The singleton instance.
-     */
-    static public function singleton($app)
-    {
-        if (empty(self::$_instances[$app])) {
-            self::$_instances[$app] = new self(
-                new Horde_LoginTasks_Backend_Horde(
-                    $GLOBALS['registry'],
-                    $GLOBALS['prefs'],
-                    $app
-                )
-            );
-        }
-
-        return self::$_instances[$app];
-    }
-
-    /**
      * Constructor.
      *
-     * @param string $app  The name of the Horde application.
+     * @param Horde_LoginTasks_Backend $backend  The backend to use.
      */
     public function __construct(Horde_LoginTasks_Backend $backend)
     {

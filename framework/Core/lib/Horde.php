@@ -442,7 +442,7 @@ HTML;
      * @param string $type       The service to display.
      * <pre>
      * TODO
-     * 'ajax', 'cache', 'download', 'go', 'prefsapi'
+     * 'ajax', 'cache', 'download', 'go', 'logintasks', 'prefsapi'
      * 'help', 'problem', 'logout', 'login', 'options'
      * </pre>
      * @param string $app        The name of the current Horde application.
@@ -466,6 +466,9 @@ HTML;
 
         case 'login':
             return self::url($webroot . '/login.php');
+
+        case 'logintasks':
+            return self::url($webroot . '/services/logintasks.php')->add('app', $app);
 
         case 'options':
         case 'prefsapi':

@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Import perms UI handling class from horde/Perms.
+ <notes>* Import Horde backend driver from horde/LoginTasks.
+ * Import perms UI handling class from horde/Perms.
  * Import prefs UI handling class from horde/Prefs.
  * Convert from PEAR Log to Horde_Log for logging.
  * Add Horde_Themes:: class.
@@ -77,6 +78,7 @@ Application Framework.
        <file name="Identity.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
+       <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Notification.php" role="php" />
@@ -96,10 +98,16 @@ Application Framework.
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
+       <file name="LoginTasks.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Log -->
+      <dir name="LoginTasks">
+       <dir name="Backend">
+        <file name="Horde.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/LoginTasks/Backend -->
+      </dir> <!-- /lib/Horde/Core/LoginTasks -->
       <dir name="Notification">
        <file name="Hordelog.php" role="php" />
        <file name="Status.php" role="php" />
@@ -183,6 +191,10 @@ Application Framework.
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>LoginTasks</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -239,6 +251,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Identity.php" as="Horde/Core/Binder/Identity.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
+   <install name="lib/Horde/Core/Binder/LoginTasks.php" as="Horde/Core/Binder/LoginTasks.php" />
    <install name="lib/Horde/Core/Binder/Mail.php" as="Horde/Core/Binder/Mail.php" />
    <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
    <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
@@ -256,7 +269,9 @@ Application Framework.
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
    <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />
+   <install name="lib/Horde/Core/Factory/LoginTasks.php" as="Horde/Core/Factory/LoginTasks.php" />
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
+   <install name="lib/Horde/Core/LoginTasks/Backend/Horde.php" as="Horde/Core/LoginTasks/Backend/Horde.php" />
    <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />
    <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
    <install name="lib/Horde/Core/Perms/Ui.php" as="Horde/Core/Perms/Ui.php" />

@@ -1,67 +1,72 @@
 <?php
 
-if (!class_exists('Horde_Prefs')) {
-    class Horde_Prefs {
-        public function setValue($pref, $val, $convert = true)
-        {
-        }
-
-        public function getValue($pref, $convert = true)
-        {
-        }
-    }
-}
-
-if (!class_exists('Horde_Registry')) {
-    class Horde_Registry {
-        public function get($parameter, $app = null)
-        {
-        }
-
-        public function getAppDrivers($app, $prefix)
-        {
-        }
-    }
-}
-
-if (!class_exists('Horde')) {
-    class Horde {
-        static public function url($url)
-        {
-            $url = new Horde_Url($url);
-            return 'http://' . (string) $url;
-        }
-    }
-}
-
-if (!class_exists('Horde_Auth')) {
-    class Horde_Auth {
-        static public function getAuth()
-        {
-            return empty($_SESSION['horde_auth']['userId'])
-                ? false
-                : $_SESSION['horde_auth']['userId'];
-        }
-    }
-}
-
-class Horde_LoginTasks_Stub_Prefs
-extends Horde_Prefs
+class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
 {
-    private $_storage = array();
+    static public $lastRun;
 
-    public function __construct()
+    private $_authenticated;
+    private $_tasklist;
+    private $_tasklistCache = false;
+
+    public function __construct(array $tasks, $authenticated = false,
+                                $last_run = false)
+    {
+        $this->_tasklist = $tasks;
+        $this->_authenticated = $authenticated;
+        if ($last_run !== true) {
+            self::$lastRun = $last_run;
+        }
+    }
+
+    public function isAuthenticated()
+    {
+        return $this->_authenticated;
+    }
+
+    public function getTasklistFromCache()
+    {
+        return $this->_tasklistCache;
+    }
+
+    public function storeTasklistInCache($tasklist)
+    {
+        $this->_tasklistCache = $tasklist;
+    }
+
+    public function registerShutdown($shutdown)
     {
     }
 
-    public function setValue($pref, $val, $convert = true)
+    public function getTasks()
     {
-        $this->_storage[$pref] = $val;
+        return $this->_tasklist;
     }
 
-    public function getValue($pref, $convert = true)
+    public function getLastRun()
     {
-        return isset($this->_storage[$pref]) ? $this->_storage[$pref] : null;
+        return self::$lastRun;
+    }
+
+    public function setLastRun(array $last)
+    {
+        self::$lastRun = $last;
+    }
+
+    public function markLastRun()
+    {
+        $lasttasks = $this->getLastRun();
+        $lasttasks['test'] = time();
+        self::$lastRun = $lasttasks;
+    }
+
+    public function redirect($url)
+    {
+        return $url;
+    }
+
+    public function getLoginTasksUrl(array $tasks = null)
+    {
+        return 'URL';
     }
 }
 
@@ -71,23 +76,12 @@ extends Horde_LoginTasks_Task
     static public $executed;
 
     public $interval = Horde_LoginTasks::EVERY;
-
     public $display = Horde_LoginTasks::DISPLAY_NONE;
-
     public $priority = Horde_LoginTasks::PRIORITY_NORMAL;
 
     public function execute()
     {
         Horde_LoginTasks_Stub_Task::$executed[] = get_class($this);
-    }
-}
-
-class Horde_LoginTasks_Stub_Backend
-extends Horde_LoginTasks_Backend_Horde
-{
-    public function redirect($url)
-    {
-        return $url;
     }
 }
 

@@ -240,6 +240,7 @@ class Horde_Registry
             'Horde_History' => new Horde_Core_Binder_History(),
             'Horde_Lock' => new Horde_Core_Binder_Lock(),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),
+            'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
             'Horde_Mail' => new Horde_Core_Binder_Mail(),
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
@@ -1131,7 +1132,7 @@ class Horde_Registry
 
         /* Do login tasks. */
         if ($checkPerms) {
-            $tasks = Horde_LoginTasks::singleton($app);
+            $tasks = $GLOBALS['injector']->getInstance('Horde_LoginTasks')->getOb($app);
             if (!empty($options['logintasks'])) {
                 $tasks->runTasks(false, Horde::selfUrl(true, true, true));
             }
