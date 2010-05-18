@@ -9,7 +9,7 @@
  */
 
 @define('MNEMO_BASE', dirname(dirname(__FILE__)));
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
 require_once 'File/PDF.php';
 
 /* Check if a passphrase has been sent. */

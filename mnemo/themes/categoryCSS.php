@@ -12,7 +12,7 @@
 
 @define('AUTH_HANDLER', true);
 @define('MNEMO_BASE', dirname(__FILE__) . '/..');
-require_once MNEMO_BASE . '/lib/base.php';
+require_once MNEMO_BASE . '/lib/Application.php';
 require_once 'Horde/Image.php';
 
 header('Content-Type: text/css');
