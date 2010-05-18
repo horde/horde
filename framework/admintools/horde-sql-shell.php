@@ -11,23 +11,21 @@
  */
 
 require_once dirname(__FILE__) . '/horde-base.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
-$dbh = $injector->getInstance('Horde_Db_Pear')->getOb();
-
-// list databases command
-// $result = $dbh->getListOf('databases');
-
-// list tables command
-// $result = $dbh->getListOf('tables');
+$dbh = $injector->getInstance('Horde_Db_Adapter_Base');
 
 // read sql file for statements to run
 $statements = new Horde_Db_StatementParser($_SERVER['argv'][1]);
 foreach ($statements as $stmt) {
     echo "Running:\n  " . preg_replace('/\s+/', ' ', $stmt) . "\n";
-    $result = $dbh->query($stmt);
-    if (is_a($result, 'PEAR_Error')) {
-        var_dump($result);
+    try {
+        $dbh->execute($stmt);
+    } catch (Horde_Db_Exception $e) {
+        print_r($e);
         exit;
     }
 
