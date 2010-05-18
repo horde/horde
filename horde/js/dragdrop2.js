@@ -338,6 +338,13 @@ Drag = Class.create({
                 // eo is the offset of the original element to the body.
                 eo = this.element.cumulativeOffset();
 
+                // Save external dimensions, i.e. height and width including
+                // padding and margins, for later usage.
+                this.dim = {
+                    width: layout.get('margin-box-width'),
+                    height: layout.get('margin-box-height'),
+                }
+
                 if (this.options.ghosting) {
                     var z = parseInt(this.element.getStyle('zIndex'), 10);
                     if (isNaN(z)) {
@@ -380,7 +387,7 @@ Drag = Class.create({
                                          this.ghostOffset[1] + xy[1] - eo[1] ];
                 }
 
-                if (!this.options.caption) {
+                if (!this.options.caption && this.options.constraint) {
                     // Because we later only set the left or top coordinates
                     // when using constraints, we have to set the correct
                     // "opposite" coordinates here.
@@ -395,22 +402,6 @@ Drag = Class.create({
                         break;
                     }
                 }
-
-                // Save external dimensions, i.e. height and width including
-                // padding and margins, for later usage.
-                this.dim = this.ghost.getDimensions();
-                [ 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight' ].each(function(s) {
-                    int = parseInt(this.element.getStyle(s));
-                    if (int) {
-                        this.dim.width += int;
-                    }
-                }, this);
-                [ 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom' ].each(function(s) {
-                    int = parseInt(this.element.getStyle(s));
-                    if (int) {
-                        this.dim.height += int;
-                    }
-                }, this);
             }
 
             // This is called on each mouse move. Get the current scrolling
