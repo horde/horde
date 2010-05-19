@@ -1,0 +1,33 @@
+=========================
+ Upgrading to Passwd 3.x
+=========================
+
+:Last update:   $Date: 2008/10/09 17:12:04 $
+:Revision:      $Revision: 1.3.2.1 $
+:Contact:       sork@lists.horde.org
+
+
+Upgrading to Passwd 3.1
+=======================
+
+Application Hooks
+-----------------
+
+All hooks that are specific to Passwd have been moved from the
+``horde/config/hooks.php`` file. Move your existing Passwd Hooks from there to
+``passwd/config/hooks.php``.
+
+New Hook Parameters
+-------------------
+
+The _passwd_hook_username hook is now passed an additional parameter, the
+Passwd_Driver_* object for the backend that you are changing the password on.
+This allows Passwd to support users being able to change passwords on multiple
+backends even when the different backends may have different requirements for
+the username (such as one requiring'user@example.com' while another only
+requiring 'user'). Additionally, the Passwd_Driver_composite driver also
+supports this functionality by checking for the existence of a parameter
+called 'be_username' in each of it's sub-drivers. If this parameter is
+present, its value overrides any other value of $userid it is passed. If you
+wish to use this functionality of the composite driver, look at the example
+_passwd_hook_username function in horde/config/hooks.php.dist.

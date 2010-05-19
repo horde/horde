@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!-- $Horde: passwd/locale/nl_NL/help.xml,v 1.4.2.1 2008/10/09 17:12:15 jan Exp $ -->
+<help>
+  <entry id="passwd-username" state="new">
+    <title>Username</title>
+    <heading>Your Username</heading>
+    <para>
+    Enter your username here (if it is not already prefilled). Not all installations support this.
+    </para>
+</entry>
+  <entry id="passwd-old-password" state="unknown">
+    <title>Oude wachtwoord</title>
+    <heading>Oude wachtwoord</heading>
+    <para>
+    Enter your current, working login password here.  You must correctly enter your current login password, or you can not change your password.
+    </para>
+<!-- English entry:
+<entry id="passwd-old-password">
+    <title>Old Password</title>
+    <heading>Old Passsword</heading>
+    <para>
+    Enter your current, working login password here.  You must correctly enter your current login password, or you can not change your password.
+    </para>
+</entry>--></entry>
+  <entry id="passwd-new-password" state="unknown">
+    <title>Nieuw wachtwoord</title>
+    <heading>Nieuw wachtwoord</heading>
+    <para>
+    Geef uw nieuwe wachtwoord op, dit is het wachtwoord waarin u het oude wilt veranderen. Onthoud dat het wachtwoord aan verschillende eisen moet voldoen (is het lang genoeg, is het niet gelijk aan uw gebruikersnaam, een combinatie van letters en cijfers, etc) anders krijgt u een foutmelding.
+    </para>
+<!-- English entry:
+<entry id="passwd-new-password">
+    <title>New Password</title>
+    <heading>New Password</heading>
+    <para>
+    Enter the new password, that is what you want to change your password to.  Note that the password entered must meet some minimum standards (sufficient length, not match your username, have a combination of letters and other characters, etc) or you will get an error.
+    </para>
+</entry>--></entry>
+  <entry id="passwd-confirm-password" state="unknown">
+    <title>Nogmaals nieuw wachtwoord</title>
+    <heading>Nogmaals nieuw wachtwoord</heading>
+    <para>
+    Geef opnieuw uw nieuwe wachtwoord op in het Verifieer wacthwoord veld.  Dit is om te verkomen dat u per ongeluk een type fout heeft gemaakt en niet meer in uw account kunt komen.
+    </para>
+<!-- English entry:
+<entry id="passwd-confirm-password">
+    <title>Confirm New Password</title>
+    <heading>Confirm New Password</heading>
+    <para>
+    Enter the new password a second time in the Confirm New Password area.  This is to make sure you don't make a typo or other mistake and lock you out of your account.
+    </para>
+</entry>--></entry>
+  <entry id="passwd-server" state="new">
+    <title>Change password on</title>
+    <heading>Change password on</heading>
+    <para>
+    Select the server or application in which you want to change the password. Not all installations support this.
+    </para>
+</entry>
+  <entry id="Change-your-password" state="unknown">
+    <title>Verander wachtwoord</title>
+    <heading>Verander wachtwoord</heading>
+    <para>
+    Druk op de "Change your password" button onder de velden om het wachtwoord te wijzigen in het systeem.
+    </para>
+<!-- English entry:
+<entry id="Change-your-password">
+    <title>Change your password</title>
+    <heading>Change your password</heading>
+    <para>
+    Press the &quot;Change your password&quot; button at the bottom of the form to submit your password request change to the system.  This button tells the system to actually change your password.
+    </para>
+</entry>--></entry>
+  <entry id="reset" state="unknown">
+    <title>Reset</title>
+    <heading>Reset</heading>
+    <para>
+    Druk op deze knop om alle velden te legen zodat u opnieuw uw wachtwoorden in kunt vullen.
+    </para>
+<!-- English entry:
+<entry id="reset">
+    <title>Reset</title>
+    <heading>Reset</heading>
+    <para>
+    Use the Reset button at the bottom of the form to clear any form data that you have entered and start over.
+    </para>
+</entry>--></entry>
+</help>

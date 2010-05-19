@@ -1,0 +1,87 @@
+What is Passwd?
+===============
+
+:Last update:   $Date: 2008/10/09 17:12:03 $
+:Revision:      $Revision: 1.5.2.2 $
+:Contact:       sork@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+Passwd is the Horde password changing application.  Right now, Passwd provides
+fairly complete support for changing passwords via Poppassd, LDAP, Unix expect
+scripts, the Unix smbpasswd command for SMB/CIFS passwords, Kolab, ADSI, Pine,
+Serv-U FTP, VMailMgr, vpopmail, and SQL passwords.
+
+This software is OSI Certified Open Source Software.  OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
+
+Obtaining Passwd
+------------------
+
+Further information on Passwd and the latest version can be obtained at
+
+  http://www.horde.org/passwd/
+
+
+Documentation
+-------------
+
+The following documentation is available in the Passwd distribution:
+
+:README_:            This file
+:COPYING_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/TODO`_:       Development TODO list
+
+
+Installation
+------------
+
+Instructions for installing Passwd can be found in the file INSTALL_ in the
+``docs/`` directory of the Passwd distribution.
+
+
+Assistance
+----------
+
+If you encounter problems with Passwd, help is available! 
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+ 
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole.  Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the freenode Network
+(irc.freenode.net).
+
+
+Licensing
+---------
+
+For licensing and copyright information, please see the file COPYING_ in the
+Passwd distribution.
+
+Thanks,
+
+The Sork team
+
+
+.. _README: ?f=README.html
+.. _COPYING: http://www.horde.org/licenses/gpl.php
+.. _docs/CHANGES: ?f=CHANGES.html
+.. _docs/CREDITS: ?f=CREDITS.html
+.. _INSTALL:
+.. _docs/INSTALL: ?f=INSTALL.html
+.. _docs/TODO: ?f=TODO.html

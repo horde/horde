@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- $Horde: passwd/locale/fi_FI/help.xml,v 1.5.2.3 2008/10/09 17:12:10 jan Exp $ -->
+<help>
+  <entry id="passwd-username" md5="2890a9812d76074ffb3e35957eea967d" state="uptodate">
+    <title>K&#xE4;ytt&#xE4;j&#xE4;tunnus</title>
+    <heading>K&#xE4;ytt&#xE4;j&#xE4;tunnuksesi</heading>
+    <para>
+    Laita t&#xE4;h&#xE4;n tarvittaessa k&#xE4;ytt&#xE4;j&#xE4;tunnuksesi (kentt&#xE4; saattaa my&#xF6;s olla jo t&#xE4;ytetty valmiiksi).
+    </para>
+</entry>
+  <entry id="passwd-old-password" md5="5e55cb125b5778caaf1a51afca92ab59" state="uptodate">
+    <title>Vanha salasana</title>
+    <heading>Vanha salasana</heading>
+    <para>
+    Laita t&#xE4;h&#xE4;n nykyinen, toimiva salasanasi. Sinun pit&#xE4;&#xE4; kirjoittaa salasanasi oikein tai et pysty vaihtamaan salasanaasi.
+    </para>
+</entry>
+  <entry id="passwd-new-password" md5="8fe6f2254a9d10984fa8ba876f148b53" state="uptodate">
+    <title>Uusi salasana</title>
+    <heading>Uusi salasana</heading>
+    <para>
+    Kirjoita t&#xE4;h&#xE4;n uusi salasanasi, t&#xE4;m&#xE4; tulee olemaan uusi salasanasi. Huomaathan ett&#xE4; salasanasi pit&#xE4;&#xE4; t&#xE4;yt&#xE4;&#xE4; tietyt minimivaatimukset (tarpeeksi pitk&#xE4;, ei saa olla k&#xE4;ytt&#xE4;j&#xE4;tunnuksesi tai nimesi, salasanan pit&#xE4;&#xE4; sis&#xE4;lt&#xE4;&#xE4; kirjaimia, numeroita ja muita merkkej&#xE4; jne.) tai muuten tulee virheilmoitus ja salasanaa ei saa vaihdettua.
+    </para>
+</entry>
+  <entry id="passwd-confirm-password" md5="38caae4b775cceda60bbc3c183a78fcb" state="uptodate">
+    <title>Vahvista uusi salasana</title>
+    <heading>Vahvista uusi salasana</heading>
+    <para>
+    Kirjoita t&#xE4;h&#xE4;n uusi salasanasi toiseen kertaan. T&#xE4;m&#xE4; varmistus tehd&#xE4;&#xE4;n siksi ett&#xE4; et tule vahingossa tehneeksi kirjoitusvirhett&#xE4; uuteen salasanaasi ja siten tulisit lukinneeksi tunnuksesi.
+    </para>
+</entry>
+  <entry id="passwd-server" state="uptodate" md5="164edb880db7297eb259816ea42c0f8f">
+    <title>Vaihda salasana j&#xE4;rjestelm&#xE4;ss&#xE4;</title>
+    <heading>Vaihda salasana j&#xE4;rjestelm&#xE4;ss&#xE4;</heading>
+    <para>
+    Voit valita sen j&#xE4;rjestelm&#xE4;n, johon salasana vaihdetaan. Kaikki j&#xE4;rjestelm&#xE4;t eiv&#xE4;t tue t&#xE4;t&#xE4; toimintoa.
+    </para>
+</entry>
+  <entry id="Change-your-password" md5="186993a347a9ad4d9cd2cbeead7f6e4e" state="uptodate">
+    <title>Vaihda salasanasi</title>
+    <heading>Vaihda salasanasi</heading>
+    <para>
+    Napsauta "Vaihda salasanasi" -painiketta sivun alalaidassa l&#xE4;hett&#xE4;&#xE4;ksesi salasananvaihtopyynn&#xF6;n. Vasta t&#xE4;m&#xE4;n painikkeen painamisen j&#xE4;lkeen salasananvaihtopyynt&#xF6; l&#xE4;htee palvelimelle.
+    </para>
+</entry>
+  <entry id="reset" md5="87302fbc89b897c8d78445eb3e624d5e" state="uptodate">
+    <title>Tyhjenn&#xE4;</title>
+    <heading>Tyhjenn&#xE4;</heading>
+    <para>
+    K&#xE4;yt&#xE4; sivun alalaidassa olevaa "Tyhjenn&#xE4;" -painiketta tyhjent&#xE4;&#xE4;ksesi lomakkeen tiedot ja aloittaaksesi alusta.
+    </para>
+</entry>
+</help>

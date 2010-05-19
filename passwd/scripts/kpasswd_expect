@@ -1,0 +1,59 @@
+# $Horde: passwd/scripts/kpasswd_expect,v 1.2.2.2 2008/10/09 17:12:24 jan Exp $
+#
+# The following expect script enables the password change over kerberos
+# kpasswd.
+#
+#  Dilyan Palauzov <didopalauzov@aegee.org>, 2005
+#
+gets stdin user
+gets stdin oldpw
+gets stdin newpw
+set log [lindex $argv 1]
+set err [open $log "w" "0600"]
+set pid [spawn /usr/bin/kpasswd $user]
+set timeout 1
+expect {
+    "Password for *: "
+    {
+        send $oldpw\r
+    }
+    eof {
+        puts $err $expect_out(buffer)
+        close $err
+        exit 1
+    }
+}
+
+expect {
+    "Enter new password: "
+    {
+        send $newpw\r
+    }
+    eof {
+        puts $err $expect_out(buffer)
+        close $err
+        exit 1
+    }
+}
+expect {
+    eof {exit 1}
+    "Enter it again: "
+    {
+        send $newpw\r
+    }
+}
+expect {
+    eof {
+        puts $err $expect_out(buffer)
+        close $err
+        exit 1
+    }
+    "Password changed."
+    {
+        close $err
+        exit 0
+    }
+}
+
+close $err
+exit 0

@@ -1,0 +1,273 @@
+# Persian translations for Passwd package.
+# This file is distributed under the same license as the Passwd package.
+#
+# Copyright 2004 High Concil of Informatics (www.shci.ir)
+# Provided by  Amirkabir Metanetworking Ltd, 2004 <horde@metanetworking.com>
+# Mohsen Nader-Badr       <naderi@metanetworking.com>
+# Chakameh Mortezania     <mortezania@metanetworking.com>
+# Salman Niksefat         <niksefat@metanetworking.com>
+# hamed Gheybit           <gheybi@metanetworking.com>
+# Vahid Ghafarpour        <ghafarpour@metanetworking.com>
+# Zahra Ahmadi Firouzjaee <ahmadi@metanetworking.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 3 ALPHA\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-07-14 11:48+0430\n"
+"PO-Revision-Date: 2005-07-08 12:45+0430\n"
+"Last-Translator: Amirkabir Metanetworking ltd. <persian-horde@metanetworking."
+"com>\n"
+"Language-Team: Persian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s موجود نیست و یا قابل اجرا نیست"
+
+#: lib/Driver/composite.php:59
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: نمی‌توان راه‌انداز را بارکرد: %s"
+
+#: lib/Driver/adsi.php:54
+#, php-format
+msgid "ADSI error %s."
+msgstr "خطای ADSI %s."
+
+#: lib/Driver/pspasswd.php:97 lib/Driver/adsi.php:57
+msgid "Access Denied."
+msgstr "عدم اجازهٔ دسترسی."
+
+#: lib/Driver.php:80
+msgid "Backend not correctly implemented."
+msgstr "پشتیبان به درستی پیاده‌سازی نشده‌است."
+
+#: main.php:244 templates/main/main.inc:144
+msgid "Change Password"
+msgstr "تغییر اسم رمز"
+
+#: templates/main/main.inc:129
+msgid "Change password on:"
+msgstr "تغییر اسم رمز بر روی:"
+
+#: templates/main/main.inc:64
+msgid "Change your password"
+msgstr "اسم رمز خود را تغییر دهید"
+
+#: templates/main/main.inc:71
+#, php-format
+msgid "Changing password on %s"
+msgstr "تغییر اسم رمز بر روی %s"
+
+#: templates/main/main.inc:116
+msgid "Confirm new password:"
+msgstr "تأیید اسم رمز جدید:"
+
+#: lib/Driver/ldap.php:93 lib/Driver/ldap.php:240 lib/Driver/kolab.php:48
+#: lib/Driver/smbldap.php:90 lib/Driver/smbldap.php:171
+msgid "Could not bind to ldap server"
+msgstr "نمی‌توان به کارساز ldap پیوست"
+
+#: lib/Driver/ldap.php:64 lib/Driver/kolab.php:40 lib/Driver/smbldap.php:67
+msgid "Could not connect to ldap server"
+msgstr "نمی‌توان به کارساز ldap متصل شد"
+
+#: lib/Driver/smbpasswd.php:53
+msgid "Could not open pipe to smbpasswd."
+msgstr "نمی‌توان راهی به smbpasswd باز کرد."
+
+#
+#: lib/Driver/smbpasswd.php:75
+msgid "Error sending data to smbpasswd."
+msgstr "خطا در ارسال داده به smbpasswd."
+
+#: lib/Driver/pspasswd.php:85
+msgid "Failed to verify old password."
+msgstr "بازبینی اسم رمز قدیمی ناموفّق بود."
+
+#: main.php:205 lib/Driver/composite.php:93
+#, php-format
+msgid "Failure in changing password on %s: %s"
+msgstr "عدم موفّقیّت در تغییر اسم رمز بر %s : %s"
+
+#: lib/Driver.php:51 lib/Driver/vmailmgr.php:35 lib/Driver/poppassd.php:109
+#: lib/Driver/ldap.php:241 lib/Driver/kolab.php:72 lib/Driver/smbldap.php:172
+msgid "Incorrect Password"
+msgstr "اسم رمز نادرست"
+
+#: lib/Driver/ldap.php:223
+msgid "Minimum password age has not yet expired"
+msgstr "حداقل عمر اسم رمز هنوز منقضی نشده‌است"
+
+#: templates/main/main.inc:104
+msgid "New password:"
+msgstr "اسم رمز جدید:"
+
+#: lib/Driver.php:107
+#, php-format
+msgid "No such backend '%s' found."
+msgstr "پشتیبان '%s' پیدانشد."
+
+#: templates/main/main.inc:92
+msgid "Old password:"
+msgstr "اسم رمز قدیمی:"
+
+#: lib/Driver/smbpasswd.php:43
+msgid "Passwd is not properly configured."
+msgstr "Passwd به طور کامل پیکربندی نشده است."
+
+#: main.php:197
+#, php-format
+msgid "Password changed on %s."
+msgstr "اسم رمز بر %s تغییر یافت."
+
+#: lib/Driver/pspasswd.php:67
+msgid "Password module can't find the supplied bin."
+msgstr "مدول اسم رمز باینری مورد نیاز را نتوانست پیدا کند."
+
+#: lib/Driver/pspasswd.php:65
+msgid "Password module is missing required parameters."
+msgstr "مدول اسم رمز پارامترهای موردنیاز را ندارد."
+
+#: lib/Driver/adsi.php:44
+msgid "Password module is missing target parameter."
+msgstr "مدول اسم رمز پارامترهای مقصد را ندارد."
+
+#: main.php:178 lib/Driver/servuftp.php:66
+msgid "Password module is not properly configured"
+msgstr "مدول اسم رمز به طور مناسب پیکربندی نشده است"
+
+#: lib/Driver/servuftp.php:93
+msgid "Password module is not properly configured."
+msgstr "مدول اسم رمز به طور کامل پیکربندی نشده است."
+
+#: lib/Driver/composite.php:35
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr "فیلد 'drivers' در پیکربندی، غلط پیکربندی شده است."
+
+#: lib/Driver/sql.php:41
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr "فیلد 'phptype' در پیکربندی مدول passwd  مشخص نشده است."
+
+#: lib/Driver/vpopmail.php:44
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "فیلد 'phptype' در پیکربندی SQL مشخص نشده است."
+
+#: templates/main/main.inc:145
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: lib/Driver/vpopmail.php:78 lib/Driver/sql.php:70
+msgid "Unable to connect to SQL server."
+msgstr "امکان اتصال به کارساز SQl نمی‌باشد."
+
+#: lib/Driver/poppassd.php:103 lib/Driver/vpopmail.php:138
+#: lib/Driver/sql.php:120
+msgid "User not found"
+msgstr "کاربر پیدا نشد"
+
+#: lib/Driver/pine.php:225 lib/Driver/ldap.php:130 lib/Driver/kolab.php:64
+#: lib/Driver/smbldap.php:127
+msgid "User not found."
+msgstr "کاربر پیدا نشد."
+
+#: templates/main/main.inc:79
+msgid "Username:"
+msgstr "نام کاربر:"
+
+#: main.php:47
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "شما نمی‌توانید اسم رمز کاربر %s را تغییر دهید"
+
+#: main.php:55
+msgid "You must give your current password"
+msgstr "شما باید اسم رمز کنونی خود را بدهید"
+
+#: main.php:64
+msgid "You must give your new password"
+msgstr "شما باید اسم رمز جدید خود را بدهید "
+
+#: main.php:68
+msgid "You must verify your new password"
+msgstr "شما باید اسم رمز جدید خود را بازبینی کنید"
+
+#: main.php:88
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"اسم رمز جدید شما بسیار طولانی است، اسم رمزها نباید بیش از %d نویسه باشد!"
+
+#: main.php:167
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "اسم رمز جدید شما برای حدس زدن بسیار آسان می‌باشد! اسم رمز تغییر نیافت!"
+
+#: main.php:158
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "اسم رمز جدید شما برای حدس زدن بسیار آسان می‌باشد. اسم رمز تغییر نیافت!"
+
+#: main.php:83
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "اسم رمز جدید شما باید حداقل %d نویسه باشد!"
+
+#: main.php:76
+msgid "Your new password must be different from your current password"
+msgstr "اسم رمز جدید شما باید با اسم رمز کنونی شما متفاوت باشد"
+
+#: main.php:128
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "اسم رمز جدید شما حداقل باید شامل %d نویسهٔ الفبایی باشد."
+
+#: main.php:133
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "اسم رمز جدید شما حداقل باید شامل %d نویسهٔ الفبایی و عددی باشد."
+
+#: main.php:138
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"اسم رمز جدید شما حداقل باید شامل %d از انواع متفاوت نویسه باشد. انواع بدین "
+"صورت هستند: حروف کوچک، حروف بزرگ، عددی و نشانه‌ها."
+
+#: main.php:118
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "اسم رمز جدید شما حداقل باید شامل %d نویسه با حروف کوچک باشد."
+
+#: main.php:123
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "اسم رمز جدید شما حداقل باید شامل %d نویسه عددی باشد."
+
+#: main.php:113
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "اسم رمز جدید شما حداقل باید شامل %d نویسه با حروف بزرگ باشد."
+
+#: main.php:144
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "اسم رمز جدید شما حداکثر باید شامل %d نویسهٔ جای خالی باشد."
+
+#: main.php:146
+msgid "Your new password must not contain whitespace characters."
+msgstr "اسم رمز جدید شما نباید شامل نویسهٔ جای خالی باشد."
+
+#: main.php:72
+msgid "Your new passwords didn't match"
+msgstr "اسم رمزهای جدید شما تطابق ندارد"
+
+#: lib/Driver/ldap.php:70 lib/Driver/smbldap.php:73
+msgid "ldap_start_tls failed"
+msgstr "ldap_start_tls ناموفّق بود"

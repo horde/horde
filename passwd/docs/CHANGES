@@ -1,0 +1,264 @@
+----------
+v3.1.4-cvs
+----------
+
+
+
+
+------
+v3.1.3
+------
+
+[jan] Fix examples using 'minSymbols' instead of 'minSymbol' (Bug #8854).
+[jan] Fix PHP error when changing passwords with LDAP driver (Bug #8686).
+
+
+------
+v3.1.2
+------
+
+[jan] Enable output compression (horde@albasoft.com, Bug #8649).
+[jan] Add Croatian translation (Valentin Vidic <valentin.vidic@carnet.hr>).
+[jan] Add option to configure referrals for LDAP driver (manilal@ejyothi.com,
+      Request #8582).
+[jan] Simplify and fix smbldap driver (Bug #8192).
+
+
+------
+v3.1.1
+------
+
+[cjh] SECURITY: Fix XSS when specifying an invalid backend key
+      (security@davidwharton.us, #8398).
+[jan] Add hook that's called after successfully changing the password.
+[jan] Add SOAP driver.
+[jan] Add example configuration for Postfix Admin (Michael Brennen
+      <michael@fishnet.us>).
+[jan] Fix binding to LDAP server if using the userdn hook.
+
+
+----
+v3.1
+----
+
+[cjh] Fix bad mode for STDERR in the procopen driver
+      (info@opensolutions.net, Bug #8022).
+
+
+--------
+v3.1-RC2
+--------
+
+[cjh] Don't include the old password in LDAP driver error messages
+      (Joffrey van Wageningen <joffrey-horde@coolhaven.info>).
+
+
+--------
+v3.1-RC1
+--------
+
+[cjh] Add missing enforcement of minSymbol password policy
+      (yann@pleiades.fr.eu.org, Bug #7260).
+[cjh] Only update smbldap attributes for Samba users, and update all attributes
+      at once instead of one at a time (marco@csita.unige.it, Request #5977).
+[cjh] Don't set smbldap attributes that are commented out in the config
+      (fabio.pedretti@ing.unibs.it, Request #5937).
+[jan] Move all Passwd-specific hook examples from Horde's config/ directory.
+[cjh] Add support for switching between encryption schemes
+      (ulrich-horde@topfen.net, Request #2865).
+[jan] Add support for sudo to the example expect script (Dennis Voetelink
+      <voetelink@ecn.nl>, Request #5300).
+[mas] Conform to WCAG 1.0 Priority 2/Section 508 accessibility guidelines.
+      (Request #4080)
+[jan] Add new expect driver that uses the expect PECL PHP extension (Duck
+      <duck@obala.net>).
+[mjr] Add new http driver for changing passwords via an existing web form.
+[mjr] Pass reference to driver to the _passwd_hook_username call. 
+[jan] Add Turkish translation (METU <horde-tr@metu.edu.tr>).
+
+
+------
+v3.0.1
+------
+
+[jan] Add placeholders for domain and username parts to SQL driver queries
+      (Vilius Sumskas <vilius@lnk.lt>, Request #4985).
+[jan] Improve error checking in poppassd driver (Bug #4505,
+      horde@koornneef.net).
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[jan] Compare hashing algorithms in passwords case insensitively
+      (andreas@altroot.de, Bug #2708).
+[jan] Allow password changing for special Kolab users (mzizka@hotmail.com,
+      Request #4128).
+[jan] Add Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+[ben] Better support for MS-SQL
+[cjh] Add support in the expect driver for rssh, scponly, and other programs
+      that can execute certain commands over ssh without providing a prompt
+      (Request #2887).
+
+
+----
+v3.0
+----
+
+[jan] Add configuration option to switch between using user names with and
+      without realms.
+[jan] Add Slovak translation (Ivan Noris <vix@vazka.sk>).
+
+
+--------
+v3.0-RC1
+--------
+
+[jan] Extend the expect script to allow setups with passwd as the login shell
+      (Request #2550, Lionel Elie Mamane <lmamane@debian.org>).
+[jan] Don't bind to LDAP anonymously if binding with userdn fails (Bug #2502).
+[cjh] Fix updating shadowlastchange attribute in ldap driver (Roel Gloudemans
+      <roel@gloudemans.info>).
+[jan] Extend the smbldap driver from the ldap driver to support all parameters
+      of the ldap driver (Request #2499).
+
+
+---------
+v3.0-BETA
+---------
+
+[cjh] Use Crypt_CHAP to generate smbldap passwords (Bug #1223).
+[stb] Add Kolab driver.
+[cjh] Allow using admin credentials in the LDAP driver (Bug #1409).
+[cjh] Use bind variables in SQL drivers (selsky@columbia.edu, Bug #1718).
+[cjh] Allow the list of refused usernames to be empty (Bug #1544).
+[cjh] If $conf['user']['change'] is false, don't trust form input for
+      the userid.
+[jan] Add Catalan translation (Joan Jorba Calsina <joan.jorba@rusc.net>).
+[cjh] Add ADSI and PSPASSWD windows password drivers (LRM
+      <lrm@ionline.com.br>).
+[jan] Add Persian (Western) translation (Vahid Ghafarpour
+      <vahid@ghafarpour.com>).
+[jan] Add shadowLastChange and shadowMin configuration items to LDAP driver
+      (Roel Gloudemans <roel@gloudemans.info>).
+[cjh] Add proc_open() driver (Samuel Nicolary <sam@nicolary.org>).
+[cjh] Add an SMB LDAP driver (Shane Boulter <sboulter@ariasolutions.com>).
+[cjh] Add SSL support to the LDAP driver (LRM <lrm@ionline.com.br>).
+[max] Add minSymbols and minClasses password policies.  See comments in
+      config/backends.php.dist for more information.
+[max] Add optional 'required' parameters to composite driver's subdriver
+      configurations.
+[max] Add optional parameter 'no_reset' to the backend configs which prevents
+      reseting the authenticated user's credentials on password changes.
+[max] Properly reset authenticated user's credentials.
+[cjh] Use password encryption that's now implemented in the Auth:: package.
+[max] Add pine driver which changes a pine-encoded file using FTP.
+[max] Fix password checking when encryption requires a random salt.
+[max] Add composite driver which will replace all the groups stuff.
+[max] Add support for backend groups to allow syncing of multiple backends.
+[max] Add query_lookup and query_modify parameters to the sql driver.
+[ejr] Add tls support for ldap driver.
+[ejr] Fix error reporting in poppassd driver.
+[ejr] Add binddn hook submitted by Amith Varghese <amith@xalan.com>.
+[ejr] make sure oldpassword == horde_login_password before changing horde
+      cached password.
+[ejr] Fix md5 (md5-hex and md5-base64) encryption for ldap/sql (Amith Varghese
+      <amith@xalan.com>).
+[mc]  Move templates to horde style directory layout, getName() -> getParam().
+[ejr] Implemented new CVS HEAD themes.
+[ejr] Updated to new CVS HEAD notification system.
+
+
+------
+v2.2.2
+------
+
+[jan] Close XSS when setting the parent frame's page title by javascript (cjh).
+[ejr] Configuration item for showing/changing username in the form.
+[jan] Allow to set the protocol version in the LDAP driver (ben@alkaloid.net).
+[cjh] Add crypt-blowfish and crypt-md5 encryption types. Also add crypt-des
+      for completion which is just an alias for crypt (max).
+[jan] Add Estonian translation (Toomas Aas <toomas.aas@raad.tartu.ee>).
+
+
+------
+v2.2.1
+------
+[jan] Bug #40: Fix smbpasswd driver with non-bash shells (Christopher Huyler
+      <chris@huyler.net>).
+[jan] Add Simplified Chinese translation (Zhang Bo <boozhang@sdb.ac.cn>).
+
+
+----------
+v2.2.1-RC1
+----------
+[jan] Add Indonesian language (Slamin <slamin@unej.ac.id>).
+[jan] Add Galician translation (Rafael Varela Pet <srrafa@usc.es>, Guillermo
+      Mendez <guille@usc.es>).
+[jan] Add Danish translation (Anders Bruun Olsen <anders@bruun-olsen.net>).
+[jan] Add Arabic (Syria) translation (Platinum Development Team
+      <devteam@platinum-sy.net>).
+[jan] Add Hungarian translation (Szabo Gyula <gyufi@sztaki.hu>).
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>,
+      Marius Dragulescu <mariusd@urban-grafx.ro>).
+[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
+[ejr] Fix BC breaks in vpopmail and sql drivers.
+
+
+----
+v2.2
+----
+
+[ejr] Allow bc for php versions that don't have the ctype extension.
+
+
+--------
+v2.2-RC2
+--------
+
+[ejr] Fix missing path for expect binary.
+[ejr] Add missing scripts/ directory and missing expect script.
+[ejr] Fix error reporting in expect driver (j.huinink@wanadoo.nl).
+[ejr] Remove old realm code that was previously missed.
+[ejr] Port servuftp driver to new backends.conf format.
+[ejr] Return actual error message text in poppassd driver (submitted by
+      Leena Heino <Leena.Heino@uta.fi>).
+[ejr] Change is_a(*, 'PEAR_Error') calls to PEAR::isError() calls for php bc.
+
+
+--------
+v2.2-RC1
+--------
+
+[ejr] Add vpopmail driver (Anton Nekhoroshikh <anton@valuehost.ru>).
+[mac] Add vmailmgr driver (Marco Kaiser <bate@php.net>).
+[ejr] Add expect script (Gaudenz Steinlin).
+[ejr] Change ldap code to do self-password changes, add phpdoc.
+[ejr] Update ldap driver (Tjeerd van der Zee).
+[ejr] Reset Horde/IMP cached credentials when changing password.
+[ejr] Add username hooks (mac).
+[ejr] Rewrite driver system, add backends.conf system (mc).
+[jan] Add Italian translation (Fichera Gianrico <gianrico.fichera@itesys.it>).
+[cjh] Close several small XSS vulnerabilities (Mitja Kolsek
+      <mitja.kolsek@acros.si>).
+
+
+----
+v2.1
+----
+
+[ejr] Add servuftp interface.
+[ejr] Add exim sql backend.
+[ejr] Add smbpasswd support.
+[ejr] Move to driver driven system.
+[mc]  Add javascript checks for form input.
+[jan] Add Bulgarian translation (Miroslav Pendev <pendev@hotmail.com>).
+
+
+----
+v2.0
+----
+
+[ejr] Added optional checks for password lengths and strength testing.
+[ejr] Remove check for prefs.php in notconfigured.inc.
+[ejr] Change from short-tag <?= to long format <?php echo.
+[ejr] Fix spacing and look of Submit button.
+[ejr] Update contact info in docs/INSTALL for mailing list.
+[ejr] Added Norwegian (nn_NO) translation.
+[ejr] Added Swedish (sv_SE) translation.

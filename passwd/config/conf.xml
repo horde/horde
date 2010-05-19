@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- $Horde: passwd/config/conf.xml,v 1.12.2.1 2008/10/09 17:12:03 jan Exp $ -->
+<configuration>
+ <configsection name="menu" desc="Menu settings">
+  <configheader>Menu settings</configheader>
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in Passwd's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+
+ <configsection name="backend">
+  <configheader>Backend Settings</configheader>
+  <configenum name="backend_list" desc="Should we display a list of backends
+  (defined in config/backends.php) for users to choose from? The options are
+  'shown', 'hidden'. If the backend list is hidden then you can use the
+  'preferred' mechanism to auto-select from it based on an HTTP virtualhost or
+  another piece of data. If it is shown, the user will be able to pick from
+  any of the options.">hidden 
+   <values>
+    <value>shown</value>
+    <value>hidden</value>
+   </values>
+  </configenum>
+ </configsection>
+
+ <configsection name="user">
+  <configboolean name="change" desc="Should we allow the user to specify the
+  username?">true</configboolean>
+  <configlist name="refused" required="false" desc="Define usernames for which
+  we will refuse to change passwords.">
+  root,bin,daemon,adm,lp,shutdown,halt,uucp,ftp,anonymous,nobody,httpd,operator,guest,diginext,bind,cyrus,courier,games,kmem,mailnull,man,mysql,news,postfix,sshd,tty,www
+  </configlist>
+ </configsection>
+
+ <configsection name="password">
+  <configboolean name="strengthtests" desc="Should strength tests be done on
+  the new password">false</configboolean>
+ </configsection>
+
+ <configsection name="hooks">
+  <configboolean name="full_name" desc="If this is checked, the full user name
+  is used to change the password, the user name without the domain part
+  otherwise. This setting is overridden by enabling the hook
+  below.">true</configboolean>
+  <configboolean name="default_username" desc="Use a custom hook for
+  determining the default username">false</configboolean>
+  <configboolean name="username" desc="Use a custom hook to translate the
+  username for the backend">false</configboolean>
+  <configboolean name="userdn" desc="If we are using the LDAP driver, use a
+  custom hook to provide a userdn for binding. By default the LDAP driver
+  finds out the correct userdn for binding by searching for the uid with the
+  configured base or binds with admindn if set.">false</configboolean>
+ </configsection>
+</configuration>
