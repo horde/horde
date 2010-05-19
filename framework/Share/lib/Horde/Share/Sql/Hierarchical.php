@@ -444,7 +444,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     {
         try {
             Horde::callHook('share_remove', array($share));
-        } catch (Horde_Share_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Get the list of all $share's children */
         $children = $share->getChildren(null, true);
