@@ -58,7 +58,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler_Driver
     public function __construct(array $params = array())
     {
         if (empty($params['memcache'])) {
-            throw InvalidArgumentException('Missing memcache argument.');
+            throw new InvalidArgumentException('Missing memcache argument.');
         }
 
         $this->_memcache = $params['memcache'];

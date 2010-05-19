@@ -21,6 +21,8 @@ class Horde_Core_Binder_SessionHandler implements Horde_Injector_Binder
 
         if (strcasecmp($driver, 'Sql') === 0) {
             $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
+        } elseif (strcasecmp($driver, 'Memcache') === 0) {
+            $params['memcache'] = $injector->getInstance('Horde_Memcache');
         }
 
         $logger = $injector->getInstance('Horde_Log_Logger');
