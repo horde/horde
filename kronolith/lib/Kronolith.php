@@ -1441,9 +1441,10 @@ class Kronolith
             return array();
         }
 
-        $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
-        if ($calendars instanceof PEAR_Error) {
-            Horde::logMessage($calendars, 'ERR');
+        try {
+            $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 
@@ -1484,9 +1485,10 @@ class Kronolith
      */
     public static function addShare($info)
     {
-        $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
-        if ($calendar instanceof PEAR_Error) {
-            throw new Kronolith_Exception($calendar);
+        try {
+            $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         $calendar->set('name', $info['name']);
@@ -1498,9 +1500,10 @@ class Kronolith
         $tagger = self::getTagger();
         $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
 
-        $result = $GLOBALS['kronolith_shares']->addShare($calendar);
-        if ($result instanceof PEAR_Error) {
-            throw new Kronolith_Exception($result);
+        try {
+            $result = $GLOBALS['kronolith_shares']->addShare($calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         $GLOBALS['display_calendars'][] = $calendar->getName();
@@ -1531,9 +1534,10 @@ class Kronolith
         $calendar->set('desc', $info['description']);
         $calendar->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
 
-        $result = $calendar->save();
-        if ($result instanceof PEAR_Error) {
-            throw new Kronolith_Exception(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $result->getMessage()));
+        try {
+            $result = $calendar->save();
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $e->getMessage()));
         }
 
         $tagger = self::getTagger();
@@ -1567,9 +1571,10 @@ class Kronolith
         }
 
         // Remove share and all groups/permissions.
-        $result = $GLOBALS['kronolith_shares']->removeShare($calendar);
-        if ($result instanceof PEAR_Error) {
-            throw new Kronolith_Exception($result);
+        try {
+            $result = $GLOBALS['kronolith_shares']->removeShare($calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
     }
 
@@ -1755,15 +1760,11 @@ class Kronolith
                 $perm->addGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
             }
         }
-
-        $result = $share->setPermission($perm, false);
-        if ($result instanceof PEAR_Error) {
-            throw new Kronolith_Exception($result);
-        } else {
-            $result = $share->save();
-            if ($result instanceof PEAR_Error) {
-                throw new Kronolith_Exception($result);
-            }
+        try {
+            $share->setPermission($perm, false);
+            $share->save();
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         return $errors;
@@ -2176,9 +2177,10 @@ class Kronolith
         $groups = Group::singleton();
         $calendar = $event->calendar;
         $recipients = array();
-        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-        if ($share instanceof PEAR_Error) {
-            throw new Kronolith_Exception($share);
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
