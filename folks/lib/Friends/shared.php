@@ -130,10 +130,10 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         }
 
         $query = 'DELETE FROM ' . $this->_params['friends']
-                    . ' WHERE user_uid = ' . $share->_shareOb->_write_db->quote($this->_user)
-                    . ' AND group_id = ' . $share->_shareOb->_write_db->quote($share->getId());
+                    . ' WHERE user_uid = ' . $share->getShareOb()->getWriteDb()->quote($this->_user)
+                    . ' AND group_id = ' . $share->getShareOb()->getWriteDb()->quote($share->getId());
 
-        $result = $share->_shareOb->_write_db->exec($query);
+        $result = $share->getShareOb()->getWriteDb()->exec($query);
         if ($result instanceof PEAR_Error) {
             return $result;
         }

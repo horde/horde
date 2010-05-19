@@ -151,7 +151,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         // gallery object just to increment/decrement one value in the table.
         // TODO: Change this - should always use the appropriate object, not
         // direct manipulation of the share table...
-        $sql = 'UPDATE ' . $this->_shareOb->_table
+        $sql = 'UPDATE ' . $this->_shareOb->getTable()
             . ' SET attribute_images = attribute_images '
             . ($add ? ' + ' : ' - ') . $images . ' WHERE share_id = '
             . ($gallery_id ? $gallery_id : $this->id);
@@ -172,7 +172,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             $GLOBALS['cache']->expire('Ansel_Gallery' . $id);
         }
 
-        return $this->_shareOb->_write_db->exec($sql);
+        return $this->_shareOb->getWriteDb()->exec($sql);
     }
 
     /**
@@ -359,7 +359,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             throw new Horde_Exception(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
         }
 
-        $db = $this->_shareOb->_write_db;
+        $db = $this->_shareOb->getWriteDb();
         $imgCnt = 0;
         foreach ($images as $imageId) {
             $img = &$this->getImage($imageId);
@@ -375,7 +375,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             // go through Ansel_Tags::writeTags() - this saves us a SELECT query
             // for each tag - just write the data into the DB ourselves.
             $tags = $img->getTags();
-            $query = $this->_shareOb->_write_db->prepare('INSERT INTO ansel_images_tags (image_id, tag_id) VALUES(' . $newId . ',?);');
+            $query = $this->_shareOb->getWriteDb()->prepare('INSERT INTO ansel_images_tags (image_id, tag_id) VALUES(' . $newId . ',?);');
             if (is_a($query, 'PEAR_Error')) {
                 throw new Horde_Exception($query->getMessage());
             }
@@ -420,7 +420,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function setImageOrder($imageId, $pos)
     {
-        return $this->_shareOb->_write_db->exec('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
+        return $this->_shareOb->getWriteDb()->exec('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
     }
 
     /**
@@ -908,10 +908,12 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
 
         /* Update the backend, but only this current change */
         if ($update) {
-            $db = $this->_shareOb->_write_db;
+            $db = $this->_shareOb->getWriteDb();
             // Manually convert the charset since we're not going through save()
+            // @TODO: Look at this usage - maybe each app's share object should
+            //  have this method or just keep it public?
             $data = $this->_shareOb->_toDriverCharset(array($driver_key => $value));
-            $query = $db->prepare('UPDATE ' . $this->_shareOb->_table . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
+            $query = $db->prepare('UPDATE ' . $this->_shareOb->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                 $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
             }

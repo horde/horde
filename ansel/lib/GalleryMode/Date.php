@@ -453,7 +453,7 @@ class Ansel_GalleryMode_Date {
         }
 
         /* Bulk update the images to their new gallery_id */
-        $result = $this->_gallery->_shareOb->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
+        $result = $this->_gallery->getShareOb()->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -526,10 +526,10 @@ class Ansel_GalleryMode_Date {
         } catch (VFS_Exception $e) {}
 
         /* Delete from SQL. */
-        $this->_gallery->_shareOb->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
+        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
 
         /* Remove any attributes */
-        $this->_gallery->_shareOb->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
+        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
 
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false, $image_gallery);
@@ -976,7 +976,7 @@ class Ansel_Gallery_Date {
      */
     function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_gallery->_shareOb->countShares(Horde_Auth::getAuth(), $perm, null, $this, $allLevels);
+        return $this->_gallery->getShareOb()->countShares(Horde_Auth::getAuth(), $perm, null, $this, $allLevels);
     }
 
     /**
@@ -1000,7 +1000,7 @@ class Ansel_Gallery_Date {
      */
     function getParent()
     {
-        return $this->_gallery->_shareOb->getParent($this);
+        return $this->_gallery->getShareOb()->getParent($this);
     }
 
     /**
