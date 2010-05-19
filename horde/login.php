@@ -42,13 +42,13 @@ function _getLogoutReasonString($code)
 {
     switch ($code) {
     case Horde_Auth::REASON_SESSION:
-        return sprintf(_("Your %s session has expired. Please login again."), $GLOBALS['registry']->get('name'));
+        return _("Your session has expired. Please login again.");
 
     case Horde_Auth::REASON_SESSIONIP:
-        return sprintf(_("Your Internet Address has changed since the beginning of your %s session. To protect your security, you must login again."), $GLOBALS['registry']->get('name'));
+        return _("Your Internet Address has changed since the beginning of your session. To protect your security, you must login again.");
 
     case Horde_Auth::REASON_BROWSER:
-        return sprintf(_("Your browser appears to have changed since the beginning of your %s session. To protect your security, you must login again."), $GLOBALS['registry']->get('name'));
+        return _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
 
     case Horde_Auth::REASON_LOGOUT:
         return _("You have been logged out.");
