@@ -257,9 +257,10 @@ Example for `LGPL`_'ed Horde code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    Horde 4.0.1 [only if needed]
      * @category Horde
-     * @package  Horde_Package
+     * @package  Package
+     * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+     * @since    Horde 4.0.1 [only if needed]
      */
 
 .. _LGPL: http://www.opensource.org/licenses/lgpl-license.php
@@ -277,9 +278,10 @@ Example for `GPL`_'ed application code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    App 1.0.1 [only if needed]
      * @category Horde
-     * @package  app
+     * @package  App
+     * @license  http://www.fsf.org/copyleft/gpl.html GPL
+     * @since    App 1.0.1 [only if needed]
      */
 
 
