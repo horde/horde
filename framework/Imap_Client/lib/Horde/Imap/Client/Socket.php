@@ -85,7 +85,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 {

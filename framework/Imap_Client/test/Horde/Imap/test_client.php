@@ -1,6 +1,6 @@
 <?php
 /**
- * Test script for the Horde_Imap_Client:: library.
+ * Test script for the Horde/Imap_Client package.
  *
  * Usage:
  *   test_client.php [[username] [[password] [[IMAP URL] [driver]]]]
@@ -19,7 +19,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 
 /** Configuration **/

@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Horde
- * @package  Horde_Imap_Client
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @package  Imap_Client
  */
 
 /**
@@ -19,11 +19,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Horde
- * @package  Horde_Imap_Client
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
 {

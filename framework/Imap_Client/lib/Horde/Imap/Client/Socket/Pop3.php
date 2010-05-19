@@ -7,8 +7,6 @@
  *
  * Caching is not supported in this driver.
  *
- * Optional Parameters: NONE
- *
  * This driver implements the following POP3-related RFCs:
  * STD 53/RFC 1939 - POP3 specification
  * RFC 2195 - CRAM-MD5 authentication
@@ -62,7 +60,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {

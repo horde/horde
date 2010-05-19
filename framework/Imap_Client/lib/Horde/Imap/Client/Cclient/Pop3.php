@@ -8,8 +8,6 @@
  *
  * PHP IMAP module: http://www.php.net/imap
  *
- * No additional paramaters from those defined in Horde_Imap_Client_Cclient.
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -17,7 +15,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
 {
