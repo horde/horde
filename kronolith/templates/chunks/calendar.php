@@ -62,7 +62,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <span>
     <span class="kronolithSeparator">|</span>
     <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Permissions") ?></a></li>
+      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Sharing") ?></a></li>
     </ul>
   </span>
   <span>
@@ -143,7 +143,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 <div class="tabset">
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
-    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Permissions") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Sharing") ?></a></li>
   </ul>
   <span>
     <span class="kronolithSeparator">|</span>
