@@ -11,12 +11,11 @@
  * @package Passwd
  */
 
-@define('PASSWD_BASE', dirname(__FILE__));
-require_once PASSWD_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 require PASSWD_BASE . '/config/backends.php';
 
 // Get the backend details.
-$backend_key = Util::getFormData('backend', false);
+$backend_key = Horde_Util::getFormData('backend', false);
 if (!isset($backends[$backend_key])) {
     $backend_key = null;
 }
@@ -28,7 +27,7 @@ do {
     }
 
     // Has the user submitted the form yet?
-    $submit = Util::getFormData('submit', false);
+    $submit = Horde_Util::getFormData('submit', false);
     if (!$submit) {
         // No so we don't need to do anything in this loop.
         break;
@@ -42,7 +41,7 @@ do {
 
     // Get the username.
     if ($conf['user']['change'] === true) {
-        $userid = Util::getFormData('userid');
+        $userid = Horde_Util::getFormData('userid');
     } else {
         if ($conf['hooks']['default_username']) {
             $userid = Horde::callHook('_passwd_hook_default_username',
@@ -63,7 +62,7 @@ do {
     }
 
     // We must be passed the old (current) password, or its an error.
-    $old_password = Util::getFormData('oldpassword', false);
+    $old_password = Horde_Util::getFormData('oldpassword', false);
     if (!$old_password) {
         $notification->push(_("You must give your current password"),
                             'horde.warning');
@@ -71,8 +70,8 @@ do {
     }
 
     // See if they entered the new password and verified it.
-    $new_password0 = Util::getFormData('newpassword0', false);
-    $new_password1 = Util::getFormData('newpassword1', false);
+    $new_password0 = Horde_Util::getFormData('newpassword0', false);
+    $new_password1 = Horde_Util::getFormData('newpassword1', false);
     if (!$new_password0) {
         $notification->push(_("You must give your new password"), 'horde.warning');
         break;
@@ -226,7 +225,7 @@ do {
                         array($backend_userid, $old_password, $new_password0),
                         'passwd');
 
-        $return_to = Util::getFormData('return_to');
+        $return_to = Horde_Util::getFormData('return_to');
         if (!empty($return_to)) {
             header('Location: ' . $return_to);
             exit;
