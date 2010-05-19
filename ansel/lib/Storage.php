@@ -257,7 +257,7 @@ class Ansel_Storage
         }
 
         $stmt = $this->_db->prepare('SELECT share_id FROM '
-            . $this->_shares->_table . ' WHERE attribute_slug = ?');
+            . $this->_shares->getTable() . ' WHERE attribute_slug = ?');
 
         if ($stmt instanceof PEAR_Error) {
             Horde::logMessage($stmt, 'ERR');
@@ -356,10 +356,10 @@ class Ansel_Storage
      */
     public function getGalleriesBySlugs($slugs)
     {
-        $sql = 'SELECT share_id FROM ' . $this->_shares->_table
+        $sql = 'SELECT share_id FROM ' . $this->_shares->getTable()
             . ' WHERE attribute_slug IN (' . str_repeat('?, ', count($slugs) - 1) . '?)';
 
-        $stmt = $this->_shares->_db->prepare($sql);
+        $stmt = $this->_shares->getReadDb->prepare($sql);
         if ($stmt instanceof PEAR_Error) {
             throw new Horde_Exception($stmt->getMessage());
         }
@@ -728,8 +728,8 @@ class Ansel_Storage
         } elseif (count($slugs)) {
             // Searching by gallery_slug so we need to join the share table
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images LEFT JOIN '
-                . $this->_shares->_table . ' ON ansel_images.gallery_id = '
-                . $this->_shares->_table . '.share_id ' . 'WHERE attribute_slug IN ('
+                . $this->_shares->getTable() . ' ON ansel_images.gallery_id = '
+                . $this->_shares->getTable() . '.share_id ' . 'WHERE attribute_slug IN ('
                 . str_repeat('?, ', count($slugs) - 1) . '?) ';
         } else {
             return array();
@@ -779,7 +779,7 @@ class Ansel_Storage
     {
         if (empty($slug)) {
             $results = $this->_db->queryOne(
-                'SELECT COUNT(share_id) FROM ' . $this->_shares->_table
+                'SELECT COUNT(share_id) FROM ' . $this->_shares->getTable()
                 . ' WHERE share_id = ' . (int)$gallery_id);
             if ($results instanceof PEAR_Error) {
                 throw new Ansel_Exception($results);
