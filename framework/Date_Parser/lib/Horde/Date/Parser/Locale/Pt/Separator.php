@@ -3,12 +3,11 @@ class Horde_Date_Parser_Locale_Pt_Separator extends Horde_Date_Parser_Locale_Bas
 {
 
     public $atScanner = array(
-            '/\b(em|@)\b/' => 'at',
-        );
+        '/\b(em|@)\b/' => 'at',
+    );
 
     public $inScanner = array(
-            '/\bno\b/' => 'in',
-
-        );
+        '/\bno\b/' => 'in',
+    );
 
 }

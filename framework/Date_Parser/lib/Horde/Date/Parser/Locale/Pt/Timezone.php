@@ -3,7 +3,7 @@ class Horde_Date_Parser_Locale_Pt_Timezone extends Horde_Date_Parser_Locale_Base
 {
 
     public $scanner = array(
-        '/((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i' => 'tz',
+        '/((E[SD]T|C[SD]T|M[SD]T|P[SD]T)|((GMT)?\s*[+-]\s*\d{3,4}?)|GMT|UTC)/i' => 'tz',
     );
 
 }
