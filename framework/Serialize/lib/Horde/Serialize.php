@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Stephane Huther <shuther1@free.fr>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @package  Horde_Serialize
  * @category Horde
  */

@@ -9,7 +9,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Nuno Loureiro <nuno@co.sapo.pt>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Editor
  */

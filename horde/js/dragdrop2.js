@@ -105,7 +105,7 @@
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde
  */
 

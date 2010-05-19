@@ -5,7 +5,7 @@
  * See the enclosed file LICENSE for license information (GPL).  If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Jeta
  */
 class Jeta

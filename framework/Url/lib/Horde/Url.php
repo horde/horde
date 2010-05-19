@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Horde_Url
  */
@@ -18,7 +18,7 @@
  * manipulating URLs.
  *
  * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @package  Horde_Url
  */

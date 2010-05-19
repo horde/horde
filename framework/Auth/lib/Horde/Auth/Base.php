@@ -9,7 +9,7 @@
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Auth
  */
 abstract class Horde_Auth_Base

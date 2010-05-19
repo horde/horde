@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Ingo
  */
 class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api

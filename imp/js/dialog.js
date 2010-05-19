@@ -6,7 +6,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Michael Slusarz <slusarz@curecanti.org>
+ * @author Michael Slusarz <slusarz@horde.org>
  */
 
 var IMPDialog = {

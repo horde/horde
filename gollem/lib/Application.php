@@ -8,9 +8,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Amith Varghese (amith@xalan.com)
- * @author  Michael Slusarz (slusarz@curecanti.org)
- * @author  Ben Klang (bklang@alkaloid.net)
+ * @author  Amith Varghese <amith@xalan.com>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Ben Klang <bklang@alkaloid.net>
  * @package Gollem
  */
 

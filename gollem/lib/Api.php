@@ -5,9 +5,9 @@
  * This file defines Gollem's external API interface. Other
  * applications can interact with Gollem through this API.
  *
- * @author  Amith Varghese (amith@xalan.com)
- * @author  Michael Slusarz (slusarz@curecanti.org)
- * @author  Ben Klang (bklang@alkaloid.net)
+ * @author  Amith Varghese <amith@xalan.com>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Ben Klang <bklang@alkaloid.net>
  * @package Gollem
  */
 class Gollem_Api extends Horde_Registry_Api
