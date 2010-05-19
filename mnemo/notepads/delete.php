@@ -27,14 +27,14 @@ if ($notepad_id == Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
 }
-
-$notepad = $mnemo_shares->getShare($notepad_id);
-if (is_a($notepad, 'PEAR_Error')) {
-    $notification->push($notepad, 'horde.error');
+try {
+    $notepad = $mnemo_shares->getShare($notepad_id);
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $notepad->get('owner') != Horde_Auth::getAuth()) {
+}
+if (!Horde_Auth::getAuth() || $notepad->get('owner') != Horde_Auth::getAuth()) {
     $notification->push(_("You are not allowed to delete this notepad."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
@@ -45,7 +45,7 @@ $form = new Mnemo_DeleteNotepadForm($vars, $notepad);
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } elseif ($result) {
         $notification->push(sprintf(_("The notepad \"%s\" has been deleted."), $notepad->get('name')), 'horde.success');

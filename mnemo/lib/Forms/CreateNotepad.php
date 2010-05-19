@@ -39,9 +39,11 @@ class Mnemo_CreateNotepadForm extends Horde_Form {
     function execute()
     {
         // Create new share.
-        $notepad = $GLOBALS['mnemo_shares']->newShare(md5(microtime()));
-        if (is_a($notepad, 'PEAR_Error')) {
-            return $notepad;
+        try {
+            $notepad = $GLOBALS['mnemo_shares']->newShare(md5(microtime()));
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Mnemo_Exception($e);
         }
         $notepad->set('name', $this->_vars->get('name'));
         $notepad->set('desc', $this->_vars->get('description'));

@@ -61,9 +61,11 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
             return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $this->_notepad->get('name'), $result->getMessage()));
         } else {
             // Remove share and all groups/permissions.
-            $result = $GLOBALS['mnemo_shares']->removeShare($this->_notepad);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            try {
+                $GLOBALS['mnemo_shares']->removeShare($this->_notepad);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                return;
             }
         }
 
@@ -71,14 +73,15 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
         if (count(Mnemo::listNotepads(true)) == 0) {
             // If the default share doesn't exist then create it.
             if (!$GLOBALS['mnemo_shares']->exists(Horde_Auth::getAuth())) {
-                require_once 'Horde/Identity.php';
-                $identity = &Identity::singleton();
+
+                $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
                     $name = Horde_Auth::getAuth();
                 }
-                $notepad = &$GLOBALS['mnemo_shares']->newShare(Horde_Auth::getAuth());
-                if (is_a($notepad, 'PEAR_Error')) {
+                try {
+                    $notepad = $GLOBALS['mnemo_shares']->newShare(Horde_Auth::getAuth());
+                } catch (Horde_Share_Exception $e) {
                     return;
                 }
                 $notepad->set('name', sprintf(_("%s's Notepad"), $name));

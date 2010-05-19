@@ -2,7 +2,7 @@
 $memourl = Horde_Util::addParameter('memo.php', array('memo' => $memo_id,
                                                 'memolist' => $memolist_id));
 
-$share = &$GLOBALS['mnemo_shares']->getShare($memolist_id);
+$share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
 ?>
 <div class="header">
  <div class="rightFloat">

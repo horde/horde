@@ -173,9 +173,10 @@ class Mnemo {
         if ($owneronly && !Horde_Auth::getAuth()) {
             return array();
         }
-        $notepads = $GLOBALS['mnemo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
-        if (is_a($notepads, 'PEAR_Error')) {
-            Horde::logMessage($notepads, 'ERR');
+        try {
+            $notepads = $GLOBALS['mnemo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             return array();
         }
 
@@ -301,10 +302,10 @@ class Mnemo {
         $ashare = $GLOBALS['mnemo_shares']->getShare($aowner);
         $bshare = $GLOBALS['mnemo_shares']->getShare($bowner);
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 
@@ -328,10 +329,10 @@ class Mnemo {
         $ashare = $GLOBALS['mnemo_shares']->getShare($aowner);
         $bshare = $GLOBALS['mnemo_shares']->getShare($bowner);
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 

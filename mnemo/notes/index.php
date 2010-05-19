@@ -66,11 +66,11 @@ if (count($memos)) {
         $memourl = Horde_Util::addParameter(
             'memo.php', array('memo' => $memo['memo_id'],
                               'memolist' => $memo['memolist_id']));
-        $share = &$GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
-
-        $notepad = $memo['memolist_id'];
-        if (!is_a($share, 'PEAR_Error')) {
+        try {
+            $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
             $notepad = $share->get('name');
+        } catch (Horde_Share_Exception $e) {
+            $notepad = $memo['memolist_id'];
         }
 
         require MNEMO_TEMPLATES . '/list/memo_summaries.inc';

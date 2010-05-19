@@ -19,7 +19,7 @@ function showPassphrase($memo)
 {
     global $notification;
 
-    if (!is_a($memo['body'], 'PEAR_Error')) {
+    if (!($memo['body'] instanceof PEAR_Error)) {
         return false;
     }
 
@@ -85,7 +85,7 @@ case 'add_memo':
     if (empty($memolist_id)) {
         $memolist_id = Mnemo::getDefaultNotepad();
     }
-    if (is_a($memolist_id, 'PEAR_Error')) {
+    if ($memolist_id instanceof PEAR_Error) {
         $notification->push($memolist_id, 'horde.error');
     }
     $memo_id = null;
@@ -129,10 +129,13 @@ case 'save_memo':
     $memo_passphrase = Horde_Util::getFormData('memo_passphrase');
     $memo_passphrase2 = Horde_Util::getFormData('memo_passphrase2');
 
-    $share = $GLOBALS['mnemo_shares']->getShare($notepad_target);
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Access denied saving note: %s"), $share->getMessage()), 'horde.error');
-    } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    try {
+        $share = $GLOBALS['mnemo_shares']->getShare($notepad_target);
+    } catch (Horde_Share_Exception $e) {
+        throw new Mnemo_Exception($e);
+    }
+
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
@@ -165,16 +168,22 @@ case 'save_memo':
         /* If $memo_id is set, we're modifying an existing note.  Otherwise,
          * we're adding a new note with the provided attributes. */
         if (!empty($memo_id) &&
-            !is_a(Mnemo::getMemo($memolist_original, $memo_id), 'PEAR_Error')) {
+            !(Mnemo::getMemo($memolist_original, $memo_id) instanceof PEAR_Error)) {
             $storage = &Mnemo_Driver::singleton($memolist_original);
             if ($memolist_original != $notepad_target) {
                 /* Moving the note to another notepad. */
-                $share = &$GLOBALS['mnemo_shares']->getShare($memolist_original);
-                if (!is_a($share, 'PEAR_Error') &&
-                    $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-                    $share = &$GLOBALS['mnemo_shares']->getShare($notepad_target);
-                    if (!is_a($share, 'PEAR_Error') &&
-                        $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                try {
+                    $share = $GLOBALS['mnemo_shares']->getShare($memolist_original);
+                } catch (Horde_Share_Exception $e) {
+                    throw new Mnemo_Exception($e);
+                }
+                if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+                    try {
+                        $share = &$GLOBALS['mnemo_shares']->getShare($notepad_target);
+                    } catch (Horde_Share_Exception $e) {
+                        throw new Mnemo_Exception($e);
+                    }
+                    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                         $result = $storage->move($memo_id, $notepad_target);
                         $storage = &Mnemo_Driver::singleton($notepad_target);
                     } else {
@@ -206,7 +215,7 @@ case 'save_memo':
         }
 
         /* Check our results. */
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $notification->push(sprintf(_("There was an error saving the note: %s"), $result->getMessage()), 'horde.warning');
         } else {
             $notification->push(sprintf(_("Successfully saved \"%s\"."), $memo_desc), 'horde.success');
@@ -223,13 +232,15 @@ case 'delete_memos':
     $memolist_id = Horde_Util::getFormData('memolist');
 
     if (!is_null($memo_id) && Mnemo::getMemo($memolist_id, $memo_id)) {
-        $share = &$GLOBALS['mnemo_shares']->getShare($memolist_id);
-        if (!is_a($share, 'PEAR_Error') &&
-            $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        try {
+            $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
+        } catch (Horde_Share_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $storage = &Mnemo_Driver::singleton($memolist_id);
             $result = $storage->delete($memo_id);
-
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $notification->push(sprintf(_("There was an error removing the note: %s"), $result->getMessage()), 'horde.warning');
             } else {
                 $notification->push(_("The note was deleted."), 'horde.success');

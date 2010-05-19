@@ -20,7 +20,7 @@ $passphrase = Horde_Util::getFormData('memo_passphrase');
 $storage = &Mnemo_Driver::singleton();
 if ($uid = Horde_Util::getFormData('uid')) {
     $note = $storage->getByUID($uid, $passphrase);
-    if (is_a($note, 'PEAR_Error')) {
+    if ($note instanceof PEAR_Error) {
         header('Location: ' . Horde::applicationUrl('list.php', true));
         exit;
     }
@@ -40,13 +40,14 @@ if ($uid = Horde_Util::getFormData('uid')) {
     /* Get the current memo. */
     $note = Mnemo::getMemo($notelist_id, $note_id, $passphrase);
 }
-
-$share = &$GLOBALS['mnemo_shares']->getShare($notelist_id);
-if (is_a($share, 'PEAR_Error')) {
-    $notification->push(sprintf(_("There was an error viewing this notepad: %s"), $share->getMessage()), 'horde.error');
+try {
+    $share = $GLOBALS['mnemo_shares']->getShare($notelist_id);
+} catch (Horde_Share_Exception $e) {
+    $notification->push(sprintf(_("There was an error viewing this notepad: %s"), $e->getMessage()), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
-} elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+}
+if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;

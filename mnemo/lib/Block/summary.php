@@ -85,10 +85,8 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
 
             if (!empty($this->_params['show_notepad'])) {
                 $owner = $memo['memolist_id'];
-                $share = &$shares->getShare($owner);
-                if (!is_a($share, 'PEAR_Error')) {
-                    $owner = $share->get('name');
-                }
+                $share = $shares->getShare($owner);
+                $owner = $share->get('name');
                 $html .= '<td>' . htmlspecialchars($owner) . '</td>';
             }
 

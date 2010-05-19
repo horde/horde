@@ -21,13 +21,16 @@ if (!Horde_Auth::getAuth()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$notepad = $mnemo_shares->getShare($vars->get('n'));
-if (is_a($notepad, 'PEAR_Error')) {
-    $notification->push($notepad, 'horde.error');
+try {
+    $notepad = $mnemo_shares->getShare($vars->get('n'));
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $notepad->get('owner') != Horde_Auth::getAuth()) {
+}
+if (!Horde_Auth::getAuth() ||
+    $notepad->get('owner') != Horde_Auth::getAuth()) {
+
     $notification->push(_("You are not allowed to change this notepad."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;

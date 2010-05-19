@@ -35,48 +35,49 @@ class Mnemo_Api extends Horde_Registry_Api {
         $hasError = false;
 
         /* Get the share object for later deletion */
-        $share = $GLOBALS['mnemo_shares']->getShare($user);
-        if (is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share->getMessage(), 'ERR');
-            unset($share);
+        try {
+            $share = $GLOBALS['mnemo_shares']->getShare($user);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+        }
+        $GLOBALS['display_notepads'] = array($user);
+        $memos = Mnemo::listMemos();
+        if ($memos instanceof PEAR_Error) {
+            $hasError = true;
+            Horde::logMessage($mnemos->getMessage(), 'ERR');
         } else {
-            $GLOBALS['display_notepads'] = array($user);
-            $memos = Mnemo::listMemos();
-            if (is_a($memos, 'PEAR_Error')) {
-                $hasError = true;
-                Horde::logMessage($mnemos->getMessage(), 'ERR');
-            } else {
-                $uids = array();
-                foreach ($memos as $memo) {
-                    $uids[] = $memo['uid'];
-                }
-
-                /* ... and delete them. */
-                foreach ($uids as $uid) {
-                    _mnemo_delete($uid);
-                }
+            $uids = array();
+            foreach ($memos as $memo) {
+                $uids[] = $memo['uid'];
             }
 
-            /* Remove the share itself */
-            if (!empty($share)) {
-                $result = $GLOBALS['mnemo_shares']->removeShare($share);
-                if (is_a($result, 'PEAR_Error')) {
-                    $hasError = true;
-                    Horde::logMessage($result->getMessage(), 'ERR');
-                }
-            }
-
-            /* Get a list of all shares this user has perms to and remove the perms */
-            $shares = $GLOBALS['mnemo_shares']->listShares($user);
-            if (is_a($shares, 'PEAR_Error')) {
-                $hasError = true;
-                Horde::logMessage($shares, 'ERR');
-            } else {
-                foreach ($shares as $share) {
-                    $share->removeUser($user);
-                }
+            /* ... and delete them. */
+            foreach ($uids as $uid) {
+                _mnemo_delete($uid);
             }
         }
+
+        /* Remove the share itself */
+        if (!empty($share)) {
+            try {
+                $GLOBALS['mnemo_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
+                $hasError = true;
+                Horde::logMessage($e->getMessage(), 'ERR');
+            }
+        }
+
+        /* Get a list of all shares this user has perms to and remove the perms */
+        try {
+            $shares = $GLOBALS['mnemo_shares']->listShares($user);
+            foreach ($shares as $share) {
+                $share->removeUser($user);
+            }
+        } catch (Horde_Share_Exception $e) {
+            $hasError = true;
+            Horde::logMessage($e, 'ERR');
+        }
+
 
         if ($hasError) {
             return PEAR::raiseError(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));

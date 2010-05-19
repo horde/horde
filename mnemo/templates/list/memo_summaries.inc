@@ -1,7 +1,7 @@
  <tr>
   <td>
 <?php
-if (!is_a($share, 'PEAR_Error') && $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $label = sprintf(_("Edit \"%s\""), $memo['desc']);
     echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($memourl, 'actionID', 'modify_memo')), $label) .
         Horde::img('edit.png', $label, '') . '</a>';
