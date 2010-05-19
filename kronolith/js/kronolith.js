@@ -2671,6 +2671,7 @@ KronolithCore = {
         $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
             return tr.retrieve('remove');
         }).invoke('remove');
+        this.updateGroupDropDown([['kronolithC' + type + 'PGNew']]);
 
         switch (perm) {
         case 'None':
