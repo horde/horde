@@ -159,7 +159,7 @@ if ($error_reason) {
         ? $prefs->getValue('language')
         : Horde_Nls::select();
 
-    $entry = sprintf('User %s [%s] logged out of Horde', $is_auth, $_SERVER['REMOTE_ADDR']);
+    $entry = sprintf('User %s [%s] logged out of Horde', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
     Horde_Auth::clearAuth();
     @session_destroy();
