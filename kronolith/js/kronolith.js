@@ -3005,13 +3005,11 @@ KronolithCore = {
 
         var tr = elm.up('tr'),
             row = tr.cloneNode(true).store('remove', true),
-            td = row.down('td');
+            td = row.down('td'),
+            clearName = elm.tagName == 'SELECT' ? elm.options[elm.selectedIndex].text: elm.getValue();
 
-        td.down('label').remove();
-        // For some strange prototype/firefox box, an instance .remove()
-        // doesn't work here.
-        Element.remove(td.down(elm.tagName));
-        td.insert((elm.tagName == 'SELECT' ? elm.options[elm.selectedIndex].text: elm.getValue()).escapeHTML())
+        td.update();
+        td.insert(clearName.escapeHTML())
             .insert(new Element('input', { type: 'hidden', name: (what == 'user' ? 'u' : 'g') + '_names[' + value + ']', value: value }));
         row.select('input[type=checkbox]').each(function(input) {
             input.writeAttribute('name', input.name.replace(/\[.*?$/, '[' + value + ']'))
@@ -3744,6 +3742,14 @@ KronolithCore = {
                 if (orig.name.match(/u_.*||new/)) {
                     this.insertGroupOrUser(type, 'user');
                 }
+                break;
+
+            case 'kronolithCinternalPUAdd':
+            case 'kronolithCinternalPGAdd':
+            case 'kronolithCtasklistsPUAdd':
+            case 'kronolithCtasklistsPGAdd':
+                var info = id.match(/kronolithC(.*)P(.)/);
+                this.insertGroupOrUser(info[1], info[2] == 'U' ? 'user' : 'group');
                 break;
 
             case 'kronolithNavDay':

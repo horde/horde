@@ -183,10 +183,10 @@ if (count($groups) > 1) {
       </thead>
       <tbody>
       <tr>
-        <td>
+        <td class="nowrap">
           <label for="kronolithC<?php echo $type ?>PUNew" class="hidden"><?php echo _("User to add") ?>:</label>
           <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
-          <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'user')">
+          <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]">
             <option value=""><?php echo _("Select a user") ?></option>
             <?php foreach ($auth->listUsers() as $user): ?>
             <?php if ($user != Horde_Auth::getAuth()): ?>
@@ -195,8 +195,9 @@ if (count($groups) > 1) {
             <?php endforeach; ?>
           </select>
           <?php else: ?>
-          <input type="text" id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'user')" size="30" />
+          <input type="text" id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" size="20" />
           <?php endif; ?>
+          <input type="button" id="kronolithC<?php echo $type ?>PUAdd" value="<?php echo _("Add") ?>" />
         </td>
         <td>
           <input type="checkbox" id="kronolithC<?php echo $type ?>PUshow_new" name="u_show[||new]" />
@@ -234,14 +235,15 @@ if (count($groups) > 1) {
       </thead>
       <tbody>
       <tr>
-        <td>
+        <td class="nowrap">
           <label for="kronolithC<?php echo $type ?>PGNew" class="hidden"><?php echo _("Select a group to add:") ?></label>
-          <select id="kronolithC<?php echo $type ?>PGNew" name="g_names[||new]" onchange="KronolithCore.insertGroupOrUser('<?php echo $type ?>', 'group')">
+          <select id="kronolithC<?php echo $type ?>PGNew" name="g_names[||new]">
             <option value=""><?php echo _("Select a group") ?></option>
             <?php foreach ($groups as $id => $group): ?>
             <option value="<?php echo $id ?>"><?php echo htmlspecialchars($group) ?></option>
             <?php endforeach; ?>
           </select>
+          <input type="button" id="kronolithC<?php echo $type ?>PGAdd" value="<?php echo _("Add") ?>" />
         </td>
         <td>
           <input type="checkbox" id="kronolithC<?php echo $type ?>PGshow_new" name="g_show[||new]" />
