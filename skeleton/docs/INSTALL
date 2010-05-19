@@ -139,10 +139,8 @@ Configuring Skeleton
    mailing list.
 
    You will also need to make sure that the "horde" user in your database has
-   table-creation privileges, so that the tables that `PEAR DB`_ uses to
-   provide portable sequences can be created.
-
-   .. _`PEAR DB`: http://pear.php.net/DB
+   table-creation privileges, so that the tables used to provide portable
+   sequences can be created.
 
 3. Configuring Skeleton
 
