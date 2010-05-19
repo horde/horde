@@ -15,7 +15,7 @@ $test->prepareNewFolder($world['storage'], 'Calendar', 'event');
 
 require_once dirname(__FILE__) . '/../Share.php';
 
-$shares = Horde_Share::singleton('kronolith', 'kolab');
+$shares = new Horde_Share_Kolab('kronolith');
 
 $keys = array_keys($shares->listShares('wrobel@example.org'));
 foreach ($keys as $key) {

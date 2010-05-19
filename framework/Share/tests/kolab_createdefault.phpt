@@ -15,7 +15,7 @@ $test->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
 
 require_once dirname(__FILE__) . '/../Share.php';
 
-$shares = Horde_Share::singleton('kronolith', 'kolab');
+$shares = new Horde_Share_Kolab('kronolith');
 
 class Perms_mock
 {
@@ -35,7 +35,7 @@ $default = $shares->getDefaultShare();
 
 echo $default->getName() . "\n";
 
-$shares = Horde_Share::singleton('turba', 'kolab');
+$shares = new Horde_Share_Kolab('turba');
 
 $default = $shares->getDefaultShare();
 

@@ -70,63 +70,6 @@ class Horde_Share
      */
     protected $_shareObject;
 
-
-    /**
-     * Attempts to return a reference to a concrete Horde_Share instance.
-     *
-     * It will only create a new instance if no Horde_Share instance currently
-     * exists.
-     *
-     * @param string $app     The application that the shares relates to.
-     * @param string $driver  Type of concrete Share subclass to return,
-     *                        based on storage driver ($driver). The code is
-     *                        dynamically included.
-     *
-     * @return Horde_Share  The concrete Share reference, or false on an error.
-     */
-    public static function singleton($app, $driver = null)
-    {
-        static $shares = array();
-
-        // FIXME: This is a temporary solution until the configuration value
-        // actually exists and all apps call this code in the correct fashion.
-        $driver = basename($driver);
-        if (empty($driver)) {
-            if (!empty($GLOBALS['conf']['share']['driver'])) {
-                $driver = $GLOBALS['conf']['share']['driver'];
-            } else {
-                $driver = 'datatree';
-            }
-        }
-
-        $class = 'Horde_Share_' . $driver;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Share/' . $driver . '.php';
-        }
-
-        $signature = $app . '_' . $driver;
-        if (!isset($shares[$signature]) &&
-            !empty($GLOBALS['conf']['share']['cache'])) {
-            $session = new Horde_SessionObjects();
-            $shares[$signature] = $session->query('horde_share_' . $app . '_' . $driver . '1');
-        }
-
-        if (empty($shares[$signature])) {
-            if (class_exists($class)) {
-                $shares[$signature] = new $class($app);
-            } else {
-                $result = PEAR::raiseError(sprintf(_("\"%s\" share driver not found."), $driver));
-                return $result;
-            }
-        }
-
-        if (!empty($GLOBALS['conf']['share']['cache'])) {
-            register_shutdown_function(array($shares[$signature], 'shutdown'));
-        }
-
-        return $shares[$signature];
-    }
-
     /**
      * Constructor.
      *
@@ -236,8 +179,7 @@ class Horde_Share
      */
     public function getShares($cids)
     {
-        $all_shares = array();
-        $missing_ids = array();
+        $all_shares = $missing_ids = array();
         foreach ($cids as $cid) {
             if (isset($this->_shareMap[$cid])) {
                 $all_shares[$this->_shareMap[$cid]] = $this->_cache[$this->_shareMap[$cid]];
@@ -371,12 +313,8 @@ class Horde_Share
      * @return boolean
      * @throws Horde_Share_Exception
      */
-    public function addShare($share)
+    public function addShare(Horde_Share_Object $share)
     {
-        if (!is_a($share, 'Horde_Share_Object')) {
-            throw new Horde_Share_Exception('Shares must be Horde_Share_Object objects or extend that class.');
-        }
-
         try {
             Horde::callHook('share_add', array($share));
         } catch (Horde_Exception_HookNotSet $e) {}
@@ -402,12 +340,8 @@ class Horde_Share
      *
      * @throws Horde_Share_Exception
      */
-    public function removeShare($share)
+    public function removeShare(Horde_Share_Object $share)
     {
-        if (!is_a($share, 'Horde_Share_Object')) {
-            throw new Horde_Share_Exception('Shares must be Horde_Share_Object objects or extend that class.');
-        }
-
         try {
             Horde::callHook('share_remove', array($share));
         } catch (Horde_Exception_HookNotSet $e) {}
@@ -455,32 +389,11 @@ class Horde_Share
      */
     public function getPermissions($share, $user = null)
     {
-        if (!is_a($share, 'Horde_Share_Object')) {
+        if (!($share instanceof Horde_Share_Object)) {
             $share = $this->getShare($share);
         }
 
-        $perm = $share->getPermission();
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions($perm, $user);
-    }
-
-    /**
-     * Returns the Identity for a particular share owner.
-     *
-     * @deprecated
-     *
-     * @param mixed $share  The share to fetch the Identity for - either the
-     *                      string name, or the Horde_Share_Object object.
-     *
-     * @return Identity  An Identity instance.
-     */
-    public function getIdentityByShare($share)
-    {
-        if (!is_a($share, 'Horde_Share_Object')) {
-            $share = $this->getShare($share);
-        }
-
-        // TODO: Need to inject this into this method instead of using injector
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($share->get('owner'));
+        return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions($share->getPermission(), $user);
     }
 
     /**
@@ -501,8 +414,6 @@ class Horde_Share
      * <code>
      * uasort($list, array('Horde_Share', '_sortShares'));
      * </code>
-     *
-     * @access protected
      */
     protected function _sortShares($a, $b)
     {
