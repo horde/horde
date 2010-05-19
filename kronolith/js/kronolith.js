@@ -993,7 +993,7 @@ KronolithCore = {
      */
     insertCalendarInList: function(type, id, cal, div)
     {
-        var noItems;
+        var noItems, calendar;
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
@@ -1007,11 +1007,20 @@ KronolithCore = {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })
                    .insert('&#9658;'));
         }
-        div.insert(new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
-               .store('calendar', id)
-               .store('calendarclass', type)
-               .setStyle({ backgroundColor: cal.bg, color: cal.fg })
-               .update(cal.name.escapeHTML()));
+        calendar = new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+            .store('calendar', id)
+            .store('calendarclass', type)
+            .setStyle({ backgroundColor: cal.bg, color: cal.fg })
+            .insert(cal.name.escapeHTML());
+        if (cal.perms) {
+            $H(cal.perms).each(function(perm) {
+                if (perm.key != 'type' && perm.value) {
+                    calendar.insert(' ').insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'attendees-' + cal.fg.substring(1) + '.png', title: Kronolith.text.shared }));
+                    throw $break;
+                }
+            });
+        }
+        div.insert(calendar);
     },
 
     /**

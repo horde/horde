@@ -354,6 +354,7 @@ class Kronolith
             'allday' => _("All day"),
             'more' => _("more..."),
             'prefs' => _("Options"),
+            'shared' => _("Shared"),
             'no_url' => _("You must specify a URL."),
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
             'geocode_error' => _("Unable to locate requested address"),
