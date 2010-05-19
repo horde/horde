@@ -5,15 +5,16 @@
  * expanded to be configurable to support storage or message limits in the
  * configuration array.
  *
- * TODO: Add config param for storage vs message quota
- *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package IMP
+ * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
+ * @todo     Add config param for storage vs message quota
  */
 class IMP_Quota_Maildir extends IMP_Quota_Driver
 {

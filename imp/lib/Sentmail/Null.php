@@ -9,6 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
 class IMP_Sentmail_Null extends IMP_Sentmail_Driver

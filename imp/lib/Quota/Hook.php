@@ -14,8 +14,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Redinger <Michael.Redinger@uibk.ac.at>
- * @package IMP
+ * @author   Michael Redinger <Michael.Redinger@uibk.ac.at>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Quota_Hook extends IMP_Quota_Driver
 {

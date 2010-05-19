@@ -10,8 +10,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Andrew Coleman <mercury@appisolutions.net>
- * @package IMP
+ * @author   Andrew Coleman <mercury@appisolutions.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 // We do not need to be authenticated to get the file. Most users won't send

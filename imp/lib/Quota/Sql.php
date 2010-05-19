@@ -9,9 +9,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Tomas Simonaitis <haden@homelan.lt>
- * @author  Jan Schneider <jan@horde.org>
- * @package IMP
+ * @author   Tomas Simonaitis <haden@homelan.lt>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Quota_Sql extends IMP_Quota_Driver
 {

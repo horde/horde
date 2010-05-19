@@ -11,6 +11,8 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
 class Imp_Prefs_Identity extends Horde_Prefs_Identity

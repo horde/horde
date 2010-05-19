@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Matt Selsky <selsky@columbia.edu>
- * @package IMP
+ * @author   Matt Selsky <selsky@columbia.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
 {

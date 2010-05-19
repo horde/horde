@@ -13,6 +13,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
 class IMP_Sentmail_Sql extends IMP_Sentmail_Driver

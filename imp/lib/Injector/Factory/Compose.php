@@ -4,11 +4,11 @@
  *
  * PHP version 5
  *
- * @category Horde
- * @package  IMP
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
  */
 
 /**
@@ -19,11 +19,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @category Horde
- * @package  IMP
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @link     http://pear.horde.org/index.php?package=IMP
+ * @package  IMP
  */
 class IMP_Injector_Factory_Compose
 {

@@ -1,12 +1,16 @@
 <?php
 /**
+ * IMP mailbox RSS feed.
+ *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Garrido <ekg2002@columbia.edu>
- * @package IMP
+ * @author   Eric Garrido <ekg2002@columbia.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';

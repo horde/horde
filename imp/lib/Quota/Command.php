@@ -12,8 +12,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package IMP
+ * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Quota_Command extends IMP_Quota_Driver
 {
