@@ -775,12 +775,12 @@ class Horde_Image_Gd extends Horde_Image_Base
         unset($php_errormsg);
         $track = ini_set('track_errors', 1);
         $error_mask = E_ALL & ~E_WARNING & ~E_NOTICE;
-        error_reporting($error_mask);
+        $old_reporting = error_reporting($error_mask);
         $result = call_user_func_array($function, $params);
         if ($track !== false) {
             ini_set('track_errors', $track);
         }
-        error_reporting($GLOBALS['conf']['debug_level']);
+        error_reporting($old_reporting);
         if (!empty($php_errormsg)) {
             $error_msg = $php_errormsg;
             throw new Horde_Image_Exception($error_msg);
