@@ -17,21 +17,21 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share {
-
+class Horde_Share
+{
     /**
      * The application we're managing shares for.
      *
      * @var string
      */
-    var $_app;
+    protected $_app;
 
     /**
      * The root of the Share tree.
      *
      * @var mixed
      */
-    var $_root = null;
+    protected $_root = null;
 
     /**
      * A cache of all shares that have been retrieved, so we don't hit the
@@ -39,21 +39,21 @@ class Horde_Share {
      *
      * @var array
      */
-    var $_cache = array();
+    protected $_cache = array();
 
     /**
      * Id-name-map of already cached share objects.
      *
      * @var array
      */
-    var $_shareMap = array();
+    protected $_shareMap = array();
 
     /**
      * Cache used for listShares().
      *
      * @var array
      */
-    var $_listcache = array();
+    protected $_listcache = array();
 
     /**
      * A list of objects that we're currently sorting, for reference during the
@@ -61,7 +61,15 @@ class Horde_Share {
      *
      * @var array
      */
-    var $_sortList;
+    protected $_sortList;
+
+    /**
+     * The Horde_Share_Object subclass to instantiate objects as
+     *
+     * @var string
+     */
+    protected $_shareObject;
+
 
     /**
      * Attempts to return a reference to a concrete Horde_Share instance.
@@ -124,7 +132,7 @@ class Horde_Share {
      *
      * @param string $app  The application that the shares belong to.
      */
-    function Horde_Share($app)
+    public function __construct($app)
     {
         $this->_app = $app;
         $this->__wakeup();
@@ -135,7 +143,7 @@ class Horde_Share {
      *
      * @throws Horde_Exception
      */
-    function __wakeup()
+    public function __wakeup()
     {
         try {
             Horde::callHook('share_init', array($this, $this->_app));
@@ -147,7 +155,7 @@ class Horde_Share {
      *
      * @return array  List of serializable properties.
      */
-    function __sleep()
+    public function __sleep()
     {
         $properties = get_object_vars($this);
         unset($properties['_sortList']);
@@ -158,7 +166,7 @@ class Horde_Share {
     /**
      * Stores the object in the session cache.
      */
-    function shutdown()
+    public function shutdown()
     {
         $driver = str_replace('horde_share_', '', Horde_String::lower(get_class($this)));
         $session = new Horde_SessionObjects();
@@ -170,7 +178,7 @@ class Horde_Share {
      *
      * @return string  The application this share belongs to.
      */
-    function getApp()
+    public function getApp()
     {
         return $this->_app;
     }
@@ -183,16 +191,13 @@ class Horde_Share {
      *
      * @return Horde_Share_Object  The requested share.
      */
-    function getShare($name)
+    public function getShare($name)
     {
         if (isset($this->_cache[$name])) {
             return $this->_cache[$name];
         }
 
         $share = $this->_getShare($name);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
-        }
         $share->setShareOb($this);
         $this->_shareMap[$share->getId()] = $name;
         $this->_cache[$name] = $share;
@@ -208,13 +213,10 @@ class Horde_Share {
      *
      * @return Horde_Share_Object  The requested share.
      */
-    function getShareById($cid)
+    public function getShareById($cid)
     {
         if (!isset($this->_shareMap[$cid])) {
             $share = $this->_getShareById($cid);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
-            }
             $share->setShareOb($this);
             $name = $share->getName();
             $this->_cache[$name] = $share;
@@ -232,7 +234,7 @@ class Horde_Share {
      *
      * @return array  The requested shares.
      */
-    function getShares($cids)
+    public function getShares($cids)
     {
         $all_shares = array();
         $missing_ids = array();
@@ -246,10 +248,6 @@ class Horde_Share {
 
         if (count($missing_ids)) {
             $shares = $this->_getShares($missing_ids);
-            if (is_a($shares, 'PEAR_Error')) {
-                return $shares;
-            }
-
             foreach (array_keys($shares) as $key) {
                 $this->_cache[$key] = $shares[$key];
                 $this->_cache[$key]->setShareOb($this);
@@ -270,13 +268,9 @@ class Horde_Share {
      *
      * @return array  All shares for the current app/share.
      */
-    function listAllShares()
+    public function listAllShares()
     {
         $shares = $this->_listAllShares();
-        if (is_a($shares, 'PEAR_Error') || !count($shares)) {
-            return $shares;
-        }
-
         $this->_sortList = $shares;
         uasort($shares, array($this, '_sortShares'));
         $this->_sortList = null;
@@ -296,7 +290,7 @@ class Horde_Share {
      *
      * @return array  The shares the user has access to.
      */
-    function listShares($userid, $perm = Horde_Perms::SHOW, $attributes = null,
+    public function listShares($userid, $perm = Horde_Perms::SHOW, $attributes = null,
                         $from = 0, $count = 0, $sort_by = null, $direction = 0)
     {
         $shares = $this->_listShares($userid, $perm, $attributes, $from,
@@ -304,16 +298,8 @@ class Horde_Share {
         if (!count($shares)) {
             return $shares;
         }
-        if (is_a($shares, 'PEAR_Error')) {
-            return $shares;
-        }
 
-        /* Make sure getShares() didn't return an error. */
         $shares = $this->getShares($shares);
-        if (is_a($shares, 'PEAR_Error')) {
-            return $shares;
-        }
-
         if (is_null($sort_by)) {
             $this->_sortList = $shares;
             uasort($shares, array($this, '_sortShares'));
@@ -332,7 +318,7 @@ class Horde_Share {
      *
      * @return array  All system shares.
      */
-    function listSystemShares()
+    public function listSystemShares()
     {
         return array();
     }
@@ -349,7 +335,7 @@ class Horde_Share {
      *
      * @return integer  The number of shares
      */
-    function countShares($userid, $perm = Horde_Perms::SHOW, $attributes = null)
+    public function countShares($userid, $perm = Horde_Perms::SHOW, $attributes = null)
     {
         return $this->_countShares($userid, $perm, $attributes);
     }
@@ -360,11 +346,12 @@ class Horde_Share {
      * @param string $name  The share's name.
      *
      * @return Horde_Share_Object  A new share object.
+     * @throws Horde_Share_Exception
      */
-    function newShare($name)
+    public function newShare($name)
     {
         if (empty($name)) {
-            return PEAR::raiseError('Share names must be non-empty');
+            throw new Horde_Share_Exception('Share names must be non-empty');
         }
         $share = $this->_newShare($name);
         $share->setShareOb($this);
@@ -380,12 +367,14 @@ class Horde_Share {
      * any initial details added to it, before this function is called.
      *
      * @param Horde_Share_Object $share  The new share object.
-     * @throws Horde_Exception
+     *
+     * @return boolean
+     * @throws Horde_Share_Exception
      */
-    function addShare($share)
+    public function addShare($share)
     {
         if (!is_a($share, 'Horde_Share_Object')) {
-            return PEAR::raiseError('Shares must be Horde_Share_Object objects or extend that class.');
+            throw new Horde_Share_Exception('Shares must be Horde_Share_Object objects or extend that class.');
         }
 
         try {
@@ -393,9 +382,6 @@ class Horde_Share {
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $result = $this->_addShare($share);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         /* Store new share in the caches. */
         $id = $share->getId();
@@ -414,12 +400,12 @@ class Horde_Share {
      *
      * @param Horde_Share_Object $share  The share to remove.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Share_Exception
      */
-    function removeShare($share)
+    public function removeShare($share)
     {
         if (!is_a($share, 'Horde_Share_Object')) {
-            return PEAR::raiseError('Shares must be Horde_Share_Object objects or extend that class.');
+            throw new Horde_Share_Exception('Shares must be Horde_Share_Object objects or extend that class.');
         }
 
         try {
@@ -444,7 +430,7 @@ class Horde_Share {
      *
      * @return boolean  True if the share exists.
      */
-    function exists($share)
+    public function exists($share)
     {
         if (isset($this->_cache[$share])) {
             return true;
@@ -467,19 +453,10 @@ class Horde_Share {
      *                permission type and whether the permission value is
      *                ambiguous. False if there is no such permsission.
      */
-    function getPermissions($share, $user = null)
+    public function getPermissions($share, $user = null)
     {
-        if (is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share, 'ERR');
-            return false;
-        }
-
         if (!is_a($share, 'Horde_Share_Object')) {
             $share = $this->getShare($share);
-            if (is_a($share, 'PEAR_Error')) {
-                Horde::logMessage($share, 'ERR');
-                return false;
-            }
         }
 
         $perm = $share->getPermission();
@@ -496,16 +473,24 @@ class Horde_Share {
      *
      * @return Identity  An Identity instance.
      */
-    function getIdentityByShare($share)
+    public function getIdentityByShare($share)
     {
         if (!is_a($share, 'Horde_Share_Object')) {
             $share = $this->getShare($share);
-            if (is_a($share, 'PEAR_Error')) {
-                return null;
-            }
         }
 
+        // TODO: Need to inject this into this method instead of using injector
         return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($share->get('owner'));
+    }
+
+    /**
+     * Set the class type to use for creating share objects.
+     *
+     * @var string $classname  The classname to use.
+     */
+    public function setShareClass($classname)
+    {
+        $this->_shareObject = $classname;
     }
 
     /**
@@ -519,7 +504,7 @@ class Horde_Share {
      *
      * @access protected
      */
-    function _sortShares($a, $b)
+    protected function _sortShares($a, $b)
     {
         $aParts = explode(':', $a->getName());
         $bParts = explode(':', $b->getName());
@@ -543,366 +528,6 @@ class Horde_Share {
         }
 
         return count($aParts) > count($bParts);
-    }
-
-}
-
-/**
- * Abstract class for storing Share information.
- *
- * This class should be extended for the more specific drivers.
- *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
- */
-class Horde_Share_Object {
-
-    /**
-     * The Horde_Share object which this share came from - needed for updating
-     * data in the backend to make changes stick, etc.
-     *
-     * @var Horde_Share
-     */
-    var $_shareOb;
-
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    function __sleep()
-    {
-        $properties = get_object_vars($this);
-        unset($properties['_shareOb']);
-        $properties = array_keys($properties);
-        return $properties;
-    }
-
-    /**
-     * Associates a Share object with this share.
-     *
-     * @param Horde_Share $shareOb  The Share object.
-     */
-    function setShareOb($shareOb)
-    {
-        if (!is_a($shareOb, 'Horde_Share')) {
-            return PEAR::raiseError('This object needs a Horde_Share instance as storage handler!');
-        }
-        $this->_shareOb = $shareOb;
-    }
-
-    /**
-     * Sets an attribute value in this object.
-     *
-     * @param string $attribute  The attribute to set.
-     * @param mixed $value       The value for $attribute.
-     *
-     * @return mixed  True if setting the attribute did succeed, a PEAR_Error
-     *                otherwise.
-     */
-    function set($attribute, $value)
-    {
-        return $this->_set($attribute, $value);
-    }
-
-    /**
-     * Returns an attribute value from this object.
-     *
-     * @param string $attribute  The attribute to return.
-     *
-     * @return mixed  The value for $attribute.
-     */
-    function get($attribute)
-    {
-        return $this->_get($attribute);
-    }
-
-    /**
-     * Returns the ID of this share.
-     *
-     * @return string  The share's ID.
-     */
-    function getId()
-    {
-        return $this->_getId();
-    }
-
-    /**
-     * Returns the name of this share.
-     *
-     * @return string  The share's name.
-     */
-    function getName()
-    {
-        return $this->_getName();
-    }
-
-    /**
-     * Saves the current attribute values.
-     *
-     * @throws Horde_Exception
-     */
-    function save()
-    {
-        try {
-            Horde::callHook('share_modify', array($this));
-        } catch (Horde_Exception_HookNotSet $e) {}
-
-        return $this->_save();
-    }
-
-    /**
-     * Gives a user a certain privilege for this share.
-     *
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant.
-     */
-    function addUserPermission($userid, $permission)
-    {
-        $perm = $this->getPermission();
-        $perm->addUserPermission($userid, $permission, false);
-        $this->setPermission($perm);
-    }
-
-    /**
-     * Removes a certain privilege for a user from this share.
-     *
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant.
-     */
-    function removeUserPermission($userid, $permission)
-    {
-        $perm = $this->getPermission();
-        $perm->removeUserPermission($userid, $permission, false);
-        $this->setPermission($perm);
-    }
-
-    /**
-     * Gives a group certain privileges for this share.
-     *
-     * @param string $group        The group to add permissions for.
-     * @param integer $permission  A Horde_Perms::* constant.
-     */
-    function addGroupPermission($group, $permission)
-    {
-        $perm = $this->getPermission();
-        $perm->addGroupPermission($group, $permission, false);
-        $this->setPermission($perm);
-    }
-
-    /**
-     * Removes a certain privilege from a group.
-     *
-     * @param string $group         The group to remove permissions from.
-     * @param constant $permission  A Horde_Perms::* constant.
-     */
-    function removeGroupPermission($group, $permission)
-    {
-        $perm = $this->getPermission();
-        $perm->removeGroupPermission($group, $permission, false);
-        $this->setPermission($perm);
-    }
-
-    /**
-     * Removes a user from this share.
-     *
-     * @param string $userid  The userid of the user to remove.
-     */
-    function removeUser($userid)
-    {
-        /* Remove all $userid's permissions. */
-        $perm = $this->getPermission();
-        $perm->removeUserPermission($userid, Horde_Perms::SHOW, false);
-        $perm->removeUserPermission($userid, Horde_Perms::READ, false);
-        $perm->removeUserPermission($userid, Horde_Perms::EDIT, false);
-        $perm->removeUserPermission($userid, Horde_Perms::DELETE, false);
-        return $this->setPermission($perm);
-    }
-
-    /**
-     * Removes a group from this share.
-     *
-     * @param integer $groupId  The group to remove.
-     */
-    function removeGroup($groupId)
-    {
-        /* Remove all $groupId's permissions. */
-        $perm = $this->getPermission();
-        $perm->removeGroupPermission($groupId, Horde_Perms::SHOW, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::READ, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::EDIT, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::DELETE, false);
-        return $this->setPermission($perm);
-    }
-
-    /**
-     * Returns an array containing all the userids of the users with access to
-     * this share.
-     *
-     * @param integer $perm_level  List only users with this permission level.
-     *                             Defaults to all users.
-     *
-     * @return array  The users with access to this share.
-     */
-    function listUsers($perm_level = null)
-    {
-        $perm = $this->getPermission();
-        $results = array_keys($perm->getUserPermissions($perm_level));
-        // Always return the share's owner.
-        if ($this->get('owner')) {
-            array_push($results, $this->get('owner'));
-        }
-        return $results;
-    }
-
-    /**
-     * Returns an array containing all the groupids of the groups with access
-     * to this share.
-     *
-     * @param integer $perm_level  List only users with this permission level.
-     *                             Defaults to all users.
-     *
-     * @return array  The IDs of the groups with access to this share.
-     */
-    function listGroups($perm_level = null)
-    {
-        $perm = $this->getPermission();
-        return array_keys($perm->getGroupPermissions($perm_level));
-    }
-
-    /**
-     * Locks an item from this share, or the entire share if no item defined.
-     *
-     * @param string $item_uid  A uid of an item from this share.
-     *
-     * @return mixed   A lock ID on success, PEAR_Error on failure, false if:
-     *                  - The share is already locked
-     *                  - The item is already locked
-     *                  - A share lock was requested and an item is already
-     *                    locked in the share
-     */
-    function lock($item_uid = null)
-    {
-        try {
-            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return PEAR::raiseError($e->getMessage());
-        }
-
-        $shareid = $this->getId();
-
-        // Default parameters.
-        $locktype = Horde_Lock::TYPE_EXCLUSIVE;
-        $timeout = 600;
-        $itemscope = $this->_shareOb->getApp() . ':' . $shareid;
-
-        if (!empty($item_uid)) {
-            // Check if the share is locked. Share locks are placed at app
-            // scope.
-            try {
-
-                $result = $locks->getLocks($this->_shareOb->getApp(), $shareid, $locktype);
-            } catch (Horde_Lock_Exception $e) {
-                return PEAR::raiseError($e->getMessage);
-            }
-            if (!empty($result)) {
-                // Lock found.
-                return false;
-            }
-            // Try to place the item lock at app:shareid scope.
-            return $locks->setLock(Horde_Auth::getAuth(), $itemscope, $item_uid,
-                                   $timeout, $locktype);
-        } else {
-            // Share lock requested. Check for locked items.
-            try {
-                $result = $locks->getLocks($itemscope, null, $locktype);
-            } catch (Horde_Lock_Exception $e) {
-                return PEAR::raiseError($e->getException);
-            }
-            if (!empty($result)) {
-                // Lock found.
-                return false;
-            }
-            // Try to place the share lock
-            return $locks->setLock(Horde_Auth::getAuth(), $this->_shareOb->getApp(),
-                                   $shareid, $timeout, $locktype);
-        }
-    }
-
-    /**
-     * Removes the lock for a lock ID.
-     *
-     * @param string $lockid  The lock ID as generated by a previous call
-     *                        to lock().
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
-     */
-    function unlock($lockid)
-    {
-        try {
-            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return PEAR::raiseError($e->getMessage());
-        }
-
-        return $locks->clearLock($lockid);
-    }
-
-    /**
-     * Checks for existing locks.
-     *
-     * First this checks for share locks and if none exists, checks for item
-     * locks (if item_uid defined).  It will return the first lock found.
-     *
-     * @param string $item_uid  A uid of an item from this share.
-     *
-     * @return mixed   Hash with the found lock information in 'lock' and the
-     *                 lock type ('share' or 'item') in 'type', or an empty
-     *                 array if there are no locks, or a PEAR_Error on failure.
-     */
-    function checkLocks($item_uid = null)
-    {
-        try {
-            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return PEAR::raiseError($e->getMessage());
-        }
-
-        $shareid = $this->getId();
-        $locktype = Horde_Lock::TYPE_EXCLUSIVE;
-
-        // Check for share locks
-        try {
-            $result = $locks->getLocks($this->_shareOb->getApp(), $shareid, $locktype);
-        } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return PEAR::raiseError($e->getMessage());
-        }
-
-        if (empty($result) && !empty($item_uid)) {
-            // Check for item locks
-            $locktargettype = 'item';
-            try {
-                $result = $locks->getLocks($this->_shareOb->getApp() . ':' . $shareid, $item_uid, $locktype);
-            } catch (Horde_Lock_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                return PEAR::raiseError($e->getMessage());
-            }
-        } else {
-            $locktargettype = 'share';
-        }
-
-        if (empty($result)) {
-            return array();
-        }
-
-        return array('type' => $locktargettype,
-                     'lock' => reset($result));
     }
 
 }

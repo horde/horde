@@ -11,9 +11,6 @@
  * @package Whups
  */
 
-/** Horde_Share */
-require_once 'Horde/Share.php';
-
 /** Horde_Form_Action */
 require_once 'Horde/Form/Action.php';
 

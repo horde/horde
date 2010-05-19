@@ -66,7 +66,7 @@ class Ansel_Storage
                                                'sql_hierarchical');
 
         /* Ansel_Gallery is just a subclass of Horde_Share_Object */
-        $this->_shares->_shareObject = 'Ansel_Gallery';
+        $this->_shares->setShareClass('Ansel_Gallery');
 
         /* Database handle */
         $this->_db = $GLOBALS['ansel_db'];
@@ -721,7 +721,7 @@ class Ansel_Storage
 
         if (!count($galleries) && !count($slugs)) {
             $sql = 'SELECT DISTINCT ' . $this->_getImageFields('i') . ' FROM ansel_images i, '
-            . str_replace('WHERE' , ' WHERE i.gallery_id = s.share_id AND (', substr($this->_shares->_getShareCriteria(Horde_Auth::getAuth()), 5)) . ')';
+            . str_replace('WHERE' , ' WHERE i.gallery_id = s.share_id AND (', substr($this->_shares->getShareCriteria(Horde_Auth::getAuth()), 5)) . ')';
         } elseif (!count($slugs) && count($galleries)) {
             // Searching by gallery_id
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images '
@@ -810,8 +810,8 @@ class Ansel_Storage
     public function listCategories($perm = Horde_Perms::SHOW, $from = 0, $count = 0)
     {
         $sql = 'SELECT DISTINCT attribute_category FROM '
-               . $this->_shares->_table;
-        $results = $this->_shares->_db->query($sql);
+               . $this->_shares->getTable();
+        $results = $this->_shares->getReadDb()->query($sql);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
         }

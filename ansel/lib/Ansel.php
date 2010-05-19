@@ -11,13 +11,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
-/** Horde_Share */
-require_once 'Horde/Share.php';
-
-/** Need to bring this in explicitly since we extend the object class */
-require_once 'Horde/Share/sql_hierarchical.php';
-
 class Ansel
 {
     /**

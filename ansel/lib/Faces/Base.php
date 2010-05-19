@@ -164,7 +164,7 @@ class Ansel_Faces_Base
         // should be encapsulated by the shares driver and not parsed from
         // an internally generated query string fragment. Will need to split
         // this out into two seperate operations somehow.
-        $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
+        $share = substr($GLOBALS['ansel_storage']->shares->getShareCriteria(
             Horde_Auth::getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f, '
@@ -201,7 +201,7 @@ class Ansel_Faces_Base
     {
         // add gallery permission
         // FIXME: Ditto on the REALLY ugly hack comment from above!
-        $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
+        $share = substr($GLOBALS['ansel_storage']->shares->getShareCriteria(
             Horde_Auth::getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT COUNT(*) FROM ansel_faces f, '

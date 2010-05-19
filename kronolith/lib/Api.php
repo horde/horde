@@ -412,9 +412,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 // Remove share and all groups/permissions.
                 $share = $GLOBALS['kronolith_shares']->getShare($calendarId);
                 $result = $GLOBALS['kronolith_shares']->removeShare($share);
-                if ($result instanceof PEAR_Error) {
-                    throw new Kronolith_Exception($result);
-                }
             } catch (Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
             }

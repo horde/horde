@@ -32,8 +32,10 @@ class Kronolith_FreeBusy
         }
 
         /* Fetch the appropriate share and check permissions. */
-        $share = $kronolith_shares->getShare($calendar[0]);
-        if ($share instanceof PEAR_Error) {
+        try {
+            $share = $kronolith_shares->getShare($calendar[0]);
+            $owner = $share->get('owner');
+        } catch (Horde_Share_Exception $e) {
             // Might be a Kronolith_Resource
             try {
                 $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
@@ -41,8 +43,6 @@ class Kronolith_FreeBusy
             } catch (Horde_Exception $e) {
                 return $returnObj ? $share : '';
             }
-        } else {
-            $owner = $share->get('owner');
         }
 
         /* Default the start date to today. */

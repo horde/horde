@@ -1,56 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Share</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Shared Permissions System</summary>
  <description>Horde_Share:: This class provides an interface to all shared
-resources a user owns or has access to.
- </description>
+resources a user owns or has access to.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-08</date>
- <time>23:21:27</time>
+ <date>2010-05-17</date>
+ <time>13:26:30</time>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.3</api>
+  <release>0.0.4</release>
+  <api>0.0.4</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Converted to package.xml 2.0 for pear.horde.org.
-* Split into a driver pattern.
-* Simplified the API greatly, removing unused functions.
-* Add a method for counting the number of shares at a certain access level.
-* Add native SQL driver (duck@obala.net, Request #6109).
-* Implemented extended free/busy access concept in the Kolab driver.
+ <notes>
+* Converted to Horde 4 coding standards
  </notes>
  <contents>
-  <dir name="/">
-   <file baseinstalldir="/Horde" name="Share.php" role="php"/>
-   <dir name="Share">
-     <file baseinstalldir="/Horde" name="datatree.php" role="php"/>
-     <file baseinstalldir="/Horde" name="kolab.php" role="php"/>
-     <file baseinstalldir="/Horde" name="sql.php" role="php"/>
-     <file baseinstalldir="/Horde" name="sql_hierarchical.php" role="php"/>
-   </dir>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Share">
+      <dir name="Object">
+       <dir name="Datatree">
+        <file baseinstalldir="/" name="Share.php" role="php" />
+       </dir> <!-- /lib/Horde/Share/Object/Datatree -->
+       <dir name="Sql">
+        <file baseinstalldir="/" name="Hierarchical.php" role="php" />
+       </dir> <!-- /lib/Horde/Share/Object/Sql -->
+       <file baseinstalldir="/" name="Datatree.php" role="php" />
+       <file baseinstalldir="/" name="Kolab.php" role="php" />
+       <file baseinstalldir="/" name="Sql.php" role="php" />
+      </dir> <!-- /lib/Horde/Share/Object -->
+      <dir name="Sql">
+       <file baseinstalldir="/" name="Hierarchical.php" role="php" />
+      </dir> <!-- /lib/Horde/Share/Sql -->
+      <file baseinstalldir="/" name="Datatree.php" role="php" />
+      <file baseinstalldir="/" name="Exception.php" role="php" />
+      <file baseinstalldir="/" name="Kolab.php" role="php" />
+      <file baseinstalldir="/" name="Object.php" role="php" />
+      <file baseinstalldir="/" name="Sql.php" role="php" />
+     </dir> <!-- /lib/Horde/Share -->
+     <file baseinstalldir="/" name="Share.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="tests">
+    <dir name="Horde">
+     <dir name="Share">
+      <file baseinstalldir="/" name="AllTests.php" role="php" />
+      <file baseinstalldir="/" name="KolabScenarioTest.php" role="php" />
+     </dir> <!-- /tests/Horde/Share -->
+    </dir> <!-- /tests/Horde -->
+    <file baseinstalldir="/" name="kolab_createdefault.phpt" role="data" />
+    <file baseinstalldir="/" name="kolab_list.phpt" role="data" />
+    <file baseinstalldir="/" name="kolab_simple.phpt" role="data" />
+   </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.0.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.5.0</min>
    </pearinstaller>
    <package>
     <name>Perms</name>
@@ -62,28 +84,23 @@ resources a user owns or has access to.
    </package>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="Horde/Share.php" name="lib/Horde/Share.php" />
+   <install as="Horde/Share/Datatree.php" name="lib/Horde/Share/Datatree.php" />
+   <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
+   <install as="Horde/Share/Kolab.php" name="lib/Horde/Share/Kolab.php" />
+   <install as="Horde/Share/Object.php" name="lib/Horde/Share/Object.php" />
+   <install as="Horde/Share/Sql.php" name="lib/Horde/Share/Sql.php" />
+   <install as="Horde/Share/Object/Datatree.php" name="lib/Horde/Share/Object/Datatree.php" />
+   <install as="Horde/Share/Object/Kolab.php" name="lib/Horde/Share/Object/Kolab.php" />
+   <install as="Horde/Share/Object/Sql.php" name="lib/Horde/Share/Object/Sql.php" />
+   <install as="Horde/Share/Object/Datatree/Share.php" name="lib/Horde/Share/Object/Datatree/Share.php" />
+   <install as="Horde/Share/Object/Sql/Hierarchical.php" name="lib/Horde/Share/Object/Sql/Hierarchical.php" />
+   <install as="Horde/Share/Sql/Hierarchical.php" name="lib/Horde/Share/Sql/Hierarchical.php" />
+  </filelist>
+ </phprelease>
  <changelog>
-  <release>
-   <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2004-10-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>- Added countShares().
-- listShares() and countShares() now treat the $owner argument
-  as an optional username restricting the returned shares, not
-  a modifier to the initial $userid. Now $userid is the user
-  who must have permission to see the shares that are returned
-  or counted, and $owner, if non-null, limits the shares
-  returned to those owned by $owner.
-   </notes>
-  </release>
   <release>
    <version>
     <release>0.0.1</release>
@@ -95,7 +112,64 @@ resources a user owns or has access to.
    </stability>
    <date>2003-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-10-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+- Added countShares().
+- listShares() and countShares() now treat the $owner argument
+  as an optional username restricting the returned shares, not
+  a modifier to the initial $userid. Now $userid is the user
+  who must have permission to see the shares that are returned
+  or counted, and $owner, if non-null, limits the shares
+  returned to those owned by $owner.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Converted to package.xml 2.0 for pear.horde.org.
+    * Split into a driver pattern.
+    * Simplified the API greatly, removing unused functions.
+    * Add a method for counting the number of shares at a certain access level.
+    * Add native SQL driver (duck@obala.net, Request #6109).
+    * Implemented extended free/busy access concept in the Kolab driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-05-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Converted to Horde 4 coding standards
    </notes>
   </release>
  </changelog>

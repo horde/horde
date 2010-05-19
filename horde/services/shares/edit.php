@@ -40,21 +40,23 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
-    if (!$share instanceof PEAR_Error) {
+    try {
+        $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
         $perm = &$share->getPermission();
-    } elseif (($category = Horde_Util::getFormData('share')) !== null) {
-        $share = &$shares->getShare($category);
-        if (!$share instanceof PEAR_Error) {
-            $form = 'edit.inc';
-            $perm = &$share->getPermission();
+    } catch (Horde_Share_Exception $e) {
+        if (($category = Horde_Util::getFormData('share')) !== null) {
+            try {
+                $share = $shares->getShare($category);
+                $form = 'edit.inc';
+                $perm = &$share->getPermission();
+            } catch (Horde_Share_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+            }
         }
     }
 
-    if ($share instanceof PEAR_Error) {
-        $notification->push($share, 'horde.error');
-    } elseif (!Horde_Auth::getAuth() ||
+    if (!Horde_Auth::getAuth() ||
               (isset($share) &&
                !Horde_Auth::isAdmin() &&
                Horde_Auth::getAuth() != $share->get('owner'))) {
@@ -63,10 +65,13 @@ case 'edit':
     break;
 
 case 'editform':
-    $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
-    if ($share instanceof PEAR_Error) {
+    try {
+        $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
+    } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
-    } else {
+    }
+
+    if (!empty($share)) {
         if (!Horde_Auth::getAuth() ||
             (!Horde_Auth::isAdmin() &&
              Horde_Auth::getAuth() != $share->get('owner'))) {

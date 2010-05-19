@@ -139,8 +139,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 // has permissions to do so.
                 try {
                     $sourceShare = Kronolith::getInternalCalendar($source);
-                    if (!($share instanceof PEAR_Error) &&
-                        $sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
+                    if ($sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
                         (($user == Horde_Auth::getAuth() &&
                           $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) ||
                          ($user != Horde_Auth::getAuth() &&

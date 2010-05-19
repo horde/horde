@@ -19,29 +19,30 @@ require_once 'Horde/DataTree.php';
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_datatree extends Horde_Share {
-
+class Horde_Share_Datatree extends Horde_Share
+{
     /**
      * The Horde_Share_Object subclass to instantiate objects as
      *
      * @var string
      */
-    var $_shareObject = 'Horde_Share_Object_datatree';
+    protected $_shareObject = 'Horde_Share_Object_Datatree';
 
     /**
      * Pointer to a DataTree instance to manage/store shares
      *
      * @var DataTree
      */
-    var $_datatree;
+    protected $_datatree;
 
     /**
      * Initializes the object.
      *
      * @throws Horde_Exception
      */
-    function __wakeup()
+    public function __wakeup()
     {
+        // TODO: Remove GLOBAL config access
         if (empty($GLOBALS['conf']['datatree']['driver'])) {
             throw new Horde_Exception('You must configure a DataTree backend to use Shares.');
         }
@@ -70,14 +71,16 @@ class Horde_Share_datatree extends Horde_Share {
      * @param string $name  The name of the share to retrieve.
      *
      * @return Horde_Share_Object_datatree  The requested share.
+     * @throws Horde_Share_Exception
      */
-    function &_getShare($name)
+    public function _getShare($name)
     {
         $datatreeObject = $this->_datatree->getObject($name, 'DataTreeObject_Share');
-        if (is_a($datatreeObject, 'PEAR_Error')) {
-            return $datatreeObject;
+        if ($datatreeObject instanceof PEAR_Error) {
+            throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
         $share = new $this->_shareObject($datatreeObject);
+
         return $share;
     }
 
@@ -88,14 +91,16 @@ class Horde_Share_datatree extends Horde_Share {
      * @param string $cid  The id of the share to retrieve.
      *
      * @return Horde_Share_Object_datatree  The requested share.
+     * @throws Horde_Share_Exception
      */
-    function &_getShareById($id)
+    protected function _getShareById($id)
     {
         $datatreeObject = $this->_datatree->getObjectById($id, 'DataTreeObject_Share');
         if (is_a($datatreeObject, 'PEAR_Error')) {
-            return $datatreeObject;
+            throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
         $share = new $this->_shareObject($datatreeObject);
+
         return $share;
     }
 
@@ -107,13 +112,14 @@ class Horde_Share_datatree extends Horde_Share {
      * @param array $cids  The array of ids to retrieve.
      *
      * @return array  The requested shares.
+     * @throws Horde_Share_Exception
      */
-    function &_getShares($ids)
+    protected function _getShares($ids)
     {
         $shares = array();
         $objects = &$this->_datatree->getObjects($ids, 'DataTreeObject_Share');
         if (is_a($objects, 'PEAR_Error')) {
-            return $objects;
+            throw new Horde_Share_Exception($objects->getMessage());
         }
         foreach (array_keys($objects) as $key) {
             if (is_a($objects[$key], 'PEAR_Error')) {
@@ -129,13 +135,15 @@ class Horde_Share_datatree extends Horde_Share {
      * permissions.
      *
      * @return array  All shares for the current app/share.
+     * @throws Horde_Share_Exception
      */
-    function &_listAllShares()
+    function _listAllShares()
     {
-        $sharelist = $this->_datatree->get(DATATREE_FORMAT_FLAT, DATATREE_ROOT,
-                                           true);
-        if (is_a($sharelist, 'PEAR_Error') || !count($sharelist)) {
-            // If we got back an error or an empty array, just return it.
+        $sharelist = $this->_datatree->get(DATATREE_FORMAT_FLAT, DATATREE_ROOT, true);
+        if ($sharelist instanceof PEAR_Error) {
+            throw new Horde_Share_Exception($sharelist->getMessage());
+        }
+        if (!count($sharelist)) {
             return $sharelist;
         }
         unset($sharelist[DATATREE_ROOT]);
@@ -154,21 +162,22 @@ class Horde_Share_datatree extends Horde_Share {
      *                           username.
      *
      * @return array  The shares the user has access to.
+     * @throws Horde_Share_Exception
      */
-    function &_listShares($userid, $perm = Horde_Perms::SHOW,
-                          $attributes = null, $from = 0, $count = 0,
-                          $sort_by = null, $direction = 0)
+    function _listShares($userid, $perm = Horde_Perms::SHOW,
+                         $attributes = null, $from = 0, $count = 0,
+                         $sort_by = null, $direction = 0)
     {
         $key = serialize(array($userid, $perm, $attributes));
         if (empty($this->_listCache[$key])) {
-            $criteria = $this->_getShareCriteria($userid, $perm, $attributes);
+            $criteria = $this->getShareCriteria($userid, $perm, $attributes);
             $sharelist = $this->_datatree->getByAttributes($criteria,
                                                            DATATREE_ROOT,
                                                            true, 'id', $from,
                                                            $count, $sort_by,
                                                            null, $direction);
-            if (is_a($sharelist, 'PEAR_Error')) {
-                return $sharelist;
+            if ($sharelist instanceof PEAR_Error) {
+                throw new Horde_Share_Exception($sharelist->getMessage());
             }
             $this->_listCache[$key] = array_keys($sharelist);
         }
@@ -188,10 +197,10 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @return integer  The number of shares
      */
-    function _countShares($userid, $perm = Horde_Perms::SHOW,
-                          $attributes = null)
+    protected function _countShares($userid, $perm = Horde_Perms::SHOW,
+                                    $attributes = null)
     {
-        $criteria = $this->_getShareCriteria($userid, $perm, $attributes);
+        $criteria = $this->getShareCriteria($userid, $perm, $attributes);
         return $this->_datatree->countByAttributes($criteria, DATATREE_ROOT, true, 'id');
     }
 
@@ -202,11 +211,12 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @return Horde_Share_Object_datatree  A new share object.
      */
-    function &_newShare($name)
+    protected function &_newShare($name)
     {
-        $datatreeObject = new DataTreeObject_Share($name);
+        $datatreeObject = new Horde_Share_Object_DataTree_Share($name);
         $datatreeObject->setDataTree($this->_datatree);
         $share = new $this->_shareObject($datatreeObject);
+
         return $share;
     }
 
@@ -219,7 +229,7 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @param Horde_Share_Object_datatree $share  The new share object.
      */
-    function _addShare(&$share)
+    protected function _addShare(&$share)
     {
         return $this->_datatree->add($share->datatreeObject);
     }
@@ -229,7 +239,7 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @param Horde_Share_Object_datatree $share  The share to remove.
      */
-    function _removeShare(&$share)
+    protected function _removeShare(&$share)
     {
         return $this->_datatree->remove($share->datatreeObject);
     }
@@ -241,7 +251,7 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @return boolean  True if the share exists.
      */
-    function _exists($share)
+    protected function _exists($share)
     {
         return $this->_datatree->exists($share);
     }
@@ -257,8 +267,8 @@ class Horde_Share_datatree extends Horde_Share {
      *
      * @return array  The criteria tree for fetching this user's shares.
      */
-    function _getShareCriteria($userid, $perm = Horde_Perms::SHOW,
-                               $attributes = null)
+    public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
+                                         $attributes = null)
     {
         if (!empty($userid)) {
             $criteria = array(
@@ -289,10 +299,11 @@ class Horde_Share_datatree extends Horde_Share {
                             array('field' => 'value', 'op' => '&', 'test' => $perm)))));
 
             // If the user has any group memberships, check for those also.
+            // @TODO: inject
             require_once 'Horde/Group.php';
             $group = &Group::singleton();
             $groups = $group->getGroupMemberships($userid, true);
-            if (!is_a($groups, 'PEAR_Error') && $groups) {
+            if (!($groups instanceof PEAR_Error) && $groups) {
                 // (name == perm_groups and key in ($groups) and val & $perm)
                 $criteria['OR'][] = array(
                     'AND' => array(
@@ -332,245 +343,6 @@ class Horde_Share_datatree extends Horde_Share {
         }
 
         return $criteria;
-    }
-
-}
-
-/**
- * Extension of the Horde_Share_Object class for storing share information in
- * the DataTree driver.
- *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Horde_Share
- */
-class Horde_Share_Object_datatree extends Horde_Share_Object {
-
-    /**
-     * The actual storage object that holds the data.
-     *
-     * @var mixed
-     */
-    var $datatreeObject;
-
-    /**
-     * Constructor.
-     *
-     * @param DataTreeObject_Share $datatreeObject  A DataTreeObject_Share
-     *                                              instance.
-     */
-    function Horde_Share_Object_datatree($datatreeObject)
-    {
-        if (is_a($datatreeObject, 'PEAR_Error')) {
-            debug_context();
-        }
-        $this->datatreeObject = $datatreeObject;
-    }
-
-    /**
-     * Sets an attribute value in this object.
-     *
-     * @param string $attribute  The attribute to set.
-     * @param mixed $value       The value for $attribute.
-     *
-     * @return mixed  True if setting the attribute did succeed, a PEAR_Error
-     *                otherwise.
-     */
-    function _set($attribute, $value)
-    {
-        return $this->datatreeObject->set($attribute, $value);
-    }
-
-    /**
-     * Returns one of the attributes of the object, or null if it isn't
-     * defined.
-     *
-     * @param string $attribute  The attribute to retrieve.
-     *
-     * @return mixed  The value of the attribute, or an empty string.
-     */
-    function _get($attribute)
-    {
-        return $this->datatreeObject->get($attribute);
-    }
-
-    /**
-     * Returns the ID of this share.
-     *
-     * @return string  The share's ID.
-     */
-    function _getId()
-    {
-        return $this->datatreeObject->getId();
-    }
-
-    /**
-     * Returns the name of this share.
-     *
-     * @return string  The share's name.
-     */
-    function _getName()
-    {
-        return $this->datatreeObject->getName();
-    }
-
-    /**
-     * Saves the current attribute values.
-     */
-    function _save()
-    {
-        return $this->datatreeObject->save();
-    }
-
-    /**
-     * Checks to see if a user has a given permission.
-     *
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant to test for.
-     * @param string $creator      The creator of the event.
-     *
-     * @return boolean  Whether or not $userid has $permission.
-     */
-    function hasPermission($userid, $permission, $creator = null)
-    {
-        if ($userid && $userid == $this->datatreeObject->get('owner')) {
-            return true;
-        }
-
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($this->getPermission(), $userid, $permission, $creator);
-    }
-
-    /**
-     * Sets the permission of this share.
-     *
-     * @param Horde_Perms_Permission $perm  Permission object.
-     * @param boolean $update         Should the share be saved
-     *                                after this operation?
-     *
-     * @return boolean  True if no error occured, PEAR_Error otherwise
-     */
-    function setPermission(&$perm, $update = true)
-    {
-        $this->datatreeObject->data['perm'] = $perm->getData();
-        if ($update) {
-            return $this->datatreeObject->save();
-        }
-        return true;
-    }
-
-    /**
-     * Returns the permission of this share.
-     *
-     * @return Horde_Persm_Permission  Permission object that represents the
-     *                           permissions on this share
-     */
-    function &getPermission()
-    {
-        $perm = new Horde_Perms_Permission($this->datatreeObject->getName());
-        $perm->data = isset($this->datatreeObject->data['perm'])
-            ? $this->datatreeObject->data['perm']
-            : array();
-
-        return $perm;
-    }
-
-}
-
-/**
- * Extension of the DataTreeObject class for storing Share information in the
- * DataTree driver. If you want to store specialized Share information, you
- * should extend this class instead of extending DataTreeObject directly.
- *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Share
- */
-class DataTreeObject_Share extends DataTreeObject {
-
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    function __sleep()
-    {
-        $properties = get_object_vars($this);
-        unset($properties['datatree']);
-        $properties = array_keys($properties);
-        return $properties;
-    }
-
-    /**
-     * Maps this object's attributes from the data array into a format that we
-     * can store in the attributes storage backend.
-     *
-     * @access protected
-     *
-     * @param boolean $permsonly  Only process permissions? Lets subclasses
-     *                            override part of this method while handling
-     *                            their additional attributes seperately.
-     *
-     * @return array  The attributes array.
-     */
-    function _toAttributes($permsonly = false)
-    {
-        // Default to no attributes.
-        $attributes = array();
-
-        foreach ($this->data as $key => $value) {
-            if ($key == 'perm') {
-                foreach ($value as $type => $perms) {
-                    if (is_array($perms)) {
-                        foreach ($perms as $member => $perm) {
-                            $attributes[] = array('name' => 'perm_' . $type,
-                                                  'key' => $member,
-                                                  'value' => $perm);
-                        }
-                    } else {
-                        $attributes[] = array('name' => 'perm_' . $type,
-                                              'key' => '',
-                                              'value' => $perms);
-                    }
-                }
-            } elseif (!$permsonly) {
-                $attributes[] = array('name' => $key,
-                                      'key' => '',
-                                      'value' => $value);
-            }
-        }
-
-        return $attributes;
-    }
-
-    /**
-     * Takes in a list of attributes from the backend and maps it to our
-     * internal data array.
-     *
-     * @access protected
-     *
-     * @param array $attributes   The list of attributes from the backend
-     *                            (attribute name, key, and value).
-     * @param boolean $permsonly  Only process permissions? Lets subclasses
-     *                            override part of this method while handling
-     *                            their additional attributes seperately.
-     */
-    function _fromAttributes($attributes, $permsonly = false)
-    {
-        // Initialize data array.
-        $this->data['perm'] = array();
-
-        foreach ($attributes as $attr) {
-            if (substr($attr['name'], 0, 4) == 'perm') {
-                if (!empty($attr['key'])) {
-                    $this->data['perm'][substr($attr['name'], 5)][$attr['key']] = $attr['value'];
-                } else {
-                    $this->data['perm'][substr($attr['name'], 5)] = $attr['value'];
-                }
-            } elseif (!$permsonly) {
-                $this->data[$attr['name']] = $attr['value'];
-            }
-        }
     }
 
 }

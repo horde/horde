@@ -588,9 +588,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
 
             /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
-            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
-            if ($cal instanceof PEAR_Error) {
-                throw new Kronolith_Exception($cal);
+            try {
+                $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+            } catch (Horde_Share_Exception $e) {
+                throw new Kronolith_Exception($e);
             }
             $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
@@ -656,8 +657,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Add tags again, but as the share owner (replaceTags removes ALL
          * tags). */
-        $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
-        $this->handleError($cal);
+        try {
+            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Kronolith_Exception($e);
+        }
         $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
         /* Update Geolocation */
@@ -970,8 +975,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
-        $this->handleError($shares);
+        try {
+            $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($shares, 'ERR');
+            throw new Kronolith_Exception($shares);
+        }
 
         foreach (array_keys($shares) as $calendar) {
             $ids = Kronolith::listEventIds(null, null, $calendar);

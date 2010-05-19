@@ -27,17 +27,21 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = $shares->getShareById(Horde_Util::getFormData('cid'));
-    if (!($share instanceof PEAR_Error)) {
+    try {
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
         $perm = $share->getPermission();
-    } elseif (($category = Horde_Util::getFormData('share')) !== null) {
-        try {
-            $share = $shares->getShare($category);
+    } catch (Horde_Share_Exception $e) {
+        if (($category = Horde_Util::getFormData('share')) !== null) {
+            try {
+                $share = $shares->getShare($category);
+                $perm = $share->getPermission();
+            } catch (Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
             $perm = $share->getPermission();
-        } catch (Exception $e) {
-            $notification->push($e, 'horde.error');
         }
     }
+    
     if (!Horde_Auth::getAuth() ||
         (isset($share) &&
          !Horde_Auth::isAdmin() &&
@@ -47,10 +51,8 @@ case 'edit':
     break;
 
 case 'editform':
-    $share = $shares->getShareById(Horde_Util::getFormData('cid'));
-    if ($share instanceof PEAR_Error) {
-        $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
-    } else {
+    try {
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
         if (!Horde_Auth::getAuth() ||
             (!Horde_Auth::isAdmin() &&
              Horde_Auth::getAuth() != $share->get('owner'))) {
@@ -71,11 +73,14 @@ case 'editform':
             $notification->push($e, 'horde.error');
         }
         $perm = $share->getPermission();
+    } catch (Horde_Share_Exception $e) {
+        $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     }
+
     break;
 }
 
-if ($share instanceof PEAR_Error) {
+if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));

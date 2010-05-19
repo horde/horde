@@ -28,7 +28,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     public function __construct($attributes = array())
     {
         /* Pass on up the chain */
-        parent::Horde_Share_Object_sql_hierarchical($attributes);
+        parent::__construct($attributes);
         $this->setShareOb($GLOBALS['ansel_storage']->shares);
         $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
         $this->_setModeHelper($mode);
