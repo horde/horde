@@ -359,7 +359,7 @@ class Ansel_Storage
         $sql = 'SELECT share_id FROM ' . $this->_shares->getTable()
             . ' WHERE attribute_slug IN (' . str_repeat('?, ', count($slugs) - 1) . '?)';
 
-        $stmt = $this->_shares->getReadDb->prepare($sql);
+        $stmt = $this->_shares->getReadDb()->prepare($sql);
         if ($stmt instanceof PEAR_Error) {
             throw new Horde_Exception($stmt->getMessage());
         }
