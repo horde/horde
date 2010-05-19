@@ -179,12 +179,9 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
                 $value = bin2hex($value);
                 if($intel==1) $value = Horde_Image_Exif::intel2Moto($value);
                 $v = fseek($seek,$globalOffset+hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
-                if(isset($GLOBALS['exiferFileSize']) && $v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
-                    $data = fread($seek, $bytesofdata);
-                } else {
-                    $result['Errors'] = $result['Errors']++;
-                    $data = '';
-                }
+                $result['Errors'] = $result['Errors']++;
+                $data = '';
+
             }
             $formated_data = self::_formatData($type,$tag,$intel,$data);
             $result['SubIFD']['MakerNote'][$tag_name] = $formated_data;
