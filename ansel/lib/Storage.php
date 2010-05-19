@@ -138,10 +138,11 @@ class Ansel_Storage
         }
 
         /* Create the gallery */
-        $gallery = $this->_shares->newShare('');
-        if ($gallery instanceof PEAR_Error) {
-            Horde::logMessage($gallery, 'ERR');
-            throw new Horde_Exception($gallery->getMessage());
+        try {
+            $gallery = $this->_shares->newShare('');
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage, 'ERR');
+            throw new Ansel_Exception($e);
         }
         Horde::logMessage('New Ansel_Gallery object instantiated', 'DEBUG');
 
@@ -164,10 +165,11 @@ class Ansel_Storage
         }
 
         /* Save it to storage */
-        $result = $this->_shares->addShare($gallery);
-        if ($result instanceof PEAR_Error) {
+        try {
+            $result = $this->_shares->addShare($gallery);
+        } catch (Horde_Share_Exception $e) {
             $error = sprintf(_("The gallery \"%s\" could not be created: %s"),
-                             $attributes['name'], $result->getMessage());
+                             $attributes['name'], $e->getMessage());
             Horde::logMessage($error, 'ERR');
             throw new Ansel_Exception($error);
         }
@@ -326,11 +328,12 @@ class Ansel_Storage
                return $this->_galleries[$gallery_id];
        }
 
-       $result = &$this->_shares->getShareById($gallery_id);
-       if ($result instanceof PEAR_Error) {
-           throw new Ansel_Exception($result);
+       try {
+           $result = $this->_shares->getShareById($gallery_id);
+       } catch (Horde_Share_Exception $e) {
+           throw new Ansel_Exception($e);
        }
-       $this->_galleries[$gallery_id] = &$result;
+       $this->_galleries[$gallery_id] = $result;
 
        // Don't cache if we have overridden anything
        if (!count($overrides)) {
@@ -439,9 +442,10 @@ class Ansel_Storage
         $id = $gallery->id;
 
         /* Delete the gallery from storage */
-        $result = $this->_shares->removeShare($gallery);
-        if ($result instanceof PEAR_Error) {
-            throw new Ansel_Exception($result);
+        try {
+            $this->_shares->removeShare($gallery);
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
         /* Expire the cache */
@@ -876,11 +880,11 @@ class Ansel_Storage
             return $counts[$key];
         }
 
-        $count = $this->_shares->countShares($userid, $perm, $attributes,
-                                            $parent, $allLevels);
-
-        if ($count instanceof PEAR_Error) {
-            throw new Ansel_Exception($count);
+        try {
+            $count = $this->_shares->countShares($userid, $perm, $attributes,
+                                                 $parent, $allLevels);
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
         $counts[$key] = $count;
@@ -920,12 +924,13 @@ class Ansel_Storage
                            $sort_by = null,
                            $direction = 0)
     {
-        $shares = $this->_shares->listShares(Horde_Auth::getAuth(), $perm, $attributes,
-                                             $from, $count, $sort_by, $direction,
-                                             $parent, $allLevels);
+        try {
+            $shares = $this->_shares->listShares(Horde_Auth::getAuth(), $perm, $attributes,
+                                                 $from, $count, $sort_by, $direction,
+                                                 $parent, $allLevels);
 
-        if ($shares instanceof PEAR_Error) {
-            throw new Ansel_Exception($shares);
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
         }
 
         return $shares;

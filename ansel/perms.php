@@ -28,37 +28,42 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = &$ansel_storage->getGallery(Horde_Util::getFormData('cid'));
-    if (!is_a($share, 'PEAR_Error')) {
+    try {
+        $share = $ansel_storage->getGallery(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
         $perm = &$share->getPermission();
-    } elseif (($share_name = Horde_Util::getFormData('share')) !== null) {
-        $share = &$ansel_storage->shares->getShare($share_name);
-        if (!is_a($share, 'PEAR_Error')) {
-            $form = 'edit.inc';
-            $perm = &$share->getPermission();
+    } catch (Horde_Share_Exception $e) {
+        if (($share_name = Horde_Util::getFormData('share')) !== null) {
+            try {
+                $share = $ansel_storage->shares->getShare($share_name);
+                $form = 'edit.inc';
+                $perm = $share->getPermission();
+            } catch (Horde_Share_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+            }
         }
     }
 
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push($share, 'horde.error');
-    } elseif (!Horde_Auth::getAuth() ||
-              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+    if (!Horde_Auth::getAuth() ||
+        (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
 
 case 'editform':
 case 'editforminherit':
-    $share = &$ansel_storage->getGallery(Horde_Util::getFormData('cid'));
-    if (is_a($share, 'PEAR_Error')) {
+    try {
+        $share = &$ansel_storage->getGallery(Horde_Util::getFormData('cid'));
+    } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
-    } else {
+    }
+
+    if (!empty($share)) {
         if (!Horde_Auth::getAuth() ||
             Horde_Auth::getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
@@ -244,11 +249,10 @@ case 'editforminherit':
     break;
 }
 
-if (is_a($share, 'PEAR_Error')) {
+if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
-    $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ, false,
-                                                         $share);
+    $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ, false, $share);
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 
@@ -261,7 +265,7 @@ if ($auth->hasCapability('list')) {
 
 $groupList = $groups->listGroups();
 asort($groupList);
-if (is_a($groupList, 'PEAR_Error')) {
+if ($groupList instanceof PEAR_Error) {
     Horde::logMessage($groupList, 'NOTICE');
     $groupList = array();
 }

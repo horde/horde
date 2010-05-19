@@ -43,18 +43,20 @@ case 'category':
     break;
 
 case 'owner':
-    $num_groups = $ansel_storage->shares->countOwners(Horde_Perms::SHOW, null,
-                                                      false);
-    if (is_a($num_groups, 'PEAR_Error')) {
-        $notification->push($num_groups);
+    try {
+        if ($num_groups = $ansel_storage->shares->countOwners(Horde_Perms::SHOW, null, false)) {
+
+            $groups = $ansel_storage->shares->listOwners(Horde_Perms::SHOW,
+                                                         null,
+                                                         false,
+                                                         $gbpage * $groups_perpage,
+                                                         $groups_perpage);
+        } else {
+            $groups = array();
+        }
+    } catch (Horde_Share_Exception $e) {
+        $notification->push($e->getMessage());
         $num_groups = 0;
-        $groups = array();
-    } elseif ($num_groups) {
-        $groups = $ansel_storage->shares->listOwners(Horde_Perms::SHOW, null,
-                                                     false,
-                                                     $gbpage * $groups_perpage,
-                                                     $groups_perpage);
-    } else {
         $groups = array();
     }
     break;

@@ -40,31 +40,33 @@ if (empty($rss)) {
     // Determine what we are requesting
     switch ($stream_type) {
     case 'all':
-        $images = $ansel_storage->getRecentImages();
-        if (is_a($images, 'PEAR_Error') || !count($images)) {
+        try {
+            $images = $ansel_storage->getRecentImages();
+        } catch (Ansel_Exception $e) {
             $images = array();
-        } else {
-            // Eventually would like the link to link to a search
-            // results page containing the same images present in this
-            // feed. For now, just link to the List view until some of
-            // the search code can be refactored.
-            $params = array('last_modified' => $images[0]->uploaded,
-                            'name' => sprintf(_("Recently added photos on %s"),
-                                              $conf['server']['name']),
-                            'link' => Ansel::getUrlFor('view',
-                                                       array('view' => 'List'),
-                                                       true),
-                            'desc' => sprintf(_("Recently added photos on %s"),
-                                              $conf['server']['name']),
-                            'image_url' => Ansel::getImageUrl($images[0]->id,
-                                                              'thumb', true),
-                            'image_alt' => $images[0]->caption,
-                            'image_link' => Ansel::getUrlFor(
-                                'view', array('image' => $images[0]->id,
-                                              'view' => 'Image',
-                                              'gallery' => $images[0]->gallery),
-                                true));
         }
+
+        // Eventually would like the link to link to a search
+        // results page containing the same images present in this
+        // feed. For now, just link to the List view until some of
+        // the search code can be refactored.
+        $params = array('last_modified' => $images[0]->uploaded,
+                        'name' => sprintf(_("Recently added photos on %s"),
+                                          $conf['server']['name']),
+                        'link' => Ansel::getUrlFor('view',
+                                                   array('view' => 'List'),
+                                                   true),
+                        'desc' => sprintf(_("Recently added photos on %s"),
+                                          $conf['server']['name']),
+                        'image_url' => Ansel::getImageUrl($images[0]->id,
+                                                          'thumb', true),
+                        'image_alt' => $images[0]->caption,
+                        'image_link' => Ansel::getUrlFor(
+                            'view', array('image' => $images[0]->id,
+                                          'view' => 'Image',
+                                          'gallery' => $images[0]->gallery),
+                            true));
+
         break;
 
     case 'gallery':
@@ -75,9 +77,9 @@ if (empty($rss)) {
         } elseif (is_numeric($id)) {
             $gallery = $ansel_storage->getGallery($id);
         }
-        if (!is_a($gallery, 'PEAR_Error') &&
-            $gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
+        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
             !$gallery->hasPasswd() && $gallery->isOldEnough()) {
+
             if (!$gallery->countImages() && $gallery->hasSubGalleries()) {
                 $subgalleries = $ansel_storage->listGalleries(Horde_Perms::SHOW,
                                                               null,
@@ -94,7 +96,7 @@ if (empty($rss)) {
             }
         }
 
-        if (!isset($images) || is_a($images, 'PEAR_Error') || !count($images)) {
+        if (!count($images)) {
             $images = array();
         } else {
             $style = $gallery->getStyle();
@@ -103,9 +105,6 @@ if (empty($rss)) {
                                               'gallery' => $id),
                                         true);
             $img = &$ansel_storage->getImage($gallery->getDefaultImage('ansel_default'));
-            if (is_a($img, 'PEAR_Error')) {
-                break;
-            }
             $params = array('last_modified' => $gallery->get('last_modified'),
                             'name' => sprintf(_("%s on %s"),
                                               $gallery->get('name'),
@@ -124,19 +123,25 @@ if (empty($rss)) {
         break;
 
     case 'user':
-        $shares = $ansel_storage->listGalleries(Horde_Perms::SHOW, $id);
-        if (!is_a($shares, 'PEAR_Error')) {
-            $galleries = array();
+        $galleries = array();
+        try {
+            $shares = $ansel_storage->listGalleries(Horde_Perms::SHOW, $id);
             foreach ($shares as $gallery) {
                 if ($gallery->isOldEnough() && !$gallery->hasPasswd()) {
                     $galleries[] = $gallery->id;
                 }
             }
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
         }
         $images = array();
         if (isset($galleries) && count($galleries)) {
-            $images = $ansel_storage->getRecentImages($galleries);
-            if (!is_a($images, 'PEAR_Error') && count($images)) {
+            try {
+                $images = $ansel_storage->getRecentImages($galleries);
+            } catch (Ansel_Exception $e) {
+                 Horde::logMessage($e->getMessage(), 'ERR');
+            }
+            if (count($images)) {
                 $owner = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($id);
                 $name = $owner->getValue('fullname');
                 $author = $owner->getValue('from_addr');
@@ -170,8 +175,13 @@ if (empty($rss)) {
         $tag_id = array_values(Ansel_Tags::getTagIds(array($id)));
         $images = Ansel_Tags::searchTagsById($tag_id, 10, 0, 'images');
         $tag_id = array_pop($tag_id);
-        $images = $ansel_storage->getImages(array('ids' => $images['images']));
-        if (!is_a($images, 'PEAR_Error') && count($images)) {
+        try {
+            $images = $ansel_storage->getImages(array('ids' => $images['images']));
+        } catch (Ansel_Exception $e) {
+             Horde::logMessage($e->getMessage(), 'ERR');
+             $images = array();
+        }
+        if (count($images)) {
             $tag_id = $tag_id[0];
             $images = array_values($images);
             $params = array('last_modified' => $images[0]->uploaded,
@@ -202,10 +212,9 @@ if (empty($rss)) {
         for ($i = 0; $i < $cnt; ++$i) {
             $gallery_id = $images[$i]->gallery;
             if (empty($galleries[$gallery_id])) {
-                $galleries[$gallery_id]['gallery'] = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-                if (is_a($galleries[$gallery_id]['gallery'], 'PEAR_Error')) {
-                    continue;
-                }
+                try {
+                    $galleries[$gallery_id]['gallery'] = $GLOBALS['ansel_storage']->getGallery($gallery_id);
+                } catch (Ansel_Exception $e) {}
             }
             if (!isset($galleries[$gallery_id]['perm'])) {
                 $galleries[$gallery_id]['perm'] =

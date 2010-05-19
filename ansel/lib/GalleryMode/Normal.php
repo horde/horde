@@ -191,7 +191,7 @@ class Ansel_GalleryMode_Normal {
             }
         }
 
-        $result = $this->_gallery->_shareOb->_write_db->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
+        $result = $this->_gallery->_shareOb->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
         if ($result instanceof PEAR_Error) {
             throw new Ansel_Exception($result->getMessage());
         }
@@ -244,10 +244,10 @@ class Ansel_GalleryMode_Normal {
         } catch (VFS_Exception $e) {}
 
         /* Delete from SQL. */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
+        $this->_gallery->_shareOb->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
 
         /* Remove any attributes */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
+        $this->_gallery->_shareOb->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
 
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
