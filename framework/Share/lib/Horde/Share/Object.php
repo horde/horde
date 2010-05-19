@@ -43,6 +43,16 @@ class Horde_Share_Object
     }
 
     /**
+     * Obtain this object's share driver.
+     *
+     * @return Horde_Share  The share driver.
+     */
+    public function getShareOb()
+    {
+        return $this->_shareOb;
+    }
+
+    /**
      * Sets an attribute value in this object.
      *
      * @param string $attribute  The attribute to set.
