@@ -69,7 +69,7 @@ class Horde_Core_Factory_Share
         $signature = $app . '_' . $driver;
         if (!isset($this->_instances[$signature]) &&
             !empty($GLOBALS['conf']['share']['cache'])) {
-            
+
             $session = new Horde_SessionObjects();
             $shares[$signature] = $session->query('horde_share_' . $app . '_' . $driver . '1');
         }
@@ -78,7 +78,7 @@ class Horde_Core_Factory_Share
             if (!class_exists($class)) {
                 throw new Horde_Exception((sprintf(_("\"%s\" share driver not found."), $driver)));
             }
-            
+
             $shares[$signature] = new $class($app);
         }
 
