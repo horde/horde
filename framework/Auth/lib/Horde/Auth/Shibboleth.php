@@ -83,7 +83,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     public function checkExistingAuth()
     {
         return !empty($_SERVER[$this->_params['username_header']]) &&
-            $_SERVER[$this->_params['username_header']] == Horde_Auth::getAuth();
+            $this->_removeScope($_SERVER[$this->_params['username_header']]) == Horde_Auth::getAuth();
     }
 
     /**
@@ -101,12 +101,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
         $username = $_SERVER[$this->_params['username_header']];
 
         // Remove scope from username, if present.
-        $pos = strrpos($username, '@');
-        if ($pos !== false) {
-            $username = substr($username, 0, $pos);
-        }
-
-        $this->_credentials['userId'] = $username;
+        $this->_credentials['userId'] = $this->_removeScope($username);
 
         // Set password for hordeauth login.
         switch ($this->_params['password_holder']) {
@@ -123,6 +118,22 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
         }
 
         return true;
+    }
+
+    /**
+     * Removes the scope from the user name, if present.
+     *
+     * @param string $username  The full user name.
+     *
+     * @return string  The user name without scope.
+     */
+    protected function _removeScope($username)
+    {
+        $pos = strrpos($username, '@');
+        if ($pos !== false) {
+            $username = substr($username, 0, $pos);
+        }
+        return $username;
     }
 
 }
