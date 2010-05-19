@@ -37,11 +37,8 @@ class Horde_Share_Object
      *
      * @param Horde_Share $shareOb  The Share object.
      */
-    public function setShareOb($shareOb)
+    public function setShareOb(Horde_Share $shareOb)
     {
-        if (!($shareOb instanceof Horde_Share)) {
-            throw new Horde_Share_Exception('This object needs a Horde_Share instance as storage handler!');
-        }
         $this->_shareOb = $shareOb;
     }
 
