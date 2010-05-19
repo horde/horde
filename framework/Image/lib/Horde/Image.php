@@ -211,7 +211,8 @@ class Horde_Image
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return mixed  Horde_Image object | PEAR_Error
+     * @return mixed  Horde_Image object
+     * @throws Horde_Image_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -221,14 +222,6 @@ class Horde_Image
 
         $driver = basename($driver);
         $class = 'Horde_Image_' . $driver;
-        if (!class_exists($class)) {
-            if (!empty($app)) {
-                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Image/' . $driver . '.php';
-            } else {
-                include_once 'Horde/Image/' . $driver . '.php';
-            }
-        }
-
         if (!empty($params['context']) && count($params['context'])) {
             $context = $params['context'];
             unset($params['context']);
@@ -236,12 +229,10 @@ class Horde_Image
             $context = array();
         }
         if (class_exists($class)) {
-            $image = new $class($params, $context);
+            return new $class($params, $context);
         } else {
-            $image = PEAR::raiseError('Class definition of ' . $class . ' not found.');
+            throw new Horde_Image_Exception('Invalid Image driver specified: ' . $class . ' not found.');
         }
-
-        return $image;
     }
 
     /**
