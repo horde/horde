@@ -87,7 +87,12 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
-        unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
+        unset(
+            $dsnOpts['adapter'],
+            $dsnOpts['username'],
+            $dsnOpts['password'],
+            $dsnOpts['write_db']
+        );
         $dsnOpts = $this->_normalizeConfig($dsnOpts);
 
         if (isset($dsnOpts['port'])) {
