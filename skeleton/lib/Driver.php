@@ -32,7 +32,7 @@ class Skeleton_Driver
      *                        or connection parameters a subclass might need.
      *
      * @return Skeleton_Driver  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Skeleton_Exception
      */
     static public function factory($driver = null, $params = null)
     {
@@ -50,7 +50,7 @@ class Skeleton_Driver
             return new $class($params);
         }
 
-        throw new Horde_Exception('Could not find driver ' . $class);
+        throw new Skeleton_Exception('Could not find driver ' . $class);
     }
 
     /**

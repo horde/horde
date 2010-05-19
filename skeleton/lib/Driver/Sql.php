@@ -65,7 +65,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
     /**
      * Retrieves the foos from the database.
      *
-     * @throws Horde_Skeleton_Exception
+     * @throws Skeleton_Exception
      */
     public function retrieve()
     {
@@ -77,7 +77,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         try {
             $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Skeleton_Exception($e);
+            throw new Skeleton_Exception($e);
         }
 
         /* Store the retrieved values in the foo variable. */
