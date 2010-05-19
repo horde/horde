@@ -154,7 +154,7 @@ class Ingo
      *
      * @param string $folder  The name of the folder to create.
      *
-     * @return boolean  True on success, false if not created. PEAR_Error on
+     * @return boolean  True on success, false if not created.
      * @throws Horde_Exception
      */
     static public function createFolder($folder)
@@ -376,9 +376,10 @@ class Ingo
     static public function listRulesets($owneronly = false,
                                         $permission = Horde_Perms::SHOW)
     {
-        $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
-        if ($rulesets instanceof PEAR_Error) {
-            Horde::logMessage($rulesets, 'ERR');
+        try {
+            $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 
@@ -423,12 +424,12 @@ class Ingo
     static public function getMenu()
     {
         $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (!is_a($whitelist_url = $GLOBALS['registry']->link('mail/showWhitelist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($whitelist_url), _("_Whitelist"), 'whitelist.png');
-        }
-        if (!is_a($blacklist_url = $GLOBALS['registry']->link('mail/showBlacklist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($blacklist_url), _("_Blacklist"), 'blacklist.png');
+        try {
+            $menu->add(Horde::applicationUrl('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
         }
         if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
             $menu->add(Horde::applicationUrl('vacation.php'), _("_Vacation"), 'vacation.png');

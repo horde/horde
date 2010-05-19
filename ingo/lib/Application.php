@@ -177,35 +177,32 @@ class Ingo_Application extends Horde_Registry_Application
         /* Now remove all shares owned by the user. */
         if (!empty($GLOBALS['ingo_shares'])) {
             /* Get the user's default share. */
-            $share = $GLOBALS['ingo_shares']->getShare($user);
-            if ($share instanceof PEAR_Error) {
-                Horde::logMessage($share, 'ERR');
-                throw new Horde_Auth_Exception($share);
-            }
-
-            $result = $GLOBALS['ingo_shares']->removeShare($share);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Auth_Exception($share);
+            try {
+                $share = $GLOBALS['ingo_shares']->getShare($user);
+                $GLOBALS['ingo_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Ingo_Exception($e);
             }
 
             /* Get a list of all shares this user has perms to and remove the
              * perms. */
-            $shares = $GLOBALS['ingo_shares']->listShares($user);
-            if ($shares instanceof PEAR_Error) {
-                Horde::logMessage($shares, 'ERR');
-            } else {
+            try {
+                $shares = $GLOBALS['ingo_shares']->listShares($user);
                 foreach ($shares as $share) {
                     $share->removeUser($user);
                 }
+            } catch (Horde_Shares_Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
 
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
-            $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
-            if ($shares instanceof PEAR_Error) {
-                Horde::logMessage($shares, 'ERR');
-                throw new Horde_Auth_Exception($share);
+            try {
+                $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ingo_Exception($e);
             }
 
             foreach ($shares as $share) {
