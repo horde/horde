@@ -92,7 +92,12 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     }
 
     /**
+     * Call each ReflectionMethod in the $setters array, filling in its
+     * dependencies with the $injector.
      *
+     * @param array $setters  Array of ReflectionMethods to call
+     * @param Horde_Injector $injector  The Horde_Injector to get dependencies from
+     * @param object $instance  The object to call setters on
      */
     private function _callSetters(array $setters, Horde_Injector $injector, $instance)
     {
