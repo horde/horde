@@ -104,10 +104,9 @@ class IMP_Views_Compose
         }
 
         // Buffer output so that we can return a string from this function
-        ob_start();
+        Horde::startBuffer();
         require IMP_TEMPLATES . '/dimp/chunks/compose.php';
-        $result['html'] .= ob_get_contents();
-        ob_clean();
+        $result['html'] .= Horde::endBuffer();
 
         return $result;
     }
