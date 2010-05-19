@@ -38,19 +38,21 @@ class Horde_Core_Binder_Db implements Horde_Injector_Binder
             $config['host'] = $config['hostspec'];
         }
 
-        if (!isset($config['logger'])) {
-            $config['logger'] = $injector->getInstance('Horde_Log_Logger');
-        }
-
-        if (!isset($config['cache'])) {
-            $config['cache'] = $injector->getInstance('Horde_Cache');
-        }
-
         $adapter = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($config['adapter']))));
         $class = 'Horde_Db_Adapter_' . $adapter;
 
         if (class_exists($class)) {
-            return new $class($config);
+            $ob = new $class($config);
+
+            if (!isset($config['cache'])) {
+                $ob->setCache($injector->getInstance('Horde_Cache'));
+            }
+
+            if (!isset($config['logger'])) {
+                $ob->setLogger($injector->getInstance('Horde_Log_Logger'));
+            }
+
+            return $ob;
         }
 
         throw new Horde_Exception('Adapter class "' . $class . '" not found');

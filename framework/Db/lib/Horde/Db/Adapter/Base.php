@@ -48,7 +48,7 @@ abstract class Horde_Db_Adapter_Base
     /**
      * @var int
      */
-    protected $_runtime = null;
+    protected $_runtime;
 
     /**
      * @var boolean
@@ -56,14 +56,14 @@ abstract class Horde_Db_Adapter_Base
     protected $_active = null;
 
     /**
-     * @var Cache object
+     * @var Horde_Cache_Base
      */
-    protected $_cache = null;
+    protected $_cache;
 
     /**
-     * @var Logger
+     * @var Horde_Log_Logger
      */
-    protected $_logger = null;
+    protected $_logger;
 
     /**
      * @var Horde_Db_Adapter_Base_Schema
@@ -97,32 +97,18 @@ abstract class Horde_Db_Adapter_Base
      *
      * @param array $config  Configuration options and optional objects:
      * <pre>
-     * 'cache' - (Horde_Cache) Cache object.
      * 'charset' - (string) TODO
-     * 'logger' - (Horde_Log_Logger) Logging object.
      * 'write_db' - (Horde_Db_Adapter_Base) Use this DB for write operations.
      * </pre>
      */
     public function __construct($config)
     {
-        // Create a stub if we don't have a useable cache.
-        if (isset($config['cache'])
-            && is_callable(array($config['cache'], 'get'))
-            && is_callable(array($config['cache'], 'set'))) {
-            $this->_cache = $config['cache'];
-            unset($config['cache']);
-        } else {
-            $this->_cache = new Horde_Support_Stub;
-        }
-
-        // Create a stub if we don't have a useable logger.
-        if (isset($config['logger'])
-            && is_callable(array($config['logger'], 'log'))) {
-            $this->_logger = $config['logger'];
-            unset($config['logger']);
-        } else {
-            $this->_logger = new Horde_Support_Stub;
-        }
+        /* Can't set cache/logger in constructor - these objects may use DB
+         * for storage. Add stubs for now - they have to be manually set
+         * later with setCache() and setLogger(). */
+        $stub = new Horde_Support_Stub();
+        $this->_cache = $stub;
+        $this->_logger = $stub;
 
         // Default to UTF-8
         if (!isset($config['charset'])) {
@@ -132,16 +118,9 @@ abstract class Horde_Db_Adapter_Base
         $this->_config  = $config;
         $this->_runtime = 0;
 
-        // Create the database-specific (but not adapter specific) schema
-        // object.
         if (!$this->_schemaClass) {
             $this->_schemaClass = __CLASS__ . '_Schema';
         }
-        $this->_schema = new $this->_schemaClass($this, array(
-            'cache' => $this->_cache,
-            'logger' => $this->_logger
-        ));
-        $this->_schemaMethods = array_flip(get_class_methods($this->_schema));
 
         $this->connect();
     }
@@ -152,6 +131,31 @@ abstract class Horde_Db_Adapter_Base
     public function __destruct()
     {
         $this->disconnect();
+    }
+
+
+    /*##########################################################################
+    # Object helpers
+    ##########################################################################*/
+
+    /**
+     * Set a cache object.
+     *
+     * @var Horde_Cache_Base $logger  The cache object.
+     */
+    public function setCache(Horde_Cache_Base $cache)
+    {
+        $this->_cache = $cache;
+    }
+
+    /**
+     * Set a logger object.
+     *
+     * @var Horde_Log_Logger $logger  The logger object.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
 
@@ -191,6 +195,16 @@ abstract class Horde_Db_Adapter_Base
      */
     public function __call($method, $args)
     {
+        if (!$this->_schema) {
+            // Create the database-specific (but not adapter specific) schema
+            // object.
+            $this->_schema = new $this->_schemaClass($this, array(
+                'cache' => $this->_cache,
+                'logger' => $this->_logger
+            ));
+            $this->_schemaMethods = array_flip(get_class_methods($this->_schema));
+        }
+
         if (isset($this->_schemaMethods[$method])) {
             return call_user_func_array(array($this->_schema, $method), $args);
         }
