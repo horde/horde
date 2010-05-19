@@ -220,7 +220,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $dsnOpts['protocol'],
             $dsnOpts['persistent'],
             $dsnOpts['charset'],
-            $dsnOpts['phptype']
+            $dsnOpts['phptype'],
+            $dsnOpts['write_db']
         );
 
         // return DSN and user/pass for connection
