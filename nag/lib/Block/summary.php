@@ -202,7 +202,7 @@ class Horde_Block_nag_summary extends Horde_Block {
 
             if (!empty($this->_params['show_tasklist'])) {
                 $owner = $task->tasklist;
-                $shares = &Horde_Share::singleton($registry->getApp());
+                $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
                 $share = $shares->getShare($owner);
                 if (!is_a($share, 'PEAR_Error')) {
                     $owner = $share->get('name');

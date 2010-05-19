@@ -401,7 +401,7 @@ class Mnemo {
      */
     public static function initialize()
     {
-        $GLOBALS['mnemo_shares'] = Horde_Share::singleton($GLOBALS['injector']->getInstance('Horde_Registry')->getApp());
+        $GLOBALS['mnemo_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         // Update the preference for which notepads to display. If the
         // user doesn't have any selected notepads for view then fall

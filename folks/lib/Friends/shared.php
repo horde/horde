@@ -42,7 +42,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function getGroupOwner($group)
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         $share = $GLOBALS['folks_shares']->getShareById($group);
         if ($share instanceof PEAR_Error) {
@@ -57,7 +57,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     protected function _getGroups()
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
         if ($groups instanceof PEAR_Error) {
@@ -83,7 +83,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(_("A group names cannot be empty"));
         }
 
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         $share = $GLOBALS['folks_shares']->getShareById($group);
         if ($share instanceof PEAR_Error) {
@@ -115,7 +115,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function removeGroup($group)
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         $share = $GLOBALS['folks_shares']->getShareById($group);
         if ($share instanceof PEAR_Error) {
@@ -165,7 +165,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(sprintf(_("You already have a group named \"%s\"."), $name));
         }
 
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         $share = $GLOBALS['folks_shares']->newShare(hash('md5', microtime()));
         if ($share instanceof PEAR_Error) {

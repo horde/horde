@@ -12,7 +12,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Group.php';
 
-$shares = &Horde_Share::singleton('folks');
+$shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = &Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 

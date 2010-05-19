@@ -248,6 +248,7 @@ class Horde_Registry
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
+            'Horde_Share' => new Horde_Core_Binder_Share(),
             'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),

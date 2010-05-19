@@ -337,7 +337,7 @@ class Group_contactlists extends Group {
             if ($source['use_shares']) {
                 if (empty($contact_shares)) {
                     $scope = $GLOBALS['registry']->hasInterface('contacts');
-                    $shares = Horde_Share::singleton($scope);
+                    $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
                     $this->_contact_shares = $shares->listShares(Horde_Auth::getAuth(), Horde_Perms::SHOW, Horde_Auth::getAuth());
                 }
                 // Contruct a list of owner ids to use

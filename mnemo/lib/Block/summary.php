@@ -57,7 +57,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
         $fgcolors = $cManager->fgColors();
 
         if (!empty($this->_params['show_notepad'])) {
-            $shares = &Horde_Share::singleton('mnemo');
+            $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
         }
 
         $html = '';

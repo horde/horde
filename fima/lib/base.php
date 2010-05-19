@@ -48,6 +48,6 @@ Horde::compressOutput();
 Horde_Nls::setTimeZone();
 
 // Create a share instance.
-$GLOBALS['fima_shares'] = Horde_Share::singleton($registry->getApp());
+$GLOBALS['fima_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
 Fima::initialize();

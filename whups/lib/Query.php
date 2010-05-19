@@ -876,7 +876,7 @@ class Whups_QueryManager {
      */
     function Whups_QueryManager()
     {
-        $this->_shareManager = &Horde_Share::singleton('whups');
+        $this->_shareManager = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
     }
 
     /**

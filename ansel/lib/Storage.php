@@ -62,9 +62,7 @@ class Ansel_Storage
         }
 
         /* This is the only supported share backend for Ansel */
-        $this->_shares = Horde_Share::singleton($this->_scope,
-                                               'sql_hierarchical');
-
+        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($this->_scope, 'Sql_Hierarchical');
         /* Ansel_Gallery is just a subclass of Horde_Share_Object */
         $this->_shares->setShareClass('Ansel_Gallery');
 

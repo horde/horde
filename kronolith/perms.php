@@ -19,7 +19,7 @@ if (!empty($conf['share']['no_sharing'])) {
     throw new Horde_Exception('Permission denied.');
 }
 
-$shares = Horde_Share::singleton('kronolith');
+$shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 

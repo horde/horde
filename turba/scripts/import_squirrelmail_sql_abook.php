@@ -40,7 +40,7 @@ $handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label 
 if (is_a($handle, 'PEAR_Error')) {
     $cli->fatal($handle->toString());
 }
-$turba_shares = Horde_Share::singleton('turba');
+$turba_shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $user = null;
 $count = 0;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {

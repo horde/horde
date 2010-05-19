@@ -68,7 +68,7 @@ class Kronolith_Application extends Horde_Registry_Application
         Horde_Nls::setTimeZone();
 
         /* Create a share instance. */
-        $GLOBALS['kronolith_shares'] = Horde_Share::singleton($GLOBALS['registry']->getApp());
+        $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
         Kronolith::initialize();
     }

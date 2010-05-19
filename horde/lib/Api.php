@@ -500,19 +500,19 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Adds a share to the shares system.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $shareTitle  The share's human readable title.
      * @param string $userName    The share's owner.
      */
-    public function addShare($shareRoot, $shareName, $shareTitle, $userName)
+    public function addShare($scope, $shareName, $shareTitle, $userName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to add shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->newShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -530,17 +530,17 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a share from the shares system permanently.
      *
-     * @param string $shareRoot  The name of the share root, e.g. the
+     * @param string $scope      The name of the share root, e.g. the
      *                           application that the share belongs to.
      * @param string $shareName  The share's name.
      */
-    public function removeShare($shareRoot, $shareName)
+    public function removeShare($scope, $shareName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to delete shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -556,19 +556,19 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns an array of all shares that $userName is the owner of.
      *
-     * @param string $shareRoot  The name of the share root, e.g. the
+     * @param string $scope      The name of the share root, e.g. the
      *                           application that the share belongs to.
      * @param string $userName   The share's owner.
      *
      * @return array  The list of shares.
      */
-    public function listSharesOfOwner($shareRoot, $userName)
+    public function listSharesOfOwner($scope, $userName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         $share_list = &$shares->listShares($userName, Horde_Perms::SHOW, $userName);
         $myshares = array();
@@ -582,20 +582,20 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Gives a user certain privileges for a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      */
-    public function addUserPermissions($shareRoot, $shareName, $userName,
+    public function addUserPermissions($scope, $shareName, $userName,
         $permissions)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -619,13 +619,13 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Gives a group certain privileges for a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      */
-    public function addGroupPermissions($shareRoot, $shareName, $groupName,
+    public function addGroupPermissions($scope, $shareName, $groupName,
         $permissions)
     {
         if (!Horde_Auth::isAdmin()) {
@@ -633,7 +633,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         require_once 'Horde/Group.php';
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
         $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
@@ -661,18 +661,18 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a user from a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
      */
-    public function removeUserPermissions($shareRoot, $shareName, $userName)
+    public function removeUserPermissions($scope, $shareName, $userName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -688,19 +688,19 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes a group from a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
      */
-    public function removeGroupPermissions($shareRoot, $shareName, $groupName)
+    public function removeGroupPermissions($scope, $shareName, $groupName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
         require_once 'Horde/Group.php';
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
         $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
@@ -720,14 +720,14 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns an array of all user permissions on a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope  The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
      *
      * @return array  All user permissions for this share.
      */
-    public function listUserPermissions($shareRoot, $shareName, $userName)
+    public function listUserPermissions($scope, $shareName, $userName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list share permissions."));
@@ -738,7 +738,7 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::EDIT => 'edit',
             Horde_Perms::DELETE => 'delete');
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -761,14 +761,14 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns an array of all group permissions on a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
      *
      * @return array  All group permissions for this share.
      */
-    public function listGroupPermissions($shareRoot, $shareName, $groupName)
+    public function listGroupPermissions($scope, $shareName, $groupName)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list share permissions."));
@@ -779,7 +779,7 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::EDIT => 'edit',
             Horde_Perms::DELETE => 'delete');
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -802,20 +802,20 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a list of users which have have certain permissions on a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      *
      * @return array  List of users with the specified permissions.
      */
-    public function listUsersOfShare($shareRoot, $shareName, $permissions)
+    public function listUsersOfShare($scope, $shareName, $permissions)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list users of shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;
@@ -835,20 +835,20 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a list of groups which have have certain permissions on a share.
      *
-     * @param string $shareRoot   The name of the share root, e.g. the
+     * @param string $scope   The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      *
      * @return array  List of groups with the specified permissions.
      */
-    public function listGroupsOfShare($shareRoot, $shareName, $permissions)
+    public function listGroupsOfShare($scope, $shareName, $permissions)
     {
         if (!Horde_Auth::isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list groups of shares."));
         }
 
-        $shares = Horde_Share::singleton($shareRoot);
+        $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             return $share;

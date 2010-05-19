@@ -488,7 +488,7 @@ class Folks_Driver {
 
         // Delete groups
         if ($GLOBALS['conf']['friends']) {
-            $shares = Horde_Share::singleton('folks');
+            $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
             $groups = $shares->listShares(Horde_Auth::getAuth(), Horde_Perms::SHOW, true);
             foreach ($groups as $share) {
                 $result = $shares->removeShare($share);

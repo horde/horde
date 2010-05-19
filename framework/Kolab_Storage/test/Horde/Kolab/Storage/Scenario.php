@@ -88,7 +88,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Integration_Scenar
             $folder->setACL($arguments[0], 'alrid');
             break;
         case 'retrieving the list of shares for the application':
-            $shares = Horde_Share::singleton($arguments[0], 'kolab');
+            $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($arguments[0], 'kolab');
 
             $world['list'] = $shares->listShares(Auth::getAuth());
             break;

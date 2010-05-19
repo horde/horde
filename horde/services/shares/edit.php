@@ -26,7 +26,7 @@ $fieldsList = array(
 );
 
 $app = Horde_Util::getFormData('app');
-$shares = Horde_Share::singleton($app);
+$shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($app);
 $groups = Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if ($registry->hasMethod('shareHelp', $app)) {
