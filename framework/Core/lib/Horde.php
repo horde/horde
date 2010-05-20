@@ -1975,7 +1975,7 @@ HTML;
             $params->width = $options['width'];
         }
 
-        return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';
+        return 'void(Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . '));';
     }
 
     /**
