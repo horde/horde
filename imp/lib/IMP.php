@@ -340,7 +340,7 @@ class IMP
         }
 
         $options += self::getComposeArgs();
-        header('Location: ' . Horde::applicationUrl('compose.php', true)->setRaw(true)->add($options));
+        header('Location: ' . Horde::applicationUrl('compose.php', true)->add($options));
         return true;
     }
 
@@ -416,7 +416,7 @@ class IMP
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
-            return "javascript:" . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
+            return 'javascript:' . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
         }
 
         return Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
