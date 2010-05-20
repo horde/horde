@@ -966,6 +966,7 @@ ul.sound-list {
     background-position: 3px center;
     background-repeat: no-repeat;
     color: #fff;
+    overflow-x: hidden;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;

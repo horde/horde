@@ -467,6 +467,7 @@ body.kronolithAjax {
     margin-top: 10px;
     margin-right: 10px;
     text-align: right;
+    white-space: nowrap;
 }
 .kronolithNotifications {
     background-color: #d9d9d9
@@ -590,6 +591,7 @@ body.kronolithAjax {
 }
 #kronolithAddEvents {
     margin-bottom: 35px;
+    white-space: nowrap;
 }
 #kronolithAddEvents span {
     /* We need some style here. */
