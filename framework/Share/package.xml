@@ -26,43 +26,43 @@ resources a user owns or has access to.</description>
 * Converted to Horde 4 coding standards
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
+  <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Share">
       <dir name="Object">
        <dir name="Datatree">
-        <file baseinstalldir="/" name="Share.php" role="php" />
+        <file name="Share.php" role="php" />
        </dir> <!-- /lib/Horde/Share/Object/Datatree -->
        <dir name="Sql">
-        <file baseinstalldir="/" name="Hierarchical.php" role="php" />
+        <file name="Hierarchical.php" role="php" />
        </dir> <!-- /lib/Horde/Share/Object/Sql -->
-       <file baseinstalldir="/" name="Datatree.php" role="php" />
-       <file baseinstalldir="/" name="Kolab.php" role="php" />
-       <file baseinstalldir="/" name="Sql.php" role="php" />
+       <file name="Datatree.php" role="php" />
+       <file name="Kolab.php" role="php" />
+       <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Object -->
       <dir name="Sql">
-       <file baseinstalldir="/" name="Hierarchical.php" role="php" />
+       <file name="Hierarchical.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Sql -->
-      <file baseinstalldir="/" name="Datatree.php" role="php" />
-      <file baseinstalldir="/" name="Exception.php" role="php" />
-      <file baseinstalldir="/" name="Kolab.php" role="php" />
-      <file baseinstalldir="/" name="Object.php" role="php" />
-      <file baseinstalldir="/" name="Sql.php" role="php" />
+      <file name="Datatree.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Kolab.php" role="php" />
+      <file name="Object.php" role="php" />
+      <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Share -->
-     <file baseinstalldir="/" name="Share.php" role="php" />
+     <file  name="Share.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="tests">
     <dir name="Horde">
      <dir name="Share">
-      <file baseinstalldir="/" name="AllTests.php" role="php" />
-      <file baseinstalldir="/" name="KolabScenarioTest.php" role="php" />
+      <file name="AllTests.php" role="php" />
+      <file name="KolabScenarioTest.php" role="php" />
      </dir> <!-- /tests/Horde/Share -->
     </dir> <!-- /tests/Horde -->
-    <file baseinstalldir="/" name="kolab_createdefault.phpt" role="data" />
-    <file baseinstalldir="/" name="kolab_list.phpt" role="data" />
-    <file baseinstalldir="/" name="kolab_simple.phpt" role="data" />
+    <file name="kolab_createdefault.phpt" role="data" />
+    <file name="kolab_list.phpt" role="data" />
+    <file name="kolab_simple.phpt" role="data" />
    </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>
