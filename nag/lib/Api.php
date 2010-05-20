@@ -1382,7 +1382,7 @@ class Nag_Api extends Horde_Registry_Api
         $tasklists = is_null($user) ? array_keys($GLOBALS['nag_shares']->listAllShares()) :  $GLOBALS['display_tasklists'];
 
         $alarms = Nag::listAlarms($time, $tasklists);
-        if (is_a($alarms instanceof PEAR_Error) {
+        if ($alarms instanceof PEAR_Error) {
             return $alarms;
         }
 
