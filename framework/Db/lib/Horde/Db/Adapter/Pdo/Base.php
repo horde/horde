@@ -32,6 +32,10 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         list($dsn, $user, $pass) = $this->_parseConfig();
 
         $oldErrorReporting = error_reporting(0);
@@ -59,7 +63,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-       return isset($this->_connection) && $this->_connection->query('SELECT 1');
+        return isset($this->_connection) &&
+               $this->_connection->query('SELECT 1');
     }
 
 

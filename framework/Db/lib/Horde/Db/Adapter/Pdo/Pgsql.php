@@ -75,10 +75,16 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     ##########################################################################*/
 
     /**
-     * Connect to the db
+     * Connect to the db.
+     *
+     * @throws Horde_Db_Exception
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         parent::connect();
 
         $retval = $this->_connection->exec("SET datestyle TO 'iso'");

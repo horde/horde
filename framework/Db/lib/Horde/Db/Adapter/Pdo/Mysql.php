@@ -56,6 +56,10 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         parent::connect();
 
         // ? $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);

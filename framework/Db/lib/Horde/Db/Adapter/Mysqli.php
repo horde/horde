@@ -112,6 +112,10 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         $config = $this->_parseConfig();
 
         if (!empty($config['ssl'])) {
