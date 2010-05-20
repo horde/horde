@@ -11,7 +11,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
+class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
 {
     /**
      * The gallery mode helper
