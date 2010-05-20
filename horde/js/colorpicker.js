@@ -287,7 +287,7 @@ var ColorPicker = Class.create({
         this.updateColor();
         e.element().down().show().next().hide();
         e.stop();
-    },
+    }
 
 });
 

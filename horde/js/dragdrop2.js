@@ -342,7 +342,7 @@ Drag = Class.create({
                 // padding and margins, for later usage.
                 this.dim = {
                     width: layout.get('margin-box-width'),
-                    height: layout.get('margin-box-height'),
+                    height: layout.get('margin-box-height')
                 }
 
                 if (this.options.ghosting) {
