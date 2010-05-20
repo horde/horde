@@ -466,8 +466,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * <pre>
      * 'checkcache' - (integer) If 1, only send data if cache has been
      *                invalidated.
-     * 'rangeslice' - (string) Range slice. See js/ViewPort.js.
-     * 'requestid' - (string) Request ID. See js/ViewPort.js.
+     * 'rangeslice' - (string) Range slice. See js/viewport.js.
+     * 'requestid' - (string) Request ID. See js/viewport.js.
      * 'sortby' - (integer) The Horde_Imap_Client sort constant.
      * 'sortdir' - (integer) 0 for ascending, 1 for descending.
      * 'view' - (string) The current full mailbox name.
@@ -1695,7 +1695,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     }
 
     /**
-     * Generates the delete data needed for DimpBase.js.
+     * Generates the delete data needed for dimpbase.js.
      *
      * See the list of variables needed for _viewPortData().
      *

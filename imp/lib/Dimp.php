@@ -58,8 +58,8 @@ class IMP_Dimp
         $core_scripts = array(
             array('effects.js', 'horde'),
             array('horde.js', 'horde'),
-            array('DimpCore.js', 'imp'),
-            array('Growler.js', 'horde')
+            array('dimpcore.js', 'imp'),
+            array('growler.js', 'horde')
         );
         foreach (array_merge($core_scripts, $scripts) as $val) {
             call_user_func_array(array('Horde', 'addScriptFile'), $val);

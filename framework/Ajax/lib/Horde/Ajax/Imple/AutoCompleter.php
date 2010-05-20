@@ -46,7 +46,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
         $config = $this->_attach(array('tokens' => array(',', ';')));
 
         Horde::addScriptFile('autocomplete.js', 'horde');
-        Horde::addScriptFile('KeyNavList.js', 'horde');
+        Horde::addScriptFile('keynavlist.js', 'horde');
         Horde::addScriptFile('liquidmetal.js', 'horde');
         if (isset($config['ajax'])) {
             $func = 'Ajax.Autocompleter';

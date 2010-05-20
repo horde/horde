@@ -1,5 +1,5 @@
 /**
- * ViewPort.js - Code to create a viewport window, with optional split pane
+ * viewport.js - Code to create a viewport window, with optional split pane
  * functionality.
  *
  * Usage:

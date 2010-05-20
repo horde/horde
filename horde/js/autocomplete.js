@@ -1,7 +1,7 @@
 /**
  * autocomplete.js - A javascript library which implements autocomplete.
  * Requires prototype.js v1.6.0.2+, scriptaculous v1.8.0+ (effects.js),
- * and KeyNavList.js.
+ * and keynavlist.js.
  *
  * Adapted from script.aculo.us controls.js v1.8.0
  *   (c) 2005-2007 Thomas Fuchs, Ivan Krstic, and Jon Tirsen

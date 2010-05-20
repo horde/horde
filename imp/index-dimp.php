@@ -18,12 +18,12 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 $scripts = array(
-    array('DimpBase.js', 'imp'),
-    array('ViewPort.js', 'imp'),
+    array('dimpbase.js', 'imp'),
+    array('viewport.js', 'imp'),
     array('dialog.js', 'imp'),
     array('mailbox-dimp.js', 'imp'),
     array('imp.js', 'imp'),
-    array('ContextSensitive.js', 'horde'),
+    array('contextsensitive.js', 'horde'),
     array('dragdrop2.js', 'horde'),
     array('popup.js', 'horde'),
     array('redbox.js', 'horde'),

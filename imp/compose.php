@@ -579,7 +579,7 @@ if ($browser->hasFeature('javascript')) {
                 Horde::logMessage($e, 'ERR');
             }
         }
-        Horde::addScriptFile('ieEscGuard.js', 'horde');
+        Horde::addScriptFile('ieescguard.js', 'horde');
     }
 }
 

@@ -120,7 +120,7 @@ if ($conf['objects']['allow_absences']) {
 $title = _("Search");
 $notification->push('document.skoli_searchform.stext.focus();', 'javascript');
 
-Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 require SKOLI_TEMPLATES . '/common-header.inc';

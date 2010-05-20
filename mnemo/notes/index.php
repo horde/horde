@@ -40,7 +40,7 @@ $memos = $search_results;
 Horde::addScriptFile('tooltips.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
+Horde::addScriptFile('quickfinder.js', 'horde', true);
 
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';

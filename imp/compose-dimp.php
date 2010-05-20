@@ -211,7 +211,7 @@ $scripts = array(
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
-    array('TextareaResize.js', 'horde')
+    array('textarearesize.js', 'horde')
 );
 
 if (!($prefs->isLocked('default_encrypt')) &&

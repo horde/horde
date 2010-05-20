@@ -1,5 +1,5 @@
 /**
- * DimpCore.js - Dimp UI application logic.
+ * dimpcore.js - Dimp UI application logic.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *

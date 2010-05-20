@@ -96,7 +96,7 @@ $template->set('notify', Horde::endBuffer());
 $title = _("Feeds");
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
+Horde::addScriptFile('quickfinder.js', 'horde', true);
 require JONAH_TEMPLATES . '/common-header.inc';
 echo $template->fetch(JONAH_TEMPLATES . '/channels/index.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

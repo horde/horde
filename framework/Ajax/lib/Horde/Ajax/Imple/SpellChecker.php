@@ -57,8 +57,8 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
     {
         Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('KeyNavList.js', 'horde');
-        Horde::addScriptFile('SpellChecker.js', 'horde');
+        Horde::addScriptFile('keynavlist.js', 'horde');
+        Horde::addScriptFile('spellchecker.js', 'horde');
 
         $opts = array(
             'locales' => $this->_params['locales'],

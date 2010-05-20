@@ -400,7 +400,7 @@ class Turba_View_Browse {
             $templates[] = '/browse/header.inc';
         }
 
-        Horde::addScriptFile('QuickFinder.js', 'horde');
+        Horde::addScriptFile('quickfinder.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         require TURBA_TEMPLATES . '/common-header.inc';

@@ -1,5 +1,5 @@
 /**
- * DimpBase.js - Javascript used in the base DIMP page.
+ * dimpbase.js - Javascript used in the base DIMP page.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *

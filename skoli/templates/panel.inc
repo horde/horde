@@ -1,5 +1,5 @@
 <?php
-Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('quickfinder.js', 'horde');
 
 $current_user = Horde_Auth::getAuth();
 $my_classes = array();

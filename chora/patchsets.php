@@ -52,7 +52,7 @@ Horde::addScriptFile('tables.js', 'horde');
 
 // JS search not needed if showing a single patchset
 if ($ps_id) {
-    Horde::addScriptFile('QuickFinder.js', 'horde');
+    Horde::addScriptFile('quickfinder.js', 'horde');
 }
 
 require CHORA_TEMPLATES . '/common-header.inc';
