@@ -24,58 +24,78 @@
 abstract class Horde_Db_Adapter_Base
 {
     /**
-     * Config options
+     * Config options.
      *
      * @var array
      */
     protected $_config = array();
 
     /**
+     * DB connection.
+     *
      * @var mixed
      */
     protected $_connection = null;
 
     /**
+     * Has a transaction been started?
+     *
      * @var boolean
      */
     protected $_transactionStarted = false;
 
     /**
-     * @var int
+     * Row count of last action.
+     *
+     * @var integer
      */
     protected $_rowCount = null;
 
     /**
-     * @var int
+     * Runtime of last query.
+     *
+     * @var integer
      */
     protected $_runtime;
 
     /**
+     * Is connection active?
+     *
      * @var boolean
      */
     protected $_active = null;
 
     /**
+     * Cache object.
+     *
      * @var Horde_Cache_Base
      */
     protected $_cache;
 
     /**
+     * Log object.
+     *
      * @var Horde_Log_Logger
      */
     protected $_logger;
 
     /**
+     * Schema object.
+     *
      * @var Horde_Db_Adapter_Base_Schema
      */
     protected $_schema = null;
 
     /**
+     * Schema class to use.
+     *
      * @var string
      */
     protected $_schemaClass = null;
 
     /**
+     * List of schema methods.
+     *
      * @var array
      */
     protected $_schemaMethods = array();
