@@ -1226,16 +1226,23 @@ KronolithCore = {
      */
     openTab: function(elt)
     {
-        var dialog = elt.up('form');
+        var dialog = elt.up('form'), tab = $(elt.id.replace(/Link/, 'Tab')),
+            field;
         dialog.select('.kronolithTabsOption').invoke('hide');
         dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
-        $(elt.id.replace(/Link/, 'Tab')).show();
+        tab.show();
         elt.up().addClassName('activeTab');
         if (elt.id == 'kronolithEventLinkMap') {
-                    /* Maps */
             if (!this.mapInitialized) {
                 this.initializeMap();
             }
+        }
+        field = tab.down('textarea');
+        if (!field) {
+            field = tab.down('input');
+        }
+        if (field) {
+            field.focus();
         }
     },
 
