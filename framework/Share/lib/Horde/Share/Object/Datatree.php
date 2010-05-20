@@ -97,8 +97,8 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
         if ($userid && $userid == $this->datatreeObject->get('owner')) {
             return true;
         }
-        // TODO: inject
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($this->getPermission(), $userid, $permission, $creator);
+
+        return $this->_shareOb->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**

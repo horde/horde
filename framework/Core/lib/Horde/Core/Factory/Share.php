@@ -79,7 +79,7 @@ class Horde_Core_Factory_Share
                 throw new Horde_Exception((sprintf(_("\"%s\" share driver not found."), $driver)));
             }
 
-            $shares[$signature] = new $class($app);
+            $shares[$signature] = new $class($app, $this->_injector->getInstance('Horde_Perms'));
         }
 
         if (!isset($shares[$signature]) &&

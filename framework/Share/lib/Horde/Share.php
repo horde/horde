@@ -71,13 +71,22 @@ class Horde_Share
     protected $_shareObject;
 
     /**
+     * The Horde_Perms object
+     *
+     * @var Horde_Perms
+     */
+    protected $_permsObject;
+
+    /**
      * Constructor.
      *
      * @param string $app  The application that the shares belong to.
+     * @param Horde_Perms  The permissions object
      */
-    public function __construct($app)
+    public function __construct($app, Horde_Perms $perms)
     {
         $this->_app = $app;
+        $this->_permsObject = $perms;
         $this->__wakeup();
     }
 
@@ -393,7 +402,7 @@ class Horde_Share
             $share = $this->getShare($share);
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions($share->getPermission(), $user);
+        return $this->_permsObject->getPermissions($share->getPermission(), $user);
     }
 
     /**
@@ -404,6 +413,16 @@ class Horde_Share
     public function setShareClass($classname)
     {
         $this->_shareObject = $classname;
+    }
+
+    /**
+     * Getter for Horde_Perms object
+     *
+     * @return Horde_Perms
+     */
+    public function getPermsObject()
+    {
+        return $this->_permsObject;
     }
 
     /**

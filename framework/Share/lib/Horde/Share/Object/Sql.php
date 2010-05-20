@@ -238,8 +238,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         if ($userid == $this->data['share_owner']) {
             return true;
         }
-        // @TODO: inject perms, don't use the injector here
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($this->getPermission(), $userid, $permission, $creator);
+        return $this->_shareOb->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**
