@@ -1429,18 +1429,20 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
+        $sm_displayed = !empty($GLOBALS['conf']['user']['select_sentmail_folder']) && !$GLOBALS['prefs']->isLocked('sent_mail_folder');
+
         $options = array(
             'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->_vars->encrypt),
             'identity' => $identity,
             'priority' => $this->_vars->priority,
             'readreceipt' => $this->_vars->request_read_receipt,
             'save_attachments' => $this->_vars->save_attachments_select,
-            'save_sent' => (($GLOBALS['prefs']->isLocked('save_sent_mail'))
-                            ? $identity->getValue('save_sent_mail')
-                            : (bool)$this->_vars->save_sent_mail),
-            'sent_folder' => (($GLOBALS['prefs']->isLocked('save_sent_mail'))
-                              ? $identity->getValue('sent_mail_folder')
-                              : (isset($this->_vars->save_sent_mail_folder) ? $this->_vars->save_sent_mail_folder : $identity->getValue('sent_mail_folder')))
+            'save_sent' => ($sm_displayed
+                            ? (bool)$this->_vars->save_sent_mail
+                            : $identity->getValue('save_sent_mail')),
+            'sent_folder' => ($sm_displayed
+                              ? (isset($this->_vars->save_sent_mail_folder) ? $this->_vars->save_sent_mail_folder : $identity->getValue('sent_mail_folder'))
+                              : $identity->getValue('sent_mail_folder'))
         );
 
         try {
