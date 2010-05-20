@@ -214,7 +214,7 @@ KronolithCore = {
             case 'horde.success':
                 this.Growler.growl(
                     m.flags.include('content.raw')
-                        ? m.message.replace(/<a href="([^"]+)"/, '<a href="#" onclick="KronolithCore.iframeContent(\'$1\')"')
+                        ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="KronolithCore.iframeContent(\'$1\')"')
                         : m.message.escapeHTML(),
                     {
                         className: m.type.replace('.', '-'),
@@ -2572,7 +2572,11 @@ KronolithCore = {
                 break;
             }
             $('kronolithCalendar' + type + 'Id').clear();
-            $('kronolithCalendar' + type + 'Color').setValue('#dddddd').setStyle({ backgroundColor: '#dddddd', color: '#000' });
+            var color = '#', i;
+            for (i = 0; i < 3; i++) {
+                color += (Math.random() * 256 | 0).toColorPart();
+            }
+            $('kronolithCalendar' + type + 'Color').setValue(color).setStyle({ backgroundColor: color, color: Color.brightness(Color.hex2rgb(color)) < 125 ? '#fff' : '#000' });
             form.down('.kronolithCalendarDelete').hide();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
