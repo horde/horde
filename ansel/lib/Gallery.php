@@ -770,8 +770,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             return true;
         }
 
-
-        return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($this->getPermission(), $userid, $permission, $creator);
+        return parent::hasPermission($userid, $permission, $creator);
     }
 
     /**
