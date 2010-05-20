@@ -65,34 +65,44 @@ class Horde_Core_Factory_Share
             $app = $this->_injector->getInstance('Horde_Registry')->getApp();
         }
 
-        $class = 'Horde_Share_' . ucfirst(basename($driver));
-        $signature = $app . '_' . $driver;
-        if (!isset($this->_instances[$signature]) &&
-            !empty($GLOBALS['conf']['share']['cache'])) {
+        $sig = $app . '_' . $driver;
 
-            $session = new Horde_SessionObjects();
-            $shares[$signature] = $session->query('horde_share_' . $app . '_' . $driver . '1');
-        }
-
-        if (empty($shares[$signature])) {
-            if (!class_exists($class)) {
-                throw new Horde_Exception((sprintf(_("\"%s\" share driver not found."), $driver)));
-            }
-
-            $shares[$signature] = new $class($app, $this->_injector->getInstance('Horde_Perms'));
-        }
-
-        if (!isset($shares[$signature]) &&
-            !empty($GLOBALS['conf']['share']['cache'])) {
-            $session = new Horde_SessionObjects();
-            $shares[$signature] = $session->query('horde_share_' . $app . '_' . $driver . '1');
+        if (isset($this->_instances[$sig])) {
+            return $this->_instances[$sig];
         }
 
         if (!empty($GLOBALS['conf']['share']['cache'])) {
-            register_shutdown_function(array($shares[$signature], 'shutdown'));
+            $cache_sig = 'horde_share_' . $app . '_' . $driver . '1';
+            $ob = $this->_injector->getInstance('Horde_SessionObjects')->query($cache_sig);
         }
 
-        return $shares[$signature];
+        if (empty($ob)) {
+            $class = 'Horde_Share_' . ucfirst(basename($driver));
+            if (!class_exists($class)) {
+                throw new Horde_Exception(sprintf(_("\"%s\" share driver not found."), $driver));
+            }
+
+            $ob = new $class($app, $this->_injector->getInstance('Horde_Perms'));
+        }
+
+        if (!empty($GLOBALS['conf']['share']['cache'])) {
+            register_shutdown_function(array($this, 'shutdown'), $cache_sig, $ob);
+        }
+
+        $this->_instances[$sig] = $ob;
+
+        return $ob;
+    }
+
+    /**
+     * Shutdown function.
+     *
+     * @param string $sig         Cache signature.
+     * @param Horde_Share $share  Horde_Share object to cache.
+     */
+    public function shutdown($sig, $share)
+    {
+        $this->_injector->getInstance('Horde_SessionObjects')->overwrite($sig, $share, false);
     }
 
 }

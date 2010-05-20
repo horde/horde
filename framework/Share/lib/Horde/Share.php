@@ -116,16 +116,6 @@ class Horde_Share
     }
 
     /**
-     * Stores the object in the session cache.
-     */
-    public function shutdown()
-    {
-        $driver = str_replace('horde_share_', '', Horde_String::lower(get_class($this)));
-        $session = new Horde_SessionObjects();
-        $session->overwrite('horde_share_' . $this->_app . '_' . $driver, $this, false);
-    }
-
-    /**
      * Returns the application we're managing shares for.
      *
      * @return string  The application this share belongs to.
