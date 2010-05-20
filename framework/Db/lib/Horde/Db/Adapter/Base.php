@@ -133,6 +133,22 @@ abstract class Horde_Db_Adapter_Base
         $this->disconnect();
     }
 
+    /**
+     * Serialize callback.
+     */
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_active', '_connection'));
+    }
+
+    /**
+     * Unserialize callback.
+     */
+    public function __wakeup()
+    {
+        $this->connect();
+    }
+
 
     /*##########################################################################
     # Object helpers
