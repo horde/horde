@@ -1289,8 +1289,8 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Places an exclusive lock for a calendar or an event.
      *
-     * @param array $calendar  The calendar to lock
-     * @param array $event     The event to lock
+     * @param string $calendar  The id of the calendar to lock
+     * @param string $event     The uid for the event to lock
      *
      * @return mixed   A lock ID on success, false if:
      *                   - The calendar is already locked
@@ -1305,7 +1305,10 @@ class Kronolith_Api extends Horde_Registry_Api
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             throw new Horde_Exception_PermissionDenied();
         }
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($calendar, $event);
+        if (!empty($event)) {
+            $uid = $calendar . ':' . $event;
+        }
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
     }
 
     /**
@@ -1322,7 +1325,8 @@ class Kronolith_Api extends Horde_Registry_Api
             Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             throw new Horde_Exception_PermissionDenied();
         }
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->unlock($lockid);
+
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->unlock($GLOBALS['injector']->getInstance('Horde_Lock'), $lockid);
     }
 
     /**
@@ -1339,7 +1343,10 @@ class Kronolith_Api extends Horde_Registry_Api
             Kronolith::listCalendars(false, Horde_Perms::READ))) {
             throw new Horde_Exception_PermissionDenied();
         }
-        return $GLOBALS['kronolith_shares']->getShare($calendar)->checkLocks($event);
+        if (!empty($event)) {
+            $uid = $calendar . ':' . $event;
+        }
+        return $GLOBALS['kronolith_shares']->getShare($calendar)->checkLocks($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
     }
 
     /**
