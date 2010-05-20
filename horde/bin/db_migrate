@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 /**
+ * Database migration script.
+ *
+ * Usage: ./db_migrate application [up | down | version]
+ *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -10,10 +14,10 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
-
-// Get a database connection
-$db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
 // Parse command line arguments
 array_shift($_SERVER['argv']);
@@ -21,10 +25,12 @@ $args = $_SERVER['argv'];
 if (empty($args[0])) {
     $cli->fatal("An application argument is required");
 }
+
 $app = $args[0];
 if (!in_array($app, $GLOBALS['registry']->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active')))) {
     $cli->fatal("$app is not a configured Horde application");
 }
+
 $action = 'up';
 if (!empty($args[1])) {
     switch ($args[1]) {
@@ -36,13 +42,17 @@ if (!empty($args[1])) {
     default:
         $action = 'migrate';
         $targetVersion = $args[1];
+        break;
     }
 }
 
 // Run
-$dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration/';
+$dir = $registry->get('fileroot', $app) . '/migration/';
+
+$db = $injector->getInstance('Horde_Db_Adapter_Base');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
+
 try {
     switch ($action) {
     case 'up':
