@@ -395,7 +395,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
         $html .=  '</table>';
 
         Horde::startBuffer();
-        $notification->notify(array('listeners' => 'status');
+        $notification->notify(array('listeners' => 'status'));
 
         return array(
             $this->_mimepart->getMimeId() => array(
