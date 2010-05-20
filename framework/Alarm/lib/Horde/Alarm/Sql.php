@@ -216,7 +216,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $values = array(serialize($internal), $id, $user);
 
         try {
-            $this->_db->query($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception($e);
         }
