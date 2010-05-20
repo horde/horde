@@ -1043,7 +1043,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
     function listAlarms($date)
     {
         $task_list = $this->_store->getObjects();
-        if (is_a($task_list, 'PEAR_Error')) {
+        if ($task_list instanceof PEAR_Error) {
             return $task_list;
         }
 

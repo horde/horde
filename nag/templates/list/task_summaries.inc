@@ -1,8 +1,7 @@
 <tr class="<?php echo $style ?>">
   <td>
 <?php
-if (!is_a($share, 'PEAR_Error') &&
-    $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
         if (!$task->childrenCompleted()) {
             $label = _("Incomplete sub tasks, complete them first");
@@ -33,8 +32,7 @@ if (!is_a($share, 'PEAR_Error') &&
 <?php endif; ?>
   <td>
     <?php
-    if (!is_a($share, 'PEAR_Error') &&
-        $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) &&
+    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) &&
         (!$task->private || $task->owner == Horde_Auth::getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
         echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label) . '</a>';
@@ -47,8 +45,7 @@ if (!is_a($share, 'PEAR_Error') &&
     $task_name = strlen($task->name)
         ? htmlspecialchars($task->name)
         : _("[none]");
-    if (!is_a($share, 'PEAR_Error') &&
-        $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
         echo Horde::link($task->view_link, '', '', '', '', $task->desc)
             . $task_name . '</a>';
     } else {

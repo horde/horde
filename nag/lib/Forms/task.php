@@ -49,20 +49,19 @@ class Nag_TaskForm extends Horde_Form {
             $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlentities($task->name, ENT_COMPAT, Horde_Nls::getCharset());
         }
         $users = array();
-        $share = &$GLOBALS['nag_shares']->getShare($tasklist);
-        if (!is_a($share, 'PEAR_Error')) {
-            $users = $share->listUsers(Horde_Perms::READ);
-            $groups = $share->listGroups(Horde_Perms::READ);
-            if (count($groups)) {
-                require_once 'Horde/Group.php';
-                $horde_group = Group::singleton();
-                foreach ($groups as $group) {
-                    $users = array_merge($users,
-                                         $horde_group->listAllUsers($group));
-                }
+        $share = $GLOBALS['nag_shares']->getShare($tasklist);
+        $users = $share->listUsers(Horde_Perms::READ);
+        $groups = $share->listGroups(Horde_Perms::READ);
+        if (count($groups)) {
+            require_once 'Horde/Group.php';
+            $horde_group = Group::singleton();
+            foreach ($groups as $group) {
+                $users = array_merge($users,
+                                     $horde_group->listAllUsers($group));
             }
-            $users = array_flip($users);
         }
+        $users = array_flip($users);
+
         if (count($users)) {
             foreach (array_keys($users) as $user) {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);

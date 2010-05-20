@@ -132,10 +132,13 @@ class Nag_Api extends Horde_Registry_Api
      */
     public static function updateTasklist($id, $info)
     {
-        $tasklist = $GLOBALS['nag_shares']->getShare($id);
-        if (is_a($tasklist, 'PEAR_Error')) {
-            return $tasklist;
+        try {
+            $tasklist = $GLOBALS['nag_shares']->getShare($id);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Nag_Exception($e);
         }
+
         return Nag::updateTasklist($tasklist, $info);
     }
 
@@ -622,10 +625,10 @@ class Nag_Api extends Horde_Registry_Api
             } else {
                 // Remove share and all groups/permissions.
                 $share = $GLOBALS['nag_shares']->getShare($tasklistID);
-                $result = $GLOBALS['nag_shares']->removeShare($share);
-                if (is_a($result, 'PEAR_Error')) {
-                    $result->code = 500;
-                    return $result;
+                try {
+                    $GLOBALS['nag_shares']->removeShare($share);
+                } catch (Horde_Share_Exception $e) {
+                    throw new Nag_Exception($e->getMessage());
                 }
             }
         }
@@ -934,13 +937,14 @@ class Nag_Api extends Horde_Registry_Api
                 return PEAR::raiseError(_("Permission Denied"));
             }
 
-        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Nag_Exception($e);
         }
-
         $task = Nag::getTask($tasklist_id, $task_id);
-        if (is_a($task, 'PEAR_Error')) {
+        if ($task instanceof PEAR_Error) {
             return $task;
         }
 
@@ -1378,13 +1382,14 @@ class Nag_Api extends Horde_Registry_Api
         $tasklists = is_null($user) ? array_keys($GLOBALS['nag_shares']->listAllShares()) :  $GLOBALS['display_tasklists'];
 
         $alarms = Nag::listAlarms($time, $tasklists);
-        if (is_a($alarms, 'PEAR_Error')) {
+        if (is_a($alarms instanceof PEAR_Error) {
             return $alarms;
         }
 
         foreach ($alarms as $alarm) {
-            $share = $GLOBALS['nag_shares']->getShare($alarm->tasklist);
-            if (is_a($share, 'PEAR_Error')) {
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($alarm->tasklist);
+            } catch (Horde_Share_Exception $e) {
                 continue;
             }
             if (empty($user)) {

@@ -14,8 +14,9 @@ if (!Horde_Auth::getAuth()) {
     exit;
 }
 
-$tasklist = $nag_shares->getShare(Horde_Util::getFormData('t'));
-if (is_a($tasklist, 'PEAR_Error')) {
+try {
+    $tasklist = $nag_shares->getShare(Horde_Util::getFormData('t'));
+} catch (Horde_Share_Exception $e) {
     exit;
 }
 

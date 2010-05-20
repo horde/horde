@@ -309,9 +309,11 @@ class Nag_Driver
         $log_tasklist = $this->_tasklist;
         if (!is_null($tasklist) && $task->tasklist != $tasklist) {
             /* Moving the task to another tasklist. */
-            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Nag_Exception($e);
             }
 
             if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
@@ -319,9 +321,11 @@ class Nag_Driver
                 return false;
             }
 
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($tasklist);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Nag_Exception($e);
             }
 
             if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
@@ -329,7 +333,7 @@ class Nag_Driver
             }
 
             $moved = $this->_move($task->id, $tasklist);
-            if (is_a($moved, 'PEAR_Error')) {
+            if ($moved instanceof PEAR_Error) {
                 return $moved;
             }
             $new_storage = Nag_Driver::singleton($tasklist);

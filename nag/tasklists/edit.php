@@ -18,13 +18,15 @@ if (!Horde_Auth::getAuth()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$tasklist = $nag_shares->getShare($vars->get('t'));
-if (is_a($tasklist, 'PEAR_Error')) {
-    $notification->push($tasklist, 'horde.error');
+try {
+    $tasklist = $nag_shares->getShare($vars->get('t'));
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
-} elseif ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-          (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin())) {
+}
+if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+    (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin())) {
     $notification->push(_("You are not allowed to change this task list."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
@@ -35,7 +37,7 @@ $form = new Nag_EditTaskListForm($vars, $tasklist);
 if ($form->validate($vars)) {
     $original_name = $tasklist->get('name');
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } else {
         if ($tasklist->get('name') != $original_name) {

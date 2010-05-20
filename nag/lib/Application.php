@@ -242,47 +242,50 @@ class Nag_Application extends Horde_Registry_Application
         $hasError = false;
 
         /* Get the share for later deletion */
-        $share = $GLOBALS['nag_shares']->getShare($user);
-        if(is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share, 'ERR');
-            unset($share);
-        } else {
-            /* Get the list of all tasks */
-            $tasks = Nag::listTasks(null, null, null, $user, 1);
-            if (is_a($tasks, 'PEAR_Error')) {
-                $hasError = true;
-                Horde::logMessage($share, 'ERR');
-            } else {
-                $uids = array();
-                $tasks->reset();
-                while ($task = $tasks->each()) {
-                    $uids[] = $task->uid;
-                }
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($user);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+        }
 
-                /* ... and delete them. */
-                foreach ($uids as $uid) {
-                    $this->delete($uid);
-                }
+        /* Get the list of all tasks */
+        $tasks = Nag::listTasks(null, null, null, $user, 1);
+        if ($tasks instanceof PEAR_Error) {
+            $hasError = true;
+            Horde::logMessage($share, 'ERR');
+        } else {
+            $uids = array();
+            $tasks->reset();
+            while ($task = $tasks->each()) {
+                $uids[] = $task->uid;
+            }
+
+            /* ... and delete them. */
+            foreach ($uids as $uid) {
+                $this->delete($uid);
             }
         }
 
+
         /* ...and finally, delete the actual share */
         if (!empty($share)) {
-            $result = $GLOBALS['nag_shares']->removeShare($share);
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $GLOBALS['nag_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
                 $hasError = true;
                 Horde::logMessage($result, 'ERR');
             }
         }
 
         /* Now remove perms for this user from all other shares */
-        $shares = $GLOBALS['nag_shares']->listShares($user);
-        if (is_a($shares, 'PEAR_Error')) {
+        try {
+            $shares = $GLOBALS['nag_shares']->listShares($user);
+            foreach ($shares as $share) {
+               $share->removeUser($user);
+            }
+        } catch (Horde_Share_Exception $e) {
             $hasError = true;
             Horde::logMessage($shares, 'ERR');
-        }
-        foreach ($shares as $share) {
-            $share->removeUser($user);
         }
 
         if ($hasError) {

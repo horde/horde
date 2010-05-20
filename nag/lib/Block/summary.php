@@ -204,9 +204,7 @@ class Horde_Block_nag_summary extends Horde_Block {
                 $owner = $task->tasklist;
                 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
                 $share = $shares->getShare($owner);
-                if (!is_a($share, 'PEAR_Error')) {
-                    $owner = $share->get('name');
-                }
+                $owner = $share->get('name');
                 $html .= '<td width="1%" class="nowrap">'
                     . htmlspecialchars($owner) . '&nbsp;</td>';
             }

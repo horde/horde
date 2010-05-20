@@ -13,29 +13,30 @@ function _delete($task_id, $tasklist_id)
 {
     if (!empty($task_id)) {
         $task = Nag::getTask($tasklist_id, $task_id);
-        if (is_a($task, 'PEAR_Error')) {
+        if ($task instanceof PEAR_Error) {
             $GLOBALS['notification']->push(
                 sprintf(_("Error deleting task: %s"),
                         $task->getMessage()), 'horde.error');
         } else {
-            $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-            if (is_a($share, 'PEAR_Error') ||
-                !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-                $GLOBALS['notification']->push(
-                    _("Access denied deleting task."), 'horde.error');
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
+            } catch (Horde_Share_Exception $e) {
+                throw new Nag_Exception($e);
+            }
+            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+                $GLOBALS['notification']->push(_("Access denied deleting task."), 'horde.error');
             } else {
                 $storage = Nag_Driver::singleton($tasklist_id);
-                $result = $storage->delete($task_id);
-                if (is_a($result, 'PEAR_Error')) {
+                try {
+                    $storage->delete($task_id);
+                } catch (Horde_Share_Exception $e) {
                     $GLOBALS['notification']->push(
                         sprintf(_("There was a problem deleting %s: %s"),
-                                $task->name, $result->getMessage()),
+                                $task->name, $e->getMessage()),
                         'horde.error');
-                } else {
-                    $GLOBALS['notification']->push(sprintf(_("Deleted %s."),
-                                                           $task->name),
-                                                   'horde.success');
                 }
+                $GLOBALS['notification']->push(sprintf(_("Deleted %s."), $task->name),
+                                               'horde.success');
             }
         }
     }
@@ -85,10 +86,12 @@ case 'add_task':
 case 'modify_task':
     $task_id = $vars->get('task');
     $tasklist_id = $vars->get('tasklist');
-    $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Access denied editing task: %s"), $share->getMessage()), 'horde.error');
-    } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    try {
+        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);s
+    } catch (Horde_Share_Exception $e) {
+        $notification->push(sprintf(_("Access denied editing task: %s"), $e->getMessage()), 'horde.error');
+    }
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing task."), 'horde.error');
     } else {
         $task = Nag::getTask($tasklist_id, $task_id);
@@ -124,12 +127,14 @@ case 'save_task':
         count(Nag::listTasklists(false, Horde_Perms::EDIT)) <= 1) {
         $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
     }
-    $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Access denied saving task: %s"), $share->getMessage()), 'horde.error');
+    try {
+        $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
+    } catch (Horde_Share_Exception $e) {
+        $notification->push(sprintf(_("Access denied saving task: %s"), $e->getMessage()), 'horde.error');
         header('Location: ' . Horde::applicationUrl('list.php', true));
         exit;
-    } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    }
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('list.php', true));
         exit;
@@ -178,7 +183,7 @@ case 'save_task':
     }
 
     /* Check our results. */
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
@@ -201,7 +206,7 @@ case 'complete_task':
     if (isset($task_id)) {
         $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
         $task = Nag::getTask($tasklist_id, $task_id);
-        if (is_a($share, 'PEAR_Error') || !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $notification->push(sprintf(_("Access denied completing task %s."), $task->name), 'horde.error');
         } else {
             $task->completed = !$task->completed;
@@ -211,7 +216,7 @@ case 'complete_task':
                 $task->completed_date = null;
             }
             $result = $task->save();
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $notification->push(sprintf(_("There was a problem completing %s: %s"),
                                             $task->name, $result->getMessage()), 'horde.error');
             } else {

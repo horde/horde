@@ -368,9 +368,10 @@ class Nag
         if ($owneronly && !Horde_Auth::getAuth()) {
             return array();
         }
-        $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
-        if (is_a($tasklists, 'PEAR_Error')) {
-            Horde::logMessage($tasklists, 'ERR');
+        try {
+            $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             return array();
         }
 
@@ -438,20 +439,18 @@ class Nag
      */
     public static function addTasklist($info)
     {
-        $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
-        if (is_a($tasklist, 'PEAR_Error')) {
-            return $tasklist;
-        }
-        $tasklist->set('name', $info['name']);
-        $tasklist->set('color', $info['color']);
-        $tasklist->set('desc', $info['description']);
-        if (!empty($info['system'])) {
-            $tasklist->set('owner', null);
-        }
+        try {
+            $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
+            $tasklist->set('name', $info['name']);
+            $tasklist->set('color', $info['color']);
+            $tasklist->set('desc', $info['description']);
+            if (!empty($info['system'])) {
+                $tasklist->set('owner', null);
+            }
 
-        $result = $GLOBALS['nag_shares']->addShare($tasklist);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            $GLOBALS['nag_shares']->addShare($tasklist);
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception($e);
         }
 
         $GLOBALS['display_tasklists'][] = $tasklist->getName();
@@ -504,7 +503,7 @@ class Nag
         // Delete the task list.
         $storage = &Nag_Driver::singleton($tasklist->getName());
         $result = $storage->deleteAll();
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
         }
 
@@ -829,9 +828,11 @@ class Nag
             return PEAR::raiseError('Unknown event action: ' . $action);
         }
 
-        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Nag_Exception($e);
         }
 
         require_once 'Horde/Group.php';
@@ -937,15 +938,14 @@ class Nag
                 }
                 if ($old_task->parent_id != $task->parent_id) {
                     $old_parent = $old_task->getParent();
-                    if (!is_a($old_parent, 'PEAR_Error')) {
-                        $parent = $task->getParent();
-                        if (!is_a($parent, 'PEAR_Error')) {
-                            $notification_message .= "\n - "
-                                . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
-                                          $old_parent ? $old_parent->name : _("no parent"),
-                                          $parent ? $parent->name : _("no parent"));
-                        }
+                    $parent = $task->getParent();
+                    if (!is_a($parent, 'PEAR_Error')) {
+                        $notification_message .= "\n - "
+                            . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
+                                      $old_parent ? $old_parent->name : _("no parent"),
+                                      $parent ? $parent->name : _("no parent"));
                     }
+
                 }
                 if ($old_task->category != $task->category) {
                     $notification_message .= "\n - "
@@ -1389,10 +1389,10 @@ class Nag
         $aowner = $a->tasklist;
         $bowner = $b->tasklist;
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 
@@ -1421,10 +1421,10 @@ class Nag
         $aowner = $a->tasklist;
         $bowner = $b->tasklist;
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 
