@@ -22,13 +22,16 @@ if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$addressbook = $turba_shares->getShare($vars->get('a'));
-if (is_a($addressbook, 'PEAR_Error')) {
-    $notification->push($addressbook, 'horde.error');
+try {
+    $addressbook = $turba_shares->getShare($vars->get('a'));
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $addressbook->get('owner') != Horde_Auth::getAuth()) {
+}
+if (!Horde_Auth::getAuth() ||
+    $addressbook->get('owner') != Horde_Auth::getAuth()) {
+
     $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;

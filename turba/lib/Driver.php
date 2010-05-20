@@ -2591,16 +2591,15 @@ class Turba_Driver
      *
      * @param array $params  The params for the share.
      *
-     * @return mixed  The share object or PEAR_Error.
+     * @return Horde_Share  The share object.
      */
-    function &createShare($share_id, $params)
+    function createShare($share_id, $params)
     {
         // If the raw address book name is not set, use the share name
         if (empty($params['params']['name'])) {
             $params['params']['name'] = $share_id;
         }
-        $result = &Turba::createShare($share_id, $params);
-        return $result;
+        return Turba::createShare($share_id, $params);
     }
 
     /**
@@ -2811,7 +2810,7 @@ class Turba_Driver
      *
      * @return boolean
      */
-    function checkDefaultShare(&$share, $srcconfig)
+    function checkDefaultShare($share, $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {

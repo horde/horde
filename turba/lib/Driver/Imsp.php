@@ -627,7 +627,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return mixed  The share object or PEAR_Error.
      */
-    function &createShare($share_id, $params)
+    function createShare($share_id, $params)
     {
         if (isset($params['default']) && $params['default'] === true) {
             $params['params']['name'] = $this->params['username'];
@@ -679,7 +679,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @see turba/lib/Turba_Driver#checkDefaultShare($share, $srcconfig)
      */
-    function checkDefaultShare(&$share, $srcConfig)
+    function checkDefaultShare($share, $srcConfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {

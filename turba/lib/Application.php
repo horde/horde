@@ -405,7 +405,7 @@ class Turba_Application extends Horde_Registry_Application
 
         /* Only attempt share removal if we have shares configured */
         if (!empty($_SESSION['turba']['has_share'])) {
-            $shares = &$GLOBALS['turba_shares']->listShares(
+            $shares = $GLOBALS['turba_shares']->listShares(
                 $user, Horde_Perms::EDIT, $user);
 
             /* Look for the deleted user's default share and remove it */
@@ -423,16 +423,15 @@ class Turba_Application extends Horde_Registry_Application
                 }
             }
 
-            /* Get a list of all shares this user has perms to and remove the
-             * perms. */
-            $shares = $GLOBALS['turba_shares']->listShares($user);
-            if (is_a($shares, 'PEAR_Error')) {
-                Horde::logMessage($shares, 'ERR');
+            /* Get a list of all shares this user has perms to and remove the perms. */
+            try {
+                $shares = $GLOBALS['turba_shares']->listShares($user);
+                foreach ($shares as $share) {
+                    $share->removeUser($user);
+                }
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
-            foreach ($shares as $share) {
-                $share->removeUser($user);
-            }
-
         }
 
         if ($hasError) {

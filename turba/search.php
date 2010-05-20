@@ -25,11 +25,11 @@ function _createVBook($params)
                                     'source' => $params['source'],
                                     'criteria' => $params['criteria'])));
 
-    $share = Turba::createShare(md5(microtime()), $params);
-    if (is_a($share, 'PEAR_Error')) {
-        return $share;
+    try {
+        $share = Turba::createShare(md5(microtime()), $params);
+    } catch (Horde_Share_Exception $e) {
+        throw new Turba_Exception($e);
     }
-
     return $share->getName();
 }
 

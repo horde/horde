@@ -165,17 +165,17 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return mixed  The share object or PEAR_Error.
      */
-    function &createShare($share_id, $params)
+    function createShare($share_id, $params)
     {
         if (isset($params['params']['default']) && $params['params']['default'] === true) {
             $share_id = Horde_Auth::getAuth();
         }
 
-        $result = &Turba::createShare($share_id, $params);
+        $result = Turba::createShare($share_id, $params);
         return $result;
     }
 
-    function checkDefaultShare(&$share, $srcConfig)
+    function checkDefaultShare($share, $srcConfig)
     {
         $params = @unserialize($share->get('params'));
         return isset($params['default']) ? $params['default'] : false;

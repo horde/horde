@@ -29,13 +29,16 @@ if ($addressbook_id == Horde_Auth::getAuth()) {
     exit;
 }
 
-$addressbook = $turba_shares->getShare($addressbook_id);
-if (is_a($addressbook, 'PEAR_Error')) {
-    $notification->push($addressbook, 'horde.error');
+try {
+    $addressbook = $turba_shares->getShare($addressbook_id);
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e, 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $addressbook->get('owner') != Horde_Auth::getAuth()) {
+}
+if (!Horde_Auth::getAuth() ||
+    $addressbook->get('owner') != Horde_Auth::getAuth()) {
+
     $notification->push(_("You are not allowed to delete this addressbook."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;

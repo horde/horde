@@ -369,11 +369,11 @@ class Turba {
     {
         global $notification;
 
-        $shares = Turba::listShares();
-
-        // Notify the user if we failed, but still return the $cfgSource array.
-        if (is_a($shares, 'PEAR_Error')) {
-            $notification->push($shares, 'horde.error');
+        try {
+            $shares = Turba::listShares();
+        } catch (Horde_Share_Exception $e) {
+            // Notify the user if we failed, but still return the $cfgSource array.
+            $notification->push($e->getMessage(), 'horde.error');
             return $sources;
         }
 
@@ -387,7 +387,7 @@ class Turba {
             $params = @unserialize($shares[$name]->get('params'));
             if (isset($params['type']) && $params['type'] == 'vbook') {
                 // We load vbooks last in case they're based on other shares.
-                $params['share'] = &$shares[$name];
+                $params['share'] = $shares[$name];
                 $vbooks[$name] = $params;
             } elseif (!empty($params['source']) &&
                       !empty($sources[$params['source']]['use_shares'])) {
@@ -412,7 +412,7 @@ class Turba {
 
                 $share = $sources[$params['source']];
                 $share['params']['config'] = $sources[$params['source']];
-                $share['params']['config']['params']['share'] = &$shares[$name];
+                $share['params']['config']['params']['share'] = $shares[$name];
                 $share['params']['config']['params']['name'] = $params['name'];
                 $share['title'] = $shares[$name]->get('name');
                 $share['type'] = 'share';
@@ -434,20 +434,21 @@ class Turba {
             if (Horde_Auth::getAuth() && empty($defaults[$source])) {
                 // User's default share is missing.
                 $driver = Turba_Driver::singleton($source);
-                if (!is_a($driver, 'PEAR_Error')) {
+                if (!($driver instanceof PEAR_Error)) {
                     $sourceKey = md5(mt_rand());
-                    $share = &$driver->createShare(
-                        $sourceKey,
-                        array('params' => array('source' => $source,
-                                                'default' => true,
-                                                'name' => Horde_Auth::getAuth())));
-                    if (is_a($share, 'PEAR_Error')) {
-                        Horde::logMessage($share, 'ERR');
+                    try {
+                        $share = $driver->createShare(
+                            $sourceKey,
+                            array('params' => array('source' => $source,
+                                                    'default' => true,
+                                                    'name' => Horde_Auth::getAuth())));
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e, 'ERR');
                         continue;
                     }
 
                     $source_config = $sources[$source];
-                    $source_config['params']['share'] = &$share;
+                    $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                 } else {
                     $notification->push($driver, 'horde.error');
@@ -481,7 +482,7 @@ class Turba {
      *
      * @param Horde_Share object  The share to base config on.
      */
-    function getSourceFromShare(&$share)
+    function getSourceFromShare($share)
     {
         // Require a fresh config file.
         require TURBA_BASE . '/config/sources.php';
@@ -489,7 +490,7 @@ class Turba {
         $params = @unserialize($share->get('params'));
         $newConfig = $cfgSources[$params['source']];
         $newConfig['params']['config'] = $cfgSources[$params['source']];
-        $newConfig['params']['config']['params']['share'] = &$share;
+        $newConfig['params']['config']['params']['share'] = $share;
         $newConfig['params']['config']['params']['name'] = $params['name'];
         $newConfig['title'] = $share->get('name');
         $newConfig['type'] = 'share';
@@ -517,11 +518,12 @@ class Turba {
             return array();
         }
 
-        $sources = $GLOBALS['turba_shares']->listShares(
-            Horde_Auth::getAuth(), $permission,
-            $owneronly ? Horde_Auth::getAuth() : null);
-        if (is_a($sources, 'PEAR_Error')) {
-            Horde::logMessage($sources, 'ERR');
+        try {
+            $sources = $GLOBALS['turba_shares']->listShares(
+                Horde_Auth::getAuth(), $permission,
+                $owneronly ? Horde_Auth::getAuth() : null);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             return array();
         }
         return $sources;
@@ -535,7 +537,7 @@ class Turba {
      *
      * @return mixed  The new share object or PEAR_Error
      */
-    function &createShare($share_id, $params)
+    function createShare($share_id, $params)
     {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
@@ -551,30 +553,24 @@ class Turba {
         }
 
         /* Generate the new share. */
-        $share = &$GLOBALS['turba_shares']->newShare($share_id);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
-        }
+        try {
+            $share = $GLOBALS['turba_shares']->newShare($share_id);
 
-        /* Set the display name for this share. */
-        $share->set('name', $name);
+            /* Set the display name for this share. */
+            $share->set('name', $name);
 
-        /* Now any other params. */
-        foreach ($params as $key => $value) {
-            if (!is_scalar($value)) {
-                $value = serialize($value);
+            /* Now any other params. */
+            foreach ($params as $key => $value) {
+                if (!is_scalar($value)) {
+                    $value = serialize($value);
+                }
+                $share->set($key, $value);
             }
-            $share->set($key, $value);
-        }
-
-        $result = $GLOBALS['turba_shares']->addShare($share);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $share->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            $GLOBALS['turba_shares']->addShare($share);
+            $result = $share->save();
+         } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage, 'ERR');
+            throw new Nag_Exception($e);
         }
 
         /* Update share_id as backends like Kolab change it to the IMAP folder

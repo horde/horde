@@ -36,7 +36,7 @@ class Turba_CreateAddressBookForm extends Horde_Form {
         include TURBA_BASE . '/config/sources.php';
 
         $driver = Turba_Driver::singleton($cfgSources[$GLOBALS['conf']['shares']['source']]);
-        if (is_a($driver, 'PEAR_Error')) {
+        if ($driver instanceof PEAR_Error) {
             return $driver;
         }
 

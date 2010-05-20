@@ -122,9 +122,6 @@ class Turba_Api extends Horde_Registry_Api
 
         if (!empty($_SESSION['turba']['has_share'])) {
             $shares = Turba::listShares(true);
-            if ($shares instanceof PEAR_Error) {
-                return false;
-            }
             foreach ($shares as $uid => $share) {
                 $params = @unserialize($share->get('params'));
                 if (empty($params['source'])) {
@@ -270,7 +267,7 @@ class Turba_Api extends Horde_Registry_Api
             $curpath = 'turba/' . $parts[0] . '/';
             foreach ($addressbooks as $addressbook => $info) {
                 if (in_array('name', $properties)) {
-                    if (is_a($info, 'Horde_Share_Object')) {
+                    if ($info instanceof Horde_Share_Object) {
                         $name = $info->get('title');
                     } else {
                         $name = $info['title'];
@@ -654,7 +651,7 @@ class Turba_Api extends Horde_Registry_Api
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
-        if (!is_a($content, 'Horde_iCalendar_vcard')) {
+        if (!($content instanceof Horde_iCalendar_vcard)) {
             switch ($contentType) {
             case 'array':
                 break;
@@ -677,7 +674,7 @@ class Turba_Api extends Horde_Registry_Api
                 default:
                     $ids = array();
                     foreach ($iCal->getComponents() as $c) {
-                        if (is_a($c, 'Horde_iCalendar_vcard')) {
+                        if ($c instanceof Horde_iCalendar_vcard) {
                             $content = $driver->toHash($c);
                             $result = $driver->search($content);
                             if ($result instanceof PEAR_Error) {
@@ -710,7 +707,7 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
-        if (is_a($content, 'Horde_iCalendar_vcard')) {
+        if ($content instanceof Horde_iCalendar_vcard) {
             $content = $driver->toHash($content);
         }
 
@@ -1192,7 +1189,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 $search = $driver->search($criteria, Turba::getPreferredSortOrder(), 'OR', array(), array(), $matchBegin);
-                if (!is_a($search, 'Turba_List')) {
+                if (!($search instanceof Turba_List)) {
                     continue;
                 }
 
@@ -1266,7 +1263,7 @@ class Turba_Api extends Horde_Registry_Api
                         $seeninlist = array();
                         $members = $ob->listMembers();
                         $listName = $ob->getValue('name');
-                        if (!is_a($members, 'Turba_List')) {
+                        if (!($members instanceof Turba_List)) {
                             continue;
                         }
                         if ($members->count() > 0) {
@@ -1421,7 +1418,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 $res = $driver->search(array());
-                if (!is_a($res, 'Turba_List')) {
+                if (!($res instanceof Turba_List)) {
                     throw new Horde_Exception(_("Search failed"));
                 }
 
@@ -1731,7 +1728,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $list = $driver->search(array('email' => $address), null, 'AND', array(), $strict ? array('email') : array());
-            if (!is_a($list, 'Turba_List')) {
+            if (!($list instanceof Turba_List)) {
                 continue;
             }
 
@@ -1793,7 +1790,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 $res = $driver->search(array('email' => $address));
-                if (is_a($res, 'Turba_List')) {
+                if ($res instanceof Turba_List) {
                     if ($res->count() > 1) {
                         continue;
                     }

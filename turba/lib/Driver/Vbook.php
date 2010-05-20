@@ -54,7 +54,7 @@ class Turba_Driver_Vbook extends Turba_Driver
     function _init()
     {
         /* Grab a reference to the share for this vbook. */
-        $this->_share = &$this->_params['share'];
+        $this->_share = $this->_params['share'];
 
         /* Load the underlying driver. */
         $this->_driver = &Turba_Driver::singleton($this->_params['source']);
