@@ -44,9 +44,9 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
     {
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
-        $share = $GLOBALS['folks_shares']->getShareById($group);
-        if ($share instanceof PEAR_Error) {
-            return $share;
+        try {
+            $share = $GLOBALS['folks_shares']->getShareById($group);
+        } catch (Horde_Share_Exception $e) {
         }
 
         return $share->get('owner');
@@ -58,11 +58,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
     protected function _getGroups()
     {
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
-
         $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
-        if ($groups instanceof PEAR_Error) {
-            return $groups;
-        }
 
         $list = array();
         foreach ($groups as $group) {
@@ -84,12 +80,8 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         }
 
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
-
         $share = $GLOBALS['folks_shares']->getShareById($group);
-        if ($share instanceof PEAR_Error) {
-            return $share;
-        }
-
+        
         // Only owners of a group can delete them
         if (!Horde_Auth::getAuth() ||
             (Horde_Auth::getAuth() != $share->get('owner') &&

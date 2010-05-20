@@ -634,7 +634,7 @@ class Turba_Driver_Imsp extends Turba_Driver
         } else {
             $params['params']['name'] = $this->params['username'] . '.' . $params['name'];
         }
-        $result = &Turba::createShare($share_id, $params);
+        $result = Turba::createShare($share_id, $params);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
