@@ -245,7 +245,13 @@ abstract class Horde_Db_Adapter_Base
             return call_user_func_array(array($this->_schema, $method), $args);
         }
 
-        throw new BadMethodCallException('Call to undeclared method "' . get_class($this) . '::' . $method . '"');
+        $support = new Horde_Support_Backtrace();
+        $context = $support->getContext(2);
+        $caller = $context['function'];
+        if (isset($context['class'])) {
+            $caller = $context['class'] . '::' . $caller;
+        }
+        throw new BadMethodCallException('Call to undeclared method "' . get_class($this) . '::' . $method . '" from "' . $caller . '"');
     }
 
 
