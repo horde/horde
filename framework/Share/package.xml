@@ -78,10 +78,6 @@ resources a user owns or has access to.</description>
     <name>Perms</name>
     <channel>pear.horde.org</channel>
    </package>
-   <package>
-    <name>Horde_Prefs</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
  </dependencies>
  <phprelease>
