@@ -327,6 +327,8 @@ KronolithCore = {
                                     this.calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
                                     if ($('kronolithTimeMarker')) {
                                         this.positionTimeMarker();
+                                    }
+                                    if ($('kronolithTimeMarker')) {
                                         $('kronolithTimeMarker').show();
                                     }
                                 }
