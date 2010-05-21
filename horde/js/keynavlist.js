@@ -132,10 +132,12 @@ var KeyNavList = Class.create({
 
         this.opts.onShow(this.div);
 
+        var delta = this.div.getOffsetParent().viewportOffset().relativeTo(this.opts.domParent.viewportOffset());
         this.div.setStyle({ height: null, width: null, top: null }).clonePosition(this.base, {
             setHeight: false,
             setWidth: false,
-            offsetTop: this.base.getHeight()
+            offsetLeft: delta[0],
+            offsetTop: this.base.getHeight() + delta[1]
         });
 
         if (this.div.visible()) {
