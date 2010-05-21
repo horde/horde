@@ -970,7 +970,7 @@ class Whups_QueryManager {
         try {
             $shares = $this->_shareManager->listShares($user);
         } catch (Horde_Share_Exception $e) {
-            throw new Whups_Exception($e):
+            throw new Whups_Exception($e);
         }
 
         $queries = array();
