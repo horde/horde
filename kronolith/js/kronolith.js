@@ -1613,7 +1613,7 @@ KronolithCore = {
                 if (view == 'day') {
                     $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
-                    var existing = $('kronolithAllDay' + date).select('div');
+                    var existing = $('kronolithAllDay' + date).childElements();
                     if (existing.size() == 3) {
                         if (existing[2].className != 'kronolithMore') {
                             existing[2].remove();
