@@ -1339,16 +1339,23 @@ KronolithCore = {
 
         var start = this.parseDate(r.response.sig.substr(0, 8)),
             end = this.parseDate(r.response.sig.substr(8, 8)),
-            dates = [start, end];
+            dates = [start, end],
+            currentDates;
 
         this.storeCache(r.response.events || {}, r.response.cal, dates);
 
         // Check if this is the still the result of the most current request.
-        if (r.response.view != this.view ||
-            r.response.sig != this.eventsLoading[r.response.cal]) {
+        if (r.response.sig != this.eventsLoading[r.response.cal]) {
             return;
         }
         delete this.eventsLoading[r.response.cal];
+
+        // Check if the result is still for the current view.
+        currentDates = this.viewDates(this.date, this.view);
+        if (r.response.view != this.view ||
+            !currentDates[0].equals(start)) {
+            return;
+        }
 
         if (this.view != 'year' || !$H(this.eventsLoading).size()) {
             this.insertEvents(dates, this.view, r.response.cal);
