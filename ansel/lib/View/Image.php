@@ -294,7 +294,7 @@ class Ansel_View_Image extends Ansel_View_Base
                       'page' => $page_prev),
                 $this->_date));
         }
-        $prvImgUrl = Ansel::getImageUrl($prev, 'screen', false, $this->_style['name']);
+        $prvImgUrl = Ansel::getImageUrl($prev, 'screen', true, $this->_style['name']);
 
         /* Next image link */
         if (!empty($this->_params['image_view_url'])) {
@@ -311,7 +311,7 @@ class Ansel_View_Image extends Ansel_View_Base
                       'page' => $page_next),
                 $this->_date));
         }
-        $nextImgUrl = Ansel::getImageUrl($next, 'screen', false, $this->_style['name']);
+        $nextImgUrl = Ansel::getImageUrl($next, 'screen', true, $this->_style['name']);
 
         /* Slideshow link */
         if (!empty($this->_params['slideshow_link'])) {
