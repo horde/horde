@@ -1242,7 +1242,9 @@ KronolithCore = {
             field = tab.down('input');
         }
         if (field) {
-            field.focus();
+            try {
+                field.focus();
+            } catch (e) {}
         }
     },
 
