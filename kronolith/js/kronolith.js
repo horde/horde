@@ -1383,7 +1383,7 @@ KronolithCore = {
             break;
         }
 
-        var day = dates[0].clone(), date;
+        var day = dates[0].clone(), date, more;
         while (!day.isAfter(dates[1])) {
             date = day.dateString();
             switch (view) {
@@ -1428,6 +1428,12 @@ KronolithCore = {
                             return;
                         }
                         this.holidays.push(event.key);
+                    }
+                    if (Kronolith.conf.max_events) {
+                        more = $('kronolithMonthDay' + date).down('.kronolithMore');
+                        if (more) {
+                            more.remove();
+                        }
                     }
                     if (view == 'month' && Kronolith.conf.max_events) {
                         var events = $('kronolithMonthDay' + date).select('.kronolithEvent');
@@ -1509,6 +1515,7 @@ KronolithCore = {
                                     }
                                 }
                             }
+                            this.insertMore(date);
                         }
                     }
                     break;
@@ -3661,6 +3668,10 @@ KronolithCore = {
                     eventid = $F('kronolithEventId'),
                     view = this.view,
                     date = this.date;
+                $('kronolithBody').select('div').findAll(function(el) {
+                    return el.retrieve('calendar') == cal &&
+                        el.retrieve('eventid') == eventid;
+                }).invoke('hide');
                 this.doAction('deleteEvent',
                               { cal: cal, id: eventid },
                               function(r) {
@@ -3673,16 +3684,21 @@ KronolithCore = {
                                       }).invoke('toggle');
                                   }
                                   if (view == this.view &&
-                                      date.equals(this.date) &&
-                                      (view == 'week' || view == 'day')) {
+                                      date.equals(this.date)) {
                                       // Re-render.
-                                      this.insertEvents(this.viewDates(this.date, view), view);
+                                      switch (view) {
+                                      case 'week':
+                                      case 'day':
+                                          this.insertEvents(this.viewDates(this.date, view), view);
+                                          break;
+                                      case 'month':
+                                          if (Kronolith.conf.max_events) {
+                                              this.insertEvents(this.viewDates(this.date, view), view, cal);
+                                          }
+                                          break;
+                                      }
                                   }
                               }.bind(this));
-                $('kronolithBody').select('div').findAll(function(el) {
-                    return el.retrieve('calendar') == cal &&
-                        el.retrieve('eventid') == eventid;
-                }).invoke('hide');
                 this.closeRedBox();
                 window.history.back();
                 e.stop();
