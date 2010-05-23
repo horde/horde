@@ -207,7 +207,6 @@ var PrettyAutocompleter = Class.create({
         // ...and keep the selectedItems array up to date.
         this.selectedItems.push({ rawValue: value, displayValue: displayValue });
         this.p.onAdd(value);
-
     },
 
     removeItemNode: function(item)
