@@ -17,7 +17,8 @@ var PrettyAutocompleter = Class.create({
             // Allow for a function that filters the display value
             // This function should *always* return escaped HTML
             displayFilter: function(t) { return t.escapeHTML() },
-            filterCallback: this._filterChoices.bind(this)
+            filterCallback: this._filterChoices.bind(this),
+            onAdd: Prototype.K
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -205,6 +206,8 @@ var PrettyAutocompleter = Class.create({
 
         // ...and keep the selectedItems array up to date.
         this.selectedItems.push({ rawValue: value, displayValue: displayValue });
+        this.p.onAdd(value);
+
     },
 
     removeItemNode: function(item)
