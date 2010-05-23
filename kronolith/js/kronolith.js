@@ -4710,31 +4710,7 @@ KronolithCore = {
         }
         if (!Object.isUndefined(ev.at)) {
             kronolithEAttendeesAc.reset(ev.at.pluck('l'));
-            var table = $('kronolithEventAttendeesList').down('tbody');
-            ev.at.each(function(attendee) {
-                var tr = new Element('tr'), i;
-                if (attendee.e) {
-                    this.fbLoading++;
-                    this.doAction('getFreeBusy',
-                                  { email: attendee.e },
-                                  function(r) {
-                                      this.fbLoading--;
-                                      if (!this.fbLoading) {
-                                          $('kronolithFBLoading').hide();
-                                      }
-                                      if (Object.isUndefined(r.response.fb)) {
-                                          return;
-                                      }
-                                      this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
-                                      this.insertFreeBusy(attendee.e);
-                                  }.bind(this));
-                }
-                tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l));
-                for (i = 0; i < 24; i++) {
-                    tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
-                }
-                table.insert(tr);
-            }, this);
+            ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
             }
@@ -4791,7 +4767,40 @@ KronolithCore = {
     },
 
     /**
-     * Inserts rows with free/busy information into the attendee table.
+     * Adds an attendee row to the free/busy table.
+     *
+     * @param object attendee  An attendee object with the properties:
+     *                         - e: email address
+     *                         - l: the display name of the attendee
+     */
+    addAttendee: function(attendee)
+    {
+        var tr = new Element('tr'), i;
+        if (attendee.e) {
+            this.fbLoading++;
+            this.doAction('getFreeBusy',
+                          { email: attendee.e },
+                          function(r) {
+                              this.fbLoading--;
+                              if (!this.fbLoading) {
+                                  $('kronolithFBLoading').hide();
+                              }
+                              if (Object.isUndefined(r.response.fb)) {
+                                  return;
+                              }
+                              this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
+                              this.insertFreeBusy(attendee.e);
+                          }.bind(this));
+        }
+        tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l));
+        for (i = 0; i < 24; i++) {
+            tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+        }
+        $('kronolithEventAttendeesList').down('tbody').insert(tr);
+    },
+
+    /**
+     * Updates rows with free/busy information in the attendees table.
      *
      * @todo Update when changing dates; only show free time for fb times we
      *       actually received.
