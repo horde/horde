@@ -47,9 +47,11 @@ var PrettyAutocompleter = Class.create({
         // Build the DOM structure
         this.buildStructure();
 
+        // Remember the bound method to unregister later.
+        this._boundProcessValue = this._processValue.bind(this);
         var trigger = $(this.p.trigger);
         trigger.observe('keydown', this._onKeyDown.bindAsEventListener(this));
-        trigger.observe('blur', this._processValue.bind(this));
+        trigger.observe('blur', this._boundProcessValue);
 
         // Make sure the p.items element is hidden
         if (!this.p.debug) {
@@ -68,6 +70,9 @@ var PrettyAutocompleter = Class.create({
 
         // Create the underlaying Autocompleter
         this.p.uri += '/input=' + this.p.trigger;
+
+        this.p.onShow = this._knvShow.bind(this);
+        this.p.onHide = this._knvHide.bind(this);
 
         // Make sure the knl is contained in the overlay
         this.p.domParent = this.p.box;
@@ -258,6 +263,15 @@ var PrettyAutocompleter = Class.create({
             c = c.without(item.displayValue);
         });
         return c;
-    }
+    },
 
+    _knvShow: function(l)
+    {
+        $(this.p.trigger).stopObserving('blur', this._boundProcessValue);
+    },
+
+    _knvHide: function(l)
+    {
+        $(this.p.trigger).observe('blur', this._boundProcessValue);
+    }
 });
