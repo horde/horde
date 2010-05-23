@@ -11,8 +11,8 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_GalleryMode_Date {
-
+class Ansel_GalleryMode_Date
+{
     /**
      * @var Ansel_Gallery
      */
@@ -157,9 +157,6 @@ class Ansel_GalleryMode_Date {
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
             $subs = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $this->_gallery);
-            if (is_a($subs, 'PEAR_Error')) {
-                return $subs;
-            }
             $this->_subGalleries = array_keys($subs);
         }
     }
@@ -199,9 +196,6 @@ class Ansel_GalleryMode_Date {
         if (!count($this->_date) || empty($this->_date['year'])) {
             /* All available images - grouped by year */
             $images = $ansel_storage->listImages($this->_gallery->id, 0, 0, array('image_id', 'image_original_date'), $gallery_where);
-            if (is_a($images, 'PEAR_Error')) {
-                return $images;
-            }
             $dates = array();
             foreach ($images as $key => $image) {
                 $dates[date('Y', $image['image_original_date'])][] = $key;
@@ -307,17 +301,16 @@ class Ansel_GalleryMode_Date {
             }
             $images= $ansel_storage->listImages($this->_gallery->id, $from, $to, 'image_id', $where, 'image_sort');
             $results = $ansel_storage->getImages(array('ids' => $images, 'preserve' => true));
-            if (!is_a($results, 'PEAR_Error')) {
-                if ($this->_gallery->get('has_subgalleries')) {
-                    $images = array();
-                    foreach ($results as $id => $image) {
-                        $image->gallery = $this->_gallery->id;
-                        $images[$id] = $image;
-                    }
-                    $children[$cache_key] = $images;
-                } else {
-                    $children[$cache_key] = $results;
+
+            if ($this->_gallery->get('has_subgalleries')) {
+                $images = array();
+                foreach ($results as $id => $image) {
+                    $image->gallery = $this->_gallery->id;
+                    $images[$id] = $image;
                 }
+                $children[$cache_key] = $images;
+            } else {
+                $children[$cache_key] = $results;
             }
 
             return $children[$cache_key];
@@ -351,7 +344,6 @@ class Ansel_GalleryMode_Date {
         return $results;
     }
 
-
     /**
      * Return the count of this gallery's children
      *
@@ -370,13 +362,8 @@ class Ansel_GalleryMode_Date {
     function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
     {
         $results = $this->getGalleryChildren($this->_date, 0, 0, $noauto);
-        if (is_a($results, 'PEAR_Error')) {
-            return $results;
-        }
-
         return count($results);
     }
-
 
     /**
      * Lists a slice of the image ids in this gallery.
@@ -422,9 +409,9 @@ class Ansel_GalleryMode_Date {
     function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return PEAR::raiseError(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
         } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-            return PEAR::raiseError(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
         /* Sanitize image ids, and see if we're removing our default image. */
@@ -453,9 +440,11 @@ class Ansel_GalleryMode_Date {
         }
 
         /* Bulk update the images to their new gallery_id */
+        // @TODO: Move this to Ansel_Storage::
         $result = $this->_gallery->getShareOb()->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, 'ERR');
+            throw new Ansel_Exception($result);
         }
 
         /* Update the gallery counts for each affected gallery */
@@ -485,18 +474,13 @@ class Ansel_GalleryMode_Date {
      * @param mixed $image      An image_id or Ansel_Image object to delete.
      * @param boolean $isStack  Image is a stack image (doesn't update count).
      *
-     * @return mixed  boolean || PEAR_Error
+     * @return boolean
      */
     function removeImage($image, $isStack)
     {
-
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
-        if (!is_a($image, 'Ansel_Image')) {
-            $img = &$GLOBALS['ansel_storage']->getImage($image);
-            if (is_a($img, 'PEAR_Error')) {
-                return $img;
-            }
-            $image = $img;
+        if (!($image instanceof Ansel_Image)) {
+            $image = $GLOBALS['ansel_storage']->getImage($image);
         }
 
         /* Make sure the image is in this gallery. */
@@ -526,6 +510,7 @@ class Ansel_GalleryMode_Date {
         } catch (VFS_Exception $e) {}
 
         /* Delete from SQL. */
+        // @TODO: Move to Horde_Storage
         $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
 
         /* Remove any attributes */
@@ -555,10 +540,8 @@ class Ansel_GalleryMode_Date {
         if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
-            $result = $GLOBALS['registry']->call('forums/deleteForum',
-                                                 array('ansel', $image->id));
-
-            if (is_a($result, 'PEAR_Error')) {
+            $result = $GLOBALS['registry']->call('forums/deleteForum', array('ansel', $image->id));
+            if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, 'ERR');
                 return false;
             }

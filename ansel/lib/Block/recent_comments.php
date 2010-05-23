@@ -41,8 +41,9 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
     function _title()
     {
         if ($this->_params['gallery'] != 'all') {
-            $gallery = $this->_getGallery();
-            if (is_a($gallery, 'PEAR_Error')) {
+            try {
+                $gallery = $this->_getGallery();
+            } catch (Horde_Exception $e) {
                 return Horde::link(
                     Ansel::getUrlFor('view', array('view' => 'List'), true))
                     . _("Gallery") . '</a>';
@@ -76,9 +77,10 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
                 $image_ids[] = $thread['forum_name'];
             }
         } else {
-            $gallery = $this->_getGallery();
-            if (is_a($gallery, 'PEAR_Error')) {
-                return $gallery->getMessage();
+            try {
+                $gallery = $this->_getGallery();
+            } catch (Horde_Exception $e) {
+                return $e->getMessage();
             }
             $results = array();
             $image_ids = $gallery->listImages();
@@ -100,8 +102,8 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
             . '<table class="linedRow" cellspacing="0" style="width:100%"><thead><tr class="item nowrap"><th class="item leftAlign">' . _("Date") . '</th><th class="item leftAlign">' . _("Image") . '</th><th class="item leftAlign">' . _("Subject") . '</th><th class="item leftAlign">' . _("By") . '</th></tr></thead><tbody>';
 
         foreach ($results as $comment) {
-            $image = &$ansel_storage->getImage($comment['image_id']);
-            if (!is_a($image, 'PEAR_Error')) {
+            try {
+                $image = &$ansel_storage->getImage($comment['image_id']);
                 $url = Ansel::getUrlFor('view',
                                         array('view' => 'Image',
                                               'gallery' => abs($image->gallery),
@@ -119,7 +121,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
                     . '</a></td><td class="nowrap">'
                     . $comment['message_subject'] . '</td><td class="nowrap">'
                     . $comment['message_author'] . '</td></tr>';
-            }
+            } catch (Horde_Exception $e) {}
         }
         $html .= '</tbody></table>';
 
@@ -129,7 +131,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
     function _getGallery()
     {
         // Make sure we haven't already selected a gallery.
-        if (is_a($this->_gallery, 'Ansel_Gallery')) {
+        if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;
         }
 
@@ -142,10 +144,9 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
         }
 
         if (empty($this->_gallery)) {
-            return PEAR::raiseError(_("Gallery does not exist."));
-        } elseif (is_a($this->_gallery, 'PEAR_Error') ||
-                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            return PEAR::raiseError(_("Access denied viewing this gallery."));
+            throw new Horde_Exception_NotFount(_("Gallery does not exist."));
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
 
         // Return a reference to the gallery.

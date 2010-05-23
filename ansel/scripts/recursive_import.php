@@ -16,7 +16,7 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:k',
                               array('help', 'username=', 'password=', 'dir=', 'keep'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -77,11 +77,9 @@ if (empty($dir)) {
 
 Horde_Nls::setCharset('utf-8');
 $gallery_id = processDirectory($dir);
-if (!$keepEmpties && !is_a($gallery_id, 'PEAR_Error')) {
+if (!$keepEmpties) {
     $gallery = $ansel_storage->getGallery($gallery_id);
-    if (!is_a($gallery, 'PEAR_Error')) {
-        emptyGalleryCheck($gallery);
-    }
+    emptyGalleryCheck($gallery);
 }
 exit;
 
@@ -134,11 +132,7 @@ function processDirectory($dir, $parent = null)
     $name = basename($dir);
     $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
     $gallery = $GLOBALS['ansel_storage']->createGallery(array('name' => $name), null, $parent);
-    if (is_a($gallery, 'PEAR_Error')) {
-        $cli->fatal(sprintf(_("The gallery \"%s\" couldn't be created: %s"), $name, $gallery->getMessage()));
-    } else {
-        $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
-    }
+    $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
 
     // Read all the files into an array.
     $files = array();
@@ -163,18 +157,8 @@ function processDirectory($dir, $parent = null)
         $added_images = array();
         foreach ($files as $file) {
             $image = Ansel::getImageFromFile($dir . '/' . $file);
-            if (is_a($image, 'PEAR_Error')) {
-                $cli->message($image->getMessage(), 'cli.error');
-                continue;
-            }
-
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $image_id = $gallery->addImage($image);
-            if (is_a($image_id, 'PEAR_Error')) {
-                $cli->message($image_id->getMessage(), 'cli.error');
-                continue;
-            }
-
             $added_images[] = $file;
         }
 

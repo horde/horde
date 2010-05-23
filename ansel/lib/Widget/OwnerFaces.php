@@ -25,11 +25,10 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
 
         $this->_faces = Ansel_Faces::factory();
         $this->_owner = $this->_view->gallery->get('owner');
-        //@TODO: Remove the PEAR_Error check when Faces is refactored.
         try {
             $this->_count = $this->_faces->countOwnerFaces($this->_owner);
-        } catch (Horde_Exception $e) {}
-        if (is_a($this->_count, 'PEAR_error')) {
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage, 'ERR');
             $this->_count = 0;
         }
 

@@ -163,7 +163,7 @@ abstract class Ansel_View_GalleryRenderer_Base
             //$image_ids = $this->view->gallery->listImages($this->pagestart, $this->pagestart + $this->perpage);
             $ids = array();
             foreach ($this->children as $child) {
-                if (is_a($child, 'Ansel_Image')) {
+                if ($child instanceof Ansel_Image) {
                     $ids[] = $child->id;
                 }
             }

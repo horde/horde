@@ -24,7 +24,7 @@ foreach ($results as $image) {
     }
     $sql = 'UPDATE ansel_images SET image_original_date = ' . (int)$datetime . ' WHERE image_id = ' . (int)$image['image_id'];
     $result = $ansel_db->exec($sql);
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->fatal($result->getMessage());
     }
     $cli->message(sprintf("Image %d updated.", $image['image_id']), 'cli.message');

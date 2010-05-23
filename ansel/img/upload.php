@@ -12,8 +12,9 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
-$gallery = &$ansel_storage->getGallery($gallery_id);
-if (is_a($gallery, 'PEAR_Error')) {
+try {
+    $gallery = $ansel_storage->getGallery($gallery_id);
+} catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
     exit;
@@ -93,22 +94,22 @@ if ($form->validate($vars)) {
                         break;
                     }
 
-                    /* If we successfully got data, try adding the
-                     * image to the gallery. */
-                    $image_id = $gallery->addImage(array(
-                        'image_filename' => $zinfo['name'],
-                        'image_caption' => '',
-                        'data' => $zdata,
-                    ));
-                    unset($zdata);
-                    if (!is_a($image_id, 'PEAR_Error')) {
+                    /* If we successfully got data, try adding the image */
+                    try {
+                        $image_id = $gallery->addImage(
+                            array(
+                                'image_filename' => $zinfo['name'],
+                                'image_caption' => '',
+                                'data' => $zdata)
+                        );
                         ++$uploaded;
                         if ($conf['image']['autogen'] > count($image_ids)) {
                             $image_ids[] = $image_id;
                         }
-                    } else {
+                    } catch (Ansel_Exception $e) {
                         $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id), 'horde.error');
                     }
+                    unset($zdata);
                 }
 
                 $zip->close();
@@ -118,11 +119,11 @@ if ($form->validate($vars)) {
                 $data = file_get_contents($info['file' . $i]['file']);
 
                 /* Get the list of files in the zipfile. */
-                $zip = Horde_Compress::factory('zip');
-                $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
-
-                if (is_a($files, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $files->getMessage()), 'horde.error');
+                try {
+                    $zip = Horde_Compress::factory('zip');
+                    $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
+                } catch (Horde_Exception $e) {
+                    $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                     continue;
                 }
 
@@ -145,32 +146,32 @@ if ($form->validate($vars)) {
                         continue;
                     }
 
-                    $zdata = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_DATA,
-                                                           'info' => $files,
-                                                           'key' => $key));
-                    if (is_a($zdata, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $zdata->getMessage()), 'horde.error');
+                    try {
+                        $zdata = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_DATA,
+                                                               'info' => $files,
+                                                               'key' => $key));
+                    } catch (Horde_Exception $e) {
+                        $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                         break;
                     }
 
-                    /* If we successfully got data, try adding the
-                     * image to the gallery. */
-                    $image_id = $gallery->addImage(array(
-                        'image_filename' => $zinfo['name'],
-                        'image_caption' => '',
-                        'data' => $zdata,
-                    ));
-                    unset($zdata);
-                    if (!is_a($image_id, 'PEAR_Error')) {
+                    /* If we successfully got data, try adding the image */
+                    try {
+                        $image_id = $gallery->addImage(
+                            array(
+                                'image_filename' => $zinfo['name'],
+                                'image_caption' => '',
+                                'data' => $zdata)
+                        );
                         ++$uploaded;
                         if ($conf['image']['autogen'] > count($image_ids)) {
                             $image_ids[] = $image_id;
                         }
-                    } else {
+                    } catch (Ansel_Exception $e) {
                         $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id), 'horde.error');
                     }
+                    unset($zdata);
                 }
-
                 unset($zip);
                 unset($data);
             }
@@ -191,15 +192,15 @@ if ($form->validate($vars)) {
                                 'image_type' => $info['file' . $i]['type'],
                                 'data' => $data,
                                 'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
-            $image_id = $gallery->addImage($image_data, (bool)$vars->get('image' . $i . '_default'));
-            unset($data);
-            if (is_a($image_id, 'PEAR_Error')) {
-                $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id->getMessage()), 'horde.error');
-                $valid = false;
-            } else {
+            try {
+                $image_id = $gallery->addImage($image_data, (bool)$vars->get('image' . $i . '_default'));
                 ++$uploaded;
                 $image_ids[] = $image_id;
+            } catch (Ansel_Exception $e) {
+                $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id->getMessage()), 'horde.error');
+                $valid = false;
             }
+            unset($data);
         }
     }
 

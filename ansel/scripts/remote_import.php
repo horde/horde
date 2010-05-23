@@ -19,7 +19,7 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:g:s:d:kr:zl',
                               array('help', 'username=', 'password=', 'gallery=', 'slug=', 'dir=', 'keep', 'remotehost=', 'gzip', 'lzf'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -162,14 +162,8 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
             null,
             is_null($slug) ? null : array($slug),
         );
-        $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
         $result = $result->result;
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
         if (empty($result)) {
             $cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
         }
@@ -188,16 +182,9 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
         $method = 'images.createGallery';
         $params = array(null, array('name' => $name), null, $parent);
-        $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
         $gallery_id = $result->result;
-        if (is_a($gallery_id, 'PEAR_Error')) {
-            $cli->fatal(sprintf(_("The gallery \"%s\" couldn't be created: %s"), $name, $gallery_id->getMessage()));
-        } else {
-            $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
-        }
+        $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
     }
 
     /* Get the files and directories */
@@ -230,28 +217,14 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $added_images = array();
         foreach ($files as $file) {
             $image = getImageFromFile($dir . '/' . $file, $compress);
-            if (is_a($image, 'PEAR_Error')) {
-                $cli->message($image->getMessage(), 'cli.error');
-                continue;
-            }
-
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $method = 'images.saveImage';
             $params = array(null, $gallery_id, $image, false, null, 'binhex', $slug, $compress);
-            $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-            if (is_a($result, 'PEAR_Error')) {
-                $cli->fatal($result->getMessage());
-            }
-
-            if (!is_a($result, 'stdClass')) {
+            $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
+            if (!($result instanceof stdClass)) {
                 $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), print_r($result, true)));
             }
             $image_id = $result->result;
-            if (is_a($image_id, 'PEAR_Error')) {
-                $cli->message($image_id->getMessage(), 'cli.error');
-                continue;
-            }
-
             $added_images[] = $file;
         }
 

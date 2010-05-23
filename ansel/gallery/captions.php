@@ -17,19 +17,17 @@ if (!$galleryId) {
                                            true));
     exit;
 }
-
-$gallery = $ansel_storage->getGallery($galleryId);
-if (is_a($gallery, 'PEAR_Error')) {
-    $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $gallery->getMessage()), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+try {
+    $gallery = $ansel_storage->getGallery($galleryId);
+} catch (Ansel_Exception $e) {
+    $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $e->getMessage()), 'horde.error');
+    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
     exit;
 }
 
 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied setting captions for %s."), $gallery->get('name')), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
     exit;
 }
 

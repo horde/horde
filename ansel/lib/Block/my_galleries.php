@@ -39,13 +39,14 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
     {
         Horde::addScriptFile('tooltips.js', 'horde');
         /* Get the top level galleries */
-        $galleries = $GLOBALS['ansel_storage']->listGalleries(
-            Horde_Perms::EDIT, Horde_Auth::getAuth(), null, false, 0,
-            empty($this->_params['limit']) ? 0 : $this->_params['limit'],
-            'last_modified', 1);
+        try {
+            $galleries = $GLOBALS['ansel_storage']->listGalleries(
+                Horde_Perms::EDIT, Horde_Auth::getAuth(), null, false, 0,
+                empty($this->_params['limit']) ? 0 : $this->_params['limit'],
+                'last_modified', 1);
 
-        if (is_a($galleries, 'PEAR_Error')) {
-            return $galleries->getMessage();
+        } catch (Ansel_Exception $e) {
+            return $e->getMessage();
         }
 
         $preview_url = Horde::applicationUrl('preview.php');

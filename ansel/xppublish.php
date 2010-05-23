@@ -82,11 +82,11 @@ if ($cmd == 'select') {
     if (!$galleryId || !$ansel_storage->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
-        $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_ERROR')) {
-            $error = _("There was an error accessing the gallery");
-        } else {
+        try {
+            $gallery = $ansel_storage->getGallery($galleryId);
             $error = false;
+        } catch (Ansel_Exception $e) {
+            $error = _("There was an error accessing the gallery");
         }
     }
 
@@ -113,16 +113,16 @@ if ($cmd == 'new') {
     $gallery_desc = Horde_Util::getFormData('gallery_desc');
     if ($create) {
         /* Creating a new gallery. */
-        $gallery = $ansel_storage->createGallery(array('name' => $gallery_name,
-                                                       'desc' => $gallery_desc));
-        if (is_a($gallery, 'PEAR_Error')) {
-            $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $gallery->getMessage());
-            Horde::logMessage($error, 'ERR');
-        } else {
+        try {
+            $gallery = $ansel_storage->createGallery(
+                    array('name' => $gallery_name, 'desc' => $gallery_desc));
             $galleryId = $gallery->id;
             $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
             Horde::logMessage($msg, 'DEBUG');
-        }
+        } catch (Ansel_Exception $e) {
+            $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $e->getMessage());
+            Horde::logMessage($error, 'ERR');
+        } 
     } else {
         if (empty($galleryId) && $prefs->getValue('autoname')) {
             $galleryId = md5(microtime());
@@ -169,11 +169,15 @@ if ($cmd == 'add') {
     if (!$galleryId || !$ansel_storage->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
-        $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_ERROR') || !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
-        } else {
-            $error = false;
+        try {
+            $gallery = $ansel_storage->getGallery($galleryId);
+            if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
+            } else {
+                $error = false;
+            }
+        } catch (Ansel_Exception $e) {
+            $error = _("There was an error accessing the gallery");
         }
     }
     if (!$name || $error) {
@@ -181,20 +185,18 @@ if ($cmd == 'add') {
     } else {
         try {
             $GLOBALS['browser']->wasFileUploaded('imagefile', _("photo"));
-            $image = &Ansel::getImageFromFile($file, array('image_filename' => $name));
-            if (is_a($image, 'PEAR_Error')) {
-                $error = $image->getMessage();
-            } else {
-                $gallery = $ansel_storage->getGallery($galleryId);
+            try {
+                $image = Ansel::getImageFromFile($file, array('image_filename' => $name));
+            } catch (Ansel_Exception $e) {
+                $error = $e->getMessage();
+            }
+
+            $gallery = $ansel_storage->getGallery($galleryId);
+            try {
                 $image_id = $gallery->addImage($image);
-                if (is_a($image_id, 'PEAR_Error')) {
-                    $error = _("There was a problem uploading the photo.");
-                } else {
-                    $error = false;
-                }
-                if (is_a($image_id, 'PEAR_Error')) {
-                    $image_id = $image_id->getMessage();
-                }
+                $error = false;
+            } catch (Ansel_Exception $e) {
+                $error = _("There was a problem uploading the photo.");
             }
         } catch (Horde_Browser_Exception $e) {
             $error = $e->getMessage();

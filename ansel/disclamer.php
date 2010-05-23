@@ -12,15 +12,14 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
-$gallery = $ansel_storage->getGallery($vars->get('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
+try {
+    $gallery = $ansel_storage->getGallery($vars->get('gallery'));
+} catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
     header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
     exit;
 }
 $url = $vars->get('url');
-
-
 $form = new Horde_Form($vars, _("Content Disclaimer"), 'disclamer');
 $form->addVariable($gallery->get('name'), 'name', 'description', false);
 $form->addVariable($gallery->get('desc'), 'desc', 'description', false);
@@ -44,7 +43,5 @@ if ($form->isSubmitted()) {
 
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
-
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

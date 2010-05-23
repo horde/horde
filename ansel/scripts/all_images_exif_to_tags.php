@@ -16,7 +16,7 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:f:',
                               array('help', 'username=', 'password=', 'fields='));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -73,22 +73,15 @@ if (!Horde_Auth::isAdmin()) {
 // Get the list of image ids that have exif data.
 $sql = 'SELECT DISTINCT image_id from ansel_image_attributes;';
 $results = $GLOBALS['ansel_db']->query($sql);
-if (is_a($results, 'PEAR_Error')) {
+if ($results instanceof PEAR_Error) {
     $cli->fatal($results->getMessage());
 }
 $image_ids = $results->fetchAll(MDB2_FETCHMODE_ASSOC);
 $results->free();
 foreach (array_values($image_ids) as $image_id) {
     $image = $ansel_storage->getImage($image_id['image_id']);
-    if (!is_a($image, 'PEAR_Error')) {
-        $results = $image->exifToTags($exif_fields);
-        if (is_a($results, 'PEAR_Error')) {
-            $cli->message(sprintf(_("Could not extract exif fields from %s: %s"), $image_id['image_id'], $results->getMessage()), 'cli.error');
-        }
-        $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
-    } else {
-        $cli->message(sprintf(_("Could not extract exif fields from %s: %s"), $image_id['image_id'], $image->getMessage()), 'cli.error');
-    }
+    $results = $image->exifToTags($exif_fields);
+    $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
 }
 $cli->message(_("Done"));
 exit;

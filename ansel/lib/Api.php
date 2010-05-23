@@ -73,33 +73,32 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             if (count($parts) == 1) {
                 // This request is for all galleries owned by the requested user.
-                $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    Horde_Perms::SHOW, $parts[0], null, false);
+                $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $parts[0], null, false);
                 $images = array();
             } elseif ($this->galleryExists(null, end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
                 // and images.
                 $gallery_id = end($parts);
-                $galleries = $GLOBALS['ansel_storage']->getGalleries(
-                    array($gallery_id));
+                $galleries = $GLOBALS['ansel_storage']->getGalleries(array($gallery_id));
                 if (!isset($galleries[$gallery_id]) ||
-                    !$galleries[$gallery_id]->hasPermission(Horde_Auth::getAuth(),
-                        Horde_Perms::READ)) {
-                            return PEAR::raiseError(_("Invalid gallery specified."), 404);
-                        }
-                $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    Horde_Perms::SHOW, null, $gallery_id, false);
+                    !$galleries[$gallery_id]->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
 
-                $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
-            } elseif (count($parts) > 2 &&
-                $this->galleryExists(null, $parts[count($parts) - 2]) &&
-                !is_a($image = $GLOBALS['ansel_storage']->getImage(end($parts)), 'PEAR_Error')) {
-                    return array('data' => $image->raw(),
-                        'mimetype' => $image->type,
-                        'mtime' => $image->uploaded);
-                } else {
-                    return PEAR::raiseError(_("File not found."), 404);
+                    throw new Horde_Exception_NotFound(_("Invalid gallery specified."));
                 }
+                $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $gallery_id, false);
+                $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
+
+            } elseif (count($parts) > 2 &&
+                      $this->galleryExists(null, $parts[count($parts) - 2]) &&
+                      ($image = $GLOBALS['ansel_storage']->getImage(end($parts)))) {
+
+                return array('data' => $image->raw(),
+                             'mimetype' => $image->type,
+                             'mtime' => $image->uploaded);
+
+            } else {
+                throw new Horde_Exception_NotFound(_("File not found."));
+            }
 
             $results = array();
             foreach ($galleries as $galleryId => $gallery) {
@@ -163,7 +162,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         }
 
-        return PEAR::raiseError(_("File not found."), 404);
+        throw Horde_Exception_NotFound(_("File not found."), 404);
     }
 
     /**
@@ -184,19 +183,20 @@ class Ansel_Api extends Horde_Registry_Api
         $parts = explode('/', $path);
 
         if (count($parts) < 3) {
-            return PEAR::raiseError("Gallery does not exist");
+            throw new Horde_Exception_NotFound("Gallery does not exist");
         }
         $image_name = array_pop($parts);
         $gallery_id = end($parts);
         if (!$GLOBALS['ansel_storage']->galleryExists($gallery_id)) {
-            return PEAR::raiseError("Gallery does not exist");
+            throw new Horde_Exception_NotFound("Gallery does not exist");
         }
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return PEAR::raiseError(_("Access denied adding photos to \"%s\"."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to \"%s\"."));
         }
 
-        return $gallery->addImage(array('image_type' => $content_type,
+        return $gallery->addImage(array(
+            'image_type' => $content_type,
             'image_filename' => $image_name,
             'image_caption' => '',
             'data' => $content));
@@ -215,8 +215,11 @@ class Ansel_Api extends Horde_Registry_Api
             return false;
         }
 
-        $image = $GLOBALS['ansel_storage']->getImage($image_id);
-        if (!$image || is_a($image, 'PEAR_Error')) {
+        try {
+            if (!($image = $GLOBALS['ansel_storage']->getImage($image_id))) {
+                return false;
+            }
+        } catch (Ansel_Exception $e) {
             return false;
         }
 
@@ -301,8 +304,8 @@ class Ansel_Api extends Horde_Registry_Api
      * @return mixed  An array of image/gallery data || PEAR_Error
      */
     public function saveImage($app = null, $gallery_id, $image, $default = false,
-        $gallery_data = null, $encoding = null, $slug = null,
-        $compression = 'none', $skiphook = false)
+                              $gallery_data = null, $encoding = null, $slug = null,
+                              $compression = 'none', $skiphook = false)
     {
         $image_data = null;
 
@@ -326,24 +329,18 @@ class Ansel_Api extends Horde_Registry_Api
             }
 
         if (is_null($image_data) && getimagesize($image['file']) === false) {
-            return PEAR::raiseError(_("The file you uploaded does not appear to be a valid photo."));
+            throw new InvalidArgumentException(_("The file you uploaded does not appear to be a valid photo."));
         }
         if (empty($slug) && empty($gallery_id)) {
-            return PEAR::raiseError(_("A gallery to add this photo to is required."));
+            throw new InvalidArgumentException(_("A gallery to add this photo to is required."));
         }
         if (!empty($slug)) {
             $gallery = $GLOBALS['ansel_storage']->getGalleryBySlug($slug);
-            if (is_a($gallery, 'PEAR_Error')) {
-                return $gallery;
-            }
         } elseif ($GLOBALS['ansel_storage']->galleryExists($gallery_id)) {
             $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-            if (is_a($gallery, 'PEAR_Error')) {
-                return $gallery;
-            }
         }
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return PEAR::raiseError(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
         }
         if (!empty($gallery_data)) {
             foreach ($gallery_data as $key => $value) {
@@ -367,9 +364,6 @@ class Ansel_Api extends Horde_Registry_Api
             }
 
         $image_id = $gallery->addImage($image_data, $default);
-        if (is_a($image_id, 'PEAR_Error')) {
-            return $image_id;
-        }
 
         // Call the postupload hook if needed
         if (!empty($GLOBALS['conf']['hooks']['postupload']) && !$skiphook) {
@@ -379,9 +373,9 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         return array('image_id'   => (int)$image_id,
-            'gallery_id' => (int)$gallery->id,
-            'gallery_slug' => $gallery->get('slug'),
-            'image_count' => (int)$gallery->countImages());
+                     'gallery_id' => (int)$gallery->id,
+                     'gallery_slug' => $gallery->get('slug'),
+                     'image_count' => (int)$gallery->countImages());
     }
 
     /**
@@ -409,7 +403,7 @@ class Ansel_Api extends Horde_Registry_Api
     {
         /* Check global Ansel permissions */
         if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
-            return PEAR::raiseError(_("Access denied deleting galleries."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 
         /* If no app is given use Ansel's own gallery which is initialized in
@@ -419,15 +413,10 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         $image = $GLOBALS['ansel_storage']->getImage($image_id);
-        if (is_a($image, 'PEAR_Error')) {
-            return $image;
-        }
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-
-                return PEAR::raiseError(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
-            }
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
+        }
         return $gallery->removeImage($image);
     }
 
@@ -450,8 +439,9 @@ class Ansel_Api extends Horde_Registry_Api
         if (!(Horde_Auth::isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
-                return PEAR::raiseError(_("Access denied creating new galleries."));
-            }
+
+            throw new Horde_Exception_PermissionDenied(_("Access denied creating new galleries."));
+        }
 
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
@@ -467,9 +457,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         $gallery = $GLOBALS['ansel_storage']->createGallery($attributes, $permobj, $parent);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
-        }
+
         return $gallery->id;
     }
 
@@ -485,7 +473,7 @@ class Ansel_Api extends Horde_Registry_Api
     {
         /* Check global Ansel permissions */
         if (!$GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('ansel')) {
-            return PEAR::raiseError(_("Access denied deleting galleries."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting galleries."));
         }
 
         /* If no app is given use Ansel's own gallery which is initialized in
@@ -495,12 +483,8 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Access denied deleting gallery \"%s\"."),
-                $gallery->getMessage()));
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-            return PEAR::raiseError(sprintf(_("Access denied deleting gallery \"%s\"."),
-                $gallery->get('name')));
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
         } else {
             $imageList = $gallery->listImages();
             if ($imageList) {
@@ -508,14 +492,8 @@ class Ansel_Api extends Horde_Registry_Api
                     $gallery->removeImage($id);
                 }
             }
-            $result = $GLOBALS['ansel_storage']->removeGallery($gallery);
-            if (!is_a($result, 'PEAR_Error')) {
-                return true;
-            } else {
-                return PEAR::raiseError(sprintf(_("There was a problem deleting %s: %s"),
-                    $gallery->get('name'),
-                    $result->getMessage()));
-            }
+
+            return $GLOBALS['ansel_storage']->removeGallery($gallery);
         }
     }
 
@@ -536,16 +514,15 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
 
-        if (!empty($slug)) {
-            $gallery = $GLOBALS['ansel_storage']->getGalleryBySlug($slug);
-        } else {
-            $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        }
-
-        if (is_a($gallery, 'PEAR_Error')) {
-            return 0;
-        } else {
+        try {
+            if (!empty($slug)) {
+                $gallery = $GLOBALS['ansel_storage']->getGalleryBySlug($slug);
+            } else {
+                $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
+            }
             return (int)$gallery->countImages();
+        } catch (Ansel_Exception $e) {
+            return 0;
         }
     }
 
@@ -574,11 +551,7 @@ class Ansel_Api extends Horde_Registry_Api
             $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
         }
 
-        if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
-        } else {
-            return $gallery->getDefaultImage($style);
-        }
+        return $gallery->getDefaultImage($style);
     }
 
     /**
@@ -619,53 +592,37 @@ class Ansel_Api extends Horde_Registry_Api
      * @return string  The image path.
      */
     public function getImageContent($image_id, $view = 'screen', $style = null,
-        $app = null, $encoding = null, $compression = 'none')
+                                    $app = null, $encoding = null,
+                                    $compression = 'none')
     {
-        /* If no app is given use Ansel's own gallery which is initialized in
-        base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
 
-        // Get image
+        /* Get image and gallery */
         $image = $GLOBALS['ansel_storage']->getImage($image_id);
-        if (is_a($image, 'PEAR_Error')) {
-            return $image;
-        }
-
-        // Get gallery
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
-        }
 
-        // Check age and password
+        /* Check age and password */
         if (!$gallery->hasPasswd() || !$gallery->isOldEnough()) {
-            return PEAR::raiseError(_("Locked galleries are not viewable via the api."));
+            throw new Horde_Exception(_("Locked galleries are not viewable via the api."));
         }
 
         if ($view == 'full') {
-            // Check permissions for full view
+            /* Check permissions for full view */
             if (!$gallery->canDownload()) {
-                return PEAR::RaiseError(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
+                throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
             }
-
             try {
-                $data = $GLOBALS['ansel_vfs']->read($image->getVFSPath('full'),
-                    $image->getVFSName('full'));
+                $data = $GLOBALS['ansel_vfs']->read($image->getVFSPath('full'), $image->getVFSName('full'));
             } catch (VFS_Exception $e) {
-                return PEAR::raiseError($data->getMessage());
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Ansel_Exception($e->getMessage());
             }
         } else {
-            // Load View
             $result = $image->load($view, $style);
-
-            // Return image content
             $data = $image->_image->raw();
-        }
-
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
         }
 
         return $this->_getImageData($data, $encoding, $compression, false);
@@ -689,23 +646,17 @@ class Ansel_Api extends Horde_Registry_Api
      * @return array  An array of gallery information.
      */
     public function listGalleries($app = null, $perm = Horde_Perms::SHOW,
-        $parent = null,
-        $allLevels = true, $from = 0, $count = 0,
-        $attributes = null, $sort_by = null, $direction = 0)
+                                  $parent = null, $allLevels = true, $from = 0,
+                                  $count = 0, $attributes = null, $sort_by = null,
+                                  $direction = 0)
     {
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
-
-
         $galleries = $GLOBALS['ansel_storage']->listGalleries(
             $perm, $attributes, $parent, $allLevels, $from, $count, $sort_by, $direction);
-
-        if (is_a($galleries, 'PEAR_Error')) {
-            return $galleries;
-        }
 
         $return = array();
         foreach ($galleries as $gallery) {
@@ -734,10 +685,6 @@ class Ansel_Api extends Horde_Registry_Api
             $results = $GLOBALS['ansel_storage']->getGalleriesBySlugs($slugs);
         } else {
             $results = $GLOBALS['ansel_storage']->getGalleries($ids);
-        }
-
-        if (is_a($results, 'PEAR_Error')) {
-            return $results;
         }
 
         /* We can't just return the results of the getGalleries call - we need to
@@ -826,22 +773,13 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
         }
-        if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
-        }
 
         $images = $gallery->listImages();
-        if (is_a($images, 'PEAR_Error')) {
-            return $images;
-        }
 
         $counter = 0;
         $imagelist = array();
         foreach ($images as $id) {
             $image = $GLOBALS['ansel_storage']->getImage($id);
-            if (is_a($image, 'PEAR_Error')) {
-                return $image;
-            }
             $imagelist[$id]['name'] = $image->filename;
             $imagelist[$id]['caption'] = $image->caption;
             $imagelist[$id]['type'] = $image->type;
@@ -969,20 +907,18 @@ class Ansel_Api extends Horde_Registry_Api
      * @return mixed  An array of results | PEAR_Error
      */
     public function searchTags($names, $max = 10, $from = 0,
-        $resource_type = 'all', $user = null, $raw = false,
-        $app = null)
+                               $resource_type = 'all', $user = null, $raw = false,
+                               $app = null)
     {
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         } else {
             $app = 'ansel';
         }
-
-        $results = Ansel_Tags::searchTags($names, $max, $from,  $resource_type,
-            $user);
+        $results = Ansel_Tags::searchTags($names, $max, $from,  $resource_type, $user);
 
         /* Check for error or if we requested the raw data array */
-        if (is_a($results, 'PEAR_Error') || $raw) {
+        if ($raw) {
             return $results;
         }
 
@@ -1017,7 +953,6 @@ class Ansel_Api extends Horde_Registry_Api
 
             }
         }
-
 
         return $return;
     }

@@ -46,13 +46,12 @@ $form = new Ansel_Form_ImageDate($vars, _("Edit Dates"));
 if ($actionID == 'edit_dates') {
     $count = 0;
     foreach (array_keys($images) as $image_id) {
-        $image = $ansel_storage->getImage($image_id);
-        if (!is_a($image, 'PEAR_Error')) {
+        try {
+            $image = $ansel_storage->getImage($image_id);
             if (empty($gallery_id)) {
                 // Images might be from different galleries
                 $gallery = $ansel_storage->getGallery($image->gallery);
-                if (is_a($gallery, 'PEAR_Error') ||
-                    !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                     continue;
                 }
             }
@@ -60,15 +59,14 @@ if ($actionID == 'edit_dates') {
             $image->originalDate = (int)$newDate->timestamp();
             $image->save();
             ++$count;
-        } else {
-           $notification->push(sprintf(_("There was an error editing the dates: %s"), $image->getMessage()), 'horde.error');
+        } catch (Ansel_Exception $e) {
+           $notification->push(sprintf(_("There was an error editing the dates: %s"), $e->getMessage()), 'horde.error');
             echo Horde::wrapInlineScript(array(
                 'window.opener.location.href = window.opener.location.href;',
                 'window.close();'
             ));
            exit;
         }
-
     }
 
     $notification->push(sprintf(_("Successfully modified the date on %d photos."), $count), 'horde.success');

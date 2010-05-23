@@ -19,7 +19,7 @@ $move = $verbose = false;
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'mv',
                               array('move', 'verbose'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     die("Couldn't read command-line options.\n");
 }
 list($opts, $args) = $ret;

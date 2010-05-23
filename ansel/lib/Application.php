@@ -68,10 +68,6 @@ class Ansel_Application extends Horde_Registry_Application
 
         // Create db, share, and vfs instances.
         $GLOBALS['ansel_db'] = Ansel::getDb();
-        if (is_a($GLOBALS['ansel_db'], 'PEAR_Error')) {
-            throw new Horde_Exception_Prior($GLOBALS['ansel_db']);
-        }
-
         $GLOBALS['ansel_storage'] = new Ansel_Storage();
         $GLOBALS['ansel_vfs'] = Ansel::getVFS();
 

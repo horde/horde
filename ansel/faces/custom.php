@@ -23,8 +23,9 @@ if (!empty($url)) {
 }
 $form_post = Horde_Util::addParameter(Horde::applicationUrl('faces/savecustom.php'), $urlparams);
 
-$image = &$ansel_storage->getImage($image_id);
-if (is_a($image, 'PEAR_Error')) {
+try {
+    $image = $ansel_storage->getImage($image_id);
+} catch (Ansel_Exception $e) {
     $notification->push($image);
     header('Location: ' . Horde::applicationUrl('list.php'));
     exit;
@@ -47,18 +48,17 @@ if ($face_id) {
     $faces = Ansel_Faces::factory();
     try {
         $face = $faces->getFaceById($face_id, true);
+        $x1 = $face['face_x1'];
+        $y1 = $face['face_y1'];
+        $x2 = $face['face_x2'];
+        $y2 = $face['face_y2'];
+        if (!empty($face['face_name'])) {
+            $name = $face['face_name'];
+        }
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage());
+        header('Location: ' . Horde::applicationUrl('list.php'));
     }
-
-    $x1 = $face['face_x1'];
-    $y1 = $face['face_y1'];
-    $x2 = $face['face_x2'];
-    $y2 = $face['face_y2'];
-    if (!empty($face['face_name'])) {
-        $name = $face['face_name'];
-    }
-
 }
 
 $height = $x2 - $x1;

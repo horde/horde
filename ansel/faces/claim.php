@@ -34,7 +34,6 @@ if ($form->validate()) {
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push(_("Action was cancelled."), 'horde.warning');
     } else {
-        require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
         $gallery = $ansel_storage->getGallery($face['gallery_id']);
 
@@ -42,7 +41,9 @@ if ($form->validate()) {
             Horde::applicationUrl('faces/custom.php', true),
             array('name' => $vars->get('person'),
                   'face' => $face_id,
-                  'image' => $face['image_id']), null, false);
+                  'image' => $face['image_id']),
+            null,
+            false);
 
         $title = _("I know who is on one of your photos");
         $body = _("Gallery Name") . ': ' . $gallery->get('name') . "\n"
@@ -52,12 +53,11 @@ if ($form->validate()) {
                 . _("Face") . ': ' . $face_link;
 
         $report->setTitle($title);
-        $result = $report->report($body, $gallery->get('owner'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(_("Face name was not reported.") . ' ' .
-                                $result->getMessage(), 'horde.error');
-        } else {
+        try {
+            $result = $report->report($body, $gallery->get('owner'));
             $notification->push(_("The owner of the photo, who will delegate the face name, was notified."), 'horde.success');
+        } catch (Ansel_Exception $e) {
+            $notification->push(_("Face name was not reported.") . ' ' . $e->getMessage(), 'horde.error');
         }
     }
 
@@ -67,7 +67,5 @@ if ($form->validate()) {
 
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
-
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

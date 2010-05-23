@@ -293,7 +293,7 @@ class Ansel_Storage
      * @return Ansel_Gallery object
      * @throws Horde_Exception_NotFound
      */
-    public function &getGalleryBySlug($slug, $overrides = array())
+    public function getGalleryBySlug($slug, $overrides = array())
     {
         $id = $this->slugExists($slug);
         if ($id) {
@@ -313,7 +313,7 @@ class Ansel_Storage
      * @return Ansel_Gallery
      * @throws Ansel_Exception
      */
-    public function &getGallery($gallery_id, $overrides = array())
+    public function getGallery($gallery_id, $overrides = array())
     {
         // avoid cache server hits
         if (isset($this->_galleries[$gallery_id]) && !count($overrides)) {
@@ -523,7 +523,7 @@ class Ansel_Storage
         /* If we have an id, then it's an existing image.*/
         if ($image->id) {
             $update = $this->_db->prepare('UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?');
-            if (is_a($update, 'PEAR_Error')) {
+            if ($update instanceof PEAR_Error) {
                 Horde::logMessage($update, 'ERR');
                 throw new Ansel_Exception($update);
             }
@@ -537,7 +537,7 @@ class Ansel_Storage
                                              $image->location,
                                              $image->geotag_timestamp,
                                              $image->id));
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 Horde::logMessage($update, 'ERR');
                 throw new Ansel_Exception($result);
             }
@@ -553,13 +553,13 @@ class Ansel_Storage
 
         /* Get the next image_id */
         $image_id = $this->_db->nextId('ansel_images');
-        if (is_a($image_id, 'PEAR_Error')) {
+        if ($image_id instanceof PEAR_Error) {
             throw new Ansel_Exception($image_id);
         }
 
         /* Prepare the SQL statement */
         $insert = $this->_db->prepare('INSERT INTO ansel_images (image_id, gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        if (is_a($insert, 'PEAR_Error')) {
+        if ($insert instanceof PEAR_Error) {
             Horde::logMessage($insert, 'ERR');
             throw new Ansel_Exception($insert);
         }
@@ -578,7 +578,7 @@ class Ansel_Storage
                                          $image->location,
                                          (empty($image->lat) ? 0 : $image->uploaded)));
         $insert->free();
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
             throw new Ansel_Exception($result);
         }

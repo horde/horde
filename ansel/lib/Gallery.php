@@ -34,6 +34,13 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         $this->_setModeHelper($mode);
     }
 
+    /**
+     * Helper for accessing the gallery id
+     *
+     * @param string $property
+     *
+     * @return mixed
+     */
     public function __get($property)
     {
         switch ($property) {
@@ -47,6 +54,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Check for special capabilities of this gallery.
      *
+     * @return boolean
      */
     public function hasFeature($feature)
     {
@@ -106,21 +114,15 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Saves any changes to this object to the backend permanently.
      *
-     * @TODO: this needs to stay public b/c Horde_Share_Object (which this extends)
-     *        is not yet ported to PHP5. This will be fixed when we no longer
-     *        extend Horde_Share_Object here.
-     *
-     * @return mixed true || PEAR_Error on failure.
+     * @return boolean
      */
-    public function _save()
+    protected function _save()
     {
         // Check for invalid characters in the slug.
         if (!empty($this->data['attribute_slug']) &&
             preg_match('/[^a-zA-Z0-9_@]/', $this->data['attribute_slug'])) {
 
-            // TODO: Need to keep the pear error here since Horde_Share still
-            // uses them.
-            return PEAR::raiseError(
+            throw new InvalidArgumentException(
                 sprintf(_("Could not save gallery, the slug, \"%s\", contains invalid characters."),
                         $this->data['attribute_slug']));
         }
@@ -128,13 +130,15 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         // Check for slug uniqueness
         $slugGalleryId = $GLOBALS['ansel_storage']->slugExists($this->data['attribute_slug']);
         if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
-            return PEAR::raiseError(sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
-                                            $this->data['attribute_slug']));
+            throw InvalidArgumentException(
+                sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
+                        $this->data['attribute_slug']));
         }
 
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
         }
+
         return parent::_save();
     }
 
@@ -142,27 +146,41 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      * Update the gallery image count.
      *
      * @param integer $images      Number of images in action
-     * @param boolean $add         Action to take (add or remove)
-     * @param integer $gallery_id  Gallery id to update images for
+     * @param boolean $add         True if adding, false if removing
+     * @param integer $gallery_id  Gallery id to update images for, if not self
+     *
+     * @return boolean true on success
+     * @throws Ansel_Exception
      */
     public function updateImageCount($images, $add = true, $gallery_id = null)
     {
-        // We do the query directly here to avoid having to instantiate a
-        // gallery object just to increment/decrement one value in the table.
-        // TODO: Change this - should always use the appropriate object, not
-        // direct manipulation of the share table...
-        $sql = 'UPDATE ' . $this->_shareOb->getTable()
-            . ' SET attribute_images = attribute_images '
-            . ($add ? ' + ' : ' - ') . $images . ' WHERE share_id = '
-            . ($gallery_id ? $gallery_id : $this->id);
-
-        // Make sure to update the local value as well, so it doesn't get
-        // overwritten by any other updates from ->set() calls.
         if (is_null($gallery_id) || $gallery_id === $this->id) {
+            /* Updating self */
             if ($add) {
                 $this->data['attribute_images'] += $images;
             } else {
                 $this->data['attribute_images'] -= $images;
+            }
+            try {
+                $this->save();
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage, 'ERR');
+                throw Ansel_Exception($e);
+            }
+        } else {
+            /* Updating other gallery */
+            $g = $GLOBALS['ansel_storage']->getGallery($gallery_id);
+            $count = $g->get('images');
+            if ($add) {
+                $count += $images;
+            } else {
+                $count['attribute_images'] -= $images;
+            }
+            try {
+                $g->save();
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage, 'ERR');
+                throw Ansel_Exception($e);
             }
         }
 
@@ -172,17 +190,20 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $GLOBALS['cache']->expire('Ansel_Gallery' . $id);
         }
 
-        return $this->_shareOb->getWriteDb()->exec($sql);
+        return true;
     }
 
     /**
      * Adds an Ansel_Image object to this gallery.
      *
-     * @param $image Ansel_Image
+     * @param Ansel_Image $image  The ansel image object to add
+     * @param boolean $default    Set this image as the gallery's key image.
+     *
+     * @return integer  The new image id
      */
     public function addImageObject(Ansel_Image $image, $default = false)
     {
-        // Make sure it's taken as a new image
+        /* Make sure it's taken as a new image */
         $image->id = null;
         $image->gallery = $this->getId();
         $image->sort = $this->countImages();
@@ -190,8 +211,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         $this->updateImageCount(1);
 
         /* Should this be the default image? */
-        $this->data['attribute_default'] = $image->id;
-        $this->clearStacks();
+        if ($default) {
+            $this->data['attribute_default'] = $image->id;
+            $this->clearStacks();
+        }
 
         /* Save all changes to the gallery */
         $this->save();
@@ -351,18 +374,18 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      * @param Ansel_Gallery $gallery  The gallery to copy images to.
      *
      * @return integer The number of images copied
-     * @throws Horde_Exception
+     * @throws Ansel_Exception
      */
     public function copyImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
         }
 
         $db = $this->_shareOb->getWriteDb();
         $imgCnt = 0;
         foreach ($images as $imageId) {
-            $img = &$this->getImage($imageId);
+            $img = $this->getImage($imageId);
             // Note that we don't pass the tags when adding the image..see below
             $newId = $gallery->addImage(array(
                                'image_caption' => $img->caption,
@@ -376,13 +399,13 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             // for each tag - just write the data into the DB ourselves.
             $tags = $img->getTags();
             $query = $this->_shareOb->getWriteDb()->prepare('INSERT INTO ansel_images_tags (image_id, tag_id) VALUES(' . $newId . ',?);');
-            if (is_a($query, 'PEAR_Error')) {
-                throw new Horde_Exception($query->getMessage());
+            if ($query instanceof PEAR_Error) {
+                throw new Ansel_Exception($query);
             }
             foreach ($tags as $tag_id => $tag_name) {
                 $result = $query->execute($tag_id);
-                if (is_a($result, 'PEAR_Error')) {
-                    throw new Horde_Exception($result->getMessge());
+                if ($result instanceof PEAR_Error) {
+                    throw new Ansel_Exception($result);
                 }
             }
             $query->free();
@@ -394,12 +417,12 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                 $exif = $db->queryAll('SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int) $imageId . ';',null, MDB2_FETCHMODE_ASSOC);
                 if (is_array($exif) && count($exif) > 0) {
                     $insert = $db->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
-                    if (is_a($insert, 'PEAR_Error')) {
+                    if ($insert instanceof PEAR_Error) {
                         throw new Horde_Exception($insert->getMessage());
                     }
                     foreach ($exif as $attr){
                         $result = $insert->execute(array($newId, $attr['attr_name'], $attr['attr_value']));
-                        if (is_a($result, 'PEAR_Error')) {
+                        if ($result instanceof PEAR_Error) {
                             throw new Horde_Exception($result->getMessage());
                         }
                     }
@@ -840,7 +863,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     public function setParent($parent)
     {
         /* Make sure we have a gallery object */
-        if (!is_null($parent) && !is_a($parent, 'Ansel_Gallery')) {
+        if (!is_null($parent) && !($parent instanceof Ansel_Gallery)) {
             $parent = $GLOBALS['ansel_storage']->getGallery($parent);
         }
 
@@ -856,11 +879,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         /* Call the parent class method */
-        $result = parent::setParent($parent);
-        if (is_a($result, 'PEAR_Error')) {
-            // Horde_Share still uses PEAR_Error
-            throw new Horde_Exception($result->getMessage());
-        }
+        parent::setParent($parent);
 
         /* Tell the parent the good news */
         if (!is_null($parent) && !$parent->get('has_subgalleries')) {
@@ -918,7 +937,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             }
             $result = $query->execute(array($data[$driver_key], $this->id));
             $query->free();
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
             }
 

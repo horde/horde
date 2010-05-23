@@ -38,14 +38,13 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         }
 
         // Get the image and gallery to check perms
-        $image = $GLOBALS['ansel_storage']->getImage((int)$img);
-        if (is_a($image, 'PEAR_Error')) {
+        try {
+            $image = $GLOBALS['ansel_storage']->getImage((int)$img);
+            $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+        } catch (Ansel_Exception $e) {
             return array('response' => 0);
         }
-        $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return array('response' => 0);
-        }
+
         // Bail out if no perms on the image.
         if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return array('response' => 0);

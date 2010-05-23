@@ -78,9 +78,11 @@ class Ansel_GalleryMode_Normal {
         /* Now grab any images if we still have room */
         if (($to - count($galleries) > 0) || ($from == 0 && $to == 0) &&
              $this->_gallery->data['attribute_images']) {
-            $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
-            if (is_a($images, 'PEAR_Error')) {
-                Horde::logMessage($images, 'ERR');
+
+            try {
+                $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
                 $images = array();
             }
         } else {
@@ -276,7 +278,7 @@ class Ansel_GalleryMode_Normal {
             $result = $GLOBALS['registry']->call('forums/deleteForum',
                                                  array('ansel', $image->id));
 
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, 'ERR');
                 return false;
             }

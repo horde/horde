@@ -70,8 +70,9 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
             $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
             if ($g->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $image->caption = $pref_value;
-                $result = $image->save();
-                if (is_a($result, 'PEAR_Error')) {
+                try {
+                    $result = $image->save();
+                } catch (Ansel_Exception $e) {
                     return '';
                 }
             }

@@ -45,8 +45,9 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
     function _title()
     {
         if ($this->_params['gallery'] != 'all') {
-            $gallery = $this->_getGallery();
-            if (is_a($gallery, 'PEAR_Error')) {
+            try {
+                $gallery = $this->_getGallery();
+            } catch (Exception $e) {
                 return Horde::link(
                     Ansel::getUrlFor('view', array('view' => 'List'), true))
                     . _("Gallery") . '</a>';
@@ -84,10 +85,11 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
 
         // Retrieve the images, but protect against very large values for
         // limit.
-        $results = $GLOBALS['ansel_storage']->getRecentImages(
+        try {
+            $results = $GLOBALS['ansel_storage']->getRecentImages(
             $galleries, min($this->_params['limit'], 100));
-        if (is_a($results, 'PEAR_Error')) {
-            return $results->getMessage();
+        } catch (Ansel_Exception $e) {
+            return $e->getMessage();
         }
         $preview_url = Horde::applicationUrl('preview.php', true);
         $header = array(_("Date"), _("Photo"), _("Gallery"));
@@ -116,9 +118,6 @@ function previewImage(e, image_id) {
 HEADER;
 
         foreach ($results as $image) {
-            if (is_a($image, 'PEAR_Error')) {
-                continue;
-            }
             $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
 
             // Don't show locked galleries in the block.
@@ -168,28 +167,26 @@ HEADER;
 
     function _getGallery()
     {
-        // Make sure we haven't already selected a gallery.
-        if (is_a($this->_gallery, 'Ansel_Gallery')) {
+        /* Make sure we haven't already selected a gallery. */
+        if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;
         }
 
-        // Get the gallery object and cache it.
+        /* Get the gallery object and cache it. */
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['ansel_storage']->getGallery(
-                $this->_params['gallery']);
+            $this->_gallery = $GLOBALS['ansel_storage']->getGallery($this->_params['gallery']);
         } else {
             $this->_gallery = $GLOBALS['ansel_storage']->getRandomGallery();
         }
 
         if (empty($this->_gallery)) {
-            return PEAR::raiseError(_("Gallery does not exist."));
-        } elseif (is_a($this->_gallery, 'PEAR_Error') ||
-                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            return PEAR::raiseError(_("Access denied viewing this gallery."));
+            throw new Horde_Exception_NotFound(_("Gallery not found."));
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
 
-        // Return a reference to the gallery.
+        /* Return a reference to the gallery. */
         return $this->_gallery;
     }
 

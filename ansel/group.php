@@ -28,12 +28,14 @@ $groups_perpage = $prefs->getValue('groupsperpage');
 
 switch ($groupby) {
 case 'category':
-    $num_groups = $ansel_storage->countCategories(Horde_Perms::SHOW);
-    if (is_a($num_groups, 'PEAR_Error')) {
+    try {
+        $num_groups = $ansel_storage->countCategories(Horde_Perms::SHOW);
+    } catch (Ansel_Exception $e) {
         $notification->push($num_groups);
         $num_groups = 0;
         $groups = array();
-    } elseif ($num_groups) {
+    }
+    if ($num_groups) {
         $groups = $ansel_storage->listCategories(Horde_Perms::SHOW,
                                                  $gbpage * $groups_perpage,
                                                  $groups_perpage);
@@ -63,18 +65,23 @@ case 'owner':
 
 default:
     header('Location: ' . Ansel::getUrlFor('view',
-                                           array('view' => 'List',
-                                                 'groupby' => $groupby),
+                                           array(
+                                               'view' => 'List',
+                                               'groupby' => $groupby
+                                           ),
                                            true));
     exit;
 }
 
 // Set up pager.
 $vars = Horde_Variables::getDefaultVariables();
-$group_pager = new Horde_Ui_Pager('gbpage', $vars,
-                                  array('num' => $num_groups,
-                                        'url' => 'group.php',
-                                        'perpage' => $groups_perpage));
+$group_pager = new Horde_Ui_Pager('gbpage',
+                                  $vars,
+                                  array(
+                                      'num' => $num_groups,
+                                      'url' => 'group.php',
+                                      'perpage' => $groups_perpage
+                                  ));
 
 $min = $gbpage * $groups_perpage;
 $max = $min + $groups_perpage;

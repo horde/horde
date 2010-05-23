@@ -16,26 +16,30 @@ $actionID = Horde_Util::getPost('action');
 $galleryId = Horde_Util::getPost('gallery');
 
 if ($galleryId) {
-    $gallery = $ansel_storage->getGallery($galleryId);
-
+    try {
+        $gallery = $ansel_storage->getGallery($galleryId);
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
+        // Return to the default view.
+        header('Location: ' . Ansel::getUrlFor('default_view', array()));
+        exit;
+    }
     switch ($actionID) {
     case 'delete':
-        if (is_a($gallery, 'PEAR_Error')) {
-            $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')), 'horde.error');
         } else {
-            $result = $ansel_storage->removeGallery($gallery);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(
-                    _("There was a problem deleting %s: %s"),
-                    $gallery->get('name'), $result->getMessage()),
-                    'horde.error');
-            } else {
+            try {
+                $ansel_storage->removeGallery($gallery);
                 $notification->push(sprintf(
                     _("Successfully deleted %s."),
                     $gallery->get('name')), 'horde.success');
+            } catch (Ansel_Exception $e) {
+                $notification->push(sprintf(
+                    _("There was a problem deleting %s: %s"),
+                    $gallery->get('name'), $e->getMessage()),
+                    'horde.error');
             }
         }
 
@@ -49,9 +53,7 @@ if ($galleryId) {
         exit;
 
     case 'empty':
-        if (is_a($gallery, 'PEAR_Error')) {
-            $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')),
                                 'horde.error');

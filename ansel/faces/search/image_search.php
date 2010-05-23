@@ -15,13 +15,14 @@ $page = Horde_Util::getFormData('page', 0);
 $perpage = $prefs->getValue('facesperpage');
 
 if (($face_id = Horde_Util::getGet('face_id')) !== null) {
-    $face = $faces->getFaceById($face_id, true);
-    if (is_a($face, 'PEAR_Error')) {
-        $notification->push($face->getMessage());
+    try {
+        $face = $faces->getFaceById($face_id, true);
+        $signature = $face['face_signature'];
+        $results = $faces->getSignatureMatches($signature, $face_id, $perpage * $page, $perpage);
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage());
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
     }
-    $signature = $face['face_signature'];
-    $results = $faces->getSignatureMatches($signature, $face_id, $perpage * $page, $perpage);
 } else {
     $tmp = Horde::getTempDir();
     $path = $tmp . '/search_face_' . Horde_Auth::getAuth() . '.sig';
@@ -30,20 +31,25 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
     }
     $signature = file_get_contents($path);
-    $results = $faces->getSignatureMatches($signature, 0, $perpage * $page, $perpage);
-}
-if (is_a($results, 'PEAR_Error')) {
-    $notification->push($results);
-    $results = array();
+    try {
+        $results = $faces->getSignatureMatches($signature, 0, $perpage * $page, $perpage);
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage());
+        $results = array();
+    }
 }
 
 $title = _("Photo search");
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_Ui_Pager(
-    'page', $vars,
-    array('num' => count($results),
-          'url' => 'faces/search/image_search.php',
-          'perpage' => $perpage));
+    'page',
+    $vars,
+    array(
+        'num' => count($results),
+        'url' => 'faces/search/image_search.php',
+        'perpage' => $perpage
+    )
+);
 
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';

@@ -44,15 +44,17 @@ case 'addchild':
     // Get the parent and make sure that it exists and that we have
     // permissions to add to it.
     $parentId = Horde_Util::getFormData('gallery');
-    $parent = $ansel_storage->getGallery($parentId);
-    if (is_a($parent, 'PEAR_Error')) {
-        $notification->push($parent->getMessage(), 'horde.error');
+    try {
+        $parent = $ansel_storage->getGallery($parentId);
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
-    } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(
-            sprintf(_("Access denied adding a gallery to \"%s\"."),
-                    $parent->get('name')), 'horde.error');
+    }
+
+    if (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        $notification->push(sprintf(_("Access denied adding a gallery to \"%s\"."),
+                            $parent->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
     }
@@ -72,21 +74,16 @@ case 'addchild':
     $gallery_passwd = '';
 
     $notification->push('document.gallery.gallery_name.focus();', 'javascript');
-
     $title = sprintf(_("Adding A Subgallery to %s"), $parent->get('name'));
     break;
 
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     $gallery = $ansel_storage->getGallery($galleryId);
-    if (!Horde_Auth::getAuth() || is_a($gallery, 'PEAR_Error') ||
+    if (!Horde_Auth::getAuth() ||
         !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
 
-        $name = is_a($gallery, 'PEAR_Error')
-                     ? $galleryId
-                     : $gallery->get('name');
-        $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $name),
-                            'horde.error');
+        $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
     }
@@ -96,9 +93,10 @@ case 'downloadzip':
 
 case 'modify':
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $ansel_storage->getGallery($galleryId);
-    if (!is_a($gallery, 'PEAR_Error')) {
-        // Set up the gallery attributes.
+
+    try {
+        $gallery = $ansel_storage->getGallery($galleryId);
+         // Set up the gallery attributes.
         $gallery_name = $gallery->get('name');
         $gallery_desc = $gallery->get('desc');
         $gallery_category = $gallery->get('category');
@@ -114,9 +112,10 @@ case 'modify':
         }
         $gallery_mode = $gallery->get('view_mode');
         $gallery_passwd = $gallery->get('passwd');
-    } else {
-        $title = _("Unknown gallery");
+    } catch (Ansel_Exception $e) {
+        $title = _("Unknown Gallery");
     }
+
     break;
 
 case 'save':
@@ -160,15 +159,8 @@ case 'save':
 
         // Modifying an existing gallery.
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-
-            $name = is_a($gallery, 'PEAR_Error')
-                    ? $galleryId
-                    : $gallery->get('name');
-
-            $notification->push(sprintf(_("Access denied saving gallery \"%s\"."),
-                                        $name), 'horde.error');
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            $notification->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
             // Don't allow the display name to be nulled out.
             if ($gallery_name) {
@@ -198,44 +190,40 @@ case 'save':
             if ($gallery_parent != $old_parent_id) {
                 if (!is_null($gallery_parent)) {
                     $new_parent = $ansel_storage->getGallery($gallery_parent);
-                    if (is_a($new_parent, 'PEAR_Error')) {
-                        return $new_parent;
-                    }
                 } else {
                     $new_parent = null;
                 }
-                $result = $gallery->setParent($new_parent);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push($result->getMessage(), 'horde.error');
-                    header('Location: ' . Horde::applicationUrl(
-                        Ansel::getUrlFor('view', array('view' => 'List'), true)));
+                try {
+                    $result = $gallery->setParent($new_parent);
+                } catch (Ansel_Exception $e) {
+                    $notification->push($e->getMessage(), 'horde.error');
+                    header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
                     exit;
                 }
             }
-            $result = $gallery->save();
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result->getMessage(), 'horde.error');
-            } else {
-                $notification->push(_("The gallery was saved."),
-                                    'horde.success');
+            try {
+                $result = $gallery->save();
+                $notification->push(_("The gallery was saved."),'horde.success');
+            } catch (Ansel_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
             }
         }
     } else {
         // Is this a new subgallery?
         if ($gallery_parent) {
-            $parent = $ansel_storage->getGallery($gallery_parent);
-            if (is_a($parent, 'PEAR_Error')) {
-                $notification->push($parent->getMessage(), 'horde.error');
-                header('Location: ' . Horde::applicationUrl(
-                    Ansel::getUrlFor('view', array('view' => 'List'), true)));
+            try {
+                $parent = $ansel_storage->getGallery($gallery_parent);
+            } catch (Ansel_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+                header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
                 exit;
-            } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            }
+            if (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $notification->push(sprintf(
                     _("You do not have permission to add children to %s."),
                     $parent->get('name')), 'horde.error');
 
-                header('Location: ' . Horde::applicationUrl(
-                    Ansel::getUrlFor('view', array('view' => 'List'), true)));
+                header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
                 exit;
             }
         }
@@ -254,42 +242,45 @@ case 'save':
         $perm = (!empty($parent)) ? $parent->getPermission() : null;
         $parent = (!empty($gallery_parent)) ? $gallery_parent : null;
 
-        $gallery = $ansel_storage->createGallery(array('name' => $gallery_name,
-                                              'desc' => $gallery_desc,
-                                              'category' => $gallery_category,
-                                              'tags' => explode(',', $gallery_tags),
-                                              'style' => $gallery_thumbstyle,
-                                              'slug' => $gallery_slug,
-                                              'age' => $gallery_age,
-                                              'download' => $gallery_download,
-                                              'view_mode' => $gallery_mode,
-                                              'passwd' => $gallery_passwd,
-                                              ), $perm, $parent);
-        if (is_a($gallery, 'PEAR_Error')) {
+        try {
+            $gallery = $ansel_storage->createGallery(
+                    array('name' => $gallery_name,
+                          'desc' => $gallery_desc,
+                          'category' => $gallery_category,
+                          'tags' => explode(',', $gallery_tags),
+                          'style' => $gallery_thumbstyle,
+                          'slug' => $gallery_slug,
+                          'age' => $gallery_age,
+                          'download' => $gallery_download,
+                          'view_mode' => $gallery_mode,
+                          'passwd' => $gallery_passwd,
+                          ),
+                    $perm, $parent);
+
+            $galleryId = $gallery->getId();
+            $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
+            Horde::logMessage($msg, 'DEBUG');
+            $notification->push($msg, 'horde.success');
+        } catch (Ansel_Exception $e) {
             $galleryId = null;
             $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),
                              $gallery_name, $gallery->getMessage());
             Horde::logMessage($error, 'ERR');
             $notification->push($error, 'horde.error');
-        } else {
-            $galleryId = $gallery->getId();
-            $msg = sprintf(_("The gallery \"%s\" was created successfully."),
-                           $gallery_name);
-            Horde::logMessage($msg, 'DEBUG');
-            $notification->push($msg, 'horde.success');
         }
+
     }
 
     // Clear the OtherGalleries widget cache
     if ($GLOBALS['conf']['ansel_cache']['usecache']) {
         $GLOBALS['cache']->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
     }
+
     // Return to the last view.
     $url = Horde_Util::getFormData('url');
-    if (empty($url) && empty($exists) && !is_a($gallery, 'PEAR_Error')) {
+    if (empty($url) && empty($exists)) {
         // Redirect to the images upload page for newly creted galleries
-        $url = Horde_Util::addParameter(Horde::applicationUrl('img/upload.php'),
-                                  'gallery', $galleryId);
+        $url = Horde_Util::addParameter(Horde::applicationUrl('img/upload.php'), 'gallery', $galleryId);
     } elseif (empty($url)) {
         $url = Horde::applicationUrl('index.php', true);
     }
@@ -301,83 +292,69 @@ case 'empty':
     // Print the confirmation screen.
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
-        $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_Error')) {
-            $notification->push($gallery->getMessage(), 'horde.error');
-        } else {
+        try {
+            $gallery = $ansel_storage->getGallery($galleryId);
             require ANSEL_TEMPLATES . '/common-header.inc';
             require ANSEL_TEMPLATES . '/menu.inc';
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
             require $registry->get('templates', 'horde') . '/common-footer.inc';
             exit;
+        } catch (Ansel_Exception $e) {
+            $notification->push($gallery->getMessage(), 'horde.error');
         }
     }
 
     // Return to the gallery list.
-    header('Location: ' . Horde::applicationUrl(
-        Ansel::getUrlFor('view', array('view' => 'List'), true)));
+    header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
     exit;
 
 case 'generateDefault':
     // Re-generate the default pretty gallery image.
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $ansel_storage->getGallery($galleryId);
-    if (is_a($gallery, 'PEAR_Error')) {
-        $notification->push($gallery->getMessage(), 'horde.error');
+    try {
+        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery->clearStacks();
+        $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
+        header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
+        exit;
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('index.php', true));
         exit;
     }
-    $gallery->clearStacks();
-    $notification->push(
-        _("The gallery's default photo has successfully been reset."),
-        'horde.success');
-    $url = Horde_Util::addParameter('view.php', 'gallery', $galleryId);
-    header('Location: ' . Horde::applicationUrl($url, true));
-    exit;
 
 case 'generateThumbs':
     // Re-generate all of this gallery's prettythumbs.
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $ansel_storage->getGallery($galleryId);
-    if (is_a($gallery, 'PEAR_Error')) {
+    try {
+        $gallery = $ansel_storage->getGallery($galleryId);
+    } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('index.php', true));
         exit;
     }
     $gallery->clearThumbs();
-    $notification->push(
-        _("The gallery's thumbnails have successfully been reset."),
-        'horde.success');
-    $url = Horde_Util::addParameter('view.php', 'gallery', $galleryId);
-    header('Location: ' . Horde::applicationUrl($url, true));
+    $notification->push(_("The gallery's thumbnails have successfully been reset."), 'horde.success');
+    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
     exit;
 
 case 'deleteCache':
-    // Delete all cached image views.  This will NOT immediately regenerate
-    // all views that existed prior to this action.  However it will remove all
-    // cached views (leaving the originals) which will be generated on demand
-    // by users browsing the site.  Note that the first time each image is
-    // viewed there will be a delay as the view is generated and cached.
-    // This can be useful when changing the configured "screen" size in Ansel's
-    // configuration.
+    // Delete all cached image views.
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $ansel_storage->getGallery($galleryId);
-    if (is_a($gallery, 'PEAR_Error')) {
+    try {
+        $gallery = $ansel_storage->getGallery($galleryId);
+    } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('index.php', true));
         exit;
     }
     $gallery->clearViews();
-    $notification->push(
-        _("The gallery's views have successfully been reset."),
-        'horde.success');
-    $url = Horde_Util::addParameter('view.php', 'gallery', $galleryId);
-    header('Location: ' . Horde::applicationUrl($url, true));
+    $notification->push(_("The gallery's views have successfully been reset."), 'horde.success');
+    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
     exit;
 
 default:
-    header('Location: ' . Horde::applicationUrl(
-        Ansel::getUrlFor('view', array('view' => 'List'), true)));
+    header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
     exit;
 }
 

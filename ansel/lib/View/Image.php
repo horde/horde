@@ -245,7 +245,7 @@ class Ansel_View_Image extends Ansel_View_Base
                                         array('ansel', $this->resource->id,
                                               'commentCallback', true, null,
                                               $url));
-            if (is_a($comments, 'PEAR_Error')) {
+            if ($comments instanceof PEAR_Error) {
                 Horde::logMessage($comments, 'DEBUG');
                 $comments = array();
             }

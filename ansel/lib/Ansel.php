@@ -27,15 +27,16 @@ class Ansel
     /**
      * Create and initialize the database object.
      *
-     * @return mixed MDB2 object || PEAR_Error
+     * @return mixed MDB2 object
+     * @throws Ansel_Exception
      */
     static public function &getDb()
     {
         $config = $GLOBALS['conf']['sql'];
         unset($config['charset']);
         $mdb = MDB2::singleton($config);
-        if (is_a($mdb, 'PEAR_Error')) {
-            return $mdb;
+        if ($mdb instanceof PEAR_Error) {
+            throw new Ansel_Exception($mdb->getMessage());
         }
         $mdb->setOption('seqcol_name', 'id');
 
@@ -60,6 +61,8 @@ class Ansel
      */
     static public function getVFS()
     {
+        // @TODO: need to refactor the Vfs binder to a factory so we can handle
+        // vfs objects for different scopes.
         $v_params = Horde::getVFSConfig('images');
         return VFS::singleton($v_params['type'], $v_params['params']);
     }
@@ -133,8 +136,6 @@ class Ansel
     }
 
     /**
-     * Return a link to a photo placeholder, suitable for use in an <img/>
-     * tag (or a Horde::img() call, with the path parameter set to * '').
      * This photo should be used as a placeholder if the correct photo can't
      * be retrieved
      *
@@ -155,10 +156,9 @@ class Ansel
      * @param string $controller       The controller to generate a URL for.
      * @param array $data              The data needed to generate the URL.
      * @param boolean $full            Generate a full URL.
-     * @param integer $append_session  0 = only if needed, 1 = always,
-     *                                 -1 = never.
+     * @param integer $append_session  0 = only if needed, 1 = always, -1 = never.
      *
-     * @param string  The generated URL
+     * @return Horde_Url The generated URL
      */
     static public function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
@@ -211,7 +211,7 @@ class Ansel
                 if ($data['view'] == 'Gallery' || $data['view'] == 'Image') {
 
                     /**
-                     * This is needed to correctly generate URLs for images in
+                     * @TODO: This is needed to correctly generate URLs for images in
                      * places that are not specifically requested by the user,
                      * for instance, in a gallery block. Otherwise, the proper
                      * date variables would not be attached to the url, since we
@@ -224,11 +224,9 @@ class Ansel
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = &$GLOBALS['ansel_storage']->getImage($data['image']);
-                        $g = &$GLOBALS['ansel_storage']->getGallery($data['gallery']);
-                        if (!is_a($g, 'PEAR_Error') &&
-                            !is_a($i, 'PEAR_Error') &&
-                            $g->get('view_mode') == 'Date') {
+                        $i = $GLOBALS['ansel_storage']->getImage($data['image']);
+                        $g = $GLOBALS['ansel_storage']->getGallery($data['gallery']);
+                        if ($g->get('view_mode') == 'Date') {
 
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
@@ -407,7 +405,7 @@ class Ansel
      * @param boolean $full    Return a path that includes the server name?
      * @param string $style    Use this gallery style
      *
-     * @return string  The image path.
+     * @return Horde_Url The image path.
      */
     static public function getImageUrl($imageId, $view = 'screen', $full = false, $style = null)
     {
@@ -428,7 +426,7 @@ class Ansel
         }
 
         if (empty($imageId)) {
-            return Ansel::getErrorImage($view);
+            return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
         }
 
         // Default to ansel_default since we really only need to know the style
@@ -446,15 +444,14 @@ class Ansel
                 $image = $ansel_storage->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
-                return Ansel::getErrorImage($view);
+                return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
             }
             try {
                 $image->createView($view, $style, false);
             } catch (Ansel_Exception $e) {
-                return Ansel::getErrorImage($view);
+                return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
             }
-            $viewHash = $image->getViewHash($view, $style) . '/'
-                . $image->getVFSName($view);
+            $viewHash = $image->getViewHash($view, $style) . '/' . $image->getVFSName($view);
         }
 
         // First check for vfs-direct. If we are not using it, pass this off to
@@ -464,17 +461,15 @@ class Ansel
             if (!is_null($style)) {
                 $params['style'] = $style;
             }
-            $url = Horde_Util::addParameter('img/' . $view . '.php', $params);
-            return Horde::applicationUrl($url, $full);
+            return Horde::applicationUrl(Horde_Util::addParameter('img/' . $view . '.php', $params), $full);
         }
 
         // Using vfs-direct
-        $path = substr(str_pad($imageId, 2, 0, STR_PAD_LEFT), -2) . '/'
-            . $viewHash;
+        $path = substr(str_pad($imageId, 2, 0, STR_PAD_LEFT), -2) . '/' . $viewHash;
         if ($full && substr($conf['vfs']['path'], 0, 7) != 'http://') {
             return Horde::url($conf['vfs']['path'] . $path, true, -1);
         } else {
-            return $conf['vfs']['path'] . htmlspecialchars($path);
+            return new Horde_Url($conf['vfs']['path'] . htmlspecialchars($path));
         }
     }
 
@@ -483,7 +478,7 @@ class Ansel
      *
      * @param array $params  Any additional parameters
      *
-     * @return Horde_Image object | PEAR_Error
+     * @return Horde_Image object
      */
     static public function getImageObject($params = array())
     {
@@ -507,13 +502,13 @@ class Ansel
      * @param string $file     The filename of the image.
      * @param array $override  Overwrite the file array with these values.
      *
-     * @return array  The image data of the file as an array or PEAR_Error
+     * @return array  The image data of the file as an array
+     * @throws Horde_Exception_NotFound
      */
     static public function getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
-            return PEAR::raiseError(sprintf(_("The file \"%s\" doesn't exist."),
-                                    $file));
+            throw new Horde_Exception_NotFound(sprintf(_("The file \"%s\" doesn't exist."), $file));
         }
 
         global $conf;
@@ -521,7 +516,7 @@ class Ansel
         // Get the mime type of the file (and make sure it's an image).
         $mime_type = Horde_Mime_Magic::analyzeFile($file, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
         if (strpos($mime_type, 'image') === false) {
-            return PEAR::raiseError(sprintf(_("Can't get unknown file type \"%s\"."), $file));
+            throw new Horde_Exception_NotFound(sprintf(_("Can't get unknown file type \"%s\"."), $file));
         }
 
         $image = array('image_filename' => basename($file),
@@ -571,6 +566,8 @@ class Ansel
 
     /**
      * Build Ansel's list of menu items.
+     *
+     * @return Horde_Menu
      */
     static public function getMenu()
     {
@@ -635,6 +632,8 @@ class Ansel
     /**
      * Generate a list of breadcrumbs showing where we are in the gallery
      * tree.
+     *
+     * @return string
      */
     static public function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
     {
@@ -650,15 +649,13 @@ class Ansel
         if (is_null($gallery)) {
             $gallery_id = (int)Horde_Util::getFormData('gallery');
             $gallery_slug = Horde_Util::getFormData('slug');
-            if (!empty($gallery_slug)) {
-                $gallery = $ansel_storage->getGalleryBySlug($gallery_slug);
-            } elseif (!empty($gallery_id)) {
-                $gallery = $ansel_storage->getGallery($gallery_id);
-            }
-        }
-
-        if (is_a($gallery, 'PEAR_Error')) {
-            $gallery = null;
+            try {
+                if (!empty($gallery_slug)) {
+                    $gallery = $ansel_storage->getGalleryBySlug($gallery_slug);
+                } elseif (!empty($gallery_id)) {
+                    $gallery = $ansel_storage->getGallery($gallery_id);
+                }
+            } catch (Ansel_Exception $e) {}
         }
 
         if ($gallery) {
@@ -666,12 +663,12 @@ class Ansel
         }
 
         if (!empty($image_id)) {
-            $image = &$ansel_storage->getImage($image_id);
-            if (empty($gallery) && !is_a($image, 'PEAR_Error')) {
+            $image = $ansel_storage->getImage($image_id);
+            if (empty($gallery)) {
                 $gallery = $ansel_storage->getGallery($image->gallery);
             }
         }
-        if (isset($gallery) && !is_a($gallery, 'PEAR_Error')) {
+        if (isset($gallery)) {
             $owner = $gallery->get('owner');
         }
         if (!empty($owner)) {
@@ -708,7 +705,7 @@ class Ansel
                           'force_grouping' => true);
 
         // Check for an active image
-        if (!empty($image_id) && !is_a($image, 'PEAR_Error')) {
+        if (!empty($image_id)) {
             $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
@@ -756,9 +753,7 @@ class Ansel
             $nav = $text . $nav;
         }
 
-        $nav = '<span class="breadcrumbs">' . $nav;
-
-        return $nav;
+        return '<span class="breadcrumbs">' . $nav . '</span>';
     }
 
     /**
@@ -800,12 +795,14 @@ class Ansel
         foreach ($options as $key => $option) {
             $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>' . $option . '</option>';
         }
-        $html .= '</select>';
-        return $html;
+
+        return $html .= '</select>';
     }
 
     /**
      * Get an array of all currently viewable styles.
+     *
+     * @return array
      */
     static public function getAvailableStyles()
     {
@@ -837,6 +834,7 @@ class Ansel
                 }
             }
         }
+
         return $styles;
     }
 
@@ -946,7 +944,7 @@ class Ansel
      *
      * @param array $date  A full date parts array or an empty array.
      *
-     * @return A trimmed down (if necessary) date parts array.
+     * @return array A trimmed down (if necessary) date parts array.
      */
     static public function getDateParameter($date = array())
     {
@@ -966,10 +964,11 @@ class Ansel
 
     /**
      * Downloads all requested images as a zip file.  Assumes all permissions
-     * have been checked on the requested resource.
+     * have been checked on the requested resource.  Can request either a
+     * single gallery of images, OR an array of individual image ids.
      *
-     * @param array $gallery
-     * @param array $images
+     * @param Ansel_Gallery $gallery  The galleries to download
+     * @param array $images           The images to download
      */
     static public function downloadImagesAsZip($gallery = null, $images = array())
     {
@@ -1018,20 +1017,18 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = &$GLOBALS['ansel_storage']->getImage($id);
-            if (!is_a($image, 'PEAR_Error')) {
-                // If we didn't select an entire gallery, check the download
-                // size for each image.
-                if (!isset($view)) {
-                    $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-                    $v = $g->canDownload() ? 'full' : 'screen';
-                } else {
-                    $v = $view;
-                }
-
-                $zipfiles[] = array('data' => $image->raw($v),
-                                    'name' => $image->filename);
+            $image = $GLOBALS['ansel_storage']->getImage($id);
+            // If we didn't select an entire gallery, check the download
+            // size for each image.
+            if (!isset($view)) {
+                $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+                $v = $g->canDownload() ? 'full' : 'screen';
+            } else {
+                $v = $view;
             }
+
+            $zipfiles[] = array('data' => $image->raw($v),
+                                'name' => $image->filename);
         }
 
         $zip = Horde_Compress::factory('zip');
@@ -1053,7 +1050,7 @@ class Ansel
      *
      * @param array $options  The options to build the view.
      *
-     * @return string  The javascript
+     * @return string  The javascript code
      */
     static public function embedCode($options)
     {

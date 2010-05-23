@@ -53,8 +53,9 @@ if (is_null($actionID) && is_null($tags)) {
 }
 
 /* Get the gallery object and style information */
-$gallery = $ansel_storage->getGallery($gallery_id);
-if (is_a($gallery, 'PEAR_Error')) {
+try {
+    $gallery = $ansel_storage->getGallery($gallery_id);
+} catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
     exit;
@@ -125,10 +126,10 @@ case 'deletetags':
     exit;
 
 case 'modify':
-    $image = &$ansel_storage->getImage($image_id);
-    $ret = Horde_Util::getFormData('ret', 'gallery');
-
-    if (is_a($image, 'PEAR_Error')) {
+    try {
+        $image = &$ansel_storage->getImage($image_id);
+        $ret = Horde_Util::getFormData('ret', 'gallery');
+    } catch (Ansel_Exception $e) {
         $notification->push(_("Photo not found."), 'horde.error');
         header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
         exit;
@@ -154,9 +155,7 @@ case 'modify':
     $vars->set('image_uploaded', $image->uploaded);
 
     require ANSEL_TEMPLATES . '/common-header.inc';
-    $form->renderActive($renderer, $vars, 'image.php', 'post',
-                        'multipart/form-data');
-
+    $form->renderActive($renderer, $vars, 'image.php', 'post', 'multipart/form-data');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 
@@ -213,8 +212,9 @@ case 'save':
         $image->originalDate = (int)$newDate->timestamp();
 
         if (!empty($data)) {
-            $result = $image->replace($data);
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $image->replace($data);
+            } catch (Ansel_Exception $e) {
                 $notification->push(_("There was an error replacing the photo."), 'horde.error');
             }
         }
@@ -395,9 +395,10 @@ case 'resize':
                                     $gallery->get('name')),
                             'horde.error');
     } else {
-        $image = &$ansel_storage->getImage($image_id);
-        if (is_a($image, 'PEAR_Error')) {
-            $notification->push($image->getMessage(), 'horde.error');
+        try {
+            $image = $ansel_storage->getImage($image_id);
+        } catch (Ansel_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
             header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
             exit;
         }
@@ -425,9 +426,10 @@ case 'resize':
         case 'crop':
             $image->load('full');
             $params = Horde_Util::getFormData('params');
-            list($x1, $y1, $x2, $y2) = explode('.', $params);
-            $result = $image->crop($x1, $y1, $x2, $y2);
-            if (is_a($result, 'PEAR_Error')) {
+            list($x1, $y1, $x2, $y2) = explode('.', $params
+            try {
+                $result = $image->crop($x1, $y1, $x2, $y2);
+            } catch (Ansel_Exception $e) {
                 Horde::logMessage($result, 'ERR');
                 $notification->push($result->getMessage(), 'horde.error');
                 $error = true;
@@ -457,8 +459,9 @@ case 'resize':
 
 case 'setwatermark':
     $title = _("Watermark");
-    $image = &$ansel_storage->getImage($image_id);
-    if (is_a($image, 'PEAR_Error')) {
+    try {
+        $image = $ansel_storage->getImage($image_id);
+    } catch (Ansel_Exception $e) {
         $notification->push($image->getMessage(), 'horde.error');
         header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
         exit;
@@ -569,14 +572,13 @@ case 'delete':
             $notification->push(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
             foreach ($images as $image) {
-                $result = $gallery->removeImage($image);
-                if (is_a($result, 'PEAR_Error')) {
+                try {
+                    $gallery->removeImage($image);
+                    $notification->push(_("Deleted the photo."), 'horde.success');
+                } catch (Ansel_Exception $e) {
                     $notification->push(
                         sprintf(_("There was a problem deleting photos: %s"),
                                 $result->getMessage()), 'horde.error');
-                } else {
-                    $notification->push(_("Deleted the photo."),
-                                        'horde.success');
                 }
             }
         }
@@ -612,21 +614,17 @@ case 'move':
     /* Move the images if we're provided with at least one valid image_id. */
     $newGallery = Horde_Util::getFormData('new_gallery');
     if ($images && $newGallery) {
-        $newGallery = $ansel_storage->getGallery($newGallery);
-        if (is_a($newGallery, 'PEAR_Error')) {
-            $notification->push(_("Bad input."), 'horde.error');
-        } else {
+        try {
+            $newGallery = $ansel_storage->getGallery($newGallery);
             $result = $gallery->moveImagesTo($images, $newGallery);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result, 'horde.error');
-            } else {
-                $notification->push(
-                    sprintf(ngettext("Moved %d photo from \"%s\" to \"%s\"",
-                                     "Moved %d photos from \"%s\" to \"%s\"",
-                                     $result),
-                            $result, $gallery->get('name'), $newGallery->get('name')),
-                    'horde.success');
-            }
+            $notification->push(
+                sprintf(ngettext("Moved %d photo from \"%s\" to \"%s\"",
+                                 "Moved %d photos from \"%s\" to \"%s\"",
+                                 $result),
+                        $result, $gallery->get('name'), $newGallery->get('name')),
+                'horde.success');
+        } catch (Ansel_Exception $e) {
+            $notification->push(_("Bad input."), 'horde.error');
         }
     }
 
@@ -661,21 +659,18 @@ case 'copy':
      * ID. */
     $newGallery = Horde_Util::getFormData('new_gallery');
     if ($images && $newGallery) {
-        $newGallery = $ansel_storage->getGallery($newGallery);
-        if (is_a($newGallery, 'PEAR_Error')) {
-            $notification->push(_("Bad input."), 'horde.error');
-        } else {
+        try {
+            $newGallery = $ansel_storage->getGallery($newGallery);
             $result = $gallery->copyImagesTo($images, $newGallery);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result, 'horde.error');
-            } else {
-                $notification->push(
+            $notification->push(
                     sprintf(ngettext("Copied %d photo to %s",
                                      "Copied %d photos to %s", $result),
                             $result, $newGallery->get('name')),
                     'horde.success');
-            }
-        }
+        } catch (Ansel_Exception $e) {
+            $notification->push(_("Bad input."), 'horde.error');
+
+       }
     }
 
     /* Return to the image list. */
@@ -693,13 +688,11 @@ case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (!Horde_Auth::getAuth() || is_a($gallery, 'PEAR_Error') ||
+        if (!Horde_Auth::getAuth() ||
             !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) ||
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
-            $name = is_a($gallery, 'PEAR_Error') ? $galleryId : $gallery->get('name');
-            $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $name),
-                                'horde.error');
+            $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
             header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
             exit;
         }

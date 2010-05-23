@@ -27,8 +27,9 @@ $y1 = 0;
 $x2 = 0;
 $y2 = 0;
 
-$faces = $faces->getFaces($path);
-if (is_a($faces, 'PEAR_Error')) {
+try {
+    $faces = $faces->getFaces($path);
+} catch (Ansel_Exception $e) {
     exit;
 }
 

@@ -12,9 +12,10 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
-$gallery = $ansel_storage->getGallery($vars->get('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
-    $notification->push($gallery->getMessage());
+try {
+    $gallery = $ansel_storage->getGallery($vars->get('gallery'));
+} catch (Ansel_Exception $e) {
+    $notification->push($e->getMessage());
     header('Location: ' . Horde::applicationUrl('list.php'));
     exit;
 }

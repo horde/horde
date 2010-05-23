@@ -196,6 +196,9 @@ class Ansel_Faces_Base
      * Count faces
      *
      * @param array $info Array of select criteria
+     *
+     * @return integer  The count of faces
+     * @throws Ansel_Exception
      */
     protected function _countFaces($info)
     {
@@ -209,7 +212,12 @@ class Ansel_Faces_Base
                 . ' ) AND f.gallery_id = s.share_id'
                 . (isset($info['filter']) ? ' AND ' . $info['filter'] : '');
 
-        return $GLOBALS['ansel_db']->queryOne($sql);
+        $result = $GLOBALS['ansel_db']->queryOne($sql);
+        if ($result instanceof PEAR_Error) {
+            throw new Ansel_Exception($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -516,15 +524,17 @@ class Ansel_Faces_Base
      * @param boolen $create Create images or store data?
      *
      * @return array Faces found
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Ansel_Exception
      */
-    public function getFromPicture(&$image, $create = false)
+    public function getFromPicture($image, $create = false)
     {
         // get image if ID is passed
-        if (!is_a($image, 'Ansel_Image')) {
-            $image = &$GLOBALS['ansel_storage']->getImage($image);
+        if (!($image instanceof Ansel_Image)) {
+            $image = $GLOBALS['ansel_storage']->getImage($image);
             $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
             if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-                throw new Horde_Exception('Access denied editing the photo.');
+                throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
             }
         }
 
@@ -535,7 +545,7 @@ class Ansel_Faces_Base
         }
 
         // Clean up any existing faces we may have had in this image.
-        $result = Ansel_Faces::delete($image);
+        Ansel_Faces::delete($image);
 
         // Process faces
         $fids = array();
@@ -543,7 +553,7 @@ class Ansel_Faces_Base
             // Create Face id
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($face_id);
+                throw new Ansel_Exception($face_id);
             }
 
             // Store face id db
@@ -555,16 +565,15 @@ class Ansel_Faces_Base
 
             $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
             if ($q instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($q);
+                throw new Ansel_Exception($q);
             }
             $result = $q->execute($params);
             $q->free();
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($result);
+                throw new Ansel_Exception($result);
             }
             if ($create) {
-                // Process image
-                $result = $this->_createView($face_id, $image, $rect);
+                $this->_createView($face_id, $image, $rect);
                 // Clear any loaded views to save on memory usage.
                 $image->reset();
                 $this->saveSignature($image->id, $face_id);
@@ -780,7 +789,7 @@ class Ansel_Faces_Base
         }
 
         $face = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
-        if (is_a($face, 'PEAR_Error')) {
+        if ($face instanceof PEAR_Error) {
             throw new Horde_Exception_Prior($face);
         }
 

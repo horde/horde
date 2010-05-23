@@ -52,17 +52,16 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         Horde::addScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel', array('external' => true));
         Horde::addScriptFile('googlemap.js');
         if ($this->_params['gallery'] != 'all') {
-            $gallery = $this->_getGallery();
-            if (is_a($gallery, 'PEAR_Error')) {
-                return Horde::link(
-                    Ansel::getUrlFor('view', array('view' => 'List'), true))
+            try {
+                $gallery = $this->_getGallery();
+            } catch (Exception $e) {
+                return Horde::link(Ansel::getUrlFor('view', array('view' => 'List'), true))
                     . _("Gallery") . '</a>';
             }
 
             // Build the gallery name.
             if (isset($this->_params['gallery'])) {
-                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
-                                          Horde_Nls::getCharset());
+                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset());
             }
 
             $style = $gallery->getStyle();
@@ -89,15 +88,13 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
             $galleries = $this->_params['gallery'];
         }
 
-        $images = $GLOBALS['ansel_storage']->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
-        if (is_a($images, 'PEAR_Error')) {
-            return $images->getMessage();
+        try {
+            $images = $GLOBALS['ansel_storage']->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
+        } catch (Ansel_Exception $e) {
+            return $e->getMessage();
         }
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
-            if (is_a($image, 'PEAR_Error')) {
-                continue;
-            }
             $id = $image['image_id'];
             $gallery = $GLOBALS['ansel_storage']->getGallery($image['gallery_id']);
 
@@ -144,12 +141,10 @@ EOT;
 
     function _getGallery()
     {
-        // Make sure we haven't already selected a gallery.
-        if (is_a($this->_gallery, 'Ansel_Gallery')) {
+        if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;
         }
 
-        // Get the gallery object and cache it.
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
             $this->_gallery = $GLOBALS['ansel_storage']->getGallery(
@@ -159,13 +154,11 @@ EOT;
         }
 
         if (empty($this->_gallery)) {
-            return PEAR::raiseError(_("Gallery does not exist."));
-        } elseif (is_a($this->_gallery, 'PEAR_Error') ||
-                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            return PEAR::raiseError(_("Access denied viewing this gallery."));
+           throw new Horde_Exception_NotFound(_("Gallery not found."));
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
 
-        // Return a reference to the gallery.
         return $this->_gallery;
     }
 

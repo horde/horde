@@ -124,7 +124,7 @@ abstract class Ansel_View_Base
      * @return Ansel_Gallery  The requested Ansel_Gallery object
      * @throws Horde_Exception
      */
-    protected function &_getGallery($galleryId = null, $slug = '')
+    protected function _getGallery($galleryId = null, $slug = '')
     {
         if (is_null($galleryId) && empty($slug)) {
             $galleryId = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id'] : null;
@@ -137,13 +137,11 @@ abstract class Ansel_View_Base
 
         // If we have a slug, use it.
         if (!empty($slug)) {
-            $gallery = &$GLOBALS['ansel_storage']->getGalleryBySlug($slug);
+            $gallery = $GLOBALS['ansel_storage']->getGalleryBySlug($slug);
         } else {
-            $gallery = &$GLOBALS['ansel_storage']->getGallery($galleryId);
+            $gallery = $GLOBALS['ansel_storage']->getGallery($galleryId);
         }
-        if (is_a($gallery, 'PEAR_Error')) {
-            throw new Horde_Exception($gallery->getMessage());
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }
 

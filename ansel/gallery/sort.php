@@ -19,19 +19,20 @@ if (!isset($galleryId)) {
                                            true));
     exit;
 }
-
-$gallery = $ansel_storage->getGallery($galleryId);
-if (is_a($gallery, 'PEAR_Error')) {
+try {
+    $gallery = $ansel_storage->getGallery($galleryId);
+} catch (Ansel_Excception $e) {
     $notification->push(_("There was an error accessing the gallery."), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
-    exit;
-} elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-    $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
     exit;
 }
+
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    exit;
+}
+
 $style = $gallery->getStyle();
 $date = Ansel::getDateParameter();
 $gallery->setDate($date);

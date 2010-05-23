@@ -11,17 +11,10 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$id = Horde_Util::getFormData('image');
-$image = &$ansel_storage->getImage($id);
-if (is_a($image, 'PEAR_Error')) {
-    Horde::fatal($image, __FILE__, __LINE__);
-}
+$image = $ansel_storage->getImage(Horde_Util::getFormData('image'));
 $gallery = $ansel_storage->getGallery(abs($image->gallery));
-if (is_a($gallery, 'PEAR_Error')) {
-    Horde::fatal($gallery, __FILE__, __LINE__);
-}
 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-    Horde::fatal(_("Access denied viewing this photo."), __FILE__, __LINE__);
+    throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }
 
 /* Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file header */
@@ -40,6 +33,4 @@ if ($conf['vfs']['src'] == 'sendfile') {
     exit;
 }
 
-if (is_a($result = $image->display('thumb'), 'PEAR_Error')) {
-    Horde::fatal($result, __FILE__, __LINE__);
-}
+$image->display('thumb');

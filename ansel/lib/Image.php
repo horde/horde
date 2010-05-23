@@ -513,7 +513,7 @@ class Ansel_Image Implements Iterator
      *
      * @TODO: Move all SQL queries to Ansel_Storage::
      *
-     * @return The image id
+     * @return integer image id
      * @throws Ansel_Exception
      */
     public function save()

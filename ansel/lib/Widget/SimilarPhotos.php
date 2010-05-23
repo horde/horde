@@ -70,14 +70,13 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
                     break;
                 }
                 if ($imgId != $this->_view->resource->id) {
-                    $rImg = &$ansel_storage->getImage($imgId);
-                    if (is_a($rImg, 'PEAR_Error')) {
+                    try {
+                        $rImg = $ansel_storage->getImage($imgId);
+                        $rGal = $ansel_storage->getGallery($rImg->gallery);
+                    } catch (Ansel_Exception $e) {
                         continue;
                     }
-                    $rGal = $ansel_storage->getGallery($rImg->gallery);
-                    if (is_a($rGal, 'PEAR_Error')) {
-                        continue;
-                    }
+
                     $title = sprintf(_("%s from %s"), $rImg->filename, $rGal->get('name'));
                     $html .= Horde::link(
                         Ansel::getUrlFor('view',

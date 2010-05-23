@@ -22,26 +22,27 @@ if (!$owner) {
     $title = sprintf(_("From galleries of %s"), $owner);
 }
 
-$count = $faces->countOwnerFaces($owner);
-if (is_a($count, 'PEAR_Error')) {
-    $notification->push($count);
+try {
+    $count = $faces->countOwnerFaces($owner);
+    $results = $faces->ownerFaces($owner, $page * $perpage, $perpage);
+} catch (Ansel_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.err');
     $results = array();
     $count = 0;
-} else {
-    $results = $faces->ownerFaces($owner, $page * $perpage, $perpage);
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_Ui_Pager(
-    'page', $vars,
-    array('num' => $count,
-            'url' => 'faces/search/owner.php',
-            'perpage' => $perpage));
+    'page',
+    $vars,
+    array(
+        'num' => $count,
+        'url' => 'faces/search/owner.php',
+        'perpage' => $perpage
+    )
+);
 $pager->preserve('owner', $owner);
-
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
-
 include ANSEL_TEMPLATES . '/faces/faces.inc';
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

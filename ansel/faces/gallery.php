@@ -21,12 +21,14 @@ if (empty($gallery_id)) {
     header('Location: ' . Ansel::getUrlFor('default_view', array()));
     exit;
 }
-$gallery = $ansel_storage->getGallery($gallery_id);
-if (is_a($gallery, 'PEAR_Error')) {
-    $notification->push($gallery->getMessage(), 'horde.error');
+try {
+    $gallery = $ansel_storage->getGallery($gallery_id);
+} catch (Ansel_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
     exit;
-} elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+}
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
     exit;
@@ -41,12 +43,17 @@ $customimage = Horde_Themes::img('layout.png');
 $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
 $face = Ansel_Faces::factory();
 $autogenerate = $face->canAutogenerate();
+
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_Ui_Pager(
-    'page', $vars,
-    array('num' => $gallery->countImages(),
-          'url' => 'faces/gallery.php',
-          'perpage' => $perpage));
+    'page',
+    $vars,
+    array(
+        'num' => $gallery->countImages(),
+        'url' => 'faces/gallery.php',
+        'perpage' => $perpage
+    )
+);
 $pager->preserve('gallery',  $gallery_id);
 
 $title = sprintf(_("Searching for faces in %s"), Horde::link(Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))) . $gallery->get('name') . '</a>');

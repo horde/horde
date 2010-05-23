@@ -19,10 +19,11 @@
 /**
  * Static helper class for writing/reading tag values
  *
+ * @TODO: Move tag storage to Content_Tagger
  * @static
  */
-class Ansel_Tags {
-
+class Ansel_Tags
+{
     /**
      * Write out the tags for a specific resource.
      *
@@ -30,9 +31,11 @@ class Ansel_Tags {
      * @param array  $tags           An array of tags.
      * @param string $resource_type  The type of resource (image or gallery)
      *
-     * @return mixed True | PEAR_Error
+     * @return boolean True on success
+     * @throws InvalidArgumentException
+     * @throws Ansel_Exception
      */
-    function writeTags($resource_id, $tags, $resource_type = 'image')
+    static public function writeTags($resource_id, $tags, $resource_type = 'image')
     {
         // First, make sure all tag names exist in the DB.
         $tagkeys = array();
@@ -40,7 +43,7 @@ class Ansel_Tags {
         foreach ($tags as $tag) {
             if (!empty($tag)) {
                 if (!preg_match("/^[a-zA-Z0-9%_+.!*',()~-]*$/", $tag)) {
-                    return PEAR::raiseError(_("Invalid characters in tag"));
+                    throw new InvalidArgumentException('Invalid characters in tag.');
                 }
                 $tag = Horde_String::lower(trim($tag));
                 $sql = $GLOBALS['ansel_db']->prepare('SELECT tag_id FROM ansel_tags WHERE tag_name = ?');
@@ -52,8 +55,9 @@ class Ansel_Tags {
                     $id = $GLOBALS['ansel_db']->nextId('ansel_tags');
                     $result = $insert->execute(array($id, Horde_String::convertCharset($tag, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
                     $tagkeys[] = $id;
-                } elseif (is_a($results, 'PEAR_Error')) {
-                    return $results;
+                } elseif ($results instanceof PEAR_Error) {
+                    Horde::logMessage($results->getMessage(), 'ERR');
+                    throw new Ansel_Exception($results);
                 } else {
                     $tagkeys[] = $results['tag_id'];
                 }
@@ -85,20 +89,20 @@ class Ansel_Tags {
     /**
      * Retrieve the tags for a specified resource.
      *
-     * @param int     $resource_id    The resource to get tags for.
+     * @param integer $resource_id    The resource to get tags for.
      * @param string  $resource_type  The type of resource (gallery or image)
      *
-     * @return mixed  An array of tags | PEAR_Error
+     * @return mixed  An array of tags
      */
-    function readTags($resource_id, $resource_type = 'image')
+    static public function readTags($resource_id, $resource_type = 'image')
     {
         if ($resource_type == 'image') {
             $stmt = $GLOBALS['ansel_db']->prepare('SELECT  ansel_tags.tag_id, tag_name FROM ansel_tags INNER JOIN ansel_images_tags ON ansel_images_tags.tag_id = ansel_tags.tag_id WHERE ansel_images_tags.image_id = ?');
         } else {
             $stmt = $GLOBALS['ansel_db']->prepare('SELECT  ansel_tags.tag_id, tag_name FROM ansel_tags INNER JOIN ansel_galleries_tags ON ansel_galleries_tags.tag_id = ansel_tags.tag_id WHERE ansel_galleries_tags.gallery_id = ?');
         }
-        if (is_a($stmt, 'PEAR_Error')) {
-            return $stmt;
+        if ($stmt instanceof PEAR_Error) {
+            throw new Ansel_Exception($stmt);
         }
         Horde::logMessage('SQL query by Ansel_Tags::readTags ' . $stmt->query, 'DEBUG');
         $result = $stmt->execute((int)$resource_id);
@@ -121,9 +125,9 @@ class Ansel_Tags {
      *                        will be included.
      * @param integer $limit  Limit the number of tags returned to this value.
      *
-     * @return mixed  An array containing tag_name, and total | PEAR_Error
+     * @return Array  An array containing tag_name, and total
      */
-    function listTagInfo($tags = null, $limit = 500)
+    static public function listTagInfo($tags = null, $limit = 500)
     {
         global $conf;
         // Only return the full list if $tags is omitted, not if
@@ -169,10 +173,10 @@ class Ansel_Tags {
      * @param string $user           Limit the result set to resources
      *                               owned by this user.
      *
-     * @return mixed An array of image_ids and galery_ids objects | PEAR_Error
+     * @return array An array of image_ids and gallery_ids
      */
-    function searchTagsById($ids, $max = 0, $from = 0,
-                         $resource_type = 'all', $user = null)
+    static public function searchTagsById($ids, $max = 0, $from = 0,
+                                          $resource_type = 'all', $user = null)
     {
         if (!is_array($ids) || !count($ids)) {
             return array('galleries' => array(), 'images' => array());
@@ -203,29 +207,27 @@ class Ansel_Tags {
             Horde::logMessage('SQL query by Ansel_Tags::searchTags: ' . $sql, 'DEBUG');
             $GLOBALS['ansel_db']->setLimit($max, $from);
             $images = $GLOBALS['ansel_db']->queryCol($sql);
-            if (is_a($images, 'PEAR_Error')) {
+            if ($images instanceof PEAR_Error) {
                 Horde::logMessage($images, 'ERR');
                 $results['images'] = array();
             } else {
                 /* Check permissions and filter on $user if required */
                 $imgs = array();
                 foreach ($images as $id) {
-                    $img = &$GLOBALS['ansel_storage']->getImage($id);
-                    if (is_a($img, 'PEAR_Error')) {
-                        break;
-                    }
-                    $gal = $GLOBALS['ansel_storage']->getGallery($img->gallery);
-                    if (!is_a($gal, 'PEAR_Error')) {
+                    try {
+                        $img = $GLOBALS['ansel_storage']->getImage($id);
+                        $gal = $GLOBALS['ansel_storage']->getGallery($img->gallery);
                         $owner = $gal->get('owner');
                         if ($gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
                             (!isset($user) || (isset($user) && $owner && $owner == $user))) {
                             $imgs[] = $id;
                         }
-                    } else {
-                        Horde::logMessage($gal, 'ERR');
+                    } catch (Ansel_Exception $e) {
+                        Horde::logMessage($e->getMessage(), 'ERR');
+                        break;
                     }
                 }
-                    $results['images'] = $imgs;
+                $results['images'] = $imgs;
             }
         }
 
@@ -240,14 +242,15 @@ class Ansel_Tags {
             $GLOBALS['ansel_db']->setLimit($max, $from);
 
             $galleries = $GLOBALS['ansel_db']->queryCol($sql);
-            if (is_a($galleries, 'PEAR_Error')) {
+            if ($galleries instanceof PEAR_Error) {
                 Horde::logMessage($galleries, 'ERR');
             } else {
                 /* Check perms */
                 foreach ($galleries as $id) {
-                    $gallery = $GLOBALS['ansel_storage']->getGallery($id);
-                    if (is_a($gallery, 'PEAR_Error')) {
-                        Horde::logMessage($gallery, 'ERR');
+                    try {
+                        $gallery = $GLOBALS['ansel_storage']->getGallery($id);
+                    } catch (Ansel_Exception $e) {
+                        Horde::logMessage($e->getMessage(), 'ERR');
                         continue;
                     }
                     if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') && $gallery->get('owner') == $user))) {
@@ -277,10 +280,10 @@ class Ansel_Tags {
      * @param string $user           Limit the result set to resources owned by
      *                               specified user.
      *
-     * @return mixed An array of image_ids and gallery_ids | PEAR_Error
+     * @return mixed An array of image_ids and gallery_ids
      */
-    function searchTags($names = array(), $max = 10, $from = 0,
-                        $resource_type = 'all', $user = null)
+    static public function searchTags($names = array(), $max = 10, $from = 0,
+                                      $resource_type = 'all', $user = null)
     {
         /* Get the tag_ids */
         $ids = Ansel_Tags::getTagIds($names);
@@ -296,7 +299,7 @@ class Ansel_Tags {
      *
      * @return mixed A hash of tag_id -> tag_name | PEAR_Error
      */
-    function getRelatedTags($ids)
+    static public function getRelatedTags($ids)
     {
         if (!count($ids)) {
             return array();
@@ -354,7 +357,7 @@ class Ansel_Tags {
      *
      * @return string  The URL for this tag and action
      */
-    function getTagLinks($tags, $action = 'add', $owner = null)
+    static public function getTagLinks($tags, $action = 'add', $owner = null)
     {
         $results = array();
         foreach ($tags as $id => $taginfo) {
@@ -378,9 +381,9 @@ class Ansel_Tags {
       *
       * @param array $tags An array of tag_names
       *
-      * @return mixed  An array of tag_names => tag_ids | PEAR_Error
+      * @return array  An array of tag_names => tag_ids
       */
-    function getTagIds($tags)
+    static public function getTagIds($tags)
     {
         if (!count($tags)) {
             return array();
@@ -399,9 +402,13 @@ class Ansel_Tags {
     }
 
     /**
+     * Get the tag names from ids
      *
+     * @param array $ids  An array of tag ids
+     *
+     * @return array  A hash of tag_id => tag_names
      */
-    function getTagNames($ids)
+    static public function getTagNames($ids)
     {
         if (!count($ids)) {
             return array();
@@ -421,8 +428,11 @@ class Ansel_Tags {
 
     /**
      * Retrieve an Ansel_Tags_Search object
+     *
+     * @return Ansel_Tags_Search
+     * @TODO: refactor into Ansel_Search
      */
-    function getSearch($tags = null, $owner = null)
+    static public function getSearch($tags = null, $owner = null)
     {
         return new Ansel_Tags_Search($tags, $owner);
     }
@@ -430,12 +440,12 @@ class Ansel_Tags {
     /**
      * Clear the session cache
      */
-    function clearSearch()
+    static public function clearSearch()
     {
         unset($_SESSION['ansel_tags_search']);
     }
 
-    function clearCache()
+    static public function clearCache()
     {
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['cache']->expire(Horde_Auth::getAuth() . '__anseltagsearches');
@@ -445,6 +455,10 @@ class Ansel_Tags {
 
 /**
  * Class that represents a slice of a tag search
+ *
+ * @TODO: Move this to Ansel_Search_Tags
+ *
+ *
  */
 class Ansel_Tags_Search {
 
@@ -482,7 +496,7 @@ class Ansel_Tags_Search {
     /**
      * Fetch the matching resources that should appear on the current page
      *
-     * @return Array of Ansel_Images and Ansel_Galleries | PEAR_Error
+     * @return Array of Ansel_Images and Ansel_Galleries
      */
     function getSlice($page, $perpage)
     {
@@ -498,11 +512,6 @@ class Ansel_Tags_Search {
                                                $gstart,
                                                'galleries',
                                                $this->_owner);
-
-        if (is_a($gresults, 'PEAR_Error')) {
-            return $gresults;
-        }
-
         $galleries = array();
         foreach ($gresults['galleries'] as $gallery) {
             $galleries[] = $GLOBALS['ansel_storage']->getGallery($gallery);
@@ -517,9 +526,6 @@ class Ansel_Tags_Search {
                                                    $istart,
                                                   'images',
                                                    $this->_owner);
-            if (is_a($iresults, 'PEAR_Error')) {
-                return $iresults;
-            }
 
             $images = count($iresults['images']) ? array_values($GLOBALS['ansel_storage']->getImages(array('ids' => $iresults['images']))) : array();
             if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
@@ -527,7 +533,7 @@ class Ansel_Tags_Search {
 
                 $ids = array_keys($images);
                 $ccounts = $GLOBALS['registry']->call('forums/numMessagesBatch', array($ids, 'ansel'));
-                if (!is_a($ccounts, 'PEAR_Error')) {
+                if (!($ccounts instanceof PEAR_Error)) {
                     foreach ($images as $image) {
                         $image->commentCount = (!empty($ccounts[$image->id]) ? $ccounts[$image->id] : 0);
                     }

@@ -18,13 +18,7 @@ if (empty($conf['ecard']['enable'])) {
 
 /* Get the gallery and the image, and abort if either fails. */
 $gallery = $ansel_storage->getGallery(Horde_Util::getFormData('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
-    exit;
-}
 $image = &$gallery->getImage(Horde_Util::getFormData('image'));
-if (is_a($image, 'PEAR_Error')) {
-    exit;
-}
 
 /* Run through the action handlers. */
 switch (Horde_Util::getFormData('actionID')) {
@@ -83,13 +77,13 @@ case 'send':
     $alt->setBasePart($alternative);
 
     /* Send. */
-    $result = $alt->send($injector->getInstance('Horde_Mail'));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error sending your message: %s"), $result->getMessage()), 'horde.error');
-    } else {
-        echo Horde::wrapInlineScript(array('window.close();'));
-        exit;
+    try {
+        $result = $alt->send($injector->getInstance('Horde_Mail'));
+    } catch (Horde_Mime_Exception $e) {
+        $notification->push(sprintf(_("There was an error sending your message: %s"), $e->getMessage()), 'horde.error');
     }
+    echo Horde::wrapInlineScript(array('window.close();'));
+    exit;
 }
 
 $title = sprintf(_("Send Ecard :: %s"), $image->filename);

@@ -23,15 +23,9 @@ if (empty($image_id)) {
     Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
 }
 $image = $ansel_storage->getImage($image_id);
-if (is_a($image, 'PEAR_Error')) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
-}
 $gallery = $ansel_storage->getGallery($image->gallery);
-if (is_a($gallery, 'PEAR_Error')) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
-}
 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-    Horde::fatal(_("Not Authorized. Details have been logged for the server administrator."), __FILE__, __LINE__, true);
+    throw new Horde_Exception_PermissionDenied(_("Not Authorized. Details have been logged for the server administrator."));
 }
 
 /* Determine if we already have a geotag or are we tagging it for the 1st time */

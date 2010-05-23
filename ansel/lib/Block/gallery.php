@@ -47,8 +47,9 @@ class Horde_Block_ansel_gallery extends Horde_Block {
 
     function _title()
     {
-        $gallery = $this->_getGallery();
-        if (is_a($gallery, 'PEAR_Error')) {
+        try {
+            $gallery = $this->_getGallery();
+        } catch (Horde_Exception $e) {
             return Horde::link(Ansel::getUrlFor('view', array('view' => 'List'),
                                                 true)) . _("Gallery") . '</a>';
         }
@@ -74,8 +75,9 @@ class Horde_Block_ansel_gallery extends Horde_Block {
     }
     function _content()
     {
-        $gallery = $this->_getGallery();
-        if (is_a($gallery, 'PEAR_Error')) {
+        try {
+           $gallery = $this->_getGallery();
+        } catch (Horde_Exception $e) {
             return $gallery->getMessage();
         }
 
@@ -111,7 +113,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
     function _getGallery($retry = false)
     {
         // Make sure we haven't already selected a gallery.
-        if (is_a($this->_gallery, 'Ansel_Gallery')) {
+        if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;
         }
 
@@ -135,11 +137,10 @@ class Horde_Block_ansel_gallery extends Horde_Block {
         }
 
         if (empty($this->_gallery)) {
-            return PEAR::raiseError(_("Gallery does not exist."));
-        } elseif (is_a($this->_gallery, 'PEAR_Error') ||
-                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) ||
+            throw new Horde_Exception_NotFound(_("Gallery does not exist."));
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) ||
                   !$this->_gallery->isOldEnough() || $this->_gallery->hasPasswd()) {
-            return PEAR::raiseError(_("Access denied viewing this gallery."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
 
         // Return the gallery.

@@ -54,12 +54,13 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
             !($input = Horde_Util::getFormData($args['input']))) {
             return array();
         }
-        $locs = $GLOBALS['ansel_storage']->searchLocations($input);
-        if (is_a($locs, 'PEAR_Error')) {
-            Horde::logMessage($locs->getMessage(), 'ERR');
-            $locs = new StdClass();
-        }
-        if (!count($locs)) {
+        try {
+            $locs = $GLOBALS['ansel_storage']->searchLocations($input);
+            if (!count($locs)) {
+                $locs = new StdClass();
+            }
+        } catch (Ansel_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             $locs = new StdClass();
         }
         return $locs;
