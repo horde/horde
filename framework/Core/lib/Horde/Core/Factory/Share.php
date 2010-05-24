@@ -8,7 +8,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Identity:: factory.
+ * A Horde_Injector:: based Horde_Share:: factory.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
