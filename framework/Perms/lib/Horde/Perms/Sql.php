@@ -215,7 +215,7 @@ class Horde_Perms_Sql extends Horde_Perms
             $parent_name = substr($name, 0, $pos);
             $query = 'SELECT perm_id, perm_parents FROM ' .
                 $this->_params['table'] . ' WHERE perm_name = ?';
-            $result = $this->_db->getRow($query, array($parent_name), DB_FETCHMODE_ASSOC);
+            $result = $this->_db->selectValues($query, array($parent_name), DB_FETCHMODE_ASSOC);
             if (!empty($result)) {
                 $parents = $result['perm_parents'] . ':' . $result['perm_id'];
             }
