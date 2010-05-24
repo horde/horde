@@ -263,7 +263,7 @@ class Horde_Perms_Sql extends Horde_Perms
             throw new Horde_Perms_Exception($e);
         }
 
-        if ($force) {
+        if (!$force) {
             return (bool)$result;
         }
 
