@@ -22,6 +22,13 @@
 class Horde_Core_Factory_Vfs
 {
     /**
+     * Instances.
+     *
+     * @var array
+     */
+    private $_instances = array();
+
+    /**
      * The injector.
      *
      * @var Horde_Injector
@@ -47,8 +54,12 @@ class Horde_Core_Factory_Vfs
      */
     public function getVfs($scope)
     {
-        $params = Horde::getVFSConfig($scope);
-        return VFS::singleton($params['type'], $params['params']);
+        if (empty($this->_instances[$scope])) {
+            $params = Horde::getVFSConfig($scope);
+            $this->_instances[$scope] = VFS::singleton($params['type'], $params['params']);
+        }
+
+        return $this->_instances[$scope];
     }
 
 }
