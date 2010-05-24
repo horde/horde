@@ -268,17 +268,11 @@ Configuring IMP
 
 2. Creating the database table
 
-   The specific steps to create the IMP database table depend on which
-   database you've chosen to use.
+   Creating the IMP database table(s) can be accomplished with horde's
+   ``db_migrate`` utility.  If your database is properly setup in the Horde
+   configuration, just run the following:
 
-   First, look in ``scripts/sql/`` to see if a script already exists
-   for your database type.  If so, you should be able to simply execute that
-   script as superuser in your database.  (Note that executing the script as
-   the "horde" user will probably fail when granting privileges.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   file imp.sql as a starting point.  If you need assistance in creating
-   databases, you may wish to let us know on the IMP mailing list.
+      horde/bin/db_migrate imp
 
 3. Configuring IMP
 
