@@ -52,7 +52,7 @@ CREATE INDEX user_uid_idx ON horde_groups_members (user_uid)
 GO
 
 CREATE TABLE horde_perms (
-    perm_id INT NOT NULL,
+    perm_id INT NOT NULL IDENTITY,
     perm_name VARCHAR(255) NOT NULL,
     perm_parents VARCHAR(255) NOT NULL,
     perm_data TEXT,

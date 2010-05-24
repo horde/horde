@@ -82,7 +82,7 @@ CREATE INDEX group_uid_idx ON horde_groups_members (group_uid);
 CREATE INDEX user_uid_idx ON horde_groups_members (user_uid);
 
 CREATE TABLE IF NOT EXISTS horde_perms (
-    perm_id INT(11) NOT NULL,
+    perm_id INT(11) NOT NULL AUTO_INCREMENT,
     perm_name VARCHAR(255) NOT NULL,
     perm_parents VARCHAR(255) NOT NULL,
     perm_data TEXT,

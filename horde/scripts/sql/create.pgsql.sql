@@ -44,8 +44,9 @@ CREATE TABLE horde_groups_members (
 CREATE INDEX group_uid_idx ON horde_groups_members (group_uid);
 CREATE INDEX user_uid_idx ON horde_groups_members (user_uid);
 
+CREATE SEQUENCE horde_perms_id_seq;
 CREATE TABLE horde_perms (
-    perm_id INTEGER NOT NULL,
+    perm_id INTEGER NOT NULL DEFAULT NEXTVAL('horde_perms_id_seq'),
     perm_name VARCHAR(255) NOT NULL UNIQUE,
     perm_parents VARCHAR(255) NOT NULL,
     perm_data TEXT,
