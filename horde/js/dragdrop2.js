@@ -596,7 +596,7 @@ Drag = Class.create({
     {
         this._stopScrolling();
 
-        var delta, p, speed,
+        var delta, p, speed, vp,
             s = this.options.scroll,
             dim = s.getDimensions();
 
@@ -608,6 +608,7 @@ Drag = Class.create({
         delta = document.viewport.getScrollOffsets();
         p = s.viewportOffset(),
         speed = [ 0, 0 ];
+        vp = document.viewport.getDimensions();
 
         p[0] += s.scrollLeft + delta.left;
         p[2] = p[0] + dim.width;
@@ -618,21 +619,24 @@ Drag = Class.create({
             return;
         }
 
-        p[1] += s.scrollTop + delta.top;
-        p[3] = p[1] + dim.height;
+        p[1] = vp.height - dim.height;
+        p[3] = vp.height - 10;
 
         // Left scroll
         //if (this.lastCoord[0] < p[0]) {
         //    speed[0] = this.lastCoord[0] - p[0];
         //}
+
         // Top scroll
         if (this.lastCoord[1] < p[1]) {
             speed[1] = this.lastCoord[1] - p[1];
         }
+
         // Scroll right
         //if (this.lastCoord[0] > p[2]) {
         //    speed[0] = this.lastCoord[0] - p[2];
         //}
+
         // Scroll left
         if (this.lastCoord[1] > p[3]) {
             speed[1] = this.lastCoord[1] - p[3];
