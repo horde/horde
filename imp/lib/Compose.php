@@ -1909,7 +1909,7 @@ class IMP_Compose
         /* Store in VFS. */
         if ($GLOBALS['conf']['compose']['use_vfs']) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
                 $cacheID = uniqid(mt_rand());
 
                 if ($vfs_file) {
@@ -1968,7 +1968,7 @@ class IMP_Compose
             case 'vfs':
                 /* Delete from VFS. */
                 try {
-                    $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                    $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
                     $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
                 } catch (VFS_Exception $e) {}
                 break;
@@ -2062,7 +2062,7 @@ class IMP_Compose
         case 'vfs':
             // TODO: Use streams
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
                 $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
             } catch (VFS_Exception $e) {}
             break;
@@ -2345,7 +2345,7 @@ class IMP_Compose
         $baseurl = Horde::applicationUrl('attachment.php', true)->setRaw(true);
 
         try {
-            $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
         } catch (VFS_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -2645,7 +2645,7 @@ class IMP_Compose
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
             $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
 
             $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
@@ -2664,7 +2664,7 @@ class IMP_Compose
         $filename = hash('md5', Horde_Auth::getAuth());
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
         } catch (VFS_Exception $e) {
             return;
         }

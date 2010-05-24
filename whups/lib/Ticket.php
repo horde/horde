@@ -432,7 +432,7 @@ class Whups_Ticket {
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }
@@ -482,7 +482,7 @@ class Whups_Ticket {
         }
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e->getMessage());
         }

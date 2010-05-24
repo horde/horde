@@ -39,7 +39,7 @@ class Hylax_Storage {
             Horde::fatal(_("You must configure a VFS backend to use Hylax."), __FILE__, __LINE__);
         }
 
-        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
     }
 
     function saveFaxData($data, $type = '.ps')

@@ -227,7 +227,7 @@ class Agora {
         }
 
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Vfs');
+            return $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
         } catch (VFS_Exception $e) {
             return PEAR::raiseError($e);
         }

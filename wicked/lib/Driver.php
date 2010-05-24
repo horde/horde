@@ -60,7 +60,7 @@ class Wicked_Driver {
     {
         if (!$this->_vfs) {
             try {
-                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
             } catch (VFS_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }

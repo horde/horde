@@ -831,11 +831,11 @@ HTML;
     {
         global $conf;
 
-        if (!isset($conf[$name]['type'])) {
+        if ($name !== 'horde' && !isset($conf[$name]['type'])) {
             throw new Horde_Exception(_("You must configure a VFS backend."));
         }
 
-        $vfs = ($conf[$name]['type'] == 'horde')
+        $vfs = ($name == 'horde' || $conf[$name]['type'] == 'horde')
             ? $conf['vfs']
             : $conf[$name];
 

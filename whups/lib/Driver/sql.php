@@ -500,7 +500,7 @@ class Whups_Driver_sql extends Whups_Driver {
 
         if (!empty($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
             } catch (VFS_Exception $e) {
                 return PEAR::raiseError($e->getMessage());
             }

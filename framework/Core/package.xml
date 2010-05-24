@@ -101,6 +101,7 @@ Application Framework.
        <file name="KolabStorage.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="Share.php" role="php" />
+       <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
@@ -274,6 +275,7 @@ Application Framework.
    <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />
    <install name="lib/Horde/Core/Factory/LoginTasks.php" as="Horde/Core/Factory/LoginTasks.php" />
    <install name="lib/Horde/Core/Factory/Share.php" as="Horde/Core/Factory/Share.php" />
+   <install name="lib/Horde/Core/Factory/Vfs.php" as="Horde/Core/Factory/Vfs.php" />
    <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
    <install name="lib/Horde/Core/LoginTasks/Backend/Horde.php" as="Horde/Core/LoginTasks/Backend/Horde.php" />
    <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />

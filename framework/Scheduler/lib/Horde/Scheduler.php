@@ -82,7 +82,7 @@ class Horde_Scheduler
     public function serialize($id = '')
     {
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs');
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
             $vfs->writeData('.horde/scheduler', Horde_String::lower(get_class($this)) . $id, serialize($this), true);
             return true;
         } catch (VFS_Exception $e) {

@@ -36,7 +36,7 @@ if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
 
 // Initialize the VFS.
 try {
-    $vfsroot = $injector->getInstance('Horde_Vfs');
+    $vfsroot = $injector->getInstance('Horde_Vfs')->getVfs();
 } catch (VFS_Exception $e) {
     throw new IMP_Exception(sprintf(_("Could not create the VFS backend: %s"), $e->getMessage()));
 }
