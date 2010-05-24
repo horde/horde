@@ -127,7 +127,7 @@ class Horde_Lock_Sql extends Horde_Lock_Driver
         }
 
         $locks = array();
-        foreach ($result as $val) {
+        foreach ($result as $row) {
             $locks[$row['lock_id']] = $row;
         }
 
