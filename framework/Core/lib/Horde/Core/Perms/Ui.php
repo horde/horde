@@ -482,7 +482,7 @@ class Horde_Core_Perms_Ui
      *                true, if any other submit button has been pressed return
      *                false. If form did not validate return null.
      */
-    public function validateDeleteForm($info)
+    public function validateDeleteForm(&$info)
     {
         $form_submit = $this->_vars->get('submitbutton');
 
