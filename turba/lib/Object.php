@@ -312,7 +312,7 @@ class Turba_Object {
             if ($this->_vfs->exists(TURBA_VFS_PATH, $this->getValue('__uid'))) {
                 return $this->_vfs->listFolder(TURBA_VFS_PATH . '/' . $this->getValue('__uid'));
             }
-        } catch (VFS_Exception $e) {}
+        } catch (Turba_Exception $e) {}
 
         return array();
     }
@@ -396,14 +396,8 @@ class Turba_Object {
     {
         if (!isset($this->_vfs)) {
             try {
-                $v_params = Horde::getVFSConfig('documents');
+                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('documents');
             } catch (Horde_Exception $e) {
-                throw new Turba_Exception($e);
-            }
-
-            try {
-                $this->_vfs = VFS::singleton($v_params['type'], $v_params['params']);
-            } catch (VFS_Exception $e) {
                 throw new Turba_Exception($e);
             }
         }

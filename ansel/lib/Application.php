@@ -69,7 +69,7 @@ class Ansel_Application extends Horde_Registry_Application
         // Create db, share, and vfs instances.
         $GLOBALS['ansel_db'] = Ansel::getDb();
         $GLOBALS['ansel_storage'] = new Ansel_Storage();
-        $GLOBALS['ansel_vfs'] = Ansel::getVFS();
+        $GLOBALS['ansel_vfs'] = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
 
         // Get list of available styles for this client.
         $GLOBALS['ansel_styles'] = Ansel::getAvailableStyles();

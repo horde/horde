@@ -55,19 +55,6 @@ class Ansel
     }
 
     /**
-     * Create and initialize the VFS object
-     *
-     * @return  VFS object.
-     */
-    static public function getVFS()
-    {
-        // @TODO: need to refactor the Vfs binder to a factory so we can handle
-        // vfs objects for different scopes.
-        $v_params = Horde::getVFSConfig('images');
-        return VFS::singleton($v_params['type'], $v_params['params']);
-    }
-
-    /**
      * Return a string containing an <option> listing of the given
      * gallery array.
      *

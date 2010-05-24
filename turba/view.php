@@ -39,13 +39,8 @@ if (!$object->hasPermission(Horde_Perms::READ)) {
 }
 
 try {
-    $v_params = Horde::getVFSConfig('documents');
+    $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('documents');
 } catch (Horde_Exception $e) {
-    throw new Turba_Exception($e);
-}
-try {
-    $vfs = VFS::singleton($v_params['type'], $v_params['params']);
-} catch (VFS_Exception $e) {
     throw new Turba_Exception($e);
 }
 

@@ -225,24 +225,6 @@ class News {
     }
 
     /**
-     * Load VFS Backend
-     *
-     * @throws Horde_Exception
-     * @throws VFS_Exception
-     */
-    static public function loadVFS()
-    {
-        static $vfs;
-
-        if ($vfs) {
-            return $vfs;
-        }
-
-        $v_params = Horde::getVFSConfig('images');
-        return VFS::singleton($v_params['type'], $v_params['params']);
-    }
-
-    /**
      * Store image
      *
      * @param $id     Image owner record id
@@ -254,7 +236,7 @@ class News {
     {
         global $conf;
 
-        $vfs = self::loadVFS();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $vfspath = self::VFS_PATH . '/images/' . $type;
         $vfs_name = $id . '.' . $conf['images']['image_type'];
 
@@ -317,7 +299,7 @@ class News {
      */
     static public function deleteImage($id)
     {
-        $vfs = self::loadVFS();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $vfs_name = $id . '.' . $GLOBALS['conf']['images']['image_type'];
         $vfs->deleteFile(self::VFS_PATH . '/images/news/full', $vfs_name);
         $vfs->deleteFile(self::VFS_PATH . '/images/news/small', $vfs_name);
@@ -332,7 +314,7 @@ class News {
      */
     static public function saveFile($file_id, $file_src)
     {
-        $vfs = self::loadVFS();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $vfs->writeData(self::VFS_PATH . '/files/', $file_id, file_get_contents($file_src), true);
     }
 
@@ -343,7 +325,7 @@ class News {
      */
     static public function getFile($file_id)
     {
-        $vfs = self::loadVFS();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $vfs->read(self::VFS_PATH . '/files/', $file_id);
     }
 
@@ -354,7 +336,7 @@ class News {
      */
     static public function deleteFile($file_id)
     {
-        $vfs = self::loadVFS();
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         if ($vfs->exists(self::VFS_PATH . '/files/', $file_id)) {
             $vfs->deleteFile(self::VFS_PATH . '/files/', $file_id);
         }

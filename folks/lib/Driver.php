@@ -61,21 +61,6 @@ class Folks_Driver {
     }
 
     /**
-     * Load VFS Backend
-     *
-     * @throws Horde_Exception
-     */
-    protected function _loadVFS()
-    {
-        $v_params = Horde::getVFSConfig('images');
-        try {
-            return VFS::singleton($v_params['type'], $v_params['params']);
-        } catch (VFS_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
-        }
-    }
-
-    /**
      * Store image
      *
      * @param string $file   Image file
@@ -85,12 +70,7 @@ class Folks_Driver {
     {
         global $conf;
 
-        try {
-        $vfs = $this->_loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
@@ -138,11 +118,7 @@ class Folks_Driver {
      */
     public function deleteImage($user)
     {
-        $vfs = $this->_loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $GLOBALS['conf']['images']['image_type'];
