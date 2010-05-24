@@ -233,7 +233,7 @@ class Horde_Prefs_Ui
              * frame. */
             if ($old_sidebar) {
                 Horde::addInlineScript(
-                    'window.parent.frames.location = ' . Horde_Serialize::serialize($url, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';'
+                    'window.parent.frames.location = ' . Horde_Serialize::serialize((string)$url, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';'
                 );
             } else {
                 Horde::redirect($url);
