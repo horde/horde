@@ -48,7 +48,8 @@ if ($ui->validateAddForm($info)) {
         header('Location: ' . $url);
         exit;
     } catch (Exception $e) {
-        $notification->push(sprintf(_("\"%s\" was not created: %s."), $perms->getTitle($child->getName()), $result->getMessage()), 'horde.error');
+        Horde::logMessage($e, 'ERR');
+        $notification->push(sprintf(_("\"%s\" was not created: %s."), $perms->getTitle($child->getName()), $e->getMessage()), 'horde.error');
     }
 }
 
