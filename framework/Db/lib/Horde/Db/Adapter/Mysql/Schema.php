@@ -414,7 +414,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Add AFTER option
+     * Add additional column options.
      *
      * @param   string  $sql
      * @param   array   $options
@@ -425,6 +425,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $sql = parent::addColumnOptions($sql, $options);
         if (isset($options['after'])) {
             $sql .= " AFTER ".$this->quoteColumnName($options['after']);
+        }
+        if (!empty($options['autoincrement'])) {
+            $sql .= ' AUTO_INCREMENT';
         }
         return $sql;
     }

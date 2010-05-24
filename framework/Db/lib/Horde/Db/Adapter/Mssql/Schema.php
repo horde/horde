@@ -49,7 +49,7 @@ class Horde_Db_Adapter_Mssql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return array(
             /* TODO, just put in nchar for unicode strings */
-            'primaryKey' => 'int(11) DEFAULT NULL auto_increment PRIMARY KEY',
+            'primaryKey' => 'int(11) DEFAULT NULL IDENTITY PRIMARY KEY',
             'string'     => array('name' => 'nchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => 11),
@@ -128,5 +128,41 @@ class Horde_Db_Adapter_Mssql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return $this->selectOne('SELECT @@IDENTITY');
     }
+
+    /**
+     * Changes the column of a table.
+     */
+    public function changeColumn($tableName, $columnName, $type,
+                                 $options = array())
+    {
+        parent::changeColumn($tableName, $columnName, $type, $options);
+
+        if (!empty($options['autoincrement'])) {
+            /* Can't alter column in table - need to create, remove old
+             * column, and rename:
+             * http://www.eggheadcafe.com/software/aspnet/30132263/alter-table-add-identity.aspx */
+            // TODO: Better temp name?
+            $this->addColumn($tableName, $columnName . '_temp', $type, $options);
+            $this->removeColumn($tableName, $columnName);
+            $this->renameColumn($tableName, $columnName . '_temp', $columnName);
+        }
+    }
+
+    /**
+     * Add additional column options.
+     *
+     * @param   string  $sql
+     * @param   array   $options
+     * @return  string
+     */
+    public function addColumnOptions($sql, $options)
+    {
+        $sql = parent::addColumnOptions($sql, $options);
+        if (!empty($options['autoincrement'])) {
+            $sql .= ' IDENTITY';
+        }
+        return $sql;
+    }
+
 
 }

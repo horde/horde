@@ -92,6 +92,14 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      * * <tt>:null</tt>:
      *   Allows or disallows +NULL+ values in the column.  This option could
      *   have been named <tt>:null_allowed</tt>.
+     * * <tt>:precision</tt>
+     *   TODO
+     * * <tt>:scale</tt>
+     *   TODO
+     * * <tt>:unsigned</tt>
+     *   TODO
+     * * <tt>:autoincrement</tt>
+     *   TODO
      *
      * This method returns <tt>self</tt>.
      *
@@ -123,6 +131,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
         $column->setUnsigned(isset($options['unsigned'])   ? $options['unsigned']  : null);
         $column->setDefault(isset($options['default'])     ? $options['default']   : null);
         $column->setNull(isset($options['null'])           ? $options['null']      : null);
+        $column->setAutoIncrement(isset($options['autoincrement']) ? $options['autoincrement'] : null);
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
         return $this;

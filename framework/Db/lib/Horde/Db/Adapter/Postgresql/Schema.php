@@ -437,23 +437,45 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      * Adds a new column to the named table.
      * See TableDefinition#column for details of the options you can use.
      */
-    public function addColumn($tableName, $columnName, $type, $options = array())
+    public function addColumn($tableName, $columnName, $type,
+                              $options = array())
     {
         $this->_clearTableCache($tableName);
 
+        $autoincrement = isset($options['autoincrement']) ? $options['autoincrement'] : null;
         $limit     = isset($options['limit'])     ? $options['limit']     : null;
         $precision = isset($options['precision']) ? $options['precision'] : null;
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
 
+        $sqltype = $this->typeToSql($type, $limit, $precision, $scale);
+
+        /* Convert to SERIAL type if needed. */
+        if ($autoincrement) {
+            switch ($sqltype) {
+            case 'bigint':
+                $sqltype = 'BIGSERIAL';
+                break;
+
+            case 'integer':
+            default:
+                $sqltype = 'SERIAL';
+                break;
+            }
+        }
+
         // Add the column.
-        $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ADD COLUMN '.$this->quoteColumnName($columnName).' '.$this->typeToSql($type, $limit, $precision, $scale));
+        $this->execute('ALTER TABLE ' . $this->quoteTableName($tableName) . ' ADD COLUMN ' . $this->quoteColumnName($columnName) . ' ' . $sqltype);
 
         $default = isset($options['default']) ? $options['default'] : null;
         $notnull = isset($options['null']) && $options['null'] === false;
-        if (array_key_exists('default', $options))
+
+        if (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
-        if ($notnull)
+        }
+
+        if ($notnull) {
             $this->changeColumnNull($tableName, $columnName, false, $default);
+        }
     }
 
     /**
@@ -463,6 +485,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
+        $autoincrement = isset($options['autoincrement']) ? $options['autoincrement'] : null;
         $limit     = isset($options['limit'])     ? $options['limit']     : null;
         $precision = isset($options['precision']) ? $options['precision'] : null;
         $scale     = isset($options['scale'])     ? $options['scale']     : null;
@@ -511,10 +534,18 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         $default = isset($options['default']) ? $options['default'] : null;
-        if (array_key_exists('default', $options))
+
+        if ($autoincrement) {
+            $seq_name = $this->quoteSequenceName($this->defaultSequenceName($tableName, $columnName));
+            $this->execute('CREATE SEQUENCE ' . $seq_name);
+            $this->changeColumnDefault($tableName, $columnName, 'NEXTVAL(' . $seq_name . ')');
+        } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
-        if (array_key_exists('null', $options))
+        }
+
+        if (array_key_exists('null', $options)) {
             $this->changeColumnNull($tableName, $columnName, $options['null'], $default);
+        }
     }
 
     /**
@@ -555,27 +586,34 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Maps logical Rails types to PostgreSQL-specific data types.
+     *
+     * @throws Horde_Db_Exception
      */
-    public function typeToSql($type, $limit = null, $precision = null, $scale = null, $unsigned = null)
+    public function typeToSql($type, $limit = null, $precision = null,
+                              $scale = null, $unsigned = null)
     {
-        if ($type != 'integer') return parent::typeToSql($type, $limit, $precision, $scale);
+        if ($type != 'integer') {
+            return parent::typeToSql($type, $limit, $precision, $scale);
+        }
 
         switch ($limit) {
         case 1:
         case 2:
             return 'smallint';
+
         case 3:
         case 4:
         case null:
             return 'integer';
+
         case 5:
         case 6:
         case 7:
         case 8:
             return 'bigint';
-        default:
-            throw new Horde_Db_Exception("No integer type has byte size $limit. Use a numeric with precision 0 instead.");
         }
+
+        throw new Horde_Db_Exception("No integer type has byte size $limit. Use a numeric with precision 0 instead.");
     }
 
     /**
