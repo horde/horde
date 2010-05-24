@@ -18,7 +18,8 @@ var PrettyAutocompleter = Class.create({
             // This function should *always* return escaped HTML
             displayFilter: function(t) { return t.escapeHTML() },
             filterCallback: this._filterChoices.bind(this),
-            onAdd: Prototype.K
+            onAdd: Prototype.K,
+            onRemove: Prototype.K
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -167,6 +168,7 @@ var PrettyAutocompleter = Class.create({
         var value = $F(this.p.trigger).replace(/^,/, '').strip();
         if (value.length) {
             this.addNewItemNode(value);
+            this.p.onAdd(value);
         }
     },
 
@@ -182,6 +184,7 @@ var PrettyAutocompleter = Class.create({
     _updateElement: function(item)
     {
         this.addNewItemNode(item);
+        this.p.onAdd(item);
     },
 
     addNewItemNode: function(value)
@@ -211,7 +214,6 @@ var PrettyAutocompleter = Class.create({
 
         // ...and keep the selectedItems array up to date.
         this.selectedItems.push({ rawValue: value, displayValue: displayValue });
-        this.p.onAdd(value);
     },
 
     removeItemNode: function(item)
@@ -224,6 +226,7 @@ var PrettyAutocompleter = Class.create({
             }
         }
         item.remove();
+        this.p.onRemove(value);
     },
 
     disable: function()

@@ -26,7 +26,9 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
         $ret = array('params' => $js_params,
                      'raw_params' => array(
                          'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                         'onType' => 'function (e) { return e.include("<") ? "" : e; }'
+                         'onType' => 'function (e) { return e.include("<") ? "" : e; }',
+                         'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
+                         'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
                       ));
         if (empty($this->_params['pretty'])) {
             $ret['ajax'] = 'ContactAutoCompleter';

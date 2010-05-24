@@ -4775,7 +4775,21 @@ KronolithCore = {
      */
     addAttendee: function(attendee)
     {
-        var tr = new Element('tr'), i;
+        if (typeof attendee == 'string') {
+            if (attendee.include('@')) {
+                this.doAction('parseEmailAddress',
+                              { email: attendee },
+                              function (r) {
+                                  if (r.response.email) {
+                                      this.addAttendee({ e: r.response.email, l: attendee });
+                                  }
+                              }.bind(this));
+                return;
+            } else {
+                attendee = { l: attendee };
+            }
+        }
+
         if (attendee.e) {
             this.fbLoading++;
             this.doAction('getFreeBusy',
@@ -4788,15 +4802,30 @@ KronolithCore = {
                               if (Object.isUndefined(r.response.fb)) {
                                   return;
                               }
-                              this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
+                              this.freeBusy.get(attendee.l)[1] = r.response.fb;
                               this.insertFreeBusy(attendee.e);
                           }.bind(this));
         }
-        tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l));
+
+        var tr = new Element('tr'), i;
+        this.freeBusy.set(attendee.l, [ tr ]);
+        tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
+    },
+
+    /**
+     * Removes an attendee row from the free/busy table.
+     *
+     * @param object attendee  An attendee object with the properties:
+     *                         - e: email address
+     *                         - l: the display name of the attendee
+     */
+    removeAttendee: function(attendee)
+    {
+        this.freeBusy.get(attendee)[0].remove();
     },
 
     /**

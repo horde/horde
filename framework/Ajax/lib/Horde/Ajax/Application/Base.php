@@ -48,6 +48,14 @@ abstract class Horde_Ajax_Application_Base
     protected $_readOnly = array();
 
     /**
+     * Default domain.
+     *
+     * @see parseEmailAddress()
+     * @var string
+     */
+    protected $_defaultDomain;
+
+    /**
      * Constructor.
      *
      * @param string $app     The application name.
@@ -140,6 +148,31 @@ abstract class Horde_Ajax_Application_Base
             $result->groups = $groups;
         }
         return $result;
+    }
+
+    /**
+     * Parses a valid email address out of a complete address string.
+     *
+     * Variables used:
+     * - mbox (string): The name of the new mailbox.
+     * - parent (string): The parent mailbox.
+     *
+     * @return string  The parsed email address.
+     * @throws Horde_Exception
+     * @throws Horde_Mail_Exception
+     */
+    public function parseEmailAddress()
+    {
+        $rfc822 = new Horde_Mail_Rfc822();
+        $params = array();
+        if ($this->_defaultDomain) {
+            $params['default_domain'] = $this->_defaultDomain;
+        }
+        $res = $rfc822->parseAddressList($this->_vars->email, $params);
+        if (!count($res)) {
+            throw new Horde_Exception(_("No valid email address found"));
+        }
+        return (object)array('email' => Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host));
     }
 
     /**

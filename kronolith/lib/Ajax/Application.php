@@ -22,6 +22,18 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     public $notify = true;
 
     /**
+     * Constructor.
+     *
+     * @param string $app     The application name.
+     * @param string $action  The AJAX action to perform.
+     */
+    public function __construct($app, $action = null)
+    {
+        parent::__construct($app, $action);
+        $this->_defaultDomain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+    }
+
+    /**
      * TODO
      */
     public function listEvents()
