@@ -7,14 +7,18 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Util
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Variables
 {
     /**
-     * TODO
+     * Array of form variables.
+     *
+     * @var array
      */
     protected $_vars;
 
@@ -28,9 +32,15 @@ class Horde_Variables
     /**
      * TODO
      */
+
+    /**
+     * Returns a Horde_Variables object populated with the form input.
+     *
+     * @return Horde_Variables  Variables object.
+     */
     static public function getDefaultVariables()
     {
-        return new Horde_Variables(null);
+        return new self(null);
     }
 
     /**
@@ -65,9 +75,9 @@ class Horde_Variables
     /**
      * Alias of isset().
      *
-     * @param string $varname  TODO
+     * @param string $varname  The form variable name.
      *
-     * @return boolean  See isset().
+     * @return boolean  Does $varname form variable exist?
      */
     public function exists($varname)
     {
@@ -77,19 +87,23 @@ class Horde_Variables
     /**
      * isset() implementation.
      *
-     * @param string $varname  TODO
+     * @param string $varname  The form variable name.
      *
-     * @return boolean  See isset().
+     * @return boolean  Does $varname form variable exist?
      */
     public function __isset($varname)
     {
-        return (count($this->_expectedVariables) &&
-                $this->_exists($this->_expectedVariables, $varname, false)) ||
-               $this->_exists($this->_vars, $varname, false);
+        return count($this->_expectedVariables)
+            ? $this->_exists($this->_expectedVariables, $varname)
+            : $this->_exists($this->_vars, $varname);
     }
 
     /**
-     * TODO
+     * Returns the value of a given form variable.
+     *
+     * @param string $varname  The form variable name.
+     *
+     * @return mixed  The form variable, or null if it doesn't exist.
      */
     public function get($varname)
     {
@@ -97,7 +111,11 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Returns the value of a given form variable.
+     *
+     * @param string $varname  The form variable name.
+     *
+     * @return mixed  The form variable, or null if it doesn't exist.
      */
     public function __get($varname)
     {
@@ -115,19 +133,26 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Sets the value of a given form variable.
+     *
+     * @param string $varname  The form variable name.
+     * @param mixed $value     The value to set.
      */
     public function set($varname, $value)
     {
-        return $this->__set($varname, $value);
+        $this->__set($varname, $value);
     }
 
     /**
-     * TODO
+     * Sets the value of a given form variable.
+     *
+     * @param string $varname  The form variable name.
+     * @param mixed $value     The value to set.
      */
     public function __set($varname, $value)
     {
         $keys = array();
+
         if (!Horde_Array::getArrayParts($varname, $base, $keys)) {
             $this->_vars[$varname] = $value;
         } else {
@@ -148,7 +173,9 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Deletes a given form variable.
+     *
+     * @param string $varname  The form variable name.
      */
     public function remove($varname)
     {
@@ -156,11 +183,14 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Deletes a given form variable.
+     *
+     * @param string $varname  The form variable name.
      */
     public function __unset($varname)
     {
         Horde_Array::getArrayParts($varname, $base, $keys);
+
         if (!is_null($base)) {
             $ptr = &$this->_vars[$base];
             $end = count($keys) - 1;
@@ -180,7 +210,9 @@ class Horde_Variables
     }
 
     /**
-     * TODO
+     * Merges a list of variables into the current form variable list.
+     *
+     * @param array $vars  Form variables.
      */
     public function merge($vars)
     {
@@ -192,14 +224,19 @@ class Horde_Variables
     /**
      * Set $varname to $value ONLY if it's not already present.
      *
-     * @
+     * @param string $varname  The form variable name.
+     * @param mixed $value     The value to set.
+     *
+     * @return boolean  True if the value was altered.
      */
     public function add($varname, $value)
     {
         if ($this->exists($varname)) {
             return false;
         }
+
         $this->_vars[$varname] = $value;
+        return true;
     }
 
     /**
@@ -208,18 +245,14 @@ class Horde_Variables
      * @param array $array     The array to search in (usually either
      *                         $this->_vars or $this->_expectedVariables).
      * @param string $varname  The name of the variable to look for.
-     * @param boolean $check   If we don't find $varname, should we check
-     *                         $this->_expectedVariables to see if should
-     *                         have existed (like a checkbox or select
-     *                         multiple).
      *
      * @return boolean  Whether or not the variable was set (or, if we've
      *                  checked $this->_expectedVariables, should have been
      *                  set).
      */
-    protected function _exists($array, $varname, $check = true)
+    protected function _exists($array, $varname)
     {
-        return $this->_getExists($array, $varname, $value, $check);
+        return $this->_getExists($array, $varname, $value);
     }
 
     /**
@@ -229,55 +262,38 @@ class Horde_Variables
      * @param array $array     See _exists().
      * @param string $varname  See _exists().
      * @param mixed &$value    $varname's value gets assigned to this variable.
-     * @param boolean $check   See _exists().
      *
      * @return boolean  Whether or not the variable was set (or, if we've
      *                  checked $this->_expectedVariables, should have been
      *                  set).
      */
-    protected function _getExists($array, $varname, &$value, $check = true)
+    protected function _getExists($array, $varname, &$value)
     {
         if (Horde_Array::getArrayParts($varname, $base, $keys)) {
             if (!isset($array[$base])) {
                 $value = null;
-                // If we're supposed to check $this->_expectedVariables, do so,
-                // but make sure not to check it again.
-                return $check
-                    ? $this->_exists($this->_expectedVariables, $varname, false)
-                    : false;
-            } else {
-                $searchspace = &$array[$base];
-                $i = count($keys);
+                return false;
+            }
 
-                while ($i--) {
-                    $key = array_shift($keys);
-                    if (!isset($searchspace[$key])) {
-                        $value = null;
-                        // If we're supposed to check
-                        // $this->_expectedVariables, do so, but make
-                        // sure not to check it again.
-                        return $check
-                            ? $this->_exists($this->_expectedVariables, $varname, false)
-                            : false;
-                    }
-                    $searchspace = &$searchspace[$key];
+            $searchspace = &$array[$base];
+            $i = count($keys);
+
+            while ($i--) {
+                $key = array_shift($keys);
+                if (!isset($searchspace[$key])) {
+                    $value = null;
+                    return false;
                 }
-                $value = $searchspace;
-                return true;
+                $searchspace = &$searchspace[$key];
             }
-        } else {
-            $value = isset($array[$varname]) ? $array[$varname] : null;
-            if (!is_null($value)) {
-                return true;
-            } elseif ($check) {
-                // If we're supposed to check
-                // $this->_expectedVariables, do so, but make sure not
-                // to check it again.
-                return $this->_exists($this->_expectedVariables, $varname, false);
-            }
+            $value = $searchspace;
 
-            return false;
+            return true;
         }
+
+        $value = isset($array[$varname]) ? $array[$varname] : null;
+
+        return !is_null($value);
     }
 
 }
