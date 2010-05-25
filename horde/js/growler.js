@@ -6,6 +6,7 @@
  * 'header' - (string) The title that is displayed for the notice.
  * 'life' - (float) The number of seconds in which the notice remains visible.
  * 'log' - (boolean) If true, will log the entry.
+ * 'opacity' - (float) The default opacity of the notifications.
  * 'speedin' - (float) The speed in seconds in which the notice is shown.
  * 'speedout' - (float) The speed in seconds in which the notice is hidden.
  * 'sticky' - (boolean) Determines if the notice should always remain visible
@@ -57,6 +58,7 @@
         speedin: 0.3,
         speedout: 0.5,
         life: 5,
+        opacity: 0.8,
         sticky: false,
         className: ''
     },
@@ -218,7 +220,7 @@
 
             this.growler.show().insert(notice);
 
-            new Effect.Opacity(notice, { to: 0.85, duration: opts.speedin });
+            new Effect.Opacity(notice, { to: opts.opacity, duration: opts.speedin });
 
             if (!opts.sticky) {
                 removeNotice.delay(opts.life, notice, opts);
