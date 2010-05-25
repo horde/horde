@@ -218,7 +218,7 @@ class Beatnik_Driver {
                     throw new Beatnik_Exception(_('You do not have permssion to edit the SOA of this zone.'));
                 }
             } else {
-                $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'] . ':' . $info['id'];
+                $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 2)) {
                     throw new Beatnik_Exception(_('You do not have permssion to edit this record.'));
                 }
