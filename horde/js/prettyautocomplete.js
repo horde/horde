@@ -263,7 +263,7 @@ var PrettyAutocompleter = Class.create({
     _filterChoices: function(c)
     {
         this.selectedItems.each(function(item) {
-            c = c.without(item.displayValue);
+            c = c.without(item.rawValue);
         });
         return c;
     },
