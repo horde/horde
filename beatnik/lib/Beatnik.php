@@ -55,7 +55,7 @@ class Beatnik {
      */
     function getRecTypes()
     {
-        global $beatnik;
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
         $records = array(
             'soa' => _("SOA (Start of Authority)"),
@@ -91,7 +91,7 @@ class Beatnik {
         // 'default': the default value of the field.
         // 'index': Crude sort ordering.  Lower means show higher in the group
 
-        global $beatnik;
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
         // Attempt to return cached results.
         static $recset = array();
@@ -510,7 +510,7 @@ class Beatnik {
      */
     function autogenerate(&$vars)
     {
-        global $beatnik;
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
         require BEATNIK_BASE . '/config/autogenerate.php';
         $template = $templates[$vars->get('template')];
