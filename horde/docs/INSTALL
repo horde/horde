@@ -373,7 +373,6 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
       in your PEAR directory for details.
 
-
    g. File_Fstab
 
      Required only if you use the localhost driver for the Accounts block.
