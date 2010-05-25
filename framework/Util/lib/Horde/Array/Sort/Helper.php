@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Marko Djukic <marko@oblo.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Util
+ * @author   Marko Djukic <marko@oblo.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Array_Sort_Helper
 {
@@ -71,4 +73,5 @@ class Horde_Array_Sort_Helper
     {
         return strcoll(Horde_String::lower($b, true), Horde_String::lower($a, true));
     }
+
 }

@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Marko Djukic <marko@oblo.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Util
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Marko Djukic <marko@oblo.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Array
 {
