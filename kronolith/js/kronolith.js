@@ -4478,7 +4478,7 @@ KronolithCore = {
             }.bind(this));
     },
 
-    editEvent: function(calendar, id, date)
+    editEvent: function(calendar, id, date, title)
     {
         if (this.redBoxLoading) {
             return;
@@ -4538,6 +4538,9 @@ KronolithCore = {
                 d = this.parseDate(date);
             } else {
                 d = new Date();
+            }
+            if (title) {
+                $('kronolithEventTitle').setValue(title);
             }
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').clear();
@@ -4612,7 +4615,9 @@ KronolithCore = {
                       }),
                       function(r) {
                           this.loadEventsCallback(r);
-                          if (!r.msgs.size()) {
+                          if (r.msgs.size()) {
+                              this.editEvent(null, null, null, text);
+                          } else {
                               $('kronolithQuickinsertQ').value = '';
                           }
                       }.bind(this));
