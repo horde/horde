@@ -94,13 +94,6 @@ class Horde_Auth
     static protected $_instances = array();
 
     /**
-     * Cached Horde_Browser instance
-     *
-     * @var Horde_Browser
-     */
-    static protected $_browser = null;
-
-    /**
      * The logout reason information.
      *
      * @var array
@@ -438,7 +431,7 @@ class Horde_Auth
         }
 
         if (!empty($GLOBALS['conf']['auth']['checkbrowser'])) {
-            if ($_SESSION['horde_auth']['browser'] != self::_getBrowser()->getAgentString()) {
+            if ($_SESSION['horde_auth']['browser'] != $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString()) {
                 self::setAuthError(self::REASON_BROWSER);
                 return false;
             }
@@ -742,7 +735,7 @@ class Horde_Auth
         $_SESSION['horde_auth'] = array(
             'app' => $app_array,
             'authId' => $authId,
-            'browser' => self::_getBrowser()->getAgentString(),
+            'browser' => $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString(),
             'change' => !empty($options['change']),
             'credentials' => $app,
             'driver' => $GLOBALS['conf']['auth']['driver'],
@@ -1009,19 +1002,6 @@ class Horde_Auth
         return isset(self::$_reason['type'])
             ? ($msg ? self::$_reason['msg'] : self::$_reason['type'])
             : false;
-    }
-
-    /**
-     * Returns a cached Horde_Brower instance.
-     *
-     * @return Horde_Browser  A Horde_Browser instance.
-     */
-    static protected function _getBrowser()
-    {
-        if (!self::$_browser) {
-            self::$_browser = new Horde_Browser();
-        }
-        return self::$_browser;
     }
 
     /**
