@@ -1354,7 +1354,8 @@ KronolithCore = {
         // Check if the result is still for the current view.
         currentDates = this.viewDates(this.date, this.view);
         if (r.response.view != this.view ||
-            !currentDates[0].equals(start)) {
+            !start.between(currentDates[0], currentDates[1])) {
+
             return;
         }
 
