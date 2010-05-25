@@ -58,7 +58,7 @@ class Horde_Core_Factory_Vfs
     {
         if (empty($this->_instances[$scope])) {
             $params = $this->getVFSConfig($scope);
-            $this->_instances[$scope] = VFS::singleton($params['type'], $params['params']);
+            $this->_instances[$scope] = VFS::factory($params['type'], $params['params']);
         }
 
         return $this->_instances[$scope];
