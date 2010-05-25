@@ -30,25 +30,31 @@ class Horde_Variables
     protected $_expectedVariables = array();
 
     /**
-     * TODO
+     * Has the input been sanitized?
+     *
+     * @var boolean
      */
+    protected $_sanitized = false;
 
     /**
      * Returns a Horde_Variables object populated with the form input.
      *
+     * @param string $sanitize  Sanitize the input variables?
+     *
      * @return Horde_Variables  Variables object.
      */
-    static public function getDefaultVariables()
+    static public function getDefaultVariables($sanitize = false)
     {
-        return new self(null);
+        return new self(null, $sanitize);
     }
 
     /**
      * Constructor.
      *
-     * @param array $vars  TODO
+     * @param array $vars       TODO
+     * @param string $sanitize  Sanitize the input variables?
      */
-    public function __construct($vars = array())
+    public function __construct($vars = array(), $sanitize = false)
     {
         if (is_null($vars)) {
             $vars = Horde_Util::dispelMagicQuotes($_REQUEST);
@@ -60,6 +66,24 @@ class Horde_Variables
         }
 
         $this->_vars = $vars;
+
+        if ($sanitize) {
+            $this->sanitize();
+        }
+    }
+
+    /**
+     * Sanitize the form input.
+     */
+    public function sanitize()
+    {
+        if (!$this->_sanitized) {
+            foreach (array_keys($this->_vars) as $key) {
+                $value = $this->get($key);
+                $this->set($key, is_array($value) ? filter_var_array($value, FILTER_SANITIZE_STRING) : filter_var($value, FILTER_SANITIZE_STRING));
+            }
+            $this->_sanitized = true;
+        }
     }
 
     /**
