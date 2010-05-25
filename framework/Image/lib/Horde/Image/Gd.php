@@ -789,46 +789,6 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Return the current image from the internal iterator.
-     *
-     * @return Horde_Image_Gd
-     */
-    public function current()
-    {
-        return clone($this);
-    }
-
-    /**
-     * Get the index of the internal iterator.
-     *
-     * @return integer
-     */
-    public function key()
-    {
-        return 0;
-    }
-
-    /**
-     * Advance the iterator
-     *
-     * @return Horde_Image_Imagick
-     */
-    public function next()
-    {
-        return null;
-    }
-
-    /**
-     * Deterimines if the current iterator item is valid.
-     *
-     * @return boolean
-     */
-    public function valid()
-    {
-        return false;
-    }
-
-    /**
      * Request a specific image from the collection of images.
      *
      * @param integer $index  The index to return

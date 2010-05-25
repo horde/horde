@@ -16,7 +16,7 @@
  * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
  *        - Exceptions
  */
-abstract class Horde_Image_Base Implements Iterator
+abstract class Horde_Image_Base extends EmptyIterator
 {
     /**
      * Background color.
@@ -91,6 +91,8 @@ abstract class Horde_Image_Base Implements Iterator
      * Constructor.
      *
      * @param string $rgb  The base color for generated pixels/images.
+     *
+     * @throws InvalidArgumentException
      */
     protected function __construct($params, $context = array())
     {
