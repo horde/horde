@@ -154,7 +154,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             }
         }
 
-        return $this->execute('CREATE DATABASE ' . $this->quoteTableName($name) . $optionString);
+        return $this->executeWrite('CREATE DATABASE ' . $this->quoteTableName($name) . $optionString);
     }
 
     /**
@@ -166,10 +166,10 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function dropDatabase($name)
     {
         if ($this->postgresqlVersion() >= 80200) {
-            return $this->execute('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
+            return $this->executeWrite('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
         } else {
             try {
-                return $this->execute('DROP DATABASE ' . $this->quoteTableName($name));
+                return $this->executeWrite('DROP DATABASE ' . $this->quoteTableName($name));
             } catch (Horde_Db_Exception $e) {
                 if ($this->_logger) { $this->_logger->warn("$name database doesn't exist"); }
             }
@@ -430,7 +430,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($name);
 
-        return $this->execute('ALTER TABLE ' . $this->quoteTableName($name) . ' RENAME TO ' . $this->quoteTableName($newName));
+        return $this->executeWrite('ALTER TABLE ' . $this->quoteTableName($name) . ' RENAME TO ' . $this->quoteTableName($newName));
     }
 
     /**
@@ -464,7 +464,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         // Add the column.
-        $this->execute('ALTER TABLE ' . $this->quoteTableName($tableName) . ' ADD COLUMN ' . $this->quoteColumnName($columnName) . ' ' . $sqltype);
+        $this->executeWrite('ALTER TABLE ' . $this->quoteTableName($tableName) . ' ADD COLUMN ' . $this->quoteColumnName($columnName) . ' ' . $sqltype);
 
         $default = isset($options['default']) ? $options['default'] : null;
         $notnull = isset($options['null']) && $options['null'] === false;
@@ -493,7 +493,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedTableName = $this->quoteTableName($tableName);
 
         try {
-            $this->execute('ALTER TABLE '.$quotedTableName.' ALTER COLUMN '.$this->quoteColumnName($columnName).' TYPE '.$this->typeToSql($type, $limit, $precision, $scale));
+            $this->executeWrite('ALTER TABLE '.$quotedTableName.' ALTER COLUMN '.$this->quoteColumnName($columnName).' TYPE '.$this->typeToSql($type, $limit, $precision, $scale));
         } catch (Horde_Db_Exception $e) {
             // This is PostgreSQL 7.x, or the old type could not be coerced to
             // the new type, so we have to use a more arcane way of doing it.
@@ -518,9 +518,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                 $this->addColumn($tableName, $tmpColumnName, $type, $options);
 
                 if ($oldType == 'boolean') {
-                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST(CASE WHEN '.$this->quoteColumnName($columnName).' IS TRUE THEN 1 ELSE 0 END AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
+                    $this->update('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST(CASE WHEN '.$this->quoteColumnName($columnName).' IS TRUE THEN 1 ELSE 0 END AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
                 } else {
-                    $this->execute('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST('.$this->quoteColumnName($columnName).' AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
+                    $this->update('UPDATE '.$quotedTableName.' SET '.$this->quoteColumnName($tmpColumnName).' = CAST('.$this->quoteColumnName($columnName).' AS '.$this->typeToSql($type, $limit, $precision, $scale).')');
                 }
 
                 $this->removeColumn($tableName, $columnName);
@@ -537,7 +537,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         if ($autoincrement) {
             $seq_name = $this->quoteSequenceName($this->defaultSequenceName($tableName, $columnName));
-            $this->execute('CREATE SEQUENCE ' . $seq_name);
+            $this->executeWrite('CREATE SEQUENCE ' . $seq_name);
             $this->changeColumnDefault($tableName, $columnName, 'NEXTVAL(' . $seq_name . ')');
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
@@ -554,16 +554,16 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function changeColumnDefault($tableName, $columnName, $default)
     {
         $this->_clearTableCache($tableName);
-        return $this->execute('ALTER TABLE '.$this->quoteTableName($tableName). ' ALTER COLUMN '.$this->quoteColumnName($columnName).' SET DEFAULT '.$this->quote($default));
+        return $this->executeWrite('ALTER TABLE '.$this->quoteTableName($tableName). ' ALTER COLUMN '.$this->quoteColumnName($columnName).' SET DEFAULT '.$this->quote($default));
     }
 
     public function changeColumnNull($tableName, $columnName, $null, $default = null)
     {
         $this->_clearTableCache($tableName);
         if (!($null || is_null($default))) {
-            $this->execute('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columnName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
+            $this->update('UPDATE '.$this->quoteTableName($tableName).' SET '.$this->quoteColumnName($columnName).' = '.$this->quote($default).' WHERE '.$this->quoteColumnName($columnName).' IS NULL');
         }
-        return $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' ALTER '.$this->quoteColumnName($columnName).' '.($null ? 'DROP' : 'SET').' NOT NULL');
+        return $this->executeWrite('ALTER TABLE '.$this->quoteTableName($tableName).' ALTER '.$this->quoteColumnName($columnName).' '.($null ? 'DROP' : 'SET').' NOT NULL');
     }
 
     /**
@@ -572,7 +572,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function renameColumn($tableName, $columnName, $newColumnName)
     {
         $this->_clearTableCache($tableName);
-        return $this->execute('ALTER TABLE '.$this->quoteTableName($tableName).' RENAME COLUMN '.$this->quoteColumnName($columnName).' TO '.$this->quoteColumnName($newColumnName));
+        return $this->executeWrite('ALTER TABLE '.$this->quoteTableName($tableName).' RENAME COLUMN '.$this->quoteColumnName($columnName).' TO '.$this->quoteColumnName($newColumnName));
     }
 
     /**
@@ -581,7 +581,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function removeIndex($tableName, $options = array())
     {
         $this->_clearTableCache($tableName);
-        return $this->execute('DROP INDEX '.$this->indexName($tableName, $options));
+        return $this->executeWrite('DROP INDEX '.$this->indexName($tableName, $options));
     }
 
     /**

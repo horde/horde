@@ -94,7 +94,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function createDatabase($name)
     {
-        return $this->execute("CREATE DATABASE `$name`");
+        return $this->executeWrite("CREATE DATABASE `$name`");
     }
 
     /**
@@ -104,7 +104,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function dropDatabase($name)
     {
-        return $this->execute("DROP DATABASE IF EXISTS `$name`");
+        return $this->executeWrite("DROP DATABASE IF EXISTS `$name`");
     }
 
     /**
@@ -275,7 +275,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($name);
 
-        return $this->execute('ALTER TABLE '.$this->quoteTableName($name).' RENAME '.$this->quoteTableName($newName));
+        return $this->executeWrite('ALTER TABLE '.$this->quoteTableName($name).' RENAME '.$this->quoteTableName($newName));
     }
 
     /**
@@ -297,7 +297,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $default = $this->quote($default);
         $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName
                 $currentType DEFAULT $default";
-        return $this->execute($sql);
+        return $this->executeWrite($sql);
     }
 
     /**
@@ -327,7 +327,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
 
         $sql = "ALTER TABLE $quotedTableName CHANGE $quotedColumnName $quotedColumnName $typeSql";
         $sql = $this->addColumnOptions($sql, $options);
-        $this->execute($sql);
+        $this->executeWrite($sql);
     }
 
     /**
@@ -350,7 +350,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                 $quotedColumnName.' '.
                 $this->quoteColumnName($newColumnName)." ".
                 $currentType;
-        return $this->execute($sql);
+        return $this->executeWrite($sql);
     }
 
     /**

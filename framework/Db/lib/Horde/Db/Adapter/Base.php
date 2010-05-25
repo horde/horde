@@ -545,6 +545,26 @@ abstract class Horde_Db_Adapter_Base
     }
 
     /**
+     * Executes the SQL statement in the context of this connection.
+     * Uses the write DB if necessary.
+     *
+     * @param string $sql   SQL statement.
+     * @param mixed $arg1   Either an array of bound parameters or a query
+     *                      name.
+     * @param string $arg2  If $arg1 contains bound parameters, the query
+     *                      name.
+     *
+     * @return Traversable
+     * @throws Horde_Db_Exception
+     */
+    public function executeWrite($sql, $arg1 = null, $arg2 = null)
+    {
+        return $this->_write
+            ? $this->_write->execute($sql, $arg1, $arg2)
+            : $this->execute($sql, $arg1, $arg2);
+    }
+
+    /**
      * Returns the last auto-generated ID from the affected table.
      *
      * @param string $sql           SQL statement.
@@ -730,10 +750,10 @@ abstract class Horde_Db_Adapter_Base
     {
         if ($this->_write) {
             return $this->_write->insertFixture($fixture, $tableName);
-        } else {
-            /*@TODO*/
-            return $this->execute("INSERT INTO #{quote_table_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert');
         }
+
+        /*@TODO*/
+        return $this->execute("INSERT INTO #{quote_table_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert');
     }
 
     /**
