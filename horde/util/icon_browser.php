@@ -34,7 +34,7 @@ if (($app = basename($vars->app)) && isset($apps[$app])) {
         exit(sprintf(_("Base graphics directory \"%s\" not found."), $dir));
     }
 
-    if (($subdir = basename($vars->subdir))) {
+    if (($subdir = basename(filter_var($vars->subdir, FILTER_SANITIZE_STRING)))) {
         $dir .= DIRECTORY_SEPARATOR . $subdir;
         if (!is_dir($dir)) {
             exit(sprintf(_("Subdirectory \"%s\" not found."), $dir));
