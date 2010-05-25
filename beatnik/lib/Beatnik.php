@@ -528,7 +528,7 @@ class Beatnik {
                 case 'all':
                     foreach ($zonedata[$rectype] as $record) {
                         try {
-                        $result = $beatnik->driver->deleteRecord($record);
+                            $result = $beatnik->driver->deleteRecord($record);
                         } catch (Exception $e) {
                             $GLOBALS['notification']->push($e);
                         }
