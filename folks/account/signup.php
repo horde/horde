@@ -21,14 +21,14 @@ if ($conf['signup']['allow'] !== true ||
     Horde_Auth::authenticateFailure('folks');
 }
 
-$signup = Horde_Auth_Signup::factory();
+$signup = $injector->getInstance('Horde_Core_Auth_Signup');
 if ($signup instanceof PEAR_Error) {
     $notification->push($signup, 'horde.error');
     Horde_Auth::authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$form = new HordeSignupForm($vars);
+$form = new Horde_Core_Auth_Signup_Form($vars);
 if ($form->validate()) {
     $form->getInfo(null, $info);
     try {

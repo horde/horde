@@ -21,17 +21,17 @@ if ($conf['signup']['allow'] !== true ||
     exit;
 }
 
-$signup = Horde_Auth_Signup::factory();
-if (is_a($signup, 'PEAR_Error')) {
-    Horde::logMessage($signup, 'ERR');
+try {
+    $signup = $injector->getInstance('Horde_Core_Auth_Signup');
+} catch (Horde_Exception $e) {
+    Horde::logMessage($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
     header('Location: ' . Horde::getServiceLink('login')->setRaw(true));
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-require_once 'Horde/Auth/Signup.php';
-$formsignup = new HordeSignupForm($vars);
+$formsignup = new Horde_Core_Auth_Signup_Form($vars);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);
     $success_message = null;

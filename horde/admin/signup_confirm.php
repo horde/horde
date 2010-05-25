@@ -17,9 +17,11 @@ if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     throw new Horde_Exception(_("User Registration has been disabled for this site."));
 }
-$signup = Horde_Auth_Signup::factory();
-if (is_a($signup, 'PEAR_Error')) {
-    Horde::logMessage($signup, 'ERR');
+
+try {
+    $signup = $injector->getInstance('Horde_Core_Auth_Signup');
+} catch (Horde_Exception $e) {
+    Horde::logMessage($e, 'ERR');
     throw new Horde_Exception(_("User Registration is not properly configured for this site."));
 }
 

@@ -30,7 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
- <notes>* Replaced Horde_Auth::addHook() and Horde_Auth::removeHook() with
+ <notes>* Moved signup code to horde/Core.
+ * Replaced Horde_Auth::addHook() and Horde_Auth::removeHook() with
  Horde_Auth::convertUsername().
  * Add ability to retrieve app-specific credentials via
  Horde_Auth::getCredential().
@@ -46,9 +47,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Http">
        <file name="Remote.php" role="php" />
       </dir> <!-- /lib/Horde/Auth/Http -->
-      <dir name="Signup">
-       <file name="Sql.php" role="php" />
-      </dir> <!-- /lib/Horde/Auth/Signup -->
       <file name="Application.php" role="php" />
       <file name="Auto.php" role="php" />
       <file name="Base.php" role="php" />
@@ -72,7 +70,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Peclsasl.php" role="php" />
       <file name="Radius.php" role="php" />
       <file name="Shibboleth.php" role="php" />
-      <file name="Signup.php" role="php" />
       <file name="Smb.php" role="php" />
       <file name="Smbclient.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -183,8 +180,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Peclsasl.php" as="Horde/Auth/Peclsasl.php" />
    <install name="lib/Horde/Auth/Radius.php" as="Horde/Auth/Radius.php" />
    <install name="lib/Horde/Auth/Shibboleth.php" as="Horde/Auth/Shibboleth.php" />
-   <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
-   <install name="lib/Horde/Auth/Signup.php" as="Horde/Auth/Signup.php" />
    <install name="lib/Horde/Auth/Smb.php" as="Horde/Auth/Smb.php" />
    <install name="lib/Horde/Auth/Smbclient.php" as="Horde/Auth/Smbclient.php" />
    <install name="lib/Horde/Auth/Sql.php" as="Horde/Auth/Sql.php" />

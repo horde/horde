@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Import Horde backend driver from horde/LoginTasks.
+ <notes>* Import signup code from horde/Auth.
+ * Import Horde backend driver from horde/LoginTasks.
  * Import perms UI handling class from horde/Perms.
  * Import prefs UI handling class from horde/Prefs.
  * Convert from PEAR Log to Horde_Log for logging.
@@ -60,6 +61,16 @@ Application Framework.
       <file name="Form.php" role="php" />
      </dir> <!-- /lib/Horde/Config -->
      <dir name="Core">
+      <dir name="Auth">
+       <dir name="Signup">
+        <file name="Base.php" role="php" />
+        <file name="Form.php" role="php" />
+        <file name="Null.php" role="php" />
+        <file name="Sql.php" role="php" />
+        <file name="SqlObject.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Auth/Signup -->
+       <file name="Signup.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Auth -->
       <dir name="Autoloader">
        <dir name="Callback">
         <file name="Auth.php" role="php" />
@@ -68,6 +79,7 @@ Application Framework.
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
        <file name="Alarm.php" role="php" />
+       <file name="AuthSignup.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Db.php" role="php" />
@@ -174,6 +186,10 @@ Application Framework.
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Autoloader</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -241,9 +257,16 @@ Application Framework.
   <filelist>
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
    <install name="lib/Horde/Config/Form.php" as="Horde/Config/Form.php" />
+   <install name="lib/Horde/Core/Auth/Signup.php" as="Horde/Core/Auth/Signup.php" />
+   <install name="lib/Horde/Core/Auth/Signup/Base.php" as="Horde/Core/Auth/Signup/Base.php" />
+   <install name="lib/Horde/Core/Auth/Signup/Form.php" as="Horde/Core/Auth/Signup/Form.php" />
+   <install name="lib/Horde/Core/Auth/Signup/Null.php" as="Horde/Core/Auth/Signup/Null.php" />
+   <install name="lib/Horde/Core/Auth/Signup/Sql.php" as="Horde/Core/Auth/Signup/Sql.php" />
+   <install name="lib/Horde/Core/Auth/Signup/SqlObject.php" as="Horde/Core/Auth/Signup/SqlObject.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Auth.php" as="Horde/Core/Autoloader/Callback/Auth.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
+   <install name="lib/Horde/Core/Binder/AuthSignup.php" as="Horde/Core/Binder/AuthSignup.php" />
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Data.php" as="Horde/Core/Binder/Data.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
