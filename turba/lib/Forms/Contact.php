@@ -27,7 +27,7 @@ class Turba_ContactForm extends Horde_Form {
         $this->_addFields($contact);
 
         /* List files. */
-        $v_params = Horde::getVFSConfig('documents');
+        $v_params = $GLOBALS['injector']->getInstance('Horde_Vfs')->getConfig('documents');
         if ($v_params['type'] != 'none') {
             $files = $contact->listFiles();
             if (is_a($files, 'PEAR_Error')) {

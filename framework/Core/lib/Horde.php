@@ -816,36 +816,6 @@ HTML;
         return isset($conf[$type]) ? $conf[$type] : array();
     }
 
-
-    /**
-     * Returns the VFS driver parameters for the specified backend.
-     *
-     * @param string $name  The VFS system name (e.g. 'images', 'documents')
-     *                      being used.
-     *
-     * @return array  A hash with the VFS parameters; the VFS driver in 'type'
-     *                and the connection parameters in 'params'.
-     * @throws Horde_Exception
-     */
-    static public function getVFSConfig($name)
-    {
-        global $conf;
-
-        if ($name !== 'horde' && !isset($conf[$name]['type'])) {
-            throw new Horde_Exception(_("You must configure a VFS backend."));
-        }
-
-        $vfs = ($name == 'horde' || $conf[$name]['type'] == 'horde')
-            ? $conf['vfs']
-            : $conf[$name];
-
-        if ($vfs['type'] == 'sql') {
-            $vfs['params'] = self::getDriverConfig($name, 'sql');
-        }
-
-        return $vfs;
-    }
-
     /**
      * Checks if all necessary parameters for a driver configuration
      * are set and throws a fatal error with a detailed explanation
