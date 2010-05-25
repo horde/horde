@@ -152,8 +152,8 @@ function cp($source, $target, $argv, $filter)
         // TODO: Shortcut with VFS::copy()
     }
 
-    $source_vfs = &vfs($source_params);
-    $target_vfs = &vfs($target_params);
+    $source_vfs = vfs($source_params);
+    $target_vfs = vfs($target_params);
 
     _cp($source_vfs, $target_vfs, $source_path, $target_path, $argv, $filter);
 }
@@ -294,7 +294,7 @@ USAGE;
  */
 function vfs($params)
 {
-    return VFS::singleton($params['driver'], $params);
+    return VFS::factory($params['driver'], $params);
 }
 
 /**

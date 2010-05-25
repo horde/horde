@@ -36,45 +36,6 @@ class VFS_Object
     protected $_folderList;
 
     /**
-     * Attempts to return a reference to a concrete instance
-     * based on $driver. It will only create a new instance if no
-     * VFS instance with the same parameters currently exists.
-     *
-     * This should be used if multiple types of file backends (and,
-     * thus, multiple VFS instances) are required.
-     *
-     * This method must be invoked as: $var = VFS_Object::singleton();
-     *
-     * @param mixed $driver  The type of concrete subclass to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS_Object  The concrete VFS_Object reference.
-     * @throws VFS_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        require_once dirname(__FILE__) . '/../VFS.php';
-        $classname = __CLASS__;
-        return new $classname(VFS::singleton($driver, $params = array()));
-    }
-
-    /**
-     * Attempts to return a concrete instance based on $driver.
-     *
-     * @param mixed $driver  The type of concrete subclass to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS_Object  The newly created concrete VFS_Object instance.
-     * @throws VFS_Exception
-     */
-    static public function factory($driver, $params = array())
-    {
-        return self::singleton($driver, $params);
-    }
-
-    /**
      * Constructor.
      *
      * If you pass in an existing VFS object, it will be used as the VFS
@@ -223,12 +184,10 @@ class VFS_Object
                 $this->_folderList = $folderList;
                 $this->_currentPath = $path;
             } else {
-                require_once dirname(__FILE__) . '/Exception.php';
                 throw new VFS_Exception('Could not read ' . $path . '.');
             }
         }
 
-        require_once dirname(__FILE__) . '/ListItem.php';
         return ($file = array_shift($this->_folderList))
             ? new VFS_ListItem($path, $file)
             : false;

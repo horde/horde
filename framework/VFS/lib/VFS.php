@@ -23,13 +23,6 @@ class VFS
     const QUOTA_METRIC_GB = 4;
 
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * Hash containing connection parameters.
      *
      * @var array
@@ -91,36 +84,6 @@ class VFS
     protected $_vfsSize = null;
 
     /**
-     * Attempts to return a reference to a concrete instance based on
-     * $driver. It will only create a new instance if no instance with the
-     * same parameters currently exists.
-     *
-     * This should be used if multiple types of file backends (and, thus,
-     * multiple VFS instances) are required.
-     *
-     * This method must be invoked as: $var = VFS::singleton();
-     *
-     * @param mixed $driver  The type of concrete subclass to return. This
-     *                       is based on the storage driver ($driver). The
-     *                       code is dynamically included.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS  The concrete VFS reference.
-     * @throws VFS_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = serialize(array($driver, $params));
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$signature];
-    }
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to return. This
@@ -134,16 +97,14 @@ class VFS
      */
     static public function factory($driver, $params = array())
     {
-        $driver = basename($driver);
+        $driver = basename(ucfirst($driver));
         $class = __CLASS__ . '_' . $driver;
-        if (!class_exists($class)) {
-            include_once 'VFS/' . $driver . '.php';
-            if (!class_exists($class)) {
-                throw new VFS_Exception('Class definition of ' . $class . ' not found.');
-            }
+
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        return new $class($params);
+        throw new VFS_Exception('Class definition of ' . $class . ' not found.');
     }
 
     /**
