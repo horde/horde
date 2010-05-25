@@ -3246,7 +3246,12 @@ KronolithCore = {
      */
     parseDate: function(date)
     {
-        return new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
+        var d = new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
+        if (date.length == 12) {
+            d.setHours(date.substr(8, 2));
+            d.setMinutes(date.substr(10, 2));
+        }
+        return d;
     },
 
     /**
@@ -3910,7 +3915,9 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventsDay':
-                this.go('event:' + this.date.dateString());
+                date = this.date.clone();
+                date.add((e.pointerY() - elt.cumulativeOffset().top) / this.daySizes.height * 60).minutes();
+                this.go('event:' + date.toString('yyyyMMddHHmm'));
                 e.stop();
                 return;
 
@@ -4089,6 +4096,10 @@ KronolithCore = {
                 var date = elt.retrieve('date');
                 if (elt.className == 'kronolithAllDayContainer') {
                     date += 'all';
+                } else {
+                    date = this.parseDate(date);
+                    date.add((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 60).minutes();
+                    date = date.toString('yyyyMMddHHmm');
                 }
                 this.go('event:' + date);
                 e.stop();
