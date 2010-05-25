@@ -1905,6 +1905,60 @@ KronolithCore = {
     },
 
     /**
+     * Re-renders the necessary parts of the current view, if any event changes
+     * in those parts require re-rendering.
+     *
+     * @param Array dates  The date strings of days to re-render.
+     */
+    reRender: function(dates)
+    {
+        switch (this.view) {
+        case 'week':
+        case 'day':
+            dates.each(function(date) {
+                date = this.parseDate(date);
+                this.insertEvents([ date, date ], this.view);
+            }, this);
+            break;
+        case 'month':
+            dates.each(function(date) {
+                day = $('kronolithMonthDay' + date);
+                day.select('.kronolithEvent').invoke('remove');
+                day.select('.kronolithMore').invoke('remove');
+                date = this.parseDate(date);
+                this.loadEvents(date, date, 'month');
+            }, this);
+            break;
+        }
+    },
+
+    /**
+     * Returns all dates of the current view that contain (recurrences) of a
+     * certain event.
+     *
+     * @param String cal      A calendar string.
+     * @param String eventid  An event id.
+     *
+     * @return Array  A list of date strings that contain a recurrence of the
+     *                event.
+     */
+    findEventDays: function(cal, eventid)
+    {
+        cal = cal.split('|');
+        var cache = this.ecache.get(cal[0]).get(cal[1]),
+            dates = this.viewDates(this.date, this.view),
+            day = dates[0], days = [], dateString;
+        while (!day.isAfter(dates[1])) {
+            dateString = day.dateString();
+            if (cache.get(dateString).get(eventid)) {
+                days.push(dateString);
+            }
+            day.add(1).days();
+        }
+        return days;
+    },
+
+    /**
      * Adds a "more..." button to the month view cell that links to the days,
      * or moves it to the buttom.
      *
@@ -3674,9 +3728,7 @@ KronolithCore = {
 
             case 'kronolithEventDelete':
                 var cal = $F('kronolithEventCalendar'),
-                    eventid = $F('kronolithEventId'),
-                    view = this.view,
-                    date = this.date;
+                    eventid = $F('kronolithEventId');
                 $('kronolithBody').select('div').findAll(function(el) {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
@@ -3685,27 +3737,22 @@ KronolithCore = {
                               { cal: cal, id: eventid },
                               function(r) {
                                   if (r.response.deleted) {
+                                      var days;
+                                      if ((this.view == 'month' &&
+                                           Kronolith.conf.max_events) ||
+                                          this.view == 'week' ||
+                                          this.view == 'day') {
+                                          days = this.findEventDays(cal, eventid);
+                                      }
                                       this.removeEvent(eventid, cal);
+                                      if (days && days.length) {
+                                          this.reRender(days);
+                                      }
                                   } else {
                                       $('kronolithBody').select('div').findAll(function(el) {
                                           return el.retrieve('calendar') == cal &&
                                               el.retrieve('eventid') == eventid;
-                                      }).invoke('toggle');
-                                  }
-                                  if (view == this.view &&
-                                      date.equals(this.date)) {
-                                      // Re-render.
-                                      switch (view) {
-                                      case 'week':
-                                      case 'day':
-                                          this.insertEvents(this.viewDates(this.date, view), view);
-                                          break;
-                                      case 'month':
-                                          if (Kronolith.conf.max_events) {
-                                              this.insertEvents(this.viewDates(this.date, view), view, cal);
-                                          }
-                                          break;
-                                      }
+                                      }).invoke('show');
                                   }
                               }.bind(this));
                 this.closeRedBox();
@@ -4289,7 +4336,17 @@ KronolithCore = {
                         att: $H({ offDays: diff }).toJSON() },
                       function(r) {
                           if (r.response.events) {
+                              var days;
+                              if ((this.view == 'month' &&
+                                   Kronolith.conf.max_events) ||
+                                  this.view == 'week' ||
+                                  this.view == 'day') {
+                                  days = this.findEventDays(cal, eventid);
+                              }
                               this.removeEvent(eventid, cal);
+                              if (days && days.length) {
+                                  this.reRender(days);
+                              }
                           }
                           this.loadEventsCallback(r);
                       }.bind(this));
