@@ -126,12 +126,15 @@ class Horde_Variables
      * Returns the value of a given form variable.
      *
      * @param string $varname  The form variable name.
+     * @param string $default  The default form variable value.
      *
      * @return mixed  The form variable, or null if it doesn't exist.
      */
-    public function get($varname)
+    public function get($varname, $default = null)
     {
-        return $this->__get($varname);
+        return $this->_getExists($this->_vars, $varname, $value)
+            ? $value
+            : $default;
     }
 
     /**
