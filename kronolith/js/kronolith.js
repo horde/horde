@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, weekSizes, daySizes,
-    //   viewLoading, groupLoading, freeBusy, colorPicker, duration, timeMarker
+    //   viewLoading, groupLoading, colorPicker, duration, timeMarker
 
     view: '',
     ecache: $H(),
@@ -36,6 +36,7 @@ KronolithCore = {
     mapMarker: null,
     map: null,
     mapInitialized: false,
+    freeBusy: $H(),
     search: 'future',
     effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') !=- 1,
@@ -4704,7 +4705,6 @@ KronolithCore = {
         }
 
         /* Attendees */
-        this.freeBusy = $H();
         if (this.attendeeStartDateHandler) {
             $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
         }
