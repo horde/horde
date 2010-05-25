@@ -556,7 +556,7 @@ class Horde_Auth
             );
         } else {
             $params = array(
-                'url' => Horde::selfUrl(true)
+                'url' => Horde::selfUrl(true, true, true)
             );
         }
 
