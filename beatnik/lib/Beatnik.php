@@ -565,10 +565,11 @@ class Beatnik {
                 }
                 try {
                     $result = $beatnik->driver->saveRecord(array_merge($defaults, $info));
+                    $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    return false;
                 }
-                $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
             }
         }
         return true;
