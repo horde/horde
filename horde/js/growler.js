@@ -89,7 +89,7 @@
                 try {
                     n.remove();
                     if (!$('Growler').childElements().size()) {
-                        $('Growler').hide().setOpacity(1);
+                        $('Growler').hide();
                     }
                 } catch (e) {}
             }
@@ -180,21 +180,6 @@
             }
 
             this.growler.wrap(document.body);
-
-            this.growler.observe('mouseenter', function() {
-                this.growler.fade({
-                    duration: 0.25,
-                    queue: { limit: 2, scope: 'growler' },
-                    to: 0.3
-                });
-            }.bind(this));
-            this.growler.observe('mouseleave', function() {
-                this.growler.appear({
-                    duration: 0.25,
-                    queue: { limit: 2, scope: 'growler' },
-                    to: 1
-                });
-            }.bind(this));
         },
 
         growl: function(msg, options)
