@@ -122,9 +122,10 @@ class Horde_SessionHandler_Builtin extends Horde_SessionHandler_Driver
             return $sessions;
         }
 
-        foreach ($di as $key => $val) {
+        foreach ($di as $val) {
             /* Make sure we're dealing with files that start with sess_. */
-            if ($val->isFile() && (strpos($key, 'sess_') === 0)) {
+            if ($val->isFile() &&
+                (strpos($val->getFilename(), 'sess_') === 0)) {
                 $sessions[] = substr($entry, strlen('sess_'));
             }
         }
