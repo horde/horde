@@ -97,7 +97,7 @@ class VFS
      */
     static public function factory($driver, $params = array())
     {
-        $driver = basename(ucfirst($driver));
+        $driver = basename($driver);
         $class = __CLASS__ . '_' . $driver;
 
         if (class_exists($class)) {
