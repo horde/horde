@@ -158,7 +158,16 @@
    an attacker to hijack the session.">true</configboolean>
    <configstring name="alternate_login" desc="If this is not false, it is
    assumed to be the URL of an alternate login screen which will be used in
-   place of horde's default login screen.">false</configstring>
+   place of horde's default login screen. The URL will have an &quot;app&quot;
+   parameter appended that contains the application that redirected to the
+   login screen, and a &quot;url&quot; parameter with the originally requested
+   URL. The alternate login screen should redirect to that URL after
+   authentication. Alternatively you can include a &quot;%u&quot; place holder
+   in the alternate URL that will be replaced by that original
+   URL. Optionally appended URL parameters are &quot;logout_reason&quot; that
+   contains a number with the logout reason (see the Horde_Auth::REASON_*
+   constants for possible values), and &quot;logout_msg&quot; that contains an
+   error message describing the logout reason.">false</configstring>
    <configstring name="redirect_on_logout" desc="If this is not false, it is
    assumed to be the URL of an alternate logout page which users will be sent
    to when they log out.">false</configstring>

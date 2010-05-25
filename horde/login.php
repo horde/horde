@@ -262,7 +262,12 @@ if (!empty($conf['auth']['alternate_login'])) {
         $url = Horde_Util::addParameter($url, array(session_name() => session_id), null, false);
     }
     if (!empty($url_in)) {
-        $url = Horde_Util::addParameter($url, array('url' => _addAnchor($url_in, 'param', $url_anchor)), null, false);
+        $anchor = _addAnchor($url_in, 'param', $url_anchor);
+        if (strpos($url, '%25u')) {
+            $url = str_replace('%25u', $anchor, $url);
+        } else {
+            $url = Horde_Util::addParameter($url, array('url' => $anchor), null, false);
+        }
     }
     header('Location: ' . _addAnchor($url, 'url', $url_anchor));
     exit;
