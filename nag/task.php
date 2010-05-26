@@ -87,7 +87,7 @@ case 'modify_task':
     $task_id = $vars->get('task');
     $tasklist_id = $vars->get('tasklist');
     try {
-        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);s
+        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
     } catch (Horde_Share_Exception $e) {
         $notification->push(sprintf(_("Access denied editing task: %s"), $e->getMessage()), 'horde.error');
     }
