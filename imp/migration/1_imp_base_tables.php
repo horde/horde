@@ -1,6 +1,6 @@
 <?php
 /**
- * Create IMP base tables.
+ * Create IMP base tables (as of IMP 4.3).
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -21,7 +21,7 @@ class ImpBaseTables extends Horde_Db_Migration_Base
     {
         // Create: imp_sentmail
         $t = $this->createTable('imp_sentmail', array('primaryKey' => 'sentmail_id'));
-        $t->column('sentmail_id', 'integer', array('autoincrement' => true));
+        $t->column('sentmail_id', 'bigint', array('null' => false));
         $t->column('sentmail_who', 'string', array('limit' => 255, 'null' => false));
         $t->column('sentmail_ts', 'bigint', array('null' => false));
         $t->column('sentmail_messageid', 'string', array('limit' => 255, 'null' => false));
