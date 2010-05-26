@@ -383,7 +383,7 @@ abstract class Horde_Db_Adapter_Base
      * @param string $arg2   If $arg1 contains bound parameters, the query
      *                       name.
      *
-     * @return Traversable
+     * @return PDOStatement
      * @throws Horde_Db_Exception
      */
     public function select($sql, $arg1 = null, $arg2 = null)
@@ -515,7 +515,7 @@ abstract class Horde_Db_Adapter_Base
      * @param string $arg2  If $arg1 contains bound parameters, the query
      *                      name.
      *
-     * @return Traversable
+     * @return PDOStatement
      * @throws Horde_Db_Exception
      */
     public function execute($sql, $arg1 = null, $arg2 = null)
@@ -576,7 +576,7 @@ abstract class Horde_Db_Adapter_Base
      * @param integer $idValue      TODO
      * @param string $sequenceName  TODO
      *
-     * @return TODO
+     * @return integer  Last inserted ID.
      * @throws Horde_Db_Exception
      */
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
