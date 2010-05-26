@@ -1,17 +1,17 @@
 <?php
 /**
- * $Horde: hermes/time.php,v 1.55 2009/12/10 17:42:31 jan Exp $
- *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Ben Klang <ben@alkaloid.net>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
+
 require_once HERMES_BASE . '/lib/Forms/Time.php';
 require_once HERMES_BASE . '/lib/Table.php';
 
@@ -19,7 +19,7 @@ $vars = Horde_Variables::getDefaultVariables();
 
 $delete = $vars->get('delete');
 if (!empty($delete)) {
-    $result = $hermes->updateTime(array(array('id' => $delete, 'delete' => true)));
+    $result = $hermes->driver->updateTime(array(array('id' => $delete, 'delete' => true)));
     if (is_a($result, 'PEAR_Error')) {
         Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
         $notification->push(sprintf(_("There was an error deleting the time: %s"), $result->getMessage()), 'horde.error');
@@ -40,7 +40,7 @@ case 'submittimeform':
         foreach ($item as $id => $val) {
             $time[] = array('id' => $id);
         }
-        $result = $hermes->markAs('submitted', $time);
+        $result = $hermes->driver->markAs('submitted', $time);
         if (is_a($result, 'PEAR_Error')) {
             $notification->push(sprintf(_("There was an error submitting your time: %s"), $result->getMessage()), 'horde.error');
         } else {

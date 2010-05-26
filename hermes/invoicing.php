@@ -2,7 +2,7 @@
 /**
  * $Horde: hermes/invoicing.php,v 1.12 2009/06/10 17:33:20 slusarz Exp $
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,14 +10,14 @@
  * @author Duck <duck@obala.net>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Type/tableset.php';
 
-$hours = $hermes->getHours(array('billable' => true,
+$hours = $hermes->driver->getHours(array('billable' => true,
                                  'submitted' => true));
 if (is_a($hours, 'PEAR_Error')) {
     $notification->push($hours->getMessage(), 'horde.error');

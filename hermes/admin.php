@@ -2,7 +2,7 @@
 /**
  * $Horde: hermes/admin.php,v 1.33 2009/07/14 18:43:47 selsky Exp $
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,8 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 require_once HERMES_BASE . '/lib/Admin.php';
 
 if (!Horde_Auth::isAdmin()) {
@@ -45,7 +45,7 @@ if ($vars->exists('formname')) {
 
         if ($form->isValid()) {
             $form->getInfo($vars, $info);
-            $result = $hermes->updateJobType($info);
+            $result = $hermes->driver->updateJobType($info);
             if (!is_a($result, 'PEAR_Error')) {
                 $notification->push(sprintf(_("The job type \"%s\" has been added."), $vars->get('name')), 'horde.success');
             } else {
@@ -142,7 +142,7 @@ if ($vars->exists('formname')) {
             // update everything.
             $form1->getInfo($vars, $info);
             $info['id'] = $info['jobtype'];
-            $result = $hermes->updateJobType($info);
+            $result = $hermes->driver->updateJobType($info);
             if (!PEAR::isError($result)) {
                 $notification->push(_("The job type has been modified."), 'horde.success');
             } else {
@@ -165,7 +165,7 @@ if ($vars->exists('formname')) {
         $form->validate($vars);
 
         if ($form->isValid()) {
-            $result = $hermes->updateClientSettings($vars->get('client'),
+            $result = $hermes->driver->updateClientSettings($vars->get('client'),
                                                     $vars->get('enterdescription') ? 1 : 0,
                                                     $vars->get('exportid'));
             if (PEAR::isError($result)) {
@@ -191,7 +191,7 @@ if ($vars->exists('formname')) {
 
         if ($form->isValid()) {
             if ($vars->get('yesno') == 1) {
-                $result = $hermes->deleteJobType($vars->get('jobtype'));
+                $result = $hermes->driver->deleteJobType($vars->get('jobtype'));
                 if (!PEAR::isError($result)) {
                     $notification->push(_("The job type has been deleted."), 'horde.success');
                 } else {

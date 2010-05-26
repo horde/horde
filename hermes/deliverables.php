@@ -2,7 +2,7 @@
 /**
  * $Horde: hermes/deliverables.php,v 1.14 2009/07/14 18:43:47 selsky Exp $
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,8 +10,8 @@
  * @author Jason M. Felice <jason.m.felice@gmail.com>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 require_once HERMES_BASE . '/lib/Forms/Deliverable.php';
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,13 +25,13 @@ case 'deliverableform':
         if (!empty($info['deliverable_id'])) {
             $info['id'] = $info['deliverable_id'];
             if (empty($info['parent'])) {
-                $origdeliv = $hermes->getDeliverableByID($info['id']);
+                $origdeliv = $hermes->driver->getDeliverableByID($info['id']);
                 if (!is_a($origdeliv, 'PEAR_Error')) {
                     $info['parent'] = $origdeliv['parent'];
                 }
             }
         }
-        $res = $hermes->updateDeliverable($info);
+        $res = $hermes->driver->updateDeliverable($info);
         if (is_a($res, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error saving deliverable: %s"),
                                         $res->getMessage()),
@@ -45,7 +45,7 @@ case 'deliverableform':
     break;
 
 case 'deletedeliverable':
-    $res = $hermes->deleteDeliverable($vars->get('delete'));
+    $res = $hermes->driver->deleteDeliverable($vars->get('delete'));
     if (is_a($res, 'PEAR_Error')) {
         $notification->push(sprintf(_("Error deleting deliverable: %s"),
                                     $res->getMessage()), 'horde.error');
@@ -69,7 +69,7 @@ if (!$vars->exists('deliverable_id') && !$vars->exists('new')) {
 
 if ($vars->exists('deliverable_id') || $vars->exists('new')) {
     if ($vars->exists('deliverable_id')) {
-        $deliverable = $hermes->getDeliverableByID($vars->get('deliverable_id'));
+        $deliverable = $hermes->driver->getDeliverableByID($vars->get('deliverable_id'));
         if (is_a($deliverable, 'PEAR_Error')) {
             Horde::fatal($deliverable, __FILE__, __LINE__);
         }
@@ -85,7 +85,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
     $clients = Hermes::listClients();
     $clientname = $clients[$vars->get('client_id')];
 
-    $deliverables = $hermes->listDeliverables(array('client_id' => $vars->get('client_id')));
+    $deliverables = $hermes->driver->listDeliverables(array('client_id' => $vars->get('client_id')));
     if (is_a($deliverables, 'PEAR_Error')) {
         Horde::fatal($deliverables, __FILE__, __LINE__);
     }

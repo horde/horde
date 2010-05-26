@@ -2,7 +2,7 @@
 /**
  * $Horde: hermes/search.php,v 1.47 2009/12/10 17:42:31 jan Exp $
  *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,8 +10,8 @@
  * @author Jason M. Felice <jason.m.felice@gmail.com>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 require_once HERMES_BASE . '/lib/Forms/Export.php';
 require_once HERMES_BASE . '/lib/Forms/Search.php';
 require_once HERMES_BASE . '/lib/Forms/Time.php';
@@ -23,7 +23,7 @@ $vars = Horde_Variables::getDefaultVariables();
 
 $delete = $vars->get('delete');
 if (!empty($delete)) {
-    $result = $hermes->updateTime(array(array('id' => $delete, 'delete' => true)));
+    $result = $hermes->driver->updateTime(array(array('id' => $delete, 'delete' => true)));
     if (is_a($result, 'PEAR_Error')) {
         Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
         $notification->push(sprintf(_("There was an error deleting the time: %s"), $result->getMessage()), 'horde.error');
@@ -62,7 +62,7 @@ case 'exportform':
             $form->validate($vars);
             if ($form->isValid()) {
                 $form->getInfo($vars, $info);
-                $hours = $hermes->getHours($criteria);
+                $hours = $hermes->driver->getHours($criteria);
                 if (is_a($hours, 'PEAR_Error')) {
                     $notification->push($hours, 'horde.error');
                 } elseif (is_null($hours) || count($hours) == 0) {
@@ -78,7 +78,7 @@ case 'exportform':
                         $info['mark_exported'] == 'yes' &&
                         $perms->hasPermission('hermes:review', Horde_Auth::getAuth(),
                                               Horde_Perms::EDIT)) {
-                        $hermes->markAs('exported', $hours);
+                        $hermes->driver->markAs('exported', $hours);
                     }
                     exit;
                 }

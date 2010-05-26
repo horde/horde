@@ -11,8 +11,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();
 

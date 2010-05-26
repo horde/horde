@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/lib/base.php,v 1.40 2009/07/13 20:05:45 slusarz Exp $
- *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  *
  * See the enclosed file LICENSE for license information (BSD). If you

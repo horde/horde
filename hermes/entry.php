@@ -2,7 +2,7 @@
 /**
  * $Horde: hermes/entry.php,v 1.27 2009/07/08 18:29:07 slusarz Exp $
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -11,8 +11,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('HERMES_BASE', dirname(__FILE__));
-require_once HERMES_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$hermes = Horde_Registry::appInit('hermes');
 require_once HERMES_BASE . '/lib/Forms/Time.php';
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -40,11 +40,11 @@ case 'timeentryform':
         $form->getInfo($vars, $info);
         if ($vars->exists('id')) {
             $msg = _("Your time was successfully updated.");
-            $result = $hermes->updateTime(array($info));
+            $result = $hermes->driver->updateTime(array($info));
             $do_redirect = true;
         } else {
             $msg = _("Your time was successfully entered.");
-            $result = $hermes->enterTime(Horde_Auth::getAuth(), $info);
+            $result = $hermes->driver->enterTime(Horde_Auth::getAuth(), $info);
             $do_redirect = false;
         }
         if (is_a($result, 'PEAR_Error')) {
@@ -74,7 +74,7 @@ default:
             header('Location: ' . Horde::applicationUrl('time.php'));
             exit;
         }
-        $myhours = $hermes->getHours(array('id' => $id));
+        $myhours = $hermes->driver->getHours(array('id' => $id));
         if (is_array($myhours)) {
             foreach ($myhours as $item) {
                 if (isset($item['id']) && $item['id'] == $id) {
