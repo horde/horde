@@ -1053,7 +1053,7 @@ class Nag_Task {
 
         /* Due Date */
         if ($due = $message->getDueDate()) {
-            $this->due = $due->timstamp();
+            $this->due = $due->timestamp();
         }
 
         /* Start Date */
