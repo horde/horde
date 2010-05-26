@@ -26,7 +26,7 @@ var RedBox = {
     appearWindow: function()
     {
         var loading = $('RB_loading'),
-            opts = { queue: 'end' },
+            opts = { queue: 'end', duration: this.duration },
             effects = [], effect;
 
         if (loading && loading.visible()) {

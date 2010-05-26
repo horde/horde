@@ -5415,6 +5415,7 @@ KronolithCore = {
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
         }.bind(this);
+        RedBox.duration = this.effectDur;
 
         $('kronolithSearchTerm').observe('focus', function() {
             if ($F(this) == this.readAttribute('default')) {
