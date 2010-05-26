@@ -47,7 +47,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
                                                   array('image' => $this->_view->resource->id,
                                                         'gallery' => $this->_view->gallery->id));
             $html .= '<form name="tagform" action="' . $actionUrl . '" onsubmit="return !addTag();" method="post">';
-            $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input onclick="return !addTag();" name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
+            $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
             $html .= '</form>';
         }
         $html .= $this->_htmlEnd();

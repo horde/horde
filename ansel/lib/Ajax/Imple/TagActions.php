@@ -64,8 +64,8 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         switch ($action) {
         case 'add':
             if (!empty($tags)) {
+                $tags = rawurldecode($post['tags']);
                 $tags = explode(',', $tags);
-                $tags = array_map('rawurldecode', $tags);
 
                 /* Get current tags so we don't overwrite them */
                 $etags = Ansel_Tags::readTags($id, $type);
