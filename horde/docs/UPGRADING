@@ -43,6 +43,8 @@ Horde_Alarm is using UTC dates now.
 
 Crypt_Blowfish is required.
 
+Removed support for dBase, Frontbase, and mSQL database servers.
+
 
 Upgrading Horde from 3.3.x to 3.3.5
 ===================================

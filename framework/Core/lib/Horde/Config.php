@@ -951,26 +951,6 @@ class Horde_Config
                     'desc' => '[None]',
                     'fields' => array()
                 ),
-                'dbase' => array(
-                    'desc' => 'dBase',
-                    'fields' => array(
-                        'database' => array(
-                            '_type' => 'text',
-                            'required' => true,
-                            'desc' => 'Absolute path to the database file',
-                            'default' => $this->_default($ctx . '|database', '')
-                        ),
-                        'mode' => array(
-                            '_type' => 'enum',
-                            'desc' => 'The mode to open the file with',
-                            'values' => array(
-                                0 => 'Read Only',
-                                2 => 'Read Write'),
-                            'default' => $this->_default($ctx . '|mode', 2)
-                        ),
-                        'charset' => $charset
-                    )
-                ),
                 'ibase' => array(
                     'desc' => 'Firebird/InterBase',
                     'fields' => array(
@@ -1009,17 +989,6 @@ class Horde_Config
                         'charset' => $charset
                     )
                 ),
-                'fbsql' => array(
-                    'desc' => 'Frontbase',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'hostspec' => $hostspec,
-                        'username' => $username,
-                        'password' => $password,
-                        'database' => $database,
-                        'charset' => $charset
-                    )
-                ),
                 'ifx' => array(
                     'desc' => 'Informix',
                     'fields' => array(
@@ -1030,20 +999,8 @@ class Horde_Config
                         'charset' => $charset
                     )
                 ),
-                'msql' => array(
-                    'desc' => 'mSQL',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'hostspec' => $hostspec,
-                        'username' => $username,
-                        'password' => $password,
-                        'port' => $port,
-                        'database' => $database,
-                        'charset' => $charset
-                    )
-                ),
                 'mssql' => array(
-                    'desc' => 'MS SQL Server',
+                    'desc' => 'MS SQL/Sybase Server',
                     'fields' => array(
                         'persistent' => $persistent,
                         'hostspec' => $hostspec,
@@ -1153,23 +1110,6 @@ class Horde_Config
                             '_type' => 'text',
                             'desc' => 'The mode to open the file with',
                             'default' => $this->_default($ctx . '|mode', '0644')
-                        ),
-                        'charset' => $charset
-                    )
-                ),
-                'sybase' => array(
-                    'desc' => 'Sybase',
-                    'fields' => array(
-                        'persistent' => $persistent,
-                        'hostspec' => $hostspec,
-                        'username' => $username,
-                        'password' => $password,
-                        'database' => $database,
-                        'appname' => array(
-                            '_type' => 'text',
-                            'desc' => 'Application Name',
-                            'required' => false,
-                            'default' => $this->_default($ctx . '|appname', '')
                         ),
                         'charset' => $charset
                     )
