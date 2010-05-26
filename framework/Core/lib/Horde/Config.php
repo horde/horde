@@ -661,7 +661,16 @@ class Horde_Config
             '_type' => 'int',
             'required' => true,
             'desc' => 'LDAP protocol version',
-            'switch' => array('2' => array('desc' => '2 (deprecated)'), '3' => array('desc' => '3')),
+            'switch' => array(
+                '2' => array(
+                    'desc' => '2 (deprecated)',
+                    'fields' => array()
+                ),
+                '3' => array(
+                    'desc' => '3',
+                    'fields' => array()
+                )
+            ),
             'default' => $this->_default($ctx . '|version', 3)
         );
 
@@ -678,6 +687,7 @@ class Horde_Config
             'switch' => array(
                 'user' => array(
                     'desc' => 'Bind as the currently logged-in user',
+                    'fields' => array()
                 ),
                 'admin' => array(
                     'desc' => 'Bind with administrative/system credentials',
@@ -697,7 +707,8 @@ class Horde_Config
                     )
                 ),
                 'search' => array(
-                    'desc' => 'Use same credentials as used for LDAP searches'
+                    'desc' => 'Use same credentials as used for LDAP searches',
+                    'fields' => array()
                 )
             )
         );

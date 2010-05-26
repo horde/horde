@@ -143,6 +143,17 @@
   </configsection>
  </configtab>
 
+ <configtab name="ldap" desc="LDAP">
+  <configsection name="ldap">
+   <configheader>LDAP Settings</configheader>
+   <configdescription>&lt;strong&gt;NOTE:&lt;/strong&gt; These are only the
+   &lt;em&gt;default&lt;/em&gt; values for any LDAP driven backends. You
+   still need to configure the different systems like "Preferences" to actually
+   &lt;em&gt;use&lt;/em&gt; a LDAP backend.</configdescription>
+   <configldap switchname="phptype" baseconfig="true" />
+  </configsection>
+ </configtab>
+
  <configtab name="auth" desc="Authentication">
   <configsection name="auth">
    <configheader>Authentication Settings</configheader>
@@ -303,21 +314,7 @@
     </case>
 
     <case name="ldap" desc="LDAP authentication">
-     <configsection name="params">
-      <configstring name="hostspec" desc="The hostname of the LDAP server">
-      localhost</configstring>
-      <configstring name="basedn" desc="The base DN for the LDAP server"/>
-      <configstring name="binddn" required="false" desc="The DN used to bind
-      to the LDAP server"/>
-      <configstring name="password" required="false" desc="The password used
-      to bind to the LDAP server"/>
-      <configenum name="version" desc="LDAP protocol version">3
-       <values>
-        <value desc="LDAPv2 (deprecated)">2</value>
-        <value desc="LDAPv3">3</value>
-       </values>
-      </configenum>
-      <configboolean name="tls" desc="Enable TLS?">false</configboolean>
+     <configldap switchname="driverconfig">
       <configenum name="scope" desc="Search scope">sub
        <values>
         <value desc="Subtree search">sub</value>
@@ -378,7 +375,7 @@
         should a user be warned?">5</configstring>
        </case>
       </configswitch>
-     </configsection>
+     </configldap>
     </case>
 
     <case name="login" desc="Login (su) authentication">
@@ -928,44 +925,30 @@
      <case name="hooks" desc="Hooks"/>
      <case name="kolab" desc="Kolab"/>
      <case name="ldap" desc="LDAP">
-       <configsection name="params">
-        <configstring name="hostspec" desc="the hostname of the ldap server">
-        localhost</configstring>
-        <configstring name="basedn" desc="the base dn for the ldap server"/>
-        <configstring name="binddn" required="false" desc="the dn used to bind
-        to the ldap server"/>
-        <configstring name="password" required="false" desc="the password used
-        to bind to the ldap server"/>
-        <configenum name="version" desc="ldap protocol version">3
-         <values>
-          <value desc="ldapv2 (deprecated)">2</value>
-          <value desc="ldapv3">3</value>
-         </values>
-        </configenum>
-        <configboolean name="tls" desc="Enable TLS?">false</configboolean>
-        <configstring name="gid" desc="The group search key">cn</configstring>
-        <configstring name="memberuid" desc="Group membership field">
-        memberUid</configstring>
-        <configboolean name="attrisdn" required="false"
-         desc="If checked, the user member attributes returned from LDAP are
-        expected to be fully qualified DNs"/>
-        <configlist name="newgroup_objectclass" desc="What objectclasses should
-        a new group be member of? These objectclasses should cover the mail and
-        gidnumber attributes as well as the group search key">
-        posixGroup,hordeGroup</configlist>
-        <configswitch name="filter_type" desc="How to specify a filter for the
-        group lists">objectclass
-         <case name="objectclass" desc="One or more objectclass filters">
-          <configlist name="objectclass" desc="The objectclass filter used to
-          search for groups. Can be a single objectclass or a list.">
-          posixGroup</configlist>
-         </case>
-         <case name="free" desc="A complete LDAP filter expression">
-          <configstring name="filter" desc="The LDAP RFC formatted filter used
-          to search for groups."/>
-         </case>
-        </configswitch>
-      </configsection>
+      <configldap name="driverconfig">
+       <configstring name="gid" desc="The group search key">cn</configstring>
+       <configstring name="memberuid" desc="Group membership field">
+       memberUid</configstring>
+       <configboolean name="attrisdn" required="false"
+        desc="If checked, the user member attributes returned from LDAP are
+       expected to be fully qualified DNs"/>
+       <configlist name="newgroup_objectclass" desc="What objectclasses should
+       a new group be member of? These objectclasses should cover the mail and
+       gidnumber attributes as well as the group search key">
+       posixGroup,hordeGroup</configlist>
+       <configswitch name="filter_type" desc="How to specify a filter for the
+       group lists">objectclass
+        <case name="objectclass" desc="One or more objectclass filters">
+         <configlist name="objectclass" desc="The objectclass filter used to
+         search for groups. Can be a single objectclass or a list.">
+         posixGroup</configlist>
+        </case>
+        <case name="free" desc="A complete LDAP filter expression">
+         <configstring name="filter" desc="The LDAP RFC formatted filter used
+         to search for groups."/>
+        </case>
+       </configswitch>
+      </configldap>
      </case>
      <case name="mock" desc="No Groups"/>
      <case name="sql" desc="SQL">
@@ -1669,27 +1652,12 @@
      </configsection>
     </case>
     <case name="ldap" desc="LDAP">
-     <configsection name="params">
-      <configstring name="host" desc="LDAP server/host">localhost</configstring>
-      <configinteger name="port" required="false" desc="Port LDAP is running
-      on, if non-standard">389</configinteger>
-      <configstring name="basedn" desc="basedn string">
-      o=example.com,c=US</configstring>
-      <configstring name="binddn" required="false" desc="The DN used to bind
-      to the LDAP server"/>
-      <configstring name="password" required="false" desc="The password used
-      to bind to the LDAP server"/>
+     <configldap switchname="driverconfig">
       <configstring name="attr" desc="LDAP attribute to search on">
       uid</configstring>
-      <configenum name="version" desc="LDAP Protocol Version">3
-       <values>
-        <value desc="LDAPv2 (Deprecated)">2</value>
-        <value desc="LDAPv3">3</value>
-       </values>
-      </configenum>
       <configboolean name="strip" desc="Strip domain from user
       name?">false</configboolean>
-     </configsection>
+     </configldap>
     </case>
     <case name="kolab" desc="Kolab (LDAP)">
      <configsection name="params">
