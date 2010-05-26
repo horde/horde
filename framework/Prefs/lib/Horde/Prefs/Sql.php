@@ -3,39 +3,6 @@
  * Preferences storage implementation for PHP's PEAR database
  * abstraction layer.
  *
- * Required parameters:
- * <pre>
- * 'charset' - The database's internal charset.
- * 'phptype' - The database type (ie. 'pgsql', 'mysql', etc.).
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'table' - The name of the preferences table in 'database'.
- *           DEFAULT: 'horde_prefs'
- * </pre>
- *
- * Required by some database implementations:
- * <pre>
- * 'database' - The name of the database.
- * 'hostspec' - The hostname of the database server.
- * 'options' - Additional options to pass to the database.
- * 'password' - The password associated with 'username'.
- * 'port' - The port on which to connect to the database.
- * 'protocol' - The communication protocol ('tcp', 'unix', etc.).
- * 'tty' - The TTY on which to connect to the database.
- * 'username' - The username with which to connect to the database.
- * </pre>
- *
- * Optional values when using separate reading and writing servers, for
- * example in replication settings:
- * <pre>
- * 'read' - Array containing the parameters which are different for the read
- *          database connection, currently supported only 'hostspec' and
- *          'port' parameters.
- * 'splitread' - (boolean) Whether to implement the separation or not.
- * </pre>
- *
  * The table structure for the Prefs system is in
  * scripts/sql/horde_prefs.sql.
  *
@@ -60,25 +27,9 @@ class Horde_Prefs_Sql extends Horde_Prefs
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for
-     * writing. Defaults to the same handle as $_db if a separate
-     * write database is not configured.
-     *
-     * @var DB
-     */
-    protected $_write_db;
-
-    /**
-     * Boolean indicating whether or not we're connected to the SQL server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
 
     /**
      * Returns the charset used by the concrete preference backend.
@@ -113,43 +64,40 @@ class Horde_Prefs_Sql extends Horde_Prefs
         $query = 'SELECT pref_scope, pref_name, pref_value FROM ' .
             $this->_params['table'] . ' ' .
             'WHERE pref_uid = ? AND pref_scope = ?';
-
         $values = array($this->_user, $scope);
 
-        Horde::logMessage('SQL Query by Horde_Prefs_Sql::retrieve(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-
-        $result = $this->_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
+        try {
+            $result = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
             Horde::logMessage('No preferences were retrieved.', 'DEBUG');
             return;
         }
 
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if ($row instanceof PEAR_Error) {
-            Horde::logMessage($row, 'ERR');
-            return;
-        }
-
-        while ($row && !($row instanceof PEAR_Error)) {
+        foreach ($result as $row) {
             $name = trim($row['pref_name']);
 
-            switch ($this->_db->phptype) {
-            case 'pgsql':
-                $row['pref_value'] = pg_unescape_bytea(stripslashes($row['pref_value']));
+            switch ($this->_db->adapterName()) {
+            case 'PDO_PostgreSQL':
+                if (is_resource($row['pref_value'])) {
+                    $val = stream_get_contents($row['pref_value']);
+                    fclose($row['pref_value']);
+                    $row['pref_value'] = $val;
+                }
+                $row['pref_value'] = pg_unescape_bytea($row['pref_value']);
                 break;
             }
 
             if (isset($this->_scopes[$scope][$name])) {
-                $this->_scopes[$scope][$name]['v'] = $row['pref_value'];
                 $this->_scopes[$scope][$name]['m'] &= ~self::PREFS_DEFAULT;
+                $this->_scopes[$scope][$name]['v'] = $row['pref_value'];
             } else {
                 // This is a shared preference.
-                $this->_scopes[$scope][$name] = array('v' => $row['pref_value'],
-                                                      'm' => 0,
-                                                      'd' => null);
+                $this->_scopes[$scope][$name] = array(
+                    'd' => null,
+                    'm' => 0,
+                    'v' => $row['pref_value']
+                );
             }
-
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
     }
 
@@ -178,58 +126,63 @@ class Horde_Prefs_Sql extends Horde_Prefs
                     continue;
                 }
 
-                $values = array($this->_user, $name, $scope);
-
                 // Does a row already exist for this preference?
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
                     ' AND pref_scope = ?';
-                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
+                $values = array($this->_user, $name, $scope);
 
-                $check = $this->_write_db->getOne($query, $values);
-                if ($check instanceof PEAR_Error) {
-                    Horde::logMessage('Failed checking prefs for ' . $this->_user . ': ' . $check->getMessage(), 'ERR');
+                try {
+                    $check = $this->_db->selectValue($query, $values);
+                } catch (Horde_Db_Exception $e) {
+                    Horde::logMessage('Failed checking prefs for ' . $this->_user . ': ' . $e->getMessage(), 'ERR');
                     return;
                 }
 
-                $value = (string) (isset($pref['v']) ? $pref['v'] : null);
+                $value = strval(isset($pref['v']) ? $pref['v'] : null);
 
-                switch ($this->_db->phptype) {
-                case 'pgsql':
+                switch ($this->_db->adapterName()) {
+                case 'PDO_PostgreSQL':
                     $value = pg_escape_bytea($value);
                     break;
                 }
 
-                if (!empty($check)) {
+                if (empty($check)) {
+                    // Insert a new row.
+                    $query = 'INSERT INTO ' . $this->_params['table'] . ' ' .
+                        '(pref_uid, pref_scope, pref_name, pref_value) VALUES' .
+                        '(?, ?, ?, ?)';
+                    $values = array(
+                        $this->_user,
+                        $scope,
+                        $name,
+                        $value
+                    );
+
+                    try {
+                        $this->_db->insert($query, $values);
+                    } catch (Horde_Db_Exception $e) {
+                        return;
+                    }
+                } else {
                     // Update the existing row.
                     $query = 'UPDATE ' . $this->_params['table'] .
                         ' SET pref_value = ?' .
                         ' WHERE pref_uid = ?' .
                         ' AND pref_name = ?' .
                         ' AND pref_scope = ?';
+                    $values = array(
+                        $value,
+                        $this->_user,
+                        $name,
+                        $scope
+                    );
 
-                    $values = array($value,
-                                    $this->_user,
-                                    $name,
-                                    $scope);
-                } else {
-                    // Insert a new row.
-                    $query  = 'INSERT INTO ' . $this->_params['table'] . ' ' .
-                        '(pref_uid, pref_scope, pref_name, pref_value) VALUES' .
-                        '(?, ?, ?, ?)';
-
-                    $values = array($this->_user,
-                                    $scope,
-                                    $name,
-                                    $value);
-                }
-
-                Horde::logMessage('SQL Query by Horde_Prefs_Sql::store(): ' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-
-                $result = $this->_write_db->query($query, $values);
-                if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
-                    return;
+                    try {
+                        $this->_db->update($query, $values);
+                    } catch (Horde_Db_Exception $e) {
+                        return;
+                    }
                 }
 
                 // Clean the pref since it was just saved.
@@ -253,13 +206,12 @@ class Horde_Prefs_Sql extends Horde_Prefs
         // Build the SQL query.
         $query = 'DELETE FROM ' . $this->_params['table'] .
             ' WHERE pref_uid = ?';
-
         $values = array($this->_user);
 
-        Horde::logMessage('SQL Query by Horde_Prefs_Sql::clear():' . $query . ', values: ' . implode(', ', $values), 'DEBUG');
-
         // Execute the query.
-        $this->_write_db->query($query, $values);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {}
 
         // Cleanup.
         parent::clear();
@@ -316,74 +268,10 @@ class Horde_Prefs_Sql extends Horde_Prefs
             return;
         }
 
-        Horde::assertDriverConfig($this->_params, 'prefs',
-            array('phptype', 'charset'),
-            'preferences SQL');
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['password'])) {
-            $this->_params['password'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'horde_prefs';
-        }
-
-        // Connect to the SQL server using the supplied parameters.
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            Horde::logMessage($this->_write_db, 'ERR');
-            throw new Horde_Exception_Prior($this->_write_db);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            break;
-        }
-
-        // Check if we need to set up the read DB connection
-        // seperately.
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                Horde::logMessage($this->_db, 'ERR');
-                throw new Horde_Exception_Prior($this->_db);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-                break;
-            }
-
-        } else {
-            // Default to the same DB handle for reads.
-            $this->_db = $this->_write_db;
-        }
-
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'prefs');
+        $this->_params = array_merge(array(
+            'table' => 'horde_prefs'
+        ), Horde::getDriverConfig('prefs'));
         $this->_connected = true;
     }
 
