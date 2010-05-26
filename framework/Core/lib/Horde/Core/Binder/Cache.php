@@ -27,7 +27,7 @@ class Horde_Core_Binder_Cache implements Horde_Injector_Binder
         if (strcasecmp($driver, 'Memcache') === 0) {
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
         } elseif (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
+            $params['db'] = $injector->getInstance('Horde_Db')->getOb('horde', 'cache');
         }
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&

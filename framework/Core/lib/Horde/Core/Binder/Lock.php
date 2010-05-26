@@ -19,7 +19,7 @@ class Horde_Core_Binder_Lock implements Horde_Injector_Binder
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
+            $params['db'] = $injector->getInstance('Horde_Db')->getOb('horde', 'lock');
         }
 
         return Horde_Lock::factory($driver, $params);

@@ -83,6 +83,7 @@ Application Framework.
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Db.php" role="php" />
+       <file name="DbBase.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
@@ -105,6 +106,7 @@ Application Framework.
        <file name="Share.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
+       <file name="Db.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Editor.php" role="php" />
@@ -271,6 +273,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Data.php" as="Horde/Core/Binder/Data.php" />
    <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
+   <install name="lib/Horde/Core/Binder/DbBase.php" as="Horde/Core/Binder/DbBase.php" />
    <install name="lib/Horde/Core/Binder/DbPear.php" as="Horde/Core/Binder/DbPear.php" />
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
@@ -291,6 +294,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
    <install name="lib/Horde/Core/Binder/Facebook.php" as="Horde/Core/Binder/Facebook.php" />
    <install name="lib/Horde/Core/Binder/Share.php" as="Horde/Core/Binder/Share.php" />
+   <install name="lib/Horde/Core/Factory/Db.php" as="Horde/Core/Factory/Db.php" />
    <install name="lib/Horde/Core/Factory/DbPear.php" as="Horde/Core/Factory/DbPear.php" />
    <install name="lib/Horde/Core/Factory/Data.php" as="Horde/Core/Factory/Data.php" />
    <install name="lib/Horde/Core/Factory/Editor.php" as="Horde/Core/Factory/Editor.php" />

@@ -49,7 +49,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
             serialize($signup->getData())
         );
 
-        $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')->insert($query, $values);
+        $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'signup')->insert($query, $values);
     }
 
     /**
@@ -70,7 +70,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($user);
 
-        return (bool)$GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')->selectValue($query, $values);
+        return (bool)$GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'signup')->selectValue($query, $values);
     }
 
     /**
@@ -89,7 +89,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($username);
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')->selectOne($query, $values);
+        $result = $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'signup')->selectOne($query, $values);
         if (empty($result)) {
             throw new Horde_Exception(sprintf(_("User \"%s\" does not exist."), $username));
         }
@@ -111,7 +111,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
         $query = 'SELECT * FROM ' . $this->_params['table'] .
                  ' ORDER BY signup_date';
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')->selectAll($query);
+        $result = $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'signup')->selectAll($query);
         if (empty($result)) {
             return array();
         }
@@ -139,7 +139,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
                  ' WHERE user_name = ?';
         $values = array($username);
 
-        $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')->delete($query, $values);
+        $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'signup')->delete($query, $values);
     }
 
     /**

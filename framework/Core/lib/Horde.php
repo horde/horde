@@ -787,7 +787,8 @@ HTML;
      *                        The used configuration array will be
      *                        $conf[$backend]. If an array gets passed, it will
      *                        be $conf[$key1][$key2].
-     * @param string $type    The type of driver.
+     * @param string $type    The type of driver. If null, will not merge with
+     *                        base config.
      *
      * @return array  The connection parameters.
      */
@@ -795,25 +796,28 @@ HTML;
     {
         global $conf;
 
-        $type = Horde_String::lower($type);
+        if (is_null($type)) {
+            $type = Horde_String::lower($type);
+        }
 
-        $c = null;
         if (is_array($backend)) {
             $c = Horde_Array::getElement($conf, $backend);
         } elseif (isset($conf[$backend])) {
             $c = $conf[$backend];
+        } else {
+            $c = null;
         }
 
         if (!is_null($c) && isset($c['params'])) {
             $c['params']['umask'] = $conf['umask'];
-            if (isset($conf[$type])) {
-                return array_merge($conf[$type], $c['params']);
-            } else {
-                return $c['params'];
-            }
+            return (!is_null($type) && isset($conf[$type]))
+                ? array_merge($conf[$type], $c['params'])
+                : $c['params'];
         }
 
-        return isset($conf[$type]) ? $conf[$type] : array();
+        return (!is_null($type) && isset($conf[$type]))
+            ? $conf[$type]
+            : array();
     }
 
     /**

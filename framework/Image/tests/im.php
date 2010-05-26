@@ -7,9 +7,9 @@
  *
  * @package Horde_Image
  */
+
 require_once dirname(__FILE__) . '/../../../horde/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
-$db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.
@@ -471,7 +471,8 @@ function logThis($effect, $time, $memory)
 
     $logger->debug("$driver, $effect, $time, $memory");
 
-//    global $driver, $logger, $db;
+//    global $driver, $logger;
+//    $db = $GLOBALS['injector']->getInstance('Horde_Db_Base');
 //    $sql = "INSERT INTO image_tests (test, driver, peak_memory, execution_time) VALUES (?, ?, ?, ?);";
 //    $db->insert($sql, array('test' => $effect,
 //                                     'driver' => $driver,

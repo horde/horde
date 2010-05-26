@@ -21,7 +21,7 @@ class UserMapper extends Horde_Rdo_Mapper {
 
     public function getAdapter()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+        return $GLOBALS['injector']->getInstance('Horde_Db_Base');
     }
 
 }

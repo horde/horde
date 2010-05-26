@@ -42,35 +42,35 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'nocompress' => $nocompress, 'session_control' => $session_control));
 
     /* Check if we are even enabled for AS */
-    if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
+    if (!empty($conf['activesync']['enabled'])) {
         $request = new Horde_Controller_Request_Http(array('session_control' => $session_control));
-        if ($GLOBALS['conf']['activesync']['logging']['type'] == 'custom') {
+        if ($conf['activesync']['logging']['type'] == 'custom') {
             $params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
         } else {
-            $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+            $params['logger'] = $injector->getInstance('Horde_Log_Logger');
         }
-        $mailer = $GLOBALS['injector']->getInstance('Horde_Mail');
+        $mailer = $injector->getInstance('Horde_Mail');
 
         /* TODO: Probably want to bind a factory to injector for this? */
-        $params['registry'] = $GLOBALS['registry'];
+        $params['registry'] = $registry;
         $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry($params);
-        switch ($GLOBALS['conf']['activesync']['state']['driver']) {
+        switch ($conf['activesync']['state']['driver']) {
         case 'file':
-            $stateMachine = new Horde_ActiveSync_State_File($GLOBALS['conf']['activesync']['state']['params']);
+            $stateMachine = new Horde_ActiveSync_State_File($conf['activesync']['state']['params']);
             break;
         case 'history':
-            $state_params = $GLOBALS['conf']['activesync']['state']['params'];
-            $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
+            $state_params = $conf['activesync']['state']['params'];
+            $state_params['db'] = $injector->getInstance('Horde_Db_Base');
             $stateMachine = new Horde_ActiveSync_State_History($state_params);
         }
-        
+
         $driver_params = array('connector' => $connector,
                                'state_basic' => $stateMachine,
                                'mail' => $mailer,
-                               'ping' => $GLOBALS['conf']['activesync']['ping']);
+                               'ping' => $conf['activesync']['ping']);
 
-        if ($params['provisioning'] = $GLOBALS['conf']['activesync']['securitypolicies']['provisioning']) {
-            $driver_params['policies'] = $GLOBALS['conf']['activesync']['securitypolicies'];
+        if ($params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning']) {
+            $driver_params['policies'] = $conf['activesync']['securitypolicies'];
         }
         $params['backend'] = new Horde_ActiveSync_Driver_Horde($driver_params);
         $params['server'] = new Horde_ActiveSync($params['backend'],
@@ -139,7 +139,7 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 
 /* Make sure we have a logger */
 if (empty($params['logger'])) {
-    $params['logger'] = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+    $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 }
 
 /* Load the RPC backend based on $serverType. */
