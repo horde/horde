@@ -1,4 +1,3 @@
--- $Horde: hermes/scripts/sql/hermes.oci8.sql,v 1.8 2009/10/19 11:18:26 jan Exp $
 
 CREATE TABLE hermes_timeslices (
     timeslice_id           NUMBER(16) NOT NULL,

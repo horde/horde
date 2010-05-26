@@ -2,8 +2,6 @@
 /**
  * @package Hermes
  *
- * $Horde: hermes/lib/Forms/Search.php,v 1.15 2010/04/21 17:33:10 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

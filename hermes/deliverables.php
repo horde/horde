@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/deliverables.php,v 1.14 2009/07/14 18:43:47 selsky Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

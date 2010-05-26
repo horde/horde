@@ -6,8 +6,6 @@ require_once 'Horde/Data/csv.php';
  * The Horde_Data_hermes_csv class extends Horde's CSV Data class with
  * Hermes-specific handling.
  *
- * $Horde: hermes/lib/Data/hermes_csv.php,v 1.2 2005/08/03 20:54:02 chuck Exp $
- *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *

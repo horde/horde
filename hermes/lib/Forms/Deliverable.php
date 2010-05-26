@@ -5,8 +5,6 @@ require_once 'Horde/Form.php';
 /**
  * DeliverableClientSelector - Form for selecting client on deliverables screen
  *
- * $Horde: hermes/lib/Forms/Deliverable.php,v 1.7 2009/01/06 17:50:09 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

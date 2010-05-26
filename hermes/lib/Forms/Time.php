@@ -2,8 +2,6 @@
 /**
  * @package Hermes
  *
- * $Horde: hermes/lib/Forms/Time.php,v 1.23 2009/07/08 18:29:08 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

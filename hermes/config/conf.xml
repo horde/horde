@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: hermes/config/conf.xml,v 1.21 2007/09/13 18:16:11 jan Exp $ -->
 <configuration>
  <configsection name="time">
   <configheader>Time Tracking Settings</configheader>

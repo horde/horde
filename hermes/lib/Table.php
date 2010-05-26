@@ -3,8 +3,6 @@
  * The Horde_UI_Table:: class displays and allows manipulation of tabular
  * data.
  *
- * $Horde: hermes/lib/Table.php,v 1.10 2009/12/10 17:42:31 jan Exp $
- *
  * Copyright 2001 Robert E. Coyle <robertecoyle@hotmail.com>
  *
  * See the enclosed file LICENSE for license information (BSD). If you

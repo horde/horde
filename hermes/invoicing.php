@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/invoicing.php,v 1.12 2009/06/10 17:33:20 slusarz Exp $
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

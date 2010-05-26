@@ -1,4 +1,3 @@
--- $Horde: hermes/scripts/sql/hermes.mssql.sql,v 1.7 2008/06/30 09:03:11 jan Exp $
 
 CREATE TABLE hermes_timeslices (
     timeslice_id           INT NOT NULL,

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/search.php,v 1.47 2009/12/10 17:42:31 jan Exp $
- *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

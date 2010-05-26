@@ -2,8 +2,6 @@
 /**
  * Hermes Base Class.
  *
- * $Horde: hermes/lib/Hermes.php,v 1.66 2009/12/10 17:42:31 jan Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Hermes
  */

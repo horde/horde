@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: hermes/lib/Admin.php,v 1.26 2009/01/06 17:50:09 jan Exp $
- *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

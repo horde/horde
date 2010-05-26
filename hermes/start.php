@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/start.php,v 1.14 2009/07/14 00:25:32 mrubinsk Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

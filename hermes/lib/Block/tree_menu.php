@@ -4,8 +4,6 @@ $block_name = _("Enter Time");
 $block_type = 'tree';
 
 /**
- * $Horde: hermes/lib/Block/tree_menu.php,v 1.4 2008/01/02 16:15:09 chuck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_hermes_tree_menu extends Horde_Block {

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: hermes/admin.php,v 1.33 2009/07/14 18:43:47 selsky Exp $
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you

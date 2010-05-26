@@ -1,5 +1,4 @@
 /**
- * $Horde: hermes/scripts/Sandals.wdgt/lib/Sandals.js,v 1.5 2008/03/11 22:57:38 bklang Exp $
  * This file is part of Sandals.wdgt, distributed with the Hermes application.
  * Hermes is part of the Horde Project (http://www.horde.org/)
  *

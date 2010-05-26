@@ -1,8 +1,6 @@
 /**
  * General Horde UI effects javascript.
  *
- * $Horde: hermes/scripts/Sandals.wdgt/lib/horde.js,v 1.2 2008/03/08 06:52:38 bklang Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */

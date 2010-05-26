@@ -3,8 +3,6 @@
  * The Horde_Data_iif class implements the Horde_Data:: framework for
  * QuickBooks .iif files.
  *
- * $Horde: hermes/lib/Data/iif.php,v 1.21 2009/01/06 17:50:09 jan Exp $
- *
  * Here's a sample header and row from a .iif file (it's
  * tab-delimited):
  *
