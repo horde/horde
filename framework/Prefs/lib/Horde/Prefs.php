@@ -169,7 +169,7 @@ class Horde_Prefs
         }
 
         if (is_null($params)) {
-            $params = Horde::getDriverConfig('prefs', $driver);
+            $params = Horde::getDriverConfig('prefs', strtolower($driver));
         }
 
         /* If $params['user_hook'] is defined, use it to retrieve the value to
