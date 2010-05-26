@@ -1076,7 +1076,7 @@ class Nag_Task {
             $this->priority = 3;
         }
 
-        if ($alarm = $message->getReminder() && $this->due) {
+        if (($alarm = $message->getReminder()) && $this->due) {
             $this->alarm = $this->due - $alarm->timestamp();
         }
 
