@@ -426,7 +426,7 @@ case 'resize':
         case 'crop':
             $image->load('full');
             $params = Horde_Util::getFormData('params');
-            list($x1, $y1, $x2, $y2) = explode('.', $params
+            list($x1, $y1, $x2, $y2) = explode('.', $params);
             try {
                 $result = $image->crop($x1, $y1, $x2, $y2);
             } catch (Ansel_Exception $e) {
