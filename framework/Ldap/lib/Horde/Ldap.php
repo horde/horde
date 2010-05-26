@@ -32,12 +32,11 @@
 
 class Horde_Ldap
 {
-
     /**
      *  Error constants for errors that are not LDAP errors.
      */
     const _ERROR = 1000;
-    
+
     /**
      * Library Version
      */
