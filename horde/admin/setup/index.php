@@ -22,7 +22,7 @@ function _uploadFTP($params)
 
     $params['hostspec'] = 'localhost';
     try {
-        $vfs = VFS::singleton('ftp', $params);
+        $vfs = VFS::factory('ftp', $params);
     } catch (VFS_Exception $e) {
         $notification->push(sprintf(_("Could not connect to server \"%s\" using FTP: %s"), $params['hostspec'], $e->getMessage()), 'horde.error');
         return false;
