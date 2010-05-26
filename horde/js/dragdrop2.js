@@ -332,8 +332,8 @@ Drag = Class.create({
                 this.ghost = $(this.element.cloneNode(true))
                     .writeAttribute('id', null)
                     .addClassName(this.options.classname)
-                    .clonePosition(this.element, { setHeight: false, setWidth: false })
-                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
+                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' })
+                    .clonePosition(this.element, { setHeight: false, setWidth: false });
 
                 // eo is the offset of the original element to the body.
                 eo = this.element.cumulativeOffset();
@@ -411,8 +411,8 @@ Drag = Class.create({
 
             // Subtract the ghost's offset to the original mouse position and
             // add any scrolling.
-            xy[0] -= this.mouseOffset[0] + so[0];
-            xy[1] -= this.mouseOffset[1] + so[1];
+            xy[0] -= this.mouseOffset[0];
+            xy[1] -= this.mouseOffset[1];
 
             this._setContents(this.ghost, xy[0], xy[1]);
         }
@@ -669,7 +669,7 @@ Drag = Class.create({
 
     _setContents: function(elt, x, y)
     {
-        var e_pos, vp, xy, style;
+        var e_pos, vp, so, xy, style;
 
         if (this.options.offset) {
             x += this.options.offset.x;
@@ -696,6 +696,9 @@ Drag = Class.create({
         } else {
             e_pos = elt.getDimensions();
             vp = document.viewport.getDimensions();
+            so = document.viewport.getScrollOffsets();
+            vp.width += so[0];
+            vp.height += so[1];
             if (x + this.ghostOffset[0] < 0) {
                 x = -this.ghostOffset[0];
             } else if (x + e_pos.width + this.ghostOffset[0] > vp.width) {
