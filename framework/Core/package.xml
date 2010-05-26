@@ -88,6 +88,7 @@ Application Framework.
        <file name="Editor.php" role="php" />
        <file name="History.php" role="php" />
        <file name="Identity.php" role="php" />
+       <file name="Ldap.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
        <file name="LoginTasks.php" role="php" />
@@ -275,6 +276,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
    <install name="lib/Horde/Core/Binder/History.php" as="Horde/Core/Binder/History.php" />
    <install name="lib/Horde/Core/Binder/Identity.php" as="Horde/Core/Binder/Identity.php" />
+   <install name="lib/Horde/Core/Binder/Ldap.php" as="Horde/Core/Binder/Ldap.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
    <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
    <install name="lib/Horde/Core/Binder/LoginTasks.php" as="Horde/Core/Binder/LoginTasks.php" />
