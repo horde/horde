@@ -209,8 +209,8 @@
 
             if (opts.log && this.growlerlog) {
                 tmp = this.growlerlog.down('DIV UL');
-                if (tmp.down().hasClassName('GrowlerNoAlerts')) {
-                    tmp.down().remove();
+                if (tmp.down('.GrowlerNoAlerts')) {
+                    tmp.down('.GrowlerNoAlerts').remove();
                 }
                 log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'GrowlerAlertDate'} ).insert('[' + (new Date).toLocaleString() + ']'));
                 logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
