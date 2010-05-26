@@ -23,6 +23,8 @@
  * 'log' - (boolean) Enable logging.
  * 'noalerts' - (string) The localized string to display when no log entries
  *              are present.
+ * 'info' - (string) The localized string to display as an information message
+ *          at the top of the log.
  *
  * Custom Events:
  * --------------
@@ -36,6 +38,10 @@
  * Growler:destroyed
  *   Fired on TODO
  *   params: NONE
+ *
+ * Growler:toggled
+ *   Fired on toggling of the backlog
+ *   params: The state after the toggling
  *
  *
  * Growler has been tested with Safari 3(Mac|Win), Firefox 3(Mac|Win), IE6,
@@ -66,7 +72,8 @@
     growlerOptions = {
         location: 'tr',
         log: false,
-        noalerts: 'No Alerts'
+        noalerts: 'No Alerts',
+        info: 'This is the notification backlog'
     },
 
     IE6 = Prototype.Browser.IE
@@ -116,7 +123,7 @@
         initialize: function(opts)
         {
             var ch, cw, sl, st;
-            opts = Object.extend(Object.clone(growlerOptions), opts || {});
+            this.opts = Object.extend(Object.clone(growlerOptions), opts || {});
 
             this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: IE6 ? 'absolute' : 'fixed', padding: '10px', zIndex: 50000 }).hide();
 
@@ -125,12 +132,21 @@
                 cw = '0 - this.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth )';
                 sl = '( document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft )';
                 st = '( document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop )';
-            } else if (opts.log) {
-                this.growlerlog = new Element('DIV', { id: 'GrowlerLog' }).insert(new Element('DIV').hide().insert(new Element('UL').insert(new Element('LI', { className: 'NoAlerts' }).insert(opts.noalerts))));
+            } else if (this.opts.log) {
+                var logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
+                logExit.observe('click', this.toggleLog.bind(this));
+                this.growlerlog = new Element('DIV', { id: 'GrowlerLog' })
+                    .insert(new Element('DIV').hide()
+                            .insert(new Element('UL')
+                                    .insert(new Element('LI', { className: 'GrowlerInfo' })
+                                            .insert(this.opts.info)
+                                            .insert(logExit))
+                                    .insert(new Element('LI', { className: 'GrowlerNoAlerts' })
+                                            .insert(this.opts.noalerts))));
                 $(document.body).insert(this.growlerlog);
             }
 
-            switch (opts.location) {
+            switch (this.opts.location) {
             case 'br':
                 if (IE6) {
                     this.growler.style.setExpression('left', "( " + cw + " + " + sl + " ) + 'px'");
@@ -193,10 +209,10 @@
 
             if (opts.log && this.growlerlog) {
                 tmp = this.growlerlog.down('DIV UL');
-                if (tmp.down().hasClassName('NoAlerts')) {
+                if (tmp.down().hasClassName('GrowlerNoAlerts')) {
                     tmp.down().remove();
                 }
-                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'alertdate'} ).insert('[' + (new Date).toLocaleString() + ']'));
+                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'GrowlerAlertDate'} ).insert('[' + (new Date).toLocaleString() + ']'));
                 logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
                 logExit.observe('click', removeLog.curry(log));
                 log.insert(logExit);
@@ -250,6 +266,7 @@
                 }
             });
             this.logvisible = !this.logvisible;
+            this.growlerlog.fire('Growler:toggled', { visible: this.logvisible });
             return this.logvisible;
         },
 
@@ -260,7 +277,7 @@
 
         logSize: function()
         {
-            return (this.growlerlog && this.growlerlog.down('.NoAlerts'))
+            return (this.growlerlog && this.growlerlog.down('.GrowlerNoAlerts'))
                 ? 0
                 : this.growlerlog.down('UL').childElements().size();
         }

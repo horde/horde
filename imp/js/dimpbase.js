@@ -1982,7 +1982,6 @@ var DimpBase = {
 
             case 'alertsloglink':
                 DimpCore.Growler.toggleLog();
-                $('alertsloglink').down('A').update(DimpCore.Growler.logVisible() ? DIMP.text.hidealog : DIMP.text.showalog);
                 break;
 
             case 'applyfilterlink':

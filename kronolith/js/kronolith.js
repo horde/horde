@@ -3990,16 +3990,7 @@ KronolithCore = {
                 break;
 
             case 'kronolithNotifications':
-                var img = elt.down('img'), iconName;
-                if (this.Growler.toggleLog()) {
-                    elt.title = Kronolith.text.hidelog;
-                    elt.addClassName('kronolithClose');
-                } else {
-                    elt.title = Kronolith.text.alerts.interpolate({ count: this.growls });
-                    elt.removeClassName('kronolithClose');
-                }
-                Horde_ToolTips.detach(elt);
-                Horde_ToolTips.attach(elt);
+                this.Growler.toggleLog();
                 break;
 
             case 'kronolithEventDialog':
@@ -5491,8 +5482,21 @@ KronolithCore = {
         this.Growler = new Growler({
             log: true,
             location: 'br',
-            noalerts: Kronolith.text.noalerts
+            noalerts: Kronolith.text.noalerts,
+            info: Kronolith.text.growlerinfo,
         });
+        this.Growler.growlerlog.observe('Growler:toggled', function(e) {
+            var button = $('kronolithNotifications');
+            if (e.memo.visible) {
+                button.title = Kronolith.text.hidelog;
+                button.addClassName('kronolithClose');
+            } else {
+                button.title = Kronolith.text.alerts.interpolate({ count: this.growls });
+                button.removeClassName('kronolithClose');
+            }
+            Horde_ToolTips.detach(button);
+            Horde_ToolTips.attach(button);
+        }.bindAsEventListener(this));
 
         if (Kronolith.conf.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */

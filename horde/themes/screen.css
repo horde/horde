@@ -1017,11 +1017,14 @@ ul.sound-list {
 #GrowlerLog ul li:last-child {
     border: 0;
 }
-#GrowlerLog li.NoAlerts {
+#GrowlerLog li.GrowlerInfo {
     font-weight: bold;
     background: #999;
 }
-#GrowlerLog span.alertdate {
+#GrowlerLog li.GrowlerNoAlerts {
+    background: #999;
+}
+#GrowlerLog span.GrowlerAlertDate {
     font-size: 90%;
     font-style: italic;
     padding-left: 10px;

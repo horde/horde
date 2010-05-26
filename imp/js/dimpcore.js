@@ -562,8 +562,14 @@ var DimpCore = {
         this.Growler = new Growler({
             location: 'br',
             log: this.growler_log,
-            noalerts: DIMP.text.noalerts
+            noalerts: DIMP.text.noalerts,
+            info: DIMP.text.growlerinfo
         });
+        this.Growler.growlerlog.observe('Growler:toggled', function(e) {
+            $('alertsloglink')
+                .down('A')
+                .update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
+        }.bindAsEventListener(this));
 
         /* Add click handler. */
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
