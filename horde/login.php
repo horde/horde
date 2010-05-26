@@ -101,11 +101,6 @@ $auth = ($app && $is_auth)
     ? Horde_Auth::singleton('application', array('app' => $app))
     : Horde_Auth::singleton($conf['auth']['driver']);
 
-/* Check to see if any authentication is available. */
-if (!$is_auth && !$auth->hasCapability('authenticate')) {
-    throw new Horde_Exception(_("No authentication available."));
-}
-
 /* Build the list of necessary login parameters. */
 $loginparams = array(
     'horde_user' => array(
