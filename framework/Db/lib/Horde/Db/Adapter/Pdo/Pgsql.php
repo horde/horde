@@ -138,8 +138,13 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
      * @param   int     $idValue
      * @param   string  $sequenceName
      */
-    public function insert($sql, $arg1=null, $arg2=null, $pk=null, $idValue=null, $sequenceName=null)
+    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
+                           $idValue = null, $sequenceName = null)
     {
+        if ($this->_write) {
+            return $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
+        }
+
         // Extract the table from the insert sql. Yuck.
         $temp = explode(' ', $sql, 4);
         $table = str_replace('"', '', $temp[2]);
