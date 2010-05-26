@@ -1,0 +1,8 @@
+/**
+ * $Horde: hermes/themes/print/screen.css,v 1.1 2005/08/04 17:56:45 chuck Exp $
+ */
+
+/* Special handling for printed timesheets. */
+#approval {
+    display: block;
+}

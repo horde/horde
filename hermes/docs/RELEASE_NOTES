@@ -1,0 +1,47 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * 0 - N/A
+ * 1 - Initial freshmeat announcement
+ * 2 - Documentation
+ * 3 - Code cleanup
+ * 4 - Minor feature enhancements
+ * 5 - Major feature enhancements
+ * 6 - Minor bugfixes
+ * 7 - Major bugfixes
+ * 8 - Minor security fixes
+ * 9 - Major security fixes
+ */
+$this->notes['fm']['focus'] = 4;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the second release candidate of the
+Hermes Time Tracking Application version H3 (1.0).
+
+Hermes is a time tracking and reporting application written for the Horde
+Framework. Taking advantage of the Framework for authentication and
+presentation, it integrates seamlessly with other Horde applications allowing
+users to track time against to do items (from Nag), tickets (from Whups), or
+pre-configured projects within Hermes itself. The list of billable clients is
+taken from the address book (Turba). Additionally, there is an OS X Widget to
+allow Mac users to enter time directly from his or her Dashboard.
+
+Barring any problems, this code will be released as Hermes H3 (1.0).
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
+
+Major changes compared to the Hermes H3 (1.0-RC1) version are:
+    * Improved permissions checking.
+    * Added ability to return to search results after editing.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+Improved permissions checking and the ability to return to search results after editing time slices have been added.
+FM;
+
+$this->notes['name'] = 'Hermes';
+$this->notes['list'] = 'horde';
+$this->notes['fm']['project'] = 'horde-hermes';
+$this->notes['fm']['branch'] = 'Default';

@@ -1,0 +1,27 @@
+=========================
+ Hermes Development Team
+=========================
+
+
+Core Developers
+===============
+
+Chuck Hagenbuch <chuck@horde.org>
+ - Initial code, sponsored by Hawk Technologies (http://www.hawk.com/).
+
+Jan Schneider <jan@horde.org>
+ - Maintenance, stuff.
+
+Ben Klang <ben@alkaloid.net>
+ - Hermes API and Dashboard Widget.
+
+
+Localization
+============
+
+=====================   ======================================================
+Chinese (Traditional)   David Chang <david@tmv.gov.tw>
+Finnish                 Petteri Karttunen <pkarttun@siba.fi>
+German                  Jan Schneider <jan@horde.org>
+Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
+=====================   ======================================================
