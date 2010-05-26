@@ -967,6 +967,7 @@ ul.sound-list {
     background-repeat: no-repeat;
     color: #fff;
     overflow-x: hidden;
+    cursor: pointer;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
@@ -1032,7 +1033,6 @@ ul.sound-list {
 div.GrowlerNoticeExit {
     float: right;
     font-weight: bold;
-    cursor: pointer;
 }
 div.GrowlerNoticeExit:hover {
     color: #444;

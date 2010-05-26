@@ -225,7 +225,7 @@
             }
 
             noticeExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
-            noticeExit.observe('click', removeNotice.curry(notice, opts));
+            notice.observe('click', removeNotice.curry(notice, opts));
             notice.insert(noticeExit);
 
             if (!opts.header.empty()) {
