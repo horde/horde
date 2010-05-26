@@ -1422,7 +1422,11 @@ class IMP_Compose
             $header = $all_headers;
         }
 
-        $this->_metadata['reply_type'] = $reply_type;
+        if (!isset($this->_metadata['reply_type']) ||
+            ($reply_type != $this->_metadata['reply_type'])) {
+            $this->_metadata['reply_type'] = $reply_type;
+            $this->_modified = true;
+        }
 
         if (!$prefs->getValue('reply_quote')) {
             return array(
