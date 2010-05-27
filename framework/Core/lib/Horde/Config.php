@@ -619,12 +619,12 @@ class Horde_Config
      * Custom configuration parts.
      *
      * @param string $ctx         The context of the <configldap> tag.
-     * @param DomNode $node       The DomNode representation of the <configldap>
-     *                            tag.
+     * @param DomNode $node       The DomNode representation of the
+     *                            <configldap> tag.
      * @param string $switchname  If DomNode is not set, the value of the
      *                            tag's switchname attribute.
      *
-     * @return array  An associative array with the SQL configuration tree.
+     * @return array  An associative array with the LDAP configuration tree.
      */
     protected function _configLDAP($ctx, $node = null,
                                   $switchname = 'driverconfig')
@@ -728,15 +728,29 @@ class Horde_Config
         );
 
         $custom_fields = array(
-            'hostspec' => $hostspec,
-            'port' => $port,
-            'version' => $version,
-            'tls' => $tls,
-            'searchdn' => $searchdn,
-            'searchpw' => $searchpw,
-            'basedn' => $basedn,
-            'writedn' => $writedn,
-            'ca' => $ca
+            'required' => true,
+            'desc' => 'Use a LDAP backend?',
+            'default' => $this->_default($ctx . '|useldap', 'false'),
+            'switch' => array(
+                'false' => array(
+                    'desc' => 'No',
+                    'fields' => array()
+                ),
+                'true' => array(
+                    'desc' => 'Yes',
+                    'fields' => array(
+                        'hostspec' => $hostspec,
+                        'port' => $port,
+                        'version' => $version,
+                        'tls' => $tls,
+                        'searchdn' => $searchdn,
+                        'searchpw' => $searchpw,
+                        'basedn' => $basedn,
+                        'writedn' => $writedn,
+                        'ca' => $ca
+                    )
+                )
+            )
         );
 
         if (isset($node) && $node->getAttribute('baseconfig') == 'true') {

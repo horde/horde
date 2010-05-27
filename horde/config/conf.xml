@@ -150,7 +150,7 @@
    &lt;em&gt;default&lt;/em&gt; values for any LDAP driven backends. You
    still need to configure the different systems like "Preferences" to actually
    &lt;em&gt;use&lt;/em&gt; a LDAP backend.</configdescription>
-   <configldap switchname="phptype" baseconfig="true" />
+   <configldap switchname="useldap" baseconfig="true" />
   </configsection>
  </configtab>
 
