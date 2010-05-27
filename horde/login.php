@@ -81,7 +81,7 @@ function _getLogoutReasonString($code)
  * constructor. */
 require_once dirname(__FILE__) . '/lib/Application.php';
 try {
-    Horde_Registry::appInit('horde', array('authentication' => 'throw', 'nologintasks' => true));
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 } catch (Horde_Exception $e) {}
 
 $app = Horde_Util::getFormData('app');
@@ -150,9 +150,7 @@ if ($error_reason) {
         $is_auth = null;
     }
 
-    $language = isset($prefs)
-        ? $prefs->getValue('language')
-        : Horde_Nls::select();
+    $language = $prefs->getValue('language');
 
     $entry = sprintf('User %s [%s] logged out of Horde', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
@@ -269,7 +267,7 @@ if (!empty($conf['auth']['alternate_login'])) {
 }
 
 /* Build the <select> widget containing the available languages. */
-if (!$is_auth && isset($prefs) && !$prefs->isLocked('language')) {
+if (!$is_auth && !$prefs->isLocked('language')) {
     $_SESSION['horde_language'] = Horde_Nls::select();
     $langs = array();
 
@@ -290,7 +288,7 @@ if ($reason = _getLogoutReasonString($error_reason)) {
 
 if ($browser->isMobile()) {
     /* Build the <select> widget containing the available languages. */
-    if (!$is_auth && isset($prefs) && !$prefs->isLocked('language')) {
+    if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();
         foreach ($langs as $val) {
             $tmp[$val['val']] = array(
