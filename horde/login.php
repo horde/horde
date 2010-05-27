@@ -269,7 +269,7 @@ if (!empty($conf['auth']['alternate_login'])) {
 }
 
 /* Build the <select> widget containing the available languages. */
-if (!$is_auth && !$prefs->isLocked('language')) {
+if (!$is_auth && isset($prefs) && !$prefs->isLocked('language')) {
     $_SESSION['horde_language'] = Horde_Nls::select();
     $langs = array();
 
@@ -290,7 +290,7 @@ if ($reason = _getLogoutReasonString($error_reason)) {
 
 if ($browser->isMobile()) {
     /* Build the <select> widget containing the available languages. */
-    if (!$is_auth && !$prefs->isLocked('language')) {
+    if (!$is_auth && isset($prefs) && !$prefs->isLocked('language')) {
         $tmp = array();
         foreach ($langs as $val) {
             $tmp[$val['val']] = array(
