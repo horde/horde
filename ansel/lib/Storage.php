@@ -152,7 +152,7 @@ class Ansel_Storage
 
             /* Clear the parent from the cache */
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-                $GLOBALS['cache']->expire('Ansel_Gallery' . $parent);
+                $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $parent);
             }
         }
 
@@ -321,7 +321,7 @@ class Ansel_Storage
         }
 
        if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
-           ($gallery = $GLOBALS['cache']->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
+           ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
 
                $this->_galleries[$gallery_id] = unserialize($gallery);
 
@@ -338,7 +338,7 @@ class Ansel_Storage
        // Don't cache if we have overridden anything
        if (!count($overrides)) {
            if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-               $GLOBALS['cache']->set('Ansel_Gallery' . $gallery_id, serialize($result));
+               $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_Gallery' . $gallery_id, serialize($result));
            }
        } else {
            foreach ($overrides as $key => $value) {
@@ -410,7 +410,7 @@ class Ansel_Storage
 
         // Clear the OtherGalleries widget cache
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
         }
     }
 
@@ -450,7 +450,7 @@ class Ansel_Storage
 
         /* Expire the cache */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $id);
         }
         unset($this->_galleries[$id]);
 
@@ -459,7 +459,7 @@ class Ansel_Storage
             if (!$parent->countChildren(Horde_Perms::SHOW, false)) {
                 $parent->set('has_subgalleries', 0, true);
                 if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-                    $GLOBALS['cache']->expire('Ansel_Gallery' . $parent->id);
+                    $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $parent->id);
                 }
                 unset($this->_galleries[$id]);
             }

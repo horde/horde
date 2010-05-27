@@ -273,7 +273,7 @@ case 'save':
 
     // Clear the OtherGalleries widget cache
     if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-        $GLOBALS['cache']->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+        $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
     }
 
     // Return to the last view.

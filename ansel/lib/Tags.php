@@ -135,9 +135,9 @@ class Ansel_Tags
         if (is_array($tags) && count($tags) == 0) {
             return array();
         }
-        if (isset($GLOBALS['cache'])) {
+        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $cache_key = 'ansel_taginfo_' . (!is_null($tags) ? md5(serialize($tags) . $limit) : $limit);
-            $cvalue = $GLOBALS['cache']->get($cache_key, $conf['cache']['default_lifetime']);
+            $cvalue = $GLOBALS['injector']->getInstance('Horde_Cache')->get($cache_key, $conf['cache']['default_lifetime']);
             if ($cvalue) {
                 return unserialize($cvalue);
             }
@@ -156,8 +156,8 @@ class Ansel_Tags
             $results[$id]['tag_name'] = Horde_String::convertCharset(
                 $taginfo['tag_name'], $GLOBALS['conf']['sql']['charset']);
         }
-        if (isset($GLOBALS['cache'])) {
-            $GLOBALS['cache']->set($cache_key, serialize($results));
+        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($cache_key, serialize($results));
         }
 
         return $results;
@@ -184,9 +184,9 @@ class Ansel_Tags
 
         $skey = md5(serialize($ids) . $from . $resource_type . $max . $user);
 
-        if (isset($GLOBALS['cache'])) {
+        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
            $key = Horde_Auth::getAuth() . '__anseltagsearches';
-           $cvalue = $GLOBALS['cache']->get($key, 300);
+           $cvalue = $GLOBALS['injector']->getInstance('Horde_Cache')->get($key, 300);
            $cvalue = @unserialize($cvalue);
            if (!$cvalue) {
                $cvalue = array();
@@ -260,9 +260,9 @@ class Ansel_Tags
             }
         }
 
-        if (isset($GLOBALS['cache'])) {
+        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $cvalue[$skey] = $results;
-            $GLOBALS['cache']->set($key, serialize($cvalue));
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($cvalue));
         }
 
         return $results;
@@ -448,7 +448,7 @@ class Ansel_Tags
     static public function clearCache()
     {
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire(Horde_Auth::getAuth() . '__anseltagsearches');
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire(Horde_Auth::getAuth() . '__anseltagsearches');
         }
     }
 }

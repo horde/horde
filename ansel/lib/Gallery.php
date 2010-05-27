@@ -136,7 +136,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
         }
 
         return parent::_save();
@@ -187,7 +187,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         /* Need to expire the cache for the gallery that was changed */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $id = (is_null($gallery_id) ? $this->id : $gallery_id);
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $id);
         }
 
         return true;
@@ -933,7 +933,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $data = $this->_shareOb->_toDriverCharset(array($driver_key => $value));
             $query = $db->prepare('UPDATE ' . $this->_shareOb->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-                $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
+                $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
             }
             $result = $query->execute(array($data[$driver_key], $this->id));
             $query->free();

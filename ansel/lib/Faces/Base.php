@@ -587,7 +587,7 @@ class Ansel_Faces_Base
 
         // Expire gallery cache
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $gallery->id);
         }
 
         return $fids;

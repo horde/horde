@@ -459,8 +459,8 @@ class Ansel_GalleryMode_Date
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $gallery->id);
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $this->_gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->_gallery->id);
         }
 
         return true;

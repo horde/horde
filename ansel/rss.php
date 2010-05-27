@@ -22,8 +22,8 @@ $uid = md5($stream_type . $id . $type . Horde_Auth::getAuth());
 $filename = 'ansel_feed_template_' . $uid;
 if ($conf['ansel_cache']['usecache']) {
     $cache_key = 'ansel_feed_template_' . $uid;
-    $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
-    $filename = $cache->get($filename, $conf['cache']['default_lifetime']);
+    $rss = $GLOBALS['injector']->getInstance('Horde_Cache')->get($cache_key, $conf['cache']['default_lifetime']);
+    $filename = $GLOBALS['injector']->getInstance('Horde_Cache')->get($filename, $conf['cache']['default_lifetime']);
 }
 
 if (empty($rss)) {
@@ -290,8 +290,8 @@ if (empty($rss)) {
     $rss = ob_get_clean();
 
     if ($conf['ansel_cache']['usecache']) {
-        $cache->set($cache_key, $rss);
-        $cache->set($filename, $params['name']);
+        $GLOBALS['injector']->getInstance('Horde_Cache')->set($cache_key, $rss);
+        $GLOBALS['injector']->getInstance('Horde_Cache')->set($filename, $params['name']);
     }
 }
 
