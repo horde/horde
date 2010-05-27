@@ -160,78 +160,55 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     }
 
     /**
-     * @TODO
-     * http://us3.php.net/manual/en/pdo.lobs.php
-     * http://us2.php.net/manual/en/function.pdo-pgsqllobopen.php
-     * etc.
+     * Used to convert from Strings to BLOBs (BYTEA).
+     *
+     * @return  string
      */
-    /*@TODO bollux
-        // Escapes binary strings for bytea input to the database.
-        def self.string_to_binary(value)
-          if PGconn.respond_to?(:escape_bytea)
-            self.class.module_eval do
-              define_method(:string_to_binary) do |value|
-                PGconn.escape_bytea(value) if value
-              end
-            end
-          else
-            self.class.module_eval do
-              define_method(:string_to_binary) do |value|
-                if value
-                  result = ''
-                  value.each_byte { |c| result << sprintf('\\\\%03o', c) }
-                  result
-                end
-              end
-            end
-          end
-          self.class.string_to_binary(value)
-        end
+    public function stringToBinary($value)
+    {
+        /* MUST escape zero octet(0), single quote (39), and backslash (92).
+         * MAY escape non-pritnable octets, but they are required in some
+         * instances so it is best to escape all. */
+        return preg_replace_callback("/[^\\x20-\\x26\\x28-\\x5b\\x5d-\\x73]/", array($this, 'stringToBinaryCallback'), $value);
+    }
 
-        // Unescapes bytea output from a database to the binary string it represents.
-        def self.binary_to_string(value)
-          // In each case, check if the value actually is escaped PostgreSQL bytea output
-          // or an unescaped Active Record attribute that was just written.
-          if PGconn.respond_to?(:unescape_bytea)
-            self.class.module_eval do
-              define_method(:binary_to_string) do |value|
-                if value =~ /\\\d{3}/
-                  PGconn.unescape_bytea(value)
-                else
-                  value
-                end
-              end
-            end
-          else
-            self.class.module_eval do
-              define_method(:binary_to_string) do |value|
-                if value =~ /\\\d{3}/
-                  result = ''
-                  i, max = 0, value.size
-                  while i < max
-                    char = value[i]
-                    if char == ?\\
-                      if value[i+1] == ?\\
-                        char = ?\\
-                        i += 1
-                      else
-                        char = value[i+1..i+3].oct
-                        i += 3
-                      end
-                    end
-                    result << char
-                    i += 1
-                  end
-                  result
-                else
-                  value
-                end
-              end
-            end
-          end
-          self.class.binary_to_string(value)
-        end
-    */
+    /**
+     * Callback function for stringToBinary().
+     */
+    public function stringToBinaryCallback($matches)
+    {
+        if ($matches[0] == "'") {
+            return '\\\'';
+        } elseif ($matches[0] == '\\') {
+            return '\\\\\\\\';
+        } else {
+            return sprintf('\\\\%03.o', ord($matches[0]));
+        }
+    }
+
+    /**
+     * Used to convert from BLOBs (BYTEAs) to Strings.
+     *
+     * @return  string
+     */
+    public function binaryToString($value)
+    {
+        return preg_replace_callback("/[\\\'|\\\\\\\\|\\\\\d{3}]/", array($this, 'binaryToStringCallback'), $value);
+    }
+
+    /**
+     * Callback function for binaryToString().
+     */
+    public function binaryToStringCallback($matches)
+    {
+        if ($matches[0] == '\\\'') {
+            return "'";
+        } elseif ($matches[0] == '\\\\\\\\') {
+            return '\\';
+        } else {
+            return chr(octdec(substr($matches[0], -3)));
+        }
+    }
 
 
     /*##########################################################################
