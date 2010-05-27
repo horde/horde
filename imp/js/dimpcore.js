@@ -565,11 +565,14 @@ var DimpCore = {
             noalerts: DIMP.text.noalerts,
             info: DIMP.text.growlerinfo
         });
-        this.Growler.growlerlog.observe('Growler:toggled', function(e) {
-            $('alertsloglink')
-                .down('A')
-                .update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
-        }.bindAsEventListener(this));
+
+        if (this.growler_log) {
+            this.Growler.growlerlog.observe('Growler:toggled', function(e) {
+                $('alertsloglink')
+                    .down('A')
+                    .update(e.memo.visible ? DIMP.text.hidealog : DIMP.text.showalog);
+            }.bindAsEventListener(this));
+        }
 
         /* Add click handler. */
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
