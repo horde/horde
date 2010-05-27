@@ -34,22 +34,18 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
      * 'trace' - (integer) The trace level of the original log location.
      * </pre>
      */
-    public function log($event, $priority = 'INFO', $options = array())
+    public function log($event, $priority = null, $options = array())
     {
-        if (is_string($priority)) {
-            $priority = defined('Horde_Log::' . $priority)
-                ? constant('Horde_Log::' . $priority)
-                : Horde_Log::INFO;
-        }
-
         /* If an array is passed in, assume that the caller knew what they
          * were doing and pass it directly to the log backend. */
         if (is_array($event)) {
-            parent::log($event, $priority);
-            return;
+            return parent::log($event, constant('Horde_Log::' . $priority));
         }
 
         if ($event instanceof Exception) {
+            if (is_null($priority)) {
+                $priority = Horde_Log::ERR;
+            }
             $text = $event->getMessage();
             $trace = array(
                 'file' => $event->getFile(),
@@ -57,6 +53,9 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
             );
         } else {
             if ($event instanceof PEAR_Error) {
+                if (is_null($priority)) {
+                    $priority = Horde_Log::ERR;
+                }
                 $userinfo = $event->getUserInfo();
                 $text = $event->getMessage();
                 if (!empty($userinfo)) {
@@ -89,6 +88,14 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
                 $frame = 0;
             }
             $trace = $trace[$frame];
+        }
+
+        if (is_null($priority)) {
+            $priority = Horde_Log::INFO;
+        } elseif (is_string($priority)) {
+            $priority = defined('Horde_Log::' . $priority)
+                ? constant('Horde_Log::' . $priority)
+                : Horde_Log::INFO;
         }
 
         $file = isset($options['file'])

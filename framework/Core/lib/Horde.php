@@ -76,7 +76,7 @@ class Horde
      *
      * @see Horde_Core_Log_Logger
      */
-    static public function logMessage($event, $priority = 'INFO',
+    static public function logMessage($event, $priority = null,
                                       array $options = array())
     {
         $options['trace'] = 2;
