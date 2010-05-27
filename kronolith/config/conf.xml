@@ -60,17 +60,23 @@
  </configsection>
 
  <configsection name="autoshare">
-   <configheader>Calendar Auto-Sharing</configheader>
-     <configenum name="shareperms" desc="When a new user is created, his
-     default calendar can be automatically shared with his group(s). Which
-     permissions should the group have?">
-       <values>
-         <value desc="None (no sharing)">none</value>
-         <value desc="Read-only">read</value>
-         <value desc="Read and write">edit</value>
-         <value desc="Read, write and delete">full</value>
-       </values>
-     </configenum>
+  <configheader>Share Settings</configheader>
+  <configenum name="shareperms" desc="When a new user is created, his
+   default calendar can be automatically shared with his group(s). Which
+   permissions should the group have?">
+   <values>
+    <value desc="None (no sharing)">none</value>
+    <value desc="Read-only">read</value>
+    <value desc="Read and write">edit</value>
+    <value desc="Read, write and delete">full</value>
+   </values>
+  </configenum>
+ </configsection>
+
+ <configsection name="share">
+  <configboolean name="notify" desc="Notify users and groups per e-mail if
+  they have been granted access to a shared calendar (or tasklist), or are the
+  new owner of the share?">false</configboolean>
  </configsection>
 
  <configsection name="holidays">

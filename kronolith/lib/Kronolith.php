@@ -1593,6 +1593,18 @@ class Kronolith
         $perm = $share->getPermission();
         $errors = array();
 
+        if ($GLOBALS['conf']['share']['notify']) {
+            $identity = $GLOBALS['injector']
+                ->getInstance('Horde_Prefs_Identity')
+                ->getIdentity();
+            $userName = $identity->getName();
+            $mail = new Horde_Mime_Mail(
+                array('from' => $identity->getDefaultFromAddress(true),
+                      'charset' => Horde_Nls::getCharset())
+                );
+            $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+        }
+
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
@@ -1605,6 +1617,23 @@ class Kronolith
             } else {
                 $share->set('owner', $new_owner);
                 $share->save();
+                if ($GLOBALS['conf']['share']['notify']) {
+                    $to = $GLOBALS['injector']
+                        ->getInstance('Horde_Prefs_Identity')
+                        ->getIdentity($new_owner)
+                        ->getDefaultFromAddress(true);
+                    try {
+                        $message = Horde::callHook('shareOwnerNotification', array($new_owner, $share));
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $message = sprintf(_("%s has assigned the ownership of \"%s\" to you"),
+                                           $userName,
+                                           $share->get('name'));
+                    }
+                    $mail->addHeader('Subject', _("Ownership assignment"));
+                    $mail->addHeader('To', $to);
+                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                }
             }
         }
 
@@ -1700,6 +1729,11 @@ class Kronolith
         $u_delete = Horde_Util::getFormData('u_delete');
         $u_delegate = Horde_Util::getFormData('u_delegate');
 
+        $current = $perm->getUserPermissions();
+        if ($GLOBALS['conf']['share']['notify']) {
+            $mail->addHeader('Subject', _("Access permissions"));
+        }
+
         $perm->removeUserPermission(null, null, false);
         foreach ($u_names as $key => $user_backend) {
             // Apply backend hooks
@@ -1714,20 +1748,45 @@ class Kronolith
                 continue;
             }
 
+            $has_perms = false;
             if (!empty($u_show[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::SHOW, false);
+                $has_perms = true;
             }
             if (!empty($u_read[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::READ, false);
+                $has_perms = true;
             }
             if (!empty($u_edit[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::EDIT, false);
+                $has_perms = true;
             }
             if (!empty($u_delete[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::DELETE, false);
+                $has_perms = true;
             }
             if (!empty($u_delegate[$key])) {
                 $perm->addUserPermission($user, Kronolith::PERMS_DELEGATE, false);
+                $has_perms = true;
+            }
+
+            // Notify users that have been added.
+            if ($GLOBALS['conf']['share']['notify'] &&
+                !isset($current[$user]) && $has_perms) {
+                $to = $GLOBALS['injector']
+                    ->getInstance('Horde_Prefs_Identity')
+                    ->getIdentity($user)
+                    ->getDefaultFromAddress(true);
+                try {
+                    $message = Horde::callHook('shareUserNotification', array($user, $share));
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $message = sprintf(_("%s has given you access to \"%s\"."),
+                                       $userName,
+                                       $share->get('name'));
+                }
+                $mail->addHeader('To', $to);
+                $mail->setBody($message, Horde_Nls::getCharset());
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         }
 
@@ -1739,26 +1798,52 @@ class Kronolith
         $g_delete = Horde_Util::getFormData('g_delete');
         $g_delegate = Horde_Util::getFormData('g_delegate');
 
+        $current = $perm->getGroupPermissions();
         $perm->removeGroupPermission(null, null, false);
         foreach ($g_names as $key => $group) {
             if (empty($group)) {
                 continue;
             }
 
+            $has_perms = false;
             if (!empty($g_show[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::SHOW, false);
+                $has_perms = true;
             }
             if (!empty($g_read[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::READ, false);
+                $has_perms = true;
             }
             if (!empty($g_edit[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::EDIT, false);
+                $has_perms = true;
             }
             if (!empty($g_delete[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::DELETE, false);
+                $has_perms = true;
             }
             if (!empty($g_delegate[$key])) {
                 $perm->addGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
+                $has_perms = true;
+            }
+
+            // Notify users that have been added.
+            if ($GLOBALS['conf']['share']['notify'] &&
+                !isset($current[$group]) && $has_perms) {
+                $groupOb = Group::singleton()->getGroupById($group);
+                if (!empty($groupOb->data['email'])) {
+                    try {
+                        $message = Horde::callHook('shareGroupNotification', array($group, $share));
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $message = sprintf(_("%s has given your group \"%s\" access to \"%s\"."),
+                                           $userName,
+                                           $groupOb->getName(),
+                                           $share->get('name'));
+                    }
+                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>');
+                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                }
             }
         }
         try {
