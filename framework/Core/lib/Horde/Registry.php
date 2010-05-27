@@ -1067,6 +1067,12 @@ class Horde_Registry
             throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
         }
 
+        /* Set up autoload paths for the current application. This needs to
+         * be done here because it is possible to try to load app-specific
+         * libraries from other applications. */
+        $app_lib = $this->get('fileroot', $app) . '/lib';
+        Horde_Autoloader::addClassPattern('/^' . $app . '(?:$|_)/i', $app_lib);
+        
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
 
         /* If permissions checking is requested, return an error if the
@@ -1091,12 +1097,6 @@ class Horde_Registry
 
         /* Push application on the stack. */
         $this->_appStack[] = $app;
-
-        /* Set up autoload paths for the current application. This needs to
-         * be done here because it is possible to try to load app-specific
-         * libraries from other applications. */
-        $app_lib = $this->get('fileroot', $app) . '/lib';
-        Horde_Autoloader::addClassPattern('/^' . $app . '(?:$|_)/i', $app_lib);
 
         /* Chicken and egg problem: the language environment has to be loaded
          * before loading the configuration file, because it might contain
