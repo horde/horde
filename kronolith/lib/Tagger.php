@@ -81,7 +81,7 @@ class Kronolith_Tagger
         }
         $tags = array();
         foreach ($localId as $id) {
-            $tags = $tags + $this->_tagger->getTags(array('objectId' => array('object' => $id, 'type' => $type)));
+            $tags = $tags + $this->_tagger->getTags(array('objectId' => array('object' => $id, 'type' => $this->_type_ids[$type])));
         }
 
         return $tags;
