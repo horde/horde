@@ -201,23 +201,21 @@ class Content_Tagger
      *                        content type_id
      * @return array  An array in the form of:
      * <pre>
-     *      array('localobjectId' => array(array(tag_name, tag_id),
-     *                                     array(tag_name, tag_id)),
-     *            'anotherobjectid' => array(array(tag_name, tag_id),
-     *                                     array(tag_name, tag_id)))
+     *      array('localobjectId' => array('tagone', 'tagtwo'),
+     *            'anotherobjectid' => array('anothertag', 'yetanother'))
      * </pre>
      */
     public function getTagsByObjects($objects, $type)
     {
         $object_ids = $this->_objectManager->exists($objects, $type);
-        $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
+        $sql = 'SELECT DISTINCT tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
         $tags = $this->_db->selectAll($sql, array_keys($object_ids));
         $results = array();
         foreach ($tags as $tag) {
             if (empty($results[$object_ids[$tag['object_id']]])) {
                 $results[$object_ids[$tag['object_id']]] = array();
             }
-            $results[$object_ids[$tag['object_id']]][] = array('tag_id' => $tag['tag_id'], 'tag_name' => $tag['tag_name']);
+            $results[$object_ids[$tag['object_id']]][] = $tag['tag_name'];
         }
 
         return $results;
