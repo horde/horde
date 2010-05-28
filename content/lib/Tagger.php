@@ -208,14 +208,20 @@ class Content_Tagger
     public function getTagsByObjects($objects, $type)
     {
         $object_ids = $this->_objectManager->exists($objects, $type);
-        $sql = 'SELECT DISTINCT tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
-        $tags = $this->_db->selectAll($sql, array_keys($object_ids));
         $results = array();
-        foreach ($tags as $tag) {
-            if (empty($results[$object_ids[$tag['object_id']]])) {
-                $results[$object_ids[$tag['object_id']]] = array();
+        if (!$object_ids) {
+            foreach ($object_ids as $id) {
+                $results[$id] = array();
             }
-            $results[$object_ids[$tag['object_id']]][] = $tag['tag_name'];
+        } else {
+            $sql = 'SELECT DISTINCT tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
+            $tags = $this->_db->selectAll($sql, array_keys($object_ids));
+            foreach ($tags as $tag) {
+                if (empty($results[$object_ids[$tag['object_id']]])) {
+                    $results[$object_ids[$tag['object_id']]] = array();
+                }
+                $results[$object_ids[$tag['object_id']]][] = $tag['tag_name'];
+            }
         }
 
         return $results;
