@@ -254,13 +254,14 @@ if (!empty($conf['auth']['alternate_login'])) {
     if (!isset($_COOKIE[session_name()])) {
         $url = Horde_Util::addParameter($url, array(session_name() => session_id), null, false);
     }
-    if (!empty($url_in)) {
-        $anchor = _addAnchor($url_in, 'param', $url_anchor);
-        if (strpos($url, '%25u')) {
-            $url = str_replace('%25u', $anchor, $url);
-        } else {
-            $url = Horde_Util::addParameter($url, array('url' => $anchor), null, false);
-        }
+    if (empty($url_in)) {
+        $url_in = Horde::selfUrl(true, true, true);
+    }
+    $anchor = _addAnchor($url_in, 'param', $url_anchor);
+    if (strpos($url, '%25u') || strpos($url, '%u')) {
+        $url = str_replace(array('%25u', '%u'), $anchor, $url);
+    } else {
+        $url = Horde_Util::addParameter($url, array('url' => $anchor), null, false);
     }
     header('Location: ' . _addAnchor($url, 'url', $url_anchor));
     exit;
