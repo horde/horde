@@ -161,7 +161,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         }
 
         if ($event) {
-            if (isset($sourceShare))
+            if (isset($sourceShare)
                 && !$sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("You do not have permission to move this event."), 'horde.warning');
             } elseif ($user != Horde_Auth::getAuth() &&
