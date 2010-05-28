@@ -580,6 +580,9 @@ abstract class Kronolith_Event
             if (!empty($this->location)) {
                 $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
             }
+            if ($this->geoLocation) {
+                $vEvent->setAttribute('GEO', array('latitude' => $this->geoLocation['lat'], 'longitude' => $this->geoLocation['lon']));
+            }
 
             // URL
             if (!empty($this->url)) {
@@ -798,6 +801,12 @@ abstract class Kronolith_Event
         $location = $vEvent->getAttribute('LOCATION');
         if (!is_array($location) && !($location instanceof PEAR_Error)) {
             $this->location = $location;
+        }
+        $geolocation = $vEvent->getAttribute('GEO');
+        if (!($geolocation instanceof PEAR_Error)) {
+            $this->geolocation = array(
+                'lat' => $geolocation['latitude'],
+                'lon' => $geolocation['longitude']);
         }
 
         // Class
