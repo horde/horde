@@ -138,7 +138,7 @@ class Horde_Core_Factory_KolabSession
                 $validator, $this->_injector->getInstance('Horde_Log_Logger')
             );
         }
-        
+
         return $validator;
     }
 
