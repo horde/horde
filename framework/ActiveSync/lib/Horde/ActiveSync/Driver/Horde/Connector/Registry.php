@@ -58,7 +58,8 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
                     false,         // Alarms only
                     false,         // Show remote
                     true,          // Hide exception events
-                    false);        // Don't return multi-day events on *each* day
+                    false,         // Don't return multi-day events on *each* day
+                    true);         // Return Tags
         } catch (Exception $e) {
             return array();
         }
@@ -108,7 +109,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
      *
      * @param string $uid          The calendar id
      *
-     * @return The iCalendar representation of the calendar
+     * @return Horde_ActiveSync_Message_Appointment
      */
     public function calendar_export($uid)
     {

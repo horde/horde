@@ -790,7 +790,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents();
+        $events = $kronolith_driver->listEvents(null, null, null, true, false, true, false, true, true);
 
         $version = '2.0';
         switch ($contentType) {
@@ -1096,7 +1096,7 @@ class Kronolith_Api extends Horde_Registry_Api
     public function listEvents($startstamp = null, $endstamp = null,
         $calendars = null, $showRecurrence = true,
         $alarmsOnly = false, $showRemote = true, $hideExceptions = false,
-        $coverDates = true)
+        $coverDates = true, $fetchTags = false)
     {
         if (!isset($calendars)) {
             $calendars = array($GLOBALS['prefs']->getValue('default_share'));
@@ -1118,7 +1118,8 @@ class Kronolith_Api extends Horde_Registry_Api
             $alarmsOnly,
             $showRemote,
             $hideExceptions,
-            $coverDates);
+            $coverDates,
+            $fetchTags);
     }
 
     /**

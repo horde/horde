@@ -244,13 +244,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
+     * @param boolean $fetchTags         Whether to fetch tags for all events
      *
      * @return array  Events in the given time range.
      * @throws Kronolith_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true, $hideExceptions = false)
+                               $json = false, $coverDates = true, $hideExceptions = false,
+                               $fetchTags = false)
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
@@ -273,9 +275,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
+        if ($fetchTags) {
+            $tags = Kronolith::getTagger()->getTags(array_keys($events));
+        }
         foreach ($events as $id) {
-            Kronolith::addEvents($results, $this->getEvent($id), $startDate,
-                                 $endDate, $showRecurrence, $json, $coverDates);
+            $event = $this->getEvent($id);
+            if (isset($tags) && !empty($tags[$event->uid])) {
+                $event->setTags($tags[$event->uid]);
+            }
+            Kronolith::addEvents($results, $event, $startDate, $endDate,
+                                 $showRecurrence, $json, $coverDates);
         }
 
         return $results;
@@ -584,8 +593,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
              }
 
             /* Update tags */
-            $tagger = Kronolith::getTagger();
-            $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+            Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
 
             /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
             try {
@@ -593,7 +601,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             } catch (Horde_Share_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
-            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+            Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
             /* Update Geolocation */
             if ($gDriver = Kronolith::getGeoDriver()) {

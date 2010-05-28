@@ -36,7 +36,7 @@ class Kronolith_Tagger
         $this->_type_ids = array('calendar' => (int)$types[0],
                                  'event' => (int)$types[1]);
 
-        // Cache the tagger statically
+        // Cache the tagger
         $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
     }
 
@@ -69,22 +69,19 @@ class Kronolith_Tagger
     /**
      * Retrieves the tags on given object(s).
      *
-     * @param string $localId  The identifier of the kronolith object.
+     * @param mixed  $localId  Either the identifier of the kronolith object or
+     *                         an array of identifiers.
      * @param string $type     The type of object $localId represents.
      *
-     * @return a tag_id => tag_name hash.
+     * @return array A tag_id => tag_name hash, possibly wrapped in a localid hash.
      */
     public function getTags($localId, $type = 'event')
     {
-        if (!is_array($localId)) {
-            $localId = array($localId);
-        }
-        $tags = array();
-        foreach ($localId as $id) {
-            $tags = $tags + $this->_tagger->getTags(array('objectId' => array('object' => $id, 'type' => $this->_type_ids[$type])));
+        if (is_array($localId)) {
+            return $this->_tagger->getTagsByObjects($localId, $type);
         }
 
-        return $tags;
+        return $this->_tagger->getTags(array('objectId' => array('object' => $localId, 'type' => $this->_type_ids[$type])));
     }
 
     /**

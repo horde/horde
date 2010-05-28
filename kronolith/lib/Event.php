@@ -112,7 +112,7 @@ abstract class Kronolith_Event
      *
      * @var array|string
      */
-    public $tags = array();
+    protected $_tags = null;
 
     /**
      * Geolocation
@@ -300,10 +300,6 @@ abstract class Kronolith_Event
         if (!is_null($eventObject)) {
             $this->fromDriver($eventObject);
 
-            /* Get tags */
-            $tagger = Kronolith::getTagger();
-            $this->tags = $tagger->getTags($this->uid, 'event');
-
             /* Get geolocation data */
             if ($gDriver = Kronolith::getGeoDriver()) {
                 try {
@@ -368,6 +364,8 @@ abstract class Kronolith_Event
         case 'span':
         case 'rowspan':
             return $this->{'_' . $name};
+        case 'tags':
+            return $this->getTags();
         }
         $trace = debug_backtrace();
         trigger_error('Undefined property via __set(): ' . $name
@@ -781,7 +779,7 @@ abstract class Kronolith_Event
         // Tags
         $categories = $vEvent->getAttributeValues('CATEGORIES');
         if (!($categories instanceof PEAR_Error)) {
-            $this->tags = $categories;
+            $this->_tags = $categories;
         }
 
         // Description
@@ -2244,7 +2242,7 @@ abstract class Kronolith_Event
         }
 
         // Tags.
-        $this->tags = Horde_Util::getFormData('tags', $this->tags);
+        $this->_tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
         $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
@@ -2704,6 +2702,30 @@ abstract class Kronolith_Event
         }
 
         return 'kronolithEvent';
+    }
+
+    /**
+     * Setter for tags
+     *
+     * @param array $tags  An array of tag_names
+     */
+    public function setTags($tags)
+    {
+        $this->_tags = $tags;
+    }
+
+    /**
+     * Getter for tags
+     *
+     * @return mixed  An array of tag_names, or false if tags were never set.
+     */
+    public function getTags()
+    {
+        if (!isset($this->_tags)) {
+            $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
+        }
+
+        return $this->_tags;
     }
 
     private function _formIDEncode($id)

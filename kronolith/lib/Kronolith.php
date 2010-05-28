@@ -466,6 +466,8 @@ class Kronolith
      *                                 listTimeObjects as well?
      * @param boolean $hideExceptions  Hide events that represent exceptions to
      *                                 a recurring event?
+     * @param boolean $fetchTags       Should we fetch each event's tags from
+     *                                 storage?
      *
      * @return array  The events happening in this time period.
      * @throws Kronolith_Exception
@@ -473,7 +475,8 @@ class Kronolith
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
                                       $alarmsOnly = false, $showRemote = true,
-                                      $hideExceptions = false, $coverDates = true)
+                                      $hideExceptions = false, $coverDates = true,
+                                      $fetchTags = false)
     {
         $results = array();
 
@@ -486,7 +489,7 @@ class Kronolith
             $driver->open($calendar);
             $events = $driver->listEvents($startDate, $endDate, $showRecurrence,
                                           $alarmsOnly, false, $coverDates,
-                                          $hideExceptions);
+                                          $hideExceptions, $fetchTags);
             
             self::mergeEvents($results, $events);
         }

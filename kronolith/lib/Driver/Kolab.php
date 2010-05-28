@@ -215,7 +215,8 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true)
+                               $json = false, $coverDates = true,
+                               $fetchTags = false)
     {
         $result = $this->synchronize();
 
@@ -363,11 +364,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $result = $this->_store->save($attributes, $stored_uid);
 
         /* Deal with tags */
-        $tagger = Kronolith::getTagger();
         if (!empty($edit)) {
-            $tagger->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+            Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
         } else {
-            $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
+            Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
         }
 
         $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
