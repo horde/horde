@@ -236,7 +236,7 @@ class Horde_Registry
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
             'Horde_Data' => new Horde_Core_Binder_Data(),
             'Horde_Db' => new Horde_Core_Binder_Db(),
-            'Horde_Db_Base' => new Horde_Core_Binder_DbBase(),
+            'Horde_Db_Adapter_Base' => new Horde_Core_Binder_DbBase(),
             'Horde_Db_Pear' => new Horde_Core_Binder_DbPear(),
             'Horde_Editor' => new Horde_Core_Binder_Editor(),
             'Horde_History' => new Horde_Core_Binder_History(),
