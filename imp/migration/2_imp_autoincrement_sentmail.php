@@ -19,7 +19,7 @@ class ImpAutoIncrementSentmail extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $t->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true));
+        $this->changeColumn('imp_sentmail', 'sentmail_id', 'integer', array('autoincrement' => true));
     }
 
     /**
@@ -27,7 +27,7 @@ class ImpAutoIncrementSentmail extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        // No way to downgrade at this time.
+        $this->changeColumn('imp_sentmail', 'sentmail_id', 'bigint', array('autoincrement' => false));
     }
 
 }
