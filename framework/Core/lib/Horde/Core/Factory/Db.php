@@ -102,6 +102,13 @@ class Horde_Core_Factory_Db
 
     /**
      */
+    public function getConfig($type)
+    {
+        return Horde::getDriverConfig($type, 'sql');
+    }
+
+    /**
+     */
     protected function _createDb($config)
     {
         if (!empty($config['splitread'])) {

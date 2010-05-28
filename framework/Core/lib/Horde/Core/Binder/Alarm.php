@@ -14,6 +14,8 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
 
         if (strcasecmp($driver, 'Sql') === 0) {
             $params['db'] = $injector->getInstance('Horde_Db')->getOb('horde', 'alarm');
+            $config = $injector->getInstance('Horde_Db')->getConfig('alarm');
+            $params['charset'] = $config['charset'];
         }
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
