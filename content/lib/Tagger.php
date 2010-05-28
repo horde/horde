@@ -32,7 +32,7 @@ class Content_Tagger
 {
     /**
      * Database connection
-     * @var Horde_Db
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
 
@@ -194,6 +194,36 @@ class Content_Tagger
     }
 
     /**
+     * Obtain all the tags for a given set of objects.
+     *
+     * @param array $objects  An array of local object ids
+     * @param mixed $type     Either a string type description, or an integer
+     *                        content type_id
+     * @return array  An array in the form of:
+     * <pre>
+     *      array('localobjectId' => array(array(tag_name, tag_id),
+     *                                     array(tag_name, tag_id)),
+     *            'anotherobjectid' => array(array(tag_name, tag_id),
+     *                                     array(tag_name, tag_id)))
+     * </pre>
+     */
+    public function getTagsByObjects($objects, $type)
+    {
+        $object_ids = $this->_objectManager->exists($objects, $type);
+        $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
+        $tags = $this->_db->selectAll($sql, array_keys($object_ids));
+        $results = array();
+        foreach ($tags as $tag) {
+            if (empty($results[$object_ids[$tag['object_id']]])) {
+                $results[$object_ids[$tag['object_id']]] = array();
+            }
+            $results[$object_ids[$tag['object_id']]][] = array('tag_id' => $tag['tag_id'], 'tag_name' => $tag['tag_name']);
+        }
+
+        return $results;
+    }
+
+    /**
      * Retrieve tags based on criteria.
      *
      * @param array  $args  Search criteria:
@@ -214,11 +244,13 @@ class Content_Tagger
             // have an integer, it's a valid object_id.
             if (is_array($args['objectId'])) {
                 $args['objectId'] = $this->_objectManager->exists($args['objectId']['object'], $args['objectId']['type']);
+                if ($args['objectId']) {
+                    $args['objectId'] = current(array_keys($args['objectId']));
+                }
             }
             if (!$args['objectId']) {
                 return array();
             }
-
             $sql = 'SELECT DISTINCT t.tag_id AS tag_id, tag_name FROM ' . $this->_t('tags') . ' AS t INNER JOIN ' . $this->_t('tagged') . ' AS tagged ON t.tag_id = tagged.tag_id AND tagged.object_id = ' . (int)$args['objectId'];
         } elseif (isset($args['userId']) && isset($args['typeId'])) {
             $args['userId'] = current($this->_userManager->ensureUsers($args['userId']));

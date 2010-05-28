@@ -20,7 +20,8 @@ class Content_Objects_Manager
 {
     /**
      * Database adapter
-     * @var Horde_Db_Adapter
+     *
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
 
@@ -54,12 +55,19 @@ class Content_Objects_Manager
      * Helps save queries for things like tags when we already know the object
      * doesn't yet exist in rampage tables.
      */
-    public function exists($object, $type)
+    public function exists($objects, $type)
     {
         $type = current($this->_typeManager->ensureTypes($type));
-        $id = $this->_db->selectValue('SELECT object_id FROM ' . $this->_t('objects') . ' WHERE object_name = ' . $this->_db->quote($object) . ' AND type_id = ' . $type);
-        if ($id) {
-            return (int)$id;
+        if (!is_array($objects)) {
+            $params = array($objects);
+        } else {
+            $params = $objects;
+        }
+        $params[] = $type;
+
+        $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
+        if ($ids) {
+            return $ids;
         }
 
         return false;
