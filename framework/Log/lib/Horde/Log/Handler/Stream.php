@@ -53,11 +53,14 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
     /**
      * Class Constructor
      *
-     * @param mixed $streamOrUrl   Stream or URL to open as a stream
-     * @param string $mode         Mode, only applicable if a URL is given
-     * @param Horde_Log_Formatter_Interface $formatter  Log formatter
+     * @param mixed $streamOrUrl                        Stream or URL to open
+     *                                                  as a stream.
+     * @param string $mode                              Mode, only applicable
+     *                                                  if a URL is given.
+     * @param Horde_Log_Formatter_Interface $formatter  Log formatter.
      */
-    public function __construct($streamOrUrl, $mode = 'a+', $formatter = null)
+    public function __construct($streamOrUrl, $mode = 'a+',
+                                Horde_Log_Formatter_Interface $formatter = null)
     {
         if (is_null($formatter)) {
             $formatter = new Horde_Log_Formatter_Simple();
@@ -87,7 +90,7 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
      */
     public function __wakeup()
     {
-        if (! $this->_stream = @fopen($this->_streamOrUrl, $this->_mode, false)) {
+        if (!($this->_stream = @fopen($this->_streamOrUrl, $this->_mode, false))) {
             $msg = '"' . $this->_streamOrUrl . '" cannot be opened with mode "' . $this->_mode . '"';
             throw new Horde_Log_Exception($msg);
         }
@@ -103,7 +106,7 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
     {
         $line = $this->_formatter->format($event);
 
-        if (! @fwrite($this->_stream, $line)) {
+        if (!@fwrite($this->_stream, $line)) {
             throw new Horde_Log_Exception("Unable to write to stream");
         }
 

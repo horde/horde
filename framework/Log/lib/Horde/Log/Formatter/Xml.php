@@ -22,7 +22,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Formatter_Xml
+class Horde_Log_Formatter_Xml implements Horde_Log_Formatter_Interface
 {
     protected $_options = array('elementEntry'     => 'log',
                                 'elementTimestamp' => 'timestamp',
