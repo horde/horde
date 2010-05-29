@@ -117,8 +117,9 @@ abstract class Kronolith_Event
     /**
      * Geolocation
      *
+     * @var arary
      */
-    public $geoLocation = null;
+    protected $_geoLocation;
 
     /**
      * Whether this is the event on the first day of a multi-day event.
@@ -299,14 +300,6 @@ abstract class Kronolith_Event
 
         if (!is_null($eventObject)) {
             $this->fromDriver($eventObject);
-
-            /* Get geolocation data */
-            if ($gDriver = Kronolith::getGeoDriver()) {
-                try {
-                    $this->geoLocation = $gDriver->getLocation($this->id);
-                } catch (Exception $e) {
-                }
-            }
         }
     }
 
@@ -366,7 +359,10 @@ abstract class Kronolith_Event
             return $this->{'_' . $name};
         case 'tags':
             return $this->getTags();
+        case 'geoLocation':
+            return $this->getGeolocation();
         }
+
         $trace = debug_backtrace();
         trigger_error('Undefined property via __set(): ' . $name
                       . ' in ' . $trace[0]['file']
@@ -2254,8 +2250,8 @@ abstract class Kronolith_Event
         $this->_tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
-        $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
-                                   'lon' => Horde_Util::getFormData('lon'));
+        $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
+                                    'lon' => Horde_Util::getFormData('lon')));
         $this->initialized = true;
     }
 
@@ -2735,6 +2731,33 @@ abstract class Kronolith_Event
         }
 
         return $this->_tags;
+    }
+
+    /**
+     * Setter for geo data
+     *
+     * @param array $data  An array of lat/lng data.
+     */
+    public function setGeoLocation($data)
+    {
+        $this->_geoLocation = $data;
+    }
+
+    /**
+     * Getter for geo data
+     * 
+     * @return array  An array of lat/lng data.
+     */
+    public function getGeolocation()
+    {
+        /* Get geolocation data */
+        if (($gDriver = Kronolith::getGeoDriver()) && !isset($this->_geoLocation)) {
+            try {
+                $this->_geoLocation = $gDriver->getLocation($this->id);
+            } catch (Exception $e) {}
+        }
+
+        return $this->_geoLocation;
     }
 
     private function _formIDEncode($id)

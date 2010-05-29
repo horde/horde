@@ -157,7 +157,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->description = $from->description;
         $to->url = $from->url;
         $to->setTags($from->tags);
-        $to->geoLocation = $from->geoLocation;
+        $to->setGeoLocation($from->geoLocation);
         $to->first = $from ->first;
         $to->last = $from->last;
         $to->start = $from->start;
