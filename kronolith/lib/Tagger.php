@@ -19,11 +19,6 @@ class Kronolith_Tagger
     protected $_type_ids = array();
 
     /**
-     * @var Content_Tagger
-     */
-    protected $_tagger;
-
-    /**
      * Constructor.
      *
      * @return Kronolith_Tagger
@@ -31,13 +26,17 @@ class Kronolith_Tagger
     public function __construct()
     {
         // Remember the types to avoid having Content query them again.
-        $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
-        $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-        $this->_type_ids = array('calendar' => (int)$types[0],
-                                 'event' => (int)$types[1]);
-
-        // Cache the tagger
-        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
+        $key = 'kronolith.tagger.type_ids';
+        $ids = $GLOBALS['injector']->getInstance('Horde_Cache')->get($key, 360);
+        if ($ids) {
+            $this->_type_ids = unserialize($ids);
+        } else {
+            $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+            $types = $type_mgr->ensureTypes(array('calendar', 'event'));
+            $this->_type_ids = array('calendar' => (int)$types[0],
+                                     'event' => (int)$types[1]);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));
+        }
     }
 
     /**
@@ -57,13 +56,14 @@ class Kronolith_Tagger
     {
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $this->_tagger->splitTags($tags);
+            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')->splitTags($tags);
         }
 
-        $this->_tagger->tag($owner,
-                            array('object' => $localId,
-                                  'type' => $this->_type_ids[$content_type]),
-                            $tags);
+        $GLOBALS['injector']->getInstance('Content_Tagger')->tag(
+                $owner,
+                array('object' => $localId,
+                      'type' => $this->_type_ids[$content_type]),
+                $tags);
     }
 
     /**
@@ -78,10 +78,10 @@ class Kronolith_Tagger
     public function getTags($localId, $type = 'event')
     {
         if (is_array($localId)) {
-            return $this->_tagger->getTagsByObjects($localId, $type);
+            return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagsByObjects($localId, $type);
         }
 
-        return $this->_tagger->getTags(array('objectId' => array('object' => $localId, 'type' => $this->_type_ids[$type])));
+        return $GLOBALS['injector']->getInstance('Content_Tagger')->getTags(array('objectId' => array('object' => $localId, 'type' => $this->_type_ids[$type])));
     }
 
     /**
@@ -96,7 +96,7 @@ class Kronolith_Tagger
      */
     public function untag($localId, $tags, $content_type = 'event')
     {
-        $this->_tagger->removeTagFromObject(
+        $GLOBALS['injector']->getInstance('Content_Tagger')->removeTagFromObject(
             array('object' => $localId, 'type' => $this->_type_ids[$content_type]), $tags);
     }
 
@@ -117,7 +117,7 @@ class Kronolith_Tagger
 
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $this->_tagger->splitTags($tags);
+            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')->splitTags($tags);
         }
         $remove = array();
         foreach ($existing_tags as $tag_id => $existing_tag) {
@@ -199,18 +199,18 @@ class Kronolith_Tagger
         }
 
         /* Add the tags to the search */
-        $args['tagId'] = $this->_tagger->getTagIds($tags);
+        $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags);
 
         /* Restrict to events or calendars? */
         $cal_results = $event_results = array();
         if (empty($filter['type']) || $filter['type'] == 'calendar') {
             $args['typeId'] = $this->_type_ids['calendar'];
-            $cal_results = $this->_tagger->getObjects($args);
+            $cal_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
 
         if (empty($filter['type']) || $filter['type'] == 'event') {
             $args['typeId'] = $this->_type_ids['event'];
-            $event_results = $this->_tagger->getObjects($args);
+            $event_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
         
         $results = array('calendars' => array_values($cal_results),
@@ -232,8 +232,8 @@ class Kronolith_Tagger
      */
     public function listTags($token)
     {
-        return $this->_tagger->getTags(array('q' => $token,
-                                             'userId' => Horde_Auth::getAuth()));
+        return $GLOBALS['injector']->getInstance('Content_Tagger')->getTags(
+                array('q' => $token, 'userId' => Horde_Auth::getAuth()));
     }
 
     /**
@@ -247,7 +247,7 @@ class Kronolith_Tagger
      */
     public function getCloud($user, $limit = 5)
     {
-        return $this->_tagger->getTagCloud(array('userId' => $user,
-                                                 'limit' => $limit));
+        return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagCloud(
+                array('userId' => $user, 'limit' => $limit));
     }
 }
