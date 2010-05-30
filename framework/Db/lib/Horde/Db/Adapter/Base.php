@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-abstract class Horde_Db_Adapter_Base
+abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 {
     /**
      * Config options.
@@ -314,11 +314,6 @@ abstract class Horde_Db_Adapter_Base
     /*##########################################################################
     # Connection Management
     ##########################################################################*/
-
-    /**
-     * Connect to the db.
-     */
-    abstract public function connect();
 
     /**
      * Is the connection active?
@@ -768,5 +763,4 @@ abstract class Horde_Db_Adapter_Base
     {
         return "SQL $message  \n\t" . wordwrap(preg_replace("/\s+/", ' ', $sql), 70, "\n\t  ", 1);
     }
-
 }
