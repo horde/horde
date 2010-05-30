@@ -62,22 +62,22 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
     {
         if (!is_null(self::$conn)) { return self::$conn; }
 
-        if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
-        $cache = new CacheMock;
-
         $config = getenv('DB_ADAPTER_PDO_PGSQL_TEST_CONFIG');
         if ($config === false) {
             $config = dirname(__FILE__) . '/../conf.php';
         }
         if (file_exists($config)) {
             require $config;
-            $conf['db']['adapter']['pdo']['pgsql']['test']['cache'] = $cache;
         }
         if (!isset($conf['db']['adapter']['pdo']['pgsql']['test'])) {
             throw new Exception('No configuration for pdo pgsql test.');
         }
 
         $conn = new Horde_Db_Adapter_Pdo_Pgsql($conf['db']['adapter']['pdo']['pgsql']['test']);
+
+        $cache = new Horde_Cache_Mock();
+        $conn->setCache($cache);
+
         return array($conn, $cache);
     }
 
