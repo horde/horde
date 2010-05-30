@@ -188,27 +188,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 
 
     /*##########################################################################
-    # Object factory
-    ##########################################################################*/
-
-    /**
-     * Delegate calls to the schema object.
-     *
-     * @param  string  $method
-     * @param  array   $args
-     *
-     * @return TODO
-     */
-    public function componentFactory($component, $args)
-    {
-        $class = str_replace('_Schema', '', $this->_schemaClass) . '_' . $component;
-        $class = new ReflectionClass(class_exists($class) ? $class : __CLASS__ . '_' . $component);
-
-        return $class->newInstanceArgs($args);
-    }
-
-
-    /*##########################################################################
     # Object composition
     ##########################################################################*/
 

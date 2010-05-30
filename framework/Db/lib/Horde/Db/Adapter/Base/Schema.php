@@ -63,6 +63,53 @@ abstract class Horde_Db_Adapter_Base_Schema
 
 
     /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Base_Column($name, $default, $sqlType, $null);
+    }
+
+    /**
+     * Factory for ColumnDefinition objects
+     */
+    public function makeColumnDefinition($base, $name, $type, $limit = null,
+        $precision = null, $scale = null, $unsigned = null,
+        $default = null, $null = null, $autoincrement = null)
+    {
+        return new Horde_Db_Adapter_Base_ColumnDefinition($base, $name, $type, $limit, $precision, $scale, $unsigned, $default, $null, $autoincrement);
+    }
+
+    /**
+     * Factory for Index objects
+     */
+    public function makeIndex($table, $name, $primary, $unique, $columns)
+    {
+        return new Horde_Db_Adapter_Base_Index($table, $name, $primary, $unique, $columns);
+    }
+
+    /**
+     * Factory for Table objects
+     */
+    public function makeTable($name, $primaryKey, $columns, $indexes)
+    {
+        return new Horde_Db_Adapter_Base_Table($name, $primaryKey, $columns, $indexes);
+    }
+
+    /**
+     * Factory for TableDefinition objects
+     */
+    public function makeTableDefinition($name, $base, $options = array())
+    {
+        return new Horde_Db_Adapter_Base_TableDefinition($name, $base, $options);
+    }
+
+
+    /*##########################################################################
     # Object composition
     ##########################################################################*/
 
@@ -258,12 +305,12 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function table($tableName, $name = null)
     {
-        return $this->componentFactory('Table', array(
+        return $this->makeTable(
             $tableName,
             $this->primaryKey($tableName),
             $this->columns($tableName, $name),
-            $this->indexes($tableName, $name),
-        ));
+            $this->indexes($tableName, $name)
+        );
     }
 
     /**
@@ -358,8 +405,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function createTable($name, $options=array())
     {
-        $tableDefinition =
-            $this->componentFactory('TableDefinition', array($name, $this, $options));
+        $tableDefinition = $this->makeTableDefinition($name, $this, $options);
 
         if (isset($options['primaryKey'])) {
             if ($options['primaryKey'] === false) {

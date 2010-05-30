@@ -30,6 +30,19 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
 
     /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Postgresql_Column($name, $default, $sqlType, $null);
+    }
+
+
+    /*##########################################################################
     # Quoting
     ##########################################################################*/
 
@@ -208,7 +221,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                   ' AND constraint_name = ' . $this->quoteString($tableName . '_pkey');
         $pk = $this->selectValues($sql, $name);
 
-        return $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, $pk));
+        return $this->makeIndex($tableName, 'PRIMARY', true, true, $pk);
     }
 
     /**
@@ -249,8 +262,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             foreach ($result as $row) {
                 if ($currentIndex != $row[0]) {
                     $currentIndex = $row[0];
-                    $indexes[] = $this->componentFactory('Index', array(
-                        $tableName, $row[0], false, $row[1] == 't', array()));
+                    $indexes[] = $this->makeIndex(
+                        $tableName, $row[0], false, $row[1] == 't', array());
                 }
                 $indexes[count($indexes) - 1]->columns[] = $row[2];
             }
@@ -277,8 +290,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row[0]] = $this->componentFactory('Column', array(
-                $row[0], $row[2], $row[1], !(boolean)$row[3]));
+            $columns[$row[0]] = $this->makeColumn(
+                $row[0], $row[2], $row[1], !(boolean)$row[3]);
         }
         return $columns;
     }

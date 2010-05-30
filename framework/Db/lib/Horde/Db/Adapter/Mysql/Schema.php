@@ -24,6 +24,19 @@
 class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
 {
     /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Mysql_Column($name, $default, $sqlType, $null);
+    }
+
+
+    /*##########################################################################
     # Quoting
     ##########################################################################*/
 
@@ -192,7 +205,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
             $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
-        $pk = $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array()));
+        $pk = $this->makeIndex($tableName, 'PRIMARY', true, true, array());
         foreach ($rows as $row) {
             if ($row['Key'] == 'PRI') {
                 $pk->columns[] = $row['Field'];
@@ -221,8 +234,8 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                         continue;
                     }
                     $currentIndex = $row['Key_name'];
-                    $indexes[] = $this->componentFactory('Index', array(
-                        $tableName, $row['Key_name'], false, $row['Non_unique'] == '0', array()));
+                    $indexes[] = $this->makeIndex(
+                        $tableName, $row['Key_name'], false, $row['Non_unique'] == '0', array());
                 }
                 $indexes[count($indexes) - 1]->columns[] = $row['Column_name'];
             }
@@ -250,8 +263,8 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row['Field']] = $this->componentFactory('Column', array(
-                $row['Field'], $row['Default'], $row['Type'], $row['Null'] == 'YES'));
+            $columns[$row['Field']] = $this->makeColumn(
+                $row['Field'], $row['Default'], $row['Type'], $row['Null'] == 'YES');
         }
 
         return $columns;

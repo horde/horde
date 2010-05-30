@@ -24,6 +24,19 @@
 class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 {
     /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Sqlite_Column($name, $default, $sqlType, $null);
+    }
+
+
+    /*##########################################################################
     # Quoting
     ##########################################################################*/
 
@@ -123,7 +136,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
-        $pk = $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array()));
+        $pk = $this->makeIndex($tableName, 'PRIMARY', true, true, array());
         foreach ($rows as $row) {
             if ($row['pk'] == 1) {
                 $pk->columns[] = $row['name'];
@@ -146,8 +159,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         if (!$indexes) {
             $indexes = array();
             foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
-                $index = $this->componentFactory('Index', array(
-                    $tableName, $row['name'], false, (bool)$row['unique'], array()));
+                $index = $this->makeIndex(
+                    $tableName, $row['name'], false, (bool)$row['unique'], array());
                 foreach ($this->select('PRAGMA index_info(' . $this->quoteColumnName($index->name) . ')') as $field) {
                     $index->columns[] = $field['name'];
                 }
@@ -178,8 +191,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row[1]] = $this->componentFactory('Column', array(
-                $row[1], $row[4], $row[2], !(bool)$row[3]));
+            $columns[$row[1]] = $this->makeColumn(
+                $row[1], $row[4], $row[2], !(bool)$row[3]);
         }
 
         return $columns;
