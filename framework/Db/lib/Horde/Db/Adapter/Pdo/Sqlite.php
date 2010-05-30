@@ -148,7 +148,7 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Base
     /**
      * SELECT ... FOR UPDATE is redundant since the table is locked.
      */
-    public function addLock(&$sql, $options = array())
+    public function addLock(&$sql, array $options = array())
     {
     }
 
