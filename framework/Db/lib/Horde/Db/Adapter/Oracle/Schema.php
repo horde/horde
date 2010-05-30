@@ -81,8 +81,8 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $this->execute(
             'CREATE TRIGGER ' . $trigger_name . ' ' .
             'BEFORE INSERT ON ' . $this->quoteTableName($tableName) . ' ' .
-            'FOR EACH ROW '
-            'BEGIN '
+            'FOR EACH ROW ' .
+            'BEGIN ' .
             'SELECT ' . $seq_name . '.nextval INTO :new.' . $columnName . ' FROM dual; END'
         );
         $this->commitDbTransaction();
