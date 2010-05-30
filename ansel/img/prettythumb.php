@@ -27,7 +27,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
         Horde::logMessage($e, 'ERR');
         exit;
     }
-    $filename = $ansel_vfs->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
+    $filename = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
     header('Content-Type: ' . $image->getType('prettythumb'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);

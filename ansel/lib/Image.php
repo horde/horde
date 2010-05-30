@@ -307,7 +307,7 @@ class Ansel_Image Implements Iterator
 
         /* Read in the requested view. */
         try {
-            $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
+            $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($vfspath, $this->getVFSName($view));
         } catch (VFS_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
@@ -355,7 +355,7 @@ class Ansel_Image Implements Iterator
             $vfsname .= 'png';
         }
 
-        if ($GLOBALS['ansel_vfs']->exists($vfspath, $vfsname)) {
+        if ($GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->exists($vfspath, $vfsname)) {
             return $view . '/' . $vfsname;
         } else {
             return false;
@@ -380,11 +380,11 @@ class Ansel_Image Implements Iterator
 
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
-        if ($GLOBALS['ansel_vfs']->exists($vfspath, $this->getVFSName($view))) {
+        if ($GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->exists($vfspath, $this->getVFSName($view))) {
             return true;
         }
         try {
-            $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'), $this->getVFSName('full'));
+            $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($this->getVFSPath('full'), $this->getVFSName('full'));
         } catch (VFS_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Ansel_Exception($e);
@@ -427,7 +427,7 @@ class Ansel_Image Implements Iterator
         /* ...and put it in Horde_Image obejct, then save */
         $this->_image->loadString($this->_data[$vHash]);
         $this->_loaded[$vHash] = true;
-        $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
+        $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
 
         /* Autowatermark the screen view */
         if ($view == 'screen' &&
@@ -435,7 +435,7 @@ class Ansel_Image Implements Iterator
             $GLOBALS['prefs']->getValue('watermark_text') != '') {
 
             $this->watermark('screen');
-            $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
+            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
         }
 
         return true;
@@ -452,7 +452,7 @@ class Ansel_Image Implements Iterator
         $this->_dirty = false;
 
         try {
-            $GLOBALS['ansel_vfs']->writeData($this->getVFSPath('full'),
+            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->writeData($this->getVFSPath('full'),
                                              $this->getVFSName('full'),
                                              $this->_data['full'], true);
         } catch (VFS_Exception $e) {
@@ -481,7 +481,7 @@ class Ansel_Image Implements Iterator
         }
 
         try {
-            $GLOBALS['ansel_vfs']->writeData($this->getVFSPath($view),
+            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->writeData($this->getVFSPath($view),
                                              $this->getVFSName($view),
                                              $data, true);
         } catch (VFS_Exception $e) {
@@ -626,7 +626,7 @@ class Ansel_Image Implements Iterator
 
         /* Get the data */
         try {
-            $imageFile = $GLOBALS['ansel_vfs']->readFile($this->getVFSPath('full'),
+            $imageFile = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile($this->getVFSPath('full'),
                                                          $this->getVFSName('full'));
         } catch (VFS_Exception $e) {
             throw new Ansel_Exception($e);
@@ -752,19 +752,19 @@ class Ansel_Image Implements Iterator
         try {
             /* Delete cached screen image. (We don't care if the file is not found) */
             if ($view == 'all' || $view == 'screen') {
-                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('screen'),
+                $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($this->getVFSPath('screen'),
                                                   $this->getVFSName('screen'));
             }
 
             /* Delete cached thumbnail. */
             if ($view == 'all' || $view == 'thumb') {
-                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('thumb'),
+                $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($this->getVFSPath('thumb'),
                                                   $this->getVFSName('thumb'));
             }
 
             /* Delete cached mini image. */
             if ($view == 'all' || $view == 'mini') {
-                $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('mini'),
+                $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($this->getVFSPath('mini'),
                                                   $this->getVFSName('mini'));
             }
 
@@ -778,7 +778,7 @@ class Ansel_Image Implements Iterator
                 foreach ($styles as $style) {
                     $hash =  md5($style['thumbstyle'] . '.' . $style['background']);
                     if (empty($deleted[$hash])) {
-                        $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath($hash),
+                        $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($this->getVFSPath($hash),
                                                           $this->getVFSName($hash));
                         $deleted[$hash] = true;
                     }
@@ -847,7 +847,7 @@ class Ansel_Image Implements Iterator
             }
 
             try {
-                $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'),
+                $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($this->getVFSPath('full'),
                                                     $this->getVFSName('full'));
             } catch (VFS_Exception $e) {
                 throw new Ansel_Exception($e);

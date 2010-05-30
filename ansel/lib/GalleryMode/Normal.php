@@ -241,8 +241,7 @@ class Ansel_GalleryMode_Normal {
 
         /* Delete original image from VFS. */
         try {
-            $GLOBALS['ansel_vfs']->deleteFile($image->getVFSPath('full'),
-                                              $image->getVFSName('full'));
+            $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($image->getVFSPath('full'), $image->getVFSName('full'));
         } catch (VFS_Exception $e) {}
 
         /* Delete from SQL. */

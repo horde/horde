@@ -615,14 +615,17 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function getDefaultImage($style = null)
     {
+        /* Get the available styles */
+        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
+
        // Check for explicitly requested style
         if (!is_null($style)) {
             $gal_style = Ansel::getStyleDefinition($style);
         } else {
             // Use gallery's default.
             $gal_style = $this->getStyle();
-            if (!isset($GLOBALS['ansel_styles'][$gal_style['name']])) {
-                $gal_style = $GLOBALS['ansel_styles']['ansel_default'];
+            if (!isset($styles[$gal_style['name']])) {
+                $gal_style = $styles['ansel_default'];
             }
         }
         Horde::logMessage(sprintf("using gallery style: %s in Ansel::getDefaultImage()", $gal_style['name']), 'DEBUG');

@@ -50,19 +50,15 @@ class Ansel_Storage
     /**
      * Const'r
      *
-     * @param string $scope  The application scope to store images under.
+     * @param Horde_Share_Sql_Hierarchical  The share object
      *
      * @return Ansel_Storage
      */
-    public function __construct($scope = null)
+    public function __construct(Horde_Share_Sql_Hierarchical $shareOb)
     {
-        /* Check for a scope other than the default Ansel scope.*/
-        if (!is_null($scope)) {
-            $this->_scope = $scope;
-        }
-
         /* This is the only supported share backend for Ansel */
-        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($this->_scope, 'Sql_Hierarchical');
+        $this->_shares = $shareOb;
+
         /* Ansel_Gallery is just a subclass of Horde_Share_Object */
         $this->_shares->setShareClass('Ansel_Gallery');
 

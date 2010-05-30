@@ -49,9 +49,6 @@ class Ansel_Application extends Horde_Registry_Application
      * Global variables defined:
      *   $ansel_db - TODO
      *   $ansel_storage - TODO
-     *   $ansel_styles - TODO
-     *   $ansel_vfs - TODO
-     *   $cache - A Horde_Cache object.
      *
      * @throws Horde_Exception
      */
@@ -61,14 +58,20 @@ class Ansel_Application extends Horde_Registry_Application
             throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');
         }
 
+        $binders = array(
+            'Ansel_Storage' => new Ansel_Injector_Binder_Storage(),
+            'Ansel_Styles' => new Ansel_Injector_Binder_Styles(),
+        );
+        foreach ($binders as $interface => $binder) {
+            $GLOBALS['injector']->addBinder($interface, $binder);
+        }
+
         // Create db, share, and vfs instances.
         $GLOBALS['ansel_db'] = Ansel::getDb();
-        $GLOBALS['ansel_storage'] = new Ansel_Storage();
-        $GLOBALS['ansel_vfs'] = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images');
+        $GLOBALS['ansel_storage'] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope('ansel');
 
-        // Get list of available styles for this client.
-        $GLOBALS['ansel_styles'] = Ansel::getAvailableStyles();
-        $GLOBALS['ansel_vfs']->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+        /* Set a logger for the Vfs */
+        $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
     }
 
     /**

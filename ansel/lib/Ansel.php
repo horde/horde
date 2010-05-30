@@ -787,45 +787,6 @@ class Ansel
     }
 
     /**
-     * Get an array of all currently viewable styles.
-     *
-     * @return array
-     */
-    static public function getAvailableStyles()
-    {
-        /* Brings in the $styles array in this scope only */
-        $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-
-        /* No prettythumbs allowed at all by admin choice */
-        if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
-            $test = $styles;
-            foreach ($test as $key => $style) {
-                if ($style['thumbstyle'] != 'thumb') {
-                    unset($styles[$key]);
-                }
-            }
-        }
-
-        /* Check if the browser / server has png support */
-        if ($GLOBALS['browser']->hasQuirk('png_transparency') ||
-            $GLOBALS['conf']['image']['type'] != 'png') {
-
-            $test = $styles;
-            foreach ($test as $key => $style) {
-                if (!empty($style['requires_png'])) {
-                    if (!empty($style['fallback'])) {
-                        $styles[$key] = $styles[$style['fallback']];
-                    } else {
-                        unset($styles[$key]);
-                    }
-                }
-            }
-        }
-
-        return $styles;
-    }
-
-    /**
      * Get a style definition for the requested named style
      *
      * @param string $style  The name of the style to fetch
@@ -835,10 +796,11 @@ class Ansel
      */
     static public function getStyleDefinition($style)
     {
-        if (isset($GLOBALS['ansel_styles'][$style])) {
-            $style_def = $GLOBALS['ansel_styles'][$style];
+        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
+        if (isset($styles[$style])) {
+            $style_def = $styles[$style];
         } else {
-            $style_def = $GLOBALS['ansel_styles']['ansel_default'];
+            $style_def = $styles['ansel_default'];
         }
 
         /* Fill in defaults */

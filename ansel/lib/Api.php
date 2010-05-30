@@ -615,7 +615,7 @@ class Ansel_Api extends Horde_Registry_Api
                 throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
             }
             try {
-                $data = $GLOBALS['ansel_vfs']->read($image->getVFSPath('full'), $image->getVFSName('full'));
+                $data = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->read($image->getVFSPath('full'), $image->getVFSName('full'));
             } catch (VFS_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Ansel_Exception($e->getMessage());
@@ -982,7 +982,7 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function getGalleryStyles()
     {
-        return Ansel::getAvailableStyles();
+        return $GLOBALS['injector']->getInstance('Ansel_Styles');
     }
 
     /**
