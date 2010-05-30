@@ -2,7 +2,7 @@
 /**
  * Fake class to autoload Scribe and required Thrift classes
  */
-class Horde_Scribe extends Horde_Thrift
+interface Horde_Scribe extends Horde_Thrift
 {
 }
 

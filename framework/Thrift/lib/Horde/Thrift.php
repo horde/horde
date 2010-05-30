@@ -2,7 +2,7 @@
 /**
  * Fake class to autoload generated Thrift code
  */
-class Horde_Thrift
+interface Horde_Thrift
 {
 }
 
