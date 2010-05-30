@@ -37,6 +37,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Scribe">
+      <file name="Client.php" role="php" />
+     </dir> <!-- /lib/Horde/Scribe -->
      <file name="Scribe.php" role="php" />
      <dir name="Thrift">
       <dir name="thrift_root">
@@ -64,6 +67,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Scribe/Client.php" as="Horde/Scribe/Client.php" />
    <install name="lib/Horde/Scribe.php" as="Horde/Scribe.php" />
    <install name="lib/Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" as="Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" />
    <install name="lib/Horde/Thrift/thrift_root/scribe.php" as="Horde/Thrift/thrift_root/scribe.php" />
