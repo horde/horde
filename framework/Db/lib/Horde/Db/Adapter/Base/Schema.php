@@ -420,7 +420,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $sql  = "CREATE $temp TABLE ".$this->quoteTableName($tableDefinition->getName())." (\n".
                   $tableDefinition->toSql()."\n".
                 ") $opts";
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
     /**
@@ -441,7 +441,7 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function dropTable($name)
     {
         $this->_clearTableCache($name);
-        return $this->executeWrite('DROP TABLE ' . $this->quoteTableName($name));
+        return $this->execute('DROP TABLE ' . $this->quoteTableName($name));
     }
 
     /**
@@ -466,7 +466,7 @@ abstract class Horde_Db_Adapter_Base_Schema
             ' ADD '.$this->quoteColumnName($columnName) .
             ' '.$this->typeToSql($type, $limit, $precision, $scale, $unsigned);
         $sql = $this->addColumnOptions($sql, $options);
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
     /**
@@ -482,7 +482,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         $sql = 'ALTER TABLE ' . $this->quoteTableName($tableName).' DROP '.$this->quoteColumnName($columnName);
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
     /**
@@ -574,7 +574,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $quotedColumnNames = implode(', ', $quotedCols);
         $sql = "CREATE $indexType INDEX ".$this->quoteColumnName($indexName).
             'ON '.$this->quoteTableName($tableName) . " ($quotedColumnNames)";
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
     /**
@@ -600,7 +600,7 @@ abstract class Horde_Db_Adapter_Base_Schema
 
         $index = $this->indexName($tableName, $options);
         $sql = "DROP INDEX ".$this->quoteColumnName($index).' ON ' . $this->quoteTableName($tableName);
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
     /**

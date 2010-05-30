@@ -226,7 +226,6 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $dsnOpts['persistent'],
             $dsnOpts['charset'],
             $dsnOpts['phptype'],
-            $dsnOpts['write_db']
         );
 
         // return DSN and user/pass for connection
@@ -235,5 +234,4 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $this->_config['username'],
             $this->_config['password']);
     }
-
 }

@@ -141,10 +141,6 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
                            $idValue = null, $sequenceName = null)
     {
-        if ($this->_write) {
-            return $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
-        }
-
         // Extract the table from the insert sql. Yuck.
         $temp = explode(' ', $sql, 4);
         $table = str_replace('"', '', $temp[2]);
@@ -254,5 +250,4 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     {
         return (int)$this->selectValue('SELECT currval('.$this->quoteSequenceName($sequenceName).')');
     }
-
 }

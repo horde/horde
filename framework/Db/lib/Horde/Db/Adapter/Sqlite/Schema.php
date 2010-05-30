@@ -193,7 +193,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($name);
 
-        return $this->executeWrite('ALTER TABLE ' . $this->quoteTableName($name) . ' RENAME TO ' . $this->quoteTableName($newName));
+        return $this->execute('ALTER TABLE ' . $this->quoteTableName($name) . ' RENAME TO ' . $this->quoteTableName($newName));
     }
 
     /**
@@ -216,7 +216,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         parent::addColumn($tableName, $columnName, $type, $options);
 
         // See last paragraph on http://www.sqlite.org/lang_altertable.html
-        $this->executeWrite('VACUUM');
+        $this->execute('VACUUM');
     }
 
     /**
@@ -304,7 +304,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $index = $this->indexName($tableName, $options);
         $sql = 'DROP INDEX '.$this->quoteColumnName($index);
-        return $this->executeWrite($sql);
+        return $this->execute($sql);
     }
 
 
@@ -436,6 +436,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $quotedFrom = $this->quoteTableName($from);
         $quotedFromColumns = implode(', ', array_map(array($this, 'quoteColumnName'), $fromColumns));
 
-        $this->insert("INSERT INTO $quotedTo ($quotedToColumns) SELECT $quotedFromColumns FROM $quotedFrom");
+        $this->execute("INSERT INTO $quotedTo ($quotedToColumns) SELECT $quotedFromColumns FROM $quotedFrom");
     }
 }

@@ -95,7 +95,6 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
             $dsnOpts['adapter'],
             $dsnOpts['username'],
             $dsnOpts['password'],
-            $dsnOpts['write_db']
         );
         $dsnOpts = $this->_normalizeConfig($dsnOpts);
 
@@ -117,5 +116,4 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
             $this->_config['username'],
             $this->_config['password']);
     }
-
 }

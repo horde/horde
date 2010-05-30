@@ -31,7 +31,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>* Add support for adding autoincrement to a column.
- * Add ability to define a write DB for use with split-DB installations.
  * Initial release
  </notes>
  <contents>

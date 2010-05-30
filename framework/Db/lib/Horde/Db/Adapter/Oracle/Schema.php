@@ -77,8 +77,8 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $trigger_name = $tableName . '_' . $columnName . '_trigger';
 
         $this->beginDbTransaction();
-        $this->executeWrite('CREATE SEQUENCE ' . $seq_name);
-        $this->executeWrite(
+        $this->execute('CREATE SEQUENCE ' . $seq_name);
+        $this->execute(
             'CREATE TRIGGER ' . $trigger_name . ' ' .
             'BEFORE INSERT ON ' . $this->quoteTableName($tableName) . ' ' .
             'FOR EACH ROW '

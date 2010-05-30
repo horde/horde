@@ -149,5 +149,4 @@ class Horde_Core_Factory_Db
 
         throw new Horde_Exception('Adapter class "' . $class . '" not found');
     }
-
 }

@@ -100,13 +100,6 @@ abstract class Horde_Db_Adapter_Base
      */
     protected $_schemaMethods = array();
 
-    /**
-     * Write DB
-     *
-     * @var Horde_Db_Adapter_Base
-     */
-    protected $_write;
-
 
     /*##########################################################################
     # Construct/Destruct
@@ -118,7 +111,6 @@ abstract class Horde_Db_Adapter_Base
      * @param array $config  Configuration options and optional objects:
      * <pre>
      * 'charset' - (string) TODO
-     * 'write_db' - (Horde_Db_Adapter_Base) Use this DB for write operations.
      * </pre>
      */
     public function __construct($config)
@@ -545,26 +537,6 @@ abstract class Horde_Db_Adapter_Base
     }
 
     /**
-     * Executes the SQL statement in the context of this connection.
-     * Uses the write DB if necessary.
-     *
-     * @param string $sql   SQL statement.
-     * @param mixed $arg1   Either an array of bound parameters or a query
-     *                      name.
-     * @param string $arg2  If $arg1 contains bound parameters, the query
-     *                      name.
-     *
-     * @return Traversable
-     * @throws Horde_Db_Exception
-     */
-    public function executeWrite($sql, $arg1 = null, $arg2 = null)
-    {
-        return $this->_write
-            ? $this->_write->execute($sql, $arg1, $arg2)
-            : $this->execute($sql, $arg1, $arg2);
-    }
-
-    /**
      * Returns the last auto-generated ID from the affected table.
      *
      * @param string $sql           SQL statement.
@@ -582,10 +554,6 @@ abstract class Horde_Db_Adapter_Base
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
                            $idValue = null, $sequenceName = null)
     {
-        if ($this->_write) {
-            return $this->_write->insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName);
-        }
-
         $this->execute($sql, $arg1, $arg2);
 
         return isset($idValue)
@@ -607,10 +575,6 @@ abstract class Horde_Db_Adapter_Base
      */
     public function update($sql, $arg1 = null, $arg2 = null)
     {
-        if ($this->_write) {
-            return $this->_write->update($sql, $arg1, $arg2);
-        }
-
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
     }
@@ -629,10 +593,6 @@ abstract class Horde_Db_Adapter_Base
      */
     public function delete($sql, $arg1 = null, $arg2 = null)
     {
-        if ($this->_write) {
-            return $this->_write->delete($sql, $arg1, $arg2);
-        }
-
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
     }
@@ -644,9 +604,7 @@ abstract class Horde_Db_Adapter_Base
      */
     public function transactionStarted()
     {
-        return $this->_write
-            ? $this->_write->transactionStarted()
-            : $this->_transactionStarted;
+        return $this->_transactionStarted;
     }
 
     /**
@@ -654,12 +612,8 @@ abstract class Horde_Db_Adapter_Base
      */
     public function beginDbTransaction()
     {
-        if ($this->_write) {
-            $this->_write->beginDbTransaction();
-        } elseif (!$this->_transactionStarted) {
-            $this->_transactionStarted = true;
-            $this->_connection->beginTransaction();
-        }
+        $this->_transactionStarted = true;
+        $this->_connection->beginTransaction();
     }
 
     /**
@@ -667,12 +621,8 @@ abstract class Horde_Db_Adapter_Base
      */
     public function commitDbTransaction()
     {
-        if ($this->_write) {
-            $this->_write->commitDbTransaction();
-        } elseif ($this->_transactionStarted) {
-            $this->_connection->commit();
-            $this->_transactionStarted = false;
-        }
+        $this->_connection->commit();
+        $this->_transactionStarted = false;
     }
 
     /**
@@ -681,12 +631,10 @@ abstract class Horde_Db_Adapter_Base
      */
     public function rollbackDbTransaction()
     {
-        if ($this->_write) {
-            $this->_write->rollbackDbTransaction();
-        } elseif ($this->_transactionStarted) {
-            $this->_connection->rollBack();
-            $this->_transactionStarted = false;
-        }
+        if (! $this->_transactionStarted) { return; }
+
+        $this->_connection->rollBack();
+        $this->_transactionStarted = false;
     }
 
     /**
@@ -748,10 +696,6 @@ abstract class Horde_Db_Adapter_Base
      */
     public function insertFixture($fixture, $tableName)
     {
-        if ($this->_write) {
-            return $this->_write->insertFixture($fixture, $tableName);
-        }
-
         /*@TODO*/
         return $this->execute("INSERT INTO #{quote_table_name(table_name)} (#{fixture.key_list}) VALUES (#{fixture.value_list})", 'Fixture Insert');
     }

@@ -336,7 +336,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function insert($sql, $arg1=null, $arg2=null, $pk=null, $idValue=null, $sequenceName=null)
     {
-        $this->executeWrite($sql, $arg1, $arg2);
+        $this->execute($sql, $arg1, $arg2);
         return isset($idValue) ? $idValue : $this->_insertId;
     }
 
