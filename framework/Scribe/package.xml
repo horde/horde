@@ -39,12 +39,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <file name="Scribe.php" role="php" />
      <dir name="Thrift">
-      <dir name="packages">
-       <dir name="scribe">
-        <file name="scribe_types.php" role="php" />
-       </dir> <!-- /lib/Horde/Thrift/packages/scribe -->
-      </dir> <!-- /lib/Horde/Thrift/packages -->
-      <file name="scribe.php" role="php" />
+      <dir name="thrift_root">
+       <dir name="packages">
+        <dir name="scribe">
+         <file name="scribe_types.php" role="php" />
+        </dir> <!-- /lib/Horde/Thrift/thrift_root/packages/scribe -->
+       </dir> <!-- /lib/Horde/Thrift/thrift_root/packages -->
+       <file name="scribe.php" role="php" />
+      </dir> <!-- /lib/Horde/Thrift/thrift_root -->
      </dir> <!-- /lib/Horde/Thrift -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -63,8 +65,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Scribe.php" as="Horde/Scribe.php" />
-   <install name="lib/Horde/Thrift/packages/scribe/scribe_types.php" as="Horde/Thrift/packages/scribe/scribe_types.php" />
-   <install name="lib/Horde/Thrift/scribe.php" as="Horde/Thrift/scribe.php" />
+   <install name="lib/Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" as="Horde/Thrift/thrift_root/packages/scribe/scribe_types.php" />
+   <install name="lib/Horde/Thrift/thrift_root/scribe.php" as="Horde/Thrift/thrift_root/scribe.php" />
   </filelist>
  </phprelease>
  <changelog/>
