@@ -16,13 +16,24 @@ class Horde_Ui_JsCalendar
     /**
      * Output the necessary javascript code to allow display of the calendar
      * widget.
+     *
+     * @param array $params  Configuration parameters for the widget:
+     *                       - short_weekdays: display only the first letter of
+     *                         weekdays?
      */
-    static public function init()
+    static public function init($params = array())
     {
+        $params += array('short_weekdays' => false);
+        $weekdays = self::weekdays();
+        if ($params['short_weekdays']) {
+            foreach ($weekdays as &$day) {
+                $day = substr($day, 0, 1);
+            }
+        }
         Horde::addScriptFile('calendar.js', 'horde');
         Horde::addInlineScript(array(
             'Horde_Calendar.firstDayOfWeek = ' . (isset($GLOBALS['prefs']) ? intval($GLOBALS['prefs']->getValue('first_week_day')) : 1),
-            'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize(self::weekdays(), Horde_Serialize::JSON, Horde_Nls::getCharset()),
+            'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize($weekdays, Horde_Serialize::JSON, Horde_Nls::getCharset()),
             'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, Horde_Nls::getCharset()),
         ));
     }

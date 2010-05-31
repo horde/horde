@@ -77,7 +77,7 @@ class Kronolith
         Horde::addScriptFile('date/' . $datejs, 'horde');
         Horde::addScriptFile('date/date.js', 'horde');
         Horde::addScriptFile('kronolith.js', 'kronolith');
-        Horde_Ui_JsCalendar::init();
+        Horde_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         if (isset($GLOBALS['language'])) {
             header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
