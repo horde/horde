@@ -1224,8 +1224,9 @@ class Horde_Registry
         /* Otherwise, allow access for admins, for apps that do not have any
          * explicit permissions, or for apps that allow the given permission. */
         return Horde_Auth::isAdmin() ||
-            !$GLOBALS['injector']->getInstance('Horde_Perms')->exists($app) ||
-            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, Horde_Auth::getAuth(), $perms);
+            ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($app)
+             ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, Horde_Auth::getAuth(), $perms)
+             : (bool)Horde_Auth::getAuth());
     }
 
     /**
