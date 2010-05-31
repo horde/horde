@@ -149,6 +149,31 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     }
 
     /**
+     * Add one or several references to foreign keys
+     *
+     * This method returns <tt>self</tt>.
+     */
+    public function belongsTo($columns)
+    {
+        if (!is_array($columns)) { $columns = array($columns); }
+        foreach ($columns as $col) {
+            $this->column($col . '_id', 'integer');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Alias for the belongsTo() method
+     *
+     * This method returns <tt>self</tt>.
+     */
+    public function references($columns)
+    {
+        return $this->belongsTo($columns);
+    }
+
+    /**
      * Use __call to provide shorthand column creation ($this->integer(), etc.)
      */
     public function __call($method, $arguments)
