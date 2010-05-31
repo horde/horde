@@ -18,7 +18,7 @@ $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $name = '';
 $autocreate = true;
 $image_id = (int)Horde_Util::getPost('image');
-$reload = (int)Horde_Util::gePost('reload');
+$reload = (int)Horde_Util::getPost('reload');
 $result = $faces->getImageFacesData($image_id);
 
 // Attempt to get faces from the picture if we don't already have results,
