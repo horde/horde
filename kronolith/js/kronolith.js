@@ -2541,13 +2541,32 @@ KronolithCore = {
         this.closeRedBox();
         this.quickClose();
 
+        var type = calendar.split('|')[0], cal = calendar.split('|')[1];
+
+        if (cal &&
+            (Object.isUndefined(Kronolith.conf.calendars[type]) ||
+             Object.isUndefined(Kronolith.conf.calendars[type][cal])) &&
+            (type == 'internal' || type == 'tasklists')) {
+            this.doAction('getCalendar', { type: type, cal: cal }, function(r) {
+                if (r.response.calendar) {
+                    Kronolith.conf.calendars[type][cal] = r.response.calendar;
+                    this.insertCalendarInList(type, cal, r.response.calendar);
+                    $('kronolithSharedCalendars').show();
+                    this.editCalendar(type + '|' + cal);
+                } else {
+                    window.history.back();
+                }
+            }.bind(this));
+            return;
+        }
+
         this.redBoxOnDisplay = RedBox.onDisplay;
         RedBox.onDisplay = function() {
             if (this.redBoxOnDisplay) {
                 this.redBoxOnDisplay();
             }
             try {
-                $('kronolithCalendarForm' + calendar.split('|')[0]).focusFirstElement();
+                $('kronolithCalendarForm' + type).focusFirstElement();
             } catch(e) {}
             RedBox.onDisplay = this.redBoxOnDisplay;
         }.bind(this);
@@ -2617,17 +2636,6 @@ KronolithCore = {
             (Object.isUndefined(Kronolith.conf.calendars[type]) ||
              Object.isUndefined(Kronolith.conf.calendars[type][calendar]))) {
             switch (type) {
-            case 'internal':
-            case 'tasklists':
-                this.doAction('getCalendar', { type: type, cal: calendar }, function(r) {
-                    if (r.response.calendar) {
-                        Kronolith.conf.calendars[type][calendar] = r.response.calendar;
-                        this.insertCalendarInList(type, calendar, r.response.calendar);
-                        $('kronolithSharedCalendars').show();
-                        this.editCalendarCallback(type + '|' + calendar);
-                    }
-                }.bind(this));
-                return;
             case 'remote':
                 newCalendar = true;
                 break;
