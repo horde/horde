@@ -810,7 +810,7 @@ class Horde_Share_Sql extends Horde_Share
         /* Connect to the sql server using the supplied parameters. */
         $params = $this->_params;
         unset($params['charset']);
-        $this->_write_db = MDB2::factory($params);
+        $this->_write_db = &MDB2::factory($params);
         if ($this->_write_db instanceof PEAR_Error) {
             throw new Horde_Share_Exception($this->_write_db->getMessage());
         }
@@ -844,7 +844,7 @@ class Horde_Share_Sql extends Horde_Share
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($params, $this->_params['read']);
             unset($params['charset']);
-            $this->_db = MDB2::singleton($params);
+            $this->_db = &MDB2::singleton($params);
             if ($this->_db instanceof PEAR_Error) {
                 throw new Horde_Share_Exception($this->_db);
             }
