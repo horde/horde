@@ -25,19 +25,18 @@
 abstract class Horde_Rdo_Mapper implements Countable
 {
     /**
-     * If this is true and fields named created and updated are
-     * present, Rdo will automatically set creation and last updated
-     * timestamps. Timestamps are always GMT for portability.
+     * If this is true and fields named created_at and updated_at are present,
+     * Rdo will automatically set creation and last updated timestamps.
+     * Timestamps are always GMT for portability.
      *
      * @var boolean
      */
     protected $_setTimestamps = true;
 
     /**
-     * What class should this Mapper create for objects? Defaults to
-     * the Mapper subclass' name minus "Mapper". So if the Rdo_Mapper
-     * subclass is UserMapper, it will default to trying to create
-     * User objects.
+     * What class should this Mapper create for objects? Defaults to the Mapper
+     * subclass' name minus "Mapper". So if the Rdo_Mapper subclass is
+     * UserMapper, it will default to trying to create User objects.
      *
      * @var string
      */
@@ -319,8 +318,8 @@ abstract class Horde_Rdo_Mapper implements Countable
         // always set.
         if ($this->_setTimestamps) {
             $time = gmmktime();
-            $fields['created'] = $time;
-            $fields['updated'] = $time;
+            $fields['created_at'] = $time;
+            $fields['updated_at'] = $time;
         }
 
         // Filter out any extra fields.
@@ -377,7 +376,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         // If configured to record update time, set it here.
         if ($this->_setTimestamps) {
-            $fields['updated'] = gmmktime();
+            $fields['updated_at'] = gmmktime();
         }
 
         // Filter out any extra fields.
@@ -528,5 +527,4 @@ abstract class Horde_Rdo_Mapper implements Countable
         $this->_defaultSort = $sort;
         return $this;
     }
-
 }

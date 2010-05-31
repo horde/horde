@@ -140,6 +140,15 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     }
 
     /**
+     * Adds created_at and updated_at columns to the table.
+     */
+    public function timestamps()
+    {
+        return $this->column('created_at', 'datetime')
+                    ->column('updated_at', 'datetime');
+    }
+
+    /**
      * Use __call to provide shorthand column creation ($this->integer(), etc.)
      */
     public function __call($method, $arguments)
