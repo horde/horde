@@ -86,6 +86,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Ldap</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>

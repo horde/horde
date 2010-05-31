@@ -116,6 +116,7 @@ Application Framework.
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
+       <file name="Ldap.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="Vfs.php" role="php" />
@@ -306,6 +307,7 @@ Application Framework.
    <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
    <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
    <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />
+   <install name="lib/Horde/Core/Factory/Ldap.php" as="Horde/Core/Factory/Ldap.php" />
    <install name="lib/Horde/Core/Factory/LoginTasks.php" as="Horde/Core/Factory/LoginTasks.php" />
    <install name="lib/Horde/Core/Factory/Share.php" as="Horde/Core/Factory/Share.php" />
    <install name="lib/Horde/Core/Factory/Vfs.php" as="Horde/Core/Factory/Vfs.php" />

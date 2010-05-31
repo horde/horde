@@ -16,33 +16,33 @@
 class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
 {
     /**
-     * Handle for the current database connection.
+     * Horde_Ldap object.
      *
-     * @var resource
+     * @var Horde_Ldap
      */
-    protected $_conn;
+    protected $_ldap;
 
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'dn' - (string) The bind DN.
-     * 'hostspec' - (string) The hostname of the ldap server.
-     * 'password' - (string) The bind password.
-     * 'port' - (integer) The port number of the ldap server.
-     * 'version' - (integer) [OPTIONAL] TODO
+     * 'dn' - (string) [REQUIRED] TODO
+     * 'ldap' - (Horde_Ldap) [REQUIRED] The Horde_Ldap object.
      * </pre>
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        foreach (array('dn', 'hostspec', 'password', 'port') as $val) {
+        foreach (array('dn', 'ldap') as $val) {
             if (!isset($params[$val])) {
                 throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
             }
         }
+
+        $this->_ldap = $params['ldap'];
+        unset($params['ldap']);
 
         parent::__construct($params);
     }
@@ -57,16 +57,10 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
      */
     protected function _open($save_path = null, $session_name = null)
     {
-        $this->_conn = @ldap_connect($this->_params['hostspec'], $this->_params['port']);
-
-        // Set protocol version if necessary.
-        if (isset($this->_params['version']) &&
-            !@ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, $this->_params['version'])) {
-            throw new Horde_SessionHandler_Exception(sprintf('Set LDAP protocol version to %d failed: [%d] %s', $this->_params['version'], ldap_errno($conn), ldap_error($conn)));
-        }
-
-        if (!@ldap_bind($this->_conn, $this->_params['dn'], $this->_params['password'])) {
-            throw new Horde_SessionHandler_Exception('Could not bind to LDAP server.');
+        try {
+            $this->_ldap->bind();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_SessionHandler_Exception($e);
         }
     }
 
@@ -75,9 +69,7 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
      */
     protected function _close()
     {
-        if (!@ldap_close($this->_conn) && $this->_logger) {
-            $this->_logger->log('Could not unbind from LDAP server.', 'INFO');
-        }
+        $this->_ldap->done();
     }
 
     /**
@@ -89,12 +81,19 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
      */
     protected function _read($id)
     {
-        $sr = @ldap_search($this->_conn, $this->_params['dn'], "(cn=$id)");
-        $info = @ldap_get_entries($this->_conn, $sr);
+        try {
+            $result = $this->_ldap->search(null, "(cn=$id)");
+            if ($result->count()) {
+                $entry = reset();
+                return $entry['session'][0];
+            }
+        } catch (Horde_Ldap_Exception $e) {
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
+        }
 
-        return ($info['count'] > 0)
-            ? $info[0]['session'][0]
-            : '';
+        return '';
     }
 
     /**
@@ -112,9 +111,10 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
             'session' => $session_data
         );
         $dn = "cn=$id," . $this->_params['dn'];
-        @ldap_delete($this->_conn, $dn);
 
-        return @ldap_add($this->_conn, $dn, $update);
+        $this->_ldap->delete($dn);
+
+        return $this->_ldap->add(Horde_Ldap_Entry::createFresh($dn, $update));
     }
 
     /**
@@ -128,7 +128,7 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
     {
         $dn = "cn=$id," . $this->_params['dn'];
 
-        return @ldap_delete($this->_conn, $dn);
+        return $this->_ldap->delete($dn);
     }
 
     /**
@@ -140,24 +140,20 @@ class Horde_SessionHandler_Ldap extends Horde_SessionHandler_Driver
      */
     public function gc($maxlifetime = 300)
     {
-        $sr = @ldap_search($this->_conn, $this->_params['dn'],
-                           '(objectClass=phpsession)', array('+', 'cn'));
-        $info = @ldap_get_entries($this->_conn, $sr);
+        $info = $this->_ldap->search(null, '(objectClass=phpsession)', array('attributes' => array('+', 'cn')));
 
-        if ($info['count'] > 0) {
-            for ($i = 0; $i < $info['count']; ++$i) {
-                $id = $info[$i]['cn'][0];
-                $dn = "cn=$id," . $this->_params['dn'];
-                $ldapstamp = $info[$i]['modifytimestamp'][0];
-                $year = substr($ldapstamp, 0, 4);
-                $month = substr($ldapstamp, 4, 2);
-                $day = substr($ldapstamp, 6, 2);
-                $hour = substr($ldapstamp, 8, 2);
-                $minute = substr($ldapstamp, 10, 2);
-                $modified = gmmktime($hour, $minute, 0, $month, $day, $year);
-                if (time() - $modified >= $maxlifetime) {
-                    @ldap_delete($this->_conn, $dn);
-                }
+        foreach ($info as $val) {
+            $id = $val['cn'][0];
+            $dn = "cn=$id," . $this->_params['dn'];
+            $ldapstamp = $val['modifytimestamp'][0];
+            $year = substr($ldapstamp, 0, 4);
+            $month = substr($ldapstamp, 4, 2);
+            $day = substr($ldapstamp, 6, 2);
+            $hour = substr($ldapstamp, 8, 2);
+            $minute = substr($ldapstamp, 10, 2);
+            $modified = gmmktime($hour, $minute, 0, $month, $day, $year);
+            if (time() - $modified >= $maxlifetime) {
+                $this->_ldap->delete($dn);
             }
         }
 

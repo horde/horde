@@ -1297,20 +1297,8 @@
     </case>
     <case name="Ldap" desc="LDAP">
      <configsection name="params">
-      <configstring name="hostspec" desc="The hostname of the LDAP server">
-      localhost</configstring>
-      <configinteger name="port" required="false" desc="Port LDAP is running
-      on, if non-standard">389</configinteger>
-      <configstring name="dn" required="false" desc="The DN used to bind
-      to the LDAP server"/>
-      <configstring name="password" required="false" desc="The password used
-      to bind to the LDAP server"/>
-      <configenum name="version" desc="LDAP Protocol Version">3
-       <values>
-        <value desc="LDAPv2 (Deprecated)">2</value>
-        <value desc="LDAPv3">3</value>
-       </values>
-      </configenum>
+      <configldap switchname="driverconfig">
+      </configldap>
      </configsection>
     </case>
     <case name="Memcache" desc="Memcache only">
