@@ -839,6 +839,7 @@ div.kronolithFormActions {
 #kronolithEventTabAttendees table {
     border-collapse: collapse;
     table-layout: fixed;
+    width: 100%;
 }
 #kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
     border: 1px solid #999;
@@ -848,7 +849,7 @@ div.kronolithFormActions {
     line-height: 140%;
 }
 #kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child {
-    width: 170px;
+    width: auto;
     overflow: hidden;
 }
 #kronolithEventTabAttendees th {
