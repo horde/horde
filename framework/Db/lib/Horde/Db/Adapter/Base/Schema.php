@@ -753,7 +753,8 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function addColumnOptions($sql, $options)
     {
         /* 'autoincrement' is not handled here - it varies too much between
-         * DBs. Do autoincrement specific handling in the driver. */
+         * DBs. Do autoincrement-specific handling in the driver. */
+
         if (isset($options['null']) && $options['null'] === false) {
             $sql .= ' NOT NULL';
         }

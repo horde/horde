@@ -74,7 +74,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         if (!$column)
             return parent::quote($value, $column);
 
-        if (is_string($value) && ($column->getType() == 'binary')) {
+        if (is_string($value) && ($column->getType() == 'binary') && method_exists($column, 'stringToBinary')) {
             /*@TODO test blobs/bytea fields with postgres/pdo and figure out how
               this should work */
             return $this->quotedStringPrefix() . "'" . $column->stringToBinary($value) . "'";
