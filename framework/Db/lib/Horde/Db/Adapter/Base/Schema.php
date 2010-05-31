@@ -24,16 +24,6 @@
 abstract class Horde_Db_Adapter_Base_Schema
 {
     /**
-     * @var Cache object
-     */
-    protected $_cache = null;
-
-    /**
-     * @var Logger
-     */
-    protected $_logger = null;
-
-    /**
      * @var Horde_Db_Adapter_Base
      */
     protected $_adapter = null;
@@ -56,9 +46,6 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $this->_adapter = $adapter;
         $this->_adapterMethods = array_flip(get_class_methods($adapter));
-
-        $this->_cache = isset($config['cache']) ? $config['cache'] : new Horde_Support_Stub;
-        $this->_logger = isset($config['logger']) ? $config['logger'] : new Horde_Support_Stub;
     }
 
 
@@ -118,6 +105,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @param  string  $method
      * @param  array   $args
+     *
+     * @return mixed
      */
     public function __call($method, $args)
     {
@@ -126,6 +115,21 @@ abstract class Horde_Db_Adapter_Base_Schema
         }
 
         throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
+    }
+
+    /**
+     * Delegate access to $_cache and $_logger to the adapter object.
+     *
+     * @param  string  $key
+     *
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        if ($key == '_cache' || $key == '_logger') {
+            $getter = 'get' . ucfirst(substr($key, 1));
+            return $this->_adapter->$getter();
+        }
     }
 
 

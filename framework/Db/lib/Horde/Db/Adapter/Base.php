@@ -118,9 +118,8 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         /* Can't set cache/logger in constructor - these objects may use DB
          * for storage. Add stubs for now - they have to be manually set
          * later with setCache() and setLogger(). */
-        $stub = new Horde_Support_Stub();
-        $this->_cache = $stub;
-        $this->_logger = $stub;
+        $this->_cache = new Horde_Support_Stub();
+        $this->_logger = new Horde_Support_Stub();
 
         // Default to UTF-8
         if (!isset($config['charset'])) {
@@ -163,7 +162,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 
 
     /*##########################################################################
-    # Dependency setters
+    # Dependency setters/getters
     ##########################################################################*/
 
     /**
@@ -179,6 +178,14 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
+     * @return Horde_Cache_Base
+     */
+    public function getCache()
+    {
+        return $this->_cache;
+    }
+
+    /**
      * Set a logger object.
      *
      * @inject
@@ -188,6 +195,14 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
+    }
+
+    /**
+     * return Horde_Log_Logger
+     */
+    public function getLogger()
+    {
+        return $this->_logger;
     }
 
 
