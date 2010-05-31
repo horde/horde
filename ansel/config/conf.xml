@@ -231,9 +231,6 @@
    <configswitch name="driver">user
      <case name="false" desc="Disable" />
      <case name="user" desc="Manual selection of faces" />
-     <case name="opencv" desc="OpenCV PECL extension">
-       <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
-     </case>
      <case name="facedetect" desc="Face Detect PECL extension">
        <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
      </case>
