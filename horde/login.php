@@ -259,7 +259,7 @@ if (!empty($conf['auth']['alternate_login'])) {
     }
     $anchor = _addAnchor($url_in, 'param', $url_anchor);
     if (strpos($url, '%25u') || strpos($url, '%u')) {
-        $url = str_replace(array('%25u', '%u'), $anchor, $url);
+        $url = str_replace(array('%25u', '%u'), rawurlencode($anchor), $url);
     } else {
         $url = Horde_Util::addParameter($url, array('url' => $anchor), null, false);
     }
