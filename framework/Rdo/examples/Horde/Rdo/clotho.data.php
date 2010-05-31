@@ -5,11 +5,11 @@
 
 require_once './Clotho.php';
 
-$im = new ItemMapper();
-$dm = new DependencyMapper();
-$cm = new CalendarMapper();
-$rm = new ResourceMapper();
-$ram = new ResourceAvailabilityMapper();
+$im = new ItemMapper($conf['adapter']);
+$dm = new DependencyMapper($conf['adapter']);
+$cm = new CalendarMapper($conf['adapter']);
+$rm = new ResourceMapper($conf['adapter']);
+$ram = new ResourceAvailabilityMapper($conf['adapter']);
 
 $item = $im->create(array('item_name' => 'Test Item', 'item_parent' => 0));
 echo get_class($item) . "\n";

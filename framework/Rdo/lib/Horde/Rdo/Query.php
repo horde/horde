@@ -126,7 +126,10 @@ class Horde_Rdo_Query
             // Add all non-lazy relationships.
             foreach ($mapper->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
-                    $m = new $rel['mapper']();
+                    // @TODO - should be getting this instance from somewhere
+                    // else external, and not passing the adapter along
+                    // automatically.
+                    $m = new $rel['mapper']($this->mapper->adapter);
                 } else {
                     $m = $this->mapper->tableToMapper($relationship);
                     if (is_null($m)) {

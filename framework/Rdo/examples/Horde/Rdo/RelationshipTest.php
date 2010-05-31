@@ -9,7 +9,7 @@ require './Clotho.php';
 
 
 // one-to-one
-$im = new ItemMapper();
+$im = new ItemMapper($conf['adapter']);
 
 $i = $im->findOne(3);
 echo "({$i->item_id}) {$i->item_name} has parent:\n";
@@ -17,7 +17,7 @@ echo "  ({$i->parent->item_id}) {$i->parent->item_name}\n";
 
 
 // one-to-many
-$rm = new ResourceMapper();
+$rm = new ResourceMapper($conf['adapter']);
 
 $r = $rm->findOne(1);
 echo "Resource ({$r->resource_id}) {$r->resource_name} has " . count($r->availabilities) . " availabilities:\n";
@@ -27,7 +27,7 @@ foreach ($r->availabilities as $ra) {
 
 
 // many-to-one
-$ram = new ResourceAvailabilityMapper();
+$ram = new ResourceAvailabilityMapper($conf['adapter']);
 
 $ra = $ram->findOne(1);
 echo "Resource Availability ({$ra->availability_id}) " . strftime('%x %X', $ra->availability_date) . " has resource:\n";
@@ -36,7 +36,7 @@ echo "  ({$ra->resource->resource_id}) {$ra->resource->resource_name}\n";
 
 // many-to-many
 echo "Listing all Items and their Resources:\n\n";
-$im = new ItemMapper();
+$im = new ItemMapper($conf['adapter']);
 foreach ($im->find() as $i) {
     if (count($i->resources)) {
         echo " (" . $i->item_id . ") " . $i->item_name . " has resources:\n";
@@ -47,7 +47,7 @@ foreach ($im->find() as $i) {
 }
 
 echo "\n\nListing all Resources and their Items:\n\n";
-$rm = new ResourceMapper();
+$rm = new ResourceMapper($conf['adapter']);
 foreach ($rm->find() as $r) {
     if (count($r->items)) {
         echo " (" . $r->resource_id . ") " . $r->resource_name . " has items:\n";

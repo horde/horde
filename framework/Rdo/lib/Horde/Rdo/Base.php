@@ -101,7 +101,10 @@ abstract class Horde_Rdo_Base implements IteratorAggregate
         // Try to find the Mapper class for the object the
         // relationship is with, and fail if we can't.
         if (isset($rel['mapper'])) {
-            $m = new $rel['mapper']();
+            // @TODO - should be getting this instance from somewhere
+            // else external, and not passing the adapter along
+            // automatically.
+            $m = new $rel['mapper']($mapper->adapter);
         } else {
             $m = $mapper->tableToMapper($field);
             if (is_null($m)) {

@@ -4,31 +4,26 @@
  */
 
 @include './conf.php';
-if (empty($conf['sql'])) {
-    die('No sql configuration found.');
+if (empty($conf)) {
+    die('No configuration found.');
 }
 
 require_once 'Horde/Autoloader.php';
 
 /**
  */
-class Task extends Horde_Rdo_Base {
+class Task extends Horde_Rdo_Base
+{
 }
 
 /**
  */
-class TaskMapper extends Horde_Rdo_Mapper {
-
+class TaskMapper extends Horde_Rdo_Mapper
+{
     protected $_table = 'nag_tasks';
-
-    public function getAdapter()
-    {
-        return Horde_Rdo_Adapter::factory('pdo', $GLOBALS['conf']['sql']);
-    }
-
 }
 
-$tm = new TaskMapper();
+$tm = new TaskMapper($conf['adapter']);
 
 // Count all tasks.
 $count = $tm->count();

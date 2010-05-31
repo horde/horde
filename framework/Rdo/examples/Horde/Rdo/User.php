@@ -6,27 +6,23 @@
 require_once 'Horde/Autoloader.php';
 
 @include './conf.php';
-if (empty($conf['sql'])) {
-    die("No sql configuration found\n");
+if (empty($conf)) {
+    die("No configuration found\n");
 }
 
 /**
  */
-class User extends Horde_Rdo_Base {
+class User extends Horde_Rdo_Base
+{
 }
 
 /**
  */
-class UserMapper extends Horde_Rdo_Mapper {
-
-    public function getAdapter()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Db_Base');
-    }
-
+class UserMapper extends Horde_Rdo_Mapper
+{
 }
 
-$um = new UserMapper();
+$um = new UserMapper($conf['adapter']);
 
 // Count all users.
 $userCount = $um->count();

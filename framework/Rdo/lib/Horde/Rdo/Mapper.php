@@ -16,7 +16,7 @@
  *   $inflector - The Horde_Support_Inflector this mapper uses to singularize
  *   and pluralize PHP class, database table, and database field/key names.
  *
- *   $table - The Horde_Db_Adapter_Abstract_TableDefinition object describing
+ *   $table - The Horde_Db_Adapter_Base_TableDefinition object describing
  *   the main table of this entity.
  *
  * @category Horde
@@ -47,7 +47,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      * The definition of the database table (or view, etc.) that holds this
      * Mapper's objects.
      *
-     * @var Horde_Db_Adapter_Abstract_TableDefinition
+     * @var Horde_Db_Adapter_Base_TableDefinition
      */
     protected $_tableDefinition;
 
@@ -82,6 +82,11 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     protected $_defaultSort;
 
+    public function __construct(Horde_Db_Adapter $adapter)
+    {
+        $this->adapter = $adapter;
+    }
+
     /**
      * Provide read-only, on-demand access to several properties. This
      * method will only be called for properties that aren't already
@@ -98,7 +103,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      *
      * table: The database table or view that this Mapper manages.
      *
-     * tableDefinition: The Horde_Db_Adapter_Abstract_TableDefinition object describing
+     * tableDefinition: The Horde_Db_Adapter_Base_TableDefinition object describing
      * the table or view this Mapper manages.
      *
      * fields: Array of all field names that are loaded up front
@@ -118,10 +123,6 @@ abstract class Horde_Rdo_Mapper implements Countable
     public function __get($key)
     {
         switch ($key) {
-        case 'adapter':
-            $this->adapter = $this->getAdapter();
-            return $this->adapter;
-
         case 'inflector':
             $this->inflector = new Horde_Support_Inflector();
             return $this->inflector;
@@ -150,35 +151,6 @@ abstract class Horde_Rdo_Mapper implements Countable
         }
 
         return null;
-    }
-
-    /**
-     * Associate an adapter with this mapper. Not needed in the
-     * general case if getAdapter() is overridden in the concrete
-     * Mapper implementation.
-     *
-     * @param Horde_Db_Adapter $adapter Horde_Db_Adapter to store objects.
-     *
-     * @see getAdapter()
-     */
-    public function setAdapter($adapter)
-    {
-        $this->adapter = $adapter;
-    }
-
-    /**
-     * getAdapter() must be overridden by Horde_Rdo_Mapper subclasses
-     * if they don't provide $adapter in some other way (by calling
-     * setAdapter() or on construction, for example), and there is no
-     * global Adapter.
-     *
-     * @see setAdapter()
-     *
-     * @return Horde_Db_Adapter The adapter for storing this Mapper's objects.
-     */
-    public function getAdapter()
-    {
-        throw new Horde_Rdo_Exception('You must override getAdapter() or assign a Horde_Db_Adapter by calling setAdapter().');
     }
 
     /**
@@ -242,7 +214,10 @@ abstract class Horde_Rdo_Mapper implements Countable
         if (count($relationships)) {
             foreach ($this->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
-                    $m = new $rel['mapper']();
+                    // @TODO - should be getting this instance from somewhere
+                    // else external, and not passing the adapter along
+                    // automatically.
+                    $m = new $rel['mapper']($this->adapter);
                 } else {
                     $m = $this->tableToMapper($relationship);
                     if (is_null($m)) {
