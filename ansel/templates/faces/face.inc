@@ -8,10 +8,9 @@
    <?php if ($GLOBALS['conf']['report_content']['driver']): ?>
    <a href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('faces/report.php'), 'face', $face_id) ?>" class="small" title="<?php echo _("Report abuse or submit a removal request") ?>"><?php echo _("Report") ?></a><br />
    <?php endif; ?>
-   <?php if ($conf['faces']['search']) {
-        echo '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/search/image_search.php'), 'face_id', $face_id) . '" title="' . _("Find similar") . '">' . _("Similar faces") . '</a>';
-    }
-    ?>
+   <?php if ($conf['faces']['search'] && Horde_Util::loadExtension('libpuzzle')) {
+        echo Horde::applicationUrl('faces/search/image_search.php')->add('face_id', $face_id)->link(array('title' => _("Find similar"))) . _("Similar faces") . '</a>';
+    } ?>
   </td>
   <td>
    <?php

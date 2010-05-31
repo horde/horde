@@ -106,7 +106,7 @@ class Ansel_Faces
 
         $face_id = $face['face_id'];
         $claim_url = Horde::applicationUrl('faces/claim.php');
-        $search_url = Horde::applicationUrl('faces/search/image_search.php');
+       
 
         // The HTML to display the face image.
         $imghtml = sprintf("<img src=\"%s\" class=\"bordered-facethumb\" id=\"%s\" alt=\"%s\" />",
@@ -124,18 +124,19 @@ class Ansel_Faces
         $html = '<div id="face' . $face_id . '"><table><tr><td>'
                 . ' <a href="' . $img_view_url . '">' . $imghtml . '</a></td><td>';
         if (!empty($face['face_name'])) {
-            $html .= Horde::link(Horde_Util::addParameter(Horde::applicationUrl('faces/face.php'), 'face', $face['face_id'], false)) . $face['face_name'] . '</a><br />';
+            $html .= Horde::applicationUrl('faces/face.php')->add('face', $face['face_id'])->link() . $face['face_name'] . '</a><br />';
         }
 
         // Display the face name or a link to claim the face.
         if (empty($face['face_name']) && $GLOBALS['conf']['report_content']['driver']) {
-            $html .= ' <a href="' . Horde_Util::addParameter($claim_url, 'face', $face_id)
-                . '" title="' . _("Do you know someone in this photo?") . '">'
-                . _("Claim") . '</a>';
+            $html .= ' <a href="' . $claim_url->add('face', $face_id)->link(array('title' => _("Do you know someone in this photo?"))) . _("Claim") . '</a>';
         }
 
         // Link for searching for similar faces.
-        $html .= ' <a href="' . Horde_Util::addParameter($search_url, 'face_id', $face_id) . '">' . _("Find similar") . '</a>';
+        if (Horde_Util::loadExtension('libpuzzle') !== false) {
+            $search_url = Horde::applicationUrl('faces/search/image_search.php');
+        $html .= $search_url->add('face_id', $face_id)-link() . _("Find similar") . '</a>';
+        }
         $html .= '</div></td></tr></table>';
 
         return $html;
