@@ -134,6 +134,7 @@ abstract class Horde_Ajax_Application_Base
     public function listGroups()
     {
         $result = new stdClass;
+        require_once 'Horde/Group.php';
         $horde_groups = Group::singleton();
         if (!empty($GLOBALS['conf']['share']['any_group'])) {
             $groups = $horde_groups->listGroups();
