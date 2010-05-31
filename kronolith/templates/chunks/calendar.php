@@ -42,19 +42,6 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   </label>
 </div>
 
-<div id="kronolithCalendarinternalUrls" style="display:none">
-  <div>
-    <label><?php echo _("Subscription URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendarinternalUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
-  </div>
-  <div>
-    <label><?php echo _("Feed URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
-    <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
-  </div>
-</div>
-
 <div class="tabset">
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
@@ -63,6 +50,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <span>
     <span class="kronolithSeparator">|</span>
     <ul>
+      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkUrls"><?php echo _("Subscription") ?></a></li>
       <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Sharing") ?></a></li>
     </ul>
   </span>
@@ -84,6 +72,21 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <input id="kronolithCalendarinternalTags" name="tags" />
   <span id="kronolithCalendarinternalTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithCalendarinternalTopTags"></div>
+</div>
+
+<div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
+  <div id="kronolithCalendarinternalUrls">
+    <div>
+      <label for="kronolithCalendarinternalUrlSub"><?php echo _("Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+    </div>
+    <div>
+      <label for="kronolithCalendarinternalUrlFeed"><?php echo _("Feed URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
+    </div>
+  </div>
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
