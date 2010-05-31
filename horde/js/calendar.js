@@ -239,7 +239,7 @@ var Horde_Calendar =
 
         // Title bar.
         link = new Element('A', { href: '#', className: 'hordeCalendarClose' }).insert('x');
-        link.observe('click', this.hideCal.bind(this));
+        link.observe('click', function(e) { this.hideCal(); e.stop(); }.bind(this));
         thead.insert(new Element('TR').insert(new Element('TD', { colSpan: 7, className: 'rightAlign' }).insert(link)));
 
         // Year.
