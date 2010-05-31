@@ -208,9 +208,7 @@ class Whups_Mail {
      */
     static protected function _findAuthUser($from)
     {
-        global $conf;
-
-        $auth = Horde_Auth::singleton($conf['auth']['driver'], Horde::getDriverConfig('auth', $conf['auth']['driver']));
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
 
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {

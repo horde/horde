@@ -8,9 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 abstract class Horde_Auth_Base
 {
@@ -52,17 +54,35 @@ abstract class Horde_Auth_Base
     /**
      * Current application for authentication.
      *
-     * @param string
+     * @var string
      */
     protected $_app = 'horde';
 
     /**
+     * Logger object.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * 'notify_expire' - (callback) Callback function to output notification
+     *                   when password is about to expire. Passed one
+     *                   argument: UNIX timestamp of when password expires.
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        }
+
         $this->_params = $params;
     }
 
@@ -152,7 +172,7 @@ abstract class Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -166,7 +186,7 @@ abstract class Horde_Auth_Base
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -178,7 +198,7 @@ abstract class Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -189,7 +209,7 @@ abstract class Horde_Auth_Base
      */
     public function listUsers()
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -267,7 +287,7 @@ abstract class Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**

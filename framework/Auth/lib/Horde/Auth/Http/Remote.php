@@ -8,11 +8,37 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Auth
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Http_Remote extends Horde_Auth_Base
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'proxy' - (array) TODO
+     * 'url' - (string) [REQUIRED] TODO
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['url'])) {
+            throw new InvalidArgumentException();
+        }
+
+        $params = array_merge(array(
+            'proxy' => array()
+        ), $params);
+
+        parent::__construct($params);
+    }
+
     /**
      * Find out if a set of login credentials are valid.
      *
@@ -23,15 +49,11 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        $options = array(
+        $options = array_merge(array(
             'allowRedirects' => true,
             'method' => 'GET',
             'timeout' => 5
-        );
-
-        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-        }
+        ), $this->_params['proxy']);
 
         $request = new HTTP_Request($this->_params['url'], $options);
         $request->setBasicAuth($userId, $credentials['password']);

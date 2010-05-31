@@ -2,22 +2,19 @@
 /**
  * The Horde_Auth_login:: class provides a system login implementation of
  * the Horde authentication system.
+ *
  * This Auth driver is useful if you have a shadow password system
  * where the Horde_Auth_Passwd driver doesn't work.
- *
- * Optional parameters:
- * <pre>
- * 'location' - (string) Location of the su binary.
- *              DEFAULT: /bin/su
- * </pre>
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Auth
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Login extends Horde_Auth_Base
 {
@@ -37,9 +34,13 @@ class Horde_Auth_Login extends Horde_Auth_Base
     /**
      * Constructs a new Login authentication object.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'location' - (string) Location of the su binary.
+     *              DEFAULT: /bin/su
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (empty($params['location'])) {
             $params['location'] = '/bin/su';

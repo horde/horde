@@ -92,9 +92,8 @@ if (!empty($rpc)) {
 
 // Login to horde if username & password are set and load module.
 } elseif (!empty($username) && !empty($password)) {
-
     require_once HORDE_BASE . '/lib/base.php';
-    $auth = &Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Auth')->getOb();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
         Horde::logMessage($error, 'ERR');

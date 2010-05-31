@@ -10,10 +10,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Horde_Auth
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
-class Horde_Auth_imsp extends Horde_Auth_Base
+class Horde_Auth_Imsp extends Horde_Auth_Base
 {
     /**
      * Private authentication function.

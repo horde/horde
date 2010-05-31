@@ -12,7 +12,7 @@
 
 require_once dirname(__FILE__) . '/tabs.php';
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 // Make sure signups are enabled before proceeding
 if ($conf['signup']['allow'] !== true ||

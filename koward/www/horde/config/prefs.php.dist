@@ -89,15 +89,16 @@ $prefGroups['authentication'] = array(
     'members' => array('credentialsui'),
 );
 
-$auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
-if (is_a($auth, 'Auth') && $auth->hasCapability('update')) {
-    $prefGroups['forgotpass'] = array(
-        'column' => _("Your Information"),
-        'label' => _("Account Password"),
-        'desc' => _("Set options to allow you to reset your password if you ever forget it."),
-        'members' => array('security_question', 'security_answer', 'alternate_email')
-    );
-}
+try {
+    if ($GLOBALS['injector']->getInstance('Horde_Auth')->getOb()->hasCapability('update')) {
+        $prefGroups['forgotpass'] = array(
+            'column' => _("Your Information"),
+            'label' => _("Account Password"),
+            'desc' => _("Set options to allow you to reset your password if you ever forget it."),
+            'members' => array('security_question', 'security_answer', 'alternate_email')
+        );
+    }
+} catch (Exception $e) {}
 
 $prefGroups['language'] = array(
     'column' => _("Your Information"),

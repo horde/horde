@@ -98,8 +98,8 @@ if (!$is_auth) {
 
 /* Get an Auth object. */
 $auth = ($app && $is_auth)
-    ? Horde_Auth::singleton('application', array('app' => $app))
-    : Horde_Auth::singleton($conf['auth']['driver']);
+    ? $injector->getInstance('Horde_Auth')->getOb('application', array('app' => $app))
+    : $injector->getInstance('Horde_Auth')->getOb();
 
 /* Build the list of necessary login parameters. */
 $loginparams = array(

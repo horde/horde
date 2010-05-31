@@ -79,6 +79,7 @@ Application Framework.
       </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Binder">
        <file name="Alarm.php" role="php" />
+       <file name="Auth.php" role="php" />
        <file name="AuthSignup.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
@@ -106,6 +107,7 @@ Application Framework.
        <file name="Share.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
+       <file name="Auth.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Data.php" role="php" />
@@ -269,6 +271,7 @@ Application Framework.
    <install name="lib/Horde/Core/Autoloader/Callback/Auth.php" as="Horde/Core/Autoloader/Callback/Auth.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
+   <install name="lib/Horde/Core/Binder/Auth.php" as="Horde/Core/Binder/Auth.php" />
    <install name="lib/Horde/Core/Binder/AuthSignup.php" as="Horde/Core/Binder/AuthSignup.php" />
    <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
    <install name="lib/Horde/Core/Binder/Data.php" as="Horde/Core/Binder/Data.php" />
@@ -294,6 +297,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
    <install name="lib/Horde/Core/Binder/Facebook.php" as="Horde/Core/Binder/Facebook.php" />
    <install name="lib/Horde/Core/Binder/Share.php" as="Horde/Core/Binder/Share.php" />
+   <install name="lib/Horde/Core/Factory/Auth.php" as="Horde/Core/Factory/Auth.php" />
    <install name="lib/Horde/Core/Factory/Db.php" as="Horde/Core/Factory/Db.php" />
    <install name="lib/Horde/Core/Factory/DbPear.php" as="Horde/Core/Factory/DbPear.php" />
    <install name="lib/Horde/Core/Factory/Data.php" as="Horde/Core/Factory/Data.php" />

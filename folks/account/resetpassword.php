@@ -35,7 +35,7 @@ if (Horde_Auth::isAuthenticated()) {
 }
 
 // Make sure auth backend allows passwords to be reset.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
     Horde_Auth::authenticateFailure('folks');

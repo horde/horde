@@ -4,18 +4,15 @@
  * application-provided Horde authentication which fits inside the
  * Horde_Auth:: API.
  *
- * Required parameters:
- * <pre>
- * 'app' - (string) The application which is providing authentication.
- * </pre>
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Application extends Horde_Auth_Base
 {
@@ -47,14 +44,21 @@ class Horde_Auth_Application extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
-     * @throws Horde_Exception
+     * @param array $params  Required parameters:
+     * <pre>
+     * 'app' - (string) The application which is providing authentication.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        Horde::assertDriverConfig($params, 'auth', array('app'), 'authentication application');
+        if (!isset($params['app'])) {
+            throw new InvalidArgumentException('Missing app parameter.');
+        }
 
         $this->_app = $params['app'];
+
         parent::__construct($params);
     }
 

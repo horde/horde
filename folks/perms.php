@@ -14,7 +14,7 @@ require_once 'Horde/Group.php';
 
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = &Group::singleton();
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');

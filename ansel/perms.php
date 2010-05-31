@@ -21,7 +21,7 @@ Horde_Registry::appInit('ansel');
 require_once 'Horde/Group.php';
 
 $groups = Group::singleton();
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $form = null;
 $reload = false;

@@ -231,6 +231,7 @@ class Horde_Registry
         /* Define binders. */
         $binders = array(
             'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
+            'Horde_Auth' => new Horde_Core_Binder_Auth(),
             // 'Horde_Browser' - initialized below
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
@@ -1073,7 +1074,7 @@ class Horde_Registry
          * libraries from other applications. */
         $app_lib = $this->get('fileroot', $app) . '/lib';
         Horde_Autoloader::addClassPattern('/^' . $app . '(?:$|_)/i', $app_lib);
-        
+
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
 
         /* If permissions checking is requested, return an error if the

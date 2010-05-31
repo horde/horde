@@ -64,7 +64,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
 
 // Initialize authentication manager.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 // Initialize storage backend.
 $rules_storage = Ingo_Storage::factory();

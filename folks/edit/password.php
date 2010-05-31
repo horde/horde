@@ -16,7 +16,7 @@ require_once 'tabs.php';
 
 /*
 // Make sure auth backend allows passwords to be updated.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
     Horde_Auth::authenticateFailure('folks');

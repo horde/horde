@@ -115,7 +115,7 @@ class Horde_Rpc
         }
 
         // @TODO: inject this
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
 
         if ($this->_request->getServer('PHP_AUTH_USER')) {
             $user = $this->_request->getServer('PHP_AUTH_USER');

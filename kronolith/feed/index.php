@@ -38,7 +38,7 @@ if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
                    sprintf(_("Permission denied for the requested feed (%s)."),
                            htmlspecialchars($calendar)));
     } else {
-        $auth = Horde_Auth::singleton($conf['auth']['driver']);
+        $auth = $injector->getInstance('Horde_Auth')->getOb();
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $user = $_SERVER['PHP_AUTH_USER'];
             $pass = $_SERVER['PHP_AUTH_PW'];

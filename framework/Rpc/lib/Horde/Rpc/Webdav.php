@@ -825,7 +825,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     function check_auth($type, $username, $password)
     {
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
         return $auth->authenticate($username, array('password' => $password));
     }
 

@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 if ($conf['signup']['allow'] && $conf['signup']['approve']) {
     $signup = $injector->getInstance('Horde_Core_Auth_Signup');

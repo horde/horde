@@ -665,7 +665,7 @@ class Group {
 
         $group_driver = null;
         $group_params = null;
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
         if ($auth->hasCapability('groups')) {
             $group_driver = $auth->getDriver();
             $group_params = $auth;

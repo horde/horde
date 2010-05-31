@@ -218,7 +218,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
         if (!$auth->exists($user)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
@@ -287,7 +287,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
         if (!$auth->exists($friend)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $friend));
         }

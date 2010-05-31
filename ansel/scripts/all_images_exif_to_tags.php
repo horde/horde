@@ -56,7 +56,7 @@ Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Auth')->getOb();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $cli->fatal(_("Username or password is incorrect."));
     } else {

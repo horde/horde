@@ -95,7 +95,7 @@ class Horde_Prefs_Ui
 
         /* Hide appropriate prefGroups. */
         try {
-            Horde_Auth::singleton($conf['auth']['driver'])->hasCapability('update');
+            $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()->hasCapability('update');
         } catch (Horde_Exception $e) {
             $ui->suppressGroups[] = 'forgotpass';
         }

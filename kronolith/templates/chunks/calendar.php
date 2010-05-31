@@ -1,5 +1,5 @@
 <?php
-$auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+$auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
 require_once 'Horde/Group.php';
 $horde_groups = Group::singleton();
 if (!empty($GLOBALS['conf']['share']['any_group'])) {

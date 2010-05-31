@@ -28,7 +28,8 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Auth
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth
 {
@@ -87,13 +88,6 @@ class Horde_Auth
     static public $dnsResolver;
 
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
      * The logout reason information.
      *
      * @var array
@@ -115,43 +109,13 @@ class Horde_Auth
     static public function factory($driver, $params = null)
     {
         $driver = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($driver))));
-        if (empty($params)) {
-            $params = Horde::getDriverConfig('auth', $driver);
-        }
-
         $class = __CLASS__ . '_' . $driver;
+
         if (class_exists($class)) {
             return new $class($params);
         }
 
         throw new Horde_Auth_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance based on $driver.
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * This method must be invoked as: $var = Horde_Auth::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Auth_Base  The concrete reference.
-     * @throws Horde_Auth_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
-        }
-
-        return self::$_instances[$signature];
     }
 
     /**
@@ -390,8 +354,8 @@ class Horde_Auth
 
         /* Try transparent authentication. */
         $auth = (empty($options['app']) || ($options['app'] == 'horde'))
-            ? self::singleton($GLOBALS['conf']['auth']['driver'])
-            : self::singleton('application', array('app' => $options['app']));
+            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $options['app']));
 
         return $auth->transparent();
     }
@@ -408,12 +372,9 @@ class Horde_Auth
      */
     static public function requireAuth($app)
     {
-        if ($app == 'horde') {
-            return false;
-        }
-
-        $app_auth = self::singleton('application', array('app' => $app));
-        return $app_auth->requireAuth();
+        return ($app == 'horde')
+            ? false
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $app))->requireAuth();
     }
 
     /**
@@ -437,8 +398,7 @@ class Horde_Auth
             }
         }
 
-        $auth = self::singleton($GLOBALS['conf']['auth']['driver']);
-        return $auth->checkExistingAuth();
+        return $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()->checkExistingAuth();
     }
 
     /**

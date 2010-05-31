@@ -21,7 +21,7 @@ if (!empty($conf['share']['no_sharing'])) {
 
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = Group::singleton();
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
@@ -41,7 +41,7 @@ case 'edit':
             $perm = $share->getPermission();
         }
     }
-    
+
     if (!Horde_Auth::getAuth() ||
         (isset($share) &&
          !Horde_Auth::isAdmin() &&

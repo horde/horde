@@ -6,113 +6,71 @@
  * This class requires the 'radius' PECL extension:
  *   http://pecl.php.net/package/radius
  *
- * On *nix-y machines, this extension can be installed as follows:
- * <pre>
- * pecl install radius
- * </pre>
- *
- * Then, edit your php.ini file and make sure the following line is present:
- * <pre>
- *   For Windows machines:  extension=php_radius.dll
- *   For all others:        extension=radius.so
- * </pre>
- *
- * Required parameters:
- * <pre>
- * 'host' - (string) The RADIUS host to use (IP address or fully qualified
- *          hostname).
- * 'method' - (string) The RADIUS method to use for validating the request.
- *            Either: 'PAP', 'CHAP_MD5', 'MSCHAPv1', or 'MSCHAPv2'.
- *            ** CURRENTLY, only 'PAP' is supported. **
- * 'secret' - (string) The RADIUS shared secret string for the host. The
- *            RADIUS protocol ignores all but the leading 128 bytes
- *            of the shared secret.
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'nas' - (string) The RADIUS NAS identifier to use.
- *         DEFAULT: The value of $_SERVER['HTTP_HOST'] or, if not
- *                  defined, then 'localhost'.
- * 'port' - (integer) The port to use on the RADIUS server.
- *          DEFAULT: Whatever the local system identifies as the
- *                   'radius' UDP port
- * 'retries' - (integer) The maximum number of repeated requests to make
- *             before giving up.
- *             DEFAULT: 3
- * 'suffix' - (string) The domain name to add to unqualified user names.
- *             DEFAULT: NONE
- * 'timeout' - (integer) The timeout for receiving replies from the server (in
- *             seconds).
- *             DEFAULT: 3
- * </pre>
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Auth
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Radius extends Horde_Auth_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Connection parameters.
+     * <pre>
+     * 'host' - (string) [REQUIRED] The RADIUS host to use (IP address or
+     *          fully qualified hostname).
+     * 'method' - (string) [REQUIRED] The RADIUS method to use for validating
+     *            the request.
+     *            Either: 'PAP', 'CHAP_MD5', 'MSCHAPv1', or 'MSCHAPv2'.
+     *            ** CURRENTLY, only 'PAP' is supported. **
+     * 'nas' - (string) The RADIUS NAS identifier to use.
+     *         DEFAULT: The value of $_SERVER['HTTP_HOST'] or, if not
+     *                  defined, then 'localhost'.
+     * 'port' - (integer) The port to use on the RADIUS server.
+     *          DEFAULT: Whatever the local system identifies as the
+     *                   'radius' UDP port
+     * 'retries' - (integer) The maximum number of repeated requests to make
+     *             before giving up.
+     *             DEFAULT: 3
+     * 'secret' - (string) [REQUIRED] The RADIUS shared secret string for the
+     *            host. The RADIUS protocol ignores all but the leading 128
+     *            bytes of the shared secret.
+     * 'suffix' - (string) The domain name to add to unqualified user names.
+     *             DEFAULT: NONE
+     * 'timeout' - (integer) The timeout for receiving replies from the server
+     *             (in seconds).
+     *             DEFAULT: 3
+     * </pre>
      *
-     * @throws Horde_Auth_Exception
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        parent::__construct($params);
-
         if (!Horde_Util::extensionExists('radius')) {
-            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires the radius PECL extension to be loaded.');
+            throw new Horde_Auth_Exception(__CLASS__ . ': requires the radius PECL extension to be loaded.');
         }
 
-        /* A RADIUS host is required. */
-        if (empty($this->_params['host'])) {
-            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS host to connect to.');
+        foreach (array('host', 'secret', 'method') as $val) {
+            if (!isset($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
 
-        /* A RADIUS secret string is required. */
-        if (empty($this->_params['secret'])) {
-            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS secret string.');
-        }
+        $params = array_merge(array(
+            'nas' => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost'),
+            'port' => 0,
+            'retries' => 3,
+            'suffix' => '',
+            'timeout' => 3
+        ), $params);
 
-        /* A RADIUS authentication method is required. */
-        if (empty($this->_params['method'])) {
-            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS authentication method.');
-        }
-
-        /* RADIUS NAS Identifier. */
-        if (empty($this->_params['nas'])) {
-            $this->_params['nas'] = isset($_SERVER['HTTP_HOST'])
-                ? $_SERVER['HTTP_HOST']
-                : 'localhost';
-        }
-
-        /* Suffix to add to unqualified user names. */
-        if (empty($this->_params['suffix'])) {
-            $this->_params['suffix'] = '';
-        }
-
-        /* The RADIUS port to use. */
-        if (empty($this->_params['port'])) {
-            $this->_params['port'] = 0;
-        }
-
-        /* Maximum number of retries. */
-        if (empty($this->_params['retries'])) {
-            $this->_params['retries'] = 3;
-        }
-
-        /* RADIUS timeout. */
-        if (empty($this->_params['timeout'])) {
-            $this->_params['timeout'] = 3;
-        }
+        parent::__construct($params);
     }
 
     /**
@@ -129,7 +87,7 @@ class Horde_Auth_Radius extends Horde_Auth_Base
     {
         /* Password is required. */
         if (!isset($credentials['password'])) {
-            throw new Horde_Auth_Exception(_("Password required for RADIUS authentication."));
+            throw new Horde_Auth_Exception('Password required for RADIUS authentication.');
         }
 
         $res = radius_auth_open();
@@ -153,7 +111,7 @@ class Horde_Auth_Radius extends Horde_Auth_Base
             break;
 
         case RADIUS_ACCESS_REJECT:
-            throw new Horde_Auth_Exception(_("Authentication rejected by RADIUS server."));
+            throw new Horde_Auth_Exception('Authentication rejected by RADIUS server.');
 
         default:
             throw new Horde_Auth_Exception(radius_strerror($res));

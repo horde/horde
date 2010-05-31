@@ -358,8 +358,8 @@ class IMP_Application extends Horde_Registry_Application
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
-        $auth = Horde_Auth::singleton('imap', $params);
-        $auth->addUser($userId, $credentials);
+
+        $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->addUser($userId, $credentials);
     }
 
     /**
@@ -381,8 +381,8 @@ class IMP_Application extends Horde_Registry_Application
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
-        $auth = Horde_Auth::singleton('imap', $params);
-        $auth->removeUser($userId);
+
+        $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->removeUser($userId);
     }
 
     /**
@@ -403,8 +403,8 @@ class IMP_Application extends Horde_Registry_Application
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
-        $auth = Horde_Auth::singleton('imap', $params);
-        return $auth->listUsers();
+
+        return $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->listUsers();
     }
 
     /* Preferences display/handling methods. Code is contained in

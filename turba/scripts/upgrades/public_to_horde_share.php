@@ -33,8 +33,7 @@ if (!$sure) {
 // get the list of all users if we can.  If your site
 // has a *large* number of users, you may want to comment
 // out this section to avoid unnecessary overhead.
-$authDriver = $conf['auth']['driver'];
-$auth = Horde_Auth::singleton($authDriver);
+$auth = $injector->getInstance('Horde_Auth')->getOb();
 if ($auth->hasCapability('list')) {
     $users = $auth->listUsers();
 }
