@@ -199,7 +199,7 @@ var PrettyAutocompleter = Class.create({
 
         var displayValue = this.p.displayFilter(value),
             newItem = new Element('li', { className: this.p.listClass + 'Member ' + this.p.listClass + 'Item' }).update(displayValue),
-            x = new Element('img', { className: 'hordeACItemRemove', src: this.p.URI_IMG_HORDE + '/delete-small.png' });
+            x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
         x.observe('click', this._removeItemHandler.bindAsEventListener(this));
         newItem.insert(x);
         $(this.p.triggerContainer).insert({ before: newItem });

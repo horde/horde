@@ -67,7 +67,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
                 'trigger' => $this->_params['triggerId'],
                 'triggerContainer' => $this->_params['triggerContainer'],
                 'uri' => (string)$this->_getUrl($config['pretty'], $GLOBALS['registry']->getApp()),
-                'URI_IMG_HORDE' => (string)Horde_Themes::img(null, 'horde'),
+                'deleteIcon' => (string)Horde_Themes::img('delete-small.png', 'horde'),
                 'box' => !empty($this->_params['box']) ? $this->_params['box'] : ''
             ), $config['params']);
 
