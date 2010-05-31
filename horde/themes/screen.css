@@ -966,11 +966,14 @@ ul.sound-list {
     background-position: 3px center;
     background-repeat: no-repeat;
     color: #fff;
-    overflow-x: hidden;
     cursor: pointer;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
+}
+.GrowlerNoticeBody {
+    margin-right: 20px;
+    overflow-x: hidden;
 }
 #Growler div.horde-error, #GrowlerLog li.horde-error {
     background-image: url("graphics/alerts/error.png");
