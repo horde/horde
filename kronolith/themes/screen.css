@@ -758,6 +758,10 @@ a.kronolithFormCancel {
 }
 
 /* Calendar form dialogs */
+.kronolithCPAdvancedMore {
+    max-height: 300px;
+    overflow-y: auto;
+}
 .kronolithCPAdvanced th:first-child {
     width: 220px;
 }

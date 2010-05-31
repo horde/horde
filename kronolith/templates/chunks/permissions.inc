@@ -54,7 +54,10 @@ if (count($groups) > 1) {
   </div>
   <div id="kronolithC<?php echo $type ?>PAdvanced" class="kronolithCPAdvanced" style="display:none">
     <div class="kronolithDialogInfo"><?php printf(_("%sAdvanced sharing.%s You can also return to the %sstandard settings%s."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' . $type . 'PLess">', '</a></strong>') ?></div>
-    <div>
+
+    <div class="kronolithCPAdvancedMore">
+
+    <div><!-- Calendar Owner -->
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
@@ -79,6 +82,8 @@ if (count($groups) > 1) {
       </tbody>
     </table>
     </div>
+
+    <div><!-- Default Users -->
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
@@ -172,8 +177,9 @@ if (count($groups) > 1) {
       </tr>
       </tbody>
     </table>
+    </div>
 
-    <!-- User Permissions -->
+    <div><!-- User Permissions -->
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
@@ -224,8 +230,9 @@ if (count($groups) > 1) {
       </tr>
       </tbody>
     </table>
+    </div>
 
-    <!-- Group Permissions -->
+    <div><!-- Group Permissions -->
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
@@ -270,4 +277,7 @@ if (count($groups) > 1) {
       </tr>
       </tbody>
     </table>
+    </div>
+
+    </div>
   </div>
