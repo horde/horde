@@ -71,7 +71,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
                     . _("Manual face selection") . '</a>';
 
             // Attach the ajax edit actions
-            ob_start();
+            Horde::startBuffer();
             $imple = Horde_Ajax_Imple::factory(
                 array('ansel', 'EditFaces'),
                 array('image_id' => $this->_view->resource->id,
@@ -79,7 +79,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
                       'selfUrl' => $this->_params['selfUrl']));
 
             $imple->attach();
-            $html .= ob_get_clean();
+            $html .= Horde::endBuffer();
         }
 
         // Build the main content area of the widget

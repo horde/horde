@@ -93,7 +93,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         // Note that we can't use Horde_Util::bufferOutput() here since the
         // include file would be included inside that method's scope, and not
         // this one.
-        ob_start();
+        //ob_start();
+        Horde::startBuffer();
         if (!empty($this->view->api)) {
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
             $includes->add('prototype.js', 'horde', true, true);
@@ -123,7 +124,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         }
         Horde::addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
 }

@@ -120,9 +120,9 @@ class Ansel_Tile_Gallery {
         $modified = _("Modified") . ' '
                    . strftime($date_format, (int)$gallery->get('last_modified'));
 
-        ob_start();
+        Horde::startBuffer();
         include ANSEL_TEMPLATES . '/tile/gallery' . ($mini ? 'mini' : '') . '.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
 }

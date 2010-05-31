@@ -344,7 +344,7 @@ class Ansel_View_Image extends Ansel_View_Base
         }
 
         /* Buffer the template file and return the html */
-        ob_start();
+        Horde::startBuffer();
 
         //@TODO: Refactor styles to allow dynamic inclusion/exclusion of widgets.
         /* These items currently don't work when viewing through the api */
@@ -387,7 +387,7 @@ class Ansel_View_Image extends Ansel_View_Base
         }
 
         require ANSEL_TEMPLATES . '/view/image.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
     /**

@@ -97,13 +97,13 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                            ($gal->id == $this->_view->gallery->id),
                            array('icon' => $img, 'icondir' => '', 'url' => $link));
         }
-        ob_start();
+        Horde::startBuffer();
         $imple = Horde_Ajax_Imple::factory(array('ansel', 'ToggleOtherGalleries'), array('bindTo' => 'othergalleries'));
         $imple->attach();
 
         $tree->sort('label');
         $tree->renderTree();
-        $html .= ob_get_clean();
+        $html .= Horde::endBuffer();
         $html .= '</div>';
         $selfurl = Horde::selfUrl(true, true);
         $html .=  '<div class="control"><a href="'

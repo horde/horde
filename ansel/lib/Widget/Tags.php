@@ -34,14 +34,14 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         $html = $this->_htmlBegin();
         $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            ob_start();
+            Horde::startBuffer();
             /* Attach the Ajax action */
             $imple = Horde_Ajax_Imple::factory(array('ansel', 'TagActions'),
                                                array('bindTo' => array('add' => 'tagbutton'),
                                                      'gallery' => $this->_view->gallery->id,
                                                      'image' => $image_id));
             $imple->attach();
-            $html .= ob_get_clean();
+            $html .= Horde::endBuffer();
 
             $actionUrl = Horde_Util::addParameter('image.php',
                                                   array('image' => $this->_view->resource->id,

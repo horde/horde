@@ -113,9 +113,9 @@ class Ansel_Tile_DateGallery {
         /* Background color is needed if displaying a mini tile */
         $background_color = $style['background'];
 
-        ob_start();
+        Horde::startBuffer();
         include ANSEL_TEMPLATES . '/tile/dategallery' . ($mini ? 'mini' : '') . '.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
 }

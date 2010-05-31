@@ -256,9 +256,9 @@ class Ansel_View_Results extends Ansel_View_Base
         $this->_pager = new Horde_Ui_Pager('page', $vars, array('num' => $total,
                                                          'url' => $viewurl,
                                                          'perpage' => $this->_perPage));
-        ob_start();
+        Horde::startBuffer();
         include ANSEL_TEMPLATES . '/view/results.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
     public function viewType()

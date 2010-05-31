@@ -115,10 +115,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
                         'url_callback' => $callback);
 
         $pager = new Horde_Ui_Pager('page', $vars, $params);
-
-        /* Start buffering */
-        ob_start();
-
+        Horde::startBuffer();
         /* Create the js variables to pass to the lightbox script */
         $jsvars = array('graphics_dir' => Horde::applicationUrl(Horde_Themes::img(), true, -1),
                         'image_text' => _("Photo"),
@@ -147,7 +144,8 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         $count = 0;
 
         include ANSEL_TEMPLATES . '/view/gallerylightbox.inc';
-        return ob_get_clean();
+
+        return Horde::endBuffer();
     }
 
 }

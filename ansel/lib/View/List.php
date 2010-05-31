@@ -253,11 +253,13 @@ class Ansel_View_List extends Ansel_View_Base
             $count = 0;
             $width = round(100 / $prefs->getValue('tilesperrow'));
 
-            ob_start();
+            Horde::startBuffer();
             include ANSEL_TEMPLATES . '/view/list.inc';
-            $html = ob_get_clean();
+            $html = Horde::endBuffer();
+
             return $html;
         }
+
         return '';
     }
 

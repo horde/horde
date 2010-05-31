@@ -285,9 +285,9 @@ if (empty($rss)) {
     $stream_rss2 = Horde_Util::addParameter(Horde::applicationUrl('rss.php', true, -1), $getparams);
     $images = $imgs;
 
-    ob_start();
+    Horde::startBuffer();
     include ANSEL_TEMPLATES . '/rss/' . $type . '.inc';
-    $rss = ob_get_clean();
+    $rss = Horde::endBuffer();
 
     if ($conf['ansel_cache']['usecache']) {
         $GLOBALS['injector']->getInstance('Horde_Cache')->set($cache_key, $rss);
