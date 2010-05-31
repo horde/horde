@@ -405,6 +405,7 @@ body.kronolithAjax {
 
 /* User data and options */
 #kronolithApplications {
+    display: inline;
     position: relative;
     z-index: 99;
     float: left;
@@ -463,11 +464,13 @@ body.kronolithAjax {
 }
 
 #kronolithServices {
-    float: right;
-    margin-top: 10px;
-    margin-right: 10px;
-    text-align: right;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     white-space: nowrap;
+}
+#kronolithServices div {
+    float: left;
 }
 .kronolithNotifications {
     background-color: #d9d9d9
