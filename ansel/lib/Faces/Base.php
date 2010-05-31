@@ -47,7 +47,7 @@ class Ansel_Faces_Base
         } else {
             $file = $image;
         }
-        if (empty($file) || !is_string($image)) {
+        if (empty($file)) {
               return array();
         }
 
