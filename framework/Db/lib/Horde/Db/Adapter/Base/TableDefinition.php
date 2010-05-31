@@ -29,6 +29,9 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     protected $_columns = null;
     protected $_primaryKey = null;
 
+    protected $_columntypes = array('string', 'text', 'integer', 'float',
+        'datetime', 'timestamp', 'time', 'date', 'binary', 'boolean');
+
     /**
      * Class Constructor
      *
@@ -134,6 +137,21 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
         return $this;
+    }
+
+    /**
+     * Use __call to provide shorthand column creation ($this->integer(), etc.)
+     */
+    public function __call($method, $arguments)
+    {
+        if (!in_array($method, $this->_columntypes)) {
+            throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
+        } elseif (count($arguments) > 0 && count($arguments) < 3) {
+            return $this->column($arguments[0], $method,
+                                 isset($arguments[1]) ? $arguments[1] : array());
+        } else {
+            throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
+        }
     }
 
     /**

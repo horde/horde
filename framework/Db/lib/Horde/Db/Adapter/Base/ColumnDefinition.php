@@ -255,5 +255,4 @@ class Horde_Db_Adapter_Base_ColumnDefinition
             array_merge($options, array('column' => $this))
         );
     }
-
 }
