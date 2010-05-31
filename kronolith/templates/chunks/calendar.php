@@ -104,7 +104,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
                  '<input type="checkbox" id="kronolithCalendarinternalImportOver" name="purge" />',
                  '<label for="kronolithCalendarinternalImportOver">', '</label>') ?>
     <span class="kronolithDialogWarning"><?php printf(_("%sWarning:%s also %sdeletes all events%s currently in the calendar."), '<strong>', '</strong>', '<strong>', '</strong>') ?></span>
-    </div>
+  </div>
 </div>
 
 <div id="kronolithCalendarinternalTabExport" class="kronolithTabsOption" style="display:none">
