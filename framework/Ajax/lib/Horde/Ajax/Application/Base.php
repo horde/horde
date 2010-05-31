@@ -122,7 +122,7 @@ abstract class Horde_Ajax_Application_Base
      */
     public function logOut()
     {
-        Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', $this->_app)));
+        Horde::redirect(Horde::getServiceLink('logout', $this->_app)->setRaw(true));
         exit;
     }
 
