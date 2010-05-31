@@ -34,16 +34,17 @@ if (empty($action)) {
 try {
     Horde_Registry::appInit($app, array('authentication' => 'throw'));
 } catch (Horde_Exception $e) {
-    /* Handle session timeouts when they come from an AJAX request. */
-    if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-        ($action != 'logOut')) {
-        $ajax = Horde_Ajax::getInstance($app);
-        $GLOBALS['notification']->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
-        Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
-        exit;
-    }
+    if ($action != 'logOut') {
+        /* Handle session timeouts when they come from an AJAX request. */
+        if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+            $ajax = Horde_Ajax::getInstance($app);
+            $GLOBALS['notification']->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'horde.ajaxtimeout', array('content.raw'));
+            Horde::sendHTTPResponse(Horde::prepareResponse(null, $ajax->notify), $ajax->responseType());
+            exit;
+        }
 
-    Horde_Auth::authenticateFailure($app, $e);
+        Horde_Auth::authenticateFailure($app, $e);
+    }
 }
 
 // Open an output buffer to ensure that we catch errors that might break JSON
