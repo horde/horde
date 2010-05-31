@@ -144,6 +144,10 @@ class Horde_Test
             'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
             'fatal' => true
         ),
+        'pdo' => array(
+            'descrip' => 'PDO',
+            'error' => 'The PDO extension is required if you plan on using a database backend other than mysqli with Horde_Db.',
+        ),
         'pgsql' => array(
             'descrip' => 'PostgreSQL Support',
             'error' => 'The PostgreSQL extension is only required if you want to use a PostgreSQL database server for data storage.'
