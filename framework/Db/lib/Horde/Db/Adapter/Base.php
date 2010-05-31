@@ -163,11 +163,13 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 
 
     /*##########################################################################
-    # Object helpers
+    # Dependency setters
     ##########################################################################*/
 
     /**
      * Set a cache object.
+     *
+     * @inject
      *
      * @var Horde_Cache_Base $logger  The cache object.
      */
@@ -178,6 +180,8 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
 
     /**
      * Set a logger object.
+     *
+     * @inject
      *
      * @var Horde_Log_Logger $logger  The logger object.
      */
