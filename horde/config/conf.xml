@@ -299,8 +299,6 @@
      </configsection>
     </case>
 
-    <case name="krb5" desc="Kerberos authentication"/>
-
     <case name="kolab" desc="Kolab authentication">
      <configsection name="params">
       <configboolean name="login_block" desc="Should the login be
