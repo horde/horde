@@ -203,7 +203,7 @@ if (count($groups) > 1) {
           <?php else: ?>
           <input type="text" id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]" size="20" />
           <?php endif; ?>
-          <input type="button" id="kronolithC<?php echo $type ?>PUAdd" value="<?php echo _("Add") ?>" />
+          <input type="button" class="button" id="kronolithC<?php echo $type ?>PUAdd" value="<?php echo _("Add") ?>" />
         </td>
         <td>
           <input type="checkbox" id="kronolithC<?php echo $type ?>PUshow_new" name="u_show[||new]" />
@@ -250,7 +250,7 @@ if (count($groups) > 1) {
             <option value="<?php echo $id ?>"><?php echo htmlspecialchars($group) ?></option>
             <?php endforeach; ?>
           </select>
-          <input type="button" id="kronolithC<?php echo $type ?>PGAdd" value="<?php echo _("Add") ?>" />
+          <input type="button" class="button" id="kronolithC<?php echo $type ?>PGAdd" value="<?php echo _("Add") ?>" />
         </td>
         <td>
           <input type="checkbox" id="kronolithC<?php echo $type ?>PGshow_new" name="g_show[||new]" />
