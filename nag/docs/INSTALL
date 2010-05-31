@@ -95,17 +95,15 @@ Configuring Nag
       Horde, either in the URL, in the filesystem or both, you must update the
       ``fileroot`` and ``webroot`` settings to their correct values.
 
-   b. Configuring a DataTree backend
+   b. Configuring a Share backend
 
-      Nag requires a permanent ``DataTree`` backend in Horde to manage
-      tasklists and to add tasks to tasklists.  If you didn't setup a DataTree
+      Nag requires a permanent ``Shares`` backend in Horde to manage
+      tasklists and to add tasks to tasklists.  If you didn't setup a Share
       backend yet, go to the configuration interface, select Horde from the
-      list of applications and select a driver different than ``None`` on the
-      ``DataTree System`` tab.  Make sure that you ran the necessary scripts
-      to create a storage backend for the DataTree system, e.g. one of the
-      ``create.*.sql`` or ``horde_datatree.*.sql`` SQL scripts in
-      ``horde/scripts/sql/``.  You should have done this already during the
-      installation of Horde.
+      list of applications and select the ``Shares`` tab. Unless you are using
+      Kolab, you should select ``SQL``. Make sure that you ran the necessary
+      scripts to create a storage backend for the Share system, e.g. one of the
+      ``create.*.sql``.
 
 2. Creating the database table
 
