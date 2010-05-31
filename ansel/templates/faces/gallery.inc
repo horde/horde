@@ -11,22 +11,22 @@
  foreach ($images as $image):
     $imageids[$image->id] = $image->id;
  ?>
-    <tr>
-     <td style="text-align: center">
-     <?php echo $image->filename; ?><br /><br />
-     <?php if ($autogenerate): ?>
-      <a href="javascript:void(0)" onclick="proccessImageFaces(<?php echo $image->id ?>, 1)">
-      <?php echo $reloadimage . _("Reget faces for this photo") ?></a><br />
-     <?php endif; ?>
-
-     <a href="<?php echo Horde_Util::addParameter($customurl, array('image' => $image->id, 'gallery' => $image->gallery)) ?>">
-     <?php echo  $customimage .  _("Add a custom face range") ?></a><br />
-    </td>
-    <td style="text-align: center">
-    <a href="<?php echo Ansel::getUrlFor('view', array('view' => 'Image', 'image' => $image->id, 'gallery' => $image->gallery)); ?>" target="_blank">
-    <img src="<?php echo Ansel::getImageUrl($image->id, 'thumb'); ?>" alt="<?php echo htmlspecialchars($image->filename)?>" /></a></td>
-    <td><div id="processface<?php echo $image->id ?>" name="processface<?php echo $image->id ?>"><?php echo _("Loading...") ?></div></td>
-    </tr>
+ <tr>
+  <td style="text-align: center">
+   <?php echo $image->filename; ?><br /><br />
+   <?php if ($autogenerate): ?>
+    <a href="javascript:void(0)" onclick="proccessImageFaces(<?php echo $image->id ?>, 1)">
+    <?php echo $reloadimage . _("Reget faces for this photo") ?></a><br />
+   <?php endif; ?>
+   <?php echo $customurl->add(array('image' => $image->id, 'gallery' => $image->gallery))->link()?>
+   <?php echo  $customimage .  _("Add a custom face range") ?></a><br />
+  </td>
+  <td style="text-align: center">
+   <a href="<?php echo Ansel::getUrlFor('view', array('view' => 'Image', 'image' => $image->id, 'gallery' => $image->gallery)); ?>" target="_blank">
+   <img src="<?php echo Ansel::getImageUrl($image->id, 'thumb'); ?>" alt="<?php echo htmlspecialchars($image->filename)?>" /></a>
+  </td>
+  <td><div id="processface<?php echo $image->id ?>" name="processface<?php echo $image->id ?>"><?php echo _("Loading...") ?></div></td>
+ </tr>
  <?php endforeach; ?>
 </table>
 <?php echo $pager->render() ?>

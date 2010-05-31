@@ -49,16 +49,15 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 // Attempt to get faces from the picture if we don't already have results,
                 // or if we were asked to explicitly try again.
                 if (($reload || empty($result))) {
-                    $image = &$GLOBALS['ansel_storage']->getImage($image_id);
+                    $image = $GLOBALS['ansel_storage']->getImage($image_id);
                     $image->createView('screen');
                     $result = $faces->getFromPicture($image_id, $autocreate);
                 }
                 if (!empty($result)) {
-                    $imgdir = Horde_Themes::img(null, 'horde');
                     $customurl = Horde::applicationUrl('faces/custom.php');
                     $url = (!empty($args['url']) ? urldecode($args['url']) : '');
                     Horde::startBuffer();
-                    require_once ANSEL_TEMPLATES . '/faces/image.inc';
+                    include ANSEL_TEMPLATES . '/faces/image.inc';
                     $html = Horde::endBuffer();
                     return array('response' => 1,
                                  'message' => $html);
@@ -71,14 +70,13 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
             case 'delete':
                 // delete - deletes a single face from an image.
                 $face_id = (int)$post['face'];
-                $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-                $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
+                $image = $GLOBALS['ansel_storage']->getImage($image_id);
+                $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('Access denied editing the photo.');
                 }
 
-                $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
-                $faces->delete($image, $face_id);
+                Ansel_Faces::delete($image, $face_id);
                 break;
 
             case 'setname':

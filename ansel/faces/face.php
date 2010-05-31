@@ -1,6 +1,6 @@
 <?php
 /**
- * Shows all images that the supplied, named face appears on?
+ * Shows all images that the supplied, named face appears on.
  *
  * TODO: Maybe incorporate this into some kind of generic "result" view?
  * At least, we need to rename this to something other that image.php to
@@ -13,7 +13,6 @@
  *
  * @author Duck <duck@obala.net>
  */
-
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
@@ -28,7 +27,7 @@ try {
 }
 
 $title = _("Face") . ' :: ' . $face['face_name'];
-
+$facename = htmlspecialchars($face['face_name']);
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
 require_once ANSEL_TEMPLATES . '/faces/face.inc';
