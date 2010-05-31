@@ -41,7 +41,7 @@ $images = $gallery->getImages($page * $perpage, $perpage);
 $reloadimage = Horde_Themes::img('reload.png');
 $customimage = Horde_Themes::img('layout.png');
 $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
-$face = Ansel_Faces::factory();
+$face = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $autogenerate = $face->canAutogenerate();
 
 $vars = Horde_Variables::getDefaultVariables();

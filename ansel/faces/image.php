@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
 $name = '';
 $autocreate = true;

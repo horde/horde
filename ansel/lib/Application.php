@@ -61,6 +61,7 @@ class Ansel_Application extends Horde_Registry_Application
         $binders = array(
             'Ansel_Storage' => new Ansel_Injector_Binder_Storage(),
             'Ansel_Styles' => new Ansel_Injector_Binder_Styles(),
+            'Ansel_Faces' => new Ansel_Injector_Binder_Faces(),
         );
         foreach ($binders as $interface => $binder) {
             $GLOBALS['injector']->addBinder($interface, $binder);

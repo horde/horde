@@ -45,7 +45,7 @@ $y2 = $conf['screen']['width'];
 $name = Horde_Util::getFormData('name');
 
 if ($face_id) {
-    $faces = Ansel_Faces::factory();
+    $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
     try {
         $face = $faces->getFaceById($face_id, true);
         $x1 = $face['face_x1'];

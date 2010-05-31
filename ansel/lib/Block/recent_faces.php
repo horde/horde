@@ -34,7 +34,7 @@ class Horde_Block_ansel_recent_faces extends Horde_Block
 
     function _content()
     {
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         $results = $faces->allFaces(0, $this->_params['limit']);
         $html = '';
         foreach ($results as $face_id => $face) {

@@ -15,7 +15,7 @@ Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
 
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {

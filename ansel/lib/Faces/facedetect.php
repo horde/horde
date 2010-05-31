@@ -5,7 +5,7 @@
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */
-class Ansel_Faces_facedetect extends Ansel_Faces_Base
+class Ansel_Faces_Facedetect extends Ansel_Faces_Base
 {
     /**
      * Where the face defintions are stored
@@ -20,6 +20,9 @@ class Ansel_Faces_facedetect extends Ansel_Faces_Base
         $this->_defs = $params['defs'];
     }
 
+    /**
+     *
+     */
     public function canAutogenerate()
     {
         return true;
@@ -33,8 +36,7 @@ class Ansel_Faces_facedetect extends Ansel_Faces_Base
      */
     protected function _getFaces($file)
     {
-        $result = Horde_Util::loadExtension('facedetect');
-        if (!$result) {
+        if (!Horde_Util::loadExtension('facedetect')) {
             throw new Horde_Exception('You do not have the facedetect extension enabled in PHP');
         }
 
@@ -63,14 +65,13 @@ class Ansel_Faces_facedetect extends Ansel_Faces_Base
 
     protected function _getParamsArray($face_id, $image, $rect)
     {
-        $params = array($face_id,
-                $image->id,
-                $image->gallery,
-                $rect['x'],
-                $rect['y'],
-                $rect['x'] + $rect['w'],
-                $rect['y'] + $rect['h']);
-       return $params;
+        return array($face_id,
+                     $image->id,
+                     $image->gallery,
+                     $rect['x'],
+                     $rect['y'],
+                     $rect['x'] + $rect['w'],
+                     $rect['y'] + $rect['h']);
     }
 
     protected function _createView($face_id, $image, $rect)

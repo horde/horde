@@ -12,25 +12,6 @@
 class Ansel_Faces
 {
     /**
-     * Create instance
-     */
-    static function factory($driver = null, $params = array())
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['faces']['driver'];
-        }
-
-        if (empty($params)) {
-            $params = $GLOBALS['conf']['faces'];
-        }
-
-        $class_name = 'Ansel_Faces_' . $driver;
-        $parser = new $class_name($params);
-
-        return $parser;
-    }
-
-    /**
      * Delete faces from VFS and DB storage.
      *
      * @TODO: Move SQL queries to Ansel_Storage::
@@ -118,7 +99,7 @@ class Ansel_Faces
      */
     static public function getFaceTile($face)
     {
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         if (!is_array($face)) {
             $face = $faces->getFaceById($face, true);
         }
@@ -154,8 +135,7 @@ class Ansel_Faces
         }
 
         // Link for searching for similar faces.
-        $html .= ' <a href="' . Horde_Util::addParameter($search_url, 'face_id', $face_id)
-            . '">' . _("Find similar") . '</a>';
+        $html .= ' <a href="' . Horde_Util::addParameter($search_url, 'face_id', $face_id) . '">' . _("Find similar") . '</a>';
         $html .= '</div></td></tr></table>';
 
         return $html;

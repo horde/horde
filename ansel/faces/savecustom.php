@@ -31,7 +31,7 @@ if (Horde_Util::getPost('submit') == _("Cancel")) {
     exit;
 }
 try {
-    $faces = Ansel_Faces::factory();
+    $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
     $result = $faces->saveCustomFace(
                            $face_id,
                            $image_id,

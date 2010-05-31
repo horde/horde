@@ -58,7 +58,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
                     . '<br /><em>' . _("No faces found") . '</em></div>';
         }
 
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
         // Check for existing faces for this gallery.
         $html = '<div style="display: block'

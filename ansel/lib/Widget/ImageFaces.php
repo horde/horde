@@ -53,7 +53,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     protected function _getFaceNames()
     {
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
         // Check for existing faces for this image.
         $html = '';

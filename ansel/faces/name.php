@@ -23,5 +23,5 @@ if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     throw new Horde_Exception('Access denied editing the photo.');
 }
 
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $result = $faces->setName($face_id, $name);

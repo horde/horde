@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
 // Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file
 // header

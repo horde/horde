@@ -39,7 +39,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 return array('response' => 0);
             }
 
-            $faces = Ansel_Faces::factory();
+            $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
             switch($action) {
             case 'process':
                 // process - detects all faces in the image.
@@ -77,7 +77,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                     throw new Horde_Exception('Access denied editing the photo.');
                 }
 
-                $faces = Ansel_Faces::factory();
+                $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
                 $faces->delete($image, $face_id);
                 break;
 
@@ -95,7 +95,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                     throw new Horde_Exception('You are not allowed to edit this photo');
                 }
 
-                $faces = Ansel_Faces::factory();
+                $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
                 $result = $faces->setName($face_id, $name);
                 return array('response' => 1,
                              'message' => Ansel_Faces::getFaceTile($face_id));

@@ -23,7 +23,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             return '';
         }
 
-        $this->_faces = Ansel_Faces::factory();
+        $this->_faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         $this->_owner = $this->_view->gallery->get('owner');
         try {
             $this->_count = $this->_faces->countOwnerFaces($this->_owner);

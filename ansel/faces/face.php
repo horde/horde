@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $face_id = Horde_Util::getFormData('face');
 try {
     $face = $faces->getFaceById($face_id);
