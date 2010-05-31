@@ -812,7 +812,7 @@ class Horde_Share_Sql extends Horde_Share
         unset($params['charset']);
         $this->_write_db = MDB2::factory($params);
         if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Share_Excetion($this->_write_db->getMessage());
+            throw new Horde_Share_Exception($this->_write_db->getMessage());
         }
 
         /* Attach debug handler. */
