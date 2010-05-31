@@ -16,11 +16,11 @@
      <?php echo $image->filename; ?><br /><br />
      <?php if ($autogenerate): ?>
       <a href="javascript:void(0)" onclick="proccessImageFaces(<?php echo $image->id ?>, 1)">
-      <img src="<?php echo $reloadimage ?>" alt="[icon]" /><?php echo _("Reget faces for this photo") ?></a><br />
+      <?php echo $reloadimage . _("Reget faces for this photo") ?></a><br />
      <?php endif; ?>
 
      <a href="<?php echo Horde_Util::addParameter($customurl, array('image' => $image->id, 'gallery' => $image->gallery)) ?>">
-     <img src="<?php echo $customimage ?>" alt="[icon]" /><?php echo _("Add a custom face range") ?></a><br />
+     <?php echo  $customimage .  _("Add a custom face range") ?></a><br />
     </td>
     <td style="text-align: center">
     <a href="<?php echo Ansel::getUrlFor('view', array('view' => 'Image', 'image' => $image->id, 'gallery' => $image->gallery)); ?>" target="_blank">

@@ -38,8 +38,8 @@ $page = Horde_Util::getFormData('page', 0);
 $perpage = min($prefs->getValue('tilesperpage'), $conf['thumbnail']['perpage']);
 $images = $gallery->getImages($page * $perpage, $perpage);
 
-$reloadimage = Horde_Themes::img('reload.png');
-$customimage = Horde_Themes::img('layout.png');
+$reloadimage = Horde::img('reload.png');
+$customimage = Horde::img('layout.png');
 $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
 $face = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $autogenerate = $face->canAutogenerate();
