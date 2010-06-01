@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
-    Horde_Auth::authenticateFailure('whups', $e);
+    $registry->authenticateFailure('whups', $e);
 }
 
 // Set up the page config vars.

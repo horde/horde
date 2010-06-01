@@ -15,7 +15,7 @@ require_once VILMA_BASE . '/lib/Forms/EditDomainForm.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma', $e);
 }
 
 //$domain_id = Horde_Util::getFormData('domain_id');

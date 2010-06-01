@@ -208,7 +208,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 if (!Horde_Auth::getAuth() && !$conf['menu']['always']) {
-    Horde_Auth::authenticateFailure();
+    $registry->authenticateFailure();
 }
 
 $is_mozbar = (bool)Horde_Util::getFormData('mozbar');

@@ -462,7 +462,7 @@ HTML;
                 ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
         case 'logout':
-            return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT))->setRaw(false);
+            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT))->setRaw(false);
 
         case 'login':
             return self::url($webroot . '/login.php');

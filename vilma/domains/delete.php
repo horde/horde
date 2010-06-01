@@ -15,7 +15,7 @@ require_once VILMA_BASE . '/lib/Forms/DeleteDomainForm.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma', $e);
 }
 
 $vars = Horde_Variables::getDefaultVariables();

@@ -28,7 +28,7 @@ $registry = new Horde_Registry();
 try {
     $registry->pushApp('babel', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticateFailure('babel', $e);
+    $registry->authenticateFailure('babel', $e);
 }
 
 $conf = &$GLOBALS['conf'];

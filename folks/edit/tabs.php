@@ -12,7 +12,7 @@
  */
 
 if (!$registry->isAuthenticated()) {
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();

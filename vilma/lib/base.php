@@ -25,7 +25,7 @@ try {
     $registry->pushApp('vilma', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
     if ($e->getCode() == 'permission_denied') {
-        Horde_Auth::authenticateFailure('vilma', $e);
+        $registry->authenticateFailure('vilma', $e);
     }
     Horde::fatal($e, __FILE__, __LINE__, false);
 }

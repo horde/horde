@@ -16,7 +16,7 @@ $jonah = Horde_Registry::appInit('jonah');
 
 if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
     $notification->push(_("You are not authorised for this action."), 'horde.warning');
-    Horde_Auth::authenticateFailure();
+    $registry->authenticateFailure();
 }
 
 $have_news = Jonah_News::getAvailableTypes();

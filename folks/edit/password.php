@@ -19,7 +19,7 @@ require_once 'tabs.php';
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 */
 

@@ -192,7 +192,7 @@ class Horde_Registry
                 throw $e;
             }
 
-            Horde_Auth::authenticateFailure($app, $e);
+            $GLOBALS['registry']->authenticateFailure($app, $e);
         }
 
         $GLOBALS['registry']->initialApp = $app;
@@ -1687,6 +1687,101 @@ class Horde_Registry
             : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $options['app']));
 
         return $auth->transparent();
+    }
+
+    /**
+     * Handle authentication failures, redirecting to the login page
+     * when appropriate.
+     *
+     * @param string $app         The app which failed authentication.
+     * @param Horde_Exception $e  An exception thrown by pushApp().
+     *
+     * @throws Horde_Exception
+     */
+    public function authenticateFailure($app = 'horde', $e = null)
+    {
+        if (Horde_Cli::runningFromCLI()) {
+            $cli = new Horde_Cli();
+            $cli->fatal(_("You are not authenticated."));
+        }
+
+        if (is_null($e)) {
+            $params = array();
+        } else {
+            switch ($e->getCode()) {
+            case self::PERMISSION_DENIED:
+                $params = array('app' => $app, 'reason' => Horde_Auth::REASON_MESSAGE, 'msg' => $e->getMessage());
+                break;
+
+            case self::AUTH_FAILURE:
+                $params = array('app' => $app);
+                break;
+
+            default:
+                throw $e;
+            }
+        }
+
+        header('Location: ' . $this->getLogoutUrl($params));
+        exit;
+    }
+
+    /**
+     * Return a URL to the login screen, adding the necessary logout
+     * parameters.
+     * If no reason/msg is passed in, use the current global authentication
+     * error message.
+     *
+     * @param array $options  Additional options:
+     * <pre>
+     * 'app' - (string) Authenticate to this application
+     *         DEFAULT: Horde
+     * 'msg' - (string) If reason is Horde_Auth::REASON_MESSAGE, the message
+     *         to display to the user.
+     *         DEFAULT: None
+     * 'params' - (array) Additional params to add to the URL (not allowed:
+     *            'app', 'horde_logout_token', 'msg', 'nosidebar', 'reason',
+     *            'url').
+     *            DEFAULT: None
+     * 'reason' - (integer) The reason for logout
+     *            DEFAULT: None
+     * </pre>
+     *
+     * @return string The formatted URL
+     */
+    public function getLogoutUrl(array $options = array())
+    {
+        if (!isset($options['reason'])) {
+            $options['reason'] = Horde_Auth::getAuthError();
+        }
+
+        if (empty($options['app']) ||
+            ($options['app'] == 'horde') ||
+            ($options['reason'] == Horde_Auth::REASON_LOGOUT)) {
+            $params = array(
+                'horde_logout_token' => Horde::getRequestToken('horde.logout'),
+                'nosidebar' => 1
+            );
+        } else {
+            $params = array(
+                'url' => Horde::selfUrl(true, true, true)
+            );
+        }
+
+        if (isset($options['app'])) {
+            $params['app'] = $options['app'];
+        }
+
+        if ($options['reason']) {
+            $params[Horde_Auth::REASON_PARAM] = $options['reason'];
+            if ($options['reason'] == Horde_Auth::REASON_MESSAGE) {
+                $params[Horde_Auth::REASON_MSG_PARAM] = empty($options['msg'])
+                    ? Horde_Auth::getAuthError(true)
+                    : $options['msg'];
+            }
+        }
+
+        return Horde::getServiceLink('login', 'horde')->add($params)->setRaw(true);
     }
 
 }

@@ -21,7 +21,7 @@ $registry = new Horde_Registry();
 try {
     $registry->pushApp('folks', array('check_perms' => (Horde_Util::nonInputVar('folks_authentication') != 'none')));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticateFailure('folks', $e);
+    $registry->authenticateFailure('folks', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('FOLKS_TEMPLATES', $registry->get('templates'));

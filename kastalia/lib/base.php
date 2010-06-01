@@ -24,7 +24,7 @@ $registry = new Horde_Registry();
 try {
     $registry->pushApp('kastalia', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticateFailure('kastalia', $e);
+    $registry->authenticateFailure('kastalia', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('KASTALIA_TEMPLATES', $registry->get('templates'));

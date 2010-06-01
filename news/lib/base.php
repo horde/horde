@@ -27,7 +27,7 @@ $registry = new Horde_Registry();
 try {
     $registry->pushApp('news', array('check_perms' => (Horde_Util::nonInputVar('news_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticateFailure('news', $e);
+    $registry->authenticateFailure('news', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('NEWS_TEMPLATES', $registry->get('templates'));

@@ -50,7 +50,7 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
     {
         if (Horde_Util::getFormData('not_agree')) {
             Horde_Auth::setAuthError(Horde_Auth::REASON_MESSAGE, _("You did not agree to the Terms of Service agreement, so you were not allowed to login."));
-            Horde_Auth::authenticateFailure('horde');
+            $GLOBALS['registry']->authenticateFailure('horde');
         }
     }
 
