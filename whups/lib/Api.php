@@ -78,7 +78,7 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function addQueue($name)
     {
-        if (Horde_Auth::isAdmin('whups:admin')) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
             return $GLOBALS['whups_driver']->addQueue($name, '');
         } else {
             return PEAR::raiseError('You must be an administrator to perform this action.');

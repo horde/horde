@@ -166,7 +166,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function listResources($perms = Horde_Perms::READ, $filter = array())
     {
         if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
-            !Horde_Auth::isAdmin()) {
+            !$GLOBALS['registry']->isAdmin()) {
             return array();
         }
 

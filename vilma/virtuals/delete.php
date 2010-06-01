@@ -13,7 +13,7 @@ require_once VILMA_BASE . '/lib/base.php';
 require_once 'Horde/Form.php';
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     Horde_Auth::authenticateFailure('vilma', $e);
 }
 

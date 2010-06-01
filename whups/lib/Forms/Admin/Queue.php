@@ -137,7 +137,7 @@ class EditQueueStep2Form extends Horde_Form {
                            array($userlink));
 
         /* Permissions link. */
-        if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT)) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT))) {
             $permslink = array(
                 'text' => _("Edit the permissions on this queue"),
                 'url' => Horde_Util::addParameter(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php'), 'category', "whups:queues:$queue"), 'autocreate', '1'));

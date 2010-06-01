@@ -34,7 +34,7 @@ function canSee($app, $params, &$hasChildren)
     // Initialize variables we'll keep using in successive calls on
     // the first call.
     if (is_null($isAdmin)) {
-        $isAdmin = Horde_Auth::isAdmin();
+        $isAdmin = $registry->isAdmin();
         $user = Horde_Auth::getAuth();
     }
 
@@ -114,7 +114,7 @@ function buildMenu()
     }
 
     // Add the administration menu if the user is an admin.
-    if (Horde_Auth::isAdmin()) {
+    if ($registry->isAdmin()) {
         $menu['administration'] = array('name' => _("Administration"),
                                         'icon' => (string)Horde_Themes::img('administration.png'),
                                         'status' => 'heading');
@@ -157,7 +157,7 @@ function buildMenu()
              * application, and if the application is active.
              * Administrators always see all applications. */
             try {
-                if ((Horde_Auth::isAdmin() && $params['status'] != 'inactive') ||
+                if (($registry->isAdmin() && $params['status'] != 'inactive') ||
                     ($registry->hasPermission($application) &&
                      ($params['status'] == 'active'))) {
                     $prefs_apps[$application] = _($params['name']);

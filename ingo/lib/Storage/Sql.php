@@ -391,7 +391,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            $user != Horde_Auth::getAuth()) {
             throw new Ingo_Exception(_("Permission Denied"));
         }
 

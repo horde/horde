@@ -44,7 +44,7 @@ case 'edit':
 
     if (!Horde_Auth::getAuth() ||
         (isset($share) &&
-         !Horde_Auth::isAdmin() &&
+         !$registry->isAdmin() &&
          Horde_Auth::getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
@@ -54,7 +54,7 @@ case 'editform':
     try {
         $share = $shares->getShareById(Horde_Util::getFormData('cid'));
         if (!Horde_Auth::getAuth() ||
-            (!Horde_Auth::isAdmin() &&
+            (!$registry->isAdmin() &&
              Horde_Auth::getAuth() != $share->get('owner'))) {
             exit('permission denied');
         }

@@ -66,7 +66,7 @@ if (!empty($username) && !empty($password)) {
     $cli->fatal(_("You must specify a valid username and password."));
 }
 
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     $cli->fatal(_("You must login with an administrative account."));
 }
 

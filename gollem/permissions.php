@@ -9,11 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('gollem');
-
-if (!Horde_Auth::isAdmin()) {
-    Horde_Auth::authenticateFailure('gollem', $e);
-}
+Horde_Registry::appInit('gollem', array('admin' => true));
 
 if (!Gollem::getBackends('all')) {
     $title = _("Gollem Backend Permissions Administration");

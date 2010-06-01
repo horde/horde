@@ -40,7 +40,7 @@
   </td>
 </tr>
 
-<?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
+<?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
 

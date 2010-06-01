@@ -31,7 +31,7 @@ class SetQueueStep1Form extends Horde_Form {
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
 
         /* Group restrictions. */
-        if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT) ||
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT)) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments',
                                              Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $groups = &Group::singleton();

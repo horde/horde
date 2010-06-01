@@ -23,11 +23,11 @@ $vars = Horde_Variables::getDefaultVariables();
 $vars->set('forum_id', $forum_id);
 
 /* Check permissions */
-if ($forum_id && !Horde_Auth::isAdmin('agora:admin')) {
+if ($forum_id && !$registry->isAdmin(array('permission' => 'agora:admin'))) {
     $notification->push(sprintf(_("You don't have permissions to edit forum %s"), $registry->get('name', $scope)), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('forums.php', true));
     exit;
-} elseif (!Horde_Auth::isAdmin('agora:admin')) {
+} elseif (!$registry->isAdmin(array('permission' => 'agora:admin'))) {
     $notification->push(sprintf(_("You don't have permissions to create a new forum in %s"), $registry->get('name', $scope)), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('forums.php', true));
     exit;

@@ -976,7 +976,8 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Horde_Exception(sprintf(_("Connection failed: %s"), $driver->getMessage()));
             }
 
-            if (!Horde_Auth::isAdmin() && !$driver->hasPermission(Horde_Perms::DELETE)) {
+            if (!$GLOBALS['registry']->isAdmin() &&
+                !$driver->hasPermission(Horde_Perms::DELETE)) {
                 continue;
             }
 

@@ -88,7 +88,7 @@ if ($this->allows(WICKED_MODE_HISTORY)) {
                        'widget', '', '', _("Hi_story"));
 }
 
-if (Horde_Auth::isAdmin()) {
+if ($registry->isAdmin()) {
     separator();
     $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php');
     $permsurl = Horde_Util::addParameter(

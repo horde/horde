@@ -89,7 +89,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         if (Horde_Auth::getAuth() &&
             (Horde_Auth::getAuth() == $this->data['share_owner'] ||
-             Horde_Auth::isAdmin('ansel:admin'))) {
+             $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
         }
 
@@ -791,7 +791,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     public function hasPermission($userid, $permission, $creator = null)
     {
         if ($userid == $this->data['share_owner'] ||
-            Horde_Auth::isAdmin('ansel:admin')) {
+            $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin'))) {
 
             return true;
         }
@@ -841,7 +841,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         if (Horde_Auth::getAuth() &&
             (Horde_Auth::getAuth() == $this->get('owner') ||
-             Horde_Auth::isAdmin('ansel:admin'))) {
+             $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return false;
         }
 

@@ -21,7 +21,7 @@ if (!Horde_Auth::isAuthenticated()) {
 
 /* Default to agora and current user if is not an admin. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$owner = Horde_Auth::isAdmin() ? Horde_Util::getGet('owner', Horde_Auth::getAuth()) : Horde_Auth::getAuth();
+$owner = $registry->isAdmin() ? Horde_Util::getGet('owner', Horde_Auth::getAuth()) : Horde_Auth::getAuth();
 
 /* Get the sorting. */
 $sort_by = Agora::getSortBy('threads');

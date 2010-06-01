@@ -543,7 +543,7 @@ class Turba_Driver_Sql extends Turba_Driver
     function removeUserData($user)
     {
         // Make sure we are being called by an admin.
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("Permission denied"));
         }
 

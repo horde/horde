@@ -286,7 +286,7 @@ class Luxor
     {
         global $source;
 
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             return false;
         }
 

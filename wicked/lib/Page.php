@@ -109,7 +109,7 @@ class Page {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
@@ -128,7 +128,7 @@ class Page {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
@@ -142,7 +142,7 @@ class Page {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
@@ -153,7 +153,7 @@ class Page {
 
         // All other modes require READ permissions.
         default:
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 

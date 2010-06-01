@@ -23,7 +23,7 @@ class AddCommentForm extends Horde_Form {
         $this->addVariable(_("Watch this ticket"), 'add_watch', 'boolean', false);
 
         /* Group restrictions. */
-        if (Horde_Auth::isAdmin('whups:admin') ||
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin')) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $groups = &Group::singleton();
             $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());

@@ -43,8 +43,6 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      */
     public function handle($args, $post)
     {
-        global $ansel_storage;
-
         $request = $args['action'];
         $content = array('id' => $post['resource'], 'type' => $post['type']);
         $tags = rawurldecode($post['tags']);
@@ -60,7 +58,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
         // $owner is null for system-owned shares, so an admin has perms,
         // otherwise, make sure the resource owner is the current user
-        $perm = empty($owner) ? Horde_Auth::isAdmin() : $owner == Horde_Auth::getAuth();
+        $perm = empty($owner)
+            ? $GLOBALS['registry']->isAdmin()
+            : $owner == Horde_Auth::getAuth();
 
         if ($perm) {
             $tagger = Kronolith::getTagger();

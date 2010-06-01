@@ -1753,10 +1753,10 @@ abstract class Kronolith_Event
         $end = $this->end->format($twentyFour ? 'G:i' : 'g:ia');
 
         // We explicitly allow admin access here for the alarms notifications.
-        if (!Horde_Auth::isAdmin() && $this->private &&
+        if (!$GLOBALS['registry']->isAdmin() && $this->private &&
             $this->creator != $user) {
             return _("busy");
-        } elseif (Horde_Auth::isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
+        } elseif ($GLOBALS['registry']->isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
         } else {
             return _("busy");

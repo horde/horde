@@ -120,9 +120,9 @@ case 'modify':
 
 case 'save':
     // Check general permissions.
-    if (!Horde_Auth::isAdmin() &&
-        ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') &&
-         !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
+    if (!$registry->isAdmin() &&
+        ($injector->getInstance('Horde_Perms')->exists('ansel') &&
+         !$injector->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
         $notification->push(_("Access denied editing galleries."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
@@ -272,8 +272,8 @@ case 'save':
     }
 
     // Clear the OtherGalleries widget cache
-    if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-        $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+    if ($conf['ansel_cache']['usecache']) {
+        $injector->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
     }
 
     // Return to the last view.

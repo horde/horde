@@ -93,11 +93,7 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        if (Horde_Auth::isAdmin()) {
-            return true;
-        }
-
-        return false;
+        return $GLOBALS['registry']->isAdmin();
     }
 
     /**

@@ -469,7 +469,7 @@ class Nag
     {
         if (!Horde_Auth::getAuth() ||
             ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
+             (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to change this task list."));
         }
 
@@ -496,7 +496,7 @@ class Nag
 
         if (!Horde_Auth::getAuth() ||
             ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
+             (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to delete this task list."));
         }
 

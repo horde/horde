@@ -14,7 +14,7 @@ require_once 'Horde/Form.php';
 require_once 'Horde/Form/Action.php';
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin() && !Vilma::isDomainAdmin()) {
+if (!$registry->isAdmin() && !Vilma::isDomainAdmin()) {
     Horde_Auth::authenticateFailure('vilma', $e);
 }
 

@@ -39,7 +39,7 @@ function performAction(action, rid)
 <h1 class="header">
  <?php echo _("Resources") ?>
 </h1>
-<?php if ($isAdmin = Horde_Auth::isAdmin()): ?>
+<?php if ($isAdmin = $registry->isAdmin()): ?>
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Resource") ?>" />

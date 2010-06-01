@@ -215,8 +215,7 @@ if ($conf['attributes']['attachments']) {
     }
 }
 
-if (Horde_Auth::isAdmin('news:admin')) {
-
+if ($registry->isAdmin(array('permission' => 'news:admin'))) {
     $form->setSection('admin', _("Admin"), '', true);
     $form->addVariable(_("News administrator options"), 'content', 'header', false);
 

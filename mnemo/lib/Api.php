@@ -27,7 +27,7 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() && $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 
@@ -373,7 +373,7 @@ class Mnemo_Api extends Horde_Registry_Api {
             return $memo;
         }
 
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($memo['memolist_id'],
                               Mnemo::listNotepads(false, Horde_Perms::DELETE))) {
             return PEAR::raiseError(_("Permission Denied"));

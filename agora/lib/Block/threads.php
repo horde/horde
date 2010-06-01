@@ -40,7 +40,7 @@ class Horde_Block_agora_threads extends Horde_Block {
         $forum_id = array(
             'name' => _("Forum"),
             'type' => 'enum',
-            'values' => $forums->getForums(0, false, 'forum_name', 0, !Horde_Auth::isAdmin()),
+            'values' => $forums->getForums(0, false, 'forum_name', 0, !$GLOBALS['registry']->isAdmin()),
         );
 
         /* Display the last X number of threads. */

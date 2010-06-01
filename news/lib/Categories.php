@@ -240,7 +240,7 @@ class News_Categories {
         $cats = $this->getCategories();
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
-        if (Horde_Auth::isAdmin('news:admin') ||
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin')) ||
             $perms->hasPermission('news', Horde_Auth::getAuth(), $perm)) {
             return $cats;
         }

@@ -95,7 +95,7 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
-        $admin = Horde_Auth::isAdmin();
+        $admin = $GLOBALS['registry']->isAdmin();
         $cli = Horde_Cli::runningFromCLI();
 
         $errortext = '<h1>' . _("A fatal error has occurred") . '</h1>';

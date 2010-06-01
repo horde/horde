@@ -314,7 +314,7 @@ class Folks_Driver {
         }
 
         $profile = $GLOBALS['cache']->get('folksProfile' . $user, $GLOBALS['conf']['cache']['default_lifetime']);
-        if ($profile || (Horde_Auth::isAdmin() && Horde_Util::getGet('debug'))) {
+        if ($profile || ($GLOBALS['registry']->isAdmin() && Horde_Util::getGet('debug'))) {
 
             $profile = unserialize($profile);
 
@@ -452,7 +452,7 @@ class Folks_Driver {
     */
     public function deleteUser($user)
     {
-        if  (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return false;
         }
 

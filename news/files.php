@@ -27,10 +27,9 @@ $file_size = Horde_Util::getFormData('file_size');
 /* Run through action handlers. */
 switch ($actionID) {
 case 'download_file':
-
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Horde_Auth::isAdmin('news:admin')) {
+        if ($registry->isAdmin(array('permission' => 'news:admin'))) {
             throw new Horde_Exception_Prior($data);
         } else {
             header('HTTP/1.0 404 Not Found');
@@ -47,7 +46,7 @@ case 'view_file':
 
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Horde_Auth::isAdmin('news:admin')) {
+        if ($registry->isAdmin(array('permission' => 'news:admin'))) {
             throw new Horde_Exception_Prior($data);
         } else {
             header('HTTP/1.0 404 Not Found');
@@ -105,7 +104,7 @@ break;
 case 'download_zip':
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Horde_Auth::isAdmin('news:admin')) {
+        if ($registry->isAdmin(array('permission' => 'news:admin'))) {
             throw new Horde_Exception_Prior($data);
         } else {
             header('HTTP/1.0 404 Not Found');

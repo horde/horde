@@ -209,11 +209,7 @@ class Kronolith_Event_Resource extends Kronolith_Event
      */
     public function hasPermission($permission, $user = null)
     {
-        if (Horde_Auth::isAdmin()) {
-            return true;
-        }
-
-        return false;
+        return $GLOBALS['registry']->isAdmin();
     }
 
 }

@@ -51,7 +51,7 @@ foreach ($my_calendars as $calendar) {
     $calendars[$calendar->getName()] = $calendar;
     $sorted_calendars[$calendar->getName()] = $calendar->get('name');
 }
-if (Horde_Auth::isAdmin()) {
+if ($registry->isAdmin()) {
     $system_calendars = $kronolith_shares->listSystemShares();
     foreach ($system_calendars as $calendar) {
         $calendars[$calendar->getName()] = $calendar;

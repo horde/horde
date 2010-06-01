@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     header('Location: ' . Horde::applicationUrl('forums.php'));
     exit;
 }
@@ -74,7 +74,7 @@ $form->addVariable(_("Moderator"), 'moderator', 'text', true);
 if ($messages->countForums() > 50) {
     $form->addVariable(_("Forum"), 'forum_id', 'int', true);
 } else {
-    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !Horde_Auth::isAdmin());
+    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin());
     $form->addVariable(_("Forum"), 'forum_id', 'enum', true, false, false, array($forums_enum));
 }
 

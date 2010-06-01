@@ -345,11 +345,12 @@ class Whups {
         if ($permission == 'update' ||
             $permission == 'assign' ||
             $permission == 'requester') {
-            $admin = Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT, $user);
+            $admin_perm = Horde_Perms::EDIT;
         } else {
-            $admin = Horde_Auth::isAdmin('whups:admin', $permission, $user);
+            $admin_perm = Horde_Perms::EDIT;
         }
 
+        $admin = $GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => $admin_perm, 'user' => $user));
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         switch ($filter) {
@@ -417,7 +418,7 @@ class Whups {
             $user = Horde_Auth::getAuth();
         }
 
-        $admin = Horde_Auth::isAdmin('whups:admin', $permission, $user);
+        $admin = $GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => $permission, 'user' => $user));
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $out = array();
 
@@ -768,7 +769,7 @@ class Whups {
         $menu->add(Horde::applicationUrl('reports.php'), _("_Reports"), 'reports.png');
 
         /* Administration. */
-        if (Horde_Auth::isAdmin('whups:admin')) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
             $menu->add(Horde::applicationUrl('admin/'), _("_Admin"), 'admin.png');
         }
 

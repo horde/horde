@@ -58,7 +58,7 @@ case 'edit':
 
     if (!Horde_Auth::getAuth() ||
               (isset($share) &&
-               !Horde_Auth::isAdmin() &&
+               !$registry->isAdmin() &&
                Horde_Auth::getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
@@ -73,7 +73,7 @@ case 'editform':
 
     if (!empty($share)) {
         if (!Horde_Auth::getAuth() ||
-            (!Horde_Auth::isAdmin() &&
+            (!$registry->isAdmin() &&
              Horde_Auth::getAuth() != $share->get('owner'))) {
             exit('permission denied');
         }
@@ -84,7 +84,7 @@ case 'editform':
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
         $new_owner = Horde_Auth::convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
+            if ($old_owner != Horde_Auth::getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
                 $notification->push(sprintf(_("The user \"%s\" does not exist."), $new_owner_backend), 'horde.error');
@@ -94,7 +94,7 @@ case 'editform':
             }
         }
 
-        if (Horde_Auth::isAdmin() ||
+        if ($registry->isAdmin() ||
             !empty($GLOBALS['conf']['share']['world'])) {
             // Process default permissions.
             if (Horde_Util::getFormData('default_show')) {

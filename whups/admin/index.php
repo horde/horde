@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-if (!Horde_Auth::isAdmin('whups:admin')) {
+if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
     Horde_Auth::authenticateFailure('whups', $e);
 }
 

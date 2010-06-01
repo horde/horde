@@ -19,7 +19,7 @@ $scope = Horde_Util::getGet('scope', 'agora');
 $forums = Agora_Messages::singleton($scope);
 
 /* Set up actions */
-if (Horde_Auth::isAdmin()) {
+if ($registry->isAdmin()) {
     $url = Horde::applicationUrl('forums.php');
     foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $app) {
         if ($registry->hasMethod('hasComments', $app) &&

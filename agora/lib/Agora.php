@@ -261,7 +261,7 @@ class Agora {
             $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
         }
 
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             $menu->add(Horde::applicationUrl('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
         }
 

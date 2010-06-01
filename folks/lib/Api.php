@@ -25,7 +25,7 @@ class Folks_Api extends Horde_Registry_Api
 
     public function __construct()
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             $this->disabled = array('removeUser', 'userList');
         }
     }
@@ -299,7 +299,8 @@ class Folks_Api extends Horde_Registry_Api
     {
         if (empty($user)) {
             $user = Horde_Auth::getAuth();
-        } elseif ($user !== Horde_Auth::getAuth() && !Horde_Auth::isAdmin('admin:' . $scope)) {
+        } elseif ($user !== Horde_Auth::getAuth() &&
+                  !$GLOBALS['registry']->isAdmin(array('permission' => 'admin:' . $scope))) {
             return PEAR::raiseError(_("You cannot log activities for other users."));
         }
 

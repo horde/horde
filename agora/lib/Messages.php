@@ -1110,7 +1110,7 @@ class Agora_Messages {
         $params = array(1);
 
         /* Check permissions */
-        if (Horde_Auth::isAdmin('agora:admin') ||
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin')) ||
             ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('agora:forums:' . $this->_scope) &&
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
                 $sql .= ' AND scope = ? ';
@@ -1811,14 +1811,14 @@ class Agora_Messages {
                 $url = Agora::setAgoraId($forum_id, null, $edit_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Post message")) . _("New Post") . '</a>';
 
-                if (Horde_Auth::isAdmin('agora:admin')) {
+                if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                     /* Edit forum button. */
                     $url = Agora::setAgoraId($forum_id, null, $editforum_url, $forum['scope'], true);
                     $forum['actions'][] = Horde::link($url, _("Edit forum")) . _("Edit") . '</a>';
                 }
             }
 
-            if (Horde_Auth::isAdmin('agora:admin')) {
+            if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                 /* Delete forum button. */
                 $url = Agora::setAgoraId($forum_id, null, $delete_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Delete forum")) . _("Delete") . '</a>';
@@ -2170,7 +2170,7 @@ class Agora_Messages {
     {
         // Allow all admins
         if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == Horde_Auth::getAuth()) ||
-            Horde_Auth::isAdmin('agora:admin')) {
+            $GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
             return true;
         }
 

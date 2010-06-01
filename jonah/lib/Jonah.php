@@ -117,7 +117,7 @@ class Jonah {
      */
     function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
     {
-        if (Horde_Auth::isAdmin('jonah:admin', $permission)) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'jonah:admin', 'permlevel' =>  $permission))) {
             if (empty($in)) {
                 // Calls with no $in parameter are checking whether this user
                 // has permission.  Since this user is an admin, they always

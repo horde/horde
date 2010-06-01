@@ -979,7 +979,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         throw new Kronolith_Exception('to be refactored');
 
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception_PermissionDenied();
         }
 

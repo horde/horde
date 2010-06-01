@@ -841,7 +841,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $events = $kronolith_driver->getByUID($uid, null, true);
 
         $event = null;
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             $event = $events[0];
         }
 
@@ -849,7 +849,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (empty($event)) {
             $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
             foreach ($events as $ev) {
-                if (Horde_Auth::isAdmin() || isset($ownerCalendars[$ev->calendar])) {
+                if ($GLOBALS['registry']->isAdmin() || isset($ownerCalendars[$ev->calendar])) {
                     $event = $ev;
                     break;
                 }
@@ -1136,7 +1136,7 @@ class Kronolith_Api extends Horde_Registry_Api
         require_once 'Horde/Group.php';
 
         $current_user = Horde_Auth::getAuth();
-        if ((empty($user) || $user != $current_user) && !Horde_Auth::isAdmin()) {
+        if ((empty($user) || $user != $current_user) && !$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception_PermissionDenied();
         }
 

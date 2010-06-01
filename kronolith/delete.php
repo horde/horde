@@ -37,7 +37,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
             $have_perms = true;
         }
     } else {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$registry->isAdmin()) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
         } else {
             $have_perms = true;

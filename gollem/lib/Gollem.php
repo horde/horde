@@ -679,7 +679,7 @@ class Gollem
 
         if (!empty($_SESSION['gollem'])) {
             $backend_key = $_SESSION['gollem']['backend_key'];
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 $menu->add(Horde_Util::addParameter(Horde::applicationUrl('permissions.php'), 'backend', $backend_key), _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'));
             }
 

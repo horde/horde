@@ -430,7 +430,8 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            $user != Horde_Auth::getAuth()) {
             throw new Kronolith_Exception(_("You are not allowed to remove user data."));
         }
 

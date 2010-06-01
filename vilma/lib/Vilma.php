@@ -25,7 +25,7 @@ class Vilma {
     function hasPermission($domain, $permmask = null)
     {
         // FIXME Should this really be the case?  Superadmin is more granular
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             return true;
         }
 

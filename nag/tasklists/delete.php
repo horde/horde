@@ -32,7 +32,7 @@ try {
     exit;
 }
 if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-    (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin())) {
+    (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;

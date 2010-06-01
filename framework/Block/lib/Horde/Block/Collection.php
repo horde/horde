@@ -141,13 +141,15 @@ class Horde_Block_Collection
     public function getBlock($app, $name, $params = null, $row = null,
                              $col = null)
     {
-        if (($GLOBALS['registry']->get('status', $app) == 'inactive') ||
-            (($GLOBALS['registry']->get('status', $app) == 'admin') &&
-             !Horde_Auth::isAdmin())) {
+        global $registry;
+
+        if (($registry->get('status', $app) == 'inactive') ||
+            (($registry->get('status', $app) == 'admin') &&
+             !$registry->isAdmin())) {
             throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
         }
 
-        $path = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
+        $path = $registry->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
         if (is_readable($path)) {
             include_once $path;
         }
@@ -157,10 +159,10 @@ class Horde_Block_Collection
             throw new Horde_Exception(sprintf('%s not found.', $class));
         }
 
-        $pushed = $GLOBALS['registry']->pushApp($app);
+        $pushed = $registry->pushApp($app);
         $ob = new $class($params, $row, $col);
         if ($pushed) {
-            $GLOBALS['registry']->popApp($app);
+            $registry->popApp($app);
         }
 
         return $ob;

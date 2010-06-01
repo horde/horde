@@ -200,7 +200,8 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            $user != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 
@@ -267,7 +268,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUserDataFromAllApplications($user)
     {
-        if (!Auth::isAdmin() && $user != Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() && $user != Auth::getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 
@@ -311,7 +312,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function addGroup($name, $parent = null)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to add groups."));
         }
 
@@ -340,7 +341,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeGroup($name)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to delete groups."));
         }
 
@@ -366,7 +367,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function addUserToGroup($name, $user)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change groups."));
         }
 
@@ -392,7 +393,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function addUsersToGroup($name, $users)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change groups."));
         }
 
@@ -422,7 +423,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUserFromGroup($name, $user)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change groups."));
         }
 
@@ -448,7 +449,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUsersFromGroup($name, $users)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change groups."));
         }
 
@@ -481,7 +482,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listUsersOfGroup($name)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list users of groups."));
         }
 
@@ -508,7 +509,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function addShare($scope, $shareName, $shareTitle, $userName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to add shares."));
         }
 
@@ -536,7 +537,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeShare($scope, $shareName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to delete shares."));
         }
 
@@ -564,7 +565,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listSharesOfOwner($scope, $userName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list shares."));
         }
 
@@ -589,9 +590,9 @@ class Horde_Api extends Horde_Registry_Api
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      */
     public function addUserPermissions($scope, $shareName, $userName,
-        $permissions)
+                                       $permissions)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
@@ -626,9 +627,9 @@ class Horde_Api extends Horde_Registry_Api
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      */
     public function addGroupPermissions($scope, $shareName, $groupName,
-        $permissions)
+                                        $permissions)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
@@ -668,7 +669,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUserPermissions($scope, $shareName, $userName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
@@ -695,7 +696,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeGroupPermissions($scope, $shareName, $groupName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to change shares."));
         }
 
@@ -729,7 +730,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listUserPermissions($scope, $shareName, $userName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list share permissions."));
         }
 
@@ -770,7 +771,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listGroupPermissions($scope, $shareName, $groupName)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list share permissions."));
         }
 
@@ -811,7 +812,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listUsersOfShare($scope, $shareName, $permissions)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list users of shares."));
         }
 
@@ -844,7 +845,7 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function listGroupsOfShare($scope, $shareName, $permissions)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("You are not allowed to list groups of shares."));
         }
 

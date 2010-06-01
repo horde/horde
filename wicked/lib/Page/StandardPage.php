@@ -138,7 +138,7 @@ class StandardPage extends Page {
             if ($GLOBALS['browser']->isRobot()) {
                 return false;
             }
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
             if (($this->getPermissions() & Horde_Perms::EDIT) == 0) {
@@ -147,7 +147,7 @@ class StandardPage extends Page {
             break;
 
         case WICKED_MODE_UNLOCKING:
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
             if ($this->_lock) {

@@ -71,7 +71,7 @@ class News_Driver_sql extends News_Driver {
                 ' WHERE n.id = ? AND n.id=l.id AND l.lang = ?';
 
         /** TODO Allow for now to allow static linked news, but not shown in list
-        if (!Horde_Auth::isAdmin('news:admin')) {
+        if (!$registry->isAdmin(array('permission' => 'news:admin'))) {
             $query .= ' AND n.status = ' . News::CONFIRMED;
         }
         */

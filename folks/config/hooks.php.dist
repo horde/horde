@@ -214,8 +214,8 @@ class Folks_Hooks
         switch ($app) {
 
         case 'gollem':
-
-            if (Horde_Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
+            if ($GLOBALS['registry']->isAdmin() ||
+                $group->userIsInGroup($user_uid, 1, false)) {
                 $_GET['backend_key'] = 'kjbnzi78';
                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
                 exit;
@@ -226,7 +226,7 @@ class Folks_Hooks
             break;
 
         case 'imp':
-            if (Horde_Auth::isAdmin()
+            if ($GLOBALS['registry']->isAdmin()
                 || $group->userIsInGroup($user_uid, 1, false)
                 || $group->userIsInGroup($user_uid, 2, false)) {
 

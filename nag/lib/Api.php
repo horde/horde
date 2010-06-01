@@ -861,7 +861,7 @@ class Nag_Api extends Horde_Registry_Api
                         !empty($task->private),
                         Horde_Auth::getAuth(),
                         isset($task->assignee) ? $task->assignee : null);
-            
+
             /* array index 0 is id, 1 is uid */
             return $results[1];
         }
@@ -876,7 +876,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function addTask($task)
     {
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($task['tasklist'],
                               Nag::listTasklists(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1103,7 +1103,7 @@ class Nag_Api extends Horde_Registry_Api
             return $task;
         }
 
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($task->tasklist,
                               Nag::listTasklists(false, Horde_Perms::DELETE))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1120,7 +1120,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function deleteTask($tasklist, $id)
     {
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($tasklist,
                               Nag::listTasklists(false, Horde_Perms::DELETE))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1240,7 +1240,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function updateTask($tasklist, $id, $task)
     {
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($tasklist,
                               Nag::listTasklists(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
@@ -1372,7 +1372,8 @@ class Nag_Api extends Horde_Registry_Api
     {
         require_once 'Horde/Group.php';
 
-        if ((empty($user) || $user != Horde_Auth::getAuth()) && !Horde_Auth::isAdmin()) {
+        if ((empty($user) || $user != Horde_Auth::getAuth()) &&
+            !$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 

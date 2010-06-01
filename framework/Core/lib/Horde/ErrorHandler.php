@@ -180,7 +180,7 @@ class Horde_ErrorHandler
      */
     public static function dump($errors)
     {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return;
         }
 

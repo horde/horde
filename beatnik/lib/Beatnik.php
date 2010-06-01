@@ -471,7 +471,7 @@ class Beatnik {
      */
     function hasPermission($permname, $permmask = null, $numparents = 0)
     {
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             return true;
         }
 

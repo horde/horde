@@ -69,7 +69,7 @@ case 'editforminherit':
         $old_owner = $share->get('owner');
         $new_owner = Horde_Util::getFormData('owner', $old_owner);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
+            if ($old_owner != Horde_Auth::getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);

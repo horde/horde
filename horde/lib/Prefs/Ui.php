@@ -29,7 +29,7 @@ class Horde_Prefs_Ui
                 foreach ($apps as $a) {
                     $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
                     if (file_exists($registry->get('fileroot', $a)) &&
-                        (($perms->exists($a) && ($perms->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || Horde_Auth::isAdmin())) ||
+                        (($perms->exists($a) && ($perms->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
                          !$perms->exists($a))) {
                         $out[$a] = $registry->get('name', $a);
                     }

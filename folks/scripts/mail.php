@@ -75,7 +75,7 @@ if (!empty($username) && !empty($password)) {
 }
 
 // Only admins can run this operation
-if (!Horde_Auth::isAdmin('folks:admin')) {
+if (!$registry->isAdmin(array('permission' => 'folks:admin'))) {
     $cli->fatal('ADMIN ONLY');
 }
 

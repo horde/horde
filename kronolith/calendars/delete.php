@@ -34,7 +34,7 @@ try {
     exit;
 }
 if ($calendar->get('owner') != Horde_Auth::getAuth() &&
-    (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin())) {
+    (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;

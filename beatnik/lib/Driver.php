@@ -64,7 +64,7 @@ class Beatnik_Driver {
             return array();
         }
 
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $perms)) {
             foreach ($domains as $id => $domain) {
                 if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains:' . $domain['zonename'], Horde_Auth::getAuth(), $perms)) {

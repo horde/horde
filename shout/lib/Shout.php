@@ -45,7 +45,7 @@ class Shout
         $menu->add(Horde::applicationUrl('conferences.php'), _("Conferences"), "conference.png");
 
         /* Administration. */
-        if (Horde_Auth::isAdmin('shout:admin')) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'shout:admin'))) {
             $menu->add(Horde::applicationUrl('admin.php'), _("_Admin"), 'admin.png');
         }
 
@@ -72,7 +72,9 @@ class Shout
      */
     static public function checkRights($permname, $permmask = null, $numparents = 0)
     {
-        if (Horde_Auth::isAdmin()) { return true; }
+        if ($GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
 
         if ($permmask === null) {
             $permmask = Horde_Perms::SHOW | Horde_Perms::READ;

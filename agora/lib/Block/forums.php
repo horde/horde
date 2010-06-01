@@ -44,7 +44,7 @@ class Horde_Block_agora_forums extends Horde_Block {
 
         /* Set up the forums object. */
         $forums = array(Agora_Messages::singleton());
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $scope) {
                 if ($registry->hasMethod('hasComments', $scope) &&
                     $registry->callByPackage($scope, 'hasComments') === true) {

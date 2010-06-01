@@ -161,7 +161,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() &&
+        if (!$GLOBALS['registry']->isAdmin() &&
             ($user != Horde_Auth::getAuth())) {
             throw new Horde_Auth_Exception(_("You are not allowed to remove user data."));
         }

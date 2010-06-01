@@ -11,7 +11,7 @@
  */
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin('news:admin')) {
+if (!$registry->isAdmin(array('permission' => 'news:admin'))) {
     $notification->push(_("You are not authorised for this action."), 'horde.warning');
     Horde_Auth::authenticateFailure('news');
 }

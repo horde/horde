@@ -191,7 +191,7 @@ class News {
             return '';
         }
 
-        if (Horde_Auth::isAdmin('news:admin')) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
             $delete_img = Horde::img('delete.png', _("Delete"), ' style="width: 16px height: 16px"');
             $delete_url = Horde::applicationUrl('delete_file.php');
         }
@@ -211,7 +211,7 @@ class News {
             $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'download_file'), sprintf(_("Dowload %s"), $file['file_name'])) . $dowload_img . '</a> ' . "\n";
             $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'view_file'), sprintf(_("Preview %s"), $file['file_name']), '', '_file_view');
             $html .= Horde::img(Horde_Mime_Viewer::getIcon($file['file_type']), $file['file_name'], 'width="16" height="16"', '') . ' ';
-            if (Horde_Auth::isAdmin('news:admin')) {
+            if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
                 $html .= Horde::link(Horde_Util::addParameter($delete_url, $file), sprintf(_("Delete %s"), $file['file_name'])) . $delete_img . '</a> ' . "\n";
             }
             $html .= $file['file_name'] . '</a> ' . "\n";
@@ -458,7 +458,7 @@ class News {
             $menu->add(Horde::applicationUrl('cloud.php'), _("Tag cloud"), 'colorpicker.png', $img_dir);
         }
 
-        if (Horde_Auth::isAdmin('news:admin')) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
             $menu->add(Horde::applicationUrl('edit.php'), _("Editorship"), 'config.png', $img_dir);
             $menu->add(Horde::applicationUrl('admin/categories/index.php'), _("Administration"), 'administration.png', $img_dir);
         }

@@ -1528,7 +1528,7 @@ class Kronolith
     {
         if (!Horde_Auth::getAuth() ||
             ($calendar->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
+             (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             throw new Kronolith_Exception(_("You are not allowed to change this calendar."));
         }
 
@@ -1563,7 +1563,7 @@ class Kronolith
 
         if (!Horde_Auth::getAuth() ||
             ($calendar->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($calendar->get('owner')) || !Horde_Auth::isAdmin()))) {
+             (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             throw new Kronolith_Exception(_("You are not allowed to delete this calendar."));
         }
 
@@ -1613,7 +1613,7 @@ class Kronolith
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
         $new_owner = Horde_Auth::convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
+            if ($old_owner != Horde_Auth::getAuth() && !$GLOBALS['registry']->isAdmin()) {
                 $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
             } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
                 $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
@@ -1640,7 +1640,7 @@ class Kronolith
             }
         }
 
-        if (Horde_Auth::isAdmin() ||
+        if ($GLOBALS['registry']->isAdmin() ||
             !empty($GLOBALS['conf']['share']['world'])) {
             // Process default permissions.
             if (Horde_Util::getFormData('default_show')) {

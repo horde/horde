@@ -93,7 +93,7 @@ if (count($groups) > 1) {
       </thead>
 
       <tbody>
-      <?php if (Horde_Auth::isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
+      <?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
       <!-- Default Permissions -->
       <tr>
         <td><?php echo _("All Authenticated Users") ?></td>

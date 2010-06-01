@@ -10,7 +10,7 @@ echo Horde::link(Horde_Util::addParameter($browse_url, 'id', $row['id']), _("Inf
      Horde::img('devel.png', _("Info"), '', $img_dir). '</a>  &nbsp;';
 
 /* admins options */
-if (Horde_Auth::isAdmin() || isset($allowed_cats[$row['category1']]) || isset($allowed_cats[$row['category2']])) {
+if ($registry->isAdmin() || isset($allowed_cats[$row['category1']]) || isset($allowed_cats[$row['category2']])) {
 
     if ($row['status'] == News::CONFIRMED) {
         $url = Horde_Util::addParameter($browse_url, array('page' => $page, 'actionID' => 'deactivate', 'id' =>  $row['id']));

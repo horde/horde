@@ -11,13 +11,13 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-require_once KRONOLITH_BASE . '/lib/Forms/CreateResource.php';
-
 // Exit if this isn't an authenticated, administrative user
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
+
+require_once KRONOLITH_BASE . '/lib/Forms/CreateResource.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Kronolith_CreateResourceForm($vars);

@@ -182,7 +182,7 @@ class Horde_Registry
         try {
             $GLOBALS['registry']->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
 
-            if ($args['admin'] && !Horde_Auth::isAdmin()) {
+            if ($args['admin'] && !$GLOBALS['registry']->isAdmin()) {
                 throw new Horde_Exception('Not an admin');
             }
         } catch (Horde_Exception $e) {
@@ -481,7 +481,7 @@ class Horde_Registry
 
             if (($app['status'] != 'inactive') &&
                 isset($app['provides']) &&
-                (($app['status'] != 'admin') || Horde_Auth::isAdmin())) {
+                (($app['status'] != 'admin') || $this->isAdmin())) {
                 if (is_array($app['provides'])) {
                     foreach ($app['provides'] as $interface) {
                         $this->_cache['interfaces'][$interface] = $appName;
@@ -531,7 +531,7 @@ class Horde_Registry
 
         /* Generate api/type cache. */
         $status = array('active', 'notoolbar', 'hidden');
-        if (Horde_Auth::isAdmin()) {
+        if ($this->isAdmin()) {
             $status[] = 'admin';
         }
 
@@ -1065,7 +1065,7 @@ class Horde_Registry
         /* Bail out if application is not present or inactive. */
         if (!isset($this->applications[$app]) ||
             $this->applications[$app]['status'] == 'inactive' ||
-            ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
+            ($this->applications[$app]['status'] == 'admin' && !$this->isAdmin())) {
             throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
         }
 
@@ -1224,7 +1224,7 @@ class Horde_Registry
 
         /* Otherwise, allow access for admins, for apps that do not have any
          * explicit permissions, or for apps that allow the given permission. */
-        return Horde_Auth::isAdmin() ||
+        return $this->isAdmin() ||
             ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($app)
              ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, Horde_Auth::getAuth(), $perms)
              : (bool)Horde_Auth::getAuth());
@@ -1586,6 +1586,38 @@ class Horde_Registry
             }
             $secret->setKey('auth');
         }
+    }
+
+    /**
+     * Is a user an administrator?
+     *
+     * @param array $options  Options:
+     * <pre>
+     * 'permission' - (string) Allow users with this permission admin access
+     *                in the current context.
+     * @param integer $permlevel  The level of permissions to check for.
+     *                            Defaults to Horde_Perms::EDIT.
+     * </pre>
+     * @param string $user        The user to check. Defaults to
+     *                            self::getAuth().
+     *
+     * @return boolean  Whether or not this is an admin user.
+     */
+    public function isAdmin(array $options = array())
+    {
+        $user = isset($options['user'])
+            ? $options['user']
+            : Horde_Auth::getAuth();
+
+        if ($user &&
+            @is_array($GLOBALS['conf']['auth']['admins']) &&
+            in_array($user, $GLOBALS['conf']['auth']['admins'])) {
+            return true;
+        }
+
+        return isset($options['permission'])
+            ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($options['permission'], $user, isset($options['permlevel']) ? $options['permlevel'] : Horde_Perms::EDIT)
+            : false;
     }
 
 }

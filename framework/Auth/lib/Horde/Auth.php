@@ -791,41 +791,6 @@ class Horde_Auth
     }
 
     /**
-     * Is the current user an administrator?
-     *
-     * @param string $permission  Allow users with this permission admin access
-     *                            in the current context.
-     * @param integer $permlevel  The level of permissions to check for.
-     *                            Defaults to Horde_Perms::EDIT.
-     * @param string $user        The user to check. Defaults to
-     *                            self::getAuth().
-     *
-     * @return boolean  Whether or not this is an admin user.
-     */
-    static public function isAdmin($permission = null, $permlevel = null,
-                                   $user = null)
-    {
-        if (is_null($user)) {
-            $user = self::getAuth();
-        }
-
-        if ($user &&
-            @is_array($GLOBALS['conf']['auth']['admins']) &&
-            in_array($user, $GLOBALS['conf']['auth']['admins'])) {
-            return true;
-        }
-
-        if (!is_null($permission)) {
-            if (is_null($permlevel)) {
-                $permlevel = Horde_Perms::EDIT;
-            }
-            return $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($permission, $user, $permlevel);
-        }
-
-        return false;
-    }
-
-    /**
      * Runs the pre/post-authenticate hook and parses the result.
      *
      * @param string $userId      The userId who has been authorized.

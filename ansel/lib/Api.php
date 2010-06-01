@@ -436,7 +436,7 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function createGallery($app = null, $attributes = array(), $perm = null, $parent = null)
     {
-        if (!(Horde_Auth::isAdmin() ||
+        if (!($GLOBALS['registry']->isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
 
