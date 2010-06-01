@@ -314,7 +314,7 @@ abstract class Horde_Rdo_Mapper implements Countable
     public function create($fields)
     {
         // If configured to record creation and update times, set them
-        // here. We set updated to the initial creation time so it's
+        // here. We set updated_at to the initial creation time so it's
         // always set.
         if ($this->_setTimestamps) {
             $time = gmmktime();
