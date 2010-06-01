@@ -453,7 +453,7 @@ class Horde_Routes_Mapper
     {
         if (!$this->_createdRegs && !empty($this->controllerScan)) {
             $this->createRegs();
-        } else if (!$this->_createdRegs) {
+        } elseif (!$this->_createdRegs) {
             $msg = 'You must generate the regular expressions before matching.';
             throw new Horde_Routes_Exception($msg);
         }

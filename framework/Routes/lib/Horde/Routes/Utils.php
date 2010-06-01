@@ -292,6 +292,10 @@ class Horde_Routes_Utils
                     // strip off base path: dirname/admin/users.php -> admin/users.php
                     $controller = preg_replace("/^$baseregexp(.*)\.php/", '\\1', $entry->getPathname());
 
+                    // PrepareController -> prepare_controller -> prepare
+                    $controller = strtolower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $controller));
+                    $controller = substr($controller, 0, -(strlen('_controller')));
+
                     // add to controller list
                     $controllers[] = $prefix . $controller;
                 }
