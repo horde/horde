@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Auth_Application class provides a wrapper around
+ * The Horde_Core_Auth_Application class provides a wrapper around
  * application-provided Horde authentication which fits inside the
  * Horde_Auth:: API.
  *
@@ -12,9 +12,9 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
- * @package  Auth
+ * @package  Core
  */
-class Horde_Auth_Application extends Horde_Auth_Base
+class Horde_Core_Auth_Application extends Horde_Auth_Base
 {
     /**
      * Cache for hasCapability().
@@ -134,11 +134,9 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        if ($this->hasCapability('list')) {
-            return $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['list']);
-        } else {
-            return parent::listUsers();
-        }
+        return $this->hasCapability('list')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['list'])
+            : parent::listUsers();
     }
 
     /**
@@ -150,11 +148,9 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     public function exists($userId)
     {
-        if ($this->hasCapability('exists')) {
-            return $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)));
-        } else {
-            return parent::exists($userId);
-        }
+        return $this->hasCapability('exists')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)))
+            : parent::exists($userId);
     }
 
     /**
@@ -203,11 +199,9 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
-        if ($this->hasCapability('resetpassword')) {
-            return $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)));
-        }
-
-        return parent::resetPassword();
+        return $this->hasCapability('resetpassword')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)))
+            : parent::resetPassword();
     }
 
     /**

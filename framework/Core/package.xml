@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Import signup code from horde/Auth.
+ <notes>* Import application auth driver from horde/Auth.
+ * Import signup code from horde/Auth.
  * Import Horde backend driver from horde/LoginTasks.
  * Import perms UI handling class from horde/Perms.
  * Import prefs UI handling class from horde/Prefs.
@@ -62,6 +63,7 @@ Application Framework.
      </dir> <!-- /lib/Horde/Config -->
      <dir name="Core">
       <dir name="Auth">
+       <file name="Application.php" role="php" />
        <dir name="Signup">
         <file name="Base.php" role="php" />
         <file name="Form.php" role="php" />
@@ -263,6 +265,7 @@ Application Framework.
   <filelist>
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
    <install name="lib/Horde/Config/Form.php" as="Horde/Config/Form.php" />
+   <install name="lib/Horde/Core/Auth/Application.php" as="Horde/Core/Auth/Application.php" />
    <install name="lib/Horde/Core/Auth/Signup.php" as="Horde/Core/Auth/Signup.php" />
    <install name="lib/Horde/Core/Auth/Signup/Base.php" as="Horde/Core/Auth/Signup/Base.php" />
    <install name="lib/Horde/Core/Auth/Signup/Form.php" as="Horde/Core/Auth/Signup/Form.php" />

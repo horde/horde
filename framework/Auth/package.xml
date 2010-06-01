@@ -48,7 +48,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Http">
        <file name="Remote.php" role="php" />
       </dir> <!-- /lib/Horde/Auth/Http -->
-      <file name="Application.php" role="php" />
       <file name="Auto.php" role="php" />
       <file name="Base.php" role="php" />
       <file name="Composite.php" role="php" />
@@ -127,6 +126,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Form</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -164,7 +167,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Auth/Application.php" as="Horde/Auth/Application.php" />
    <install name="lib/Horde/Auth/Auto.php" as="Horde/Auth/Auto.php" />
    <install name="lib/Horde/Auth/Base.php" as="Horde/Auth/Base.php" />
    <install name="lib/Horde/Auth/Composite.php" as="Horde/Auth/Composite.php" />

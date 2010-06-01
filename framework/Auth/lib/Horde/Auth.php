@@ -98,24 +98,29 @@ class Horde_Auth
      * Attempts to return a concrete Horde_Auth_Base instance based on
      * $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Auth_Base).
+     * @param array $params   A hash containing any additional configuration
+     *                        or parameters a subclass might need.
      *
      * @return Horde_Auth_Base  The newly created concrete instance.
      * @throws Horde_Auth_Exception
      */
     static public function factory($driver, $params = null)
     {
-        $driver = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($driver))));
+        /* Base drivers (in Auth/ directory). */
         $class = __CLASS__ . '_' . $driver;
-
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Auth_Exception('Class definition of ' . $class . ' not found.');
+        /* Explicit class name, */
+        $class = $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_Auth_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
