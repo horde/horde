@@ -145,7 +145,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param   string  $column
      * @return  string
      */
-    public function quote($value, $column=null)
+    public function quote($value, $column = null)
     {
         if (is_object($value) && is_callable(array($value, 'quotedId'))) {
             return $value->quotedId();
@@ -161,14 +161,6 @@ abstract class Horde_Db_Adapter_Base_Schema
             return $type == 'integer' ? '0' : $this->quoteFalse();
         } elseif (is_int($value) || is_float($value)) {
             return $value;
-            /*@TODO
-          else
-            if value.acts_like?(:date) || value.acts_like?(:time)
-              "'#{quoted_date(value)}'"
-            else
-              "#{quoted_string_prefix}'#{quote_string(value.to_yaml)}'"
-            end
-            */
         } elseif ($value instanceof DateTime || $value instanceof Horde_Date) {
             return $this->_adapter->quoteString($type == 'integer'
                                                 ? $value->format('U')
@@ -470,6 +462,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $sql  = "CREATE $temp TABLE ".$this->quoteTableName($tableDefinition->getName())." (\n".
                   $tableDefinition->toSql()."\n".
                 ") $opts";
+
         return $this->execute($sql);
     }
 
