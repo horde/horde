@@ -65,6 +65,11 @@ abstract class Horde_SessionHandler_Driver
      *            DEFAULT: No logging
      * 'noset' - (boolean) If true, don't set the save handler.
      *           DEFAULT: false
+     * 'parse' - (callback) A callback function that parses session
+     *           information into an array. Is passed the raw session data
+     *           as the only argument; expects either false or an array of
+     *           session data as a return.
+     *           DEFAULT: No
      * </pre>
      */
     public function __construct(array $params = array())
@@ -293,15 +298,20 @@ abstract class Horde_SessionHandler_Driver
      * Returns a list of authenticated users and data about their session.
      *
      * @return array  For authenticated users, the sessionid as a key and the
-     *                information returned from Horde_Auth::readSessionData()
-     *                as values.
+     *                session information as value. If no parsing function
+     *                was provided, will always return an empty array.
      * @throws Horde_SessionHandler_Exception
      */
     public function getSessionsInfo()
     {
-        $sessions = $this->getSessionIDs();
-
         $info = array();
+
+        if (empty($this->_params['parse']) ||
+            !is_callable($this->_params['parse'])) {
+            return $info;
+        }
+
+        $sessions = $this->getSessionIDs();
 
         foreach ($sessions as $id) {
             try {
@@ -309,7 +319,8 @@ abstract class Horde_SessionHandler_Driver
             } catch (Horde_SessionHandler_Exception $e) {
                 continue;
             }
-            $data = Horde_Auth::readSessionData($data, true);
+
+            $data = call_user_func($this->_params['parse'], $data);
             if ($data !== false) {
                 $info[$id] = $data;
             }
