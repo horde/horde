@@ -11,7 +11,7 @@ for ($row = 0; $row < $rows; ++$row):
   <tr>
 <?php
 $columns = $layout->columns($row);
-if (is_a($columns, 'PEAR_Error')) {
+if ($columns instanceof PEAR_Error) {
     $columns = 0;
 }
 for ($col = 0; $col < $columns; ++$col):

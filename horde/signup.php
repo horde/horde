@@ -34,30 +34,36 @@ $vars = Horde_Variables::getDefaultVariables();
 $formsignup = new Horde_Core_Auth_Signup_Form($vars);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);
-    $success_message = null;
+    $error = $success_message = null;
 
-    if (!$conf['signup']['approve']) {
-        /* User can sign up directly, no intervention necessary. */
-        $success = $signup->addSignup($info);
-        if (!is_a($success, 'PEAR_Error')) {
-            $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
-        }
-    } elseif ($conf['signup']['approve']) {
-        /* Insert this user into a queue for admin approval. */
-        $success = $signup->queueSignup($info);
-        if (!is_a($success, 'PEAR_Error')) {
-            $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
-        }
-    }
-
-    if (is_a($info, 'PEAR_Error')) {
+    if ($info instanceof PEAR_Error) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $vars->get('user_name'), $info->getMessage()), 'horde.error');
-    } elseif (is_a($success, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
     } else {
-        $notification->push($success_message, 'horde.success');
-        header('Location: ' . Horde::getServiceLink('login')->add('url', $info['url'])->setRaw(true));
-        exit;
+        if (!$conf['signup']['approve']) {
+            /* User can sign up directly, no intervention necessary. */
+            try {
+                $signup->addSignup($info);
+                $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+        } elseif ($conf['signup']['approve']) {
+            /* Insert this user into a queue for admin approval. */
+            try {
+                $signup->queueSignup($info);
+                $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+        }
+
+        if ($error) {
+            $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
+        } else {
+            $notification->push($success_message, 'horde.success');
+            header('Location: ' . Horde::getServiceLink('login')->add('url', $info['url'])->setRaw(true));
+            exit;
+        }
     }
 }
 

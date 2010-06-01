@@ -1,9 +1,15 @@
+<?php
+try {
+    $allQueued = $signup->getQueuedSignups();
+} catch (Horde_Exception $e) {
+    $allQueued = $e;
+}
+?>
 <h1 class="header">
  <?php echo _("Pending Signups:") ?>
 </h1>
 
-<?php $allQueued = $signup->getQueuedSignups() ?>
-<?php if (is_a($allQueued, 'PEAR_Error')): ?>
+<?php if ($allQueued instanceof Exception): ?>
  <div class="text"><em><?php echo htmlspecialchars($allQueued->getMessage()) ?></em></div>
 <?php elseif (!count($allQueued)): ?>
  <div class="text"><em><?php echo _("No pending signups.") ?></em></div>

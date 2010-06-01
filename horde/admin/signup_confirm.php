@@ -35,10 +35,7 @@ if (hash_hmac('sha1', $user, $conf['secret_key']) != $hash) {
 
 // Deny signup.
 if ($action == 'deny') {
-    $result = $signup->removeQueuedSignup($user);
-    if (is_a($result, 'PEAR_Error')) {
-        throw new Horde_Exception_Prior($result);
-    }
+    $signup->removeQueuedSignup($user);
     printf(_("The signup request for user \"%s\" has been removed."), $user);
     exit;
 }
@@ -71,8 +68,10 @@ if (isset($info['extra'])) {
 }
 
 // Add user.
-if (is_a($ret = $auth->addUser($info['user_name'], $credentials), 'PEAR_Error')) {
-    throw new Horde_Exception(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $ret->getMessage()));
+try {
+     $auth->addUser($info['user_name'], $credentials);
+} catch (Horde_Auth_Exception $e) {
+    throw new Horde_Exception(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()));
 }
 if (isset($info['extra'])) {
     try {

@@ -197,12 +197,14 @@ class Horde_Api extends Horde_Registry_Api
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.
+     *
+     * @throws Horde_Exception
      */
     public function removeUserData($user)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
             $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
+            throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
 
         global $conf;
@@ -254,10 +256,8 @@ class Horde_Api extends Horde_Registry_Api
             }
         }
 
-        if (!$haveError) {
-            return true;
-        } else {
-            return PEAR::raiseError(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
+        if ($haveError) {
+            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
     }
 
@@ -265,11 +265,13 @@ class Horde_Api extends Horde_Registry_Api
      * Removes user data from all applications.
      *
      * @param string $user  Name of user to remove data for.
+     *
+     * @throws Horde_Exception
      */
     public function removeUserDataFromAllApplications($user)
     {
         if (!$GLOBALS['registry']->isAdmin() && $user != Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
+            throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
 
         /* Error flag */
@@ -277,10 +279,6 @@ class Horde_Api extends Horde_Registry_Api
 
         /* Get all APIs */
         $apis = $this->listAPIs();
-        if (is_a($apis, 'PEAR_Error')) {
-            Horde::logMessage($apis, 'ERR');
-            return PEAR::raiseError(_("No API found."));
-        }
         foreach ($apis as $api) {
             if ($GLOBALS['registry']->hasAppMethod($api, 'removeUserData')) {
                 $result = $GLOBALS['registry']->callAppMethod($api, 'removeUserData', array('args' => array($user)));
@@ -295,10 +293,8 @@ class Horde_Api extends Horde_Registry_Api
             $haveError = true;
         }
 
-        if (!$haveError) {
-            return true;
-        } else {
-            return PEAR::raiseError(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
+        if ($haveError) {
+            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
     }
 
@@ -309,11 +305,13 @@ class Horde_Api extends Horde_Registry_Api
      *
      * @param string $name    The group's name.
      * @param string $parent  The group's parent's name.
+     *
+     * @throws Horde_Exception
      */
     public function addGroup($name, $parent = null)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to add groups."));
+            throw new Horde_Exception(_("You are not allowed to add groups."));
         }
 
         require_once 'Horde/Group.php';
@@ -324,39 +322,37 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         if (is_a($group = &$groups->newGroup($name, $parent), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         if (is_a($result = $groups->addGroup($group), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
      * Removes a group from the groups system.
      *
      * @param string $name  The group's name.
+     *
+     * @throws Horde_Exception
      */
     public function removeGroup($name)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to delete groups."));
+            throw new Horde_Exception(_("You are not allowed to delete groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         if (is_a($result = $groups->removeGroup($group, true), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -364,25 +360,25 @@ class Horde_Api extends Horde_Registry_Api
      *
      * @param string $name  The group's name.
      * @param string $user  The user to add.
+     *
+     * @throws Horde_Exception
      */
     public function addUserToGroup($name, $user)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change groups."));
+            throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         if (is_a($result = $group->addUser($user), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -390,18 +386,20 @@ class Horde_Api extends Horde_Registry_Api
      *
      * @param string $name  The group's name.
      * @param array $users  The users to add.
+     *
+     * @throws Horde_Exception
      */
     public function addUsersToGroup($name, $users)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change groups."));
+            throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         foreach ($users as $user) {
@@ -409,10 +407,8 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         if (is_a($result = $group->save(), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -420,25 +416,25 @@ class Horde_Api extends Horde_Registry_Api
      *
      * @param string $name  The group's name.
      * @param string $user  The user to add.
+     *
+     * @throws Horde_Exception
      */
     public function removeUserFromGroup($name, $user)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change groups."));
+            throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         if (is_a($result = $group->removeUser($user), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -446,31 +442,31 @@ class Horde_Api extends Horde_Registry_Api
      *
      * @param string $name  The group's name.
      * @param array $users  The users to add.
+     *
+     * @throws Horde_Exception
      */
     public function removeUsersFromGroup($name, $users)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change groups."));
+            throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         foreach ($users as $user) {
             if (is_a($result = $group->removeUser($user, false), 'PEAR_Error')) {
-                return $result;
+                throw new Horde_Exception($result);
             }
         }
 
         if (is_a($result = $group->save(), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -479,18 +475,19 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $name  The group's name.
      *
      * @return array  The user list.
+     * @throws Horde_Exception
      */
     public function listUsersOfGroup($name)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list users of groups."));
+            throw new Horde_Exception(_("You are not allowed to list users of groups."));
         }
 
         require_once 'Horde/Group.php';
         $groups = Group::singleton();
 
         if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            return $group;
+            throw new Horde_Exception($group);
         }
 
         return $group->listUsers();
@@ -506,26 +503,27 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $shareName   The share's name.
      * @param string $shareTitle  The share's human readable title.
      * @param string $userName    The share's owner.
+     *
+     * @throws Horde_Exception
      */
     public function addShare($scope, $shareName, $shareTitle, $userName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to add shares."));
+            throw new Horde_Exception(_("You are not allowed to add shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->newShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
+
         $share->set('owner', $userName);
         $share->set('name', $shareTitle);
 
         if (is_a($result = $shares->addShare($share), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -534,24 +532,24 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $scope      The name of the share root, e.g. the
      *                           application that the share belongs to.
      * @param string $shareName  The share's name.
+     *
+     * @throws Horde_Exception
      */
     public function removeShare($scope, $shareName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to delete shares."));
+            throw new Horde_Exceptionr(_("You are not allowed to delete shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         if (is_a($result = $shares->removeShare($share), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -562,11 +560,12 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $userName   The share's owner.
      *
      * @return array  The list of shares.
+     * @throws Horde_Exception
      */
     public function listSharesOfOwner($scope, $userName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list shares."));
+            throw new Horde_Exception(_("You are not allowed to list shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
@@ -588,18 +587,20 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
+     *
+     * @throws Horde_Exception
      */
     public function addUserPermissions($scope, $shareName, $userName,
                                        $permissions)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change shares."));
+            throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         $perm = &$share->getPermission();
@@ -611,26 +612,26 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         if (is_a($result = $share->setPermission($perm), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
      * Gives a group certain privileges for a share.
      *
-     * @param string $scope   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
      * @param array $permissions  A list of permissions (show, read, edit, delete).
+     *
+     * @throws Horde_Exception
      */
     public function addGroupPermissions($scope, $shareName, $groupName,
                                         $permissions)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change shares."));
+            throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
         require_once 'Horde/Group.php';
@@ -638,10 +639,10 @@ class Horde_Api extends Horde_Registry_Api
         $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
         if (is_a($groupId = $groups->getGroupId($groupName), 'PEAR_Error')) {
-            return $groupId;
+            throw new Horde_Exception($groupId);
         }
 
         $perm = &$share->getPermission();
@@ -653,10 +654,8 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         if (is_a($result = $share->setPermission($perm), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -666,24 +665,24 @@ class Horde_Api extends Horde_Registry_Api
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
+     *
+     * @throws Horde_Exception
      */
     public function removeUserPermissions($scope, $shareName, $userName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change shares."));
+            throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         if (is_a($result = $share->removeUser($userName), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -693,11 +692,13 @@ class Horde_Api extends Horde_Registry_Api
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
+     *
+     * @throws Horde_Exception
      */
     public function removeGroupPermissions($scope, $shareName, $groupName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to change shares."));
+            throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
         require_once 'Horde/Group.php';
@@ -705,17 +706,16 @@ class Horde_Api extends Horde_Registry_Api
         $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
+
         if (is_a($groupId = $groups->getGroupId($groupName), 'PEAR_Error')) {
-            return $groupId;
+            throw new Horde_Exception($groupId);
         }
 
         if (is_a($result = $share->removeGroup($groupId), 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
@@ -727,11 +727,12 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $userName    The user's name.
      *
      * @return array  All user permissions for this share.
+     * @throws Horde_Exception
      */
     public function listUserPermissions($scope, $shareName, $userName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list share permissions."));
+            throw new Horde_Exception(_("You are not allowed to list share permissions."));
         }
 
         $perm_map = array(Horde_Perms::SHOW => 'show',
@@ -742,7 +743,7 @@ class Horde_Api extends Horde_Registry_Api
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         $perm = &$share->getPermission();
@@ -768,11 +769,12 @@ class Horde_Api extends Horde_Registry_Api
      * @param string $groupName   The group's name.
      *
      * @return array  All group permissions for this share.
+     * @throws Horde_Exception
      */
     public function listGroupPermissions($scope, $shareName, $groupName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list share permissions."));
+            throw new Horde_Exception(_("You are not allowed to list share permissions."));
         }
 
         $perm_map = array(Horde_Perms::SHOW => 'show',
@@ -783,7 +785,7 @@ class Horde_Api extends Horde_Registry_Api
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         $perm = &$share->getPermission();
@@ -809,17 +811,18 @@ class Horde_Api extends Horde_Registry_Api
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      *
      * @return array  List of users with the specified permissions.
+     * @throws Horde_Exception
      */
     public function listUsersOfShare($scope, $shareName, $permissions)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list users of shares."));
+            throw new Horde_Exception(_("You are not allowed to list users of shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         $perm = 0;
@@ -842,17 +845,18 @@ class Horde_Api extends Horde_Registry_Api
      * @param array $permissions  A list of permissions (show, read, edit, delete).
      *
      * @return array  List of groups with the specified permissions.
+     * @throws Horde_Exception
      */
     public function listGroupsOfShare($scope, $shareName, $permissions)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            return PEAR::raiseError(_("You are not allowed to list groups of shares."));
+            throw new Horde_Exception(_("You are not allowed to list groups of shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            return $share;
+            throw new Horde_Exception($share);
         }
 
         $perm = 0;
