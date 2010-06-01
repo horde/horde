@@ -98,7 +98,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             return true;
 
         case 'authenticated':
-            return Horde_Auth::isAuthenticated();
+            return $GLOBALS['registry']->isAuthenticated();
 
         case 'edit':
             return $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
@@ -822,7 +822,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         }
 
         // Can we hook user's age?
-        if ($GLOBALS['conf']['ages']['hook'] && Horde_Auth::isAuthenticated()) {
+        if ($GLOBALS['conf']['ages']['hook'] &&
+            $GLOBALS['registry']->isAuthenticated()) {
             $result = Horde::callHook('_ansel_hook_user_age');
             if (is_int($result)) {
                 $_SESSION['ansel']['user_age'] = $result;

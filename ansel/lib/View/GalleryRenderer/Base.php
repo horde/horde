@@ -35,7 +35,7 @@ abstract class Ansel_View_GalleryRenderer_Base
 
     /**
      * The current page we are viewing
-     * 
+     *
      * @var integer
      */
     public $page = 0;
@@ -150,7 +150,8 @@ abstract class Ansel_View_GalleryRenderer_Base
                 /* Don't show action widget if no actions */
                 if (Horde_Auth::getAuth() ||
                     !empty($conf['report_content']['driver']) &&
-                    (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||
+                    (($conf['report_content']['allow'] == 'authenticated' &&
+                      $GLOBALS['registry']->isAuthenticated()) ||
                      $conf['report_content']['allow'] == 'all')) {
 
                     $this->view->addWidget(Ansel_Widget::factory('Actions'));

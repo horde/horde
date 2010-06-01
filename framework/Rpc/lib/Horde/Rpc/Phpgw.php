@@ -90,7 +90,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         }
 
         // Be authenticated or call system.login.
-        $authenticated = Horde_Auth::isAuthenticated() || $method== "phpgw/system/login";
+        $authenticated = $registry->isAuthenticated() || $method== "phpgw/system/login";
 
         if ($authenticated) {
             Horde::logMessage("rpc call $method allowed", 'NOTICE');

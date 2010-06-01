@@ -94,7 +94,7 @@ $login_url = Horde_Util::addParameter(Horde::getServiceLink('login', 'folks'), '
 /*
  * We are already logged in?
  */
-if (Horde_Auth::isAuthenticated()) {
+if ($registry->isAuthenticated()) {
     if (empty($url_param)) {
         $url_param = Folks::getUrlFor('user', Horde_Auth::getAuth());
     }

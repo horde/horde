@@ -53,7 +53,7 @@ if ($cmd == 'login') {
 }
 
 // If we don't have a valid login, print the login form.
-if (!Horde_Auth::isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
     $PUBLISH_ONNEXT = 'login.submit();';
     $PUBLISH_CMD = 'login.username.focus();';
     require ANSEL_TEMPLATES . '/xppublish/login.inc';

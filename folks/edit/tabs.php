@@ -11,7 +11,7 @@
  * @package Folks
  */
 
-if (!Horde_Auth::isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
     Horde_Auth::authenticateFailure('folks');
 }
 

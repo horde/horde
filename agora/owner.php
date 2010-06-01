@@ -13,12 +13,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
-/* Only authenticated users should be using this. */
-if (!Horde_Auth::isAuthenticated()) {
-    $notification->push(_("You are not authorised for this action."), 'horde.warning');
-    Horde_Auth::authenticateFailure('agora');
-}
-
 /* Default to agora and current user if is not an admin. */
 $scope = Horde_Util::getGet('scope', 'agora');
 $owner = $registry->isAdmin() ? Horde_Util::getGet('owner', Horde_Auth::getAuth()) : Horde_Auth::getAuth();

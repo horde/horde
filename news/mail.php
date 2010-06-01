@@ -31,7 +31,7 @@ function _error($msg)
     exit;
 }
 
-if (!Horde_Auth::isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
     _error(_("Only authenticated users can send mails."));
 }
 

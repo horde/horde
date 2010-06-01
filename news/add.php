@@ -88,7 +88,7 @@ function _max_upload_size()
 }
 
 // Is logged it?
-if (!Horde_Auth::isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
     $notification->push(_("Only authenticated users can post news."), 'horde.warning');
     Horde_Auth::authenticateFailure('news');
 }

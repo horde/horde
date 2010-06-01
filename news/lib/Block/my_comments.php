@@ -36,7 +36,7 @@ class Horde_Block_news_my_comments extends Horde_Block {
      */
     function _content()
     {
-        if (!Horde_Auth::isAuthenticated()) {
+        if (!$GLOBALS['registry']->isAuthenticated()) {
             return '';
         }
 

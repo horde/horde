@@ -34,7 +34,7 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
 // block set for guests.
 $mybugs_layout = @unserialize($prefs->getValue('mybugs_layout'));
 if (!$mybugs_layout) {
-    if (Horde_Auth::isAuthenticated()) {
+    if ($registry->isAuthenticated()) {
         $mybugs_layout = array(
             array(array('app' => 'whups', 'params' => array('type' => 'mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
             array(array('app' => 'whups', 'params' => array('type' => 'myrequests', 'params' => false), 'height' => 1, 'width' => 1)),

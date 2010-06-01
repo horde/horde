@@ -266,7 +266,7 @@ class Folks {
 
         // If there is no email set use the registration one
         if (empty($email)) {
-            if (Horde_Auth::isAuthenticated()) {
+            if ($GLOBALS['registry']->isAuthenticated()) {
                 $profile = $GLOBALS['folks_driver']->getProfile($user);
             } else {
                 $profile = $GLOBALS['folks_driver']->getRawProfile($user);

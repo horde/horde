@@ -602,7 +602,7 @@ class Ansel
                        : '__noselection');
         }
 
-        if ($conf['faces']['driver'] && Horde_Auth::isAuthenticated()) {
+        if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
             $menu->add(Horde::applicationUrl('faces/search/all.php'), _("_Faces"), 'user.png', Horde_Themes::img(null, 'horde'));
         }
 

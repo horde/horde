@@ -330,42 +330,6 @@ class Horde_Auth
     }
 
     /**
-     * Checks if there is a session with valid auth information. If there
-     * isn't, but the configured Auth driver supports transparent
-     * authentication, then we try that.
-     *
-     * @params array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Check authentication for this app.
-     *         DEFAULT: Checks horde-wide authentication.
-     * </pre>
-     *
-     * @return boolean  Whether or not the user is authenticated.
-     * @throws Horde_Auth_Exception
-     */
-    static public function isAuthenticated($options = array())
-    {
-        /* Check for cached authentication results. */
-        if (self::getAuth()) {
-            $driver = (empty($options['app']) || ($options['app'] == 'horde'))
-                ? $GLOBALS['conf']['auth']['driver']
-                : $options['app'];
-
-            if (($_SESSION['horde_auth']['driver'] == $driver) ||
-                isset($_SESSION['horde_auth']['app'][$driver])) {
-                return self::checkExistingAuth();
-            }
-        }
-
-        /* Try transparent authentication. */
-        $auth = (empty($options['app']) || ($options['app'] == 'horde'))
-            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $options['app']));
-
-        return $auth->transparent();
-    }
-
-    /**
      * Check existing auth for triggers that might invalidate it.
      *
      * @return boolean  Is existing auth valid?

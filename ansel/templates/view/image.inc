@@ -73,7 +73,7 @@ function arrowHandler(e)
              $this->gallery->get('owner') != Horde_Auth::getAuth()) &&
             !empty($GLOBALS['conf']['report_content']['driver']) &&
             (($conf['report_content']['allow'] == 'authenticated' &&
-              Horde_Auth::isAuthenticated()) ||
+              $GLOBALS['registry']->isAuthenticated()) ||
              $conf['report_content']['allow'] == 'all')) {
 
             $actionHTML .=  ($needSeperator ? ' | ' : '' ) . Horde::link($this->_urls['report']) . _("Report") . '</a>';

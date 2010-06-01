@@ -85,7 +85,7 @@ try {
 } catch (Horde_Exception $e) {}
 
 $app = Horde_Util::getFormData('app');
-$is_auth = Horde_Auth::isAuthenticated();
+$is_auth = $registry->isAuthenticated();
 
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';

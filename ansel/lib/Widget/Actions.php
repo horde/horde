@@ -22,7 +22,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
     }
 
     /**
-     * 
+     *
      * @see ansel/lib/Widget/Ansel_Widget_Base#html()
      */
     public function html()
@@ -183,7 +183,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             $this->_view->gallery->get('owner') == Horde_Auth::getAuth()) {
             $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
-                  (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||
+            (($conf['report_content']['allow'] == 'authenticated' &&
+            $registry->isAuthenticated()) ||
                    $conf['report_content']['allow'] == 'all')) {
 
             $reporturl = Horde_Util::addParameter(Horde::applicationUrl('report.php'),

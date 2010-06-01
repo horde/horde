@@ -272,7 +272,7 @@ class Folks_Driver {
             $this->_updateOnlineStatus();
 
             // Update profile
-            if (Horde_Auth::isAuthenticated()) {
+            if ($GLOBALS['registry']->isAuthenticated()) {
                 $this->_saveProfile(array('last_online_on' => $_SERVER['REQUEST_TIME']), Horde_Auth::getAuth());
             }
         }
@@ -420,7 +420,7 @@ class Folks_Driver {
      */
     function logView($id)
     {
-        if (!Horde_Auth::isAuthenticated() || Horde_Auth::getAUth() == $id) {
+        if (!$GLOBALS['registry']->isAuthenticated() || Horde_Auth::getAUth() == $id) {
             return false;
         }
 

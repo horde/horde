@@ -31,7 +31,7 @@ $folks_driver->logView($user);
 
 // Get user activity
 if ($profile['activity_log'] == 'all' ||
-    Horde_Auth::isAuthenticated() && (
+    $registry->isAuthenticated() && (
         $profile['activity_log'] == 'authenticated' ||
         $profile['activity_log'] == 'friends' && $friends_driver->isFriend($user))
     ) {
@@ -83,7 +83,7 @@ case 'private':
 break;
 
 case 'public_authenticated':
-    if (Horde_Auth::isAuthenticated()) {
+    if ($registry->isAuthenticated()) {
         require FOLKS_TEMPLATES . '/user/user.php';
     } else {
         require FOLKS_TEMPLATES . '/user/authenticated.php';

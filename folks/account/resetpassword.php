@@ -29,7 +29,7 @@ function _getCAPTCHA($new = false)
 }
 
 // We are already logged
-if (Horde_Auth::isAuthenticated()) {
+if ($registry->isAuthenticated()) {
     header('Location: ' . Folks::getUrlFor('user', Horde_Auth::getAuth()));
     exit;
 }

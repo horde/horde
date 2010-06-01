@@ -1088,7 +1088,7 @@ class Horde_Registry
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
             if (!$this->hasPermission($app, Horde_Perms::READ)) {
-                if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+                if (!$this->isAuthenticated(array('app' => $app))) {
                     throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
                 }
 
@@ -1216,7 +1216,7 @@ class Horde_Registry
         /* Always do isAuthenticated() check first. You can be an admin, but
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
-        if (!Horde_Auth::isAuthenticated(array('app' => $app)) &&
+        if (!$this->isAuthenticated(array('app' => $app)) &&
             $this->requireAuth($app) &&
             ($perms != Horde_Perms::SHOW)) {
             return false;
@@ -1635,6 +1635,41 @@ class Horde_Registry
         return ($app == 'horde')
             ? false
             : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $app))->requireAuth();
+    }
+
+    /**
+     * Checks if there is a session with valid auth information. If there
+     * isn't, but the configured Auth driver supports transparent
+     * authentication, then we try that.
+     *
+     * @params array $options  Additional options:
+     * <pre>
+     * 'app' - (string) Check authentication for this app.
+     *         DEFAULT: Checks horde-wide authentication.
+     * </pre>
+     *
+     * @return boolean  Whether or not the user is authenticated.
+     */
+    public function isAuthenticated($options = array())
+    {
+        /* Check for cached authentication results. */
+        if (Horde_Auth::getAuth()) {
+            $driver = (empty($options['app']) || ($options['app'] == 'horde'))
+                ? $GLOBALS['conf']['auth']['driver']
+                : $options['app'];
+
+            if (($_SESSION['horde_auth']['driver'] == $driver) ||
+                isset($_SESSION['horde_auth']['app'][$driver])) {
+                return Horde_Auth::checkExistingAuth();
+            }
+        }
+
+        /* Try transparent authentication. */
+        $auth = (empty($options['app']) || ($options['app'] == 'horde'))
+            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $options['app']));
+
+        return $auth->transparent();
     }
 
 }

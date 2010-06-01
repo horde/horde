@@ -50,7 +50,7 @@ include FOLKS_TEMPLATES . '/user/actions.php';
             echo '<span class="offline">' . _("Offline") . '</span>';
             if ($profile['last_online_on'] &&
                 ($profile['last_online'] == 'all' ||
-                Horde_Auth::isAuthenticated() && (
+                $GLOBALS['registry']->isAuthenticated() && (
                     $profile['last_online'] == 'authenticated' ||
                     $profile['last_online'] == 'friends' && $friends_driver->isFriend(Horde_Auth::getAuth())))
                 ) {
@@ -373,7 +373,7 @@ case 'never':
     break;
 
 case 'authenticated':
-    $allow_comments = Horde_Auth::isAuthenticated();
+    $allow_comments = $GLOBALS['registry']->isAuthenticated();
     if ($allow_comments) {
         if ($friends_driver->isBlacklisted(Horde_Auth::getAuth())) {
             $allow_comments = false;
@@ -394,7 +394,7 @@ case 'friends':
 
 default:
     $allow_comments = true;
-    if (Horde_Auth::isAuthenticated() && $friends_driver->isBlacklisted(Horde_Auth::getAuth())) {
+    if ($GLOBALS['registry']->isAuthenticated() && $friends_driver->isBlacklisted(Horde_Auth::getAuth())) {
         $allow_comments = false;
         $comments_reason = sprintf(_("You are on %s blacklist."), $user);
     }
