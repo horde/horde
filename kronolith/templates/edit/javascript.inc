@@ -236,6 +236,7 @@ KronolithEventForm.setStartDate = function(date)
     $('start_year').value = year;
     $('start_month').selectedIndex = month - 1;
     $('start_day').selectedIndex = day - 1;
+    KronolithEventForm.updateWday('start_wday');
     KronolithEventForm.updateEndDate();
 
     // Uncheck recurring weekdays.
