@@ -3924,7 +3924,7 @@ KronolithCore = {
 
             case 'kronolithEventsDay':
                 date = this.date.clone();
-                date.add((e.pointerY() - elt.cumulativeOffset().top) / this.daySizes.height * 60).minutes();
+                date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.daySizes.height * 2) * 30).minutes();
                 this.go('event:' + date.toString('yyyyMMddHHmm'));
                 e.stop();
                 return;
@@ -4097,7 +4097,7 @@ KronolithCore = {
                     date += 'all';
                 } else {
                     date = this.parseDate(date);
-                    date.add((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 60).minutes();
+                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 2) * 30).minutes();
                     date = date.toString('yyyyMMddHHmm');
                 }
                 this.go('event:' + date);
