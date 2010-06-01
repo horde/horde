@@ -22,9 +22,13 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     /**
      * TODO
      */
-    public function __construct($implementation, Horde_Injector_DependencyFinder $dependencyFinder)
+    public function __construct($implementation, Horde_Injector_DependencyFinder $dependencyFinder = null)
     {
         $this->_implementation = $implementation;
+
+        if (is_null($dependencyFinder)) {
+            $dependencyFinder = new Horde_Injector_DependencyFinder();
+        }
         $this->_dependencyFinder = $dependencyFinder;
     }
 
