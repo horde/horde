@@ -642,7 +642,7 @@ class Horde_Auth
         }
 
         /* Clear any existing info. */
-        self::clearAuth();
+        $GLOBALS['registry']->clearAuth(false);
 
         $_SESSION['horde_auth'] = array(
             'app' => $app_array,
@@ -705,17 +705,6 @@ class Horde_Auth
         $GLOBALS['prefs']->setValue('last_login', serialize($last_login));
 
         return true;
-    }
-
-    /**
-     * Clears any authentication tokens in the current session.
-     */
-    static public function clearAuth()
-    {
-        unset($_SESSION['horde_auth']);
-
-        /* Remove the user's cached preferences if they are present. */
-        $GLOBALS['registry']->unloadPrefs();
     }
 
     /**

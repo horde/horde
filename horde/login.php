@@ -154,8 +154,7 @@ if ($error_reason) {
 
     $entry = sprintf('User %s [%s] logged out of Horde', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
-    Horde_Auth::clearAuth();
-    @session_destroy();
+    $registry->clearAuth();
 
     /* Redirect the user on logout if redirection is enabled. */
     if (!empty($conf['auth']['redirect_on_logout'])) {

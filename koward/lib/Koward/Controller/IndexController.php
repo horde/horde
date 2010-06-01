@@ -66,8 +66,7 @@ class IndexController extends Koward_Controller_Application
         $entry = sprintf('User %s [%s] logged out of Horde',
                          Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
         Horde::logMessage($entry, 'NOTICE');
-        Horde_Auth::clearAuth();
-        @session_destroy();
+        $GLOBALS['registry']->clearAuth();
 
         header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
         exit;

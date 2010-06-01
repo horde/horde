@@ -1589,6 +1589,23 @@ class Horde_Registry
     }
 
     /**
+     * Clears any authentication tokens in the current session.
+     *
+     * @param boolean $destroy  Destroy the session?
+     */
+    public function clearAuth($destroy = true)
+    {
+        unset($_SESSION['horde_auth']);
+
+        /* Remove the user's cached preferences if they are present. */
+        $this->unloadPrefs();
+
+        if ($destroy) {
+            @session_destroy();
+        }
+    }
+
+    /**
      * Is a user an administrator?
      *
      * @param array $options  Options:
