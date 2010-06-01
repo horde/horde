@@ -344,11 +344,11 @@ class Horde_Core_Perms_Ui
         /* Groups permissions. */
         $perm_val = $permission->getGroupPermissions();
         $this->_form->setSection('groups', _("Groups"), Horde::img('group.png'), false);
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-        $group_list = $groups->listGroups();
-        if ($group_list instanceof PEAR_Error) {
-            $GLOBALS['notification']->push($group_list);
+        try {
+            $groups = Horde_Group::singleton();
+            $group_list = $groups->listGroups();
+        } catch (Horde_Group_Exception $e) {
+            $GLOBALS['notification']->push($e);
             $group_list = array();
         }
 

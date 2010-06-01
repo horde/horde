@@ -727,21 +727,22 @@ class Horde_Share_Sql extends Horde_Share
 
             // If the user has any group memberships, check for those also.
             // @TODO: Inject the group driver
-            require_once 'Horde/Group.php';
-            $group = Group::singleton();
-            $groups = $group->getGroupMemberships($userid, true);
-            if (!is_a($groups, 'PEAR_Error') && $groups) {
-                // (name == perm_groups and key in ($groups) and val & $perm)
-                $ids = array_keys($groups);
-                $group_ids = array();
-                foreach ($ids as $id) {
-                    $group_ids[] = $this->_db->quote((string)$id);
+            try {
+                $group = Horde_Group::singleton();
+                $groups = $group->getGroupMemberships($userid, true);
+                if ($groups) {
+                    // (name == perm_groups and key in ($groups) and val & $perm)
+                    $ids = array_keys($groups);
+                    $group_ids = array();
+                    foreach ($ids as $id) {
+                        $group_ids[] = $this->_db->quote((string)$id);
+                    }
+                    $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
+                    $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
+                        . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                 }
-                $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
-                $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
-                    . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
-            } elseif ($groups instanceof PEAR_Error) {
-                Horde::logMessage($groups, 'ERR');
+            } catch (Horde_Group_Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
         } else {
             $where = '(' . Horde_SQL::buildClause($this->_db, 's.perm_guest', '&', $perm) . ')';

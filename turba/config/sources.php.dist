@@ -701,7 +701,6 @@ $cfgSources['favourites'] = array(
 //    'browse' => true,
 //);
 
-//require_once 'Horde/Group.php';
 //$_group_driver = &Group::singleton();
 //$_group_list = $_group_driver->getGroupMemberships(Horde_Auth::getAuth());
 //foreach ($_group_list as $_group_id => $_group_name) {

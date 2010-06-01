@@ -89,9 +89,14 @@ class GroupCriterionForm extends Horde_Form {
 
         $this->addHidden('', 'edit', 'boolean', false);
 
-        $groups = &Group::singleton();
-        $grouplist = $groups->listGroups();
-        if (is_a($grouplist, 'PEAR_Error') || !count($grouplist)) {
+        try {
+            $groups = Horde_Group::singleton();
+            $grouplist = $groups->listGroups();
+        } catch (Horde_Group_Exception $e) {
+            $grouplist = array();
+        }
+
+        if (count($grouplist)) {
             $type_params = array(_("Could not find any groups."));
             $this->addVariable(_("Groups"), 'groups', 'invalid', false, false, null, $type_params);
         } else {

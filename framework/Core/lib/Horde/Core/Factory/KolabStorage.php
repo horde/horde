@@ -103,12 +103,9 @@ class Horde_Core_Factory_KolabStorage
 
         $imap = Horde_Imap_Client::factory('socket', $params);
 
-        //@todo: The Group package needs to be converted to H4
-        require_once 'Horde/Group.php';
-
         $master = new Horde_Kolab_Storage_Driver_Imap(
             $imap,
-            Group::singleton()
+            Horde_Group::singleton()
         );
 
         return new Horde_Kolab_Storage(

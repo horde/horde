@@ -1370,15 +1370,13 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        require_once 'Horde/Group.php';
-
         if ((empty($user) || $user != Horde_Auth::getAuth()) &&
             !$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
         $storage = Nag_Driver::singleton();
-        $group = Group::singleton();
+        $group = Horde_Group::singleton();
         $alarm_list = array();
         $tasklists = is_null($user) ? array_keys($GLOBALS['nag_shares']->listAllShares()) :  $GLOBALS['display_tasklists'];
 

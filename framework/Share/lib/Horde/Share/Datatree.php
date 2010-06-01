@@ -300,17 +300,18 @@ class Horde_Share_Datatree extends Horde_Share
 
             // If the user has any group memberships, check for those also.
             // @TODO: inject
-            require_once 'Horde/Group.php';
-            $group = &Group::singleton();
-            $groups = $group->getGroupMemberships($userid, true);
-            if (!($groups instanceof PEAR_Error) && $groups) {
-                // (name == perm_groups and key in ($groups) and val & $perm)
-                $criteria['OR'][] = array(
-                    'AND' => array(
-                        array('field' => 'name', 'op' => '=', 'test' => 'perm_groups'),
-                        array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
-                        array('field' => 'value', 'op' => '&', 'test' => $perm)));
-            }
+            try {
+                $group = Horde_Group::singleton();
+                $groups = $group->getGroupMemberships($userid, true);
+                if ($groups) {
+                    // (name == perm_groups and key in ($groups) and val & $perm)
+                    $criteria['OR'][] = array(
+                        'AND' => array(
+                            array('field' => 'name', 'op' => '=', 'test' => 'perm_groups'),
+o                           array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
+                            array('field' => 'value', 'op' => '&', 'test' => $perm)));
+                }
+            } catch (Horde_Group_Exception $e) {}
         } else {
             $criteria = array(
                 'AND' => array(

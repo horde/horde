@@ -221,9 +221,9 @@ class Ansel_Storage
             }
 
             if ($perms) {
-                $groups = Group::singleton();
+                $groups = Horde_Group::singleton();
                 $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
-                if (!($group_list instanceof PEAR_Error) && count($group_list)) {
+                if (count($group_list)) {
                     foreach ($group_list as $group_id => $group_name) {
                         $perm->addGroupPermission($group_id, $perms, false);
                     }

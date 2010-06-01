@@ -207,8 +207,7 @@ class Folks_Hooks
 
     public function prelogin($app)
     {
-        require_once 'Horde/Group.php';
-        $group = Group::singleton();
+        $group = Horde_Group::singleton();
         $user_uid = Horde_Auth::getAuth();
 
         switch ($app) {

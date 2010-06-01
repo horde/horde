@@ -1174,19 +1174,22 @@ class Kronolith
                     $perm_value = Horde_Perms::READ | Horde_Perms::SHOW | Horde_Perms::EDIT | Horde_Perms::DELETE;
                     break;
                 }
-                $groups = &Group::singleton();
-                $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
-                if (!($group_list instanceof PEAR_Error) && count($group_list)) {
-                    $perm = $share->getPermission();
-                    // Add the default perm, not added otherwise
-                    $perm->addUserPermission(Horde_Auth::getAuth(), Horde_Perms::ALL, false);
-                    foreach ($group_list as $group_id => $group_name) {
-                        $perm->addGroupPermission($group_id, $perm_value, false);
+
+                try {
+                    $groups = Horde_Group::singleton();
+                    $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                    if (count($group_list)) {
+                        $perm = $share->getPermission();
+                        // Add the default perm, not added otherwise
+                        $perm->addUserPermission(Horde_Auth::getAuth(), Horde_Perms::ALL, false);
+                        foreach ($group_list as $group_id => $group_name) {
+                            $perm->addGroupPermission($group_id, $perm_value, false);
+                        }
+                        $share->setPermission($perm);
+                        $share->save();
+                        $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
                     }
-                    $share->setPermission($perm);
-                    $share->save();
-                    $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
-                }
+                } catch (Horde_Group_Exception $e) {}
             }
 
             $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
@@ -1833,7 +1836,7 @@ class Kronolith
             // Notify users that have been added.
             if ($GLOBALS['conf']['share']['notify'] &&
                 !isset($current[$group]) && $has_perms) {
-                $groupOb = Group::singleton()->getGroupById($group);
+                $groupOb = Horde_Group::singleton()->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
                     try {
                         $message = Horde::callHook('shareGroupNotification', array($group, $share));
@@ -2261,9 +2264,7 @@ class Kronolith
             throw new Kronolith_Exception('Unknown event action: ' . $action);
         }
 
-        require_once 'Horde/Group.php';
-
-        $groups = Group::singleton();
+        $groups = Horde_Group::singleton();
         $calendar = $event->calendar;
         $recipients = array();
         try {
@@ -2287,15 +2288,14 @@ class Kronolith
         }
 
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
-            $group = $groups->getGroupById($group);
-            if ($group instanceof PEAR_Error) {
-                continue;
-            }
-            $group_users = $group->listAllUsers();
-            if ($group_users instanceof PEAR_Error) {
+            try {
+                $group = $groups->getGroupById($group);
+                $group_users = $group->listAllUsers();
+            } catch (Horde_Group_Exception $e) {
                 Horde::logMessage($group_users, 'ERR');
                 continue;
             }
+
             foreach ($group_users as $user) {
                 if (!isset($recipients[$user])) {
                     $recipients[$user] = self::_notificationPref($user, 'read', $calendar);

@@ -1,51 +1,37 @@
 <?php
 /**
- * The Group:: class provides the Horde groups system.
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Group
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Group
  */
-class Group_sql extends Group {
-
-    /**
-     * Boolean indicating whether or not we're connected to the SQL server.
-     *
-     * @var boolean
-     */
-    var $_connected = false;
-
+class Horde_Group_Sql extends Horde_Group
+{
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
-    var $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    var $_write_db;
+    public $db;
 
     /**
      * Constructor.
      */
-    function Group_sql($params)
+    public function __construct($params)
     {
         $this->_params = $params;
+        $this->db = $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'group');
     }
 
     /**
      * Initializes the object.
      */
-    function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -54,14 +40,14 @@ class Group_sql extends Group {
      *
      * @return array  List of serializable properties.
      */
-    function __sleep()
+    public function __sleep()
     {
     }
 
     /**
      * Stores the object in the session cache.
      */
-    function shutdown()
+    public function shutdown()
     {
     }
 
@@ -72,7 +58,7 @@ class Group_sql extends Group {
      *
      * @return string  The encoded name.
      */
-    function encodeName($name)
+    public function encodeName($name)
     {
         return str_replace(':', '.', $name);
     }
@@ -83,50 +69,53 @@ class Group_sql extends Group {
      * @param string $name    The group's name.
      * @param string $parent  The group's parent's name.
      *
-     * @return SQLObject_Group  A new group object.
+     * @return Horde_Group_SqlObject  A new group object.
      */
-    function &newGroup($name, $parent = GROUP_ROOT)
+    public function newGroup($name, $parent = self::ROOT)
     {
-        if (empty($name)) {
-            return PEAR::raiseError(_("Group names must be non-empty"));
-        }
-
-        if ($parent != GROUP_ROOT) {
+        if ($parent != self::ROOT) {
             $name = $this->getGroupName($parent) . ':' . $this->encodeName($name);
         }
 
-        $group = new SQLObject_Group($name);
+        $group = new Horde_Group_SqlObject($name);
         $group->setGroupOb($this);
+
         return $group;
     }
 
     /**
-     * Returns a SQLObject_Group object corresponding to the named group,
+     * Returns a group object corresponding to the named group,
      * with the users and other data retrieved appropriately.
      *
      * @param string $name The name of the group to retrieve.
+     *
+     * @throws Horde_Group_Exception
      */
-    function &getGroup($name)
+    public function getGroup($name)
     {
         if (!isset($this->_groupCache[$name])) {
-            $this->_connect();
             $sql = 'SELECT group_uid, group_email FROM horde_groups WHERE group_name = ?';
-            $group = $this->_db->getRow($sql, array($name), DB_FETCHMODE_ASSOC);
 
-            if (is_a($group, 'PEAR_Error')) {
-                return $group;
-            } elseif (empty($group)) {
-                return PEAR::raiseError($name . ' does not exist');
+            try {
+                $group = $this->db->selectRow($sql, array($name));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
+            }
+
+            if (empty($group)) {
+                throw new Horde_Group_Exception($name . ' does not exist');
             }
 
             $sql = 'SELECT user_uid FROM horde_groups_members '
                 . ' WHERE group_uid = ? ORDER BY user_uid ASC';
-            $users = $this->_db->getCol($sql, 0, array($group['group_uid']));
-            if (is_a($users, 'PEAR_Error')) {
-                return $users;
+
+            try {
+                $users = $this->db->selectValues($sql, array($group['group_uid']));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
             }
 
-            $object = new SQLObject_Group($name);
+            $object = new Horde_Group_SqlObject($name);
             $object->id = $group['group_uid'];
             $object->data['email'] = $group['group_email'];
 
@@ -143,35 +132,41 @@ class Group_sql extends Group {
     }
 
     /**
-     * Returns a SQLObject_Group object corresponding to the given unique
+     * Returns a group object corresponding to the given unique
      * ID, with the users and other data retrieved appropriately.
      *
      * @param integer $cid  The unique ID of the group to retrieve.
+     *
+     * @throws Horde_Group_Exception
      */
-    function &getGroupById($cid)
+    public function getGroupById($cid)
     {
         if (isset($this->_groupMap[$cid])) {
             return $this->_groupCache[$this->_groupMap[$cid]];
         }
 
-        $this->_connect();
         $sql = 'SELECT group_name, group_email FROM horde_groups WHERE group_uid = ?';
-        $row = $this->_db->getRow($sql, array($cid), DB_FETCHMODE_ASSOC);
 
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
-        } elseif (empty($row)) {
-            return PEAR::raiseError($cid . ' does not exist');
+        try {
+            $row = $this->db->selectOne($sql, array($cid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
+
+        if (empty($row)) {
+            throw new Horde_Group_Exception($cid . ' does not exist');
         }
 
         $sql = 'SELECT user_uid FROM horde_groups_members '
             . ' WHERE group_uid = ? ORDER BY user_uid ASC';
-        $users = $this->_db->getCol($sql, 0, array($cid));
-        if (is_a($users, 'PEAR_Error')) {
-            return $users;
+
+        try {
+            $users = $this->db->selectValues($sql, array($cid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
-        $group = new SQLObject_Group($row['group_name']);
+        $group = new Horde_Group_SqlObject($row['group_name']);
         $group->id = $cid;
         $group->data['email'] = $row['group_email'];
 
@@ -181,7 +176,7 @@ class Group_sql extends Group {
 
         $group->setGroupOb($this);
         $name = $group->getName();
-        $this->_groupCache[$name] = &$group;
+        $this->_groupCache[$name] = $group;
         $this->_groupMap[$cid] = $name;
 
         return $group;
@@ -189,48 +184,45 @@ class Group_sql extends Group {
 
     /**
      * Adds a group to the groups system. The group must first be created with
-     * Group::newGroup(), and have any initial users added to it, before this
+     * newGroup(), and have any initial users added to it, before this
      * function is called.
      *
-     * @param SQLObject_Group $group  The new group object.
+     * @param Horde_Group_SqlObject $group  The new group object.
      *
+     * @throws Horde_Group_Exception
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    function addGroup(&$group)
+    public function addGroup(Horde_Group_SqlObject $group)
     {
-        if (!is_a($group, 'SQLObject_Group')) {
-            return PEAR::raiseError('Groups must be SQLObject_Group objects or extend that class.');
-        }
-
-        $this->_connect();
         $group->setGroupOb($this);
         $name = $group->getName();
 
         $email = isset($group->data['email']) ? $group->data['email'] : '';
-        $group_id = $this->_write_db->nextId('horde_groups');
-        if (is_a($group_id, 'PEAR_Error')) {
-            return $group_id;
+
+        $query = 'INSERT INTO horde_groups (group_name, group_parents, group_email) VALUES (?, ?, ?)';
+
+        try {
+            $result = $this->db->insert($query, array($name, '', $email));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
-        $group->id = $group_id;
-        $query = 'INSERT INTO horde_groups (group_uid, group_name, group_parents, group_email) VALUES (?, ?, ?, ?)';
-        $result = $this->_write_db->query($query, array($group->id, $name, '', $email));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $group->id = $result;
 
         if (!empty($group->data['users'])) {
             $query = 'INSERT INTO horde_groups_members (group_uid, user_uid)'
-                .' VALUES (' . (int)$group->id . ', ?)';
-            $sth = $this->_write_db->prepare($query);
-            $result = $this->_write_db->executeMultiple($sth, $group->data['users']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+                .' VALUES (?, ?)';
+            foreach ($group->data['users'] as $user) {
+                try {
+                    $this->db->insert($query, array($result, $user));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Group_Exception($e);
+                }
             }
         }
 
-        $this->_groupCache[$name] = &$group;
+        $this->_groupCache[$name] = $group;
         $this->_groupMap[$group_id] = $name;
         if (isset($this->_groupList)) {
             $this->_groupList[$group_id] = $name;
@@ -238,44 +230,43 @@ class Group_sql extends Group {
 
         /* Log the addition of the group in the history log. */
         $GLOBALS['injector']->getInstance('Horde_History')->log($this->getGUID($group), array('action' => 'add'), true);
-
-        return $result;
     }
 
     /**
      * Stores updated data - users, etc. - of a group to the backend system.
      *
-     * @param SQLObject_Group $group  The group to update.
+     * @param Horde_Group_SqlObject $group  The group to update.
      *
+     * @throws Horde_Group_Exception
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    function updateGroup($group)
+    public function updateGroup(Horde_Group_SqlObject $group)
     {
-        if (!is_a($group, 'SQLObject_Group')) {
-            return PEAR::raiseError('Groups must be SQLObject_Group objects or extend that class.');
-        }
-
-        $this->_connect();
-
         $query = 'UPDATE horde_groups SET group_email = ? WHERE group_uid = ?';
-        $result = $this->_write_db->query($query, array($this->data['email'], $this->id));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+
+        try {
+            $this->db->update($query, array($this->data['email'], $this->id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
         $query = 'DELETE FROM horde_groups_members WHERE group_uid = ?';
-        $result = $this->_write_db->query($query, array($this->id));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+
+        try {
+            $this->db->delete($query, array($this->id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
-        $query = 'INSERT INTO horde_groups_members (group_uid, user_uid)'
-            .' VALUES (' . (int)$this->id . ', ?)';
-        $sth = $this->_write_db->prepare($query);
-        $result = $this->_groupOb->_write_db->executeMultiple($sth, $this->data['users']);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        $query = 'INSERT INTO horde_groups_members (group_uid, user_uid)' .
+                 ' VALUES (?, ?)';
+        foreach ($this->data['users'] as $user) {
+            try {
+                $this->db->insert($query, array(intval($this->id), $user));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
+            }
         }
 
         $this->_groupCache[$group->getName()] = &$group;
@@ -291,25 +282,22 @@ class Group_sql extends Group {
 
         /* Log the group modification. */
         $history->log($guid, array('action' => 'modify'), true);
+
         return $result;
     }
 
     /**
      * Removes a group from the groups system permanently.
      *
-     * @param SQLObject_Group $group  The group to remove.
+     * @param Horde_Group_SqlObject $group  The group to remove.
      * @param boolean $force               Force to remove every child.
      *
+     * @throws Horde_Group_Exception
      * @throws Horde_History_Exception
      * @throws InvalidArgumentException
      */
-    function removeGroup($group, $force = false)
+    public function removeGroup(Horde_Group_SqlObject $group, $force = false)
     {
-        if (!is_a($group, 'SQLObject_Group')) {
-            return PEAR::raiseError('Groups must be SQLObject_Group objects or extend that class.');
-        }
-
-        $this->_connect();
         $id = $group->getId();
         $name = $group->getName();
         unset($this->_groupMap[$id]);
@@ -321,33 +309,44 @@ class Group_sql extends Group {
         $GLOBALS['injector']->getInstance('Horde_History')->log($this->getGUID($group), array('action' => 'delete'), true);
 
         $query = 'DELETE FROM horde_groups_members WHERE group_uid = ?';
-        $result = $this->_write_db->query($query, array($id));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+
+        try {
+            $this->db->delete($query, array($id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
         $query = 'DELETE FROM horde_groups WHERE group_uid = ?';
-        $result = $this->_write_db->query($query, array($id));
-        if (!$force || is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $this->db->delete($query, array($id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
-        $query = 'DELETE FROM horde_groups WHERE group_name LIKE ?';
-        return $this->_write_db->query($query, array($name . ':%'));
+        if ($force) {
+            $query = 'DELETE FROM horde_groups WHERE group_name LIKE ?';
+
+            try {
+                $this->db->delete($query, array($name . ':%'));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
+            }
+        }
     }
 
     /**
      * Retrieves the name of a group.
      *
-     * @param integer|SQLObject_Group $gid  The id of the group or the
-     *                                           group object to retrieve the
-     *                                           name for.
+     * @param integer|Horde_Group_SqlObject $gid  The id of the group or the
+     *                                            group object to retrieve the
+     *                                            name for.
      *
      * @return string  The group's name.
+     * @throws Horde_Group_Exception
      */
-    function getGroupName($gid)
+    public function getGroupName($gid)
     {
-        if (is_a($gid, 'SQLObject_Group')) {
+        if ($gid instanceof Horde_Group_SqlObject) {
             $gid = $gid->getId();
         }
 
@@ -358,9 +357,13 @@ class Group_sql extends Group {
             return $this->_groupList[$gid];
         }
 
-        $this->_connect();
         $query = 'SELECT group_name FROM horde_groups WHERE group_uid = ?';
-        return $this->_db->getOne($query, $gid);
+
+        try {
+            return $this->db->selectValue($query, $gid);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -370,7 +373,7 @@ class Group_sql extends Group {
      *
      * @return The name of the group without parents.
      */
-    function getGroupShortName($group)
+    public function getGroupShortName($group)
     {
         /* If there are several components to the name, explode and get the
          * last one, otherwise just return the name. */
@@ -385,14 +388,15 @@ class Group_sql extends Group {
     /**
      * Retrieves the ID of a group.
      *
-     * @param string|SQLObject_Group $group  The group name or object to
-     *                                            retrieve the ID for.
+     * @param string|Horde_Group_SqlObject $group  The group name or object to
+     *                                             retrieve the ID for.
      *
      * @return integer  The group's ID.
+     * @throws Horde_Group_Exception
      */
-    function getGroupId($group)
+    public function getGroupId($group)
     {
-        if (is_a($group, 'SQLObject_Group')) {
+        if ($group instanceof Horde_Group_SqlObject) {
             return $group->getId();
         }
 
@@ -407,9 +411,13 @@ class Group_sql extends Group {
             }
         }
 
-        $this->_connect();
         $query = 'SELECT group_uid FROM horde_groups WHERE group_name = ?';
-        return $this->_db->getOne($query, $group);
+
+        try {
+            return $this->db->selectValue($query, $group);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
+        }
     }
 
     /**
@@ -419,7 +427,7 @@ class Group_sql extends Group {
      *
      * @return boolean  True if the group exists, false otherwise.
      */
-    function exists($group)
+    public function exists($group)
     {
         if (isset($this->_groupCache[$group]) ||
             (isset($this->_groupList) &&
@@ -427,9 +435,13 @@ class Group_sql extends Group {
             return true;
         }
 
-        $this->_connect();
         $query = 'SELECT COUNT(*) FROM horde_groups WHERE group_name = ?';
-        return (bool)$this->_db->getOne($query, $group);
+
+        try {
+            return (bool)$this->db->selectValue($query, $group);
+        } catch (Horde_Db_Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -438,18 +450,13 @@ class Group_sql extends Group {
      * @param integer $gid  The id of the child group.
      *
      * @return array  The group parents tree, with groupnames as the keys.
+     * @throws Horde_Group_Exception
      */
     function getGroupParents($gid)
     {
         if (!isset($this->_parentTree[$gid])) {
             $name = $this->getGroupName($gid);
-            $this->_connect();
-            $parents = $this->_getGroupParents($name);
-            if (is_a($parents, 'PEAR_Error')) {
-                return $parents;
-            }
-
-            $this->_parentTree[$gid] = $parents;
+            $this->_parentTree[$gid] = $this->_getGroupParents($name);
         }
 
         return $this->_parentTree[$gid];
@@ -462,7 +469,7 @@ class Group_sql extends Group {
      *
      * @return array  A hash with all parents in a tree format.
      */
-    function _getGroupParents($child)
+    protected function _getGroupParents($child)
     {
         if (($pos = strrpos($child, ':')) !== false) {
             $child = substr($child, 0, $pos);
@@ -473,7 +480,7 @@ class Group_sql extends Group {
 
     /**
      */
-    function _getParents($parents)
+    protected function _getParents($parents)
     {
         $mother = array();
         if (!empty($parents)) {
@@ -481,7 +488,7 @@ class Group_sql extends Group {
             $parents = substr($parents, 0, strrpos($parents, ':'));
             $mother[$pname] = $this->_getParents($parents);
         } else {
-            return array(GROUP_ROOT => true);
+            return array(self::ROOT => true);
         }
 
         return $mother;
@@ -494,20 +501,14 @@ class Group_sql extends Group {
      *
      * @return integer  The parent of the given group.
      */
-    function getGroupParent($gid)
+    public function getGroupParent($gid)
     {
         if (!isset($this->_groupParents[$gid])) {
-            $this->_connect();
-
             $name = $this->getGroupName($gid);
-            if (is_a($name, 'PEAR_Error')) {
-                return $name;
-            }
-
             if (($pos = strrpos($name, ':')) !== false) {
                 $this->_groupParents[$gid] = $this->getGroupId(substr($name, 0, $pos));
             } else {
-                $this->_groupParents[$gid] = GROUP_ROOT;
+                $this->_groupParents[$gid] = self::ROOT;
             }
         }
 
@@ -521,8 +522,9 @@ class Group_sql extends Group {
      *
      * @return array  A flat list of all of the parents of $group, hashed in
      *                $id => $name format.
+     *@throws Horde_Group_Exception
      */
-    function getGroupParentList($gid)
+    public function getGroupParentList($gid)
     {
         if (!isset($this->_groupParentList[$gid])) {
             $name = $this->getGroupName($gid);
@@ -541,12 +543,11 @@ class Group_sql extends Group {
 
             $query = 'SELECT group_uid, group_name FROM horde_groups '
                 . ' WHERE group_name IN (' . str_repeat('?, ', count($parents) - 1) . '?) ';
-            $parents = $this->_db->getAssoc($query, false, $parents);
-            if (is_a($parents, 'PEAR_Error')) {
-                return $parents;
+            try {
+                $this->_groupParentList[$gid] = $this->db->selectAssoc($query, $parents);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
             }
-
-            $this->_groupParentList[$gid] = $parents;
         }
 
         return $this->_groupParentList[$gid];
@@ -560,7 +561,7 @@ class Group_sql extends Group {
      * @return array  A flat list of all of the parents of $group, hashed in
      *                $id => $name format.
      */
-    function _getGroupParentNameList($name)
+    protected function _getGroupParentNameList($name)
     {
         $parents = array();
 
@@ -580,13 +581,17 @@ class Group_sql extends Group {
      *                          group list is refreshed from the group backend.
      *
      * @return array  ID => groupname hash.
+     * @throws Horde_Group_Exception
      */
-    function listGroups($refresh = false)
+    public function listGroups($refresh = false)
     {
         if ($refresh || !isset($this->_groupList)) {
-            $this->_connect();
             $sql = 'SELECT group_uid, group_name FROM horde_groups ORDER BY group_uid';
-            $this->_groupList = $this->_db->getAssoc($sql);
+            try {
+                $this->_groupList = $this->db->selectAssoc($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
+            }
         }
 
         return $this->_groupList;
@@ -599,15 +604,20 @@ class Group_sql extends Group {
      * @param integer $group  The ID of the parent group.
      *
      * @return array  The complete user list.
+     * @throws Horde_Group_Exception
      */
-    function listAllUsers($gid)
+    public function listAllUsers($gid)
     {
         if (!isset($this->_subGroups[$gid])) {
             // Get a list of every group that is a sub-group of $group.
             $name = $this->getGroupName($gid);
             $query = 'SELECT group_uid FROM horde_groups WHERE group_name LIKE ?';
-            $parents = $this->_db->getCol($query, 0, array($name .  ':%'));
-            $this->_subGroups[$gid] = $parents;
+
+            try {
+                $this->_subGroups[$gid] = $this->db->selectValues($query, array($name .  ':%'));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Group_Exception($e);
+            }
             $this->_subGroups[$gid][] = $gid;
         }
 
@@ -626,38 +636,35 @@ class Group_sql extends Group {
      * @param boolean $parentGroups  Also return the parents of any groups?
      *
      * @return array  An array of all groups the user is in.
+     * @throws Horde_Group_Exception
      */
-    function getGroupMemberships($user, $parentGroups = false)
+    public function getGroupMemberships($user, $parentGroups = false)
     {
         if (isset($_SESSION['horde']['groups']['m'][$user][$parentGroups])) {
             return $_SESSION['horde']['groups']['m'][$user][$parentGroups];
         }
 
-        $this->_connect();
-
         $sql = 'SELECT g.group_uid AS group_uid, g.group_name AS group_name FROM horde_groups g, horde_groups_members m '
             . ' WHERE m.user_uid = ? AND g.group_uid = m.group_uid ORDER BY g.group_name';
-        $result = $this->_db->query($sql, $user);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->db->selectAll($sql, $user);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Group_Exception($e);
         }
 
         $groups = array();
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        foreach ($result as $row) {
             $groups[(int)$row['group_uid']] = $this->getGroupShortName($row['group_name']);
         }
 
         if ($parentGroups) {
             foreach ($groups as $id => $g) {
-                $parents = $this->getGroupParentList($id);
-                if (is_a($parents, 'PEAR_Error')) {
-                    return $parents;
-                }
-                $groups += $parents;
+                $groups += $this->getGroupParentList($id);
             }
         }
 
         $_SESSION['horde']['groups']['m'][$user][$parentGroups] = $groups;
+
         return $groups;
     }
 
@@ -671,221 +678,33 @@ class Group_sql extends Group {
      *
      * @return boolean
      */
-    function userIsInGroup($user, $gid, $subgroups = true)
+    public function userIsInGroup($user, $gid, $subgroups = true)
     {
         if (isset($_SESSION['horde']['groups']['i'][$user][$subgroups][$gid])) {
             return $_SESSION['horde']['groups']['i'][$user][$subgroups][$gid];
         }
 
         if ($subgroups) {
-            $groups = $this->getGroupMemberships($user, true);
-            if (is_a($groups, 'PEAR_Error')) {
-                Horde::logMessage($groups, 'ERR');
+            try {
+                $groups = $this->getGroupMemberships($user, true);
+            } catch (Horde_Group_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 return false;
             }
 
             $result = !empty($groups[$gid]);
         } else {
-            $this->_connect();
             $query = 'SELECT COUNT(*) FROM horde_groups_members WHERE group_uid = ? AND user_uid = ?';
-            $result = $this->_db->getOne($query, array($gid, $user));
+            try {
+                $result = $this->db->selectValue($query, array($gid, $user));
+            } catch (Horde_Db_Exception $e) {
+                $result = false;
+            }
 
         }
 
         $_SESSION['horde']['groups']['i'][$user][$subgroups][$gid] = (bool)$result;
         return (bool)$result;
-    }
-
-    /**
-     * Attempts to open a persistent connection to the sql server.
-     *
-     * @return boolean  True on success.
-     * @throws Horde_Exception
-     */
-    function _connect()
-    {
-        if ($this->_connected) {
-            return true;
-        }
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the sql server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception_Prior($this->_write_db);
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception_Prior($this->_db);
-            }
-
-            /* Set DB portability options. */
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
-        }
-
-        $this->_connected = true;
-        return true;
-    }
-
-}
-
-/**
- * Extension of the SQLObject class for storing Group information
- * in the Categories driver. If you want to store specialized Group
- * information, you should extend this class instead of extending
- * SQLObject directly.
- *
- * @author  Duck <duck@obala.net>
- * @package Horde_Group
- */
-class SQLObject_Group extends DataTreeObject_Group {
-
-    /**
-     * The unique name of this object.
-     * These names have the same requirements as other object names - they must
-     * be unique, etc.
-     *
-     * @var string
-     */
-    var $name;
-
-    /**
-     * The unique name of this object.
-     * These names have the same requirements as other object names - they must
-     * be unique, etc.
-     *
-     * @var integer
-     */
-    var $id;
-
-    /**
-     * Key-value hash that will be serialized.
-     *
-     * @see getData()
-     * @var array
-     */
-    var $data = array();
-
-    /**
-     * The SQLObject_Group constructor. Just makes sure to call
-     * the parent constructor so that the group's name is set
-     * properly.
-     *
-     * @param string $name  The name of the group.
-     */
-    function SQLObject_Group($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Gets the ID of this object.
-     *
-     * @return string  The object's ID.
-     */
-    function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Gets the name of this object.
-     *
-     * @return string The object name.
-     */
-    function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Gets one of the attributes of the object, or null if it isn't defined.
-     *
-     * @param string $attribute  The attribute to get.
-     *
-     * @return mixed  The value of the attribute, or null.
-     */
-    function get($attribute)
-    {
-        return isset($this->data[$attribute])
-            ? $this->data[$attribute]
-            : null;
-    }
-
-    /**
-     * Sets one of the attributes of the object.
-     *
-     * @param string $attribute  The attribute to set.
-     * @param mixed $value       The value for $attribute.
-     */
-    function set($attribute, $value)
-    {
-        $this->data[$attribute] = $value;
-    }
-
-    /**
-     * Save group
-     */
-    function save()
-    {
-        if (isset($this->data['email'])) {
-            $query = 'UPDATE horde_groups SET group_email = ? WHERE group_uid = ?';
-            $result = $this->_groupOb->_write_db->query($query, array($this->data['email'], $this->id));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-
-        $query = 'DELETE FROM horde_groups_members WHERE group_uid = ?';
-        $result = $this->_groupOb->_write_db->query($query, array($this->id));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (!empty($this->data['users'])) {
-            $query = 'INSERT INTO horde_groups_members (group_uid, user_uid)'
-                .' VALUES (' . $this->_groupOb->_write_db->quote($this->id) . ', ?)';
-            $sth = $this->_groupOb->_write_db->prepare($query);
-            $result = $this->_groupOb->_write_db->executeMultiple($sth, array_keys($this->data['users']));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
     }
 
 }

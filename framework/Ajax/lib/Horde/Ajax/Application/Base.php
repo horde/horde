@@ -133,21 +133,19 @@ abstract class Horde_Ajax_Application_Base
      */
     public function listGroups()
     {
-        $result = new stdClass;
-        require_once 'Horde/Group.php';
-        $horde_groups = Group::singleton();
-        if (!empty($GLOBALS['conf']['share']['any_group'])) {
-            $groups = $horde_groups->listGroups();
-        } else {
-            $groups = $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true);
-        }
-        if ($groups) {
-            if ($groups instanceof PEAR_Error) {
-                $groups = array();
-            }
+        try {
+            $horde_groups = Horde_Group::singleton();
+            $groups = empty($GLOBALS['conf']['share']['any_group'])
+                ? $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+                : $horde_groups->listGroups();
             asort($groups);
-            $result->groups = $groups;
+        } catch (Horde_Group_Exception $e) {
+            $groups = array();
         }
+
+        $result = new stdClass;
+        $result->groups = $groups;
+
         return $result;
     }
 

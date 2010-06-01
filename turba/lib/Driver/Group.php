@@ -129,9 +129,7 @@ class Turba_Driver_Group extends Turba_Driver
 
     function _getAddressBook()
     {
-        require_once 'Horde/Group.php';
-
-        $groups = Group::singleton();
+        $groups = Horde_Group::singleton();
         $members = $groups->listAllUsers($this->_gid);
         $addressbook = array();
         foreach ($members as $member) {

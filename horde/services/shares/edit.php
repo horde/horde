@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-require_once 'Horde/Group.php';
-
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {
     throw new Horde_Exception('Permission denied.');
@@ -27,7 +25,7 @@ $fieldsList = array(
 
 $app = Horde_Util::getFormData('app');
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($app);
-$groups = Group::singleton();
+$groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 if ($registry->hasMethod('shareHelp', $app)) {
     $help = $registry->callByPackage($app, 'shareHelp');
@@ -266,29 +264,27 @@ if (is_a($share, 'PEAR_Error')) {
     $title = sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
 }
 
+$userList = array();
 if ($auth->hasCapability('list') &&
     ($conf['auth']['list_users'] == 'list' ||
      $conf['auth']['list_users'] == 'both')) {
-    $userList = $auth->listUsers();
-    if ($userList instanceof PEAR_Error) {
-        Horde::logMessage($userList, 'ERR');
-        $userList = array();
+    try {
+        $userList = $auth->listUsers();
+        sort($userList);
+    } catch (Horde_Auth_Exception $e) {
+        Horde::logMessage($e, 'ERR');
     }
-    sort($userList);
-} else {
-    $userList = array();
 }
 
-if (!empty($conf['share']['any_group'])) {
-    $groupList = $groups->listGroups();
-} else {
-    $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
-}
-if ($groupList instanceof PEAR_Error) {
-    Horde::logMessage($groupList, 'NOTICE');
+try {
+    $groupList = empty($conf['share']['any_group'])
+        ? $groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        : $groups->listGroups();
+    asort($groupList);
+} catch (Horde_Group_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
     $groupList = array();
 }
-asort($groupList);
 
 require HORDE_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));

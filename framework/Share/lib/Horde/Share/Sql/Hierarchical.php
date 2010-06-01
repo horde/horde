@@ -8,7 +8,7 @@
  * @package Horde_Share
  */
 class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
-{    
+{
     /**
      * The Horde_Share_Object subclass to instantiate objects as
      *
@@ -214,20 +214,21 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
 
                 // If the user has any group memberships, check for those also.
                 // @TODO: Inject the group driver
-                require_once 'Horde/Group.php';
-                $group = &Group::singleton();
-                $groups = $group->getGroupMemberships($userid, true);
-                if (!($groups instanceof PEAR_Error) && $groups) {
-                    // (name == perm_groups and key in ($groups) and val & $perm)
-                    $ids = array_keys($groups);
-                    $group_ids = array();
-                    foreach ($ids as $id) {
-                        $group_ids[] = $this->_db->quote((string)$id);
+                try {
+                    $group = Horde_Group::singleton();
+                    $groups = $group->getGroupMemberships($userid, true);
+                    if ($groups) {
+                        // (name == perm_groups and key in ($groups) and val & $perm)
+                        $ids = array_keys($groups);
+                        $group_ids = array();
+                        foreach ($ids as $id) {
+                            $group_ids[] = $this->_db->quote((string)$id);
+                        }
+                        $query .= ' LEFT JOIN ' . $this->_table . '_groups AS g ON g.share_id = s.share_id';
+                        $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
+                            . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                     }
-                    $query .= ' LEFT JOIN ' . $this->_table . '_groups AS g ON g.share_id = s.share_id';
-                    $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
-                        . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
-                }
+                } catch (Horde_Group_Exception $e) {}
             }
         }
 

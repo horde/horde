@@ -835,9 +835,7 @@ class Nag
             throw new Nag_Exception($e);
         }
 
-        require_once 'Horde/Group.php';
-
-        $groups = Group::singleton();
+        $groups = Horde_Group::singleton();
         $recipients = array();
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
         $from = $identity->getDefaultFromAddress(true);
@@ -853,15 +851,14 @@ class Nag
             }
         }
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
-            $group = $groups->getGroupById($group);
-            if (is_a($group, 'PEAR_Error')) {
+            try {
+                $group = $groups->getGroupById($group);
+                $group_users = $group->listAllUsers();
+            } catch (Horde_Group_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 continue;
             }
-            $group_users = $group->listAllUsers();
-            if (is_a($group_users, 'PEAR_Error')) {
-                Horde::logMessage($group_users, 'ERR');
-                continue;
-            }
+
             foreach ($group_users as $user) {
                 if (empty($recipients[$user])) {
                     $recipients[$user] = Nag::_notificationPref($user, 'read', $task->tasklist);

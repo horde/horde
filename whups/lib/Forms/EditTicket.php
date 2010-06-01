@@ -95,7 +95,7 @@ class EditTicketForm extends Horde_Form {
                 case 'owner':
                     if (Whups::hasPermission($vars->get('queue'), 'queue',
                                              'assign')) {
-                        $groups = &Group::singleton();
+                        $groups = Horde_Group::singleton();
                         if ($GLOBALS['conf']['prefs']['assign_all_groups']) {
                             $mygroups = $groups->listGroups();
                         } else {
@@ -172,7 +172,7 @@ class EditTicketForm extends Horde_Form {
                     }
 
                     /* Comment permissions. */
-                    $groups = &Group::singleton();
+                    $groups = Horde_Group::singleton();
                     $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
                     if ($mygroups) {
                         foreach (array_keys($mygroups) as $gid) {

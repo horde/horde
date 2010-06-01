@@ -220,39 +220,40 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         /* Remove user from all groups */
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-        $allGroups = $groups->getGroupMemberships($user);
-        if (is_a($groups, 'PEAR_Error')) {
-            Horde::logMessage($allGroups, 'ERR');
-            $haveError = true;
-        } else {
+        $groups = Horde_Group::singleton();
+        try {
+            $allGroups = $groups->getGroupMemberships($user);
             foreach (array_keys($allGroups) as $id) {
                 $group = $groups->getGroupById($id);
                 $group->removeUser($user, true);
             }
+        } catch (Horde_Group_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            $haveError = true;
         }
 
         /* Remove the user from all application permissions */
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        $tree = $perms->getTree();
-        if (is_a($tree, 'PEAR_Error')) {
-            Horde::logMessage($tree, 'ERR');
+        try {
+            $tree = $perms->getTree();
+        } catch (Horde_Perms_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             $haveError = true;
-        } else {
-            foreach (array_keys($tree) as $id) {
+            $tree = array();
+        }
+
+        foreach (array_keys($tree) as $id) {
+            try {
                 $perm = $perms->getPermissionById($id);
-                if (is_a($perm, 'PEAR_Error')) {
-                    Horde::logMessage($perm, 'ERR');
-                    $haveError = true;
-                    continue;
-                }
                 if ($perms->getPermissions($perm, $user)) {
                     // The Horde_Perms::ALL is used if this is a matrix perm,
                     // otherwise it's ignored in the method and the entry is
                     // totally removed.
                     $perm->removeUserPermission($user, Horde_Perms::ALL, true);
                 }
+            } catch (Horde_Perms_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                $haveError = true;
             }
         }
 
@@ -314,19 +315,16 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to add groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
         if (empty($parent)) {
-            $parent = GROUP_ROOT;
+            $parent = Horde_Group::ROOT;
         }
 
-        if (is_a($group = &$groups->newGroup($name, $parent), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        if (is_a($result = $groups->addGroup($group), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->newGroup($name, $parent);
+            $groups->addGroup($group);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -343,15 +341,12 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to delete groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        if (is_a($result = $groups->removeGroup($group, true), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            $groups->removeGroup($group, true);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -369,15 +364,12 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        if (is_a($result = $group->addUser($user), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            $group->addUser($user);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -395,19 +387,15 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        foreach ($users as $user) {
-            $group->addUser($user, false);
-        }
-
-        if (is_a($result = $group->save(), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            foreach ($users as $user) {
+                $group->addUser($user, false);
+            }
+            $group->save();
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -425,15 +413,12 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        if (is_a($result = $group->removeUser($user), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            $group->removeUser($user);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -451,21 +436,15 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
-        }
-
-        foreach ($users as $user) {
-            if (is_a($result = $group->removeUser($user, false), 'PEAR_Error')) {
-                throw new Horde_Exception($result);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            foreach ($users as $user) {
+                $group->removeUser($user, false);
             }
-        }
-
-        if (is_a($result = $group->save(), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+            $group->save();
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -483,14 +462,13 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to list users of groups."));
         }
 
-        require_once 'Horde/Group.php';
-        $groups = Group::singleton();
-
-        if (is_a($group = &$groups->getGroup($name), 'PEAR_Error')) {
-            throw new Horde_Exception($group);
+        try {
+            $groups = Horde_Group::singleton();
+            $group = $groups->getGroup($name);
+            return $group->listUsers();
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
-
-        return $group->listUsers();
     }
 
     /* Shares. */
@@ -634,15 +612,17 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        require_once 'Horde/Group.php';
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
-        $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
         }
-        if (is_a($groupId = $groups->getGroupId($groupName), 'PEAR_Error')) {
-            throw new Horde_Exception($groupId);
+
+        try {
+            $groups = Horde_Group::singleton();
+            $groupId = $groups->getGroupId($groupName);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
 
         $perm = &$share->getPermission();
@@ -701,16 +681,17 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        require_once 'Horde/Group.php';
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($scope);
-        $groups = Group::singleton();
 
         if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
             throw new Horde_Exception($share);
         }
 
-        if (is_a($groupId = $groups->getGroupId($groupName), 'PEAR_Error')) {
-            throw new Horde_Exception($groupId);
+        try {
+            $groups = Horde_Group::singleton();
+            $groupId = $groups->getGroupId($groupName);
+        } catch (Horde_Group_Exception $e) {
+            throw new Horde_Exception($e);
         }
 
         if (is_a($result = $share->removeGroup($groupId), 'PEAR_Error')) {

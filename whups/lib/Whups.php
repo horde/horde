@@ -503,7 +503,7 @@ class Whups {
     function getOwnerCriteria($user)
     {
         $criteria = array('user:' . $user);
-        $groups = &Group::singleton();
+        $groups = Horde_Group::singleton();
         $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
@@ -578,15 +578,16 @@ class Whups {
                     $results[$user]['email'] = $identity->getValue('from_addr');
                 }
             } elseif ($type == 'group') {
-                $groups = &Group::singleton();
-                $group = $groups->getGroupById($user);
-                if (is_a($group, 'PEAR_Error')) {
-                    $results['user']['name'] = '';
-                    $results['user']['email'] = '';
-                } else {
+                try {
+                    $groups = Horde_Group::singleton();
+                    $group = $groups->getGroupById($user);
+
                     $results[$user]['user'] = $group->getShortName();
                     $results[$user]['name'] = $group->getShortName();
                     $results[$user]['email'] = $group->get('email');
+                } catch (Horde_Group_Exception $e) {
+                    $results['user']['name'] = '';
+                    $results['user']['email'] = '';
                 }
             }
         }

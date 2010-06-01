@@ -8,8 +8,7 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-require_once 'Horde/Group.php';
-$g = Group::factory();
+$g = Horde_Group::factory();
 
 $group_query = '
 INSERT INTO

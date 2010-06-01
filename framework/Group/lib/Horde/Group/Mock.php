@@ -1,28 +1,28 @@
 <?php
 /**
- * The Group:: class provides the Horde groups system.
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Group
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Group
  */
-class Group_mock extends Group {
+class Horde_Group_Mock extends Horde_Group {
 
     /**
      * Constructor.
      */
-    function Group_mock()
+    public function __construct()
     {
     }
 
     /**
      * Initializes the object.
      */
-    function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -33,10 +33,11 @@ class Group_mock extends Group {
      * @param string $parent  The group's parent's name.
      *
      * @return DataTreeObject_Group  A new group object.
+     * @throws Horde_Group_Exception
      */
-    function &newGroup($name, $parent = GROUP_ROOT)
+    public function newGroup($name, $parent = GROUP_ROOT)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
@@ -44,66 +45,76 @@ class Group_mock extends Group {
      * with the users and other data retrieved appropriately.
      *
      * @param string $name The name of the group to retrieve.
+     *
+     * @throws Horde_Group_Exception
      */
-    function &getGroup($name)
+    public function getGroup($name)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
-     * Returns a DataTreeObject_Group object corresponding to the given unique
+     * Returns a group object corresponding to the given unique
      * ID, with the users and other data retrieved appropriately.
      *
      * @param integer $cid  The unique ID of the group to retrieve.
+     *
+     * @throws Horde_Group_Exception
      */
-    function &getGroupById($cid)
+    public function getGroupById($cid)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
      * Adds a group to the groups system. The group must first be created with
-     * Group::newGroup(), and have any initial users added to it, before this
+     * newGroup(), and have any initial users added to it, before this
      * function is called.
      *
-     * @param DataTreeObject_Group $group  The new group object.
+     * @param Horde_Group_DataTreeObject $group  The new group object.
+     *
+     * @throws Horde_Group_Exception
      */
-    function addGroup($group)
+    public function addGroup($group)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
      * Stores updated data - users, etc. - of a group to the backend system.
      *
-     * @param DataTreeObject_Group $group  The group to update.
+     * @param Horde_Group_DataTreeObject $group  The group to update.
+     *
+     * @throws Horde_Group_Exception
      */
-    function updateGroup($group)
+    public function updateGroup($group)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
      * Removes a group from the groups system permanently.
      *
-     * @param DataTreeObject_Group $group  The group to remove.
+     * @param Horde_Group_DataTreeObject $group  The group to remove.
      * @param boolean $force               Force to remove every child.
+     *
+     * @throws Horde_Group_Exception
      */
-    function removeGroup($group, $force = false)
+    public function removeGroup($group, $force = false)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Horde_Group_Exception('Unsupported.');
     }
 
     /**
      * Retrieves the name of a group.
      *
-     * @param integer|DataTreeObject_Group $gid  The id of the group or the
+     * @param integer|Horde_Group_DataTreeObject $gid  The id of the group or the
      *                                           group object to retrieve the
      *                                           name for.
      *
      * @return string  The group's name.
      */
-    function getGroupName($gid)
+    public function getGroupName($gid)
     {
         return '';
     }
@@ -115,7 +126,7 @@ class Group_mock extends Group {
      *
      * @return The name of the group without parents.
      */
-    function getGroupShortName($group)
+    public function getGroupShortName($group)
     {
         return '';
     }
@@ -123,12 +134,12 @@ class Group_mock extends Group {
     /**
      * Retrieves the ID of a group.
      *
-     * @param string|DataTreeObject_Group $group  The group name or object to
+     * @param string|Horde_Group_DataTreeObject $group  The group name or object to
      *                                            retrieve the ID for.
      *
      * @return integer  The group's ID.
      */
-    function getGroupId($group)
+    public function getGroupId($group)
     {
         return '';
     }
@@ -140,7 +151,7 @@ class Group_mock extends Group {
      *
      * @return boolean  True if the group exists, false otherwise.
      */
-    function exists($group)
+    public function exists($group)
     {
         return false;
     }
@@ -152,7 +163,7 @@ class Group_mock extends Group {
      *
      * @return array  The group parents tree, with groupnames as the keys.
      */
-    function getGroupParents($gid)
+    public function getGroupParents($gid)
     {
         return array();
     }
@@ -164,7 +175,7 @@ class Group_mock extends Group {
      *
      * @return integer  The parent of the given group.
      */
-    function getGroupParent($gid)
+    public function getGroupParent($gid)
     {
         return null;
     }
@@ -177,7 +188,7 @@ class Group_mock extends Group {
      * @return array  A flat list of all of the parents of $group, hashed in
      *                $id => $name format.
      */
-    function getGroupParentList($gid)
+    public function getGroupParentList($gid)
     {
         return array();
     }
@@ -190,7 +201,7 @@ class Group_mock extends Group {
      *
      * @return array  ID => groupname hash.
      */
-    function listGroups($refresh = false)
+    public function listGroups($refresh = false)
     {
         return array();
     }
@@ -202,7 +213,7 @@ class Group_mock extends Group {
      *
      * @return array  The user list.
      */
-    function listUsers($gid)
+    public function listUsers($gid)
     {
         return array();
     }
@@ -215,7 +226,7 @@ class Group_mock extends Group {
      *
      * @return array  The complete user list.
      */
-    function listAllUsers($gid)
+    public function listAllUsers($gid)
     {
         return array();
     }
@@ -228,7 +239,7 @@ class Group_mock extends Group {
      *
      * @return array  An array of all groups the user is in.
      */
-    function getGroupMemberships($user, $parentGroups = false)
+    public function getGroupMemberships($user, $parentGroups = false)
     {
         return array();
     }
@@ -243,7 +254,7 @@ class Group_mock extends Group {
      *
      * @return boolean
      */
-    function userIsInGroup($user, $gid, $subgroups = true)
+    public function userIsInGroup($user, $gid, $subgroups = true)
     {
         return false;
     }
@@ -256,7 +267,7 @@ class Group_mock extends Group {
      *
      * @return The nesting level of the group.
      */
-    function getLevel($gid)
+    public function getLevel($gid)
     {
         return 0;
     }
@@ -264,7 +275,7 @@ class Group_mock extends Group {
     /**
      * Stores the object in the session cache.
      */
-    function shutdown()
+    public function shutdown()
     {
     }
 
@@ -273,7 +284,7 @@ class Group_mock extends Group {
      *
      * @return array  List of serializable properties.
      */
-    function __sleep()
+    public function __sleep()
     {
     }
 

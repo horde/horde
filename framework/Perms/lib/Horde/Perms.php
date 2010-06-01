@@ -366,8 +366,7 @@ class Horde_Perms
         if (isset($permission->data['groups']) &&
             is_array($permission->data['groups']) &&
             count($permission->data['groups'])) {
-            require_once 'Horde/Group.php';
-            $groups = Group::singleton();
+            $groups = Horde_Group::singleton();
 
             $composite_perm = null;
             $type = $permission->get('type');

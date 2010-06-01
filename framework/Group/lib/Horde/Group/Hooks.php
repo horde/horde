@@ -1,27 +1,33 @@
 <?php
 /**
- * The Group_hooks:: class provides the Horde groups system with the
- * addition of adding support for hook functions to define if a user
- * is in a group.
+ * This class provides the Horde groups system with the addition of adding
+ * support for hook functions to define if a user is in a group.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason Rust <jrust@rustyparts.com>
- * @package Horde_Group
+ * @author   Jason Rust <jrust@rustyparts.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Group
  */
-class Group_hooks extends Group {
-
-    var $_hookFunction = false;
+class Horde_Group_Hooks extends Horde_Group
+{
+    /**
+     * @var boolean
+     */
+    protected $_hookFunction = false;
 
     /**
      * Constructor.
+     *
+     * @params array $params
      */
-    function Group_hooks($params)
+    public function __construct($params)
     {
-        parent::Group($params);
+        parent::__construct($params);
         Horde::loadConfiguration('hooks.php', null, 'horde');
         $this->_hookFunction = function_exists('_group_hook');
     }
@@ -33,8 +39,9 @@ class Group_hooks extends Group {
      * @param boolean $parentGroups  Also return the parents of any groups?
      *
      * @return array  An array of all groups the user is in.
+     * @throws Horde_Group_Exception
      */
-    function getGroupMemberships($user, $parentGroups = false)
+    public function getGroupMemberships($user, $parentGroups = false)
     {
         $memberships = parent::getGroupMemberships($user, $parentGroups);
         if (!$this->_hookFunction) {
@@ -48,12 +55,7 @@ class Group_hooks extends Group {
             }
 
             if ($parentGroups) {
-                $parents = $this->getGroupParentList($gid);
-                if (is_a($parents, 'PEAR_Error')) {
-                    return $parents;
-                }
-
-                $memberships += $parents;
+                $memberships += $this->getGroupParentList($gid);
             }
         }
 
@@ -70,10 +72,10 @@ class Group_hooks extends Group {
      *
      * @return boolean
      */
-    function userIsInGroup($user, $gid, $subgroups = true)
+    public function userIsInGroup($user, $gid, $subgroups = true)
     {
-        $inGroup = ($this->_hookFunction && _group_hook($this->getGroupName($gid), $user));
-        return ($inGroup || parent::userIsInGroup($user, $gid, $subgroups));
+        return ($this->_hookFunction && _group_hook($this->getGroupName($gid), $user)) ||
+                parent::userIsInGroup($user, $gid, $subgroups);
     }
 
 }

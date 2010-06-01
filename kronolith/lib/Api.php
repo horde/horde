@@ -1133,14 +1133,12 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        require_once 'Horde/Group.php';
-
         $current_user = Horde_Auth::getAuth();
         if ((empty($user) || $user != $current_user) && !$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $group = Group::singleton();
+        $group = Horde_Group::singleton();
         $alarm_list = array();
         $time = new Horde_Date($time);
         $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
@@ -1158,10 +1156,9 @@ class Kronolith_Api extends Horde_Registry_Api
                 $users = $share->listUsers(Horde_Perms::READ);
                 $groups = $share->listGroups(Horde_Perms::READ);
                 foreach ($groups as $gid) {
-                    $group_users = $group->listUsers($gid);
-                    if (!($group_users instanceof PEAR_Error)) {
-                        $users = array_merge($users, $group_users);
-                    }
+                    try {
+                        $users = array_merge($users, $group->listUsers($gid));
+                    } catch (Horde_Group_Exception $e) {}
                 }
                 $users = array_unique($users);
             } else {

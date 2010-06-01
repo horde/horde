@@ -13,3 +13,11 @@ CREATE TABLE horde_groups_members (
 
 CREATE INDEX group_uid_idx ON horde_groups_members (group_uid);
 CREATE INDEX user_uid_idx ON horde_groups_members (user_uid);
+
+CREATE SEQUENCE horde_groups_uid_seq;
+CREATE TRIGGER horde_groups_uid_trigger
+BEFORE INSERT ON horde_groups
+FOR EACH ROW
+BEGIN
+    SELECT horde_groups_uid_seq.nextval INTO :new.group_uid FROM dual;
+END;

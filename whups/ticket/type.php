@@ -28,7 +28,7 @@ class SetTypeStep1Form extends Horde_Form {
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
 
         /* Group restrictions. */
-        $groups = &Group::singleton();
+        $groups = Horde_Group::singleton();
         $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
         if ($mygroups) {
             foreach (array_keys($mygroups) as $gid) {

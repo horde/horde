@@ -11,8 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-require_once 'Horde/Group.php';
-$groups = Group::singleton();
+$groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $form = null;
@@ -22,92 +21,99 @@ $cid = Horde_Util::getFormData('cid');
 
 switch ($actionID) {
 case 'addchild':
-    if ($cid == GROUP_ROOT) {
+    if ($cid == Horde_Group::ROOT) {
         $form = 'addchild.inc';
         $gname = _("All Groups");
     } else {
-        $group = &$groups->getGroupById($cid);
-        if (!is_a($group, 'PEAR_Error')) {
+        try {
+            $group = $groups->getGroupById($cid);
             $gname = $group->getShortName();
             $form = 'addchild.inc';
-        }
+        } catch (Horde_Group_Exception $e) {]
     }
     break;
 
 case 'addchildform':
     $parent = $cid;
-    if ($parent == GROUP_ROOT) {
-        $child = &$groups->newGroup(Horde_Util::getFormData('child'));
-    } else {
-        $child = &$groups->newGroup(Horde_Util::getFormData('child'), $parent);
-    }
-    if (is_a($child, 'PEAR_Error')) {
-        Horde::logMessage($child, 'ERR');
-        $notification->push(sprintf(_("Group was not created: %s."), $child->getMessage()), 'horde.error');
+    try {
+        $child = ($parent == Horde_Group::ROOT)
+            ? $groups->newGroup(Horde_Util::getFormData('child'))
+            : $groups->newGroup(Horde_Util::getFormData('child'), $parent);
+    } catch (Horde_Group_Exception $e) {
+        Horde::logMessage($e, 'ERR');
+        $notification->push(sprintf(_("Group was not created: %s."), $e->getMessage()), 'horde.error');
         break;
     }
 
-    $result = $groups->addGroup($child);
-    if (is_a($result, 'PEAR_Error')) {
-        Horde::logMessage($result, 'ERR');
-        $notification->push(sprintf(_("\"%s\" was not created: %s."), $child->getShortName(), $result->getMessage()), 'horde.error');
-    } else {
+    try {
+        $groups->addGroup($child);
         $notification->push(sprintf(_("\"%s\" was added to the groups system."), $child->getShortName()), 'horde.success');
         $group = $child;
         $form = 'edit.inc';
         $reload = true;
+    } catch (Horde_Group_Exception $e) {
+        Horde::logMessage($e, 'ERR');
+        $notification->push(sprintf(_("\"%s\" was not created: %s."), $child->getShortName(), $e->getMessage()), 'horde.error');
     }
     break;
 
 case 'delete':
-    $group = &$groups->getGroupById($cid);
-    if (!is_a($group, 'PEAR_Error')) {
+    try {
+        $group = $groups->getGroupById($cid);
         $form = 'delete.inc';
-    }
+    } catch (Horde_Group_Exception $e) {}
     break;
 
 case 'deleteform':
     if (Horde_Util::getFormData('confirm') == _("Delete")) {
-        $group = &$groups->getGroupById($cid);
-        if (is_a($group, 'PEAR_Error')) {
+        try {
+            $group = $groups->getGroupById($cid);
+        } catch (Horde_Group_Exception $e) {
             $notification->push(_("Attempt to delete a non-existent group."), 'horde.error');
-        } else {
-            $result = $groups->removeGroup($group, true);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $group->getShortName(), $result->getMessage()), 'horde.error');
-             } else {
-                $notification->push(sprintf(_("Successfully deleted \"%s\"."), $group->getShortName()), 'horde.success');
-                $cid = null;
-                $reload = true;
-            }
+            break;
+        }
+
+        try {
+            $groups->removeGroup($group, true);
+            $notification->push(sprintf(_("Successfully deleted \"%s\"."), $group->getShortName()), 'horde.success');
+            $cid = null;
+            $reload = true;
+        } catch (Horde_Group_Exception $e) {
+            $notification->push(sprintf(_("Unable to delete \"%s\": %s."), $group->getShortName(), $e->getMessage()), 'horde.error');
         }
     }
     break;
 
 case 'edit':
-    $group = &$groups->getGroupById($cid);
-    if (!is_a($group, 'PEAR_Error')) {
+    try {
+        $group = $groups->getGroupById($cid);
         $form = 'edit.inc';
-    } elseif (($category = Horde_Util::getFormData('category')) !== null) {
-        $group = &$groups->getGroup($category);
-        if (!is_a($group, 'PEAR_Error')) {
+        break;
+    } catch (Horde_Group_Exception $e) {}
+
+    if (($category = Horde_Util::getFormData('category')) !== null) {
+        try {
+            $group = $groups->getGroup($category);
             $form = 'edit.inc';
-        } elseif (Horde_Util::getFormData('autocreate')) {
+            break;
+        } catch (Horde_Group_Exception $e) {}
+
+        if (Horde_Util::getFormData('autocreate')) {
             $parent = Horde_Util::getFormData('parent');
-            $group = &$groups->newGroup($category);
-            $result = $groups->addGroup($group, $parent);
-            if (!is_a($result, 'PEAR_Error')) {
+            $group = $groups->newGroup($category);
+            try {
+                $groups->addGroup($group, $parent);
                 $form = 'edit.inc';
-            }
+            } catch (Horde_Group_Exception $e) {}
         }
     }
     break;
 
 case 'editform':
-    $group = &$groups->getGroupById($cid);
+    $group = $groups->getGroupById($cid);
 
     // make a copy of the group so we can restore it if there is an error.
-    $restore = $group;
+    $restore = clone $group;
 
     // Add any new users.
     $newuser = Horde_Util::getFormData('new_user');
@@ -133,14 +139,13 @@ case 'editform':
     $group->set('email', Horde_Util::getFormData('email'));
 
     // Save the group to the backend.
-    $result = $group->save();
-
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage(), 'horde.error');
+    try {
+        $group->save();
+        $notification->push(sprintf(_("Updated \"%s\"."), $group->getShortName()), 'horde.success');
+    } catch (Horde_Group_Exception $e) {
+        $notification->push($e, 'horde.error');
         // restore backup copy
         $group = $restore;
-    } else {
-        $notification->push(sprintf(_("Updated \"%s\"."), $group->getShortName()), 'horde.success');
     }
 
     $form = 'edit.inc';
@@ -155,22 +160,26 @@ case 'addchild.inc':
 
 case 'edit.inc':
     /* Set up the lists. */
-    $users = $group->listUsers();
-    if (is_a($users, 'PEAR_Error')) {
-        $notification->push($users, 'horde.error');
+    try {
+        $users = $group->listUsers();
+    } catch (Horde_Group_Exception $e) {
+        $notification->push($e, 'horde.error');
         $users = array();
     }
-    $all_users = $group->listAllUsers();
-    if (is_a($all_users, 'PEAR_Error')) {
-        $notification->push($all_users, 'horde.error');
+
+    try {
+        $all_users = $group->listAllUsers();
+    } catch (Horde_Group_Exception $e) {
+        $notification->push($e, 'horde.error');
         $all_users = array();
     }
     $inherited_users = array_diff($all_users, $users);
 
     if ($auth->hasCapability('list')) {
-        $user_list = $auth->listUsers();
-        if (is_a($user_list, 'PEAR_Error')) {
-            $notification->push($user_list, 'horde.error');
+        try {
+            $user_list = $auth->listUsers();
+        } catch (Horde_Auth_Exception $e) {
+            $notification->push($e, 'horde.error');
             $user_list = array();
         }
         sort($user_list);
@@ -190,10 +199,7 @@ if (!empty($form)) {
 
 /* Get the perms tree. */
 $nodes = $groups->listGroups(true);
-if (is_a($nodes, 'PEAR_Error')) {
-    throw new Horde_Exception_Prior($nodes);
-}
-$nodes[GROUP_ROOT] = GROUP_ROOT;
+$nodes[Horde_Group::ROOT] = Horde_Group::ROOT;
 
 /* Set up some node params. */
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -215,14 +221,11 @@ $tree->setHeader(array(array('width' => '50%')));
  * for the root node. */
 if ($cid > 0) {
     $cid_parents = $groups->getGroupParentList($cid);
-    if (is_a($cid_parents, 'PEAR_Error')) {
-        throw new Horde_Exception_Prior($cid_parents);
-    }
 }
 
 foreach ($nodes as $id => $node) {
     $node_params = ($cid == $id) ? array('class' => 'selected') : array();
-    if ($id == GROUP_ROOT) {
+    if ($id == Horde_Group::ROOT) {
         $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), _("Add a new group")) . $add_img . '</a>';
 
         $base_node_params = $icondir + array('icon' => 'administration.png');

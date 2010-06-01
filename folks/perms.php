@@ -10,10 +10,9 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Group.php';
 
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
-$groups = &Group::singleton();
+$groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $reload = false;
@@ -234,16 +233,15 @@ if ($auth->hasCapability('list')) {
     $userList = array();
 }
 
-if (!empty($conf['share']['any_group'])) {
-    $groupList = $groups->listGroups();
-} else {
-    $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
+$groupList = array();
+try {
+    $groupList = empty($conf['share']['any_group'])
+        ? $groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        : $groups->listGroups();
+    asort($groupList);
+} catch (Horde_Group_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
 }
-if (is_a($groupList, 'PEAR_Error')) {
-    Horde::logMessage($groupList, 'NOTICE');
-    $groupList = array();
-}
-asort($groupList);
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));

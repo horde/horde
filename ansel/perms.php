@@ -18,9 +18,7 @@ $fieldsList = array(
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-require_once 'Horde/Group.php';
-
-$groups = Group::singleton();
+$groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 
 $form = null;
@@ -263,11 +261,12 @@ if ($auth->hasCapability('list')) {
     $userList = array();
 }
 
-$groupList = $groups->listGroups();
-asort($groupList);
-if ($groupList instanceof PEAR_Error) {
-    Horde::logMessage($groupList, 'NOTICE');
-    $groupList = array();
+$groupList = array();
+try {
+    $groupList = $groups->listGroups();
+    asort($groupList);
+} catch (Horde_Group_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
 }
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

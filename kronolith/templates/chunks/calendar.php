@@ -1,16 +1,15 @@
 <?php
 $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
-require_once 'Horde/Group.php';
-$horde_groups = Group::singleton();
-if (!empty($GLOBALS['conf']['share']['any_group'])) {
-    $groups = $horde_groups->listGroups();
-} else {
-    $groups = $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true);
-}
-if ($groups instanceof PEAR_Error) {
-    $groups = array();
-}
-asort($groups);
+$horde_groups = Horde_Group::singleton();
+
+$groups = array();
+try {
+    $groups = empty($GLOBALS['conf']['share']['any_group'])
+        ? $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        : $horde_groups->listGroups();
+    asort($groups);
+} catch (Horde_Group_Exception $e) {}
+
 $file_upload = $GLOBALS['browser']->allowFileUploads();
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
