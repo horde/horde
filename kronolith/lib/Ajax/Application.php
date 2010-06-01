@@ -717,7 +717,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
         $tagger = Kronolith::getTagger();
         $result->calendar = array(
-            'name' => (!$calendar->get('owner') ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ') . $calendar->get('name'),
+            'name' => (!$calendar->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . '] ') . $calendar->get('name'),
             'desc' => $calendar->get('desc'),
             'owner' => false,
             'fg' => Kronolith::foregroundColor($calendar),

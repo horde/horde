@@ -255,7 +255,7 @@ class Kronolith
                     $calendar->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['internal'][$id] = array(
-                        'name' => ($owner || !$calendar->get('owner') ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
+                        'name' => ($owner || !$calendar->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . '] ')
                             . $calendar->get('name'),
                         'desc' => $calendar->get('desc'),
                         'owner' => $owner,
@@ -284,7 +284,7 @@ class Kronolith
                     $tasklist->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
-                        'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . Horde_Auth::convertUsername($tasklist->get('owner'), false) . '] ')
+                        'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . '] ')
                             . $tasklist->get('name'),
                         'desc' => $tasklist->get('desc'),
                         'owner' => $owner,
@@ -1611,7 +1611,7 @@ class Kronolith
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
-        $new_owner = Horde_Auth::convertUsername($new_owner_backend, true);
+        $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != Horde_Auth::getAuth() && !$GLOBALS['registry']->isAdmin()) {
                 $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
@@ -1740,7 +1740,7 @@ class Kronolith
         $perm->removeUserPermission(null, null, false);
         foreach ($u_names as $key => $user_backend) {
             // Apply backend hooks
-            $user = Horde_Auth::convertUsername($user_backend, true);
+            $user = $GLOBALS['registry']->convertUsername($user_backend, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {

@@ -612,25 +612,6 @@ class Horde_Auth
     }
 
     /**
-     * Converts an authentication username to a unique Horde username.
-     *
-     * @param string $username  The username to convert.
-     * @param boolean $toHorde  If true, convert to a Horde username. If
-     *                          false, convert to the auth username.
-     *
-     * @return string  The converted username.
-     * @throws Horde_Exception
-     */
-    static public function convertUsername($userId, $toHorde)
-    {
-        try {
-            return Horde::callHook('authusername', array($userId, $toHorde));
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $userId;
-        }
-    }
-
-    /**
      * Runs the pre/post-authenticate hook and parses the result.
      *
      * @param string $userId      The userId who has been authorized.

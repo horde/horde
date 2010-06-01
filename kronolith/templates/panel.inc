@@ -127,7 +127,7 @@ $ta->attach();
  <h4><?php echo _("Shared Calendars:") ?></h4>
  <ul id="sharedcalendars">
 <?php foreach ($shared_calendars as $id => $cal): ?>
-   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . ($cal->get('owner') ? '[' . htmlspecialchars(Horde_Auth::convertUsername($cal->get('owner'), false)) . '] ' : '') . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
+   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . ($cal->get('owner') ? '[' . htmlspecialchars($GLOBALS['registry']->convertUsername($cal->get('owner'), false)) . '] ' : '') . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
