@@ -28,59 +28,6 @@ require_once dirname(dirname(__FILE__)) . '/fixtures/migrations_with_decimal/1_g
  */
 class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
 {
-    /** These tests need support for pulling default properties for an object from a table definition **/
-    /*
-    public function testChangeColumnWithNilDefault()
-    {
-        $this->_createTestUsersTable();
-
-        $this->_conn->addColumn('users', 'contributor', 'boolean', array('default' => true));
-        $user = new User;
-        $this->assertTrue($user->contributor);
-
-        // changeColumn() throws exception on error
-        $this->_conn->changeColumn('users', 'contributor', 'boolean', array('default' => null));
-
-        $user = new User;
-        $this->assertNull($user->contributor);
-    }
-
-    public function testChangeColumnWithNewDefault()
-    {
-        $this->_createTestUsersTable();
-
-        $this->_conn->addColumn('users', 'administrator', 'boolean', array('default' => true));
-        $user = new User;
-        $this->assertTrue($user->administrator);
-
-        // changeColumn() throws exception on error
-        $this->_conn->changeColumn('users', 'administrator', 'boolean', array('default' => false));
-
-        $user = new User;
-        $this->assertFalse($user->administrator);
-    }
-
-    public function testChangeColumnDefault()
-    {
-        $this->_createTestUsersTable();
-
-        $this->_conn->changeColumnDefault('users', 'first_name', 'Tester');
-
-        $user = new User;
-        $this->assertEquals('Tester', $user->first_name);
-    }
-
-    public function testChangeColumnDefaultToNull()
-    {
-        $this->_createTestUsersTable();
-
-        $this->_conn->changeColumnDefault('users', 'first_name', null);
-
-        $user = new User;
-        $this->assertNull($user->first_name);
-    }
-    */
-
     public function setUp()
     {
         try {
@@ -90,6 +37,60 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
         } catch (Horde_Db_Exception $e) {
             $this->markTestSkipped('The sqlite adapter is not available');
         }
+
+        $table = $this->_conn->createTable('users');
+          $table->column('company_id',  'integer',  array('limit' => 11));
+          $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('first_name',  'string',   array('limit' => 40, 'default' => ''));
+          $table->column('approved',    'boolean',  array('default' => true));
+          $table->column('type',        'string',   array('limit' => 255, 'default' => ''));
+          $table->column('created_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('created_on',  'date',     array('default' => '0000-00-00'));
+          $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
+          $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
+        $table->end();
+    }
+
+    public function testChangeColumnWithNilDefault()
+    {
+        $this->_conn->addColumn('users', 'contributor', 'boolean', array('default' => true));
+        $users = $this->_conn->table('users');
+        $this->assertTrue($users->contributor->getDefault());
+
+        // changeColumn() throws exception on error
+        $this->_conn->changeColumn('users', 'contributor', 'boolean', array('default' => null));
+
+        $users = $this->_conn->table('users');
+        $this->assertNull($users->contributor->getDefault());
+    }
+
+    public function testChangeColumnWithNewDefault()
+    {
+        $this->_conn->addColumn('users', 'administrator', 'boolean', array('default' => true));
+        $users = $this->_conn->table('users');
+        $this->assertTrue($users->administrator->getDefault());
+
+        // changeColumn() throws exception on error
+        $this->_conn->changeColumn('users', 'administrator', 'boolean', array('default' => false));
+
+        $users = $this->_conn->table('users');
+        $this->assertFalse($users->administrator->getDefault());
+    }
+
+    public function testChangeColumnDefault()
+    {
+        $this->_conn->changeColumnDefault('users', 'first_name', 'Tester');
+
+        $users = $this->_conn->table('users');
+        $this->assertEquals('Tester', $users->first_name->getDefault());
+    }
+
+    public function testChangeColumnDefaultToNull()
+    {
+        $this->_conn->changeColumnDefault('users', 'first_name', null);
+
+        $users = $this->_conn->table('users');
+        $this->assertNull($users->first_name->getDefault());
     }
 
     public function testAddTable()

@@ -36,21 +36,6 @@ class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('The sqlite adapter is not available');
         }
 
-        /*
-CREATE TABLE users (
-  id         int(11) auto_increment,
-  company_id int(11),
-  name       varchar(255) default '',
-  first_name varchar(40) default '',
-  approved   tinyint(1) default '1',
-  type       varchar(255) default '',
-  created_at datetime default '0000-00-00 00:00:00',
-  created_on date default '0000-00-00',
-  updated_at datetime default '0000-00-00 00:00:00',
-  updated_on date default '0000-00-00',
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        */
         $table = $this->_conn->createTable('users');
           $table->column('company_id',  'integer',  array('limit' => 11));
           $table->column('name',        'string',   array('limit' => 255, 'default' => ''));
@@ -62,43 +47,6 @@ CREATE TABLE users (
           $table->column('updated_at',  'datetime', array('default' => '0000-00-00 00:00:00'));
           $table->column('updated_on',  'date',     array('default' => '0000-00-00'));
         $table->end();
-        /*
-mike:
-  id:         1
-  company_id: 1
-  name:       Mike Naberezny
-  first_name: Mike
-  approved:   1
-  type:       User
-  created_at: '2008-01-01 12:20:00'
-  created_on: '2008-01-01'
-  updated_at: '2008-01-01 12:20:00'
-  updated_on: '2008-01-01'
-
-derek:
-  id:         2
-  company_id: 1
-  name:       Derek DeVries
-  first_name: Derek
-  approved:   1
-  type:       User
-  created_at: '<?php echo date("Y-m-d H:i:s", strtotime("-1 day")) ?>'
-  created_on: '<?php echo date("Y-m-d",       strtotime("-1 day")) ?>'
-  updated_at: '<?php echo date("Y-m-d H:i:s", strtotime("-1 day")) ?>'
-  updated_on: '<?php echo date("Y-m-d",       strtotime("-1 day")) ?>'
-
-client:
-  id:         3
-  company_id: 1
-  name:       Extreme
-  first_name: Engineer
-  approved:   1
-  type:       Client
-  created_at: '2008-01-01 12:20:00'
-  created_on: '2008-01-01'
-  updated_at: '2008-01-01 12:20:00'
-  updated_on: '2008-01-01'
-        */
     }
 
     public function testInitializeSchemaInformation()
