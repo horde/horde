@@ -293,7 +293,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
 
 
     /*##########################################################################
-    # ArrayAccess
+    # IteratorAggregate
     ##########################################################################*/
 
     public function getIterator()
