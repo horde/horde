@@ -366,23 +366,6 @@ class Horde_Auth
     }
 
     /**
-     * Checks if an application requires additional authentication above and
-     * beyond Horde authentication.
-     *
-     * @params string $app  The application to check.
-     *
-     * @return boolean  Whether or not the application required additional
-     *                  authentication.
-     * @throws Horde_Auth_Exception
-     */
-    static public function requireAuth($app)
-    {
-        return ($app == 'horde')
-            ? false
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $app))->requireAuth();
-    }
-
-    /**
      * Check existing auth for triggers that might invalidate it.
      *
      * @return boolean  Is existing auth valid?

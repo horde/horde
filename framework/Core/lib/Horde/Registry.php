@@ -1217,7 +1217,7 @@ class Horde_Registry
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
         if (!Horde_Auth::isAuthenticated(array('app' => $app)) &&
-            Horde_Auth::requireAuth($app) &&
+            $this->requireAuth($app) &&
             ($perms != Horde_Perms::SHOW)) {
             return false;
         }
@@ -1618,6 +1618,23 @@ class Horde_Registry
         return isset($options['permission'])
             ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($options['permission'], $user, isset($options['permlevel']) ? $options['permlevel'] : Horde_Perms::EDIT)
             : false;
+    }
+
+    /**
+     * Checks if an application requires additional authentication above and
+     * beyond Horde authentication.
+     *
+     * @params string $app  The application to check.
+     *
+     * @return boolean  Whether or not the application required additional
+     *                  authentication.
+     * @throws Horde_Exception
+     */
+    public function requireAuth($app)
+    {
+        return ($app == 'horde')
+            ? false
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $app))->requireAuth();
     }
 
 }
