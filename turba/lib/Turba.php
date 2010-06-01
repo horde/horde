@@ -570,7 +570,7 @@ class Turba {
             $result = $share->save();
          } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage, 'ERR');
-            throw new Nag_Exception($e);
+            throw new Turba_Exception($e);
         }
 
         /* Update share_id as backends like Kolab change it to the IMAP folder
