@@ -47,7 +47,7 @@ class Passwd {
     }
 
     /**
-     * Change the Horde/IMP/MIMP cached credentials. Should be called
+     * Change the Horde/IMP cached credentials. Should be called
      * only after a successful change of the password in the actual
      * backend storage. This routine is the same for all backends and
      * should not be implemented in the backend classes.
@@ -60,12 +60,9 @@ class Passwd {
     {
         if (Auth::getCredential('password') == $old_password) {
             Auth::setCredential('password', $new_password);
-            if (Auth::getProvider() == 'imp') {
+            if ($GLOBALS['registry']->getProvider() == 'imp') {
                 $_SESSION['imp']['pass'] = Secret::write(Secret::getKey('imp'),
                                                          $new_password);
-            } elseif (Auth::getProvider() == 'mimp') {
-                $_SESSION['mimp']['pass'] = Secret::write(Secret::getKey('mimp'),
-                                                          $new_password);
             }
         }
     }

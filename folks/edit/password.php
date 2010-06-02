@@ -162,7 +162,7 @@ do {
     if (Horde_Auth::getCredential('password') == $info['old']) {
         Horde_Auth::setCredential('password', $info['new']);
         $secret = $injector->getInstance('Horde_Secret');
-        if (Horde_Auth::getProvider() == 'imp' ||
+        if ($registry->getProvider() == 'imp' ||
             !empty($_SESSION['imp']['pass'])) {
             $_SESSION['imp']['pass'] = $secret->write($secret->getKey('imp'), $info['new']);
         }

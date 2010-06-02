@@ -670,19 +670,6 @@ class Horde_Auth
     }
 
     /**
-     * Returns the name of the authentication provider.
-     *
-     * @return string  The name of the driver currently providing
-     *                 authentication, or false if not set.
-     */
-    static public function getProvider()
-    {
-        return empty($_SESSION['horde_auth']['driver'])
-            ? false
-            : $_SESSION['horde_auth']['driver'];
-    }
-
-    /**
      * Sets the error message for an invalid authentication.
      *
      * @param string $type  The type of error (self::REASON_* constant).

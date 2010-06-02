@@ -1589,6 +1589,19 @@ class Horde_Registry
     }
 
     /**
+     * Returns the name of the authentication provider.
+     *
+     * @return string  The name of the driver currently providing
+     *                 authentication, or false if not set.
+     */
+    public function getProvider()
+    {
+        return empty($_SESSION['horde_auth']['driver'])
+            ? false
+            : $_SESSION['horde_auth']['driver'];
+    }
+
+    /**
      * Clears any authentication tokens in the current session.
      *
      * @param boolean $destroy  Destroy the session?
