@@ -373,7 +373,7 @@ class Turba {
             $shares = Turba::listShares();
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource array.
-            $notification->push($e->getMessage(), 'horde.error');
+            $notification->push($e, 'horde.error');
             return $sources;
         }
 
