@@ -920,12 +920,13 @@
     The Hooks backend allows hooks to extend a group to dynamically include
     members into a group.  See hooks.php.dist for an example.
    </configdescription>
-   <configswitch name="driver" desc="What backend should we use for Horde
+   <configsection name="params">
+    <configswitch name="driver" desc="What backend should we use for Horde
    Groups?">sql
      <case name="hooks" desc="Hooks"/>
      <case name="kolab" desc="Kolab"/>
      <case name="ldap" desc="LDAP">
-      <configldap name="driverconfig">
+      <configldap switchname="driverconfig">
        <configstring name="gid" desc="The group search key">cn</configstring>
        <configstring name="memberuid" desc="Group membership field">
        memberUid</configstring>
@@ -954,7 +955,8 @@
      <case name="sql" desc="SQL">
       <configsql switchname="driverconfig" />
      </case>
-   </configswitch>
+    </configswitch>
+   </configsection>
    <configheader>Group Caching</configheader>
    <configdescription>Enabling group caching improves performance because the
    group backend will only be queried once per session. But it also increases
