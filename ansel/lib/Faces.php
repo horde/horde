@@ -15,7 +15,7 @@ class Ansel_Faces
      * Delete faces from VFS and DB storage.
      *
      * @TODO: Move SQL queries to Ansel_Storage::
-     * 
+     *
      * @param Ansel_Image $image Image object to delete faces for
      * @param integer $face  Face id
      * @static
@@ -103,7 +103,7 @@ class Ansel_Faces
         if (!is_array($face)) {
             $face = $faces->getFaceById($face, true);
         }
-        $face_id = $face['face_id'];      
+        $face_id = $face['face_id'];
 
         // The HTML to display the face image.
         $imghtml = sprintf("<img src=\"%s\" class=\"bordered-facethumb\" id=\"%s\" alt=\"%s\" />",
