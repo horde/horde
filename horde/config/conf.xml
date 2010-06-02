@@ -312,68 +312,70 @@
     </case>
 
     <case name="ldap" desc="LDAP authentication">
-     <configldap switchname="driverconfig">
-      <configenum name="scope" desc="Search scope">sub
-       <values>
-        <value desc="Subtree search">sub</value>
-        <value desc="One level">one</value>
-       </values>
-      </configenum>
-      <configstring name="sizelimit" required="false" desc="Size limit for
-      listing users on large directories"/>
-      <configboolean name="ad" desc="Is this an AD server?">
-      false</configboolean>
-      <configstring name="uid" desc="The username search key (set to
-      samaccountname for AD)"/>
-      <configenum name="encryption" desc="The password hashing algorithm to
-      use">ssha
-       <values>
-        <value>aprmd5</value>
-        <value>crypt</value>
-        <value>crypt-blowfish</value>
-        <value>crypt-des</value>
-        <value>crypt-md5</value>
-        <value>md5-base64</value>
-        <value>md5-hex</value>
-        <value>msad</value>
-        <value>plain</value>
-        <value>sha</value>
-        <value>smd5</value>
-        <value>ssha</value>
-       </values>
-      </configenum>
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configenum name="scope" desc="Search scope">sub
+        <values>
+         <value desc="Subtree search">sub</value>
+         <value desc="One level">one</value>
+        </values>
+       </configenum>
+       <configstring name="sizelimit" required="false" desc="Size limit for
+       listing users on large directories"/>
+       <configboolean name="ad" desc="Is this an AD server?">
+       false</configboolean>
+       <configstring name="uid" desc="The username search key (set to
+       samaccountname for AD)"/>
+       <configenum name="encryption" desc="The password hashing algorithm to
+       use">ssha
+        <values>
+         <value>aprmd5</value>
+         <value>crypt</value>
+         <value>crypt-blowfish</value>
+         <value>crypt-des</value>
+         <value>crypt-md5</value>
+         <value>md5-base64</value>
+         <value>md5-hex</value>
+         <value>msad</value>
+         <value>plain</value>
+         <value>sha</value>
+         <value>smd5</value>
+         <value>ssha</value>
+        </values>
+       </configenum>
 
-      <configlist name="newuser_objectclass" desc="What objectclasses should a
-      new user account be member of? These objectclasses should cover the
-      cn,sn,userPassword attributes as well as the username search key">
-      shadowAccount,inetOrgPerson</configlist>
+       <configlist name="newuser_objectclass" desc="What objectclasses should a
+       new user account be member of? These objectclasses should cover the
+       cn,sn,userPassword attributes as well as the username search key">
+       shadowAccount,inetOrgPerson</configlist>
 
-      <configswitch name="filter_type" desc="How to specify a filter for the
-      user lists">objectclass
-       <case name="objectclass" desc="One or more objectclass filters">
-        <configlist name="objectclass" desc="The objectclass filter used to
-        search for users. Can be a single objectclass or a list."/>
-       </case>
-       <case name="free" desc="A complete LDAP filter expression">
-        <configstring name="filter" desc="The LDAP RFC formatted filter used
-        to search for users."/>
-       </case>
-      </configswitch>
+       <configswitch name="filter" desc="How to specify a filter for the
+       user lists">objectclass
+        <case name="objectclass" desc="One or more objectclass filters">
+         <configlist name="objectclass" desc="The objectclass filter used to
+         search for users. Can be a single objectclass or a list."/>
+        </case>
+        <case name="free" desc="A complete LDAP filter expression">
+         <configstring name="filter" desc="The LDAP RFC formatted filter used
+         to search for users."/>
+        </case>
+       </configswitch>
 
-      <configswitch name="password_expiration" desc="Enable the creating of
-      accounts with expiring passwords? (Note: New users should have the
-      shadowAccount objectclass)">no
-       <case name="no" desc="no" />
-       <case name="yes" desc="yes">
-        <configstring name="minage" desc="After how many days may a password
-        be changed again?">5</configstring>
-        <configstring name="maxage" desc="How many days will a password
-        remain valid?">30</configstring>
-        <configstring name="warnage" desc="How many days before expiration
-        should a user be warned?">5</configstring>
-       </case>
-      </configswitch>
-     </configldap>
+       <configswitch name="password_expiration" desc="Enable the creating of
+       accounts with expiring passwords? (Note: New users should have the
+       shadowAccount objectclass)">no
+        <case name="no" desc="no" />
+        <case name="yes" desc="yes">
+         <configstring name="minage" desc="After how many days may a password
+         be changed again?">5</configstring>
+         <configstring name="maxage" desc="How many days will a password
+         remain valid?">30</configstring>
+         <configstring name="warnage" desc="How many days before expiration
+         should a user be warned?">5</configstring>
+        </case>
+       </configswitch>
+      </configldap>
+     </configsection>
     </case>
 
     <case name="login" desc="Login (su) authentication">
