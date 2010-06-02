@@ -8,12 +8,6 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-/** Horde_Array */
-require_once 'Horde/Array.php';
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
 /**
  * TimeForm abstract class.
  *

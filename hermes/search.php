@@ -14,8 +14,6 @@ require_once HERMES_BASE . '/lib/Forms/Export.php';
 require_once HERMES_BASE . '/lib/Forms/Search.php';
 require_once HERMES_BASE . '/lib/Forms/Time.php';
 require_once HERMES_BASE . '/lib/Table.php';
-require_once 'Horde/Identity.php';
-require_once 'Horde/Data.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -100,14 +98,10 @@ if (isset($_SESSION['hermes_search_criteria'])) {
 }
 $form = new SearchForm($searchVars);
 
-if ($print_view) {
-    require_once $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    $print_link = Horde::url(Horde_Util::addParameter('search.php', array('print' => 'true')));
-    require HERMES_TEMPLATES . '/menu.inc';
-    $form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
-    echo '<br />';
-}
+$print_link = Horde::url(Horde_Util::addParameter('search.php', array('print' => 'true')));
+require HERMES_TEMPLATES . '/menu.inc';
+$form->renderActive(new Horde_Form_Renderer(), $searchVars, 'search.php', 'post');
+echo '<br />';
 
 if (isset($_SESSION['hermes_search_criteria'])) {
     echo Hermes::tabs();

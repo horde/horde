@@ -10,11 +10,6 @@
  */
 
 /**
- * Horde_Form
- */
-require_once 'Horde/Form.php';
-
-/**
  * ExportForm:: is the export form which appears with search results on
  * the search screen.
  *
@@ -28,7 +23,7 @@ class ExportForm extends Horde_Form {
 
     function ExportForm(&$vars)
     {
-        global $perms;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');;
 
         parent::Horde_Form($vars, _("Export Search Results"));
 

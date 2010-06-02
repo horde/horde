@@ -9,12 +9,6 @@
  *
  */
 
-/** Horde_Array */
-require_once 'Horde/Array.php';
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
 /**
  * Hermes time search form.
  *
@@ -28,8 +22,9 @@ class SearchForm extends Horde_Form {
     function SearchForm(&$vars)
     {
         parent::Horde_Form($vars, _("Search For Time"));
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
-        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             $type = Hermes::getEmployeesType();
             $this->addVariable(_("Employees"), 'employees', $type[0], false,
                                false, null, $type[1]);
@@ -164,9 +159,10 @@ class SearchForm extends Horde_Form {
             return null;
         }
         $this->getInfo($vars, $info);
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         $criteria = array();
-        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             if (!empty($info['employees'])) {
                 $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
                 if (!$auth->capabilities['list']) {

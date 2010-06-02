@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Horde/Form.php';
-
 /**
  * DeliverableClientSelector - Form for selecting client on deliverables screen
  *
