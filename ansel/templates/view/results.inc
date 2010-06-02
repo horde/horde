@@ -62,7 +62,7 @@ function copySelected()
 <div class="header">
 <?php
 /* Build link, if needed, for browsing all users' results */
-$allLink = (!empty($this->_owner)) ? Horde::link(Horde_Util::addParameter(Horde::selfUrl(), array('view' => 'Results')), _("View Results from All Users")) . ' (' . _("View All Results") . ')</a>' : '';
+$allLink = (!empty($this->_owner)) ? Horde::selfUrl()->add(array('view' => 'Results'))->link(array('title' => _("View Results from All Users"))) . ' (' . _("View All Results") . ')</a>' : '';
 if ($total) {
     echo '<span class="rightFloat">' . ($total > $this->_perPage ? sprintf(_("%d to %d of %d Items"), $this->_pagestart, $this->_pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
 }

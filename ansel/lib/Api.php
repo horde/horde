@@ -787,8 +787,7 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['original_date'] = $image->originalDate;
             $imagelist[$id]['url'] = Ansel::getImageUrl($id, $view, $full, $style);
             if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url'] = Horde_Util::addParameter($imagelist[$id]['url'],
-                    'app', $app);
+                $imagelist[$id]['url']->add('app', $app);
             }
         }
         return $imagelist;
@@ -832,8 +831,7 @@ class Ansel_Api extends Horde_Registry_Api
             $imagelist[$id]['original_date'] = $image->originalDate;
 
             if (!is_null($app) && $GLOBALS['conf']['vfs']['src'] != 'direct') {
-                $imagelist[$id]['url'] = Horde_Util::addParameter($imagelist[$id]['url'],
-                    'app', $app);
+                $imagelist[$id]['url']->add('app', $app);
             }
         }
         return $imagelist;
@@ -944,13 +942,13 @@ class Ansel_Api extends Horde_Registry_Api
         if (!empty($results['galleries'])) {
             foreach ($results['galleries'] as $gallery) {
                 $gal = $GLOBALS['ansel_storage']->getGallery($gallery);
-                $view_url = Horde_Util::addParameter(Horde::applicationUrl('view.php'), array('gallery' => $gallery,
-                    'view' => 'Gallery'));
+                $view_url = Horde::applicationUrl('view.php')->add(
+                        array('gallery' => $gallery,
+                              'view' => 'Gallery'));
                 $return[] = array('title' => $gal->get('name'),
-                    'desc' => $gal->get('desc'),
-                    'view_url' => $view_url,
-                    'app' => $app);
-
+                                  'desc' => $gal->get('desc'),
+                                  'view_url' => $view_url,
+                                  'app' => $app);
             }
         }
 

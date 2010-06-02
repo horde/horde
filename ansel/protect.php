@@ -32,7 +32,7 @@ if ($form->validate()) {
         $_SESSION['ansel']['passwd'][$gallery->id] = md5($vars->get('passwd'));
         $url = $vars->get('url');
         if (empty($url)) {
-            $url = Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $gallery->id));
+            $url = Horde::applicationUrl('view.php')->add('gallery', $gallery->id);
         }
         header('Location: ' . $url);
         exit;

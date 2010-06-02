@@ -4,10 +4,12 @@
  * for a image on the Ansel_View_Gallery view.
  *
  * @author Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
-class Ansel_Tile_Image {
-
+class Ansel_Tile_Image
+{
     /**
      * Outputs the HTML for an image thumbnail 'tile'.
      *
@@ -21,8 +23,7 @@ class Ansel_Tile_Image {
      *
      * @return  Outputs the HTML for the image tile.
      */
-    function getTile($image, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($image, $style = null, $mini = false, $params = array())
     {
         global $conf, $registry;
 
@@ -45,12 +46,13 @@ class Ansel_Tile_Image {
         $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
 
         /* URL for image properties/actions etc... */
-        $image_url = Horde_Util::addParameter('image.php', array_merge(
-             array('gallery' => $image->gallery,
-                   'page' => $page,
-                   'image' => $image->id,
-                   'havesearch' => $haveSearch),
-             $date));
+        $image_url = Horde::applicationUrl('image.php')->add(
+             array_merge(
+               array('gallery' => $image->gallery,
+                     'page' => $page,
+                     'image' => $image->id,
+                     'havesearch' => $haveSearch),
+               $date));
 
         /* URL to view the image. This is the link for the Tile.
          * $view_url is the link for the thumbnail and since this might not
@@ -75,8 +77,7 @@ class Ansel_Tile_Image {
                                     array($image->id, $image->gallery, $parent->get('slug')),
                                     urldecode($params['image_view_url']));
 
-            // If we override the view_url, assume we want to override this
-            // as well.
+            // If we override the view_url, assume we want to override this also
             $img_view_url = $view_url;
         }
 
@@ -94,11 +95,11 @@ class Ansel_Tile_Image {
         $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style['name']);
         $option_select = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
         $option_edit = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-        $imgAttributes = (!empty($params['image_view_attributes'])
-                         ? $params['image_view_attributes'] : array());
+        $imgAttributes = (!empty($params['image_view_attributes']) ? $params['image_view_attributes'] : array());
 
         $imgOnClick = (!empty($params['image_onclick'])
-                      ? str_replace('%i', $image->id, $params['image_onclick']) : '');
+                ? str_replace('%i', $image->id, $params['image_onclick'])
+                : '');
 
         $imageCaption = Horde_Text_Filter::filter(
             $image->caption, 'text2html',
@@ -119,8 +120,8 @@ class Ansel_Tile_Image {
                                                      'domid' => $image->id . 'caption'));
             $imple->attach();
         }
-        
         include ANSEL_BASE . '/templates/tile/image.inc';
+
         return Horde::endBuffer();
     }
 

@@ -4,10 +4,12 @@
  * for a gallery on the Ansel_View_Gallery view.
  *
  * @author Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
-class Ansel_Tile_Gallery {
-
+class Ansel_Tile_Gallery
+{
     /**
      * Outputs the html for a gallery tile.
      *
@@ -23,8 +25,7 @@ class Ansel_Tile_Gallery {
      *
      * @return  Outputs the HTML for the tile.
      */
-    function getTile($gallery, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($gallery, $style = null, $mini = false, $params = array())
     {
         /*
          * See what view we are being displayed in to see if we need to show
@@ -70,14 +71,13 @@ class Ansel_Tile_Gallery {
                                           array('gallery' => $gallery->id,
                                                 'view' => 'Gallery',
                                                 'havesearch' => $haveSearch,
-                                                'slug' => $gallery->get('slug')));
-
-            $view_link = Horde::link($view_link);
+                                                'slug' => $gallery->get('slug')))->link();
         } else {
-            $view_link = Horde::link(
+            $view_link = new Horde_Url(
                 str_replace(array('%g', '%s'),
                             array($gallery->id, $gallery->get('slug')),
                             urldecode($params['gallery_view_url'])));
+            $view_link = $view_link->link();
         }
 
         $image_link = $view_link . $gallery_image . '</a>';
@@ -85,14 +85,12 @@ class Ansel_Tile_Gallery {
                      . '</a>';
 
         if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) && !$mini) {
-            $properties_link = Horde_Util::addParameter(
-                    Horde::applicationUrl('gallery.php', true),
+            $properties_link = Horde::applicationUrl('gallery.php', true)->add(
                         array('gallery' => $gallery->id,
                               'actionID' => 'modify',
                               'havesearch' => $haveSearch,
                               'url' => Horde::selfUrl(true, false, true)));
-            $properties_link = Horde::link($properties_link)
-                               . _("Gallery Properties") . '</a>';
+            $properties_link = $properties_link->link() . _("Gallery Properties") . '</a>';
         }
 
         if ($showOwner && !$mini &&
@@ -101,14 +99,13 @@ class Ansel_Tile_Gallery {
                                             array('view' => 'List',
                                                   'owner' => $gallery->get('owner'),
                                                   'groupby' => 'owner'),
-                                            true);
-            $owner_link = Horde::link($owner_link);
+                                            true)->link();
             $gallery_owner = $gallery->getOwner();
             $owner_string = $gallery_owner->getValue('fullname');
             if (empty($owner_string)) {
                 $owner_string = $gallery->get('owner');
             }
-            $owner_link = $owner_link . htmlspecialchars($owner_string, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
+            $owner_link .= htmlspecialchars($owner_string, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
         }
 
         $gallery_count = $gallery->countImages(true);
@@ -122,6 +119,7 @@ class Ansel_Tile_Gallery {
 
         Horde::startBuffer();
         include ANSEL_TEMPLATES . '/tile/gallery' . ($mini ? 'mini' : '') . '.inc';
+
         return Horde::endBuffer();
     }
 

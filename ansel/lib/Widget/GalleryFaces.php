@@ -54,8 +54,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
     protected function _getFaceNames()
     {
         if ($this->_view->resource->get('faces')) {
-            return '<div id="faces_widget_content">'
-                    . '<br /><em>' . _("No faces found") . '</em></div>';
+            return '<div id="faces_widget_content"><br /><em>' . _("No faces found") . '</em></div>';
         }
 
         $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
@@ -66,12 +65,12 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
 
         $images = $faces->getGalleryFaces($this->_view->resource->id);
-
-
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
-            $html .= '<a id="edit_faces" href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'), 'gallery', $this->_view->gallery->id)
-                    . '" class="widget">' . $link_text . '</a>';
+            $html .= Horde::applicationUrl('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
+                         array('id' => 'edit_faces',
+                               'class' => 'widget'))
+                  . $link_text . '</a>';
         }
 
         $faces_html = '<div id="faces-on-gallery">';

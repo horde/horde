@@ -280,7 +280,7 @@ case 'save':
     $url = Horde_Util::getFormData('url');
     if (empty($url) && empty($exists)) {
         // Redirect to the images upload page for newly creted galleries
-        $url = Horde_Util::addParameter(Horde::applicationUrl('img/upload.php'), 'gallery', $galleryId);
+        $url = Horde::applicationUrl('img/upload.php')->add('gallery', $galleryId);
     } elseif (empty($url)) {
         $url = Horde::applicationUrl('index.php', true);
     }
@@ -315,7 +315,7 @@ case 'generateDefault':
         $gallery = $ansel_storage->getGallery($galleryId);
         $gallery->clearStacks();
         $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
-        header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
+        header('Location: ' . Horde::applicationUrl('view.php', true)->add('gallery', $galleryId));
         exit;
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
@@ -335,7 +335,7 @@ case 'generateThumbs':
     }
     $gallery->clearThumbs();
     $notification->push(_("The gallery's thumbnails have successfully been reset."), 'horde.success');
-    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
+    header('Location: ' . Horde::applicationUrl('view.php', true)->add('gallery', $galleryId));
     exit;
 
 case 'deleteCache':
@@ -350,7 +350,7 @@ case 'deleteCache':
     }
     $gallery->clearViews();
     $notification->push(_("The gallery's views have successfully been reset."), 'horde.success');
-    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $galleryId), true));
+    header('Location: ' . Horde::applicationUrl('view.php', true)->add('gallery', $galleryId));
     exit;
 
 default:

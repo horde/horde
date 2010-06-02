@@ -37,13 +37,10 @@ if ($form->validate()) {
         $report = Ansel_Report::factory();
         $gallery = $ansel_storage->getGallery($face['gallery_id']);
 
-        $face_link = Horde_Util::addParameter(
-            Horde::applicationUrl('faces/custom.php', true),
+        $face_link = Horde::applicationUrl('faces/custom.php', true)->add(
             array('name' => $vars->get('person'),
                   'face' => $face_id,
-                  'image' => $face['image_id']),
-            null,
-            false);
+                  'image' => $face['image_id']))->setRaw(true);
 
         $title = _("I know who is on one of your photos");
         $body = _("Gallery Name") . ': ' . $gallery->get('name') . "\n"

@@ -31,16 +31,15 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             Horde::logMessage($e->getMessage, 'ERR');
             $this->_count = 0;
         }
-
-        $this->_title = '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/search/owner.php'), 'owner', $this->_owner) . '">'
-            . sprintf(_("People in galleries owned by %s (%d of %d)"),
-                      $this->_owner, min(12, $this->_count), number_format($this->_count))
-            . '</a>';
-        $html = $this->_htmlBegin();
-
         if (empty($this->_count)) {
             return null;
         }
+
+        $this->_title = Horde::applicationUrl('faces/search/owner.php')->add('owner', $this->_owner)->link()
+            . sprintf(_("People in galleries owned by %s (%d of %d)"), $this->_owner, min(12, $this->_count), number_format($this->_count))
+            . '</a>';
+
+        $html = $this->_htmlBegin();
 
         $results = $this->_faces->ownerFaces($this->_owner, 0, 12, true);
         $html .= '<div style="display: block'

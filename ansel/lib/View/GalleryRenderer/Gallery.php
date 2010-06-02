@@ -61,8 +61,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $vars->add('page', $this->view->page);
         }
         if (!empty($this->view->gallery_view_url)) {
-            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url));
-            $pagerurl = Horde_Util::addParameter($pagerurl, $date_params);
+            $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
+            $pagerurl->add($date_params);
         } else {
             /*
              * Build the pager url. Add the needed variables directly to the

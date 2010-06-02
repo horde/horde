@@ -7,7 +7,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  * @author  Duck <duck@obala.net>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
 class Ansel_Faces_Base
 {
@@ -419,8 +421,7 @@ class Ansel_Faces_Base
 
         // If not viewing directly out of the VFS, hand off to img.php
         if ($conf['vfs']['src'] != 'direct') {
-            return Horde::applicationUrl(
-                Horde_Util::addParameter('faces/img.php', 'face', $face_id), $full);
+            return Horde::applicationUrl('faces/img.php', $full)->add('face', $face_id);
         } else {
             $path = substr(str_pad($image_id, 2, 0, STR_PAD_LEFT), -2) . '/faces';
             return $GLOBALS['conf']['vfs']['path'] . htmlspecialchars($path . '/' . $face_id . Ansel_Faces::getExtension());

@@ -15,18 +15,18 @@
   </div>
   <?php endif; ?>
   <?php echo _("Sort by:") . ' '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'name')))
+      . $refresh_link->copy()->add('sort', 'name')->link()
       . _("Name") . '</a> | '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'last_modified')))
+      . $refresh_link->copy()->add('sort', 'last_modified')->link()
       . _("Date") . '</a> | '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'owner')))
+      . $refresh_link->copy()->add('sort', 'owner')->link()
       . _("Owner") . '</a>';
   if ($this->_sortDir) {
-      echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $this->_sortBy, 'sort_dir' => 0))))
+      echo $refresh_link->copy()->add(array('sort' => $this->_sortBy, 'sort_dir' => 0))->link()
           . Horde::img('za.png', _("Ascending"))
           . '</a>';
   } else {
-      echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $this->_sortBy, 'sort_dir' => 1))))
+      echo $refresh_link->copy()->add(array('sort' => $this->_sortBy, 'sort_dir' => 1))->link()
           . Horde::img('az.png', _("Descending"))
           . '</a>';
    }

@@ -28,10 +28,10 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
 
     function _title()
     {
-        return Horde::link(
-            Ansel::getUrlFor('view',array('groupby' => 'owner',
-                                          'owner' => Horde_Auth::getAuth(),
-                                          'view' => 'List')))
+        return Ansel::getUrlFor('view',
+                                array('groupby' => 'owner',
+                                      'owner' => Horde_Auth::getAuth(),
+                                      'view' => 'List'))->link()
             . _("My Galleries") . '</a>';
     }
 
@@ -77,7 +77,8 @@ HEADER;
                                                   'gallery' => $gallery->id),
                                     true);
             $html .= '<tr><td>'
-                . Horde::link($url, '', '', '', '', '', '', array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");', 'onmouseover' => 'previewImageMg(event, ' . $gallery->getDefaultImage('ansel_default') . ');'))
+                . $url->link(array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
+                                   'onmouseover' => 'previewImageMg(event, ' . $gallery->getDefaultImage('ansel_default') . ');'))
                 . @htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset()) . '</a></td><td>'
                 . strftime($GLOBALS['prefs']->getValue('date_format'), $gallery->get('last_modified'))
                 . '</td><td>' . (int)$gallery->countImages(true) . '</td></tr>';

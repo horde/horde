@@ -40,7 +40,7 @@ $images = $gallery->getImages($page * $perpage, $perpage);
 
 $reloadimage = Horde::img('reload.png');
 $customimage = Horde::img('layout.png');
-$customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
+$customurl = Horde::applicationUrl('faces/custom.php')->add('page', $page);
 $face = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $autogenerate = $face->canAutogenerate();
 
@@ -56,7 +56,7 @@ $pager = new Horde_Ui_Pager(
 );
 $pager->preserve('gallery',  $gallery_id);
 
-$title = sprintf(_("Searching for faces in %s"), Horde::link(Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))) . $gallery->get('name') . '</a>');
+$title = sprintf(_("Searching for faces in %s"),Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))->link() . $gallery->get('name') . '</a>');
 Horde::addScriptFile('stripe.js', 'horde');
 Horde::addScriptFile('popup.js', 'horde');
 require ANSEL_TEMPLATES . '/common-header.inc';

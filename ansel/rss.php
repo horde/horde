@@ -281,8 +281,8 @@ if (empty($rss)) {
     } else {
         $getparams = array();
     }
-    $stream_rss = Horde_Util::addParameter(Horde::applicationUrl('rss.php', true, -1), $getparams);
-    $stream_rss2 = Horde_Util::addParameter(Horde::applicationUrl('rss.php', true, -1), $getparams);
+    $stream_rss = Horde::applicationUrl('rss.php', true, -1)->add($getparams);
+    $stream_rss2 = Horde::applicationUrl('rss.php', true, -1)->add($getparams);
     $images = $imgs;
 
     Horde::startBuffer();

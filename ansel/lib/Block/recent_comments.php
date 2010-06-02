@@ -63,7 +63,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
             $name = _("All Galleries");
         }
 
-        return sprintf(_("Recent Comments In %s"), Horde::link($viewurl) . $name . '</a>');
+        return sprintf(_("Recent Comments In %s"), $viewurl->link() . $name . '</a>');
     }
 
     function _content()
@@ -116,7 +116,8 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
                 $html .= '<tr><td>'
                     . strftime('%x', $comment['message_timestamp'])
                     . '</td><td class="nowrap">'
-                    . Horde::link($url, '', '', '', '', '', '', array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");', 'onmouseover' => 'previewImage(event, ' . $comment['image_id'] . ');'))
+                    . $url->link(array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
+                                       'onmouseover' => 'previewImage(event, ' . $comment['image_id'] . ');'))
                     . ($image->caption == '' ? $image->filename : $caption)
                     . '</a></td><td class="nowrap">'
                     . $comment['message_subject'] . '</td><td class="nowrap">'

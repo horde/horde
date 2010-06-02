@@ -41,10 +41,10 @@ if ($form->validate()) {
         $report = Ansel_Report::factory();
         $gallery = $ansel_storage->getGallery($face['gallery_id']);
 
-        $face_link = Horde_Util::addParameter(Horde::applicationUrl('faces/face.php', true),
-                        array('name' => $vars->get('person'),
-                              'face' => $face_id,
-                                'image' => $face['image_id']), null, false);
+        $face_link = Horde::applicationUrl('faces/face.php', true)->add(
+                array('name' => $vars->get('person'),
+                      'face' => $face_id,
+                      'image' => $face['image_id']))->setRaw(true);
 
         $body = _("Gallery Name") . ': ' . $gallery->get('name') . "\n"
                 . _("Gallery Description") . ': ' . $gallery->get('desc') . "\n\n"

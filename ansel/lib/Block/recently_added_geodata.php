@@ -55,8 +55,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
             try {
                 $gallery = $this->_getGallery();
             } catch (Exception $e) {
-                return Horde::link(Ansel::getUrlFor('view', array('view' => 'List'), true))
-                    . _("Gallery") . '</a>';
+                return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
 
             // Build the gallery name.
@@ -74,8 +73,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
             $viewurl = Ansel::getUrlFor('view', array('view' => 'List'), true);
             $name = _("All Galleries");
         }
-        return sprintf(_("Recently Geotagged Photos From %s"),
-                       Horde::link($viewurl) . $name . '</a>');
+        return sprintf(_("Recently Geotagged Photos From %s"), $viewurl->link() . $name . '</a>');
     }
 
     function _content()

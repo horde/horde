@@ -230,22 +230,16 @@ class Ansel_View_Results extends Ansel_View_Base
             $links = Ansel_Tags::getTagLinks($rtags, 'add');
             foreach ($rtags as $id => $taginfo) {
                 if (!empty($this->_owner)) {
-                    $links[$id] = Horde_Util::addParameter($links[$id], 'owner',
-                                                     $this->_owner);
+                    $links[$id]->add('owner', $this->_owner);
                 }
-                $rtaghtml .= '<li>' . Horde::link($links[$id],
-                                                  sprintf(ngettext(
-                                                    "%d photo", "%d photos",
-                                                    $taginfo['total']),
-                                                  $taginfo['total']))
-                             . $taginfo['tag_name'] . '</a></li>';
+                $rtaghtml .= '<li>' . $links[$id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos",$taginfo['total']),$taginfo['total']))) . $taginfo['tag_name'] . '</a></li>';
             }
             $rtaghtml .= '</ul>';
         }
         $styleDef = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
         $style = $styleDef['name'];
-        $viewurl = Horde_Util::addParameter('view.php', array('view' => 'Results',
-                                                        'actionID' => 'add'));
+        $viewurl = Horde::applicationUrl('view.php')->add(array('view' => 'Results',
+                                                                'actionID' => 'add'));
 
         $vars = Horde_Variables::getDefaultVariables();
         $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);

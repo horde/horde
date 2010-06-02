@@ -77,16 +77,14 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
                         continue;
                     }
 
-                    $title = sprintf(_("%s from %s"), $rImg->filename, $rGal->get('name'));
-                    $html .= Horde::link(
-                        Ansel::getUrlFor('view',
-                                         array('image' => $imgId,
-                                               'view' => 'Image',
-                                               'gallery' => $rImg->gallery,
-                                               'slug' => $rGal->get('slug')),
-                                         true),
-                        $title)
-                    . '<img src="'. Ansel::getImageUrl($imgId, 'mini', true) . '" alt="' . htmlspecialchars($rImg->filename) . '" /></a>';
+                    $html .= Ansel::getUrlFor(
+                            'view',
+                             array('image' => $imgId,
+                                   'view' => 'Image',
+                                   'gallery' => $rImg->gallery,
+                                   'slug' => $rGal->get('slug')),
+                             true)->link(array('title' =>  sprintf(_("%s from %s"), $rImg->filename, $rGal->get('name'))))
+                        . '<img src="'. Ansel::getImageUrl($imgId, 'mini', true) . '" alt="' . htmlspecialchars($rImg->filename) . '" /></a>';
                     $i++;
                 }
             }

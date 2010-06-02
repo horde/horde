@@ -4,10 +4,12 @@
  * DateGallery psuedo gallery.
  *
  * @author Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
-class Ansel_Tile_DateGallery {
-
+class Ansel_Tile_DateGallery
+{
     /**
      * Outputs the html for a DateGallery tile.
      *
@@ -25,8 +27,7 @@ class Ansel_Tile_DateGallery {
      *
      * @return  Outputs the HTML for the tile.
      */
-    function getTile($dgallery, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($dgallery, $style = null, $mini = false, $params = array())
     {
         /* User's preferred date format */
         $date_format = $GLOBALS['prefs']->getValue('date_format');
@@ -94,15 +95,12 @@ class Ansel_Tile_DateGallery {
                             'view' => 'Gallery',
                             'slug' => $dgallery->get('slug'));
             $params = array_merge($params, $next_date);
-            $view_link = Ansel::getUrlFor('view', $params);
-            $view_link = Horde::link($view_link);
+            $view_link = Ansel::getUrlFor('view', $params)->link();
         } else {
-            $url = str_replace(array('%g', '%s'),
-                array($dgallery->id, $dgallery->get('slug')),
-                urldecode($params['gallery_view_url']));
-
-            $url = Horde_Util::addParameter($url, $next_date);
-            $view_link = Horde::link($url);
+            $view_link = new Horde_Url(str_replace(array('%g', '%s'),
+                                             array($dgallery->id, $dgallery->get('slug')),
+                                             urldecode($params['gallery_view_url'])));
+            $view_link->add($next_date)->link();
         }
 
         /* Variables used in the template file */

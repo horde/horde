@@ -68,7 +68,7 @@ function copySelected()
 function editDates()
 {
     var haveImages = false;
-    var imageDateUrl = '<?php echo Horde::applicationUrl(Horde_Util::addParameter('edit_dates.php', array('gallery' => $this->galleryId))) ?>';
+    var imageDateUrl = '<?php echo Horde::applicationUrl('edit_dates.php')->add(array('gallery' => $this->galleryId)) ?>';
     for (var i = 0; i< document.forms['gallery'].elements.length; ++i) {
        if (document.forms['gallery'].elements[i].checked == true &&
            document.forms['gallery'].elements[i].type == 'checkbox') {

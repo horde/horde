@@ -93,12 +93,12 @@ $end = min($num_groups, $min + $groups_perpage);
 $count = 0;
 $groupby_links = array();
 if ($groupby !== 'owner') {
-    $groupby_links[] = Horde::link(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'owner'))) . _("owner") . '</a>';
+    $groupby_links[] = Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'owner'))->link() . _("owner") . '</a>';
 } elseif ($groupby !== 'category') {
-    $groupby_links[] = Horde::link(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'category'))) . _("category") . '</a>';
+    $groupby_links[] = Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'category'))->link() . _("category") . '</a>';
 }
 if ($groupby !== 'none') {
-    $groupby_links[] = Horde::link(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'none'))) . _("none") . '</a>';
+    $groupby_links[] = Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'none'))->link() . _("none") . '</a>';
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';

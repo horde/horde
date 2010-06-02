@@ -4,6 +4,6 @@
       <input type="text" name="facename<?php echo $face_id ?>" id="facename<?php echo $face_id ?>" size="15" value="<?php echo $face_name ?>" />
       <a href="javascript:void(0)" onclick="Ansel.setFaceName(<?php echo $image_id ?>, <?php echo $face_id ?>)" title="<?php echo _("Save face name") . '">' . Horde::img('save.png')?></a>
       <a href="javascript:void(0)" onclick="Ansel.deleteFace(<?php echo $image_id ?>, <?php echo $face_id ?>)" title="<?php echo _("Delete face") . '">' . Horde::img('delete.png')?></a>
-      <?php echo $customurl->add(array('face' => $face_id, 'image' => $image_id, 'url' => (!empty($url) ? $url : '')))->link(array('title' => _("Edit face region"))) . Horde::img('edit.png')?></a>
+      <?php echo $customurl->copy()->add(array('face' => $face_id, 'image' => $image_id, 'url' => (!empty($url) ? $url : '')))->link(array('title' => _("Edit face region"))) . Horde::img('edit.png')?></a>
     </div>
 <?php endforeach;?>

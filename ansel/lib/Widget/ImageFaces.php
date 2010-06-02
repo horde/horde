@@ -65,9 +65,13 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         // TODO: A way to 'close', or go back to, the normal widget view.
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
-            $html .= '<a id="edit_faces" href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'), 'gallery', $this->_view->gallery->id)
-                    . '" class="widget">' . $link_text . '</a> | '
-                    . Horde::link(Horde::applicationUrl(Horde_Util::addParameter('faces/custom.php', array('image' => $this->_view->resource->id, 'url' => $this->_params['selfUrl']))),'', 'widget')
+            $html .= Horde::applicationUrl('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
+                    array('id' => 'edit_faces',
+                          'class' => 'widget'))
+                  . $link_text . '</a> | '
+                  . Horde::applicationUrl('faces/custom.php')->add(
+                            array('image' => $this->_view->resource->id,
+                                  'url' => $this->_params['selfUrl']))->link(array('class' => 'widget'))
                     . _("Manual face selection") . '</a>';
 
             // Attach the ajax edit actions

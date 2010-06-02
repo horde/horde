@@ -284,8 +284,8 @@ case 'resizeedit':
                                            'page' => $page),
                                      $date),
                                      true);
-    $imageurl = Horde::applicationUrl('image.php');
-    $imageurl->add(array_merge(
+    $imageurl = Horde::applicationUrl('image.php')->add(
+            array_merge(
                     array('gallery' => $gallery_id,
                           'slug' => $gallery->get('slug'),
                           'image' => $image_id,
@@ -309,7 +309,7 @@ case 'resizeedit':
     }
 
     /* Retrieve image details. */
-    $image = &$ansel_storage->getImage($image_id);
+    $image = $ansel_storage->getImage($image_id);
     $title = sprintf(_("Edit %s :: %s"), $gallery->get('name'),
                      $image->filename);
 
@@ -371,8 +371,8 @@ case 'watermark':
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
         $image->updateData($image->raw('screen'), 'screen');
-        $imageurl = Horde::applicationUrl('image.php', true);
-        $imageurl->add(array_merge(
+        $imageurl = Horde::applicationUrl('image.php', true)->add(
+                array_merge(
                        array('gallery' => $gallery_id,
                              'image' => $image_id,
                              'actionID' => 'editimage',
@@ -447,8 +447,8 @@ case 'resize':
         }
     }
 
-    $imageurl = Horde::applicationUrl('image.php', true);
-    $imageurl->add(array_merge(
+    $imageurl = Horde::applicationUrl('image.php', true)->add(
+            array_merge(
                     array('gallery' => $gallery_id,
                           'image' => $image_id,
                           'actionID' => 'editimage',
@@ -478,17 +478,17 @@ case 'setwatermark':
     exit;
 
 case 'previewcustomwatermark':
-    $imageurl = Horde::applicationUrl('image.php', true);
-    $imageurl->add(array_merge(
-                       array('gallery' => $gallery_id,
-                             'image' => $image_id,
-                             'page' => $page,
-                             'watermark' => $watermark,
-                             'font' => $watermark_font,
-                             'whalign' => $watermark_halign,
-                             'wvalign' => $watermark_valign,
-                             'actionID' => 'previewwatermark'),
-                       $date));
+    $imageurl = Horde::applicationUrl('image.php', true)->add(
+            array_merge(
+               array('gallery' => $gallery_id,
+                     'image' => $image_id,
+                     'page' => $page,
+                     'watermark' => $watermark,
+                     'font' => $watermark_font,
+                     'whalign' => $watermark_halign,
+                     'wvalign' => $watermark_valign,
+                     'actionID' => 'previewwatermark'),
+               $date));
 
     echo Horde::wrapInlineScript(array(
         'window.opener.location.href = "' . $imageurl . '";',

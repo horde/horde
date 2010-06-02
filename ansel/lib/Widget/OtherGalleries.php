@@ -15,12 +15,11 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      * Override the parent class' attach method and set the owner in the
      * title string.
      *
-     * @param Ansel_View $view  The view we are attaching to
+     * @param Ansel_View_Base $view  The view we are attaching to
      */
-    public function attach($view)
+    public function attach(Ansel_View_Base $view)
     {
         parent::attach($view);
-
         $owner = $this->_view->gallery->getOwner();
         $name = $owner->getValue('fullname');
         if (!$name) {
@@ -107,12 +106,10 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $html .= '</div>';
         $selfurl = Horde::selfUrl(true, true);
         $html .=  '<div class="control"><a href="'
-                 . Horde_Util::addParameter($selfurl, 'actionID',
-                                     'show_actions')
-                 . '" id="othergalleries-toggle" class="'
-                 . (($GLOBALS['prefs']->getValue('show_othergalleries'))
-                 ? 'hide'
-                 : 'show') . '">&nbsp;</a></div>' . "\n";
+              . $selfurl->add('actionID', 'show_actions')->link(
+                        array('id' => 'othergalleries-toggle',
+                              'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))
+              . '&nbsp;</a></div>';
 
         return $html;
     }

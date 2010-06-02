@@ -62,8 +62,8 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         case 'untag':
             $image->geotag('', '', '');
             // Now get the "add geotag" stuff
-            $addurl = Horde_Util::addParameter(Horde::applicationUrl('map_edit.php'), 'image', $img);
-            $addLink = Horde::link($addurl, '', '', '', Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;');
+            $addurl = Horde::applicationUrl('map_edit.php')->add('image', $img);
+            $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
             $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';
@@ -73,7 +73,10 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
                     } else {
                         $title = $this->_point2Deg($data['image_latitude'], true) . ' ' . $this->_point2Deg($data['image_longitude']);
                     }
-                    $imgsrc .= Horde::link($addurl, $title, '', '', "Ansel.widgets.geotag.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false") . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
+                    $imgsrc .= $addurl->link(
+                            array('title' => $title,
+                                  'onclick' => "Ansel.widgets.geotag.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false"))
+                        . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
                 }
                 $imgsrc .= '</div>';
                 $content = sprintf(_("No location data present. Place using %smap%s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;

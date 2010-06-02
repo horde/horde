@@ -48,9 +48,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
             try {
                 $gallery = $this->_getGallery();
             } catch (Exception $e) {
-                return Horde::link(
-                    Ansel::getUrlFor('view', array('view' => 'List'), true))
-                    . _("Gallery") . '</a>';
+                return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
 
             // Build the gallery name.
@@ -69,8 +67,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
             $viewurl = Ansel::getUrlFor('view', array('view' => 'List'), true);
             $name = _("All Galleries");
         }
-        return sprintf(_("Recently Added Photos From %s"),
-                       Horde::link($viewurl) . $name . '</a>');
+        return sprintf(_("Recently Added Photos From %s"), $viewurl->link() . $name . '</a>');
     }
 
     function _content()
@@ -131,7 +128,7 @@ HEADER;
                               'gallery' => $gallery->id,
                               'view' => 'Gallery'),
                 true);
-            $galleryLink = Horde::link($galleryLink)
+            $galleryLink = $galleryLink->link()
                 . @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
                                     Horde_Nls::getCharset())
                 . '</a>';
@@ -151,8 +148,7 @@ HEADER;
                       'gallery_view' => $style['gallery_view']));
             $html .= '<tr><td>' . strftime('%x', $image->uploaded)
                 . '</td><td class="nowrap">'
-                . Horde::link(
-                    $url, '', '', '', '', '', '',
+                . $url->link(
                     array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
                           'onmouseover' => 'previewImage(event, ' . $image->id . ');'))
                 . @htmlspecialchars(

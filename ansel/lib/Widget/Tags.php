@@ -43,9 +43,10 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             $imple->attach();
             $html .= Horde::endBuffer();
 
-            $actionUrl = Horde_Util::addParameter('image.php',
-                                                  array('image' => $this->_view->resource->id,
-                                                        'gallery' => $this->_view->gallery->id));
+            $actionUrl = Horde::applicationUrl('image.php')->add(
+                array('image' => $this->_view->resource->id,
+                      'gallery' => $this->_view->gallery->id));
+
             $html .= '<form name="tagform" action="' . $actionUrl . '" onsubmit="return !addTag();" method="post">';
             $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
             $html .= '</form>';
@@ -81,7 +82,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         $links = Ansel_Tags::getTagLinks($tags, 'add', $owner);
         $html = '<ul>';
         foreach ($tags as $tag_id => $taginfo) {
-            $html .= '<li>' . Horde::link($links[$tag_id], sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total'])) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
+            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
 

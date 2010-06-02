@@ -50,8 +50,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
         try {
             $gallery = $this->_getGallery();
         } catch (Horde_Exception $e) {
-            return Horde::link(Ansel::getUrlFor('view', array('view' => 'List'),
-                                                true)) . _("Gallery") . '</a>';
+            return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
         }
 
         // Build the gallery name.
@@ -68,7 +67,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
                   'gallery' => $gallery->id,
                   'slug' => $gallery->get('slug')),
             true);
-        return Horde::link($viewurl)
+        return $viewurl->link()
                . @htmlspecialchars($name, ENT_COMPAT, Horde_Nls::getCharset())
                . '</a>';
 
@@ -96,9 +95,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
                                                   'slug' => $gallery->get('slug')),
                                     true);
         $html .= '<noscript>';
-        $html .= Horde::link($viewurl, sprintf(_("View %s"),
-                            $gallery->get('name')));
-
+        $html .= $viewurl->link(array('title' => sprintf(_("View %s"), $gallery->get('name'))));
         if ($iid = $gallery->getDefaultImage('ansel_default') &&
             $gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
 

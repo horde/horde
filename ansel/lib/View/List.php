@@ -126,7 +126,7 @@ class Ansel_View_List extends Ansel_View_Base
                 if ($this->_owner && $filter == $this->_owner && $this->_owner == Horde_Auth::getAuth()) {
                     $notification->push(_("You have no photo galleries, add one!"),
                                         'horde.message');
-                    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('gallery.php'), 'actionID', 'add'));
+                    header('Location: ' .Horde::applicationUrl('gallery.php')->add('actionID', 'add'));
                     exit;
                 }
                 $notification->push(_("There are no photo galleries available."), 'horde.message');

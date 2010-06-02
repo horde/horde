@@ -185,13 +185,13 @@ class Ansel
                     } elseif ($groupby == 'none') {
                        $url = 'all/';
                     }
-                    $url = new Horde_Url($url);
+                    $url = Horde::applicationUrl($url, $full, $append_session);
                     // Keep the URL as clean as possible - don't append the page
                     // number if it's zero, which would be the default.
                     if (!empty($data['page'])) {
                         $url->add('page', $data['page']);
                     }
-                    return Horde::applicationUrl($url, $full, $append_session);
+                    return $url;
                 }
 
                 /* Viewing a Gallery or Image */
@@ -251,7 +251,7 @@ class Ansel
 
                     $url = new Horde_Url($url);
                     if (count($extras)) {
-                        $url = $url->add($extras);
+                        $url->add($extras);
                     }
 
                 } elseif ($data['view'] == 'Results')  {
@@ -260,24 +260,24 @@ class Ansel
                                      : ''));
 
                     if (!empty($data['actionID'])) {
-                        $url = $url->add(array('actionID' => $data['actionID']));
+                        $url->add(array('actionID' => $data['actionID']));
                     }
 
                     if (!empty($data['owner'])) {
-                        $url = $url->add('owner', $data['owner']);
+                        $url->add('owner', $data['owner']);
                     }
                 }
 
                 // Keep the URL as clean as possible - don't append the page
                 // number if it's zero, which would be the default.
                 if (!empty($data['page'])) {
-                    $url = $url->add('page', $data['page']);
+                    $url->add('page', $data['page']);
                 }
 
                 if (!empty($data['year'])) {
-                    $url = $url->add(array('year' => $data['year'],
-                                           'month' => (empty($data['month']) ? 0 : $data['month']),
-                                           'day' => (empty($data['day']) ? 0 : $data['day'])));
+                    $url->add(array('year' => $data['year'],
+                                    'month' => (empty($data['month']) ? 0 : $data['month']),
+                                    'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
                 // If we are using GalleryLightbox, AND we are linking to an
@@ -294,15 +294,13 @@ class Ansel
 
                 return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                $url = new Horde_Url('view.php');
-                $url->add($data);
-                $url = Horde::applicationUrl($url, $full, $append_session);
-                $url->setRaw(true);
+                $url = Horde::applicationUrl('view.php', $full, $append_session);
+                $url->add($data)->setRaw(true);
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url = '#' . $data['image'];
+                    $url .= '#' . $data['image'];
                 }
 
                 return $url;
@@ -324,26 +322,21 @@ class Ansel
                     $url = 'all/';
                 }
                 unset($data['groupby']);
-                $url = new Horde_Url($url);
+                Horde::applicationUrl($url, $full, $append_session);
                 if (count($data)) {
-                    $url = $url->add($data);
+                    $url->add($data);
                 }
-                return Horde::applicationUrl($url, $full, $append_session);
-            } else {
-                $url = new Horde_Url('group.php');
-                $url = Horde::applicationUrl($url, $full, $append_session);
-                $url->add($data);
                 return $url;
+            } else {
+                return Horde::applicationUrl('group.php', $full, $append_session)->add($data);
             }
 
         case 'rss_user':
             if ($rewrite) {
-                $url = new Horde_Url('user/' . urlencode($data['owner']) . '/rss');
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::applicationUrl('user/' . urlencode($data['owner']) . '/rss', $full, $append_session);
             } else {
                 $url = Horde::applicationUrl(new Horde_Url('rss.php'), $full, $append_session);
-                $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
-                return $url;
+                return $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
             }
 
         case 'rss_gallery':
@@ -351,11 +344,9 @@ class Ansel
                 $id = (!empty($data['slug'])) ? $data['slug'] : 'id/' . (int)$data['gallery'];
                 return Horde::applicationUrl(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
             } else {
-                $url = new Horde_Url('rss.php');
-                $url->add(array('stream_type' => 'gallery',
-                                'id' => (int)$data['gallery']));
-
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::applicationUrl('rss.php', $full, $append_session)->add(
+                            array('stream_type' => 'gallery',
+                                  'id' => (int)$data['gallery']));
             }
 
         case 'default_view':
@@ -448,7 +439,7 @@ class Ansel
             if (!is_null($style)) {
                 $params['style'] = $style;
             }
-            return Horde::applicationUrl(Horde_Util::addParameter('img/' . $view . '.php', $params), $full);
+            return Horde::applicationUrl('img/' . $view . '.php', $full)->add($params);
         }
 
         // Using vfs-direct
@@ -594,7 +585,7 @@ class Ansel
         if ($GLOBALS['registry']->isAdmin() ||
             (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('gallery.php', 'actionID', 'add')),
+            $menu->add(Horde::applicationUrl('gallery.php')->add('actionID', 'add'),
                        _("_New Gallery"), 'add.png', null, null, null,
                        (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
                         Horde_Util::getFormData('actionID') == 'add')
@@ -710,7 +701,7 @@ class Ansel
                     } else {
                         $urlParameters = $urlFlags;
                     }
-                    $nav = $separator . Horde::link(Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))) . $title . '</a>' . $nav;
+                    $nav = $separator . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link() . $title . '</a>' . $nav;
                 } else {
                     $nav = $separator . '<span class="thiscrumb">' . $title . '</span>' . $nav;
                 }
@@ -721,7 +712,7 @@ class Ansel
             $owner_title = htmlspecialchars($owner_title, ENT_COMPAT, Horde_Nls::getCharset());
             $levels++;
             if ($gallery) {
-                $nav = $separator . Horde::link(Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))) . $owner_title . '</a>' . $nav;
+                $nav = $separator . Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))->link() . $owner_title . '</a>' . $nav;
             } else {
                 $nav = $separator . $owner_title . $nav;
             }
@@ -729,10 +720,10 @@ class Ansel
 
         if ($haveSearch == 0) {
             $text = _("Galleries");
-            $link = Horde::link(Ansel::getUrlFor('view', array('view' => 'List')));
+            $link = Ansel::getUrlFor('view', array('view' => 'List'))->link();
         } else {
             $text = _("Browse Tags");
-            $link = Horde::link(Ansel::getUrlFor('view', array('view' => 'Results'), true));
+            $link = Ansel::getUrlFor('view', array('view' => 'Results'), true)->link();
         }
         if ($levels > 0) {
             $nav = $link . $text . '</a>' . $nav;

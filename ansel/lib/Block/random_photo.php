@@ -47,7 +47,7 @@ class Horde_Block_ansel_random_photo extends Horde_Block {
         } else {
             $img = Horde::img('thumb-error.png');
         }
-        return Horde::link($viewurl, _("View Photo")) . $img . '</a>';
+        return $viewurl->link(array('title' => _("View Photo"))) . $img . '</a>';
     }
 
 }

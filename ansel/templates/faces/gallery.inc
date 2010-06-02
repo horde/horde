@@ -18,7 +18,7 @@
     <a href="javascript:void(0)" onclick="proccessImageFaces(<?php echo $image->id ?>, 1)">
     <?php echo $reloadimage . _("Reget faces for this photo") ?></a><br />
    <?php endif; ?>
-   <?php echo $customurl->add(array('image' => $image->id, 'gallery' => $image->gallery))->link()?>
+   <?php echo $customurl->copy()->add(array('image' => $image->id, 'gallery' => $image->gallery))->link()?>
    <?php echo  $customimage .  _("Add a custom face range") ?></a><br />
   </td>
   <td style="text-align: center">
@@ -48,7 +48,7 @@ function proccessImageFaces(image_id, reget) {
 }
 
 function deleteFace(image_id, face_id) {
-    var url = '<?php echo Horde::applicationUrl(Horde_Util::addParameter('xrequest.php', array('requestType' => 'EditFaces'))); ?>';
+    var url = '<?php echo Horde::applicationUrl('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
     var params = {'image': image_id, face: face_id};
     new Ajax.Request(url + '/action=delete',
                      {
@@ -60,7 +60,7 @@ function deleteFace(image_id, face_id) {
 
 function setFaceName(image_id, face_id) {
     var params = {face: face_id, 'image': image_id, facename: encodeURIComponent($F('facename' + face_id))};
-    var url = '<?php echo Horde::applicationUrl(Horde_Util::addParameter('xrequest.php', array('requestType' => 'EditFaces'))); ?>';
+    var url = '<?php echo Horde::applicationUrl('xrequest.php')->add(array('requestType' => 'EditFaces')); ?>';
     new Ajax.Updater({success: 'face' + face_id},
                      url + '/action=setname',
                      {

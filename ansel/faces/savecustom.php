@@ -19,11 +19,11 @@ $face_id = (int)Horde_Util::getFormData('face_id');
 $url = Horde_Util::getFormData('url');
 $page = Horde_Util::getFormData('page', 0);
 
-$back_url = empty($url) ?
-    Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'),
-                             array('gallery' => $gallery_id,
-                                   'page' => $page), null, false) :
-    $url;
+$back_url = empty($url)
+    ? Horde::applicationUrl('faces/gallery.php')->add(
+            array('gallery' => $gallery_id,
+                  'page' => $page))->setRaw(true)
+    : $url;
 
 if (Horde_Util::getPost('submit') == _("Cancel")) {
     $notification->push(_("Changes cancelled."), 'horde.warning');

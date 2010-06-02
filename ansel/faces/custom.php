@@ -21,7 +21,7 @@ $urlparams = array('page' => $page);
 if (!empty($url)) {
     $urlparams['url'] = $url;
 }
-$form_post = Horde_Util::addParameter(Horde::applicationUrl('faces/savecustom.php'), $urlparams);
+$form_post = Horde::applicationUrl('faces/savecustom.php')->add($urlparams);
 
 try {
     $image = $ansel_storage->getImage($image_id);

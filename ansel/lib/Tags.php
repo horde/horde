@@ -13,7 +13,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
 
 /**
@@ -457,8 +459,6 @@ class Ansel_Tags
  * Class that represents a slice of a tag search
  *
  * @TODO: Move this to Ansel_Search_Tags
- *
- *
  */
 class Ansel_Tags_Search {
 
@@ -593,16 +593,15 @@ class Ansel_Tags_Search {
         /* Use the local cache to preserve the order */
         $count = 0;
         foreach ($this->_tags as $tagid) {
-            $remove_url = Horde_Util::addParameter('view.php', array('view' => 'Results',
-                                                               'tag' => $tags[$tagid],
-                                                               'actionID' => 'remove'));
-
+            $remove_url = Horde::applicationUrl('view.php', true)->add(
+                    array('view' => 'Results',
+                          'tag' => $tags[$tagid],
+                          'actionID' => 'remove'));
             if (!empty($this->_owner)) {
-                $remove_url = Horde_Util::addParameter($remove_url, 'owner', $this->_owner);
+                $remove_url->add('owner', $this->_owner);
             }
-            $remove_url = Horde::applicationUrl($remove_url, true);
             $delete_label = sprintf(_("Remove %s from search"), htmlspecialchars($tags[$tagid]));
-            $html .= '<li>' . htmlspecialchars($tags[$tagid]) . Horde::link($remove_url, $delete_label) . Horde::img('delete-small.png', $delete_label) . '</a></li>';
+            $html .= '<li>' . htmlspecialchars($tags[$tagid]) . $remove_url->link(array('title' => $delete_label)) . Horde::img('delete-small.png', $delete_label) . '</a></li>';
         }
 
         return $html . '</ul>';

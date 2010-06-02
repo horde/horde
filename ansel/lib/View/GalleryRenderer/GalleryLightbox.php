@@ -88,8 +88,8 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $page = 0;
         }
         if (!empty($this->view->gallery_view_url)) {
-            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url));
-            $pagerurl = Horde_Util::addParameter($pagerurl, $date_params, null, false);
+            $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
+            $pagerurl->add($date_params)->setRaw(true);
         } else {
             /*
              * Build the pager url. Add the needed variables directly to the

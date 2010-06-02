@@ -18,7 +18,7 @@ if (empty($cmd)) {
         $registry->getApp() . '-' . $conf['server']['name'],
         $registry->get('name'),
         sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']),
-        Horde::applicationUrl(Horde_Util::addParameter('xppublish.php', 'cmd', 'publish'), true, -1),
+        Horde::applicationUrl('xppublish.php', true, -1)->add('cmd', 'publish'),
         Horde::url(Horde_Themes::img('favicon.ico'), true, -1));
     exit;
 }
