@@ -113,12 +113,12 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $values = array($userId);
 
         try {
-            $result = $this->_db->selectOne($query, $values);
+            $row = $this->_db->selectOne($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        if (!$result ||
+        if (!$row ||
             !$this->_comparePasswords($row[$this->_params['password_field']], $credentials['password'])) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
@@ -218,7 +218,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             }
         }
 
-        $query = .= sprintf('WHERE %s = ?', $this->_params['username_field']);
+        $query .= sprintf('WHERE %s = ?', $this->_params['username_field']);
         $values[] = $oldID;
 
         try {
