@@ -29,7 +29,7 @@ case 'addchild':
             $group = $groups->getGroupById($cid);
             $gname = $group->getShortName();
             $form = 'addchild.inc';
-        } catch (Horde_Group_Exception $e) {]
+        } catch (Horde_Group_Exception $e) {}
     }
     break;
 
