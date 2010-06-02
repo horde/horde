@@ -45,6 +45,8 @@ Crypt_Blowfish is required.
 
 Removed support for dBase, Frontbase, and mSQL database servers.
 
+Removed support for krb5 authentication driver.
+
 
 Upgrading Horde from 3.3.x to 3.3.5
 ===================================
