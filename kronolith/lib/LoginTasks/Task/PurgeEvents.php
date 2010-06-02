@@ -44,7 +44,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
          * from it */
         $calendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
 
-        /* Start building an event object to use for the search */
+        /* Start building the search */
         $kronolith_driver = Kronolith::getDriver();
         $query = new StdClass();
         $query->start = null;
@@ -58,7 +58,10 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         $count = 0;
         foreach ($days as $events) {
             foreach ($events as $event) {
-                if (!$event->recurs()) {
+                /* Delete if no recurrence, or if we are past the last occurence */
+                if (!$event->recurs() ||
+                    $event->recurrence->nextRecurrence($del_time) == false) {
+
                     if ($event->calendar != $kronolith_driver->calendar) {
                         $kronolith_driver->open($event->calendar);
                     }
