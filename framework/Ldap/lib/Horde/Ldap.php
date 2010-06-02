@@ -45,7 +45,7 @@ class Horde_Ldap
     /**
      * Class configuration array
      *
-     * host     = the ldap host to connect to
+     * hostspec = the ldap host to connect to
      *            (may be an array of several hosts to try)
      * port     = the server port
      * version  = ldap version (defaults to v 3)
@@ -71,7 +71,7 @@ class Horde_Ldap
      * @access protected
      * @var array
      */
-    protected $_config = array('host'            => 'localhost',
+    protected $_config = array('hostspec'        => 'localhost',
                                'port'            => 389,
                                'version'         => 3,
                                'starttls'        => false,
@@ -248,6 +248,9 @@ class Horde_Ldap
                 case "base":
                     $this->_config["basedn"] = $v;
                     break;
+                case "host":
+                    $this->_config["hostspec"] = $v;
+                    break;
                 }
             }
         }
@@ -255,11 +258,11 @@ class Horde_Ldap
         //
         // Ensure the host list is an array.
         //
-        if (is_array($this->_config['host'])) {
-            $this->_host_list = $this->_config['host'];
+        if (is_array($this->_config['hostspec'])) {
+            $this->_host_list = $this->_config['hostspec'];
         } else {
-            if (strlen($this->_config['host']) > 0) {
-                $this->_host_list = array($this->_config['host']);
+            if (strlen($this->_config['hostspec']) > 0) {
+                $this->_host_list = array($this->_config['hostspec']);
             } else {
                 $this->_host_list = array();
                 // ^ this will cause an error in performConnect(),
@@ -397,7 +400,7 @@ class Horde_Ldap
 
             // Record the host that we are actually connecting to in case
             // we need it later.
-            $this->_config['host'] = $host;
+            $this->_config['hostspec'] = $host;
 
             // Attempt a connection.
             $this->_link = @ldap_connect($host, $this->_config['port']);
@@ -564,10 +567,10 @@ class Horde_Ldap
                 $this->_config['current_backoff'] = $this->_config['max_backoff'];
             }
 
-            // _config['host'] should have had the last connected host stored in it
+            // _config['hostspec'] should have had the last connected host stored in it
             // by performConnect().  Since we are unable to bind to that host we can safely
             // assume that it is down or has some other problem.
-            $this->_down_host_list[] = $this->_config['host'];
+            $this->_down_host_list[] = $this->_config['hostspec'];
             throw e;
         }
 
