@@ -72,7 +72,7 @@ class TimeForm extends Horde_Form {
 
         /* Check to see if any other active applications are exporting cost
          * objects to which we might want to bill our time. */
-        $criteria = array('user'   => Horde_Auth::getAuth(),
+        $criteria = array('user'   => $GLOBALS['registry']->getAuth(),
                           'active' => true);
         if (!empty($clientID)) {
             $criteria['client_id'] = $clientID;

@@ -17,7 +17,7 @@ class Hermes_Api extends Horde_Registry_Api
         case 'hours':
             $emptype = Hermes::getEmployeesType('enum');
             $clients = Hermes::listClients();
-            $hours = $GLOBALS['hermes']->getHours($params);
+            $hours = $GLOBALS['hermes']->driver->getHours($params);
             $yesno = array(1 => _("Yes"),
                            0 => _("No"));
 
@@ -106,7 +106,7 @@ class Hermes_Api extends Horde_Registry_Api
     {
         switch ($name) {
         case 'hours':
-            $time_data = $GLOBALS['hermes']->getHours($params);
+            $time_data = $GLOBALS['hermes']->driver->getHours($params);
             if (is_a($time_data, 'PEAR_Error')) {
                 return $time_data;
             }
@@ -277,7 +277,7 @@ class Hermes_Api extends Horde_Registry_Api
             return array();
         }
 
-        $deliverables = $GLOBALS['hermes']->listDeliverables($criteria);
+        $deliverables = $GLOBALS['hermes']->driver->listDeliverables($criteria);
         if (is_a($deliverables, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("An error occurred retrieving deliverables: %s"), $deliverables->getMessage()));
         }
@@ -349,7 +349,7 @@ class Hermes_Api extends Horde_Registry_Api
      */
     function listJobTypes($criteria = array())
     {
-        return $GLOBALS['hermes']->listJobTypes($criteria);
+        return $GLOBALS['hermes']->driver->listJobTypes($criteria);
     }
 
     function listClients()
@@ -386,7 +386,7 @@ class Hermes_Api extends Horde_Registry_Api
         $form->useToken(false);
         if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
-            $result = $GLOBALS['hermes']->enterTime(Horde_Auth::getAuth(), $info);
+            $result = $GLOBALS['hermes']->driver->enterTime($GLOBALS['registry']->getAuth(), $info);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             } else {

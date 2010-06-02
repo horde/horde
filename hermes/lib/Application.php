@@ -45,7 +45,7 @@ class Hermes_Application extends Horde_Registry_Application
     /**
      * Driver object for reading/writing time entries
      */
-    static protected $driver = null;
+    static public $driver = null;
 
     /**
      * TODO

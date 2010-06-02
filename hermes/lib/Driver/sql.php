@@ -279,7 +279,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
 
         $sql .= ' ORDER BY timeslice_date DESC, clientjob_id';
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         $hours = $this->_db->getAll($sql, DB_FETCHMODE_ASSOC);
         if (is_a($hours, 'PEAR_Error')) {
             return $hours;

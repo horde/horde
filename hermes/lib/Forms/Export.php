@@ -41,7 +41,7 @@ class ExportForm extends Horde_Form {
         $this->addVariable(_("Select the export format"), 'format', 'enum',
                            true, false, null, array($formats));
 
-        if ($perms->hasPermission('hermes:review', Horde_Auth::getAuth(),
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(),
                                   Horde_Perms::EDIT)) {
             $yesno = array('yes' => _("Yes"),
                            'no' => _("No"));

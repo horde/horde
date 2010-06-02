@@ -58,7 +58,7 @@ class Hermes {
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         $menu->add(Horde::applicationUrl('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), Horde_Themes::img('search.png'));
 
         if ($conf['time']['deliverables'] && Horde_Auth::isAdmin('hermes:deliverables')) {
             $menu->add(Horde::applicationUrl('deliverables.php'), _("_Deliverables"), 'hermes.png');
@@ -70,11 +70,11 @@ class Hermes {
 
         /* Print. */
         if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(this.href); return false;', '__noselection');
+            $menu->add($print_link, _("_Print"), Horde_Themes::img('print.png'), '_blank', 'popup(this.href); return false;', '__noselection');
         }
 
         /* Administration. */
-        if (Horde_Auth::isAdmin()) {
+        if ($registry->isAdmin()) {
             $menu->add(Horde::applicationUrl('admin.php'), _("_Admin"), 'hermes.png');
         }
 
@@ -89,7 +89,7 @@ class Hermes {
     {
         global $hermes;
 
-        if ($GLOBALS['perms']->hasPermission('hermes:review', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return true;
         }
 
@@ -100,7 +100,7 @@ class Hermes {
         $slice = $hours[0];
 
         // We can edit our own time if it hasn't been submitted.
-        if ($slice['employee'] == Horde_Auth::getAuth() && !$slice['submitted']) {
+        if ($slice['employee'] == $GLOBALS['registry']->getAuth() && !$slice['submitted']) {
             return true;
         }
 
@@ -161,8 +161,7 @@ class Hermes {
      */
     function getEmployeesType($enumtype = 'multienum')
     {
-        require_once 'Horde/Identity.php';
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth');
         if (!$auth->capabilities['list']) {
             return array('text', array());
         }

@@ -42,7 +42,7 @@ case 'timeentryform':
             $do_redirect = true;
         } else {
             $msg = _("Your time was successfully entered.");
-            $result = $hermes->driver->enterTime(Horde_Auth::getAuth(), $info);
+            $result = $hermes->driver->enterTime($GLOBALS['registry']->getAuth(), $info);
             $do_redirect = false;
         }
         if (is_a($result, 'PEAR_Error')) {

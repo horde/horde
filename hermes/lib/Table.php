@@ -25,7 +25,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
      */
     var $_formVars = array();
 
-    function getMetaData()
+    public function getMetaData()
     {
         if (is_null($this->_metaData)) {
             list($app, $name) = explode('/', $this->_config['name']);
@@ -59,7 +59,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
         return $this->_metaData;
     }
 
-    function _getData($range = null)
+    protected function _getData($range = null)
     {
         if (is_null($range)) {
             $range = array();
@@ -83,7 +83,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
      *
      * @return mixed number of columns or PEAR_Error
      */
-    function getColumnCount()
+    public function getColumnCount()
     {
         $res = $this->getMetaData();
         if (is_a($res, 'PEAR_Error')) {
@@ -110,7 +110,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
     /**
      * Render the table.
      */
-    function render()
+    public function render($data = null)
     {
         global $notification;
 

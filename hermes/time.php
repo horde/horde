@@ -54,7 +54,7 @@ case 'submittimeform':
 
 // We are displaying all time.
 $tabs = Hermes::tabs();
-$criteria = array('employee' => Horde_Auth::getAuth(),
+$criteria = array('employee' => $GLOBALS['registry']->getAuth(),
                   'submitted' => false,
                   'link_page' => 'time.php');
 $table = new Horde_Ui_Table('week', $vars,

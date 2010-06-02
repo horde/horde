@@ -74,7 +74,7 @@ case 'exportform':
                     echo $filedata;
                     if (!empty($info['mark_exported']) &&
                         $info['mark_exported'] == 'yes' &&
-                        $perms->hasPermission('hermes:review', Horde_Auth::getAuth(),
+                        $perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(),
                                               Horde_Perms::EDIT)) {
                         $hermes->driver->markAs('exported', $hours);
                     }

@@ -29,7 +29,7 @@ class SearchForm extends Horde_Form {
     {
         parent::Horde_Form($vars, _("Search For Time"));
 
-        if ($GLOBALS['perms']->hasPermission('hermes:review', Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             $type = Hermes::getEmployeesType();
             $this->addVariable(_("Employees"), 'employees', $type[0], false,
                                false, null, $type[1]);
@@ -115,7 +115,7 @@ class SearchForm extends Horde_Form {
 
         $costobjects = array();
         foreach ($clients as $client) {
-            $criteria = array('user' => Horde_Auth::getAuth(),
+            $criteria = array('user' => $GLOBALS['registry']->getAuth(),
                               'active' => true,
                               'client_id' => $client);
 
@@ -166,7 +166,7 @@ class SearchForm extends Horde_Form {
         $this->getInfo($vars, $info);
 
         $criteria = array();
-        if ($GLOBALS['perms']->hasPermission('hermes:review', Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             if (!empty($info['employees'])) {
                 $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
                 if (!$auth->capabilities['list']) {
@@ -176,7 +176,7 @@ class SearchForm extends Horde_Form {
                 }
             }
         } else {
-            $criteria['employee'] = Horde_Auth::getAuth();
+            $criteria['employee'] = $GLOBALS['registry']->getAuth();
         }
         if (!empty($info['clients'])) {
             $criteria['client'] = $info['clients'];
