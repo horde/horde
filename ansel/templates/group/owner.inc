@@ -7,7 +7,7 @@ if ($group == Horde_Auth::getAuth()) {
                                 'ansel',
                                 $group, '', null, false);
     $custom = $uprefs->getValue('grouptitle');
-    $identity = &Identity::singleton('none', $group);
+    $identity = new Horde_Prefs_Identity(array('prefs' => $GLOBALS['prefs'], 'user' => $group));
     $fullname = $identity->getValue('fullname');
     if (!$fullname) {
         $fullname = $group;
