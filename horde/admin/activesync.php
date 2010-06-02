@@ -13,17 +13,18 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-/** Check for any actions **/
-$actionID = Horde_Util::getPost('actionID');
-if ($actionID) {
-    $deviceID = Horde_Util::getPost('deviceID');
-
-    /* Get the state machine */
+if (!empty($conf['activesync']['enabled'])) {
     $state_params = $conf['activesync']['state']['params'];
-    $state_params['db'] = $injector->getInstance('Horde_Db_Base');
+    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
     $stateMachine = new Horde_ActiveSync_State_History($state_params);
     $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
+} else {
+    throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
+}
 
+/** Check for any actions **/
+if ($actionID = Horde_Util::getPost('actionID')) {
+    $deviceID = Horde_Util::getPost('deviceID');
     switch ($actionID) {
     case 'wipe':
         $stateMachine->setDeviceRWStatus($deviceID, Horde_ActiveSync::RWSTATUS_PENDING);
@@ -42,14 +43,6 @@ if ($actionID) {
 }
 
 Horde::addScriptFile('activesyncadmin.js');
-if (!empty($conf['activesync']['enabled'])) {
-        $state_params = $conf['activesync']['state']['params'];
-        $state_params['db'] = $injector->getInstance('Horde_Db_Base');
-        $stateMachine = new Horde_ActiveSync_State_History($state_params);
-} else {
-    throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
-}
-
 $devices = $stateMachine->listDevices();
 
 $title = _("ActiveSync Device Administration");
