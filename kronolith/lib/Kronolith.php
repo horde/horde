@@ -2120,15 +2120,11 @@ class Kronolith
         }
 
         $ident = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($event->creator);
-
-        $myemail = $ident->getValue('from_addr');
-        if (!$myemail) {
+        if (!$ident->getValue('from_addr')) {
             $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('options', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
-
-        $myemail = explode('@', $myemail);
-        $from = Horde_Mime_Address::writeAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
+        $from = $ident->getDefaultFromAddress(true);
 
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
 
