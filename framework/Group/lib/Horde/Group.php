@@ -13,6 +13,10 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
  */
+
+// This will go away eventually, but Group can't autoload the DataTree class
+require_once 'Horde/DataTree.php';
+
 class Horde_Group
 {
     /** The parent Group node */
