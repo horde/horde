@@ -525,7 +525,7 @@ class Horde_Auth
 
         try {
             if (!$is_auth) {
-                $userId = self::convertUserName($userId, true);
+                $userId = $GLOBALS['registry']->convertUserName($userId, true);
             }
             list(,$credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
         } catch (Horde_Auth_Exception $e) {
