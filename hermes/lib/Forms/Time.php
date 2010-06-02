@@ -33,7 +33,7 @@ class TimeForm extends Horde_Form {
     {
         global $hermes;
 
-        $types = $hermes->listJobTypes(array('enabled' => true));
+        $types = $hermes->driver->listJobTypes(array('enabled' => true));
         if (is_a($types, 'PEAR_Error')) {
             return array('invalid', array(sprintf(_("An error occurred listing job types: %s"),
                                                   $types->getMessage())));
@@ -122,7 +122,7 @@ class TimeForm extends Horde_Form {
                 if (!empty($GLOBALS['conf']['time']['sum_billable_only'])) {
                     $filter['billable'] = true;
                 }
-                $result = $hermes->getHours($filter, array('hours'));
+                $result = $hermes->driver->getHours($filter, array('hours'));
                 if (!is_a($result, 'PEAR_Error')) {
                     foreach ($result as $entry) {
                         if (!empty($entry['hours'])) {
@@ -225,7 +225,7 @@ class TimeEntryForm extends TimeForm {
         }
 
         if ($vars->exists('client')) {
-            $info = $hermes->getClientSettings($vars->get('client'));
+            $info = $hermes->driver->getClientSettings($vars->get('client'));
             if (!is_a($info, 'PEAR_Error') && !$info['enterdescription']) {
                 $vars->set('description', _("See Attached Timesheet"));
             }
@@ -270,7 +270,7 @@ class TimeReviewForm extends TimeForm {
             $map = array();
             $clients = Hermes::listClients();
             foreach ($clients as $id => $name) {
-                $info = $hermes->getClientSettings($id);
+                $info = $hermes->driver->getClientSettings($id);
                 if (!is_a($info, 'PEAR_Error')) {
                     $map[$id] = $info['enterdescription'] ? '' : _("See Attached Timesheet");
                 } else {

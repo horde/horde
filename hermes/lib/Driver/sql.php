@@ -105,7 +105,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                         (empty($info['costobject']) ? null :
                          $info['costobject']));
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
         return $this->_db->query($sql, $values);
     }
 
@@ -168,7 +168,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                                 (int)$info['id']);
             }
 
-            Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($sql, 'DEBUG');
 
             $result = $this->_db->query($sql, $values);
             if (is_a($result, 'PEAR_Error')) {
@@ -360,7 +360,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'UPDATE hermes_timeslices SET ' . $h_field . ' = 1' .
                ' WHERE timeslice_id IN (' . implode(',', $ids) . ')';
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         return $this->_db->query($sql);
     }
@@ -386,7 +386,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                (empty($where) ? '' : (' WHERE ' . join(' AND ', $where))) .
                ' ORDER BY jobtype_name';
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -435,7 +435,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                             (int)$jobtype['billable'], $jobtype['id']);
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -453,7 +453,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'DELETE FROM hermes_jobtypes WHERE jobtype_id = ?';
         $values = array($jobTypeID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         return $this->_db->query($sql, $values);
     }
@@ -495,7 +495,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                             $deliverable['id']);
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -531,7 +531,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'SELECT * FROM hermes_deliverables' .
                (count($where) ? ' WHERE ' . join(' AND ', $where) : '');
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -568,7 +568,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                ' WHERE deliverable_parent = ?';
         $values = array($deliverableID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -583,7 +583,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                ' WHERE costobject_id = ?';
         $values = array($deliverableID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -597,7 +597,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
         $sql = 'DELETE FROM hermes_deliverables WHERE deliverable_id = ?';
         $values = array($deliverableID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         return $this->_db->query($sql, $values);
     }
@@ -617,7 +617,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                ' WHERE clientjob_id = ?';
         $values = array($clientID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         $clientJob = $this->_db->getAssoc($sql, false, $values);
         if (is_a($clientJob, 'PEAR_Error')) {
@@ -651,7 +651,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
                ' WHERE clientjob_id = ?';
         $values = array($clientID);
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         if ($this->_db->getOne($sql, $values) !== $clientID) {
             $sql = 'INSERT INTO hermes_clientjobs (clientjob_id,' .
@@ -665,7 +665,7 @@ class Hermes_Driver_sql extends Hermes_Driver {
             $values = array($exportid, (int)$enterdescription, $clientID);
         }
 
-        Horde::logMessage($sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($sql, 'DEBUG');
 
         return $this->_db->query($sql, $values);
     }

@@ -88,7 +88,7 @@ class SearchForm extends Horde_Form {
     {
         global $hermes;
 
-        $types = $hermes->listJobTypes();
+        $types = $hermes->driver->listJobTypes();
         if (is_a($types, 'PEAR_Error')) {
             return array('invalid', array(sprintf(_("An error occurred listing job types: %s"),
                                            $types->getMessage())));
