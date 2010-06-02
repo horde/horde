@@ -569,7 +569,7 @@ class Turba {
             $GLOBALS['turba_shares']->addShare($share);
             $result = $share->save();
          } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage, 'ERR');
+            Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
         }
 
