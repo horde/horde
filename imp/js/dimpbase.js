@@ -2885,7 +2885,7 @@ var DimpBase = {
         }
 
         if (!r.add) {
-            fid.store('u', null);
+            fid.store('u', undefined);
             this.updateUnseenStatus(f, 0);
         }
     },

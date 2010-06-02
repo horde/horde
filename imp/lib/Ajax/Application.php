@@ -420,15 +420,15 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result->mbox = $this->_vars->mbox;
 
         if ($this->_vars->add) {
-            $imptree->addPollList($this->_vars->view);
+            $imptree->addPollList($this->_vars->mbox);
             try {
-                if ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->_vars->view, Horde_Imap_Client::STATUS_UNSEEN)) {
-                    $result->poll = array($this->_vars->view => intval($info['unseen']));
+                if ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($this->_vars->mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
+                    $result->poll = array($this->_vars->mbox => intval($info['unseen']));
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $display_folder), 'horde.success');
         } else {
-            $imptree->removePollList($this->_vars->view);
+            $imptree->removePollList($this->_vars->mbox);
             $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $display_folder), 'horde.success');
         }
 
