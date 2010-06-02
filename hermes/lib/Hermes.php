@@ -60,11 +60,11 @@ class Hermes {
         $menu->add(Horde::applicationUrl('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
         $menu->add(Horde::applicationUrl('search.php'), _("_Search"), Horde_Themes::img('search.png'));
 
-        if ($conf['time']['deliverables'] && Horde_Auth::isAdmin('hermes:deliverables')) {
+        if ($conf['time']['deliverables'] && $registry->isAdmin('hermes:deliverables')) {
             $menu->add(Horde::applicationUrl('deliverables.php'), _("_Deliverables"), 'hermes.png');
         }
 
-        if ($conf['invoices']['driver'] && Horde_Auth::isAdmin('hermes:invoicing')) {
+        if ($conf['invoices']['driver'] && $registry->isAdmin('hermes:invoicing')) {
             $menu->add(Horde::applicationUrl('invoicing.php'), _("_Invoicing"), 'invoices.png');
         }
 
@@ -93,7 +93,7 @@ class Hermes {
             return true;
         }
 
-        $hours = $hermes->getHours(array('id' => $id));
+        $hours = $hermes->driver->getHours(array('id' => $id));
         if (!is_array($hours) || count($hours) != 1) {
             return false;
         }
@@ -111,7 +111,7 @@ class Hermes {
      * Rewrite an hours array into a format useable by Horde_Data::
      *
      * @param array $hours          This is an array of the results from
-     *                              $hermes->getHours().
+     *                              $hermes->driver->getHours().
      * @return array an array suitable for Horde_Data::
      */
     function makeExportHours($hours)

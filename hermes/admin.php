@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $hermes = Horde_Registry::appInit('hermes');
 require_once HERMES_BASE . '/lib/Admin.php';
 
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     exit('forbidden.');
 }
 

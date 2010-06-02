@@ -44,7 +44,7 @@ class EditJobTypeStep1Form extends Horde_Form {
         parent::Horde_Form($vars, 'editjobtypestep1form');
 
         $values = array();
-        $jobtypes = $hermes->listJobTypes();
+        $jobtypes = $hermes->driver->listJobTypes();
         if (!is_a($jobtypes, 'PEAR_Error')) {
             foreach ($jobtypes as $id => $jobtype) {
                 $values[$id] = $jobtype['name'];
@@ -79,7 +79,7 @@ class EditJobTypeStep2Form extends Horde_Form {
         parent::Horde_Form($vars, 'editjobtypestep2form');
 
         $jobtype = $vars->get('jobtype');
-        $info = $hermes->getJobTypeByID($jobtype);
+        $info = $hermes->driver->getJobTypeByID($jobtype);
         if (!$info || is_a($info, 'PEAR_Error')) {
             $stype = 'invalid';
             $type_params = array(_("This is not a valid job type."));
@@ -117,7 +117,7 @@ class DeleteJobTypeForm extends Horde_Form {
         parent::Horde_Form($vars, 'deletejobtypeform');
 
         $jobtype = $vars->get('jobtype');
-        $info = $hermes->getJobTypeByID($jobtype);
+        $info = $hermes->driver->getJobTypeByID($jobtype);
 
         $yesnotype = 'enum';
         $type_params = array(array(0 => _("No"), 1 => _("Yes")));
@@ -139,8 +139,6 @@ class EditClientStep1Form extends Horde_Form {
 
     function EditClientStep1Form(&$vars)
     {
-        global $hermes;
-
         parent::Horde_Form($vars, 'editclientstep1form');
 
         $clients = Hermes::listClients();
@@ -172,7 +170,7 @@ class EditClientStep2Form extends Horde_Form {
         parent::Horde_Form($vars, 'editclientstep2form');
 
         $client = $vars->get('client');
-        $info = $hermes->getClientSettings($client);
+        $info = $hermes->driver->getClientSettings($client);
         if (!$info || is_a($info, 'PEAR_Error')) {
             $stype = 'invalid';
             $type_params = array(_("This is not a valid client."));
