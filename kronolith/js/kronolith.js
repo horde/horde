@@ -3052,7 +3052,7 @@ KronolithCore = {
     },
 
     /**
-     * Updates the basic group permission interface after the group list has
+     * Updates the group permission interface after the group list has
      * been loaded.
      *
      * @param string type  The calendar type, 'internal' or 'taskslists'.
@@ -3062,16 +3062,20 @@ KronolithCore = {
     {
         $('kronolithC' + type + 'PGSingle').clear();
         if (!groups) {
+            $('kronolithC' + type + 'PGNew').up('div').hide();
             $('kronolithC' + type + 'PG').up('span').hide();
-        } else if (groups.size() == 1) {
-            $('kronolithC' + type + 'PGName')
-                .update('&quot;' + groups.values()[0].escapeHTML() + '&quot;')
-                .show();
-            $('kronolithC' + type + 'PGSingle').setValue(groups.keys()[0]);
-            $('kronolithC' + type + 'PGList').hide();
         } else {
-            $('kronolithC' + type + 'PGName').hide();
-            $('kronolithC' + type + 'PGList').show();
+            $('kronolithC' + type + 'PGNew').up('div').show();
+            if (groups.size() == 1) {
+                $('kronolithC' + type + 'PGName')
+                    .update('&quot;' + groups.values()[0].escapeHTML() + '&quot;')
+                    .show();
+                $('kronolithC' + type + 'PGSingle').setValue(groups.keys()[0]);
+                $('kronolithC' + type + 'PGList').hide();
+            } else {
+                $('kronolithC' + type + 'PGName').hide();
+                $('kronolithC' + type + 'PGList').show();
+            }
         }
     },
 
