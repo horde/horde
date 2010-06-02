@@ -96,7 +96,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             throw new Horde_Auth_Exception('Empty result.');
         }
 
-        return $search[0]['dn'];
+        $entry = $search->shiftEntry();
+
+        return $entry->currentDN();
     }
 
     /**
@@ -213,6 +215,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         /* Search for the user's full DN. */
+        $this->_ldap->bind();
         $dn = $this->_findDN($userId);
 
         /* Attempt to bind to the LDAP server as the user. */
