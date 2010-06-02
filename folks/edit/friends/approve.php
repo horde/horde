@@ -37,13 +37,13 @@ if ($result instanceof PEAR_Error) {
 $notification->push(sprintf(_("User \"%s\" was confirmed as a friend."), $user), 'horde.success');
 
 $title = sprintf(_("%s approved you as a friend on %s"),
-                    Horde_Auth::getAuth(),
+                    $GLOBALS['registry']->getAuth(),
                     $registry->get('name', 'horde'));
 
 $body = sprintf(_("User %s confirmed you as a friend on %s.. \nTo see to his profile, go to: %s \n"),
-                Horde_Auth::getAuth(),
+                $GLOBALS['registry']->getAuth(),
                 $registry->get('name', 'horde'),
-                Folks::getUrlFor('user', Horde_Auth::getAuth(), true, -1));
+                Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
 
 $friends->sendNotification($user, $title, $body);
 

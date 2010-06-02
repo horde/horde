@@ -75,7 +75,7 @@ class SearchForm extends Horde_Form {
         parent::getInfo($vars, $info);
 
         if (empty($info['queue'])) {
-            $info['queue'] = array_keys(Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ, Horde_Auth::getAuth(), Horde_Auth::getAuth()));
+            $info['queue'] = array_keys(Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ, $GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth()));
         }
 
         if (empty($info['states'])) {

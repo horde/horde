@@ -331,7 +331,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticateCallback()
     {
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $this->init();
             IMP_Auth::authenticateCallback();
         }

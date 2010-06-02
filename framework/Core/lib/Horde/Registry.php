@@ -1084,7 +1084,7 @@ class Horde_Registry
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
-            if (Horde_Auth::getAuth() && !Horde_Auth::checkExistingAuth()) {
+            if ($GLOBALS['registry']->getAuth() && !Horde_Auth::checkExistingAuth()) {
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
             if (!$this->hasPermission($app, Horde_Perms::READ)) {
@@ -1092,8 +1092,8 @@ class Horde_Registry
                     throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
                 }
 
-                Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                Horde::logMessage(sprintf('%s does not have READ permission for %s', $GLOBALS['registry']->getAuth() ? 'User ' . $GLOBALS['registry']->getAuth() : 'Guest user', $app), 'DEBUG');
+                throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), $GLOBALS['registry']->getAuth() ? 'User ' . $GLOBALS['registry']->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
             }
         }
 
@@ -1226,8 +1226,8 @@ class Horde_Registry
          * explicit permissions, or for apps that allow the given permission. */
         return $this->isAdmin() ||
             ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($app)
-             ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, Horde_Auth::getAuth(), $perms)
-             : (bool)Horde_Auth::getAuth());
+             ? $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($app, $GLOBALS['registry']->getAuth(), $perms)
+             : (bool)$GLOBALS['registry']->getAuth());
     }
 
     /**
@@ -1268,12 +1268,12 @@ class Horde_Registry
 
         /* If there is no logged in user, return an empty Horde_Prefs::
          * object with just default preferences. */
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $GLOBALS['prefs'] = Horde_Prefs::factory('Session', $app, '', '', null, false);
         } else {
             if (!isset($GLOBALS['prefs']) ||
-                ($GLOBALS['prefs']->getUser() != Horde_Auth::getAuth())) {
-                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+                ($GLOBALS['prefs']->getUser() != $GLOBALS['registry']->getAuth())) {
+                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, $GLOBALS['registry']->getAuth(), Horde_Auth::getCredential('password'));
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
@@ -1459,7 +1459,7 @@ class Horde_Registry
         /* Using cache while not authenticated isn't possible because,
          * although storage is possible, retrieval isn't since there is no
          * MD5 sum in the session to use to build the cache IDs. */
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             return;
         }
 
@@ -1495,7 +1495,7 @@ class Horde_Registry
         /* Using cache while not authenticated isn't possible because,
          * although storage is possible, retrieval isn't since there is no
          * MD5 sum in the session to use to build the cache IDs. */
-        if (Horde_Auth::getAuth() &&
+        if ($GLOBALS['registry']->getAuth() &&
             ($id = $this->_getCacheId($name))) {
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
@@ -1637,7 +1637,7 @@ class Horde_Registry
     {
         $user = isset($options['user'])
             ? $options['user']
-            : Horde_Auth::getAuth();
+            : $GLOBALS['registry']->getAuth();
 
         if ($user &&
             @is_array($GLOBALS['conf']['auth']['admins']) &&
@@ -1683,7 +1683,7 @@ class Horde_Registry
     public function isAuthenticated($options = array())
     {
         /* Check for cached authentication results. */
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $driver = (empty($options['app']) || ($options['app'] == 'horde'))
                 ? $GLOBALS['conf']['auth']['driver']
                 : $options['app'];
@@ -1813,6 +1813,51 @@ class Horde_Registry
             return Horde::callHook('authusername', array($userId, $toHorde));
         } catch (Horde_Exception_HookNotSet $e) {
             return $userId;
+        }
+    }
+
+    /**
+     * Returns the currently logged in user, if there is one.
+     *
+     * @param string $format  The return format:
+     * <pre>
+     * 'bare' - Horde ID without any domain information (e.g., foo@example.com
+     *          would be returned as 'foo').
+     * 'default' - [DEFAULT] The unique Horde ID.
+     * 'domain' - Domain of the Horde ID (e.g., foo@example.com would be
+     *            returned as 'example.com').
+     * 'original' - The username used to originally login to Horde.
+     * </pre>
+     *
+     * @return mixed  The user ID or false if no user is logged in.
+     */
+    public function getAuth($format = 'default')
+    {
+        if ($format == 'original') {
+            return empty($_SESSION['horde_auth']['authId'])
+                ? false
+                : $_SESSION['horde_auth']['authId'];
+        }
+
+        if (empty($_SESSION['horde_auth']['userId'])) {
+            return false;
+        }
+
+        $user = $_SESSION['horde_auth']['userId'];
+
+        switch ($format) {
+        case 'bare':
+            return (($pos = strpos($user, '@')) === false)
+                ? $user
+                : substr($user, 0, $pos);
+
+        case 'domain':
+            return (($pos = strpos($user, '@')) === false)
+                ? false
+                : substr($user, $pos + 1);
+
+        case 'default':
+            return $user;
         }
     }
 

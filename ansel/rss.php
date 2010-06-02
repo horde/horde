@@ -18,7 +18,7 @@ $stream_type = Horde_Util::getFormData('stream_type', 'all');
 $id = Horde_Util::getFormData('id');
 $type = basename(Horde_Util::getFormData('type', 'rss2'));
 $slug = Horde_Util::getFormData('slug');
-$uid = md5($stream_type . $id . $type . Horde_Auth::getAuth());
+$uid = md5($stream_type . $id . $type . $GLOBALS['registry']->getAuth());
 $filename = 'ansel_feed_template_' . $uid;
 if ($conf['ansel_cache']['usecache']) {
     $cache_key = 'ansel_feed_template_' . $uid;
@@ -77,7 +77,7 @@ if (empty($rss)) {
         } elseif (is_numeric($id)) {
             $gallery = $ansel_storage->getGallery($id);
         }
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
             !$gallery->hasPasswd() && $gallery->isOldEnough()) {
 
             if (!$gallery->countImages() && $gallery->hasSubGalleries()) {
@@ -218,7 +218,7 @@ if (empty($rss)) {
             }
             if (!isset($galleries[$gallery_id]['perm'])) {
                 $galleries[$gallery_id]['perm'] =
-                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) &&
+                    ($galleries[$gallery_id]['gallery']->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ) &&
                      $galleries[$gallery_id]['gallery']->isOldEnough() &&
                      !$galleries[$gallery_id]['gallery']->hasPasswd());
             }

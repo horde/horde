@@ -67,9 +67,9 @@ class IMP_Spam
                      * be secure. */
                     $prog = str_replace(array('%u','%l', '%d'),
                         array(
-                            escapeshellarg(Horde_Auth::getAuth()),
-                            escapeshellarg(Horde_Auth::getBareAuth()),
-                            escapeshellarg(Horde_Auth::getAuthDomain())
+                            escapeshellarg($GLOBALS['registry']->getAuth()),
+                            escapeshellarg($GLOBALS['registry']->getAuth('bare')),
+                            escapeshellarg($GLOBALS['registry']->getAuth('domain'))
                         ), $GLOBALS['conf'][$action]['program']);
                     $proc = proc_open($prog,
                         array(
@@ -136,7 +136,7 @@ class IMP_Spam
                     if (!is_null($from_line)) {
                         $spam_headers->addHeader('From', $from_line);
                     }
-                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, Horde_Auth::getAuth()));
+                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $GLOBALS['registry']->getAuth()));
 
                     /* Send the message. */
                     try {

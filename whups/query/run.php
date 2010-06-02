@@ -36,7 +36,7 @@ if ($vars->exists('slug')) {
 // read permissions on the requested query, go to the initial Whups page.
 if (!isset($whups_query) ||
     is_a($whups_query, 'PEAR_Error') ||
-    !$whups_query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     if (is_a($whups_query, 'PEAR_Error')) {
         $notification->push($whups_query);
     } elseif (isset($whups_query)) {

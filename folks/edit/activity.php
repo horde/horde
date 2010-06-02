@@ -43,7 +43,7 @@ if ($form->validate()) {
     }
 }
 
-$activities = $folks_driver->getActivity(Horde_Auth::getAuth());
+$activities = $folks_driver->getActivity($GLOBALS['registry']->getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
     header('Location: ' . Folks::getUrlFor('list', 'list'));

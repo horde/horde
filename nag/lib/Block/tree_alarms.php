@@ -23,7 +23,7 @@ class Horde_Block_nag_tree_alarms extends Horde_Block {
 
         $alarmCount = 0;
         foreach ($alarms as $taskId => $task) {
-            if ($horde_alarm->isSnoozed($task->uid, Horde_Auth::getAuth())) {
+            if ($horde_alarm->isSnoozed($task->uid, $GLOBALS['registry']->getAuth())) {
                 continue;
             }
             $alarmCount++;

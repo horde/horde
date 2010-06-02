@@ -58,7 +58,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
             $html .= '<li>' . $slideshow_url->link(array('class' => 'widget')) . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") . '</a></li>';
         }
-        if (!empty($uploadurl) && $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!empty($uploadurl) && $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $html .= '<li>' . $uploadurl->link(array('class' => 'widget')) . Horde::img('image_add.png') . ' ' . _("Upload photos") . '</a></li>';
 
             /* Subgalleries */
@@ -136,7 +136,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         }
 
         /* Image upload, subgalleries, captions etc... */
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             /* Properties */
             $html .= '<li>' . $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => $selfurl))->link(array('class' => 'widget')) . Horde::img('edit.png') . ' ' . _("Change properties") . '</a></li>';
             if ($count) {
@@ -173,8 +173,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
 
-        if (Horde_Auth::getAuth() &&
-            $this->_view->gallery->get('owner') == Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth() &&
+            $this->_view->gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
             $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
             (($conf['report_content']['allow'] == 'authenticated' &&
@@ -185,7 +185,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             $html .= '<li>' . $reporturl->link(array('class' => 'widget')) . _("Report") . '</a></li>';
         }
 
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             $html .= '<li>' . $galleryurl->copy()->add('actionID', 'empty')->link(array('class' => 'widget')) . Horde::img('delete.png') . ' ' . _("Delete All Photos") . '</a></li>';
             $html .= '<li>' . $galleryurl->copy()->add('actionID', 'delete')->link(array('class' => 'widget')) . Horde::img('delete.png', 'horde') . ' ' . _("Delete Entire Gallery") . '</a></li>';
         }

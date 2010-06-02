@@ -429,7 +429,7 @@ $cfgSources['localsql'] = array(
  * turba/scripts/ldap/rfc2739.schema in your LDAP configuration.
  */
 /* First we need to get the uid. */
-// $_ldap_uid = Horde_Auth::getBareAuth();
+// $_ldap_uid = $GLOBALS['registry']->getAuth('bare');
 // $_ldap_basedn = 'dc=example,dc=com';
 // $cfgSources['personal_ldap'] = array(
 //     'title' => _("My Address Book"),
@@ -702,7 +702,7 @@ $cfgSources['favourites'] = array(
 //);
 
 //$_group_driver = &Group::singleton();
-//$_group_list = $_group_driver->getGroupMemberships(Horde_Auth::getAuth());
+//$_group_list = $_group_driver->getGroupMemberships($GLOBALS['registry']->getAuth());
 //foreach ($_group_list as $_group_id => $_group_name) {
 //    $cfgSources['group_' . $_group_id] = $grpSource;
 //    $cfgSources['group_' . $_group_id]['params'] = array('gid' => $_group_id);
@@ -765,7 +765,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
     $_imsp_auth_user = $GLOBALS['prefs']->getValue('imsp_auth_user');
     $_imsp_auth_pass = $GLOBALS['prefs']->getValue('imsp_auth_pass');
     if (!strlen($_imsp_auth_user)) {
-        $_imsp_auth_user = Horde_Auth::getBareAuth();
+        $_imsp_auth_user = $GLOBALS['registry']->getAuth('bare');
         $_imsp_auth_pass = Horde_Auth::getCredential('password');
     }
     $cfgSources['imsp'] = array(

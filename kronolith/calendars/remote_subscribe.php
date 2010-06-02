@@ -15,7 +15,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/SubscribeRemoteCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('remote_cals')) {
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }

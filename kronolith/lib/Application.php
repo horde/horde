@@ -136,7 +136,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
                 foreach ($all_shares as $id => $share) {
                     if (!empty($conf['share']['hidden']) &&
-                        ($share->get('owner') != Horde_Auth::getAuth()) &&
+                        ($share->get('owner') != $GLOBALS['registry']->getAuth()) &&
                         !in_array($share->getName(), $GLOBALS['display_calendars'])) {
                         continue;
                     }
@@ -431,7 +431,7 @@ class Kronolith_Application extends Horde_Registry_Application
     public function removeUserData($user)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            $user != Horde_Auth::getAuth()) {
+            $user != $GLOBALS['registry']->getAuth()) {
             throw new Kronolith_Exception(_("You are not allowed to remove user data."));
         }
 

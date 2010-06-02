@@ -1,7 +1,7 @@
 <?php
 
 $num_galleries = $GLOBALS['ansel_storage']->countGalleries(
-    Horde_Auth::getAuth(), Horde_Perms::SHOW, array('category' => $group), null, false);
+    $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, array('category' => $group), null, false);
 
 if (empty($group)) {
     $category_title = _("Unfiled");

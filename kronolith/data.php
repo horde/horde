@@ -190,7 +190,7 @@ if (!$error) {
             $cleanup = true;
             try {
                 $share = $kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
-                if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                     $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
@@ -310,10 +310,10 @@ if (Horde_Util::getFormData('import_ajax')) {
 }
 
 $import_calendars = $export_calendars = array();
-if (Horde_Auth::getAuth()) {
+if ($GLOBALS['registry']->getAuth()) {
     $calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);
     foreach ($calendars as $id => $calendar) {
-        if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+        if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
             !empty($GLOBALS['conf']['share']['hidden']) &&
             !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
             continue;
@@ -323,7 +323,7 @@ if (Horde_Auth::getAuth()) {
 }
 $calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
 foreach ($calendars as $id => $calendar) {
-    if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+    if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
         !empty($GLOBALS['conf']['share']['hidden']) &&
         !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
         continue;

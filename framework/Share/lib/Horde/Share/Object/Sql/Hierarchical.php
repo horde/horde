@@ -40,7 +40,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      */
     public function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->countShares(Horde_Auth::getAuth(), $perm, null, $this, $allLevels);
+        return $this->_shareOb->countShares($GLOBALS['registry']->getAuth(), $perm, null, $this, $allLevels);
     }
 
     /**
@@ -54,7 +54,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      */
     public function getChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->listShares(Horde_Auth::getAuth(), $perm, null, 0, 0,
+        return $this->_shareOb->listShares($GLOBALS['registry']->getAuth(), $perm, null, 0, 0,
              null, 1, $this, $allLevels, is_null($perm));
 
     }
@@ -105,7 +105,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
         /* If we are an existing share, check for any children */
         if ($this->getId()) {
             $children = $this->_shareOb->listShares(
-                Horde_Auth::getAuth(), Horde_Perms::EDIT, null, 0, 0, null, 0,
+                $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, null, 0, 0, null, 0,
                 $this->getId());
         } else {
             $children = array();

@@ -32,8 +32,8 @@ class Horde_Block_Whups_myrequests extends Horde_Block {
         global $whups_driver, $prefs;
 
         $queue_ids = array_keys(Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ));
-        $info = array('requester' => Horde_Auth::getAuth(),
-                      'notowner' => 'user:' . Horde_Auth::getAuth(),
+        $info = array('requester' => $GLOBALS['registry']->getAuth(),
+                      'notowner' => 'user:' . $GLOBALS['registry']->getAuth(),
                       'nores' => true,
                       'queue' => $queue_ids);
         $requests = $whups_driver->getTicketsByProperties($info);

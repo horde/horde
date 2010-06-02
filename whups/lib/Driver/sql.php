@@ -1069,7 +1069,7 @@ class Whups_Driver_sql extends Whups_Driver {
                                             $ticket));
         } else {
             $queues = Whups::permissionsFilter(
-                $this->getQueues(), 'queue', Horde_Perms::READ, Horde_Auth::getAuth(),
+                $this->getQueues(), 'queue', Horde_Perms::READ, $GLOBALS['registry']->getAuth(),
                 $result[0]['user_id_requester']);
             if ($checkPerms &&
                   !in_array($result[0]['queue'], array_flip($queues))) {

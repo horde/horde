@@ -39,7 +39,7 @@ function doPrefsUpdate(column, sortDown)
   <th id="s<?php echo Mnemo::SORT_CATEGORY ?>"<?php if ($sortby == Mnemo::SORT_CATEGORY) echo ' class="' . $sortdirclass . '"' ?> width="15%">
     <?php
     echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter('list.php', 'sortby', Mnemo::SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("_Category"));
-    if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
+    if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                             !$GLOBALS['prefs']->isLocked('category_colors'))) {
         $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
         echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'popup(this.href); return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '') . '</a>';

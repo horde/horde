@@ -48,7 +48,7 @@ if (empty($from)) {
 }
 
 $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\n\n Published: %s \nLink: %s"),
-                Horde_Auth::getAuth(),
+                $GLOBALS['registry']->getAuth(),
                 $row['title'],
                 $row['publish'],
                 News::getUrlFor('news', $id, true, -1));

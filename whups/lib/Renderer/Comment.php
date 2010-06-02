@@ -28,7 +28,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
         static $canUpdate, $comment_count = 0;
 
         if (!isset($canUpdate)) {
-            $canUpdate = Horde_Auth::getAuth() &&
+            $canUpdate = $GLOBALS['registry']->getAuth() &&
                 Whups::hasPermission($vars->get('queue'), 'queue', 'update');
         }
 

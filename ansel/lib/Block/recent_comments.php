@@ -29,7 +29,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
                             'default' => '__random',
                             'values' => array('all' => 'All')));
 
-        if ($GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+        if ($GLOBALS['ansel_storage']->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
             foreach ($GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ) as $id => $gal) {
                 $params['gallery']['values'][$id] = $gal->get('name');
             }
@@ -146,7 +146,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
 
         if (empty($this->_gallery)) {
             throw new Horde_Exception_NotFount(_("Gallery does not exist."));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
 

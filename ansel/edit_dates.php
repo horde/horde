@@ -19,7 +19,7 @@ $page = Horde_Util::getFormData('page', 0);
 /* If we have a single gallery, check perms now */
 if (!empty($gallery_id)) {
     $gallery = $ansel_storage->getGallery($gallery_id);
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to edit these photos."), 'horde.error');
         echo Horde::wrapInlineScript(array(
             'window.opener.location.href = window.opener.location.href;',
@@ -51,7 +51,7 @@ if ($actionID == 'edit_dates') {
             if (empty($gallery_id)) {
                 // Images might be from different galleries
                 $gallery = $ansel_storage->getGallery($image->gallery);
-                if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                     continue;
                 }
             }

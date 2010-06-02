@@ -50,7 +50,7 @@ if (!empty($main_page)) {
 if (!$main_page) {
     /* Always redirect to login page if there is no incoming URL and nobody
      * is authenticated. */
-    if (!Horde_Auth::getAuth()) {
+    if (!$registry->getAuth()) {
         $main_page = Horde::applicationUrl('login.php', true);
     } else {
         /* Search for a user-specified initial application. */
@@ -81,9 +81,9 @@ if (!$main_page) {
  * there is no authenticated user, and conf->menu->always is true; or if
  * 'force_sidebar' GET parameter is set. */
 if ((Horde_Util::getFormData('force_sidebar') ||
-    !Horde_Util::nonInputVar('horde_login_nosidebar', Horde_Auth::getAuth())) &&
+    !Horde_Util::nonInputVar('horde_login_nosidebar', $registry->getAuth())) &&
     ($conf['menu']['always'] ||
-     (Horde_Auth::getAuth() && $prefs->getValue('show_sidebar')))) {
+     ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
     $scrollbar = $browser->hasQuirk('scrollbar_in_way') ? 'yes' : 'auto';
     require HORDE_TEMPLATES . '/index/frames_index.inc';
 } else {

@@ -77,7 +77,7 @@ class Page {
         } elseif ($perms->exists('wicked:pages')) {
             return $perms->getPermissions('wicked:pages');
         } else {
-            if (!Horde_Auth::getAuth()) {
+            if (!$GLOBALS['registry']->getAuth()) {
                 return Horde_Perms::SHOW | Horde_Perms::READ;
             } else {
                 return Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE;
@@ -119,7 +119,7 @@ class Page {
             if ($perms->exists($permName)) {
                 return $perms->getPermissions($permName) & Horde_Perms::EDIT;
             } else {
-                return Horde_Auth::getAuth();
+                return $GLOBALS['registry']->getAuth();
             }
             break;
 

@@ -602,7 +602,7 @@ class DataTree_sql extends DataTree {
                         Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
                         is_null($order) ? NULL : (int)$order,
                         $data,
-                        (string)Horde_Auth::getAuth(),
+                        (string)$GLOBALS['registry']->getAuth(),
                         (int)$ser,
                         $parents);
 

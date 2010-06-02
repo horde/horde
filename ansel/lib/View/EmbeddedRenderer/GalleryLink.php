@@ -63,7 +63,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 Horde::logMessage($e, 'ERR');
                 exit;
             }
-            if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                 return '';
             }
 

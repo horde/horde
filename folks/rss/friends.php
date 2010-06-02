@@ -15,7 +15,7 @@ $folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
 $auth = $injector->getInstance('Horde_Auth')->getOb();
-if (!Horde_Auth::getAuth() &&
+if (!$GLOBALS['registry']->getAuth() &&
     (!isset($_SERVER['PHP_AUTH_USER']) ||
      !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="Letter RSS Interface"');

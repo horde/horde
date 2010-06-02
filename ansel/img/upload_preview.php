@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 $gallery = $ansel_storage->getGallery((int)Horde_Util::getFormData('gallery'));
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied();
 }
 

@@ -76,7 +76,7 @@ $_prefs['memo_colors'] = array(
 // default notepad
 // Set locked to true if you don't want users to have multiple notepads.
 $_prefs['default_notepad'] = array(
-    'value' => Horde_Auth::getAuth() ? Horde_Auth::getAuth() : 0,
+    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
     'desc' => _("Your default notepad:")
 );

@@ -173,8 +173,8 @@ if (!$beendone) {
 $qManager = new Whups_QueryManager();
 $myqueries = Whups_View::factory(
     'SavedQueries',
-    array('title' => Horde_Auth::getAuth() ? _("My Queries") : _("Public Queries"),
-          'results' => $qManager->listQueries(Horde_Auth::getAuth(), true)));
+    array('title' => $GLOBALS['registry']->getAuth() ? _("My Queries") : _("Public Queries"),
+          'results' => $qManager->listQueries($GLOBALS['registry']->getAuth(), true)));
 $myqueries->html();
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

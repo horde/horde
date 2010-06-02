@@ -28,7 +28,7 @@ class Whups_Mail {
      * @param string $auth_user  This will be the Horde user that creates the
      *                           ticket. If null, we will try to deduce from
      *                           the message's From: header. We do NOT default
-     *                           to Horde_Auth::getAuth().
+     *                           to $GLOBALS['registry']->getAuth().
      *
      * @return Whups_Ticket | PEAR_Error  Ticket or Error object.
      */
@@ -104,7 +104,7 @@ class Whups_Mail {
         }
 
         // Authenticate as the correct Horde user.
-        if (!empty($auth_user) && $auth_user != Horde_Auth::getAuth()) {
+        if (!empty($auth_user) && $auth_user != $GLOBALS['registry']->getAuth()) {
             Horde_Auth::setAuth($auth_user, array());
         }
 

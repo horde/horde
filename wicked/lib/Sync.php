@@ -42,7 +42,7 @@ class Wicked_Sync {
         }
 
         if (empty($params['user'])) {
-            $params['user'] = Horde_Auth::getAuth();
+            $params['user'] = $GLOBALS['registry']->getAuth();
         }
 
         if (empty($params['password'])) {

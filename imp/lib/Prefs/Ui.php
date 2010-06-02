@@ -645,7 +645,7 @@ class IMP_Prefs_Ui
             $GLOBALS['notification']->notify($e);
             return '';
         }
-        $canEdit = $ACL->canEdit($folder, Horde_Auth::getAuth());
+        $canEdit = $ACL->canEdit($folder, $GLOBALS['registry']->getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);

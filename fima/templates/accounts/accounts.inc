@@ -1,7 +1,7 @@
 <?php
 
-$perm_edit = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-$perm_delete = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+$perm_edit = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+$perm_delete = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
 
 ?>
 <script type="text/javascript">

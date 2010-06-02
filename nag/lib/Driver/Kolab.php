@@ -37,7 +37,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     public function __construct($tasklist, $params = array())
     {
         if (empty($tasklist)) {
-            $tasklist = Horde_Auth::getAuth();
+            $tasklist = $GLOBALS['registry']->getAuth();
         }
 
         $this->_tasklist = $tasklist;
@@ -312,7 +312,7 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
             'tasklist_id' => $this->_tasklist,
             'task_id' => $this->_kolab->getUID(),
             'uid' => $this->_kolab->getUID(),
-            'owner' => Horde_Auth::getAuth(),
+            'owner' => $GLOBALS['registry']->getAuth(),
             'name' => $this->_kolab->getStr('summary'),
             'desc' => $this->_kolab->getStr('body'),
             'category' => $this->_kolab->getStr('categories'),
@@ -695,7 +695,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
         if (count($split) == 2) {
             list($id, $tasklist) = $split;
         } else if (count($split) == 1) {
-            $tasklist = Horde_Auth::getAuth();
+            $tasklist = $GLOBALS['registry']->getAuth();
         }
         return array($id, $tasklist);
     }
@@ -711,7 +711,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
      */
     function _uniqueId($id)
     {
-        if ($this->_tasklist == Horde_Auth::getAuth()) {
+        if ($this->_tasklist == $GLOBALS['registry']->getAuth()) {
             return $id;
         }
         return $id . '@' . $this->_tasklist;

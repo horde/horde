@@ -254,7 +254,7 @@ class VFS_kolab extends VFS
                 $filenames = $this->_getAppUids($app);
             }
 
-            $owner = Horde_Auth::getAuth();
+            $owner = $GLOBALS['registry']->getAuth();
 
             $file = $files = array();
             foreach ($filenames as $filename) {
@@ -279,7 +279,7 @@ class VFS_kolab extends VFS
             return $files;
         }
 
-        $owner = Horde_Auth::getAuth();
+        $owner = $GLOBALS['registry']->getAuth();
 
         $file = $files = array();
 
@@ -348,7 +348,7 @@ class VFS_kolab extends VFS
         $mime_message = Horde_Mime_Part::parseMessage($raw_message);
         $parts = $mime_message->contentTypeMap();
 
-        $owner = Horde_Auth::getAuth();
+        $owner = $GLOBALS['registry']->getAuth();
 
         $file = $files = array();
 
@@ -399,7 +399,7 @@ class VFS_kolab extends VFS
         $mime_message = Horde_Mime_Part::parseMessage($raw_message);
         $parts = $mime_message->contentTypeMap();
 
-        $owner = Horde_Auth::getAuth();
+        $owner = $GLOBALS['registry']->getAuth();
 
         foreach ($parts as $part_id => $disposition) {
             $part = $mime_message->getPart($part_id);

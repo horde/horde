@@ -35,6 +35,6 @@ implements Horde_Kolab_Session_Auth_Interface
      */
     public function getCurrentUser()
     {
-        return Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth();
     }
 }

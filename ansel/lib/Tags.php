@@ -187,7 +187,7 @@ class Ansel_Tags
         $skey = md5(serialize($ids) . $from . $resource_type . $max . $user);
 
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-           $key = Horde_Auth::getAuth() . '__anseltagsearches';
+           $key = $GLOBALS['registry']->getAuth() . '__anseltagsearches';
            $cvalue = $GLOBALS['injector']->getInstance('Horde_Cache')->get($key, 300);
            $cvalue = @unserialize($cvalue);
            if (!$cvalue) {
@@ -220,7 +220,7 @@ class Ansel_Tags
                         $img = $GLOBALS['ansel_storage']->getImage($id);
                         $gal = $GLOBALS['ansel_storage']->getGallery($img->gallery);
                         $owner = $gal->get('owner');
-                        if ($gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
+                        if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
                             (!isset($user) || (isset($user) && $owner && $owner == $user))) {
                             $imgs[] = $id;
                         }
@@ -255,7 +255,7 @@ class Ansel_Tags
                         Horde::logMessage($e->getMessage(), 'ERR');
                         continue;
                     }
-                    if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') && $gallery->get('owner') == $user))) {
+                    if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)  && (!isset($user) || (isset($user) && $gallery->get('owner') && $gallery->get('owner') == $user))) {
                         $results['galleries'][] = $id;
                     }
                 }
@@ -450,7 +450,7 @@ class Ansel_Tags
     static public function clearCache()
     {
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->expire(Horde_Auth::getAuth() . '__anseltagsearches');
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire($GLOBALS['registry']->getAuth() . '__anseltagsearches');
         }
     }
 }
@@ -528,7 +528,7 @@ class Ansel_Tags_Search {
                                                    $this->_owner);
 
             $images = count($iresults['images']) ? array_values($GLOBALS['ansel_storage']->getImages(array('ids' => $iresults['images']))) : array();
-            if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+            if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
                 $registry->hasMethod('forums/numMessagesBatch')) {
 
                 $ids = array_keys($images);

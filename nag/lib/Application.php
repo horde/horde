@@ -108,7 +108,7 @@ class Nag_Application extends Horde_Registry_Application
 
                 foreach ($all_tasklists as $id => $tasklist) {
                     if (!empty($conf['share']['hidden']) &&
-                        ($tasklist->get('owner') != Horde_Auth::getAuth()) &&
+                        ($tasklist->get('owner') != $GLOBALS['registry']->getAuth()) &&
                         !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
                         continue;
                     }
@@ -234,7 +234,7 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() && $user != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 

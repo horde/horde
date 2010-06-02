@@ -65,7 +65,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
 
         $images = $faces->getGalleryFaces($this->_view->resource->id);
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
             $html .= Horde::applicationUrl('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
                          array('id' => 'edit_faces',

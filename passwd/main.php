@@ -47,10 +47,8 @@ do {
             $userid = Horde::callHook('_passwd_hook_default_username',
                                       array(Auth::getAuth()),
                                       'passwd');
-        } elseif ($conf['hooks']['full_name']) {
-            $userid = Auth::getAuth();
         } else {
-            $userid = Auth::getBareAuth();
+            $userid = $registry->getAuth($conf['hooks']['full_name'] ? null : 'bare');
         }
     }
 
@@ -265,14 +263,8 @@ if (empty($userid)) {
         $userid = Horde::callHook('_passwd_hook_default_username',
                                   array(Auth::getAuth()),
                                   'passwd');
-    } elseif ($conf['hooks']['full_name']) {
-        $userid = Auth::getAuth();
     } else {
-        $userid = Auth::getBareAuth();
-    }
-    if (is_a($userid, 'PEAR_Error')) {
-        Horde::logMessage($userid, __FILE__, __LINE__);
-        $userid = '';
+        $userid = $registry->getAuth($conf['hooks']['full_name'] ? null : 'bare');
     }
 }
 

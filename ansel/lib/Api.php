@@ -81,7 +81,7 @@ class Ansel_Api extends Horde_Registry_Api
                 $gallery_id = end($parts);
                 $galleries = $GLOBALS['ansel_storage']->getGalleries(array($gallery_id));
                 if (!isset($galleries[$gallery_id]) ||
-                    !$galleries[$gallery_id]->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                    !$galleries[$gallery_id]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
 
                     throw new Horde_Exception_NotFound(_("Invalid gallery specified."));
                 }
@@ -115,7 +115,7 @@ class Ansel_Api extends Horde_Registry_Api
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $gallery->hasPermission(
-                        Horde_Auth::getAuth(), Horde_Perms::READ);
+                        $GLOBALS['registry']->getAuth(), Horde_Perms::READ);
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$retpath]['contenttype'] = 'httpd/unix-directory';
@@ -191,7 +191,7 @@ class Ansel_Api extends Horde_Registry_Api
             throw new Horde_Exception_NotFound("Gallery does not exist");
         }
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to \"%s\"."));
         }
 
@@ -235,7 +235,7 @@ class Ansel_Api extends Horde_Registry_Api
     {
         if (($GLOBALS['conf']['comments']['allow'] == 'all' ||
             ($GLOBALS['conf']['comments']['allow'] == 'authenticated' &&
-            Horde_Auth::getAuth()))) {
+            $GLOBALS['registry']->getAuth()))) {
             return true;
         } else {
             return false;
@@ -339,7 +339,7 @@ class Ansel_Api extends Horde_Registry_Api
         } elseif ($GLOBALS['ansel_storage']->galleryExists($gallery_id)) {
             $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
         }
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
         }
         if (!empty($gallery_data)) {
@@ -414,7 +414,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         $image = $GLOBALS['ansel_storage']->getImage($image_id);
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
         }
         return $gallery->removeImage($image);
@@ -437,8 +437,8 @@ class Ansel_Api extends Horde_Registry_Api
     public function createGallery($app = null, $attributes = array(), $perm = null, $parent = null)
     {
         if (!($GLOBALS['registry']->isAdmin() ||
-            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))) {
 
             throw new Horde_Exception_PermissionDenied(_("Access denied creating new galleries."));
         }
@@ -483,7 +483,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
         } else {
             $imageList = $gallery->listImages();
@@ -691,7 +691,7 @@ class Ansel_Api extends Horde_Registry_Api
         ensure the caller has at least Horde_Perms::READ on the galleries. */
         $galleries = array();
         foreach ($results as $gallery) {
-            if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                 $galleries[$gallery->id] = array_merge($gallery->data, array('crumbs' => $gallery->getGalleryCrumbData()));
             }
         }
@@ -862,7 +862,7 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
 
-        return $GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(), $perm,
+        return $GLOBALS['ansel_storage']->countGalleries($GLOBALS['registry']->getAuth(), $perm,
             $attributes, $parent,
             $allLevels);
     }

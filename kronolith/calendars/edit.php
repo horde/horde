@@ -14,7 +14,7 @@ Horde_Registry::appInit('kronolith');
 require_once KRONOLITH_BASE . '/lib/Forms/EditCalendar.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
@@ -27,7 +27,7 @@ try {
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }
-if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));

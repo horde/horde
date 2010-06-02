@@ -247,7 +247,7 @@ class Agora {
         /* Thread list, if applicable. */
         if (isset($GLOBALS['forum_id'])) {
             $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('threads.php')), _("_Threads"), 'threads.png', Horde_Themes::img());
-            if ($scope == 'agora' && Horde_Auth::getAuth()) {
+            if ($scope == 'agora' && $GLOBALS['registry']->getAuth()) {
                 $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('messages/edit.php')), _("New Thread"), 'newmessage.png', Horde_Themes::img());
             }
         }

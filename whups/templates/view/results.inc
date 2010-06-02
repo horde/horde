@@ -80,7 +80,7 @@ function doResort(column, sortDown)
 ?>
 </tbody>
 </table>
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
 <table width="100%" cellspacing="0">
  <tr>
   <td class="smallheader nowrap">

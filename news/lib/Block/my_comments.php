@@ -55,7 +55,7 @@ class Horde_Block_news_my_comments extends Horde_Block {
 
         try {
             $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
-                                        array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
+                                        array($GLOBALS['registry']->getAuth(), 'message_timestamp', 1, false,
                                                 'news', 0, $this->_params['limit']));
         } catch (Horde_Exception $e) {
             return $e->getMessage();

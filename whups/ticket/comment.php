@@ -25,7 +25,7 @@ if ($tid = $vars->get('transaction')) {
         $private = false;
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:comments:' . $change['value'], Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:comments:' . $change['value'], $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                     $private = true;
                     break;
                 }

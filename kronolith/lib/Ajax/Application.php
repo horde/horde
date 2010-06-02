@@ -486,7 +486,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
-        $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
+        $tags = $tagger->getCloud($GLOBALS['registry']->getAuth(), 10);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }
@@ -535,7 +535,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
             // Create a calendar.
             if (!$calendar_id) {
-                if (!Horde_Auth::getAuth() ||
+                if (!$GLOBALS['registry']->getAuth() ||
                     $GLOBALS['prefs']->isLocked('default_share')) {
                     return $result;
                 }
@@ -582,7 +582,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
             // Create a task list.
             if (!$calendar_id) {
-                if (!Horde_Auth::getAuth() ||
+                if (!$GLOBALS['registry']->getAuth() ||
                     $GLOBALS['prefs']->isLocked('default_share')) {
                     return $result;
                 }
@@ -724,7 +724,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             'bg' => Kronolith::backgroundColor($calendar),
             'show' => false,
             'perms' => $calendar->getPermission()->data,
-            'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+            'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
             'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
         return $result;
     }

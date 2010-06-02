@@ -94,7 +94,7 @@ class Whups_Api extends Horde_Registry_Api
     {
         global $whups_driver;
 
-        $info = array('owner' => 'user:' . Horde_Auth::getAuth(), 'nores' => true);
+        $info = array('owner' => 'user:' . $GLOBALS['registry']->getAuth(), 'nores' => true);
         $tickets = $whups_driver->getTicketsByProperties($info);
         if (is_a($tickets, 'PEAR_Error')) {
             return $tickets;
@@ -115,7 +115,7 @@ class Whups_Api extends Horde_Registry_Api
     {
         global $whups_driver;
 
-        $info = array('requester' => Horde_Auth::getAuth(), 'nores' => true);
+        $info = array('requester' => $GLOBALS['registry']->getAuth(), 'nores' => true);
         $tickets = $whups_driver->getTicketsByProperties($info);
         if (is_a($tickets, 'PEAR_Error')) {
             return $tickets;
@@ -177,7 +177,7 @@ class Whups_Api extends Horde_Registry_Api
         $form3->getInfo($vars, $info);
 
         // More checks if we're assigning the ticket at create-time.
-        if (Horde_Auth::getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
+        if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
             $form4 = new CreateStep4Form($vars);
         }
         if (Auth::getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
@@ -190,7 +190,7 @@ class Whups_Api extends Horde_Registry_Api
             $form4->getInfo($vars, $info);
         }
 
-        $ticket = Whups_Ticket::newTicket($info, Horde_Auth::getAuth());
+        $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
         if (is_a($ticket, 'PEAR_Error')) {
             return $ticket;
         } else {
@@ -221,7 +221,7 @@ class Whups_Api extends Horde_Registry_Api
         }
 
         // Check that we have permission to update the ticket
-        if (!Horde_Auth::getAuth() ||
+        if (!$GLOBALS['registry']->getAuth() ||
             !Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
             return PEAR::raiseError(_('You do not have permission to update this ticket.'));
         }
@@ -422,7 +422,7 @@ class Whups_Api extends Horde_Registry_Api
         switch ($type) {
         case 'taskHash':
             global $whups_driver;
-            $info = array('owner' => 'user:' . Horde_Auth::getAuth(),
+            $info = array('owner' => 'user:' . $GLOBALS['registry']->getAuth(),
                           'nores' => true);
             $tickets = $whups_driver->getTicketsByProperties($info);
             if (is_a($tickets, 'PEAR_Error')) {
@@ -630,7 +630,7 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array();
         if (!empty($criteria['user'])) {
-            $info['owner'] = 'user:' . Horde_Auth::getAuth();
+            $info['owner'] = 'user:' . $GLOBALS['registry']->getAuth();
         }
         if (!empty($criteria['active'])) {
             $info['nores'] = true;
@@ -702,7 +702,7 @@ class Whups_Api extends Horde_Registry_Api
         $end = new Horde_Date($end);
         $end_ts = $end->timestamp();
 
-        $criteria['owner'] = Whups::getOwnerCriteria(Horde_Auth::getAuth());
+        $criteria['owner'] = Whups::getOwnerCriteria($GLOBALS['registry']->getAuth());
 
         /* @TODO Use $categories */
         $category = 'due';

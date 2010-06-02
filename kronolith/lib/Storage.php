@@ -33,7 +33,7 @@ abstract class Kronolith_Storage
     public static function factory($user = null, $driver = null, $params = null)
     {
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if (is_null($driver)) {

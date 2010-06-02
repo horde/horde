@@ -33,7 +33,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         /* Build the tag widget */
         $html = $this->_htmlBegin();
         $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             Horde::startBuffer();
             /* Attach the Ajax action */
             $imple = Horde_Ajax_Imple::factory(array('ansel', 'TagActions'),
@@ -71,7 +71,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             Ansel_Tags::clearSearch();
         }
 
-        $hasEdit = $this->_view->gallery->hasPermission(Horde_Auth::getAuth(),
+        $hasEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
                                                         Horde_Perms::EDIT);
         $owner = $this->_view->gallery->get('owner');
         $tags = $this->_view->resource->getTags();

@@ -32,7 +32,7 @@ try {
 }
 
 $gallery = $ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("Access denied editing the photo."));
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $image->gallery)));
     exit;
@@ -45,7 +45,7 @@ $y2 = $conf['screen']['width'];
 $name = Horde_Util::getFormData('name');
 
 if ($face_id) {
-    $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
+    $faces = $injector->getInstance('Ansel_Faces');
     try {
         $face = $faces->getFaceById($face_id, true);
         $x1 = $face['face_x1'];

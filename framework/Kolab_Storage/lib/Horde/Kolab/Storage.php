@@ -127,7 +127,7 @@ class Horde_Kolab_Storage
         if (isset($this->_params['owner'])) {
             $this->_owner = $this->_params['owner'];
         } else if (class_exists('Horde_Auth')) {
-            $this->_owner = Horde_Auth::getAuth();
+            $this->_owner = $GLOBALS['registry']->getAuth();
         } else {
             $this->_owner = '';
         }
@@ -410,7 +410,7 @@ class Horde_Kolab_Storage
     {
         // Handle default shares
         if (class_exists('Horde_Auth')
-            && $share == Horde_Auth::getAuth()) {
+            && $share == $GLOBALS['registry']->getAuth()) {
             $result = $this->getDefault($type);
             if (!empty($result)) {
                 return $result->name;

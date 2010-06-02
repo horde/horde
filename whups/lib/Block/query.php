@@ -18,7 +18,7 @@ class Horde_Block_Whups_query extends Horde_Block {
 
         $qManager = new Whups_QueryManager();
         $qDefault = null;
-        $qParams = $qManager->listQueries(Horde_Auth::getAuth());
+        $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());
         if (count($qParams)) {
             $qType = 'enum';
         } else {
@@ -99,7 +99,7 @@ class Horde_Block_Whups_query extends Horde_Block {
         if (is_a($query, 'PEAR_Error')) {
             return false;
         }
-        if (!$query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (!$query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return false;
         }
 

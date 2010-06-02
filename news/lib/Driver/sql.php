@@ -203,7 +203,7 @@ class News_Driver_sql extends News_Driver {
 
         /* Log it */
         $sql = 'INSERT INTO ' . $this->prefix . '_user_reads (id,user,ip,useragent,readdate) VALUES (?, ?, ? , ?, NOW())';
-        $result = $this->write_db->query($sql, array($id, Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']));
+        $result = $this->write_db->query($sql, array($id, $GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']));
         if ($result instanceof PEAR_Error) {
             return $result;
         }

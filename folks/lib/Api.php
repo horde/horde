@@ -225,7 +225,7 @@ class Folks_Api extends Horde_Registry_Api
 
         $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
-        return $friends->isBlacklisted(Horde_Auth::getAuth());
+        return $friends->isBlacklisted($GLOBALS['registry']->getAuth());
     }
 
     /**
@@ -298,8 +298,8 @@ class Folks_Api extends Horde_Registry_Api
     public function logActivity($message, $scope = 'folks', $user = null)
     {
         if (empty($user)) {
-            $user = Horde_Auth::getAuth();
-        } elseif ($user !== Horde_Auth::getAuth() &&
+            $user = $GLOBALS['registry']->getAuth();
+        } elseif ($user !== $GLOBALS['registry']->getAuth() &&
                   !$GLOBALS['registry']->isAdmin(array('permission' => 'admin:' . $scope))) {
             return PEAR::raiseError(_("You cannot log activities for other users."));
         }
@@ -337,7 +337,7 @@ class Folks_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if ($online) {
@@ -361,7 +361,7 @@ class Folks_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         return $GLOBALS['folks_driver']->isOnline($user);

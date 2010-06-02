@@ -37,7 +37,7 @@ class Mnemo_Driver_kolab extends Mnemo_Driver {
     function Mnemo_Driver_kolab($notepad, $params = array())
     {
         if (empty($notepad)) {
-            $notepad = Horde_Auth::getAuth();
+            $notepad = $GLOBALS['registry']->getAuth();
         }
 
         $this->_notepad = $notepad;
@@ -514,7 +514,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
         if (count($split) == 2) {
             list($id, $notepad) = $split;
         } else if (count($split) == 1) {
-            $notepad = Horde_Auth::getAuth();
+            $notepad = $GLOBALS['registry']->getAuth();
         }
         return array($id, $notepad);
     }
@@ -530,7 +530,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
      */
     function _uniqueId($id)
     {
-        if ($this->_notepad == Horde_Auth::getAuth()) {
+        if ($this->_notepad == $GLOBALS['registry']->getAuth()) {
             return $id;
         }
         return $id . '@' . $this->_notepad;

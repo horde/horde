@@ -77,7 +77,7 @@ $form->setButtons(_("Send"));
 $form->addHidden('', 'channel_id', 'int', false);
 $form->addHidden('', 'story_id', 'int', false);
 $v = &$form->addVariable(_("From"), 'from', 'email', true, false);
-if (Horde_Auth::getAuth()) {
+if ($GLOBALS['registry']->getAuth()) {
     $v->setDefault($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getValue('from_addr'));
 }
 $form->addVariable(_("To"), 'recipients', 'email', true, false, _("Separate multiple email addresses with commas."), true);

@@ -273,7 +273,7 @@ class Folks_Driver {
 
             // Update profile
             if ($GLOBALS['registry']->isAuthenticated()) {
-                $this->_saveProfile(array('last_online_on' => $_SERVER['REQUEST_TIME']), Horde_Auth::getAuth());
+                $this->_saveProfile(array('last_online_on' => $_SERVER['REQUEST_TIME']), $GLOBALS['registry']->getAuth());
             }
         }
 
@@ -302,7 +302,7 @@ class Folks_Driver {
         static $profiles;
 
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if (empty($user)) {
@@ -386,7 +386,7 @@ class Folks_Driver {
     public function changePassword($password, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $password = hash('md5', $password);
@@ -403,7 +403,7 @@ class Folks_Driver {
     public function saveProfile($data, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $GLOBALS['cache']->expire('folksProfile' . $user);
@@ -465,7 +465,7 @@ class Folks_Driver {
         // Delete groups
         if ($GLOBALS['conf']['friends']) {
             $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
-            $groups = $shares->listShares(Horde_Auth::getAuth(), Horde_Perms::SHOW, true);
+            $groups = $shares->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, true);
             foreach ($groups as $share) {
                 $result = $shares->removeShare($share);
                 if ($result instanceof PEAR_Error) {
@@ -500,7 +500,7 @@ class Folks_Driver {
     public function getAttributes($user = null, $group = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $attributes = $GLOBALS['cache']->get('folksUserAttributes' . $user, $GLOBALS['conf']['cache']['default_lifetime']);
@@ -527,7 +527,7 @@ class Folks_Driver {
     public function saveAttributes($data, $group, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $GLOBALS['cache']->expire('folksAttributes' . $user);
@@ -602,7 +602,7 @@ class Folks_Driver {
     */
     public function saveSearch($criteria, $name)
     {
-        $GLOBALS['cache']->expire('folksearch' . Horde_Auth::getAuth());
+        $GLOBALS['cache']->expire('folksearch' . $GLOBALS['registry']->getAuth());
 
         return $this->_saveSearch($criteria, $name);
     }
@@ -614,7 +614,7 @@ class Folks_Driver {
     */
     public function getSavedSearch()
     {
-        $search = $GLOBALS['cache']->get('folksearch' . Horde_Auth::getAuth(), $GLOBALS['conf']['cache']['default_lifetime']);
+        $search = $GLOBALS['cache']->get('folksearch' . $GLOBALS['registry']->getAuth(), $GLOBALS['conf']['cache']['default_lifetime']);
         if ($search) {
             return unserialize($search);
         }
@@ -624,7 +624,7 @@ class Folks_Driver {
             return $search;
         }
 
-        $GLOBALS['cache']->set('folksearch' . Horde_Auth::getAuth(), serialize($search));
+        $GLOBALS['cache']->set('folksearch' . $GLOBALS['registry']->getAuth(), serialize($search));
 
         return $search;
     }
@@ -653,7 +653,7 @@ class Folks_Driver {
     */
     public function deleteSavedSearch($name)
     {
-        $GLOBALS['cache']->expire('folksearch' . Horde_Auth::getAuth());
+        $GLOBALS['cache']->expire('folksearch' . $GLOBALS['registry']->getAuth());
 
         return $this->_deleteSavedSearch($name);
     }
@@ -670,7 +670,7 @@ class Folks_Driver {
     public function logActivity($message, $scope = 'folks', $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if (empty($message)) {
@@ -738,7 +738,7 @@ class Folks_Driver {
     */
     public function deleteActivity($scope, $date)
     {
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         $GLOBALS['cache']->expire($user . '_activity');
         return $this->_deleteActivity($scope, $date, $user);
     }

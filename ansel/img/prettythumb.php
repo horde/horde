@@ -14,7 +14,7 @@ Horde_Registry::appInit('ansel');
 $style = Horde_Util::getFormData('style');
 $image = $ansel_storage->getImage(Horde_Util::getFormData('image'));
 $gallery = $ansel_storage->getGallery(abs($image->gallery));
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }
 
@@ -27,7 +27,7 @@ if ($conf['vfs']['src'] == 'sendfile') {
         Horde::logMessage($e, 'ERR');
         exit;
     }
-    $filename = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
+    $filename = $injector->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
     header('Content-Type: ' . $image->getType('prettythumb'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);

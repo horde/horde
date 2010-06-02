@@ -174,7 +174,7 @@ class Horde_Kolab_Storage_Data
 
             $pos = strpos($this->_folder->name, $search_prefix);
             if ($pos !== false && $pos == 0) {
-                $key = 'user/' . Horde_Auth::getBareAuth() . '/'
+                $key = 'user/' . $GLOBALS['registry']->getAuth('bare') . '/'
                            . substr($this->_folder->name,
                                     strlen($search_prefix))
                            . $this->_type_key;

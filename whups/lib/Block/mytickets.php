@@ -32,7 +32,7 @@ class Horde_Block_Whups_mytickets extends Horde_Block {
         global $whups_driver, $prefs;
 
         $queue_ids = array_keys(Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ));
-        $info = array('owner' => Whups::getOwnerCriteria(Horde_Auth::getAuth()),
+        $info = array('owner' => Whups::getOwnerCriteria($GLOBALS['registry']->getAuth()),
                       'nores' => true,
                       'queue' => $queue_ids);
         $assigned = $whups_driver->getTicketsByProperties($info);

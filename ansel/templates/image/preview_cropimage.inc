@@ -16,11 +16,11 @@ $image_url = $base_url->copy()->add(array(
 ?>
 <div class="control anselActions" style="text-align:center;">
 <?php
-if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     echo $save_url->link(array('title' => _("Save Change")))
              . Horde::img('save.png') . ' ' . _("Save Change") . '</a> ';
 }
-if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     echo $edit_url->link(array('title' => _("Cancel Change")))
              . Horde::img('delete.png') . ' ' . _("Cancel Change") . '</a>';
 }

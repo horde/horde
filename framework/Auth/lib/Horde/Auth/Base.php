@@ -238,7 +238,7 @@ abstract class Horde_Auth_Base
     public function transparent()
     {
         $userId = empty($this->_credentials['userId'])
-            ? Horde_Auth::getAuth()
+            ? $GLOBALS['registry']->getAuth()
             : $this->_credentials['userId'];
         $credentials = empty($this->_credentials['credentials'])
             ? Horde_Auth::getCredential()

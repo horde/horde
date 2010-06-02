@@ -52,7 +52,7 @@ case 'addchild':
         exit;
     }
 
-    if (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied adding a gallery to \"%s\"."),
                             $parent->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
@@ -80,8 +80,8 @@ case 'addchild':
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     $gallery = $ansel_storage->getGallery($galleryId);
-    if (!Horde_Auth::getAuth() ||
-        !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    if (!$registry->getAuth() ||
+        !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
         $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
@@ -122,7 +122,7 @@ case 'save':
     // Check general permissions.
     if (!$registry->isAdmin() &&
         ($injector->getInstance('Horde_Perms')->exists('ansel') &&
-         !$injector->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
+         !$injector->getInstance('Horde_Perms')->hasPermission('ansel', $registry->getAuth(), Horde_Perms::EDIT))) {
         $notification->push(_("Access denied editing galleries."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
@@ -159,7 +159,7 @@ case 'save':
 
         // Modifying an existing gallery.
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $notification->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
             // Don't allow the display name to be nulled out.
@@ -175,8 +175,8 @@ case 'save':
             $gallery->set('age', $gallery_age);
             $gallery->set('download', $gallery_download);
             $gallery->set('view_mode', $gallery_mode);
-            if (Horde_Auth::getAuth() &&
-                $gallery->get('owner') == Horde_Auth::getAuth()) {
+            if ($registry->getAuth() &&
+                $gallery->get('owner') == $registry->getAuth()) {
                 $gallery->set('passwd', $gallery_passwd);
             }
 
@@ -218,7 +218,7 @@ case 'save':
                 header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
                 exit;
             }
-            if (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            if (!$parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                 $notification->push(sprintf(
                     _("You do not have permission to add children to %s."),
                     $parent->get('name')), 'horde.error');

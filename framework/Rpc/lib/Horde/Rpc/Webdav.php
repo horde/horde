@@ -709,7 +709,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
+            $lockid = $locks->setLock($GLOBALS['registry']->getAuth(), 'webdav', $params['path'],
                                       $timeout, $locktype);
         } catch (Horde_Lock_Exception $e) {
             Horde::logMessage($e, 'ERR');
@@ -721,7 +721,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         $params['locktoken'] = $lockid;
-        $params['owner'] = Horde_Auth::getAuth();
+        $params['owner'] = $GLOBALS['registry']->getAuth();
         $params['timeout'] = $timeout;
 
         return "200";

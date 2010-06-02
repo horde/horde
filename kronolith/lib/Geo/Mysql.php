@@ -28,7 +28,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         /* First make sure it doesn't already exist */
         $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-            Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
             Horde::logMessage($count, 'ERR');
@@ -51,7 +51,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
             $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText(\'POINT(%F %F)\'))', $point['lat'], $point['lon']);
         }
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-            Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
@@ -71,7 +71,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
     {
         $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
-            Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
@@ -108,7 +108,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
                . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
 
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::search(): user = "%s"; query = "%s"; values = "%s"',
-            Horde_Auth::getAuth(), $sql, print_r($params, true)), 'DEBUG');
+            $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
 
         $results = $this->_db->getAssoc($sql, false, $params, DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {

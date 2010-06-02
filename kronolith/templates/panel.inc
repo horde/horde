@@ -13,7 +13,7 @@ Horde::addScriptFile('calendar-panel.js', 'kronolith');
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'));
 
-$current_user = Horde_Auth::getAuth();
+$current_user = $GLOBALS['registry']->getAuth();
 $my_calendars = array();
 $shared_calendars = array();
 foreach (Kronolith::listCalendars() as $id => $cal) {
@@ -49,7 +49,7 @@ $tagger = Kronolith::getTagger();
  <a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
  <a id="sbarHide" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
  <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-   <a id="sbarClose" href="<?php echo Horde::selfUrl(true)->add('display_cal', '') ?>"><?php echo Horde_Auth::getAuth() ? _("Return to my calendars") : _("Return to calendars") ?></a>
+   <a id="sbarClose" href="<?php echo Horde::selfUrl(true)->add('display_cal', '') ?>"><?php echo $GLOBALS['registry']->getAuth() ? _("Return to my calendars") : _("Return to calendars") ?></a>
  <?php endif; ?>
 <div id="pageControlsInner">
 <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
@@ -65,7 +65,7 @@ $tagger = Kronolith::getTagger();
   <input id="calendarSearch" type="text" for="mycalendars,sharedcalendars,remotecalendars,externalcalendars" />
  </p>
 
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('calendars/') ?>"><?php echo _("[Manage Calendars]") ?></a><br />
   <a href="<?php echo Horde::applicationUrl('resources/')?>"><?php echo ($GLOBALS['registry']->isAdmin() ? _("[Manage Resource Calendars]") : _("[Resource Calendars]"))?></a>
@@ -87,7 +87,7 @@ $tagger = Kronolith::getTagger();
          <li class="panel-tags">
 <?php
 echo htmlspecialchars($tag);
-if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
         . Horde::img('delete-small.png', _("Remove Tag"))
         . '</a>';

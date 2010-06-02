@@ -546,7 +546,7 @@ class IMP_Hooks
 //    {
 //        // Example #1: Create e-mail for DSPAM setup.
 //        $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
-//        return $prefix . Horde_Auth::getBareAuth() . '@example.com';
+//        return $prefix . $GLOBALS['registry']->getAuth('bare') . '@example.com';
 //    }
 
 

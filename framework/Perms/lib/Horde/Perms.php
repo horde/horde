@@ -338,7 +338,7 @@ class Horde_Perms
         }
 
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         // If this is a guest user, only check guest permissions.

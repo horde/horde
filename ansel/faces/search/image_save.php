@@ -13,7 +13,7 @@ require_once 'tabs.php';
 
 /* Check if image exists. */
 $tmp = Horde::getTempDir();
-$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+$path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtension();
 
 if (!file_exists($path)) {
     $notification->push(_("You must upload the search photo first"));
@@ -62,7 +62,7 @@ try {
 }
 
 /* Save image. */
-$path = $tmp . '/search_face_thumb_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+$path = $tmp . '/search_face_thumb_' . $registry->getAuth() . Ansel_Faces::getExtension();
 if (!file_put_contents($path, $img->raw())) {
     $notification->push(_("Cannot store search photo"));
     header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
@@ -78,7 +78,7 @@ if (empty($signature)) {
 }
 
 /* Save signature. */
-$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . '.sig';
+$path = $tmp . '/search_face_' . $registry->getAuth() . '.sig';
 if (file_put_contents($path, $signature)) {
     header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
     exit;

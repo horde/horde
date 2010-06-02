@@ -282,7 +282,7 @@ if ($form->validate()) {
 
     if (!empty($allowed_cats) &&
         (in_array($info['category1'], $allowed_cats) || in_array($info['category2'], $allowed_cats))) {
-        $info['editor'] = Horde_Auth::getAuth();
+        $info['editor'] = $GLOBALS['registry']->getAuth();
         $info['status'] = News::CONFIRMED;
     }
 
@@ -348,7 +348,7 @@ if ($form->validate()) {
         $data = array($info['sortorder'],
                       $info['status'],
                       $info['publish'],
-                      Horde_Auth::getAuth(),
+                      $GLOBALS['registry']->getAuth(),
                       $info['editor'],
                       @$info['sourcelink'],
                       isset($info['source']) ? $info['source'] : '',
@@ -527,7 +527,7 @@ if ($form->validate()) {
     }
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id));
     $result = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid, content) VALUES (?, ?, ?, NOW(), ? ,?)',
-                                array($id, $version + 1, $status_version, Horde_Auth::getAuth(), serialize($info['body'])));
+                                array($id, $version + 1, $status_version, $GLOBALS['registry']->getAuth(), serialize($info['body'])));
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
     }

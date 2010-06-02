@@ -40,10 +40,10 @@ case 'edit':
         }
     }
 
-    if (!Horde_Auth::getAuth() ||
+    if (!$GLOBALS['registry']->getAuth() ||
         (isset($share) &&
          !$registry->isAdmin() &&
-         Horde_Auth::getAuth() != $share->get('owner'))) {
+         $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -51,9 +51,9 @@ case 'edit':
 case 'editform':
     try {
         $share = $shares->getShareById(Horde_Util::getFormData('cid'));
-        if (!Horde_Auth::getAuth() ||
+        if (!$GLOBALS['registry']->getAuth() ||
             (!$registry->isAdmin() &&
-             Horde_Auth::getAuth() != $share->get('owner'))) {
+             $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
             exit('permission denied');
         }
         try {
@@ -101,7 +101,7 @@ if ($auth->hasCapability('list') &&
 $groupList = array();
 try {
     $groupList = empty($conf['share']['any_group'])
-        ? $groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        ? $groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
         : $groups->listGroups();
     asort($groupList);
 } catch (Horde_Group_Exception $e) {

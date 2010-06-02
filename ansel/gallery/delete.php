@@ -26,7 +26,7 @@ if ($galleryId) {
     }
     switch ($actionID) {
     case 'delete':
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')), 'horde.error');
         } else {
@@ -44,8 +44,8 @@ if ($galleryId) {
         }
 
         // Clear the OtherGalleries widget cache
-        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+        if ($conf['ansel_cache']['usecache']) {
+            $injector->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
         }
 
         // Return to the default view.
@@ -53,7 +53,7 @@ if ($galleryId) {
         exit;
 
     case 'empty':
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')),
                                 'horde.error');

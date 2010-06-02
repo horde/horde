@@ -88,7 +88,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         /* First make sure it doesn't already exist */
         $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-            Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
             Horde::logMessage($count, 'ERR');
@@ -114,7 +114,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
             $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_id) VALUES(?, ?, ?)';
         }
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-                    Horde_Auth::getAuth(), $sql, print_r($params, true)), 'DEBUG');
+                    $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
         $result = $this->_write_db->query($sql, $params);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
@@ -134,7 +134,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     {
         $sql = 'SELECT event_lat as lat, event_lon as lon FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
-                    Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+                    $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
@@ -157,7 +157,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     {
         $sql = 'DELETE FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::deleteLocation(): user = "%s"; query = "%s"; values = "%s"',
-                    Horde_Auth::getAuth(), $sql, $event_id), 'DEBUG');
+                    $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_write_db->query($sql, array($event_id));
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');

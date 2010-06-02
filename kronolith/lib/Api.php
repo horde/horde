@@ -75,7 +75,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
-                if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+                if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !empty($GLOBALS['conf']['share']['hidden']) &&
                     !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
                     continue;
@@ -127,7 +127,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
-            $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(),
+            $calendars = $GLOBALS['kronolith_shares']->listShares($GLOBALS['registry']->getAuth(),
                                                                   Horde_Perms::SHOW,
                                                                   $parts[0]);
             $results = array();
@@ -146,7 +146,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
                 if (in_array('contenttype', $properties)) {
@@ -894,7 +894,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $event = Kronolith::getDriver()->getByUID($uid);
 
         if (!$event->hasPermission(Horde_Perms::EDIT) ||
-            ($event->private && $event->creator != Horde_Auth::getAuth())) {
+            ($event->private && $event->creator != $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied();
         }
 
@@ -1036,7 +1036,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (empty($event) ||
-            ($event->private && $event->creator != Horde_Auth::getAuth())) {
+            ($event->private && $event->creator != $GLOBALS['registry']->getAuth())) {
             throw new Horde_Exception_PermissionDenied();
         }
 
@@ -1133,7 +1133,7 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        $current_user = Horde_Auth::getAuth();
+        $current_user = $GLOBALS['registry']->getAuth();
         if ((empty($user) || $user != $current_user) && !$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception_PermissionDenied();
         }

@@ -16,7 +16,7 @@ require_once MNEMO_BASE . '/lib/Forms/CreateNotepad.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // create new notepads (default share is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('default_notepad')) {
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_notepad')) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }

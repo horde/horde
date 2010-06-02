@@ -36,7 +36,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
                             'type' => 'checkbox',
                             'default' => true));
 
-        if ($GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+        if ($GLOBALS['ansel_storage']->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
             foreach ($GLOBALS['ansel_storage']->listGalleries() as $gal) {
                 $params['gallery']['values'][$gal->id] = $gal->get('name');
             }
@@ -97,7 +97,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
         $html .= '<noscript>';
         $html .= $viewurl->link(array('title' => sprintf(_("View %s"), $gallery->get('name'))));
         if ($iid = $gallery->getDefaultImage('ansel_default') &&
-            $gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            $gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
 
             $html .= '<img src="' . Ansel::getImageUrl($gallery->getDefaultImage('ansel_default'), 'thumb', true) . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
         } else {
@@ -135,7 +135,7 @@ class Horde_Block_ansel_gallery extends Horde_Block {
 
         if (empty($this->_gallery)) {
             throw new Horde_Exception_NotFound(_("Gallery does not exist."));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) ||
+        } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) ||
                   !$this->_gallery->isOldEnough() || $this->_gallery->hasPasswd()) {
             throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }

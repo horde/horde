@@ -63,7 +63,7 @@ function doPrefsUpdate(column, sortDown)
   <th id="s<?php echo Nag::SORT_CATEGORY ?>"<?php if ($sortby == Nag::SORT_CATEGORY) echo ' class="' . $sortdirclass . '"' ?> width="10%">
    <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("Cat_egory")) ?>&nbsp;
    <?php
-   if (Horde_Auth::getAuth() &&
+   if ($GLOBALS['registry']->getAuth() &&
        (!$GLOBALS['prefs']->isLocked('categories') ||
         !$GLOBALS['prefs']->isLocked('category_colors'))) {
        $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('options', 'horde'), array('group' => 'categories'));

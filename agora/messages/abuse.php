@@ -72,7 +72,7 @@ if ($form->validate()) {
     $mail = new Horde_Mime_Mail(array(
         'subject' => sprintf(_("Message %s reported as abuse"),
                              $message_id),
-        'body' => $url . "\n\n" . Horde_Auth::getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
+        'body' => $url . "\n\n" . $registry->getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
         'to' => $emails,
         'from' => $emails[0],
         'charset' => Horde_Nls::getCharset()));

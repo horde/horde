@@ -33,9 +33,9 @@ class SetQueueStep1Form extends Horde_Form {
         /* Group restrictions. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT)) ||
             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments',
-                                             Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                                             $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $groups = Horde_Group::singleton();
-            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
                     $grouplist[$gid] = $groups->getGroupName($gid, true);

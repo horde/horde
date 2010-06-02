@@ -74,11 +74,11 @@ class Horde_Core_Factory_Identity
             }
 
             $params = array(
-                'user' => is_null($user) ? Horde_Auth::getAuth() : $user,
+                'user' => is_null($user) ? $GLOBALS['registry']->getAuth() : $user,
             );
 
             if (isset($GLOBALS['prefs']) &&
-                ($params['user'] == Horde_Auth::getAuth())) {
+                ($params['user'] == $GLOBALS['registry']->getAuth())) {
                 $params['prefs'] = $GLOBALS['prefs'];
             } else {
                 $params['prefs'] = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], $GLOBALS['registry']->getApp(), $user, '', null, false);

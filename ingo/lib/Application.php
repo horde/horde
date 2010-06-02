@@ -68,12 +68,12 @@ class Ingo_Application extends Horde_Registry_Application
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
             /* If personal share doesn't exist then create it. */
-            $signature = $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth();
+            $signature = $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth();
             if (!$GLOBALS['ingo_shares']->exists($signature)) {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Horde_Auth::getOriginalAuth();
+                    $name = $GLOBALS['registry']->getAuth('original');
                 }
                 $share = $GLOBALS['ingo_shares']->newShare($signature);
                 $share->set('name', $name);
@@ -85,7 +85,7 @@ class Ingo_Application extends Horde_Registry_Application
             $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
             if (empty($_SESSION['ingo']['current_share']) ||
                 empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
-                !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                 $_SESSION['ingo']['current_share'] = $signature;
             }
         } else {
@@ -162,7 +162,7 @@ class Ingo_Application extends Horde_Registry_Application
     public function removeUserData($user)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            ($user != Horde_Auth::getAuth())) {
+            ($user != $GLOBALS['registry']->getAuth())) {
             throw new Horde_Auth_Exception(_("You are not allowed to remove user data."));
         }
 

@@ -86,11 +86,11 @@ class Shout
 
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $superadmin = $perms->hasPermission('shout:superadmin',
-            Horde_Auth::getAuth(), $permmask);
+            $GLOBALS['registry']->getAuth(), $permmask);
 
         while ($numparents >= 0) {
             $tmpuser = $perms->hasPermission($permname,
-                Horde_Auth::getAuth(), $permmask);
+                $GLOBALS['registry']->getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {

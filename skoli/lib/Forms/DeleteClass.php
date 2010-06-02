@@ -46,8 +46,8 @@ class Skoli_DeleteClassForm extends Horde_Form {
             return false;
         }
 
-        if (!Horde_Auth::getAuth() ||
-            $this->_class->get('owner') != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $this->_class->get('owner') != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("Permission denied"));
         }
 

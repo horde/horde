@@ -250,7 +250,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             /* If this application contains neither transparent nor
              * authenticate capabilities, it does not require any
              * authentication if already authenticated to Horde. */
-            return (Horde_Auth::getAuth() &&
+            return ($GLOBALS['registry']->getAuth() &&
                     !$this->hasCapability('authenticate'));
         }
 

@@ -50,7 +50,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             /* Are we requesting the unformatted text? */
             if (!empty($args['action']) && $args['action'] == 'load') {
                 $id = $args['id'];
@@ -68,7 +68,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
             $id = $args['id'];
             $image = $GLOBALS['ansel_storage']->getImage($id);
             $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-            if ($g->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $image->caption = $pref_value;
                 try {
                     $result = $image->save();

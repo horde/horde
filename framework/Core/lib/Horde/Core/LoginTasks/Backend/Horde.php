@@ -39,7 +39,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function isAuthenticated()
     {
-        return (Horde_Auth::getAuth() !== false);
+        return ($GLOBALS['registry']->getAuth() !== false);
     }
 
     /**

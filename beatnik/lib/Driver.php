@@ -65,9 +65,9 @@ class Beatnik_Driver {
         }
 
         if (!$GLOBALS['registry']->isAdmin() &&
-            !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $perms)) {
+            !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $perms)) {
             foreach ($domains as $id => $domain) {
-                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains:' . $domain['zonename'], Horde_Auth::getAuth(), $perms)) {
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains:' . $domain['zonename'], $GLOBALS['registry']->getAuth(), $perms)) {
                     unset($domains[$id]);
                 }
             }

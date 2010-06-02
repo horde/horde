@@ -51,7 +51,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         $query->end = $del_time;
         $query->status = null;
         $query->calendars = array(Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => array_keys($calendars));
-        $query->creator = Horde_Auth::getAuth();
+        $query->creator = $GLOBALS['registry']->getAuth();
 
         /* Perform the search */
         $days = Kronolith::search($query);

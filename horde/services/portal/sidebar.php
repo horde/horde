@@ -35,7 +35,7 @@ function canSee($app, $params, &$hasChildren)
     // the first call.
     if (is_null($isAdmin)) {
         $isAdmin = $registry->isAdmin();
-        $user = Horde_Auth::getAuth();
+        $user = $registry->getAuth();
     }
 
     // Check if the current user has permisson to see this application, and if
@@ -188,7 +188,7 @@ function buildMenu()
         }
     }
 
-    if (Horde_Auth::getAuth()) {
+    if ($registry->getAuth()) {
         $menu['logout'] = array('name' => _("Log out"),
                                 'status' => 'active',
                                 'icon' => (string)Horde_Themes::img('logout.png'),
@@ -207,7 +207,7 @@ function buildMenu()
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-if (!Horde_Auth::getAuth() && !$conf['menu']['always']) {
+if (!$registry->getAuth() && !$conf['menu']['always']) {
     $registry->authenticateFailure();
 }
 

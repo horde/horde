@@ -17,7 +17,7 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
         if (($driver == 'smtp') &&
             $params['auth'] &&
             empty($params['username'])) {
-            $params['username'] = Horde_Auth::getAuth();
+            $params['username'] = $GLOBALS['registry']->getAuth();
             $params['password'] = Horde_Auth::getCredential('password');
         }
 

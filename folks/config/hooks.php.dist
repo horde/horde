@@ -128,7 +128,7 @@ class Folks_Hooks
             return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', Horde_Perms::SHOW, null, true, 0, 3, $user));
 
         case 'blogs':
-            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Horde_Auth::getAuth(), '', 3));
+            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, $GLOBALS['registry']->getAuth(), '', 3));
 
         case 'classifieds':
             return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
@@ -208,7 +208,7 @@ class Folks_Hooks
     public function prelogin($app)
     {
         $group = Horde_Group::singleton();
-        $user_uid = Horde_Auth::getAuth();
+        $user_uid = $GLOBALS['registry']->getAuth();
 
         switch ($app) {
 
@@ -353,7 +353,7 @@ class Folks_Hooks
             return;
         }
 
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         if ($user) {
             return;
         }

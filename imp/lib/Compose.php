@@ -623,7 +623,7 @@ class IMP_Compose
             }
         }
 
-        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
+        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth());
         Horde::logMessage($entry, 'INFO');
 
         /* Should we save this message in the sent mail folder? */
@@ -1641,7 +1641,7 @@ class IMP_Compose
             throw new IMP_Compose_Exception($e);
         }
 
-        Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth()), 'INFO');
+        Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
         /* Store history information. */
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
@@ -2345,7 +2345,7 @@ class IMP_Compose
             throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
         }
 
-        $auth = Horde_Auth::getAuth();
+        $auth = $GLOBALS['registry']->getAuth();
         $baseurl = Horde::applicationUrl('attachment.php', true)->setRaw(true);
 
         try {
@@ -2665,7 +2665,7 @@ class IMP_Compose
             return;
         }
 
-        $filename = hash('md5', Horde_Auth::getAuth());
+        $filename = hash('md5', $GLOBALS['registry']->getAuth());
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();

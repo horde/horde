@@ -15,7 +15,7 @@ require_once 'Horde/Block/Layout/View.php';
 
 // @TODO: remove this when there are blocks useful to guests
 // available.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     require WHUPS_BASE . '/search.php';
     exit;
 }

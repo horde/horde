@@ -61,7 +61,7 @@ case 'export':
     $exportID = Horde_Util::getFormData('exportID');
 
     /* Create a Mnemo storage instance. */
-    $storage = &Mnemo_Driver::singleton(Horde_Auth::getAuth());
+    $storage = &Mnemo_Driver::singleton($GLOBALS['registry']->getAuth());
     $storage->retrieve();
 
     /* Get the full, sorted memo list. */

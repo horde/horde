@@ -114,7 +114,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
             );
         } else {
             $params = array(
-                'user' => Horde_Auth::getAuth(),
+                'user' => $GLOBALS['registry']->getAuth(),
                 'pass' => Horde_Auth::getCredential('password'),
             );
         }

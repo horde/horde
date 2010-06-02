@@ -61,7 +61,7 @@ class Ansel_View_Results extends Ansel_View_Base
              foreach ($images as $image) {
                  $img = $ansel_storage->getImage($image);
                  $gallery = $ansel_storage->getgallery($img->gallery);
-                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+                 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                      $notification->push(
                         sprintf(_("Access denied deleting photos from \"%s\"."), $image), 'horde.error');
                  } else {

@@ -13,7 +13,7 @@
  *                                'contacts.search',
  *                                array(array('jan'), array('localsql'),
  *                                      array('name', 'email')),
- *                                array('user' => Horde_Auth::getAuth(),
+ *                                array('user' => $GLOBALS['registry']->getAuth(),
  *                                      'pass' => Horde_Auth::getCredential('password')));
  * </code>
  *

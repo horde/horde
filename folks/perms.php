@@ -30,8 +30,8 @@ case 'edit':
     }
     if (is_a($share, 'PEAR_Error')) {
         $notification->push($share, 'horde.error');
-    } elseif (!Horde_Auth::getAuth() ||
-              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+    } elseif (!$GLOBALS['registry']->getAuth() ||
+              (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -41,8 +41,8 @@ case 'editform':
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
-        if (!Horde_Auth::getAuth() ||
-            Horde_Auth::getAuth() != $share->get('owner')) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $GLOBALS['registry']->getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();
@@ -51,7 +51,7 @@ case 'editform':
         $old_owner = $share->get('owner');
         $new_owner = $registry->convertUsername(Horde_Util::getFormData('owner', $old_owner), true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !$registry->isAdmin()) {
+            if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
@@ -236,7 +236,7 @@ if ($auth->hasCapability('list')) {
 $groupList = array();
 try {
     $groupList = empty($conf['share']['any_group'])
-        ? $groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        ? $groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
         : $groups->listGroups();
     asort($groupList);
 } catch (Horde_Group_Exception $e) {

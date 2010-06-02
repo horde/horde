@@ -15,15 +15,15 @@ if (!Horde_Util::getFormData('cancel')) {
         list($calendar_id, $user) = explode(':', $targetcalendar, 2);
     } else {
         $calendar_id = $targetcalendar;
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
     }
     try {
         $share = Kronolith::getInternalCalendar($calendar_id);
-        if ($user != Horde_Auth::getAuth() &&
-            !$share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE, Horde_Auth::getAuth())) {
+        if ($user != $GLOBALS['registry']->getAuth() &&
+            !$share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE, $GLOBALS['registry']->getAuth())) {
             $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
-        } elseif ($user == Horde_Auth::getAuth() &&
-                  !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, Horde_Auth::getAuth())) {
+        } elseif ($user == $GLOBALS['registry']->getAuth() &&
+                  !$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $GLOBALS['registry']->getAuth())) {
             $notification->push(sprintf(_("You do not have permission to add events to %s."), $share->get('name')), 'horde.warning');
         } elseif ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
                   $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents()) {

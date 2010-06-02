@@ -49,8 +49,8 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
             return false;
         }
 
-        if (!Horde_Auth::getAuth() ||
-            $this->_notepad->get('owner') != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $this->_notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("Permission denied"));
         }
 
@@ -72,15 +72,15 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
         // Make sure we still own at least one notepad.
         if (count(Mnemo::listNotepads(true)) == 0) {
             // If the default share doesn't exist then create it.
-            if (!$GLOBALS['mnemo_shares']->exists(Horde_Auth::getAuth())) {
+            if (!$GLOBALS['mnemo_shares']->exists($GLOBALS['registry']->getAuth())) {
 
                 $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Horde_Auth::getAuth();
+                    $name = $GLOBALS['registry']->getAuth();
                 }
                 try {
-                    $notepad = $GLOBALS['mnemo_shares']->newShare(Horde_Auth::getAuth());
+                    $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth());
                 } catch (Horde_Share_Exception $e) {
                     return;
                 }

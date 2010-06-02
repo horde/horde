@@ -83,7 +83,7 @@ function doPrefsUpdate(column, sortDown)
   <th id="s<?php echo SKOLI_SORT_CATEGORY ?>"<?php if ($sortby_class == SKOLI_SORT_CATEGORY) echo ' class="' . $sortdirclass_class . '"' ?> width="10%">
    <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby_class', SKOLI_SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("Category")) ?>&nbsp;
    <?php
-   if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
+   if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {
        $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('options', 'horde'), array('group' => 'categories'));
        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors")) . '</a>';

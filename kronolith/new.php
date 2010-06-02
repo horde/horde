@@ -67,7 +67,7 @@ if (isset($url)) {
 $all_calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
 $calendars = array();
 foreach ($all_calendars as $id => $calendar) {
-    if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+    if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
         !empty($GLOBALS['conf']['share']['hidden']) &&
         !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
         continue;

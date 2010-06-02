@@ -17,7 +17,7 @@ $snooze = Horde_Util::getPost('snooze');
 
 if ($id && $snooze) {
     try {
-        $alarm->snooze($id, Horde_Auth::getAuth(), (int)$snooze);
+        $alarm->snooze($id, $registry->getAuth(), (int)$snooze);
     } catch (Horde_Alarm_Exception $e) {
         header('HTTP/1.0 500 ' . $e->getMessage());
     }

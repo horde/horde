@@ -46,8 +46,8 @@ class Turba_DeleteAddressBookForm extends Horde_Form {
             return false;
         }
 
-        if (!Horde_Auth::getAuth() ||
-            $this->_addressbook->get('owner') != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $this->_addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("You do not have permissions to delete this address book."));
         }
 

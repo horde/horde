@@ -107,7 +107,7 @@ abstract class Horde_History
         $history = $this->getHistory($guid);
 
         if (!isset($attributes['who'])) {
-            $attributes['who'] = Horde_Auth::getAuth();
+            $attributes['who'] = $GLOBALS['registry']->getAuth();
         }
         if (!isset($attributes['ts'])) {
             $attributes['ts'] = time();

@@ -28,7 +28,7 @@ try {
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
     exit;
 }
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
     exit;
@@ -41,7 +41,7 @@ $images = $gallery->getImages($page * $perpage, $perpage);
 $reloadimage = Horde::img('reload.png');
 $customimage = Horde::img('layout.png');
 $customurl = Horde::applicationUrl('faces/custom.php')->add('page', $page);
-$face = $GLOBALS['injector']->getInstance('Ansel_Faces');
+$face = $injector->getInstance('Ansel_Faces');
 $autogenerate = $face->canAutogenerate();
 
 $vars = Horde_Variables::getDefaultVariables();

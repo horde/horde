@@ -46,7 +46,7 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         }
 
         // Bail out if no perms on the image.
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return array('response' => 0);
         }
         switch ($type) {
@@ -64,7 +64,7 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
             // Now get the "add geotag" stuff
             $addurl = Horde::applicationUrl('map_edit.php')->add('image', $img);
             $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
-            $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());
+            $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';
                 foreach ($imgs as $id => $data) {

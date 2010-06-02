@@ -1011,7 +1011,7 @@ class Ansel_Image Implements Iterator
             $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
-                $name = Horde_Auth::getAuth();
+                $name = $GLOBALS['registry']->getAuth();
             }
             $watermark = sprintf(_("(c) %s %s"), date('Y'), $name);
         }
@@ -1122,7 +1122,7 @@ class Ansel_Image Implements Iterator
             return $this->_tags;
         }
         $gallery = $ansel_storage->getGallery($this->gallery);
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return Ansel_Tags::readTags($this->id);
         } else {
             throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
@@ -1142,7 +1142,7 @@ class Ansel_Image Implements Iterator
         global $ansel_storage;
 
         $gallery = $ansel_storage->getGallery(abs($this->gallery));
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
             Ansel_Tags::writeTags($this->id, $tags);

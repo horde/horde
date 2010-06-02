@@ -40,7 +40,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
         } catch (VFS_Exception $e) {
             return false;
         }
-        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Horde_Auth::getAuth();
+        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . $GLOBALS['registry']->getAuth();
 
         /* Make sure cleaning is done recursively. */
         try {

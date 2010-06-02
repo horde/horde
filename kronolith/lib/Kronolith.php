@@ -193,7 +193,7 @@ class Kronolith
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
             'SESSION_ID' => defined('SID') ? SID : '',
 
-            'user' => Horde_Auth::getAuth(),
+            'user' => $GLOBALS['registry']->getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
@@ -246,13 +246,13 @@ class Kronolith
         // Calendars
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+                if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !empty($GLOBALS['conf']['share']['hidden']) &&
                     !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
                     continue;
                 }
-                $owner = Horde_Auth::getAuth() &&
-                    $calendar->get('owner') == Horde_Auth::getAuth();
+                $owner = $GLOBALS['registry']->getAuth() &&
+                    $calendar->get('owner') == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['internal'][$id] = array(
                         'name' => ($owner || !$calendar->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . '] ')
@@ -263,7 +263,7 @@ class Kronolith
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
                         'perms' => $calendar->getPermission()->data,
-                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+                        'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
                         'sub' => $subscriptionCals . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics',
                         'feed' => (string)Kronolith::feedUrl($calendar->getName()),
                         'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
@@ -275,13 +275,13 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !empty($GLOBALS['conf']['share']['hidden']) &&
                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
                     continue;
                 }
-                $owner = Horde_Auth::getAuth() &&
-                    $tasklist->get('owner') == Horde_Auth::getAuth();
+                $owner = $GLOBALS['registry']->getAuth() &&
+                    $tasklist->get('owner') == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
                         'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . '] ')
@@ -292,7 +292,7 @@ class Kronolith
                         'bg' => self::backgroundColor($tasklist),
                         'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
                         'perms' => $tasklist->getPermission()->data,
-                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT),
+                        'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
                         'sub' => $subscriptionTasks . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics');
                 }
             }
@@ -1142,22 +1142,22 @@ class Kronolith
 
         /* If an authenticated user has no calendars visible and their
          * personal calendar doesn't exist, create it. */
-        if (Horde_Auth::getAuth() &&
+        if ($GLOBALS['registry']->getAuth() &&
             !count($GLOBALS['display_calendars']) &&
-            !$GLOBALS['kronolith_shares']->exists(Horde_Auth::getAuth())) {
+            !$GLOBALS['kronolith_shares']->exists($GLOBALS['registry']->getAuth())) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Horde_Auth::getOriginalAuth();
+                $name = $GLOBALS['registry']->getAuth('original');
             }
-            $share = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
+            $share = &$GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth());
             $share->set('name', sprintf(_("%s's Calendar"), $name));
             $GLOBALS['kronolith_shares']->addShare($share);
-            $GLOBALS['all_calendars'][Horde_Auth::getAuth()] = &$share;
+            $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()] = &$share;
 
             /* Make sure the personal calendar is displayed by default. */
-            if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_calendars'])) {
-                $GLOBALS['display_calendars'][] = Horde_Auth::getAuth();
+            if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_calendars'])) {
+                $GLOBALS['display_calendars'][] = $GLOBALS['registry']->getAuth();
             }
 
             /* Calendar auto-sharing with the user's groups */
@@ -1177,11 +1177,11 @@ class Kronolith
 
                 try {
                     $groups = Horde_Group::singleton();
-                    $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                    $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
-                        $perm->addUserPermission(Horde_Auth::getAuth(), Horde_Perms::ALL, false);
+                        $perm->addUserPermission($GLOBALS['registry']->getAuth(), Horde_Perms::ALL, false);
                         foreach ($group_list as $group_id => $group_name) {
                             $perm->addGroupPermission($group_id, $perm_value, false);
                         }
@@ -1444,12 +1444,12 @@ class Kronolith
      */
     public static function listCalendars($owneronly = false, $permission = Horde_Perms::SHOW)
     {
-        if ($owneronly && !Horde_Auth::getAuth()) {
+        if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
 
         try {
-            $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
+            $calendars = $GLOBALS['kronolith_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -1472,9 +1472,9 @@ class Kronolith
         if (isset($calendars[$default_share]) ||
             $prefs->isLocked('default_share')) {
             return $default_share;
-        } elseif (isset($GLOBALS['all_calendars'][Horde_Auth::getAuth()]) &&
-                  $GLOBALS['all_calendars'][Horde_Auth::getAuth()]->hasPermission(Horde_Auth::getAuth(), $permission)) {
-            return Horde_Auth::getAuth();
+        } elseif (isset($GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]) &&
+                  $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+            return $GLOBALS['registry']->getAuth();
         } elseif (count($calendars)) {
             return key($calendars);
         }
@@ -1529,8 +1529,8 @@ class Kronolith
      */
     public static function updateShare(&$calendar, $info)
     {
-        if (!Horde_Auth::getAuth() ||
-            ($calendar->get('owner') != Horde_Auth::getAuth() &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             throw new Kronolith_Exception(_("You are not allowed to change this calendar."));
         }
@@ -1539,7 +1539,7 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
-        $calendar->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
+        $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
 
         try {
             $result = $calendar->save();
@@ -1560,12 +1560,12 @@ class Kronolith
      */
     public static function deleteShare($calendar)
     {
-        if ($calendar->getName() == Horde_Auth::getAuth()) {
+        if ($calendar->getName() == $GLOBALS['registry']->getAuth()) {
             throw new Kronolith_Exception(_("This calendar cannot be deleted."));
         }
 
-        if (!Horde_Auth::getAuth() ||
-            ($calendar->get('owner') != Horde_Auth::getAuth() &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             throw new Kronolith_Exception(_("You are not allowed to delete this calendar."));
         }
@@ -1616,7 +1616,7 @@ class Kronolith
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
         $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !$GLOBALS['registry']->isAdmin()) {
+            if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
                 $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
             } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
                 $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
@@ -2437,7 +2437,7 @@ class Kronolith
                       'df' => $prefs->getValue('date_format'));
 
         if ($prefs->getValue('event_notification_exclude_self') &&
-            $user == Horde_Auth::getAuth()) {
+            $user == $GLOBALS['registry']->getAuth()) {
             return false;
         }
 
@@ -2525,7 +2525,7 @@ class Kronolith
         /* We check for read permissions, because we can always save a copy if
          * we can read the event. */
         if ((!$event->private ||
-             $event->creator == Horde_Auth::getAuth()) &&
+             $event->creator == $GLOBALS['registry']->getAuth()) &&
             $event->hasPermission(Horde_Perms::READ)) {
             $tabs->addTab(
                 $event->hasPermission(Horde_Perms::EDIT) ? _("_Edit") : _("Save As New"),
@@ -2809,7 +2809,7 @@ class Kronolith
 
         /* Check here for guest calendars so that we don't get multiple
          * messages after redirects, etc. */
-        if (!Horde_Auth::getAuth() && !count($GLOBALS['all_calendars'])) {
+        if (!$GLOBALS['registry']->getAuth() && !count($GLOBALS['all_calendars'])) {
             $GLOBALS['notification']->push(_("No calendars are available to guests."));
         }
 

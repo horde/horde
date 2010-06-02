@@ -35,7 +35,7 @@ $actionID = Horde_Util::getFormData('actionID');
 if (!empty($actionID) && $id > 0) {
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id));
     $result  = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid) VALUES (?,?,?,NOW(),?)',
-                                        array($id, $version + 1, $actionID, Horde_Auth::getAuth()));
+                                        array($id, $version + 1, $actionID, $GLOBALS['registry']->getAuth()));
 }
 
 if ($id) {
@@ -142,7 +142,7 @@ case 'renew';
     /* save as future version */
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id)) + 1;
     $result  = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, created, user_uid, content) VALUES (?,?,NOW(),?,?)',
-                                array($id, $version, Horde_Auth::getAuth(), serialize($new_version)));
+                                array($id, $version, $GLOBALS['registry']->getAuth(), serialize($new_version)));
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("renewed")), 'horde.success');
     header('Location: ' . $browse_url);

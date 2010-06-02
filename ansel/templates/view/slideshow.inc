@@ -13,11 +13,11 @@ function stopSlideShow()
 <table width="100%" cellspacing="0">
  <tr class="control">
   <td>
-    <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)): ?>
+    <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)): ?>
         <?php echo Horde::link('#', '', '', '_blank', 'SlideController.pause();' . $this->_urls['prop_popup'], '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
       | <?php echo Horde::link(Horde::applicationUrl($this->_urls['edit']), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") ?></a>
     <?php endif; ?>
-    <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)): ?>
+    <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
       | <?php echo Horde::link($this->_urls['delete'], '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete \"%s\"?"), $this->resource->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") ?></a>
     <?php endif; ?>
   </td>

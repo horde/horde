@@ -504,7 +504,7 @@ class Nag_Driver_Sql extends Nag_Driver {
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('SQL alarms list by %s: table = %s; query = "%s"',
-                                  Horde_Auth::getAuth(), $this->_params['table'], $q), 'DEBUG');
+                                  $GLOBALS['registry']->getAuth(), $this->_params['table'], $q), 'DEBUG');
 
         /* Run the query. */
         $result = $this->_db->query($q, $values);

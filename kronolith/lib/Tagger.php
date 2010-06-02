@@ -182,7 +182,7 @@ class Kronolith_Tagger
                 $calendars = $GLOBALS['kronolith_shares']->listSystemShares();
                 $args['calendarId'] = array();
                 foreach ($calendars as $name => $share) {
-                    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                         $args['calendarId'][] = $name;
                     }
                 }
@@ -233,7 +233,7 @@ class Kronolith_Tagger
     public function listTags($token)
     {
         return $GLOBALS['injector']->getInstance('Content_Tagger')->getTags(
-                array('q' => $token, 'userId' => Horde_Auth::getAuth()));
+                array('q' => $token, 'userId' => $GLOBALS['registry']->getAuth()));
     }
 
     /**

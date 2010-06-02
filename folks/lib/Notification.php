@@ -51,7 +51,7 @@ class Folks_Notification {
 
         if (empty($user)) {
             if ($GLOBALS['registry']->isAuthenticated()) {
-                $user = Horde_Auth::getAuth();
+                $user = $GLOBALS['registry']->getAuth();
             } else {
                 return true;
             }
@@ -93,7 +93,7 @@ class Folks_Notification {
 
         if (empty($user)) {
             if ($GLOBALS['registry']->isAuthenticated()) {
-                $user = Horde_Auth::getAuth();
+                $user = $GLOBALS['registry']->getAuth();
             } else {
                 return true;
             }

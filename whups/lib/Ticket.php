@@ -248,7 +248,7 @@ class Whups_Ticket {
         }
 
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         $author_email = isset($this->_changes['comment-email']['to'])
             ? $this->_changes['comment-email']['to']
@@ -729,7 +729,7 @@ class Whups_Ticket {
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
         $name = $identity->getValue('fullname');
         if (empty($name)) {
-            $name = Horde_Auth::getBareAuth();
+            $name = $GLOBALS['registry']->getAuth('bare');
         }
 
         /* Get queue specific notification message text, if available. */

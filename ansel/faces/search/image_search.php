@@ -25,7 +25,7 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
     }
 } else {
     $tmp = Horde::getTempDir();
-    $path = $tmp . '/search_face_' . Horde_Auth::getAuth() . '.sig';
+    $path = $tmp . '/search_face_' . $registry->getAuth() . '.sig';
     if (file_exists($path) !== true) {
         $notification->push(_("You must upload the search photo first"));
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));

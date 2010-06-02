@@ -96,7 +96,7 @@ class Pastie_Driver_Sql extends Pastie_Driver
                       $title,
                       $syntax,
                       $paste,
-                      Horde_Auth::getAuth(),
+                      $GLOBALS['registry']->getAuth(),
                       time()
         );
 

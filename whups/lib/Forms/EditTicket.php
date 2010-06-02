@@ -99,7 +99,7 @@ class EditTicketForm extends Horde_Form {
                         if ($GLOBALS['conf']['prefs']['assign_all_groups']) {
                             $mygroups = $groups->listGroups();
                         } else {
-                            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                         }
 
                         $f_users = array();
@@ -173,7 +173,7 @@ class EditTicketForm extends Horde_Form {
 
                     /* Comment permissions. */
                     $groups = Horde_Group::singleton();
-                    $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                    $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                     if ($mygroups) {
                         foreach (array_keys($mygroups) as $gid) {
                             $grouplist[$gid] = $groups->getGroupName($gid, true);
@@ -209,7 +209,7 @@ class EditTicketForm extends Horde_Form {
 
     function validate(&$vars)
     {
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $this->setError('_auth', _("Permission Denied."));
         }
 

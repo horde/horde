@@ -42,8 +42,8 @@ case 'edit':
         }
     }
 
-    if (!Horde_Auth::getAuth() ||
-        (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+    if (!$GLOBALS['registry']->getAuth() ||
+        (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -57,8 +57,8 @@ case 'editforminherit':
     }
 
     if (!empty($share)) {
-        if (!Horde_Auth::getAuth() ||
-            Horde_Auth::getAuth() != $share->get('owner')) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $GLOBALS['registry']->getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
         $perm = $share->getPermission();
@@ -67,7 +67,7 @@ case 'editforminherit':
         $old_owner = $share->get('owner');
         $new_owner = Horde_Util::getFormData('owner', $old_owner);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !$registry->isAdmin()) {
+            if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);

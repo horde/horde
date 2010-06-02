@@ -348,7 +348,7 @@ abstract class Kronolith_Event
         switch ($name) {
         case 'creator':
             if (empty($this->_creator)) {
-                $this->_creator = Horde_Auth::getAuth();
+                $this->_creator = $GLOBALS['registry']->getAuth();
             }
             // Fall through.
         case 'id':
@@ -407,7 +407,7 @@ abstract class Kronolith_Event
     public function hasPermission($permission, $user = null)
     {
         if ($user === null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         try {
             $share = $this->getShare();
@@ -446,7 +446,7 @@ abstract class Kronolith_Event
             /* Lock the resource and get the response */
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
                 $principle = 'calendar/' . $rcal;
-                $lock[$resource->getId()] = $locks->setLock(Horde_Auth::getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+                $lock[$resource->getId()] = $locks->setLock($GLOBALS['registry']->getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
                 $haveLock = true;
             } else {
                 $haveLock = false;
@@ -558,7 +558,7 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('ORGANIZER',
                               'mailto:' . Kronolith::getUserEmail($this->creator),
                               array('CN' => $name));
-        if (!$this->private || $this->creator == Horde_Auth::getAuth()) {
+        if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
             }
@@ -997,7 +997,7 @@ abstract class Kronolith_Event
 
         /* New event? */
         if ($this->id === null) {
-            $this->creator = Horde_Auth::getAuth();
+            $this->creator = $GLOBALS['registry']->getAuth();
         }
         if ($title = Horde_String::convertCharset($message->getSubject(), 'utf-8', $charset)) {
             $this->title = $title;
@@ -1284,7 +1284,7 @@ abstract class Kronolith_Event
     {
         // See if it's a new event.
         if ($this->id === null) {
-            $this->creator = Horde_Auth::getAuth();
+            $this->creator = $GLOBALS['registry']->getAuth();
         }
         if (!empty($hash['title'])) {
             $this->title = $hash['title'];
@@ -1414,7 +1414,7 @@ abstract class Kronolith_Event
         }
 
         if (empty($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         if (empty($prefs)) {
             $prefs = $GLOBALS['prefs'];
@@ -1745,7 +1745,7 @@ abstract class Kronolith_Event
         }
 
         if ($user === null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $twentyFour = $GLOBALS['prefs']->getValue('twentyFour');
@@ -1869,7 +1869,7 @@ abstract class Kronolith_Event
         if (strpos($targetcalendar, ':')) {
             list(, $this->creator) = explode(':', $targetcalendar, 2);
         } elseif (!isset($this->id)) {
-            $this->creator = Horde_Auth::getAuth();
+            $this->creator = $GLOBALS['registry']->getAuth();
         }
 
         // Basic fields.
@@ -2603,7 +2603,7 @@ abstract class Kronolith_Event
             }
 
             if (!$this->private ||
-                $this->creator == Horde_Auth::getAuth()) {
+                $this->creator == $GLOBALS['registry']->getAuth()) {
                 $link .= $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                           'url' => $from_url))
@@ -2651,10 +2651,10 @@ abstract class Kronolith_Event
     public function getTooltip()
     {
         $tooltip = $this->getTimeRange()
-            . "\n" . sprintf(_("Owner: %s"), ($this->creator == Horde_Auth::getAuth() ?
+            . "\n" . sprintf(_("Owner: %s"), ($this->creator == $GLOBALS['registry']->getAuth() ?
                                               _("Me") : Kronolith::getUserName($this->creator)));
 
-        if (!$this->private || $this->creator == Horde_Auth::getAuth()) {
+        if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if ($this->location) {
                 $tooltip .= "\n" . _("Location") . ': ' . $this->location;
             }

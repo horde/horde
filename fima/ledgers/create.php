@@ -12,7 +12,7 @@ require_once FIMA_BASE . '/lib/Forms/CreateLedger.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // create new task lists (default share is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('active_ledger')) {
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('active_ledger')) {
     header('Location: ' . Horde::applicationUrl('postings.php', true));
     exit;
 }

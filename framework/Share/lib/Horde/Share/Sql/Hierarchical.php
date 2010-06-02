@@ -26,7 +26,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $share = $this->_newShare();
         $share->setShareOb($this);
         //@TODO: inject the Auth object
-        $share->set('owner', Horde_Auth::getAuth());
+        $share->set('owner', $GLOBALS['registry']->getAuth());
 
         return $share;
     }
@@ -310,7 +310,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                $from = 0, $count = 0)
     {
         $sql = 'SELECT DISTINCT(s.share_owner) '
-                . $this->getShareCriteria(Horde_Auth::getAuth(), $perm, null,
+                . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null,
                                            $parent, $allLevels);
 
         if ($count) {
@@ -325,7 +325,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
 
         $owners = array();
         foreach ($allowners as $owner) {
-            if ($this->countShares(Horde_Auth::getAuth(), $perm, $owner, $parent,
+            if ($this->countShares($GLOBALS['registry']->getAuth(), $perm, $owner, $parent,
                                    $allLevels)) {
 
                 $owners[] = $owner;
@@ -350,7 +350,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     public function countOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         $sql = 'SELECT COUNT(DISTINCT(s.share_owner)) '
-               . $this->getShareCriteria(Horde_Auth::getAuth(), $perm, null, $parent,
+               . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null, $parent,
                                           $allLevels);
 
         return $this->_db->queryOne($sql);

@@ -22,7 +22,7 @@ if (!$registry->isAdmin()) {
 $vars = Horde_Variables::getDefaultVariables();
 try {
     $group = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
-    if (!$group->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$group->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to change this resource."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('resources/groups/', true));
         exit;

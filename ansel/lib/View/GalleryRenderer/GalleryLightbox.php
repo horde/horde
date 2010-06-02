@@ -62,10 +62,10 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
 
         /* Don't bother if we are being called from the api */
         if (empty($this->view->api)) {
-            $option_edit = $this->view->gallery->hasPermission(Horde_Auth::getAuth(),
+            $option_edit = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
                                                          Horde_Perms::EDIT);
             $option_select = $option_delete = $this->view->gallery->hasPermission(
-                Horde_Auth::getAuth(), Horde_Perms::DELETE);
+                $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
             $option_move = ($option_delete && $GLOBALS['ansel_storage']->countGalleries(Horde_Perms::EDIT));
             $option_copy = ($option_edit && $GLOBALS['ansel_storage']->countGalleries(Horde_Perms::EDIT));
             /* See if we requested a show_actions change (fallback for non-js) */

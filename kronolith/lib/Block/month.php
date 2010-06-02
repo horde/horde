@@ -20,7 +20,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                                             'default' => '__all'));
         $params['calendar']['values']['__all'] = _("All Visible");
         foreach (Kronolith::listCalendars() as $id => $cal) {
-            if ($cal->get('owner') != Horde_Auth::getAuth() &&
+            if ($cal->get('owner') != $GLOBALS['registry']->getAuth() &&
                 !empty($GLOBALS['conf']['share']['hidden']) &&
                 !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
                 continue;
@@ -86,7 +86,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                     return _(sprintf("There was an error accessing the calendar: %s", $e->getMessage()));
                 }
             }
-            if (!$this->_share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+            if (!$this->_share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                 return _("Permission Denied");
             }
         }

@@ -47,7 +47,7 @@ if ($form->validate()) {
         exit;
     }
 
-    $path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+    $path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtension();
     if (file_put_contents($path, $img->raw())) {
         header('Location: ' . Horde::applicationUrl('faces/search/image_define.php'));
     } else {

@@ -56,7 +56,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
         // We actually ignore the random id string that all horde apps provide
         // as initial name and wait for a set('name', 'xyz') call. But we want
         // to know if we should create a default share.
-        if ($id == Horde_Auth::getAuth()) {
+        if ($id == $GLOBALS['registry']->getAuth()) {
             $this->_data['default'] = true;
         } else {
             $this->_data['default'] = false;

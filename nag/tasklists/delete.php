@@ -12,14 +12,14 @@ Horde_Registry::appInit('nag');
 require_once NAG_BASE . '/lib/Forms/DeleteTaskList.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $tasklist_id = $vars->get('t');
-if ($tasklist_id == Horde_Auth::getAuth()) {
+if ($tasklist_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This task list cannot be deleted."), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
@@ -31,7 +31,7 @@ try {
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
 }
-if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));

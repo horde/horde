@@ -193,7 +193,7 @@ if (is_array($next_step)) {
                                 $row['estimate'], $row['completed'],
                                 $row['category'], $row['alarm'], $row['uid'],
                                 isset($row['parent']) ? $row['parent'] : '',
-                                $row['private'], Horde_Auth::getAuth(),
+                                $row['private'], $GLOBALS['registry']->getAuth(),
                                 $row['assignee']);
         if (is_a($result, 'PEAR_Error')) {
             break;
@@ -223,10 +223,10 @@ if (is_array($next_step)) {
 }
 
 $import_tasklists = $export_tasklists = array();
-if (Horde_Auth::getAuth()) {
+if ($GLOBALS['registry']->getAuth()) {
     $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
     foreach ($tasklists as $id => $tasklist) {
-        if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+        if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
             !empty($GLOBALS['conf']['share']['hidden']) &&
             !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
             continue;
@@ -236,7 +236,7 @@ if (Horde_Auth::getAuth()) {
 }
 $tasklists = Nag::listTasklists(false, Horde_Perms::READ);
 foreach ($tasklists as $id => $tasklist) {
-    if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+    if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
         !empty($GLOBALS['conf']['share']['hidden']) &&
         !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
         continue;

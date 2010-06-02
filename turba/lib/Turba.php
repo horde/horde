@@ -431,7 +431,7 @@ class Turba {
             if (isset($sortedSources[$source])) {
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
-            if (Horde_Auth::getAuth() && empty($defaults[$source])) {
+            if ($GLOBALS['registry']->getAuth() && empty($defaults[$source])) {
                 // User's default share is missing.
                 $driver = Turba_Driver::singleton($source);
                 if (!($driver instanceof PEAR_Error)) {
@@ -441,7 +441,7 @@ class Turba {
                             $sourceKey,
                             array('params' => array('source' => $source,
                                                     'default' => true,
-                                                    'name' => Horde_Auth::getAuth())));
+                                                    'name' => $GLOBALS['registry']->getAuth())));
                     } catch (Horde_Share_Exception $e) {
                         Horde::logMessage($e, 'ERR');
                         continue;
@@ -514,14 +514,14 @@ class Turba {
             // No backends are configured to provide shares
             return array();
         }
-        if ($owneronly && !Horde_Auth::getAuth()) {
+        if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
 
         try {
             $sources = $GLOBALS['turba_shares']->listShares(
-                Horde_Auth::getAuth(), $permission,
-                $owneronly ? Horde_Auth::getAuth() : null);
+                $GLOBALS['registry']->getAuth(), $permission,
+                $owneronly ? $GLOBALS['registry']->getAuth() : null);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -544,7 +544,7 @@ class Turba {
             $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Horde_Auth::getOriginalAuth();
+                $name = $GLOBALS['registry']->getAuth('original');
             }
             $name = sprintf(_("%s's Address Book"), $name);
         } else {

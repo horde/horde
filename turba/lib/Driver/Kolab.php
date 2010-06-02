@@ -168,7 +168,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     function createShare($share_id, $params)
     {
         if (isset($params['params']['default']) && $params['params']['default'] === true) {
-            $share_id = Horde_Auth::getAuth();
+            $share_id = $GLOBALS['registry']->getAuth();
         }
 
         $result = Turba::createShare($share_id, $params);
@@ -277,7 +277,7 @@ class Turba_Driver_Kolab_Wrapper_Old extends Turba_Driver_Kolab_Wrapper {
 
         $contact = array(
             'uid' => $k->getUID(),
-            'owner' => Horde_Auth::getAuth(),
+            'owner' => $GLOBALS['registry']->getAuth(),
             'job-title' => $k->getStr('job-title'),
             'organization' => $k->getStr('organization'),
             'body' => $k->getStr('body'),

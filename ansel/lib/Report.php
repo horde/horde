@@ -99,7 +99,7 @@ class Ansel_Report {
      */
     function getMessage($message)
     {
-        $message .=  "\n\n" . _("Report by user") . ': ' . Horde_Auth::getAuth()
+        $message .=  "\n\n" . _("Report by user") . ': ' . $GLOBALS['registry']->getAuth()
                  . ' (' . $_SERVER['REMOTE_ADDR'] . ')';
 
         return $message;

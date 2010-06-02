@@ -48,7 +48,7 @@ if ($vars->exists('formname')) {
              *                                  $conf['auth']['password_policy']);
              */
             try {
-                $auth->updateUser(Horde_Auth::getAuth(), Horde_Auth::getAuth(), array('password' => $info['password_1']));
+                $auth->updateUser($registry->getAuth(), $registry->getAuth(), array('password' => $info['password_1']));
 
                 $notification->push(_("Password changed successfully."), 'horde.success');
 

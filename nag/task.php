@@ -23,7 +23,7 @@ function _delete($task_id, $tasklist_id)
             } catch (Horde_Share_Exception $e) {
                 throw new Nag_Exception($e);
             }
-            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(_("Access denied deleting task."), 'horde.error');
             } else {
                 $storage = Nag_Driver::singleton($tasklist_id);
@@ -91,19 +91,19 @@ case 'modify_task':
     } catch (Horde_Share_Exception $e) {
         $notification->push(sprintf(_("Access denied editing task: %s"), $e->getMessage()), 'horde.error');
     }
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing task."), 'horde.error');
     } else {
         $task = Nag::getTask($tasklist_id, $task_id);
         if (!isset($task) || !isset($task->id)) {
             $notification->push(_("Task not found."), 'horde.error');
-        } elseif ($task->private && $task->owner != Horde_Auth::getAuth()) {
+        } elseif ($task->private && $task->owner != $GLOBALS['registry']->getAuth()) {
             $notification->push(_("Access denied editing task."), 'horde.error');
         } else {
             $vars = new Horde_Variables($task->toHash());
             $vars->set('actionID', 'save_task');
             $vars->set('old_tasklist', $task->tasklist);
-            $form = new Nag_TaskForm($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE));
+            $form = new Nag_TaskForm($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
             break;
         }
     }
@@ -134,7 +134,7 @@ case 'save_task':
         header('Location: ' . Horde::applicationUrl('list.php', true));
         exit;
     }
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('list.php', true));
         exit;
@@ -159,7 +159,7 @@ case 'save_task':
                                    $info['category']['value'],
                                    $info['alarm'], $info['methods'],
                                    $info['parent'], (int)$info['private'],
-                                   Horde_Auth::getAuth(), $info['assignee'], null,
+                                   $GLOBALS['registry']->getAuth(), $info['assignee'], null,
                                    $info['tasklist_id']);
     } else {
         /* Check permissions. */
@@ -179,7 +179,7 @@ case 'save_task':
                                 $info['category']['value'],
                                 $info['alarm'], $info['methods'], null,
                                 $info['parent'], (int)$info['private'],
-                                Horde_Auth::getAuth(), $info['assignee']);
+                                $GLOBALS['registry']->getAuth(), $info['assignee']);
     }
 
     /* Check our results. */
@@ -206,7 +206,7 @@ case 'complete_task':
     if (isset($task_id)) {
         $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
         $task = Nag::getTask($tasklist_id, $task_id);
-        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $notification->push(sprintf(_("Access denied completing task %s."), $task->name), 'horde.error');
         } else {
             $task->completed = !$task->completed;

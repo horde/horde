@@ -26,7 +26,7 @@ $prefGroups['display'] = array(
 // active ledger
 // Set locked to true if you don't want users to have multiple ledgers.
 $_prefs['active_ledger'] = array(
-    'value' => Horde_Auth::getAuth() ? Horde_Auth::getAuth() : 0
+    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0
     'type' => 'enum',
     'shared' => true
 );

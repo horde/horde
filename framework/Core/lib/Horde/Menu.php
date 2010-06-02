@@ -191,7 +191,7 @@ class Horde_Menu
                 $auth_target = '_parent';
             }
 
-            if (Horde_Auth::getAuth()) {
+            if ($GLOBALS['registry']->getAuth()) {
                 if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
                     ($logout_link = Horde::getServiceLink('logout', $app))) {
                     $this->add($logout_link, _("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
@@ -360,7 +360,7 @@ class Horde_Menu
             return true;
 
         case 'authenticated':
-            return (bool)Horde_Auth::getAuth();
+            return (bool)$GLOBALS['registry']->getAuth();
 
         default:
         case 'never':

@@ -226,7 +226,7 @@ class Ansel_View_Image extends Ansel_View_Base
         $imageIndex = $this->_revList[$this->resource->id];
 
         /* Get comments before any output in sent. */
-        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $registry->hasMethod('forums/doComments')) {
             $hasComments = true;
             if (!empty($this->_params['comment_url'])) {
@@ -362,7 +362,7 @@ class Ansel_View_Image extends Ansel_View_Base
             $this->addWidget(Ansel_Widget::factory('Links', array()));
 
             /* In line caption editing */
-            if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
                                                 array('id' => $this->resource->id,
                                                       'domid' => "Caption",

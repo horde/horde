@@ -333,13 +333,13 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     function _deleteAll($sourceName = null)
     {
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError('permission denied');
         }
 
         /* Get owner id */
         if (empty($sourceName)) {
-            $values = array(Horde_Auth::getAuth());
+            $values = array($GLOBALS['registry']->getAuth());
         } else {
             $values = array($sourceName);
         }

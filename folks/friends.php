@@ -59,7 +59,7 @@ krsort($firendActivities);
 $firendActivities = array_slice($firendActivities, 0, 30);
 
 // Own activities
-$activities = $folks_driver->getActivity(Horde_Auth::getAuth());
+$activities = $folks_driver->getActivity($GLOBALS['registry']->getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
     header('Location: ' . Folks::getUrlFor('list', 'list'));

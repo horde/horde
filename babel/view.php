@@ -343,7 +343,7 @@ if (!$app) {
 	if ($editmode && $cstring == $encstr) {
 
 	    // Lock the current item for 5 minutes
-	    $locks->setLock(Horde_Auth::getAuth(), md5($encstr), $lockscope, 300);
+	    $locks->setLock($GLOBALS['registry']->getAuth(), md5($encstr), $lockscope, 300);
 
 	    echo '<form action="' . Horde::applicationUrl('view.php') . "#" . md5($encstr) . '" method="post" name="edit" id="edit">';
 	    echo '<input type="hidden" name="module" value="' . $app . '">';

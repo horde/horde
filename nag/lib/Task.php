@@ -516,7 +516,7 @@ class Nag_Task {
         }
 
         /* Obscure private tasks. */
-        if ($this->private && $this->owner != Horde_Auth::getAuth()) {
+        if ($this->private && $this->owner != $GLOBALS['registry']->getAuth()) {
             $this->name = _("Private Task");
             $this->desc = '';
             $this->category = _("Private");
@@ -711,8 +711,8 @@ class Nag_Task {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
             }
-            $json->pe = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-            $json->pd = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+            $json->pe = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+            $json->pd = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
         }
 
         return $json;
@@ -733,7 +733,7 @@ class Nag_Task {
         }
 
         if (empty($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         if (empty($prefs)) {
             $prefs = $GLOBALS['prefs'];

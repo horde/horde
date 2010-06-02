@@ -141,7 +141,7 @@ abstract class Ansel_View_Base
         } else {
             $gallery = $GLOBALS['ansel_storage']->getGallery($galleryId);
         }
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }
 

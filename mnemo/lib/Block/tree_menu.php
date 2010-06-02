@@ -29,7 +29,7 @@ class Horde_Block_mnemo_tree_menu extends Horde_Block {
                              'url' => $add));
 
         foreach (Mnemo::listNotepads() as $name => $notepad) {
-	    if ($notepad->get('owner') != Horde_Auth::getAuth() &&
+	    if ($notepad->get('owner') != $GLOBALS['registry']->getAuth() &&
 		!empty($GLOBALS['conf']['share']['hidden']) &&
 		!in_array($notepad->getName(), $GLOBALS['display_notepads'])) {
 		continue;

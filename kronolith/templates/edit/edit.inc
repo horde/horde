@@ -80,7 +80,7 @@
         // Normal view
         foreach ($calendars as $id => $cal) {
             $delegates = array();
-            if ($cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $event->creator)) {
+            if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $event->creator)) {
                 $delegates[$id] = htmlspecialchars($cal->get('name'));
             } else {
                 $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');

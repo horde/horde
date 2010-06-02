@@ -31,7 +31,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
     }
     if ($driver != 'Resource') {
         $share = $kronolith_shares->getShare($event->calendar);
-        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE, $event->creator)) {
+        if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE, $event->creator)) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
         } else {
             $have_perms = true;

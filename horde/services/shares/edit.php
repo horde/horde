@@ -24,7 +24,7 @@ $fieldsList = array(
 );
 
 $app = Horde_Util::getFormData('app');
-$shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope($app);
+$shares = $injector->getInstance('Horde_Share')->getScope($app);
 $groups = Horde_Group::singleton();
 $auth = $injector->getInstance('Horde_Auth')->getOb();
 if ($registry->hasMethod('shareHelp', $app)) {
@@ -54,10 +54,10 @@ case 'edit':
         }
     }
 
-    if (!Horde_Auth::getAuth() ||
+    if (!$registry->getAuth() ||
               (isset($share) &&
                !$registry->isAdmin() &&
-               Horde_Auth::getAuth() != $share->get('owner'))) {
+               $registry->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -70,9 +70,9 @@ case 'editform':
     }
 
     if (!empty($share)) {
-        if (!Horde_Auth::getAuth() ||
+        if (!$registry->getAuth() ||
             (!$registry->isAdmin() &&
-             Horde_Auth::getAuth() != $share->get('owner'))) {
+             $registry->getAuth() != $share->get('owner'))) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();
@@ -82,7 +82,7 @@ case 'editform':
         $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
         $new_owner = $registry->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !$registry->isAdmin()) {
+            if ($old_owner != $registry->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
                 $notification->push(sprintf(_("The user \"%s\" does not exist."), $new_owner_backend), 'horde.error');
@@ -93,7 +93,7 @@ case 'editform':
         }
 
         if ($registry->isAdmin() ||
-            !empty($GLOBALS['conf']['share']['world'])) {
+            !empty($conf['share']['world'])) {
             // Process default permissions.
             if (Horde_Util::getFormData('default_show')) {
                 $perm->addDefaultPermission(Horde_Perms::SHOW, false);
@@ -278,7 +278,7 @@ if ($auth->hasCapability('list') &&
 
 try {
     $groupList = empty($conf['share']['any_group'])
-        ? $groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        ? $groups->getGroupMemberships($registry->getAuth(), true)
         : $groups->listGroups();
     asort($groupList);
 } catch (Horde_Group_Exception $e) {

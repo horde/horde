@@ -95,7 +95,7 @@ class Ansel_Storage
     {
         /* Required values. */
         if (empty($attributes['owner'])) {
-            $attributes['owner'] = Horde_Auth::getAuth();
+            $attributes['owner'] = $GLOBALS['registry']->getAuth();
         }
         if (empty($attributes['name'])) {
             $attributes['name'] = _("Unnamed");
@@ -222,7 +222,7 @@ class Ansel_Storage
 
             if ($perms) {
                 $groups = Horde_Group::singleton();
-                $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                $group_list = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                 if (count($group_list)) {
                     foreach ($group_list as $group_id => $group_name) {
                         $perm->addGroupPermission($group_id, $perms, false);
@@ -691,7 +691,7 @@ class Ansel_Storage
         global $conf, $registry;
 
         /* Need to get comment counts if comments are enabled */
-        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $registry->hasMethod('forums/numMessagesBatch')) {
 
             return $registry->call('forums/numMessagesBatch', array($ids, 'ansel'));
@@ -719,7 +719,7 @@ class Ansel_Storage
 
         if (!count($galleries) && !count($slugs)) {
             $sql = 'SELECT DISTINCT ' . $this->_getImageFields('i') . ' FROM ansel_images i, '
-            . str_replace('WHERE' , ' WHERE i.gallery_id = s.share_id AND (', substr($this->_shares->getShareCriteria(Horde_Auth::getAuth()), 5)) . ')';
+            . str_replace('WHERE' , ' WHERE i.gallery_id = s.share_id AND (', substr($this->_shares->getShareCriteria($GLOBALS['registry']->getAuth()), 5)) . ')';
         } elseif (!count($slugs) && count($galleries)) {
             // Searching by gallery_id
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images '
@@ -921,7 +921,7 @@ class Ansel_Storage
                            $direction = 0)
     {
         try {
-            $shares = $this->_shares->listShares(Horde_Auth::getAuth(), $perm, $attributes,
+            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $perm, $attributes,
                                                  $from, $count, $sort_by, $direction,
                                                  $parent, $allLevels);
 
@@ -967,7 +967,7 @@ class Ansel_Storage
             // image will not be incldued in the output.
             if (!isset($galleries[$gallery_id]['perm'])) {
                 $galleries[$gallery_id]['perm'] =
-                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) &&
+                    ($galleries[$gallery_id]['gallery']->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ) &&
                      $galleries[$gallery_id]['gallery']->isOldEnough() &&
                      !$galleries[$gallery_id]['gallery']->hasPasswd());
             }
@@ -1014,7 +1014,7 @@ class Ansel_Storage
     public function getRandomGallery($perm = Horde_Perms::SHOW, $attributes = null,
                               $parent = null, $allLevels = true)
     {
-        $num_galleries = $this->countGalleries(Horde_Auth::getAuth(), $perm,
+        $num_galleries = $this->countGalleries($GLOBALS['registry']->getAuth(), $perm,
                                                $attributes, $parent,
                                                $allLevels);
         if (!$num_galleries) {

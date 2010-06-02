@@ -1,5 +1,5 @@
 <?php
-$current_user = Horde_Auth::getAuth();
+$current_user = $GLOBALS['registry']->getAuth();
 $my_notepads = array();
 $shared_notepads = array();
 $all_notepads = Mnemo::listNotepads();
@@ -41,7 +41,7 @@ function sbarToggle()
   <input id="notepadSearch" type="text" for="mynotepads,sharednotepads" />
  </p>
 
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('notepads/') ?>"><?php echo _("[Manage Notepads]") ?></a>
  </p>

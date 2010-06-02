@@ -292,7 +292,7 @@ class Folks {
     {
         $img = Horde_Themes::img(null, 'horde');
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(self::getUrlFor('user', Horde_Auth::getAuth()), _("My profile"), 'myaccount.png', $img);
+        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png', $img);
         $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png', $img);
         $menu->add(Horde::applicationUrl('edit/edit.php'), _("Edit profile"), 'edit.png', $img);
         $menu->add(Horde::applicationUrl('services.php'), _("Services"), 'horde.png', $img);

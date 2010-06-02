@@ -29,7 +29,7 @@ class SetTypeStep1Form extends Horde_Form {
 
         /* Group restrictions. */
         $groups = Horde_Group::singleton();
-        $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+        $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
         if ($mygroups) {
             foreach (array_keys($mygroups) as $gid) {
                 $grouplist[$gid] = $groups->getGroupName($gid, true);

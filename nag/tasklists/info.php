@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('nag');
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$registry->getAuth()) {
     exit;
 }
 
@@ -27,7 +27,7 @@ $subscribe_url = Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/'
 $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($tasklist->get('owner'));
 $owner_name = $identity->getValue('fullname');
 if (trim($owner_name) == '') {
-    $owner_name = Horde_Auth::getOriginalAuth();
+    $owner_name = $registry->getAuth('original');
 }
 
 

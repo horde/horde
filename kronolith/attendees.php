@@ -201,12 +201,12 @@ if (!is_array($cal)) {
 if (!$cal) {
     $cal = $prefs->getValue('default_share');
     if (!$cal) {
-        $cal = Horde_Auth::getAuth();
+        $cal = $GLOBALS['registry']->getAuth();
     }
     $cal = array($cal);
 }
 try {
-    $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Horde_Auth::getAuth());
+    $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, $GLOBALS['registry']->getAuth());
     $attendee_view->addRequiredMember($vfb);
 } catch (Exception $e) {
     $notification->push(sprintf(_("Error retrieving your free/busy information: %s"), $e->getMessage()));

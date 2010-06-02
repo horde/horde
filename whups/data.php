@@ -13,7 +13,7 @@ Horde_Registry::appInit('whups');
 
 require WHUPS_BASE . '/config/templates.php';
 
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('search.php', true));
     exit;
 }

@@ -214,7 +214,7 @@ class Nag_Driver
             $uid = $this->generateUID();
         }
         if (is_null($owner)) {
-            $owner = Horde_Auth::getAuth();
+            $owner = $GLOBALS['registry']->getAuth();
         }
 
         $taskId = $this->_add($name, $desc, $start, $due, $priority, $estimate,
@@ -316,7 +316,7 @@ class Nag_Driver
                 throw new Nag_Exception($e);
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied removing task from %s."), $share->get('name')), 'horde.error');
                 return false;
             }
@@ -328,7 +328,7 @@ class Nag_Driver
                 throw new Nag_Exception($e);
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied moving the task to %s."), $share->get('name')), 'horde.error');
             }
 

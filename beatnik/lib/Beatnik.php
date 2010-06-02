@@ -483,10 +483,10 @@ class Beatnik {
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $permmask);
+        $superadmin = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $permmask);
 
         while ($numparents >= 0) {
-            $tmpuser = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($permname, Horde_Auth::getAuth(), $permmask);
+            $tmpuser = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($permname, $GLOBALS['registry']->getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {

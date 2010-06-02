@@ -78,7 +78,7 @@ class Jeta_Applet_jta extends Jeta_Applet
         $params = array(
             'config' => 'jta.conf',
             'plugins' => 'Status,Socket,SSH,Terminal',
-            'SSH.user' => (empty($GLOBALS['conf']['user']['hordeauth']) || ($GLOBALS['conf']['user']['hordeauth'] === 'full')) ? Horde_Auth::getAuth() : Horde_Auth::getBareAuth()
+            'SSH.user' => $GLOBALS['registry']->getAuth((empty($GLOBALS['conf']['user']['hordeauth']) || ($GLOBALS['conf']['user']['hordeauth'] === 'full')) ? null : 'bare');
         );
 
         foreach ($this->_jtaParams as $key => $val) {

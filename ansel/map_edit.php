@@ -24,7 +24,7 @@ if (empty($image_id)) {
 }
 $image = $ansel_storage->getImage($image_id);
 $gallery = $ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     throw new Horde_Exception_PermissionDenied(_("Not Authorized. Details have been logged for the server administrator."));
 }
 
@@ -72,7 +72,7 @@ $gtUrl = $gt->getUrl();
 $loadingImg = Horde::img('loading.gif', _("Loading..."));
 
 /* Obtain other geotagged images to possibly locate this image at */
-$imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());
+$imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
 if (count($imgs) > 0) {
     $other_images = '<div class="ansel_location_sameas">' . _("Click on a thumbnail to locate at the same point.") . '<br />';
     foreach ($imgs as $id => $data) {

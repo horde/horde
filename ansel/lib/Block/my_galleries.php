@@ -30,7 +30,7 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
     {
         return Ansel::getUrlFor('view',
                                 array('groupby' => 'owner',
-                                      'owner' => Horde_Auth::getAuth(),
+                                      'owner' => $GLOBALS['registry']->getAuth(),
                                       'view' => 'List'))->link()
             . _("My Galleries") . '</a>';
     }
@@ -41,7 +41,7 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
         /* Get the top level galleries */
         try {
             $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                Horde_Perms::EDIT, Horde_Auth::getAuth(), null, false, 0,
+                Horde_Perms::EDIT, $GLOBALS['registry']->getAuth(), null, false, 0,
                 empty($this->_params['limit']) ? 0 : $this->_params['limit'],
                 'last_modified', 1);
 

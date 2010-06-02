@@ -303,7 +303,7 @@ class Wicked_Driver {
         }
 
         if (!isset($file['change_author'])) {
-            $file['change_author'] = Horde_Auth::getAuth();
+            $file['change_author'] = $GLOBALS['registry']->getAuth();
         }
 
         $result = $this->_attachFile($file);

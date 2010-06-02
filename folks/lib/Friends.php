@@ -93,7 +93,7 @@ class Folks_Friends {
     static public function singleton($driver = null, $params = null)
     {
         if (empty($params['user'])) {
-            $params['user'] = Horde_Auth::getAuth();
+            $params['user'] = $GLOBALS['registry']->getAuth();
         }
 
         $signature = $driver . ':' . $params['user'];
@@ -112,7 +112,7 @@ class Folks_Friends {
      */
     protected function __construct($params)
     {
-        $this->_user = empty($params['user']) ? Horde_Auth::getAuth() : $params['user'];
+        $this->_user = empty($params['user']) ? $GLOBALS['registry']->getAuth() : $params['user'];
 
         $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }

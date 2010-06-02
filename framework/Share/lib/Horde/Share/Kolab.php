@@ -323,7 +323,7 @@ class Horde_Share_kolab extends Horde_Share
         }
 
         /** Okay, no default folder yet */
-        $share = $this->newShare(Horde_Auth::getAuth());
+        $share = $this->newShare($GLOBALS['registry']->getAuth());
 
         /** The value does not matter here as the share will rewrite it */
         $share->set('name', '');

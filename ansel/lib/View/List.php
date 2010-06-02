@@ -101,7 +101,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $try = $ansel_storage->getGalleries($getThese);
                 $this->_galleryList = array();
                 foreach ($try as $id => $gallery) {
-                    if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+                    if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                         $this->_galleryList[$id] = $gallery;
                     }
                 }
@@ -120,10 +120,10 @@ class Ansel_View_List extends Ansel_View_Base
             }
 
             $this->_numGalleries = $ansel_storage->countGalleries(
-                Horde_Auth::getAuth(), Horde_Perms::SHOW, $filter, null, false);
+                $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $filter, null, false);
 
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {
-                if ($this->_owner && $filter == $this->_owner && $this->_owner == Horde_Auth::getAuth()) {
+                if ($this->_owner && $filter == $this->_owner && $this->_owner == $GLOBALS['registry']->getAuth()) {
                     $notification->push(_("You have no photo galleries, add one!"),
                                         'horde.message');
                     header('Location: ' .Horde::applicationUrl('gallery.php')->add('actionID', 'add'));
@@ -148,7 +148,7 @@ class Ansel_View_List extends Ansel_View_Base
     public function getTitle()
     {
         if ($this->_owner) {
-            if ($this->_owner == Horde_Auth::getAuth() && empty($this->_params['api'])) {
+            if ($this->_owner == $GLOBALS['registry']->getAuth() && empty($this->_params['api'])) {
                 return  _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
                 $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],

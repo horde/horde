@@ -131,7 +131,7 @@ class Ingo_Api extends Horde_Registry_Api
             /* Remove empty lines. */
             $info['addresses'] = preg_replace('/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
             if (empty($addresses)) {
-                $info['addresses'] = Horde_Auth::getAuth();
+                $info['addresses'] = $GLOBALS['registry']->getAuth();
             }
         }
 

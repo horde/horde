@@ -83,8 +83,8 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         $share = $GLOBALS['folks_shares']->getShareById($group);
 
         // Only owners of a group can delete them
-        if (!Horde_Auth::getAuth() ||
-            (Horde_Auth::getAuth() != $share->get('owner') &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($GLOBALS['registry']->getAuth() != $share->get('owner') &&
              !$GLOBALS['registry']->isAdmin(array('permission' => 'folks:admin')))) {
             return PEAR::raiseError("You can rename only your own groups.");
         }
@@ -115,8 +115,8 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         }
 
         // Only owners of a group can delete them
-        if (!Horde_Auth::getAuth() ||
-            (Horde_Auth::getAuth() != $share->get('owner') &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($GLOBALS['registry']->getAuth() != $share->get('owner') &&
              !$GLOBALS['registry']->isAdmin(array('permission' => 'folks:admin')))) {
             return PEAR::raiseError("You can delete only your own groups.");
         }

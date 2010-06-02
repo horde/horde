@@ -5,7 +5,7 @@ $horde_groups = Horde_Group::singleton();
 $groups = array();
 try {
     $groups = empty($GLOBALS['conf']['share']['any_group'])
-        ? $horde_groups->getGroupMemberships(Horde_Auth::getAuth(), true)
+        ? $horde_groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
         : $horde_groups->listGroups();
     asort($groups);
 } catch (Horde_Group_Exception $e) {}

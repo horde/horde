@@ -31,7 +31,7 @@ function preview()
 </div>
 
 <?php
-if (!empty($GLOBALS['conf']['wicked']['captcha']) && !Horde_Auth::getAuth()):
+if (!empty($GLOBALS['conf']['wicked']['captcha']) && !$GLOBALS['registry']->getAuth()):
     require_once 'Text/Figlet.php';
     $figlet = new Text_Figlet();
     $result = $figlet->loadFont($GLOBALS['conf']['wicked']['figlet_font']);

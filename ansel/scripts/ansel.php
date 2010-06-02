@@ -108,7 +108,7 @@ if (!empty($galleryId)) {
         $cli->fatal($error);
     } else {
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $error = sprintf(_("Access denied adding photos to \"%s\"."), $galleryId);
             Horde::logMessage($error, 'WARN');
             $cli->fatal($error);

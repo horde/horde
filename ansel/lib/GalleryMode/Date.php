@@ -408,9 +408,9 @@ class Ansel_GalleryMode_Date
      */
     function moveImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
@@ -537,7 +537,7 @@ class Ansel_GalleryMode_Date
         }
 
         /* Clear any comments */
-        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
             $result = $GLOBALS['registry']->call('forums/deleteForum', array('ansel', $image->id));
@@ -959,7 +959,7 @@ class Ansel_Gallery_Date {
      */
     function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_gallery->getShareOb()->countShares(Horde_Auth::getAuth(), $perm, null, $this, $allLevels);
+        return $this->_gallery->getShareOb()->countShares($GLOBALS['registry']->getAuth(), $perm, null, $this, $allLevels);
     }
 
     /**

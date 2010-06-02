@@ -203,7 +203,7 @@ class Nag_Api extends Horde_Registry_Api
             $tasklists = Nag::listTasklists(false, Horde_Perms::READ);
             $owners = array();
             foreach ($tasklists as $tasklist) {
-                if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+                if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
                     !empty($GLOBALS['conf']['share']['hidden']) &&
                     !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
                     continue;
@@ -265,7 +265,7 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
                 if (in_array('contenttype', $properties)) {
@@ -473,7 +473,7 @@ class Nag_Api extends Horde_Registry_Api
                             unset($uids_remove[$task->uid]);
                         }
                         if ($existing->private &&
-                            $existing->owner != Horde_Auth::getAuth()) {
+                            $existing->owner != $GLOBALS['registry']->getAuth()) {
                             continue;
                         }
                         // Check if our task is newer then the existing - get
@@ -542,7 +542,7 @@ class Nag_Api extends Horde_Registry_Api
                             isset($task->uid) ? $task->uid : null,
                             isset($task->parent_id) ? $task->parent_id : '',
                             !empty($task->private),
-                            Horde_Auth::getAuth(),
+                            $GLOBALS['registry']->getAuth(),
                             isset($task->assignee) ? $task->assignee : null);
                         if (is_a($newTask, 'PEAR_Error')) {
                             $newtask->code = 500;
@@ -825,7 +825,7 @@ class Nag_Api extends Horde_Registry_Api
                                 isset($task->uid) ? $task->uid : null,
                                 isset($task->parent_id) ? $task->parent_id : '',
                                 !empty($task->private),
-                                Horde_Auth::getAuth(),
+                                $GLOBALS['registry']->getAuth(),
                                 isset($task->assignee) ? $task->assignee : null);
                             if (is_a($newTask, 'PEAR_Error')) {
                                 return $newTask;
@@ -859,7 +859,7 @@ class Nag_Api extends Horde_Registry_Api
                         isset($task->uid) ? $task->uid : null,
                         isset($task->parent_id) ? $task->parent_id : '',
                         !empty($task->private),
-                        Horde_Auth::getAuth(),
+                        $GLOBALS['registry']->getAuth(),
                         isset($task->assignee) ? $task->assignee : null);
 
             /* array index 0 is id, 1 is uid */
@@ -898,7 +898,7 @@ class Nag_Api extends Horde_Registry_Api
             isset($task['uid']) ? $task['uid'] : null,
             isset($task['parent_id']) ? $task['parent_id'] : '',
             !empty($task['private']),
-            Horde_Auth::getAuth(),
+            $GLOBALS['registry']->getAuth(),
             isset($task['assignee']) ? $task['assignee'] : null);
     }
 
@@ -1370,7 +1370,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listAlarms($time, $user = null)
     {
-        if ((empty($user) || $user != Horde_Auth::getAuth()) &&
+        if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
             !$GLOBALS['registry']->isAdmin()) {
             return PEAR::raiseError(_("Permission Denied"));
         }

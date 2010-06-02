@@ -1,5 +1,5 @@
 <?php
-if ($group == Horde_Auth::getAuth()) {
+if ($group == $GLOBALS['registry']->getAuth()) {
     $owner_title = _("My Galleries");
     $custom = '';
 } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
@@ -25,7 +25,7 @@ $link = Horde::link(Ansel::getUrlFor('view', array('groupby' => $groupby,
                                                    'owner' => $group,
                                                    'view' => 'List')));
 
-$num_galleries = $ansel_storage->countGalleries(Horde_Auth::getAuth(), Horde_Perms::SHOW,
+$num_galleries = $ansel_storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW,
                                                 $group, null, false);
 if ($num_galleries < 5) {
     $mini_galleries = $ansel_storage->listGalleries(Horde_Perms::SHOW,

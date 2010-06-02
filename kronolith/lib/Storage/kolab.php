@@ -47,7 +47,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage
         }
 
         $http = new HTTP_Request($fb_url, $options);
-        $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+        $http->setBasicAuth($GLOBALS['registry']->getAuth(), Horde_Auth::getCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             throw new Horde_Exception_NotFound();

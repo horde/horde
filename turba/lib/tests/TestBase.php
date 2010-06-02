@@ -251,7 +251,7 @@ class Turba_TestBase extends PHPUnit_Framework_TestCase {
          * state. */
         $_SESSION['__auth'] = array('authenticated' => true,
                                     'userId' => '1');
-        $this->assertEqual('1', Horde_Auth::getAuth());
+        $this->assertEqual('1', $GLOBALS['registry']->getAuth());
     }
 
     /**

@@ -241,15 +241,15 @@ class News_Categories {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin')) ||
-            $perms->hasPermission('news', Horde_Auth::getAuth(), $perm)) {
+            $perms->hasPermission('news', $GLOBALS['registry']->getAuth(), $perm)) {
             return $cats;
         }
 
         foreach ($cats as $key => $value) {
             // user has access?
-            if (!$perms->hasPermission('news:categories', Horde_Auth::getAuth(), $perm)  && // master
-                !$perms->hasPermission('news:categories:' . $key, Horde_Auth::getAuth(), $perm) && // child
-                !$perms->hasPermission('news:categories:' . $this->_nodes[$key]['category_parentid'], Horde_Auth::getAuth(), $perm) // father
+            if (!$perms->hasPermission('news:categories', $GLOBALS['registry']->getAuth(), $perm)  && // master
+                !$perms->hasPermission('news:categories:' . $key, $GLOBALS['registry']->getAuth(), $perm) && // child
+                !$perms->hasPermission('news:categories:' . $this->_nodes[$key]['category_parentid'], $GLOBALS['registry']->getAuth(), $perm) // father
                 ) {
                 unset($cats[$key]);
             }

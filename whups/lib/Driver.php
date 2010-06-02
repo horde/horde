@@ -41,7 +41,7 @@ class Whups_Driver {
                 $attribute_id = (int)substr($name, 10);
                 $ticket->change($name, $value);
                 $this->_setAttributeValue($ticket_id, $attribute_id, $value);
-                $this->updateLog($ticket_id, Horde_Auth::getAuth(), array('attribute' => $attribute_id . ':' . $value));
+                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $value));
             }
         }
     }
@@ -417,7 +417,7 @@ class Whups_Driver {
         $seen_email_addresses = array();
 
         foreach ($recipients as $user) {
-            if ($user == $from && $user == Horde_Auth::getAuth() &&
+            if ($user == $from && $user == $GLOBALS['registry']->getAuth() &&
                 $prefs->getValue('email_others_only')) {
                 continue;
             }
@@ -494,7 +494,7 @@ class Whups_Driver {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
-                                 Horde_Auth::getAuth());
+                                 $GLOBALS['registry']->getAuth());
                 Horde::logMessage($entry, 'INFO');
             } catch (Horde_Mime_Exception $e) {
                 Horde::logMessage($e, 'ERR');

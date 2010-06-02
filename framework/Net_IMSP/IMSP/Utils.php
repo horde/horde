@@ -167,7 +167,7 @@ class Net_IMSP_Utils {
             }
         }
 
-        $shares = &$share_obj->listShares(Horde_Auth::getAuth());
+        $shares = &$share_obj->listShares($GLOBALS['registry']->getAuth());
         // A share for each IMSP adress book we can see.
         foreach ($abooks as $abook_uid) {
             $found = false;
@@ -195,7 +195,7 @@ class Net_IMSP_Utils {
                 if (Net_IMSP_Utils::_isOwner($abook_uid,
                                              $serverInfo['params']['username'],
                                              $params['acl'])) {
-                    $params['owner'] = Horde_Auth::getAuth();
+                    $params['owner'] = $GLOBALS['registry']->getAuth();
                 } else {
                     // TODO: What to do for the owner when it's not current user?
                     //       We'd have to try to match the owner per IMSP
@@ -215,7 +215,7 @@ class Net_IMSP_Utils {
         }
 
         // Now prune any shares that no longer exist on the IMSP server.
-        $existing = $share_obj->listShares(Horde_Auth::getAuth(), Horde_Perms::READ);
+        $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
         foreach ($existing as $key => $share) {
             $temp = unserialize($share->get('params'));
             if (is_array($temp)) {
@@ -296,7 +296,7 @@ class Net_IMSP_Utils {
          if (strpos($acl, 'l') !== false) {
              $hPerms |= Horde_Perms::SHOW;
          }
-        $share->addUserPermission(Horde_Auth::getAuth(), $hPerms);
+        $share->addUserPermission($GLOBALS['registry']->getAuth(), $hPerms);
     }
 
     /**

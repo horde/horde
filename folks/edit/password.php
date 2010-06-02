@@ -150,7 +150,7 @@ do {
     }
 
     // try to chage it
-    $result = $folks_driver->changePassword($info['new'], Horde_Auth::getAuth());
+    $result = $folks_driver->changePassword($info['new'], $GLOBALS['registry']->getAuth());
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
         break;

@@ -19,9 +19,9 @@ $name = Horde_Util::getFormData('name');
 
 $image = &$ansel_storage->getImage($image_id);
 $gallery = &$ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     throw new Horde_Exception('Access denied editing the photo.');
 }
 
-$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
+$faces = $injector->getInstance('Ansel_Faces');
 $result = $faces->setName($face_id, $name);

@@ -60,7 +60,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         // otherwise, make sure the resource owner is the current user
         $perm = empty($owner)
             ? $GLOBALS['registry']->isAdmin()
-            : $owner == Horde_Auth::getAuth();
+            : $owner == $GLOBALS['registry']->getAuth();
 
         if ($perm) {
             $tagger = Kronolith::getTagger();
@@ -102,10 +102,10 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
         if ($type == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($id);
-            $hasEdit = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            $hasEdit = $cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);
-            $hasEdit = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
+            $hasEdit = $event->hasPermission(Horde_Perms::EDIT, $GLOBALS['registry']->getAuth());
         }
 
         foreach ($tags as $tag_id => $tag) {

@@ -91,7 +91,7 @@
 
   <div id="kronolithMenuCalendars">
   <h3 id="kronolithCalendarsFirst">
-    <?php if (Horde_Auth::getAuth() && !$prefs->isLocked('default_share')): ?>
+    <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddinternal" class="kronolithAdd" title="<?php echo _("New Calendar") ?>">+</a>
     <?php endif; ?>
     <span><?php echo _("My Calendars") ?></span>
@@ -102,7 +102,7 @@
 
   <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
   <h3>
-    <?php if (Horde_Auth::getAuth() && !$prefs->isLocked('default_share')): ?>
+    <?php if ($GLOBALS['registry']->getAuth() && !$prefs->isLocked('default_share')): ?>
     <a href="#" id="kronolithAddtasklists" class="kronolithAdd" title="<?php echo _("New Task List") ?>">+</a>
     <?php endif; ?>
     <span><?php echo _("My Task Lists") ?></span>

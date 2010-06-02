@@ -30,7 +30,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
 
     function handle($args, $post)
     {
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $action = $args['action'];
             $image_id = (int)$post['image'];
             $reload = empty($post['reload']) ? 0 : $post['reload'];
@@ -72,7 +72,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 $face_id = (int)$post['face'];
                 $image = $GLOBALS['ansel_storage']->getImage($image_id);
                 $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-                if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('Access denied editing the photo.');
                 }
 
@@ -89,7 +89,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 $name = $post['facename'];
                 $image = &$GLOBALS['ansel_storage']->getImage($image_id);
                 $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
-                if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('You are not allowed to edit this photo');
                 }
 

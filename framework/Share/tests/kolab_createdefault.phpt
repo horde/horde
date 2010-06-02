@@ -22,7 +22,7 @@ class Perms_mock
     function &newPermission($name) {
         $perms = array(
             'users' => array(
-                Horde_Auth::getAuth() => Horde_Perms::SHOW | Horde_Perms::READ |
+                $GLOBALS['registry']->getAuth() => Horde_Perms::SHOW | Horde_Perms::READ |
                 Horde_Perms::EDIT | Horde_Perms::DELETE));
         $result = &new Horde_Perms_Permission($name, $perms);
         return $result;

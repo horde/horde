@@ -32,7 +32,7 @@ $valid4 = $form4->validate($vars) &&
 $valid3 = $form3->validate($vars, true);
 $valid2 = $form2->validate($vars, !$form1->isSubmitted());
 $valid1 = $form1->validate($vars, true);
-$doAssignForm = Horde_Auth::getAuth() &&
+$doAssignForm = $GLOBALS['registry']->getAuth() &&
     $whups_driver->isCategory('assigned', $vars->get('state'));
 
 if ($valid1 && $valid2 && $valid3 &&
@@ -46,7 +46,7 @@ if ($valid1 && $valid2 && $valid3 &&
         $form4->getInfo($vars, $info);
     }
 
-    $ticket = Whups_Ticket::newTicket($info, Horde_Auth::getAuth());
+    $ticket = Whups_Ticket::newTicket($info, $GLOBALS['registry']->getAuth());
     if (is_a($ticket, 'PEAR_Error')) {
         Horde::logMessage($ticket, 'ERR');
         $notification->push(sprintf(_("Adding your ticket failed: %s."),

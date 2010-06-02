@@ -239,7 +239,7 @@ case 'print_attach':
                 $user_identity = $injector->getInstance('IMP_Identity');
                 $headers[] = array(
                     'header' => htmlspecialchars(_("Printed By")),
-                    'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth())
+                    'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth())
                 );
             }
 

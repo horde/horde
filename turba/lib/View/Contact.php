@@ -42,7 +42,7 @@ class Turba_View_Contact {
 
         $vars = new Horde_Variables();
         $form = new Turba_ContactForm($vars, $this->contact);
-        $userId = Horde_Auth::getAuth();
+        $userId = $GLOBALS['registry']->getAuth();
 
         /* Get the contact's history. */
         if ($this->contact->getValue('__uid')) {

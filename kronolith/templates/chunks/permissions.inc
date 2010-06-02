@@ -71,11 +71,11 @@ if (count($groups) > 1) {
           <select name="owner_select">
            <option value=""><?php echo _("Select a new owner:") ?></option>
 <?php foreach ($auth->listUsers() as $user): ?>
-           <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == Horde_Auth::getAuth()) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
+           <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == $GLOBALS['registry']->getAuth()) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
 <?php endforeach; ?>
           </select>
 <?php else: ?>
-          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars(Horde_Auth::getAuth()) ?>" class="kronolithLongField" />
+          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars($GLOBALS['registry']->getAuth()) ?>" class="kronolithLongField" />
 <?php endif; ?>
           </td>
         </tr>
@@ -195,7 +195,7 @@ if (count($groups) > 1) {
           <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]">
             <option value=""><?php echo _("Select a user") ?></option>
             <?php foreach ($auth->listUsers() as $user): ?>
-            <?php if ($user != Horde_Auth::getAuth()): ?>
+            <?php if ($user != $GLOBALS['registry']->getAuth()): ?>
             <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
             <?php endif; ?>
             <?php endforeach; ?>

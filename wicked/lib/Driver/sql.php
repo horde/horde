@@ -568,7 +568,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             return PEAR::raiseError(_("Robots are not allowed to create pages"));
         }
 
-        $author = Horde_Auth::getAuth();
+        $author = $GLOBALS['registry']->getAuth();
         if ($author === false) {
             $author = null;
         }
@@ -691,7 +691,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             $versionchange = 'page_majorversion = page_majorversion + 1, page_minorversion = 0';
         }
 
-        $author = Horde_Auth::getAuth();
+        $author = $GLOBALS['registry']->getAuth();
         if ($author === false) {
             $author = null;
         }

@@ -339,7 +339,7 @@ class Whups {
     function hasPermission($in, $filter, $permission, $user = null)
     {
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if ($permission == 'update' ||
@@ -382,7 +382,7 @@ class Whups {
                     // If the sub-permission doesn't exist, use the queue
                     // permission at an EDIT level and lock out guests.
                     if ($permission != 'requester' &&
-                        Horde_Auth::getAuth() &&
+                        $GLOBALS['registry']->getAuth() &&
                         $perms->hasPermission('whups:queues:' . $in, $user,
                                               Horde_Perms::EDIT)) {
                         return true;
@@ -415,7 +415,7 @@ class Whups {
                                $user = null, $creator = null)
     {
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $admin = $GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => $permission, 'user' => $user));
@@ -504,7 +504,7 @@ class Whups {
     {
         $criteria = array('user:' . $user);
         $groups = Horde_Group::singleton();
-        $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+        $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
         }
@@ -519,7 +519,7 @@ class Whups {
         static $results;
 
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         } elseif (empty($user)) {
             return array('user' => '',
                          'name' => '',
@@ -761,7 +761,7 @@ class Whups {
     {
         $menu = new Horde_Menu();
 
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $menu->add(Horde::applicationUrl('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
         }
         $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);

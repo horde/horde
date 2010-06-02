@@ -167,7 +167,7 @@ class Horde_Hooks
 //    // in production, by virtue of demonstrating all those. :)
 //    public function prefs_hook_theme($username = null)
 //    {
-//        if (Horde_Auth::getAuth() != 'chuck') {
+//        if ($GLOBALS['registry']->getAuth() != 'chuck') {
 //            return 'mozilla';
 //        }
 //
@@ -206,7 +206,7 @@ class Horde_Hooks
 //    {
 //        // Example #1
 //        if (is_null($name)) {
-//            $name = Horde_Auth::getAuth();
+//            $name = $GLOBALS['registry']->getAuth();
 //        }
 //
 //        if (!empty($name)) {
@@ -216,7 +216,7 @@ class Horde_Hooks
 //            // You will probably need to replace cd= with uid=; this syntax
 //            // is for Netware 5.1 nldap.
 //            $cmd  = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
-//                escapeShellCmd(Horde_Auth::getAuth()) .
+//                escapeShellCmd($GLOBALS['registry']->getAuth()) .
 //                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
 //            $mails = `$cmd`;
 //            $mail_array = explode("\n", $mails);
@@ -240,7 +240,7 @@ class Horde_Hooks
 //        $ds = @ldap_connect($ldapServer, $ldapPort);
 //
 //        if (is_null($name)) {
-//            $name = Horde_Auth::getAuth();
+//            $name = $GLOBALS['registry']->getAuth();
 //            if ($name === false) {
 //                return '';
 //            }
@@ -270,7 +270,7 @@ class Horde_Hooks
 //        // Example #1: Set the fullname from the GECOS information in the
 //        // passwd file.
 //        if (is_null($user)) {
-//            $user = Horde_Auth::getBareAuth();
+//            $user = $GLOBALS['registry']->getAuth('bare');
 //            if ($user === false) {
 //                return '';
 //            }
@@ -293,7 +293,7 @@ class Horde_Hooks
 //        $ds = @ldap_connect($ldapServer, $ldapPort);
 //
 //        if (is_null($user)) {
-//            $user = Horde_Auth::getAuth();
+//            $user = $GLOBALS['registry']->getAuth();
 //            if ($user === false) {
 //                return '';
 //            }

@@ -267,7 +267,7 @@ class Jonah_News_sql extends Jonah_News {
             $channel = $this->getChannel($info['channel_id']);
             $permalink = $this->getStoryLink($channel, $info);
             $sql = 'INSERT INTO jonah_stories (story_id, channel_id, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink, story_author) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            $values = array($permalink, Horde_Auth::getAuth());
+            $values = array($permalink, $GLOBALS['registry']->getAuth());
         } else {
             $sql = 'UPDATE jonah_stories SET story_id = ?, channel_id = ?, story_title = ?, story_desc = ?, story_body_type = ?, story_body = ?, story_url = ?, story_published = ?, story_updated = ?, story_read = ? WHERE story_id = ?';
             $values = array((int)$info['story_id']);

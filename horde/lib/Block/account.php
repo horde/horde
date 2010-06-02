@@ -152,7 +152,7 @@ class Accounts_Driver {
      */
     function getUsername()
     {
-        return Horde_String::lower(Horde_Auth::getBareAuth());
+        return Horde_String::lower($GLOBALS['registry']->getAuth('bare'));
     }
 
     /**
@@ -162,7 +162,7 @@ class Accounts_Driver {
      */
     function getRealm()
     {
-        return (string)Horde_Auth::getAuthDomain();
+        return strval($GLOBALS['registry']->getAuth('domain'));
     }
 
     /**
@@ -571,7 +571,7 @@ class Accounts_Driver_ldap extends Accounts_Driver {
      */
     function getUsername()
     {
-        return $this->_params['strip'] ? Horde_Auth::getBareAuth() : Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth($this->_params['strip'] ? 'bare' : null);
     }
 
     /**

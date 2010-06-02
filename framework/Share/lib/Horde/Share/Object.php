@@ -269,7 +269,7 @@ class Horde_Share_Object
                 return false;
             }
             // Try to place the item lock at app:shareid scope.
-            return $locks->setLock(Horde_Auth::getAuth(), $itemscope, $item_uid,
+            return $locks->setLock($GLOBALS['registry']->getAuth(), $itemscope, $item_uid,
                                    $timeout, $locktype);
         } else {
             // Share lock requested. Check for locked items.
@@ -283,7 +283,7 @@ class Horde_Share_Object
                 return false;
             }
             // Try to place the share lock
-            return $locks->setLock(Horde_Auth::getAuth(), $this->_shareOb->getApp(),
+            return $locks->setLock($GLOBALS['registry']->getAuth(), $this->_shareOb->getApp(),
                                    $shareid, $timeout, $locktype);
         }
     }

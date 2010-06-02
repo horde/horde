@@ -733,7 +733,7 @@ if ($redirect) {
         'mailbox' => htmlspecialchars(IMP::$mailbox),
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
-        'user' => Horde_Auth::getAuth()
+        'user' => $registry->getAuth()
     );
 
     if ($_SESSION['imp']['file_upload']) {
@@ -953,7 +953,7 @@ if ($redirect) {
     if ($_SESSION['imp']['file_upload']) {
         $localeinfo = Horde_Nls::getLocaleInfo();
         try {
-            $t->set('selectlistlink', $GLOBALS['registry']->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
+            $t->set('selectlistlink', $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
         } catch (Horde_Exception $e) {
             $t->set('selectlistlink', null);
         }

@@ -19,7 +19,7 @@ class Ansel_Form_Ecard extends Horde_Form {
         $this->addHidden('', 'image', 'text', false);
         $this->addHidden('', 'image_desc', 'text', false);
 
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         if (empty($user)) {
             $this->addVariable(_("Use the following return address:"), 'ecard_retaddr', 'text', true);
         } else {

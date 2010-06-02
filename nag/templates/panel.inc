@@ -4,7 +4,7 @@ Horde::addScriptFile('redbox.js', 'horde');
 
 $info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));
 
-$current_user = Horde_Auth::getAuth();
+$current_user = $GLOBALS['registry']->getAuth();
 $my_tasklists = array();
 $shared_tasklists = array();
 foreach (Nag::listTasklists() as $id => $tl) {
@@ -66,7 +66,7 @@ document.observe('dom:loaded', function() {
   <input id="tasklistSearch" type="text" for="mytasklists,sharedtasklists" />
  </p>
 
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('tasklists/') ?>"><?php echo _("[Manage Task Lists]") ?></a>
  </p>

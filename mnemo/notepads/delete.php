@@ -15,14 +15,14 @@ Horde_Registry::appInit('mnemo');
 require_once MNEMO_BASE . '/lib/Forms/DeleteNotepad.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $notepad_id = $vars->get('n');
-if ($notepad_id == Horde_Auth::getAuth()) {
+if ($notepad_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This notepad cannot be deleted"), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
@@ -34,7 +34,7 @@ try {
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
 }
-if (!Horde_Auth::getAuth() || $notepad->get('owner') != Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth() || $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
     $notification->push(_("You are not allowed to delete this notepad."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;

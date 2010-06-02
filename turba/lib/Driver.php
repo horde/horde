@@ -2551,7 +2551,7 @@ class Turba_Driver
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         return $perms->exists('turba:sources:' . $this->name)
-            ? $perms->hasPermission('turba:sources:' . $this->name, Horde_Auth::getAuth(), $perm)
+            ? $perms->hasPermission('turba:sources:' . $this->name, $GLOBALS['registry']->getAuth(), $perm)
             // Assume we have permissions if they're not explicitly set.
             : true;
     }
@@ -2583,7 +2583,7 @@ class Turba_Driver
 
     function _getContactOwner()
     {
-        return Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth();
     }
 
     /**
@@ -2814,7 +2814,7 @@ class Turba_Driver
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {
-            $params['default'] = ($params['name'] == Horde_Auth::getAuth());
+            $params['default'] = ($params['name'] == $GLOBALS['registry']->getAuth());
             $share->set('params', serialize($params));
             $share->save();
         }

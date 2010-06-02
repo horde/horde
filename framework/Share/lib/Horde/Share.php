@@ -296,7 +296,7 @@ class Horde_Share
         }
         $share = $this->_newShare($name);
         $share->setShareOb($this);
-        $share->set('owner', Horde_Auth::getAuth());
+        $share->set('owner', $GLOBALS['registry']->getAuth());
 
         return $share;
     }

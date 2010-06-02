@@ -148,7 +148,7 @@ abstract class Ansel_View_GalleryRenderer_Base
             /* Special case widgets - these are built in */
             if (array_key_exists('Actions', $this->style['widgets'])) {
                 /* Don't show action widget if no actions */
-                if (Horde_Auth::getAuth() ||
+                if ($GLOBALS['registry']->getAuth() ||
                     !empty($conf['report_content']['driver']) &&
                     (($conf['report_content']['allow'] == 'authenticated' &&
                       $GLOBALS['registry']->isAuthenticated()) ||

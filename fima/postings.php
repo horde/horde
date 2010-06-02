@@ -167,7 +167,7 @@ case 'save_postings':
     $postingset = Horde_Util::getFormData('posting_id');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving postings to %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
@@ -282,7 +282,7 @@ case 'delete_postings':
     $postingset = Horde_Util::getFormData('indices');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(sprintf(_("Access denied deleting postings from %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
@@ -313,7 +313,7 @@ case 'update_postings':
     $postingset = Horde_Util::getFormData('posting_id');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied shifting postings in %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
@@ -348,11 +348,11 @@ case 'update_postings':
 
 case 'copymove_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
-    } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
+    } elseif (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;

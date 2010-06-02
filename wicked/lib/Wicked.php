@@ -143,8 +143,8 @@ class Wicked {
             return;
         }
 
-        if (Horde_Auth::getAuth()) {
-            $prefix = Horde_Auth::getAuth();
+        if ($GLOBALS['registry']->getAuth()) {
+            $prefix = $GLOBALS['registry']->getAuth();
         } else {
             $prefix = 'guest [' . $_SERVER['REMOTE_ADDR'] . ']';
         }
@@ -159,7 +159,7 @@ class Wicked {
         $default_from_addr = !empty($conf['wicked']['guest_address']) ?
             $conf['wicked']['guest_address'] :
             $conf['wicked']['notify_address'];
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
             $from = $identity->getValue('fullname');
             if (empty($from)) {
@@ -220,7 +220,7 @@ class Wicked {
      */
     function lockUser()
     {
-        return Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $GLOBALS['browser']->getIPAddress();
+        return $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $GLOBALS['browser']->getIPAddress();
     }
 
 }

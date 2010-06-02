@@ -157,7 +157,7 @@ class EditPage extends Page {
             $notification->push(sprintf(_("You don't have permission to edit \"%s\"."), $page->pageName()));
         } else {
             if (!empty($GLOBALS['conf']['wicked']['captcha']) &&
-                !Horde_Auth::getAuth() &&
+                !$GLOBALS['registry']->getAuth() &&
                 (Horde_String::lower(Horde_Util::getFormData('wicked_captcha')) != Horde_String::lower(Wicked::getCAPTCHA()))) {
                 $notification->push(_("Random string did not match."), 'horde.error');
                 return;

@@ -9,7 +9,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }

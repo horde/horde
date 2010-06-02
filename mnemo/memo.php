@@ -135,7 +135,7 @@ case 'save_memo':
         throw new Mnemo_Exception($e);
     }
 
-    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
@@ -177,13 +177,13 @@ case 'save_memo':
                 } catch (Horde_Share_Exception $e) {
                     throw new Mnemo_Exception($e);
                 }
-                if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+                if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                     try {
                         $share = &$GLOBALS['mnemo_shares']->getShare($notepad_target);
                     } catch (Horde_Share_Exception $e) {
                         throw new Mnemo_Exception($e);
                     }
-                    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                         $result = $storage->move($memo_id, $notepad_target);
                         $storage = &Mnemo_Driver::singleton($notepad_target);
                     } else {
@@ -237,7 +237,7 @@ case 'delete_memos':
         } catch (Horde_Share_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             $storage = &Mnemo_Driver::singleton($memolist_id);
             $result = $storage->delete($memo_id);
             if ($result instanceof PEAR_Error) {

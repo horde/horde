@@ -31,12 +31,12 @@ if ($watermark) {
     $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
     $name = $identity->getValue('fullname');
     if (empty($name)) {
-        $name = Horde_Auth::getAuth();
+        $name = $registry->getAuth();
     }
 
     // Set up array of possible substitutions.
     $watermark_array = array('%N' => $name,            // User's fullname.
-                             '%L' => Horde_Auth::getAuth()); // User login.
+                             '%L' => $registry->getAuth()); // User login.
     $watermark = str_replace(array_keys($watermark_array),
                              array_values($watermark_array), $watermark);
     $watermark = strftime($watermark);
@@ -163,7 +163,7 @@ case 'savecloseimage':
 case 'saveclose':
 case 'save':
     $title = _("Save Photo");
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
                             'horde.error');
         $imageurl = Ansel::getUrlFor('view', array_merge(
@@ -189,7 +189,7 @@ case 'save':
         /* See if we were replacing photo */
         if (!empty($info['file0']['file'])) {
             try {
-                $GLOBALS['browser']->wasFileUploaded('file0');
+                $browser->wasFileUploaded('file0');
                 if (filesize($info['file0']['file'])) {
                     /* Read in the uploaded data. */
                     $data = file_get_contents($info['file0']['file']);
@@ -299,7 +299,7 @@ case 'resizeedit':
                                              'slug' => $gallery->get('slug')),
                                        $date));
 
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing the photo."),
                             'horde.error');
 
@@ -351,7 +351,7 @@ case 'resizeedit':
     exit;
 
 case 'watermark':
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."),
                                     $gallery->get('name')),
                             'horde.error');
@@ -390,7 +390,7 @@ case 'mirror':
 case 'grayscale':
 case 'crop':
 case 'resize':
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."),
                                     $gallery->get('name')),
                             'horde.error');
@@ -568,7 +568,7 @@ case 'delete':
 
     /* Delete the images if we're provided with a valid image ID. */
     if (count($images)) {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
             foreach ($images as $image) {
@@ -688,8 +688,8 @@ case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (!Horde_Auth::getAuth() ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) ||
+        if (!$registry->getAuth() ||
+            !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
             $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
@@ -717,7 +717,7 @@ case 'downloadzip':
 
 case 'previewcrop':
 
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing the photo."), 'horde.error');
         $imageurl = Ansel::getUrlFor(
             'view', array('gallery' => $gallery_id,
@@ -749,7 +749,7 @@ case 'previewcrop':
     exit;
 
 case 'imagecrop':
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $params = Horde_Util::getFormData('params');
             list($x1, $y1, $x2, $y2) = explode('.', $params);
             $image = &$ansel_storage->getImage($image_id);

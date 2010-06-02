@@ -308,7 +308,7 @@ implements Horde_Kolab_Storage_Folder
      */
     function getShareId()
     {
-        $current_user = Horde_Auth::getAuth();
+        $current_user = $GLOBALS['registry']->getAuth();
         if ($this->isDefault() && $this->getOwner() == $current_user) {
             return $current_user;
         }

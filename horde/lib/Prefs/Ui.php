@@ -29,7 +29,7 @@ class Horde_Prefs_Ui
                 foreach ($apps as $a) {
                     $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
                     if (file_exists($registry->get('fileroot', $a)) &&
-                        (($perms->exists($a) && ($perms->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
+                        (($perms->exists($a) && ($perms->hasPermission($a, $GLOBALS['registry']->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
                          !$perms->exists($a))) {
                         $out[$a] = $registry->get('name', $a);
                     }
@@ -370,7 +370,7 @@ class Horde_Prefs_Ui
     protected function _syncmlManagement($ui)
     {
         Horde::addScriptFile('syncmlprefs.js', 'horde');
-        $devices = SyncML_Backend::factory('Horde')->getUserAnchors(Horde_Auth::getAuth());
+        $devices = SyncML_Backend::factory('Horde')->getUserAnchors($GLOBALS['registry']->getAuth());
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -416,12 +416,12 @@ class Horde_Prefs_Ui
         $t->setOption('gettext', true);
         $selfurl = $ui->selfUrl();
         $t->set('reset', $selfurl->copy()->add('reset', 1));
-        $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
+        $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
         $devs = array();
         $i = 1;
         foreach ($devices as $device) {
             $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
-            $stateMachine->loadDeviceInfo($device['device_id'], Horde_Auth::getAuth());
+            $stateMachine->loadDeviceInfo($device['device_id'], $GLOBALS['registry']->getAuth());
             $ts = $stateMachine->getLastSyncTimestamp();
             $device['ts'] = empty($ts) ? _("None") : strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $ts);
             switch ($device['device_rwstatus']) {
@@ -667,14 +667,14 @@ class Horde_Prefs_Ui
         $backend = SyncML_Backend::factory('Horde');
 
         if ($ui->vars->removedb && $ui->vars->removedevice) {
-            $res = $backend->removeAnchor(Horde_Auth::getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
+            $res = $backend->removeAnchor($GLOBALS['registry']->getAuth(), $ui->vars->removedevice, $ui->vars->removedb);
             if ($res instanceof PEAR_Error) {
                 $GLOBALS['notification']->push(_("Error deleting synchronization session:") . ' ' . $res->getMessage(), 'horde.error');
             } else {
                 $GLOBALS['notification']->push(sprintf(_("Deleted synchronization session for device \"%s\" and database \"%s\"."), $ui->vars->deviceid, $ui->vars->db), 'horde.success');
             }
         } elseif ($ui->vars->deleteall) {
-            $res = $backend->removeAnchor(Horde_Auth::getAuth());
+            $res = $backend->removeAnchor($GLOBALS['registry']->getAuth());
             if ($res instanceof PEAR_Error) {
                 $GLOBALS['notification']->push(_("Error deleting synchronization sessions:") . ' ' . $res->getMessage(), 'horde.error');
             } else {
@@ -695,21 +695,21 @@ class Horde_Prefs_Ui
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
         $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if ($ui->vars->wipeid) {
-            $stateMachine->loadDeviceInfo($ui->vars->wipeid, Horde_Auth::getAuth());
+            $stateMachine->loadDeviceInfo($ui->vars->wipeid, $GLOBALS['registry']->getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->wipeid, Horde_ActiveSync::RWSTATUS_PENDING);
             $GLOBALS['notification']->push(sprintf(_("A Remote Wipe for device id %s has been initiated. The device will be wiped during the next SYNC request."), $ui->vars->wipe));
         } elseif ($ui->vars->cancelwipe) {
-            $stateMachine->loadDeviceInfo($ui->vars->cancelwipe, Horde_Auth::getAuth());
+            $stateMachine->loadDeviceInfo($ui->vars->cancelwipe, $GLOBALS['registry']->getAuth());
             $stateMachine->setDeviceRWStatus($ui->vars->cancelwipe, Horde_ActiveSync::RWSTATUS_OK);
             $GLOBALS['notification']->push(sprintf(_("The Remote Wipe for device id %s has been cancelled."), $ui->vars->wipe));
         } elseif ($ui->vars->reset) {
-            $devices = $stateMachine->listDevices(Horde_Auth::getAuth());
+            $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
             foreach ($devices as $device) {
-                $stateMachine->removeState(null, $device['device_id'], Horde_Auth::getAuth());
+                $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
             }
             $GLOBALS['notification']->push(_("All state removed for your devices. They will resynchronize next time they connect to the server."));
         } elseif ($ui->vars->removedevice) {
-            $stateMachine->removeState(null, $ui->vars->removedevice, Horde_Auth::getAuth());
+            $stateMachine->removeState(null, $ui->vars->removedevice, $GLOBALS['registry']->getAuth());
         }
     }
 

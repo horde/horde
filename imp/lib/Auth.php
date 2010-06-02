@@ -37,7 +37,7 @@ class IMP_Auth
         $imp_app = $GLOBALS['registry']->getApiInstance('imp', 'application');
         if (!empty($imp_app->initParams['authentication']) &&
             ($imp_app->initParams['authentication'] == 'horde')) {
-            if (Horde_Auth::getAuth()) {
+            if ($GLOBALS['registry']->getAuth()) {
                 return false;
             }
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
@@ -142,7 +142,7 @@ class IMP_Auth
             break;
         }
 
-        $auth_id = Horde_Auth::getAuth();
+        $auth_id = $GLOBALS['registry']->getAuth();
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         $msg = sprintf(
@@ -302,12 +302,10 @@ class IMP_Auth
         }
 
         if ((!empty($auto_server) || $force) &&
-            Horde_Auth::getAuth() &&
+            $GLOBALS['registry']->getAuth() &&
             !empty($servers[$server_key]['hordeauth'])) {
             return array(
-                'userId' => ((strcasecmp($servers[$server_key]['hordeauth'], 'full') == 0)
-                    ? Horde_Auth::getAuth()
-                    : Horde_Auth::getBareAuth()),
+                'userId' => $GLOBALS['registry']->getAuth((strcasecmp($servers[$server_key]['hordeauth'], 'full') == 0) ? null : 'bare'),
                 'password' => Horde_Auth::getCredential('password'),
                 'server' => $server_key
             );

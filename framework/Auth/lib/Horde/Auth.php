@@ -354,38 +354,6 @@ class Horde_Auth
     }
 
     /**
-     * Returns the currently logged in user, if there is one. This is the
-     * unique Horde ID.
-     *
-     * @see self::getOriginalAuth()
-     *
-     * @return mixed  The userId of the current user, or false if no user is
-     *                logged in.
-     */
-    static public function getAuth()
-    {
-        return empty($_SESSION['horde_auth']['userId'])
-            ? false
-            : $_SESSION['horde_auth']['userId'];
-    }
-
-    /**
-     * Get the authentication username.  This is the username used to
-     * originally login to Horde.
-     *
-     * @see self::getAuth()
-     *
-     * @return mixed  The authentication backend's user name, or false if no
-     *                user is logged in.
-     */
-    static public function getOriginalAuth()
-    {
-        return empty($_SESSION['horde_auth']['authId'])
-            ? false
-            : $_SESSION['horde_auth']['authId'];
-    }
-
-    /**
      * Return whether the authentication backend requested a password change.
      *
      * @return boolean Whether the backend requested a password change.
@@ -393,35 +361,6 @@ class Horde_Auth
     static public function passwordChangeRequested()
     {
         return !empty($_SESSION['horde_auth']['change']);
-    }
-
-    /**
-     * Returns the curently logged-in user without any domain information
-     * (e.g., foo@example.com would be returned as 'foo').
-     *
-     * @return mixed  The user ID of the current user, or false if no user
-     *                is logged in.
-     */
-    static public function getBareAuth()
-    {
-        $user = self::getAuth();
-        return ($user && (($pos = strpos($user, '@')) !== false))
-            ? substr($user, 0, $pos)
-            : $user;
-    }
-
-    /**
-     * Returns the domain of currently logged-in user (e.g., foo@example.com
-     * would be returned as 'example.com').
-     *
-     * @return mixed  The domain suffix of the current user, or false.
-     */
-    static public function getAuthDomain()
-    {
-        $user = self::getAuth();
-        return ($user && (($pos = strpos($user, '@')) !== false))
-            ? substr($user, $pos + 1)
-            : false;
     }
 
     /**
@@ -436,7 +375,7 @@ class Horde_Auth
      */
     static public function getCredential($credential = null, $app = null)
     {
-        if (!self::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             return false;
         }
 
@@ -458,7 +397,7 @@ class Horde_Auth
      */
     static public function setCredential($credential, $value, $app = null)
     {
-        if (self::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $credentials = self::_getCredentials($app);
 
             if ($credentials !== false) {
@@ -521,7 +460,7 @@ class Horde_Auth
     {
         $app = empty($options['app']) ? 'horde' : $options['app'];
         $authId = $userId = trim($authId);
-        $is_auth = self::getAuth();
+        $is_auth = $GLOBALS['registry']->getAuth();
 
         try {
             if (!$is_auth) {

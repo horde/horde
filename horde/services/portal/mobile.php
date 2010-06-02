@@ -16,7 +16,7 @@ Horde_Registry::appInit('horde');
 $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
 $fullname = $identity->getValue('fullname');
 if (empty($fullname)) {
-    $fullname = Horde_Auth::getAuth();
+    $fullname = $registry->getAuth();
 }
 
 $links = array();

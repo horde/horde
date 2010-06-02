@@ -67,7 +67,7 @@ class Ansel_Tile_DateGallery
         }
 
         /* Check permissions on the gallery and get appropriate tile image */
-        if ($dgallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if ($dgallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             if (is_null($style)) {
                 $style = $dgallery->getStyle();
             }

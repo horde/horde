@@ -252,7 +252,7 @@ class Gollem
     static protected function _getCacheID($dir)
     {
         global $prefs;
-        return implode('|', array(Horde_Auth::getAuth(), $_SESSION['gollem']['backend_key'], $prefs->getValue('show_dotfiles'), $prefs->getValue('sortdirsfirst'), $prefs->getValue('sortby'), $prefs->getValue('sortdir'), $dir));
+        return implode('|', array($GLOBALS['registry']->getAuth(), $_SESSION['gollem']['backend_key'], $prefs->getValue('show_dotfiles'), $prefs->getValue('sortdirsfirst'), $prefs->getValue('sortby'), $prefs->getValue('sortdir'), $dir));
     }
 
     /**
@@ -613,7 +613,7 @@ class Gollem
     static public function checkPermissions($filter, $permission = Horde_Perms::READ,
                                             $backend = null)
     {
-        $userID = Horde_Auth::getAuth();
+        $userID = $GLOBALS['registry']->getAuth();
         if ($backend === null) {
             $backend = $_SESSION['gollem']['backend_key'];
         }
@@ -774,8 +774,8 @@ class Gollem
     {
         return (!empty($GLOBALS['gollem_backends'][$backend]['hordeauth']) &&
                 (strcasecmp($GLOBALS['gollem_backends'][$backend]['hordeauth'], 'full') === 0))
-            ? Horde_Auth::getAuth()
-            : Horde_Auth::getBareAuth();
+            ? $GLOBALS['registry']->getAuth()
+            : $GLOBALS['registry']->getAuth('bare');
     }
 
     /**

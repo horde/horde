@@ -232,7 +232,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         /* Log fetch at DEBUG level. */
         Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
-                                  Horde_Auth::getAuth(), $url), 'DEBUG');
+                                  $GLOBALS['registry']->getAuth(), $url), 'DEBUG');
 
         $data = $response->getBody();
         $_SESSION['kronolith']['remote'][$signature] = new Horde_iCalendar();

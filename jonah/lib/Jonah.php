@@ -137,12 +137,12 @@ class Jonah {
         case 'internal_channels':
         case 'external_channels':
             if (empty($in) || !$perms->exists('jonah:news:' . $filter . ':' . $in)) {
-                return $perms->hasPermission('jonah:news:' . $filter, Horde_Auth::getAuth(), $permission);
+                return $perms->hasPermission('jonah:news:' . $filter, $GLOBALS['registry']->getAuth(), $permission);
             } elseif (!is_array($in)) {
-                return $perms->hasPermission('jonah:news:' . $filter . ':' . $in, Horde_Auth::getAuth(), $permission);
+                return $perms->hasPermission('jonah:news:' . $filter . ':' . $in, $GLOBALS['registry']->getAuth(), $permission);
             } else {
                 foreach ($in as $key => $val) {
-                    if ($perms->hasPermission('jonah:news:' . $filter . ':' . $val, Horde_Auth::getAuth(), $permission)) {
+                    if ($perms->hasPermission('jonah:news:' . $filter . ':' . $val, $GLOBALS['registry']->getAuth(), $permission)) {
                         $out[$key] = $val;
                     }
                 }
@@ -152,15 +152,15 @@ class Jonah {
         case 'channels':
             foreach ($in as $key => $val) {
                 $perm_name = Jonah::typeToPermName($val['channel_type']);
-                if ($perms->hasPermission('jonah:news:' . $perm_name,  Horde_Auth::getAuth(), $permission) ||
-                    $perms->hasPermission('jonah:news:' . $perm_name . ':' . $val['channel_id'], Horde_Auth::getAuth(), $permission)) {
+                if ($perms->hasPermission('jonah:news:' . $perm_name,  $GLOBALS['registry']->getAuth(), $permission) ||
+                    $perms->hasPermission('jonah:news:' . $perm_name . ':' . $val['channel_id'], $GLOBALS['registry']->getAuth(), $permission)) {
                     $out[$key] = $in[$key];
                 }
             }
             break;
 
         default:
-            return $perms->hasPermission($filter, Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            return $perms->hasPermission($filter, $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         }
 
         return $out;

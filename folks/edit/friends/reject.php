@@ -26,7 +26,7 @@ if (empty($user)) {
 }
 
 $friends = Folks_Friends::singleton(null, array('user' => $user));
-$result = $friends->removeFriend(Horde_Auth::getAuth());
+$result = $friends->removeFriend($GLOBALS['registry']->getAuth());
 if ($result instanceof PEAR_Error) {
     $notification->push($result);
     header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
@@ -36,13 +36,13 @@ if ($result instanceof PEAR_Error) {
 $notification->push(sprintf(_("User \"%s\" was rejected as a friend."), $user), 'horde.success');
 
 $title = sprintf(_("%s rejected you as a friend on %s"),
-                    Horde_Auth::getAuth(),
+                    $GLOBALS['registry']->getAuth(),
                     $registry->get('name', 'horde'));
 
 $body = sprintf(_("User %s rejected you as a friend on %s.. \nTo see to his profile, go to: %s \n"),
-                Horde_Auth::getAuth(),
+                $GLOBALS['registry']->getAuth(),
                 $registry->get('name', 'horde'),
-                Folks::getUrlFor('user', Horde_Auth::getAuth(), true, -1));
+                Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
 
 $friends->sendNotification($user, $title, $body);
 

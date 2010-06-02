@@ -24,7 +24,7 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
         }
         foreach ($alarms as $calId => $calAlarms) {
             foreach ($calAlarms as $event) {
-                if ($horde_alarm->isSnoozed($event->uid, Horde_Auth::getAuth())) {
+                if ($horde_alarm->isSnoozed($event->uid, $GLOBALS['registry']->getAuth())) {
                     continue;
                 }
                 $alarmCount++;

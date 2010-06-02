@@ -199,7 +199,7 @@ $_prefs['task_categories'] = array(
 // default tasklists
 // Set locked to true if you don't want users to have multiple task lists.
 $_prefs['default_tasklist'] = array(
-    'value' => Horde_Auth::getAuth() ? Horde_Auth::getAuth() : 0,
+    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
     'desc' => _("Your default task list:")
 );

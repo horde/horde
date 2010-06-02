@@ -47,7 +47,7 @@ try {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }
-if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;

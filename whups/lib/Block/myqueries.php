@@ -32,7 +32,7 @@ class Horde_Block_Whups_myqueries extends Horde_Block {
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();
-        $queries = $qManager->listQueries(Horde_Auth::getAuth(), true);
+        $queries = $qManager->listQueries($GLOBALS['registry']->getAuth(), true);
         if (is_a($queries, 'PEAR_Error')) {
             return $queries;
         }

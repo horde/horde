@@ -365,11 +365,11 @@ class Nag
     public static function listTasklists($owneronly = false,
                                          $permission = Horde_Perms::SHOW)
     {
-        if ($owneronly && !Horde_Auth::getAuth()) {
+        if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
         try {
-            $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
+            $tasklists = $GLOBALS['nag_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return array();
@@ -421,7 +421,7 @@ class Nag
         if (isset($tasklists[$default_tasklist])) {
             return $default_tasklist;
         } elseif ($prefs->isLocked('default_tasklist')) {
-            return Horde_Auth::getAuth();
+            return $GLOBALS['registry']->getAuth();
         } elseif (count($tasklists)) {
             reset($tasklists);
             return key($tasklists);
@@ -467,8 +467,8 @@ class Nag
      */
     public static function updateTasklist(&$tasklist, $info)
     {
-        if (!Horde_Auth::getAuth() ||
-            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to change this task list."));
         }
@@ -476,7 +476,7 @@ class Nag
         $tasklist->set('name', $info['name']);
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
-        $tasklist->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
+        $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
         $result = $tasklist->save();
         if (is_a($result, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $result->getMessage()));
@@ -490,12 +490,12 @@ class Nag
      */
     public static function deleteTasklist($tasklist)
     {
-        if ($tasklist->getName() == Horde_Auth::getAuth()) {
+        if ($tasklist->getName() == $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("This task list cannot be deleted."));
         }
 
-        if (!Horde_Auth::getAuth() ||
-            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
             return PEAR::raiseError(_("You are not allowed to delete this task list."));
         }
@@ -707,7 +707,7 @@ class Nag
 
         if (count($GLOBALS['display_tasklists']) == 0) {
             $lists = Nag::listTasklists(true);
-            if (!Horde_Auth::getAuth()) {
+            if (!$GLOBALS['registry']->getAuth()) {
                 /* All tasklists for guests. */
                 $GLOBALS['display_tasklists'] = array_keys($lists);
             } else {
@@ -718,19 +718,19 @@ class Nag
                 }
 
                 /* If the user's personal tasklist doesn't exist, then create it. */
-                if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
+                if (!$GLOBALS['nag_shares']->exists($GLOBALS['registry']->getAuth())) {
                     $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
-                        $name = Horde_Auth::getOriginalAuth();
+                        $name = $GLOBALS['registry']->getAuth('original');
                     }
-                    $share = $GLOBALS['nag_shares']->newShare(Horde_Auth::getAuth());
+                    $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth());
                     $share->set('name', sprintf(_("%s's Task List"), $name));
                     $GLOBALS['nag_shares']->addShare($share);
 
                     /* Make sure the personal tasklist is displayed by default. */
-                    if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_tasklists'])) {
-                        $GLOBALS['display_tasklists'][] = Horde_Auth::getAuth();
+                    if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_tasklists'])) {
+                        $GLOBALS['display_tasklists'][] = $GLOBALS['registry']->getAuth();
                     }
                 }
             }
@@ -805,7 +805,7 @@ class Nag
 
         // Check here for guest task lists so that we don't get multiple
         // messages after redirects, etc.
-        if (!Horde_Auth::getAuth() && !count(Nag::listTasklists())) {
+        if (!$GLOBALS['registry']->getAuth() && !count(Nag::listTasklists())) {
             $notification->push(_("No task lists are available to guests."));
         }
 
@@ -1089,7 +1089,7 @@ class Nag
                       'df' => $prefs->getValue('date_format'));
 
         if ($prefs->getValue('task_notification_exclude_self') &&
-            $user == Horde_Auth::getAuth()) {
+            $user == $GLOBALS['registry']->getAuth()) {
             return false;
         }
 

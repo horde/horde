@@ -189,7 +189,7 @@ class Fima {
      */
     function listLedgers($owneronly = false, $permission = Horde_Perms::SHOW)
     {
-        $ledgers = $GLOBALS['fima_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
+        $ledgers = $GLOBALS['fima_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null);
         if (is_a($ledgers, 'PEAR_Error')) {
             Horde::logMessage($ledgers, 'ERR');
             return array();
@@ -704,7 +704,7 @@ class Fima {
 
         if (count($GLOBALS['display_ledgers']) == 0) {
             $ledgerss = Fima::listLedgers(true);
-            if (!Horde_Auth::getAuth()) {
+            if (!$GLOBALS['registry']->getAuth()) {
                 /* All ledgers for guests. */
                 $GLOBALS['display_ledgers'] = array_keys($ledgers);
             } else {
@@ -715,19 +715,19 @@ class Fima {
                 }
 
                 /* If the user's personal ledger doesn't exist, then create it. */
-                if (!$GLOBALS['fima_shares']->exists(Horde_Auth::getAuth())) {
+                if (!$GLOBALS['fima_shares']->exists($GLOBALS['registry']->getAuth())) {
                     $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
-                        $name = Horde_Auth::getOriginalAuth();
+                        $name = $GLOBALS['registry']->getAuth('original');
                     }
-                    $share = &$GLOBALS['fima_shares']->newShare(Horde_Auth::getAuth());
+                    $share = &$GLOBALS['fima_shares']->newShare($GLOBALS['registry']->getAuth());
                     $share->set('name', sprintf(_("%s's Ledger"), $name));
                     $GLOBALS['fima_shares']->addShare($share);
 
                     /* Make sure the personal ledger is displayed by default. */
-                    if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_ledgers'])) {
-                        $GLOBALS['display_ledgers'][] = Horde_Auth::getAuth();
+                    if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_ledgers'])) {
+                        $GLOBALS['display_ledgers'][] = $GLOBALS['registry']->getAuth();
                     }
                 }
             }
@@ -757,7 +757,7 @@ class Fima {
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $hordeimg);
         $menu->add(Horde::applicationUrl('accounts.php'), _("_Accounts"), 'accounts.png');
 
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $menu->add(Horde::applicationUrl('ledgers/index.php'), _("_My Ledgers"), 'accounts.png');
         }
 

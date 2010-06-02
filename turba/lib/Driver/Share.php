@@ -46,7 +46,7 @@ class Turba_Driver_Share extends Turba_Driver
      */
     function hasPermission($perm)
     {
-        return $this->_share->hasPermission(Horde_Auth::getAuth(), $perm);
+        return $this->_share->hasPermission($GLOBALS['registry']->getAuth(), $perm);
     }
 
     /**

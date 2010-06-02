@@ -13,13 +13,13 @@ Horde_Registry::appInit('ansel');
 
 $image = &$ansel_storage->getImage(Horde_Util::getFormData('image'));
 $gallery = $ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
     throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }
 
 /* Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file header */
 if ($conf['vfs']['src'] == 'sendfile') {
-    $filename = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));
+    $filename = $injector->getInstance('Horde_Vfs')->getVfs('images')->readFile($image->getVFSPath('screen'), $image->getVFSName('screen'));
     header('Content-Type: ' . $image->getType('screen'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);

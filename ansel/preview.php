@@ -20,7 +20,7 @@ try {
     Horde::logMessage($e->getMessage(), 'ERR');
     exit;
 }
-if ($gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
+if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
     !$gal->hasPasswd() &&
     $gal->isOldEnough()) {
 

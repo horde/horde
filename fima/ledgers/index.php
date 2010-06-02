@@ -10,7 +10,7 @@
 require_once FIMA_BASE . '/lib/base.php';
 
 /* Exit if this isn't an authenticated user. */
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     require FIMA_BASE . '/postings.php';
     exit;
 }

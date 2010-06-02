@@ -55,13 +55,13 @@ class Horde_Block_folks_my_comments extends Horde_Block {
 
         try {
             $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
-                                                  array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
+                                                  array($GLOBALS['registry']->getAuth(), 'message_timestamp', 1, false,
                                                   'folks', 0, $this->_params['limit']));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
 
-        $url = Folks::getUrlFor('user', Horde_Auth::getAuth());
+        $url = Folks::getUrlFor('user', $GLOBALS['registry']->getAuth());
         foreach ($threads as $message) {
             $html .= '<tr><td>'
                   . '<a href="' . $url . '" title="' . $message['message_date']. '">'

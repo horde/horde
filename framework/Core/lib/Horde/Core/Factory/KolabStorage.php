@@ -96,7 +96,7 @@ class Horde_Core_Factory_KolabStorage
 
         $params = array(
             'hostspec' => $session->getImapServer(),
-            'username' => Horde_Auth::getAuth(),
+            'username' => $GLOBALS['registry']->getAuth(),
             'password' => Horde_Auth::getCredential('password'),
             'secure'   => true
         );

@@ -15,7 +15,7 @@ require_once TURBA_BASE . '/lib/Forms/EditAddressBook.php';
 
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
-if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
+if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) {
     require TURBA_BASE . '/'
         . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
     exit;
@@ -29,8 +29,8 @@ try {
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;
 }
-if (!Horde_Auth::getAuth() ||
-    $addressbook->get('owner') != Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth() ||
+    $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));

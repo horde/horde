@@ -39,14 +39,14 @@ if ($user) {
             $notification->push($result);
         } elseif ($friends->needsApproval($user)) {
             $title = sprintf(_("%s added you as a friend on %s"),
-                                        Horde_Auth::getAuth(),
+                                        $GLOBALS['registry']->getAuth(),
                                         $GLOBALS['registry']->get('name', 'horde'));
             $body = sprintf(_("User %s added you to his firends list on %s. \nTo approve, go to: %s \nTo reject, go to: %s \nTo see to his profile, go to: %s \n"),
-                            Horde_Auth::getAuth(),
+                            $GLOBALS['registry']->getAuth(),
                             $registry->get('name', 'horde'),
-                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', Horde_Auth::getAuth()),
-                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', Horde_Auth::getAuth()),
-                            Folks::getUrlFor('user', Horde_Auth::getAuth(), true, -1));
+                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
+                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
+                            Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
             $result = $friends->sendNotification($user, $title, $body);
             if ($result instanceof PEAR_Error) {
                 $notification->push($result);

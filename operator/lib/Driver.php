@@ -47,9 +47,9 @@ class Operator_Driver {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if ($GLOBALS['registry']->isAdmin() ||
             $perms->hasPermission('operator:accountcodes',
-                                              Horde_Auth::getAuth(),
+                                              $GLOBALS['registry']->getAuth(),
                                               Horde_Perms::READ) ||
-            $perms->hasPermission($permentry, Horde_Auth::getAuth(),
+            $perms->hasPermission($permentry, $GLOBALS['registry']->getAuth(),
                                               Horde_Perms::READ)) {
             return $this->_getRecords($start, $end, $accountcode, $dcontext,
                                       $rowstart, $rowlimit);
@@ -84,9 +84,9 @@ class Operator_Driver {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if ($GLOBALS['registry']->isAdmin() ||
             $perms->hasPermission('operator:accountcodes',
-                                              Horde_Auth::getAuth(),
+                                              $GLOBALS['registry']->getAuth(),
                                               Horde_Perms::READ) ||
-            $perms->hasPermission($permentry, Horde_Auth::getAuth(),
+            $perms->hasPermission($permentry, $GLOBALS['registry']->getAuth(),
                                               Horde_Perms::READ)) {
             return $this->_getMonthlyCallStats($start, $end, $accountcode,
                                                $dcontext);

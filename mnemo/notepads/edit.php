@@ -15,7 +15,7 @@ Horde_Registry::appInit('mnemo');
 require_once MNEMO_BASE . '/lib/Forms/EditNotepad.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }
@@ -28,8 +28,8 @@ try {
     header('Location: ' . Horde::applicationUrl('notepads/', true));
     exit;
 }
-if (!Horde_Auth::getAuth() ||
-    $notepad->get('owner') != Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth() ||
+    $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to change this notepad."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('notepads/', true));

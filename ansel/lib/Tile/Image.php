@@ -93,8 +93,8 @@ class Ansel_Tile_Image
         }
 
         $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style['name']);
-        $option_select = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
-        $option_edit = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+        $option_select = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
+        $option_edit = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         $imgAttributes = (!empty($params['image_view_attributes']) ? $params['image_view_attributes'] : array());
 
         $imgOnClick = (!empty($params['image_onclick'])

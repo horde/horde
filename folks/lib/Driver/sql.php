@@ -109,7 +109,7 @@ class Folks_Driver_sql extends Folks_Driver {
     protected function _updateOnlineStatus()
     {
         $query = 'REPLACE INTO ' . $this->_params['online'] . ' (user_uid, ip_address, time_last_click) VALUES (?, ?, ?)';
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_TIME']));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_TIME']));
     }
 
     /**
@@ -375,7 +375,7 @@ class Folks_Driver_sql extends Folks_Driver {
     protected function _logView($id)
     {
         $query = 'REPLACE INTO ' . $this->_params['views'] . ' (view_uid, user_uid, view_time) VALUES (?, ?, ?)';
-        return $this->_write_db->query($query, array($id, Horde_Auth::getAuth(), $_SERVER['REQUEST_TIME']));
+        return $this->_write_db->query($query, array($id, $GLOBALS['registry']->getAuth(), $_SERVER['REQUEST_TIME']));
     }
 
     /**
@@ -386,7 +386,7 @@ class Folks_Driver_sql extends Folks_Driver {
     public function getViews()
     {
         $query = 'SELECT user_uid FROM ' . $this->_params['views'] . ' WHERE view_uid = ?';
-        return $this->_db->getCol($query, 0, array(Horde_Auth::getAuth()));
+        return $this->_db->getCol($query, 0, array($GLOBALS['registry']->getAuth()));
     }
 
    /**
@@ -466,7 +466,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'INSERT INTO ' . $this->_params['search'] . ' (user_uid, search_name, search_criteria) VALUES (?, ?, ?)';
 
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $name, $criteria));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $name, $criteria));
     }
 
    /**
@@ -478,7 +478,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'SELECT search_name FROM ' . $this->_params['search'] . ' WHERE user_uid = ?';
 
-        return $this->_db->getCol($query, 'search_name', Horde_Auth::getAuth());
+        return $this->_db->getCol($query, 'search_name', $GLOBALS['registry']->getAuth());
     }
 
    /**
@@ -492,7 +492,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'SELECT search_criteria FROM ' . $this->_params['search'] . ' WHERE user_uid = ? AND search_name = ?';
 
-        return $this->_db->getOne($query, array(Horde_Auth::getAuth(), $name));
+        return $this->_db->getOne($query, array($GLOBALS['registry']->getAuth(), $name));
     }
 
    /**
@@ -504,7 +504,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'DELETE FROM ' . $this->_params['search'] . ' WHERE user_uid = ? AND search_name = ?';
 
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $name));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $name));
     }
 
    /**

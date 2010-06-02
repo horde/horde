@@ -42,7 +42,7 @@ class Ansel_Tile_Gallery
         }
 
         /* Check gallery permissions and get appropriate tile image */
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             if (is_null($style)) {
                 $style = $gallery->getStyle();
             }
@@ -84,7 +84,7 @@ class Ansel_Tile_Gallery
         $text_link = $view_link . htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset())
                      . '</a>';
 
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) && !$mini) {
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) && !$mini) {
             $properties_link = Horde::applicationUrl('gallery.php', true)->add(
                         array('gallery' => $gallery->id,
                               'actionID' => 'modify',
@@ -94,7 +94,7 @@ class Ansel_Tile_Gallery
         }
 
         if ($showOwner && !$mini &&
-            Horde_Auth::getAuth() != $gallery->get('owner')) {
+            $GLOBALS['registry']->getAuth() != $gallery->get('owner')) {
             $owner_link = Ansel::getUrlFor('view',
                                             array('view' => 'List',
                                                   'owner' => $gallery->get('owner'),

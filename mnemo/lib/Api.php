@@ -27,7 +27,7 @@ class Mnemo_Api extends Horde_Registry_Api {
      */
     public function removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() && $user != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->isAdmin() && $user != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("You are not allowed to remove user data."));
         }
 

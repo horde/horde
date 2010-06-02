@@ -22,7 +22,7 @@ if (!$registry->isAdmin()) {
 $vars = Horde_Variables::getDefaultVariables();
 try {
     $resource = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
-    if (!$resource->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+    if (!$resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(_("You are not allowed to delete this resource."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('resources/', true));
         exit;

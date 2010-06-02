@@ -153,7 +153,7 @@ class Gollem_Auth
         }
 
         return (((count($auto_server) == 1) || $force) &&
-                Horde_Auth::getAuth() &&
+                $GLOBALS['registry']->getAuth() &&
                 empty($GLOBALS['gollem_backends'][$key]['loginparams']) &&
                 !empty($GLOBALS['gollem_backends'][$key]['hordeauth']));
     }
@@ -231,7 +231,7 @@ class Gollem_Auth
         /* Set username now. Don't set the current username if the backend
          * already has a username defined. */
         if (empty($ptr['params']['username'])) {
-            $ptr['params']['username'] = ($user === null) ? Horde_Auth::getBareAuth() : $user;
+            $ptr['params']['username'] = ($user === null) ? $GLOBALS['registry']->getAuth('bare') : $user;
         }
 
         /* Set password now. The password should always be encrypted within

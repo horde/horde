@@ -11,7 +11,7 @@ require_once SKOLI_BASE . '/lib/base.php';
 require_once SKOLI_BASE . '/lib/Forms/DeleteClass.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }
@@ -24,7 +24,7 @@ if (is_a($class, 'PEAR_Error')) {
     $notification->push($class, 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;
-} elseif (!$class->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+} elseif (!$class->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
     $notification->push(_("You are not allowed to delete this class."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;

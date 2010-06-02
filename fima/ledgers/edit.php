@@ -11,7 +11,7 @@ require_once FIMA_BASE . '/lib/base.php';
 require_once FIMA_BASE . '/lib/Forms/EditLedger.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('postings.php', true));
     exit;
 }
@@ -22,7 +22,7 @@ if (is_a($ledger, 'PEAR_Error')) {
     $notification->push($ledger, 'horde.error');
     header('Location: ' . Horde::applicationUrl('ledgers/', true));
     exit;
-} elseif ($ledger->get('owner') != Horde_Auth::getAuth()) {
+} elseif ($ledger->get('owner') != $GLOBALS['registry']->getAuth()) {
     $notification->push(_("You are not allowed to change this ledger."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('ledgers/', true));
     exit;

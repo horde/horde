@@ -20,7 +20,7 @@ class IMP_Injector_Binder_Folder implements Horde_Injector_Binder
     {
         $cacheid = empty($GLOBALS['conf']['server']['cache_folders'])
             ? null
-            : 'imp_folder_cache|' . Horde_Auth::getAuth() . '|' . $_SESSION['imp']['server_key'];
+            : 'imp_folder_cache|' . $GLOBALS['registry']->getAuth() . '|' . $_SESSION['imp']['server_key'];
 
         return new IMP_Folder($cacheid);
     }

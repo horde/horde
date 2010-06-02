@@ -1681,7 +1681,7 @@ class Turba_Api extends Horde_Registry_Api
             $ob->setValue($field, $value);
             $ob->store();
         } else {
-            return $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => Horde_Auth::getAuth()));
+            return $driver->add(array('email' => $address, 'name' => $name, $field => $value, '__owner' => $GLOBALS['registry']->getAuth()));
         }
 
         return;

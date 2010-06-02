@@ -14,14 +14,14 @@ Horde_Registry::appInit('kronolith');
 require_once KRONOLITH_BASE . '/lib/Forms/DeleteCalendar.php';
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
-if ($calendar_id == Horde_Auth::getAuth()) {
+if ($calendar_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
@@ -33,7 +33,7 @@ try {
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }
-if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));

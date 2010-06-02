@@ -171,7 +171,7 @@ class Turba_Driver_Imsp extends Turba_Driver
                 $temp['fullname'] = $temp['name'];
                 $isIMSPGroup = false;
                 if (!isset($temp['__owner'])) {
-                    $temp['__owner'] = Horde_Auth::getAuth();
+                    $temp['__owner'] = $GLOBALS['registry']->getAuth();
                 }
 
                 if ((isset($temp[$this->_groupField])) &&

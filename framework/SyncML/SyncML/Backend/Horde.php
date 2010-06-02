@@ -484,7 +484,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
         return $auth->authenticate($username, array('password' => $password))
-            ? Horde_Auth::getAuth()
+            ? $GLOBALS['registry']->getAuth()
             : false;
     }
 
@@ -502,7 +502,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     function setAuthenticated($username, $credData)
     {
         Horde_Auth::setAuth($username, $credData);
-        return Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth();
     }
 
     /**

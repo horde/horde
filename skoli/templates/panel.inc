@@ -1,7 +1,7 @@
 <?php
 Horde::addScriptFile('quickfinder.js', 'horde');
 
-$current_user = Horde_Auth::getAuth();
+$current_user = $GLOBALS['registry']->getAuth();
 $my_classes = array();
 $shared_classes = array();
 foreach (Skoli::listClasses() as $id => $cl) {
@@ -43,7 +43,7 @@ function sbarToggle()
   <label><input type="checkbox" class="checkbox" name="show_students" value="1"<?php echo ($prefs->getValue('show_students') ? ' checked="checked"' : '') . ' /> ' . _("Show students?") ?></label>
  </p>
 
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('classes/') ?>"><?php echo _("[Manage Classes]") ?></a>
  </p>

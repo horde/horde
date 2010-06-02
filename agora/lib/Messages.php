@@ -180,7 +180,7 @@ class Agora_Messages {
                 . 'message_timestamp, message_modifystamp, ip) '
                 . ' VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)';
 
-            $author = Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $info['posted_by'];
+            $author = $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $info['posted_by'];
             $info['message_id'] = $this->_write_db->nextId('agora_messages');
             $params = array($info['message_id'],
                             $this->_forum_id,
@@ -1112,14 +1112,14 @@ class Agora_Messages {
         /* Check permissions */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin')) ||
             ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('agora:forums:' . $this->_scope) &&
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
                 $sql .= ' AND scope = ? ';
                 $params[] = $this->_scope;
         } else {
             // Get only author forums
             $sql .= ' AND scope = ? AND author = ?';
             $params[] = $this->_scope;
-            $params[] = Horde_Auth::getAuth();
+            $params[] = $GLOBALS['registry']->getAuth();
         }
 
         /* Get moderate forums and their names */
@@ -1536,7 +1536,7 @@ class Agora_Messages {
         $form->addHidden('', 'message_id', 'int', false);
         $form->addHidden('', 'message_parent_id', 'int', false);
 
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $form->addVariable(_("From"), 'posted_by', 'text', true);
         }
 
@@ -1563,7 +1563,7 @@ class Agora_Messages {
             $form->addVariable(_("Attachment"), 'message_attachment', 'file', false);
         }
 
-        if (!empty($conf['forums']['captcha']) && !Horde_Auth::getAuth()) {
+        if (!empty($conf['forums']['captcha']) && !$GLOBALS['registry']->getAuth()) {
             $form->addVariable(_("Spam protection"), 'captcha', 'figlet', true, null, null, array(Agora::getCAPTCHA(!$form->isSubmitted()), $conf['forums']['figlet_font']));
         }
 
@@ -1776,7 +1776,7 @@ class Agora_Messages {
         }
 
         $moderate = array();
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         $edit_url =  Horde::applicationUrl('messages/edit.php');
         $editforum_url =  Horde::applicationUrl('editforum.php');
         $delete_url = Horde::applicationUrl('deleteforum.php');
@@ -1967,7 +1967,7 @@ class Agora_Messages {
     {
         if (empty($info['forum_id'])) {
             if (empty($info['author'])) {
-                $info['author'] = Horde_Auth::getAuth();
+                $info['author'] = $GLOBALS['registry']->getAuth();
             }
             $info['forum_id'] = $this->newForum($info['forum_name'], $info['author']);
             if ($info['forum_id'] instanceof PEAR_Error) {
@@ -2169,7 +2169,7 @@ class Agora_Messages {
     public function hasPermission($perm = Horde_Perms::READ, $forum_id = null, $scope = null)
     {
         // Allow all admins
-        if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == Horde_Auth::getAuth()) ||
+        if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == $GLOBALS['registry']->getAuth()) ||
             $GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
             return true;
         }
@@ -2189,8 +2189,8 @@ class Agora_Messages {
             return ($perm & Horde_Perms::DELETE) ? false : true;
         }
 
-        return $perms->hasPermission('agora:forums:' . $scope, Horde_Auth::getAuth(), $perm) ||
-            $perms->hasPermission('agora:forums:' . $scope . ':' . $forum_id, Horde_Auth::getAuth(), $perm);
+        return $perms->hasPermission('agora:forums:' . $scope, $GLOBALS['registry']->getAuth(), $perm) ||
+            $perms->hasPermission('agora:forums:' . $scope . ':' . $forum_id, $GLOBALS['registry']->getAuth(), $perm);
     }
 
     /**

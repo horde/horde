@@ -87,8 +87,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function canDownload()
     {
-        if (Horde_Auth::getAuth() &&
-            (Horde_Auth::getAuth() == $this->data['share_owner'] ||
+        if ($GLOBALS['registry']->getAuth() &&
+            ($GLOBALS['registry']->getAuth() == $this->data['share_owner'] ||
              $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
         }
@@ -101,7 +101,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             return $GLOBALS['registry']->isAuthenticated();
 
         case 'edit':
-            return $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            return $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
         case 'hook':
             return Horde::callHook('_ansel_hook_can_download', array($this->id));
@@ -378,7 +378,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function copyImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
         }
 
@@ -719,7 +719,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      * @throws Horde_Exception
      */
     public function getTags() {
-        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return Ansel_Tags::readTags($this->id, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied viewing this gallery."));
@@ -736,7 +736,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function setTags($tags)
     {
-        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return Ansel_Tags::writeTags($this->id, $tags, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied adding tags to this gallery."));
@@ -806,8 +806,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function isOldEnough()
     {
-        if ((Horde_Auth::getAuth() &&
-             $this->data['share_owner'] == Horde_Auth::getAuth()) ||
+        if (($GLOBALS['registry']->getAuth() &&
+             $this->data['share_owner'] == $GLOBALS['registry']->getAuth()) ||
             empty($GLOBALS['conf']['ages']['limits']) ||
             empty($this->data['attribute_age'])) {
 
@@ -840,8 +840,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function hasPasswd()
     {
-        if (Horde_Auth::getAuth() &&
-            (Horde_Auth::getAuth() == $this->get('owner') ||
+        if ($GLOBALS['registry']->getAuth() &&
+            ($GLOBALS['registry']->getAuth() == $this->get('owner') ||
              $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return false;
         }

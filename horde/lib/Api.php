@@ -203,7 +203,7 @@ class Horde_Api extends Horde_Registry_Api
     public function removeUserData($user)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            $user != Horde_Auth::getAuth()) {
+            $user != $GLOBALS['registry']->getAuth()) {
             throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
 

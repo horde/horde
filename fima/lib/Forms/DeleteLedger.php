@@ -46,7 +46,7 @@ class Fima_DeleteLedgerForm extends Horde_Form {
             return false;
         }
 
-        if ($this->_ledger->get('owner') != Horde_Auth::getAuth()) {
+        if ($this->_ledger->get('owner') != $GLOBALS['registry']->getAuth()) {
             return PEAR::raiseError(_("Permission denied"));
         }
 
@@ -66,13 +66,13 @@ class Fima_DeleteLedgerForm extends Horde_Form {
         // Make sure we still own at least one ledger.
         if (count(Fima::listLedgers(true)) == 0) {
             // If the default share doesn't exist then create it.
-            if (!$GLOBALS['fima_shares']->exists(Horde_Auth::getAuth())) {
+            if (!$GLOBALS['fima_shares']->exists($GLOBALS['registry']->getAuth())) {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Horde_Auth::getOriginalAuth();
+                    $name = $GLOBALS['registry']->getAuth('original');
                 }
-                $ledger = &$GLOBALS['fima_shares']->newShare(Horde_Auth::getAuth());
+                $ledger = &$GLOBALS['fima_shares']->newShare($GLOBALS['registry']->getAuth());
                 if (is_a($ledger, 'PEAR_Error')) {
                     return;
                 }

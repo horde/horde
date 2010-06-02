@@ -13,7 +13,7 @@ require_once NAG_BASE . '/lib/Forms/CreateTaskList.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // create new task lists (default share is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('default_tasklist')) {
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_tasklist')) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }

@@ -277,7 +277,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
 
         $sql = 'INSERT INTO swoosh_messages (message_id, user_uid, gateway_id, message_batch_id, message_text, message_params, message_submitted) VALUES (?, ?, ?, ?, ?, ?, ?)';
         $values = array((int)$message_id,
-                        Horde_Auth::getAuth(),
+                        $GLOBALS['registry']->getAuth(),
                         (int)$gateway_id,
                         is_null($message_batch_id) ? 'NULL' : (int)$message_batch_id,
                         $message_text,
@@ -335,7 +335,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
     function _getMessages()
     {
         $sql = 'SELECT * FROM swoosh_messages WHERE user_uid = ?';
-        $values = array(Horde_Auth::getAuth());
+        $values = array($GLOBALS['registry']->getAuth());
         Horde::logMessage('SQL Query by Hylax_Storage_sql::_getMessages(): ' . $sql, 'DEBUG');
         $result = $this->_db->getAssoc($sql, false, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {

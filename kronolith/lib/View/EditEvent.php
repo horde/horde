@@ -71,13 +71,13 @@ class Kronolith_View_EditEvent {
 
         $url = Horde_Util::getFormData('url');
         $perms = Horde_Perms::EDIT;
-        if ($this->event->creator == Horde_Auth::getAuth()) {
+        if ($this->event->creator == $GLOBALS['registry']->getAuth()) {
             $perms |= Kronolith::PERMS_DELEGATE;
         }
         $all_calendars = Kronolith::listCalendars(false, $perms);
         $calendars = array();
         foreach ($all_calendars as $id => $calendar) {
-            if ($calendar->get('owner') != Horde_Auth::getAuth() &&
+            if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
                 !empty($GLOBALS['conf']['share']['hidden']) &&
                 !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
                 continue;

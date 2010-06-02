@@ -203,7 +203,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
         if (!isset($this->_cached['fromList'][$ident])) {
             $val = $this->getValue('from_addr', $ident);
             if (empty($val)) {
-                $val = Horde_Auth::getBareAuth();
+                $val = $GLOBALS['registry']->getAuth('bare');
             }
 
             if (!strstr($val, '@')) {

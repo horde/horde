@@ -13,10 +13,10 @@ require_once 'tabs.php';
 
 $page = Horde_Util::getFormData('page', 0);
 $perpage = $prefs->getValue('facesperpage');
-$owner = Horde_Util::getGet('owner', Horde_Auth::getAuth());
+$owner = Horde_Util::getGet('owner', $GLOBALS['registry']->getAuth());
 if (!$owner) {
     $title = _("From system galleries");
-} elseif ($owner == Horde_Auth::getAuth()) {
+} elseif ($owner == $GLOBALS['registry']->getAuth()) {
     $title = _("From my galleries");
 } else {
     $title = sprintf(_("From galleries of %s"), $owner);

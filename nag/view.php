@@ -47,7 +47,7 @@ $task->loadChildren();
 
 /* Check permissions on $tasklist_id. */
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this tasklist."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
@@ -57,7 +57,7 @@ if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
 $created = null;
 $modified = null;
 $completed = null;
-$userId = Horde_Auth::getAuth();
+$userId = $GLOBALS['registry']->getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($task->uid)) {
@@ -105,15 +105,15 @@ try {
     Horde::logMessage($e->getMessage(), 'ERR');
     throw new Nag_Exception($e);
 }
-if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
         $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
     }
-    if (!$task->private || $task->owner == Horde_Auth::getAuth()) {
+    if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
         $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
     }
 }
-if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
     $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_tasks')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
 }
 

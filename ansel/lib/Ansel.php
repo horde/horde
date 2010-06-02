@@ -362,7 +362,7 @@ class Ansel
             default:
                $url = Ansel::getUrlFor('view',
                                        array('view' => 'List',
-                                             'owner' => Horde_Auth::getAuth(),
+                                             'owner' => $GLOBALS['registry']->getAuth(),
                                              'groupby' => 'owner'),
                                        true);
                break;
@@ -567,24 +567,24 @@ class Ansel
                    (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' &&
                      basename($_SERVER['PHP_SELF']) == 'index.php') ||
                     ((basename($_SERVER['PHP_SELF']) == 'group.php') &&
-                     Horde_Util::getFormData('owner') !== Horde_Auth::getAuth())
+                     Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
                     ? 'current'
                     : '__noselection'));
-        if (Horde_Auth::getAuth()) {
-            $url = Ansel::getUrlFor('view', array('owner' => Horde_Auth::getAuth(),
+        if ($GLOBALS['registry']->getAuth()) {
+            $url = Ansel::getUrlFor('view', array('owner' => $GLOBALS['registry']->getAuth(),
                                                   'groupby' => 'owner',
                                                   'view' => 'List'));
             $menu->add($url, _("_My Galleries"), 'mygalleries.png', null, null,
                        null,
-                       (Horde_Util::getFormData('owner', false) == Horde_Auth::getAuth())
+                       (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
                        ? 'current' :
                        '__noselection');
         }
 
         /* Let authenticated users create new galleries. */
         if ($GLOBALS['registry']->isAdmin() ||
-            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $menu->add(Horde::applicationUrl('gallery.php')->add('actionID', 'add'),
                        _("_New Gallery"), 'add.png', null, null, null,
                        (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
@@ -652,7 +652,7 @@ class Ansel
         if (!empty($owner)) {
             if (!$owner) {
                 $owner_title = _("System Galleries");
-            } elseif ($owner == Horde_Auth::getAuth()) {
+            } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
                 $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],

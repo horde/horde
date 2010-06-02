@@ -93,7 +93,7 @@ $horde_login_nosidebar = false;
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
-    $GLOBALS['injector']->getInstance('Horde_Secret')->setKey('auth');
+    $injector->getInstance('Horde_Secret')->setKey('auth');
 }
 
 /* Get an Auth object. */
@@ -152,7 +152,7 @@ if ($error_reason) {
 
     $language = $prefs->getValue('language');
 
-    $entry = sprintf('User %s [%s] logged out of Horde', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
+    $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
 
@@ -196,7 +196,7 @@ if ($error_reason) {
     }
 
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
-        $entry = sprintf('Login success for %s [%s] to %s.', Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], ($app && $is_auth) ? $app : 'horde');
+        $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($app && $is_auth) ? $app : 'horde');
         Horde::logMessage($entry, 'NOTICE');
 
         if (!empty($url_in)) {
@@ -207,7 +207,7 @@ if ($error_reason) {
 
         /* Do password change request on initial login only. */
         if (!$is_auth && Horde_Auth::passwordChangeRequested()) {
-            $GLOBALS['notification']->push(_("Your password has expired."), 'horde.message');
+            $notification->push(_("Your password has expired."), 'horde.message');
 
             if ($auth->hasCapability('update')) {
                 $change_url = Horde::applicationUrl('services/changepassword.php');

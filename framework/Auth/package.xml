@@ -34,7 +34,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Moved signup code to horde/Core.
  * Add ability to retrieve app-specific credentials via
  Horde_Auth::getCredential().
- * Add Horde_Auth::getOriginalAuth().
  * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
  * Initial Horde 4 package.
  </notes>

@@ -103,14 +103,14 @@ class Operator {
 
         if ($GLOBALS['registry']->isAdmin() ||
             $perms->hasPermission('operator:accountcodes',
-                                             Horde_Auth::getAuth(),
+                                             $GLOBALS['registry']->getAuth(),
                                              Horde_Perms::READ)) {
             $permfilter = false;
         }
 
         if (!$permfilter ||
             $perms->hasPermission('operator:accountcodes:%',
-                                             Horde_Auth::getAuth(),
+                                             $GLOBALS['registry']->getAuth(),
                                              Horde_Perms::READ)) {
 
             // Add an option to select all accounts
@@ -135,7 +135,7 @@ class Operator {
                 }
 
                 if ($GLOBALS['registry']->isAdmin() ||
-                    $perms->hasPermission($permitem, Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
+                    $perms->hasPermission($permitem, $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                     $accountcodes[$accountcode] = $values[$index];
                 }
             }

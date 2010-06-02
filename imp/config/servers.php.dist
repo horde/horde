@@ -125,7 +125,7 @@
  *           To restrict logging to a certain user ('foo'), and to log this
  *           output to the file '/tmp/imaplog', the following can be used:
  *
- *             ((Horde_Auth::getAuth() == 'foo') ? '/tmp/imaplog' : false)
+ *             (($GLOBALS['registry']->getAuth() == 'foo') ? '/tmp/imaplog' : false)
  *
  * quota: (array) Use this if you want to display a user's quota status on
  *        various IMP pages. Set to an empty value to disable quota status

@@ -110,7 +110,7 @@ if (!$vacation->getVacationAddresses()) {
     /* Remove empty lines. */
     $addresses = preg_replace('/\n+/', "\n", $addresses);
     if (empty($addresses)) {
-        $addresses = Horde_Auth::getAuth();
+        $addresses = $GLOBALS['registry']->getAuth();
     }
     $vacation->setVacationAddresses($addresses);
 }

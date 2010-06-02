@@ -204,8 +204,8 @@ class Whups_Query {
     {
         // Create a few variables that are reused.
         $queryurl = Horde::applicationUrl('query/index.php');
-        $edit = $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-        $delete = $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+        $edit = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+        $delete = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
 
         $tabs = new Horde_Ui_Tabs('action', $vars);
         $tabs->addTab(_("Ne_w Query"), $queryurl, 'new');
@@ -224,7 +224,7 @@ class Whups_Query {
         }
         $tabs->addTab(_("E_xecute Query"), Horde::applicationUrl('query/run.php'), 'run');
         $tabs->addTab(_("_Load Query"), $queryurl, 'load');
-        if ((!$this->id && Horde_Auth::getAuth()) ||
+        if ((!$this->id && $GLOBALS['registry']->getAuth()) ||
             ($this->id && $edit)) {
             $tabs->addTab(_("Sa_ve Query"), $queryurl, 'save');
         }
@@ -908,7 +908,7 @@ class Whups_QueryManager {
     function getQueryBySlug($slug)
     {
         try {
-            $shares = $this->_shareManager->listShares(Horde_Auth::getAuth(), Horde_Perms::READ,
+            $shares = $this->_shareManager->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ,
                                                        array('slug' => $slug));
         } catch (Horde_Share_Exception $e) {
             throw new Whups_Exception($e);

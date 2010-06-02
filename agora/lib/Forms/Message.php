@@ -16,7 +16,7 @@ class MessageForm extends Horde_Form {
         global $conf;
 
         if (!parent::validate($vars, $canAutoFill)) {
-            if (!Horde_Auth::getAuth() && !empty($conf['forums']['captcha'])) {
+            if (!$GLOBALS['registry']->getAuth() && !empty($conf['forums']['captcha'])) {
                 $vars->remove('captcha');
                 $this->removeVariable($varname = 'captcha');
                 $this->insertVariableBefore('newcomment', _("Spam protection"), 'captcha', 'figlet', true, null, null, array(Agora::getCAPTCHA(true), $conf['forums']['figlet_font']));

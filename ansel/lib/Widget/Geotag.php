@@ -80,7 +80,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $imple = Horde_Ajax_Imple::factory(array('ansel', 'ImageSaveGeotag'), array());
         $impleUrl = $imple->getUrl();
 
-        $permsEdit = $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+        $permsEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         $viewType = $this->_view->viewType();
 
         if (count($geodata) == 0 && $viewType != 'Image') {
@@ -139,7 +139,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 // Image view, but no geotags, provide ability to add it.
                 $addurl = Horde::applicationUrl('map_edit.php')->add('image', $this->_params['images'][0]);
                 $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
-                $imgs = $ansel_storage->getRecentImagesGeodata(Horde_Auth::getAuth());
+                $imgs = $ansel_storage->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
                     if (count($imgs) > 0) {
                         $imgsrc = '<div class="ansel_location_sameas">';
                         foreach ($imgs as $id => $data) {

@@ -162,7 +162,7 @@ class Babel {
      */
     function hasPermission($permission, $filter = null, $perm = null)
     {
-	$userId = Horde_Auth::getAuth();
+	$userId = $GLOBALS['registry']->getAuth();
 	$admin = ($userId == 'admin') ? true : false;
     $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
@@ -175,7 +175,7 @@ class Babel {
 	switch ($filter) {
 	 case 'tabs':
 	    if ($perm) {
-		$allowed  = $perms->hasPermission('babel:' . $permission, Horde_Auth::getAuth(), $perm);
+		$allowed  = $perms->hasPermission('babel:' . $permission, $GLOBALS['registry']->getAuth(), $perm);
 	    }
 	    break;
 	}

@@ -15,7 +15,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/CreateCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // create new calendars (default share is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('default_share')) {
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_share')) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }

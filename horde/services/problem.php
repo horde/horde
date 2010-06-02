@@ -26,7 +26,7 @@ if (!Horde_Menu::showService('problem')) {
 $identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
 $email = $identity->getValue('from_addr');
 if (!$email) {
-    $email = Horde_Util::getFormData('email', Horde_Auth::getAuth());
+    $email = Horde_Util::getFormData('email', $registry->getAuth());
 }
 $message = Horde_Util::getFormData('message', '');
 $name = Horde_Util::getFormData('name', $identity->getValue('fullname'));
@@ -54,7 +54,7 @@ case 'send_problem_report':
         $attachment = null;
         if (!empty($conf['problems']['attachments'])) {
             try {
-                $GLOBALS['browser']->wasFileUploaded('attachment', _("attachment"));
+                $browser->wasFileUploaded('attachment', _("attachment"));
                 $attachment = $_FILES['attachment'];
             } catch (Horde_Browser_Exception $e) {
                 if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
@@ -112,7 +112,7 @@ case 'send_problem_report':
             }
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                $mail->send($injector->getInstance('Horde_Mail'));
 
                 /* We succeeded. */
                 Horde::logMessage(

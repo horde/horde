@@ -66,7 +66,7 @@ class Ansel_GalleryMode_Normal {
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
             $num_galleries = $GLOBALS['ansel_storage']->countGalleries(
-                Horde_Auth::getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
+                $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
@@ -142,7 +142,7 @@ class Ansel_GalleryMode_Normal {
             return $this->_gallery->data['attribute_images'];
         }
 
-        $gCnt = $GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(),
+        $gCnt = $GLOBALS['ansel_storage']->countGalleries($GLOBALS['registry']->getAuth(),
                                                           $perm, null,
                                                           $this->_gallery, false);
 
@@ -178,9 +178,9 @@ class Ansel_GalleryMode_Normal {
      */
     function moveImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
           throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
@@ -271,7 +271,7 @@ class Ansel_GalleryMode_Normal {
         }
 
         /* Clear any comments */
-        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
             $result = $GLOBALS['registry']->call('forums/deleteForum',

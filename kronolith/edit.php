@@ -65,7 +65,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         list($target, $user) = explode(':', $targetcalendar, 2);
     } else {
         $target = $targetcalendar;
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
     }
     try {
         $share = Kronolith::getInternalCalendar($target);
@@ -139,11 +139,11 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 // has permissions to do so.
                 try {
                     $sourceShare = Kronolith::getInternalCalendar($source);
-                    if ($sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) &&
-                        (($user == Horde_Auth::getAuth() &&
-                          $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) ||
-                         ($user != Horde_Auth::getAuth() &&
-                          $share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE)))) {
+                    if ($sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) &&
+                        (($user == $GLOBALS['registry']->getAuth() &&
+                          $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) ||
+                         ($user != $GLOBALS['registry']->getAuth() &&
+                          $share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE)))) {
                         $kronolith_driver->open($source);
                         try {
                             $res = $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
@@ -162,13 +162,13 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
 
         if ($event) {
             if (isset($sourceShare)
-                && !$sourceShare->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+                && !$sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("You do not have permission to move this event."), 'horde.warning');
-            } elseif ($user != Horde_Auth::getAuth() &&
-                      !$share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE, $event->creator)) {
+            } elseif ($user != $GLOBALS['registry']->getAuth() &&
+                      !$share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE, $event->creator)) {
                 $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
-            } elseif ($user == Horde_Auth::getAuth() &&
-                      !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, $event->creator)) {
+            } elseif ($user == $GLOBALS['registry']->getAuth() &&
+                      !$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $event->creator)) {
                 $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
             } else {
                 $event->readForm();

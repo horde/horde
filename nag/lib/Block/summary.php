@@ -32,7 +32,7 @@ class Horde_Block_nag_summary extends Horde_Block {
 
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
-            if ($tasklist->get('owner') != Horde_Auth::getAuth() &&
+            if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
                 !empty($GLOBALS['conf']['share']['hidden']) &&
                 !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
                 continue;
@@ -79,7 +79,7 @@ class Horde_Block_nag_summary extends Horde_Block {
                      'show_tasklists' => array(
                          'type' => 'multienum',
                          'name' => _("Show tasks from these tasklists"),
-                         'default' => array(Horde_Auth::getAuth()),
+                         'default' => array($GLOBALS['registry']->getAuth()),
                          'values' => $tasklists),
                      'show_categories' => array(
                          'type' => 'multienum',
