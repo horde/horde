@@ -229,7 +229,7 @@ class Folks_Hooks
                 || $group->userIsInGroup($user_uid, 1, false)
                 || $group->userIsInGroup($user_uid, 2, false)) {
 
-                $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
+                $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
                 $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
 
                 $try = $GLOBALS['registry']->callByPackage('imp', 'authenticate', array($user_uid, array('password' => $password)));
@@ -270,7 +270,7 @@ class Folks_Hooks
             throw new Horde_Exception(_("Username can contain only alphanumeric characters, underscore and minus."));
         }
 
-        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
+        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
 
         $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
         $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
@@ -297,7 +297,7 @@ class Folks_Hooks
      {
         global $conf;
 
-        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
+        $_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
         $fields = array();
         $values = array();
         foreach ($extra as $field => $value) {

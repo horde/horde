@@ -24,7 +24,7 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 
 <?php
 
-$dbh = $injector->getInstance('Horde_Db_Pear')->getOb();
+$dbh = $injector->getInstance('Horde_Db_Pear')->getDb();
 
 if (Horde_Util::getFormData('list-tables')) {
     $description = 'LIST TABLES';

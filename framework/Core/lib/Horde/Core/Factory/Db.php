@@ -63,7 +63,7 @@ class Horde_Core_Factory_Db
      * @throws Horde_Exception
      * @throws Horde_Db_Exception
      */
-    public function getOb($app = 'horde', $type = null)
+    public function getDb($app = 'horde', $type = null)
     {
         $sig = $app . '|' . $type;
 

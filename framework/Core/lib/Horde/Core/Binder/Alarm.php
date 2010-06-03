@@ -13,7 +13,7 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
         $params = Horde::getDriverConfig('alarms', $driver);
 
         if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getOb('horde', 'alarm');
+            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'alarm');
             $config = $injector->getInstance('Horde_Db')->getConfig('alarm');
             $params['charset'] = $config['charset'];
         }

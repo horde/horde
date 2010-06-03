@@ -32,7 +32,7 @@ if (is_null($sequence)) {
 
 switch ($db_lib) {
 case 'DB':
-    $dbh = $injector->getInstance('Horde_Db_Pear')->getOb();
+    $dbh = $injector->getInstance('Horde_Db_Pear')->getDb();
     break;
 
 case 'MDB2':

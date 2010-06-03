@@ -21,7 +21,7 @@ class Horde_Core_Binder_Perms implements Horde_Injector_Binder
                 array_merge(Horde::getDriverConfig('datatree', $dt_driver), array('group' => 'horde.perms'))
             );
         } elseif (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db')->getOb('horde', 'perms');
+            $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'perms');
         }
 
         $params['cache'] = $injector->getInstance('Horde_Cache');

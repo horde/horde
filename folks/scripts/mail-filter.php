@@ -108,7 +108,7 @@ $from_str = array('Undelivered Mail', 'MAILER-DAEMON', 'root@' . $conf['server']
 
 // Connect to db
 try {
-    $db = $injector->getInstance('Horde_Db_Pear')->getOb();
+    $db = $injector->getInstance('Horde_Db_Pear')->getDb();
 } catch (Horde_Exception $e) {
     $cli->fatal($e);
 }

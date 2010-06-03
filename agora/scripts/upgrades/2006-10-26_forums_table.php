@@ -8,7 +8,7 @@ require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open the database. */
-$db = $injector->getInstance('Horde_Db_Pear')->getOb();
+$db = $injector->getInstance('Horde_Db_Pear')->getDb();
 
 /* Copy forums. */
 $max_id = 0;

@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
 
 try {
-    $db = $injector->getInstance('Horde_Db_Pear')->getOb();
+    $db = $injector->getInstance('Horde_Db_Pear')->getDb();
 } catch (Horde_Exception $e) {
     $cli->fatal($e);
 }

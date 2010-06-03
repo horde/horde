@@ -81,7 +81,7 @@ if (!$registry->isAdmin(array('permission' => 'folks:admin'))) {
 
 // Connect to db
 try {
-    $db = $injector->getInstance('Horde_Db_Pear')->getOb();
+    $db = $injector->getInstance('Horde_Db_Pear')->getDb();
 } catch (Horde_Exception $e) {
     $cli->fatal($e);
 }

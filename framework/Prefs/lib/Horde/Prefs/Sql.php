@@ -268,7 +268,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
             return;
         }
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db')->getOb('horde', 'prefs');
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db')->getDb('horde', 'prefs');
         $this->_params = array_merge(array(
             'table' => 'horde_prefs'
         ), Horde::getDriverConfig('prefs'));

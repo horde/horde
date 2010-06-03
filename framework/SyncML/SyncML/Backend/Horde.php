@@ -30,7 +30,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         parent::__construct($params);
 
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getOb();
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
     }
 
     /**

@@ -131,7 +131,7 @@ class Horde_Core_Factory_Auth
                 break;
 
             case 'sql':
-                $params['db'] = $this->_injector->getInstance('Horde_Db')->getOb('auth');
+                $params['db'] = $this->_injector->getInstance('Horde_Db')->getDb('auth');
                 break;
             }
 

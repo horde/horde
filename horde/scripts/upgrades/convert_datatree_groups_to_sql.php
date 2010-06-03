@@ -24,7 +24,7 @@ VALUES
     (?, ?)
 ';
 
-$db = $injector->getInstance('Horde_Db_Pear')->getOb();
+$db = $injector->getInstance('Horde_Db_Pear')->getDb();
 
 foreach ($g->listGroups(true) as $id => $name) {
     if ($id == -1) {

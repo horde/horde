@@ -59,7 +59,7 @@ class Horde_Core_Factory_DbPear
      * @return DB  The singleton DB instance.
      * @throws Horde_Exception
      */
-    public function getOb($type = 'rw')
+    public function getDb($type = 'rw')
     {
         if (isset($this->_instances[$type])) {
             return $this->_instances[$type];
