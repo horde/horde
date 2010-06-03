@@ -121,6 +121,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
+            /* Default window size = 100 / max window size = 512 */
+            if (!isset($collection['windowsize'])) {
+                $this->_logger->debug('[' . $this->_device->id . '] No windowsize sent, defaulting to 100');
+                $collection['windowsize'] = 100;
+            } elseif ($collection['windowsize'] < 1 || $collection['windowsize'] > 512) {
+                // per specs, out or range values default to 512
+                $this->_logger->debug('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
+                $collection['windowsize'] = 512;
+            }
+
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS)) {
                 while(1) {
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
