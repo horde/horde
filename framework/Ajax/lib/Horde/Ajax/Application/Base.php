@@ -143,7 +143,9 @@ abstract class Horde_Ajax_Application_Base
                 asort($groups);
                 $result->groups = $groups;
             }
-        } catch (Horde_Group_Exception $e) { }
+        } catch (Horde_Group_Exception $e) {
+            Horde::logMessage($e);
+        }
         return $result;
     }
 
