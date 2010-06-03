@@ -674,7 +674,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'ADD':
-            $desc = _("%s wishes to ammend \"%s\".");
+            $desc = _("%s wishes to amend \"%s\".");
             if ($registry->hasMethod('calendar/import')) {
                 $options[] = '<option value="import">' .   _("Update this event on my calendar") . '</option>';
             }
