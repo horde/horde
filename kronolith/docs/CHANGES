@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Send iTip notifications with HTML part and convert to Horde_View.
 [jan] Add option to notify users about calendar permission changes.
 [mjr] listTimeObject calendars are now viewable independently in the calendar
       portal blocks (Request #8530).

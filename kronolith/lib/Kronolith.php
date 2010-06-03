@@ -2110,7 +2110,7 @@ class Kronolith
      *                                    recurring event, the date of this
      *                                    intance.
      */
-    public static function sendITipNotifications(&$event, &$notification,
+    public static function sendITipNotifications($event, $notification,
                                                  $action, $instance = null)
     {
         global $conf;
@@ -2124,9 +2124,10 @@ class Kronolith
             $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::getServiceLink('options', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
-        $from = $ident->getDefaultFromAddress(true);
 
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
+        new Horde_View_Helper_Text($view);
 
         foreach ($event->attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
@@ -2144,7 +2145,12 @@ class Kronolith
                 /* Cancellation. */
                 $method = 'CANCEL';
                 $filename = 'event-cancellation.ics';
-                $subject = sprintf(_("Cancelled: %s"), $event->getTitle());
+                $view->subject = sprintf(_("Cancelled: %s"), $event->getTitle());
+                if (empty($instance)) {
+                    $view->header = sprintf(_("%s has cancelled \"%s\"."), $ident->getName(), $event->getTitle());
+                } else {
+                    $view->header = sprintf(_("%s has cancelled an instance of the recurring \"%s\"."), $ident->getName(), $event->getTitle());
+                }
                 break;
 
             case self::ITIP_REQUEST:
@@ -2153,43 +2159,44 @@ class Kronolith
                     /* Invitation. */
                     $method = 'REQUEST';
                     $filename = 'event-invitation.ics';
-                    $subject = $event->getTitle();
+                    $view->subject = $event->getTitle();
+                    $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $event->getTitle());
                 } else {
                     /* Update. */
                     $method = 'ADD';
                     $filename = 'event-update.ics';
-                    $subject = sprintf(_("Updated: %s."), $event->getTitle());
+                    $view->subject = sprintf(_("Updated: %s."), $event->getTitle());
+                    $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $event->getTitle());
                 }
                 break;
             }
 
-            $message = $subject . ' (' .
-                sprintf(_("on %s at %s"), $event->start->strftime('%x'), $event->start->strftime('%X')) .
-                ")\n\n";
-
+            $view->title = $event->getTitle();
+            $view->start = $event->start;
+            $view->end   = $event->end;
             if (strlen($event->location)) {
-                $message .= sprintf(_("Location: %s"), $event->location) . "\n\n";
+                $view->location = $event->location;
+            }
+            if (strlen($event->description)) {
+                $view->description = $event->description;
             }
 
             if ($event->attendees) {
-                $attendee_list = array();
+                $attendees = array();
                 foreach ($event->attendees as $mail => $attendee) {
-                    $attendee_list[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
+                    $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
                 }
-                $message .= sprintf(_("Attendees: %s"), implode(', ', $attendee_list)) . "\n\n";
+                $view->attendees = $attendees;
             }
-
-            if ($event->description != '') {
-                $message .= _("The following is a more detailed description of the event:") . "\n\n" . $event->description . "\n\n";
-            }
-            $message .= _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.");
 
             if ($action == self::ITIP_REQUEST) {
                 $attend_link = Horde::applicationUrl('attend.php', true, -1)
                     ->add(array('c' => $event->calendar,
                                 'e' => $event->id,
                                 'u' => $email));
-                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), (string)$attend_link->add('a', 'accept'), (string)$attend_link->add('a', 'tentative'), (string)$attend_link->add('a', 'decline'));
+                $view->linkAccept    = (string)$attend_link->add('a', 'accept');
+                $view->linkTentative = (string)$attend_link->add('a', 'tentative');
+                $view->linkDecline   = (string)$attend_link->add('a', 'decline');
             }
 
             /* Build the iCalendar data */
@@ -2212,16 +2219,21 @@ class Kronolith
 
             $multipart = new Horde_Mime_Part();
             $multipart->setType('multipart/alternative');
-            $body = new Horde_Mime_Part();
-            $body->setType('text/plain');
-            $body->setCharset(Horde_Nls::getCharset());
-            $body->setContents($message);
-            $multipart->addPart($body);
+            $bodyText = new Horde_Mime_Part();
+            $bodyText->setType('text/plain');
+            $bodyText->setCharset(Horde_Nls::getCharset());
+            $bodyText->setContents($view->render('notification.plain.php'));
+            $multipart->addPart($bodyText);
+            $bodyHtml = new Horde_Mime_Part();
+            $bodyHtml->setType('text/html');
+            $bodyHtml->setCharset(Horde_Nls::getCharset());
+            $bodyHtml->setContents($view->render('notification.html.php'));
+            $multipart->addPart($bodyHtml);
             $multipart->addPart($ics);
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
-            $mail = new Horde_Mime_Mail(array('subject' => $subject,
+            $mail = new Horde_Mime_Mail(array('subject' => $view->subject,
                                               'to' => $recipient,
-                                              'from' => $from,
+                                              'from' => $ident->getDefaultFromAddress(true),
                                               'charset' => Horde_Nls::getCharset()));
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
             $mail->setBasePart($multipart);
@@ -2270,7 +2282,6 @@ class Kronolith
         }
 
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
-        $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
         if ($owner) {
@@ -2352,7 +2363,7 @@ class Kronolith
 
                     $mime_mail = new Horde_Mime_Mail(array('subject' => $subject . ' ' . $event->title,
                                                            'to' => implode(',', $df_recipients),
-                                                           'from' => $from,
+                                                           'from' => $identity->getDefaultFromAddress(true),
                                                            'charset' => Horde_Nls::getCharset()));
                     $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
