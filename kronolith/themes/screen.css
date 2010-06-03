@@ -881,6 +881,16 @@ div.kronolithFormActions {
     line-height: 100%;
 }
 
+.kronolithAttendeeAccepted {
+    background-color: #28b22b;
+}
+.kronolithAttendeeDeclined {
+    background-color: #f00;
+}
+.kronolithAttendeeTentative {
+    background-color: orange;
+}
+
 /* Map */
 #kronolithEventMap {
     height: 300px;

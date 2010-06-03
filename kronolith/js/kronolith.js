@@ -4885,9 +4885,18 @@ KronolithCore = {
                           }.bind(this));
         }
 
-        var tr = new Element('tr'), i;
+        var tr = new Element('tr'), response, i;
         this.freeBusy.set(attendee.l, [ tr ]);
-        tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
+        switch (attendee.r) {
+            case 1: response = 'None'; break;
+            case 2: response = 'Accepted'; break;
+            case 3: response = 'Declined'; break;
+            case 4: response = 'Tentative'; break;
+        }
+        tr.insert(new Element('td')
+                  .writeAttribute('title', attendee.l)
+                  .addClassName('kronolithAttendee' + response)
+                  .insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
