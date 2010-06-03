@@ -127,7 +127,7 @@ class Horde_Core_Factory_Auth
                 break;
 
             case 'ldap':
-                $params['ldap'] = $this->_injector->getInstance('Horde_Ldap')->getOb('horde', 'auth');
+                $params['ldap'] = $this->_injector->getInstance('Horde_Ldap')->getLdap('horde', 'auth');
                 break;
 
             case 'sql':

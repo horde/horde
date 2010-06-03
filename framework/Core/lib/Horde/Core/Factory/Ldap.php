@@ -61,7 +61,7 @@ class Horde_Core_Factory_Ldap
      * @throws Horde_Exception
      * @throws Horde_Ldap_Exception
      */
-    public function getOb($app = 'horde', $type = null)
+    public function getLdap($app = 'horde', $type = null)
     {
         $sig = $app . '|' . $type;
 
