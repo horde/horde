@@ -285,26 +285,6 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Decodes a wbxml string into this object's properties.
-     *
-     * @param string $wbxml
-     */
-    public function decode($wbxml)
-    {
-        throw new Horde_ActiveSync_Exception('Not implemented.');
-    }
-
-    /**
-     * Encodes this message object into a wbxml string.
-     *
-     * @return string wbxml string
-     */
-    public function encode()
-    {
-        throw new Horde_ActiveSync_Exception('Not Implemented.');
-    }
-
-    /**
      * Encodes this object (and any sub-objects) as wbxml to the output stream.
      * Output is ordered according to $_mapping
      *

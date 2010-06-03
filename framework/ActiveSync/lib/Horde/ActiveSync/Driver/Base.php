@@ -235,11 +235,12 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function statMessage($folderId, $id);
 
     /**
+     * Obtain an ActiveSync message from the backend.
      *
-     * @param $folderid
-     * @param $id
-     * @param $truncsize
-     * @param $mimesupport
+     * @param string $folderid      The server's folder id this message is from
+     * @param string $id            The server's message id
+     * @param integer $truncsize    A TRUNCATION_* constant
+     * @param integer $mimesupport  Mime support for this message
      *
      * @return Horde_ActiveSync_Message_Base The message data
      */
@@ -469,7 +470,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $flags
      * @return unknown_type
      */
-    function setReadFlag($folderid, $id, $flags)
+    public function setReadFlag($folderid, $id, $flags)
     {
         return false;
     }
@@ -598,6 +599,31 @@ abstract class Horde_ActiveSync_Driver_Base
         .    '</characteristic>'
         . '</characteristic>'
         . '</wap-provisioningdoc>';
+    }
+
+    /**
+     * Truncate an UTF-8 encoded sting correctly
+     *
+     * If it's not possible to truncate properly, an empty string is returned
+     *
+     * @param string $string  The string to truncate
+     * @param string $length  The length of the returned string
+     *
+     * @return string  The truncated string
+     */
+    static public function truncate($string, $length)
+    {
+        if (strlen($string) <= $length) {
+            return $string;
+        }
+        while($length >= 0) {
+            if ((ord($string[$length]) < 0x80) || (ord($string[$length]) >= 0xC0)) {
+                return substr($string, 0, $length);
+            }
+            $length--;
+        }
+
+        return "";
     }
 
 }

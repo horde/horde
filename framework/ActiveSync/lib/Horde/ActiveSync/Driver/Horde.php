@@ -376,7 +376,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     /**
      * Get a message from the backend
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessage($folderid, $id, $truncsize, $mimesupport)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#getMessage
      */
     public function getMessage($folderid, $id, $truncsize, $mimesupport = 0)
     {
@@ -386,7 +386,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER:
             try {
-                return $this->_connector->calendar_export($id);
+                $message = $this->_connector->calendar_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;
@@ -395,17 +395,16 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         case self::CONTACTS_FOLDER:
             try {
-                return $this->_connector->contacts_export($id);
+                $message = $this->_connector->contacts_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;
             }
-
             break;
 
         case self::TASKS_FOLDER:
             try {
-                return $this->_connector->tasks_export($id);
+                $message = $this->_connector->tasks_export($id);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;
@@ -414,6 +413,15 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         default:
             return false;
         }
+        if (strlen($message->body) > $truncsize) {
+            $message->body = self::truncate($message->body, $truncsize);
+            $message->bodytruncated = 1;
+        } else {
+            // Be certain this is set.
+            $message->bodytruncated = 0;
+        }
+
+        return $message;
     }
 
     /**
