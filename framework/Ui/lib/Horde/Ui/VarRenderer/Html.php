@@ -1009,8 +1009,9 @@ EOT;
                 // Get rid of the trailing @ (when no host is included in
                 // the email address).
                 $address = str_replace('@>', '>', $address);
-                $mail_link = $GLOBALS['registry']->call('mail/compose', array(array('to' => addslashes($address))));
-                if (is_a($mail_link, 'PEAR_Error')) {
+                try {
+                    $mail_link = $GLOBALS['registry']->call('mail/compose', array(array('to' => addslashes($address))));
+                } catch (Horde_Exception $e) {
                     $mail_link = 'mailto:' . urlencode($address);
                 }
 
