@@ -133,7 +133,7 @@ class Horde_ActiveSync_Message_Base
 
     public function __isset($property)
     {
-        return !empty($this->_properties[$property]);
+        return isset($this->_properties[$property]);
     }
 
     /**
@@ -327,9 +327,12 @@ class Horde_ActiveSync_Message_Base
                 } else {
                     /* Simple type */
                     if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
-                          // Do not output empty items.
-                          // See above: $encoder->startTag($tag, false, true);
-                        continue;
+                          // Do not output empty items except for the following:
+                          if ($this->_checkSendEmpty($tag)) {
+                              $encoder->startTag($tag, false, true);
+                          } else {
+                            continue;
+                          }
                     } else {
                         $encoder->startTag($tag);
                     }
@@ -348,6 +351,18 @@ class Horde_ActiveSync_Message_Base
                 }
             }
         }
+    }
+
+    /**
+     * Checks to see if we should send an empty value.
+     *
+     * @param string $tag  The tag name
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        return false;
     }
 
     /**

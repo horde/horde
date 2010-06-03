@@ -246,4 +246,13 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         return 'Contacts';
     }
 
+    protected function _checkSendEmpty($tag)
+    {
+        if ($tag == self::BODYTRUNCATED && $this->bodysize > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
