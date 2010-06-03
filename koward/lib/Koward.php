@@ -35,7 +35,7 @@ class Koward {
         $this->registry     = &$registry;
         $this->notification = &$notification;
 
-        $this->auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $this->auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
 
         $this->conf       = Horde::loadConfiguration('conf.php', 'conf');
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');

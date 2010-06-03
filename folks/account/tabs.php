@@ -13,7 +13,7 @@
 $folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
-$auth = $injector->getInstance('Horde_Auth')->getOb();
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs('what', $vars);

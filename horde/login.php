@@ -98,8 +98,8 @@ if (!$is_auth) {
 
 /* Get an Auth object. */
 $auth = ($app && $is_auth)
-    ? $injector->getInstance('Horde_Auth')->getOb('application', array('app' => $app))
-    : $injector->getInstance('Horde_Auth')->getOb();
+    ? $injector->getInstance('Horde_Auth')->getAuth('application', array('app' => $app))
+    : $injector->getInstance('Horde_Auth')->getAuth();
 
 /* Build the list of necessary login parameters. */
 $loginparams = array(

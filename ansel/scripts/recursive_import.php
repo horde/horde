@@ -61,7 +61,7 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = $injector->getInstance('Horde_Auth')->getOb();
+    $auth = $injector->getInstance('Horde_Auth')->getAuth();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $cli->fatal(_("Username or password is incorrect."));
     } else {

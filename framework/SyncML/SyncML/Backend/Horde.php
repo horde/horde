@@ -482,7 +482,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
      */
     function _checkAuthentication($username, $password)
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         return $auth->authenticate($username, array('password' => $password))
             ? $GLOBALS['registry']->getAuth()
             : false;
@@ -870,7 +870,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         /* Get an Auth object. */
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
 
         /* Make this user an admin for the time beeing to allow deletion of
          * user data. */
@@ -917,7 +917,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         /* Get an Auth object. */
         try {
-            $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+            $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         } catch (Horde_Exception $e) {
             // TODO
         }

@@ -144,7 +144,7 @@ class Horde_Group
 
         $group_driver = null;
         $group_params = null;
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         if ($auth->hasCapability('groups')) {
             $group_driver = $auth->getDriver();
             $group_params = $auth;

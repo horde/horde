@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-$auth = $injector->getInstance('Horde_Auth')->getOb();
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 // Check for HTTP auth.
 if (empty($_SERVER['PHP_AUTH_USER']) ||

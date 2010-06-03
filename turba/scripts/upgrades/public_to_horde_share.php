@@ -33,7 +33,7 @@ if (!$sure) {
 // get the list of all users if we can.  If your site
 // has a *large* number of users, you may want to comment
 // out this section to avoid unnecessary overhead.
-$auth = $injector->getInstance('Horde_Auth')->getOb();
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 if ($auth->hasCapability('list')) {
     $users = $auth->listUsers();
 }

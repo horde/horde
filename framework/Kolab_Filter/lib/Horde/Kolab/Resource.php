@@ -183,7 +183,7 @@ class Kolab_Resource
         $calendar_user = $conf['kolab']['filter']['calendar_id'] . '@' . $domain;
 
         /* Load the authentication libraries */
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb(isset($conf['auth']['driver']) ? null : 'kolab');
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth(isset($conf['auth']['driver']) ? null : 'kolab');
         $authenticated = $auth->authenticate($calendar_user,
                                              array('password' => $conf['kolab']['filter']['calendar_pass']),
                                              false);

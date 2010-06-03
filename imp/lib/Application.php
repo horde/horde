@@ -359,7 +359,7 @@ class IMP_Application extends Horde_Registry_Application
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->addUser($userId, $credentials);
+        $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->addUser($userId, $credentials);
     }
 
     /**
@@ -382,7 +382,7 @@ class IMP_Application extends Horde_Registry_Application
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->removeUser($userId);
+        $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->removeUser($userId);
     }
 
     /**
@@ -404,7 +404,7 @@ class IMP_Application extends Horde_Registry_Application
             $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('imap', $params)->listUsers();
+        return $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->listUsers();
     }
 
     /* Preferences display/handling methods. Code is contained in

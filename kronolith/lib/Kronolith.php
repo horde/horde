@@ -1595,7 +1595,7 @@ class Kronolith
      */
     public static function readPermsForm($share)
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         $perm = $share->getPermission();
         $errors = array();
 

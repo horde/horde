@@ -1664,7 +1664,7 @@ class Horde_Registry
     {
         return ($app == 'horde')
             ? false
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $app))->requireAuth();
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('application', array('app' => $app))->requireAuth();
     }
 
     /**
@@ -1696,8 +1696,8 @@ class Horde_Registry
 
         /* Try transparent authentication. */
         $auth = (empty($options['app']) || ($options['app'] == 'horde'))
-            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getOb('application', array('app' => $options['app']));
+            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()
+            : $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('application', array('app' => $options['app']));
 
         return $auth->transparent();
     }

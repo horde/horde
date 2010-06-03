@@ -22,7 +22,7 @@ class AddUserForm extends Horde_Form {
 
         global $conf, $whups_driver;
 
-        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getOb();
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         if ($auth->hasCapability('list')) {
             $queue = $vars->get('queue');
             $current = $whups_driver->getQueueUsers($queue);

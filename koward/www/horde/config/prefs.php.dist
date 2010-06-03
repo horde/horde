@@ -90,7 +90,7 @@ $prefGroups['authentication'] = array(
 );
 
 try {
-    if ($GLOBALS['injector']->getInstance('Horde_Auth')->getOb()->hasCapability('update')) {
+    if ($GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->hasCapability('update')) {
         $prefGroups['forgotpass'] = array(
             'column' => _("Your Information"),
             'label' => _("Account Password"),

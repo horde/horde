@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = Horde_Group::singleton();
-$auth = $injector->getInstance('Horde_Auth')->getOb();
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');

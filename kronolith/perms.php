@@ -19,7 +19,7 @@ if (!empty($conf['share']['no_sharing'])) {
 
 $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 $groups = Horde_Group::singleton();
-$auth = $injector->getInstance('Horde_Auth')->getOb();
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');

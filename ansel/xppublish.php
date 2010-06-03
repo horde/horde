@@ -36,7 +36,7 @@ if ($cmd == 'login') {
     $username = Horde_Util::getFormData('username');
     $password = Horde_Util::getFormData('password');
     if ($username && $password) {
-        $auth = $injector->getInstance('Horde_Auth')->getOb();
+        $auth = $injector->getInstance('Horde_Auth')->getAuth();
         if ($auth->authenticate($username,
                                 array('password' => $password))) {
             $cmd = 'list';

@@ -61,7 +61,7 @@ class Horde_Core_Factory_Auth
      * @return Horde_Auth_Base  The singleton instance.
      * @throws Horde_Auth_Exception
      */
-    public function getOb($driver = null, array $params = array())
+    public function getAuth($driver = null, array $params = array())
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['auth']['driver'];

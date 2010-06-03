@@ -350,7 +350,7 @@ class Horde_Auth
             }
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_Auth')->getOb()->checkExistingAuth();
+        return $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->checkExistingAuth();
     }
 
     /**
