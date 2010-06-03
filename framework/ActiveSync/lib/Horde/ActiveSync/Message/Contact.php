@@ -13,6 +13,7 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     /* Workaround for issues with arrays from __get() */
     public $categories = array();
     public $children = array();
+    public $bodytruncated = 0;
 
     /* POOMCONTACTS */
     const ANNIVERSARY = "POOMCONTACTS:Anniversary";
