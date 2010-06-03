@@ -282,4 +282,13 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         return 'Tasks';
     }
 
+    protected function _checkSendEmpty($tag)
+    {
+        if ($tag == self::BODYTRUNCATED && $this->bodysize > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
