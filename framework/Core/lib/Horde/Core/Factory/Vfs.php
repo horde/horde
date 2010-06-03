@@ -57,7 +57,7 @@ class Horde_Core_Factory_Vfs
     public function getVfs($scope = 'horde')
     {
         if (empty($this->_instances[$scope])) {
-            $params = $this->getVFSConfig($scope);
+            $params = $this->getConfig($scope);
             $this->_instances[$scope] = VFS::factory($params['type'], $params['params']);
         }
 
@@ -73,7 +73,7 @@ class Horde_Core_Factory_Vfs
      *                and the connection parameters in 'params'.
      * @throws Horde_Exception
      */
-    public function getVFSConfig($name = 'horde')
+    public function getConfig($name = 'horde')
     {
         global $conf;
 
