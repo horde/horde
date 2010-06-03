@@ -56,10 +56,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         while ($this->_statusCode == self::STATUS_SUCCESS &&
                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
 
+            /* Defaults */
             $collection = array();
             $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
             $collection['clientids'] = array();
             $collection['fetchids'] = array();
+            $collection['windowsize'] = 100;
 
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
                 throw new Horde_ActiveSync_Exception('Protocol error');
@@ -119,16 +121,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_handleError($collection);
                     exit;
                 }
-            }
 
-            /* Default window size = 100 / max window size = 512 */
-            if (!isset($collection['windowsize'])) {
-                $this->_logger->debug('[' . $this->_device->id . '] No windowsize sent, defaulting to 100');
-                $collection['windowsize'] = 100;
-            } elseif ($collection['windowsize'] < 1 || $collection['windowsize'] > 512) {
-                // per specs, out or range values default to 512
-                $this->_logger->debug('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
-                $collection['windowsize'] = 512;
+                /* Specs state max = 512 and should be used when requested size is out of bounds */
+                if ($collection['windowsize'] < 1 || $collection['windowsize'] > 512) {
+                    $this->_logger->debug('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
+                    $collection['windowsize'] = 512;
+                }
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS)) {
