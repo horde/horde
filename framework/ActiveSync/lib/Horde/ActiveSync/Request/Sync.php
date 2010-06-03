@@ -432,7 +432,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 /* Output any FETCH requests */
                 foreach ($collection['fetchids'] as $id) {
-                    $data = $this->_driver->Fetch($collection['id'], $id, $mimesupport);
+                    $data = $this->_driver->fetch($collection['id'], $id, $mimesupport);
                     if ($data !== false) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);

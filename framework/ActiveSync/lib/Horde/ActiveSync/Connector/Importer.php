@@ -196,7 +196,7 @@ class Horde_ActiveSync_Connector_Importer
         $this->_state->updateState('flags', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
 
         /* Tell backend */
-        $this->_backend->SetReadFlag($this->_folderId, $id, $flags);
+        $this->_backend->setReadFlag($this->_folderId, $id, $flags);
 
         return true;
     }
@@ -270,7 +270,7 @@ class Horde_ActiveSync_Connector_Importer
         $change['id'] = $id;
 
         $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
-        $this->_backend->DeleteFolder($parent, $id);
+        $this->_backend->deleteFolder($parent, $id);
 
         return true;
     }

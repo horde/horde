@@ -76,7 +76,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($move['srcmsgid']);
             $this->_encoder->endTag();
 
-            $importer = $this->_driver->GetContentsImporter($move['srcfldid']);
+            $importer = $this->_driver->getContentsImporter($move['srcfldid']);
             $result = $importer->importMessageMove($move['srcmsgid'], $move['dstfldid']);
 
             // We discard the importer state for now.

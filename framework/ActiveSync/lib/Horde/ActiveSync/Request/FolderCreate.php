@@ -108,7 +108,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
             $seenfolders = array();
         }
         // Configure importer with last state
-        $importer = $this->_driver->GetHierarchyImporter();
+        $importer = $this->_driver->getHierarchyImporter();
         $importer->Config($syncstate);
 
         if (!$delete) {

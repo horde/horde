@@ -325,7 +325,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_DiffState_ImportHierarchy
      */
-    public function GetHierarchyImporter()
+    public function getHierarchyImporter()
     {
         $importer = new Horde_ActiveSync_DiffState_ImportHierarchy($this);
         $importer->setLogger($this->_logger);
@@ -340,7 +340,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_DiffState_ImportContents
      */
-    public function GetContentsImporter($folderId)
+    public function getContentsImporter($folderId)
     {
         $importer = new Horde_ActiveSync_DiffState_ImportContents($this, $folderId);
         $importer->setLogger($this->_logger);
@@ -391,7 +391,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return array
      */
-    public function GetHierarchy()
+    public function getHierarchy()
     {
         $folders = array();
 
@@ -412,7 +412,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_Message_Base The message data
      */
-    public function Fetch($folderid, $id, $mimesupport = 0)
+    public function fetch($folderid, $id, $mimesupport = 0)
     {
         // Forces entire message (up to 1Mb)
         return $this->getMessage($folderid, $id, 1024 * 1024, $mimesupport);
@@ -423,7 +423,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $attname
      * @return unknown_type
      */
-    public function GetAttachmentData($attname)
+    public function getAttachmentData($attname)
     {
         return false;
     }
@@ -457,7 +457,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function DeleteFolder($parent, $id)
+    public function deleteFolder($parent, $id)
     {
         throw new Horde_ActiveSync_Exception('DeleteFolder not yet implemented');
     }
@@ -469,7 +469,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $flags
      * @return unknown_type
      */
-    function SetReadFlag($folderid, $id, $flags)
+    function setReadFlag($folderid, $id, $flags)
     {
         return false;
     }
@@ -497,7 +497,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $newfolderid
      * @return unknown_type
      */
-    public function MoveMessage($folderid, $id, $newfolderid)
+    public function moveMessage($folderid, $id, $newfolderid)
     {
         throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
     }
@@ -511,7 +511,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param $calendarid
      * @return unknown_type
      */
-    public function MeetingResponse($requestid, $folderid, $error, &$calendarid)
+    public function meetingResponse($requestid, $folderid, $error, &$calendarid)
     {
         throw new Horde_ActiveSync_Exception('meetingResponse not yet implemented.');
     }
@@ -530,15 +530,28 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Specifies if this driver has an alternate way of checking for changes
+     * when PING is used.
      *
-     * @return unknown_type
+     * @return boolean
      */
-    public function AlterPing()
+    public function alterPing()
     {
         return false;
     }
 
-    public function AlterPingChanges($folderid, &$syncstate)
+    /**
+     * If this driver can check for changes in an alternate way for PING then
+     * for SYNC, this method is used to do so. Also, alterPing() should return
+     * true in this case.
+     *
+     * @param string $folderid  The folder id
+     * @param array $syncstate  The syncstate
+     *
+     * @deprecated - This will probably be removed.
+     * @return array  An array of changes, the same as retunred from getChanges
+     */
+    public function alterPingChanges($folderid, &$syncstate)
     {
         return array();
     }

@@ -81,7 +81,7 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
 
         foreach ($requests as $req) {
             $calendarid = '';
-            $ok = $this->_driver->MeetingResponse($req['requestid'], $req['folderid'], $req['response'], $calendarid);
+            $ok = $this->_driver->meetingResponse($req['requestid'], $req['folderid'], $req['response'], $calendarid);
             $this->_encoder->startTag(SYNC_MEETINGRESPONSE_RESULT);
             $this->_encoder->startTag(SYNC_MEETINGRESPONSE_REQUESTID);
             $this->_encoder->content($req['requestid']);
