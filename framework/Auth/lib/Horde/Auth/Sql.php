@@ -180,15 +180,15 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $values = array();
 
         /* Build the SQL query. */
-        $query .= $this->_params['username_field'] . ' = ? ';
+        $query .= $this->_params['username_field'] . ' = ?';
         $values[] = $newID;
 
-        $query .= $this->_params['password_field'] . ' = ? ';
+        $query .= ', ' . $this->_params['password_field'] . ' = ?';
         $values[] = Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']);
 
         if (empty($this->_params['soft_expiration_window'])) {
             if (!empty($this->_params['soft_expiration_field'])) {
-                $query .= $this->_params['soft_expiration_field'] . ' = ? ';
+                $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
                 $values[] = null;
             }
         } else {
@@ -198,27 +198,27 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                            $datea['tm_mday'] + $this->_params['soft_expiration_window'],
                            $datea['tm_year']);
 
-            $query .= $this->_params['soft_expiration_field'] . ' = ? ';
+            $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
             $values[] = $date;
 
             if ($this->_params['notify_expire']) {
                 call_user_func($this->_params['notify_expire'], $date);
             }
 
-            $query .= $this->_params['soft_expiration_field'] . ' = ? ';
+            $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
 
             if (empty($this->_params['hard_expiration_window'])) {
                 $values[] = null;
             } else {
                 $datea = localtime($date, true);
-                $values[]= mktime($datea['tm_hour'], $datea['tm_min'],
-                           $datea['tm_sec'], $datea['tm_mon'] + 1,
-                           $datea['tm_mday'] + $this->_params['soft_expiration_window'],
-                           $datea['tm_year']);
-            }
+                $values[] = mktime($datea['tm_hour'], $datea['tm_min'],
+                            $datea['tm_sec'], $datea['tm_mon'] + 1,
+                            $datea['tm_mday'] + $this->_params['soft_expiration_window'],
+                            $datea['tm_year']);
+             }
         }
 
-        $query .= sprintf('WHERE %s = ?', $this->_params['username_field']);
+        $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
         $values[] = $oldID;
 
         try {
