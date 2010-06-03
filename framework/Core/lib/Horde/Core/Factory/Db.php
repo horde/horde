@@ -80,7 +80,7 @@ class Horde_Core_Factory_Db
         /* Determine if we are using the base SQL config. */
         if (isset($config['driverconfig']) &&
             ($config['driverconfig'] == 'horde')) {
-            $this->_instances[$sig] = $this->getOb();
+            $this->_instances[$sig] = $this->getDb();
             return $this->_instances[$sig];
         }
 
