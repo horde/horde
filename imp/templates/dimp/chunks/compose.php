@@ -123,7 +123,11 @@ $compose_disable = !IMP::canCompose();
    <tr class="atcrow">
     <td class="label"><span class="iconImg attachmentImg"></span>: </td>
     <td id="attach_cell">
-     <input type="file" id="upload" name="file_1" />
+     <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
+     <span id="upload_wait" style="display:none"></span>
+     <span>
+      <input type="file" id="upload" name="file_1" />
+     </span>
 <?php if (strpos($save_attach, 'prompt') !== false): ?>
      <label style="display:none"><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
 <?php endif; ?>

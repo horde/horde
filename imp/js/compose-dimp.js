@@ -214,8 +214,7 @@ var DimpCompose = {
 
     uniqueSubmitCallback: function(r)
     {
-        var elt,
-            d = r.response;
+        var d = r.response;
 
         if (!d) {
             return;
@@ -285,15 +284,9 @@ var DimpCompose = {
                 if (d.success) {
                     this.addAttach(d.atc.num, d.atc.name, d.atc.type, d.atc.size);
                 }
-                if (DIMP.conf_compose.attach_limit != -1 &&
-                    $('attach_list').childElements().size() > DIMP.conf_compose.attach_limit) {
-                    $('upload').enable();
-                    elt = new Element('DIV', [ DIMP.text_compose.atc_limit ]);
-                } else {
-                    elt = new Element('INPUT', { type: 'file', name: 'file_1' });
-                }
-                $('upload_wait').next().show();
-                $('upload_wait').replace(elt.writeAttribute('id', 'upload'));
+
+                $('upload_wait').hide();
+                this.initAttachList();
                 this.resizeMsgArea();
                 break;
             }
@@ -626,6 +619,7 @@ var DimpCompose = {
             n.fade({
                 afterFinish: function() {
                     n.remove();
+                    this.initAttachList();
                     this.resizeMsgArea();
                 }.bind(this),
                 duration: 0.4
@@ -635,6 +629,31 @@ var DimpCompose = {
             $('attach_list').hide();
         }
         DimpCore.doAction('deleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+    },
+
+    initAttachList: function()
+    {
+        var u = $('upload'),
+            u_parent = u.up();
+
+        if (DIMP.conf_compose.attach_limit != -1 &&
+            $('attach_list').childElements().size() >= DIMP.conf_compose.attach_limit) {
+            $('upload_limit').show();
+        } else if (!u_parent.visible()) {
+            $('upload_limit').hide();
+
+            if (Prototype.Browser.IE) {
+                // Trick to allow us to clear the file input on IE without
+                // creating a new node.  Need to re-add the event handler
+                // however, as it won't survive this assignment.
+                u.stopObserving();
+                u_parent.innerHTML = u_parent.innerHTML;
+                u = $('upload');
+                u.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
+
+            u.clear().up().show().next().show();
+        }
     },
 
     resizeMsgArea: function()
@@ -681,8 +700,8 @@ var DimpCompose = {
     {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
-        u.next().hide();
-        u.replace(new Element('SPAN', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' (' + $F(u) + ')'));
+        u.up().hide().next().hide();
+        $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
     },
 
     attachmentComplete: function()
