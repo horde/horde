@@ -635,7 +635,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     protected function _checkSendEmpty($tag)
     {
-        if ($tag == self::BODYTRUNCATED && $this->bodysize > 0) {
+        if ($tag == self::POOMCAL_BODYTRUNCATED && $this->bodysize > 0) {
             return true;
         }
 
