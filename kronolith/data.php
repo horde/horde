@@ -146,7 +146,7 @@ case 'export':
             }
         }
 
-        $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
+        $injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_ICALENDAR:
@@ -184,7 +184,7 @@ case Horde_Data::IMPORT_FILE:
 
 if (!$error) {
     try {
-        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
 
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;

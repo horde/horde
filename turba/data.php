@@ -309,25 +309,25 @@ case 'export':
 
     switch ($exportType) {
     case Horde_Data::EXPORT_CSV:
-        $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
+        $injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_OUTLOOKCSV:
-        $injector->getInstance('Horde_Data')->getOb('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+        $injector->getInstance('Horde_Data')->getData('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
         exit;
 
     case Horde_Data::EXPORT_TSV:
-        $injector->getInstance('Horde_Data')->getOb('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
+        $injector->getInstance('Horde_Data')->getData('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_VCARD:
     case 'vcard30':
-        $injector->getInstance('Horde_Data')->getOb('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
+        $injector->getInstance('Horde_Data')->getData('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
         exit;
 
     case 'ldif':
         // TODO
-        //$injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))
+        //$injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))
         $ldif = Horde_Data::singleton(array('turba', 'ldif'));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
         exit;

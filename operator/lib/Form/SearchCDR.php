@@ -125,12 +125,12 @@ class ExportCDRForm extends SearchCDRForm
         switch($this->_vars->get('format')) {
         case Horde_Data::EXPORT_CSV:
             $ext = 'csv';
-            $fmt = $GLOBALS['injector']->getInstance('Horde_Data')->getOb('Csv');
+            $fmt = $GLOBALS['injector']->getInstance('Horde_Data')->getData('Csv');
             break;
 
         case Horde_Data::EXPORT_TSV:
             $ext = 'tsv';
-            $fmt = $GLOBALS['injector']->getInstance('Horde_Data')->getOb('Tsv');
+            $fmt = $GLOBALS['injector']->getInstance('Horde_Data')->getData('Tsv');
             break;
 
         default:

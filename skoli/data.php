@@ -158,11 +158,11 @@ case 'export':
 
     switch (Horde_Util::getFormData('exportID')) {
     case EXPORT_CSV:
-        $injector->getInstance('Horde_Data')->getOb('Csv')->exportFile(_("class.csv"), $data, (Horde_Util::getFormData('student') == 'all'));
+        $injector->getInstance('Horde_Data')->getData('Csv')->exportFile(_("class.csv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     case EXPORT_TSV:
-        $injector->getInstance('Horde_Data')->getOb('Tsv')->exportFile(_("class.tsv"), $data, (Horde_Util::getFormData('student') == 'all'));
+        $injector->getInstance('Horde_Data')->getData('Tsv')->exportFile(_("class.tsv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     }

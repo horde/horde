@@ -113,7 +113,7 @@ case 'export':
                 unset($task['delete_link']);
                 $data[] = $task;
             }
-            $injector->getInstance('Horde_Data')->getOb('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
+            $injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
             exit;
 
         case Horde_Data::EXPORT_ICALENDAR:
@@ -139,7 +139,7 @@ case Horde_Data::IMPORT_FILE:
 
 if (!$error) {
     try {
-        $data = $injector->getInstance('Horde_Data')->getOb($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
     } catch (Horde_Data_Exception $e) {
         if ($data) {
