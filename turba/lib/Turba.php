@@ -54,6 +54,8 @@ class Turba {
                 $useRegistry = false;
                 $addresses = array();
             }
+        } else {
+            $addresses = array();
         }
 
         foreach ($data as $i => $email_vals) {
