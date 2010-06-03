@@ -21,7 +21,7 @@ if (!($app = basename(Horde_Util::getFormData('app')))) {
 
 $registry->pushApp($app, array('logintasks' => false));
 
-if (!($tasks = $injector->getInstance('Horde_LoginTasks')->getOb($app))) {
+if (!($tasks = $injector->getInstance('Horde_LoginTasks')->getLoginTasks($app))) {
     throw new Horde_Exception('The Horde_LoginTasks:: class did not load successfully.');
 }
 

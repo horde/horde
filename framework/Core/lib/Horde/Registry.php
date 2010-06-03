@@ -1137,7 +1137,7 @@ class Horde_Registry
 
         /* Do login tasks. */
         if ($checkPerms) {
-            $tasks = $GLOBALS['injector']->getInstance('Horde_LoginTasks')->getOb($app);
+            $tasks = $GLOBALS['injector']->getInstance('Horde_LoginTasks')->getLoginTasks($app);
             if (!empty($options['logintasks'])) {
                 $tasks->runTasks(false, Horde::selfUrl(true, true, true));
             }

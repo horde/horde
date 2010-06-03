@@ -58,7 +58,7 @@ class Horde_Core_Factory_LoginTasks
      *
      * @return Horde_LoginTasks  The singleton instance.
      */
-    public function getOb($app)
+    public function getLoginTasks($app)
     {
         if (!isset($this->_instances[$app])) {
             $this->_instances[$app] = new Horde_LoginTasks(new Horde_Core_LoginTasks_Backend_Horde($app));
