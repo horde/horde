@@ -2299,7 +2299,7 @@ class Kronolith
                 $group = $groups->getGroupById($group);
                 $group_users = $group->listAllUsers();
             } catch (Horde_Group_Exception $e) {
-                Horde::logMessage($group_users, 'ERR');
+                Horde::logMessage($e, 'ERR');
                 continue;
             }
 
