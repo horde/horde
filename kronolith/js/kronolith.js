@@ -3066,6 +3066,7 @@ KronolithCore = {
             $('kronolithC' + type + 'PG').up('span').hide();
         } else {
             $('kronolithC' + type + 'PGNew').up('div').show();
+            $('kronolithC' + type + 'PG').up('span').show();
             if (groups.size() == 1) {
                 $('kronolithC' + type + 'PGName')
                     .update('&quot;' + groups.values()[0].escapeHTML() + '&quot;')
