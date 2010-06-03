@@ -2398,6 +2398,7 @@ class Turba_Driver
                 $message->spouse = Horde_String::convertCharset($value, $charset, 'utf-8');
                 break;
             case 'notes':
+                /* Assume no truncation - AS server will truncate as needed */
                 $message->body = Horde_String::convertCharset($value, $charset, 'utf-8');
                 $message->bodysize = strlen($message->body);
                 $message->bodytruncated = false;
