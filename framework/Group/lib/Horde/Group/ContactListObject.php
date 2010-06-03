@@ -12,18 +12,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Group
  */
-class Horde_Group_ContactListObject extends DataTreeObject_Group
+class Horde_Group_ContactListObject extends Horde_Group_DataTreeObject
 {
-
-    /**
-     * The unique name of this object.
-     * These names have the same requirements as other object names - they
-     * must be unique, etc.
-     *
-     * @var string
-     */
-    protected $name;
-
     /**
      * The unique name of this object.
      * These names have the same requirements as other object names - they
@@ -31,15 +21,7 @@ class Horde_Group_ContactListObject extends DataTreeObject_Group
      *
      * @var integer
      */
-    protected $id;
-
-    /**
-     * Key-value hash that will be serialized.
-     *
-     * @see getData()
-     * @var array
-     */
-    protected $data = array();
+    public $id;
 
     /**
      * Constructor.
