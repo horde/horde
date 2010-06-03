@@ -377,10 +377,19 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($collections as $collection) {
+            /* Get new synckey if needed */
+            $changecount = 0;
+            if (isset($collection['getchanges'])) {
+                $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
+                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
+                $sync = $this->_driver->getSyncObject();
+                $sync->init($this->_state, $exporter, $collection);
+                $changecount = $sync->getChangeCount();
+            }
 
             /* Get new synckey if needed */
             if (isset($collection['importedchanges']) ||
-                isset($collection['getchanges']) ||
+                $changecount > 0 ||
                 $collection['synckey'] == '0') {
                 try {
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
@@ -454,11 +463,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             /* Send server changes to PIM */
             if (isset($collection['getchanges'])) {
-                $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
-                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                $sync = $this->_driver->getSyncObject();
-                $sync->init($this->_state, $exporter, $collection);
-                $changecount = $sync->getChangeCount();
+                /* Changecount and exporter initialized above */
                 if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                 }

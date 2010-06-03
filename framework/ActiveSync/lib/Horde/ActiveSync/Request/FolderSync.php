@@ -82,6 +82,9 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $seenfolders = $this->_state->getKnownFolders();
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
+        /* Track if we have changes or not */
+        $changes = false;
+
         /* Deal with folder hierarchy changes */
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES)) {
             // Ignore <Count> if present
@@ -116,9 +119,11 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 case SYNC_ADD:
                 case SYNC_MODIFY:
                     $serverid = $importer->importFolderChange($folder);
+                $changes = true;
                     break;
                 case SYNC_REMOVE:
                     $serverid = $importer->importFolderDeletion($folder);
+                    $changes = true;
                     break;
                 }
 
@@ -164,7 +169,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY);
-        $this->_encoder->content($newsynckey);
+        $this->_encoder->content((($changes || $exporter->count > 0) ? $newsynckey : $synckey));
         $this->_encoder->endTag();
 
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
