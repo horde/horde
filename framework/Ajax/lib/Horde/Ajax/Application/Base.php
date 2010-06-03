@@ -139,8 +139,10 @@ abstract class Horde_Ajax_Application_Base
             $groups = empty($GLOBALS['conf']['share']['any_group'])
                 ? $horde_groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
                 : $horde_groups->listGroups();
-            asort($groups);
-            $result->groups = $groups;
+            if ($groups) {
+                asort($groups);
+                $result->groups = $groups;
+            }
         } catch (Horde_Group_Exception $e) { }
         return $result;
     }
