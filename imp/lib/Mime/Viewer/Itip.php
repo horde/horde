@@ -30,6 +30,17 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     );
 
     /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
+    );
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
@@ -802,7 +813,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
-        if ($registry->hasMethod('calendar/getFbCalendars') &&
+        if (($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
+            $registry->hasMethod('calendar/getFbCalendars') &&
             $registry->hasMethod('calendar/listEvents')) {
             try {
                 $calendars = $registry->call('calendar/getFbCalendars');
