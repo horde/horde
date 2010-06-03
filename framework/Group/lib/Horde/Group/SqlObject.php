@@ -75,7 +75,7 @@ class Horde_Group_SqlObject extends Horde_Group_DataTreeObject
      *
      * @return mixed  The value of the attribute, or null.
      */
-    public get($attribute)
+    public function get($attribute)
     {
         return isset($this->data[$attribute])
             ? $this->data[$attribute]
@@ -88,7 +88,7 @@ class Horde_Group_SqlObject extends Horde_Group_DataTreeObject
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
      */
-    public set($attribute, $value)
+    public function set($attribute, $value)
     {
         $this->data[$attribute] = $value;
     }
