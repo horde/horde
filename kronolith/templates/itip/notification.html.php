@@ -2,27 +2,30 @@
 
 <table style="border-collapse:collapse;border:1px solid #000" border="1">
   <thead><tr>
-    <th colspan="2" style="font-weight:bold;font-size:120%;background-color:#ddd"><?= $this->h($this->title) ?></th>
+    <th colspan="2" style="font-weight:bold;font-size:120%;background-color:#ddd"><?= $this->h($this->event->getTitle()) ?></th>
   </tr></thead>
   <tbody>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?= _("Start:") ?></td>
-      <td><?= $this->h($this->start->strftime('%x %X')) ?></td>
+      <td><?= $this->h($this->event->start->strftime('%x %X')) ?></td>
     </tr>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?= _("End:") ?></td>
-      <td><?= $this->h($this->end->strftime('%x %X')) ?></td>
+      <td><?= $this->h($this->event->end->strftime('%x %X')) ?></td>
     </tr>
+    <? if (strlen($this->event->location)): ?>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?= _("Location:") ?></td>
-      <td><?= $this->h($this->location) ?></td>
-    </tr>
-    <? if (isset($this->description)): ?>
-    <tr>
-      <td style="font-weight:bold;vertical-align:top"><?= _("Description:") ?></td>
-         <td><?= Horde_Text_Filter::filter($this->description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null, 'class' => null, 'charset' => Horde_Nls::getCharset())) ?></td>
+      <td><?= $this->h($this->event->location) ?></td>
     </tr>
     <? endif; ?>
+    <? if (strlen($this->event->description)): ?>
+    <tr>
+      <td style="font-weight:bold;vertical-align:top"><?= _("Description:") ?></td>
+         <td><?= Horde_Text_Filter::filter($this->event->description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null, 'class' => null, 'charset' => Horde_Nls::getCharset())) ?></td>
+    </tr>
+    <? endif; ?>
+    <? if ($this->attendees): ?>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?= _("Attendees:") ?></td>
       <td>
@@ -35,6 +38,7 @@
         <? endforeach; ?>
       </td>
     </tr>
+    <? endif; ?>
   </tbody>
 </table>
 

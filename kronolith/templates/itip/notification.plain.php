@@ -1,16 +1,20 @@
-<?= $this->subject ?> (<? printf(_("on %s at %s"), $this->start->strftime('%x'), $this->start->strftime('%X')) ?>)
+<?= $this->subject ?> (<? printf(_("on %s at %s"), $this->event->start->strftime('%x'), $this->event->start->strftime('%X')) ?>)
 
-<?= _("Location:") ?> <?= $this->location ?>
+<? if (strlen($this->event->location)): ?>
+<?= _("Location:") ?> <?= $this->event->location ?>
 
 
+<? endif; ?>
+<? if ($this->attendees): ?>
 <?= _("Attendees:") ?> <?= implode(', ', $this->attendees) ?>
 
 
-<? if (isset($this->description)): ?>
+<? endif; ?>
+<? if (strlen($this->event->description)): ?>
 <?= _("The following is a more detailed description of the event:") ?>
 
 
-<?= $this->description ?>
+<?= $this->event->description ?>
 
 
 <? endif; ?>

@@ -2128,6 +2128,7 @@ class Kronolith
         $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
         new Horde_View_Helper_Text($view);
+        $view->event = $event;
 
         foreach ($event->attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
@@ -2169,16 +2170,6 @@ class Kronolith
                     $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $event->getTitle());
                 }
                 break;
-            }
-
-            $view->title = $event->getTitle();
-            $view->start = $event->start;
-            $view->end   = $event->end;
-            if (strlen($event->location)) {
-                $view->location = $event->location;
-            }
-            if (strlen($event->description)) {
-                $view->description = $event->description;
             }
 
             if ($event->attendees) {
