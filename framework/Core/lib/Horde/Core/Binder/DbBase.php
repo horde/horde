@@ -15,7 +15,7 @@ class Horde_Core_Binder_DbBase implements Horde_Injector_Binder
     public function create(Horde_Injector $injector)
     {
         $db = new Horde_Core_Factory_Db($injector);
-        return $db->getOb('horde');
+        return $db->getDb('horde');
     }
 
     public function equals(Horde_Injector_Binder $binder)
