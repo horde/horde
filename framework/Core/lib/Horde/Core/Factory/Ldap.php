@@ -78,7 +78,7 @@ class Horde_Core_Factory_Ldap
         /* Determine if we are using the base LDAP config. */
         if (isset($config['driverconfig']) &&
             ($config['driverconfig'] == 'horde')) {
-            $this->_instances[$sig] = $this->getOb();
+            $this->_instances[$sig] = $this->getLdap();
             return $this->_instances[$sig];
         }
 
