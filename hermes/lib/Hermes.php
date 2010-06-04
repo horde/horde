@@ -162,7 +162,7 @@ class Hermes {
     function getEmployeesType($enumtype = 'multienum')
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
-        if (!$auth->capabilities['list']) {
+        if (!$auth->hasCapability('list')) {
             return array('text', array());
         }
         $users = $auth->listUsers();
