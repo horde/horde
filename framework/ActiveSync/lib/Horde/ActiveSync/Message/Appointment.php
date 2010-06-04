@@ -88,6 +88,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public $exceptions = array();
     public $attendees = array();
     public $categories = array();
+    public $bodytruncated = 0;
 
     /**
      * Constructor

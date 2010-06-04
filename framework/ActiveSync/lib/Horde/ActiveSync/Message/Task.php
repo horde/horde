@@ -10,6 +10,7 @@
 class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 {
     public $categories = array();
+    public $bodytruncated = 0;
 
     /* POOMTASKS */
     const POOMTASKS_BODY = 'POOMTASKS:Body';
