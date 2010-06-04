@@ -294,6 +294,8 @@ class Horde_Registry
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);
 
+        $injector->setInstance('Horde_Autoloader', $GLOBALS['__autoloader']);
+
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
@@ -1075,7 +1077,7 @@ class Horde_Registry
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
         $app_lib = $this->get('fileroot', $app) . '/lib';
-        Horde_Autoloader::addClassPattern('/^' . $app . '(?:$|_)/i', $app_lib);
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $app_lib));
 
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
 

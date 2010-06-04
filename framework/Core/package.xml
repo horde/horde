@@ -73,6 +73,7 @@ Application Framework.
        </dir> <!-- /lib/Horde/Core/Auth/Signup -->
        <file name="Signup.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
+      <file name="Autoloader.php" role="php" />
       <dir name="Autoloader">
        <dir name="Callback">
         <file name="Auth.php" role="php" />
@@ -272,6 +273,7 @@ Application Framework.
    <install name="lib/Horde/Core/Auth/Signup/Null.php" as="Horde/Core/Auth/Signup/Null.php" />
    <install name="lib/Horde/Core/Auth/Signup/Sql.php" as="Horde/Core/Auth/Signup/Sql.php" />
    <install name="lib/Horde/Core/Auth/Signup/SqlObject.php" as="Horde/Core/Auth/Signup/SqlObject.php" />
+   <install name="lib/Horde/Core/Autoloader.php" as="Horde/Core/Autoloader.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Auth.php" as="Horde/Core/Autoloader/Callback/Auth.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
