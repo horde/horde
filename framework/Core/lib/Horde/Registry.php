@@ -648,9 +648,11 @@ class Horde_Registry
     public function listAPIs()
     {
         if (empty($this->_apis)) {
-            foreach (array_keys($this->_cache['interfaces']) as $interface) {
-                list($api,) = explode('/', $interface, 2);
-                $this->_apis[$api] = true;
+            if (!empty($this->_cache['interfaces'])) {
+                foreach (array_keys($this->_cache['interfaces']) as $interface) {
+                    list($api,) = explode('/', $interface, 2);
+                    $this->_apis[$api] = true;
+                }
             }
         }
 
