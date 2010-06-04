@@ -12,15 +12,12 @@ class Horde_Block_hermes_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $tree->addNode($parent . '__add',
                        $parent,
                        _("Enter Time"),
                        $indent + 1,
                        false,
                        array('icon' => 'hermes.png',
-                             'icondir' => $GLOBALS['registry']->getImageDir(),
                              'url' => Horde::applicationUrl('entry.php')));
         $tree->addNode($parent . '__search',
                        $parent,
@@ -28,7 +25,6 @@ class Horde_Block_hermes_tree_menu extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $GLOBALS['registry']->getImageDir('horde'),
                              'url' => Horde::applicationUrl('search.php')));
     }
 

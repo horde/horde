@@ -14,12 +14,9 @@ class Horde_Block_hermes_tree_stopwatch extends Horde_Block {
     {
         global $registry, $prefs;
 
-        require_once dirname(__FILE__) . '/../base.php';
-
         Horde::addScriptFile('popup.js', 'horde', true);
 
         $entry = Horde::applicationUrl('entry.php');
-        $icondir = $registry->getImageDir();
 
         $tree->addNode($parent . '__start',
                        $parent,
@@ -27,7 +24,6 @@ class Horde_Block_hermes_tree_stopwatch extends Horde_Block {
                        $indent + 1,
                        false,
                        array('icon' => 'timer-start.png',
-                             'icondir' => $icondir,
                              'url' => '#',
                              'onclick' => "popup('" . Horde::applicationUrl('start.php') . "', 400, 100); return false;"));
 
@@ -42,7 +38,6 @@ class Horde_Block_hermes_tree_stopwatch extends Horde_Block {
                                $indent + 1,
                                false,
                                array('icon' => 'timer-stop.png',
-                                     'icondir' => $icondir,
                                      'url' => Horde_Util::addParameter($entry, 'timer', $i),
                                      'target' => 'horde_main'));
             }
