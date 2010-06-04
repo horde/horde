@@ -60,7 +60,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
             break;
         case 'history':
             $state_params = $conf['activesync']['state']['params'];
-            $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base')->getDb();
+            $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
             $stateMachine = new Horde_ActiveSync_State_History($state_params);
         }
 
