@@ -62,8 +62,7 @@ include $routeFile;
 // Set up application class and controller loading
 // @TODO separate $app from class names so that there can be multiple instances
 // of an app in the registry?
-Horde_Autoloader::addClassPattern('/^' . $app . '_/i', $fileroot . '/lib/');
-Horde_Autoloader::addClassPattern('/^' . $app . '_/i', $fileroot . '/app/controllers/');
+$injector->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $fileroot . '/lib/'));
 
 // Create our controller context.
 $context = array(
