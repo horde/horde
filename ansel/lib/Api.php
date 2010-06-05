@@ -721,7 +721,7 @@ class Ansel_Api extends Horde_Registry_Api
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
-            $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
+           $GLOBALS['ansel_storage'] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope($app);
         }
 
         return Ansel::selectGalleries($default, $perm, null, $parent, $allLevels,
@@ -755,7 +755,7 @@ class Ansel_Api extends Horde_Registry_Api
         /* If no app is given use Ansel's own gallery which is initialized in
         base.php */
         if (!is_null($app)) {
-            $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
+            $GLOBALS['ansel_storage'] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope($app);
         }
 
         /* Determine the default gallery when none is given. The first gallery in
