@@ -10,7 +10,6 @@ $horde_base = '/path/to/horde';
 
 require_once $horde_base . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
-Horde_Autoloader::addClassPath(dirname(__FILE__));
 
 $vars = Horde_Variables::getDefaultVariables();
 

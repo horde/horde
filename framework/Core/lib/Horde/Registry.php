@@ -276,11 +276,6 @@ class Horde_Registry
             )
         );
 
-        /* Setup autoloader callbacks. */
-        foreach ($callbacks as $key => $val) {
-            Horde_Autoloader::addCallback($key, array($val, 'callback'));
-        }
-
         /* Setup injector. */
         $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
@@ -294,7 +289,12 @@ class Horde_Registry
         $GLOBALS['registry'] = $this;
         $injector->setInstance('Horde_Registry', $this);
 
+        /* Setup autoloader instance and callbacks. */
         $injector->setInstance('Horde_Autoloader', $GLOBALS['__autoloader']);
+        foreach ($callbacks as $key => $val) {
+            $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
+        }
+
 
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
