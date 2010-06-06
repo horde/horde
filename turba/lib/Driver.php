@@ -2420,7 +2420,7 @@ class Turba_Driver
         }
 
         if (empty($this->fileas)) {
-            $message->fileas = Turba::formatName($object);
+            $message->fileas = Horde_String::convertCharset(Turba::formatName($object), $charset, 'utf-8');
         }
 
         return $message;
