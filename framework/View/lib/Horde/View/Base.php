@@ -290,8 +290,10 @@ abstract class Horde_View_Base
         }
 
         // set local variables to be used in the partial
-        foreach ($options['locals'] as $key => $val) {
-            $locals[$key] = $val;
+        if (isset($options['locals']) && (is_array($options['locals']) || $options['locals'] instanceof Traversable)) {
+            foreach ($options['locals'] as $key => $val) {
+                $locals[$key] = $val;
+            }
         }
 
         // collection
