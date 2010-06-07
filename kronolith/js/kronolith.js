@@ -3674,6 +3674,7 @@ KronolithCore = {
 
             case 'kronolithQuickEvent':
                 this.updateCalendarDropDown('kronolithQuickinsertCalendars');
+                $('kronolithQuickinsertCalendars').setValue(Kronolith.conf.default_calendar);
                 $('kronolithQuickinsert').appear({
                     duration: this.effectDur,
                     afterFinish: function() {
