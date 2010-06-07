@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<!-- $Horde: trean/locale/es_ES/help.xml,v 1.1 2008/03/21 00:28:28 jan Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Introducción</title>
+    <heading>Introducción</heading>
+    <para>La aplicación de marcadores le permite almacenar, organizar, gestionar y lo que es más importante, acceder a los marcadores de su navegador en línea y desde un único sitio accesible desde cualquier navegador y lugar.</para>
+    <para>Al almacenar los marcadores aquí, puede acceder a ellos desde cualquier navegador de cualquier máquina. Esto significa que puede acceder fácilmente a sus marcadores desde distintos navegadores, distintas máquinas, ubicaciones remotas, etc. Y si actualiza, cambia o prueba otros navegadores, no tendrá que preocuparse sobre lo que sucederá con sus marcadores o cómo importarlos al nuevo navegador.</para>
+</entry>
+
+</help>

@@ -1,0 +1,854 @@
+# Latvian translations for Trean package.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the Trean package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-04-03 14:53+0300\n"
+"PO-Revision-Date: 2008-04-03 14:53+0300\n"
+"Last-Translator: Janis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CP1257\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: edit.php:237
+#, php-format
+msgid "\"%s\" was not renamed: %s."
+msgstr "\"%s\" nav pârsaukts: %s."
+
+#: data.php:156
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "Importçtas %d mapes un %d grâmatzîmes."
+
+#: templates/star_rating_helper.php:21 templates/star_rating_helper.php:22
+#: templates/star_rating_helper.php:23 templates/star_rating_helper.php:24
+#, php-format
+msgid "%d stars out of 5"
+msgstr "%d punkti no 5"
+
+#: templates/reports.php:104
+#, php-format
+msgid "%s Bookmarks"
+msgstr "Grâmatzîmes"
+
+#: reports.php:25
+#, php-format
+msgid "%s Response Codes"
+msgstr "%s atbilþu kodi"
+
+#: lib/base.php:78
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s's grâmatzîmes"
+
+#: lib/Block/bookmarks.php:63 lib/Block/highestrated.php:38
+#: lib/Block/mostclicked.php:38
+msgid "1 Line"
+msgstr "1 rinda"
+
+#: templates/star_rating_helper.php:20
+msgid "1 star out of 5"
+msgstr "1 punkts no 5"
+
+#: lib/Block/bookmarks.php:55 lib/Block/highestrated.php:30
+#: lib/Block/mostclicked.php:30
+msgid "10 rows"
+msgstr "10 rindas"
+
+#: lib/Block/bookmarks.php:56 lib/Block/highestrated.php:31
+#: lib/Block/mostclicked.php:31
+msgid "15 rows"
+msgstr "15 rindas"
+
+#: templates/reports.php:36
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx atbilþu kodi (%s)"
+
+#: lib/Block/bookmarks.php:62 lib/Block/highestrated.php:37
+#: lib/Block/mostclicked.php:37
+msgid "2 Line"
+msgstr "2 rindas"
+
+#: lib/Block/bookmarks.php:57 lib/Block/highestrated.php:32
+#: lib/Block/mostclicked.php:32
+msgid "25 rows"
+msgstr "25 rindas"
+
+#: templates/reports.php:42
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx atbilþu kodi (%s)"
+
+#: lib/Block/bookmarks.php:61 lib/Block/highestrated.php:36
+#: lib/Block/mostclicked.php:36
+msgid "3 Line"
+msgstr "3 rindas"
+
+#: templates/reports.php:53
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx atbilþu kodi (%s)"
+
+#: templates/reports.php:64
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "4xx atbilþu kodi (%s)"
+
+#: templates/reports.php:86
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx atbilþu kodi (%s)"
+
+#: lib/Forms/Search.php:24
+msgid "AND"
+msgstr "UN"
+
+#: lib/Trean.php:176
+msgid "Accepted"
+msgstr "Akceptçts"
+
+#: templates/add/add.inc:59 lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "Pievienot"
+
+#: templates/add/add.inc:87
+msgid "Add to Bookmarks"
+msgstr "Pievienot grâmatzîmçm"
+
+#: templates/search.php:65
+msgid "All"
+msgstr "Visas"
+
+#: data.php:39 perms.php:239 lib/Block/bookmarks.php:32
+#, php-format
+msgid "An error occured listing folders: %s"
+msgstr "Kïûme râdot mapes: %s"
+
+#: lib/Trean.php:49
+#, php-format
+msgid "An error occurred counting folders: %s"
+msgstr "Kïûme skaitot mapes: %s"
+
+#: lib/Forms/Search.php:25
+msgid "Any Part of the field"
+msgstr "Jebkura lauka daïa"
+
+#: templates/search.php:29
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Vai tieðâm vçlaties dzçst atzîmçtâs grâmatzîmes?"
+
+#: config/prefs.php.dist:33
+msgid "Ascending (A to Z)"
+msgstr "Augoða (A lîdz Z)"
+
+#: perms.php:44
+msgid "Attempt to edit a non-existent share."
+msgstr "Mçìnâjums mainît neeksistçjoðu koplietojumu."
+
+#: lib/Trean.php:208
+msgid "Bad Gateway"
+msgstr ""
+
+#: lib/Trean.php:188
+msgid "Bad Request"
+msgstr "Nepareizs pieprasîjums"
+
+#: add.php:66
+msgid "Bookmark Added"
+msgstr "Grâmatzîme pievienota"
+
+#: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
+msgid "Bookmarks"
+msgstr "Grâmatzîmes"
+
+#: templates/common-header.inc:27
+msgid "Bookmarks Feed"
+msgstr "Grâmatzîmju padeve"
+
+#: browse.php:37
+msgid "Browse"
+msgstr "Pârlûkot"
+
+#: templates/edit/footer.inc:2 templates/add/add.inc:60
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: templates/views/BookmarkList.php:28
+msgid "Clicks"
+msgstr "Klikðíi"
+
+#: templates/add/add.inc:82
+msgid "Close"
+msgstr "Aizvçrt"
+
+#: lib/Forms/Search.php:24
+msgid "Combine"
+msgstr "Kombinçt"
+
+#: config/prefs.php.dist:63
+msgid "Completely collapsed"
+msgstr "Lîdz galam savçrsts"
+
+#: config/prefs.php.dist:65
+msgid "Completely expanded"
+msgstr "Lîdz galam izvçrsts"
+
+#: edit.php:247
+msgid "Confirm Deletion"
+msgstr "Apstiprinât dzçðanu"
+
+#: lib/Trean.php:197
+msgid "Conflict"
+msgstr "Konflikts"
+
+#: lib/Trean.php:172
+msgid "Continue"
+msgstr "Turpinât"
+
+#: templates/browse.php:105 templates/browse.php:106
+msgid "Control access to this folder"
+msgstr "Vadît pieejas tiesîbas ðai mapei"
+
+#: edit.php:214
+msgid "Copied bookmark: "
+msgstr "Kopçtâs grâmatzîmes: "
+
+#: templates/search.php:72
+msgid "Copy"
+msgstr "Kopçt"
+
+#: edit.php:222
+#, php-format
+msgid "Copying folders is not supported."
+msgstr "Mapju kopçðana nav iespçjama."
+
+#: lib/Trean.php:175
+msgid "Created"
+msgstr "Izveidota"
+
+#: templates/reports.php:96
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS kïûme vai cita kïûda (%s)"
+
+#: templates/browse.php:90 templates/search.php:70
+msgid "Delete"
+msgstr "Dzçst"
+
+#: templates/browse.php:160
+msgid "Delete Bookmark"
+msgstr "Dzçst grâmatzîmes"
+
+#: templates/browse.php:91
+msgid "Delete this folder"
+msgstr "Dzçst ðo mapi"
+
+#: edit.php:51 edit.php:110
+msgid "Deleted bookmark: "
+msgstr "Dzçstâ grâmatzîme: "
+
+#: edit.php:123
+msgid "Deleted folder: "
+msgstr "Dzçstâ mapes: "
+
+#: edit.php:269
+#, php-format
+msgid "Deleted the folder \"%s\""
+msgstr "Dzçsta mapes \"%s\""
+
+#: config/prefs.php.dist:34
+msgid "Descending (9 to 1)"
+msgstr "Dilstoði (9 lîdz 1)"
+
+#: templates/edit/bookmark.inc:15 templates/add/add.inc:42
+#: lib/Forms/Search.php:22
+msgid "Description"
+msgstr "Apraksts"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Ekrâna opcijas"
+
+#: lib/Block/bookmarks.php:52
+msgid "Display Rows"
+msgstr "Râdît rindas"
+
+#: templates/data/export.inc:11
+msgid "Download Folder"
+msgstr "Lejupielâdçt mapi"
+
+#: templates/add/add.inc:73
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr "Aizvelciet zemâk redzamo saiti \"Pievienot grâmatzîmçm\" uz joslu \"Links\""
+
+#: templates/add/add.inc:71
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr "Aizvelciet zemâk redzamo saiti \"Pievienot grâmatzîmçm\" uz joslu \"Personal Toolbar\""
+
+#: templates/search.php:69
+msgid "Edit"
+msgstr "Labot"
+
+#: edit.php:287
+msgid "Edit Bookmark"
+msgstr "Labot grâmatzîmes"
+
+#: templates/browse.php:155
+msgid "Edit Bookmarks"
+msgstr "Labot grâmatzîmes"
+
+#: perms.php:235
+msgid "Edit Permissions"
+msgstr "Mainît pieejas tiesîbas"
+
+#: perms.php:242
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Mainît %s pieejas tiesîbas"
+
+#: lib/Trean.php:205
+msgid "Expectation Failed"
+msgstr "Gaidîðanas laiks pârsniegts"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "Eksportçt grâmatzîmes"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "Importçjamais fails:"
+
+#: templates/add/add.inc:70
+msgid "Firefox/Mozilla"
+msgstr "Firefox/Mozilla"
+
+#: config/prefs.php.dist:64
+msgid "First level shown"
+msgstr "Parâdîts pirmais lîmenis"
+
+#: templates/views/BookmarkList.php:26 templates/edit/bookmark.inc:25
+#: templates/add/add.inc:47 lib/Block/bookmarks.php:42
+msgid "Folder"
+msgstr "Mape"
+
+#: templates/browse.php:70 templates/browse.php:71
+msgid "Folder Actions"
+msgstr "Darbîbas ar mapçm"
+
+#: lib/Bookmarks.php:354
+msgid "Folder names must be non-empty"
+msgstr "Mapju nosaukumi nedrîkst bût tukði"
+
+#: templates/data/import.inc:11
+msgid "Folder to import into:"
+msgstr "Importçt mapç:"
+
+#: lib/Trean.php:191
+msgid "Forbidden"
+msgstr "Aizliegts"
+
+#: lib/Trean.php:183
+msgid "Found"
+msgstr "Atrasta"
+
+#: lib/Trean.php:210
+msgid "Gateway Time-out"
+msgstr "Vârtejas pârtraukums"
+
+#: lib/Trean.php:198
+msgid "Gone"
+msgstr "Prom"
+
+#: reports.php:25 templates/reports.php:33
+msgid "HTTP Status"
+msgstr "HTTP statuss"
+
+#: lib/Trean.php:211
+msgid "HTTP Version not supported"
+msgstr "Neatbalstîta HTTP versija."
+
+#: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
+msgid "Highest Rated"
+msgstr "Visaugstâk novçrtçtâs"
+
+#: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
+msgid "Highest-rated Bookmarks"
+msgstr "Visaugstâk novçrtçtâs grâmatzîmes"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Importçt"
+
+#: data.php:184 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "Importçt grâmatzîmes"
+
+#: templates/data/export.inc:9
+msgid "Include Subfolders"
+msgstr "Ietvert apakðmapes"
+
+#: lib/Trean.php:206
+msgid "Internal Server Error"
+msgstr "Servera iekðçjâ kïûda"
+
+#: templates/add/add.inc:72
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:7
+msgid "Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr "Internet Explorer lietotâjiem sâkumâ jâeksportç Favorites, izmantojot \"Import and Export\" izvçlnç File."
+
+#: lib/Trean.php:199
+msgid "Length Required"
+msgstr "Jânorâda garums"
+
+#: lib/Forms/Search.php:25
+msgid "Match"
+msgstr "Atbilst"
+
+#: lib/api.php:93
+msgid "Maximum Number of Bookmarks"
+msgstr "Maksimâlais grâmatzîmju skaits"
+
+#: lib/api.php:90
+msgid "Maximum Number of Folders"
+msgstr "Maksimâlais mapju skaits"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Izvçlòu saraksts"
+
+#: lib/Trean.php:193
+msgid "Method Not Allowed"
+msgstr "Metode nav atïauta"
+
+#: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
+msgid "Most Clicked"
+msgstr "Visvairâk klikðíinâtâs"
+
+#: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
+msgid "Most-clicked Bookmarks"
+msgstr "Visvairâk klikðíinâtâs grâmatzîmes"
+
+#: templates/search.php:71
+msgid "Move"
+msgstr "Pârvietot"
+
+#: lib/Trean.php:182
+msgid "Moved Permanently"
+msgstr "Pârvietota uz visiem laikiem"
+
+#: edit.php:161
+msgid "Moved bookmark: "
+msgstr "Pârvietotâ grâmatzîme:"
+
+#: edit.php:174
+msgid "Moved folder: "
+msgstr "Pârvietotâ mape: "
+
+#: templates/data/import.inc:6
+msgid "Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr "Mozilla/Firefox lietotâjiem sâkumâ jâeksportç grâmatzîmes, izmantojot \"Bookmark Manager\" un izvçloties \"Export\" no izvçlenes \"Tools\""
+
+#: lib/Trean.php:181
+msgid "Multiple Choices"
+msgstr "Vairâkas iespçjas"
+
+#: templates/edit/folder.inc:9
+msgid "Name"
+msgstr "Nosaukums"
+
+#: add.php:113 templates/browse.php:150 templates/add/add.inc:27
+msgid "New Bookmark"
+msgstr "Jauna grâmatzîmes"
+
+#: lib/Trean.php:90
+msgid "New Folder"
+msgstr "Jauna mape"
+
+#: templates/browse.php:80
+msgid "New folder"
+msgstr "Jauna mape"
+
+#: templates/edit/delete_folder_confirmation.inc:15
+msgid "No"
+msgstr "Nç"
+
+#: templates/search.php:76
+msgid "No Bookmarks found"
+msgstr "Grâmatzîmes  nav atrastas"
+
+#: lib/Trean.php:178
+msgid "No Content"
+msgstr "Nav satura"
+
+#: lib/Block/bookmarks.php:128 lib/Block/highestrated.php:73
+#: lib/Block/mostclicked.php:73
+msgid "No bookmarks to display"
+msgstr "Nav parâdâmu grâmatzîmju"
+
+#: lib/Trean.php:177
+msgid "Non-Authoritative Information"
+msgstr "Neapstiprinâta informâcija"
+
+#: templates/search.php:66
+msgid "None"
+msgstr "Nav"
+
+#: lib/Trean.php:194
+msgid "Not Acceptable"
+msgstr "Nav pieòemams"
+
+#: lib/Trean.php:192
+msgid "Not Found"
+msgstr "Nav atrasts"
+
+#: lib/Trean.php:207
+msgid "Not Implemented"
+msgstr "Nav izstrâdâts"
+
+#: lib/Trean.php:185
+msgid "Not Modified"
+msgstr "Nav mainîta"
+
+#: templates/add/add.inc:76
+msgid "Note:"
+msgstr "Piezîme:"
+
+#: edit.php:281
+msgid "Nothing to edit."
+msgstr "Nav ko labot"
+
+#: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
+msgid "Number of bookmarks to show"
+msgstr "Vienlaicîgi attçlojamo grâmatzîmju skaits"
+
+#: lib/Trean.php:174
+msgid "OK"
+msgstr "OK"
+
+#: lib/Forms/Search.php:24
+msgid "OR"
+msgstr "VAI"
+
+#: templates/add/add.inc:77
+#, php-format
+msgid "On newer versions of Internet Explorer, you may have to add %s://%s to your Trusted Zone for this to work."
+msgstr "Lai tas darbotos arî jaunâkâs Internet Explorer versijâs, Jums var bût nepiecieðams pievienot %s://%s Jûsu Trusted Zone."
+
+#: perms.php:56
+msgid "Only the owner or system administrator may change ownership or owner permissions for a share"
+msgstr "Tikai objekta îpaðnieks vais sistçmas administrators var manîti koplietojuma îpaðnieku vai tâ pieejas tiesîbas."
+
+#: config/prefs.php.dist:54
+msgid "Open links in a new window?"
+msgstr "Atvçrt saites jaunâ logâ?"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Citas opcijas"
+
+#: lib/Trean.php:180
+msgid "Partial Content"
+msgstr "Daïçjs saturs"
+
+#: lib/Trean.php:190
+msgid "Payment Required"
+msgstr "Nepiecieðama samaksa"
+
+#: templates/add/add.inc:4
+msgid "Please enter a name for the new folder:"
+msgstr "Ievadiet jaunâs mapes nosaukumu:"
+
+#: lib/Trean.php:200
+msgid "Precondition Failed"
+msgstr "Priekðnosacîjums nav izpildîts"
+
+#: lib/Trean.php:195
+msgid "Proxy Authentication Required"
+msgstr "Nepiecieðama proxy autentifikâcija"
+
+#: templates/views/BookmarkList.php:27
+msgid "Rating"
+msgstr "Novçrtçjums"
+
+#: templates/edit/delete_folder_confirmation.inc:3
+#, php-format
+msgid "Really delete \"%s\" and all of its bookmarks?"
+msgstr ""
+
+#: templates/browse.php:98
+msgid "Rename this folder"
+msgstr "Pârsaukt ðo mapi"
+
+#: reports.php:18
+msgid "Reports"
+msgstr "Atskaites"
+
+#: lib/Trean.php:201
+msgid "Request Entity Too Large"
+msgstr "Pieprasîtais objekts par lielu"
+
+#: lib/Trean.php:196
+msgid "Request Time-out"
+msgstr "Pieprasîjums pârtraukts"
+
+#: lib/Trean.php:202
+msgid "Request-URI Too Large"
+msgstr "Pieprasîjuma URI par lielu"
+
+#: lib/Trean.php:204
+msgid "Requested range not satisfiable"
+msgstr "Pieprasîtais  diapazons nav apmierinâms"
+
+#: lib/Trean.php:179
+msgid "Reset Content"
+msgstr "Notîrît saturu"
+
+#: templates/edit/footer.inc:1
+msgid "Save"
+msgstr "Saglabât"
+
+#: search.php:23 lib/Forms/Search.php:20 lib/Block/tree_menu.php:33
+msgid "Search"
+msgstr "Meklçt"
+
+#: lib/Forms/Search.php:18
+msgid "Search Bookmarks"
+msgstr "Meklçt grâmatzîmes"
+
+#: search.php:59
+#, php-format
+msgid "Search Results (%s)"
+msgstr "Meklçðanas rezultâti (%s)"
+
+#: lib/Trean.php:184
+msgid "See Other"
+msgstr "Skatît citas"
+
+#: templates/search.php:65
+msgid "Select All"
+msgstr "Izvçlçties visas"
+
+#: templates/views/BookmarkList.php:29
+msgid "Select All/Select None"
+msgstr "Izvçlçties visas/nevienu"
+
+#: templates/search.php:66
+msgid "Select None"
+msgstr "Neizvçlçties nevienu"
+
+#: templates/search.php:64
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Izvçlieties: %s, %s"
+
+#: lib/Trean.php:209
+msgid "Service Unavailable"
+msgstr "Pakalpojums nav pieejams"
+
+#: config/prefs.php.dist:11
+msgid "Set how to display bookmark listings and how to open links."
+msgstr "Iestatît veidu kâ râdît grâmatzîmes un atvçrt saites."
+
+#: config/prefs.php.dist:66
+msgid "Should your list of bookmark folders be open when you log in?"
+msgstr "Vai Jûsu grâmatzîmju saraksts ir jâtver pieslçdzoties?"
+
+#: config/prefs.php.dist:45
+msgid "Show folder actions panel?"
+msgstr "Râdît mapju darbîbu paneli?"
+
+#: config/prefs.php.dist:24
+msgid "Sort bookmarks by:"
+msgstr "Ðíirot grâmatzîmes pçc:"
+
+#: lib/Block/bookmarks.php:46
+msgid "Sort by"
+msgstr "Ðíirot pçc"
+
+#: config/prefs.php.dist:35
+msgid "Sort direction:"
+msgstr "Ðíiroðanas kârtîba"
+
+#: lib/Trean.php:173
+msgid "Switching Protocols"
+msgstr "Pârslçgumu protokoli"
+
+#: lib/Block/bookmarks.php:58 lib/Block/highestrated.php:33
+#: lib/Block/mostclicked.php:33
+msgid "Template"
+msgstr "Veidne"
+
+#: lib/Trean.php:187
+msgid "Temporary Redirect"
+msgstr "Pagaidu pâradresâcija"
+
+#: templates/browse.php:169
+msgid "There are no bookmarks in this folder"
+msgstr "Ðajâ mapç nav grâmatzîmju"
+
+#: edit.php:216
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Kïûme kopçjot grâmatzîmi: %s."
+
+#: edit.php:53 edit.php:112
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Kïûme dzçðot grâmatzîmi: %s"
+
+#: edit.php:125
+#, php-format
+msgid "There was a problem deleting the folder: %s"
+msgstr "Kïûme dzçðot mapi: %s"
+
+#: edit.php:163
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr " Kïûme pârvietojot grâmatzîmi: %s."
+
+#: edit.php:176
+#, php-format
+msgid "There was a problem moving the folder: %s"
+msgstr "Kïûme pârvietojot mapi: %s."
+
+#: add.php:61
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Kïûda pievienojot grâmatzîmi: %s"
+
+#: add.php:45 add.php:102 edit.php:147 edit.php:201
+#, php-format
+msgid "There was an error adding the folder: %s"
+msgstr "Kïûda pievienojot mapi: %s"
+
+#: edit.php:74
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Kïûda saglabâjot grâmatzîmi: %s"
+
+#: edit.php:87
+#, php-format
+msgid "There was an error saving the folder: %s"
+msgstr "Kïûda saglabâjot mapi: %s"
+
+#: templates/views/BookmarkList.php:25 templates/edit/bookmark.inc:10
+#: templates/add/add.inc:37 lib/Forms/Search.php:21 lib/Block/bookmarks.php:49
+#: config/prefs.php.dist:21
+msgid "Title"
+msgstr "Nosaukums"
+
+#: templates/add/add.inc:69
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Lai âtri pievienotu grâmatzîmes no tîmekïa pârlûka:"
+
+#: templates/reports.php:103
+msgid "Total"
+msgstr "Kopâ"
+
+#: templates/edit/bookmark.inc:20 templates/add/add.inc:32
+#: lib/Forms/Search.php:23
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:189
+msgid "Unauthorized"
+msgstr "Neautorizçts"
+
+#: templates/reports.php:100
+#, php-format
+msgid "Unknown (%s)"
+msgstr "Nezinâms (%s)"
+
+#: lib/Trean.php:203
+msgid "Unsupported Media Type"
+msgstr "Neatbalstîts mçdija tips"
+
+#: perms.php:228
+#, php-format
+msgid "Updated %s."
+msgstr "Mainîts %s."
+
+#: lib/Trean.php:186
+msgid "Use Proxy"
+msgstr "Izmantot proxy"
+
+#: templates/add/add.inc:74
+msgid "While browsing you will be able to bookmark the current page by clicking your new \"Add to Bookmarks\" shortcut."
+msgstr "Pârlûkojot Internet Jûsu varçsiet pievienot grâmatzîmi, uzklikðíinot îsinâjumikonai \"Pievienot grâmatzîmi\"."
+
+#: lib/Forms/Search.php:25
+msgid "Whole Field"
+msgstr "Viss lauks"
+
+#: templates/edit/delete_folder_confirmation.inc:9
+msgid "Yes"
+msgstr "Jâ"
+
+#: add.php:23 data.php:65 data.php:132
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Jums nav atïauts radît vairâk kâ %d grâmatzîmes."
+
+#: add.php:86 data.php:56 data.php:107
+#, php-format
+msgid "You are not allowed to create more than %d folders."
+msgstr "Jums nav atïauts izveidot vairâk kâ %d mapes."
+
+#: browse.php:24
+msgid "You do not have permission to view this folder."
+msgstr "Jums nav tiesîbu pârlûkot ðo mapi."
+
+#: templates/add/add.inc:11
+msgid "You must select a target folder first"
+msgstr "Vispirms jâizvçlas mçría mape."
+
+#: lib/Trean.php:149
+msgid "_Browse"
+msgstr "Pârlûkot"
+
+#: templates/browse.php:161
+msgid "_Delete Bookmarks"
+msgstr "Dzçst grâmatzîmes"
+
+#: templates/browse.php:156
+msgid "_Edit Bookmarks"
+msgstr "Labot grâmatzîmes"
+
+#: lib/Trean.php:155
+msgid "_Import/Export"
+msgstr "Importçt/Eksportçt"
+
+#: templates/browse.php:151
+msgid "_New Bookmark"
+msgstr "Jauna grâmatzîme"
+
+#: lib/Trean.php:151
+msgid "_Reports"
+msgstr "Atskaites"
+
+#: lib/Trean.php:150
+msgid "_Search"
+msgstr "Meklçt"
+
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "click"
+msgstr "klikðíis"
+
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "clicks"
+msgstr "klikðíi"

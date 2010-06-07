@@ -1,0 +1,16 @@
+/**
+ * $Horde: trean/themes/silver/screen.css,v 1.1 2008/03/27 17:45:34 jan Exp $
+ */
+
+#bookmarkList th.sortup {
+    background: #ccc url("graphics/za.png") center left no-repeat;
+}
+#bookmarkList th.sortdown {
+    background: #ccc url("graphics/az.png") center left no-repeat;
+}
+#faShow {
+    background-image: url("graphics/plus.png");
+}
+#faHide {
+    background-image: url("graphics/minus.png");
+}

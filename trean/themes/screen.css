@@ -1,0 +1,254 @@
+/**
+ * $Horde: trean/themes/screen.css,v 1.18 2008/03/27 17:48:52 jan Exp $
+ */
+
+.reportheader {
+    text-align: left;
+    font-weight: bold;
+    padding: 8px;
+    font-size: larger;
+    margin-left: 16px;
+}
+.report {
+    text-align: left;
+    margin-left: 25px;
+    padding: 5px;
+}
+
+td, th {
+    text-align: left;
+}
+table.control {
+    width: 100%;
+}
+table.control td.actions {
+    text-align: right;
+}
+
+/* Folder Actions toggles */
+#faShow, #faHide {
+    padding-left: 18px;
+    white-space: nowrap;
+    font-weight: bold;
+}
+#faShow {
+    display: block;
+    background: transparent url("graphics/plus.png") center left no-repeat;
+}
+#faHide {
+    display: none;
+    background: transparent url("graphics/minus.png") center left no-repeat;
+}
+#folderActionsInner {
+    display: none;
+}
+body.folderActions #folderActionsInner {
+    margin-top: 1em;
+    display: block;
+}
+body.folderActions #faShow {
+    display: none;
+}
+body.folderActions #faHide {
+    display: block;
+}
+
+#folderList {
+    padding: .5em;
+}
+#folderList form, #folderList p {
+    margin: .5em 0;
+    clear: left;
+}
+#folderList form img, #folderList p img {
+    padding-right: .5em;
+    display: block;
+    float: left;
+}
+#folderList input {
+    font-size: 90%;
+}
+#folderActions {
+    margin-bottom: .5em;
+    border: 1px solid #ccc;
+    padding: .5em;
+    background: #eee;
+}
+
+#bookmarkActions {
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: .5em;
+    margin: .5em 0;
+}
+#bookmarkActions label {
+    font-size: 95%;
+    margin-right: .5em;
+    cursor: pointer;
+}
+
+#bookmarkList table {
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+#bookmarkList th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+#bookmarkList th.rightAlign {
+    text-align: right;
+}
+#bookmarkList th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+#bookmarkList th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+#bookmarkList td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+div.bookmarks img {
+    padding-right: 2px;
+}
+div.bookmarks .checkbox {
+    margin: 0 5px;
+}
+
+.favicon {
+    width: 16px;
+    height: 16px;
+}
+
+.bl-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bl-title a {
+    font-weight: bold;
+}
+.bl-clicks {
+    text-align: center;
+}
+
+#browser-instructions {
+    margin: 8px;
+    padding: 8px;
+}
+
+/* Star rating styles. */
+div.rating {
+    float: right;
+}
+td.rating {
+    background: #fff;
+}
+.star-rating {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 125px;
+    height: 25px;
+    position: relative;
+    background: url("graphics/rating-star.gif") top left repeat-x;
+}
+.star-rating li {
+    padding: 0;
+    margin: 0;
+    /*\*/
+    float: left;
+    /* */
+}
+.star-rating li a {
+    display: block;
+    width: 25px;
+    height: 25px;
+    text-decoration: none;
+    text-indent: -9000px;
+    z-index: 20;
+    position: absolute;
+    padding: 0;
+}
+.star-rating li a:hover {
+    background: url("graphics/rating-star.gif") left bottom;
+    z-index: 2;
+    left: 0;
+    border: none;
+}
+.star-rating a.one-star {
+    left: 0;
+}
+.star-rating a.one-star:hover {
+    width: 25px;
+}
+.star-rating a.two-stars {
+    left: 25px;
+}
+.star-rating a.two-stars:hover {
+    width: 50px;
+}
+.star-rating a.three-stars {
+    left: 50px;
+}
+.star-rating a.three-stars:hover {
+    width: 75px;
+}
+.star-rating a.four-stars {
+    left: 75px;
+}
+.star-rating a.four-stars:hover {
+    width: 100px;
+}
+.star-rating a.five-stars {
+    left: 100px;
+}
+.star-rating a.five-stars:hover {
+    width: 125px;
+}
+.star-rating li.current-rating {
+    background: url("graphics/rating-star.gif") left center;
+    position: absolute;
+    height: 25px;
+    display: block;
+    text-indent: -9000px;
+    z-index: 1;
+}
+.star-rating a:active {
+    outline: none;
+}
+a.static-rating {
+    background: url("graphics/rating-star.gif") left center;
+    height: 25px;
+    display: block;
+    text-indent: -9000px;
+}
+
+/* Folder delete confirmation styles. */
+#delete-folder-confirmation-template {
+    display: none;
+}
+
+#delete-folder-confirmation {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #ffc;
+}
+#delete-folder-confirmation form {
+    display: inline;
+}
+
+#RB_window #delete-folder-confirmation {
+    margin: 0;
+    width: 20em;
+}
+#RB_window #delete-folder-confirmation input {
+    margin: .2em;
+}

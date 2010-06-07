@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- $Horde: trean/locale/fi_FI/help.xml,v 1.1 2005/03/16 15:30:26 jan Exp $ -->
+<help>
+  <entry id="Overview" md5="874d0785840aa202c81187da4d7e8043" state="uptodate">
+    <title>Yleiskuva</title>
+    <heading>Esittely</heading>
+    <para>
+    Ohjelmalla Kirjanmerkki voit tallettaa, hallinnoida, organisoida
+    ja k&#xE4;ytt&#xE4;&#xE4; kirjanmerkkej&#xE4;si mill&#xE4; tahansa selaimella kaikkialta ja ne on k&#xE4;tev&#xE4;sti talletettuna yhteen paikkaan.
+    </para>
+    <para>
+    Tallettamalla kirjanmerkkisi t&#xE4;h&#xE4;n ohjelmaan voit k&#xE4;ytt&#xE4;&#xE4; niit&#xE4;
+    mill&#xE4; selaimella tahansa milt&#xE4; koneelta tahansa. T&#xE4;m&#xE4; tarkoittaa
+    ett&#xE4; voit k&#xE4;ytt&#xE4;&#xE4; kirjanmerkkej&#xE4;si monilla selaimilla, monilta eri
+    koneilta ja eri paikoista. Etuna on my&#xF6;s se, ett&#xE4; kirjanmerkkisi
+    ei p&#xE4;&#xE4;se katoamaan jos p&#xE4;ivit&#xE4;t selaimesi uudempaan versioon tai
+    alat k&#xE4;ytt&#xE4;m&#xE4;&#xE4;n kokonaan toista www-selainta.
+    </para>
+</entry>
+</help>

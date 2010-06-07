@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- $Horde: trean/config/conf.xml,v 1.2 2005/03/29 04:34:10 ben Exp $ -->
+<configuration>
+ <configsection name="menu" desc="Menu settings">
+   <configheader>
+        Menu settings
+   </configheader>
+  <configboolean name="import_export" desc="Should we display an Import/Export link in the Trean application menus?">true
+  </configboolean>
+  <configmultienum name="apps" desc="Select any applications that should be linked in Trean's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+
+ <configsection name="favicons">
+  <configheader>Virtual File Storage</configheader>
+  <configvfs switchname="type" />
+ </configsection>
+</configuration>
