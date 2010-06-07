@@ -166,6 +166,9 @@ class IMP_Ui_Compose
             /* Disable spell check as you type. */
             'scayt_autoStartup: false',
 
+            /* Convert HTML entities. */
+            'entities: false',
+
             /* Default display font. This is NOT the font used to send
              * the message, however. */
             'contentsCss: "body { font-family: Arial; font-size: 12px; }"',
