@@ -309,7 +309,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var go, so, eo, po, xy, int;
+        var go, eo, po, xy, p, delta, int;
 
         if (++this.move <= this.options.threshold) {
             return;
@@ -332,8 +332,14 @@ Drag = Class.create({
                 this.ghost = $(this.element.cloneNode(true))
                     .writeAttribute('id', null)
                     .addClassName(this.options.classname)
-                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' })
-                    .clonePosition(this.element, { setHeight: false, setWidth: false });
+                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
+
+                var p = this.element.viewportOffset();
+                var delta = document.body.viewportOffset();
+                delta[0] -= document.body.offsetLeft;
+                delta[1] -= document.body.offsetTop;
+                this.ghost.style.left = (p[0] - delta[0]) + 'px';
+                this.ghost.style.top  = (p[1] - delta[1]) + 'px';
 
                 // eo is the offset of the original element to the body.
                 eo = this.element.cumulativeOffset();
@@ -403,11 +409,6 @@ Drag = Class.create({
                     }
                 }
             }
-
-            // This is called on each mouse move. Get the current scrolling
-            // offset of the ghost, i.e. how far the ghost's parents have
-            // been scrolled.
-            so = this.ghost.cumulativeScrollOffset();
 
             // Subtract the ghost's offset to the original mouse position and
             // add any scrolling.
