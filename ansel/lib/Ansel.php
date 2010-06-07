@@ -289,7 +289,7 @@ class Ansel
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url = new Horde_Url($url .= '#' . $data['image']);
+                    $url = new Horde_Url($url . '#' . $data['image']);
                 }
 
                 return Horde::applicationUrl($url, $full, $append_session);
@@ -300,7 +300,7 @@ class Ansel
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url .= '#' . $data['image'];
+                    $url = new Horde_Url($url . '#' . $data['image']);
                 }
 
                 return $url;
