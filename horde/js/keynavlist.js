@@ -14,15 +14,15 @@
  *                            by default
  *                      'v' - (value) Value of entry
  *     'onChoose' - (function) Called when an entry is selected. Passed the
- *                             entry value.
+ *                  entry value.
  *     'onHide' - (function) Called when the list is hidden. Passed the
- *                           list container element.
+ *                list container element.
  *     'onShow' - (function) Called when the list is shown. Passed the
- *                           list container element.
+ *                list container element.
  *     'domParent' - (Element) Specifies the parent element. Defaults to
- *                              document.body
- *     'keydownObserver - (Element) The element to register the keydown handler
- *                                  on. Defaults to document.
+ *                   document.body
+ *     'keydownObserver' - (Element) The element to register the keydown
+ *                         handler on. Defaults to document.
  * });
  *
  * [base = (Element) The element to use for display positioning purposes]
