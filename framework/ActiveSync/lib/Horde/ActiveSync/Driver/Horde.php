@@ -387,6 +387,10 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         case self::APPOINTMENTS_FOLDER:
             try {
                 $message = $this->_connector->calendar_export($id);
+                // Nokia MfE requires the optional UID element.
+                if (!$message->getUid()) {
+                    $message->setUid(pack("H*" , md5($id)));
+                }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 return false;

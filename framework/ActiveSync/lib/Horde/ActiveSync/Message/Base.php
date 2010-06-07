@@ -341,7 +341,7 @@ class Horde_ActiveSync_Message_Base
                           $encoder->content(self::_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));
                         }
                     } elseif (isset($map[self::KEY_TYPE]) && $map[self::KEY_TYPE] == self::TYPE_HEX) {
-                        $encoder->content(bin2hex($this->$map[self::KEY_ATTRIBUTE]));
+                        $encoder->content(Horde_String::upper(bin2hex($this->$map[self::KEY_ATTRIBUTE])));
                     } elseif (isset($map[self::KEY_TYPE]) && $map[self::KEY_TYPE] == self::TYPE_MAPI_STREAM) {
                         $encoder->content($this->$map[self::KEY_ATTRIBUTE]);
                     } else {
@@ -352,7 +352,6 @@ class Horde_ActiveSync_Message_Base
             }
         }
     }
-
     /**
      * Checks to see if we should send an empty value.
      *
