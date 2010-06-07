@@ -21,7 +21,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      * <pre>
      * 'basic' - (boolean) Load "basic" editor (a small javascript stub that
      *           will download the full code on demand)?
-     * 'config' - (string) The javascript config hash used to indiciate the
+     * 'config' - (array) The javascript config hash used to indiciate the
      *            config for this editor instance.
      * 'id' - (string) The ID of the text area to turn into an editor. If
      *        empty, won't automatically load the editor.
@@ -29,8 +29,12 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      *               instead be stored for access via getJS().
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        $params = array_merge(array(
+            'config' => array()
+        ), $params);
+
         parent::__construct($params);
 
         if (!$this->supportedByBrowser()) {
@@ -42,9 +46,10 @@ class Horde_Editor_Ckeditor extends Horde_Editor
             : 'ckeditor_basic.js';
         $ck_path = $GLOBALS['registry']->get('webroot', 'horde') . '/services/editor/ckeditor/';
 
-        if (empty($params['config'])) {
-            $params['config'] = '{}';
-        }
+        /* Globally disable spell check as you type. */
+        $params['config']['scayt_autoStartup'] = false;
+
+        $params['config'] = Horde_Serialize::serialize($params['config'], Horde_Serialize::JSON);
 
         if (empty($params['no_notify'])) {
             Horde::addScriptFile($ck_path . $ck_file, null, array('external' => true));

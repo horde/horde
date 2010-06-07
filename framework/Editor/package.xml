@@ -30,8 +30,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed dependency on Horde_Core.
- * Removed Xinha driver.
+ <notes>* Removed Xinha driver.
  * Added CKEditor driver.
  * Initial Horde 4 package.
  </notes>
@@ -59,6 +58,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </pearinstaller>
    <package>
     <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
