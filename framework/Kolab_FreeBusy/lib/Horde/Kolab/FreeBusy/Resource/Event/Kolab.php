@@ -43,15 +43,15 @@ implements Horde_Kolab_FreeBusy_Resource_Event
      */
     public function __construct(Horde_Kolab_Storage_Folder $folder)
     {
-        parent::__construct($folder);
         if ($folder->getType() != 'event') {
             throw new Horde_Kolab_FreeBusy_Exception(
                 sprintf(
                     'Resource %s has type "%s" not "event"!',
-                    $this->getName(), $folder->getType()
+                    $folder->getName(), $folder->getType()
                 )
             );
         }
+        parent::__construct($folder);
     }
 
     /**

@@ -44,6 +44,16 @@ class Horde_Kolab_FreeBusy_Factory_Backend_Kolab
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
+        $this->_injector->bindFactory(
+            'Horde_Kolab_Storage_Folder',
+            __CLASS__,
+            'getFolder'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_Storage_Configuration',
+            __CLASS__,
+            'getStorageConfiguration'
+        );
     }
 
     /**
@@ -58,24 +68,84 @@ class Horde_Kolab_FreeBusy_Factory_Backend_Kolab
     }
 
     /**
+     * Provide configuration settings for Horde_Kolab_Storage.
+     *
+     * @return NULL
+     */
+    public function getStorageConfiguration()
+    {
+        $configuration = array();
+
+        //@todo: Update configuration parameters
+        if (!empty($GLOBALS['conf']['kolab']['imap'])) {
+            $configuration = $GLOBALS['conf']['kolab']['imap'];
+        }
+        if (!empty($GLOBALS['conf']['kolab']['storage'])) {
+            $configuration = $GLOBALS['conf']['kolab']['storage'];
+        }
+        return $configuration;
+    }
+
+    /**
+     * Return the Horde_Kolab_Storage:: instance.
+     *
+     * @return Horde_Kolab_Storage The storage handler.
+     */
+    public function getStorage()
+    {
+        $configuration = $this->_injector->getInstance('Horde_Kolab_Storage_Configuration');
+
+        $owner = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Owner');
+        $user  = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Param_User');
+
+        list($user, $pass) $user->getCredentials();
+
+        $params = array(
+            'hostspec' => $owner->getResourceServer(),
+            'username' => $user,
+            'password' => $pass,
+            'secure'   => true
+        );
+
+        $imap = Horde_Imap_Client::factory('socket', $params);
+
+        //@todo: The Group package needs to be converted to H4
+        require_once 'Horde/Group.php';
+
+        $master = new Horde_Kolab_Storage_Driver_Imap(
+            $imap,
+            Group::singleton()
+        );
+
+        return new Horde_Kolab_Storage(
+            $master,
+            $params
+        );
+    }
+
+    /**
+     * Create the folder that provides our data.
+     *
+     * @return Horde_Kolab_Storage_Folder The folder.
+     */
+    public function getFolder()
+    {
+        $name = $this->_injector
+            ->getInstance('Horde_Kolab_FreeBusy_Params_Freebusy_Resource_Kolab')
+            _>getResourceId();
+        
+    }
+
+    /**
      * Create the backend resource handler
      *
      * @return Horde_Kolab_FreeBusy_Resource The resource.
      */
     public function getResource()
     {
-        if ($folder->getType() == 'event') {
-            return new Horde_Kolab_FreeBusy_Resource_Event_Kolab(
-                $folder
-            );
-        } else {
-            throw new Horde_Kolab_FreeBusy_Exception(
-                sprintf(
-                    'Resource %s has type "%s" not "event" which is not supported!',
-                    $folder->getName(), $folder->getType()
-                )
-            );
-        }
+        return new Horde_Kolab_FreeBusy_Resource_Event_Kolab(
+            $this->_injector->getInstance('Horde_Kolab_Storage_Folder')
+        );
     }
 
 }

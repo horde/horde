@@ -124,7 +124,7 @@ class Horde_Kolab_FreeBusy_User_Kolab
         if ($this->_authenticated === null) {
             list($user, $pass) = $this->_user->getCredentials();
             try {
-                $this->_server->connect($user, $pass);
+                $this->_userdb->connect($user, $pass);
                 $this->_authenticated = true;
             } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
                 $this->_authenticated = false;
