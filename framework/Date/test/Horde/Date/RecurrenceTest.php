@@ -275,6 +275,46 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                             $this->_getRecurrences($r));
     }
 
+    public function testBug8799WeeklyISOWeek52()
+    {
+        // Friday, 2010-12-31 is in week 52, but the next recurrence is in
+        // the NEW year (2011).
+        $r = new Horde_Date_Recurrence('2010-06-04 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_FRIDAY);
+        $r->setRecurInterval(1);
+
+        $after = new Horde_Date('12/21/2010');
+        for ($i = 0; $i <= 5; $i++) {
+            $after = $r->nextRecurrence($after);
+            $recurrences[] = (string)$after;
+            $after->mday++;
+        }
+        $this->assertEquals(array('2010-12-24 10:00:00',
+                                  '2010-12-31 10:00:00',
+                                  '2011-01-07 10:00:00',
+                                  '2011-01-14 10:00:00',
+                                  '2011-01-21 10:00:00',
+                                  '2011-01-28 10:00:00'),
+                            $recurrences);
+
+        // The entire first week of Jan, 2012 is ISO Week 52
+        $after = new Horde_Date('01/01/2012');
+        $recurrences = array();
+        for ($i = 0; $i <= 5; $i++) {
+            $after = $r->nextRecurrence($after);
+            $recurrences[] = (string)$after;
+            $after->mday++;
+        }
+        $this->assertEquals(array('2012-01-06 10:00:00',
+                                  '2012-01-13 10:00:00',
+                                  '2012-01-20 10:00:00',
+                                  '2012-01-27 10:00:00',
+                                  '2012-02-03 10:00:00',
+                                  '2012-02-10 10:00:00'),
+                            $recurrences);
+    }
+
     public function testMonthlyEnd()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
