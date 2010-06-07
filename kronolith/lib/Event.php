@@ -1093,7 +1093,10 @@ abstract class Kronolith_Event
         $attendees = $message->getAttendees();
         foreach ($attendees as $attendee) {
             // TODO: participation and response are not supported in AS <= 2.5
-            $this->addAttendee($attendee->email, Kronolith::PART_NONE, Kronolith::RESPONSE_NONE, $attendee->name);
+            $this->addAttendee(Horde_String::convertCharset($attendee->email, 'utf-8', $charset),
+                               Kronolith::PART_NONE,
+                               Kronolith::RESPONSE_NONE,
+                               Horde_String::convertCharset($attendee->name, 'utf-8', $charset));
         }
 
         /* Categories (Tags) */
@@ -1129,11 +1132,10 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         /* Organizer */
-        $name = Kronolith::getUserName($this->creator);
-        $name = Horde_String::convertCharset($name, $charset, 'utf-8');
+        $name = Horde_String::convertCharset(Kronolith::getUserName($this->creator), $charset, 'utf-8');
         $message->setOrganizer(
                 array('name' => $name,
-                      'email' => Kronolith::getUserEmail($this->creator))
+                      'email' => Horde_String::convertCharset(Kronolith::getUserEmail($this->creator), $charset, 'utf-8'))
         );
 
         /* Privacy */
@@ -1242,7 +1244,7 @@ abstract class Kronolith_Event
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
-                $attendee->email = $email;
+                $attendee->email = Horde_String::convertCharset($email, $charset, 'utf-8');
                 // AS only as required or opitonal
                 //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
                 //$attendee->status = $properties['response'];
