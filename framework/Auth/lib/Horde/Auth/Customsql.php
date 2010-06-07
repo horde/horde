@@ -228,7 +228,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         /* Build a custom query, based on the config file. */
         $query = str_replace(
             '\L',
-            $this->_db->quote($GLOBALS['registry']->getAuth()),
+            $this->_db->quote($this->_params['default_user']),
             $this->_params['query_list']
         );
 

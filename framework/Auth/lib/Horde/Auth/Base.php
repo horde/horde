@@ -70,6 +70,7 @@ abstract class Horde_Auth_Base
      *
      * @param array $params  Optional parameters:
      * <pre>
+     * 'default_user' - (string) The default user.
      * 'logger' - (Horde_Log_Logger) A logger object.
      * 'notify_expire' - (callback) Callback function to output notification
      *                   when password is about to expire. Passed one
@@ -82,6 +83,10 @@ abstract class Horde_Auth_Base
             $this->_logger = $params['logger'];
             unset($params['logger']);
         }
+
+        $params = array_merge(array(
+            'default_user' => ''
+        ), $params);
 
         $this->_params = $params;
     }
@@ -232,13 +237,14 @@ abstract class Horde_Auth_Base
     /**
      * Automatic authentication.
      *
-     * @return boolean  Whether or not the user is authenticated automatically.
+     * @return boolean  Whether or not the user is authenticated
+     *                  automatically.
      * @throws Horde_Auth_Exception
      */
     public function transparent()
     {
         $userId = empty($this->_credentials['userId'])
-            ? $GLOBALS['registry']->getAuth()
+            ? $this->_params['default_user']
             : $this->_credentials['userId'];
         $credentials = empty($this->_credentials['credentials'])
             ? Horde_Auth::getCredential()

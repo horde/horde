@@ -83,7 +83,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     public function checkExistingAuth()
     {
         return !empty($_SERVER[$this->_params['username_header']]) &&
-            $this->_removeScope($_SERVER[$this->_params['username_header']]) == $GLOBALS['registry']->getAuth();
+               ($this->_removeScope($_SERVER[$this->_params['username_header']]) == $this->_params['default_user']);
     }
 
     /**

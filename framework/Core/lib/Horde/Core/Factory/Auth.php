@@ -135,6 +135,7 @@ class Horde_Core_Factory_Auth
                 break;
             }
 
+            $params['default_user'] = $GLOBALS['registry']->getAuth();
             $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
             $params['notify_expire'] = array($this, 'notifyExpire');
 
