@@ -360,7 +360,7 @@ class Horde_Group_Sql extends Horde_Group
         $query = 'SELECT group_name FROM horde_groups WHERE group_uid = ?';
 
         try {
-            return $this->db->selectValue($query, $gid);
+            return $this->db->selectValue($query, array($gid));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
@@ -647,7 +647,7 @@ class Horde_Group_Sql extends Horde_Group
         $sql = 'SELECT g.group_uid AS group_uid, g.group_name AS group_name FROM horde_groups g, horde_groups_members m '
             . ' WHERE m.user_uid = ? AND g.group_uid = m.group_uid ORDER BY g.group_name';
         try {
-            $result = $this->db->selectAll($sql, $user);
+            $result = $this->db->selectAll($sql, array($user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
