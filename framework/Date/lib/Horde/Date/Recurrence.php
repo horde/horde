@@ -386,13 +386,17 @@ class Horde_Date_Recurrence
             $start_week->sec  = $this->start->sec;
 
             // Make sure we are not at the ISO-8601 first week of year while
-            // still in month 12...and adjust the year ahead if we are.
+            // still in month 12...OR in the ISO-8601 last week of year while
+            // in month 1 and adjust the year accordingly.
             $week = $after->format('W');
             if ($week == 1 && $after->month == 12) {
                 $theYear = $after->year + 1;
+            } elseif ($week == 52 && $after->month == 1) {
+                $theYear = $after->year - 1;
             } else {
                 $theYear = $after->year;
             }
+
             $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
