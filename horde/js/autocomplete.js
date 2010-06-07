@@ -101,6 +101,7 @@ Autocompleter.Base = Class.create({
             if (this.knl) {
                 this.knl.hide();
             }
+            this.getNewVal(this.lastentry);
         } else if (choices.size() == 1 && this.opts.autoSelect) {
             this.onSelect(choices.first());
             if (this.knl) {
@@ -141,6 +142,7 @@ Autocompleter.Base = Class.create({
             if (this.opts.indicator) {
                 $(this.opts.indicator).show();
             }
+            this.lastentry = entry;
             this.getUpdatedChoices(entry);
         } else if (this.knl) {
             this.knl.hide();
@@ -191,10 +193,16 @@ Autocompleter.Base = Class.create({
 
     onSelect: function(entry)
     {
-        if (!entry) {
-            return;
+        if (entry) {
+            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry))).focus();
+            if (this.knl) {
+                this.knl.markSelected();
+            }
         }
+    },
 
+    getNewVal: function(entry)
+    {
         var bounds = this.getTokenBounds(), newval, v, ws;
 
         if (bounds[0] == -1) {
@@ -209,12 +217,9 @@ Autocompleter.Base = Class.create({
             newval += entry + v.substr(bounds[1]);
         }
 
-        this.elt.setValue(this.opts.onSelect(newval)).focus();
         this.oldval = newval;
 
-        if (this.knl) {
-            this.knl.markSelected();
-        }
+        return newval;
     }
 
 });
