@@ -91,7 +91,7 @@ case 'save':
 
     if (Horde_Util::getFormData('popup')) {
         if ($notification->count() <= 1) {
-            Horde_Util::closeWindowJS();
+            echo Horde::wrapInlineScript(array('window.close();'));
         } else {
             $notification->notify();
         }

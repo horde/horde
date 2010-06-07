@@ -61,7 +61,7 @@ case 'add_bookmark':
         $notification->push(sprintf(_("There was an error adding the bookmark: %s"), $result->getMessage()), 'horde.error');
     } else {
         if (Horde_Util::getFormData('popup')) {
-            Horde_Util::closeWindowJS();
+            echo Horde::wrapInlineScript(array('window.close();'));
         } elseif (Horde_Util::getFormData('iframe')) {
             $notification->push(_("Bookmark Added"), 'horde.success');
             require TREAN_TEMPLATES . '/common-header.inc';
