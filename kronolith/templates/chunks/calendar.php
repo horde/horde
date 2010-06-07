@@ -143,15 +143,10 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   </label>
 </div>
 
-<div id="kronolithCalendartasklistsUrls" style="display:none">
-  <label><?php echo _("Subscription URL") ?></label>
-  <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another program") ?></span><br />
-  <input type="text" id="kronolithCalendartasklistsUrlSub" class="kronolithLongField" onfocus="this.select()"><br />
-</div>
-
 <div class="tabset">
   <ul>
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkUrls"><?php echo _("Subscription") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Sharing") ?></a></li>
   </ul>
   <span>
@@ -165,6 +160,14 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 <div id="kronolithCalendartasklistsTabDescription" class="kronolithTabsOption">
   <textarea name="description" id="kronolithCalendartasklistsDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+</div>
+
+<div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
+  <div>
+    <label for="kronolithCalendartasklistsUrlSub"><?php echo _("Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlSub" class="kronolithLongField" onfocus="this.select()" /><br />
+  </div>
 </div>
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
