@@ -20,6 +20,7 @@ if (count($groups) > 1) {
                    '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
       ?>
       <br />
+      <div class="kronolithSeparator">&nbsp; &mdash; Todos os utilizadores poderão ver calendário e este poderá ser destacado na página principal</div>
     </div>
     <div>
       <span<?php if (!count($groups)) echo ' style="display:none"' ?>>
