@@ -14,14 +14,6 @@
 class Pastie_Driver
 {
     /**
-     * Array holding the current foo list. Each array entry is a hash
-     * describing a foo. The array is indexed by the IDs.
-     *
-     * @var array
-     */
-    protected $_foos = array();
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param string $driver  The type of the concrete subclass to return.
@@ -51,16 +43,6 @@ class Pastie_Driver
         }
 
         throw new Horde_Exception('Could not find driver ' . $class);
-    }
-
-    /**
-     * Lists all foos.
-     *
-     * @return array  Returns a list of all foos.
-     */
-    public function listFoos()
-    {
-        return $this->_foos;
     }
 
 }
