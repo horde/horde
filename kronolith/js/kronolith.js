@@ -22,7 +22,6 @@ KronolithCore = {
     ecache: $H(),
     holidays: [],
     tcache: $H(),
-    efifo: {},
     eventsLoading: {},
     loading: 0,
     fbLoading: 0,
@@ -32,6 +31,7 @@ KronolithCore = {
     tasktype: 'incomplete',
     growls: 0,
     alarms: [],
+    knl: {},
     wrongFormat: $H(),
     mapMarker: null,
     map: null,
@@ -2371,6 +2371,7 @@ KronolithCore = {
         $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
         this.updateTasklistDropDown();
         this.disableAlarmMethods('Task');
+        this.knl['kronolithTaskDueTime'].markSelected();
         if (id) {
             RedBox.loading();
             this.doAction('getTask', { list: tasklist, id: id }, this.editTaskCallback.bind(this));
@@ -4567,6 +4568,8 @@ KronolithCore = {
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
         this.disableAlarmMethods('Event');
+        this.knl['kronolithEventStartTime'].markSelected();
+        this.knl['kronolithEventEndTime'].markSelected();
         $('kronolithEventForm').reset();
         kronolithEAttendeesAc.reset();
         kronolithETagAc.reset();
@@ -5136,7 +5139,9 @@ KronolithCore = {
             onChoose: function(value) { field.setValue(value); this.updateTimeFields(field.identify()); }.bind(this)
         }
 
-        return new KeyNavList(field, opts);
+        this.knl[field.id] = new KeyNavList(field, opts);
+
+        return this.knl[field.id];
     },
 
     checkTime: function(e) {
