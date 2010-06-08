@@ -211,6 +211,7 @@ $scripts = array(
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
+    array('popup.js', 'horde'),
     array('textarearesize.js', 'horde')
 );
 

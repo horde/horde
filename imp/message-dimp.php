@@ -60,7 +60,6 @@ $scripts = array(
     array('textarearesize.js', 'horde'),
     array('fullmessage-dimp.js', 'imp'),
     array('imp.js', 'imp'),
-    array('md5.js', 'horde')
 );
 
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
@@ -88,14 +87,19 @@ if (!$disable_compose) {
     $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);
-    $scripts[] = array('compose-base.js', 'imp');
-    $scripts[] = array('compose-dimp.js', 'imp');
+
+    $scripts = array_merge($scripts, array(
+        array('compose-base.js', 'imp'),
+        array('compose-dimp.js', 'imp'),
+        array('md5.js', 'horde'),
+        array('popup.js', 'horde')
+    ));
 
     if (!($prefs->isLocked('default_encrypt')) &&
         ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
         $scripts[] = array('dialog.js', 'imp');
         $scripts[] = array('redbox.js', 'horde');
-        }
+    }
 
     $js_onload = $compose_result['jsonload'];
 }
