@@ -10,16 +10,20 @@ if (count($groups) > 1) {
     <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
-      <?php printf($type == 'internal' ? _("%sDon't share this calendar%s or") : _("%sDon't share this task list%s or"), '<label for="kronolithC' . $type . 'PNone">', '</label>') ?><br />
+      <?php printf($type == 'internal' ? _("%sDon't share this calendar%s") : _("%sDon't share this task list%s"), '<label for="kronolithC' . $type . 'PNone">', '</label>') ?><br />
+    </div>
+    <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />
-      <?php printf(_("%sShare with everyone%s (public) and %s %smake it searchable%s by everyone too or"),
+      <?php printf(_("%sShare with everyone%s (public) and %s %smake it searchable%s by everyone too"),
                    '<label for="kronolithC' . $type . 'PAll">', '</label>',
                    '<input type="checkbox" id="kronolithC' . $type . 'PAllShow" checked="checked" />',
                    '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
       ?>
       <br />
+    </div>
+    <div>
       <span<?php if (!count($groups)) echo ' style="display:none"' ?>>
-        <?php printf(_("%s %sShare with the %s %sgroup%s and %sallow them to%s %s or"),
+        <?php printf(_("%s %sShare with the %s %sgroup%s and %sallow them to%s %s"),
                      '<input type="radio" id="kronolithC' . $type . 'PG" name="basic_perms" />',
                      '<label for="kronolithC' . $type . 'PG">',
                      '<input type="hidden" id="kronolithC' . $type . 'PGSingle"'
@@ -39,6 +43,8 @@ if (count($groups) > 1) {
         ?>
         <br />
       </span>
+    </div>
+    <div>
       <?php printf(_("%s %sShare with the users%s %s and %sallow them to%s %s"),
                    '<input type="radio" id="kronolithC' . $type . 'PU" name="basic_perms" />',
                    '<label for="kronolithC' . $type . 'PU">', '</label>',
