@@ -56,6 +56,13 @@ class Horde_Url
     public $pathInfo;
 
     /**
+     * The anchor string.
+     *
+     * @var string
+     */
+    public $anchor = '';
+
+    /**
      * Constructor.
      *
      * @param string $url   The basic URL, with or without query parameters.
@@ -64,17 +71,23 @@ class Horde_Url
      */
     public function __construct($url, $raw = null)
     {
-        /* @todo Remove if all code has been moved to Horde_Url. */
         if ($url instanceof Horde_Url) {
-            $this->url = $url->url;
+            $this->anchor = $url->anchor;
             $this->parameters = $url->parameters;
             $this->pathInfo = $url->pathInfo;
             $this->raw = is_null($raw) ? $url->raw : $raw;
+            $this->url = $url->url;
             return;
         }
 
-        if (strpos($url, '?') !== false) {
-            list($url, $query) = explode('?', $url);
+        if (($pos = strrpos($url, '#')) !== false) {
+            $this->anchor = urldecode(substr($url, $pos + 1));
+            $url = substr($url, 0, $pos);
+        }
+
+        if (($pos = strrpos($url, '?')) !== false) {
+            $query = substr($url, $pos + 1);
+            $url = substr($url, 0, $pos);
 
             /* Check if the argument separator has been already
              * htmlentities-ized in the URL. */
@@ -207,6 +220,9 @@ class Horde_Url
         }
         if (count($url_params)) {
             $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
+        }
+        if ($this->anchor) {
+            $url .= '#' . rawurlencode($this->anchor);
         }
 
         return $url;
