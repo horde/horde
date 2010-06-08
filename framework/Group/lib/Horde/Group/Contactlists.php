@@ -349,6 +349,9 @@ class Horde_Group_Contactlists extends Horde_Group
                         $owners[] = $params['name'];
                     }
                 }
+                if (!$owners) {
+                    return array();
+                }
             } else {
                 $owners = array($GLOBALS['registry']->getAuth());
             }
@@ -361,10 +364,14 @@ class Horde_Group_Contactlists extends Horde_Group
                 . $source['map']['__type'] . ' = \'Group\' AND '
                 . $source['map']['__owner'] . ' IN (' . implode(',', $owner_ids ) . ')';
 
-           $results = $this->_db[$key]->getAssoc($sql);
-           foreach ($results as $id => $name) {
-               $groups[$key . ':' . $id] = $name;
-           }
+            $results = $this->_db[$key]->getAssoc($sql);
+            if (is_a($results, 'PEAR_Error')) {
+                Horde::logMessage($results);
+                throw new Horde_Group_Exception($results);
+            }
+            foreach ($results as $id => $name) {
+                $groups[$key . ':' . $id] = $name;
+            }
         }
         $this->_groupList = $groups;
 
