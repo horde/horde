@@ -28,7 +28,7 @@ Autocompleter.Base = Class.create({
     baseInitialize: function(elt, opts)
     {
         this.elt = elt = $(elt);
-        this.changed = this.hasFocus = false;
+        this.changed = false;
         this.observer = null;
         this.oldval = $F(elt);
         this.opts = Object.extend({
@@ -50,14 +50,14 @@ Autocompleter.Base = Class.create({
         }
 
         elt.writeAttribute('autocomplete', 'off');
-        elt.observe("blur", function() { this.hasFocus = false; }.bind(this));
-        elt.observe("focus", function() { this.hasFocus = true; }.bind(this));
         elt.observe("keydown", this._onKeyDown.bindAsEventListener(this));
     },
 
     _onKeyDown: function(e)
     {
-        if (this.hasFocus) {
+        var a = document.activeElement;
+
+        if (Object.isUndefined(a) || a == this.elt) {
             switch (e.keyCode) {
             case 0:
                 if (!Prototype.Browser.WebKit) {
@@ -86,9 +86,10 @@ Autocompleter.Base = Class.create({
 
     updateChoices: function(choices)
     {
-        var c = [], re;
+        var a = document.activeElement, c = [], re;
 
-        if (this.changed || !this.hasFocus) {
+        if (this.changed ||
+            (Object.isUndefined(a) || a != this.elt)) {
             return;
         }
 
