@@ -60,7 +60,7 @@
   <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
   <select name="targetcalendar" id="kronolithEventTarget"></select>
   <span class="kronolithSeparator">|</span>
-  <?php printf(_("This event is %s private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
+  <?php printf(_("%s Private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
 </div>
 
 <div class="tabset">
