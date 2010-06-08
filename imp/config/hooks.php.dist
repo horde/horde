@@ -567,7 +567,7 @@ class IMP_Hooks
 //        // Uses the PECL ssh2 extension.
 //        $host = $_SESSION['imp']['server'];
 //        $user = $_SESSION['imp']['user'];
-//        $pass = Horde_Auth::getCredential('password');
+//        $pass = $GLOBALS['registry']->getAuthCredential('password');
 //        $command = $params[0];
 //
 //        $session = ssh2_connect($host);

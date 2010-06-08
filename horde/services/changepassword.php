@@ -35,7 +35,7 @@ if ($vars->exists('formname')) {
     if ($form->isValid()) {
         $form->getInfo($vars, $info);
 
-        if (Horde_Auth::getCredential('password') != $info['old_password']) {
+        if ($GLOBALS['registry']->getAuthCredential('password') != $info['old_password']) {
             $notification->push(_("Old password is not correct."), 'horde.error');
         } elseif ($info['password_1'] != $info['password_2']) {
             $notification->push(_("New passwords don't match."), 'horde.error');

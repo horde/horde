@@ -247,7 +247,7 @@ abstract class Horde_Auth_Base
             ? $this->_params['default_user']
             : $this->_credentials['userId'];
         $credentials = empty($this->_credentials['credentials'])
-            ? Horde_Auth::getCredential()
+            ? $GLOBALS['registry']->getAuthCredential()
             : $this->_credentials['credentials'];
 
         list($this->_credentials['userId'], $this->_credentials['credentials']) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'transparent');

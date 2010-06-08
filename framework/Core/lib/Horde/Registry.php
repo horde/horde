@@ -1277,7 +1277,7 @@ class Horde_Registry
         } else {
             if (!isset($GLOBALS['prefs']) ||
                 ($GLOBALS['prefs']->getUser() != $this->getAuth())) {
-                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, $this->getAuth(), Horde_Auth::getCredential('password'));
+                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, $this->getAuth(), $this->getAuthCredential('password'));
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
@@ -1877,6 +1877,79 @@ class Horde_Registry
     public function passwordChangeRequested()
     {
         return !empty($_SESSION['horde_auth']['change']);
+    }
+
+    /**
+     * Returns the requested credential for the currently logged in user, if
+     * present.
+     *
+     * @param string $credential  The credential to retrieve.
+     * @param string $app         The app to query. Defaults to Horde.
+     *
+     * @return mixed  The requested credential, all credentials if $credential
+     *                is null, or false if no user is logged in.
+     */
+    public function getAuthCredential($credential = null, $app = null)
+    {
+        if (!$this->getAuth()) {
+            return false;
+        }
+
+        $credentials = $this->_getAuthCredentials($app);
+
+        return is_null($credential)
+            ? $credentials
+            : ((is_array($credentials) && isset($credentials[$credential]))
+                   ? $credentials[$credential]
+                   : false);
+    }
+
+    /**
+     * Sets the requested credential for the currently logged in user.
+     *
+     * @param string $credential  The credential to set.
+     * @param string $value       The value to set the credential to.
+     * @param string $app         The app to update. Defaults to Horde.
+     */
+    public function setAuthCredential($credential, $value, $app = null)
+    {
+        if (!$this->getAuth()) {
+            return;
+        }
+
+        $credentials = $this->_getAuthCredentials($app);
+
+        if ($credentials !== false) {
+            if (is_array($credentials)) {
+                $credentials[$credential] = $value;
+            } else {
+                $credentials = array($credential => $value);
+            }
+
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $_SESSION['horde_auth']['app'][$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
+        }
+    }
+
+    /**
+     * Get the list of credentials for a given app.
+     *
+     * @param string $app  The application name.
+     *
+     * @return mixed  True, false, or the credential list.
+     */
+    protected function _getAuthCredentials($app)
+    {
+        if (is_null($app)) {
+            $app = $_SESSION['horde_auth']['credentials'];
+        }
+
+        if (!isset($_SESSION['horde_auth']['app'])) {
+            return false;
+        }
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        return @unserialize($secret->read($secret->getKey('auth'), $_SESSION['horde_auth']['app'][$app]));
     }
 
 }

@@ -306,7 +306,7 @@ class IMP_Auth
             !empty($servers[$server_key]['hordeauth'])) {
             return array(
                 'userId' => $GLOBALS['registry']->getAuth((strcasecmp($servers[$server_key]['hordeauth'], 'full') == 0) ? null : 'bare'),
-                'password' => Horde_Auth::getCredential('password'),
+                'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'server' => $server_key
             );
         }

@@ -223,7 +223,7 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         }
 
         // Update the stored credential within the session
-        Auth::setCredential('password', $new_password);
+        $GLOBALS['registry']->setAuthCredential('password', $new_password);
 
         return true;
     }

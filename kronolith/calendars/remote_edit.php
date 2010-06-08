@@ -51,7 +51,7 @@ if ($form->validate($vars)) {
     exit;
 }
 
-$key = Horde_Auth::getCredential('password');
+$key = $registry->getAuthCredential('password');
 $username = $calendar['user'];
 $password = $calendar['password'];
 if ($key) {

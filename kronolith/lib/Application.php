@@ -349,7 +349,7 @@ class Kronolith_Application extends Horde_Registry_Application
         $calUser = trim($ui->vars->remote_user);
         $calPasswd = trim($ui->vars->remote_password);
 
-        $key = Horde_Auth::getCredential('password');
+        $key = $GLOBALS['registry']->getAuthCredential('password');
         if ($key) {
             $calUser = base64_encode(Secret::write($key, $calUser));
             $calPasswd = base64_encode(Secret::write($key, $calPasswd));

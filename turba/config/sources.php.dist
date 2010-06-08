@@ -439,7 +439,7 @@ $cfgSources['localsql'] = array(
 //         'tls' => false,
 //         'root' => 'ou=' . $_ldap_uid . ',ou=personal_addressbook,' . $_ldap_basedn,
 //         'bind_dn' => 'uid=' . $_ldap_uid . ',ou=People,' . $_ldap_basedn,
-//         'bind_password' => Horde_Auth::getCredential('password'),
+//         'bind_password' => $GLOBALS['registry']->getAuthCredential('password'),
 //         'dn' => array('uid'),
 //         'objectclass' => array('top',
 //                                'person',
@@ -766,7 +766,7 @@ if (!empty($GLOBALS['conf']['imsp']['enabled']) ||
     $_imsp_auth_pass = $GLOBALS['prefs']->getValue('imsp_auth_pass');
     if (!strlen($_imsp_auth_user)) {
         $_imsp_auth_user = $GLOBALS['registry']->getAuth('bare');
-        $_imsp_auth_pass = Horde_Auth::getCredential('password');
+        $_imsp_auth_pass = $GLOBALS['registry']->getAuthCredential('password');
     }
     $cfgSources['imsp'] = array(
         'title' => _("IMSP"),

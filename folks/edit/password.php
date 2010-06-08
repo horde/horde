@@ -159,8 +159,8 @@ do {
     $notification->push(_("Password changed."), 'horde.success');
 
     // reset credentials so user is not forced to relogin
-    if (Horde_Auth::getCredential('password') == $info['old']) {
-        Horde_Auth::setCredential('password', $info['new']);
+    if ($registry->getAuthCredential('password') == $info['old']) {
+        $registry->setAuthCredential('password', $info['new']);
         $secret = $injector->getInstance('Horde_Secret');
         if ($registry->getProvider() == 'imp' ||
             !empty($_SESSION['imp']['pass'])) {

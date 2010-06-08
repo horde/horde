@@ -18,7 +18,7 @@ class Horde_Core_Binder_Mail implements Horde_Injector_Binder
             $params['auth'] &&
             empty($params['username'])) {
             $params['username'] = $GLOBALS['registry']->getAuth();
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
 
         try {

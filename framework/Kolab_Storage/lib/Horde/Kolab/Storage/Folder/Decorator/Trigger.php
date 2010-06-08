@@ -254,9 +254,8 @@ extends Horde_Kolab_Storage_Folder_Decorator_Base
             $options = array_merge($options, $conf['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
         $http = new HTTP_Request($url, $options);
-        $http->setBasicAuth($GLOBALS['registry']->getAuth(), Horde_Auth::getCredential('password'));
+        $http->setBasicAuth($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuthCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             return PEAR::raiseError(sprintf(_("Unable to trigger URL %s. Response: %s"),

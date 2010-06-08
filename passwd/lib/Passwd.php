@@ -58,8 +58,8 @@ class Passwd {
      */
     function resetCredentials($old_password, $new_password)
     {
-        if (Auth::getCredential('password') == $old_password) {
-            Auth::setCredential('password', $new_password);
+        if ($GLOBALS['registry']->getAuthCredential('password') == $old_password) {
+            $GLOBALS['registry']->setAuthCredential('password', $new_password);
             if ($GLOBALS['registry']->getProvider() == 'imp') {
                 $_SESSION['imp']['pass'] = Secret::write(Secret::getKey('imp'),
                                                          $new_password);

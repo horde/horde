@@ -14,7 +14,7 @@
  *                                array(array('jan'), array('localsql'),
  *                                      array('name', 'email')),
  *                                array('user' => $GLOBALS['registry']->getAuth(),
- *                                      'pass' => Horde_Auth::getCredential('password')));
+ *                                      'pass' => $GLOBALS['registry']->getAuthCredential('password')));
  * </code>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)

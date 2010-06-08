@@ -289,7 +289,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
                 header("Location: $redirect");
             } else {
                 header("X-Redirect-To: $redirect");
-                $redirect = 'https://' . urlencode($this->user) . ':' . urlencode(Horde_Auth::getCredential('password'))
+                $redirect = 'https://' . urlencode($this->user) . ':' . urlencode($GLOBALS['registry']->getAuthCredential('password'))
                     . '@' . $this->freebusyserver . $path;
                 if (!@readfile($redirect)) {
                     $message = sprintf(_("Unable to read free/busy information from %s"),

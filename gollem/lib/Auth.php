@@ -39,7 +39,7 @@ class Gollem_Auth
                 $ptr = &$GLOBALS['gollem_backends'][$backend_key];
                 if (!empty($ptr['hordeauth'])) {
                     $user = Gollem::getAutologinID($backend_key);
-                    $pass = Horde_Auth::getCredential('password');
+                    $pass = $GLOBALS['registry']->getAuthCredential('password');
 
                     if (Gollem_Session::createSession($backend_key, $user, $pass)) {
                         $entry = sprintf('Login success for %s [%s] to {%s}',

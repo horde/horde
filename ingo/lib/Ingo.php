@@ -348,14 +348,14 @@ class Ingo
         // Set authentication parameters.
         if (!empty($_SESSION['ingo']['backend']['hordeauth'])) {
             $params['username'] = $GLOBALS['registry']->getAuth(($_SESSION['ingo']['backend']['hordeauth'] === 'full') ? null : 'bare');
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         } elseif (isset($_SESSION['ingo']['backend']['params']['username']) &&
                   isset($_SESSION['ingo']['backend']['params']['password'])) {
             $params['username'] = $_SESSION['ingo']['backend']['params']['username'];
             $params['password'] = $_SESSION['ingo']['backend']['params']['password'];
         } else {
             $params['username'] = $GLOBALS['registry']->getAuth('bare');
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
 
         return Ingo_Driver::factory($_SESSION['ingo']['backend']['driver'], $params);

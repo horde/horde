@@ -46,7 +46,7 @@ class Wicked_Sync {
         }
 
         if (empty($params['password'])) {
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
 
         if (class_exists($class)) {

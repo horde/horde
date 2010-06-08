@@ -105,11 +105,11 @@ class Horde_Kolab_FreeBusy_Driver_Base
         //@todo: Fix!
         // This part allows you to use the PHP scripts with CGI rather than as
         // an apache module. This will of course slow down things but on the
-        // other hand it allows you to reduce the memory footprint of the 
-        // apache server. The default is to use PHP as a module and the CGI 
+        // other hand it allows you to reduce the memory footprint of the
+        // apache server. The default is to use PHP as a module and the CGI
         // version requires specific Apache configuration.
         //
-        // The line you need to add to your configuration of the /freebusy 
+        // The line you need to add to your configuration of the /freebusy
         // location of your server looks like this:
         //
         //    RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
@@ -160,7 +160,7 @@ class Horde_Kolab_FreeBusy_Driver_Base
                     'timestamp' => time(),
                     'remote_addr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
                 );
-                Auth::setCredential('password', $pass);
+                $GLOBALS['registry']->setAuthCredential('password', $pass);
             }
     }
 
@@ -179,7 +179,7 @@ class Horde_Kolab_FreeBusy_Driver_Base
         }
 
         if (!$this->_authenticated) {
-            return PEAR::raiseError(sprintf(_("Invalid authentication for user %s!"), 
+            return PEAR::raiseError(sprintf(_("Invalid authentication for user %s!"),
                                             $this->user));
         }
         return true;

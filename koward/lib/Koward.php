@@ -88,7 +88,7 @@ class Koward {
     {
         if (!isset(self::$server)) {
             self::$server = Horde_Kolab_Server::singleton(array('user' => $GLOBALS['registry']->getAuth(),
-                                                                'pass' => Horde_Auth::getCredential('password')));
+                                                                'pass' => $GLOBALS['registry']->getAuthCredential('password')));
         }
 
         return self::$server;
