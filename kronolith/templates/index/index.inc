@@ -38,14 +38,16 @@
     <div><?php echo $today->strftime('%a, %e %b %Y') ?></div>
   </div>
   <div id="kronolithNav">
-    <a id="kronolithNavDay" accesskey="1"><span><?php echo _("Day") ?></span></a>
-    <a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a>
-    <a id="kronolithNavMonth" accesskey="3"><span><?php echo _("Month") ?></span></a>
-    <a id="kronolithNavYear" accesskey="4"><span><?php echo _("Year") ?></span></a>
+    <ul>
+      <li><a id="kronolithNavDay" accesskey="1"><span><?php echo _("Day") ?></span></a></li>
+      <li><a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a></li>
+      <li><a id="kronolithNavMonth" accesskey="3"><span><?php echo _("Month") ?></span></a></li>
+      <li><a id="kronolithNavYear" accesskey="4"><span><?php echo _("Year") ?></span></a></li>
     <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
-    <a id="kronolithNavTasks" accesskey="5"><span><?php echo _("Tasks") ?></span></a>
+      <li><a id="kronolithNavTasks" accesskey="5"><span><?php echo _("Tasks") ?></span></a></li>
     <?php endif; ?>
-    <a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a>
+      <li><a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a></li>
+    </ul>
   </div>
 </div>
 <!-- end top bar -->

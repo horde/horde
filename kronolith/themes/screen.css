@@ -704,6 +704,13 @@ a.kronolithFormCancel {
     height: 23px;
     line-height: 23px;
 }
+#kronolithNav ul {
+    float: left;
+    list-style: none;
+}
+#kronolithNav li {
+    float: left;
+}
 #kronolithNav a {
     display: block;
     float: left;
@@ -718,22 +725,17 @@ a.kronolithFormCancel {
     cursor: pointer;
     border: 1px solid #999;
 }
-#kronolithNav a:first-child {
+#kronolithNav li:first-child a {
     -moz-border-radius: 5px 0 0 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     border-radius: 5px 0 0 5px;
 }
-#kronolithNav a:last-child {
+#kronolithNav li:last-child a {
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     border-radius: 0 5px 5px 0;
-}
-#kronolithNav a:first-child:last-child {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
 }
 #kronolithNav a:hover, #kronolithNav a.on {
     background-color: #d9d9d9;
