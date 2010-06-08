@@ -39,12 +39,12 @@ class Skeleton_Driver
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['storage']['driver'];
         }
-        $driver = ucfirst(basename($driver));
 
         if (is_null($params)) {
             $params = Horde::getDriverConfig('storage', $driver);
         }
 
+        $driver = ucfirst(basename($driver));
         $class = 'Skeleton_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
