@@ -349,17 +349,9 @@
        cn,sn,userPassword attributes as well as the username search key">
        shadowAccount,inetOrgPerson</configlist>
 
-       <configswitch name="filter" desc="How to specify a filter for the
-       user lists">objectclass
-        <case name="objectclass" desc="One or more objectclass filters">
-         <configlist name="objectclass" desc="The objectclass filter used to
-         search for users. Can be a single objectclass or a list."/>
-        </case>
-        <case name="free" desc="A complete LDAP filter expression">
-         <configstring name="filter" desc="The LDAP RFC formatted filter used
-         to search for users."/>
-        </case>
-       </configswitch>
+       <configstring name="filter" desc="The LDAP RFC formatted filter used
+         to search for users.">(objectclass=*)
+       </configstring>
 
        <configswitch name="password_expiration" desc="Enable the creating of
        accounts with expiring passwords? (Note: New users should have the

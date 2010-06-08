@@ -59,7 +59,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function __construct(array $params = array())
     {
-        foreach (array('basedn', 'filter', 'ldap', 'objectclass', 'uid') as $val) {
+        foreach (array('basedn', 'filter', 'ldap', 'uid') as $val) {
             if (!isset($params[$val])) {
                 throw new InvalidArgumentException(__CLASS__ . ': Missing ' . $val . ' parameter.');
             }

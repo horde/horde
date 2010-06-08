@@ -50,8 +50,8 @@ class Horde_Ldap
      * port     = the server port
      * version  = ldap version (defaults to v 3)
      * starttls = when set, ldap_start_tls() is run after connecting.
-     * bindpw   = no explanation needed
-     * binddn   = the DN to bind as.
+     * searchpw = password to use when searching LDAP
+     * seachdn  = the DN to bind as when searching
      * basedn   = ldap base
      * options  = hash of ldap options to set (opt => val)
      * filter   = default search filter
@@ -75,8 +75,11 @@ class Horde_Ldap
                                'port'            => 389,
                                'version'         => 3,
                                'starttls'        => false,
-                               'binddn'          => '',
-                               'bindpw'          => '',
+                               'searchdn'        => '',
+                               'searchpw'        => '',
+                               'writeas'         => 'search',
+                               'writedn'         => '',
+                               'writepw'         => '',
                                'basedn'          => '',
                                'options'         => array(),
                                'filter'          => '(objectClass=*)',
@@ -237,10 +240,10 @@ class Horde_Ldap
                 // map old (Net_Ldap) parms to new ones
                 switch($k) {
                 case "dn":
-                    $this->_config["binddn"] = $v;
+                    $this->_config["searchdn"] = $v;
                     break;
                 case "password":
-                    $this->_config["bindpw"] = $v;
+                    $this->_config["searchpw"] = $v;
                     break;
                 case "tls":
                     $this->_config["starttls"] = $v;
@@ -297,11 +300,11 @@ class Horde_Ldap
     public function bind($dn = null, $password = null)
     {
         // fetch current bind credentials
-        if (is_null($dn)) {
-            $dn = $this->_config["binddn"];
+        if (empty($dn)) {
+            $dn = $this->_config["searchdn"];
         }
-        if (is_null($password)) {
-            $password = $this->_config["bindpw"];
+        if (empty($password)) {
+            $password = $this->_config["searchpw"];
         }
 
         // Connect first, if we haven't so far.
@@ -309,20 +312,20 @@ class Horde_Ldap
         if ($this->_link === false) {
             // store old credentials so we can revert them later
             // then overwrite config with new bind credentials
-            $olddn = $this->_config["binddn"];
-            $oldpw = $this->_config["bindpw"];
+            $olddn = $this->_config["searchdn"];
+            $oldpw = $this->_config["searchpw"];
 
             // overwrite bind credentials in config
             // so performConnect() knows about them
-            $this->_config["binddn"] = $dn;
-            $this->_config["bindpw"] = $password;
+            $this->_config["searchdn"] = $dn;
+            $this->_config["searchpw"] = $password;
 
             // try to connect with provided credentials
             $msg = $this->performConnect();
 
             // reset to previous config
-            $this->_config["binddn"] = $olddn;
-            $this->_config["bindpw"] = $oldpw;
+            $this->_config["searchdn"] = $olddn;
+            $this->_config["searchpw"] = $oldpw;
         } else {
             // do the requested bind as we are
             // asked to bind manually
@@ -663,9 +666,13 @@ class Horde_Ldap
      */
     public function add(Horde_Ldap_Entry &$entry)
     {
+        // Rebind as the write DN
+        if (!empty($this->writedn)) {
+            $this->bind($this->writedn, $this->writepw);
+        }
+
         // Continue attempting the add operation in a loop until we
         // get a success, a definitive failure, or the world ends.
-        $foo = 0;
         while (true) {
             $link = $this->getLink();
 
@@ -732,6 +739,12 @@ class Horde_Ldap
         if (false === is_string($dn)) {
             throw new Horde_Ldap_Exception("Parameter is not a string nor an entry object!");
         }
+
+        // Re-bind as the write DN if not using searchdn credentials
+        if (!empty($this->writedn)) {
+            $this->bind($this->writedn, $this->writepw);
+        }
+
         // Recursive delete searches for children and calls delete for them
         if ($recursive) {
             $result = @ldap_list($this->_link, $dn, '(objectClass=*)', array(null), 0, 0);
@@ -831,6 +844,11 @@ class Horde_Ldap
      */
     public function modify($entry, $parms = array())
     {
+        // Re-bind as the write DN
+        if (!empty($this->writedn)) {
+            $this->bind($this->writedn, $this->writepw);
+        }
+
         if (is_string($entry)) {
             $entry = $this->getEntry($entry);
         }

@@ -681,9 +681,9 @@ class Horde_Config
             'default' => $this->_default($ctx . '|port', null)
         );
 
-        $writedn = array(
+        $writeas = array(
             'desc' => 'Bind to LDAP as which user when performing writes?',
-            'default' => $this->_default($ctx . '|writedn', 'search'),
+            'default' => $this->_default($ctx . '|writeas', 'search'),
             'switch' => array(
                 'user' => array(
                     'desc' => 'Bind as the currently logged-in user',
@@ -696,7 +696,7 @@ class Horde_Config
                             '_type' => 'text',
                             'required' => true,
                             'desc' => 'DN used to bind to LDAP for writes',
-                            'default' => $this->_default($ctx . '|writedn', '')
+                            'default' => $this->_default($ctx . '|writeas', '')
                         ),
                         'bindpw' => array(
                             '_type' => 'text',
@@ -729,7 +729,7 @@ class Horde_Config
 
         $custom_fields = array(
             'required' => true,
-            'desc' => 'Use a LDAP backend?',
+            'desc' => 'Use an LDAP backend?',
             'default' => $this->_default($ctx . '|useldap', 'false'),
             'switch' => array(
                 'false' => array(
@@ -746,7 +746,7 @@ class Horde_Config
                         'searchdn' => $searchdn,
                         'searchpw' => $searchpw,
                         'basedn' => $basedn,
-                        'writedn' => $writedn,
+                        'writeas' => $writeas,
                         'ca' => $ca
                     )
                 )
