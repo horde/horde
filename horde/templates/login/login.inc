@@ -6,10 +6,10 @@
 </div>
 
 <form name="horde_login" id="horde_login" method="post" action="<?php echo Horde::selfUrl(false, true, false, true) ?>"<?php echo $conf['menu']['always'] ? ' target="_parent"' : '' ?>>
- <input type="hidden" name="app" id="app" value="<?php echo htmlspecialchars($app) ?>" />
+ <input type="hidden" name="app" id="app" value="<?php echo htmlspecialchars($vars->app) ?>" />
  <input type="hidden" name="login_post" id="login_post" value="0" />
- <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
- <input type="hidden" name="anchor_string" id="anchor_string" value="<?php echo htmlspecialchars(Horde_Util::getFormData('anchor_string')) ?>" />
+ <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>" />
+ <input type="hidden" name="anchor_string" id="anchor_string" value="<?php echo htmlspecialchars($vars->anchor_string) ?>" />
  <input type="hidden" name="ie_version" value="" />
 
 <?php $notification->notify(array('listeners' => 'status')) ?>
@@ -69,7 +69,7 @@
      <tr>
       <td>&nbsp;</td>
       <td class="light leftAlign">
-       <?php echo Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/signup.php'), 'url', Horde_Util::getFormData('url')), _("Don't have an account? Sign up."), 'light') . _("Don't have an account? Sign up.") ?></a>
+       <?php echo Horde::link(Horde::url($registry->get('webroot', 'horde') . '/signup.php')->add('url', $vars->url), _("Don't have an account? Sign up."), 'light') . _("Don't have an account? Sign up.") ?></a>
       </td>
      </tr>
 <?php endif; ?>
@@ -78,7 +78,7 @@
      <tr>
       <td>&nbsp;</td>
       <td class="light">
-       <?php echo Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/resetpassword.php'), 'url', Horde_Util::getFormData('url')), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
+       <?php echo Horde::link(Horde::url($registry->get('webroot', 'horde') . '/services/resetpassword.php')->add('url', $vars->url), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
       </td>
      </tr>
 <?php endif; ?>

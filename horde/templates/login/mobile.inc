@@ -1,9 +1,9 @@
 <div><?php printf(_("Welcome to %s"), htmlspecialchars($registry->get('name'))) ?></div>
 
 <form action="login.php" method="post">
- <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval(Horde_Util::getFormData('anchor_string'))) ?>" />
- <input type="hidden" name="app" value="<?php echo htmlspecialchars($app) ?>" />
- <input type="hidden" name="url" value="<?php echo htmlspecialchars(strval(Horde_Util::getFormData('url'))) ?>" />
+ <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>" />
+ <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>" />
+ <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>" />
 
  <p>
 <?php
