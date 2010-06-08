@@ -881,14 +881,26 @@ div.kronolithFormActions {
     line-height: 100%;
 }
 
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+    background-position: 0 center;
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+.kronolithAttendeeNone {
+    background-image: url("graphics/attendee-none.png");
+}
 .kronolithAttendeeAccepted {
-    background-color: #28b22b;
+    background-image: url("graphics/attendee-accepted.png");
 }
 .kronolithAttendeeDeclined {
-    background-color: #f00;
+    background-image: url("graphics/attendee-declined.png");
+    text-decoration: line-through;
 }
 .kronolithAttendeeTentative {
-    background-color: orange;
+    background-image: url("graphics/attendee-tentative.png");
 }
 
 /* Map */
