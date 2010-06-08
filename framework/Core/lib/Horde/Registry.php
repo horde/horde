@@ -1694,7 +1694,11 @@ class Horde_Registry
 
             if (($_SESSION['horde_auth']['driver'] == $driver) ||
                 isset($_SESSION['horde_auth']['app'][$driver])) {
-                return Horde_Auth::checkExistingAuth();
+                if (Horde_Auth::checkExistingAuth()) {
+                    return true;
+                }
+                $this->clearAuth();
+                return false;
             }
         }
 
