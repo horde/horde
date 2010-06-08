@@ -10,7 +10,7 @@ foreach ($recent as $r) {
     if (empty($r['title'])) {
       $r['title'] = _("[Untitled]");
     }
-    $ago = Horde_Date_Util::relativeDateTime($r['timestamp']->timestamp());
+    $ago = Horde_Date_Utils::relativeDateTime($r['timestamp']->timestamp());
 ?>
     <div class="recentPaste">
         <span class="pasteTitle"><a href="<?php echo $uuid . '/' . $r['uuid']; ?>"><?php echo $r['title']; ?></a></span><br>
