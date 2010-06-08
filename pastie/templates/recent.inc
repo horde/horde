@@ -10,14 +10,7 @@ foreach ($recent as $r) {
     if (empty($r['title'])) {
       $r['title'] = _("[Untitled]");
     }
-    $then = new DateTime('@' . $r['timestamp']->timestamp());
-    $ago = $now->diff($then, true);
-    $days = $ago->format("%a");
-    if ($days > 0) {
-        $ago = $ago->format("%a days %H:%i ago");
-    } else {
-        $ago = $ago->format("%H:%i min ago");
-    }
+    $ago = Horde_Date_Util::relativeDateTime($r['timestamp']->timestamp());
 ?>
     <div class="recentPaste">
         <span class="pasteTitle"><a href="<?php echo $uuid . '/' . $r['uuid']; ?>"><?php echo $r['title']; ?></a></span><br>
