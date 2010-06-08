@@ -206,7 +206,7 @@ if ($error_reason) {
         }
 
         /* Do password change request on initial login only. */
-        if (!$is_auth && Horde_Auth::passwordChangeRequested()) {
+        if (!$is_auth && $registry->passwordChangeRequested()) {
             $notification->push(_("Your password has expired."), 'horde.message');
 
             if ($auth->hasCapability('update')) {

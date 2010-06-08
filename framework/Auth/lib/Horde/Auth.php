@@ -354,16 +354,6 @@ class Horde_Auth
     }
 
     /**
-     * Return whether the authentication backend requested a password change.
-     *
-     * @return boolean Whether the backend requested a password change.
-     */
-    static public function passwordChangeRequested()
-    {
-        return !empty($_SESSION['horde_auth']['change']);
-    }
-
-    /**
      * Returns the requested credential for the currently logged in user, if
      * present.
      *
