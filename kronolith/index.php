@@ -36,45 +36,64 @@ $_SESSION['horde_notification']['override'] = array(
     'Kronolith_Notification_Listener_AjaxStatus'
 );
 
-$alarm_methods = $alarm_params = '';
+$eventAlarmMethods = $eventAlarmParams = $taskAlarmMethods = $taskAlarmParams = '';
 foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {
-    $alarm_methods .= ' <input type="checkbox" name="event_alarms[]" id="kronolithEventAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithEventAlarm' . $method . '">' . $handler->getDescription() . '</label>';
+    $eventAlarmMethods .= ' <input type="checkbox" name="event_alarms[]" id="kronolithEventAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithEventAlarm' . $method . '">' . $handler->getDescription() . '</label>';
+    $taskAlarmMethods .= ' <input type="checkbox" name="task[alarm_methods][]" id="kronolithTaskAlarm' . $method . '" value="' . $method . '" /> <label for="kronolithTaskAlarm' . $method . '">' . $handler->getDescription() . '</label>';
     $params = $handler->getParameters();
     if (!count($params)) {
         continue;
     }
-    $alarm_params .= ' <div id="kronolithEventAlarm' . $method . 'Params" style="display:none">';
+    $eventAlarmParams .= ' <div id="kronolithEventAlarm' . $method . 'Params" style="display:none">';
+    $taskAlarmParams .= ' <div id="kronolithTaskAlarm' . $method . 'Params" style="display:none">';
     foreach ($params as $name => $param) {
-        $alarm_params .= ' <label for="kronolithEventAlarmParam' . $name
+        $eventAlarmParams .= ' <label for="kronolithEventAlarmParam' . $name
             . '">' . $param['desc'] . '</label> ';
-        $name_att = 'name="event_alarms_' . $name . '"';
-        $att = 'id="kronolithEventAlarmParam' . $name . '" ' . $name_att;
+        $eventNameAtt = 'name="event_alarms_' . $name . '"';
+        $eventAtt = 'id="kronolithEventAlarmParam' . $name . '" ' . $eventNameAtt;
+        $taskAlarmParams .= ' <label for="kronolithTaskAlarmParam' . $name
+            . '">' . $param['desc'] . '</label> ';
+        $taskNameAtt = 'name="task[methods][' . $method . '][' . $name . ']"';
+        $taskAtt = 'id="kronolithTaskAlarmParam' . $name . '" ' . $taskNameAtt;
         switch ($param['type']) {
         case 'text':
-            $alarm_params .= '<input type="text" ' . $att . ' />';
+            $eventAlarmParams .= '<input type="text" ' . $eventAtt . ' />';
+            $taskAlarmParams .= '<input type="text" ' . $taskAtt . ' />';
             break;
         case 'boolean':
-            $alarm_params .= '<input type="checkbox" ' . $att . ' />';
+            $eventAlarmParams .= '<input type="checkbox" ' . $eventAtt . ' />';
+            $taskAlarmParams .= '<input type="checkbox" ' . $taskAtt . ' />';
             break;
         case 'sound':
-            $alarm_params .= '<ul class="sound-list"><li><input type="radio" ' . $att
+            $eventAlarmParams .= '<ul class="sound-list"><li><input type="radio" ' . $eventAtt
+                . ' value="" checked="checked" /> ' . _("No Sound") . '</li>';
+            $taskAlarmParams .= '<ul class="sound-list"><li><input type="radio" ' . $taskAtt
                 . ' value="" checked="checked" /> ' . _("No Sound") . '</li>';
             foreach (Horde_Themes::soundList() as $key => $val) {
                 $sound = htmlspecialchars($key);
-                $alarm_params .= '<li><input type="radio" id="kronolithEventAlarmParam'
-                    . $name . str_replace('.wav', '', $sound) . '" ' . $name_att
-                    . ' value="' .  $sound
-                    . '" /> <embed autostart="false" src="'
-                    . htmlspecialchars($val->uri)
-                    . '" /> ' . $sound . '</li>';
+                $value = sprintf('<li><input type="radio" id="%s%s" %s value="%s" /> <embed autostart="false" src="%s" /> %s</li>',
+                                 '%s',
+                                 $name . str_replace('.wav', '', $sound),
+                                 '%s',
+                                 $sound,
+                                 htmlspecialchars($val->uri),
+                                 $sound);
+                $eventAlarmParams .= sprintf($value,
+                                             'kronolithEventAlarmParam',
+                                             $eventNameAtt);
+                $taskAlarmParams .= sprintf($value,
+                                             'kronolithTaskAlarmParam',
+                                             $taskNameAtt);
             }
-            $alarm_params .= '</ul>';
+            $eventAlarmParams .= '</ul>';
+            $taskAlarmParams .= '</ul>';
             break;
         }
-        $alarm_params .= '<br />';
+        $eventAlarmParams .= '<br />';
+        $taskAlarmParams .= '<br />';
     }
-    $alarm_params = substr($alarm_params, 0, - 6);
-    $alarm_params .= '</div>';
+    $eventAlarmParams = substr($eventAlarmParams, 0, - 6) . '</div>';
+    $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
 Kronolith::header();

@@ -701,7 +701,7 @@ class Nag_Task {
                 $json->cd = $date->toJson();
             }
             */
-            $json->a = $this->alarm;
+            $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
 

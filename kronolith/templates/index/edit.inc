@@ -107,7 +107,7 @@
   '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOn" value="0" checked="checked" />
   <label for="kronolithEventAlarmDefaultOn">', '</label>',
   '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" style="display:none" />') ?>
-  <?php echo $alarm_methods . $alarm_params ?>
+  <?php echo $eventAlarmMethods . $eventAlarmParams ?>
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">

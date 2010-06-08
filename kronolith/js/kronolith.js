@@ -2370,6 +2370,7 @@ KronolithCore = {
         $('kronolithTaskDelete').show();
         $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
         this.updateTasklistDropDown();
+        this.disableAlarmMethods('Task');
         if (id) {
             RedBox.loading();
             this.doAction('getTask', { list: tasklist, id: id }, this.editTaskCallback.bind(this));
@@ -2429,8 +2430,37 @@ KronolithCore = {
                     throw $break;
                 }
             });
+            if (task.m) {
+                $('kronolithTaskAlarmDefaultOff').checked = true;
+                $H(task.m).each(function(method) {
+                    if (!$('kronolithTaskAlarm' + method.key)) {
+                        return;
+                    }
+                    $('kronolithTaskAlarm' + method.key).setValue(1);
+                    if ($('kronolithTaskAlarm' + method.key + 'Params')) {
+                        $('kronolithTaskAlarm' + method.key + 'Params').show();
+                    }
+                    $H(method.value).each(function(param) {
+                        var input = $('kronolithTaskAlarmParam' + param.key);
+                        if (!input) {
+                            return;
+                        }
+                        if (input.type == 'radio') {
+                            input.up('form').select('input[type=radio]').each(function(radio) {
+                                if (radio.name == input.name &&
+                                    radio.value == param.value) {
+                                    radio.setValue(1);
+                                    throw $break;
+                                }
+                            });
+                        } else {
+                            input.setValue(param.value);
+                        }
+                    });
+                });
+            }
         } else {
-            $('kronolithEventAlarmOff').setValue(true);
+            $('kronolithTaskAlarmOff').setValue(true);
         }
 
         if (!task.pe) {
@@ -2494,10 +2524,10 @@ KronolithCore = {
     removeTask: function(task, list)
     {
         this.deleteTasksCache(task, list);
-        $('kronolithViewTasksBody').select('tr').find(function(el) {
+        $('kronolithViewTasksBody').select('tr').findAll(function(el) {
             return el.retrieve('tasklist') == list &&
                 el.retrieve('taskid') == task;
-        }).remove();
+        }).invoke('remove');
     },
 
     /**
@@ -3699,7 +3729,11 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventAlarmDefaultOn':
-                this.disableAlarmMethods();
+                this.disableAlarmMethods('Event');
+                break;
+
+            case 'kronolithTaskAlarmDefaultOn':
+                this.disableAlarmMethods('Task');
                 break;
 
             case 'kronolithEventAlarmPrefs':
@@ -4288,8 +4322,14 @@ KronolithCore = {
                 window.history.back();
                 e.stop();
                 break;
-            } else if (elt.tagName == 'INPUT' && elt.name == 'event_alarms[]') {
-                $('kronolithEventAlarmDefaultOff').setValue(1);
+            } else if (elt.tagName == 'INPUT' &&
+                       (elt.name == 'event_alarms[]' ||
+                        elt.name == 'task[alarm_methods][]')) {
+                if (elt.name == 'event_alarms[]') {
+                    $('kronolithEventAlarmDefaultOff').setValue(1);
+                } else {
+                    $('kronolithTaskAlarmDefaultOff').setValue(1);
+                }
                 if ($(elt.id + 'Params')) {
                     if (elt.getValue()) {
                         $(elt.id + 'Params').show();
@@ -4526,7 +4566,7 @@ KronolithCore = {
         this.updateCalendarDropDown('kronolithEventTarget');
         this.toggleAllDay(false);
         this.openTab($('kronolithEventForm').down('.tabset a.kronolithTabLink'));
-        this.disableAlarmMethods();
+        this.disableAlarmMethods('Event');
         $('kronolithEventForm').reset();
         kronolithEAttendeesAc.reset();
         kronolithETagAc.reset();
@@ -4993,9 +5033,9 @@ KronolithCore = {
     /**
      * Disables all custom alarm methods in the event form.
      */
-    disableAlarmMethods: function() {
-        $('kronolithEventTabReminder').select('input').each(function(input) {
-            if (input.name == 'event_alarms[]') {
+    disableAlarmMethods: function(type) {
+        $('kronolith' + type + 'TabReminder').select('input').each(function(input) {
+            if (input.name == (type == 'Event' ? 'event_alarms[]' : 'task[alarm_methods][]')) {
                 input.setValue(0);
                 if ($(input.id + 'Params')) {
                     $(input.id + 'Params').hide();

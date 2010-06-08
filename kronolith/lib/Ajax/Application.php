@@ -410,9 +410,25 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $value = $unit = 1;
             }
             $task['alarm'] = $value * $unit;
+            if (isset($task['alarm_methods']) && isset($task['methods'])) {
+                foreach (array_keys($task['methods']) as $method) {
+                    if (!in_array($method, $task['alarm_methods'])) {
+                        unset($task['methods'][$method]);
+                    }
+                }
+                foreach ($task['alarm_methods'] as $method) {
+                    if (!isset($task['methods'][$method])) {
+                        $task['methods'][$method] = array();
+                    }
+                }
+            } else {
+                $task['methods'] = array();
+            }
         } else {
             $task['alarm'] = 0;
+            $task['methods'] = array();
         }
+        unset($task['alarm_methods']);
 
         $result = new stdClass;
         try {

@@ -56,7 +56,7 @@
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
   <div class="kronolithDialogInfo"><?php printf(_("You can change the default settings in the %sNotification options%s"), '<a id="kronolithTaskAlarmPrefs" href="#">', '</a>') ?></div>
-  <?php printf(_("%s don't set %s or %s set %s before due date"),
+  <?php printf(_("%s don't set %s or %s set %s before due date %s"),
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOff" value="0" checked="checked" />', '</label>',
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOn" value="1" />', '</label>
   <input type="text" name="task[alarm][value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
@@ -65,7 +65,15 @@
     <option value="60">' . _("hours") . '</option>
     <option value="1440">' . _("days") . '</option>
     <option value="10080">' . _("weeks") . '</option>
-  </select>') ?>
+  </select>
+  <label for="kronolithTaskAlarmValue">',
+  '</label>') ?>
+  <br />
+  <?php printf(_("Alert me %s as default %s or %s using:"),
+  '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOn" value="0" checked="checked" />
+  <label for="kronolithTaskAlarmDefaultOn">', '</label>',
+  '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOff" value="1" style="display:none" />') ?>
+  <?php echo $taskAlarmMethods . $taskAlarmParams ?>
 </div>
 
 <div id="kronolithTaskTabUrl" class="kronolithTabsOption" style="display:none">
