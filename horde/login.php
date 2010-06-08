@@ -44,10 +44,10 @@ function _getLogoutReasonString($code)
     case Horde_Auth::REASON_SESSION:
         return _("Your session has expired. Please login again.");
 
-    case Horde_Auth::REASON_SESSIONIP:
+    case Horde_Core_Auth_Application::REASON_SESSIONIP:
         return _("Your Internet Address has changed since the beginning of your session. To protect your security, you must login again.");
 
-    case Horde_Auth::REASON_BROWSER:
+    case Horde_Core_Auth_Application::REASON_BROWSER:
         return _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
 
     case Horde_Auth::REASON_LOGOUT:
@@ -97,9 +97,7 @@ if (!$is_auth) {
 }
 
 /* Get an Auth object. */
-$auth = ($app && $is_auth)
-    ? $injector->getInstance('Horde_Auth')->getAuth('application', array('app' => $app))
-    : $injector->getInstance('Horde_Auth')->getAuth();
+$auth = $injector->getInstance('Horde_Auth')->getAuth(($is_auth && $vars->app) ? $vars->app : null);
 
 /* Build the list of necessary login parameters. */
 $loginparams = array(

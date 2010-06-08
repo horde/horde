@@ -54,36 +54,47 @@ class Horde_Core_Factory_Auth
     /**
      * Return the Horde_Auth:: instance.
      *
-     * @param string $driver  The driver.
-     * @param array $params   Additional parameters to pass to the driver
-     *                        (will override Horde defaults).
+     * @param string $app  The application to authenticate to.
      *
      * @return Horde_Auth_Base  The singleton instance.
      * @throws Horde_Auth_Exception
      */
-    public function getAuth($driver = null, array $params = array())
+    public function getAuth($app = null)
     {
-        if (is_null($driver)) {
+        if (is_null($app)) {
+            $app = 'horde';
+        }
+
+        if (isset($this->_instances[$app])) {
+            return $this->_instances[$app];
+        }
+
+        $base_params = array(
+            'app' => $app,
+            'logger' => $this->_injector->getInstance('Horde_Log_Logger')
+        );
+
+        if ($app == 'horde') {
             $driver = $GLOBALS['conf']['auth']['driver'];
-        }
+            $params = Horde::getDriverConfig('auth', $driver);
 
-        $params = array_merge(Horde::getDriverConfig('auth', $driver), $params);
-        ksort($params);
+            /* Get proper driver name now that we have grabbed the
+             * configuration. */
+            if (strcasecmp($driver, 'application') === 0) {
+                $driver = 'Horde_Core_Auth_Application';
+            } elseif (strcasecmp($driver, 'httpremote') === 0) {
+                /* BC */
+                $driver = 'Http_Remote';
+            } elseif (strcasecmp($driver, 'ldap') === 0) {
+                $driver = 'Horde_Core_Auth_Ldap';
+            } elseif (strcasecmp($driver, 'msad') === 0) {
+                $driver = 'Horde_Core_Auth_Msad';
+            } elseif (strcasecmp($driver, 'shibboleth') === 0) {
+                $driver = 'Horde_Core_Auth_Shibboleth';
+            } else {
+                $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
+            }
 
-        /* Get proper driver name now that we have grabbed the
-         * configuration. */
-        if (strcasecmp($driver, 'httpremote') === 0) {
-            /* BC */
-            $driver = 'Http_Remote';
-        } elseif (strcasecmp($driver, 'application') === 0) {
-            $driver = 'Horde_Core_Auth_Application';
-        } else {
-            $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
-        }
-
-        $sig = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset($this->_instances[$sig])) {
             $lc_driver = Horde_String::lower($driver);
             switch ($lc_driver) {
             case 'composite':
@@ -126,7 +137,8 @@ class Horde_Core_Factory_Auth
                 $params['kolab'] = $this->_injector->getInstance('Horde_Kolab_Session');
                 break;
 
-            case 'ldap':
+            case 'horde_core_auth_ldap':
+            case 'horde_core_auth_msad':
                 $params['ldap'] = $this->_injector->getInstance('Horde_Ldap')->getLdap('horde', 'auth');
                 break;
 
@@ -137,25 +149,16 @@ class Horde_Core_Factory_Auth
 
             $params['default_user'] = $GLOBALS['registry']->getAuth();
             $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
-            $params['notify_expire'] = array($this, 'notifyExpire');
 
-            $this->_instances[$sig] = Horde_Auth::factory($driver, $params);
+            $base_params['base'] = Horde_Auth::factory($driver, $params);
+            if ($driver == 'Horde_Core_Auth_Application') {
+                $this->_instances[$params['app']] = $base_params['base'];
+            }
         }
 
-        return $this->_instances[$sig];
-    }
+        $this->_instances[$app] = Horde_Auth::factory('Horde_Core_Auth_Application', $base_params);
 
-    /**
-     * Expire notification callback.
-     *
-     * @param integer $date  UNIX timestamp of password expiration.
-     */
-    public function notifyExpire($date)
-    {
-        if (isset($GLOBALS['notification'])) {
-            $toexpire = ($date - time()) / 86400;
-            $GLOBALS['notification']->push(sprintf(ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
-        }
+        return $this->_instances[$app];
     }
 
 }

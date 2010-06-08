@@ -47,7 +47,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        return $this->_params['auth_driver']->authenticate($userId, $credentials, false);
+        return $this->_params['auth_driver']->authenticate($userId, $credentials);
     }
 
     /**
@@ -73,7 +73,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         try {
             return $this->_params['auth_driver']->transparent();

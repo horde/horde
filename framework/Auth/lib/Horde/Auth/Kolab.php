@@ -40,7 +40,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     public function __construct(array $params = array())
     {
         if (!isset($params['kolab'])) {
-            throw new InvalidArgumentException('Missing ' . $params . ' parameter.');
+            throw new InvalidArgumentException('Missing kolab parameter.');
         }
 
         parent::__construct($params);

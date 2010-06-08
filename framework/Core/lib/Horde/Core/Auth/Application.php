@@ -1,8 +1,7 @@
 <?php
 /**
- * The Horde_Core_Auth_Application class provides a wrapper around
- * application-provided Horde authentication which fits inside the
- * Horde_Auth:: API.
+ * The Horde_Core_Auth_Application class provides application-specific
+ * authentication built on top of the Horde_Auth:: API.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,12 +9,38 @@
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Core
  */
 class Horde_Core_Auth_Application extends Horde_Auth_Base
 {
+    /**
+     * Authentication failure reasons (additions to Horde_Auth:: reasons).
+     *
+     * <pre>
+     * REASON_BROWSER - A browser change was detected
+     * REASON_SESSIONIP - Logout due to change of IP address during session
+     * </pre>
+     */
+    const REASON_BROWSER = 100;
+    const REASON_SESSIONIP = 101;
+
+    /**
+     * The base auth driver, used for horde authentication.
+     *
+     * @var Horde_Auth_Base
+     */
+    protected $_base;
+
+    /**
+     * Application for authentication.
+     *
+     * @var string
+     */
+    protected $_app = 'horde';
+
     /**
      * Cache for hasCapability().
      *
@@ -47,6 +72,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * @param array $params  Required parameters:
      * <pre>
      * 'app' - (string) The application which is providing authentication.
+     * 'base' - (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
+                'app' is 'horde'.
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -56,60 +83,53 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (!isset($params['app'])) {
             throw new InvalidArgumentException('Missing app parameter.');
         }
-
         $this->_app = $params['app'];
+        unset($params['app']);
 
-        parent::__construct($params);
-    }
+        if ($this->_app == 'horde') {
+            if (!isset($params['base'])) {
+                throw new InvalidArgumentException('Missing base parameter.');
+            }
 
-    /**
-     * Queries the current Auth object to find out if it supports the given
-     * capability.
-     *
-     * @param string $capability  The capability to test for.
-     *
-     * @return boolean  Whether or not the capability is supported.
-     */
-    public function hasCapability($capability)
-    {
-        $capability = strtolower($capability);
-
-        if (!in_array($capability, $this->_loaded) &&
-            isset($this->_apiMethods[$capability])) {
-            $this->_capabilities[$capability] = $GLOBALS['registry']->hasAppMethod($this->_app, $this->_apiMethods[$capability]);
-            $this->_loaded[] = $capability;
+            $this->_base = $params['base'];
+            unset($params['base']);
         }
 
-        return parent::hasCapability($capability);
+        parent::__construct($params);
     }
 
     /**
      * Finds out if a set of login credentials are valid, and if requested,
      * mark the user as logged in in the current session.
      *
-     * @param string $userId      The userId to check.
+     * @param string $userId      The user ID to check.
      * @param array $credentials  The credentials to check.
-     * @param boolean $login      Whether to log the user in. If false, we'll
-     *                            only test the credentials and won't modify
-     *                            the current session. Defaults to true.
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    public function authenticate($userId, $credentials, $login = true)
+    public function authenticate($userId, $credentials)
     {
-        if (!parent::authenticate($userId, $credentials, $login)) {
+        try {
+            list($userId, $credentials) = $this->runHook(trim($userId), $credentials, 'preauthenticate', 'authenticate');
+         } catch (Horde_Auth_Exception $e) {
             return false;
         }
 
-        $this->_authCallback();
+        if ($this->_base) {
+            if (!$this->_base->authenticate($userId, $credentials)) {
+                return false;
+            }
+        } elseif (!parent::authenticate($userId, $credentials)) {
+            return false;
+        }
 
-        return true;
+        return $this->_setAuth();
     }
 
     /**
      * Find out if a set of login credentials are valid.
      *
-     * @param string $userId      The userId to check.
+     * @param string $userId      The user ID to check.
      * @param array $credentials  The credentials to use. This object will
      *                            always be available in the 'auth_ob' key.
      *
@@ -127,42 +147,33 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     }
 
     /**
-     * List all users in the system.
+     * Checks for triggers that may invalidate the current auth.
+     * These triggers are independent of the credentials.
      *
-     * @return array  The array of userIds.
-     * @throws Horde_Auth_Exception
+     * @return boolean  True if the results of authenticate() are still valid.
      */
-    public function listUsers()
+    public function validateAuth()
     {
-        return $this->hasCapability('list')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['list'])
-            : parent::listUsers();
-    }
-
-    /**
-     * Checks if $userId exists in the system.
-     *
-     * @param string $userId  User ID to check.
-     *
-     * @return boolean  Whether or not $userId already exists.
-     */
-    public function exists($userId)
-    {
-        return $this->hasCapability('exists')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)))
-            : parent::exists($userId);
+        return $this->_base
+            ? $this->_base->validateAuth()
+            : parent::validateAuth();
     }
 
     /**
      * Add a set of authentication credentials.
      *
-     * @param string $userId      The userId to add.
+     * @param string $userId      The user ID to add.
      * @param array $credentials  The credentials to use.
      *
      * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
+        if ($this->_base) {
+            $this->_base->addUser($userId, $credentials);
+            return;
+        }
+
         if ($this->hasCapability('add')) {
             $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['add'], array('args' => array($userId, $credentials)));
         } else {
@@ -173,14 +184,19 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     /**
      * Update a set of authentication credentials.
      *
-     * @param string $oldID       The old userId.
-     * @param string $newID       The new userId.
+     * @param string $oldID       The old user ID.
+     * @param string $newID       The new user ID.
      * @param array $credentials  The new credentials
      *
      * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
+        if ($this->_base) {
+            $this->_base->updateUser($oldID, $newID, $credentials);
+            return;
+        }
+
         if ($this->hasCapability('update')) {
             $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['update'], array('args' => array($oldID, $newID, $credentials)));
         } else {
@@ -189,36 +205,70 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     }
 
     /**
-     * Reset a user's password. Used for example when the user does not
-     * remember the existing password.
-     *
-     * @param string $userId  The userId for which to reset the password.
-     *
-     * @return string  The new password on success.
-     * @throws Horde_Auth_Exception
-     */
-    public function resetPassword($userId)
-    {
-        return $this->hasCapability('resetpassword')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)))
-            : parent::resetPassword();
-    }
-
-    /**
      * Delete a set of authentication credentials.
      *
-     * @param string $userId  The userId to delete.
+     * @param string $userId  The user ID to delete.
      *
      * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
-        if ($this->hasCapability('remove')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['remove'], array('args' => array($userId)));
-            Horde_Auth::removeUserData($userId);
+        if ($this->_base) {
+            $this->_base->removeUser($userId);
+
+            try {
+                $GLOBALS['registry']->callAppMethod('horde', 'removeUserDataFromAllApplications', array('args' => array($userId)));
+            } catch (Horde_Exception $e) {
+                throw new Horde_Auth_Exception($e);
+            }
         } else {
-            parent::removeUser($userId);
+            if ($this->hasCapability('remove')) {
+                $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['remove'], array('args' => array($userId)));
+            } else {
+                parent::removeUser($userId);
+            }
+
+            try {
+                $GLOBALS['registry']->callAppMethod($this->_app, 'removeUserData', array('args' => array($userId)));
+            } catch (Horde_Exception $e) {
+                throw new Horde_Auth_Exception($e);
+            }
         }
+    }
+
+    /**
+     * List all users in the system.
+     *
+     * @return array  The array of user IDs.
+     * @throws Horde_Auth_Exception
+     */
+    public function listUsers()
+    {
+        if ($this->_base) {
+            return $this->_base->listUsers();
+        }
+
+        return $this->hasCapability('list')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['list'])
+            : parent::listUsers();
+    }
+
+    /**
+     * Checks if a user ID exists in the system.
+     *
+     * @param string $userId  User ID to check.
+     *
+     * @return boolean  Whether or not the user ID already exists.
+     */
+    public function exists($userId)
+    {
+        if ($this->_base) {
+            return $this->_base->exists($userId);
+        }
+
+        return $this->hasCapability('exists')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)))
+            : parent::exists($userId);
     }
 
     /**
@@ -229,32 +279,160 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function transparent()
     {
-        if (!parent::transparent()) {
-            return false;
+        global $registry;
+
+        if (!($userId = $this->getCredential('userId'))) {
+            $userId = $registry->getAuth();
+        }
+        if (!($credentials = $this->getCredential('credentials'))) {
+            $credentials = $registry->getAuthCredential();
         }
 
-        $this->_authCallback();
+        list($userId, $credentials) = $this->runHook($userId, $credentials, 'preauthenticate', 'transparent');
 
-        return true;
+        $this->setCredential('userId', $userId);
+        $this->setCredential('credentials', $credentials);
+
+        if ($this->_base) {
+            $result = $this->_base->transparent();
+        } else {
+            $result = $this->hasCapability('transparent')
+                ? $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true))
+                /* If this application contains neither transparent nor
+                 * authenticate capabilities, it does not require any
+                 * authentication if already authenticated to Horde. */
+                : ($registry->getAuth() && !$this->hasCapability('authenticate'));
+        }
+
+        return $result && $this->_setAuth();
     }
 
     /**
-     * Attempt transparent authentication. The application method is passed a
-     * single parameter: the current class instance.
+     * Reset a user's password. Used for example when the user does not
+     * remember the existing password.
      *
-     * @return boolean  Whether transparent login is supported.
+     * @param string $userId  The user ID for which to reset the password.
+     *
+     * @return string  The new password on success.
+     * @throws Horde_Auth_Exception
      */
-    protected function _transparent()
+    public function resetPassword($userId)
     {
-        if (!$this->hasCapability('transparent')) {
-            /* If this application contains neither transparent nor
-             * authenticate capabilities, it does not require any
-             * authentication if already authenticated to Horde. */
-            return ($GLOBALS['registry']->getAuth() &&
-                    !$this->hasCapability('authenticate'));
+        if ($this->_base) {
+            return $this->_base->resetPassword($userId);
         }
 
-        return $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
+        return $this->hasCapability('resetpassword')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)))
+            : parent::resetPassword();
+    }
+
+    /**
+     * Queries the current driver to find out if it supports the given
+     * capability.
+     *
+     * @param string $capability  The capability to test for.
+     *
+     * @return boolean  Whether or not the capability is supported.
+     */
+    public function hasCapability($capability)
+    {
+        if ($this->_base) {
+            return $this->_base->hasCapability($capability);
+        }
+
+        $capability = strtolower($capability);
+
+        if (!in_array($capability, $this->_loaded) &&
+            isset($this->_apiMethods[$capability])) {
+            $this->_capabilities[$capability] = $GLOBALS['registry']->hasAppMethod($this->_app, $this->_apiMethods[$capability]);
+            $this->_loaded[] = $capability;
+        }
+
+        return parent::hasCapability($capability);
+    }
+
+    /**
+     * Returns the named parameter for the current auth driver.
+     *
+     * @param string $param  The parameter to fetch.
+     *
+     * @return string  The parameter's value, or null if it doesn't exist.
+     */
+    public function getParam($param)
+    {
+        return $this->_base
+            ? $this->_base->getParam($param)
+            : parent::getParam($param);
+    }
+
+    /**
+     * Retrieve internal credential value(s).
+     *
+     * @param mixed $name  The credential value to get. If null, will return
+     *                     the entire credential list. Valid names:
+     * <pre>
+     * 'change' - (boolean) Do credentials need to be changed?
+     * 'credentials' - (array) The credentials needed to authenticate.
+     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
+     * 'userId' - (string) The user ID.
+     * </pre>
+     *
+     * @return mixed  Return the credential information, or null if the
+     *                credential doesn't exist.
+     */
+    public function getCredential($name = null)
+    {
+        return $this->_base
+            ? $this->_base->getCredential($name)
+            : parent::getCredential($name);
+    }
+
+    /**
+     * Set internal credential value.
+     *
+     * @param string $name  The credential name to set.
+     * @param mixed $value  The credential value to set. See getCredential()
+     *                      for the list of valid credentials/types.
+     */
+    public function setCredential($type, $value)
+    {
+        if ($this->_base) {
+            $this->_base->setCredential($type, $value);
+        } else {
+            parent::setCredential($type, $value);
+        }
+    }
+
+    /**
+     * Sets the error message for an invalid authentication.
+     *
+     * @param string $type  The type of error (Horde_Auth::REASON_* constant).
+     * @param string $msg   The error message/reason for invalid
+     *                      authentication.
+     */
+    public function setError($type, $msg = null)
+    {
+        if ($this->_base) {
+            $this->_base->setError($type, $msg);
+        } else {
+            parent::setError($type, $msg);
+        }
+    }
+
+    /**
+     * Returns the error type or message for an invalid authentication.
+     *
+     * @param boolean $msg  If true, returns the message string (if set).
+     *
+     * @return mixed  Error type, error message (if $msg is true) or false
+     *                if entry doesn't exist.
+     */
+    public function getError($msg = false)
+    {
+        return $this->_base
+            ? $this->_base->getError($msg)
+            : parent::getError($msg);
     }
 
     /**
@@ -288,71 +466,17 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function getLoginParams()
     {
-        if (!$this->hasCapability('loginparams')) {
-            return parent::getLoginParams();
+        if ($this->hasCapability('loginparams')) {
+            return $this->_base
+                ? $this->_base->getLoginParams()
+                : $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['loginparams'], array('noperms' => true));
         }
 
-        return $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['loginparams'], array('noperms' => true));
-    }
-
-    /**
-     * Provide method to get internal credential values. Necessary as the
-     * application API does not have direct access to the protected member
-     * variables of this class.
-     *
-     * @param mixed $name  The credential name to get. If null, will return
-     *                     the entire credential list.
-     *
-     * @return mixed  Return the credential information, or null if the.
-     *                credential doesn't exist.
-     */
-    public function getCredential($name = null)
-    {
-        if (is_null($name)) {
-            return $this->_credentials;
-        }
-
-        return isset($this->_credentials[$name])
-            ? $this->_credentials[$name]
-            : null;
-    }
-
-    /**
-     * Provide method to set internal credential values. Necessary as the
-     * application API does not have direct access to the protected member
-     * variables of this class.
-     *
-     * @param string $name  The credential name to set.
-     * @param mixed $value  The credential value to set. If $name is 'userId',
-     *                      this must be a text value. If $name is
-     *                      'credentials' or 'params', this is an array of
-     *                      values to be merged in.
-     */
-    public function setCredential($type, $value)
-    {
-        switch ($type) {
-        case 'userId':
-            $this->_credentials['userId'] = $value;
-            break;
-
-        case 'credentials':
-        case 'params':
-            $this->_credentials[$type] = array_merge($this->_credentials[$type], $value);
-            break;
-        }
-    }
-
-    /**
-     * Provide way to finish authentication tasks in an application and ensure
-     * that the full application environment is loaded.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _authCallback()
-    {
-        if ($this->hasCapability('authenticatecallback')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
-        }
+        return array(
+            'js_code' => array(),
+            'js_files' => array(),
+            'params' => array()
+        );
     }
 
     /**
@@ -362,7 +486,107 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function requireAuth()
     {
-        return $this->hasCapability('authenticate') || $this->hasCapability('transparent');
+        return !$this->_base &&
+               ($this->hasCapability('authenticate') ||
+                $this->hasCapability('transparent'));
+    }
+
+    /**
+     * Runs the pre/post-authenticate hook and parses the result.
+     *
+     * @param string $userId      The userId who has been authorized.
+     * @param array $credentials  The credentials of the user.
+     * @param string $type        Either 'preauthenticate' or
+     *                            'postauthenticate'.
+     * @param string $method      The triggering method (preauthenticate only).
+     *                            Either 'authenticate' or 'transparent'.
+     *
+     * @return array  Two element array, $userId and $credentials.
+     * @throws Horde_Auth_Exception
+     */
+    public function runHook($userId, $credentials, $type, $method = null)
+    {
+        if (!is_array($credentials)) {
+            $credentials = empty($credentials)
+                ? array()
+                : array($credentials);
+        }
+
+        $ret_array = array($userId, $credentials);
+
+        if ($type == 'preauthenticate') {
+            $credentials['authMethod'] = $method;
+        }
+
+        try {
+            $result = Horde::callHook($type, array($userId, $credentials), $this->_app);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $ret_array;
+        }
+
+        unset($credentials['authMethod']);
+
+        if ($result === false) {
+            if ($this->getError() != Horde_Auth::REASON_MESSAGE) {
+                $this->setError(Horde_Auth::REASON_FAILED);
+            }
+            throw new Horde_Auth_Exception($type . ' hook failed');
+        }
+
+        if (is_array($result)) {
+            if ($type == 'postauthenticate') {
+                $ret_array[1] = $result;
+            } else {
+                if (isset($result['userId'])) {
+                    $ret_array[0] = $result['userId'];
+                }
+
+                if (isset($result['credentials'])) {
+                    $ret_array[1] = $result['credentials'];
+                }
+            }
+        }
+    }
+
+    /**
+     * Set authentication credentials in the Horde session.
+     *
+     * @return boolean  True on success, false on failure.
+     */
+    protected function _setAuth()
+    {
+        if ($GLOBALS['registry']->isAuthenticated(array('app' => $this->_app, 'notransparent' => true))) {
+            return true;
+        }
+
+        $userId = $this->getCredential('userId');
+        $credentials = $this->getCredential('credentials');
+
+        try {
+            list(,$credentials) = $this->runHook($userId, $credentials, 'postauthenticate');
+        } catch (Horde_Auth_Exception $e) {
+            return false;
+        }
+
+        $GLOBALS['registry']->setAuth($userId, $credentials, array(
+            'app' => $this->_app,
+            'change' => $this->getCredential('change')
+        ));
+
+        if ($this->_base &&
+            isset($GLOBALS['notification']) &&
+            ($expire = $this->_base->getCredential('expire'))) {
+            $toexpire = ($expire - time()) / 86400;
+            $GLOBALS['notification']->push(sprintf(ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
+        }
+
+        if ($this->hasCapability('authenticatecallback')) {
+            $GLOBALS['registry']->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
+        }
+
+        return true;
     }
 
 }

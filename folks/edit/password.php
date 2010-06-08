@@ -161,13 +161,7 @@ do {
     // reset credentials so user is not forced to relogin
     if ($registry->getAuthCredential('password') == $info['old']) {
         $registry->setAuthCredential('password', $info['new']);
-        $secret = $injector->getInstance('Horde_Secret');
-        if ($registry->getProvider() == 'imp' ||
-            !empty($_SESSION['imp']['pass'])) {
-            $_SESSION['imp']['pass'] = $secret->write($secret->getKey('imp'), $info['new']);
-        }
     }
-
 } while (false);
 
 // update password reminder prefs

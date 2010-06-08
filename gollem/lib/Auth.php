@@ -63,7 +63,7 @@ class Gollem_Auth
             $credentials = array('password' => $secret->read($secret->getKey('gollem'), $GLOBALS['gollem_be']['params']['password']));
         }
 
-        $login = ($login && ($GLOBALS['registry']->getProvider() == 'gollem'));
+        //$login = ($login && ($GLOBALS['registry']->getProvider() == 'gollem'));
 
         return parent::authenticate($userID, $credentials, $login);
     }

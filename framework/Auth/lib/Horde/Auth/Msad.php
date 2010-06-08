@@ -69,7 +69,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $dn = $credentials['ldap']['dn'];
         } else {
@@ -117,18 +116,16 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      * Remove a set of authentication credentials.
      *
      * @param string $accountName  The user sAMAccountName to remove.
+     * @param string $dn           TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function removeUser($accountName)
+    public function removeUser($accountName, $dn = null)
     {
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
-        if (isset($credentials['ldap'])) {
-            $dn = $credentials['ldap']['dn'];
-        } else {
+        if (is_null($dn)) {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($accountName);
         }
@@ -156,7 +153,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($oldId, $credentials) = Horde_Auth::runHook($oldId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $olddn = $credentials['ldap']['dn'];
         } else {

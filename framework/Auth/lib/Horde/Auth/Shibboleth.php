@@ -76,23 +76,12 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
-     * Check existing auth for triggers that might invalidate it.
-     *
-     * @return boolean  Is existing auth valid?
-     */
-    public function checkExistingAuth()
-    {
-        return !empty($_SERVER[$this->_params['username_header']]) &&
-               ($this->_removeScope($_SERVER[$this->_params['username_header']]) == $this->_params['default_user']);
-    }
-
-    /**
      * Automatic authentication: check if the username is set in the
      * configured header.
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         if (empty($_SERVER[$this->_params['username_header']])) {
             return false;
@@ -101,20 +90,21 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
         $username = $_SERVER[$this->_params['username_header']];
 
         // Remove scope from username, if present.
-        $this->_credentials['userId'] = $this->_removeScope($username);
+        $this->setCredential('userId', $this->_removeScope($username));
 
         // Set password for hordeauth login.
         switch ($this->_params['password_holder']) {
         case 'header':
-            $this->_credentials['credentials'] = array(
+            $this->setCredential('credentials', array(
                 'password' => $_SERVER[$this->_params['password_header']]
-            );
+            ));
             break;
 
         case 'preferences':
-            $this->_credentials['credentials'] = array(
+            $this->setCredential('credentials', array(
                 'password' => $_SERVER[$this->_params['password_preference']]
-            );
+            ));
+            break;
         }
 
         return true;
@@ -130,7 +120,6 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     protected function _removeScope($username)
     {
         $pos = strrpos($username, '@');
-
         return ($pos !== false)
             ? substr($username, 0, $pos)
             : $username;

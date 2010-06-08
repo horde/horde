@@ -236,16 +236,13 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $toexpire = $shadow['shadowlastchange'] +
                             $shadow['shadowmax'] - $today;
 
-                if ($this->_params['notify_expire']) {
-                    $warnday = $shadow['shadowlastchange'] +
-                               $shadow['shadowmax'] - $shadow['shadowwarning'];
-                    if ($today >= $warnday) {
-                        call_user_func($this->_params['notify_expire'], $toexpire);
-                    }
+                $warnday = $shadow['shadowlastchange'] + $shadow['shadowmax'] - $shadow['shadowwarning'];
+                if ($today >= $warnday) {
+                    $this->setCredential('expire', $toexpire);
                 }
 
                 if ($toexpire == 0) {
-                    $this->_credentials['params']['change'] = true;
+                    $this->setCredential('change', true);
                 } elseif ($toexpire < 0) {
                     throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
                 }
@@ -267,7 +264,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             throw new Horde_Auth_Exception(__CLASS__ . ': Adding users is not supported for Active Directory.');
         }
 
-        list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $entry = $credentials['ldap'];
             $dn = $entry['dn'];
@@ -308,19 +304,17 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * Remove a set of authentication credentials.
      *
      * @param string $userId  The userId to add.
+     * @param string $dn      TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function removeUser($userId)
+    public function removeUser($userId, $dn = null)
     {
         if ($this->_params['ad']) {
            throw new Horde_Auth_Exception(__CLASS__ . ': Removing users is not supported for Active Directory');
         }
 
-        list($userId, $credentials) = Horde_Auth::runHook($userId, array(), $this->_app, 'preauthenticate', 'admin');
-        if (isset($credentials['ldap'])) {
-            $dn = $credentials['ldap']['dn'];
-        } else {
+        if (is_null($dn)) {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($userId);
         }
@@ -340,22 +334,19 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $oldID       The old userId.
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
+     * @param string $olddn       TODO
+     * @param string $newdn       TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function updateUser($oldID, $newID, $credentials)
+    public function updateUser($oldID, $newID, $credentials, $olddn = null,
+                               $newdn = null)
     {
         if ($this->_params['ad']) {
            throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
         }
 
-        list($oldID, $old_credentials) = Horde_Auth::runHook($oldID, $credentials, $this->_app, 'preauthenticate', 'admin');
-        if (isset($old_credentials['ldap'])) {
-            $olddn = $old_credentials['ldap']['dn'];
-            list($newID, $new_credentials) = Horde_Auth::runHook($newID, $credentials, $this->_app, 'preauthenticate', 'admin');
-            $newdn = $new_credentials['ldap']['dn'];
-            unset($new_credentials['ldap']['dn']);
-        } else {
+        if (is_null($olddn)) {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($oldID);
 

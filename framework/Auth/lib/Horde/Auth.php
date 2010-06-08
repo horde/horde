@@ -1,24 +1,8 @@
 <?php
 /**
- * The Horde_Auth:: class provides a common abstracted interface into the
- * various backends for the Horde authentication system.
- *
- * Horde authentication data is stored in the session in the 'horde_auth'
- * array key.  That key has the following structure:
- * <pre>
- * 'app' - (array) Application-specific authentication. Keys are the
- *         app names, values are an array containing credentials. If true,
- *         application does not require any specific credentials.
- * 'authId' - (string) The username used during the original authentication.
- * 'browser' - (string) The remote browser string.
- * 'change' - (boolean) Is a password change requested?
- * 'credentials' - (string) The 'app' entry that contains the Horde
- *                 credentials.
- * 'driver' - (string) The driver used for base horde auth.
- * 'remoteAddr' - (string) The remote IP address of the user.
- * 'timestamp' - (integer) The login time.
- * 'userId' - (string) The unique Horde username.
- * </pre>
+ * The Horde_Auth:: class provides a common abstracted interface for various
+ * authentication backends.  It also provides some useful
+ * authentication-related utilities.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -34,39 +18,23 @@
 class Horde_Auth
 {
     /**
-     * The parameter name for the logout reason.
-     */
-    const REASON_PARAM = 'logout_reason';
-
-    /**
-     * The parameter name for the logout message used with type
-     * REASON_MESSAGE.
-    */
-    const REASON_MSG_PARAM = 'logout_msg';
-
-    /**
-     * The 'badlogin' reason.
+     * Authentication failure reasons.
      *
-     * The following 'reasons' for the logout screen are recognized:
      * <pre>
      * REASON_BADLOGIN - Bad username and/or password
-     * REASON_BROWSER - A browser change was detected
      * REASON_FAILED - Login failed
      * REASON_EXPIRED - Password has expired
      * REASON_LOGOUT - Logout due to user request
-     * REASON_MESSAGE - Logout with custom message in REASON_MSG_PARAM
+     * REASON_MESSAGE - Logout with custom message
      * REASON_SESSION - Logout due to session expiration
-     * REASON_SESSIONIP - Logout due to change of IP address during session
      * </pre>
      */
     const REASON_BADLOGIN = 1;
-    const REASON_BROWSER = 2;
-    const REASON_FAILED = 3;
-    const REASON_EXPIRED = 4;
-    const REASON_LOGOUT = 5;
-    const REASON_MESSAGE = 6;
-    const REASON_SESSION = 7;
-    const REASON_SESSIONIP = 8;
+    const REASON_FAILED = 2;
+    const REASON_EXPIRED = 3;
+    const REASON_LOGOUT = 4;
+    const REASON_MESSAGE = 5;
+    const REASON_SESSION = 6;
 
     /**
      * 64 characters that are valid for APRMD5 passwords.
@@ -79,20 +47,6 @@ class Horde_Auth
     const VOWELS = 'aeiouy';
     const CONSONANTS = 'bcdfghjklmnpqrstvwxz';
     const NUMBERS = '0123456789';
-
-    /**
-     * A Net_DNS_Resolver object to use to determine hostnames.
-     *
-     * @var Net_DNS_Resolver
-     */
-    static public $dnsResolver;
-
-    /**
-     * The logout reason information.
-     *
-     * @var array
-     */
-    static protected $_reason = array();
 
     /**
      * Attempts to return a concrete Horde_Auth_Base instance based on
@@ -286,278 +240,6 @@ class Horde_Auth
     }
 
     /**
-     * Generates a random, hopefully pronounceable, password. This can be used
-     * when resetting automatically a user's password.
-     *
-     * @return string A random password
-     */
-    static public function genRandomPassword()
-    {
-        /* Alternate consonant and vowel random chars with two random numbers
-         * at the end. This should produce a fairly pronounceable password. */
-        return substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
-            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
-            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1) .
-            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1);
-    }
-
-    /**
-     * Calls all applications' removeUser API methods.
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    static public function removeUserData($userId)
-    {
-        $errApps = array();
-
-        foreach ($GLOBALS['registry']->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
-            try {
-                $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId));
-            } catch (Horde_Auth_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                $errApps[] = $app;
-            }
-        }
-
-        if (count($errApps)) {
-            throw new Horde_Auth_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
-        }
-    }
-
-    /**
-     * Check existing auth for triggers that might invalidate it.
-     *
-     * @return boolean  Is existing auth valid?
-     */
-    static public function checkExistingAuth()
-    {
-        if (!empty($GLOBALS['conf']['auth']['checkip']) &&
-            !empty($_SESSION['horde_auth']['remoteAddr']) &&
-            ($_SESSION['horde_auth']['remoteAddr'] != $_SERVER['REMOTE_ADDR'])) {
-            self::setAuthError(self::REASON_SESSIONIP);
-            return false;
-        }
-
-        if (!empty($GLOBALS['conf']['auth']['checkbrowser'])) {
-            if ($_SESSION['horde_auth']['browser'] != $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString()) {
-                self::setAuthError(self::REASON_BROWSER);
-                return false;
-            }
-        }
-
-        return $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->checkExistingAuth();
-    }
-
-    /**
-     * Sets a variable in the session saying that authorization has succeeded,
-     * note which userId was authorized, and note when the login took place.
-     *
-     * If a user name hook was defined in the configuration, it gets applied
-     * to the $userId at this point.
-     *
-     * @param string $authId      The userId that has been authorized.
-     * @param array $credentials  The credentials of the user.
-     * @param array $options      Additional options:
-     * <pre>
-     * 'app' - (string) The app to set authentication credentials for.
-     *         DEFAULT: Set horde authentication
-     * 'change' - (boolean) Whether to request that the user change their
-     *            password.
-     *            DEFAULT: No
-     * 'nologin' - (boolean) Don't do login tasks?
-     *             DEFAULT: Perform login tasks
-     * </pre>
-     *
-     * @return boolean  Whether authentication was successful.
-     */
-    static public function setAuth($authId, $credentials, $options = array())
-    {
-        $app = empty($options['app']) ? 'horde' : $options['app'];
-        $authId = $userId = trim($authId);
-        $is_auth = $GLOBALS['registry']->getAuth();
-
-        try {
-            if (!$is_auth) {
-                $userId = $GLOBALS['registry']->convertUserName($userId, true);
-            }
-            list(,$credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
-        } catch (Horde_Auth_Exception $e) {
-            return false;
-        }
-
-        $app_array = $is_auth
-            ? $_SESSION['horde_auth']['app']
-            : array();
-
-        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $app_array[$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
-
-        if ($is_auth) {
-            /* Store app credentials. */
-            $_SESSION['horde_auth']['app'] = $app_array;
-            return true;
-        }
-
-        /* Clear any existing info. */
-        $GLOBALS['registry']->clearAuth(false);
-
-        $_SESSION['horde_auth'] = array(
-            'app' => $app_array,
-            'authId' => $authId,
-            'browser' => $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString(),
-            'change' => !empty($options['change']),
-            'credentials' => $app,
-            'driver' => $GLOBALS['conf']['auth']['driver'],
-            'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
-            'timestamp' => time(),
-            'userId' => $userId
-        );
-
-        /* Reload preferences for the new user. */
-        $GLOBALS['registry']->loadPrefs();
-        Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
-
-        if (!empty($options['nologin'])) {
-            return true;
-        }
-
-        /* Fetch the user's last login time. */
-        $old_login = @unserialize($GLOBALS['prefs']->getValue('last_login'));
-
-        /* Display it, if we have a notification object and the
-         * show_last_login preference is active. */
-        if (isset($GLOBALS['notification']) &&
-            $GLOBALS['prefs']->getValue('show_last_login')) {
-            if (empty($old_login['time'])) {
-                $GLOBALS['notification']->push(_("Last login: Never"), 'horde.message');
-            } else {
-                if (empty($old_login['host'])) {
-                    $GLOBALS['notification']->push(sprintf(_("Last login: %s"), strftime('%c', $old_login['time'])), 'horde.message');
-                } else {
-                    $GLOBALS['notification']->push(sprintf(_("Last login: %s from %s"), strftime('%c', $old_login['time']), $old_login['host']), 'horde.message');
-                }
-            }
-        }
-
-        /* Set the user's last_login information. */
-        $host = empty($_SERVER['HTTP_X_FORWARDED_FOR'])
-            ? $_SERVER['REMOTE_ADDR']
-            : $_SERVER['HTTP_X_FORWARDED_FOR'];
-
-        if (!empty(self::$dnsResolver)) {
-            $ptrdname = $host;
-            if ($response = self::$dnsResolver->query($host, 'PTR')) {
-                foreach ($response->answer as $val) {
-                    if (isset($val->ptrdname)) {
-                        $ptrdname = $val->ptrdname;
-                        break;
-                    }
-                }
-            }
-        } else {
-            $ptrdname = @gethostbyaddr($host);
-        }
-
-        $last_login = array('time' => time(), 'host' => $ptrdname);
-        $GLOBALS['prefs']->setValue('last_login', serialize($last_login));
-
-        return true;
-    }
-
-    /**
-     * Runs the pre/post-authenticate hook and parses the result.
-     *
-     * @param string $userId      The userId who has been authorized.
-     * @param array $credentials  The credentials of the user.
-     * @param string $app         The app currently being authenticated.
-     * @param string $type        Either 'preauthenticate' or
-     *                            'postauthenticate'.
-     * @param string $method      The triggering method (preauthenticate only).
-     *                            Either 'authenticate', 'transparent', or
-     *                            'admin'
-     *
-     * @return array  Two element array, $userId and $credentials.
-     * @throws Horde_Auth_Exception
-     */
-    static public function runHook($userId, $credentials, $app, $type,
-                                   $method = null)
-    {
-        $ret_array = array($userId, $credentials);
-
-        if ($type == 'preauthenticate') {
-            $credentials['authMethod'] = $method;
-        }
-
-        try {
-            $result = Horde::callHook($type, array($userId, $credentials), $app);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e->getMessage());
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $ret_array;
-        }
-
-        unset($credentials['authMethod']);
-
-        if ($result === false) {
-            if (self::getAuthError() != self::REASON_MESSAGE) {
-                self::setAuthError(self::REASON_FAILED);
-            }
-            throw new Horde_Auth_Exception($type . ' hook failed');
-        }
-
-        if (is_array($result)) {
-            if ($type == 'postauthenticate') {
-                $ret_array[1] = $result;
-            } else {
-                if (isset($result['userId'])) {
-                    $ret_array[0] = $result['userId'];
-                }
-
-                if (isset($result['credentials'])) {
-                    $ret_array[1] = $result['credentials'];
-                }
-            }
-        }
-
-        return $ret_array;
-    }
-
-    /**
-     * Sets the error message for an invalid authentication.
-     *
-     * @param string $type  The type of error (self::REASON_* constant).
-     * @param string $msg   The error message/reason for invalid
-     *                      authentication.
-     */
-    static public function setAuthError($type, $msg = null)
-    {
-        self::$_reason = array(
-            'msg' => $msg,
-            'type' => $type
-        );
-    }
-
-    /**
-     * Returns the error type or message for an invalid authentication.
-     *
-     * @param boolean $msg  If true, returns the message string (if set).
-     *
-     * @return mixed  Error type, error message (if $msg is true) or false
-     *                if entry doesn't exist.
-     */
-    static public function getAuthError($msg = false)
-    {
-        return isset(self::$_reason['type'])
-            ? ($msg ? self::$_reason['msg'] : self::$_reason['type'])
-            : false;
-    }
-
-    /**
      * Converts to allowed 64 characters for APRMD5 passwords.
      *
      * @param string $value   TODO
@@ -577,6 +259,25 @@ class Horde_Auth
         }
 
         return $aprmd5;
+    }
+
+    /**
+     * Generates a random, hopefully pronounceable, password. This can be used
+     * when resetting automatically a user's password.
+     *
+     * @return string A random password
+     */
+    static public function genRandomPassword()
+    {
+        /* Alternate consonant and vowel random chars with two random numbers
+         * at the end. This should produce a fairly pronounceable password. */
+        return substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
+            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
+            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1) .
+            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1);
     }
 
 }

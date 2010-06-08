@@ -52,7 +52,7 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         if (isset($_SERVER['REMOTE_ADDR'])) {
             foreach ($this->_params['blocks'] as $cidr) {

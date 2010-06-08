@@ -30,7 +30,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
- <notes>* Removed Krb5 driver.
+ <notes>* Remove dependency on horde/Core.
+ * Remove all non-authentication backend related code.
+ * Removed Krb5 driver.
  * Moved signup code to horde/Core.
  * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
  * Initial Horde 4 package.
@@ -103,15 +105,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Exception</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Secret</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -122,14 +116,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <optional>
    <package>
     <name>Db</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Form</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>History</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -149,9 +135,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Net_IMSP</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
    <extension>
     <name>pam_auth</name>
    </extension>

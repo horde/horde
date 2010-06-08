@@ -133,7 +133,8 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         if (!empty($this->_params['soft_expiration_field']) &&
             !empty($row[$this->_params['soft_expiration_field']]) &&
             ($now > $row[$this->_params['soft_expiration_field']])) {
-            $this->_credentials['params']['change'] = true;
+            $this->setCredential('change', true);
+            $this->setCredential('expire', $date);
         }
     }
 
@@ -200,12 +201,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
             $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
             $values[] = $date;
-
-            if ($this->_params['notify_expire']) {
-                call_user_func($this->_params['notify_expire'], $date);
-            }
-
-            $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
 
             if (empty($this->_params['hard_expiration_window'])) {
                 $values[] = null;

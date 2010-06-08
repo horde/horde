@@ -60,10 +60,6 @@ class Passwd {
     {
         if ($GLOBALS['registry']->getAuthCredential('password') == $old_password) {
             $GLOBALS['registry']->setAuthCredential('password', $new_password);
-            if ($GLOBALS['registry']->getProvider() == 'imp') {
-                $_SESSION['imp']['pass'] = Secret::write(Secret::getKey('imp'),
-                                                         $new_password);
-            }
         }
     }
 

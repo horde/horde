@@ -64,6 +64,9 @@ Application Framework.
      <dir name="Core">
       <dir name="Auth">
        <file name="Application.php" role="php" />
+       <file name="Ldap.php" role="php" />
+       <file name="Msad.php" role="php" />
+       <file name="Shibboleth.php" role="php" />
        <dir name="Signup">
         <file name="Base.php" role="php" />
         <file name="Form.php" role="php" />
@@ -76,7 +79,6 @@ Application Framework.
       <file name="Autoloader.php" role="php" />
       <dir name="Autoloader">
        <dir name="Callback">
-        <file name="Auth.php" role="php" />
         <file name="Mime.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Autoloader/Callback -->
       </dir> <!-- /lib/Horde/Core/Autoloader -->
@@ -267,6 +269,9 @@ Application Framework.
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
    <install name="lib/Horde/Config/Form.php" as="Horde/Config/Form.php" />
    <install name="lib/Horde/Core/Auth/Application.php" as="Horde/Core/Auth/Application.php" />
+   <install name="lib/Horde/Core/Auth/Ldap.php" as="Horde/Core/Auth/Ldap.php" />
+   <install name="lib/Horde/Core/Auth/Msad.php" as="Horde/Core/Auth/Msad.php" />
+   <install name="lib/Horde/Core/Auth/Shibboleth.php" as="Horde/Core/Auth/Shibboleth.php" />
    <install name="lib/Horde/Core/Auth/Signup.php" as="Horde/Core/Auth/Signup.php" />
    <install name="lib/Horde/Core/Auth/Signup/Base.php" as="Horde/Core/Auth/Signup/Base.php" />
    <install name="lib/Horde/Core/Auth/Signup/Form.php" as="Horde/Core/Auth/Signup/Form.php" />
@@ -274,7 +279,6 @@ Application Framework.
    <install name="lib/Horde/Core/Auth/Signup/Sql.php" as="Horde/Core/Auth/Signup/Sql.php" />
    <install name="lib/Horde/Core/Auth/Signup/SqlObject.php" as="Horde/Core/Auth/Signup/SqlObject.php" />
    <install name="lib/Horde/Core/Autoloader.php" as="Horde/Core/Autoloader.php" />
-   <install name="lib/Horde/Core/Autoloader/Callback/Auth.php" as="Horde/Core/Autoloader/Callback/Auth.php" />
    <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
    <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
    <install name="lib/Horde/Core/Binder/Auth.php" as="Horde/Core/Binder/Auth.php" />

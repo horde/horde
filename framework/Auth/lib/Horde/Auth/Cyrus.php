@@ -230,7 +230,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         return $this->_backend->transparent();
     }

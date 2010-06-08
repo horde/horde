@@ -224,7 +224,6 @@ class Horde_Registry
     {
         /* Define autoloader callbacks. */
         $callbacks = array(
-            'Horde_Auth' => 'Horde_Core_Autoloader_Callback_Auth',
             'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime'
         );
 
@@ -1085,9 +1084,10 @@ class Horde_Registry
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
-            if ($this->getAuth() && !Horde_Auth::checkExistingAuth()) {
+            if ($this->getAuth() && !$this->checkExistingAuth($app)) {
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
+
             if (!$this->hasPermission($app, Horde_Perms::READ)) {
                 if (!$this->isAuthenticated(array('app' => $app))) {
                     throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
@@ -1218,7 +1218,7 @@ class Horde_Registry
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
         if (!$this->isAuthenticated(array('app' => $app)) &&
-            $this->requireAuth($app) &&
+            $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth($app)->requireAuth() &&
             ($perms != Horde_Perms::SHOW)) {
             return false;
         }
@@ -1590,19 +1590,6 @@ class Horde_Registry
     }
 
     /**
-     * Returns the name of the authentication provider.
-     *
-     * @return string  The name of the driver currently providing
-     *                 authentication, or false if not set.
-     */
-    public function getProvider()
-    {
-        return empty($_SESSION['horde_auth']['driver'])
-            ? false
-            : $_SESSION['horde_auth']['driver'];
-    }
-
-    /**
      * Clears any authentication tokens in the current session.
      *
      * @param boolean $destroy  Destroy the session?
@@ -1652,23 +1639,6 @@ class Horde_Registry
     }
 
     /**
-     * Checks if an application requires additional authentication above and
-     * beyond Horde authentication.
-     *
-     * @params string $app  The application to check.
-     *
-     * @return boolean  Whether or not the application required additional
-     *                  authentication.
-     * @throws Horde_Exception
-     */
-    public function requireAuth($app)
-    {
-        return ($app == 'horde')
-            ? false
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('application', array('app' => $app))->requireAuth();
-    }
-
-    /**
      * Checks if there is a session with valid auth information. If there
      * isn't, but the configured Auth driver supports transparent
      * authentication, then we try that.
@@ -1677,34 +1647,33 @@ class Horde_Registry
      * <pre>
      * 'app' - (string) Check authentication for this app.
      *         DEFAULT: Checks horde-wide authentication.
+     * 'notransparent' - (boolean) Do not attempt transparent authentication.
+     *                   DEFAULT: false
      * </pre>
      *
      * @return boolean  Whether or not the user is authenticated.
      */
-    public function isAuthenticated($options = array())
+    public function isAuthenticated(array $options = array())
     {
-        /* Check for cached authentication results. */
-        if ($GLOBALS['registry']->getAuth()) {
-            $driver = (empty($options['app']) || ($options['app'] == 'horde'))
-                ? $GLOBALS['conf']['auth']['driver']
-                : $options['app'];
+        $app = empty($options['app'])
+            ? 'horde'
+            : $options['app'];
 
-            if (($_SESSION['horde_auth']['driver'] == $driver) ||
-                isset($_SESSION['horde_auth']['app'][$driver])) {
-                if (Horde_Auth::checkExistingAuth()) {
-                    return true;
-                }
-                $this->clearAuth();
-                return false;
+        /* Check for cached authentication results. */
+        if ($this->getAuth() &&
+            (($app == 'horde') ||
+             isset($_SESSION['horde_auth']['app'][$app]))) {
+            if ($this->checkExistingAuth($app)) {
+                return true;
             }
+
+            return false;
         }
 
         /* Try transparent authentication. */
-        $auth = (empty($options['app']) || ($options['app'] == 'horde'))
-            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()
-            : $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('application', array('app' => $options['app']));
-
-        return $auth->transparent();
+        return empty($options['notransparent'])
+            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth($app)->transparent()
+            : false;
     }
 
     /**
@@ -1770,7 +1739,9 @@ class Horde_Registry
     public function getLogoutUrl(array $options = array())
     {
         if (!isset($options['reason'])) {
-            $options['reason'] = Horde_Auth::getAuthError();
+            // TODO: This only returns the error for Horde-wide
+            // authentication, not for application auth.
+            $options['reason'] = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->getError();
         }
 
         if (empty($options['app']) ||
@@ -1791,10 +1762,10 @@ class Horde_Registry
         }
 
         if ($options['reason']) {
-            $params[Horde_Auth::REASON_PARAM] = $options['reason'];
+            $params['logout_reason'] = $options['reason'];
             if ($options['reason'] == Horde_Auth::REASON_MESSAGE) {
-                $params[Horde_Auth::REASON_MSG_PARAM] = empty($options['msg'])
-                    ? Horde_Auth::getAuthError(true)
+                $params['logout_msg'] = empty($options['msg'])
+                    ? $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth()->getError(true)
                     : $options['msg'];
             }
         }
@@ -1904,28 +1875,35 @@ class Horde_Registry
     /**
      * Sets the requested credential for the currently logged in user.
      *
-     * @param string $credential  The credential to set.
-     * @param string $value       The value to set the credential to.
-     * @param string $app         The app to update. Defaults to Horde.
+     * @param mixed $credential  The credential to set.  If an array,
+     *                           overwrites the current credentials array.
+     * @param string $value      The value to set the credential to. If
+     *                           $credential is an array, this value is
+     *                           ignored.
+     * @param string $app        The app to update. Defaults to Horde.
      */
-    public function setAuthCredential($credential, $value, $app = null)
+    public function setAuthCredential($credential, $value = null, $app = null)
     {
         if (!$this->getAuth()) {
             return;
         }
 
-        $credentials = $this->_getAuthCredentials($app);
-
-        if ($credentials !== false) {
-            if (is_array($credentials)) {
-                $credentials[$credential] = $value;
-            } else {
-                $credentials = array($credential => $value);
+        if (is_array($credential)) {
+            $credentials = $credential;
+        } else {
+            if (($credentials = $this->_getAuthCredentials($app)) === false) {
+                return;
             }
 
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $_SESSION['horde_auth']['app'][$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
+            if (!is_array($credentials)) {
+                $credentials = array();
+            }
+
+            $credentials[$credential] = $value;
         }
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        $_SESSION['horde_auth']['app'][$app] = $secret->write($secret->getKey('auth'), serialize($credentials));
     }
 
     /**
@@ -1937,16 +1915,113 @@ class Horde_Registry
      */
     protected function _getAuthCredentials($app)
     {
-        if (is_null($app)) {
-            $app = $_SESSION['horde_auth']['credentials'];
-        }
-
         if (!isset($_SESSION['horde_auth']['app'])) {
             return false;
         }
 
+        if (is_null($app)) {
+            $app = $_SESSION['horde_auth']['credentials'];
+        }
+
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
         return @unserialize($secret->read($secret->getKey('auth'), $_SESSION['horde_auth']['app'][$app]));
+    }
+
+    /**
+     * Sets a variable in the session saying that authorization has succeeded,
+     * note which userId was authorized, and note when the login took place.
+     *
+     * If a user name hook was defined in the configuration, it gets applied
+     * to the $userId at this point.
+     *
+     * Horde authentication data is stored in the session in the 'horde_auth'
+     * array key.  That key has the following structure:
+     * <pre>
+     * 'app' - (array) Application-specific authentication. Keys are the
+     *         app names, values are an array containing credentials. If true,
+     *         application does not require any specific credentials.
+     * 'authId' - (string) The username used during the original
+                  authentication.
+     * 'browser' - (string) The remote browser string.
+     * 'change' - (boolean) Is a password change requested?
+     * 'credentials' - (string) The 'app' entry that contains the Horde
+     *                 credentials.
+     * 'remoteAddr' - (string) The remote IP address of the user.
+     * 'timestamp' - (integer) The login time.
+     * 'userId' - (string) The unique Horde username.
+     * </pre>
+     *
+     * @param string $authId      The userId that has been authorized.
+     * @param array $credentials  The credentials of the user.
+     * @param array $options      Additional options:
+     * <pre>
+     * 'app' - (string) The app to set authentication credentials for.
+     *         DEFAULT: 'horde'
+     * 'change' - (boolean) Whether to request that the user change their
+     *            password.
+     *            DEFAULT: No
+     * </pre>
+     */
+    public function setAuth($authId, $credentials, array $options = array())
+    {
+        $app = empty($options['app']) ? 'horde' : $options['app'];
+
+        if ($this->getAuth()) {
+            /* Store app credentials. */
+            $this->setAuthCredential($credentials, null, $app);
+            return;
+        }
+
+        /* Clear any existing info. */
+        $this->clearAuth(false);
+
+        $_SESSION['horde_auth'] = array(
+            'app' => array(),
+            'authId' => $authId,
+            'browser' => $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString(),
+            'change' => !empty($options['change']),
+            'credentials' => $app,
+            'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
+            'timestamp' => time(),
+            'userId' => $this->convertUsername(trim($authId), true)
+        );
+
+        $this->setAuthCredential($credentials, null, $app);
+
+        /* Reload preferences for the new user. */
+        $this->loadPrefs();
+        Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
+    }
+
+    /**
+     * Check existing auth for triggers that might invalidate it.
+     *
+     * @param string $app  Check authentication for this app.
+     *
+     * @return boolean  Is existing auth valid?
+     */
+    public function checkExistingAuth($app)
+    {
+        if ($app != 'horde') {
+            return true;
+        }
+
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
+
+        if (!empty($GLOBALS['conf']['auth']['checkip']) &&
+            !empty($_SESSION['horde_auth']['remoteAddr']) &&
+            ($_SESSION['horde_auth']['remoteAddr'] != $_SERVER['REMOTE_ADDR'])) {
+            $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
+            return false;
+        }
+
+        if (!empty($GLOBALS['conf']['auth']['checkbrowser']) &&
+            ($_SESSION['horde_auth']['browser'] != $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString())) {
+            $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
+            return false;
+        }
+
+        return $auth->validateAuth();
     }
 
 }
