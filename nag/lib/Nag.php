@@ -28,6 +28,11 @@ class Nag
     const SORT_DUE = 'due';
 
     /**
+     * Sort by start date.
+     */
+    const SORT_START = 'start';
+
+    /**
      * Sort by completion.
      */
     const SORT_COMPLETION = 'completed';
@@ -1333,6 +1338,58 @@ class Nag
         }
 
         return ($a->due < $b->due) ? 1 : -1;
+    }
+
+    /**
+     * Comparison function for sorting tasks by start date.
+     *
+     * @param array $a  Task one.
+     * @param array $b  Task two.
+     *
+     * @return integer  1 if task one is greater, -1 if task two is greater;
+     *                  0 if they are equal.
+     */
+    public static function _sortByStart($a, $b)
+    {
+        if ($a->start == $b->start) {
+            return self::_sortByIdentity($a, $b);
+        }
+
+        // Treat empty start dates as farthest into the future.
+        if ($a->start == 0) {
+            return 1;
+        }
+        if ($b->start == 0) {
+            return -1;
+        }
+
+        return ($a->start > $b->start) ? 1 : -1;
+    }
+
+    /**
+     * Comparison function for reverse sorting tasks by start date.
+     *
+     * @param array $a  Task one.
+     * @param array $b  Task two.
+     *
+     * @return integer  -1 if task one is greater, 1 if task two is greater,
+     *                  0 if they are equal.
+     */
+    public static function _rsortByStart($a, $b)
+    {
+        if ($a->start == $b->start) {
+            return self::_sortByIdentity($b, $a);
+        }
+
+        // Treat empty start dates as farthest into the future.
+        if ($a->start == 0) {
+            return -1;
+        }
+        if ($b->start == 0) {
+            return 1;
+        }
+
+        return ($a->start < $b->start) ? 1 : -1;
     }
 
     /**

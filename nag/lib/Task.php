@@ -580,6 +580,7 @@ class Nag_Task {
             Nag::SORT_NAME => 'ByName',
             Nag::SORT_CATEGORY => 'ByCategory',
             Nag::SORT_DUE => 'ByDue',
+            Nag::SORT_START => 'ByStart',
             Nag::SORT_COMPLETION => 'ByCompletion',
             Nag::SORT_ASSIGNEE => 'ByAssignee',
             Nag::SORT_ESTIMATE => 'ByEstimate',

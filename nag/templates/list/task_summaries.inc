@@ -61,6 +61,10 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
   <td class="nowrap" sortval="<?php echo $task->due ? (int)$task->due : PHP_INT_MAX ?>">
     <?php echo $task->due ? strftime($dateFormat, $task->due) : '&nbsp;' ?>
   </td>
+<?php endif; if (in_array('start', $columns)): ?>
+  <td class="nowrap" sortval="<?php echo $task->start ? (int)$task->start : PHP_INT_MAX ?>">
+    <?php echo $task->start ? strftime($dateFormat, $task->start) : '&nbsp;' ?>
+  </td>
 <?php endif; if (in_array('estimate', $columns)): ?>
   <td class="nowrap" sortval="<?php echo htmlspecialchars($task->estimation()) ?>">
    <?php echo htmlspecialchars($task->estimation()) ?>

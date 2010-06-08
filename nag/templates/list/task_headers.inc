@@ -51,6 +51,10 @@ function doPrefsUpdate(column, sortDown)
   <th id="s<?php echo Nag::SORT_DUE ?>"<?php if ($sortby == Nag::SORT_DUE) echo ' class="' . $sortdirclass . '"' ?> width="2%">
    <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_DUE)), _("Sort by Due Date"), 'sortlink', '', '', _("_Due Date")) ?>&nbsp;
   </th>
+<?php endif; if (in_array('start', $columns)): ?>
+  <th id="s<?php echo Nag::SORT_START ?>"<?php if ($sortby == Nag::SORT_START) echo ' class="' . $sortdirclass . '"' ?> width="2%">
+   <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_START)), _("Sort by Start Date"), 'sortlink', '', '', _("_Start Date")) ?>&nbsp;
+  </th>
 <?php endif; if (in_array('estimate', $columns)): ?>
   <th id="s<?php echo Nag::SORT_ESTIMATE ?>"<?php if ($sortby == Nag::SORT_ESTIMATE) echo ' class="' . $sortdirclass . '"' ?> width="10%">
    <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_ESTIMATE)), _("Sort by estimated time"), 'sortlink', '', '', _("Estimated Time")) ?>&nbsp;
