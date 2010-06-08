@@ -115,7 +115,7 @@ $loginparams = array(
 );
 $js_code = array(
     'HordeLogin.user_error = ' . Horde_Serialize::serialize(_("Please enter a username."), Horde_Serialize::JSON),
-    'HordeLogin.pass_error = ' . Horde_Serialize::serialize(_("Please enter a username."), Horde_Serialize::JSON)
+    'HordeLogin.pass_error = ' . Horde_Serialize::serialize(_("Please enter a password."), Horde_Serialize::JSON)
 );
 $js_files = array(
     array('login.js', 'horde')
