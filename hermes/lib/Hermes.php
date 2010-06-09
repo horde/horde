@@ -174,7 +174,7 @@ class Hermes {
 
         $employees = array();
         foreach ($users as $user) {
-            $identity = &Identity::singleton('none', $user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
             $label = $identity->getValue('fullname');
             if (empty($label)) {
                 $label = $user;
