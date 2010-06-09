@@ -262,11 +262,13 @@ class Kronolith
                         'fg' => self::foregroundColor($calendar),
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
-                        'perms' => $calendar->getPermission()->data,
                         'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
                         'sub' => $subscriptionCals . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics',
                         'feed' => (string)Kronolith::feedUrl($calendar->getName()),
                         'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
+                    if ($owner) {
+                        $code['conf']['calendars']['internal'][$id]['perms'] = self::permissionToJson($calendar->getPermission());
+                    }
                 }
             }
 
@@ -291,9 +293,11 @@ class Kronolith
                         'fg' => self::foregroundColor($tasklist),
                         'bg' => self::backgroundColor($tasklist),
                         'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
-                        'perms' => $tasklist->getPermission()->data,
                         'edit' => $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
                         'sub' => $subscriptionTasks . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics');
+                    if ($owner) {
+                        $code['conf']['calendars']['tasklists']['tasks/' . $id]['perms'] = self::permissionToJson($tasklist->getPermission());
+                    }
                 }
             }
         }
@@ -384,6 +388,37 @@ class Kronolith
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
+    }
+
+    /**
+     * Converts a permission object to a json object.
+     *
+     * This methods filters out any permissions for the owner and converts the
+     * user name if necessary.
+     *
+     * @param Horde_Perms_Permission $perm  A permission object.
+     *
+     * @return array  A hash suitable for json.
+     */
+    public static function permissionToJson(Horde_Perms_Permission $perm)
+    {
+        $json = $perm->data;
+        if (isset($json['users'])) {
+            $users = array();
+            foreach ($json['users'] as $user => $value) {
+                if ($user == $GLOBALS['registry']->getAuth()) {
+                    continue;
+                }
+                $user = $GLOBALS['registry']->convertUsername($user, false);
+                $users[$user] = $value;
+            }
+            if ($users) {
+                $json['users'] = $users;
+            } else {
+                unset($json['users']);
+            }
+        }
+        return $json;
     }
 
     /**

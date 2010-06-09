@@ -558,7 +558,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 try {
                     $calendar = Kronolith::addShare($info);
                     Kronolith::readPermsForm($calendar);
-                    $result->perms = $calendar->getPermission()->data;
+                    $result->perms = Kronolith::permissionToJson($calendar->getPermission());
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e, 'horde.error');
                     return $result;
@@ -575,7 +575,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 $original_name = $calendar->get('name');
                 Kronolith::updateShare($calendar, $info);
                 Kronolith::readPermsForm($calendar);
-                $result->perms = $calendar->getPermission()->data;
+                $result->perms = Kronolith::permissionToJson($calendar->getPermission());
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
@@ -605,7 +605,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                 try {
                     $tasklist = $GLOBALS['registry']->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
                     Kronolith::readPermsForm($tasklist);
-                    $result->perms = $tasklist->getPermission()->data;
+                    $result->perms = Kronolith::permissionToJson($tasklist->getPermission());
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e, 'horde.error');
                     return $result;
@@ -625,7 +625,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             try {
                 $GLOBALS['registry']->tasks->updateTasklist($calendar_id, $calendar);
                 Kronolith::readPermsForm($tasklists[$calendar_id]);
-                $result->perms = $tasklists[$calendar_id]->getPermission()->data;
+                $result->perms = Kronolith::permissionToJson($tasklists[$calendar_id]->getPermission());
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
                 return $result;
@@ -739,7 +739,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             'fg' => Kronolith::foregroundColor($calendar),
             'bg' => Kronolith::backgroundColor($calendar),
             'show' => false,
-            'perms' => $calendar->getPermission()->data,
+            'perms' => Kronolith::permissionToJson($calendar->getPermission()),
             'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
             'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
         return $result;
