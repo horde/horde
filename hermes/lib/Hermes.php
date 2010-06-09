@@ -53,7 +53,9 @@ class Hermes {
      */
     function getMenu($returnType = 'object')
     {
-        global $registry, $conf, $perms, $print_link;
+        global $registry, $conf, $print_link;
+
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
@@ -87,9 +89,10 @@ class Hermes {
 
     function canEditTimeslice($id)
     {
-        global $hermes;
+        $hermes = $GLOBALS['registry']->getApiInstance('hermes', 'application');
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
-        if ($GLOBALS['perms']->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return true;
         }
 
@@ -119,7 +122,6 @@ class Hermes {
         if (is_null($hours)) {
             return null;
         }
-        require_once 'Horde/Identity.php';
 
         $clients = Hermes::listClients();
         $namecache = array();
@@ -135,7 +137,7 @@ class Hermes {
             if (isset($namecache[$emp])) {
                 $emp = $namecache[$emp];
             } else {
-                $ident = &Identity::singleton('none', $emp);
+                $ident = $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($emp);
                 $fullname = $ident->getValue('fullname');
                 if ($fullname) {
                     $namecache[$emp] = $emp = $fullname;
