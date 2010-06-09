@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Add start date to possible colums in task list (Joel Smith
+      <js-horde@jk1.net>, Request #9083).
 [jan] Add system task lists (Request #2059).
 [jan] Set colors per task list (Request #7480).
 [cjh] Quick Add support: there is a javascript UI element for quickly adding
