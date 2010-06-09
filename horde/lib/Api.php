@@ -84,8 +84,8 @@ class Horde_Api extends Horde_Registry_Api
      * @param array $filter  An array of the statuses that should be returned.
      *                       Defaults to non-hidden.
      *
-     * @return array  List of apps registered with Horde. If no applications are
-     *                defined returns an empty array.
+     * @return array  List of apps registered with Horde. If no applications
+     *                are defined returns an empty array.
      */
     public function listApps($filter = null)
     {
@@ -271,31 +271,27 @@ class Horde_Api extends Horde_Registry_Api
      */
     public function removeUserDataFromAllApplications($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() && $user != Auth::getAuth()) {
+        global $registry;
+
+        if (!$registry->isAdmin() && ($user != $registry->getAuth())) {
             throw new Horde_Exception(_("You are not allowed to remove user data."));
         }
 
-        /* Error flag */
-        $haveError = false;
+        $errors = array();
 
-        /* Get all APIs */
-        $apis = $this->listAPIs();
-        foreach ($apis as $api) {
-            if ($GLOBALS['registry']->hasAppMethod($api, 'removeUserData')) {
-                $result = $GLOBALS['registry']->callAppMethod($api, 'removeUserData', array('args' => array($user)));
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, 'ERR');
-                    $haveError = true;
+        foreach ($registry->listAllApps() as $app) {
+            if ($registry->hasAppMethod($app, 'removeUserData')) {
+                try {
+                    $registry->callAppMethod($app, 'removeUserData', array('args' => array($user)));
+                } catch (Horde_Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                    $errors[] = $app;
                 }
             }
         }
-        $result = $this->removeUserData($user);
-        if (is_a($result, 'PEAR_Error')) {
-            $haveError = true;
-        }
 
-        if ($haveError) {
-            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
+        if (!empty($errors)) {
+            throw new Horde_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errors)));
         }
     }
 
