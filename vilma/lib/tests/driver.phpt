@@ -6,8 +6,8 @@ Vilma_Driver_sql::
 echo "Load... ";
 
 define('AUTH_HANDLER', false);
-define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 echo "ok\n";
 

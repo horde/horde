@@ -8,9 +8,9 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
+
 require_once VILMA_BASE . '/lib/Forms/EditDomainForm.php';
 
 /* Only admin should be using this. */
@@ -25,7 +25,7 @@ $form = new EditDomainForm($vars);
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     $info['name'] = Horde_String::lower($info['name']);
-    $domain_id = $vilma_driver->saveDomain($info);
+    $domain_id = $vilma->driver->saveDomain($info);
     if (is_a($domain_id, 'PEAR_Error')) {
         Horde::logMessage($domain_id, 'ERR');
         $notification->push(sprintf(_("Error saving domain: %s."), $domain_id->getMessage()), 'horde.error');

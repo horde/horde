@@ -10,10 +10,8 @@
  * @author Daniel Collins <horde_dev@argentproductions.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
-require_once 'Horde/Variables.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 require_once VILMA_BASE . '/lib/Forms/EditAliasForm.php';
 
@@ -30,7 +28,7 @@ if ($vars->exists('mode')) {
 
   if ($form->validate($vars)) {
       $form->getInfo($vars, $info);
-      $alias_id = $vilma_driver->saveAlias($info);
+      $alias_id = $vilma->driver->saveAlias($info);
       if (is_a($alias_id, 'PEAR_Error')) {
           Horde::logMessage($user_id, 'ERR');
           $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
@@ -59,7 +57,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
         $alias = $vars->get("alias");
         Horde::logMessage("Alias Detected: $alias", 'DEBUG');
 
-        $addrInfo = $vilma_driver->getAddressInfo($alias,'alias');
+        $addrInfo = $vilma->driver->getAddressInfo($alias,'alias');
         Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), 'DEBUG');
         if (is_a($addrInfo, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $addrInfo->getMessage()), 'horde.error');
@@ -67,7 +65,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
             require VILMA_BASE . $url;
             exit;
         }
-        $address = $vilma_driver->getAddressInfo($addrInfo['destination']);
+        $address = $vilma->driver->getAddressInfo($addrInfo['destination']);
         Horde::logMessage("address Info contains: " . print_r($address, true), 'DEBUG');
         $vars = new Variables($address);
         $vars->set('mode', 'edit');
@@ -78,7 +76,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
         $tmp_address = $vars->get("address");
         Horde::logMessage("Address Detected: $tmp_address", 'DEBUG');
 
-        $address = $vilma_driver->getAddressInfo($tmp_address, 'all');
+        $address = $vilma->driver->getAddressInfo($tmp_address, 'all');
         Horde::logMessage("addrInfo contains: " . print_r($addrInfo, true), 'DEBUG');
         $vars = new Variables($address);
         $vars->set('mode', 'new');
@@ -88,7 +86,7 @@ if (!$vars->exists('mode') || $vars->getExists('retry')) {
 /*
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $alias_id = $vilma_driver->saveAlias($info);
+        $alias_id = $vilma->driver->saveAlias($info);
         if (is_a($alias_id, 'PEAR_Error')) {
             Horde::logMessage($user_id, 'ERR');
             $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');

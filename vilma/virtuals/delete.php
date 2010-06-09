@@ -8,9 +8,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!$registry->isAdmin()) {
@@ -21,9 +20,9 @@ $vars = Horde_Variables::getDefaultVariables();
 $virtual_id = $vars->get('virtual_id');
 $formname = $vars->get('formname');
 
-$virtual = $vilma_driver->getVirtual($virtual_id);
+$virtual = $vilma->driver->getVirtual($virtual_id);
 $domain = Vilma::stripDomain($virtual['virtual_email']);
-$domain = $vilma_driver->getDomainByName($domain);
+$domain = $vilma->driver->getDomainByName($domain);
 
 $form = new Horde_Form($vars, _("Delete Virtual Email Address"));
 
@@ -35,7 +34,7 @@ $form->addVariable(sprintf(_("Delete the virtual email address \"%s\" => \"%s\"?
 if ($vars->get('submitbutton') == _("Delete")) {
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $delete = $vilma_driver->deleteVirtual($info['virtual_id']);
+        $delete = $vilma->driver->deleteVirtual($info['virtual_id']);
         if (is_a($delete, 'PEAR_Error')) {
             Horde::logMessage($delete, 'ERR');
             $notification->push(sprintf(_("Error deleting virtual email. %s."), $delete->getMessage()), 'horde.error');

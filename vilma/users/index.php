@@ -10,8 +10,8 @@
  * @author David Cummings <davidcummings@acm.org>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($curdomain)) {
@@ -28,7 +28,7 @@ if (!array_key_exists($section, Vilma::getUserMgrTypes())) {
 }
 $tabs = Vilma::getUserMgrTabs($vars);
 
-$addresses = $vilma_driver->getAddresses($curdomain['domain_name'], $section);
+$addresses = $vilma->driver->getAddresses($curdomain['domain_name'], $section);
 if (is_a($addresses, 'PEAR_Error')) {
     $notification->push($addresses);
     header('Location: ' . Horde::applicationUrl('index.php'));
@@ -108,11 +108,11 @@ foreach ($addresses as $i => $address) {
         $addresses[$i]['view_url'] = $url;
     }
     $addresses[$i]['type'] = $types[$address['type']]['singular'];
-    $addresses[$i]['status'] = $vilma_driver->getUserStatus($address);
+    $addresses[$i]['status'] = $vilma->driver->getUserStatus($address);
 }
 
 /* Set up the template action links. */
-if ($vilma_driver->isBelowMaxUsers($curdomain['domain_name'])) {
+if ($vilma->driver->isBelowMaxUsers($curdomain['domain_name'])) {
     $url = Horde::applicationUrl('users/edit.php');
     $maxusers = '';
 } else {

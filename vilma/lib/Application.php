@@ -20,6 +20,17 @@ define('VILMA_BASE', dirname(__FILE__) . '/..');
 class Vilma_Application extends Horde_Registry_Application
 {
 
+    public $driver = null;
+    public $curdomain = null;
+
+    protected function _init()
+    {
+        $this->driver = &Vilma_Driver::singleton();
+
+        // Get the currently active domain, possibly storing a change into the session
+        $this->curdomain = Vilma::getCurDomain();
+    }
+
     public function perms()
     {
         static $perms = array();
@@ -27,13 +38,10 @@ class Vilma_Application extends Horde_Registry_Application
             return $perms;
         }
 
-        require_once VILMA_BASE . '/lib/base.php';
-        global $vilma_driver;
-
         $perms['tree']['vilma']['superadmin'] = false;
         $perms['title']['vilma:superadmin'] = _("Super Administrator");
 
-        $domains = $vilma_driver->getDomains();
+        $domains = $this->driver->getDomains();
 
         // Run through every domain
         foreach ($domains as $domain) {

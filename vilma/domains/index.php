@@ -8,8 +8,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
@@ -19,7 +19,7 @@ if (!Vilma::hasPermission($domain)) {
 // Having a current domain doesn't make sense on this page
 Vilma::setCurDomain(false);
 
-$domains = $vilma_driver->getDomains();
+$domains = $vilma->driver->getDomains();
 if (is_a($domains, 'PEAR_Error')) {
     $notification->push($domains, 'horde.error');
     $domains = array();

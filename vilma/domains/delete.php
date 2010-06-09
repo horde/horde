@@ -8,9 +8,9 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
+
 require_once VILMA_BASE . '/lib/Forms/DeleteDomainForm.php';
 
 /* Only admin should be using this. */
@@ -24,7 +24,7 @@ $form = new DeleteDomainForm($vars);
 if ($vars->get('submitbutton') == _("Delete")) {
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $delete = $vilma_driver->deleteDomain($info['domain_id']);
+        $delete = $vilma->driver->deleteDomain($info['domain_id']);
         if (is_a($delete, 'PEAR_Error')) {
             Horde::logMessage($delete, 'ERR');
             $notification->push(sprintf(_("Error deleting domain. %s."), $delete->getMessage()), 'horde.error');

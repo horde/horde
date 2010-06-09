@@ -8,8 +8,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!$registry->isAdmin() && !Vilma::isDomainAdmin()) {
@@ -18,11 +18,11 @@ if (!$registry->isAdmin() && !Vilma::isDomainAdmin()) {
 
 $user = Horde_Util::getFormData('user');
 if (!empty($user)) {
-    $virtuals = $vilma_driver->getVirtuals($user);
+    $virtuals = $vilma->driver->getVirtuals($user);
     $domain = Vilma::stripDomain($user);
 } else {
     $domain = Vilma::getDomain();
-    $virtuals = $vilma_driver->getVirtuals($domain);
+    $virtuals = $vilma->driver->getVirtuals($domain);
 }
 
 if (is_a($virtuals, 'PEAR_Error')) {
