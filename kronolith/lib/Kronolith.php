@@ -193,7 +193,7 @@ class Kronolith
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
             'SESSION_ID' => defined('SID') ? SID : '',
 
-            'user' => $GLOBALS['registry']->getAuth(),
+            'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
