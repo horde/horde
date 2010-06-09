@@ -107,7 +107,7 @@ class IMP_Hooks
 //
 //        if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
 //            $sources = $GLOBALS['registry']->call('contacts/sources');
-//            return implode("\t", array_keys($sources));
+//            return json_encode(array_keys($sources));
 //        }
 //    }
 
