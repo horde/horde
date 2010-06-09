@@ -183,7 +183,7 @@ class Hermes_Api extends Horde_Registry_Api
 
                     $vals['icons'] =
                         Horde::link($edit_link, _("Edit Entry")) .
-                        Horde::img('edit.png', _("Edit Entry"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+                        Horde::img('edit.png', _("Edit Entry"), '') . '</a>';
 
                     if (empty($vals['submitted'])) {
                         $vals['checkbox'] =
