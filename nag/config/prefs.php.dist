@@ -56,7 +56,7 @@ $_prefs['tasklist_columns'] = array(
         'priority' => _("Priority"),
         'assignee' => _("Assignee"),
         'due' => _("Due Date"),
-        'start' => _("Due Date"),
+        'start' => _("Start Date"),
         'estimate' => _("Estimated Time"),
         'category' => _("Category")
     ),
