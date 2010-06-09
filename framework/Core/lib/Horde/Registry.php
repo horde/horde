@@ -599,6 +599,7 @@ class Horde_Registry
      *                        returned. Defaults to non-hidden.
      * @param boolean $assoc  Associative array with app names as keys.
      * @param integer $perms  The permission level to check for in the list.
+     *                        If null, skips permission check.
      *
      * @return array  List of apps registered with Horde. If no
      *                applications are defined returns an empty array.
@@ -606,14 +607,14 @@ class Horde_Registry
     public function listApps($filter = null, $assoc = false,
                              $perms = Horde_Perms::SHOW)
     {
-        $apps = array();
         if (is_null($filter)) {
             $filter = array('notoolbar', 'active');
         }
 
+        $apps = array();
         foreach ($this->applications as $app => $params) {
             if (in_array($params['status'], $filter) &&
-                $this->hasPermission($app, $perms)) {
+                (is_null($perms) || $this->hasPermission($app, $perms))) {
                 $apps[$app] = $app;
             }
         }
@@ -624,22 +625,18 @@ class Horde_Registry
     /**
      * Return a list of all applications, ignoring permissions.
      *
-     * @return array
+     * @return array  List of all apps registered with Horde.
      */
     public function listAllApps($filter = null)
     {
         // Default to all installed (but possibly not configured) applications)
         if (is_null($filter)) {
-            $filter = array('inactive', 'hidden', 'notoolbar', 'active', 'admin');
-        }
-        $apps = array();
-        foreach ($this->applications as $app => $params) {
-            if (in_array($params['status'], $filter)) {
-                $apps[] = $app;
-            }
+            $filter = array(
+                'inactive', 'hidden', 'notoolbar', 'active', 'admin'
+            );
         }
 
-        return $apps;
+        return $this->listApps($filter, false, null);
     }
 
     /**
