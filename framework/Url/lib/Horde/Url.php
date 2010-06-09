@@ -257,6 +257,9 @@ class Horde_Url
             $link .= " href=\"$url\"";
         }
         foreach ($attributes as $name => $value) {
+            if (!strlen($value)) {
+                continue;
+            }
             if (substr($name, -4) == '.raw') {
                 $link .= ' ' . htmlspecialchars(substr($name, 0, -4))
                     . '="' . $value . '"';
