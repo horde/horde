@@ -6,20 +6,20 @@ $js_criteria = "var criteriaOptions = [];\n"
     . "var shareSources = [];\n";
 
 $source_count = 0;
+$criteria = $shareSources = array();
 foreach (Turba::getAddressBooks() as $key => $entry) {
-    $js_criteria .= "criteriaOptions[$source_count] = []\n"
-        . "criteriaOptions[$source_count][0] = '$key';\n";
+    $criteria[$key] = array();
 
     /* Build the criteria select widget. */
     $field_count = 1;
     foreach ($entry['search'] as $field) {
-        $js_criteria .= "criteriaOptions[$source_count][$field_count] = ['$field', '" . $GLOBALS['attributes'][$field]['label'] . "'];\n";
         if ($key == $source) {
             $selected = ($criteria == $field) ? ' selected="selected"' : '';
             $criteria_options .= "<option value=\"$field\"$selected>" .
                 htmlspecialchars($GLOBALS['attributes'][$field]['label']) . "</option>\n";
         }
         $field_count++;
+        $criteria[$key][$field] = $GLOBALS['attributes'][$field]['label'];
     }
 
     $selected = ($key == $source) ? ' selected="selected"' : '';
@@ -30,11 +30,7 @@ foreach (Turba::getAddressBooks() as $key => $entry) {
     $source_count++;
 
     /* Remember vbooks and sources that are using shares. */
-    if ($entry['type'] != 'vbook') {
-        $js_criteria .= "shareSources['$key'] = true;\n";
-    } else {
-        $js_criteria .= "shareSources['$key'] = false;\n";
-    }
+    $shareSources[$key] = $entry['type'] != 'vbook';
 }
 
 /* Build search mode tabs. */
@@ -50,5 +46,5 @@ echo $tabs->render($_SESSION['turba']['search_mode']);
 <form name="directory_search" action="search.php" method="get" onsubmit="RedBox.loading(); return true;">
 <?php echo Horde_Util::formInput() ?>
 <?php if ($source_count == 1): ?>
- <input type="hidden" name="source" value="<?php echo $unique_source ?>" />
+ <input type="hidden" id="turbaSearchSource" name="source" value="<?php echo $unique_source ?>" />
 <?php endif; ?>

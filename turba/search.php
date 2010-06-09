@@ -188,6 +188,7 @@ if ($_SESSION['turba']['search_mode'] == 'basic') {
 Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('search.js', 'turba');
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 require TURBA_TEMPLATES . '/search/header.inc';
