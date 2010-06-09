@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Jan Schneider <jan@horde.org>
  */
 
 /**
@@ -75,7 +76,8 @@ Horde_Registry::appInit('turba');
 if (Horde_Util::getFormData('search_mode')) {
     $_SESSION['turba']['search_mode'] = Horde_Util::getFormData('search_mode');
 }
-if (!isset($_SESSION['turba']['search_mode'])) {
+if (!isset($_SESSION['turba']['search_mode']) ||
+    !in_array($_SESSION['turba']['search_mode'], array('basic', 'advanced'))) {
     $_SESSION['turba']['search_mode'] = 'basic';
 }
 
@@ -188,11 +190,9 @@ Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-require TURBA_TEMPLATES . '/browse/search.inc';
-if ($_SESSION['turba']['search_mode'] == 'advanced') {
-    require TURBA_TEMPLATES . '/browse/search_criteria.inc';
-}
-require TURBA_TEMPLATES . '/browse/search_vbook.inc';
+require TURBA_TEMPLATES . '/search/header.inc';
+require TURBA_TEMPLATES . '/search/' . $_SESSION['turba']['search_mode'] . '.inc';
+require TURBA_TEMPLATES . '/search/vbook.inc';
 if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/javascript.inc';
     require TURBA_TEMPLATES . '/browse/header.inc';
