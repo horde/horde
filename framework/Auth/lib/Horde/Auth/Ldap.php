@@ -415,8 +415,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
          * Note: You cannot override a server-side limit with this. */
         $userlist = array();
         try {
-            $search = $this->_ldap->search($this->_params['basedn'], $filter, $params);
-
+            $search = $this->_ldap->search($this->_params['basedn'], $filter, $params)->as_struct();
             $uid = Horde_String::lower($this->_params['uid']);
             foreach ($search as $val) {
                 $userlist[] = $val[$uid][0];
