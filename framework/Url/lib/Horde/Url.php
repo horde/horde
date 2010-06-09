@@ -9,8 +9,9 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category Horde
- * @package  Horde_Url
+ * @package  Url
  */
 
 /**
@@ -20,7 +21,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Url
+ * @package  Url
  */
 class Horde_Url
 {
