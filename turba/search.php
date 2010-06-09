@@ -109,11 +109,11 @@ if (is_a($driver, 'PEAR_Error')) {
     $map = $driver->getCriteria();
     if ($_SESSION['turba']['search_mode'] == 'advanced') {
         $criteria = array();
-        foreach ($map as $key => $value) {
+        foreach (array_keys($map) as $key) {
             if ($key != '__key') {
-                $val = Horde_Util::getFormData($key);
-                if (strlen($val)) {
-                    $criteria[$key] = $val;
+                $value = Horde_Util::getFormData($key);
+                if (strlen($value)) {
+                    $criteria[$key] = $value;
                 }
             }
         }
@@ -177,12 +177,59 @@ if (is_a($driver, 'PEAR_Error')) {
     }
 }
 
-if ($_SESSION['turba']['search_mode'] == 'basic') {
+/* Build all available search criteria. */
+$addressBooks = Turba::getAddressBooks();
+$allCriteria = $shareSources = array();
+foreach ($addressBooks as $key => $entry) {
+    $allCriteria[$key] = array();
+    foreach ($entry['search'] as $field) {
+        $allCriteria[$key][$field] = $GLOBALS['attributes'][$field]['label'];
+    }
+
+    /* Remember vbooks and sources that are using shares. */
+    $shareSources[$key] = $entry['type'] != 'vbook';
+}
+
+/* Build search mode tabs. */
+$sUrl = Horde::applicationUrl('search.php');
+$vars = Horde_Variables::getDefaultVariables();
+$tabs = new Horde_Ui_Tabs('search_mode', $vars);
+$tabs->addTab(_("Basic Search"), $sUrl, 'basic');
+$tabs->addTab(_("Advanced Search"), $sUrl, 'advanced');
+
+/* The form header. */
+$headerView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
+if (count($addressBooks) == 1) {
+    $headerView->uniqueSource = key($addressBooks);
+}
+
+/* The search forms. */
+$searchView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
+new Horde_View_Helper_Text($searchView);
+$searchView->addressBooks = $addressBooks;
+$searchView->shareSources = $shareSources;
+$searchView->attributes = $GLOBALS['attributes'];
+$searchView->allCriteria = $allCriteria;
+$searchView->map = $map;
+$searchView->source = $source;
+$searchView->criteria = $criteria;
+$searchView->value = $val;
+
+/* The form footer and vbook section. */
+$vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
+$vbookView->hasShare = !empty($_SESSION['turba']['has_share']);
+$vbookView->shareSources = $shareSources;
+$vbookView->source = $source;
+
+switch ($_SESSION['turba']['search_mode']) {
+case 'basic':
     $title = _("Basic Search");
     $notification->push('document.directory_search.val.focus();', 'javascript');
-} else {
+    break;
+case 'advanced':
     $title = _("Advanced Search");
     $notification->push('document.directory_search.name.focus();', 'javascript');
+    break;
 }
 
 Horde::addScriptFile('quickfinder.js', 'horde');
@@ -191,9 +238,10 @@ Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('search.js', 'turba');
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-require TURBA_TEMPLATES . '/search/header.inc';
-require TURBA_TEMPLATES . '/search/' . $_SESSION['turba']['search_mode'] . '.inc';
-require TURBA_TEMPLATES . '/search/vbook.inc';
+echo $tabs->render($_SESSION['turba']['search_mode']);
+echo $headerView->render('header');
+echo $searchView->render($_SESSION['turba']['search_mode']);
+echo $vbookView->render('vbook');
 if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/javascript.inc';
     require TURBA_TEMPLATES . '/browse/header.inc';
