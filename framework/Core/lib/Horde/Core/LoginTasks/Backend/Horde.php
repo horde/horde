@@ -85,11 +85,19 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasks()
     {
-        /* Add Horde tasks here if not yet run. */
-        $app_list = array($this->_app);
-        if (($this->_app != 'horde') &&
-            !isset($_SESSION['horde_logintasks']['horde'])) {
-            array_unshift($app_list, 'horde');
+        switch ($this->_app) {
+        case 'horde':
+            $app_list = isset($_SESSION['horde_logintasks']['horde'])
+                ? array()
+                : array('horde');
+            break;
+
+        default:
+            $app_list = array($this->_app);
+            if (!isset($_SESSION['horde_logintasks']['horde'])) {
+                array_unshift($app_list, 'horde');
+            }
+            break;
         }
 
         $tasks = array();
