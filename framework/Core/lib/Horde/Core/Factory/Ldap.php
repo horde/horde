@@ -84,6 +84,8 @@ class Horde_Core_Factory_Ldap
 
         try {
             $this->_instances[$sig] = new Horde_Ldap($config);
+            // Establish the connection so it is available when searching later
+            $this->_instances[$sig]->bind();
         } catch (Horde_Exception $e) {
             if ($pushed) {
                 $GLOBALS['registry']->popApp();
