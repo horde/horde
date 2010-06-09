@@ -147,7 +147,7 @@ $_prefs['sourceselect'] = array('type' => 'special');
 // Refer to turba/config/sources.php for possible source values
 //
 // You can provide default values this way:
-//   'value' => json_encode('source_one', 'source_two')
+//   'value' => json_encode(array('source_one', 'source_two'))
 
 $_prefs['search_sources'] = array(
     'value' => ''
