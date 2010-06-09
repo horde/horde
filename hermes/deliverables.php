@@ -100,7 +100,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
 
         $newdeliv = '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('deliverables.php'), array('new' => 1, 'parent' => $deliverable['id'], 'client_id' => $vars->get('client_id'))), _("New Sub-deliverable")) . Horde::img('newdeliverable.png', _("New Sub-deliverable")) . '</a>';
 
-        $deldeliv = '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('deliverables.php'), array('formname' => 'deletedeliverable', 'delete' => $deliverable['id'], 'client_id' => $vars->get('client_id'))), _("Delete This Deliverable")) . Horde::img('delete.png', _("Delete This Deliverable"), '', $registry->getImageDir('horde')) . '</a>';
+        $deldeliv = '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('deliverables.php'), array('formname' => 'deletedeliverable', 'delete' => $deliverable['id'], 'client_id' => $vars->get('client_id'))), _("Delete This Deliverable")) . Horde::img('delete.png', _("Delete This Deliverable"), '') . '</a>';
 
         /* Calculate the node's depth. */
         $depth = 0;

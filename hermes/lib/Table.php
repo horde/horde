@@ -151,8 +151,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
         $exportlink = Horde_Util::addParameter($exportlink, array('id' => $id));
 
         $html .= ' &nbsp;' . Horde::link($exportlink, _("Export Data")) .
-                 Horde::img('data.png', _("Export Data"), 'hspace="2"',
-                            $GLOBALS['registry']->getImageDir('horde')) .
+                 Horde::img('data.png', _("Export Data"), 'hspace="2"') .
                  '</a>';
         */
 
