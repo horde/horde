@@ -1015,15 +1015,26 @@ KronolithCore = {
             .store('calendarclass', type)
             .setStyle({ backgroundColor: cal.bg, color: cal.fg })
             .insert(cal.name.escapeHTML());
+        this.addShareIcon(cal, calendar);
+        div.insert(calendar);
+    },
+
+    /**
+     * Add the share icon after the calendar name in the calendar list.
+     *
+     * @param object cal       A calendar object from Kronolith.conf.calendars.
+     * @param Element element  The calendar element in the list.
+     */
+    addShareIcon: function(cal, element)
+    {
         if (cal.owner && cal.perms) {
             $H(cal.perms).each(function(perm) {
                 if (perm.key != 'type' && perm.value) {
-                    calendar.insert(' ').insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'attendees-' + cal.fg.substring(1) + '.png', title: Kronolith.text.shared }));
+                    element.insert(' ').insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'attendees-' + cal.fg.substring(1) + '.png', title: Kronolith.text.shared }));
                     throw $break;
                 }
             });
         }
-        div.insert(calendar);
     },
 
     /**
@@ -3243,9 +3254,10 @@ KronolithCore = {
                         element
                             .setStyle(color)
                             .update(cal.name.escapeHTML());
+                        this.addShareIcon(cal, element);
                         throw $break;
                     }
-                });
+                }, this);
                 $('kronolithBody').select('div').each(function(el) {
                     if (el.retrieve('calendar') == type + '|' + data.calendar) {
                         el.setStyle(color);
