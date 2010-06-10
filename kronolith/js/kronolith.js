@@ -4432,7 +4432,7 @@ KronolithCore = {
         if (elt.hasClassName('kronolithDragger')) {
             elt = elt.up().addClassName('kronolithSelected');
         } else if (elt.hasClassName('kronolithEditable')) {
-            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: '100%', zIndex: 1 });
+            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: '90%', zIndex: 1 });
         }
     },
 
@@ -4449,6 +4449,7 @@ KronolithCore = {
             step = this[storage].height / 6;
 
         if (elt.hasClassName('kronolithDragger')) {
+            // Resizing the event.
             var div = elt.up(),
                 top = drag.ghost.cumulativeOffset().top,
                 offset, height, dates;
@@ -4474,6 +4475,7 @@ KronolithCore = {
             this.calculateEventDates(event, storage, step, offset, height);
             drag.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
         } else if (elt.hasClassName('kronolithEditable')) {
+            // Moving the event.
             if (Object.isUndefined(drag.innerDiv)) {
                 drag.innerDiv = drag.ghost.down('.kronolithEventInfo');
             }
@@ -4487,7 +4489,7 @@ KronolithCore = {
             }
             event.offsetTop = drag.ghost.offsetTop - drag.startTop;
             drag.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
-            elt.clonePosition(drag.ghost);
+            elt.clonePosition(drag.ghost, { offsetLeft: -2 });
         }
     },
 
