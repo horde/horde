@@ -4414,7 +4414,10 @@ KronolithCore = {
                         view_end: end,
                         att: $H({ offDays: diff }).toJSON() },
                       function(r) {
-                          if (r.response.events) {
+                          // Check if this is the still the result of the most
+                          // current request.
+                          if (r.response.events &&
+                              r.response.sig == this.eventsLoading[r.response.cal]) {
                               var days;
                               if ((this.view == 'month' &&
                                    Kronolith.conf.max_events) ||
@@ -4552,7 +4555,10 @@ KronolithCore = {
               att: attributes.toJSON()
             },
             function(r) {
-                if (r.response.events) {
+                // Check if this is the still the result of the most current
+                // request.
+                if (r.response.events &&
+                    r.response.sig == this.eventsLoading[r.response.cal]) {
                     this.removeEvent(event.key, event.value.calendar);
                 }
                 this.loadEventsCallback(r);
