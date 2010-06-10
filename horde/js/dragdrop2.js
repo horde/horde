@@ -358,8 +358,7 @@ Drag = Class.create({
                     }
                     this.ghost.setOpacity(0.7).setStyle({ zIndex: z + 1 });
                 } else {
-                    this.elthold = new Element('DIV').clonePosition(this.element);
-                    this.element.hide().insert({ before: this.elthold });
+                    this.element.setStyle({ visibility: 'hidden' });
                 }
 
                 // Insert ghost into the parent, either specified by a
@@ -439,8 +438,7 @@ Drag = Class.create({
 
         if (this.ghost) {
             if (!this.options.ghosting) {
-                this.elthold.remove();
-                this.element.show();
+                this.element.setStyle({ visibility: 'visible' });
             }
             this.ghost.remove();
             this.ghost = null;
