@@ -1811,7 +1811,13 @@ KronolithCore = {
                 // The conflict group where this event should go.
                 pos = this.dayGroups.length,
                 // The event below the current event fits.
-                placeFound = false;
+                placeFound = false,
+                // The minimum (virtual) duration of each event, defined by the
+                // minimum height of an event DIV.
+                minMinutes = (minHeight + this[storage].spacing) * 60 / this[storage].height,
+                // The minimum (virtual) end of an event, defined by its start
+                // time an minMinutes.
+                minEnd;
 
             // this.dayEvents contains all events of the current day.
             // this.dayGroups contains conflict groups, i.e. all events that
@@ -1819,10 +1825,14 @@ KronolithCore = {
             //
             // Go through all events that have been added to this day already.
             this.dayEvents.each(function(ev) {
+                // Due to the minimum height of an event DIV, events might
+                // visually overlap, even if they physically don't.
+                minEnd = ev.start.clone().add(minMinutes).minutes();
+                end = ev.end.isAfter(minEnd) ? ev.end : minEnd;
                 // If it doesn't conflict with the current event, rember it
                 // as a possible event below that we can put the current event
                 // and go ahead.
-                if (!ev.end.isAfter(event.value.start)) {
+                if (!end.isAfter(event.value.start)) {
                     placeFound = ev;
                     return;
                 }
