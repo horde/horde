@@ -35,8 +35,14 @@ function _open()
     }
 }
 
-if ($vars->exists('formname')) {
-    switch ($vars->get('formname')) {
+// This is a dirty work around to a Horde_Form behavior.
+// Horde_Variables#exists() only checks on expected variables, while
+// Horde_Variables#get() returns the value if one was passed.  Since the form
+// name itself isn't "expected", exists() returns false.  This work around
+// makes this multi-form page work again.
+$formname = $vars->get('formname');
+if (!empty($formname)) {
+    switch ($formname) {
     case 'addjobtypeform':
         $form = new AddJobTypeForm($vars);
         $form->validate($vars);
