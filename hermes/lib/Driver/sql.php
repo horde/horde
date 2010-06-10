@@ -285,9 +285,14 @@ class Hermes_Driver_sql extends Hermes_Driver {
             return $hours;
         }
 
-        // Add cost object names to the results.
-        if (empty($fields) || in_array('costobject', $fields)) {
-            foreach (array_keys($hours) as $hkey) {
+        // Do per-record processing
+        foreach (array_keys($hours) as $hkey) {
+            // Convert timestamps to Horde_Date objects
+            $hours[$hkey]['date'] = new Horde_Date($hours[$hkey]['date']);
+
+            // Add cost object names to the results.
+            if (empty($fields) || in_array('costobject', $fields)) {
+            
                 if (empty($hours[$hkey]['costobject'])) {
                     $hours[$hkey]['_costobject_name'] = '';
                 } else {
