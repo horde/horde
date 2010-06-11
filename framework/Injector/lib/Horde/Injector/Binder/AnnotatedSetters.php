@@ -25,9 +25,11 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
     /**
      *
      */
-    public function __construct(Horde_Injector_Binder $binder, Horde_Injector_DependencyFinder $dependencyFinder)
+    public function __construct(Horde_Injector_Binder $binder, Horde_Injector_DependencyFinder $dependencyFinder = null)
     {
         $this->_binder = $binder;
+
+        if (is_null($dependencyFinder)) { $dependencyFinder = new Horde_Injector_DependencyFinder(); }
         $this->_dependencyFinder = $dependencyFinder;
     }
 

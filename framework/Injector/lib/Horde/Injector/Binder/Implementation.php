@@ -26,9 +26,7 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     {
         $this->_implementation = $implementation;
 
-        if (is_null($dependencyFinder)) {
-            $dependencyFinder = new Horde_Injector_DependencyFinder();
-        }
+        if (is_null($dependencyFinder)) { $dependencyFinder = new Horde_Injector_DependencyFinder(); }
         $this->_dependencyFinder = $dependencyFinder;
     }
 
