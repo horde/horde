@@ -440,7 +440,9 @@ Drag = Class.create({
             if (!this.options.ghosting) {
                 this.element.setStyle({ visibility: 'visible' });
             }
-            this.ghost.remove();
+            try {
+                this.ghost.remove();
+            } catch (e) {}
             this.ghost = null;
         }
 
