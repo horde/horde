@@ -602,6 +602,7 @@ KronolithCore = {
                     td.addClassName('kronolithToday');
                     this.addTimeMarker('kronolithEventsWeek' + dateString);
                 }
+                new Drop(td.down('div'));
                 div = div.next('div');
                 th = th.next('td');
                 td = td.next('td');
@@ -1650,6 +1651,25 @@ KronolithCore = {
                         }
                     } else {
                         $('kronolithAllDay' + date).insert(div.setStyle(style));
+                        if (event.value.pe) {
+                            div.addClassName('kronolithEditable');
+                            var layout = div.getLayout(),
+                                minLeft = $('kronolithViewWeekHead').down('.kronolithFirstCol').getWidth() + this[storage].spacing + (parseInt(div.getStyle('marginLeft')) || 0),
+                                minTop = $('kronolithViewWeekHead').down('thead').getHeight() + this[storage].spacing + (parseInt(div.getStyle('marginTop')) || 0),
+                                maxLeft = $('kronolithViewWeekHead').getWidth() - layout.get('margin-box-width'),
+                                maxTop = $('kronolithViewWeekHead').down('thead').getHeight() + $('kronolithViewWeekHead').down('.kronolithAllDay').getHeight(),
+                                opts = {
+                                    threshold: 5,
+                                    parentElement: function() {
+                                        return $('kronolithViewWeek').down('.kronolithViewHead');
+                                    },
+                                    snap: function(x, y) {
+                                        return [Math.min(Math.max(x, minLeft), maxLeft),
+                                                Math.min(Math.max(y, minTop), maxTop - div.getHeight())];
+                                    }
+                                };
+                            new Drag(event.value.nodeId, opts);
+                        }
                     }
                 }
                 break;
@@ -4400,7 +4420,7 @@ KronolithCore = {
             diff = newDate.subtract(lastDate),
             eventid = el.retrieve('eventid'),
             cal = el.retrieve('calendar'),
-            viewDates = this.viewDates(this.date, 'month'),
+            viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].toString('yyyyMMdd'),
             end = viewDates[1].toString('yyyyMMdd');
 

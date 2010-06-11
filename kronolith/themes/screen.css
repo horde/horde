@@ -1412,8 +1412,8 @@ div.kronolithEvent {
     border-radius: 5px;
 }
 #kronolithViewMonth div.kronolithEvent,
-#kronolithViewDay .kronolithAllDay div.kronolithEvent,
-#kronolithViewWeek .kronolithAllDay div.kronolithEvent {
+#kronolithViewDay .kronolithViewHead div.kronolithEvent,
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     position: relative;
     width: auto;
     line-height: 15px;
@@ -1423,15 +1423,18 @@ div.kronolithEvent {
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-#kronolithViewDay .kronolithAllDay div.kronolithEvent,
-#kronolithViewWeek .kronolithAllDay div.kronolithEvent {
+#kronolithViewDay .kronolithViewHead div.kronolithEvent,
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     white-space: nowrap;
 }
-#kronolithViewDay .kronolithAllDay div.kronolithEvent {
+#kronolithViewDay .kronolithViewHead div.kronolithEvent {
     float: left;
 }
-#kronolithViewWeek .kronolithAllDay div.kronolithEvent {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     margin-right: 10%;
+}
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent.drag {
+/*    margin: 28px 0 30px 28px;*/
 }
 div.kronolithEvent .kronolithDragger {
     position: absolute;
