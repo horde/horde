@@ -38,7 +38,13 @@ class Horde_Injector_Binder_AnnotatedSetters implements Horde_Injector_Binder
      */
     public function equals(Horde_Injector_Binder $otherBinder)
     {
-        return $otherBinder instanceof Horde_Injector_Binder_AnnotatedSetters;
+        return ($otherBinder instanceof Horde_Injector_Binder_AnnotatedSetters) &&
+            $this->getBinder()->equals($otherBinder->getBinder());
+    }
+
+    public function getBinder()
+    {
+        return $this->_binder;
     }
 
     /**
