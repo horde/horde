@@ -2582,6 +2582,7 @@ KronolithCore = {
             return el.retrieve('tasklist') == list &&
                 el.retrieve('taskid') == task;
         }).invoke('remove');
+        this.removeEvent('_tasks' + task, 'tasklists|tasks/' + list);
     },
 
     /**
@@ -2595,19 +2596,30 @@ KronolithCore = {
         }
 
         var tasklist = $F('kronolithTaskOldList'),
-            taskid = $F('kronolithTaskId');
+            target = $F('kronolithTaskList'),
+            taskid = $F('kronolithTaskId'),
+            viewDates = this.viewDates(this.date, this.view),
+            start = viewDates[0].dateString(),
+            end = viewDates[1].dateString();
 
         $('kronolithTaskSave').disable();
+        this.startLoading('tasklists|tasks/' + target, start + end);
         this.loading++;
         $('kronolithLoading').show();
         this.doAction('saveTask',
                       $H($('kronolithTaskForm').serialize({ hash: true }))
-                          .merge({ sig: this.tasktype }),
+                          .merge({
+                              sig: this.tasktype,
+                              view: this.view,
+                              view_start: start,
+                              view_end: end
+                          }),
                       function(r) {
                           if (r.response.tasks && taskid) {
                               this.removeTask(taskid, tasklist);
                           }
                           this.loadTasksCallback(r, false);
+                          this.loadEventsCallback(r, false);
                           if (r.response.tasks) {
                               this.closeRedBox();
                               window.history.back();
