@@ -87,7 +87,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     public function saveEvent()
     {
-        $result = $this->_signedResponse($this->_vars->cal);
+        $result = $this->_signedResponse($this->_vars->targetcalendar);
 
         if (!($kronolith_driver = $this->_getDriver($this->_vars->targetcalendar))) {
             return $result;
@@ -106,6 +106,34 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                     $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
                 }
                 $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
+                return $result;
+            }
+        }
+
+        if ($this->_vars->cal &&
+            $this->_vars->cal != $this->_vars->targetcalendar) {
+            if (strpos($kronolith_driver->calendar, ':')) {
+                list($target, $user) = explode(':', $kronolith_driver->calendar, 2);
+            } else {
+                $target = $kronolith_driver->calendar;
+                $user = $GLOBALS['registry']->getAuth();
+            }
+            $kronolith_driver = $this->_getDriver($this->_vars->cal);
+            // Only delete the event from the source calendar if this user has
+            // permissions to do so.
+            try {
+                $sourceShare = Kronolith::getInternalCalendar($kronolith_driver->calendar);
+                $share = Kronolith::getInternalCalendar($target);
+                if ($sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) &&
+                    (($user == $GLOBALS['registry']->getAuth() &&
+                      $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) ||
+                     ($user != $GLOBALS['registry']->getAuth() &&
+                      $share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE)))) {
+                    $kronolith_driver->move($this->_vars->event, $target);
+                    $kronolith_driver = $this->_getDriver($this->_vars->targetcalendar);
+                }
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("There was an error moving the event: %s"), $e->getMessage()), 'horde.error');
                 return $result;
             }
         }
@@ -835,7 +863,14 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _saveEvent($event)
     {
-        $result = $this->_signedResponse($this->_vars->cal ? $this->_vars->cal : ($event->calendarType . '|' . $event->calendar));
+        if ($this->_vars->targetcalendar) {
+            $cal = $this->_vars->targetcalendar;
+        } elseif ($this->_vars->cal) {
+            $cal = $this->_vars->cal;
+        } else {
+            $cal = $event->calendarType . '|' . $event->calendar;
+        }
+        $result = $this->_signedResponse($cal);
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);

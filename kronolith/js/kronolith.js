@@ -4693,7 +4693,8 @@ KronolithCore = {
             return;
         }
 
-        var cal = $F('kronolithEventTarget'),
+        var cal = $F('kronolithEventCalendar'),
+            target = $F('kronolithEventTarget'),
             eventid = $F('kronolithEventId'),
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
@@ -4702,7 +4703,7 @@ KronolithCore = {
         kronolithETagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
-        this.startLoading(cal, start + end);
+        this.startLoading(target, start + end);
         this.doAction('saveEvent',
                       $H($('kronolithEventForm').serialize({ hash: true }))
                           .merge({

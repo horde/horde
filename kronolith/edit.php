@@ -146,7 +146,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                           $share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE)))) {
                         $kronolith_driver->open($source);
                         try {
-                            $res = $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
+                            $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
                             $event_load_from = $target;
                         } catch (Exception $e) {
                             $notification->push(sprintf(_("There was an error moving the event: %s"), $e->getMessage()), 'horde.error');
