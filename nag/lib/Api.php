@@ -1373,7 +1373,6 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function saveTimeObject($timeobject)
     {
-        Horde::logMessage(print_r($timeobject, true));
         $storage = Nag_Driver::singleton();
         $existing = $storage->get($timeobject['id']);
         if (is_a($existing, 'PEAR_Error')) {
