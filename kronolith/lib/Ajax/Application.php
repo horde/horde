@@ -110,11 +110,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        $event = $kronolith_driver->getEvent($this->_vars->event);
-        if (!$event) {
+        try {
+            $event = $kronolith_driver->getEvent($this->_vars->event);
+        } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             return $result;
-        } elseif (!$event->hasPermission(Horde_Perms::EDIT)) {
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $result;
+        }
+        if (!$event->hasPermission(Horde_Perms::EDIT)) {
             $GLOBALS['notification']->push(_("You do not have permission to edit this event."), 'horde.warning');
             return $result;
         }
