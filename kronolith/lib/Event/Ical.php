@@ -18,6 +18,12 @@ class Kronolith_Event_Ical extends Kronolith_Event
      */
     public $calendarType = 'remote';
 
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param Horde_iCalendar_vEvent  Backend specific event object that this
+     *                                object will represent.
+     */
     public function fromDriver($vEvent)
     {
         $this->fromiCalendar($vEvent);
@@ -25,6 +31,9 @@ class Kronolith_Event_Ical extends Kronolith_Event
         $this->stored = true;
     }
 
+    /**
+     * Prepares this event to be saved to the backend.
+     */
     public function toDriver()
     {
         return $this->toiCalendar();

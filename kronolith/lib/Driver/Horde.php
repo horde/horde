@@ -107,6 +107,22 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
     }
 
     /**
+     * Saves an (existing) event in the backend.
+     *
+     * @param Kronolith_Event_Horde $event  The event to save.
+     *
+     * @return integer  The event id.
+     * @throws Horde_Exception
+     */
+    public function saveEvent($event)
+    {
+        if (!isset($this->api)) {
+            list($this->api, $category) = explode('/', $this->calendar, 2);
+        }
+        $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->timeobject));
+    }
+
+    /**
      * @todo: implement getTimeObject in timeobjects API.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound

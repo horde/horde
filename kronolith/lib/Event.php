@@ -379,7 +379,7 @@ abstract class Kronolith_Event
      */
     public function getDriver()
     {
-        return Kronolith::getDriver(null, $this->calendar);
+        return Kronolith::getDriver(str_replace('Kronolith_Event_', '', get_class($this)), $this->calendar);
     }
 
     /**
@@ -498,6 +498,23 @@ abstract class Kronolith_Event
         }
 
         return $result;
+    }
+
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param mixed $eventObject  Backend specific event object that this
+     *                            object will represent.
+     */
+    public function fromDriver($event)
+    {
+    }
+
+    /**
+     * Prepares this event to be saved to the backend.
+     */
+    public function toDriver()
+    {
     }
 
     /**
@@ -1490,6 +1507,7 @@ abstract class Kronolith_Event
      * - fg: foreground color
      * - pe: edit permissions?
      * - pd: delete permissions?
+     * - vl: variable, i.e. editable length?
      * - a: alarm text or minutes
      * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant) or json
      *      representation of Horde_Date_Recurrence object.
@@ -2606,24 +2624,28 @@ abstract class Kronolith_Event
 
             if (!$this->private ||
                 $this->creator == $GLOBALS['registry']->getAuth()) {
-                $link .= $this->getEditUrl(
+                $url = $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url))
-                    ->link(array('title' => sprintf(_("Edit %s"), $event_title),
-                                 'class' => 'iconEdit'))
-                    . Horde::fullSrcImg('edit-' . $icon_color . '.png',
-                                        array('attr' => array('alt' => _("Edit"))))
-                    . '</a>';
+                          'url' => $from_url));
+                if ($url) {
+                    $link .= $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
+                                              'class' => 'iconEdit'))
+                        . Horde::fullSrcImg('edit-' . $icon_color . '.png',
+                                            array('attr' => array('alt' => _("Edit"))))
+                        . '</a>';
+                }
             }
             if ($this->hasPermission(Horde_Perms::DELETE)) {
-                $link .= $this->getDeleteUrl(
+                $url = $this->getDeleteUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url))
-                    ->link(array('title' => sprintf(_("Delete %s"), $event_title),
-                                 'class' => 'iconDelete'))
-                    . Horde::fullSrcImg('delete-' . $icon_color . '.png',
-                                        array('attr' => array('alt' => _("Delete"))))
-                    . '</a>';
+                          'url' => $from_url));
+                if ($url) {
+                    $link .= $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
+                                              'class' => 'iconDelete'))
+                        . Horde::fullSrcImg('delete-' . $icon_color . '.png',
+                                            array('attr' => array('alt' => _("Delete"))))
+                        . '</a>';
+                }
             }
         }
 

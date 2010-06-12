@@ -830,7 +830,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
      */
     protected function _saveEvent($event)
     {
-        $result = $this->_signedResponse($event->calendarType . '|' . $event->calendar);
+        $result = $this->_signedResponse($this->_vars->cal ? $this->_vars->cal : ($event->calendarType . '|' . $event->calendar));
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);

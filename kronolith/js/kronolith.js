@@ -1676,16 +1676,23 @@ KronolithCore = {
             }
 
             var midnight = this.parseDate(date),
+                resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
                 minHeight = 0, height,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
-                draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
+                if (resizable) {
+                    draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
+                    div.addClassName('kronolithFirst');
+                }
             } else {
                 innerDiv.setStyle({ top: 0 });
             }
             if (event.value.la) {
-                draggerBottom = new Element('div', { id: event.value.nodeId + 'bottom', className: 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
+                if (resizable) {
+                    draggerBottom = new Element('div', { id: event.value.nodeId + 'bottom', className: 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
+                    div.addClassName('kronolithLast');
+                }
             } else {
                 innerDiv.setStyle({ bottom: 0 });
             }
@@ -1707,6 +1714,11 @@ KronolithCore = {
             }
             if (draggerBottom) {
                 minHeight += draggerBottom.getHeight();
+            }
+            if (!minHeight) {
+                minHeight = parseInt(innerDiv.getStyle('lineHeight'))
+                    + (parseInt(innerDiv.getStyle('paddingTop')) || 0)
+                    + (parseInt(innerDiv.getStyle('paddingBottom')) || 0);
             }
             div.setStyle({ height: Math.max(Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0, minHeight) + 'px' });
 

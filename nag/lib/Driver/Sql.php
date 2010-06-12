@@ -74,9 +74,9 @@ class Nag_Driver_Sql extends Nag_Driver {
     function get($taskId)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT * FROM %s WHERE task_owner = ? and task_id = ?',
+        $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
                          $this->_params['table']);
-        $values = array($this->_tasklist, $taskId);
+        $values = array($taskId);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s VALUES: %s', $query, print_r($values, true)), 'DEBUG');

@@ -26,6 +26,12 @@ class Kronolith_Event_Resource extends Kronolith_Event
      */
     private $_properties = array();
 
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param array $event  Backend specific event object that this object
+     *                      will represent.
+     */
     public function fromDriver($SQLEvent)
     {
         $driver = $this->getDriver();
@@ -112,6 +118,9 @@ class Kronolith_Event_Resource extends Kronolith_Event
         $this->stored = true;
     }
 
+    /**
+     * Prepares this event to be saved to the backend.
+     */
     public function toDriver()
     {
         $driver = $this->getDriver();

@@ -114,7 +114,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     }
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-    $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_tasks')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
+    $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
 }
 
 require NAG_TEMPLATES . '/common-header.inc';

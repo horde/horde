@@ -528,7 +528,7 @@ class Nag_Task {
         $task_url_task = Horde_Util::addParameter($task_url_list[$this->tasklist], 'task', $this->id);
         $this->complete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'complete_task');
         $this->edit_link = Horde_Util::addParameter($task_url_task, 'actionID', 'modify_task');
-        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_tasks');
+        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_task');
     }
 
     /**

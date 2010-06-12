@@ -74,6 +74,7 @@ class Nag_TaskForm extends Horde_Form {
         $this->addHidden('', 'actionID', 'text', true);
         $this->addHidden('', 'task_id', 'text', false);
         $this->addHidden('', 'old_tasklist', 'text', false);
+        $this->addHidden('', 'url', 'text', false);
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&

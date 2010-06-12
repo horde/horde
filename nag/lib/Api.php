@@ -1351,13 +1351,65 @@ class Nag_Api extends Horde_Registry_Api
                 'end' => $due_date,
                 'category' => $task->category,
                 'color' => $allowed_tasklists[$task->tasklist]->get('color'),
+                'permissions' => $GLOBALS['nag_shares']->getPermissions($task->tasklist, $GLOBALS['registry']->getAuth()),
+                'variable_length' => false,
                 'params' => array('task' => $task->id,
                                   'tasklist' => $task->tasklist),
-                'link' => Horde_Util::addParameter(Horde::applicationUrl('view.php', true), array('tasklist' => $task->tasklist, 'task' => $task->id)),
+                'link' => Horde::applicationUrl('view.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id)),
+                'edit_link' => Horde::applicationUrl('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'modify_task')),
+                'delete_link' => Horde::applicationUrl('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'delete_task')),
                 'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id);
         }
 
         return $timeobjects;
+    }
+
+    /**
+     * Saves properties of a time object back to the task that it represents.
+     *
+     * At the moment only the title, description and due date are saved.
+     *
+     * @param array $timeobject  A time object hash.
+     */
+    public function saveTimeObject($timeobject)
+    {
+        Horde::logMessage(print_r($timeobject, true));
+        $storage = Nag_Driver::singleton();
+        $existing = $storage->get($timeobject['id']);
+        if (is_a($existing, 'PEAR_Error')) {
+            return $existing;
+        }
+        if (!array_key_exists($existing->tasklist,
+                              Nag::listTasklists(false, Horde_Perms::EDIT))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
+        $storage = Nag_Driver::singleton($existing->tasklist);
+
+        if (isset($timeobject['start'])) {
+            $due = new Horde_Date($timeobject['start']);
+            $due = $due->timestamp();
+        } else {
+            $due = $existing->due;
+        }
+
+        return $storage->modify(
+            $timeobject['id'],
+            isset($timeobject['title']) ? $timeobject['title'] : $existing->name,
+            isset($timeobject['description']) ? $timeobject['description'] : $existing->desc,
+            $existing->start,
+            $due,
+            $existing->priority,
+            $existing->estimate,
+            $existing->completed,
+            $existing->category,
+            $existing->alarm,
+            $existing->methods,
+            $existing->parent_id,
+            $existing->private,
+            $existing->owner,
+            $existing->assignee,
+            $existing->completed_date,
+            $existing->tasklist);
     }
 
     /**

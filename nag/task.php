@@ -41,8 +41,12 @@ function _delete($task_id, $tasklist_id)
         }
     }
 
-    /* Return to the task list. */
-    header('Location: ' . Horde::applicationUrl('list.php', true));
+    /* Return to the last page or to the task list. */
+    if ($url = Horde_Util::getFormData('url')) {
+        header('Location: ' . $url);
+    } else {
+        header('Location: ' . Horde::applicationUrl('list.php', true));
+    }
     exit;
 }
 
@@ -103,6 +107,7 @@ case 'modify_task':
             $vars = new Horde_Variables($task->toHash());
             $vars->set('actionID', 'save_task');
             $vars->set('old_tasklist', $task->tasklist);
+            $vars->set('url', Horde_Util::getFormData('url'));
             $form = new Nag_TaskForm($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
             break;
         }
@@ -187,14 +192,18 @@ case 'save_task':
         $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
-        /* Return to the task list. */
-        header('Location: ' . Horde::applicationUrl('list.php', true));
+        /* Return to the last page or to the task list. */
+        if ($url = Horde_Util::getFormData('url')) {
+            header('Location: ' . $url);
+        } else {
+            header('Location: ' . Horde::applicationUrl('list.php', true));
+        }
         exit;
     }
 
     break;
 
-case 'delete_tasks':
+case 'delete_task':
     /* Delete the task if we're provided with a valid task ID. */
     _delete(Horde_Util::getFormData('task'), Horde_Util::getFormData('tasklist'));
 

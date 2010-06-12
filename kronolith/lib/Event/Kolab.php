@@ -42,6 +42,12 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
     }
 
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param array $event  Backend specific event object that this object
+     *                      will represent.
+     */
     public function fromDriver($event)
     {
         $this->id = $event['uid'];
@@ -158,6 +164,9 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->stored = true;
     }
 
+    /**
+     * Prepares this event to be saved to the backend.
+     */
     public function toDriver()
     {
         $event = array();

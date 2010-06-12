@@ -1494,9 +1494,12 @@ div.kronolithEvent .kronolithEventInfo {
     overflow: hidden;
     line-height: 16px;
 }
-div.kronolithEditable:hover .kronolithEventInfo,
-div.kronolithEvent.kronolithSelected .kronolithEventInfo {
+div.kronolithEditable.kronolithFirst:hover .kronolithEventInfo,
+div.kronolithEvent.kronolithFirst.kronolithSelected .kronolithEventInfo {
     top: 7px;
+}
+div.kronolithEditable.kronolithLast:hover .kronolithEventInfo,
+div.kronolithEvent.kronolithLast.kronolithSelected .kronolithEventInfo {
     bottom: 7px;
 }
 div.kronolithEditable:hover .kronolithDragger,
