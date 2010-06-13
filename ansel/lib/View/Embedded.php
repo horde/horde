@@ -54,10 +54,9 @@ class Ansel_View_Embedded {
      */
     function makeView($params)
     {
-        global $ansel_storage;
-
         $view = new Ansel_View_Embedded();
         $view->_params = $params;
+
         return $view;
     }
 

@@ -13,13 +13,6 @@
 class Ansel_Storage
 {
     /**
-     * Scope for this storage object.
-     *
-     * @var string
-     */
-    private $_scope = 'ansel';
-
-    /**
      * database handle
      *
      * @var MDB2
@@ -959,7 +952,7 @@ class Ansel_Storage
             $image = $this->getImage($id);
             $gallery_id = abs($image->gallery);
             if (empty($galleries[$gallery_id])) {
-                $galleries[$gallery_id]['gallery'] = $GLOBALS['ansel_storage']->getGallery($gallery_id);
+                $galleries[$gallery_id]['gallery'] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
             }
 
             // Any authentication that needs to take place for any of the

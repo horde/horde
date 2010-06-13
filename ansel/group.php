@@ -29,14 +29,14 @@ $groups_perpage = $prefs->getValue('groupsperpage');
 switch ($groupby) {
 case 'category':
     try {
-        $num_groups = $ansel_storage->countCategories(Horde_Perms::SHOW);
+        $num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countCategories(Horde_Perms::SHOW);
     } catch (Ansel_Exception $e) {
         $notification->push($num_groups);
         $num_groups = 0;
         $groups = array();
     }
     if ($num_groups) {
-        $groups = $ansel_storage->listCategories(Horde_Perms::SHOW,
+        $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listCategories(Horde_Perms::SHOW,
                                                  $gbpage * $groups_perpage,
                                                  $groups_perpage);
     } else {
@@ -46,9 +46,9 @@ case 'category':
 
 case 'owner':
     try {
-        if ($num_groups = $ansel_storage->shares->countOwners(Horde_Perms::SHOW, null, false)) {
+        if ($num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->countOwners(Horde_Perms::SHOW, null, false)) {
 
-            $groups = $ansel_storage->shares->listOwners(Horde_Perms::SHOW,
+            $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->listOwners(Horde_Perms::SHOW,
                                                          null,
                                                          false,
                                                          $gbpage * $groups_perpage,

@@ -17,7 +17,7 @@ Horde_Registry::appInit('ansel');
 $title = _("Do you really want to report this gallery?");
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 try {
-    $gallery = $ansel_storage->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
     header('Location: ' . Horde::applicationUrl('view.php?view=List', true));

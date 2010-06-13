@@ -45,7 +45,7 @@ case 'addchild':
     // permissions to add to it.
     $parentId = Horde_Util::getFormData('gallery');
     try {
-        $parent = $ansel_storage->getGallery($parentId);
+        $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($parentId);
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
@@ -79,7 +79,7 @@ case 'addchild':
 
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $ansel_storage->getGallery($galleryId);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     if (!$registry->getAuth() ||
         !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
@@ -95,7 +95,7 @@ case 'modify':
     $galleryId = Horde_Util::getFormData('gallery');
 
     try {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
          // Set up the gallery attributes.
         $gallery_name = $gallery->get('name');
         $gallery_desc = $gallery->get('desc');
@@ -155,10 +155,10 @@ case 'save':
         $gallery_parent = null;
     }
     if ($galleryId &&
-        ($exists = $ansel_storage->galleryExists($galleryId)) === true) {
+        ($exists = ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->galleryExists($galleryId)) === true)) {
 
         // Modifying an existing gallery.
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $notification->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
@@ -189,7 +189,7 @@ case 'save':
             }
             if ($gallery_parent != $old_parent_id) {
                 if (!is_null($gallery_parent)) {
-                    $new_parent = $ansel_storage->getGallery($gallery_parent);
+                    $new_parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_parent);
                 } else {
                     $new_parent = null;
                 }
@@ -212,7 +212,7 @@ case 'save':
         // Is this a new subgallery?
         if ($gallery_parent) {
             try {
-                $parent = $ansel_storage->getGallery($gallery_parent);
+                $parent = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_parent);
             } catch (Ansel_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
                 header('Location: ' . Horde::applicationUrl(Ansel::getUrlFor('view', array('view' => 'List'), true)));
@@ -243,7 +243,7 @@ case 'save':
         $parent = (!empty($gallery_parent)) ? $gallery_parent : null;
 
         try {
-            $gallery = $ansel_storage->createGallery(
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery(
                     array('name' => $gallery_name,
                           'desc' => $gallery_desc,
                           'category' => $gallery_category,
@@ -293,7 +293,7 @@ case 'empty':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
         try {
-            $gallery = $ansel_storage->getGallery($galleryId);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
             require ANSEL_TEMPLATES . '/common-header.inc';
             require ANSEL_TEMPLATES . '/menu.inc';
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
@@ -312,7 +312,7 @@ case 'generateDefault':
     // Re-generate the default pretty gallery image.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
         $gallery->clearStacks();
         $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
         header('Location: ' . Horde::applicationUrl('view.php', true)->add('gallery', $galleryId));
@@ -327,7 +327,7 @@ case 'generateThumbs':
     // Re-generate all of this gallery's prettythumbs.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('index.php', true));
@@ -342,7 +342,7 @@ case 'deleteCache':
     // Delete all cached image views.
     $galleryId = Horde_Util::getFormData('gallery');
     try {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($gallery->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('index.php', true));

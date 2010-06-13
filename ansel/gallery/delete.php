@@ -17,7 +17,7 @@ $galleryId = Horde_Util::getPost('gallery');
 
 if ($galleryId) {
     try {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
         // Return to the default view.
@@ -31,7 +31,7 @@ if ($galleryId) {
                                         $gallery->get('name')), 'horde.error');
         } else {
             try {
-                $ansel_storage->removeGallery($gallery);
+                $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($gallery);
                 $notification->push(sprintf(
                     _("Successfully deleted %s."),
                     $gallery->get('name')), 'horde.success');
@@ -58,7 +58,7 @@ if ($galleryId) {
                                         $gallery->get('name')),
                                 'horde.error');
         } else {
-            $ansel_storage->emptyGallery($gallery);
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->emptyGallery($gallery);
             $notification->push(sprintf(_("Successfully emptied \"%s\""), $gallery->get('name')));
         }
         header('Location: '

@@ -78,7 +78,7 @@ if (empty($dir)) {
 Horde_Nls::setCharset('utf-8');
 $gallery_id = processDirectory($dir);
 if (!$keepEmpties) {
-    $gallery = $ansel_storage->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
     emptyGalleryCheck($gallery);
 }
 exit;
@@ -91,20 +91,20 @@ exit;
 function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
+        $children = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);
             if (!$child->countImages() && !$child->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($child);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($child);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $child->get('name')), 'cli.success');
             }
 
             // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['ansel_storage']->getGallery($gallery->getId());
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery->getId());
             // Now that any empty children are removed, see if we are empty
             if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($gallery);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeGallery($gallery);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')), 'cli.success');
             }
         }
@@ -131,7 +131,7 @@ function processDirectory($dir, $parent = null)
     // Create a gallery for this directory level.
     $name = basename($dir);
     $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
-    $gallery = $GLOBALS['ansel_storage']->createGallery(array('name' => $name), null, $parent);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery(array('name' => $name), null, $parent);
     $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
 
     // Read all the files into an array.

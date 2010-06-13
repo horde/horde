@@ -52,7 +52,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
      */
     public function _getRelatedImages()
     {
-        global $ansel_storage;
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
 
         $html = '';
         $tags = array_values($this->_view->resource->getTags());

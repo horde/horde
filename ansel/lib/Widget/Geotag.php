@@ -65,13 +65,11 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
     /**
      * Build the HTML for the widget
      *
-     * @TODO inject $ansel_storage
      * @return string
      */
     public function html()
     {
-        global $ansel_storage;
-
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
         $url = Horde::applicationUrl('map_edit.php', true);
         $rtext = _("Relocate this image");
@@ -262,7 +260,7 @@ EOT;
      */
     protected function _getGalleryImagesWithGeodata()
     {
-        return $GLOBALS['ansel_storage']->getImagesGeodata(array(), $this->_view->gallery->id);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImagesGeodata(array(), $this->_view->gallery->id);
     }
 
     /**

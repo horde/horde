@@ -23,7 +23,7 @@ class Ansel_ImageView_PolaroidThumb extends Ansel_ImageView
            (which will have a negative gallery_id). */
         if ($this->_image->gallery > 0) {
             if (is_null($this->_style)) {
-                $gal = $GLOBALS['ansel_storage']->getGallery($this->_image->gallery);
+                $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_image->gallery);
                 $styleDef = $gal->getStyle();
             } else {
                 $styleDef = Ansel::getStyleDefinition($this->_style);

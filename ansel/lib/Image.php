@@ -521,11 +521,11 @@ class Ansel_Image Implements Iterator
         /* Existing image, just save and exit */
         if ($this->id) {
             /* Save image details */
-            return $GLOBALS['ansel_storage']->saveImage($this);
+            return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
         }
 
         /* New image, need to save the image files, exif etc... */
-        $GLOBALS['ansel_storage']->saveImage($this);
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
 
         /* The EXIF functions require a stream, so we need to save before we read */
         $this->_writeData();
@@ -553,7 +553,7 @@ class Ansel_Image Implements Iterator
 
         /* Save again if EXIF changed any values */
         if (!empty($needUpdate)) {
-            $GLOBALS['ansel_storage']->saveImage($this);
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImage($this);
         }
 
         return $this->id;
@@ -671,7 +671,7 @@ class Ansel_Image Implements Iterator
 
         /* Save attributes. */
         foreach ($exif_fields as $name => $value) {
-            $GLOBALS['ansel_storage']->saveImageAttribute($this->id, $name, $value);
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->saveImageAttribute($this->id, $name, $value);
             $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
         }
 
@@ -838,7 +838,7 @@ class Ansel_Image Implements Iterator
     {
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
-            $gallery = $GLOBALS['ansel_storage']->getGallery($this->gallery);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->gallery);
             if ($gallery instanceof PEAR_Error) {
                 throw new Ansel_Exception($gallery);
             }
@@ -1116,12 +1116,10 @@ class Ansel_Image Implements Iterator
      */
     public function getTags()
     {
-        global $ansel_storage;
-
         if (count($this->_tags)) {
             return $this->_tags;
         }
-        $gallery = $ansel_storage->getGallery($this->gallery);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->gallery);
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return Ansel_Tags::readTags($this->id);
         } else {
@@ -1139,9 +1137,7 @@ class Ansel_Image Implements Iterator
      */
     public function setTags($tags)
     {
-        global $ansel_storage;
-
-        $gallery = $ansel_storage->getGallery(abs($this->gallery));
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($this->gallery));
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
@@ -1200,17 +1196,13 @@ class Ansel_Image Implements Iterator
      */
     public function getViewHash($view, $style = null)
     {
-        global $ansel_storage;
-
         // These views do not care about style...just return the $view value.
-        if ($view == 'screen' || $view == 'thumb' || $view == 'mini' ||
-            $view == 'full') {
-
+        if ($view == 'screen' || $view == 'thumb' || $view == 'mini' || $view == 'full') {
             return $view;
         }
 
         if (is_null($style)) {
-            $gallery = $ansel_storage->getGallery(abs($this->gallery));
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
         } else {
             $style = Ansel::getStyleDefinition($style);
@@ -1230,7 +1222,7 @@ class Ansel_Image Implements Iterator
      */
     public function getAttributes($format = false)
     {
-        $attributes = $GLOBALS['ansel_storage']->getImageAttributes($this->id);
+        $attributes = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImageAttributes($this->id);
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
         $fields = Horde_Image_Exif::getFields($exif);
         $output = array();

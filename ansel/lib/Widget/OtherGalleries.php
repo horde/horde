@@ -64,7 +64,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $tree->setOption(array('class' => 'anselWidgets'));
 
         try {
-            $gals = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $owner,
+            $gals = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, $owner,
                                                              null, true, 0, 0,
                                                             'name', 0);
         } catch (Ansel_Exception $e) {

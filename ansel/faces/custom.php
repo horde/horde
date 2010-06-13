@@ -24,14 +24,14 @@ if (!empty($url)) {
 $form_post = Horde::applicationUrl('faces/savecustom.php')->add($urlparams);
 
 try {
-    $image = $ansel_storage->getImage($image_id);
+    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
 } catch (Ansel_Exception $e) {
     $notification->push($image);
     header('Location: ' . Horde::applicationUrl('list.php'));
     exit;
 }
 
-$gallery = $ansel_storage->getGallery($image->gallery);
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("Access denied editing the photo."));
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $image->gallery)));

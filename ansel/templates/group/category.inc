@@ -1,6 +1,6 @@
 <?php
 
-$num_galleries = $GLOBALS['ansel_storage']->countGalleries(
+$num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries(
     $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, array('category' => $group), null, false);
 
 if (empty($group)) {
@@ -20,10 +20,10 @@ $link = Horde::link($viewurl, $category_title, 'light');
 
 $preview_gallery = array();
 if ($num_galleries < 5) {
-    $preview_gallery = $GLOBALS['ansel_storage']->listGalleries(
+    $preview_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(
                             Horde_Perms::SHOW, array('category' => $group), null, false);
 } else {
-    $preview_gallery = $GLOBALS['ansel_storage']->listGalleries(
+    $preview_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(
                             Horde_Perms::SHOW, array('category' => $group), null,
                             false, rand(0, $num_galleries - 4), 4);
 }

@@ -22,7 +22,7 @@ if (empty($gallery_id)) {
     exit;
 }
 try {
-    $gallery = $ansel_storage->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));

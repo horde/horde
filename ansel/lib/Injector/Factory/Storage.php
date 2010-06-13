@@ -10,40 +10,36 @@
 class Ansel_Injector_Factory_Storage
 {
     /**
-     *
+     * Depends on the Ansel_Scope value being available to the injector.
      * @var array
      */
     private $_instances = array();
 
-   /**
-    * @var Horde_Injector
-    */
-    private $_injector;
-
     /**
      *
-     * @param Horde_Injector $injector
-     *
-     * @return Horde_Injector_Factory_Storage
+     * @var Horde_Injector
      */
+    private $_injector;
+
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
     }
 
     /**
-     * Obtain a Ansel_Storage object for the requested scope.
+     * Return an Ansel_Storage instance scoped for the current Ansel scope
      *
      * @param string $scope  The application scope
      *
      * @return Ansel_Storage
      */
-    public function getScope($scope = 'ansel')
+    public function getScope()
     {
-        if (!isset($this->_instances[$scope])) {
+        $scope = $this->_injector->getInstance('Ansel_Config')->get('scope');
+        if (empty($this->_instances[$scope])) {
             $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Share')->getScope($scope, 'Sql_Hierarchical'));
         }
-       
+
        return $this->_instances[$scope];
     }
 

@@ -217,8 +217,8 @@ class Ansel_Tags
                 $imgs = array();
                 foreach ($images as $id) {
                     try {
-                        $img = $GLOBALS['ansel_storage']->getImage($id);
-                        $gal = $GLOBALS['ansel_storage']->getGallery($img->gallery);
+                        $img = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
+                        $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($img->gallery);
                         $owner = $gal->get('owner');
                         if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
                             (!isset($user) || (isset($user) && $owner && $owner == $user))) {
@@ -250,7 +250,7 @@ class Ansel_Tags
                 /* Check perms */
                 foreach ($galleries as $id) {
                     try {
-                        $gallery = $GLOBALS['ansel_storage']->getGallery($id);
+                        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($id);
                     } catch (Ansel_Exception $e) {
                         Horde::logMessage($e->getMessage(), 'ERR');
                         continue;
@@ -514,7 +514,7 @@ class Ansel_Tags_Search {
                                                $this->_owner);
         $galleries = array();
         foreach ($gresults['galleries'] as $gallery) {
-            $galleries[] = $GLOBALS['ansel_storage']->getGallery($gallery);
+            $galleries[] = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery);
         }
 
         /* Do we need to get images? */
@@ -527,7 +527,7 @@ class Ansel_Tags_Search {
                                                   'images',
                                                    $this->_owner);
 
-            $images = count($iresults['images']) ? array_values($GLOBALS['ansel_storage']->getImages(array('ids' => $iresults['images']))) : array();
+            $images = count($iresults['images']) ? array_values($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $iresults['images']))) : array();
             if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
                 $registry->hasMethod('forums/numMessagesBatch')) {
 

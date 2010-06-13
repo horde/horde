@@ -127,7 +127,7 @@ class Ansel_ImageView
      */
     protected function _getGalleryWithImages($parent)
     {
-        $galleries = $GLOBALS['ansel_storage']->listGalleries(
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(
             Horde_Perms::SHOW, null, $parent, false);
 
         foreach ($galleries as $gallery) {

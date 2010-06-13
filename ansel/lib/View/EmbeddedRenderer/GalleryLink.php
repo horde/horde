@@ -30,8 +30,6 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
      */
     public function html()
     {
-        /* Read in parameters and set defaults */
-
         /* Required */
         $node = $this->_params['container'];
         if (empty($node)) {
@@ -83,7 +81,7 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 $images[] = $gallery->getDefaultImage($gallery_style);
             }
         }
-        $json = $GLOBALS['ansel_storage']->getImageJson($images, null, true, $thumbsize, true);
+        $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImageJson($images, null, true, $thumbsize, true);
 
         /* Some paths */
         $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/jsembed.css', true);

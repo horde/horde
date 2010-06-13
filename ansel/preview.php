@@ -13,8 +13,8 @@ Horde_Registry::appInit('ansel');
 
 $imageId = Horde_Util::getFormData('image');
 try {
-    $image = $ansel_storage->getImage($imageId);
-    $gal = $ansel_storage->getGallery(abs($image->gallery));
+    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($imageId);
+    $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(abs($image->gallery));
     $img = Ansel::getImageUrl($imageId, 'thumb', false);
 } catch (Ansel_Exception $e) {
     Horde::logMessage($e->getMessage(), 'ERR');

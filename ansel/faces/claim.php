@@ -35,7 +35,7 @@ if ($form->validate()) {
         $notification->push(_("Action was cancelled."), 'horde.warning');
     } else {
         $report = Ansel_Report::factory();
-        $gallery = $ansel_storage->getGallery($face['gallery_id']);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($face['gallery_id']);
 
         $face_link = Horde::applicationUrl('faces/custom.php', true)->add(
             array('name' => $vars->get('person'),

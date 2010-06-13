@@ -79,9 +79,8 @@ class Ansel
                              $allLevels = true, $from = 0, $count = 0,
                              $ignore = null)
     {
-        global $ansel_storage;
-        $galleries = $ansel_storage->listGalleries($perm, $attributes, $parent,
-                                                   $allLevels, $from, $count);
+        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
+                ->listGalleries($perm, $attributes, $parent, $allLevels, $from, $count);
         $tree = Horde_Tree::factory('gallery_tree', 'Select');
 
         if (!empty($ignore)) {
@@ -211,8 +210,8 @@ class Ansel
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = $GLOBALS['ansel_storage']->getImage($data['image']);
-                        $g = $GLOBALS['ansel_storage']->getGallery($data['gallery']);
+                        $i = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($data['image']);
+                        $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($data['gallery']);
                         if ($g->get('view_mode') == 'Date') {
 
                             $imgDate = new Horde_Date($i->originalDate);
@@ -387,7 +386,7 @@ class Ansel
      */
     static public function getImageUrl($imageId, $view = 'screen', $full = false, $style = null)
     {
-        global $conf, $ansel_storage;
+        global $conf;
 
         // To avoid having to add a new img/* file everytime we add a new
         // thumbstyle, we check for the 'non-prettythumb' views, then route the
@@ -419,7 +418,7 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $ansel_storage->getImage($imageId);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::applicationUrl((string)Ansel::getErrorImage($view), $full);
@@ -615,8 +614,9 @@ class Ansel
      */
     static public function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
     {
-        global $prefs, $ansel_storage;
+        global $prefs;
 
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
         $groupby = Horde_Util::getFormData('groupby', $prefs->getValue('groupby'));
         $owner = Horde_Util::getFormData('owner');
         $image_id = (int)Horde_Util::getFormData('image');
@@ -957,11 +957,11 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = $GLOBALS['ansel_storage']->getImage($id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
             // If we didn't select an entire gallery, check the download
             // size for each image.
             if (!isset($view)) {
-                $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+                $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
                 $v = $g->canDownload() ? 'full' : 'screen';
             } else {
                 $v = $view;

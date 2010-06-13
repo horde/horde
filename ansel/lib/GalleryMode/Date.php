@@ -156,7 +156,7 @@ class Ansel_GalleryMode_Date
     {
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
-            $subs = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $this->_gallery);
+            $subs = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, null, $this->_gallery);
             $this->_subGalleries = array_keys($subs);
         }
     }
@@ -172,13 +172,15 @@ class Ansel_GalleryMode_Date
      */
     function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
-        global $ansel_db, $ansel_storage;
+        global $ansel_db;
 
         /* Cache the results */
         static $children = array();
 
-        $cache_key = md5($this->_gallery->id . serialize($this->_date) . $from . $to);
+        /* Ansel Storage */
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
 
+        $cache_key = md5($this->_gallery->id . serialize($this->_date) . $from . $to);
         if (!empty($children[$cache_key])) {
             return $children[$cache_key];
         }
@@ -429,7 +431,7 @@ class Ansel_GalleryMode_Date
          */
         if ($this->_gallery->get('has_subgalleries')) {
             $gallery_ids = array();
-            $images = $GLOBALS['ansel_storage']->getImages(array('ids' => $ids));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $ids));
             foreach ($images as $image) {
                 if (empty($gallery_ids[$image->gallery])) {
                     $gallery_ids[$image->gallery] = 1;
@@ -480,7 +482,7 @@ class Ansel_GalleryMode_Date
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['ansel_storage']->getImage($image);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image);
         }
 
         /* Make sure the image is in this gallery. */
@@ -592,7 +594,7 @@ class Ansel_GalleryMode_Date
                 $ids = array_merge($ids, $child->_images);
             }
             $ids = $this->_getArraySlice($ids, $from, $count);
-            $images = $GLOBALS['ansel_storage']->getImages(array('ids' => $ids));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $ids));
         }
 
         return $images;
@@ -824,7 +826,7 @@ class Ansel_Gallery_Date {
      */
     function getRecentImages($limit = 10)
     {
-        return $GLOBALS['ansel_storage']->getRecentImages(array($this->id),
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages(array($this->id),
                                                           $limit);
     }
 
@@ -837,7 +839,7 @@ class Ansel_Gallery_Date {
      */
     function &getImage($id)
     {
-        return $GLOBALS['ansel_storage']->getImage($id);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
     }
 
     /**

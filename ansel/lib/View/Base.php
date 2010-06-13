@@ -137,9 +137,9 @@ abstract class Ansel_View_Base
 
         // If we have a slug, use it.
         if (!empty($slug)) {
-            $gallery = $GLOBALS['ansel_storage']->getGalleryBySlug($slug);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGalleryBySlug($slug);
         } else {
-            $gallery = $GLOBALS['ansel_storage']->getGallery($galleryId);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
         }
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));

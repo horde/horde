@@ -39,8 +39,8 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
 
         // Get the image and gallery to check perms
         try {
-            $image = $GLOBALS['ansel_storage']->getImage((int)$img);
-            $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage((int)$img);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
         } catch (Ansel_Exception $e) {
             return array('response' => 0);
         }
@@ -64,7 +64,7 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
             // Now get the "add geotag" stuff
             $addurl = Horde::applicationUrl('map_edit.php')->add('image', $img);
             $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
-            $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
+            $imgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';
                 foreach ($imgs as $id => $data) {

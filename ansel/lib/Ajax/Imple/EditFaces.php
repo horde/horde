@@ -49,7 +49,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 // Attempt to get faces from the picture if we don't already have results,
                 // or if we were asked to explicitly try again.
                 if (($reload || empty($result))) {
-                    $image = $GLOBALS['ansel_storage']->getImage($image_id);
+                    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
                     $image->createView('screen');
                     $result = $faces->getFromPicture($image_id, $autocreate);
                 }
@@ -70,8 +70,8 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
             case 'delete':
                 // delete - deletes a single face from an image.
                 $face_id = (int)$post['face'];
-                $image = $GLOBALS['ansel_storage']->getImage($image_id);
-                $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
                 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('Access denied editing the photo.');
                 }
@@ -87,8 +87,8 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 }
 
                 $name = $post['facename'];
-                $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-                $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
+                $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
+                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
                 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                     throw new Horde_Exception('You are not allowed to edit this photo');
                 }

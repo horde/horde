@@ -18,7 +18,7 @@ if (!$galleryId) {
     exit;
 }
 try {
-    $gallery = $ansel_storage->getGallery($galleryId);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $e->getMessage()), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));

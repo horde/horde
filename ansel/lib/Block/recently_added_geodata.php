@@ -35,8 +35,8 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
                              'default' => 250),
         );
 
-        if ($GLOBALS['ansel_storage']->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ) as $id => $gal) {
+        if ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::READ) as $id => $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
                     $params['gallery']['values'][$id] = $gal->get('name');
                 }
@@ -87,14 +87,14 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         }
 
         try {
-            $images = $GLOBALS['ansel_storage']->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
             $id = $image['image_id'];
-            $gallery = $GLOBALS['ansel_storage']->getGallery($image['gallery_id']);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image['gallery_id']);
 
             /* Don't show locked galleries in the block. */
             if (!$gallery->isOldEnough() || $gallery->hasPasswd()) {
@@ -145,10 +145,10 @@ EOT;
 
         if (isset($this->_params['gallery']) &&
             $this->_params['gallery'] != '__random') {
-            $this->_gallery = $GLOBALS['ansel_storage']->getGallery(
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery(
                 $this->_params['gallery']);
         } else {
-            $this->_gallery = $GLOBALS['ansel_storage']->getRandomGallery();
+            $this->_gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
         }
 
         if (empty($this->_gallery)) {

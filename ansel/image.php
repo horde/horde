@@ -54,7 +54,7 @@ if (is_null($actionID) && is_null($tags)) {
 
 /* Get the gallery object and style information */
 try {
-    $gallery = $ansel_storage->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
@@ -65,7 +65,7 @@ try {
 if (!is_null($tags) && strlen($tags)) {
     $tags = explode(',', $tags);
     if (!empty($image_id)) {
-        $resource = &$ansel_storage->getImage($image_id);
+        $resource = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     } else {
         $resource = $gallery;
     }
@@ -102,7 +102,7 @@ switch ($actionID) {
 case 'deletetags':
     $tag = Horde_Util::getFormData('tag');
     if (!empty($image_id)) {
-        $resource = &$ansel_storage->getImage($image_id);
+        $resource = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $page = Horde_Util::getFormData('page', 0);
         $url = Ansel::getUrlFor('view', array_merge(
                                         array('view' => 'Image',
@@ -127,7 +127,7 @@ case 'deletetags':
 
 case 'modify':
     try {
-        $image = &$ansel_storage->getImage($image_id);
+        $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $ret = Horde_Util::getFormData('ret', 'gallery');
     } catch (Ansel_Exception $e) {
         $notification->push(_("Photo not found."), 'horde.error');
@@ -204,7 +204,7 @@ case 'save':
             } catch (Horde_Browser_Exception $e) {}
         }
 
-        $image = &$ansel_storage->getImage($image_id);
+        $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $image->caption = $vars->get('image_desc');
         $image->setTags(explode(',' , $vars->get('image_tags')));
 
@@ -309,7 +309,7 @@ case 'resizeedit':
     }
 
     /* Retrieve image details. */
-    $image = $ansel_storage->getImage($image_id);
+    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $title = sprintf(_("Edit %s :: %s"), $gallery->get('name'),
                      $image->filename);
 
@@ -367,7 +367,7 @@ case 'watermark':
         header('Location: ' . $imageurl);
         exit;
     } else {
-        $image = &$ansel_storage->getImage($image_id);
+        $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
         $image->updateData($image->raw('screen'), 'screen');
@@ -396,7 +396,7 @@ case 'resize':
                             'horde.error');
     } else {
         try {
-            $image = $ansel_storage->getImage($image_id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         } catch (Ansel_Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
             header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
@@ -460,7 +460,7 @@ case 'resize':
 case 'setwatermark':
     $title = _("Watermark");
     try {
-        $image = $ansel_storage->getImage($image_id);
+        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     } catch (Ansel_Exception $e) {
         $notification->push($image->getMessage(), 'horde.error');
         header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
@@ -507,7 +507,7 @@ case 'previewrotate270':
     $action = substr($actionID, 7);
 
     /* Retrieve image details. */
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $title = sprintf(_("Preview changes for %s :: %s"),
                      $gallery->get('name'),
                      $image->filename);
@@ -525,35 +525,35 @@ case 'imagerotate180':
 case 'imagerotate270':
     $view = Horde_Util::getFormData('view');
     $angle = intval(substr($actionID, 11));
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $image->rotate($view, $angle);
     $image->display($view);
     exit;
 
 case 'imageflip':
     $view = Horde_Util::getFormData('view');
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $image->flip($view);
     $image->display($view);
     exit;
 
 case 'imagemirror':
     $view = Horde_Util::getFormData('view');
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $image->mirror($view);
     $image->display($view);
     exit;
 
 case 'imagegrayscale':
     $view = Horde_Util::getFormData('view');
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $image->grayscale($view);
     $image->display($view);
     exit;
 
 case 'imagewatermark':
     $view = Horde_Util::getFormData('view');
-    $image = &$ansel_storage->getImage($image_id);
+    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     $image->watermark($view, $watermark, $watermark_halign, $watermark_valign,
                       $watermark_font);
     $image->display($view);
@@ -615,7 +615,7 @@ case 'move':
     $newGallery = Horde_Util::getFormData('new_gallery');
     if ($images && $newGallery) {
         try {
-            $newGallery = $ansel_storage->getGallery($newGallery);
+            $newGallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($newGallery);
             $result = $gallery->moveImagesTo($images, $newGallery);
             $notification->push(
                 sprintf(ngettext("Moved %d photo from \"%s\" to \"%s\"",
@@ -660,7 +660,7 @@ case 'copy':
     $newGallery = Horde_Util::getFormData('new_gallery');
     if ($images && $newGallery) {
         try {
-            $newGallery = $ansel_storage->getGallery($newGallery);
+            $newGallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($newGallery);
             $result = $gallery->copyImagesTo($images, $newGallery);
             $notification->push(
                     sprintf(ngettext("Copied %d photo to %s",
@@ -687,7 +687,7 @@ case 'copy':
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
-        $gallery = $ansel_storage->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
         if (!$registry->getAuth() ||
             !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
@@ -734,7 +734,7 @@ case 'previewcrop':
         $action = substr($actionID, 7);
 
         /* Retrieve image details. */
-        $image = &$ansel_storage->getImage($image_id);
+        $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $title = sprintf(_("Preview changes for %s :: %s"),
                          $gallery->get('name'),
                          $image->filename);
@@ -752,7 +752,7 @@ case 'imagecrop':
         if ($gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $params = Horde_Util::getFormData('params');
             list($x1, $y1, $x2, $y2) = explode('.', $params);
-            $image = &$ansel_storage->getImage($image_id);
+            $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
             $image->load('full');
             $image->crop($x1, $y1, $x2, $y2);
             $image->display();

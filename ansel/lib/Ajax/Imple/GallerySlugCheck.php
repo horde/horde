@@ -38,7 +38,7 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
             return array('response' => '0');
         }
 
-        $exists = $GLOBALS['ansel_storage']->slugExists($slug) ? 0 : 1;
+        $exists = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->slugExists($slug) ? 0 : 1;
         return array('response' => $exists);
     }
 

@@ -13,7 +13,7 @@ Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
 try {
-    $gallery = $ansel_storage->getGallery($gallery_id);
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
@@ -209,7 +209,7 @@ if ($form->validate($vars)) {
         $cnt = count($image_ids);
         for ($i = 0; $i < $conf['image']['autogen'] && $cnt > $i; $i++) {
             $image_id = $image_ids[$i];
-            $image = &$GLOBALS['ansel_storage']->getImage($image_id);
+            $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
             $image->createView('screen');
             $image->createView('thumb');
             $image->createView('mini');
