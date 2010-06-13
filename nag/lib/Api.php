@@ -1351,6 +1351,7 @@ class Nag_Api extends Horde_Registry_Api
                 'end' => $due_date,
                 'category' => $task->category,
                 'color' => $allowed_tasklists[$task->tasklist]->get('color'),
+                'owner' => $allowed_tasklists[$task->tasklist]->get('owner'),
                 'permissions' => $GLOBALS['nag_shares']->getPermissions($task->tasklist, $GLOBALS['registry']->getAuth()),
                 'variable_length' => false,
                 'params' => array('task' => $task->id,

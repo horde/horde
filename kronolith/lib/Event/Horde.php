@@ -60,6 +60,13 @@ class Kronolith_Event_Horde extends Kronolith_Event
     protected $_params;
 
     /**
+     * The event's owner.
+     *
+     * @var string
+     */
+    protected $_owner;
+
+    /**
      * A bitmask of permissions the current user has on this object.
      *
      * @var integer
@@ -143,7 +150,9 @@ class Kronolith_Event_Horde extends Kronolith_Event
             $this->recurrence = $recurrence;
         }
 
-
+        if (isset($event['owner'])) {
+            $this->_owner = $event['owner'];
+        }
         if (isset($event['permissions'])) {
             $this->_permissions = $event['permissions'];
         }
@@ -205,6 +214,14 @@ class Kronolith_Event_Horde extends Kronolith_Event
      */
     public function hasPermission($permission, $user = null)
     {
+        if ($user === null) {
+            $user = $GLOBALS['registry']->getAuth();
+        }
+
+        if (isset($this->_owner) && $this->_owner == $user) {
+            return true;
+        }
+
         if (isset($this->_permissions)) {
             return (bool)($this->_permissions & $permission);
         }
