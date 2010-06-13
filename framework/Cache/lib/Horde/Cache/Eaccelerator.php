@@ -39,6 +39,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function get($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
         return eaccelerator_get($key);
     }
@@ -54,6 +55,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function set($key, $data, $lifetime = null)
     {
+        $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
         eaccelerator_put($key . '_expire', time(), $lifetime);
         return eaccelerator_put($key, $data, $lifetime);
@@ -70,6 +72,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
         return (eaccelerator_get($key) === false) ? false : true;
     }
@@ -83,6 +86,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function expire($key)
     {
+        $key = $this->_params['prefix'] . $key;
         eaccelerator_rm($key . '_expire');
         return eaccelerator_rm($key);
     }
@@ -101,6 +105,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
             return;
         }
 
+        $key = $this->_params['prefix'] . $key;
         $expire = eaccelerator_get($key . '_expire');
 
         // Set prune period.

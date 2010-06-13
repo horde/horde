@@ -23,20 +23,6 @@ class Horde_Cache_File extends Horde_Cache_Base
     protected $_dir;
 
     /**
-     * The filename prefix for cache files.
-     *
-     * @var string
-     */
-    protected $_prefix = 'cache_';
-
-    /**
-     * The subdirectory level the cache files should live at.
-     *
-     * @var integer
-     */
-    protected $_sub = 0;
-
-    /**
      * List of key to filename mappings.
      *
      * @var array
@@ -63,12 +49,12 @@ class Horde_Cache_File extends Horde_Cache_Base
             ? $params['dir']
             : Horde_Util::getTempDir();
 
-        if (isset($params['prefix'])) {
-            $this->_prefix = $params['prefix'];
+        if (!isset($params['prefix'])) {
+            $params['prefix'] = 'cache_';
         }
 
-        if (isset($params['sub'])) {
-            $this->_sub = intval($params['sub']);
+        if (!isset($params['sub'])) {
+            $params['sub'] = 0;
         }
 
         parent::__construct($params);
@@ -257,8 +243,8 @@ class Horde_Cache_File extends Horde_Cache_Base
             $dir = $this->_dir . '/';
             $sub = '';
             $md5 = md5($key);
-            if (!empty($this->_sub)) {
-                $max = min($this->_sub, strlen($md5));
+            if (!empty($this->_params['sub'])) {
+                $max = min($this->_params['sub'], strlen($md5));
                 for ($i = 0; $i < $max; $i++) {
                     $sub .= $md5[$i];
                     if ($create && !is_dir($dir . $sub)) {
@@ -270,7 +256,7 @@ class Horde_Cache_File extends Horde_Cache_Base
                     $sub .= '/';
                 }
             }
-            $this->_file[$key] = $dir . $sub . $this->_prefix . $md5;
+            $this->_file[$key] = $dir . $sub . $this->_params['prefix'] . $md5;
         }
 
         return $this->_file[$key];
@@ -296,14 +282,14 @@ class Horde_Cache_File extends Horde_Cache_Base
                 continue;
             }
 
-            if (strpos($entry, $this->_prefix) === 0) {
+            if (strpos($entry, $this->_params['prefix']) === 0) {
                 $d_time = isset($excepts[$path]) ? $excepts[$path] : $this->_params['lifetime'];
                 if (!empty($d_time) &&
                     (($c_time - $d_time) > filemtime($path))) {
                     @unlink($path);
                     unset($excepts[$path]);
                 }
-            } elseif (!empty($this->_sub) && is_dir($path)) {
+            } elseif (!empty($this->_params['sub']) && is_dir($path)) {
                 $this->_gcDir($path, $excepts);
             }
         }

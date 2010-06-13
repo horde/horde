@@ -1023,7 +1023,12 @@
    select a driver here. This is used to speed up portions of Horde by storing
    commonly processed objects.">file
     <case name="Null" desc="Don't cache any objects"/>
-    <case name="Apc" desc="Use the APC cache"/>
+    <case name="Apc" desc="Use the APC cache">
+     <configsection name="params">
+      <configstring name="prefix" required="false" desc="The prefix to use for
+      cache entries."/>
+     </configsection>
+    </case>
     <case name="Eaccelerator" desc="Use the eAccelerator cache (up to version
     0.9.5)">
      <configdescription>
@@ -1033,6 +1038,10 @@
      you want to use the eAccelerator cache driver, you need version 0.9.5 or
      lower.
      </configdescription>
+     <configsection name="params">
+      <configstring name="prefix" required="false" desc="The prefix to use for
+      cache entries."/>
+     </configsection>
     </case>
     <case name="File" desc="Store objects in filesystem">
      <configsection name="params">
@@ -1048,7 +1057,12 @@
       use for the cache files."/>
      </configsection>
     </case>
-    <case name="Memcache" desc="Use a Memcache server"/>
+    <case name="Memcache" desc="Use a Memcache server">
+     <configsection name="params">
+      <configstring name="prefix" required="false" desc="The prefix to use for
+      cache entries."/>
+     </configsection>
+    </case>
     <case name="Sql" desc="SQL-based cache storage">
      <configsection name="params">
       <configsql switchname="driverconfig">
@@ -1057,8 +1071,18 @@
       </configsql>
      </configsection>
     </case>
-    <case name="Xcache" desc="Use the xCache cache"/>
-    <case name="Zps4" desc="Use the Zend Performance Suite output cache"/>
+    <case name="Xcache" desc="Use the xCache cache">
+     <configsection name="params">
+      <configstring name="prefix" required="false" desc="The prefix to use for
+      cache entries."/>
+     </configsection>
+    </case>
+    <case name="Zps4" desc="Use the Zend Performance Suite output cache">
+     <configsection name="params">
+      <configstring name="prefix" required="false" desc="The prefix to use for
+      cache entries."/>
+     </configsection>
+    </case>
    </configswitch>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found

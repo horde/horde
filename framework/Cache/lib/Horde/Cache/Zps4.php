@@ -25,6 +25,7 @@ class Horde_Cache_Zps4 extends Horde_Cache_Base
      */
     public function get($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         return output_cache_get($key, $lifetime);
     }
 
@@ -39,6 +40,7 @@ class Horde_Cache_Zps4 extends Horde_Cache_Base
      */
     public function set($key, $data, $lifetime = null)
     {
+        $key = $this->_params['prefix'] . $key;
         output_cache_put($key, $data);
         return true;
     }
@@ -54,6 +56,7 @@ class Horde_Cache_Zps4 extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $exists = output_cache_exists($key, $lifetime);
         output_cache_stop();
         return $exists;
@@ -68,6 +71,7 @@ class Horde_Cache_Zps4 extends Horde_Cache_Base
      */
     public function expire($key)
     {
+        $key = $this->_params['prefix'] . $key;
         return output_cache_remove_key($key);
     }
 

@@ -25,6 +25,7 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      */
     public function get($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
         return apc_fetch($key);
     }
@@ -40,6 +41,7 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      */
     public function set($key, $data, $lifetime = null)
     {
+        $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
         apc_store($key . '_expire', time(), $lifetime);
         return apc_store($key, $data, $lifetime);
@@ -56,6 +58,7 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
         return (apc_fetch($key) === false) ? false : true;
     }
@@ -69,6 +72,7 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      */
     public function expire($key)
     {
+        $key = $this->_params['prefix'] . $key;
         apc_delete($key . '_expire');
         return apc_delete($key);
     }
@@ -81,6 +85,7 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      */
     protected function _setExpire($key, $lifetime)
     {
+        $key = $this->_params['prefix'] . $key;
         if ($lifetime == 0) {
             // Don't expire.
             return;

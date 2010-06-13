@@ -50,6 +50,11 @@ abstract class Horde_Cache_Base
         }
 
         $this->_params = array_merge($this->_params, $params);
+        if (empty($this->_params['prefix'])) {
+            $this->_params['prefix'] = $_SERVER['SERVER_NAME']
+                ? $_SERVER['SERVER_NAME']
+                : $_SERVER['HOSTNAME'];
+        }
     }
 
     /**

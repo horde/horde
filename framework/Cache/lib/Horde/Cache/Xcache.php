@@ -15,25 +15,6 @@
 class Horde_Cache_Xcache extends Horde_Cache_Base
 {
     /**
-     * Construct a new Horde_Cache_Xcache object.
-     *
-     * @param array $params  Configuration parameters:
-     * <pre>
-     * 'prefix' - (string) Key prefix.
-     * </pre>
-     */
-    public function __construct($params = array())
-    {
-        parent::__construct($params);
-
-        if (empty($this->_params['prefix'])) {
-            $this->_params['prefix'] = $_SERVER['SERVER_NAME']
-                ? $_SERVER['SERVER_NAME']
-                : $_SERVER['HOSTNAME'];
-        }
-    }
-
-    /**
      * Attempts to retrieve a piece of cached data and return it to the caller.
      *
      * @param string $key        Cache key to fetch.
@@ -107,12 +88,11 @@ class Horde_Cache_Xcache extends Horde_Cache_Base
      */
     protected function _setExpire($key, $lifetime)
     {
-        $key = $this->_params['prefix'] . $key;
         if ($lifetime == 0) {
             // don't expire
             return;
         }
-
+        $key = $this->_params['prefix'] . $key;
         $expire = xcache_get($key . '_expire');
 
         // set prune period
