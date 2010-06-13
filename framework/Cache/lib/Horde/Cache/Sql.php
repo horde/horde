@@ -113,7 +113,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         try {
             $result = $this->_db->selectValue($query, $values);
-        } catch (Horde_Db_Exception $e) (
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
 
