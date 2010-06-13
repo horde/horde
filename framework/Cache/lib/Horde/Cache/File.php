@@ -68,7 +68,7 @@ class Horde_Cache_File extends Horde_Cache_Base
         }
 
         if (isset($params['sub'])) {
-            $this->_prefix = intval($params['sub']);
+            $this->_sub = intval($params['sub']);
         }
 
         parent::__construct($params);
