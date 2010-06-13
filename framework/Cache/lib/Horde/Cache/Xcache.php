@@ -107,6 +107,7 @@ class Horde_Cache_Xcache extends Horde_Cache_Base
      */
     protected function _setExpire($key, $lifetime)
     {
+        $key = $this->_params['prefix'] . $key;
         if ($lifetime == 0) {
             // don't expire
             return;
