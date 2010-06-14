@@ -1077,12 +1077,6 @@
       cache entries."/>
      </configsection>
     </case>
-    <case name="Zps4" desc="Use the Zend Performance Suite output cache">
-     <configsection name="params">
-      <configstring name="prefix" required="false" desc="The prefix to use for
-      cache entries."/>
-     </configsection>
-    </case>
    </configswitch>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found
@@ -1093,7 +1087,6 @@
     <case name="Eaccelerator" desc="eAccelerator"/>
     <case name="Memcache" desc="Memcache"/>
     <case name="Xcache" desc="xCache"/>
-    <case name="Zps4" desc="Zend Performance Suite"/>
    </configswitch>
   </configsection>
 
