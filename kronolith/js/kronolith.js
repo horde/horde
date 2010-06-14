@@ -5685,3 +5685,6 @@ document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(Kron
 document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
 document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
 document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
+if (Prototype.Browser.IE) {
+    $('kronolithBody').observe('selectstart', Event.stop);
+}
