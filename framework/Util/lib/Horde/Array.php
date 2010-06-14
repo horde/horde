@@ -95,8 +95,8 @@ class Horde_Array
         /* If no key to sort by is specified, use the first key of the
          * first element. */
         if (is_null($key)) {
-            reset($array);
-            $key = array_shift(array_keys(current($array)));
+            $keys = array_keys(reset($array));
+            $key = array_shift($keys);
         }
 
         /* Call the appropriate sort function. */
