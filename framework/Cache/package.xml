@@ -55,7 +55,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
       <file name="Sql.php" role="php" />
       <file name="Stack.php" role="php" />
       <file name="Xcache.php" role="php" />
-      <file name="Zps4.php" role="php" />
      </dir> <!-- /lib/Horde/Cache -->
      <file name="Cache.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -113,7 +112,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    <install name="lib/Horde/Cache/Sql.php" as="Horde/Cache/Sql.php" />
    <install name="lib/Horde/Cache/Stack.php" as="Horde/Cache/Stack.php" />
    <install name="lib/Horde/Cache/Xcache.php" as="Horde/Cache/Xcache.php" />
-   <install name="lib/Horde/Cache/Zps4.php" as="Horde/Cache/Zps4.php" />
    <install name="lib/Horde/Cache.php" as="Horde/Cache.php" />
   </filelist>
  </phprelease>
