@@ -1732,15 +1732,9 @@ KronolithCore = {
                 div.addClassName('kronolithEditable');
                 // Number of pixels that cover 10 minutes.
                 var step = this[storage].height / 6;
-                if (draggerTop) {
-                    // Top position of top dragger
-                    var dragTop = draggerTop.cumulativeOffset().top;
-                }
                 if (draggerBottom) {
-                    // Top position of bottom dragger
-                    var dragBottom = draggerBottom.cumulativeOffset().top,
-                        // Height of bottom dragger
-                        dragBottomHeight = draggerBottom.getHeight();
+                    // Height of bottom dragger
+                    var dragBottomHeight = draggerBottom.getHeight();
                 }
                     // Top position of the whole event div
                 var eventTop = div.cumulativeOffset().top;
@@ -1784,28 +1778,28 @@ KronolithCore = {
 
                 if (draggerTop) {
                     opts.snap = function(x, y) {
+                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
                         y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
                         return [0, y];
-                    }
+                    }.bind(this);
                     var d = new Drag(event.value.nodeId + 'top', opts);
                     Object.extend(d, {
                         event: event,
                         innerDiv: innerDiv,
-                        dragTop: dragTop,
                         midnight: midnight
                     });
                 }
 
                 if (draggerBottom) {
                     opts.snap = function(x, y) {
+                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
                         y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
-                    }
+                    }.bind(this);
                     var d = new Drag(event.value.nodeId + 'bottom', opts);
                     Object.extend(d, {
                         event: event,
                         innerDiv: innerDiv,
-                        dragBottom: dragBottom,
                         midnight: midnight
                     });
                 }
@@ -1824,9 +1818,10 @@ KronolithCore = {
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
+                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
                         y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
                         return [x, y];
-                    }
+                    }.bind(this)
                 });
                 Object.extend(d, {
                     divHeight: divHeight,
@@ -4495,10 +4490,14 @@ KronolithCore = {
         var elt = e.element();
 
         if (elt.hasClassName('kronolithDragger')) {
-            elt = elt.up().addClassName('kronolithSelected');
+            elt.up().addClassName('kronolithSelected');
+            DragDrop.Drags.getDrag(elt).top = elt.cumulativeOffset().top;
         } else if (elt.hasClassName('kronolithEditable')) {
             elt.addClassName('kronolithSelected').setStyle({ left: 0, width: this.view == 'week' ? '90%' : '95%', zIndex: 1 });
         }
+
+        this.scrollTop = $(this.view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop;
+        this.scrollLast = this.scrollTop;
     },
 
     onDrag: function(e)
@@ -4517,21 +4516,28 @@ KronolithCore = {
             // Resizing the event.
             var div = elt.up(),
                 top = drag.ghost.cumulativeOffset().top,
-                offset, height, dates;
+                scrollTop = $(this.view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop,
+                offset = 0,
+                height, dates;
 
+            // Check if view has scrolled since last call.
+            if (scrollTop != this.scrollLast) {
+                offset = scrollTop - this.scrollLast;
+                this.scrollLast = scrollTop;
+            }
             if (elt.hasClassName('kronolithDraggerTop')) {
-                offset = top - drag.dragTop;
+                offset += top - drag.top;
                 height = div.offsetHeight - offset;
                 div.setStyle({
                     top: (div.offsetTop + offset) + 'px'
                 });
                 offset = drag.ghost.offsetTop;
-                drag.dragTop = top;
+                drag.top = top;
             } else {
-                offset = top - drag.dragBottom;
+                offset += top - drag.top;
                 height = div.offsetHeight + offset;
                 offset = div.offsetTop;
-                drag.dragBottom = top;
+                drag.top = top;
             }
             div.setStyle({
                 height: height + 'px'
