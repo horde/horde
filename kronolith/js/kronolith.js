@@ -40,6 +40,8 @@ KronolithCore = {
     search: 'future',
     effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') !=- 1,
+    lastLocation: '',
+    currentLocation: '',
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -312,6 +314,7 @@ KronolithCore = {
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
                      (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
+                         this.addHistory(fullloc);
                          return;
                 }
 
@@ -344,8 +347,11 @@ KronolithCore = {
 
             case 'tasks':
                 var tasktype = locParts.shift() || this.tasktype;
-                if ((this.view == loc && this.tasktype == tasktype) ||
-                    !($w('all complete incomplete future').include(tasktype))) {
+                if (this.view == loc && this.tasktype == tasktype) {
+                    this.addHistory(fullloc);
+                    return;
+                }
+                if (!$w('all complete incomplete future').include(tasktype)) {
                     return;
                 }
                 this.tasktype = tasktype;
@@ -2452,7 +2458,7 @@ KronolithCore = {
     {
         if (!r.response.task) {
             RedBox.close();
-            window.history.back();
+            this.go(this.lastLocation);
             return;
         }
 
@@ -2622,7 +2628,7 @@ KronolithCore = {
                           this.loadEventsCallback(r, false);
                           if (r.response.tasks) {
                               this.closeRedBox();
-                              window.history.back();
+                              this.go(this.lastLocation);
                           } else {
                               $('kronolithTaskSave').disable();
                           }
@@ -2656,7 +2662,7 @@ KronolithCore = {
                     $('kronolithSharedCalendars').show();
                     this.editCalendar(type + '|' + cal);
                 } else {
-                    window.history.back();
+                    this.go(this.lastLocation);
                 }
             }.bind(this));
             return;
@@ -2743,7 +2749,7 @@ KronolithCore = {
                 break;
             default:
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 return;
             }
         }
@@ -3348,7 +3354,7 @@ KronolithCore = {
         }
         form.down('.kronolithCalendarSave').enable();
         this.closeRedBox();
-        window.history.back();
+        this.go(this.lastLocation);
     },
 
     /**
@@ -3606,11 +3612,11 @@ KronolithCore = {
         return event.value.sort;
     },
 
-    addHistory: function(loc, data)
+    addHistory: function(loc)
     {
-        if (Horde.dhtmlHistory.getCurrentLocation() != loc) {
-            Horde.dhtmlHistory.add(loc, data);
-        }
+        location.hash = encodeURIComponent(loc);
+        this.lastLocation = this.currentLocation;
+        this.currentLocation = loc;
     },
 
     /**
@@ -3711,7 +3717,7 @@ KronolithCore = {
                     break;
                 case 'kronolithEventForm':
                     this.closeRedBox();
-                    window.history.back();
+                    this.go(this.lastLocation);
                     break;
                 }
                 break;
@@ -3811,14 +3817,14 @@ KronolithCore = {
 
             case 'kronolithEventAlarmPrefs':
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 this.go('options', { app: 'kronolith', group: 'notification' });
                 e.stop();
                 break;
 
             case 'kronolithTaskAlarmPrefs':
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 this.go('options', { app: 'nag', group: 'notification' });
                 e.stop();
                 break;
@@ -3879,7 +3885,7 @@ KronolithCore = {
                                   }
                               }.bind(this));
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 e.stop();
                 break;
 
@@ -3911,7 +3917,7 @@ KronolithCore = {
                     taskrow.hide();
                 }
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 e.stop();
                 break;
 
@@ -4168,7 +4174,7 @@ KronolithCore = {
             case 'kronolithFormCancel':
                 this.closeRedBox();
                 this.resetMap();
-                window.history.back();
+                this.go(this.lastLocation);
                 e.stop();
                 break;
 
@@ -4378,7 +4384,7 @@ KronolithCore = {
                                       delete Kronolith.conf.calendars[type][calendar];
                                   }
                                   this.closeRedBox();
-                                  window.history.back();
+                                  this.go(this.lastLocation);
                               }.bind(this));
                 e.stop();
                 break;
@@ -4388,7 +4394,7 @@ KronolithCore = {
                 this.toggleCalendar($F(form.down('input[name=type]')),
                                     $F(form.down('input[name=calendar]')));
                 this.closeRedBox();
-                window.history.back();
+                this.go(this.lastLocation);
                 e.stop();
                 break;
             } else if (elt.tagName == 'INPUT' &&
@@ -4732,7 +4738,7 @@ KronolithCore = {
                           if (r.response.events) {
                               this.resetMap();
                               this.closeRedBox();
-                              window.history.back();
+                              this.go(this.lastLocation);
                           } else {
                               $('kronolithEventSave').enable();
                               $('kronolithEventSaveAsNew').enable();
@@ -4800,7 +4806,7 @@ KronolithCore = {
     {
         if (!r.response.event) {
             RedBox.close();
-            window.history.back();
+            this.go(this.lastLocation);
             return;
         }
 
@@ -5616,14 +5622,14 @@ KronolithCore = {
         this.updateCalendarList();
         this.updateMinical(this.date);
 
-        if (Horde.dhtmlHistory.initialize()) {
-            Horde.dhtmlHistory.addListener(this.go.bind(this));
+        /* Initialize the starting page. */
+        tmp = location.hash;
+        if (!tmp.empty() && tmp.startsWith('#')) {
+            tmp = (tmp.length == 1) ? '' : tmp.substring(1);
         }
-
-        /* Initialize the starting page if necessary. addListener() will have
-         * already fired if there is a current location so only do a go()
-         * call if there is no current location. */
-        if (!Horde.dhtmlHistory.getCurrentLocation()) {
+        if (!tmp.empty()) {
+            this.go(decodeURIComponent(tmp));
+        } else {
             this.go(Kronolith.conf.login_view);
         }
 

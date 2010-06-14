@@ -70,7 +70,6 @@ class Kronolith
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('dragdrop2.js', 'horde');
         Horde::addScriptFile('growler.js', 'horde');
-        Horde::addScriptFile('dhtmlhistory.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('colorpicker.js', 'horde');
