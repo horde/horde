@@ -1433,9 +1433,6 @@ div.kronolithEvent {
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
     margin-right: 10%;
 }
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent.drag {
-/*    margin: 28px 0 30px 28px;*/
-}
 div.kronolithEvent .kronolithDragger {
     position: absolute;
     visibility: hidden;
@@ -1504,7 +1501,7 @@ div.kronolithEvent.kronolithLast.kronolithSelected .kronolithEventInfo {
 }
 div.kronolithEditable:hover .kronolithDragger,
 div.kronolithEvent.kronolithSelected .kronolithDragger {
-    visibility: visible;
+    visibility: inherit;
 }
 
 /* Redbox styles. */

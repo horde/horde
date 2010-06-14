@@ -39,7 +39,7 @@ KronolithCore = {
     freeBusy: $H(),
     search: 'future',
     effectDur: 0.4,
-    macos: navigator.appVersion.indexOf('Mac') !=- 1,
+    macos: navigator.appVersion.indexOf('Mac') != -1,
     lastLocation: '',
     currentLocation: '',
 
@@ -4497,7 +4497,7 @@ KronolithCore = {
         if (elt.hasClassName('kronolithDragger')) {
             elt = elt.up().addClassName('kronolithSelected');
         } else if (elt.hasClassName('kronolithEditable')) {
-            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: '90%', zIndex: 1 });
+            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: this.view == 'week' ? '90%' : '95%', zIndex: 1 });
         }
     },
 
@@ -4554,7 +4554,7 @@ KronolithCore = {
             }
             event.offsetTop = drag.ghost.offsetTop - drag.startTop;
             drag.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
-            elt.clonePosition(drag.ghost, { offsetLeft: -2 });
+            elt.clonePosition(drag.ghost, { offsetLeft: this.view == 'week' ? -2 : 0 });
         }
     },
 
