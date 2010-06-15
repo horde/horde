@@ -1036,7 +1036,9 @@ KronolithCore = {
     {
         if (cal.owner && cal.perms) {
             $H(cal.perms).each(function(perm) {
-                if (perm.key != 'type' && perm.value) {
+                if (perm.key != 'type' &&
+                    ((Object.isArray(perm.value) && perm.value.size()) ||
+                     (!Object.isArray(perm.value) && perm.value))) {
                     element.insert(' ').insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'attendees-' + cal.fg.substring(1) + '.png', title: Kronolith.text.shared }));
                     throw $break;
                 }
