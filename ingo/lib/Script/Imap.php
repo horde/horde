@@ -374,7 +374,10 @@ class Ingo_Script_Imap extends Ingo_Script
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->flag('\\deleted', false);
-        $ob->flag('\\seen', $params['filter_seen'] == Ingo_Script::FILTER_SEEN);
+        if ($params['filter_seen'] == Ingo_Script::FILTER_SEEN ||
+            $params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
+            $ob->flag('\\seen', $params['filter_seen'] == Ingo_Script::FILTER_SEEN);
+        }
         return $ob;
     }
 
