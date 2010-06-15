@@ -669,13 +669,16 @@ class Horde_Util
             return $_SERVER['PATH_INFO'];
         } elseif (isset($_SERVER['REQUEST_URI']) &&
                   isset($_SERVER['SCRIPT_NAME'])) {
-            $search = array((basename($_SERVER['SCRIPT_NAME']) == 'index.php') ? dirname($_SERVER['SCRIPT_NAME']) . '/' : $_SERVER['SCRIPT_NAME']);
-            $replace = array('');
+            if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') {
+                $search = array(dirname($_SERVER['SCRIPT_NAME']) . '/',
+                                'index.php');
+            } else {
+                $search = array($_SERVER['SCRIPT_NAME']);
+            }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $search[] = '?' . $_SERVER['QUERY_STRING'];
-                $replace[] = '';
             }
-            return str_replace($search, $replace, $_SERVER['REQUEST_URI']);
+            return str_replace($search, '', $_SERVER['REQUEST_URI']);
         }
 
         return '';

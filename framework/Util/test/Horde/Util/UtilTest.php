@@ -84,4 +84,53 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
             'test?bar=2&amp;baz=3',
             (string)Horde_Util::removeParameter($url, 'foo'));
     }
+
+    public function testGetPathInfo()
+    {
+        $this->assertEquals('', Horde_Util::getPathInfo());
+
+        $_SERVER['SERVER_SOFTWARE'] = '';
+        $_SERVER['PATH_INFO'] = '';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+
+        $_SERVER['PATH_INFO'] = '/foo/bar';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+
+        $_SERVER['SERVER_SOFTWARE'] = 'lighttpd/1.4.26';
+        $_SERVER['PATH_INFO'] = '';
+        $_SERVER['REQUEST_URI'] = '/horde/path.php';
+        $_SERVER['SCRIPT_NAME'] = '/horde/path.php';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/path.php?baz';
+        $_SERVER['QUERY_STRING'] = 'baz';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/horde/path.php/foo/bar';
+        $_SERVER['SCRIPT_NAME'] = '/horde/path.php';
+        $_SERVER['QUERY_STRING'] = '';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/path.php/foo/bar?baz';
+        $_SERVER['QUERY_STRING'] = 'baz';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/horde/';
+        $_SERVER['SCRIPT_NAME'] = '/horde/index.php';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/horde/index.php';
+        $_SERVER['SCRIPT_NAME'] = '/horde/index.php';
+        $_SERVER['QUERY_STRING'] = '';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/index.php?baz';
+        $_SERVER['QUERY_STRING'] = 'baz';
+        $this->assertEquals('', Horde_Util::getPathInfo());
+
+        $_SERVER['REQUEST_URI'] = '/horde/index.php/foo/bar';
+        $_SERVER['SCRIPT_NAME'] = '/horde/index.php';
+        $_SERVER['QUERY_STRING'] = '';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+        $_SERVER['REQUEST_URI'] = '/horde/index.php/foo/bar?baz';
+        $_SERVER['QUERY_STRING'] = 'baz';
+        $this->assertEquals('/foo/bar', Horde_Util::getPathInfo());
+    }
 }
