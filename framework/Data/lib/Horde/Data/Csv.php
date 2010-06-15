@@ -17,7 +17,7 @@
  * @category Horde
  * @package  Data
  */
-class Horde_Data_Csv extends Horde_Data_Driver
+class Horde_Data_Csv extends Horde_Data_Base
 {
     /**
      * File extension.
@@ -65,7 +65,7 @@ class Horde_Data_Csv extends Horde_Data_Driver
      * @return array  A two-dimensional array of all imported data rows.  If
      *                $header was true the rows are associative arrays with the
      *                field/column names as the keys.
-     *@throws Horde_File_Csv_Exception
+     * @throws Horde_File_Csv_Exception
      */
     public function importFile($filename, $header = false, $sep = ',',
                                $quote = '', $fields = null,

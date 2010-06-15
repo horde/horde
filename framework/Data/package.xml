@@ -43,8 +43,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Data">
+      <file name="Base.php" role="php" />
       <file name="Csv.php" role="php" />
-      <file name="Driver.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Icalendar.php" role="php" />
       <file name="Imc.php" role="php" />
@@ -104,8 +104,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Data/Base.php" as="Horde/Data/Base.php" />
    <install name="lib/Horde/Data/Csv.php" as="Horde/Data/Csv.php" />
-   <install name="lib/Horde/Data/Driver.php" as="Horde/Data/Driver.php" />
    <install name="lib/Horde/Data/Exception.php" as="Horde/Data/Exception.php" />
    <install name="lib/Horde/Data/Icalendar.php" as="Horde/Data/Icalendar.php" />
    <install name="lib/Horde/Data/Imc.php" as="Horde/Data/Imc.php" />

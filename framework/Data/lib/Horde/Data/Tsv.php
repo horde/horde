@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Data
  */
-class Horde_Data_Tsv extends Horde_Data_Driver
+class Horde_Data_Tsv extends Horde_Data_Base
 {
     /**
      * File extension.

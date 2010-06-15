@@ -326,9 +326,10 @@ case 'export':
         exit;
 
     case 'ldif':
-        // TODO
-        //$injector->getInstance('Horde_Data')->getData('Csv', array('cleanup' => '_cleanupData'))
-        $ldif = Horde_Data::singleton(array('turba', 'ldif'));
+        $ldif = new Turba_Data_Ldif(
+            array('browser' => $this->_injector->getInstance('Horde_Browser'),
+                  'vars' => Horde_Variables::getDefaultVariables(),
+                  'cleanup' => '_cleanupData'));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
         exit;
     }
@@ -380,9 +381,12 @@ case Horde_Data::IMPORT_DATETIME:
 if (!$error && !empty($import_format)) {
     // TODO
     if ($import_format == 'ldif') {
-        $data = Horde_Data::singleton(array('turba', $import_format));
+        $data = new Turba_Data_Ldif(
+            array('browser' => $this->_injector->getInstance('Horde_Browser'),
+                  'vars' => Horde_Variables::getDefaultVariables(),
+                  'cleanup' => '_cleanupData'));
     } else {
-        $data = Horde_Data::singleton($import_format);
+        $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
     }
     if ($data instanceof PEAR_Error) {
         $notification->push(_("This file format is not supported."), 'horde.error');

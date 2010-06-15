@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Data
  */
-class Horde_Data_Imc extends Horde_Data_Driver
+class Horde_Data_Imc extends Horde_Data_Base
 {
     /**
      * @var

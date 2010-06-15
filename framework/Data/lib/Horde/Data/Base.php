@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Data
  */
-abstract class Horde_Data
+abstract class Horde_Data_Base
 {
     /**
      * Browser object.
@@ -87,12 +87,14 @@ abstract class Horde_Data
     /**
      * Stub to import passed data.
      */
-    abstract public function importData();
+    public function importData($text)
+    {
+    }
 
     /**
      * Stub to return exported data.
      */
-    abstract public function exportData();
+    abstract public function exportData($data, $method = 'REQUEST');
 
     /**
      * Stub to import a file.
@@ -106,7 +108,7 @@ abstract class Horde_Data
     /**
      * Stub to export data to a file.
      */
-    abstract public function exportFile();
+    abstract public function exportFile($filename, $data);
 
     /**
      * Tries to determine the expected newline character based on the

@@ -67,7 +67,7 @@ class Horde_Data
             return new $class($params);
         }
 
-        throw new Horde_Data_Exception('Driver not found: ' . $driver);
+        throw new Horde_Data_Exception('Driver not found: ' . $class);
     }
 
 }
