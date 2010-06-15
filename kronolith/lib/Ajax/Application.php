@@ -110,7 +110,8 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        if ($this->_vars->cal &&
+        if ($this->_vars->event &&
+            $this->_vars->cal &&
             $this->_vars->cal != $this->_vars->targetcalendar) {
             if (strpos($kronolith_driver->calendar, ':')) {
                 list($target, $user) = explode(':', $kronolith_driver->calendar, 2);
