@@ -318,6 +318,8 @@ KronolithCore = {
                          return;
                 }
 
+                this.addHistory(fullloc);
+                this.view = loc;
                 this.updateView(date, loc);
                 var dates = this.viewDates(date, loc);
                 this.loadEvents(dates[0], dates[1], loc);
@@ -354,6 +356,9 @@ KronolithCore = {
                 if (!$w('all complete incomplete future').include(tasktype)) {
                     return;
                 }
+
+                this.addHistory(fullloc);
+                this.view = loc;
                 this.tasktype = tasktype;
                 $w('All Complete Incomplete Future').each(function(tasktype) {
                     $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
@@ -376,6 +381,8 @@ KronolithCore = {
 
             default:
                 if ($('kronolithView' + locCap)) {
+                    this.addHistory(fullloc);
+                    this.view = loc;
                     this.viewLoading = true;
                     $('kronolithView' + locCap).appear({
                         duration: this.effectDur,
@@ -387,8 +394,6 @@ KronolithCore = {
                 break;
             }
 
-            this.addHistory(fullloc);
-            this.view = loc;
             break;
 
         case 'search':
@@ -399,12 +404,14 @@ KronolithCore = {
                 return;
             }
 
+            this.addHistory(fullloc);
             this.search = time;
             $w('All Past Future').each(function(time) {
                 $('kronolithSearch' + time).up().removeClassName('activeTab');
             });
             $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
             this.closeView('agenda');
+            this.view = 'agenda';
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
                 $H(type.value).each(function(calendar) {
@@ -453,18 +460,17 @@ KronolithCore = {
                 }.bind(this) });
             $('kronolithLoadingagenda').insert($('kronolithLoading').remove());
             this.updateMinical(this.date);
-            this.addHistory(fullloc);
-            this.view = 'agenda';
             break;
 
         case 'event':
             // Load view first if necessary.
-            if (!this.view) {
+            if (!this.view ) {
                 this.go(Kronolith.conf.login_view);
                 this.go.bind(this, fullloc, data).defer();
                 return;
             }
 
+            this.addHistory(fullloc, false);
             switch (locParts.length) {
             case 0:
                 // New event.
@@ -482,19 +488,19 @@ KronolithCore = {
                 this.editEvent(calendar, event, date);
                 break;
             }
-            this.addHistory(fullloc);
             break;
 
         case 'task':
             switch (locParts.length) {
             case 0:
+                this.addHistory(fullloc, false);
                 this.editTask();
                 break;
             case 2:
+                this.addHistory(fullloc, false);
                 this.editTask(locParts[0], locParts[1]);
                 break;
             }
-            this.addHistory(fullloc);
             break;
 
         case 'calendar':
@@ -503,8 +509,8 @@ KronolithCore = {
                 this.go.bind(this, fullloc, data).defer();
                 return;
             }
+            this.addHistory(fullloc, false);
             this.editCalendar(locParts.join(':'));
-            this.addHistory(fullloc);
             break;
 
         case 'options':
@@ -512,12 +518,12 @@ KronolithCore = {
             if (data) {
                 url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
             }
+            this.addHistory(loc);
             this.inOptions = true;
             this.closeView('iframe');
             this.iframeContent(url);
             this.setTitle(Kronolith.text.prefs);
             this.updateMinical(this.date);
-            this.addHistory(loc);
             break;
 
         case 'app':
@@ -3609,11 +3615,13 @@ KronolithCore = {
         return event.value.sort;
     },
 
-    addHistory: function(loc)
+    addHistory: function(loc, save)
     {
         location.hash = encodeURIComponent(loc);
         this.lastLocation = this.currentLocation;
-        this.currentLocation = loc;
+        if (Object.isUndefined(save) || save) {
+            this.currentLocation = loc;
+        }
     },
 
     /**
