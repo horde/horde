@@ -22,7 +22,8 @@ abstract class Horde_Cache_Base
      * @var array
      */
     protected $_params = array(
-        'lifetime' => 86400
+        'lifetime' => 86400,
+        'prefix' => '',
     );
 
     /**
@@ -50,11 +51,6 @@ abstract class Horde_Cache_Base
         }
 
         $this->_params = array_merge($this->_params, $params);
-        if (empty($this->_params['prefix'])) {
-            $this->_params['prefix'] = $_SERVER['SERVER_NAME']
-                ? $_SERVER['SERVER_NAME']
-                : $_SERVER['HOSTNAME'];
-        }
     }
 
     /**
