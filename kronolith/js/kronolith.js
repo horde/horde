@@ -16,7 +16,8 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, weekSizes, daySizes,
-    //   viewLoading, groupLoading, colorPicker, duration, timeMarker
+    //   viewLoading, groupLoading, colorPicker, duration, timeMarker,
+    //   eventTagAc, calendarTagAc, attendeesAc
 
     view: '',
     ecache: $H(),
@@ -2748,7 +2749,7 @@ KronolithCore = {
         if (newCalendar) {
             switch (type) {
             case 'internal':
-                kronolithCTagAc.reset();
+                this.calendarTagAc.reset();
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
@@ -2776,7 +2777,7 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                kronolithCTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
+                this.calendarTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue(calendar);
                 if (info.edit) {
                     $('kronolithCalendar' + type + 'LinkImport').up('li').show();
@@ -2833,7 +2834,7 @@ KronolithCore = {
             form.down('.kronolithCalendarDelete').hide();
             form.down('.kronolithCalendarSave').hide();
             if (type == 'internal' || type == 'tasklists') {
-                kronolithCTagAc.disable();
+                this.calendarTagAc.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
                     form.down('.kronolithCalendarUnsubscribe').show().enable();
@@ -4173,12 +4174,12 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventTag':
-                kronolithETagAc.addNewItemNode(elt.getText());
+                this.eventTagAc.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
             case 'kronolithCalendarTag':
-                kronolithCTagAc.addNewItemNode(elt.getText());
+                this.calendarTagAc.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
@@ -4627,7 +4628,7 @@ KronolithCore = {
         if (this.redBoxLoading) {
             return;
         }
-        if (typeof kronolithETagAc == 'undefined') {
+        if (Object.isUndefined(this.eventTagAc)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
         }
@@ -4658,8 +4659,8 @@ KronolithCore = {
         this.knl.kronolithEventStartTime.markSelected();
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
-        kronolithEAttendeesAc.reset();
-        kronolithETagAc.reset();
+        this.attendeesAc.reset();
+        this.eventTagAc.reset();
         $('kronolithEventAttendeesList').select('tr').invoke('remove');
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
@@ -4723,7 +4724,7 @@ KronolithCore = {
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
-        kronolithETagAc.shutdown();
+        this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
         this.startLoading(target, start + end);
@@ -4927,7 +4928,7 @@ KronolithCore = {
             $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
         }
         if (!Object.isUndefined(ev.at)) {
-            kronolithEAttendeesAc.reset(ev.at.pluck('l'));
+            this.attendeesAc.reset(ev.at.pluck('l'));
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
@@ -4941,7 +4942,7 @@ KronolithCore = {
         }
 
         /* Tags */
-        kronolithETagAc.reset(ev.tg);
+        this.eventTagAc.reset(ev.tg);
 
         /* Geo */
         if (ev.gl) {
@@ -4951,7 +4952,7 @@ KronolithCore = {
 
         if (!ev.pe) {
             $('kronolithEventSave').hide();
-            kronolithETagAc.disable();
+            this.eventTagAc.disable();
             $('kronolithEventTabTags').select('label').invoke('hide');
         } else {
              this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));

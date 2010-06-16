@@ -109,7 +109,7 @@ Horde_Ajax_Imple::factory(
     array('triggerId' => 'kronolithEventTags',
           'box' => 'kronolithEventACBox',
           'pretty' => true,
-          'var' => 'kronolithETagAc'))
+          'var' => 'KronolithCore.eventTagAc'))
     ->attach();
 
 Horde_Ajax_Imple::factory(
@@ -118,7 +118,7 @@ Horde_Ajax_Imple::factory(
           'triggerContainer' => 'kronolithACCalendarTriggerContainer',
           'box' => 'kronolithCalendarinternalACBox',
           'pretty' => true,
-          'var' => 'kronolithCTagAc'))
+          'var' => 'KronolithCore.calendarTagAc'))
     ->attach();
 
 Horde_Ajax_Imple::factory(
@@ -127,7 +127,7 @@ Horde_Ajax_Imple::factory(
           'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
           'box' => 'kronolithAttendeesACBox',
           'pretty' => true,
-          'var' => 'kronolithEAttendeesAc'))
+          'var' => 'KronolithCore.attendeesAc'))
     ->attach();
 
 echo "</body>\n</html>";
