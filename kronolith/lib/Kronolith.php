@@ -187,12 +187,16 @@ class Kronolith
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => (string)Horde::getServiceLink('ajax', 'kronolith'),
-            'URI_IMG' => (string)Horde_Themes::img() . '/',
             'URI_SNOOZE' => (string)Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'URI_CALENDAR_EXPORT' => (string)Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => '')),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
             'SESSION_ID' => defined('SID') ? SID : '',
-
+            'images' => array(
+                'attendees' => (string)Horde_Themes::img('attendees-fff.png'),
+                'alarm'     => (string)Horde_Themes::img('alarm-fff.png'),
+                'recur'     => (string)Horde_Themes::img('recur-fff.png'),
+                'exception' => (string)Horde_Themes::img('exception-fff.png'),
+            ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'app_urls' => $app_urls,

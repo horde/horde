@@ -1045,7 +1045,7 @@ KronolithCore = {
                 if (perm.key != 'type' &&
                     ((Object.isArray(perm.value) && perm.value.size()) ||
                      (!Object.isArray(perm.value) && perm.value))) {
-                    element.insert(' ').insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'attendees-' + cal.fg.substring(1) + '.png', title: Kronolith.text.shared }));
+                    element.insert(' ').insert(new Element('img', { src: Kronolith.conf.images.attendees.replace(/fff/, cal.fg.substring(1)), title: Kronolith.text.shared }));
                     throw $break;
                 }
             });
@@ -2046,14 +2046,14 @@ KronolithCore = {
         div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
         if (event.a) {
             div.insert(' ')
-                .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'alarm-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.alarm + ' ' + event.a }));
+                .insert(new Element('img', { src: Kronolith.conf.images.alarm.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.alarm + ' ' + event.a }));
         }
         if (event.r) {
             div.insert(' ')
-                .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'recur-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.recur[event.r] }));
+                .insert(new Element('img', { src: Kronolith.conf.images.recur.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur[event.r] }));
         } else if (event.bid) {
             div.insert(' ')
-                .insert(new Element('img', { src: Kronolith.conf.URI_IMG + 'exception-' + Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1) + '.png', title: Kronolith.text.recur['Exception'] }));
+                .insert(new Element('img', { src: Kronolith.conf.images.exception.replace(/fff/, Kronolith.conf.calendars[calendar[0]][calendar[1]].fg.substr(1)), title: Kronolith.text.recur['Exception'] }));
         }
         return div;
     },
