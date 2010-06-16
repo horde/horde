@@ -213,7 +213,6 @@ class Ansel
                         $i = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($data['image']);
                         $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($data['gallery']);
                         if ($g->get('view_mode') == 'Date') {
-
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
                             $data['month'] = $imgDate->month;
@@ -252,6 +251,15 @@ class Ansel
                     if (count($extras)) {
                         $url->add($extras);
                     }
+                    
+                    /* Slight hack until we delegate at least some of the url
+                     * generation to the gallery/image/view object. */
+                    if ($data['view'] == 'Image' &&
+                        !empty($data['gallery_view']) &&
+                        $data['gallery_view'] == 'GalleryLightbox') {
+
+                        $url->anchor = $data['image'];
+                    }
 
                 } elseif ($data['view'] == 'Results')  {
                     $url = new Horde_Url('tag/' . (!empty($data['tag'])
@@ -279,30 +287,21 @@ class Ansel
                                     'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
-                // If we are using GalleryLightbox, AND we are linking to an
-                // image view, append the imageId here to be sure it's at the
-                // end of the URL. This is a complete hack, but saves us from
-                // having to delegate the URL generation to the view object for
-                // now.
-                if ($data['view'] == 'Image' &&
-                    !empty($data['gallery_view']) &&
-                    $data['gallery_view'] == 'GalleryLightbox') {
-
-                    $url = new Horde_Url($url . '#' . $data['image']);
-                }
-
                 return Horde::applicationUrl($url, $full, $append_session);
+            
             } else {
                 $url = Horde::applicationUrl('view.php', $full, $append_session);
-                $url->add($data)->setRaw(true);
+                
+                /* See note above about delegating url generation to gallery/view */
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
 
-                    $url = new Horde_Url($url . '#' . $data['image']);
+                    $data['view'] = 'Gallery';
+                    $url->anchor = $data['image'];
                 }
 
-                return $url;
+                return $url->add($data)->setRaw(true);
             }
 
         case 'group':
