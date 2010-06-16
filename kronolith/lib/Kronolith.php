@@ -386,7 +386,7 @@ class Kronolith
                        Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
             $code['text']['recur'][$recurType] = self::recurToString($recurType);
         }
-        $code['text']['recur']['Exception'] = _("Exception");
+        $code['text']['recur']['exception'] = _("Exception");
 
         // Maps
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
