@@ -321,27 +321,26 @@ KronolithCore = {
 
                 this.addHistory(fullloc);
                 this.view = loc;
+                this.viewLoading = true;
                 this.updateView(date, loc);
                 var dates = this.viewDates(date, loc);
                 this.loadEvents(dates[0], dates[1], loc);
-                if ($('kronolithView' + locCap)) {
-                    this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({
-                            duration: this.effectDur,
-                            queue: 'end',
-                            afterFinish: function() {
-                                if (loc == 'week' || loc == 'day') {
-                                    this.calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
-                                    if ($('kronolithTimeMarker')) {
-                                        this.positionTimeMarker();
-                                    }
-                                    if ($('kronolithTimeMarker')) {
-                                        $('kronolithTimeMarker').show();
-                                    }
+                $('kronolithView' + locCap).appear({
+                        duration: this.effectDur,
+                        queue: 'end',
+                        afterFinish: function() {
+                            if (loc == 'week' || loc == 'day') {
+                                this.calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
+                                if ($('kronolithTimeMarker')) {
+                                    this.positionTimeMarker();
                                 }
-                                this.viewLoading = false; }.bind(this)
-                    });
-                }
+                                if ($('kronolithTimeMarker')) {
+                                    $('kronolithTimeMarker').show();
+                                }
+                            }
+                            this.viewLoading = false;
+                        }.bind(this)
+                });
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(date, loc);
                 this.date = date;
@@ -360,38 +359,37 @@ KronolithCore = {
 
                 this.addHistory(fullloc);
                 this.view = loc;
+                this.viewLoading = true;
                 this.tasktype = tasktype;
                 $w('All Complete Incomplete Future').each(function(tasktype) {
                     $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
                 });
                 $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('activeTab');
                 this.loadTasks(this.tasktype);
-                if ($('kronolithView' + locCap)) {
-                    this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({
-                        duration: this.effectDur,
-                        queue: 'end',
-                        afterFinish: function() {
-                            this.viewLoading = false;
-                        }.bind(this) });
-                }
+                $('kronolithView' + locCap).appear({
+                    duration: this.effectDur,
+                    queue: 'end',
+                    afterFinish: function() {
+                        this.viewLoading = false;
+                    }.bind(this) });
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(this.date);
 
                 break;
 
             default:
-                if ($('kronolithView' + locCap)) {
-                    this.addHistory(fullloc);
-                    this.view = loc;
-                    this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({
-                        duration: this.effectDur,
-                        queue: 'end',
-                        afterFinish: function() {
-                            this.viewLoading = false;
-                        }.bind(this) });
+                if (!$('kronolithView' + locCap)) {
+                    break;
                 }
+                this.addHistory(fullloc);
+                this.view = loc;
+                this.viewLoading = true;
+                $('kronolithView' + locCap).appear({
+                    duration: this.effectDur,
+                    queue: 'end',
+                    afterFinish: function() {
+                        this.viewLoading = false;
+                    }.bind(this) });
                 break;
             }
 
@@ -413,6 +411,7 @@ KronolithCore = {
             $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
             this.closeView('agenda');
             this.view = 'agenda';
+            this.viewLoading = true;
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
                 $H(type.value).each(function(calendar) {
@@ -452,7 +451,6 @@ KronolithCore = {
                                   }, this);
                               }, this);
                           }.bind(this));
-            this.viewLoading = true;
             $('kronolithViewAgenda').appear({
                 duration: this.effectDur,
                 queue: 'end',
