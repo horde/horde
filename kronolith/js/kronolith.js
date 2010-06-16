@@ -1335,10 +1335,13 @@ KronolithCore = {
             this.startLoading(calendar, start + end);
             this.storeCache($H(), calendar);
             this.doAction('listEvents',
-                          { start: start,
-                            end: end,
-                            cal: calendar,
-                            view: view },
+                          {
+                              start: start,
+                              end: end,
+                              cal: calendar,
+                              sig: start + end,
+                              view: view
+                          },
                           this.loadEventsCallback.bind(this));
         }, this);
 
@@ -2603,13 +2606,13 @@ KronolithCore = {
             end = viewDates[1].dateString();
 
         $('kronolithTaskSave').disable();
-        this.startLoading('tasklists|tasks/' + target, start + end);
+        this.startLoading('tasklists|tasks/' + target, start + end + this.tasktype);
         this.loading++;
         $('kronolithLoading').show();
         this.doAction('saveTask',
                       $H($('kronolithTaskForm').serialize({ hash: true }))
                           .merge({
-                              sig: this.tasktype,
+                              sig: start + end + this.tasktype,
                               view: this.view,
                               view_start: start,
                               view_end: end
@@ -4447,17 +4450,21 @@ KronolithCore = {
             cal = el.retrieve('calendar'),
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].toString('yyyyMMdd'),
-            end = viewDates[1].toString('yyyyMMdd');
+            end = viewDates[1].toString('yyyyMMdd'),
+            sig = start + end + (Math.random() + '').slice(2);
 
         drop.insert(el);
-        this.startLoading(cal, start + end);
+        this.startLoading(cal, sig);
         this.doAction('updateEvent',
-                      { cal: cal,
-                        id: eventid,
-                        view: this.view,
-                        view_start: start,
-                        view_end: end,
-                        att: $H({ offDays: diff }).toJSON() },
+                      {
+                          cal: cal,
+                          id: eventid,
+                          view: this.view,
+                          sig: sig,
+                          view_start: start,
+                          view_end: end,
+                          att: $H({ offDays: diff }).toJSON()
+                      },
                       function(r) {
                           // Check if this is the still the result of the most
                           // current request.
@@ -4582,6 +4589,7 @@ KronolithCore = {
             dates = this.viewDates(date, this.view),
             start = dates[0].dateString(),
             end = dates[1].dateString(),
+            sig = start + end + (Math.random() + '').slice(2),
             attributes;
 
         div.removeClassName('kronolithSelected');
@@ -4589,7 +4597,7 @@ KronolithCore = {
             this.setEventText(drag.innerDiv, event.value);
         }
         drag.destroy();
-        this.startLoading(event.value.calendar, start + end);
+        this.startLoading(event.value.calendar, sig);
         if (!Object.isUndefined(event.value.offsetTop)) {
             attributes = $H({ offDays: event.value.offsetDays,
                               offMins: event.value.offsetTop / step * 10 });
@@ -4603,12 +4611,14 @@ KronolithCore = {
         }
         this.doAction(
             'updateEvent',
-            { cal: event.value.calendar,
-              id: event.key,
-              view: this.view,
-              view_start: start,
-              view_end: end,
-              att: attributes.toJSON()
+            {
+                cal: event.value.calendar,
+                id: event.key,
+                view: this.view,
+                sig: sig,
+                view_start: start,
+                view_end: end,
+                att: attributes.toJSON()
             },
             function(r) {
                 // Check if this is the still the result of the most current
@@ -4732,6 +4742,7 @@ KronolithCore = {
                               view: this.view,
                               view_start: start,
                               view_end: end,
+                              sig: start + end,
                               as_new: asnew ? 1 : 0
                           }),
                       function(r) {
@@ -4761,11 +4772,13 @@ KronolithCore = {
         $('kronolithQuickinsert').fade({ duration: this.effectDur });
         this.startLoading(cal, start + end);
         this.doAction('quickSaveEvent',
-                      $H({ text: text,
-                           cal: cal,
-                           view: this.view,
-                           view_start: start,
-                           view_end: end
+                      $H({
+                          text: text,
+                          cal: cal,
+                          view: this.view,
+                          sig: start + end,
+                          view_start: start,
+                          view_end: end
                       }),
                       function(r) {
                           this.loadEventsCallback(r);

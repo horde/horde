@@ -40,10 +40,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     {
         $start = new Horde_Date($this->_vars->start);
         $end   = new Horde_Date($this->_vars->end);
-        $result = new stdClass;
-        $result->cal = $this->_vars->cal;
-        $result->view = $this->_vars->view;
-        $result->sig = $start->dateString() . $end->dateString();
+        $result = $this->_signedResponse($this->_vars->cal);
         if (!($kronolith_driver = $this->_getDriver($this->_vars->cal))) {
             return $result;
         }
@@ -917,18 +914,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
     /**
      * Creates a result object with the signature of the current request.
      *
-     * @param string $signature  A signature.
+     * @param string $calendar  A calendar id.
      *
      * @return object  The result object.
      */
-    protected function _signedResponse($signature)
+    protected function _signedResponse($calendar)
     {
         $result = new stdClass;
-        $result->cal = $signature;
+        $result->cal = $calendar;
         $result->view = $this->_vars->view;
-        $start = new Horde_Date($this->_vars->view_start);
-        $end   = new Horde_Date($this->_vars->view_end);
-        $result->sig = $start->dateString() . $end->dateString();
+        $result->sig = $this->_vars->sig;
         return $result;
     }
 
