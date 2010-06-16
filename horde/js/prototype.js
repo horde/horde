@@ -1787,6 +1787,15 @@ if (!Node.ELEMENT_NODE) {
 Element.cache = { };
 Element.idCounter = 1;
 
+function purgeElement(element) {
+  var uid = element._prototypeUID;
+  if (uid) {
+    Element.stopObserving(element);
+    element._prototypeUID = void 0;
+    delete Element.Storage[uid];
+  }
+}
+
 Element.Methods = {
   visible: function(element) {
     return $(element).style.display != 'none';
@@ -1860,6 +1869,10 @@ Element.Methods = {
 
     function update(element, content) {
       element = $(element);
+
+      var descendants = element.getElementsByTagName('*'),
+       i = descendants.length;
+      while (i--) purgeElement(descendants[i]);
 
       if (content && content.toElement)
         content = content.toElement();
@@ -3150,6 +3163,18 @@ Element.addMethods({
       }
     }
     return Element.extend(clone);
+  },
+  
+  purge: function(element) {
+    if (!(element = $(element))) return;
+    purgeElement(element);
+
+    var descendants = element.getElementsByTagName('*'),
+     i = descendants.length;
+
+    while (i--) purgeElement(descendants[i]);
+
+    return null;
   }
 });
 /* Portions of the Selector class are derived from Jack Slocum's DomQuery,
