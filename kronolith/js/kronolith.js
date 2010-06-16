@@ -634,6 +634,7 @@ KronolithCore = {
             // necessary.
             tbody.childElements().each(function(row) {
                 if (row.identify() != 'kronolithRowTemplate') {
+                    row.purge();
                     row.remove();
                 }
             });
@@ -681,6 +682,7 @@ KronolithCore = {
             tbody = $('kronolithViewAgendaBody').childElements().each(function(row) {
                 if (row.identify() != 'kronolithAgendaTemplate' &&
                     row.identify() != 'kronolithAgendaNoItems') {
+                    row.purge();
                     row.remove();
                 }
             });
@@ -1180,6 +1182,7 @@ KronolithCore = {
                             events = day.select('.kronolithEvent');
                             if (more.size() &&
                                 events.size() < Kronolith.conf.max_events) {
+                                more[0].purge();
                                 more[0].remove();
                                 events.invoke('remove');
                                 calendars.each(function(calendar) {
@@ -1466,6 +1469,7 @@ KronolithCore = {
                     if (Kronolith.conf.max_events) {
                         more = $('kronolithMonthDay' + date).down('.kronolithMore');
                         if (more) {
+                            more.purge();
                             more.remove();
                         }
                     }
@@ -1495,6 +1499,7 @@ KronolithCore = {
                                     }
                                 }, this);
                                 if (remove) {
+                                    remove.purge();
                                     remove.remove();
                                 } else {
                                     this.insertMore(date);
@@ -1526,6 +1531,7 @@ KronolithCore = {
                                                 this.insertMore(date);
                                                 return;
                                             }
+                                            free.purge();
                                             free.remove();
                                         } else {
                                             // No.
@@ -1535,13 +1541,17 @@ KronolithCore = {
                                     } else {
                                         // Remove the last event to make room
                                         // for this one.
-                                        events.pop().remove();
+                                        var elm = events.pop();
+                                        elm.purge();
+                                        elm.remove();
                                     }
                                 } else {
                                     if (allDays.size() > 1) {
                                         // We don't want more than one all-day
                                         // event.
-                                        allDays.pop().remove();
+                                        var elm = allDays.pop();
+                                        elm.purge();
+                                        elm.remove();
                                     } else {
                                         // This day is full.
                                         this.insertMore(date);
@@ -1659,6 +1669,7 @@ KronolithCore = {
                     var existing = $('kronolithAllDay' + date).childElements();
                     if (existing.size() == 3) {
                         if (existing[2].className != 'kronolithMore') {
+                            existing[2].purge();
                             existing[2].remove();
                             $('kronolithAllDay' + date).insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
                         }
@@ -2364,6 +2375,7 @@ KronolithCore = {
             row.fade({
                 duration: this.effectDur,
                 afterFinish: function() {
+                    row.purge();
                     row.remove();
                 }
             });
@@ -4364,8 +4376,11 @@ KronolithCore = {
                                           noItems = container.previous(),
                                           div = container.select('div').find(function(element) {
                                               return element.retrieve('calendar') == calendar;
-                                          });
-                                      div.previous('span').remove();
+                                          }),
+                                          arrow = div.previous('span');
+                                      arrow.purge();
+                                      arrow.remove();
+                                      div.purge();
                                       div.remove();
                                       if (noItems &&
                                           noItems.tagName == 'DIV' &&
@@ -5064,7 +5079,9 @@ KronolithCore = {
      */
     removeAttendee: function(attendee)
     {
-        this.freeBusy.get(attendee)[0].remove();
+        var row = this.freeBusy.get(attendee)[0];
+        row.purge();
+        row.remove();
     },
 
     /**
@@ -5096,6 +5113,7 @@ KronolithCore = {
             i++;
         });
         if (div) {
+            div.purge();
             div.remove();
         }
         var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
