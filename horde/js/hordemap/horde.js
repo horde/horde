@@ -70,8 +70,8 @@ HordeMap.Map.Horde = Class.create({
         // Create the vector layer for markers if requested.
         if (HordeMap.conf.useMarkerLayer) {
             styleMap = new OpenLayers.StyleMap({
-                externalGraphic: HordeMap.conf['URI_IMG_HORDE'] + 'map/marker.png',
-                backgroundGraphic: HordeMap.conf['URI_IMG_HORDE'] + 'map/marker-shadow.png',
+                externalGraphic: HordeMap.conf.markerImage,
+                backgroundGraphic: HordeMap.conf.markerBackground,
                 backgroundXOffset: 0,
                 backgroundYOffset: -7,
                 graphicZIndex: 11,

@@ -34,7 +34,8 @@ HordeMap = {
      *          'useMarkerLayer': whether or not to use the 'built-in' marker
      *                            layer (only applies to the Horde driver).
      *
-     *          'URI_IMG_HORDE':  Path to horde's image directory
+     *          'markerImage':  Path to a marker icon.
+     *          'markerBackground':  Path to a marker icon background.
      */
     initialize: function(opts)
     {

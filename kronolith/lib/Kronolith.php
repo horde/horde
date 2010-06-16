@@ -120,7 +120,8 @@ class Kronolith
                 $language = 'en-US';
             }
             $params['conf'] = array(
-                'URI_IMG_HORDE' => (string)Horde_Themes::img(null, 'horde') . '/',
+                'markerImage' => (string)Horde_Themes::img('map/marker.png', 'horde'),
+                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png', 'horde'),
                 'useMarkerLayer' => true,
                 'language' => $language);
 
