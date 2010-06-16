@@ -1748,6 +1748,7 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
+                div.store('drags', []);
                 // Number of pixels that cover 10 minutes.
                 var step = this[storage].height / 6,
                     stepX, minLeft, maxLeft, maxTop,
@@ -1806,6 +1807,7 @@ KronolithCore = {
                         innerDiv: innerDiv,
                         midnight: midnight
                     });
+                    div.retrieve('drags').push(d);
                 }
 
                 if (draggerBottom) {
@@ -1820,6 +1822,7 @@ KronolithCore = {
                         innerDiv: innerDiv,
                         midnight: midnight
                     });
+                    div.retrieve('drags').push(d);
                 }
 
                 if (view == 'week') {
@@ -1848,6 +1851,7 @@ KronolithCore = {
                     midnight: midnight,
                     stepX: stepX
                 });
+                div.retrieve('drags').push(d);
             }
 
             var
@@ -4605,25 +4609,31 @@ KronolithCore = {
             start = dates[0].dateString(),
             end = dates[1].dateString(),
             sig = start + end + (Math.random() + '').slice(2),
-            attributes;
+            element, attributes;
 
         div.removeClassName('kronolithSelected');
         if (!Object.isUndefined(drag.innerDiv)) {
             this.setEventText(drag.innerDiv, event.value);
         }
-        drag.destroy();
         this.startLoading(event.value.calendar, sig);
         if (!Object.isUndefined(event.value.offsetTop)) {
             attributes = $H({ offDays: event.value.offsetDays,
                               offMins: event.value.offsetTop / step * 10 });
+            element = div;
         } else if (div.hasClassName('kronolithDraggerTop')) {
             attributes = $H({ start: event.value.start });
+            element = div.up();
         } else if (div.hasClassName('kronolithDraggerBottom')) {
             attributes = $H({ end: event.value.end });
+            element = div.up();
         } else {
             attributes = $H({ start: event.value.start,
                               end: event.value.end });
+            element = div;
         }
+
+        element.retrieve('drags').invoke('destroy');
+
         this.doAction(
             'updateEvent',
             {
