@@ -170,15 +170,9 @@ var DragDrop = {
 
         _mouseHandler: function(e)
         {
-            var elt = e.element();
-
-            if (this.drags.size()) {
-                if (!elt.hasClassName('DragElt')) {
-                    elt = elt.up('.DragElt');
-                }
-                if (elt) {
-                    this.getDrag(elt).mouseDown(e);
-                }
+            var elt = e.findElement('.DragElt');
+            if (this.drags.size() && elt) {
+                this.getDrag(elt).mouseDown(e);
             }
         }
 
