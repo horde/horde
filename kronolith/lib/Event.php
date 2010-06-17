@@ -117,7 +117,7 @@ abstract class Kronolith_Event
     /**
      * Geolocation
      *
-     * @var arary
+     * @var array
      */
     protected $_geoLocation;
 
@@ -2271,7 +2271,8 @@ abstract class Kronolith_Event
 
         // Geolocation
         $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
-                                    'lon' => Horde_Util::getFormData('lon')));
+                                    'lon' => Horde_Util::getFormData('lon'),
+                                    'zoom' => Horde_Util::getFormData('zoom')));
         $this->initialized = true;
     }
 
