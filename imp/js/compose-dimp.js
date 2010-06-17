@@ -123,6 +123,11 @@ var DimpCompose = {
             l = k.opts.data.find(function(f) {
                 return f.v == s;
             });
+
+            if (!l) {
+                return;
+            }
+
             l = (id == 'sm')
                 ? (l.f || l.v)
                 : l.l;
