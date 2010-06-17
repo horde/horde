@@ -451,11 +451,11 @@ if ($form->validate()) {
             $news->write_db->query('UPDATE ' . $news->prefix . ' SET gallery = ? WHERE id = ?', array($info['gallery'], $id));
             foreach ($images_uploaded as $i) {
                 try {
-                    $registry->images->saveImage(null, $info['gallery'],
-                                                    array('filename' => $info['picture_' . $i]['file'],
-                                                          'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
-                                                          'type' => $info['picture_' . $i]['type'],
-                                                          'data' => file_get_contents($info['picture_' . $i]['file'])));
+                    $registry->images->saveImage($info['gallery'],
+                                                 array('filename' => $info['picture_' . $i]['file'],
+                                                       'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
+                                                       'type' => $info['picture_' . $i]['type'],
+                                                       'data' => file_get_contents($info['picture_' . $i]['file'])));
                 } catch (Horde_Exception $e) {
                     $notification->push(_("There was an error with the uploaded image: ") . $e->getMessage(), 'horde.warning');
                 }
