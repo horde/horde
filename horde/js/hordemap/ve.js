@@ -93,7 +93,7 @@ HordeMap.Geocoder.Ve = Class.create(
             var results = [];
             if (p) {
                 p.each(function(entry) {
-                    results.push({ lon: entry.LatLong.Longitude, lat: entry.LatLong.Latitude, precision: entry.Precision });
+                    results.push({ lon: entry.LatLong.Longitude, lat: entry.LatLong.Latitude, precision: 1 });
                 });
                 this._completeCallback(results);
             }

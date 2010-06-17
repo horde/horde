@@ -79,7 +79,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
     _callback: function(p)
     {
         if (p.success) {
-            var results = [ { lon: p.GeoPoint.Lon, lat: p.GeoPoint.Lat, address: p.Address}];
+            var results = [ { lon: p.GeoPoint.Lon, lat: p.GeoPoint.Lat, address: p.Address, precision: 1}];
         }
 
         this._completeCallback(results);

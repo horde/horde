@@ -108,6 +108,11 @@ HordeMap.Map.Horde = Class.create({
         this.map.zoomToMaxExtent();
     },
 
+    getZoom: function()
+    {
+        return this.map.getZoom();
+    },
+
     display: function(n)
     {
         if (Object.isUndefined(this.map)) {
