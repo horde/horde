@@ -904,17 +904,18 @@ class Ansel_Storage
     */
     public function listGalleries($params = array())
     {
+        $params = new Horde_Support_Array($params);
         try {
             $shares = $this->_shares->listShares(
                 $GLOBALS['registry']->getAuth(),
-                (empty($params['perm']) ? Horde_Perms::SHOW : $params['perm']),
-                (empty($params['filter']) ? null : $params['filter']),
-                (empty($params['from']) ? 0 : $params['from']),
-                (empty($params['count']) ? 0 : $params['count']),
-                (empty($params['sort_by']) ? null : $params['sort_by']),
-                (empty($params['direction']) ? Ansel::SORT_ASCENDING : $params['direction']),
-                (empty($params['parent']) ? null : $params['parent']),
-                (!array_key_exists('allLevels', $params) ? true : $params['allLevels']));
+                $params->get('perm', Horde_Perms::SHOW),
+                $params->get('filter', null),
+                $params->get('from', 0),
+                $params->get('count', 0),
+                $params->get('sort_by', null),
+                $params->get('direction', Ansel::SORT_ASCENDING),
+                $params->get('parent', null),
+                $params->get('allLevels', true));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
