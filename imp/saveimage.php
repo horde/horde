@@ -30,7 +30,7 @@ case 'save_image':
         'type' => $mime_part->getType()
     );
     try {
-        $registry->images->saveImage(null, $vars->gallery, $image_data);
+        $registry->images->saveImage($vars->gallery, $image_data);
     } catch (Horde_Exception $e) {
         $notification->push($e);
         break;
@@ -50,6 +50,7 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
 $t->set('id', htmlspecialchars($vars->id));
 $t->set('uid', htmlspecialchars($vars->uid));
+$t->set('mbox', htmlspecialchars($vars->mbox));
 $t->set('image_img', Horde::img('mime/image.png', _("Image")));
 
 /* Build the list of galleries. */
