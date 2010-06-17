@@ -43,7 +43,8 @@ HordeMap.Geocoder.Yahoo = Class.create(
                     this._map = mo;
                 }
             }
-        } else {
+        }
+        if (!this._map) {
             this._map = new YMap(new Element('div'));
         }
     },
