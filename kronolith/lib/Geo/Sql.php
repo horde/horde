@@ -96,8 +96,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
         }
 
         /* Do we actually have data? If not, see if we are deleting an
-         * existing entry.
-         */
+         * existing entry. */
         if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
             $this->deleteLocation($event_id);
@@ -106,12 +105,16 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
             return;
         }
 
+        if (empty($point['zoom'])) {
+            $point['zoom'] = 0;
+        }
+
         /* INSERT or UPDATE */
-        $params = array($point['lat'], $point['lon'], $event_id);
+        $params = array($point['lat'], $point['lon'], $point['zoom'], $event_id);
         if ($count) {
-            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ? WHERE event_id = ?';
+            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ?, event_zoom = ? WHERE event_id = ?';
         } else {
-            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_id) VALUES(?, ?, ?)';
+            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_zoom, event_id) VALUES(?, ?, ?, ?)';
         }
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
                     $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
@@ -132,7 +135,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
      */
     public function getLocation($event_id)
     {
-        $sql = 'SELECT event_lat as lat, event_lon as lon FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT event_lat as lat, event_lon as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Sql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
                     $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);

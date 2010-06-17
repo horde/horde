@@ -4760,6 +4760,9 @@ KronolithCore = {
         this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
+        if (this.mapInitialized) {
+            $('kronolithEventMapZoom').value = this.map.getZoom();
+        }
         this.startLoading(target, start + end);
         this.doAction('saveEvent',
                       $H($('kronolithEventForm').serialize({ hash: true }))
@@ -4984,6 +4987,7 @@ KronolithCore = {
         if (ev.gl) {
             $('kronolithEventLocationLat').value = ev.gl.lat;
             $('kronolithEventLocationLon').value = ev.gl.lon;
+            $('kronolithEventMapZoom').value = ev.gl.zoom;
         }
 
         if (!ev.pe) {
@@ -5465,9 +5469,9 @@ KronolithCore = {
 
          if ($('kronolithEventLocationLat').value) {
              var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
-
-             // @TODO: a default/configurable default zoom level?
-             this.placeMapMarker(ll, true, 8);
+             // Note that we need to cast the value of zoom to an integer here,
+             // otherwise the map display breaks.
+             this.placeMapMarker(ll, true, $('kronolithEventMapZoom').value - 0);
          }
          //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
          // geocode it.
@@ -5480,6 +5484,7 @@ KronolithCore = {
         this.mapInitialized = false;
         $('kronolithEventLocationLat').value = null;
         $('kronolithEventLocationLon').value = null;
+        $('kronolithEventMapZoom').value = null;
         if (this.mapMarker) {
             this.map.removeMarker(this.mapMarker);
             this.mapMarker = null;
@@ -5527,13 +5532,16 @@ KronolithCore = {
 
     /**
      * Callback for geocoding calls.
-     * @TODO: Figure out the proper zoom level based on the detail of the
-     * provided address.
      */
     onGeocode: function(r)
     {
         r = r.shift();
-        this.placeMapMarker({ lat: r.lat, lon: r.lon }, true);
+        if (r.precision) {
+            zoom = r.precision * 2;
+        } else {
+            zoom = null;
+        }
+        this.placeMapMarker({ lat: r.lat, lon: r.lon }, true, zoom);
     },
 
     geocode: function(a) {
@@ -5545,8 +5553,10 @@ KronolithCore = {
     },
 
     /**
-     * Place the event marker on the map, ensuring it exists.
-     * See note in onGeocode about zoomlevel
+     * Place the event marker on the map, at point ll, ensuring it exists.
+     * Optionally center the map on the marker and zoom. Zoom only honored if
+     * center is set, and if center is set, but zoom is null, we zoomToFit().
+     *
      */
     placeMapMarker: function(ll, center, zoom)
     {
@@ -5565,6 +5575,9 @@ KronolithCore = {
         $('kronolithEventLocationLat').value = ll.lat;
         if (center) {
             this.map.setCenter(ll, zoom);
+            if (!zoom) {
+                this.map.zoomToFit();
+            }
         }
     },
 
@@ -5583,6 +5596,9 @@ KronolithCore = {
         this.mapMarker = false;
     },
 
+    /**
+     * Ensures the map tab is visible and sets UI elements accordingly.
+     */
     ensureMap: function()
     {
         if (!this.mapInitialized) {

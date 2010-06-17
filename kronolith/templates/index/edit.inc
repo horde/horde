@@ -4,6 +4,7 @@
 <input id="kronolithEventCalendar" type="hidden" name="cal" />
 <input id="kronolithEventLocationLon" type="hidden" name="lon" />
 <input id="kronolithEventLocationLat" type="hidden" name="lat" />
+<input id="kronolithEventMapZoom" type="hidden" name="zoom" />
 
 <div>
   <label for="kronolithEventTitle">

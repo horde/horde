@@ -44,15 +44,19 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
             return;
         }
 
+        if (empty($point['zoom'])) {
+            $point['zoom'] = 0;
+        }
+
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = sprintf('UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\') WHERE event_id = ?', $point['lat'], $point['lon']);
+            $sql = sprintf('UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?', $point['lat'], $point['lon']);
         } else {
-            $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES(?, GeomFromText(\'POINT(%F %F)\'))', $point['lat'], $point['lon']);
+            $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates, event_zoom) VALUES(?, GeomFromText(\'POINT(%F %F)\'), ?)', $point['lat'], $point['lon']);
         }
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
             $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
-        $result = $this->_write_db->query($sql, array($event_id));
+        $result = $this->_write_db->query($sql, array($event_id, $point['zoom']));
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
@@ -69,7 +73,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      */
     public function getLocation($event_id)
     {
-        $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
             $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
