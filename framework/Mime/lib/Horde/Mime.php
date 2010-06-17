@@ -589,7 +589,7 @@ class Horde_Mime
      *
      * @return string  A random string.
      */
-    static public function generateRandomId($length = 24)
+    static public function generateRandomId($length = 16)
     {
         return substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . strtr(uniqid(mt_rand(), true), array('.' => '')), 16, 36), 0, $length);
     }
