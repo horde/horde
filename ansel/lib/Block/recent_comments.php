@@ -1,6 +1,6 @@
 <?php
 
-if ($GLOBALS['registry']->call('images/hasComments') &&
+if ($GLOBALS['registry']->images->hasComments() &&
     $GLOBALS['registry']->hasMethod('forums/getThreadsBatch')) {
     $block_name = _("Recent Photo Comments");
 }

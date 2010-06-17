@@ -174,14 +174,14 @@ foreach ($conf['attributes']['languages'] as $key) {
 // Link to a gallery
 if ($conf['attributes']['ansel-images']
     && $registry->hasMethod('images/listGalleries')
-    && $registry->call('images/countGalleries', array()) > 0) {
+    && $registry->images->countGalleries() > 0) {
 
     $form->addVariable(_("Enter gallery ID or upload images below"), 'description', 'description', false);
 
-    if ($registry->call('images/countGalleries', array()) > 50) {
+    if ($registry->images->countGalleries() > 50) {
         $form->addVariable(_("Gallery"), 'gallery', 'int', false, false);
     } else {
-        $ansel_galleries = $registry->call('images/listGalleries', array());
+        $ansel_galleries = $registry->images->listGalleries();
         $galleries = array();
         foreach ($ansel_galleries as $gallery_id => $gallery) {
             $galleries[$gallery_id] = $gallery['attribute_name'];
@@ -438,10 +438,9 @@ if ($form->validate()) {
         if (empty($info['gallery'])) {
             $abbr = Horde_String::substr(strip_tags($info['body'][$default_lang]['content']), 0, $conf['preview']['list_content']);
             try {
-                $result = $registry->call('images/createGallery',
-                                            array(null,
-                                                    array('name' => $info['body'][$default_lang]['title'],
-                                                            'desc' => $abbr)));
+                $result = $registry->images->createGallery(null,
+                                                           array('name' => $info['body'][$default_lang]['title'],
+                                                                 'desc' => $abbr));
                 $info['gallery'] = $result;
             } catch (Horde_Exception $e) {
                 $notification->push(_("There was an error creating gallery: ") . $e->getMessage(), 'horde.warning');
@@ -452,12 +451,11 @@ if ($form->validate()) {
             $news->write_db->query('UPDATE ' . $news->prefix . ' SET gallery = ? WHERE id = ?', array($info['gallery'], $id));
             foreach ($images_uploaded as $i) {
                 try {
-                    $registry->call('images/saveImage',
-                                            array(null, $info['gallery'],
+                    $registry->images->saveImage(null, $info['gallery'],
                                                     array('filename' => $info['picture_' . $i]['file'],
-                                                            'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
-                                                            'type' => $info['picture_' . $i]['type'],
-                                                            'data' => file_get_contents($info['picture_' . $i]['file']))));
+                                                          'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
+                                                          'type' => $info['picture_' . $i]['type'],
+                                                          'data' => file_get_contents($info['picture_' . $i]['file'])));
                 } catch (Horde_Exception $e) {
                     $notification->push(_("There was an error with the uploaded image: ") . $e->getMessage(), 'horde.warning');
                 }

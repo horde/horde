@@ -30,7 +30,7 @@ case 'save_image':
         'type' => $mime_part->getType()
     );
     try {
-        $registry->call('images/saveImage', array(null, $vars->gallery, $image_data));
+        $registry->images->saveImage(null, $vars->gallery, $image_data);
     } catch (Horde_Exception $e) {
         $notification->push($e);
         break;
@@ -53,7 +53,7 @@ $t->set('uid', htmlspecialchars($vars->uid));
 $t->set('image_img', Horde::img('mime/image.png', _("Image")));
 
 /* Build the list of galleries. */
-$t->set('gallerylist', $registry->call('images/selectGalleries', array(null, Horde_Perms::EDIT)));
+$t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT)));
 
 $title = _("Save Image");
 require IMP_TEMPLATES . '/common-header.inc';
