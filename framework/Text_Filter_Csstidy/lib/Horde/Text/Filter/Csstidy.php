@@ -47,6 +47,7 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter_Base
         require_once dirname(__FILE__) . '/Csstidy/class.csstidy.php';
 
         $css_tidy = new csstidy();
+        $css_tidy->set_cfg('preserve_css', true);
         $css_tidy->load_template($this->_params['level']);
         $css_tidy->parse($text);
 
