@@ -253,13 +253,13 @@ class Kronolith_Event_Horde extends Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getViewUrl($params = array(), $full = false)
+    public function getViewUrl($params = array(), $full = false, $encoded = true)
     {
         if (empty($this->_link)) {
             return null;
         }
         $url = clone $this->_link;
-        return $url->setRaw($full);
+        return $url->setRaw(!$encoded);
     }
 
     /**

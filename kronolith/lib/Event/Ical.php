@@ -76,12 +76,12 @@ class Kronolith_Event_Ical extends Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getViewUrl($params = array(), $full = false)
+    public function getViewUrl($params = array(), $full = false, $encoded = true)
     {
         if ($this->url) {
-            return new Horde_Url($this->url, $full);
+            return new Horde_Url($this->url, !$encoded);
         }
-        return parent::getViewUrl($params, $full);
+        return parent::getViewUrl($params, $full, $encoded);
     }
 
 }

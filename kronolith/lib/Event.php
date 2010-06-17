@@ -2494,13 +2494,13 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getViewUrl($params = array(), $full = false)
+    public function getViewUrl($params = array(), $full = false, $encoded = true)
     {
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::applicationUrl('event.php', $full)->add($params);
+        return Horde::applicationUrl('event.php', $full)->setRaw(!$encoded)->add($params);
     }
 
     /**
@@ -2549,7 +2549,7 @@ abstract class Kronolith_Event
     }
 
     public function getLink($datetime = null, $icons = true, $from_url = null,
-                            $full = false)
+                            $full = false, $encoded = true)
     {
         global $prefs, $registry;
 
@@ -2561,7 +2561,7 @@ abstract class Kronolith_Event
         }
 
         $event_title = $this->getTitle();
-        $view_url = $this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full);
+        $view_url = $this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full, $encoded);
         $read_permission = $this->hasPermission(Horde_Perms::READ);
 
         $link = '<span' . $this->getCSSColors() . '>';
