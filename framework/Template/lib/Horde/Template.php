@@ -240,11 +240,11 @@ class Horde_Template
         if ($force || is_null($this->_template)) {
             $this->_template = str_replace("\n", " \n", file_get_contents($file));
             $this->_parse();
-            if ($this->_cache &&
-                isset($cacheid) &&
-                !$this->_cache->set($cacheid, $this->_template) &&
-                $this->_logger) {
-                $this->_logger->log(sprintf('Could not save the compiled template file "%s".', $file), 'ERR');
+            if ($this->_cache && isset($cacheid)) {
+                $this->_cache->set($cacheid, $this->_template);
+                if ($this->_logger) {
+                    $this->_logger->log(sprintf('Saved compiled template file for "%s".', $file), 'DEBUG');
+                }
             }
         }
 

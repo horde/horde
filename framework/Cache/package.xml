@@ -33,7 +33,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added Horde_Cache_Exception::.
+ <notes>* Horde_Cache_Base::set() no longer returns a boolean result.
+ * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
  * Initial Horde 4 package.</notes>
  <contents>

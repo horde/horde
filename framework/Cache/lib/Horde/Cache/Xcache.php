@@ -39,15 +39,13 @@ class Horde_Cache_Xcache extends Horde_Cache_Base
      * @param string $key        Cache key (identifier).
      * @param mixed $data        Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
         xcache_set($key . '_expire', time(), $lifetime);
-        return xcache_set($key, $data, $lifetime);
+        xcache_set($key, $data, $lifetime);
     }
 
     /**

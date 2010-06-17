@@ -218,8 +218,8 @@ class Horde_Kolab_Storage
     protected function shutdown()
     {
         $data = @serialize($this);
-        return $this->_cache->set($signature, $data,
-                                  $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
+        $this->_cache->set($signature, $data,
+                           $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
     }
 
     /**

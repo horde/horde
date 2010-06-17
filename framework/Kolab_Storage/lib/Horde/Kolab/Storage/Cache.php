@@ -195,7 +195,8 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeAttachment($key, $data)
     {
-        return $this->horde_cache->set($key, $data);
+        $this->horde_cache->set($key, $data);
+        return true;
     }
 
     /**

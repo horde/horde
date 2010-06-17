@@ -36,15 +36,13 @@ class Horde_Cache_Apc extends Horde_Cache_Base
      * @param string $key        Cache key (identifier).
      * @param mixed $data        Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
         apc_store($key . '_expire', time(), $lifetime);
-        return apc_store($key, $data, $lifetime);
+        apc_store($key, $data, $lifetime);
     }
 
     /**

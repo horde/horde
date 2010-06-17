@@ -136,8 +136,6 @@ class Horde_Cache_File extends Horde_Cache_Base
      * @param string $key        Cache key.
      * @param mixed $data        Data to store in the cache. (MUST BE A STRING)
      * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
@@ -148,7 +146,7 @@ class Horde_Cache_File extends Horde_Cache_Base
         }
 
         if (file_put_contents($tmp_file, $data) === false) {
-            return false;
+            return;
         }
 
         @rename($tmp_file, $filename);
@@ -162,8 +160,6 @@ class Horde_Cache_File extends Horde_Cache_Base
             fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
             fclose($fp);
         }
-
-        return true;
     }
 
     /**

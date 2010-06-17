@@ -34,12 +34,9 @@ class Horde_Cache_Null extends Horde_Cache_Base
      * @param string $key        Cache key (identifier).
      * @param mixed $data        Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
-        return false;
     }
 
     /**

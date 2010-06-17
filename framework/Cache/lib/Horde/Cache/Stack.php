@@ -82,8 +82,6 @@ class Horde_Cache_Stack extends Horde_Cache_Base
      *                           data becomes available for garbage
      *                           collection.  If null use the default Horde GC
      *                           time.  If 0 will not be GC'd.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
@@ -95,7 +93,7 @@ class Horde_Cache_Stack extends Horde_Cache_Base
             $result = $val->set($key, $data, $lifetime);
             if ($result === false) {
                 if ($master) {
-                    return false;
+                    return;
                 }
 
                 /* Attempt to invalidate cache if write failed. */
@@ -103,8 +101,6 @@ class Horde_Cache_Stack extends Horde_Cache_Base
             }
             $master = false;
         }
-
-        return true;
     }
 
     /**

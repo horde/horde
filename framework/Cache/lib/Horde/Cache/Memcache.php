@@ -104,17 +104,15 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      * @param string $key        Cache key.
      * @param mixed $data        Data to store in the cache.
      * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
         $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
 
-        return ($this->_memcache->set($key . '_e', time(), $lifetime) === false)
-            ? false
-            : $this->_memcache->set($key, $data, $lifetime);
+        if ($this->_memcache->set($key . '_e', time(), $lifetime) !== false) {
+            $this->_memcache->set($key, $data, $lifetime);
+        }
     }
 
     /**

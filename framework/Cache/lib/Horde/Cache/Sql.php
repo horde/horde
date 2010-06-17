@@ -139,8 +139,6 @@ class Horde_Cache_Sql extends Horde_Cache_Base
      * @param mixed $data        Data to store in the cache. (MUST BE A STRING)
      * @param integer $lifetime  Maximum data life span or 0 for a
      *                           non-expiring object.
-     *
-     * @return boolean  True on success, false on failure.
      */
     public function set($key, $data, $lifetime = null)
     {
@@ -154,15 +152,15 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             ? 0
             : $this->_getLifetime($lifetime) + $timestamp;
 
-            if ($this->_logger) {
-                $this->_logger->log(sprintf('Cache set: %s (Id %s set at %d expires at %d)', $okey, $key, $timestamp, $expiration), 'DEBUG');
-            }
+        if ($this->_logger) {
+            $this->_logger->log(sprintf('Cache set: %s (Id %s set at %d expires at %d)', $okey, $key, $timestamp, $expiration), 'DEBUG');
+        }
 
         // Remove any old cache data and prevent duplicate keys
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE cache_id=?';
         $values = array($key);
         try {
-            $this->_db->query($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {}
 
         /* Build SQL query. */
@@ -172,12 +170,8 @@ class Horde_Cache_Sql extends Horde_Cache_Base
         $values = array($key, $timestamp, $expiration, $data);
 
         try {
-            $this->_db->query($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            return false;
-        }
-
-        return true;
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {}
     }
 
     /**
