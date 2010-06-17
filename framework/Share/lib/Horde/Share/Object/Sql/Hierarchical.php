@@ -122,7 +122,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
             $parent_string = null;
         }
         $this->data['share_parents'] = $parent_string;
-        $query = $this->_shareOb->_write_db->prepare('UPDATE ' . $this->_shareOb->_table . ' SET share_parents = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
+        $query = $this->_shareOb->getWriteDb()->prepare('UPDATE ' . $this->_shareOb->getTable() . ' SET share_parents = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
         $result = $query->execute(array($this->data['share_parents'], $this->getId()));
         $query->free();
         if ($result instanceof PEAR_Error) {
