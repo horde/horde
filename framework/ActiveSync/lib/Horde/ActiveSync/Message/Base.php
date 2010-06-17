@@ -159,9 +159,20 @@ class Horde_ActiveSync_Message_Base
         return $this->_supported;
     }
 
+    /**
+     * Determines if the property specified has been ghosted by the client.
+     * A ghosted property is 1) NOT listed in the supported list and 2) NOT
+     * present in the current message. If it's IN the supported list and NOT
+     * in the current message, then it IS ghosted and the server should keep
+     * the field's current value when performing any change action due to this
+     * message.
+     *
+     * @param string $property  The property to check
+     * @return boolean
+     */
     public function isGhosted($property)
     {
-        if (array_search($property, $this->_supported) !== false) {
+        if (array_search($property, $this->_supported) === false) {
             return false;
         } elseif (empty($this->_exists[$property])) {
             return true;
