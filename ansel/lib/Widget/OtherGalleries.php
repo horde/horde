@@ -110,7 +110,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $html .= Horde::endBuffer();
         $html .= '</div>';
         $selfurl = Horde::selfUrl(true, true);
-        $html .=  '<div class="control"><a href="'
+        $html .=  '<div class="control">'
               . $selfurl->add('actionID', 'show_actions')->link(
                         array('id' => 'othergalleries-toggle',
                               'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))
