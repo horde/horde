@@ -49,29 +49,30 @@ class Ansel_GalleryMode_Normal {
     /**
      * Get the children of this gallery.
      *
-     * @param integer $perm  The permissions to limit to.
-     * @param integer $from  The child to start at.
-     * @param integer $to    The child to end with.
+     * @param integer $perm   The permissions to limit to.
+     * @param integer $from   The child to start at.
+     * @param integer $count  The number of children to return.
      *
-     * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
-     *         children of this gallery.
+     * @return array  A mixed array of Ansel_Gallery and Ansel_Image objects
+     *                that are children of this gallery.
      */
     function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
     {
         $galleries = array();
         $num_galleries = 0;
-
         if ($this->hasSubGalleries()) {
-
+            $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
-            $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries(
-                $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
+            $num_galleries = $storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
-                $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(
-                    Horde_Perms::SHOW, null, $this->_gallery, false, $from, $to);
+                $galleries = $storage->listGalleries(
+                        array('parent' => $this->_gallery,
+                              'allLevels' => false,
+                              'from' => $from,
+                              'count' => $to));
             }
         }
 
@@ -325,10 +326,10 @@ class Ansel_GalleryMode_Normal {
     {
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
-            $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW,
-                                                                  false,
-                                                                  $this->_gallery,
-                                                                  true);
+            $galleries = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getScope()
+                ->listGalleries(array('parent' => $this->_gallery));
 
             foreach ($galleries as $galleryId => $gallery) {
                 $count += $gallery->countImages();

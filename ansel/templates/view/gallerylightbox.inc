@@ -164,7 +164,7 @@ function downloadSelected()
           <?php if ($option_copy): ?>
      |      <?php echo Horde::link('#', _("Copy"), 'widget', '', 'copySelected(); return false;') . _("Copy"); ?></a>
           <?php endif; ?>
-          <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries($this->galleryId, Horde_Perms::EDIT) ?></select>
+          <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(array('selected' => $this->galleryId, 'perm' => Horde_Perms::EDIT)) ?></select>
           </td></tr></table>
         <?php endif; ?>
      <?php if (!$this->numTiles): ?>

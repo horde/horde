@@ -250,7 +250,11 @@ case 'editforminherit':
 if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
-    $children = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::READ, false, $share);
+    $children = $GLOBALS['injector']
+        ->getInstance('Ansel_Storage')
+        ->getScope()
+        ->listGalleries(array('perm' => Horde_Perms::READ,
+                              'parent' => $share));
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 

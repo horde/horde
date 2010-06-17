@@ -136,10 +136,14 @@ class Ansel_View_List extends Ansel_View_Base
                 $this->_galleryList = array();
             } else {
                 $this->_galleryList = $ansel_storage->listGalleries(
-                    Horde_Perms::SHOW, $filter, null, false, $this->_page * $this->_g_perPage,
-                    $this->_g_perPage, $this->_sortBy, $this->_sortDir);
+                    array('perm' => Horde_Perms::SHOW,
+                          'filter' => $filter,
+                          'allLevels' => false,
+                          'from' => $this->_page * $this->_g_perPage,
+                          'count' => $this->_g_perPage,
+                          'sort_by' => $this->_sortBy,
+                          'direction' => $this->_sortDir));
             }
-
         }
     }
 

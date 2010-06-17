@@ -37,15 +37,20 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-        if ($GLOBALS['conf']['ansel_cache']['usecache'] &&
-            ($widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'))) !== false) {
-            return $widget;
-        }
+          // The cache breaks this block for some reason, disable until figured
+          // out.
+//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+//            $widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'));
+//            if ($widget !== false) {
+//                //var_dump($widget);
+//                return $widget;
+//            }
+//        }
 
         $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
-        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
-        }
+//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+//            $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
+//        }
 
         return $widget;
     }
@@ -64,11 +69,11 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $tree->setOption(array('class' => 'anselWidgets'));
 
         try {
-            $gals = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, $owner,
-                                                             null, true, 0, 0,
-                                                            'name', 0);
+            $gals = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                    ->getScope()
+                    ->listGalleries(array('filter' => $owner));
         } catch (Ansel_Exception $e) {
-            Horde::logMessage($gal, 'ERR');
+            Horde::logMessage($e, 'ERR');
             return '';
         }
 

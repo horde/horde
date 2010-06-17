@@ -114,7 +114,10 @@ processDirectory($dir, null, $gallery_id, $gallery_slug, $useCompression);
 function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
+        $children = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getScope()
+            ->listGalleries(array('parent' => $gallery));
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);

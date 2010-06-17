@@ -11,7 +11,7 @@
  <p>
   <label style="font-weight:bold" for="gallery"><?php echo _("Existing galleries:") ?></label><br />
   <select id="gallery" name="gallery">
-   <?php echo Ansel::selectGalleries(null, Horde_Perms::EDIT) ?>
+   <?php echo Ansel::selectGalleries(array('perms' => Horde_Perms::EDIT))?>
   </select>
  </p>
  <p>

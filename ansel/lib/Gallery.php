@@ -695,7 +695,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             if ($this->hasSubGalleries()) {
                 // Fall through to a default image of a sub gallery.
                 try {
-                    $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, null, $this, false);
+                    $galleries = $GLOBALS['injector']
+                        ->getInstance('Ansel_Storage')
+                        ->getScope()
+                        ->listGalleries(array('parent' => $this, 'allLevels' => false));
                 } catch (Horde_Exception $e) {
                     return false;
                 }

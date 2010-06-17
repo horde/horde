@@ -156,7 +156,10 @@ class Ansel_GalleryMode_Date
     {
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
-            $subs = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, null, $this->_gallery);
+            $subs = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getScope()
+                ->listGalleries(array('parent' => $this->_gallery));
             $this->_subGalleries = array_keys($subs);
         }
     }

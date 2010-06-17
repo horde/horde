@@ -13,6 +13,10 @@
  */
 class Ansel
 {
+    /* Sort constants */
+    const SORT_ASCENDING = 0;
+    const SORT_DESCENDING = 1;
+
     /**
      * Build initial Ansel javascript object.
      *
@@ -58,48 +62,45 @@ class Ansel
      * Return a string containing an <option> listing of the given
      * gallery array.
      *
-     * @param array $selected     The gallery_id of the  gallery that is
-     *                            selected by default in the returned option
-     *                            list.
-     * @param integer $perm       The permissions filter to use.
-     * @param mixed $attributes   Restrict the galleries returned to those
-     *                            matching $attributes. An array of
-     *                            attribute/values pairs or a gallery owner
-     *                            username.
-     * @param string $parent      The parent share to start listing at.
-     * @param integer $from       The gallery to start listing at.
-     * @param integer $count      The number of galleries to return.
-     * @param integer $ignore     An Ansel_Gallery id to ignore when building
-     *                            the tree.
+     * @param array $params  An array of options:
+     *   <pre>
+     *     (integer)selected  The gallery_id of the gallery that is selected
+     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
+     *     (mixed)filter      Restrict the galleries returned to those matching
+     *                        the filters. Can be an array of attribute/values
+     *                        pairs or a gallery owner username.
+     *     (boolean)allLevels
+     *     (integer)parent    The parent share to start listing at.
+     *     (integer)from      The gallery to start listing at.
+     *     (integer)count     The number of galleries to return.
+     *     (integer)ignore    An Ansel_Gallery id to ignore when building the tree.
+     *   </pre>
      *
-     * @return string  The <option> list.
+     * @return string  The HTML to display the option list.
      */
-    static public function selectGalleries($selected = null, $perm = Horde_Perms::SHOW,
-                             $attributes = null, $parent = null,
-                             $allLevels = true, $from = 0, $count = 0,
-                             $ignore = null)
+    static public function selectGalleries($params = array())
     {
-        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
-                ->listGalleries($perm, $attributes, $parent, $allLevels, $from, $count);
+        $params = new Horde_Support_Array($params);
+        $galleries = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getScope()
+            ->listGalleries($params);
+
         $tree = Horde_Tree::factory('gallery_tree', 'Select');
 
-        if (!empty($ignore)) {
-           unset($galleries[$ignore]);
-           if ($selected == $ignore) {
-               $selected = null;
+        /* Remove the ignored gallery, make sure it's also not the selected gallery */
+        if ($params->ignore) {
+           if ($params->selected == $params->ignore) {
+               $params->selected = null;
            }
         }
+
         foreach ($galleries as $gallery_id => $gallery) {
             // We don't use $gallery->getParents() on purpose since we
             // only need the count of parents. This potentially saves a number
             // of DB queries.
             $parents = $gallery->get('parents');
-            if (empty($parents)) {
-                $indents = 0;
-            } else {
-                $indents = substr_count($parents, ':') + 1;
-            }
-
+            $indents = empty($parents) ? 0 : substr_count($parents, ':') + 1;
             $gallery_name = $gallery->get('name');
             $len = Horde_String::length($gallery_name);
             if ($len > 30) {
@@ -107,14 +108,14 @@ class Ansel
             } else {
                 $label = $gallery_name;
             }
-
-            $params['selected'] = ($gallery_id == $selected);
+            $treeparams = array();
+            $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = (is_null($parent)) ? $parent : $parent->id;
-            if ((!empty($parent) && !empty($galleries[$parent])) ||
-                (empty($parent))) {
-                $tree->addNode($gallery->id, $parent, $label, $indents, true,
-                               $params);
+            $parent = (empty($params['parent'])) ? null : $params['parent']->id;
+            if ((!empty($params['parent']) && !empty($galleries[$params['parent']])) ||
+                (empty($params['parent']))) {
+                
+                $tree->addNode($gallery->id, $parent, $label, $indents, true, $treeparams);
             }
         }
 
@@ -151,7 +152,7 @@ class Ansel
         global $prefs;
 
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
-            $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
+                   $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
 
         switch ($controller ) {
         case 'view':

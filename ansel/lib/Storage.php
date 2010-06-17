@@ -884,40 +884,37 @@ class Ansel_Storage
    /**
     * Retrieves the current user's gallery list from storage.
     *
-    * @param integer $perm         The level of permissions to require for a
-    *                              gallery to return it.
-    * @param mixed   $attributes   Restrict the galleries counted to those
-    *                              matching $attributes. An array of
-    *                              attribute/values pairs or a gallery owner
-    *                              username.
-    * @param mixed   $parent       The parent gallery to start listing at.
-    *                              (Ansel_Gallery, gallery id or null)
-    * @param boolean $allLevels    Return all levels, or just the direct
-    *                              children of $parent?
-    * @param integer $from         The gallery to start listing at.
-    * @param integer $count        The number of galleries to return.
-    * @param string  $sort_by      The field to order the results by.
-    * @param integer $direction    Sort direction:
-    *                               0 - ascending
-    *                               1 - descending
+    * @param array $params  Optional parameters:
+    *   <pre>
+    *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
+    *     (mixed)filter      Restrict the galleries returned to those matching
+    *                        the filters. Can be an array of attribute/values
+    *                        pairs or a gallery owner username.
+    *     (integer)parent    The parent share to start listing at.
+    *     (boolean)allLevels If set, return all levels below parent, not just
+    *                        direct children [TRUE]
+    *     (integer)from      The gallery to start listing at.
+    *     (integer)count     The number of galleries to return.
+    *     (string)sort_by    Attribute to sort by
+    *     (integer)direction The direction to sort by [Ansel::SORT_ASCENDING]
+    *   </pre>
     *
-    * @return array of Ansel_Gallery objects
+    * @return array An array of Ansel_Gallery objects
     * @throws Ansel_Exception
     */
-    public function listGalleries($perm = Horde_Perms::SHOW,
-                           $attributes = null,
-                           $parent = null,
-                           $allLevels = true,
-                           $from = 0,
-                           $count = 0,
-                           $sort_by = null,
-                           $direction = 0)
+    public function listGalleries($params = array())
     {
         try {
-            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $perm, $attributes,
-                                                 $from, $count, $sort_by, $direction,
-                                                 $parent, $allLevels);
-
+            $shares = $this->_shares->listShares(
+                $GLOBALS['registry']->getAuth(),
+                (empty($params['perm']) ? Horde_Perms::SHOW : $params['perm']),
+                (empty($params['filter']) ? null : $params['filter']),
+                (empty($params['from']) ? 0 : $params['from']),
+                (empty($params['count']) ? 0 : $params['count']),
+                (empty($params['sort_by']) ? null : $params['sort_by']),
+                (empty($params['direction']) ? Ansel::SORT_ASCENDING : $params['direction']),
+                (empty($params['parent']) ? null : $params['parent']),
+                (!array_key_exists('allLevels', $params) ? true : $params['allLevels']));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -1004,21 +1001,20 @@ class Ansel_Storage
      *
      * @see Ansel_Storage::listGalleries()
      */
-    public function getRandomGallery($perm = Horde_Perms::SHOW, $attributes = null,
-                              $parent = null, $allLevels = true)
+    public function getRandomGallery($params = array())
     {
-        $num_galleries = $this->countGalleries($GLOBALS['registry']->getAuth(), $perm,
-                                               $attributes, $parent,
-                                               $allLevels);
+        $params = new Horde_Support_Array($params);
+        $num_galleries = $this->countGalleries($GLOBALS['registry']->getAuth(),
+                                               $params->perm,
+                                               $params->filter,
+                                               $params->parent,
+                                               $params->allLevels);
         if (!$num_galleries) {
             return $num_galleries;
         }
-
-        $galleries = $this->listGalleries($perm, $attributes, $parent,
-                                          $allLevels,
-                                          rand(0, $num_galleries - 1),
-                                          1);
+        $galleries = $this->listGalleries($params);
         $gallery = array_pop($galleries);
+
         return $gallery;
     }
 
@@ -1123,16 +1119,17 @@ class Ansel_Storage
      * images from the current user. Useful for providing images to help locate
      * images at the same place.
      *
-     * @param string $user  Limit images to this user
+     * @param string $user    Limit images to this user
      * @param integer $start  Start a slice at this image number
-     * @param integer @count  Include this many images
+     * @param integer $count  Include this many images
      *
      * @return array An array of image ids
      *
      */
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
-        $galleries = $this->listGalleries(Horde_Perms::EDIT, $user);
+        $galleries = $this->listGalleries(array('perm' => Horde_Perms::EDIT,
+                                                'filter' => $user));
         if (empty($galleries)) {
             return array();
         }

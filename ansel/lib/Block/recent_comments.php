@@ -16,7 +16,8 @@ if ($GLOBALS['registry']->call('images/hasComments') &&
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_recent_comments extends Horde_Block {
+class Horde_Block_ansel_recent_comments extends Horde_Block
+{
 
     var $_app = 'ansel';
     var $_gallery = null;
@@ -24,13 +25,13 @@ class Horde_Block_ansel_recent_comments extends Horde_Block {
     function _params()
     {
         $params = array('gallery' => array(
-                            'name' => _("Gallery"),
-                            'type' => 'enum',
-                            'default' => '__random',
-                            'values' => array('all' => 'All')));
-
-        if ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::READ) as $id => $gal) {
+                        'name' => _("Gallery"),
+                        'type' => 'enum',
+                        'default' => '__random',
+                        'values' => array('all' => 'All')));
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+        if ($storage->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+            foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
                 $params['gallery']['values'][$id] = $gal->get('name');
             }
         }

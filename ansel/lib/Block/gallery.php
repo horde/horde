@@ -15,8 +15,8 @@ $block_name = _("Gallery");
  * @author  Marcus Ryan <marcus@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_gallery extends Horde_Block {
-
+class Horde_Block_ansel_gallery extends Horde_Block
+{
     var $_app = 'ansel';
     var $_gallery = null;
 
@@ -35,9 +35,9 @@ class Horde_Block_ansel_gallery extends Horde_Block {
                             'name' => _("Use a lightbox to view photos"),
                             'type' => 'checkbox',
                             'default' => true));
-
-        if ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries() as $gal) {
+        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
+        if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+            foreach ($storage->listGalleries() as $gal) {
                 $params['gallery']['values'][$gal->id] = $gal->get('name');
             }
         }

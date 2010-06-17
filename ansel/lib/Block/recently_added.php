@@ -13,8 +13,8 @@ $block_name = _("Recently Added Photos");
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_recently_added extends Horde_Block {
-
+class Horde_Block_ansel_recently_added extends Horde_Block
+{
     var $_app = 'ansel';
     var $_gallery = null;
 
@@ -32,7 +32,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block {
         );
 
         if ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::READ) as $id => $gal) {
+            foreach ($GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(array('perm' => Horde_Perms::READ)) as $id => $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
                     $params['gallery']['values'][$id] = $gal->get('name');
                 }

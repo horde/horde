@@ -81,9 +81,10 @@ if (empty($rss)) {
             !$gallery->hasPasswd() && $gallery->isOldEnough()) {
 
             if (!$gallery->countImages() && $gallery->hasSubGalleries()) {
-                $subgalleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW,
-                                                              null,
-                                                              $gallery);
+                $subgalleries = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getScope()
+                    ->listGalleries(array('parent' => $gallery));
                 $subs = array();
                 foreach ($subgalleries as $subgallery) {
                     $subs[] = $subgallery->id;
@@ -125,7 +126,10 @@ if (empty($rss)) {
     case 'user':
         $galleries = array();
         try {
-            $shares = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listGalleries(Horde_Perms::SHOW, $id);
+            $shares = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getScope()
+                ->listGalleries(array('filter' => $id));
             foreach ($shares as $gallery) {
                 if ($gallery->isOldEnough() && !$gallery->hasPasswd()) {
                     $galleries[] = $gallery->id;
@@ -137,7 +141,10 @@ if (empty($rss)) {
         $images = array();
         if (isset($galleries) && count($galleries)) {
             try {
-                $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages($galleries);
+                $images = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getScope()
+                    ->getRecentImages($galleries);
             } catch (Ansel_Exception $e) {
                  Horde::logMessage($e->getMessage(), 'ERR');
             }
