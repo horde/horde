@@ -4218,20 +4218,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithEventsWeek':
-            case 'kronolithAllDayContainer':
-                var date = elt.retrieve('date');
-                if (elt.className == 'kronolithAllDayContainer') {
-                    date += 'all';
-                } else {
-                    date = this.parseDate(date);
-                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 2) * 30).minutes();
-                    date = date.toString('yyyyMMddHHmm');
-                }
-                this.go('event:' + date);
-                e.stop();
-                return;
-
             case 'kronolithMore':
                 this.go('day:' + elt.retrieve('date'));
                 e.stop();
@@ -4277,6 +4263,19 @@ KronolithCore = {
                 return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
                 this.go('day:' + elt.retrieve('date'));
+                e.stop();
+                return;
+            } else if (elt.hasClassName('kronolithEventsWeek') ||
+                       elt.hasClassName('kronolithAllDayContainer')) {
+                var date = elt.retrieve('date');
+                if (elt.hasClassName('kronolithAllDayContainer')) {
+                    date += 'all';
+                } else {
+                    date = this.parseDate(date);
+                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 2) * 30).minutes();
+                    date = date.toString('yyyyMMddHHmm');
+                }
+                this.go('event:' + date);
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithTaskCheckbox')) {
