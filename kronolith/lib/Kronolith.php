@@ -1494,6 +1494,13 @@ class Kronolith
             return array();
         }
 
+        $default_share = $GLOBALS['prefs']->getValue('default_share');
+        if (isset($calendars[$default_share])) {
+            $calendar = $calendars[$default_share];
+            unset($calendars[$default_share]);
+            $calendars = array($default_share => $calendar) + $calendars;
+        }
+
         return $calendars;
     }
 
