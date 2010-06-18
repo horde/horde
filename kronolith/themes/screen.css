@@ -564,6 +564,7 @@ body.kronolithAjax {
     cursor: pointer;
 }
 #kronolithMenu div.kronolithCalendars div {
+    min-height: 16px;
     margin-bottom: 2px;
     padding: 2px 2px 2px 20px;
     background: url("graphics/checkbox_off.png") 2px center no-repeat;
