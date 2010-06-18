@@ -365,6 +365,8 @@ class Kronolith
             'prefs' => _("Options"),
             'shared' => _("Shared"),
             'no_url' => _("You must specify a URL."),
+            'no_calendar_title' => _("The calendar title must not be empty."),
+            'no_tasklist_title' => _("The task list title must not be empty."),
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
             'geocode_error' => _("Unable to locate requested address"),
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),

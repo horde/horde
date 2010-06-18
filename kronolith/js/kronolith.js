@@ -217,7 +217,7 @@ KronolithCore = {
             case 'horde.message':
             case 'horde.success':
                 this.Growler.growl(
-                    m.flags.include('content.raw')
+                    m.flags && m.flags.include('content.raw')
                         ? m.message.replace(new RegExp('<a href="([^"]+)"'), '<a href="#" onclick="KronolithCore.iframeContent(\'$1\')"')
                         : m.message.escapeHTML(),
                     {
@@ -3282,12 +3282,20 @@ KronolithCore = {
      * Submits the calendar form to save the calendar data.
      *
      * @param Element form  The form node.
+     *
+     * @return boolean  Whether the save request was successfully sent.
      */
     saveCalendar: function(form)
     {
         var data = form.serialize({ hash: true });
+        if (data.name.empty()) {
+            this.showNotifications([ { type: 'horde.warning', message: data.type == 'tasklists' ? Kronolith.text.no_tasklist_title : Kronolith.text.no_calendar_title }]);
+            $('kronolithCalendar' + data.type + 'Name').focus();
+            return false;
+        }
         this.doAction('saveCalendar', data,
                       this.saveCalendarCallback.bind(this, form, data));
+        return true;
     },
 
     /**
@@ -3716,7 +3724,11 @@ KronolithCore = {
                 case 'kronolithCalendarFormtasklists':
                 case 'kronolithCalendarFormremote':
                     // Disabled for now, we have to also catch Continue buttons.
-                    //this.saveCalendar(form);
+                    //var saveButton = form.down('.kronolithCalendarSave');
+                    //saveButton.disable();
+                    //if (!this.saveCalendar(form)) {
+                    //    saveButton.enable();
+                    //}
                     //e.stop();
                     break;
                 }
@@ -4295,7 +4307,9 @@ KronolithCore = {
                 return;
             } else if (elt.hasClassName('kronolithCalendarSave')) {
                 elt.disable();
-                this.saveCalendar(elt.up('form'));
+                if (!this.saveCalendar(elt.up('form'))) {
+                    elt.enable();
+                }
                 e.stop();
                 break;
             } else if (elt.hasClassName('kronolithCalendarContinue')) {
