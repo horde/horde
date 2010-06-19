@@ -415,7 +415,7 @@ endif;
 </tr>
 <!-- spacer -->
 <tr>
- <td style="line-height:4px;">&nbsp;</td>
+ <td colspan="5" style="line-height:4px;">&nbsp;</td>
 </tr>
 
 <!-- invitations/updates and buttons -->
