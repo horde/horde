@@ -496,7 +496,6 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
                     $result->events = $events;
                 }
             } catch (Horde_Exception_NotFound $e) {
-                $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
             }
