@@ -72,25 +72,14 @@ HordeMap = {
     _includeScripts: function()
     {
         var files = this._includes;
-        var agent = navigator.userAgent;
-        var docWrite = (agent.match("MSIE") || agent.match("Safari"));
+
+        // Need to use document.write instead of inserting into DOM directly
+        // to play nice with horde's javascript caching/loading
         var writeFiles = [];
         for (var i = 0, len = files.length; i < len; i++) {
-            if (docWrite) {
-                writeFiles.push('<script src="' + files[i] + '"></script>');
-            } else {
-                var s = document.createElement("script");
-                s.src = files[i];
-                var h = document.getElementsByTagName("head").length ?
-                           document.getElementsByTagName("head")[0] :
-                           document.body;
-                h.appendChild(s);
-            }
+            writeFiles.push('<script src="' + files[i] + '"></script>');
         }
-
-        if (docWrite) {
-            document.write(writeFiles.join(""));
-        }
+        document.write(writeFiles.join(""));
     },
 
     _addScript: function(s)
