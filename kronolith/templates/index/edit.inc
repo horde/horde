@@ -148,7 +148,7 @@
     '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatYearly" style="display:none">
-    <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date of the year %s day of the year %s month and weekday %s"),
+    <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date %s day of the year %s month and weekday %s"),
     '<label><input type="radio" name="recur_yearly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_yearly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_yearly_interval" value="" class="kronolithEventValue" />', '</label>',
@@ -157,7 +157,7 @@
     <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY . '" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatLength" style="display:none">
-    <?php printf(_("Stop %s never%s, %s at %s , or %s after %s recurrences %s"),
+    <?php printf(_("Stop %s never%s, %s at %s or %s after %s recurrences %s"),
     '<label><input type="radio" name="recur_end_type" value="none" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_end_type" value="date" />', '</label>
     <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" /> '
