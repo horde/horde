@@ -3325,6 +3325,9 @@ KronolithCore = {
      */
     saveCalendar: function(form)
     {
+        if (this.colorPicker) {
+            this.colorPicker.hide();
+        }
         var data = form.serialize({ hash: true });
         if (data.name.empty()) {
             this.showNotifications([ { type: 'horde.warning', message: data.type == 'tasklists' ? Kronolith.text.no_tasklist_title : Kronolith.text.no_calendar_title }]);
