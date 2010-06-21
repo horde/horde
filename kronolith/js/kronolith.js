@@ -1425,7 +1425,10 @@ KronolithCore = {
             return;
         }
 
-        if (this.view != 'year' || !$H(this.eventsLoading).size()) {
+        if (this.view == 'day' ||
+            this.view == 'week' ||
+            this.view == 'month' ||
+            (this.view == 'year' && !$H(this.eventsLoading).size())) {
             this.insertEvents(dates, this.view, r.response.cal);
         }
     },
