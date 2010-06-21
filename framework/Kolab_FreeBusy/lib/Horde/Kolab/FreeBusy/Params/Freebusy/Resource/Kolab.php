@@ -85,8 +85,9 @@ class Horde_Kolab_FreeBusy_Params_Freebusy_Resource_Kolab
             $fldrcomp[] = $owner;
         }
 
-        if (!empty($this->_folder->getFolder()) {
-            $fldrcomp[] = $this->_folder->getFolder();
+        $fld = $this->_folder->getFolder();
+        if (!empty($fld)) {
+            $fldrcomp[] = $fld;
         }
 
         $folder = join('/', $fldrcomp);

@@ -98,7 +98,7 @@ class Horde_Kolab_FreeBusy_Factory_Backend_Kolab
         $owner = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Owner');
         $user  = $this->_injector->getInstance('Horde_Kolab_FreeBusy_Param_User');
 
-        list($user, $pass) $user->getCredentials();
+        list($user, $pass) = $user->getCredentials();
 
         $params = array(
             'hostspec' => $owner->getResourceServer(),
@@ -132,7 +132,7 @@ class Horde_Kolab_FreeBusy_Factory_Backend_Kolab
     {
         $name = $this->_injector
             ->getInstance('Horde_Kolab_FreeBusy_Params_Freebusy_Resource_Kolab')
-            _>getResourceId();
+            ->getResourceId();
         
     }
 
