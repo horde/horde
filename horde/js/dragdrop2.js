@@ -283,7 +283,7 @@ Drag = Class.create({
                     if (isNaN(z)) {
                         z = 2;
                     }
-                    DragDrop.Drags.cover.insert(DragDrop.Drags.cover.down().cloneNode(false).setStyle({ zIndex: z }).clonePosition(i).show());
+                    DragDrop.Drags.cover.insert(DragDrop.Drags.cover.down().clone(false).setStyle({ zIndex: z }).clonePosition(i).show());
                 }
             }, this);
         }
@@ -323,7 +323,7 @@ Drag = Class.create({
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
                 var layout = this.element.getLayout();
-                this.ghost = $(this.element.cloneNode(true))
+                this.ghost = $(this.element.clone(true))
                     .writeAttribute('id', null)
                     .addClassName(this.options.classname)
                     .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });

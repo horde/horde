@@ -384,7 +384,7 @@ var DimpCore = {
             cnt = alist.size();
 
         if (cnt > 15) {
-            tmp = $('largeaddrspan').cloneNode(true).writeAttribute('id', 'largeaddrspan_active');
+            tmp = $('largeaddrspan').clone(true).writeAttribute('id', 'largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');

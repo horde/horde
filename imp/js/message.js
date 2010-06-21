@@ -101,7 +101,7 @@ var ImpMessage = {
                 return;
             }
 
-            fixcopy = iefix.cloneNode(false);
+            fixcopy = iefix.clone(false);
             li.insert(fixcopy);
             fixcopy.clonePosition(ul);
 

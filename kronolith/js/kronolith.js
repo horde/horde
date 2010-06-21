@@ -768,7 +768,7 @@ KronolithCore = {
             row, cell, dateString;
 
         // Create a copy of the row template.
-        row = $('kronolithRowTemplate').cloneNode(true);
+        row = $('kronolithRowTemplate').clone(true);
         row.removeAttribute('id');
 
         // Fill week number and day cells.
@@ -817,7 +817,7 @@ KronolithCore = {
 
         // Create a copy of the row template.
         var body = $('kronolithViewAgendaBody'),
-            row = $('kronolithAgendaTemplate').cloneNode(true);
+            row = $('kronolithAgendaTemplate').clone(true);
 
         // Fill week number and day cells.
         row.store('date', date)
@@ -857,7 +857,7 @@ KronolithCore = {
     createYearMonth: function(year, month, idPrefix)
     {
         // Create a copy of the month template.
-        var table = $('kronolithYearTemplate').cloneNode(true),
+        var table = $('kronolithYearTemplate').clone(true),
             tbody = table.down('tbody');
         table.removeAttribute('id');
         tbody.writeAttribute('id', 'kronolithYearTable' + month);
@@ -2312,7 +2312,7 @@ KronolithCore = {
      */
     insertTask: function(task)
     {
-        var row = $('kronolithTasksTemplate').cloneNode(true),
+        var row = $('kronolithTasksTemplate').clone(true),
             col = row.down();
 
         row.removeAttribute('id');
@@ -3264,7 +3264,7 @@ KronolithCore = {
         }
 
         var tr = elm.up('tr'),
-            row = tr.cloneNode(true).store('remove', true),
+            row = tr.clone(true).store('remove', true),
             td = row.down('td'),
             clearName = elm.tagName == 'SELECT' ? elm.options[elm.selectedIndex].text: elm.getValue();
 

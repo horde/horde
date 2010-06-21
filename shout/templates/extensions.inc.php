@@ -415,14 +415,14 @@ function showDestForm()
 
     $('destEditForm').appendChild(select);
 
-    $('destEditForm').appendChild(spacer.cloneNode(true));
+    $('destEditForm').appendChild(spacer.clone(true));
 
     var span = document.createElement('span');
     span.id = 'destValueContainer';
     $('destEditForm').appendChild(span);
 
 
-    $('destEditForm').appendChild(spacer.cloneNode(true));
+    $('destEditForm').appendChild(spacer.clone(true));
 
     var save = document.createElement("input");
     save.id = 'destSave';

@@ -1182,7 +1182,7 @@ var DimpBase = {
         [ 'from', 'to', 'cc' ].each(function(a) {
             if (r[a]) {
                 (a == 'from' ? pm.select('.' + a) : [ t.down('.' + a) ]).each(function(elt) {
-                    elt.replace(DimpCore.buildAddressLinks(r[a], elt.cloneNode(false)));
+                    elt.replace(DimpCore.buildAddressLinks(r[a], elt.clone(false)));
                 });
             }
             [ $('msgHeader' + a.capitalize()) ].invoke(r[a] ? 'show' : 'hide');
@@ -2172,7 +2172,7 @@ var DimpBase = {
 
     _createFolderForm: function(action, text)
     {
-        var n = $($('folderform').down().cloneNode(true)).writeAttribute('id', 'RB_folder');
+        var n = $($('folderform').down().clone(true)).writeAttribute('id', 'RB_folder');
         n.down('P').insert(text);
 
         this.cfolderaction = action;

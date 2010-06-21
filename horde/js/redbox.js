@@ -116,7 +116,7 @@ var RedBox = {
 
     cloneWindowContents: function(id)
     {
-        $('RB_window').appendChild($($(id).cloneNode(true)).setStyle({ display: 'block' }));
+        $('RB_window').appendChild($($(id).clone(true)).setStyle({ display: 'block' }));
         this.setWindowPosition();
     },
 

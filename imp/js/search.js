@@ -29,11 +29,11 @@ var ImpSearch = {
     updateFolderList: function(folders)
     {
         var fragment = document.createDocumentFragment(),
-            node = $($('folder_row').cloneNode(true)).writeAttribute('id', false).show(),
+            node = $($('folder_row').clone(true)).writeAttribute('id', false).show(),
             div = $('search_folders_hdr').next('DIV');
 
         folders.each(function(f) {
-            var n = $(node.cloneNode(true));
+            var n = $(node.clone(true));
             n.down().writeAttribute({ disabled: Boolean(f.c), value: (f.co ? null : f.v.escapeHTML()) }).insert({ after: f.l });
             fragment.appendChild(n);
         });
@@ -50,7 +50,7 @@ var ImpSearch = {
         $('recent_searches_div').show();
 
         $H(searches).each(function(s) {
-            fragment.appendChild($(node.cloneNode(false)).writeAttribute({ value: s.value.v.escapeHTML() }).update(s.value.l.escapeHTML()));
+            fragment.appendChild($(node.clone(false)).writeAttribute({ value: s.value.v.escapeHTML() }).update(s.value.l.escapeHTML()));
             this.saved_searches[s.key] = s.value.c;
         }, this);
 
@@ -205,7 +205,7 @@ var ImpSearch = {
         }
 
         tds.each(function(node) {
-            tr.insert(td.cloneNode(false).insert(node));
+            tr.insert(td.clone(false).insert(node));
         });
 
         tds.shift();
@@ -282,7 +282,7 @@ var ImpSearch = {
 
         var tmp = [
             new Element('EM').insert(this.getLabel(id)),
-            new Element('SPAN').insert(new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v)).insert(' ').insert($($('within_criteria').cloneNode(true)).writeAttribute({ id: null }).show().setValue(data.l))
+            new Element('SPAN').insert(new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v)).insert(' ').insert($($('within_criteria').clone(true)).writeAttribute({ id: null }).show().setValue(data.l))
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
         tmp[1].activate();
