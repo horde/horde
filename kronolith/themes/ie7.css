@@ -27,8 +27,7 @@ table.kronolithView td.kronolithFirstCol {
     margin: 0;
 }
 .kronolithEventsWeek {
-    height: 100%;
-    expression(kronolithEventsWeek.offsetHeight+'px');
+    height: expression(kronolithEventsWeek.offsetHeight+'px');
 }
 .kronolithViewBody {
     top: 133px;
