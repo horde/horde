@@ -349,7 +349,7 @@ class Horde_ActiveSync_Message_Base
                     }
                     if (isset($map[self::KEY_TYPE]) && ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES)) {
                         if (!empty($this->$map[self::KEY_ATTRIBUTE])) { // don't output 1-1-1970
-                          $encoder->content(self::_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));
+                            $encoder->content(self::_formatDate($this->$map[self::KEY_ATTRIBUTE], $map[self::KEY_TYPE]));
                         }
                     } elseif (isset($map[self::KEY_TYPE]) && $map[self::KEY_TYPE] == self::TYPE_HEX) {
                         $encoder->content(Horde_String::upper(bin2hex($this->$map[self::KEY_ATTRIBUTE])));
