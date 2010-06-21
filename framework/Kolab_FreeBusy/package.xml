@@ -83,6 +83,9 @@
         <dir name="Freebusy">
          <file name="Folder.php" role="php" />
          <file name="Owner.php" role="php" />
+         <dir name="Resource">
+          <file name="Kolab.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/FreeBusy/Params/Freebusy/Resource -->
         </dir> <!-- /lib/Horde/Kolab/FreeBusy/Params/Freebusy -->
         <file name="Owner.php" role="php" />
         <file name="User.php" role="php" />
@@ -389,31 +392,31 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="FreeBusy">
-       <dir name="Class">
+       <dir name="Unit">
         <dir name="Params">
          <dir name="Freebusy">
           <file name="FolderTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/FreeBusy/Class/Params/Freebusy -->
+         </dir> <!-- /test/Horde/Kolab/FreeBusy/Unit/Params/Freebusy -->
          <file name="UserTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/FreeBusy/Class/Params -->
+        </dir> <!-- /test/Horde/Kolab/FreeBusy/Unit/Params -->
         <dir name="Resource">
          <dir name="Freebusy">
           <file name="KolabTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/FreeBusy/Class/Resource/Freebusy -->
+         </dir> <!-- /test/Horde/Kolab/FreeBusy/Unit/Resource/Freebusy -->
          <file name="KolabTest.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/FreeBusy/Class/Resource -->
-       </dir> <!-- /test/Horde/Kolab/FreeBusy/Class -->
+        </dir> <!-- /test/Horde/Kolab/FreeBusy/Unit/Resource -->
+       </dir> <!-- /test/Horde/Kolab/FreeBusy/Unit -->
        <dir name="Integration">
         <file name="DispatchTest.php" role="test" />
         <file name="FreeBusyScenarioTest.php" role="test" />
         <file name="FreeBusyTest.php" role="test" />
         <file name="TriggerTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/FreeBusy/Integration -->
-       <dir name="Mock">
+       <dir name="Stub">
         <dir name="Controller">
-         <file name="MockfreebusyController.php" role="test" />
-        </dir> <!-- /test/Horde/Kolab/FreeBusy/Mock/Controller -->
-       </dir> <!-- /test/Horde/Kolab/FreeBusy/Mock -->
+         <file name="StubfreebusyController.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/FreeBusy/Stub/Controller -->
+       </dir> <!-- /test/Horde/Kolab/FreeBusy/Stub -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="phpunit.xml" role="test" />
@@ -517,6 +520,7 @@
    <install as="Horde/Kolab/FreeBusy/Params/User.php" name="lib/Horde/Kolab/FreeBusy/Params/User.php" />
    <install as="Horde/Kolab/FreeBusy/Params/Freebusy/Folder.php" name="lib/Horde/Kolab/FreeBusy/Params/Freebusy/Folder.php" />
    <install as="Horde/Kolab/FreeBusy/Params/Freebusy/Owner.php" name="lib/Horde/Kolab/FreeBusy/Params/Freebusy/Owner.php" />
+   <install as="Horde/Kolab/FreeBusy/Params/Freebusy/Resource/Kolab.php" name="lib/Horde/Kolab/FreeBusy/Params/Freebusy/Resource/Kolab.php" />
    <install as="Horde/Kolab/FreeBusy/Resource/Event.php" name="lib/Horde/Kolab/FreeBusy/Resource/Event.php" />
    <install as="Horde/Kolab/FreeBusy/Resource/Kolab.php" name="lib/Horde/Kolab/FreeBusy/Resource/Kolab.php" />
    <install as="Horde/Kolab/FreeBusy/Resource/Decorator/Log.php" name="lib/Horde/Kolab/FreeBusy/Resource/Decorator/Log.php" />
@@ -617,15 +621,15 @@
    <install as="Horde/Kolab/FreeBusy/AllTests.php" name="test/Horde/Kolab/FreeBusy/AllTests.php" />
    <install as="Horde/Kolab/FreeBusy/Autoload.php" name="test/Horde/Kolab/FreeBusy/Autoload.php" />
    <install as="Horde/Kolab/FreeBusy/phpunit.xml" name="test/Horde/Kolab/FreeBusy/phpunit.xml" />
-   <install as="Horde/Kolab/FreeBusy/Class/Params/UserTest.php" name="test/Horde/Kolab/FreeBusy/Class/Params/UserTest.php" />
-   <install as="Horde/Kolab/FreeBusy/Class/Params/Freebusy/FolderTest.php" name="test/Horde/Kolab/FreeBusy/Class/Params/Freebusy/FolderTest.php" />
-   <install as="Horde/Kolab/FreeBusy/Class/Resource/KolabTest.php" name="test/Horde/Kolab/FreeBusy/Class/Resource/KolabTest.php" />
-   <install as="Horde/Kolab/FreeBusy/Class/Resource/Freebusy/KolabTest.php" name="test/Horde/Kolab/FreeBusy/Class/Resource/Freebusy/KolabTest.php" />
+   <install as="Horde/Kolab/FreeBusy/Unit/Params/UserTest.php" name="test/Horde/Kolab/FreeBusy/Unit/Params/UserTest.php" />
+   <install as="Horde/Kolab/FreeBusy/Unit/Params/Freebusy/FolderTest.php" name="test/Horde/Kolab/FreeBusy/Unit/Params/Freebusy/FolderTest.php" />
+   <install as="Horde/Kolab/FreeBusy/Unit/Resource/KolabTest.php" name="test/Horde/Kolab/FreeBusy/Unit/Resource/KolabTest.php" />
+   <install as="Horde/Kolab/FreeBusy/Unit/Resource/Freebusy/KolabTest.php" name="test/Horde/Kolab/FreeBusy/Unit/Resource/Freebusy/KolabTest.php" />
    <install as="Horde/Kolab/FreeBusy/Integration/DispatchTest.php" name="test/Horde/Kolab/FreeBusy/Integration/DispatchTest.php" />
    <install as="Horde/Kolab/FreeBusy/Integration/FreeBusyScenarioTest.php" name="test/Horde/Kolab/FreeBusy/Integration/FreeBusyScenarioTest.php" />
    <install as="Horde/Kolab/FreeBusy/Integration/FreeBusyTest.php" name="test/Horde/Kolab/FreeBusy/Integration/FreeBusyTest.php" />
    <install as="Horde/Kolab/FreeBusy/Integration/TriggerTest.php" name="test/Horde/Kolab/FreeBusy/Integration/TriggerTest.php" />
-   <install as="Horde/Kolab/FreeBusy/Mock/Controller/MockfreebusyController.php" name="test/Horde/Kolab/FreeBusy/Mock/Controller/MockfreebusyController.php" />
+   <install as="Horde/Kolab/FreeBusy/Stub/Controller/StubfreebusyController.php" name="test/Horde/Kolab/FreeBusy/Stub/Controller/StubfreebusyController.php" />
   </filelist>
  </phprelease>
  <changelog>

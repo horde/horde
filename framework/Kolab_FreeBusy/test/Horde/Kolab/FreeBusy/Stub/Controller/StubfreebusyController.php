@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class MockfreebusyController extends Horde_Controller_Base
+class StubfreebusyController extends Horde_Controller_Base
 {
     /**
      * Trigger regeneration of free/busy data in a calender.

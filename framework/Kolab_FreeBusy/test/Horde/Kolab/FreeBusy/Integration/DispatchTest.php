@@ -89,7 +89,7 @@ extends PHPUnit_Framework_TestCase
                     'class' => 'Horde_Controller_Response_Mock',
                 ),
                 'dispatch' => array(
-                    'controllerDir' => dirname(__FILE__) . '/../Mock/Controller',
+                    'controllerDir' => dirname(__FILE__) . '/../Stub/Controller',
                 ),
                 'mapper' => array(
                     'controller' => 'mockfreebusy',
