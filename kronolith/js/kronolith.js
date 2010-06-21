@@ -2407,7 +2407,9 @@ KronolithCore = {
         }
         task.cp = !task.cp;
 
-        this.tcache.get(task.cp ? 'complete' : 'incomplete').get(tasklist).set(taskid, task);
+        if (this.tcache.get(task.cp ? 'complete' : 'incomplete')) {
+            this.tcache.get(task.cp ? 'complete' : 'incomplete').get(tasklist).set(taskid, task);
+        }
         this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
 
         // Remove row if necessary.
