@@ -61,6 +61,9 @@ class Content_Objects_Manager
         if (!is_array($objects)) {
             $objects = array($objects);
         }
+        if (!count($objects)) {
+            throw new InvalidArgumentException('No object requested');
+        }
         $params = $objects;
         $params[] = $type;
 
