@@ -1001,6 +1001,8 @@ div.kronolithFormActions {
     right: 10px;
     bottom: 10px;
     overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 table.kronolithView {
     width: 100%;
