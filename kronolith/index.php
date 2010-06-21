@@ -122,17 +122,16 @@ Horde_Ajax_Imple::factory(
           'var' => 'KronolithCore.attendeesAc'))
     ->attach();
 
-Kronolith::header();
-echo "<body class=\"kronolithAjax\">\n";
-require KRONOLITH_TEMPLATES . '/index/index.inc';
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
-
-/* Maps must be initialized after scripts are output, to avoid having them
- * included in the monolithic javascript file, which breaks loading the hordemap
- * dependencies. */
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
+
+Kronolith::header();
+
+echo "<body class=\"kronolithAjax\">\n";
+
+require KRONOLITH_TEMPLATES . '/index/index.inc';
+Horde::includeScriptFiles();
+Horde::outputInlineScript();
 
 echo "</body>\n</html>";

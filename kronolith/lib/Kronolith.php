@@ -123,7 +123,8 @@ class Kronolith
                 'markerImage' => (string)Horde_Themes::img('map/marker.png', 'horde'),
                 'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png', 'horde'),
                 'useMarkerLayer' => true,
-                'language' => $language);
+                'language' => $language,
+            );
 
             foreach ($params['providers'] as $layer) {
                 switch ($layer) {
@@ -153,7 +154,7 @@ class Kronolith
                 break;
             }
         }
-
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/hordemap/';
         Horde::addScriptFile('hordemap/map.js', 'horde');
         $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
         Horde::addinlineScript($js);
