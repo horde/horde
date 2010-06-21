@@ -96,14 +96,6 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-Kronolith::header();
-echo "<body class=\"kronolithAjax\">\n";
-require KRONOLITH_TEMPLATES . '/index/index.inc';
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
-if ($conf['maps']['driver']) {
-    Kronolith::initEventMap($conf['maps']);
-}
 Horde_Ajax_Imple::factory(
     array('kronolith', 'TagAutoCompleter'),
     array('triggerId' => 'kronolithEventTags',
@@ -129,5 +121,18 @@ Horde_Ajax_Imple::factory(
           'pretty' => true,
           'var' => 'KronolithCore.attendeesAc'))
     ->attach();
+
+Kronolith::header();
+echo "<body class=\"kronolithAjax\">\n";
+require KRONOLITH_TEMPLATES . '/index/index.inc';
+Horde::includeScriptFiles();
+Horde::outputInlineScript();
+
+/* Maps must be initialized after scripts are output, to avoid having them
+ * included in the monolithic javascript file, which breaks loading the hordemap
+ * dependencies. */
+if ($conf['maps']['driver']) {
+    Kronolith::initEventMap($conf['maps']);
+}
 
 echo "</body>\n</html>";
