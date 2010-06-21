@@ -59,10 +59,9 @@ class Content_Objects_Manager
     {
         $type = current($this->_typeManager->ensureTypes($type));
         if (!is_array($objects)) {
-            $params = array($objects);
-        } else {
-            $params = $objects;
+            $objects = array($objects);
         }
+        $params = $objects;
         $params[] = $type;
 
         $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
