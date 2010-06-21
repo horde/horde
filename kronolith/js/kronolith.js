@@ -324,6 +324,7 @@ KronolithCore = {
                      (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
                          this.addHistory(fullloc);
+                         this.loadNextView();
                          return;
                 }
 
@@ -358,9 +359,11 @@ KronolithCore = {
                 var tasktype = locParts.shift() || this.tasktype;
                 if (this.view == loc && this.tasktype == tasktype) {
                     this.addHistory(fullloc);
+                    this.loadNextView();
                     return;
                 }
                 if (!$w('all complete incomplete future').include(tasktype)) {
+                    this.loadNextView();
                     return;
                 }
 
@@ -405,6 +408,7 @@ KronolithCore = {
                 query = Object.toJSON({ title: term });
 
             if (!($w('all past future').include(time))) {
+                this.loadNextView();
                 return;
             }
 
@@ -468,6 +472,7 @@ KronolithCore = {
         case 'event':
             // Load view first if necessary.
             if (!this.view ) {
+                this.viewLoading.pop();
                 this.go(Kronolith.conf.login_view);
                 this.go.bind(this, fullloc, data).defer();
                 return;
@@ -510,6 +515,7 @@ KronolithCore = {
 
         case 'calendar':
             if (!this.view) {
+                this.viewLoading.pop();
                 this.go(Kronolith.conf.login_view);
                 this.go.bind(this, fullloc, data).defer();
                 return;
