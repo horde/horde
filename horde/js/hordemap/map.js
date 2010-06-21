@@ -23,9 +23,10 @@ HordeMap = {
      * Initialize hordemap javascript
      *
      * @param object opts  Hash containing:
-     *      'driver': HordeMap driver to use (Horde | SAPO)
-     *      'geocoder': Geocoder driver to use
-     *      'providers': default provider layers to add (Google, Yahoo etc...)
+     *      'driver':    HordeMap driver to use (Horde | SAPO)
+     *      'geocoder':  Geocoder driver to use
+     *      'providers': Default provider layers to add (Google, Yahoo etc...)
+     *      'jsuri':     The uri to the hordemap directory
      *
      *      'conf': Any driver specific config settings such as:
      *          'language':
@@ -39,8 +40,13 @@ HordeMap = {
      */
     initialize: function(opts)
     {
+        var path;
         this._opts = opts;
-        var path = this._getScriptLocation();
+        if(!opts.jsuri) {
+            path = this._getScriptLocation();
+        } else {
+            path = opts.jsuri;
+        }
         this.conf = this._opts.conf;
         if (this._opts.driver == 'Horde') {
             this._addScript(path + 'OpenLayers.js');
