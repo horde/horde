@@ -16,7 +16,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, weekSizes, daySizes,
-    //   viewLoading, groupLoading, colorPicker, duration, timeMarker,
+    //   groupLoading, colorPicker, duration, timeMarker,
     //   eventTagAc, calendarTagAc, attendeesAc
 
     view: '',
@@ -25,6 +25,7 @@ KronolithCore = {
     tcache: $H(),
     eventsLoading: {},
     loading: 0,
+    viewLoading: [],
     fbLoading: 0,
     redBoxLoading: false,
     inOptions: false,
@@ -277,6 +278,11 @@ KronolithCore = {
 
     go: function(fullloc, data)
     {
+        if (this.viewLoading.size()) {
+            this.viewLoading.push([ fullloc, data ]);
+            return;
+        }
+
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
@@ -284,6 +290,8 @@ KronolithCore = {
             this.redirect(window.location.href.sub(window.location.hash, '#' + fullloc), true);
             return;
         }
+
+        this.viewLoading.push([ fullloc, data ]);
 
         switch (loc) {
         case 'day':
@@ -321,7 +329,6 @@ KronolithCore = {
 
                 this.addHistory(fullloc);
                 this.view = loc;
-                this.viewLoading = true;
                 this.updateView(date, loc);
                 var dates = this.viewDates(date, loc);
                 this.loadEvents(dates[0], dates[1], loc);
@@ -338,7 +345,7 @@ KronolithCore = {
                                     $('kronolithTimeMarker').show();
                                 }
                             }
-                            this.viewLoading = false;
+                            this.loadNextView();
                         }.bind(this)
                 });
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
@@ -359,7 +366,6 @@ KronolithCore = {
 
                 this.addHistory(fullloc);
                 this.view = loc;
-                this.viewLoading = true;
                 this.tasktype = tasktype;
                 $w('All Complete Incomplete Future').each(function(tasktype) {
                     $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
@@ -370,7 +376,7 @@ KronolithCore = {
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
-                        this.viewLoading = false;
+                        this.loadNextView();
                     }.bind(this) });
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(this.date);
@@ -383,12 +389,11 @@ KronolithCore = {
                 }
                 this.addHistory(fullloc);
                 this.view = loc;
-                this.viewLoading = true;
                 $('kronolithView' + locCap).appear({
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
-                        this.viewLoading = false;
+                        this.loadNextView();
                     }.bind(this) });
                 break;
             }
@@ -411,7 +416,6 @@ KronolithCore = {
             $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
             this.closeView('agenda');
             this.view = 'agenda';
-            this.viewLoading = true;
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
                 $H(type.value).each(function(calendar) {
@@ -455,7 +459,7 @@ KronolithCore = {
                 duration: this.effectDur,
                 queue: 'end',
                 afterFinish: function() {
-                    this.viewLoading = false;
+                    this.loadNextView();
                 }.bind(this) });
             $('kronolithLoadingagenda').insert($('kronolithLoading').remove());
             this.updateMinical(this.date);
@@ -487,6 +491,7 @@ KronolithCore = {
                 this.editEvent(calendar, event, date);
                 break;
             }
+            this.loadNextView();
             break;
 
         case 'task':
@@ -500,6 +505,7 @@ KronolithCore = {
                 this.editTask(locParts[0], locParts[1]);
                 break;
             }
+            this.loadNextView();
             break;
 
         case 'calendar':
@@ -510,6 +516,7 @@ KronolithCore = {
             }
             this.addHistory(fullloc, false);
             this.editCalendar(locParts.join(':'));
+            this.loadNextView();
             break;
 
         case 'options':
@@ -523,6 +530,7 @@ KronolithCore = {
             this.iframeContent(url);
             this.setTitle(Kronolith.text.prefs);
             this.updateMinical(this.date);
+            this.loadNextView();
             break;
 
         case 'app':
@@ -536,7 +544,31 @@ KronolithCore = {
             }
             this.updateMinical(this.date);
             this.view = 'iframe';
+            this.loadNextView();
             break;
+
+        default:
+            this.loadNextView();
+            break;
+        }
+    },
+
+    /**
+     * Removes the last loaded view from the stack and loads the last added
+     * view, if the stack is still not empty.
+     *
+     * We want to load views from a LIFO queue, because the queue is only
+     * building up if the user switches to another view while the current view
+     * still loads. In that case we can go directly to the most recently
+     * clicked view and drop the remaining queue.
+     */
+    loadNextView: function()
+    {
+        this.viewLoading.shift();
+        if (this.viewLoading.size()) {
+            var next = this.viewLoading.pop();
+            this.viewLoading = [];
+            this.go(next[0], next[1]);
         }
     },
 
@@ -1413,7 +1445,7 @@ KronolithCore = {
         case 'week':
             // The day and week views require the view to be completely
             // loaded, to correctly calculate the dimensions.
-            if (this.viewLoading || this.view != view) {
+            if (this.viewLoading.size() || this.view != view) {
                 this.insertEvents.bind(this, [dates[0].clone(), dates[1].clone()], view, calendar).defer();
                 return;
             }
