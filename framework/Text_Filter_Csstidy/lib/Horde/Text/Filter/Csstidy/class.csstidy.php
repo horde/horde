@@ -993,7 +993,9 @@ class csstidy {
             return '';
         }
 
-        $cssarray = reset($this->css);
+        $cssarray = empty($this->css)
+            ? array()
+            : reset($this->css);
         $style = '';
 
         foreach (array_keys($cssarray) as $val) {
