@@ -210,7 +210,7 @@ class Content_Tagger
         $object_ids = $this->_objectManager->exists($objects, $type);
         $results = array();
         if (!$object_ids) {
-            foreach ($object_ids as $id) {
+            foreach ($objects as $id) {
                 $results[$id] = array();
             }
         } else {
