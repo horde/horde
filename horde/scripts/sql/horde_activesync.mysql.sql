@@ -1,7 +1,7 @@
 CREATE TABLE horde_activesync_state (
     sync_time          INTEGER,
     sync_key           VARCHAR(255) NOT NULL,
-    sync_data          TEXT,
+    sync_data          LONGTEXT,
     sync_devid         VARCHAR(255),
     sync_folderid      VARCHAR(255),
     sync_user          VARCHAR(255) NOT NULL,
@@ -44,6 +44,5 @@ CREATE TABLE horde_activesync_device_users (
     device_folders    TEXT
 );
 
-CREATE INDEX activesync_device_user_idx ON horde_activesync_users (device_user);
+CREATE INDEX activesync_device_users_idx ON horde_activesync_device_users (device_user);
 CREATE INDEX activesync_device_users_id_idx on horde_activesync_device_users (device_id);
-
