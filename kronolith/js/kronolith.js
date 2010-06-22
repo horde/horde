@@ -1672,7 +1672,7 @@ KronolithCore = {
     insertEvent: function(event, date, view)
     {
         var calendar = event.value.calendar.split('|');
-        event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
+        event.value.nodeId = ('kronolithEvent' + view + event.value.calendar + date + event.key).replace(new RegExp('[^a-zA-Z0-9]', 'g'), '');
 
         var _createElement = function(event) {
             var className ='kronolithEvent';
@@ -1988,7 +1988,7 @@ KronolithCore = {
             $('kronolithMonthDay' + date).insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
-                new Drag('kronolithEventmonth' + event.value.calendar + date + event.key, { threshold: 5, parentElement: function() { return $('kronolithViewMonthContainer'); }, snapToParent: true });
+                new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolithViewMonthContainer'); }, snapToParent: true });
             }
             if (Kronolith.conf.max_events) {
                 var more = $('kronolithMonthDay' + date).down('.kronolithMore');
