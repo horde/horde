@@ -5778,17 +5778,6 @@ KronolithCore = {
             Horde_ToolTips.detach(button);
             Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
-
-        if (Kronolith.conf.is_ie6) {
-            /* Disable text selection in preview pane for IE 6. */
-            document.observe('selectstart', Event.stop);
-
-            /* Since IE 6 doesn't support hover over non-links, use javascript
-             * events to replicate mouseover CSS behavior. */
-            $('foobar').compact().invoke('select', 'LI').flatten().compact().each(function(e) {
-                e.observe('mouseover', e.addClassName.curry('over')).observe('mouseout', e.removeClassName.curry('over'));
-            });
-        }
     }
 
 };
