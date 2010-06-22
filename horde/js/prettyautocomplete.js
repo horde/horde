@@ -63,7 +63,7 @@ var PrettyAutocompleter = Class.create({
         this.p.onSelect = this._updateElement.bind(this);
 
         // Look for clicks on the box to simulate clicking in an input box
-        $(this.p.box).observe('click', function() { trigger.focus() }.bind(this));
+        $(this.p.box).observe('click', function() { trigger.focus() });
         trigger.observe('blur', this._resize.bind(this));
         trigger.observe('keydown', this._resize.bind(this));
         trigger.observe('keypress', this._resize.bind(this));
