@@ -366,6 +366,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         switch ($recurrence->recurType) {
         case Horde_Date_Recurrence::RECUR_DAILY:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_DAILY;
+            $r->dayofweek = Horde_Date::MASK_ALLDAYS;
             break;
         case Horde_Date_Recurrence::RECUR_WEEKLY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_WEEKLY;
