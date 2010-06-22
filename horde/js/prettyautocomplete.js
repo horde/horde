@@ -119,7 +119,7 @@ var PrettyAutocompleter = Class.create({
     buildStructure: function()
     {
         // Build the outter box
-        var box = new Element('div', { id: this.p.box, className: this.p.boxClass });
+        var box = new Element('div', { id: this.p.box, className: this.p.boxClass }).setStyle({ position: 'relative' });
 
         // The list - where the choosen items are placed as <li> nodes
         var list = new Element('ul', { className: this.p.listClass });
