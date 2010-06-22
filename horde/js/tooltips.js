@@ -21,7 +21,9 @@ var Horde_ToolTips =
             return;
         }
         e.store('nicetitle', t);
-        e.removeAttribute('title');
+        if (!e.title.empty()) {
+            e.title == '';
+        }
         e.observe('mouseover', this.onMouseover.bindAsEventListener(this));
         e.observe('mouseout', this.out.bind(this));
         e.observe('focus', this.onFocus.bindAsEventListener(this));
