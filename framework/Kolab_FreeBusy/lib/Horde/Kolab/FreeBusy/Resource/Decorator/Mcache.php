@@ -27,7 +27,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Resource_Decorator_Mcache
-implements Horde_Kolab_FreeBusy_Resource_Interface
+implements Horde_Kolab_FreeBusy_Resource
 {
     /**
      * The decorated resource.

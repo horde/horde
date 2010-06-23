@@ -66,7 +66,7 @@ class Horde_Kolab_FreeBusy_Owner_Kolab
     public function __construct(
         Horde_Kolab_FreeBusy_Params_Owner $owner,
         Horde_Kolab_FreeBusy_UserDb $userdb,
-        Horde_Kolab_FreeBusy_User $user,
+        Horde_Kolab_FreeBusy_User $user
     ) {
         $this->_owner  = $owner;
         $this->_userdb = $userdb;
@@ -96,7 +96,8 @@ class Horde_Kolab_FreeBusy_Owner_Kolab
         try {
             $this->_owner_data = $this->_userdb->fetchUser($this->_owner->getId());
         } catch (Horde_Kolab_FreeBusy_Exception_UserNotFound $e) {
-            if (!empty($this->_user->getDomain())) {
+            $domain = $this->_user->getDomain();
+            if (!empty($domain)) {
                 $this->_fetchOwnerDataByAppendingUserDomain();
             } else {
                 throw $e;

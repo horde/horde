@@ -28,7 +28,8 @@
  */
 class Horde_Kolab_FreeBusy_Resource_Freebusy_Decorator_Log
 extends Horde_Kolab_FreeBusy_Resource_Decorator_Log
-implements Horde_Kolab_FreeBusy_Resource_Freebusy_Interface
+//@todo: add interface
+//implements Horde_Kolab_FreeBusy_Resource_Freebusy
 {
     /**
      * Constructor.

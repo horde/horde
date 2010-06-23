@@ -35,7 +35,6 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_FreeBusy_Integration_DispatchTest
 extends PHPUnit_Framework_TestCase
 {
-
     /**
      * Test destruction.
      *
@@ -92,7 +91,7 @@ extends PHPUnit_Framework_TestCase
                     'controllerDir' => dirname(__FILE__) . '/../Stub/Controller',
                 ),
                 'mapper' => array(
-                    'controller' => 'mockfreebusy',
+                    'controller' => 'stubfreebusy',
                 ),
                 'logger' => array(
                     'Horde_Log_Handler_Null' => array(),

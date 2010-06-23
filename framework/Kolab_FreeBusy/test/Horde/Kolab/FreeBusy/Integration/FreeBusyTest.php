@@ -40,6 +40,8 @@ class Horde_Kolab_FreeBusy_Integration_FreeBusyTest extends PHPUnit_Framework_Te
      */
     public function setUp()
     {
+        $this->markTestIncomplete();
+
         $world = $this->prepareBasicSetup();
 
         global $conf;

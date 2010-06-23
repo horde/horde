@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_Class_Resource_KolabTest
+class Horde_Kolab_FreeBusy_Unit_Resource_KolabTest
 extends PHPUnit_Framework_TestCase
 {
     public function testMethodGetnameHasResultStringTheNameOfTheResource()

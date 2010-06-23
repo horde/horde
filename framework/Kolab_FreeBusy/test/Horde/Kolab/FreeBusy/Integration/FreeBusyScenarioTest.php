@@ -33,6 +33,11 @@ require_once 'Horde/Kolab/Test/FreeBusy.php';
  */
 class Horde_Kolab_FreeBusy_Integration_FreeBusyScenarioTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete();
+    }
+
     /**
      * Test triggering a calendar folder.
      *
