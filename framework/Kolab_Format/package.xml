@@ -41,7 +41,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* Remove dependency on the Kolab package within the task handler.
+* Removed dependency on Horde_Exception.
+* Removed dependency on the Kolab package within the task handler.
 * Converted to Horde4/PHP5
 * Removed Horde_DOM dependency.
  </notes>
