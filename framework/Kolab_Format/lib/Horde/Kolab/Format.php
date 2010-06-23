@@ -12,15 +12,10 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Horde_Kolab_Format:: class provides the means to read/write the
  * Kolab format.
  *
- * Copyright 2007-2009 Klarälvdalens Datakonsult AB
+ * Copyright 2007-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
