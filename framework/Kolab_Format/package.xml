@@ -128,10 +128,6 @@
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Exception</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>

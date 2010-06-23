@@ -68,7 +68,7 @@ class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
      *
      * @return array Array with data.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     protected function _load(&$children)
     {
@@ -98,9 +98,9 @@ class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _save($root, $object)
+    protected function _save(&$root, $object)
     {
         // Map the display-name of a kolab dist list to horde's lastname attribute
         if (isset($object['last-name'])) {

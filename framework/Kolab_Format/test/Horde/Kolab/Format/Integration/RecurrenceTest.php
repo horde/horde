@@ -81,7 +81,7 @@ extends PHPUnit_Framework_TestCase
             $xml->load($recur);
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Exception);
+            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
         }
     }
 

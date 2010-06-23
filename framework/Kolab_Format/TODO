@@ -2,29 +2,29 @@
  Kolab_Format Development TODO List
 ====================================
 
- - Find a decent way of handling tags within Horde 4
+ - Remove the automatic handling of Horde preferences within this
+   package. This is a task that belongs into the application NOT into
+   this package.
 
  - Remove dependency on the Horde_Nls and Horde_String language
    settings. I currently assume we should only return UTF-8 from this
    library.
+
+ - Remove the charset conversion. It is perfectly fine to have a
+   package that expects all data in utf-8 format. Let the applications
+   handle the rest.
+
+ - Ultimately no required dependency should remain.
+
+ - Find a decent way of handling tags within Horde 4
 
  - Probably: Pull the Format_Xml_* classes into Format_Mapper_Xml_*
    classes.
 
  - Add log decorators.
 
- - Remove the automatic handling of Horde preferences within this
-   package. This is a task that belongs into the application NOT into
-   this package.
-
- - Remove the charset conversion. It is perfectly fine to have a
-   package that expects all data in utf-8 format. Let the applications
-   handle the rest.
-
  - Remove the use of the Horde_Date class from testing. It should be
    no problem to get the same code coverage without using the external
    class.
-
- - Ultimately only the dependency on Horde_Exception should remain.
 
  - Think about storing the data in iCal format.

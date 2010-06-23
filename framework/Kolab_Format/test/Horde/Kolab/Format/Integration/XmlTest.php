@@ -103,7 +103,7 @@ extends PHPUnit_Framework_TestCase
                               array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY));
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Exception);
+            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
         }
 
         $xml->_updateNode($root,
@@ -122,7 +122,7 @@ extends PHPUnit_Framework_TestCase
                                     'save' => '_unknown'));
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Exception);
+            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
         }
     }
 
@@ -206,7 +206,7 @@ extends PHPUnit_Framework_TestCase
                                     'type' => Horde_Kolab_Format_Xml::TYPE_STRING));
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Exception);
+            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
         }
 
         // Test loading a missing value with a default

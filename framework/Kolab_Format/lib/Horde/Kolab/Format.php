@@ -44,7 +44,7 @@ abstract class Horde_Kolab_Format
      *
      * @return mixed    The newly created concrete Horde_Kolab_Format_XML instance
      *
-     * @throws Horde_Exception If the specified driver could not be loaded.
+     * @throws Horde_Kolab_Format_Exception If the specified driver could not be loaded.
      */
     static public function &factory($format_type = '', $object_type = '',
                                     $params = null)
@@ -54,7 +54,7 @@ abstract class Horde_Kolab_Format
             $driver = call_user_func(array($class, 'factory'), $object_type,
                                      $params);
         } else {
-            throw new Horde_Exception(sprintf(_("Failed to load Kolab Format driver %s"),
+            throw new Horde_Kolab_Format_Exception(sprintf(_("Failed to load Kolab Format driver %s"),
                                               $format_type));
         }
 
@@ -89,7 +89,7 @@ abstract class Horde_Kolab_Format
      *
      * @return array The data array representing the object.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Kolab_Format_Exception
      */
     abstract public function load(&$xmltext);
 
@@ -100,7 +100,7 @@ abstract class Horde_Kolab_Format
      *
      * @return string The data as XML string.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Kolab_Format_Exception
      */
     abstract public function save($object);
 
