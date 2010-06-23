@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-require_once('Horde/Autoloader.php');
+require_once('Horde/Core/Autoloader.php');
 
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
@@ -44,7 +44,7 @@ $package = PEAR_PackageFileManager2::importOptions(
         'clearcontents' => false,
         'clearchangelog' => false,
         'simpleoutput' => true,
-        'ignore' => array('*~', 'conf.php'),
+        'ignore' => array('*~', 'conf.php', 'CVS/*'),
         'include' => '*',
         'dir_roles' =>
         array(
