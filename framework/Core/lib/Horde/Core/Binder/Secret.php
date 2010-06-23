@@ -13,7 +13,7 @@ class Horde_Core_Binder_Secret implements Horde_Injector_Binder
             'cookie_domain' => $conf['cookie']['domain'],
             'cookie_expire' => $conf['session']['timeout'],
             'cookie_path' => $conf['cookie']['path'],
-            'cookie_ssl' => (bool) $conf['use_ssl'],
+            'cookie_ssl' => $conf['use_ssl'] == 1,
             'session_name' => $conf['session']['name']
         ));
     }
