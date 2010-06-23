@@ -3719,7 +3719,7 @@ KronolithCore = {
         switch (trigger.id) {
         case 'kronolithEventLocation':
             if (kc == Event.KEY_RETURN) {
-                this.ensureMap();
+                this.ensureMap(true);
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 return;
@@ -4259,7 +4259,7 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventGeo':
-                this.ensureMap();
+                this.ensureMap(true);
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 break;
@@ -5506,7 +5506,7 @@ KronolithCore = {
     contextOnClick: Prototype.emptyFunction,
 
     // Map
-    initializeMap: function()
+    initializeMap: function(ignoreLL)
     {
          var layers = [];
          if (Kronolith.conf.maps.providers) {
@@ -5526,7 +5526,7 @@ KronolithCore = {
                  mapClick: this.afterClickMap.bind(this)
              });
 
-         if ($('kronolithEventLocationLat').value) {
+         if ($('kronolithEventLocationLat').value && !ignoreLL) {
              var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
              // Note that we need to cast the value of zoom to an integer here,
              // otherwise the map display breaks.
@@ -5658,10 +5658,10 @@ KronolithCore = {
     /**
      * Ensures the map tab is visible and sets UI elements accordingly.
      */
-    ensureMap: function()
+    ensureMap: function(ignoreLL)
     {
         if (!this.mapInitialized) {
-            this.initializeMap();
+            this.initializeMap(ignoreLL);
         }
         var dialog = $('kronolithEventForm');
         dialog.select('.kronolithTabsOption').invoke('hide');
