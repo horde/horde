@@ -796,7 +796,7 @@ HTML;
     {
         global $conf;
 
-        if (is_null($type)) {
+        if (!is_null($type)) {
             $type = Horde_String::lower($type);
         }
 
