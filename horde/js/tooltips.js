@@ -22,7 +22,7 @@ var Horde_ToolTips =
         }
         e.store('nicetitle', t);
         if (!e.title.empty()) {
-            e.title == '';
+            e.title = '';
         }
         e.observe('mouseover', this.onMouseover.bindAsEventListener(this));
         e.observe('mouseout', this.out.bind(this));
