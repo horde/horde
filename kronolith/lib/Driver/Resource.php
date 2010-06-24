@@ -75,7 +75,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email)';
             $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members'), $resource->get('email')));
+            $values = array($id,
+                            $this->convertToDriver($resource->get('name')),
+                            $resource->get('calendar'),
+                            $this->convertToDriver($resource->get('description')),
+                            $resource->get('response_type'),
+                            $resource->get('type'),
+                            serialize($resource->get('members')),
+                            $resource->get('email'));
             $result = $this->_write_db->query($query . $cols_values, $values);
             $this->handleError($result);
             $resource->setId($id);
