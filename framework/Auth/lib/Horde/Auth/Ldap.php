@@ -43,23 +43,23 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Required parameters:
-     * <pre>
-     * 'basedn' - (string) The base DN for the LDAP server.
-     * 'filter' - (string) The LDAP formatted search filter to search for
-     *            users. This setting overrides the 'objectclass' method
-     *            below.
-     * 'ldap' - (Horde_Ldap) Horde LDAP object.
-     * 'objectclass' - (mixed) The objectclass filter used to search for
-     *                 users. Can be a single objectclass or an array.
-     * 'uid' - (string) The username search key.
-     * </pre>
+     *                       - basedn (string): The base DN for the LDAP server.
+     *                       - ldap (Horde_Ldap): Horde LDAP object.
+     *                       - uid (string): The username search key.
+     *                       Optional parameters:
+     *                       - filter (string): The LDAP formatted search filter
+     *                         to search for users. This setting overrides the
+     *                         'objectclass' method below.
+     *                       - objectclass (string|array): The objectclass
+     *                         filter used to search for users. Either a single
+     *                         or an array of objectclasses.
      *
      * @throws Horde_Auth_Exception
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        foreach (array('basedn', 'filter', 'ldap', 'uid') as $val) {
+        foreach (array('basedn', 'ldap', 'uid') as $val) {
             if (!isset($params[$val])) {
                 throw new InvalidArgumentException(__CLASS__ . ': Missing ' . $val . ' parameter.');
             }
