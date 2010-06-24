@@ -591,17 +591,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                     Horde::logMessage($e, 'ERR');
                 }
              }
-
-            /* Update tags */
-            Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
-
-            /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
-            try {
-                $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
-            } catch (Horde_Share_Exception $e) {
-                throw new Kronolith_Exception($e);
-            }
-            Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+            $this->_updateTags($event);
 
             /* Update Geolocation */
             if ($gDriver = Kronolith::getGeoDriver()) {
@@ -659,6 +649,45 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             Horde::logMessage($e, 'ERR');
         }
 
+        $this->_addTags($event);
+
+        /* Update Geolocation */
+        if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
+            $gDriver->setLocation($event->id, $event->geoLocation);
+        }
+
+        /* Notify users about the new event. */
+        Kronolith::sendNotification($event, 'add');
+
+        return $id;
+    }
+
+    /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param Kronolith_Event $event  The event to update
+     */
+    protected function _updateTags($event)
+    {
+        /* Update tags */
+        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+
+        /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
+        try {
+            $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param Kronolith_Event $event  The event to save tags to storage for.
+     */
+    protected function _addTags($event)
+    {
         /* Deal with any tags */
         $tagger = Kronolith::getTagger();
         $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
@@ -672,16 +701,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
-
-        /* Update Geolocation */
-        if ($event->geoLocation && $gDriver = Kronolith::getGeoDriver()) {
-            $gDriver->setLocation($event->id, $event->geoLocation);
-        }
-
-        /* Notify users about the new event. */
-        Kronolith::sendNotification($event, 'add');
-
-        return $id;
     }
 
     /**

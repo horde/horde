@@ -438,6 +438,7 @@ abstract class Kronolith_Event
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
             $resource = Kronolith::getDriver('Resource')->getResource($id);
+            Horde::logMessage('Kronolith_Event::save() checking resource ' . $id);
             $rcal = $resource->get('calendar');
             if ($rcal == $this->calendar) {
                 continue;
@@ -462,6 +463,7 @@ abstract class Kronolith_Event
 
             /* Remember accepted resources so we can add the event to their
              * calendars. Otherwise, clear the lock. */
+            Horde::logMessage('Kronolith_Event::save() response for resource ' . $id . ': ' . $response);
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
                 $add_events[] = $resource;
             } else {
@@ -483,6 +485,7 @@ abstract class Kronolith_Event
          * calendar before it is saved, they will have different GUIDs, and
          * hence no longer refer to the same event. */
         foreach ($add_events as $resource) {
+            Horde::logMessage('Kronolith_Event::save() Adding event ' . $this->uid . ' to resource ' . $resource->getId() . ' calendar. ');
             $resource->addEvent($this);
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
                 $locks->clearLock($lock[$resource->getId()]);

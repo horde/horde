@@ -244,4 +244,25 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
 
         return $return;
     }
+
+    /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param Kronolith_Event $event  The event to update
+     */
+    protected function _updateTags($event)
+    {
+        // noop
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param Kronolith_Event $event  The event to save tags to storage for.
+     */
+    protected function _addTags($event)
+    {
+        // noop
+    }
+
 }
