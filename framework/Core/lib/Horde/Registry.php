@@ -1795,19 +1795,20 @@ class Horde_Registry
     /**
      * Returns the currently logged in user, if there is one.
      *
-     * @param string $format  The return format:
-     * <pre>
-     * 'bare' - Horde ID without any domain information (e.g., foo@example.com
-     *          would be returned as 'foo').
-     * 'default' - [DEFAULT] The unique Horde ID.
-     * 'domain' - Domain of the Horde ID (e.g., foo@example.com would be
-     *            returned as 'example.com').
-     * 'original' - The username used to originally login to Horde.
-     * </pre>
+     * @param string $format  The return format, defaults to the unique Horde
+     *                        ID. Alternative formats:
+     *                        - bare: Horde ID without any domain information
+     *                          (e.g., foo@example.com would be returned as
+     *                          'foo').
+     *                        - domain: Domain of the Horde ID (e.g.,
+     *                          foo@example.com would be returned as
+     *                          'example.com').
+     *                        - original: The username used to originally login
+     *                          to Horde.
      *
      * @return mixed  The user ID or false if no user is logged in.
      */
-    public function getAuth($format = 'default')
+    public function getAuth($format = null)
     {
         if ($format == 'original') {
             return empty($_SESSION['horde_auth']['authId'])
@@ -1832,7 +1833,7 @@ class Horde_Registry
                 ? false
                 : substr($user, $pos + 1);
 
-        case 'default':
+        default:
             return $user;
         }
     }
