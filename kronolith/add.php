@@ -41,14 +41,7 @@ if (!Horde_Util::getFormData('cancel')) {
                     }
                 }
             } catch (Exception $e) {
-                // @todo: there is no getUserInfo() in Horde_Exception
-                $userinfo = $e->getUserInfo();
-                if (is_array($userinfo)) {
-                    $userinfo = implode(', ', $userinfo);
-                }
-                $message = $e->getMessage() . ($userinfo ? ' : ' . $userinfo : '');
-
-                $notification->push(sprintf(_("There was an error adding the event: %s"), $message), 'horde.error');
+                $notification->push(sprintf(_("There was an error adding the event: %s"), $e->getMessage()), 'horde.error');
             }
         }
     } catch (Exception $e) {
