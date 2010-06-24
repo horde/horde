@@ -76,6 +76,7 @@ class Kronolith_FreeBusy
         }
 
         /* Fetch events. */
+        $busy = array();
         foreach ($calendars as $calendar) {
             if (strpos($calendar, 'remote_') === 0) {
                 $driver = Kronolith::getDriver('Ical', substr($calendar, 7));
