@@ -112,7 +112,7 @@ implements Iterator
      * @throws Horde_Kolab_Storage_Exception If the namespace of the folder
      *                                       cannot be determined.
      */
-    protected function matchNamespace($name)
+    public function matchNamespace($name)
     {
         foreach ($this->_namespaces as $namespace) {
             if ($namespace->matches($name)) {
