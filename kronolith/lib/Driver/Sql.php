@@ -599,7 +599,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
 
             /* Notify users about the changed event. */
-            Kronolith::sendNotification($event, 'edit');
+            $this->_handleNotifications($event, 'edit');
 
             return $event->id;
         }
@@ -657,7 +657,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         /* Notify users about the new event. */
-        Kronolith::sendNotification($event, 'add');
+        $this->_handleNotifications($event, 'add');
 
         return $id;
     }
@@ -701,6 +701,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
         $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+    }
+
+    protected function _handleNotifications($event, $action)
+    {
+        Kronolith::sendNotification($event, $action);
     }
 
     /**
@@ -817,7 +822,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Notify about the deleted event. */
         if (!$silent) {
-            Kronolith::sendNotification($event, 'delete');
+            $this->_handleNotifications($event, 'delete');
         }
 
         /* See if this event represents an exception - if so, touch the base

@@ -265,4 +265,9 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         // noop
     }
 
+    protected function _handleNotifications($event, $action)
+    {
+        // noop
+    }
+
 }
