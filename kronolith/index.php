@@ -119,7 +119,9 @@ Horde_Ajax_Imple::factory(
           'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
           'box' => 'kronolithAttendeesACBox',
           'pretty' => true,
-          'var' => 'KronolithCore.attendeesAc'))
+          'var' => 'KronolithCore.attendeesAc',
+          'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
+          'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)'))
     ->attach();
 
 if ($conf['maps']['driver']) {
