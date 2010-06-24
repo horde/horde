@@ -9,9 +9,6 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-/* Trick some Horde js into thinking this is the parent Horde window. */
-var frames = { horde_main: true },
-
 /* Kronolith object. */
 KronolithCore = {
     // Vars used and defaulting to null/false:
@@ -251,11 +248,13 @@ KronolithCore = {
 
     redirect: function(url, force)
     {
-        window.location.assign(this.addURLParam(url));
+        var ptr = parent.frames.horde_main ? parent : window;
+
+        ptr.location.assign(this.addURLParam(url));
 
         // Catch browsers that don't redirect on assign().
         if (force && !Prototype.Browser.WebKit) {
-            (function() { window.location.reload(); }).delay(0.5);
+            (function() { ptr.location.reload(); }).delay(0.5);
         }
     },
 
@@ -5782,13 +5781,17 @@ KronolithCore = {
 
 };
 
-/* Initialize global event handlers. */
-document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
-document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
-document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
-document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
-document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
-document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
-if (Prototype.Browser.IE) {
-    $('kronolithBody').observe('selectstart', Event.stop);
+if (parent.frames.horde_main) {
+    KronolithCore.redirect(window.location.href);
+} else {
+    /* Initialize global event handlers. */
+    document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
+    document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
+    document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
+    document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
+    document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
+    document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
+    if (Prototype.Browser.IE) {
+        $('kronolithBody').observe('selectstart', Event.stop);
+    }
 }
