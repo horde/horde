@@ -11,10 +11,8 @@ function weekOfYear(d)
     }
     var D3 = Date.UTC(year, d.getMonth(), d.getDate()) + ms3d;
     var wk = Math.floor(D3 / ms7d);
-    with (new Date(wk * ms7d)) {
-        var yy = getUTCFullYear();
-    }
-    return 1 + wk - Math.floor((Date.UTC(yy, 0, 4) + ms3d) / ms7d)
+    var yy = new Date(wk * ms7d).getUTCFullYear();
+    return 1 + wk - Math.floor((Date.UTC(yy, 0, 4) + ms3d) / ms7d);
 }
 
 function formatDate(year, month, day)
@@ -104,7 +102,7 @@ function openKGoto(d, event)
             Element.hide('kgoto_iefix');
         }
         return false;
-    }
+    };
     link.appendChild(document.createTextNode('x'));
     cell.appendChild(link);
     row.appendChild(cell);
@@ -120,7 +118,7 @@ function openKGoto(d, event)
         newDate = new Date(currentYear - 1, currentDate.getMonth(), 1);
         openKGoto(newDate);
         return false;
-    }
+    };
     cell.appendChild(link);
     row.appendChild(cell);
 
@@ -149,7 +147,7 @@ function openKGoto(d, event)
         newDate = new Date(currentYear + 1, currentDate.getMonth(), 1);
         openKGoto(newDate);
         return false;
-    }
+    };
     cell.appendChild(link);
     row.appendChild(cell);
     thead.appendChild(row);
@@ -170,7 +168,7 @@ function openKGoto(d, event)
         newDate = new Date(newYear, newMonth, currentDate.getDate());
         openKGoto(newDate);
         return false;
-    }
+    };
     cell.appendChild(link);
     row.appendChild(cell);
 
@@ -199,7 +197,7 @@ function openKGoto(d, event)
         newDate = new Date(currentYear, currentDate.getMonth() + 1, 1);
         openKGoto(newDate);
         return false;
-    }
+    };
     cell.appendChild(link);
     row.appendChild(cell);
     thead.appendChild(row);
