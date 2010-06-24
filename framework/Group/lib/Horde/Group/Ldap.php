@@ -72,14 +72,14 @@ class Horde_Group_Ldap extends Horde_Group
             throw new Horde_Group_Exception('Could not reach the LDAP server');
         }
 
-        if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION,
-                             $this->_params['version'])) {
+        if (!@ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION,
+                              $this->_params['version'])) {
             Horde::logMessage(
                 sprintf('Set LDAP protocol version to %d failed: [%d] %s',
                         $this->_params['version'],
                         @ldap_errno($this->_ds),
                         @ldap_error($this->_ds)),
-                        __FILE__, __LINE__));
+                'ERR');
         }
 
         /* Start TLS if we're using it. */
