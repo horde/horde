@@ -8,10 +8,10 @@
 class Kronolith_FreeBusy
 {
     /**
-     * Generates the free/busy text for $calendar. Cache it for at least an
+     * Generates the free/busy text for $calendars. Cache it for at least an
      * hour, as well.
      *
-     * @param string|array $calendar  The calendar to view free/busy slots for.
+     * @param string|array $calendars  The calendar to view free/busy slots for.
      * @param integer $startstamp     The start of the time period to retrieve.
      * @param integer $endstamp       The end of the time period to retrieve.
      * @param boolean $returnObj      Default false. Return a vFreebusy object
@@ -19,29 +19,37 @@ class Kronolith_FreeBusy
      * @param string $user            Set organizer to this user.
      *
      * @return string  The free/busy text.
-     * @throws Kronolith_Exception
+     * @throws Horde_Exception
      */
-    public static function generate($calendar, $startstamp = null,
+    public static function generate($calendars, $startstamp = null,
                                     $endstamp = null, $returnObj = false,
                                     $user = null)
     {
         global $kronolith_shares;
 
-        if (!is_array($calendar)) {
-            $calendar = array($calendar);
+        if (!is_array($calendars)) {
+            $calendars = array($calendars);
         }
 
-        /* Fetch the appropriate share and check permissions. */
-        try {
-            $share = $kronolith_shares->getShare($calendar[0]);
-            $owner = $share->get('owner');
-        } catch (Horde_Share_Exception $e) {
-            // Might be a Kronolith_Resource
-            try {
-                $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
-                $owner = $calendar[0];
-            } catch (Horde_Exception $e) {
-                return $returnObj ? $share : '';
+        if ($user) {
+            /* Find a share and retrieve owner. */
+            foreach ($calendars as $calendar) {
+                if (strpos($calendar, 'remote_') === 0) {
+                    continue;
+                }
+                try {
+                    $share = $kronolith_shares->getShare($calendar);
+                    $user = $share->get('owner');
+                    break;
+                } catch (Horde_Share_Exception $e) {
+                    /* Might be a Kronolith_Resource. */
+                    if (Kronolith_Resource::isResourceCalendar($calendar)) {
+                        $user = $calendar;
+                        break;
+                    } else {
+                        throw ($e);
+                    }
+                }
             }
         }
 
@@ -60,15 +68,24 @@ class Kronolith_FreeBusy
         }
 
         /* Get the Identity for the owner of the share. */
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user ? $user : $owner);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
         if (empty($mail) && empty($cn)) {
-            $cn = $user ? $user : $owner;
+            $cn = $user;
         }
 
         /* Fetch events. */
-        $busy = Kronolith::listEvents(new Horde_Date($startstamp), $enddate, $calendar);
+        foreach ($calendars as $calendar) {
+            if (strpos($calendar, 'remote_') === 0) {
+                $driver = Kronolith::getDriver('Ical', substr($calendar, 7));
+            } else {
+                $driver = Kronolith::getDriver(null, $calendar);
+            }
+            $events = $driver->listEvents(new Horde_Date($startstamp),
+                                          $enddate, true);
+            Kronolith::mergeEvents($busy, $events);
+        }
 
         /* Create the new iCalendar. */
         $vCal = new Horde_iCalendar();
@@ -90,7 +107,7 @@ class Kronolith_FreeBusy
         $vFb->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
-        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $owner, true, -1));
+        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $user, true, -1));
 
         /* Add all the busy periods. */
         foreach ($busy as $events) {

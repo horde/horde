@@ -120,10 +120,12 @@ class Kronolith_Application extends Horde_Registry_Application
         switch ($ui->group) {
         case 'freebusy':
             if (!$prefs->isLocked('fb_cals')) {
-                $fb_cals = Kronolith::ListCalendars();
                 $fb_list = array();
-                foreach (Kronolith::ListCalendars() as $fb_cal => $cal) {
+                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
                     $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->get('name'));
+                }
+                foreach ($GLOBALS['all_remote_calendars'] as $cal) {
+                    $fb_list['remote_' . htmlspecialchars($cal['url'])] = $cal['name'];
                 }
                 $ui->override['fb_cals'] = $fb_list;
             }

@@ -517,8 +517,8 @@ class Kronolith
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
                                       $alarmsOnly = false, $showRemote = true,
-                                      $hideExceptions = false, $coverDates = true,
-                                      $fetchTags = false)
+                                      $hideExceptions = false,
+                                      $coverDates = true, $fetchTags = false)
     {
         $results = array();
 

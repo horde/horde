@@ -251,8 +251,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false, $coverDates = true, $hideExceptions = false,
-                               $fetchTags = false)
+                               $json = false, $coverDates = true,
+                               $hideExceptions = false, $fetchTags = false)
     {
         if (!is_null($startDate)) {
             $startDate = clone $startDate;
