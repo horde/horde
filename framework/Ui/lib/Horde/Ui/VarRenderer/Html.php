@@ -33,7 +33,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             $value = str_replace('.', $linfo['mon_decimal_point'], $value);
         }
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
-        return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
+        return sprintf('<input type="number" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
                        $value,
@@ -44,7 +44,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
     protected function _renderVarInput_int($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
-        return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
+        return sprintf('<input type="number" size="5" name="%s" id="%s" value="%s"%s />',
                        $varname,
                        $varname,
                        @htmlspecialchars($var->getValue($vars), ENT_QUOTES, $this->_charset),
@@ -775,7 +775,7 @@ EOT;
 
     protected function _renderVarInput_email($form, &$var, &$vars)
     {
-        return sprintf('<input type="text" name="%s" id="%s" value="%s"%s />',
+        return sprintf('<input type="email" name="%s" id="%s" value="%s"%s />',
                        $var->getVarName(),
                        $var->getVarName(),
                        @htmlspecialchars($var->getValue($vars)),
@@ -847,12 +847,12 @@ EOT;
     {
         $email = $var->getValue($vars);
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
-        return sprintf('<input type="text" name="%s[original]" id="%s[original]" value="%s"%s />',
+        return sprintf('<input type="email" name="%s[original]" id="%s[original]" value="%s"%s />',
                        $varname,
                        $varname,
                        @htmlspecialchars($email['original'], ENT_QUOTES, $this->_charset),
                        $this->_getActionScripts($form, $var)) .
-            ' ' . sprintf('<input type="text" name="%s[confirm]" id="%s[confirm]" value="%s"%s />',
+            ' ' . sprintf('<input type="email" name="%s[confirm]" id="%s[confirm]" value="%s"%s />',
                           $varname,
                           $varname,
                           @htmlspecialchars($email['confirm'], ENT_QUOTES, $this->_charset),
