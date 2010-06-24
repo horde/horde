@@ -77,8 +77,8 @@ class Horde_Group_Ldap extends Horde_Group
             Horde::logMessage(
                 sprintf('Set LDAP protocol version to %d failed: [%d] %s',
                         $this->_params['version'],
-                        ldap_errno($conn),
-                        ldap_error($conn),
+                        @ldap_errno($this->_ds),
+                        @ldap_error($this->_ds)),
                         __FILE__, __LINE__));
         }
 
