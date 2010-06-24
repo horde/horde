@@ -1168,7 +1168,7 @@ KronolithCore = {
     loadCalendar: function(type, calendar)
     {
         if (Kronolith.conf.calendars[type][calendar].show &&
-            $w('day week month year').include(this.view)) {
+            $w('day week month year agenda').include(this.view)) {
             var dates = this.viewDates(this.date, this.view);
             this.deleteCache(null, [type, calendar]);
             this.loadEvents(dates[0], dates[1], this.view, [[type, calendar]]);
@@ -1194,6 +1194,7 @@ KronolithCore = {
 
         switch (this.view) {
         case 'month':
+        case 'agenda':
             if (Object.isUndefined(this.ecache.get(type)) ||
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
                 this.loadCalendar(type, calendar);
@@ -1201,7 +1202,7 @@ KronolithCore = {
                 var allEvents = $('kronolithBody').select('div').findAll(function(el) {
                     return el.retrieve('calendar') == type + '|' + calendar;
                 });
-                if (Kronolith.conf.max_events) {
+                if (this.view == 'month' && Kronolith.conf.max_events) {
                     var dates = this.viewDates(this.date, this.view);
                     if (elt.hasClassName('kronolithCalOff')) {
                         var day, more, events, calendars = [];
@@ -1427,6 +1428,7 @@ KronolithCore = {
         if (this.view == 'day' ||
             this.view == 'week' ||
             this.view == 'month' ||
+            this.view == 'agenda' ||
             (this.view == 'year' && !$H(this.eventsLoading).size())) {
             this.insertEvents(dates, this.view, r.response.cal);
         }
@@ -1506,7 +1508,7 @@ KronolithCore = {
                         }
                         this.holidays.push(event.key);
                     }
-                    if (Kronolith.conf.max_events) {
+                    if (view == 'month' && Kronolith.conf.max_events) {
                         more = $('kronolithMonthDay' + date).down('.kronolithMore');
                         if (more) {
                             more.purge();
