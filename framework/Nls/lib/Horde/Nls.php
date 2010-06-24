@@ -74,7 +74,7 @@ class Horde_Nls
                 if (!isset($partial_lang)) {
                     $ll_LL = Horde_String::lower(substr($lang, 0, 2)) . '_' . Horde_String::upper(substr($lang, 0, 2));
                     if (self::isValid($ll_LL)) {
-                        $partial_lan = $ll_LL;
+                        $partial_lang = $ll_LL;
                     } else {
                         $ll = self::_map(substr($lang, 0, 2));
                         if (self::isValid($ll))  {
