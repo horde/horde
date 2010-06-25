@@ -35,11 +35,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function deleteEvent($event, $silent = false)
     {
-        /* Since this is the Kronolith_Resource's version of the event, if we
-         * delete it, we must also make sure to remove it from the event that
-         * it is attached to. Not sure if there is a better way to do
-         * this... */
         $delete_event = $this->getEvent($event);
+
         $uid = $delete_event->uid;
         $driver = Kronolith::getDriver();
         $events = $driver->getByUID($uid, null, true);
@@ -52,7 +49,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 $e->save();
             }
         }
-
+        $this->open($delete_event->calendar);
         parent::deleteEvent($event, $silent);
     }
 
