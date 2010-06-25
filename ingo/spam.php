@@ -11,6 +11,9 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
+
 /**
  * Dummy class to hold the select box created by {@link Ingo::flistSelect()}.
  *
@@ -37,9 +40,6 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
     }
 
 }
-
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('ingo');
 
 if (!in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Simple spam filtering is not supported in the current filtering driver."), 'horde.error');
