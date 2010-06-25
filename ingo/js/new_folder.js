@@ -11,7 +11,7 @@ var IngoNewFolder = {
         var selector = form[0].elements.namedItem(tagname);
 
         if (selector.selectedIndex == 1){
-            var folder = window.prompt(this.folderprompt . '\n', '');
+            var folder = window.prompt(this.folderprompt + '\n', '');
 
             if ((folder != null) && (folder != '')) {
                 form[0].actionID.value = 'create_folder';
