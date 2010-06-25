@@ -1,6 +1,7 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
-require_once('Horde/Core/Autoloader.php');
+
+require_once 'Horde/Core/Autoloader.php';
 
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
@@ -18,21 +19,21 @@ $parser = new Horde_Argv_Parser(
 list($opts, $args) = $parser->parseArgs();
 
 if (empty($args[0])) {
-    print "Please specify the path to the package you want to release!\n\n";
+    echo "Please specify the path to the package you want to release!\n\n";
     $parser->printUsage(STDERR);
     exit(1);
 }
 
 $package_path = $args[0];
 if (!is_dir($package_path)) {
-    print sprintf("%s specifies no directory!\n", $package_path);
+    printf("%s specifies no directory!\n", $package_path);
     exit(1);
 }
 
 $package_file = $package_path . '/package.xml';
 
 if (!file_exists($package_file)) {
-    print sprintf("There is no package.xml at %s!\n", $package_path);
+    printf("There is no package.xml at %s!\n", $package_path);
     exit(1);
 }
 
