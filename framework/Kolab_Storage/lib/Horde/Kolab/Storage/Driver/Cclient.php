@@ -40,9 +40,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param array  $params Connection parameters.
      */
-    public function __construct(
-        Group $groups
-    ) {
+    public function __construct(Horde_Group $groups)
+    {
         $this->_groups = $groups;
     }
 

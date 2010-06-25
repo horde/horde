@@ -42,7 +42,7 @@ implements Iterator
      * @param Horde_Group $groups  The group handler.
      * @param string      $creator The ID of the folder creator.
      */
-    public function __construct(array $acl, Group $groups, $creator)
+    public function __construct(array $acl, Horde_Group $groups, $creator)
     {
         foreach ($acl as $user => $rights) {
             if ($user == $creator) {

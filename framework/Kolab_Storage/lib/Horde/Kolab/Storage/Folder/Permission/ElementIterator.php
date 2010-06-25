@@ -42,7 +42,7 @@ implements Iterator
      * @param Horde_Group $groups      The group handler.
      * @param string      $creator     The ID of the folder creator.
      */
-    public function __construct(array $permissions, Group $groups, $creator)
+    public function __construct(array $permissions, Horde_Group $groups, $creator)
     {
         foreach ($permissions as $user => $user_perms) {
             if ($user == 'default') {

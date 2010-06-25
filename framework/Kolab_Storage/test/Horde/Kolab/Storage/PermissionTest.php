@@ -35,7 +35,7 @@ class Horde_Kolab_Storage_PermissionTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->folder = $this->getMock('Horde_Kolab_Storage_Folder_Base', array(), array(), '', false, false);
-        $this->groups = $this->getMock('Group', array(), array(), '', false, false);
+        $this->groups = $this->getMock('Horde_Group', array(), array(), '', false, false);
         $this->perms = new Horde_Perms();
     }
 

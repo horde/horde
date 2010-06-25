@@ -38,13 +38,13 @@ extends Horde_Kolab_Storage_Driver_Base
     /**
      * Constructor.
      *
-     * @param Net_IMAP $imap   The IMAP connection handler.
-     * @param Group    $groups The groups handler.
-     * @param array    $params Connection parameters.
+     * @param Net_IMAP $imap      The IMAP connection handler.
+     * @param Horde_Group $groups The groups handler.
+     * @param array $params        Connection parameters.
      */
     public function __construct(
         Net_IMAP $imap,
-        Group $groups,
+        Horde_Group $groups,
         $params = array()
     ) {
         $this->_imap = $imap;

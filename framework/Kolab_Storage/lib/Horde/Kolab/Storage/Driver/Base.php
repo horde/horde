@@ -45,10 +45,10 @@ implements Horde_Kolab_Storage_Driver
     /**
      * Constructor.
      *
-     * @param Group $groups The groups handler.
-     * @param array $params Connection parameters.
+     * @param Horde_Group $groups  The groups handler.
+     * @param array $params        Connection parameters.
      */
-    public function __construct(Group $groups, $params = array())
+    public function __construct(Horde_Group $groups, $params = array())
     {
         $this->_groups = $groups;
         $this->_params = $params;

@@ -39,12 +39,12 @@ extends Horde_Kolab_Storage_Driver_Base
      * Constructor.
      *
      * @param Horde_Imap_Client_Base $imap   The IMAP connection handler.
-     * @param Group                  $groups The groups handler.
+     * @param Horde_Group            $groups The groups handler.
      * @param array                  $params Connection parameters.
      */
     public function __construct(
         Horde_Imap_Client_Base $imap,
-        Group $groups,
+        Horde_Group $groups,
         $params = array()
     ) {
         $this->_imap = $imap;

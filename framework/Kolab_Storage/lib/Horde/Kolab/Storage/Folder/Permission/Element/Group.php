@@ -45,11 +45,11 @@ extends Horde_Kolab_Storage_Folder_Permission_Element
     /**
      * Constructor.
      *
-     * @param int    $permission The folder permission as provided by Horde.
-     * @param string $id         The group id.
-     * @param Group  $groups     The horde group handler.
+     * @param integer $permission  The folder permission as provided by Horde.
+     * @param string $id           The group id.
+     * @param Horde_Group $groups  The horde group handler.
      */
-    public function __construct($permission, $id, Group $groups)
+    public function __construct($permission, $id, Horde_Group $groups)
     {
         $this->_horde_id = $id;
         $this->_kolab_id = 'group:' . $groups->getGroupName($id);

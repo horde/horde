@@ -37,10 +37,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once 'Horde/Group.php';
-        require_once 'Horde/Group/mock.php';
-
-        $this->group = new Group_mock();
+        $this->group = new Horde_Group_Mock();
     }
 
     public function testGetNamespaceReturnsNamespaceHandler()

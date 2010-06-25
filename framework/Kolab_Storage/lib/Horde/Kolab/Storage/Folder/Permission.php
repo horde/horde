@@ -61,7 +61,7 @@ extends Horde_Perms_Permission
     public function __construct(
         $name,
         Horde_Kolab_Storage_Folder $folder,
-        Group $groups
+        Horde_Group $groups
     ) {
         parent::__construct(__CLASS__ . '::' . $name);
         $this->_folder = $folder;
