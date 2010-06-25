@@ -183,6 +183,7 @@ case Horde_Data::IMPORT_FILE:
 }
 
 if (!$error) {
+    $data = null;
     try {
         $data = $injector->getInstance('Horde_Data')->getData($import_format, array('cleanup' => '_cleanupData'));
 
