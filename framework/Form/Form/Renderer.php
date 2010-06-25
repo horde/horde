@@ -411,7 +411,7 @@ try {
         /* Display any help for the field. */
         if ($var->hasHelp()) {
             global $registry;
-            if (isset($registry) && is_a($registry, 'Registry')) {
+            if (isset($registry) && $registry instanceof Horde_Registry) {
                 $link = Horde_Help::link($GLOBALS['registry']->getApp(), $var->getHelp());
             } else {
                 $link = '<a href="#" onclick="alert(\'' . addslashes(@htmlspecialchars($var->getHelp())) . '\');return false;">' . $this->_helpMarker . '</a>';
