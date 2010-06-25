@@ -2846,6 +2846,7 @@ KronolithCore = {
                     $('kronolithCalendar' + type + 'LinkImport').up('li').hide();
                 }
                 $('kronolithCalendar' + type + 'UrlFeed').setValue(info.feed);
+                $('kronolithCalendar' + type + 'EmbedUrl').setValue(info.embed);
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);

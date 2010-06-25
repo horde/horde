@@ -87,6 +87,11 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
       <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
       <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
     </div>
+    <div>
+      <label for="kronolithCalendarinternalEmbedUrl"><?php echo _("Embed Script") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Embed calendar on external website") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalEmbedUrl" class="kronolithLongField" onfocus="this.select()" /><br />
+    </div>
   </div>
 </div>
 

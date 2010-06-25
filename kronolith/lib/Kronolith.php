@@ -270,6 +270,7 @@ class Kronolith
                         'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
                         'sub' => $subscriptionCals . ($calendar->get('owner') ? $calendar->get('owner') : '-system-') . '/' . $calendar->getName() . '.ics',
                         'feed' => (string)Kronolith::feedUrl($calendar->getName()),
+                        'embed' => self::embedCode($id),
                         'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
                     if ($owner) {
                         $code['conf']['calendars']['internal'][$id]['perms'] = self::permissionToJson($calendar->getPermission());
