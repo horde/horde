@@ -115,7 +115,7 @@ class Horde_Tree_Javascript extends Horde_Tree
     {
         $this->_buildIndents($this->_root_nodes);
 
-        return 'window.' . $this->_instance . '.renderTree(' . Horde_Serialize::serialize($this->_nodes, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ',' . Horde_Serialize::serialize($this->_root_nodes, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ',' . ($this->_static ? 'true' : 'false') . ')';
+        return 'window.' . $this->_instance . '.renderTree(' . Horde_Serialize::serialize($this->_nodes, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ',' . Horde_Serialize::serialize($this->_root_nodes, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ',' . ($this->_static ? 'true' : 'false') . ');';
     }
 
 }

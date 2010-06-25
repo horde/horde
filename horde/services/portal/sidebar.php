@@ -266,7 +266,10 @@ foreach ($menu as $app => $params) {
 // updated node javascript.
 if (Horde_Util::getFormData('httpclient')) {
     header('Content-Type: application/json; charset=' . Horde_Nls::getCharset());
-    echo Horde::wrapInlineScript(array($tree->renderNodeDefinitions()));
+    $scripts = array(
+        $tree->renderNodeDefinitions(),
+        '$(\'horde_menu\').setStyle({ width: \'auto\', height: \'auto\' });');
+    echo Horde::wrapInlineScript($scripts);
     exit;
 }
 

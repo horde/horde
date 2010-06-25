@@ -45,16 +45,26 @@ var HordeSidebar = {
         new Ajax.PeriodicalUpdater(
             'horde_menu',
             horde_sidebar_url,
-            { parameters: { httpclient: 1 },
-              method: 'get',
-              evalScripts: true,
-              frequency: horde_sidebar_refresh }
+            {
+                parameters: { httpclient: 1 },
+                method: 'get',
+                evalScripts: true,
+                frequency: horde_sidebar_refresh,
+                onSuccess: function ()
+                {
+                    var layout = $('horde_menu').getLayout();
+                    $('horde_menu').setStyle({
+                        width: layout.get('width') + 'px',
+                        height: layout.get('height') + 'px'
+                    });
+                }
+            }
         );
     }
 
 };
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     $('hiddenSidebar').hide();
     if (HordeSidebar.getCookie('horde_sidebar_expanded', true).toString() != $('expandedSidebar').visible().toString()) {
         HordeSidebar.toggleMenuFrame();
