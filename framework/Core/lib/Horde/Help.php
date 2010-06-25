@@ -213,9 +213,9 @@ class Horde_Help
             return '';
         }
 
-        $url = Horde::getServiceLink('help', $module)->add('topic', $topic)->setRaw(true);
-        return Horde::link($url, _("Help"), 'helplink', 'hordehelpwin', Horde::popupJs($url, array('urlencode' => true)) . 'return false;') .
-            Horde::img('help.png', _("Help"), 'width="16" height="16"') . '</a>';
+        $url = Horde::getServiceLink('help', $module)->add('topic', $topic);
+        return $url->link(array('title' => _("Help"), 'class' => 'helplink', 'target' => 'hordehelpwin', 'onclick' => Horde::popupJs($url, array('urlencode' => true)) . 'return false;'))
+            . Horde::img('help.png', _("Help")) . '</a>';
     }
 
 
