@@ -265,12 +265,7 @@ case 'print_attach':
                     }
                 }
 
-                $css = '';
-                foreach (Horde_Themes::getStylesheets() as $val) {
-                    $css .= file_get_contents($val['f']);
-                }
-
-                if ($style = Horde_Text_Filter::filter($css, 'csstidy', array('ob' => true))->filterBySelector($selectors)) {
+                if ($style = Horde_Text_Filter::filter(Horde_Themes::loadCssFiles(Horde_Themes::getStylesheets()), 'csstidy', array('ob' => true))->filterBySelector($selectors)) {
                     $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
                 }
             }

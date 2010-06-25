@@ -77,22 +77,7 @@ class Horde_Themes
             }
 
             if (!$exists) {
-                $flags = defined('FILE_IGNORE_NEW_LINES')
-                    ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-                    : 0;
-
-                foreach ($css as $file) {
-                    $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
-
-                    // Fix relative URLs, convert graphics URLs to data URLs
-                    // (if possible), remove multiple whitespaces, and strip
-                    // comments.
-                    $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
-                    if ($GLOBALS['browser']->hasFeature('dataurl')) {
-                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array(__CLASS__, 'stylesheetCallback'), $tmp);
-                    }
-                    $out .= $tmp;
-                }
+                $out = self::loadCssFiles($css);
 
                 /* Use CSS tidy to clean up file. */
                 if ($conf['cachecssparams']['compress'] == 'php') {
@@ -249,6 +234,37 @@ class Horde_Themes
         }
 
         return $css_out;
+    }
+
+    /**
+     * Loads CSS files, cleans up the input, and concatenates to a string.
+     *
+     * @param array $files  List of CSS files as returned from
+     *                      getStylesheets().
+     *
+     * @return string  CSS data.
+     */
+    static public function loadCssFiles($files)
+    {
+        $flags = defined('FILE_IGNORE_NEW_LINES')
+            ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
+            : 0;
+        $out = '';
+
+        foreach ($files as $file) {
+            $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
+
+            // Fix relative URLs, convert graphics URLs to data URLs
+            // (if possible), remove multiple whitespaces, and strip
+            // comments.
+            $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
+            if ($GLOBALS['browser']->hasFeature('dataurl')) {
+                $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array(__CLASS__, 'stylesheetCallback'), $tmp);
+            }
+            $out .= $tmp;
+        }
+
+        return $out;
     }
 
     /**
