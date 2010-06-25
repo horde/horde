@@ -11,6 +11,8 @@
  *         DEFAULT: 'highest_compression'
  * ob - (boolean) If true, return Csstidy object instead of string.
  *      DEFAULT: false
+ * preserve_css - (boolean) Set preserve_css flag in csstidy engine?
+ *                DEFAULT: true
  * </pre>
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
@@ -18,8 +20,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Text
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Text_Filter
  */
 class Horde_Text_Filter_Csstidy extends Horde_Text_Filter_Base
 {
@@ -29,7 +33,9 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'level' => 'highest_compression'
+        'level' => 'highest_compression',
+        'ob' => false,
+        'preserve_css' => true
     );
 
     /**
@@ -47,7 +53,7 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter_Base
         require_once dirname(__FILE__) . '/Csstidy/class.csstidy.php';
 
         $css_tidy = new csstidy();
-        $css_tidy->set_cfg('preserve_css', true);
+        $css_tidy->set_cfg('preserve_css', $this->_params['preserve_css']);
         $css_tidy->load_template($this->_params['level']);
         $css_tidy->parse($text);
 
