@@ -25,8 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Folder_Permission_ElementIterator
-implements Iterator
+class Horde_Kolab_Storage_Folder_Permission_ElementIterator implements IteratorAggregate
 {
     /**
      * The Horde permission elements.
@@ -73,28 +72,8 @@ implements Iterator
         }
     }
 
-    public function rewind()
+    public function getIterator()
     {
-        return reset($this->_elements);
-    }
-
-    public function current()
-    {
-        return current($this->_elements);
-    }
-
-    public function key()
-    {
-        return key($this->_elements);
-    }
-
-    public function next()
-    {
-        return next($this->_elements);
-    }
-
-    public function valid()
-    {
-        return key($this->_elements) !== null;
+        return new ArrayIterator($this->_elements);
     }
 }

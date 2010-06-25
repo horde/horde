@@ -25,8 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Folder_Permission_AclIterator
-implements Iterator
+class Horde_Kolab_Storage_Folder_Permission_AclIterator implements IteratorAggregate
 {
     /**
      * The ACL elements.
@@ -66,28 +65,8 @@ implements Iterator
         }
     }
 
-    public function rewind()
+    public function getIterator()
     {
-        return reset($this->_acl);
-    }
-
-    public function current()
-    {
-        return current($this->_acl);
-    }
-
-    public function key()
-    {
-        return key($this->_acl);
-    }
-
-    public function next()
-    {
-        return next($this->_acl);
-    }
-
-    public function valid()
-    {
-        return key($this->_acl) !== null;
+        return new ArrayIterator($this->_acl);
     }
 }

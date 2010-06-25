@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package History
  */
-class Horde_History_Log implements Iterator, ArrayAccess, Countable
+class Horde_History_Log implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
      * TODO
@@ -56,29 +56,9 @@ class Horde_History_Log implements Iterator, ArrayAccess, Countable
         }
     }
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_data);
-    }
-
-    public function key()
-    {
-        return key($this->_data);
-    }
-
-    public function next()
-    {
-        next($this->_data);
-    }
-
-    public function rewind()
-    {
-        reset($this->_data);
-    }
-
-    public function valid()
-    {
-        return current($this->_data) !== false;
+        return new ArrayIterator($this->_data);
     }
 
     public function offsetExists($offset)
