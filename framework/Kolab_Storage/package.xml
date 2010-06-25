@@ -164,6 +164,7 @@
        <file name="AttachmentTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="CacheTest.php" role="test" />
+       <file name="conf.php.dist" role="test" />
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
        <file name="NamespaceTest.php" role="test" />
@@ -301,6 +302,7 @@
    <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
    <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
    <install as="Horde/Kolab/Storage/CacheTest.php" name="test/Horde/Kolab/Storage/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/conf.php.dist" name="test/Horde/Kolab/Storage/conf.php.dist" />
    <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
    <install as="Horde/Kolab/Storage/FolderTest.php" name="test/Horde/Kolab/Storage/FolderTest.php" />
    <install as="Horde/Kolab/Storage/NamespaceTest.php" name="test/Horde/Kolab/Storage/NamespaceTest.php" />
