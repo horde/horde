@@ -52,7 +52,7 @@
   <input type="text" name="location" id="kronolithEventLocation" size="25" />
   <?php if ($GLOBALS['conf']['maps']['driver']): ?>
   <span id="kronolithEventMapLink" style="display:none">
-    <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>
+    <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>&nbsp;<span id="kronolithEventGeo_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </span>
   <?php endif; ?>
 </div>

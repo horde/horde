@@ -3718,8 +3718,8 @@ KronolithCore = {
 
         switch (trigger.id) {
         case 'kronolithEventLocation':
-            if (kc == Event.KEY_RETURN) {
-                this.ensureMap(true);
+            if (kc == Event.KEY_RETURN && $F('kronolithEventLocation')) {
+                this.initializeMap(true);
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 return;
@@ -4259,7 +4259,7 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventGeo':
-                this.ensureMap(true);
+                this.initializeMap(true);
                 this.geocode($F('kronolithEventLocation'));
                 e.stop();
                 break;
@@ -5508,12 +5508,15 @@ KronolithCore = {
     // Map
     initializeMap: function(ignoreLL)
     {
+        if (this.mapInitialized) {
+            return;
+        }
          var layers = [];
          if (Kronolith.conf.maps.providers) {
              Kronolith.conf.maps.providers.each(function(l)
                  {
                      var p = new HordeMap[l]();
-                     $H(p.getLayers()).values().each(function(e) { layers.push(e); });
+                     $H(p.getLayers()).values().each(function(e) {layers.push(e);});
                  });
          }
 
@@ -5586,6 +5589,7 @@ KronolithCore = {
 
     onGeocodeError: function(r)
     {
+        $('kronolithEventGeo_loading_img').toggle();
         KronolithCore.showNotifications([ { type: 'horde.error', message: Kronolith.text.geocode_error + ' ' + r} ]);
     },
 
@@ -5594,12 +5598,14 @@ KronolithCore = {
      */
     onGeocode: function(r)
     {
+        $('kronolithEventGeo_loading_img').toggle();
         r = r.shift();
         if (r.precision) {
             zoom = r.precision * 2;
         } else {
             zoom = null;
         }
+        this.ensureMap(true);
         this.placeMapMarker({ lat: r.lat, lon: r.lon }, true, zoom);
     },
 
@@ -5607,6 +5613,7 @@ KronolithCore = {
         if (!a) {
             return;
         }
+        $('kronolithEventGeo_loading_img').toggle();
         var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
         gc.geocode(a, this.onGeocode.bind(this), this.onGeocodeError);
     },

@@ -65,7 +65,7 @@ HordeMap.Map.Horde = Class.create({
 
         // Set the language to use
         OpenLayers.Lang.setCode(HordeMap.conf.language);
-        this.map = new OpenLayers.Map(this.opts.elt, options);
+        this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
 
         // Create the vector layer for markers if requested.
         if (HordeMap.conf.useMarkerLayer) {
