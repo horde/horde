@@ -994,6 +994,9 @@ class TicketDetailsForm extends Horde_Form {
                     if (substr($field, 0, 10) == 'attribute_' &&
                         isset($attributes[substr($field, 10)])) {
                         $attribute = $attributes[substr($field, 10)];
+                        if (!$attribute['params']) {
+                            $attribute['params'] = array();
+                        }
                         $var = &$this->addVariable(
                             $attribute['human_name'],
                             'attribute_' . $attribute['id'],
