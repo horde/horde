@@ -1,3 +1,6 @@
+<?php if (Horde_Util::nonInputVar('sidebarLoaded')): ?>
+</div>
+<?php endif; ?>
 <?php if (!$GLOBALS['browser']->isMobile()): ?>
 <script type="text/javascript">
 if (document.title && parent.frames && parent.frames.horde_main) {

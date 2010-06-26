@@ -266,7 +266,7 @@ body.rightPanel ul {
 
 #pageControls {
     position: absolute;
-    top: 52px;
+    top: -8px;
     right: 0;
     background: #eee;
     border: 1px solid #ccc;

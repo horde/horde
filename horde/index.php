@@ -76,20 +76,5 @@ if (!$main_page) {
     }
 }
 
-/* Sidebar display: only load sidebar if we are coming from login page and
- * 'horde_login_nosidebar' is set and not true; if this page is loaded,
- * there is no authenticated user, and conf->menu->always is true; or if
- * 'force_sidebar' GET parameter is set. */
-if ((Horde_Util::getFormData('force_sidebar') ||
-    !Horde_Util::nonInputVar('horde_login_nosidebar', $registry->getAuth())) &&
-    ($conf['menu']['always'] ||
-     ($registry->getAuth() && $prefs->getValue('show_sidebar')))) {
-    $scrollbar = $browser->hasQuirk('scrollbar_in_way') ? 'yes' : 'auto';
-    require HORDE_TEMPLATES . '/index/frames_index.inc';
-} else {
-    /* We always need to do a URL redirect here rather than directly
-     * including the file. This is to ensure that the next page has a chance
-     * to init a full Horde environment before anything else is done in the
-     * session (needed for things like Horde LoginTasks to be run). */
-    header('Location: ' . $main_page);
-}
+header('Location: ' . $main_page);
+exit;

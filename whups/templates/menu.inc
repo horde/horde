@@ -8,4 +8,6 @@
  <br class="clear" />
 </div>
 </form>
-<?php echo Horde_Util::nonInputVar('menuBottom'); $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>
+<?php echo Horde_Util::nonInputVar('menuBottom'); ?>
+<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
+<?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

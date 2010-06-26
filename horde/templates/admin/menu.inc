@@ -15,4 +15,5 @@
 ?>
  </div>
 </div>
+<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status'));

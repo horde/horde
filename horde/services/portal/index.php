@@ -11,13 +11,6 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-// Get full name.
-$identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity();
-$fullname = $identity->getValue('fullname');
-if (empty($fullname)) {
-    $fullname = $registry->convertUsername($registry->getAuth(), false);
-}
-
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
@@ -71,7 +64,7 @@ $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/menu/menu.inc';
 echo '<div id="menuBottom">';
-echo htmlspecialchars($fullname);
+echo htmlspecialchars($injector->getInstance('Horde_Prefs_Identity')->getIdentity()->getName());
 if (!$prefs->isLocked('portal_layout')) {
     echo ' | <a href="' . Horde::applicationUrl('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
 }

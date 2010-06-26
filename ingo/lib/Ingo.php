@@ -489,6 +489,7 @@ class Ingo
     {
         self::prepareMenu();
         echo self::$_menuTemplate->fetch(INGO_TEMPLATES . '/menu/menu.html');
+        require HORDE_BASE . '/services/portal/sidebar.php';
     }
 
     /**

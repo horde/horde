@@ -393,7 +393,6 @@ div.nicetitle {
 #menu {
     overflow: hidden;
     min-height: 50px;
-    margin-bottom: 8px;
     padding-right: 8px;
 }
 #menu ul {
@@ -439,8 +438,8 @@ div.nicetitle {
 }
 
 /* Sidebar styles. */
-.sidebar #menu {
-    margin: 0;
+.sidebar {
+    float: left;
 }
 #sidebarPanel {
     -moz-border-radius-bottomright: 15px;
@@ -467,6 +466,14 @@ div.nicetitle {
 }
 #sidebarPanel a:hover {
     color: #000;
+}
+
+/* Main body. */
+.body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 8px;
 }
 
 /* Pager. */

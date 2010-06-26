@@ -59,7 +59,6 @@ a:hover {
     text-decoration: underline;
 }
 #pageControls {
-    top: 53px !important;
     right: 8px !important;
     background: #063 !important;
     border: none !important;

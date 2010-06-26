@@ -78,6 +78,9 @@ option {
 }
 
 /* Sidebar styles. */
+.sidebar {
+    float: right;
+}
 #sidebarPanel {
     -moz-border-radius-bottomright: 0;
     -moz-border-radius-bottomleft: 15px;

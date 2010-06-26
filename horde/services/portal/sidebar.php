@@ -204,82 +204,84 @@ function buildMenu()
     return $menu;
 }
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
+function sidebar()
+{
+    global $registry, $conf, $language, $prefs;
 
-if (!$registry->getAuth() && !$conf['menu']['always']) {
-    $registry->authenticateFailure();
-}
+    // Set up the tree.
+    $tree = Horde_Tree::singleton('horde_menu', 'Javascript');
+    $menu = buildMenu();
+    foreach ($menu as $app => $params) {
+        if ($params['status'] == 'block') {
+            if ($registry->get('status', $params['app']) == 'inactive') {
+                continue;
+            }
 
-$is_mozbar = (bool)Horde_Util::getFormData('mozbar');
+            try {
+                $block = Horde_Block_Collection::getBlock($params['app'], $params['blockname']);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                continue;
+            }
 
-// Set up the tree.
-$tree = Horde_Tree::singleton('horde_menu', 'Javascript');
-$tree->setOption(array('target' => $is_mozbar ? '_content' : 'horde_main'));
-
-$menu = buildMenu();
-foreach ($menu as $app => $params) {
-    if ($params['status'] == 'block') {
-        if ($registry->get('status', $params['app']) == 'inactive') {
-            continue;
-        }
-
-        try {
-            $block = Horde_Block_Collection::getBlock($params['app'], $params['blockname']);
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            continue;
-        }
-
-        try {
-            $block->buildTree($tree, 0, isset($params['menu_parent']) ? $params['menu_parent'] : null);
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            continue;
-        }
-    } else {
-        // Need to run the name through gettext since the user's
-        // locale may not have been loaded when registry.php was
-        // parsed.
-        $name = _($params['name']);
-
-        // Headings have no webroot; they're just containers for other
-        // menu items.
-        if (isset($params['url'])) {
-            $url = $params['url'];
-        } elseif ($params['status'] == 'heading' || !isset($params['webroot'])) {
-            $url = null;
+            try {
+                $block->buildTree($tree, 0, isset($params['menu_parent']) ? $params['menu_parent'] : null);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                continue;
+            }
         } else {
-            $url = Horde::url($params['webroot'] . '/' . (isset($params['initial_page']) ? $params['initial_page'] : ''));
+            // Need to run the name through gettext since the user's
+            // locale may not have been loaded when registry.php was
+            // parsed.
+            $name = _($params['name']);
+
+            // Headings have no webroot; they're just containers for other
+            // menu items.
+            if (isset($params['url'])) {
+                $url = $params['url'];
+            } elseif ($params['status'] == 'heading' || !isset($params['webroot'])) {
+                $url = null;
+            } else {
+                $url = Horde::url($params['webroot'] . '/' . (isset($params['initial_page']) ? $params['initial_page'] : ''));
+            }
+
+            $node_params = array('url' => $url,
+                                 'target' => isset($params['target']) ? $params['target'] : null,
+                                 'icon' => (string)(isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app)),
+                                 'icondir' => '',
+                                 );
+            $tree->addNode($app, !empty($params['menu_parent']) ? $params['menu_parent'] : null, $name, 0, false, $node_params);
         }
-
-        $node_params = array('url' => $url,
-                             'target' => isset($params['target']) ? $params['target'] : null,
-                             'icon' => (string)(isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app)),
-                             'icondir' => '',
-                             );
-        $tree->addNode($app, !empty($params['menu_parent']) ? $params['menu_parent'] : null, $name, 0, false, $node_params);
     }
+
+    // If we're serving a request to the JS update client, just render the
+    // updated node javascript.
+    if (Horde_Util::getFormData('httpclient')) {
+        header('Content-Type: application/json; charset=' . Horde_Nls::getCharset());
+        $scripts = array(
+            $tree->renderNodeDefinitions(),
+            '$(\'horde_menu\').setStyle({ width: \'auto\', height: \'auto\' });');
+        echo Horde::wrapInlineScript($scripts);
+        exit;
+    }
+
+    $rtl = isset(Horde_Nls::$config['rtl'][$language]);
+    Horde::addScriptFile('prototype.js', 'horde');
+    Horde::addScriptFile('sidebar.js', 'horde');
+    require $GLOBALS['registry']->get('templates', 'horde') . '/portal/sidebar.inc';
 }
 
-// If we're serving a request to the JS update client, just render the
-// updated node javascript.
-if (Horde_Util::getFormData('httpclient')) {
-    header('Content-Type: application/json; charset=' . Horde_Nls::getCharset());
-    $scripts = array(
-        $tree->renderNodeDefinitions(),
-        '$(\'horde_menu\').setStyle({ width: \'auto\', height: \'auto\' });');
-    echo Horde::wrapInlineScript($scripts);
-    exit;
+if (!empty($_GET['httpclient'])) {
+    require_once dirname(__FILE__) . '/../../lib/Application.php';
+    Horde_Registry::appInit('horde', array('authentication' => 'none'));
 }
 
-$rtl = isset(Horde_Nls::$config['rtl'][$language]);
-$htmlId = 'sidebar-frame';
-$bodyClass = 'sidebar';
-if ($browser->hasQuirk('scrollbar_in_way')) {
-    $bodyClass .= ' scrollbar-quirk';
+if ($GLOBALS['conf']['menu']['always'] ||
+    ($GLOBALS['registry']->getAuth() && $GLOBALS['prefs']->getValue('show_sidebar'))) {
+    sidebar();
 }
-Horde::addScriptFile('prototype.js', 'horde');
-Horde::addScriptFile('sidebar.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/portal/sidebar.inc';
+
+$GLOBALS['sidebarLoaded'] = true;
+echo '<div class="body" style="margin-left:' . $GLOBALS['prefs']->getValue('sidebar_width') . 'px">';
+$GLOBALS['notification']->notify(array('listeners' => 'status'));
