@@ -333,9 +333,6 @@ class Horde_Registry
             }
         }
 
-        /* Always need to load applications information. */
-        $this->_loadApplicationsCache($vhost);
-
         /* Start a session. */
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
@@ -353,6 +350,9 @@ class Horde_Registry
                 session_write_close();
             }
         }
+
+        /* Always need to load applications information. */
+        $this->_loadApplicationsCache($vhost);
 
         /* Initialize the localization routines and variables. We can't use
          * Horde_Nls::setLanguageEnvironment() here because that depends on the
