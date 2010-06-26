@@ -1526,7 +1526,7 @@
    </configmultienum>
 
    <configboolean name="always" desc="Should we &lt;strong&gt;always
-   &lt;/strong&gt; display the Horde frameset?">false</configboolean>
+   &lt;/strong&gt; display the Horde sidebar menu?">false</configboolean>
 
    <configsection name="links">
     <configenum name="help" desc="Should we display help links in the
