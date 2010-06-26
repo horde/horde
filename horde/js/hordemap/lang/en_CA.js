@@ -16,7 +16,7 @@
  *     bodies are normal strings or strings formatted for use with
  *     <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang['en-CA'] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang['en_CA'] = OpenLayers.Util.applyDefaults({
 
     // add any entries specific for this region here
     // e.g.

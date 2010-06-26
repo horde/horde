@@ -12,7 +12,7 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang['es-ES'] = {
+OpenLayers.Lang["es_ES"] = {
 
     'unhandledRequest': "Respuesta a petición no gestionada ${statusText}",
 
@@ -91,7 +91,7 @@ OpenLayers.Lang['es-ES'] = {
     'reprojectDeprecated':
         "Está usando la opción 'reproject' en la capa " +
         "${layerName}. Esta opción está obsoleta: su uso fue diseñado " +
-        "para soportar la visualización de datos sobre mapas base comerciales, " +
+        "para soportar la visualización de datos sobre mapas base comerciales, " + 
         "pero esa funcionalidad debería conseguirse ahora mediante el soporte " +
         "de la proyección Spherical Mercator. Más información disponible en " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -116,7 +116,7 @@ OpenLayers.Lang['es-ES'] = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition falló: el elemento con id ${elemId} puede haberse colocado de manera errónea.",
-
+                    
     // console message
     'filterEvaluateNotImplemented': "evaluate no está implementado para este tipo de filtro.",
 

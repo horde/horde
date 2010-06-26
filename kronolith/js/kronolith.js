@@ -5626,6 +5626,12 @@ KronolithCore = {
      */
     placeMapMarker: function(ll, center, zoom)
     {
+        if (center) {
+            this.map.setCenter(ll, zoom);
+            if (!zoom) {
+                this.map.zoomToFit();
+            }
+        }
         if (!this.mapMarker) {
             this.mapMarker = this.map.addMarker(
                     ll,
@@ -5639,12 +5645,6 @@ KronolithCore = {
         }
         $('kronolithEventLocationLon').value = ll.lon;
         $('kronolithEventLocationLat').value = ll.lat;
-        if (center) {
-            this.map.setCenter(ll, zoom);
-            if (!zoom) {
-                this.map.zoomToFit();
-            }
-        }
     },
 
     /**

@@ -51,7 +51,7 @@ HordeMap = {
         if (this._opts.driver == 'Horde') {
             this._addScript(path + 'OpenLayers.js');
             if (this._opts.conf.language != 'en-US') {
-                this._addScript(path + this._opts.conf.language + '.js');
+                this._addScript(path + '/lang' + this._opts.conf.language + '.js');
             }
         }
         

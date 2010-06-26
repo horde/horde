@@ -13,7 +13,7 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["zh-TW"] = {
+OpenLayers.Lang["zh_TW"] = {
 
     'unhandledRequest': "未處理的請求，傳回值為 ${statusText}。",
 
