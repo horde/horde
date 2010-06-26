@@ -248,13 +248,11 @@ KronolithCore = {
 
     redirect: function(url, force)
     {
-        var ptr = parent.frames.horde_main ? parent : window;
-
-        ptr.location.assign(this.addURLParam(url));
+        window.location.assign(this.addURLParam(url));
 
         // Catch browsers that don't redirect on assign().
         if (force && !Prototype.Browser.WebKit) {
-            (function() { ptr.location.reload(); }).delay(0.5);
+            (function() { window.location.reload(); }).delay(0.5);
         }
     },
 
@@ -5784,17 +5782,13 @@ KronolithCore = {
 
 };
 
-if (parent.frames.horde_main) {
-    KronolithCore.redirect(window.location.href);
-} else {
-    /* Initialize global event handlers. */
-    document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
-    document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
-    document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
-    document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
-    document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
-    document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
-    if (Prototype.Browser.IE) {
-        $('kronolithBody').observe('selectstart', Event.stop);
-    }
+/* Initialize global event handlers. */
+document.observe('dom:loaded', KronolithCore.onDomLoad.bind(KronolithCore));
+document.observe('DragDrop2:drag', KronolithCore.onDrag.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:drop', KronolithCore.onDrop.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:end', KronolithCore.onDragEnd.bindAsEventListener(KronolithCore));
+document.observe('DragDrop2:start', KronolithCore.onDragStart.bindAsEventListener(KronolithCore));
+document.observe('Horde_Calendar:select', KronolithCore.datePickerHandler.bindAsEventListener(KronolithCore));
+if (Prototype.Browser.IE) {
+    $('kronolithBody').observe('selectstart', Event.stop);
 }
