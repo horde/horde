@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_Config</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for reading the Kolab server configuration.</summary>
+ <description>This package reads the various Kolab server
+ configuration files. It should also support retrieving configuration
+ parameters from LDAP but this is not yet implemented.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-06-27</date>
+ <time>11:39:36</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+* Initial package.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Config">
+       <dir name="Integration">
+        <file name="ConfigTest.php" role="test" />
+       </dir> <!-- //test/Horde/Kolab/Config/Integration -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+      </dir> <!-- //test/Horde/Kolab/Config -->
+     </dir> <!-- //test/Horde/Kolab -->
+    </dir> <!-- //test/Horde -->
+   </dir> <!-- //test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+  <optional />
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Kolab/Config/AllTests.php" name="test/Horde/Kolab/Config/AllTests.php" />
+   <install as="Horde/Kolab/Config/Autoload.php" name="test/Horde/Kolab/Config/Autoload.php" />
+   <install as="Horde/Kolab/Config/phpunit.xml" name="test/Horde/Kolab/Config/phpunit.xml" />
+   <install as="Horde/Kolab/Config/Integration/ConfigTest.php" name="test/Horde/Kolab/Config/Integration/ConfigTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-06-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial package.
+   </notes>
+  </release>
+ </changelog>
+</package>
