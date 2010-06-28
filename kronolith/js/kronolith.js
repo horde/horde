@@ -1460,7 +1460,7 @@ KronolithCore = {
             break;
         }
 
-        var day = dates[0].clone(), date, more, title, busy;
+        var day = dates[0].clone(), date, more, title, busy, events;
         while (!day.isAfter(dates[1])) {
             date = day.dateString();
             switch (view) {
@@ -1493,13 +1493,15 @@ KronolithCore = {
                 busy = false;
             }
 
-            this.getCacheForDate(date).sortBy(this.sortEvents).each(function(event) {
+            if (view == 'month' || view == 'agenda') {
+                events = this.getCacheForDate(date, calendar);
+            } else {
+                events = this.getCacheForDate(date);
+            }
+            events.sortBy(this.sortEvents).each(function(event) {
                 switch (view) {
                 case 'month':
                 case 'agenda':
-                    if (calendar != event.value.calendar) {
-                        return;
-                    }
                     if (calendar.startsWith('holiday|')) {
                         if (this.holidays.include(event.key)) {
                             return;
@@ -3649,8 +3651,13 @@ KronolithCore = {
      * @return Hash  An event hash which event ids as keys and event objects as
      *               values.
      */
-    getCacheForDate: function(date)
+    getCacheForDate: function(date, calendar)
     {
+        if (calendar) {
+            var cals = calendar.split('|');
+            return this.ecache.get(cals[0]).get(cals[1]).get(date);
+        }
+
         var events = $H();
         this.ecache.each(function(type) {
             type.value.each(function(cal) {
