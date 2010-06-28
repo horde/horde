@@ -1081,8 +1081,6 @@ class IMP_Compose
             $textpart->setHeaderCharset($charset);
 
             if (empty($options['nofinal'])) {
-                /* Any image links will be downloaded and appended to the
-                 * message body. */
                 $textpart->addPart($this->_convertToMultipartRelated($htmlBody));
             } else {
                 $textpart->addPart($htmlBody);
@@ -2267,19 +2265,11 @@ class IMP_Compose
             return $mime_part;
         }
 
-        $client_opts = $img_data = $img_parts = array();
+        $client = $GLOBALS['injector']->getInstance('Horde_Http_Client');
+        $img_data = $img_parts = array();
 
         /* Go through list of results, download the image, and create
          * Horde_Mime_Part objects with the data. */
-        if (!empty($conf['http']['proxy']['proxy_host'])) {
-            $client_opts['proxyServer'] = $conf['http']['proxy']['proxy_host'] . ':' . $conf['http']['proxy']['proxy_port'];
-            if (!empty($conf['http']['proxy']['proxy_user'])) {
-                $client_opts['proxyUser'] = $conf['http']['proxy']['proxy_user'];
-                $client_opts['proxyPass'] = empty($conf['http']['proxy']['proxy_pass']) ? $conf['http']['proxy']['proxy_pass'] : '';
-            }
-        }
-        $client = new Horde_Http_Client($client_opts);
-
         foreach ($results[1] as $url) {
             /* Attempt to download the image data. */
             $response = $client->get(str_replace('&amp;', '&', trim($url, '"\'')));

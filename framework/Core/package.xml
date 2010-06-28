@@ -94,6 +94,7 @@ Application Framework.
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
        <file name="History.php" role="php" />
+       <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Lock.php" role="php" />
@@ -251,6 +252,10 @@ Application Framework.
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Http</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Kolab_Server</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -291,6 +296,7 @@ Application Framework.
    <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
    <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
    <install name="lib/Horde/Core/Binder/History.php" as="Horde/Core/Binder/History.php" />
+   <install name="lib/Horde/Core/Binder/HttpClient.php" as="Horde/Core/Binder/HttpClient.php" />
    <install name="lib/Horde/Core/Binder/Identity.php" as="Horde/Core/Binder/Identity.php" />
    <install name="lib/Horde/Core/Binder/Ldap.php" as="Horde/Core/Binder/Ldap.php" />
    <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />

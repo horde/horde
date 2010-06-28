@@ -240,6 +240,7 @@ class Horde_Registry
             'Horde_Db_Pear' => new Horde_Core_Binder_DbPear(),
             'Horde_Editor' => new Horde_Core_Binder_Editor(),
             'Horde_History' => new Horde_Core_Binder_History(),
+            'Horde_Http_Client' => new Horde_Core_Binder_HttpClient(),
             'Horde_Ldap' => new Horde_Core_Binder_Ldap(),
             'Horde_Lock' => new Horde_Core_Binder_Lock(),
             'Horde_Log_Logger' => new Horde_Core_Binder_Logger(),

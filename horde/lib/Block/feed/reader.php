@@ -22,13 +22,7 @@ class Horde_Block_Horde_feed_reader {
 
         try {
             if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                $client = new Horde_Http_Client;
-                $client->proxyServer = $GLOBALS['conf']['http']['proxy']['proxy_host'] . ':' . $GLOBALS['conf']['http']['proxy']['proxy_port'];
-                if (!empty($GLOBALS['conf']['http']['proxy']['proxy_user'])) {
-                    $client->proxyUser = $GLOBALS['conf']['http']['proxy']['proxy_user'];
-                    $client->proxyPass = empty($GLOBALS['conf']['http']['proxy']['proxy_pass']) ? $GLOBALS['conf']['http']['proxy']['proxy_pass'] : '';
-                }
-                Horde_Feed::setHttpClient($client);
+                Horde_Feed::setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client'));
             }
 
             $feed = Horde_Feed::readUri($uri);

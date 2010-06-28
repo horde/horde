@@ -44,16 +44,8 @@ class Jonah
     {
         global $conf;
 
-        $factory = new Horde_Http_Request_Factory();
-        $request = $factory->create();
-        if (!empty($conf['http']['proxy']['proxy_host'])) {
-            $request->proxyServer = $conf['http']['proxy']['proxy_host'];
-            $request->proxyPort = $conf['http']['proxy']['proxy_port'];
-            $request->proxyUsername = $conf['http']['proxy']['proxy_user'];
-            $request->proxyPassword = $conf['http']['proxy']['proxy_pass'];
-        }
+        $http = $GLOBALS['injector']->getInstance('Horde_Http_Client');
 
-        $http = new Horde_Http_Client(array('request' => $request));
         try {
             $response = $http->get($url);
         } catch (Horde_Http_Exception $e) {
