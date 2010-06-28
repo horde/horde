@@ -1,0 +1,2 @@
+<?php
+$conf['kolab']['config']['directory'] = '/kolab/etc/kolab';

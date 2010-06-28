@@ -1,0 +1,3 @@
+local: global
+only_global: global
+both: global
