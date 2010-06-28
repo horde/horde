@@ -14,8 +14,8 @@ $block_name = _("Feeds");
  * @author  Roel Gloudemans <roel@gloudemans.info>
  * @package Horde_Block
  */
-class Horde_Block_Jonah_delivery extends Horde_Block {
-
+class Horde_Block_Jonah_delivery extends Horde_Block
+{
     var $_app = 'jonah';
 
     function _title()
@@ -25,11 +25,9 @@ class Horde_Block_Jonah_delivery extends Horde_Block {
 
     function _content()
     {
-        $news = Jonah_News::factory();
-
-        $channels = array();
-        $channels = $news->getChannels(Jonah::INTERNAL_CHANNEL);
-        if (is_a($channels, 'PEAR_Error')) {
+        try {
+            $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
+        } catch (Jonah_Exception $e) {
             $channels = array();
         }
 
@@ -37,22 +35,20 @@ class Horde_Block_Jonah_delivery extends Horde_Block {
 
         foreach ($channels as $key => $channel) {
             /* Link for HTML delivery. */
-            $url = Horde::applicationUrl('delivery/html.php');
-            $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
+            $url = Horde::applicationUrl('delivery/html.php')->add('channel_id', $channel['channel_id']);
             $label = sprintf(_("\"%s\" stories in HTML"), $channel['channel_name']);
             $html .= '<tr><td width="140">' .
                 Horde::img('story_marker.png') . ' ' .
-                Horde::link($url, $label, '', '', '', $label) .
+                $url->link(array('title' => $label)) .
                 htmlspecialchars($channel['channel_name']) . '</a></td>';
 
             $html .= '<td>' . ($channel['channel_updated'] ? date('M d, Y H:i', (int)$channel['channel_updated']) : '-') . '</td>';
 
             /* Link for feed delivery. */
-            $url = Horde::applicationUrl('delivery/rss.php', true, -1);
-            $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
+            $url = Horde::applicationUrl('delivery/rss.php', true, -1)->add('channel_id', $channel['channel_id']);
             $label = sprintf(_("RSS Feed of \"%s\""), $channel['channel_name']);
             $html .= '<td align="right" class="nowrap">' .
-                     Horde::link($url, $label) .
+                     $url->link(array('title' => $label)) .
                      Horde::img('feed.png') . '</a> ';
         }
 
