@@ -1091,7 +1091,8 @@ KronolithCore = {
      */
     updateCalendarList: function()
     {
-        var ext = $H(), extNames = $H();
+        var ext = $H(), extNames = $H(),
+            extContainer = $('kronolithExternalCalendars');
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
             this.insertCalendarInList('internal', cal.key, cal.value);
@@ -1112,7 +1113,7 @@ KronolithCore = {
             extNames.set(api, cal.value.api);
         });
         ext.each(function(api) {
-            $('kronolithExternalCalendars')
+            extContainer
                 .insert(new Element('h3')
                         .insert({ bottom: extNames.get(api.key).escapeHTML() }))
                 .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'kronolithCalendars' }));
@@ -1460,7 +1461,7 @@ KronolithCore = {
             break;
         }
 
-        var day = dates[0].clone(), date, more, title, busy, events;
+        var day = dates[0].clone(), date, more, title, busy, events, monthDay;
         while (!day.isAfter(dates[1])) {
             date = day.dateString();
             switch (view) {
@@ -1482,8 +1483,8 @@ KronolithCore = {
                 break;
 
             case 'month':
-                $('kronolithMonthDay' + date)
-                    .select('div')
+                monthDay = $('kronolithMonthDay' + date);
+                monthDay.select('div')
                     .findAll(function(el) { return el.retrieve('calendar') == calendar; })
                     .invoke('remove');
                 break;
@@ -1509,14 +1510,14 @@ KronolithCore = {
                         this.holidays.push(event.key);
                     }
                     if (view == 'month' && Kronolith.conf.max_events) {
-                        more = $('kronolithMonthDay' + date).down('.kronolithMore');
+                        more = monthDay.down('.kronolithMore');
                         if (more) {
                             more.purge();
                             more.remove();
                         }
                     }
                     if (view == 'month' && Kronolith.conf.max_events) {
-                        var events = $('kronolithMonthDay' + date).select('.kronolithEvent');
+                        var events = monthDay.select('.kronolithEvent');
                         if (events.size() >= Kronolith.conf.max_events) {
                             if (date == (new Date().dateString())) {
                                 // This is today.
@@ -1708,22 +1709,24 @@ KronolithCore = {
                 if (view == 'day') {
                     $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
-                    var existing = $('kronolithAllDay' + date).childElements();
+                    var allDay = $('kronolithAllDay' + date),
+                        existing = allDay.childElements(),
+                        weekHead = $('kronolithViewWeekHead');
                     if (existing.size() == 3) {
                         if (existing[2].className != 'kronolithMore') {
                             existing[2].purge();
                             existing[2].remove();
-                            $('kronolithAllDay' + date).insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
+                            allDay.insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
                         }
                     } else {
-                        $('kronolithAllDay' + date).insert(div.setStyle(style));
+                        allDay.insert(div.setStyle(style));
                         if (event.value.pe) {
                             div.addClassName('kronolithEditable');
                             var layout = div.getLayout(),
-                                minLeft = $('kronolithViewWeekHead').down('.kronolithFirstCol').getWidth() + this[storage].spacing + (parseInt(div.getStyle('marginLeft'), 10) || 0),
-                                minTop = $('kronolithViewWeekHead').down('thead').getHeight() + this[storage].spacing + (parseInt(div.getStyle('marginTop'), 10) || 0),
-                                maxLeft = $('kronolithViewWeekHead').getWidth() - layout.get('margin-box-width'),
-                                maxTop = $('kronolithViewWeekHead').down('thead').getHeight() + $('kronolithViewWeekHead').down('.kronolithAllDay').getHeight(),
+                                minLeft = weekHead.down('.kronolithFirstCol').getWidth() + this[storage].spacing + (parseInt(div.getStyle('marginLeft'), 10) || 0),
+                                minTop = weekHead.down('thead').getHeight() + this[storage].spacing + (parseInt(div.getStyle('marginTop'), 10) || 0),
+                                maxLeft = weekHead.getWidth() - layout.get('margin-box-width'),
+                                maxTop = weekHead.down('thead').getHeight() + weekHead.down('.kronolithAllDay').getHeight(),
                                 opts = {
                                     threshold: 5,
                                     parentElement: function() {
@@ -1744,6 +1747,7 @@ KronolithCore = {
             var midnight = this.parseDate(date),
                 resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
+                parentElement = $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date),
                 minHeight = 0,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
@@ -1774,7 +1778,7 @@ KronolithCore = {
             if (draggerBottom) {
                 div.insert(draggerBottom);
             }
-            $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
+            parentElement.insert(div);
             if (draggerTop) {
                 minHeight += draggerTop.getHeight();
             }
@@ -1833,13 +1837,14 @@ KronolithCore = {
                         scroll: 'kronolithBody',
                         nodrop: true,
                         parentElement: function() {
-                            return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date);
+                            return parentElement;
                         }
                     };
 
+                var scrollArea = $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody');
                 if (draggerTop) {
                     opts.snap = function(x, y) {
-                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
+                        y += scrollArea.scrollTop - this.scrollTop;
                         y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
                         return [0, y];
                     }.bind(this);
@@ -1854,7 +1859,7 @@ KronolithCore = {
 
                 if (draggerBottom) {
                     opts.snap = function(x, y) {
-                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
+                        y += scrollArea.scrollTop - this.scrollTop;
                         y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
                     }.bind(this);
@@ -1876,12 +1881,12 @@ KronolithCore = {
                 var d = new Drag(div, {
                     threshold: 5,
                     nodrop: true,
-                    parentElement: function() { return $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date); },
+                    parentElement: function() { return parentElement; },
                     snap: function(x, y) {
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
-                        y += $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop - this.scrollTop;
+                        y += scrollArea.scrollTop - this.scrollTop;
                         y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
                         return [x, y];
                     }.bind(this)
@@ -1983,18 +1988,19 @@ KronolithCore = {
             break;
 
         case 'month':
-            var div = _createElement(event)
+            var monthDay = $('kronolithMonthDay' + date),
+                div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
-            $('kronolithMonthDay' + date).insert(div);
+            monthDay.insert(div);
             if (event.value.pe) {
                 div.setStyle({ cursor: 'move' });
                 new Drag(event.value.nodeId, { threshold: 5, parentElement: function() { return $('kronolithViewMonthContainer'); }, snapToParent: true });
             }
             if (Kronolith.conf.max_events) {
-                var more = $('kronolithMonthDay' + date).down('.kronolithMore');
+                var more = monthDay.down('.kronolithMore');
                 if (more) {
-                    $('kronolithMonthDay' + date).insert({ bottom: more.remove() });
+                    monthDay.insert({ bottom: more.remove() });
                 }
             }
             break;
@@ -2081,11 +2087,12 @@ KronolithCore = {
      */
     insertMore: function(date)
     {
-        var more = $('kronolithMonthDay' + date).down('.kronolithMore');
+        var monthDay = $('kronolithMonthDay' + date),
+            more = monthDay.down('.kronolithMore');
         if (more) {
-            $('kronolithMonthDay' + date).insert({ bottom: more.remove() });
+            monthDay.insert({ bottom: more.remove() });
         } else {
-            $('kronolithMonthDay' + date).insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
+            monthDay.insert({ bottom: new Element('span', { className: 'kronolithMore' }).store('date', date).insert(Kronolith.text.more) });
         }
     },
 
@@ -2183,7 +2190,8 @@ KronolithCore = {
      */
     loadTasks: function(tasktype, tasklists)
     {
-        var tasktypes = this.getTaskStorage(tasktype), loading = false;
+        var tasktypes = this.getTaskStorage(tasktype), loading = false,
+            spinner = $('kronolithLoading');
 
         if (Object.isUndefined(tasklists)) {
             tasklists = [];
@@ -2201,7 +2209,7 @@ KronolithCore = {
                     Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
                     this.loading++;
-                    $('kronolithLoading').show();
+                    spinner.show();
                     this.doAction('listTasks',
                                   { type: type,
                                     list: list },
@@ -2603,12 +2611,13 @@ KronolithCore = {
      */
     updateTasklistDropDown: function()
     {
-        $('kronolithTaskList').update();
+        var tasklist = $('kronolithTaskList');
+        tasklist.update();
         $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
             if (cal.value.edit) {
-                $('kronolithTaskList').insert(new Element('option', { value: cal.key.substring(6) })
-                             .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                             .update(cal.value.name.escapeHTML()));
+                tasklist.insert(new Element('option', { value: cal.key.substring(6) })
+                                .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                                .update(cal.value.name.escapeHTML()));
             }
         });
     },
