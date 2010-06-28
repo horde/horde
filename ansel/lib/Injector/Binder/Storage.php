@@ -9,7 +9,7 @@
  */
 class Ansel_Injector_Binder_Storage Implements Horde_Injector_Binder
 {
-    public function create (Horde_Injector $injector)
+    public function create(Horde_Injector $injector)
     {
         return new Ansel_Injector_Factory_Storage($injector);
     }
