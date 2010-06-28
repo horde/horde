@@ -115,38 +115,23 @@ class Jonah_Driver_Sql extends Jonah_Driver
     /**
      * Get a list of stored channels.
      *
-     * @param integer $type  The type of channel to filter for. Possible
-     *                       values are either JONAH_INTERNAL_CHANNEL
-     *                       to fetch only a list of internal channels,
-     *                       or JONAH_EXTERNAL_CHANNEL for only external.
-     *                       If null both channel types are returned.
-     *
      * @return mixed         An array of channels or PEAR_Error on error.
+     * @throws Jonah_Exception
      */
-    public function getChannels($type = null)
+    public function getChannels()
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            return $result;
+            throw new Jonah_Exception($result);
         }
 
-        $wsql = '';
-        if (!is_null($type)) {
-            if (!is_array($type)) {
-                $type = array($type);
-            }
-            for ($i = 0, $i_max = count($type); $i < $i_max; ++$i) {
-                $type[$i] = 'channel_type = ' . (int)$type[$i];
-            }
-            $wsql = 'WHERE ' . implode(' OR ', $type);
-        }
-
-        $sql = sprintf('SELECT channel_id, channel_name, channel_type, channel_updated FROM jonah_channels %s ORDER BY channel_name', $wsql);
-
+        // @TODO: Remove the channel_type clause when we get rid of external channels
+        $wsql = 'WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL;
+        $sql = sprintf('SELECT channel_id, channel_name, channel_type, channel_updated FROM jonah_channels WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL . ' ORDER BY channel_name', $wsql);
         Horde::logMessage('SQL Query by Jonah_Driver_sql::getChannels(): ' . $sql, 'DEBUG');
         $result = $this->_db->getAll($sql, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage($result, 'ERR');
-            return $result;
+            throw new Jonah_Exception($result);
         }
         for ($i = 0; $i < count($result); $i++) {
             $result[$i]['channel_name'] = Horde_String::convertCharset($result[$i]['channel_name'], $this->_params['charset']);
