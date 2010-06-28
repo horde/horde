@@ -3,7 +3,7 @@
  * Jonah_Driver:: is responsible for storing, searching, sorting and filtering
  * locally generated and managed articles.  Aggregation is left to Hippo.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -12,30 +12,35 @@
  * @author  Marko Djukic <marko@oblo.com>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Ben Klang <ben@alkaloid.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Jonah
  */
-class Jonah_Driver {
-
+class Jonah_Driver
+{
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Constructs a new Driver storage object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Jonah_Driver($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
 
     /**
+     * Remove a channel from storage.
+     *
+     * @param array $info  A channel info array. (@TODO: Look at passing just
+     *                     the id?)
      */
-    function deleteChannel(&$info)
+    public function deleteChannel($info)
     {
         return $this->_deleteChannel($info['channel_id']);
     }
@@ -46,28 +51,28 @@ class Jonah_Driver {
      *
      * @param integer $channel_id  The channel id to fetch.
      *
-     * @return array|PEAR_Error  The channel details as an array or a
-     *                           PEAR_Error if not valid or not found.
+     * @return array  The channel details as an array
+     * @throws InvalidArgumentException
      */
-    function getChannel($channel_id)
+    public function getChannel($channel_id)
     {
         static $channel = array();
 
         /* We need a non empty channel id. */
         if (empty($channel_id)) {
-            return PEAR::raiseError(_("Missing channel id."));
+            throw new InvalidArgumentException(_("Missing channel id."));
         }
 
         /* Cache the fetching of channels. */
         if (!isset($channel[$channel_id])) {
             $channel[$channel_id] = $this->_getChannel($channel_id);
-            if (!is_a($channel[$channel_id], 'PEAR_Error')) {
-                if (empty($channel[$channel_id]['channel_link'])) {
-                    $channel[$channel_id]['channel_official'] = Horde_Util::addParameter(Horde::applicationUrl('delivery/html.php', true, -1), 'channel_id', $channel_id, false);
-                } else {
-                    $channel[$channel_id]['channel_official'] = str_replace(array('%25c', '%c'), array('%c', $channel_id), $channel[$channel_id]['channel_link']);
-                }
+            if (empty($channel[$channel_id]['channel_link'])) {
+                $channel[$channel_id]['channel_official'] =
+                    Horde::applicationUrl('delivery/html.php', true, -1)->add('channel_id', $channel_id)->setRaw(false);
+            } else {
+                $channel[$channel_id]['channel_official'] = str_replace(array('%25c', '%c'), array('%c', $channel_id), $channel[$channel_id]['channel_link']);
             }
+
         }
 
         return $channel[$channel_id];
@@ -126,34 +131,34 @@ class Jonah_Driver {
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
+     * @throws InvalidArgumentException
      */
-    function getStories($criteria)
+    public function getStories($criteria)
     {
         // Convert a channel slug into a channel ID if necessary
         if (isset($criteria['channel']) && !isset($criteria['channel_id'])) {
             $criteria['channel_id'] = $this->getIdBySlug($criteria['channel']);
         }
 
-
         // Validate that we have proper Horde_Date objects
         if (isset($criteria['updated-min'])) {
             if (!is_a($criteria['updated-min'], 'Horde_Date')) {
-                throw new Exception("Invalid date object provided for update start date.");
+                throw new InvalidArgumentException("Invalid date object provided for update start date.");
             }
         }
         if (isset($criteria['updated-max'])) {
             if (!is_a($criteria['updated-max'], 'Horde_Date')) {
-                throw new Exception("Invalid date object provided for update end date.");
+                throw new InvalidArgumentException("Invalid date object provided for update end date.");
             }
         }
         if (isset($criteria['published-min'])) {
             if (!is_a($criteria['published-min'], 'Horde_Date')) {
-                throw new Exception("Invalid date object provided for published start date.");
+                throw new InvalidArgumentException("Invalid date object provided for published start date.");
             }
         }
         if (isset($criteria['published-max'])) {
             if (!is_a($criteria['published-max'], 'Horde_Date')) {
-                throw new Exception("Invalid date object provided for published end date.");
+                throw new InvalidArgumentException("Invalid date object provided for published end date.");
             }
         }
 
@@ -190,17 +195,14 @@ class Jonah_Driver {
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
      */
-    function legacyGetStories($channel, $max = 10, $from = 0, $refresh = false,
-                        $date = null, $unreleased = false,
-                        $order = Jonah::ORDER_PUBLISHED)
+    public function legacyGetStories($channel, $max = 10, $from = 0, $refresh = false,
+                                     $date = null, $unreleased = false,
+                                     $order = Jonah::ORDER_PUBLISHED)
     {
         global $conf, $registry;
 
-        $channel['channel_link'] = Horde_Util::addParameter(Horde::applicationUrl('delivery/html.php', true, -1), 'channel_id', $channel['channel_id']);
+        $channel['channel_link'] = Horde::applicationUrl('delivery/html.php', true, -1)->add('channel_id', $channel['channel_id']);
         $stories = $this->_legacyGetStories($channel['channel_id'], $max, $from, $date, $unreleased, $order);
-        if (is_a($stories, 'PEAR_Error')) {
-            return $stories;
-        }
         $date_format = $GLOBALS['prefs']->getValue('date_format');
         $comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages');
         foreach ($stories as $key => $story) {
@@ -208,8 +210,10 @@ class Jonah_Driver {
             $stories[$key]['story_updated'] = $story['story_updated'];
             $stories[$key]['story_updated_date'] = strftime($date_format, $story['story_updated']);
             if ($comments) {
-                $stories[$key]['num_comments'] = $registry->call('forums/numMessages', array($story['story_id'], $registry->getApp()));
-                if (is_a($stories[$key]['num_comments'], 'PEAR_Error')) {
+                try {
+                    $stories[$key]['num_comments'] = $registry->call('forums/numMessages', array($story['story_id'], $registry->getApp()));
+                } catch (Horde_Exception $e) {
+                    Horde::logMessage($e->getMessage(), 'ERR');
                     $stories[$key]['num_comments'] = null;
                 }
             }
@@ -220,16 +224,12 @@ class Jonah_Driver {
     }
 
     /**
+     * Save the provided story to storage.
+     *
+     * @param array $info  The story information array. Passed by reference so
+     *                     we can add/change the story_id when saved.
      */
-    function _escapeExternalStories(&$story, $key, $channel)
-    {
-        $story = array_merge($channel, $story);
-        $story['story_link'] = Horde::externalUrl($story['story_url']);
-    }
-
-    /**
-     */
-    function saveStory(&$info)
+    public function saveStory(&$info)
     {
         /* Used for checking whether to send out delivery or not. */
         if (empty($info['story_published'])) {
@@ -249,35 +249,22 @@ class Jonah_Driver {
                 $deliver = false;
             }
         }
-
-        /* First save to the backend. */
-        $result = $this->_saveStory($info);
-        if (is_a($result, 'PEAR_Error') || !$deliver) {
-            /* Return here also if editing, do not bother doing deliveries for
-             * an edited story. */
-            return $result;
-        }
+        $this->_saveStory($info);
     }
 
     /**
+     * Retrieve the requested story from storage.
+     *
+     * @param integer $channel_id  The channel id to obtain story from.
+     * @param integer $story_id    The story id to obtain.
+     * @param boolean $read        Increment the read counter?
+     *
+     * @return array  The story information array
      */
-    function getStory($channel_id, $story_id, $read = false)
+    public function getStory($channel_id, $story_id, $read = false)
     {
-        $channel = null;
-        if ($channel_id) {
-            $channel = $this->getChannel($channel_id);
-            if (is_a($channel, 'PEAR_Error')) {
-                return $channel;
-            }
-            if ($channel['channel_type'] == Jonah::EXTERNAL_CHANNEL) {
-                return $this->_getExternalStory($channel, $story_id);
-            }
-        }
-
+        $channel = $this->getChannel($channel_id);
         $story = $this->_getStory($story_id, $read);
-        if (is_a($story, 'PEAR_Error')) {
-            return $story;
-        }
 
         /* Format story link. */
         $story['story_link'] = $this->getStoryLink($channel, $story);
@@ -298,31 +285,31 @@ class Jonah_Driver {
      * @param array $channel  A channel hash.
      * @param array $story    A story hash.
      *
-     * @return string  The story link.
+     * @return Horde_Url  The story link.
      */
-    function getStoryLink($channel, $story)
+    public function getStoryLink($channel, $story)
     {
         if ((empty($story['story_url']) || !empty($story['story_body'])) &&
             !empty($channel['channel_story_url'])) {
             $url = $channel['channel_story_url'];
         } else {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('stories/view.php', true, -1), array('channel_id' => '%c', 'story_id' => '%s'), null, false);
+            $url = Horde::applicationUrl('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'story_id' => '%s'))->setRaw(false);
         }
-        return str_replace(array('%25c', '%25s', '%c', '%s'),
-                           array('%c', '%s', $channel['channel_id'], $story['story_id']),
-                           $url);
+        return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
+                                         array('%c', '%s', $channel['channel_id'], $story['story_id']),
+                                         $url));
     }
 
     /**
      */
-    function getChecksum($story)
+    public function getChecksum($story)
     {
         return md5($story['story_title'] . $story['story_desc']);
     }
 
     /**
      */
-    function getIntervalLabel($seconds = null)
+    public function getIntervalLabel($seconds = null)
     {
         $interval = array(1 => _("none"),
                           1800 => _("30 mins"),
@@ -352,9 +339,12 @@ class Jonah_Driver {
      *                             Possible values are the Jonah::ORDER_*
      *                             constants.
      *
+     * @TODO: This doesn't belong in a storage driver class. Move it to a
+     * view or possible a static method in Jonah::?
+     * 
      * @return string  The rendered story listing.
      */
-    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
+    public function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
     {
         $channel = $this->getChannel($channel_id);
         if (is_a($channel, 'PEAR_Error')) {
@@ -445,8 +435,9 @@ class Jonah_Driver {
     }
 
     /**
+     * @TODO: Move to a view class or static Jonah:: method?
      */
-    function _escapeStories(&$value, $key)
+    protected function _escapeStories(&$value, $key)
     {
         $value['story_title'] = htmlspecialchars($value['story_title']);
         $value['story_desc'] = htmlspecialchars($value['story_desc']);
@@ -459,8 +450,9 @@ class Jonah_Driver {
     }
 
     /**
+     * @TODO: Move to a view class or static Jonah:: method?
      */
-    function _escapeStoryDescriptions(&$value, $key)
+    protected function _escapeStoryDescriptions(&$value, $key)
     {
         $value['story_desc'] = nl2br($value['story_desc']);
     }
@@ -471,8 +463,9 @@ class Jonah_Driver {
      * @param array $story  A data array representing a story.
      *
      * @return MIME_Part  The MIME message part containing the story parts.
+     * @TODO: Refactor to use new Horde MIME library
      */
-    function &getStoryAsMessage(&$story)
+    protected function getStoryAsMessage($story)
     {
         require_once 'Horde/MIME/Part.php';
 
@@ -518,6 +511,9 @@ class Jonah_Driver {
     /**
      * Stubs for the tag functions. If supported by the backend, these need
      * to be implemented in the concrete Jonah_Driver_* class.
+     *
+     * @TODO: These will be moved to a new Tagger class and will interface
+     * with the Content_Tagger api.
      */
     function writeTags($resource_id, $channel_id, $tags)
     {
