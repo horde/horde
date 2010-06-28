@@ -30,21 +30,22 @@
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Jonah
  */
-class Jonah_Driver_sql extends Jonah_Driver {
-
+class Jonah_Driver_Sql extends Jonah_Driver
+{
     /**
      * Handle for the current database connection.
      *
+     * @TODO: Refactor to use Horde_Db
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Boolean indicating whether or not we're connected to the SQL server.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Saves a channel to the backend.
@@ -67,7 +68,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      * @return int|PEAR_Error  The channel ID on success, PEAR_Error on
      *                         failure.
      */
-    function saveChannel(&$info)
+    public function saveChannel(&$info)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -122,7 +123,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed         An array of channels or PEAR_Error on error.
      */
-    function getChannels($type = null)
+    public function getChannels($type = null)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -156,7 +157,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _getChannel($channel_id)
+    protected function _getChannel($channel_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -194,7 +195,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _timestampChannel($channel_id, $timestamp)
+    protected function _timestampChannel($channel_id, $timestamp)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -213,7 +214,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _readStory($story_id)
+    protected function _readStory($story_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -230,7 +231,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _deleteChannel($channel_id)
+    protected function _deleteChannel($channel_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -251,7 +252,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
     /**
      * @param array &$info
      */
-    function _saveStory(&$info)
+    protected function _saveStory(&$info)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -315,7 +316,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return array  The converted hash.
      */
-    function _convertFromBackend($story)
+    protected function _convertFromBackend($story)
     {
         $story['story_title'] = Horde_String::convertCharset($story['story_title'], $this->_params['charset'], Horde_Nls::getCharset());
         $story['story_desc'] = Horde_String::convertCharset($story['story_desc'], $this->_params['charset'], Horde_Nls::getCharset());
@@ -335,7 +336,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return int Channel ID
      */
-    function getChannelId($channel)
+    public function getChannelId($channel)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -359,7 +360,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  The count || PEAR_Error
      */
-    function getStoryCount($channel_id)
+    public function getStoryCount($channel_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -386,7 +387,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @see Jonah_Driver#getStories
      */
-    function _getStories($criteria)
+    protected function _getStories($criteria)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -485,7 +486,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
         return $results;
     }
 
-    function _getIdBySlug($slug)
+    protected function _getIdBySlug($slug)
     {
         return $slug;
     }
@@ -506,7 +507,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
      */
-    function _legacyGetStories($channel_id, $max, $from = 0, $date = null,
+    protected function _legacyGetStories($channel_id, $max, $from = 0, $date = null,
                          $unreleased = false, $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
@@ -568,7 +569,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _getStory($story_id, $read = false)
+    protected function _getStory($story_id, $read = false)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -599,7 +600,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function _getStoryByUrl($channel_id, $story_url)
+    protected function _getStoryByUrl($channel_id, $story_url)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -630,7 +631,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @param array $story  A story hash.
      */
-    function _addPermalink(&$story)
+    protected function _addPermalink(&$story)
     {
         $channel = $this->getChannel($story['channel_id']);
         if (is_a($channel, 'PEAR_Error')) {
@@ -652,7 +653,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return int  The story id.
      */
-    function getLatestStoryId($channel_id)
+    public function getLatestStoryId($channel_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -677,7 +678,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
 
     /**
      */
-    function deleteStory($channel_id, $story_id)
+    public function deleteStory($channel_id, $story_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -714,7 +715,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed True | PEAR_Error
      */
-    function writeTags($resource_id, $channel_id, $tags)
+    public function writeTags($resource_id, $channel_id, $tags)
     {
         global $conf;
 
@@ -767,7 +768,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  An array of tags | PEAR_Error
      */
-    function readTags($resource_id)
+    public function readTags($resource_id)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -792,7 +793,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  An array containing tag_name, and total | PEAR_Error
      */
-    function listTagInfo($tags = array(), $channel_id = null)
+    public function listTagInfo($tags = array(), $channel_id = null)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -852,7 +853,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  Array of stories| PEAR_Error
      */
-    function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
+    public function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
                             $order = Jonah::ORDER_PUBLISHED)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
@@ -952,7 +953,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @see Jonah_Driver_sql::searchTagsById()
      */
-    function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
+    public function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
                         $order = Jonah::ORDER_PUBLISHED)
     {
         $ids = $this->getTagIds($names);
@@ -970,7 +971,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  An array of tag names | PEAR_Error.
      */
-    function getTagNames($ids)
+    public function getTagNames($ids)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -993,7 +994,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return mixed  An array of tag_name => tag_ids | PEAR_Error
      */
-    function getTagIds($names)
+    public function getTagIds($names)
     {
         if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             return $result;
@@ -1014,7 +1015,7 @@ class Jonah_Driver_sql extends Jonah_Driver {
      *
      * @return boolean    True on success; PEAR_Error on failure.
      */
-    function _connect()
+    protected function _connect()
     {
         if ($this->_connected) {
             return true;
