@@ -1,17 +1,14 @@
 <?php
 /**
- * @package Jonah
- */
-
-/**
  * Jonah Base Class.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Eric Rechlin <eric@hpcalc.org>
+ *
  * @package Jonah
  */
-class Jonah {
-
+class Jonah
+{
     /**
      * Internal Jonah channel.
      */
@@ -39,8 +36,9 @@ class Jonah {
     const ORDER_COMMENTS = 2;
 
     /**
+     * @TODO: Use Horde_Http
      */
-    function _readURL($url)
+    static protected function _readURL($url)
     {
         global $conf;
 
@@ -72,13 +70,13 @@ class Jonah {
     /**
      * Returns a drop-down select box to choose which view to display.
      *
-     * @param name Name to assign to select box.
-     * @param selected Currently selected item. (optional)
-     * @param onchange JavaScript onchange code. (optional)
+     * @param $name      Name to assign to select box.
+     * @param $selected  Currently selected item. (optional)
+     * @param $onchange  JavaScript onchange code. (optional)
      *
      * @return string Generated select box code
      */
-    function buildViewWidget($name, $selected = 'standard', $onchange = '')
+    static public function buildViewWidget($name, $selected = 'standard', $onchange = '')
     {
         require JONAH_BASE . '/config/templates.php';
 
@@ -96,7 +94,7 @@ class Jonah {
 
     /**
      */
-    function getChannelTypeLabel($type)
+    static public function getChannelTypeLabel($type)
     {
         switch ($type) {
         case Jonah::INTERNAL_CHANNEL:
@@ -114,8 +112,15 @@ class Jonah {
     }
 
     /**
+     *
+     *
+     * @param string $filter       The type of channel
+     * @param integer $permission  Horde_Perms:: constant
+     * @param mixed $in            ??
+     *
+     * @return mixed  An array of results or a single boolean?
      */
-    function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
+    static public function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
     {
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'jonah:admin', 'permlevel' =>  $permission))) {
             if (empty($in)) {
@@ -167,8 +172,12 @@ class Jonah {
     }
 
     /**
+     *
+     * @param string $type  The Jonah::* constant for the channel type.
+     *
+     * @return string  The string representation of the channel type.
      */
-    function typeToPermName($type)
+    static public function typeToPermName($type)
     {
         if ($type == Jonah::INTERNAL_CHANNEL) {
             return 'internal_channels';
@@ -182,7 +191,7 @@ class Jonah {
      *
      * @return array  An array of body types.
      */
-    function getBodyTypes()
+    static public function getBodyTypes()
     {
         static $types = array();
         if (!empty($types)) {
@@ -209,7 +218,7 @@ class Jonah {
      *
      * @return string  A default type.
      */
-    function getDefaultBodyType()
+    static public function getDefaultBodyType()
     {
         $types = Jonah::getBodyTypes();
         if (isset($types['text'])) {
@@ -219,14 +228,13 @@ class Jonah {
         }
         /* The two most common body types have not been found, so just return
          * the first one that is in the array. */
-        $tmp = array_keys($types);
-        return array_shift($tmp);
+        return array_shift(array_keys($types));
     }
 
     /**
      * Build Jonah's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         global $registry, $conf;
 
