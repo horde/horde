@@ -36,28 +36,34 @@ class Jonah
     const ORDER_COMMENTS = 2;
 
     /**
-     * @TODO: Use Horde_Http
+     * Obtain the list of stories from the passed in URI.
+     *
+     * @param string $url  The url to get the list of the channel's stories.
      */
     static public function readURL($url)
     {
         global $conf;
 
-        $options['method'] = 'GET';
-        $options['timeout'] = 5;
-        $options['allowRedirects'] = true;
-
+        $factory = new Horde_Http_Request_Factory();
+        $request = $factory->create();
         if (!empty($conf['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $conf['http']['proxy']);
+            $request->proxyServer = $conf['http']['proxy']['proxy_host'];
+            $request->proxyPort = $conf['http']['proxy']['proxy_port'];
+            $request->proxyUsername = $conf['http']['proxy']['proxy_user'];
+            $request->proxyPassword = $conf['http']['proxy']['proxy_pass'];
         }
 
-        $http = new HTTP_Request($url, $options);
-        @$http->sendRequest();
-        if ($http->getResponseCode() != 200) {
-            return PEAR::raiseError(sprintf(_("Could not open %s."), $url));
+        $http = new Horde_Http_Client(array('request' => $request));
+        try {
+            $response = $http->get($url);
+        } catch (Horde_Http_Exception $e) {
+            throw new Jonah_Exception(sprintf(_("Could not open %s: %s"), $url, $e->getMessage()));
         }
-
-        $result = array('body' => $http->getResponseBody());
-        $content_type = $http->getResponseHeader('Content-Type');
+        if ($response->code <> '200') {
+            throw new Jonah_Exception(sprintf(_("Could not open %s: %s"), $url, $response->code));
+        }
+        $result = array('body' => $response->getBody());
+        $content_type = $response->getHeader('Content-Type');
         if (preg_match('/.*;\s?charset="?([^"]*)/', $content_type, $match)) {
             $result['charset'] = $match[1];
         } elseif (preg_match('/<\?xml[^>]+encoding=["\']?([^"\'\s?]+)[^?].*?>/i', $result['body'], $match)) {
