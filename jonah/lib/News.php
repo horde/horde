@@ -730,7 +730,7 @@ class Jonah_News {
      */
     function _fetchExternalStories($url, $timestamp)
     {
-        $xml = Jonah::_readURL($url);
+        $xml = Jonah::readURL($url);
         if (is_a($xml, 'PEAR_Error')) {
             Horde::logMessage($xml, 'ERR');
             return array('timestamp' => $timestamp);

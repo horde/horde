@@ -38,7 +38,7 @@ class Jonah
     /**
      * @TODO: Use Horde_Http
      */
-    static protected function _readURL($url)
+    static public function readURL($url)
     {
         global $conf;
 
