@@ -35,8 +35,6 @@ class Jonah_Application extends Horde_Registry_Application
     protected function _init()
     {
         $GLOBALS['injector']->addBinder('Jonah_Driver', new Jonah_Injector_Binder_Driver());
-        
-        $GLOBALS['jonah_driver'] = Jonah_Driver::factory();
     }
 
     /**
