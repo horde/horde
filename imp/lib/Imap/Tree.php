@@ -312,7 +312,7 @@ class IMP_Imap_Tree
 
             /* INBOX must always appear. */
             if (empty($result['INBOX'])) {
-                $result = array_merge($imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)), $result);
+                $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
             }
         } catch (Horde_Imap_Client_Exception $e) {}
 
