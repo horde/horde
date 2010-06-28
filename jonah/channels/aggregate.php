@@ -8,7 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah');
 
 function _getLinks($id, $subid, $name, $title)
