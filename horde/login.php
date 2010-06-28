@@ -97,7 +97,6 @@ $is_auth = $registry->isAuthenticated();
 
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';
-$horde_login_nosidebar = false;
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
@@ -132,10 +131,6 @@ try {
     $loginparams = array_filter(array_merge($loginparams, $result['params']));
     $js_code = array_merge($js_code, $result['js_code']);
     $js_files = array_merge($js_files, $result['js_files']);
-
-    if (!empty($result['nosidebar'])) {
-        $horde_login_nosidebar = true;
-    }
 } catch (Horde_Exception $e) {}
 
 /* Get URL/Anchor strings now. */
@@ -179,9 +174,7 @@ if ($error_reason) {
     $_GET['new_lang'] = $language;
 } elseif (Horde_Util::getPost('login_post') ||
           Horde_Util::getPost('login_button')) {
-    if ($is_auth) {
-        $horde_login_nosidebar = true;
-    } else {
+    if (!$is_auth) {
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
         $registry->getCleanSession();
@@ -243,7 +236,6 @@ if ($error_reason) {
 /* If we currently are authenticated, and are not trying to authenticate to
  * an application, redirect to initial page. This is done in index.php. */
 if ($is_auth && !$vars->app) {
-    $horde_login_nosidebar = true;
     require HORDE_BASE . '/index.php';
     exit;
 }
