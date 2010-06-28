@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add config option to disable multipart/related conversions
+      (Request #9099).
 [mms] Sentmail SQL driver now supports split read/write operation.
 [mms] Pass compose message data to mailer backend via stream; much more
       efficient, especially with larger messages (Request #8909).

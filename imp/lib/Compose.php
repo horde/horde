@@ -1081,10 +1081,12 @@ class IMP_Compose
             $textpart->setHeaderCharset($charset);
 
             if (empty($options['nofinal'])) {
-                $textpart->addPart($this->_convertToMultipartRelated($htmlBody));
-            } else {
-                $textpart->addPart($htmlBody);
+                try {
+                    $htmlBody = $this->_convertToMultipartRelated($htmlBody);
+                } catch (Horde_Exception $e) {}
             }
+
+            $textpart->addPart($htmlBody);
         } else {
             $textpart = $textBody;
         }
@@ -2258,9 +2260,11 @@ class IMP_Compose
     {
         global $conf;
 
-        /* Return immediately if this is not a HTML part, or no 'img' tags are
+        /* Return immediately if related conversion is turned off via
+         * configuration, this is not a HTML part, or no 'img' tags are
          * found (specifically searching for the 'src' parameter). */
-        if (($mime_part->getType() != 'text/html') ||
+        if (empty($conf['compose']['convert_to_related']) ||
+            ($mime_part->getType() != 'text/html') ||
             !preg_match_all('/<img[^>]+src\s*\=\s*([^\s]+)\s+/iU', $mime_part->getContents(), $results)) {
             return $mime_part;
         }

@@ -171,6 +171,13 @@
    <configinteger name="attach_count_limit" desc="What is the maximum total
    number of attachments per message? Set this value to 0 for no
    limit.">0</configinteger>
+   <configboolean name="convert_to_related" desc="When composing a message in
+   HTML mode, should we download the data for any images contained in the
+   message and directly attach to the message? This is highly recommended as
+   the image data may not otherwise be available when the recipient views
+   the message in the future. This should be turned off for servers that are
+   firewalled or otherwise have limited Internet
+   connectivity.">true</configboolean>
    <configinteger name="reply_limit" desc="What is the maximum total size of
    text (in bytes) to use when replying or forwarding a message. Set this value
    to 0 for no limit.">200000</configinteger>
