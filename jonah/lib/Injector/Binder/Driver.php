@@ -14,10 +14,10 @@ class Jonah_Injector_Binder_Driver Implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        $driver = $GLOBALS['conf']['news']['storage']['driver'];
+        $driver = Horde_String::ucfirst($GLOBALS['conf']['news']['storage']['driver']);
         $params = Horde::getDriverConfig(array('news', 'storage'), $driver);
 
-        $factory = new Jonah_Injector_Factory_Driver();
+        $factory = new Jonah_Injector_Factory_Driver($injector);
         return $factory->getDriver($driver, $params);
     }
 

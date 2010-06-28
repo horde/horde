@@ -49,7 +49,7 @@ class Jonah_Injector_Factory_Driver
     public function getDriver($driver, $params = array())
     {
         $driver = basename($driver);
-        $sig = md5(driver . serialize($params));
+        $sig = md5($driver . serialize($params));
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
         }
