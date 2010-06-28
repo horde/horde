@@ -3586,9 +3586,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *             of 'literal' is the length of the literal data.
      *             Will attempt to use LITERAL+ capability if possible.
      *             DEFAULT: Do not send literal
-     * 'literaldata' - (boolean) Is this literal data?  If so, will parse the
-     *                 server response based on the existence of LITERAL+.
-     *                 DEFAULT: Server specific.
+     * 'literaldata' - (boolean) Is this literal data?
+     *                 DEFAULT: Not literal data
      * 'noparse' - (boolean) Don't parse the response and instead return the
      *             server response.
      *             DEFAULT: Parses the response
@@ -3625,28 +3624,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $continuation = $literalplus = false;
 
-        if (!empty($options['literal']) || !empty($options['literaldata'])) {
-            if ($this->queryCapability('LITERAL+')) {
-                /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
-                 * from the server. */
-                $literalplus = true;
-            } else {
-                $continuation = true;
-            }
+        if (!empty($options['literal'])) {
+            $out .= ' ';
 
-            if (!empty($options['literal'])) {
-                $out .= ' ';
+            /* RFC 2088 - If LITERAL+ is available, saves a roundtrip from
+             * the server. */
+            $literalplus = $this->queryCapability('LITERAL+');
 
-                // RFC 3516 - Send literal8 if we have binary data.
-                if (!empty($options['binary'])) {
-                    if (!$this->queryCapability('BINARY')) {
-                        throw new Horde_Imap_Client_Exception('Can not send binary data to server that does not support it.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
-                    }
-                    $out .= '~';
+            /* RFC 3516 - Send literal8 if we have binary data. */
+            if (!empty($options['binary'])) {
+                if (!$this->queryCapability('BINARY')) {
+                    throw new Horde_Imap_Client_Exception('Can not send binary data to server that does not support it.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
                 }
-
-                $out .= '{' . $options['literal'] . ($literalplus ? '+' : '') . '}';
+                $out .= '~';
             }
+
+            $out .= '{' . $options['literal'] . ($literalplus ? '+' : '') . '}';
         }
 
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
@@ -3668,11 +3661,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fwrite($this->_stream, $out . "\r\n");
         }
 
-        if ($literalplus) {
+        if ($literalplus || !empty($options['literaldata'])) {
             return;
         }
 
-        if ($continuation) {
+        if (!empty($options['literal'])) {
             $ob = $this->_getLine();
             if ($ob['type'] != 'continuation') {
                 throw new Horde_Imap_Client_Exception('Unexpected response from IMAP server while waiting for a continuation request: ' . $ob['line']);
