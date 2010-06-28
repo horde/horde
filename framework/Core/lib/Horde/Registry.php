@@ -1663,17 +1663,18 @@ class Horde_Registry
         if ($this->getAuth() &&
             (($app == 'horde') ||
              isset($_SESSION['horde_auth']['app'][$app]))) {
-            if ($this->checkExistingAuth($app)) {
-                return true;
-            }
-
-            return false;
+            return $this->checkExistingAuth($app);
         }
 
         /* Try transparent authentication. */
-        return empty($options['notransparent'])
-            ? $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth($app)->transparent()
-            : false;
+        if (empty($options['notransparent'])) {
+            if (!$this->getAuth()) {
+                $this->getCleanSession();
+            }
+            return $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth($app)->transparent();
+        }
+
+        return false;
     }
 
     /**
