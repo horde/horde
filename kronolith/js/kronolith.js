@@ -5518,34 +5518,32 @@ KronolithCore = {
         if (this.mapInitialized) {
             return;
         }
-         var layers = [];
-         if (Kronolith.conf.maps.providers) {
-             Kronolith.conf.maps.providers.each(function(l)
-                 {
-                     var p = new HordeMap[l]();
-                     $H(p.getLayers()).values().each(function(e) {layers.push(e);});
-                 });
-         }
+        var layers = [];
+        if (Kronolith.conf.maps.providers) {
+            Kronolith.conf.maps.providers.each(function(l) {
+                var p = new HordeMap[l]();
+                $H(p.getLayers()).values().each(function(e) {layers.push(e);});
+            });
+        }
 
-         this.map = new HordeMap.Map[Kronolith.conf.maps.driver](
-             {
-                 elt: 'kronolithEventMap',
-                 delayed: true,
-                 layers: layers,
-                 markerDragEnd: this.onMarkerDragEnd.bind(this),
-                 mapClick: this.afterClickMap.bind(this)
-             });
+        this.map = new HordeMap.Map[Kronolith.conf.maps.driver]({
+            elt: 'kronolithEventMap',
+            delayed: true,
+            layers: layers,
+            markerDragEnd: this.onMarkerDragEnd.bind(this),
+            mapClick: this.afterClickMap.bind(this)
+        });
 
-         if ($('kronolithEventLocationLat').value && !ignoreLL) {
-             var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
-             // Note that we need to cast the value of zoom to an integer here,
-             // otherwise the map display breaks.
-             this.placeMapMarker(ll, true, $('kronolithEventMapZoom').value - 0);
-         }
-         //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
-         // geocode it.
-         this.map.display();
-         this.mapInitialized = true;
+        if ($('kronolithEventLocationLat').value && !ignoreLL) {
+            var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
+            // Note that we need to cast the value of zoom to an integer here,
+            // otherwise the map display breaks.
+            this.placeMapMarker(ll, true, $('kronolithEventMapZoom').value - 0);
+        }
+        //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
+        // geocode it.
+        this.map.display();
+        this.mapInitialized = true;
     },
 
     resetMap: function()
