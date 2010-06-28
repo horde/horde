@@ -627,135 +627,111 @@ class Horde_Config
      * @return array  An associative array with the LDAP configuration tree.
      */
     protected function _configLDAP($ctx, $node = null,
-                                  $switchname = 'driverconfig')
+                                   $switchname = 'driverconfig')
     {
-        $hostspec = array(
-            '_type' => 'text',
-            'required' => true,
-            'desc' => 'LDAP server/hostname',
-            'default' => $this->_default($ctx . '|hostspec', '')
-        );
+        $fields = array(
+            'hostspec' => array(
+                '_type' => 'text',
+                'required' => true,
+                'desc' => 'LDAP server/hostname',
+                'default' => $this->_default($ctx . '|hostspec', '')
+            ),
 
-        $searchdn = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'DN used to bind to LDAP for searches (blank for anonymous)',
-            'default' => $this->_default($ctx . '|searchdn', '')
-        );
+            'searchdn' => array(
+                '_type' => 'text',
+                'required' => false,
+                'desc' => 'DN used to bind to LDAP for searches (blank for anonymous)',
+                'default' => $this->_default($ctx . '|searchdn', '')
+            ),
 
-        $searchpw = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'Password for search bind DN (blank for anonymous)',
-            'default' => $this->_default($ctx . '|searchpw', '')
-        );
+            'searchpw' => array(
+                '_type' => 'text',
+                'required' => false,
+                'desc' => 'Password for search bind DN (blank for anonymous)',
+                'default' => $this->_default($ctx . '|searchpw', '')
+            ),
 
-        $basedn = array(
-            '_type' => 'text',
-            'required' => true,
-            'desc' => 'Base DN',
-            'default' => $this->_default($ctx . '|basedn', '')
-        );
+            'basedn' => array(
+                '_type' => 'text',
+                'required' => true,
+                'desc' => 'Base DN',
+                'default' => $this->_default($ctx . '|basedn', '')
+            ),
 
-        $version = array(
-            '_type' => 'int',
-            'required' => true,
-            'quote' => false,
-            'desc' => 'LDAP protocol version',
-            'switch' => array(
-                '2' => array(
-                    'desc' => '2 (deprecated)',
-                    'fields' => array()
+            'version' => array(
+                '_type' => 'int',
+                'required' => true,
+                'quote' => false,
+                'desc' => 'LDAP protocol version',
+                'switch' => array(
+                    '2' => array(
+                        'desc' => '2 (deprecated)',
+                        'fields' => array()
+                    ),
+                    '3' => array(
+                        'desc' => '3',
+                        'fields' => array()
+                    )
                 ),
-                '3' => array(
-                    'desc' => '3',
-                    'fields' => array()
+                'default' => $this->_default($ctx . '|version', 3)
+            ),
+
+            'port' => array(
+                '_type' => 'int',
+                'required' => false,
+                'desc' => 'Port on which LDAP is listening, if non-standard',
+                'default' => $this->_default($ctx . '|port', null)
+            ),
+
+            'writeas' => array(
+                'desc' => 'Bind to LDAP as which user when performing writes?',
+                'default' => $this->_default($ctx . '|user', 'search'),
+                'switch' => array(
+                    'user' => array(
+                        'desc' => 'Bind as the currently logged-in user',
+                        'fields' => array()
+                    ),
+                    'admin' => array(
+                        'desc' => 'Bind with administrative/system credentials',
+                        'fields' => array(
+                            'binddn' => array(
+                                '_type' => 'text',
+                                'required' => true,
+                                'desc' => 'DN used to bind to LDAP for writes',
+                                'default' => $this->_default($ctx . '|writeas', '')
+                            ),
+                            'bindpw' => array(
+                                '_type' => 'text',
+                                'required' => true,
+                                'desc' => 'Password for write bind DN',
+                                'default' => $this->_default($ctx . '|writepw', '')
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'desc' => 'Use same credentials as used for LDAP searches',
+                        'fields' => array()
+                    )
                 )
             ),
-            'default' => $this->_default($ctx . '|version', 3)
-        );
 
-        $port = array(
-            '_type' => 'int',
-            'required' => false,
-            'desc' => 'Port on which LDAP is listening, if non-standard',
-            'default' => $this->_default($ctx . '|port', null)
-        );
+            'tls' => array(
+                '_type' => 'boolean',
+                'required' => false,
+                'desc' => 'Use TLS to connect to the server?',
+                'default' => $this->_default($ctx . '|tls', false)
+            ),
 
-        $writeas = array(
-            'desc' => 'Bind to LDAP as which user when performing writes?',
-            'default' => $this->_default($ctx . '|user', 'search'),
-            'switch' => array(
-                'user' => array(
-                    'desc' => 'Bind as the currently logged-in user',
-                    'fields' => array()
-                ),
-                'admin' => array(
-                    'desc' => 'Bind with administrative/system credentials',
-                    'fields' => array(
-                        'binddn' => array(
-                            '_type' => 'text',
-                            'required' => true,
-                            'desc' => 'DN used to bind to LDAP for writes',
-                            'default' => $this->_default($ctx . '|writeas', '')
-                        ),
-                        'bindpw' => array(
-                            '_type' => 'text',
-                            'required' => true,
-                            'desc' => 'Password for write bind DN',
-                            'default' => $this->_default($ctx . '|writepw', '')
-                        )
-                    )
-                ),
-                'search' => array(
-                    'desc' => 'Use same credentials as used for LDAP searches',
-                    'fields' => array()
-                )
-            )
-        );
-
-        $tls = array(
-            '_type' => 'boolean',
-            'required' => false,
-            'desc' => 'Use TLS to connect to the server?',
-            'default' => $this->_default($ctx . '|tls', false)
-        );
-
-        $ca = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'Certification Authority to use for SSL connections',
-            'default' => $this->_default($ctx . '|ca', '')
-        );
-
-        $custom_fields = array(
-            'required' => true,
-            'desc' => 'Use an LDAP backend?',
-            'default' => $this->_default($ctx . '|useldap', 'false'),
-            'switch' => array(
-                'false' => array(
-                    'desc' => 'No',
-                    'fields' => array()
-                ),
-                'true' => array(
-                    'desc' => 'Yes',
-                    'fields' => array(
-                        'hostspec' => $hostspec,
-                        'port' => $port,
-                        'version' => $version,
-                        'tls' => $tls,
-                        'searchdn' => $searchdn,
-                        'searchpw' => $searchpw,
-                        'basedn' => $basedn,
-                        'writeas' => $writeas,
-                        'ca' => $ca
-                    )
-                )
+            'ca' => array(
+                '_type' => 'text',
+                'required' => false,
+                'desc' => 'Certification Authority to use for SSL connections',
+                'default' => $this->_default($ctx . '|ca', '')
             )
         );
 
         if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
-            return $custom_fields;
+            return $fields;
         }
 
         list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
@@ -770,7 +746,7 @@ class Horde_Config
                 ),
                 'custom' => array(
                     'desc' => 'Custom parameters',
-                    'fields' => $custom_fields
+                    'fields' => $fields
                 )
             )
         );
