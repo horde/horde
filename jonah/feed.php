@@ -32,13 +32,13 @@ foreach ($templates as $key => $info) {
 }
 
 if (empty($criteria['channel_id']) && !empty($criteria['feed'])) {
-    $criteria['channel_id'] = $jonah_driver->getChannelId($criteria['feed']);
+    $criteria['channel_id'] = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannelId($criteria['feed']);
 }
 
 if (empty($criteria['channel_id'])) {
     $notification->push(_("No valid feed name or ID requested."), 'horde.error');
 } else {
-    $stories = $jonah_driver->getStories($criteria);
+    $stories = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStories($criteria);
 }
 
 if (!empty($stories)) {

@@ -13,21 +13,21 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Jonah
  */
-class Jonah_News {
-
+class Jonah_News
+{
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Constructs a new News storage object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Jonah_News($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }

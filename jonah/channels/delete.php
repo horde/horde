@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah');
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';

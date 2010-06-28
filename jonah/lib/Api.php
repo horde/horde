@@ -221,7 +221,7 @@ class Jonah_Api extends Horde_Registry_Api
     {
         global $registry;
 
-        $results = $GLOBALS['jonah_driver']->getStoryCount($channel_id);
+        $results = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStoryCount($channel_id);
         if (is_a($results, 'PEAR_Error')) {
             return 0;
         }
