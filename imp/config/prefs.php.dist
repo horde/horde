@@ -1725,7 +1725,7 @@ $_prefs['dimp_qsearch_field'] = array(
 );
 
 $_prefs['dimp_show_preview'] = array(
-    'value' => true
+    'value' => 'horiz'
 );
 
 $_prefs['dimp_splitbar'] = array(
