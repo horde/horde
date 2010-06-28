@@ -1058,16 +1058,17 @@ var DimpBase = {
         tmp = m.down('.msgSubject');
         if (this.isSearch() ||
             this.viewport.getMetaData('nothread')) {
-            hdr = { l: 'subject', t: tmp };
+            hdr = { l: ptr.get('subject') };
         } else if (sortby == ptr.get('thread').v) {
-            hdr = { l: 'thread', s: 'subject', t: tmp };
+            hdr = { l: ptr.get('thread'), s: ptr.get('subject') };
         } else {
-            hdr = { l: 'subject', s: 'thread', t: tmp };
+            hdr = { l: ptr.get('subject'), s: ptr.get('thread') };
         }
 
-        hdr.t.update().update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
+        tmp.update(hdr.l.e.removeClassName('smallSort').update(hdr.l.t));
+        hdr.l.e.store('sortby', hdr.l.v);
         if (hdr.s) {
-            hdr.t.insert(ptr.get(hdr.s).e.addClassName('smallSort').update('[' + ptr.get(hdr.s).t + ']'));
+            tmp.insert(hdr.s.e.store('sortby', hdr.s.v).addClassName('smallSort').update('[' + hdr.s.t + ']'));
         }
 
         ptr.find(function(s) {
