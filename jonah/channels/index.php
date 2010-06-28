@@ -45,7 +45,7 @@ if (is_a($channels, 'PEAR_Error')) {
         /* Delete channel link. */
         $url = Horde::applicationUrl('channels/delete.php');
         $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
-        $channels[$key]['delete_link'] = Horde::link($url, _("Delete channel"), '', '', '', _("Delete channel")) . Horde_Themes::img('delete.png') . '</a>';
+        $channels[$key]['delete_link'] = Horde::link($url, _("Delete channel"), '', '', '', _("Delete channel")) . Horde::img('delete.png') . '</a>';
 
         /* View stories link. */
         $url = Horde::applicationUrl('stories/index.php');
@@ -61,7 +61,7 @@ if (is_a($channels, 'PEAR_Error')) {
             /* Add story link. */
             $url = Horde::applicationUrl('stories/edit.php');
             $url = Horde_Util::addParameter($url, 'channel_id', $channel['channel_id']);
-            $channels[$key]['addstory_link'] = Horde::link($url, _("Add story"), '', '', '', _("Add story")) . Horde_Themes::img('new.png') . '</a>';
+            $channels[$key]['addstory_link'] = Horde::link($url, _("Add story"), '', '', '', _("Add story")) . Horde::img('new.png') . '</a>';
             break;
 
         case Jonah::EXTERNAL_CHANNEL:
@@ -69,7 +69,7 @@ if (is_a($channels, 'PEAR_Error')) {
             /* Refresh cache link. */
             $url = Horde::applicationUrl('stories/index.php');
             $url = Horde_Util::addParameter($url, array('channel_id' => $channel['channel_id'], 'refresh' => '1', 'url' => Horde::selfUrl()));
-            $channels[$key]['refresh_link'] = Horde::link($url, _("Refresh channel"), '', '', '', _("Refresh channel")) . Horde_Themes::img('reload.png') . '</a>';
+            $channels[$key]['refresh_link'] = Horde::link($url, _("Refresh channel"), '', '', '', _("Refresh channel")) . Horde::img('reload.png') . '</a>';
             break;
         }
 
@@ -86,7 +86,7 @@ $template->set('listheaders', array(array('attrs' => ' class="sortdown"', 'label
                                     array('attrs' => '', 'label' => _("Last Update"))));
 $template->set('channels', $channels, true);
 $template->set('menu', Jonah::getMenu('string'));
-$template->set('search_img', Horde_Themes::img('search.png'));
+$template->set('search_img', Horde::img('search.png'));
 
 // Buffer the notifications and send to the template
 Horde::startBuffer();

@@ -548,7 +548,7 @@ class Jonah_News {
             array_walk($stories, array($this, '_escapeStoryDescriptions'));
 
             $template->set('error', false, true);
-            $template->set('story_marker', Horde_Themes::img('story_marker.png'));
+            $template->set('story_marker', Horde::img('story_marker.png'));
             $template->set('image', false, true);
             $template->set('form', false, true);
             if ($from) {

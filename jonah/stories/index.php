@@ -82,18 +82,18 @@ foreach ($stories as $key => $story) {
         /* PDF link. */
         $url = Horde::applicationUrl('stories/pdf.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
-        $stories[$key]['pdf_link'] = Horde::link($url, _("PDF version")) . Horde_Themes::img('mime/pdf.png') . '</a>';
+        $stories[$key]['pdf_link'] = Horde::link($url, _("PDF version")) . Horde::img('mime/pdf.png') . '</a>';
 
         /* Edit story link. */
         $url = Horde::applicationUrl('stories/edit.php');
         $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
-        $stories[$key]['edit_link'] = Horde::link($url, _("Edit story")) . Horde_Themes::img('edit.png') . '</a>';
+        $stories[$key]['edit_link'] = Horde::link($url, _("Edit story")) . Horde::img('edit.png') . '</a>';
 
         /* Delete story link. */
         if ($allow_delete) {
             $url = Horde::applicationUrl('stories/delete.php');
             $url = Horde_Util::addParameter($url, array('story_id' => $story['story_id'], 'channel_id' => $channel_id));
-            $stories[$key]['delete_link'] = Horde::link($url, _("Delete story")) . Horde_Themes::img('delete.png') . '</a>';
+            $stories[$key]['delete_link'] = Horde::link($url, _("Delete story")) . Horde::img('delete.png') . '</a>';
         }
 
         /* Comment counter. */
@@ -116,7 +116,7 @@ foreach ($stories as $key => $story) {
 $template = new Horde_Template();
 $template->setOption('gettext', true);
 $template->set('header', htmlspecialchars($channel['channel_name']));
-$template->set('refresh', Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), array('refresh' => 1)), _("Refresh Channel")) . Horde_Themes::img('reload.png') . '</a>');
+$template->set('refresh', Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), array('refresh' => 1)), _("Refresh Channel")) . Horde::img('reload.png') . '</a>');
 $template->set('listheaders', array(_("Story"), _("Date")));
 $template->set('stories', $stories, true);
 $template->set('read', $channel['channel_type'] == Jonah::INTERNAL_CHANNEL || $channel['channel_type'] == Jonah::COMPOSITE_CHANNEL, true);
