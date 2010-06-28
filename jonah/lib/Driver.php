@@ -341,6 +341,124 @@ class Jonah_Driver {
     }
 
     /**
+     * Returns the stories of a channel rendered with the specified template.
+     *
+     * @param integer $channel_id  The news channel to get stories from.
+     * @param string  $tpl         The name of the template to use.
+     * @param integer $max         The maximum number of stories to get. If
+     *                             null, all stories will be returned.
+     * @param integer $from        The number of the story to start with.
+     * @param integer $order       How to sort the results for internal channels
+     *                             Possible values are the Jonah::ORDER_*
+     *                             constants.
+     *
+     * @return string  The rendered story listing.
+     */
+    function renderChannel($channel_id, $tpl, $max = 10, $from = 0, $order = Jonah::ORDER_PUBLISHED)
+    {
+        $channel = $this->getChannel($channel_id);
+        if (is_a($channel, 'PEAR_Error')) {
+            return sprintf(_("Error fetching feed: %s"), $channel->getMessage());
+        }
+
+        include JONAH_BASE . '/config/templates.php';
+        $escape = !isset($templates[$tpl]['escape']) ||
+            !empty($templates[$tpl]['escape']);
+        $template = new Horde_Template();
+
+        if ($escape) {
+            $channel['channel_name'] = htmlspecialchars($channel['channel_name']);
+            $channel['channel_desc'] = htmlspecialchars($channel['channel_desc']);
+        }
+        $template->set('channel', $channel, true);
+
+        /* Get one story more than requested to see if there are more
+         * stories. */
+        if ($max !== null) {
+            $stories = $this->getStories($channel_id, $max + 1, $from, false, time(), false, $order);
+            if (is_a($stories, 'PEAR_Error')) {
+                return $stories->getMessage();
+            }
+        } else {
+            $stories = $this->getStories($channel_id, null, 0, false, time(), false, $order);
+            if (is_a($stories, 'PEAR_Error')) {
+                return $stories->getMessage();
+            }
+            $max = count($stories);
+        }
+
+        if (!$stories) {
+            $template->set('error', _("No stories are currently available."), true);
+            $template->set('stories', false, true);
+            $template->set('image', false, true);
+            $template->set('form', false, true);
+        } else {
+            /* Escape. */
+            if ($escape) {
+                array_walk($stories, array($this, '_escapeStories'));
+            }
+
+            /* Process story summaries. */
+            array_walk($stories, array($this, '_escapeStoryDescriptions'));
+
+            $template->set('error', false, true);
+            $template->set('story_marker', Horde::img('story_marker.png'));
+            $template->set('image', false, true);
+            $template->set('form', false, true);
+            if ($from) {
+                $template->set('previous', max(0, $from - $max), true);
+            } else {
+                $template->set('previous', false, true);
+            }
+            if ($from && !empty($channel['channel_page_link'])) {
+                $template->set('previous_link',
+                               str_replace(
+                                   array('%25c', '%25n', '%c', '%n'),
+                                   array('%c', '%n', $channel['channel_id'], max(0, $from - $max)),
+                                   $channel['channel_page_link']),
+                               true);
+            } else {
+                $template->set('previous_link', false, true);
+            }
+            $more = count($stories) > $max;
+            if ($more) {
+                $template->set('next', $from + $max, true);
+                array_pop($stories);
+            } else {
+                $template->set('next', false, true);
+            }
+            if ($more && !empty($channel['channel_page_link'])) {
+                $template->set('next_link',
+                               str_replace(
+                                   array('%25c', '%25n', '%c', '%n'),
+                                   array('%c', '%n', $channel['channel_id'], $from + $max),
+                                   $channel['channel_page_link']),
+                               true);
+            } else {
+                $template->set('next_link', false, true);
+            }
+
+            $template->set('stories', $stories, true);
+        }
+
+        return $template->parse($templates[$tpl]['template']);
+    }
+
+    /**
+     */
+    function _escapeStories(&$value, $key)
+    {
+        $value['story_title'] = htmlspecialchars($value['story_title']);
+        $value['story_desc'] = htmlspecialchars($value['story_desc']);
+        if (isset($value['story_link'])) {
+            $value['story_link'] = htmlspecialchars($value['story_link']);
+        }
+        if (empty($value['story_body_type']) || $value['story_body_type'] != 'richtext') {
+            $value['story_body'] = htmlspecialchars($value['story_body']);
+        }
+    }
+
+    /**
      */
     function _escapeStoryDescriptions(&$value, $key)
     {
