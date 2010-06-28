@@ -516,41 +516,6 @@ class Jonah_Driver {
     }
 
     /**
-     * Attempts to return a concrete Jonah_Driver instance based on $driver.
-     *
-     * @param string $driver  The type of concrete Jonah_Driver subclass to
-     *                        return. The is based on the storage driver
-     *                        ($driver). The code is dynamically included.
-     *
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return mixed  The newly created concrete Jonah_Driver instance, or false
-     *                on an error.
-     */
-    function factory($driver = null, $params = null)
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['news']['storage']['driver'];
-        }
-        $driver = basename($driver);
-
-        if ($params === null) {
-            $params = Horde::getDriverConfig(array('news', 'storage'), $driver);
-        }
-
-        $class = 'Jonah_Driver_' . $driver;
-        if (!class_exists($class, false)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            return new $class($params);
-        } else {
-            return PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver));
-        }
-    }
-
-    /**
      * Stubs for the tag functions. If supported by the backend, these need
      * to be implemented in the concrete Jonah_Driver_* class.
      */

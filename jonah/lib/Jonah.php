@@ -249,11 +249,11 @@ class Jonah
             }
         }
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
-            $news = Jonah_News::factory();
+            $news = $GLOBALS['injector']->getInstance('Jonah_Driver');
             $channel = $news->getChannel($channel_id);
             if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
                 Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
-                $menu->addArray(array('url' => Horde::applicationUrl('stories/edit.php?channel_id=' . (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
+                $menu->addArray(array('url' => Horde::applicationUrl('stories/edit.php')->add('channel_id', (int)$channel_id), 'text' => _("_New Story"), 'icon' => 'new.png'));
             }
         }
 
