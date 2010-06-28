@@ -148,7 +148,7 @@ class Jonah_News
                                  $date = null, $unreleased = false,
                                  $order = Jonah::ORDER_PUBLISHED)
     {
-        return $GLOBALS['jonah_driver']->legacyGetStories($channel, $max, $from, $refresh, $date, $unreleased, $order);
+        return $GLOBALS['injector']->getInstance('Jonah_Driver')->legacyGetStories($channel, $max, $from, $refresh, $date, $unreleased, $order);
     }
 
     /**
