@@ -45,17 +45,16 @@ if (count($groups) > 1) {
       </span>
     </div>
     <div>
-      <?php printf(_("%s %sShare with the users%s %s and %sallow them to%s %s"),
+      <?php printf(_("%s %sShare with the users:%s %s and %sallow them to%s %s"),
                    '<input type="radio" id="kronolithC' . $type . 'PU" name="basic_perms" />',
                    '<label for="kronolithC' . $type . 'PU">', '</label>',
-                   '<input type="text" id="kronolithC' . $type . 'PUList" size="25" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')" />',
+                   '<div><textarea id="kronolithC' . $type . 'PUList" cols="25" rows="3" class="kronolithLongField" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')"></textarea></div><div>',
                    '<label for="kronolithC' . $type . 'PUPerms">', '</label>',
                    '<select id="kronolithC' . $type . 'PUPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')">
                       <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
                       <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
-                   </select>')
+                   </select></div>')
       ?>
-      <br />
     </div>
   </div>
   <div id="kronolithC<?php echo $type ?>PAdvanced" class="kronolithCPAdvanced" style="display:none">
