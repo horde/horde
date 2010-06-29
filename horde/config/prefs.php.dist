@@ -427,7 +427,7 @@ $prefGroups['display'] = array(
     'members' => array(
         'initial_application', 'show_last_login', 'theme',
         'summary_refresh_time', 'show_sidebar', 'sidebar_width',
-        'moz_sidebar', 'menu_view', 'menu_refresh_time', 'widget_accesskey'
+        'menu_view', 'menu_refresh_time', 'widget_accesskey'
     )
 );
 
@@ -491,16 +491,6 @@ $_prefs['sidebar_width'] = array(
     'value' => 150,
     'type' => 'number',
     'desc' => sprintf(_("Width of the %s menu on the left:"), $GLOBALS['registry']->get('name', 'horde'))
-);
-
-$_prefs['moz_sidebar'] = array(
-    'type' => 'link',
-    'xurl' => sprintf('javascript:if (window.sidebar && window.sidebar.addPanel) window.sidebar.addPanel(\'%s\', \'%s\', \'%s\'); else alert(\'%s\');',
-                      $GLOBALS['registry']->get('name', 'horde'),
-                      Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/portal/sidebar.php', true, -1), 'mozbar', '1'),
-                      Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/prefs.php', true, -1),
-                      addslashes(_("Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."))),
-    'desc' => sprintf(_("Add the %s Menu as a Mozilla Sidebar"), $GLOBALS['registry']->get('name', 'horde'))
 );
 
 $_prefs['menu_view'] = array(
