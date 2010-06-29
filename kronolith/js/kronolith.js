@@ -901,7 +901,7 @@ KronolithCore = {
 
         // FIXME: spacing is hardcoded for IE 7 because it doesn't know about
         // border-spacing, but still uses it. WTF?
-        spacing = spacing ? parseInt($w(spacing)[1], 10) : 2;
+        spacing = (spacing ? parseInt($w(spacing)[1], 10) : 2) || 2;
         this[storage] = {};
         this[storage].height = layout.get('margin-box-height') + spacing;
         this[storage].spacing = this[storage].height - layout.get('padding-box-height');
