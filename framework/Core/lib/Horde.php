@@ -960,6 +960,11 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
+        if (($append_session == 0 || $append_session == 1) &&
+            Horde_Util::getFormData('ajaxui')) {
+            $ob->add('ajaxui', 1);
+        }
+
         return $ob;
     }
 

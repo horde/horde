@@ -30,7 +30,6 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 
 /* Suppress menus in options screen and indicate that notifications should use
  * the ajax mode. */
-Horde_Core_Prefs_Ui::hideMenu(true);
 $_SESSION['horde_notification']['override'] = array(
     KRONOLITH_BASE . '/lib/Notification/Listener/AjaxStatus.php',
     'Kronolith_Notification_Listener_AjaxStatus'

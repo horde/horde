@@ -37,5 +37,5 @@ $menu_view = $prefs->getValue('menu_view');
 </span>
 <?php echo Beatnik::getMenu('string') ?>
 </div>
-<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
+<?php if (!Horde_Util::getFormData('ajaxui')) require HORDE_BASE . '/services/portal/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

@@ -20,5 +20,5 @@ function jump()
  <br class="clear" />
 </div>
 </form>
-<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
-<?php $notification->notify(array('listeners' => 'status'));
+<?php if (!Horde_Util::getFormData('ajaxui')) require HORDE_BASE . '/services/portal/sidebar.php'; ?>
+<?php $GLOBALS['notification']->notify(array('listeners' => 'status'));

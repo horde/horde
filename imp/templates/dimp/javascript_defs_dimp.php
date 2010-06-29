@@ -45,7 +45,7 @@ $code['conf'] = array_filter(array(
     'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
     'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => (string) Horde::getServiceLink('prefsapi', 'imp'),
-    'URI_PREFS_IMP' => str_replace('&amp;', '&', (string) Horde::getServiceLink('options', 'imp')),
+    'URI_PREFS_IMP' => str_replace('&amp;', '&', (string) Horde::getServiceLink('options', 'imp')->add('ajaxui', 1)),
     'URI_SEARCH' => (string) Horde::applicationUrl('search.php'),
     'URI_VIEW' => (string) Horde::applicationUrl('view.php'),
 

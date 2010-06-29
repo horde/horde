@@ -374,7 +374,8 @@ class Horde_Registry
          * default. Default status listener can be overriden through the
          * $_SESSION['horde_notification']['override'] variable. */
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
-        if (isset($_SESSION['horde_notification']['override'])) {
+        if (Horde_Util::getFormData('ajaxui') &&
+            isset($_SESSION['horde_notification']['override'])) {
             require_once $_SESSION['horde_notification']['override'][0];
             $GLOBALS['notification']->attach('status', null, $_SESSION['horde_notification']['override'][1]);
         } else {

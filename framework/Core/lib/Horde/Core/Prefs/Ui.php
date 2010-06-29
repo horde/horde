@@ -7,7 +7,6 @@
  *
  * Session variables set (stored in 'horde_prefs'):
  * 'advanced' - (boolean) If true, display advanced prefs.
- * 'nomenu' - (boolean) If true, hide menu display.
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
@@ -116,16 +115,6 @@ class Horde_Core_Prefs_Ui
             $this->groupIsEditable($this->group)) {
             $GLOBALS['registry']->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
         }
-    }
-
-    /**
-     * Hide the menu display for prefs UI pages during this session?
-     *
-     * @param boolean $hide  If true, hides the menu.
-     */
-    static public function hideMenu($hide)
-    {
-        $_SESSION['horde_prefs']['nomenu'] = $hide;
     }
 
     /**
@@ -532,7 +521,7 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        if (empty($_SESSION['horde_prefs']['nomenu'])) {
+        if (!Horde_Util::getFormData('ajaxui')) {
             if ($registry->hasAppMethod($this->app, 'prefsMenu')) {
                 $menu = $registry->callAppMethod($this->app, 'prefsMenu', array('args' => array($this)));
             }
@@ -552,7 +541,7 @@ class Horde_Core_Prefs_Ui
         $GLOBALS['bodyId'] = 'services_prefs';
         require $h_templates . '/common-header.inc';
 
-        if (empty($_SESSION['horde_prefs']['nomenu'])) {
+        if (!Horde_Util::getFormData('ajaxui')) {
             require $h_templates . '/menu/menu.inc';
         }
 

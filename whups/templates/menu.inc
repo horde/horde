@@ -8,6 +8,6 @@
  <br class="clear" />
 </div>
 </form>
-<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
+<?php if (!Horde_Util::getFormData('ajaxui')) require HORDE_BASE . '/services/portal/sidebar.php'; ?>
 <?php echo Horde_Util::nonInputVar('menuBottom'); ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

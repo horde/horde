@@ -600,7 +600,9 @@ class IMP
     {
         self::prepareMenu();
         echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
-        require HORDE_BASE . '/services/portal/sidebar.php';
+        if (!Horde_Util::getFormData('ajaxui')) {
+            require HORDE_BASE . '/services/portal/sidebar.php';
+        }
     }
 
     /**

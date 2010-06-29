@@ -180,7 +180,7 @@ class Kronolith
         if (isset($GLOBALS['conf']['menu']['apps']) &&
             is_array($GLOBALS['conf']['menu']['apps'])) {
             foreach ($GLOBALS['conf']['menu']['apps'] as $app) {
-                $app_urls[$app] = (string) Horde::url($registry->getInitialPage($app), true);
+                $app_urls[$app] = (string)Horde::url($registry->getInitialPage($app), true)->add('ajaxui', 1);
             }
         }
 
@@ -200,7 +200,7 @@ class Kronolith
                 'exception' => (string)Horde_Themes::img('exception-fff.png'),
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
+            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')->add('ajaxui', 1)),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
