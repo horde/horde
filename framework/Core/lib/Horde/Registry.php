@@ -1545,7 +1545,9 @@ class Horde_Registry
         global $conf;
 
         ini_set('url_rewriter.tags', 0);
-        if (!empty($conf['session']['use_only_cookies'])) {
+        if (empty($conf['session']['use_only_cookies'])) {
+            ini_set('session.use_only_cookies', 0);
+        } else {
             ini_set('session.use_only_cookies', 1);
             if (!empty($conf['cookie']['domain']) &&
                 (strpos($conf['server']['name'], '.') === false)) {
