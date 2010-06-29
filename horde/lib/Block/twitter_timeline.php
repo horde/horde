@@ -214,9 +214,9 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
 
             buildReply: function(id, userid, usertext) {
                 this.inReplyTo = id;
+                {$inputNode}.focus();
                 {$inputNode}.value = '@' + userid + ' ';
                 {$inReplyToNode}.update(' {$inReplyToText} ' + usertext);
-                {$inputNode}.focus();
             },
 
             updateCallback: function(response) {
