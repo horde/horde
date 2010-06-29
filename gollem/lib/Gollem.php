@@ -714,9 +714,7 @@ class Gollem
         $t->set('menu_string', Gollem::getMenu()->render());
 
         echo $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
-        if (!Horde_Util::getFormData('ajaxui')) {
-            require HORDE_BASE . '/services/portal/sidebar.php';
-        }
+        require HORDE_BASE . '/services/portal/sidebar.php';
     }
 
     /**

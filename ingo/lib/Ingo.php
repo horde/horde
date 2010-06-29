@@ -489,9 +489,7 @@ class Ingo
     {
         self::prepareMenu();
         echo self::$_menuTemplate->fetch(INGO_TEMPLATES . '/menu/menu.html');
-        if (!Horde_Util::getFormData('ajaxui')) {
-            require HORDE_BASE . '/services/portal/sidebar.php';
-        }
+        require HORDE_BASE . '/services/portal/sidebar.php';
     }
 
     /**

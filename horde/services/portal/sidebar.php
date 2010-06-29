@@ -277,8 +277,10 @@ if (!empty($_GET['httpclient'])) {
     Horde_Registry::appInit('horde', array('authentication' => 'none'));
 }
 
-if ($GLOBALS['conf']['menu']['always'] ||
-    ($GLOBALS['registry']->getAuth() && $GLOBALS['prefs']->getValue('show_sidebar'))) {
+if (!Horde_Util::getFormData('ajaxui') &&
+    ($GLOBALS['conf']['menu']['always'] ||
+     ($GLOBALS['registry']->getAuth() &&
+      $GLOBALS['prefs']->getValue('show_sidebar')))) {
     sidebar();
 }
 
