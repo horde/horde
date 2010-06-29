@@ -13,8 +13,8 @@
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, weekSizes, daySizes,
-    //   groupLoading, colorPicker, duration, timeMarker,
-    //   eventTagAc, calendarTagAc, attendeesAc
+    //   groupLoading, colorPicker, duration, timeMarker, monthDays,
+    //   allDays, eventsWeek, eventTagAc, calendarTagAc, attendeesAc
 
     view: '',
     ecache: $H(),
@@ -41,6 +41,7 @@ KronolithCore = {
     macos: navigator.appVersion.indexOf('Mac') != -1,
     lastLocation: '',
     currentLocation: '',
+    kronolithBody: $('kronolithBody'),
 
     doActionOpts: {
         onException: function(parentfunc, r, e)
@@ -608,6 +609,8 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
+            this.allDays = {};
+            this.eventsWeek = {};
             var div = $('kronolithEventsWeek').down('div'),
                 th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
                 td = $('kronolithViewWeekHead').down('tbody td').next('td'),
@@ -636,12 +639,14 @@ KronolithCore = {
             day = dates[0].clone();
             for (i = 0; i < 7; i++) {
                 dateString = day.dateString();
+                this.allDays['kronolithAllDay' + dateString] = td.down('div');
+                this.eventsWeek['kronolithEventsWeek' + dateString] = div;
                 div.store('date', dateString)
                     .writeAttribute('id', 'kronolithEventsWeek' + dateString);
                 th.store('date', dateString)
                     .down('span').update(day.toString('dddd, d'));
-                td.removeClassName('kronolithToday')
-                    .down('div')
+                td.removeClassName('kronolithToday');
+                this.allDays['kronolithAllDay' + dateString]
                     .writeAttribute('id', 'kronolithAllDay' + dateString)
                     .store('date', dateString);
                 if (day.equals(today)) {
@@ -675,6 +680,7 @@ KronolithCore = {
             });
 
             // Build new calendar view.
+            this.monthDays = {};
             while (!day.isAfter(dates[1])) {
                 tbody.insert(this.createWeekRow(day, date.getMonth(), dates).show());
                 day.next().week();
@@ -775,6 +781,7 @@ KronolithCore = {
             .next();
         while (cell) {
             dateString = day.dateString();
+            this.monthDays['kronolithMonthDay' + dateString] = cell;
             cell.id = 'kronolithMonthDay' + dateString;
             cell.store('date', dateString);
             cell.removeClassName('kronolithOtherMonth').removeClassName('kronolithToday');
@@ -933,7 +940,7 @@ KronolithCore = {
             break;
         case 'week':
             if ($('kronolithTimeMarker').up().retrieve('date') != today.dateString()) {
-                var newContainer = $('kronolithEventsWeek' + today.dateString());
+                var newContainer = this.eventsWeek['kronolithEventsWeek' + today.dateString()];
                 $('kronolithTimeMarker').remove();
                 if (newContainer) {
                     this.addTimeMarker(newContainer);
@@ -1198,7 +1205,7 @@ KronolithCore = {
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
                 this.loadCalendar(type, calendar);
             } else {
-                var allEvents = $('kronolithBody').select('div').findAll(function(el) {
+                var allEvents = this.kronolithBody.select('div').findAll(function(el) {
                     return el.retrieve('calendar') == type + '|' + calendar;
                 });
                 if (this.view == 'month' && Kronolith.conf.max_events) {
@@ -1214,7 +1221,7 @@ KronolithCore = {
                         });
                         allEvents.invoke('remove');
                         for (var date = dates[0]; !date.isAfter(dates[1]); date.add(1).days()) {
-                            day = $('kronolithMonthDay' + date.dateString());
+                            day = this.monthDays['kronolithMonthDay' + date.dateString()];
                             more = day.select('.kronolithMore');
                             events = day.select('.kronolithEvent');
                             if (more.size() &&
@@ -1473,17 +1480,17 @@ KronolithCore = {
                 if (view == 'day') {
                     $$('.kronolithEvent').invoke('remove');
                 } else {
-                    $('kronolithEventsWeek' + date)
+                    this.eventsWeek['kronolithEventsWeek' + date]
                         .select('.kronolithEvent')
                         .invoke('remove');
-                    $('kronolithAllDay' + date)
+                    this.allDays['kronolithAllDay' + date]
                         .childElements()
                         .invoke('remove');
                 }
                 break;
 
             case 'month':
-                monthDay = $('kronolithMonthDay' + date);
+                monthDay = this.monthDays['kronolithMonthDay' + date];
                 monthDay.select('div')
                     .findAll(function(el) { return el.retrieve('calendar') == calendar; })
                     .invoke('remove');
@@ -1709,7 +1716,7 @@ KronolithCore = {
                 if (view == 'day') {
                     $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
-                    var allDay = $('kronolithAllDay' + date),
+                    var allDay = this.allDays['kronolithAllDay' + date],
                         existing = allDay.childElements(),
                         weekHead = $('kronolithViewWeekHead');
                     if (existing.size() == 3) {
@@ -1747,7 +1754,7 @@ KronolithCore = {
             var midnight = this.parseDate(date),
                 resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
-                parentElement = $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date),
+                parentElement = view == 'day' ? $('kronolithEventsDay') : this.eventsWeek['kronolithEventsWeek' + date],
                 minHeight = 0,
                 draggerTop, draggerBottom;
             if (event.value.fi) {
@@ -1834,7 +1841,7 @@ KronolithCore = {
                     opts = {
                         threshold: 5,
                         constraint: 'vertical',
-                        scroll: 'kronolithBody',
+                        scroll: this.kronolithBody,
                         nodrop: true,
                         parentElement: function() {
                             return parentElement;
@@ -1874,8 +1881,8 @@ KronolithCore = {
 
                 if (view == 'week') {
                     var dates = this.viewDates(midnight, view);
-                    minLeft = $('kronolithEventsWeek' + dates[0].dateString()).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft;
-                    maxLeft = $('kronolithEventsWeek' + dates[1].dateString()).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft;
+                    minLeft = this.eventsWeek['kronolithEventsWeek' + dates[0].dateString()].offsetLeft - this.eventsWeek['kronolithEventsWeek' + date].offsetLeft;
+                    maxLeft = this.eventsWeek['kronolithEventsWeek' + dates[1].dateString()].offsetLeft - this.eventsWeek['kronolithEventsWeek' + date].offsetLeft;
                     stepX = (maxLeft - minLeft) / 6;
                 }
                 var d = new Drag(div, {
@@ -1988,7 +1995,7 @@ KronolithCore = {
             break;
 
         case 'month':
-            var monthDay = $('kronolithMonthDay' + date),
+            var monthDay = this.monthDays['kronolithMonthDay' + date],
                 div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
@@ -2043,7 +2050,7 @@ KronolithCore = {
             break;
         case 'month':
             dates.each(function(date) {
-                var day = $('kronolithMonthDay' + date);
+                var day = this.monthDays['kronolithMonthDay' + date];
                 day.select('.kronolithEvent').invoke('remove');
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
@@ -2087,7 +2094,7 @@ KronolithCore = {
      */
     insertMore: function(date)
     {
-        var monthDay = $('kronolithMonthDay' + date),
+        var monthDay = this.monthDays['kronolithMonthDay' + date],
             more = monthDay.down('.kronolithMore');
         if (more) {
             monthDay.insert({ bottom: more.remove() });
@@ -2127,7 +2134,7 @@ KronolithCore = {
     removeEvent: function(event, calendar)
     {
         this.deleteCache(event, calendar);
-        $('kronolithBody').select('div').findAll(function(el) {
+        this.kronolithBody.select('div').findAll(function(el) {
             return el.retrieve('calendar') == calendar &&
                 el.retrieve('eventid') == event;
         }).invoke('remove');
@@ -3399,7 +3406,7 @@ KronolithCore = {
                         throw $break;
                     }
                 }, this);
-                $('kronolithBody').select('div').each(function(el) {
+                this.kronolithBody.select('div').each(function(el) {
                     if (el.retrieve('calendar') == type + '|' + data.calendar) {
                         el.setStyle(color);
                     }
@@ -3943,7 +3950,7 @@ KronolithCore = {
                 elt.disable();
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
-                $('kronolithBody').select('div').findAll(function(el) {
+                this.kronolithBody.select('div').findAll(function(el) {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
                 }).invoke('hide');
@@ -3964,7 +3971,7 @@ KronolithCore = {
                                       }
                                   } else {
                                       elt.enable();
-                                      $('kronolithBody').select('div').findAll(function(el) {
+                                      this.kronolithBody.select('div').findAll(function(el) {
                                           return el.retrieve('calendar') == cal &&
                                               el.retrieve('eventid') == eventid;
                                       }).invoke('show');
@@ -4468,7 +4475,7 @@ KronolithCore = {
                                           noItems.show();
                                       }
                                       this.deleteCache(null, calendar);
-                                      $('kronolithBody').select('div').findAll(function(el) {
+                                      this.kronolithBody.select('div').findAll(function(el) {
                                           return el.retrieve('calendar') == calendar;
                                       }).invoke('remove');
                                       delete Kronolith.conf.calendars[type][calendar];
