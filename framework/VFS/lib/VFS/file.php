@@ -657,7 +657,9 @@ class VFS_file extends VFS
     {
         $name = basename($name);
         if (strlen($name)) {
-            $name = str_replace('..', '', $name);
+            if ($name == '..') {
+                $name = '';
+            }
             if (substr($name, 0, 1) != '/') {
                 $name = '/' . $name;
             }

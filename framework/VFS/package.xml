@@ -128,7 +128,8 @@ Reading, writing and listing of files are all supported, and there are both obje
     <api>beta</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Rename fixes for SMB driver (leena.heino@uta.fi, Horde Bug #7933).
+   <notes>* Allow access to files with multiple consecutive dots in the name (valentin.vidic@carnet.hr; Horde Bug #7646).
+* Rename fixes for SMB driver (leena.heino@uta.fi, Horde Bug #7933).
 * Set LC_TIME to C for consistency in date parsing in the SSH2 backend (michael-dev@fami-braun.de, Horde Bug #6396)
 * Pass -n for numeric UIDs/GIDs in the SSH2 backend when mapping to local user ids (Horde Request #6579)
 * Fix readByteRange() (wrong method name) in SQL backend
