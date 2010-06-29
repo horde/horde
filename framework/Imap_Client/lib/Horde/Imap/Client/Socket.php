@@ -648,9 +648,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!is_null($this->_stream)) {
             if (empty($this->_temp['logout'])) {
                 $this->_temp['logout'] = true;
-                try {
-                    $this->_sendLine('LOGOUT');
-                } catch (Horde_Imap_Client_Exception $e) {}
+                $this->_sendLine('LOGOUT', array('errignore' => true));
             }
             unset($this->_temp['logout']);
             @fclose($this->_stream);
@@ -1485,11 +1483,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // RFC 3501 [6.4.2]: to close a mailbox without expunge,
                 // select a non-existent mailbox. Selecting a null mailbox
                 // should do the trick.
-                try {
-                    $this->_sendLine('SELECT ""');
-                } catch (Horde_Imap_Client_Exception $e) {
-                    // Ignore - we are expecting a NO return.
-                }
+                $this->_sendLine('SELECT ""', array('errignore' => true));
             }
         } else {
             // If caching, we need to know the UIDs being deleted, so call
@@ -3582,6 +3576,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * 'debug' - (string) When debugging, send this string instead of the
      *           actual command/data sent.
      *           DEFAULT: Raw data output to debug stream.
+     * 'errignore' - (boolean) Don't throw error on BAD/NO response.
+     *               DEFAULT: false
      * 'literal' - (integer) Send the command followed by a literal. The value
      *             of 'literal' is the length of the literal data.
      *             Will attempt to use LITERAL+ capability if possible.
@@ -3671,7 +3667,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 throw new Horde_Imap_Client_Exception('Unexpected response from IMAP server while waiting for a continuation request: ' . $ob['line']);
             }
         } elseif (empty($options['noparse'])) {
-            $this->_parseResponse($this->_tag);
+            $this->_parseResponse($this->_tag, !empty($options['errignore']));
         } else {
             return $this->_getLine();
         }
@@ -4001,11 +3997,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Parse all untagged and tagged responses for a given command.
      *
-     * @param string $tag  The IMAP tag of the current command.
+     * @param string $tag      The IMAP tag of the current command.
+     * @param boolean $ignore  If true, don't throw errors.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _parseResponse($tag)
+    protected function _parseResponse($tag, $ignore)
     {
         while ($ob = $this->_getLine()) {
             if (($ob['type'] == 'tagged') && ($ob['tag'] == $tag)) {
@@ -4018,6 +4015,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 switch ($ob['response']) {
                 case 'BAD':
                 case 'NO':
+                    if ($ignore) {
+                        return;
+                    }
+
                     if (empty($this->_temp['parsestatuserr'])) {
                         $errcode = 0;
                         $errstr = empty($ob['line']) ? '[No error message returned by server.]' : $ob['line'];
@@ -4028,9 +4029,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     if ($ob['response'] == 'BAD') {
                         throw new Horde_Imap_Client_Exception('Bad IMAP request: ' . $errstr, $errcode);
-                    } else {
-                        throw new Horde_Imap_Client_Exception('IMAP error: ' . $errstr, $errcode);
                     }
+
+                    throw new Horde_Imap_Client_Exception('IMAP error: ' . $errstr, $errcode);
                 }
 
                 /* Update the cache, if needed. */
