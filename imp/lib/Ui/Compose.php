@@ -169,6 +169,9 @@ class IMP_Ui_Compose
             /* Convert HTML entities. */
             'entities: false',
 
+            /* Set language to Horde language. */
+            'language: "' . Horde_String::lower($GLOBALS['language']) . '"',
+
             /* Default display font. This is NOT the font used to send
              * the message, however. */
             'contentsCss: "body { font-family: Arial; font-size: 12px; }"',

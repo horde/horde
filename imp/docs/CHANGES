@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] HTML compose editor uses Horde language for UI (Request #9084;
+      leandro.damascena@gmail.com).
 [mms] Add config option to disable multipart/related conversions
       (Request #9099).
 [mms] Sentmail SQL driver now supports split read/write operation.
