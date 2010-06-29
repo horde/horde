@@ -286,4 +286,3 @@ if (!Horde_Util::getFormData('ajaxui') &&
 
 $GLOBALS['sidebarLoaded'] = true;
 echo '<div class="body" style="margin-left:' . $GLOBALS['prefs']->getValue('sidebar_width') . 'px">';
-$GLOBALS['notification']->notify(array('listeners' => 'status'));
