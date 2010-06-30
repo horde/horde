@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @var string
      */
-    private $_endpoint = 'http://twitter.com/statuses/';
+    private $_endpoint = 'http://api.twitter.com/1/statuses/';
 
     /**
      * Format to use json or xml
@@ -202,10 +202,9 @@ class Horde_Service_Twitter_Statuses
      */
     public function retweet($id)
     {
-        $url = $this->_endpoint . 'retweet.' . $this->_format;
-        $params = array('id' => $id);
+        $url = $this->_endpoint . 'retweet/' . $id .  '.' . $this->_format;
 
-        return $this->_twitter->request->post($url, $params);
+        return $this->_twitter->request->post($url, array());
     }
 
     /**
