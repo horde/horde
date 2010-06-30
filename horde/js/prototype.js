@@ -1468,9 +1468,7 @@ Ajax.Base = Class.create({
 
     this.options.method = this.options.method.toLowerCase();
 
-    if (Object.isString(this.options.parameters))
-      this.options.parameters = this.options.parameters.toQueryParams();
-    else if (Object.isHash(this.options.parameters))
+    if (Object.isHash(this.options.parameters))
       this.options.parameters = this.options.parameters.toObject();
   }
 });
@@ -1486,21 +1484,23 @@ Ajax.Request = Class.create(Ajax.Base, {
   request: function(url) {
     this.url = url;
     this.method = this.options.method;
-    var params = Object.clone(this.options.parameters);
+    var params = Object.isString(this.options.parameters) ?
+          this.options.parameters :
+          Object.toQueryString(this.options.parameters);
 
     if (!['get', 'post'].include(this.method)) {
-      params['_method'] = this.method;
+      params += (params ? '&' : '') + "_method=" + this.method;
       this.method = 'post';
     }
 
-    this.parameters = params;
-
-    if (params = Object.toQueryString(params)) {
+    if (params) {
       if (this.method == 'get')
         this.url += (this.url.include('?') ? '&' : '?') + params;
       else if (/Konqueror|Safari|KHTML/.test(navigator.userAgent))
         params += '&_=';
     }
+
+    this.parameters = params.toQueryParams();
 
     try {
       var response = new Ajax.Response(this);
@@ -3283,11 +3283,13 @@ Element.addMethods({
     return (Number(match[1]) / 100);
   }
 
-  function getPixelValue(value, property) {
+  function getPixelValue(value, property, context) {
+    var element = null;
     if (Object.isElement(value)) {
       element = value;
       value = element.getStyle(property);
     }
+
     if (value === null) {
       return null;
     }
@@ -3296,7 +3298,9 @@ Element.addMethods({
       return window.parseFloat(value);
     }
 
-    if (/\d/.test(value) && element.runtimeStyle) {
+    var isPercentage = value.include('%'), isViewport = (context === document.viewport);
+
+    if (/\d/.test(value) && element && element.runtimeStyle && !(isPercentage && isViewport)) {
       var style = element.style.left, rStyle = element.runtimeStyle.left;
       element.runtimeStyle.left = element.currentStyle.left;
       element.style.left = value || 0;
@@ -3307,19 +3311,34 @@ Element.addMethods({
       return value;
     }
 
-    if (value.include('%')) {
+    if (element && isPercentage) {
+      context = context || element.parentNode;
       var decimal = toDecimal(value);
-      var whole;
-      if (property.include('left') || property.include('right') ||
-       property.include('width')) {
-        whole = $(element.parentNode).measure('width');
-      } else if (property.include('top') || property.include('bottom') ||
-       property.include('height')) {
-        whole = $(element.parentNode).measure('height');
+      var whole = null;
+      var position = element.getStyle('position');
+
+      var isHorizontal = property.include('left') || property.include('right') ||
+       property.include('width');
+
+      var isVertical =  property.include('top') || property.include('bottom') ||
+        property.include('height');
+
+      if (context === document.viewport) {
+        if (isHorizontal) {
+          whole = document.viewport.getWidth();
+        } else if (isVertical) {
+          whole = document.viewport.getHeight();
+        }
+      } else {
+        if (isHorizontal) {
+          whole = $(context).measure('width');
+        } else if (isVertical) {
+          whole = $(context).measure('height');
+        }
       }
 
-      return whole * decimal;
-    }
+      return (whole === null) ? 0 : whole * decimal;
+  }
 
     return 0;
   }
@@ -3410,6 +3429,9 @@ Element.addMethods({
       var position = element.getStyle('position'),
        width = element.getStyle('width');
 
+      var context = (position === 'fixed') ? document.viewport :
+       element.parentNode;
+
       element.setStyle({
         position:   'absolute',
         visibility: 'hidden',
@@ -3420,9 +3442,9 @@ Element.addMethods({
 
       var newWidth;
       if (width && (positionedWidth === width)) {
-        newWidth = getPixelValue(width);
+        newWidth = getPixelValue(element, 'width', context);
       } else if (width && (position === 'absolute' || position === 'fixed')) {
-        newWidth = getPixelValue(width);
+        newWidth = getPixelValue(element, 'width', context);
       } else {
         var parent = element.parentNode, pLayout = $(parent).getLayout();
 
@@ -3453,6 +3475,7 @@ Element.addMethods({
       if (!(property in COMPUTATIONS)) {
         throw "Property not found.";
       }
+
       return this._set(property, COMPUTATIONS[property].call(this, this.element));
     },
 
@@ -3505,7 +3528,10 @@ Element.addMethods({
         if (!this._preComputing) this._begin();
 
         var bHeight = this.get('border-box-height');
-        if (bHeight <= 0) return 0;
+        if (bHeight <= 0) {
+          if (!this._preComputing) this._end();
+          return 0;
+        }
 
         var bTop = this.get('border-top'),
          bBottom = this.get('border-bottom');
@@ -3522,7 +3548,10 @@ Element.addMethods({
         if (!this._preComputing) this._begin();
 
         var bWidth = this.get('border-box-width');
-        if (bWidth <= 0) return 0;
+        if (bWidth <= 0) {
+          if (!this._preComputing) this._end();
+          return 0;
+        }
 
         var bLeft = this.get('border-left'),
          bRight = this.get('border-right');
@@ -3552,11 +3581,17 @@ Element.addMethods({
       },
 
       'border-box-height': function(element) {
-        return element.offsetHeight;
+        if (!this._preComputing) this._begin();
+        var height = element.offsetHeight;
+        if (!this._preComputing) this._end();
+        return height;
       },
 
       'border-box-width': function(element) {
-        return element.offsetWidth;
+        if (!this._preComputing) this._begin();
+        var width = element.offsetWidth;
+        if (!this._preComputing) this._end();
+        return width;
       },
 
       'margin-box-height': function(element) {
@@ -3626,23 +3661,19 @@ Element.addMethods({
       },
 
       'border-top': function(element) {
-        return Object.isNumber(element.clientTop) ? element.clientTop :
-         getPixelValue(element, 'borderTopWidth');
+        return getPixelValue(element, 'borderTopWidth');
       },
 
       'border-bottom': function(element) {
-        return Object.isNumber(element.clientBottom) ? element.clientBottom :
-         getPixelValue(element, 'borderBottomWidth');
+        return getPixelValue(element, 'borderBottomWidth');
       },
 
       'border-left': function(element) {
-        return Object.isNumber(element.clientLeft) ? element.clientLeft :
-         getPixelValue(element, 'borderLeftWidth');
+        return getPixelValue(element, 'borderLeftWidth');
       },
 
       'border-right': function(element) {
-        return Object.isNumber(element.clientRight) ? element.clientRight :
-         getPixelValue(element, 'borderRightWidth');
+        return getPixelValue(element, 'borderRightWidth');
       },
 
       'margin-top': function(element) {
@@ -4962,24 +4993,34 @@ var Form = {
   serializeElements: function(elements, options) {
     if (typeof options != 'object') options = { hash: !!options };
     else if (Object.isUndefined(options.hash)) options.hash = true;
-    var key, value, submitted = false, submit = options.submit;
+    var key, value, submitted = false, submit = options.submit, accumulator, initial;
 
-    var data = elements.inject({ }, function(result, element) {
+    if (options.hash) {
+      initial = {};
+      accumulator = function(result, key, value) {
+        if (key in result) {
+          if (!Object.isArray(result[key])) result[key] = [result[key]];
+          result[key].push(value);
+        } else result[key] = value;
+        return result;
+      };
+    } else {
+      initial = '';
+      accumulator = function(result, key, value) {
+        return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + encodeURIComponent(value);
+      }
+    }
+
+    return elements.inject(initial, function(result, element) {
       if (!element.disabled && element.name) {
         key = element.name; value = $(element).getValue();
         if (value != null && element.type != 'file' && (element.type != 'submit' || (!submitted &&
             submit !== false && (!submit || key == submit) && (submitted = true)))) {
-          if (key in result) {
-            if (!Object.isArray(result[key])) result[key] = [result[key]];
-            result[key].push(value);
-          }
-          else result[key] = value;
+          result = accumulator(result, key, value);
         }
       }
       return result;
     });
-
-    return options.hash ? data : Object.toQueryString(data);
   }
 };
 
