@@ -265,7 +265,7 @@ var Horde_Tree = Class.create({
 
             label.push('>' + this._setNodeIcon(nodeId) + node.label + '</a></span>');
         } else {
-            label.push('<span class="toggle" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')">' + this._setNodeIcon(nodeId) + node.label + '</span>');
+            label.push('<span class="toggle" onclick="' + this.opts.target + '.toggle(' + nodeId.gsub('"', '&quot;') + ')">' + this._setNodeIcon(nodeId) + node.label + '</span>');
         }
 
         return label.join('');
@@ -284,14 +284,14 @@ var Horde_Tree = Class.create({
             if (this.renderStatic) {
                 return '';
             }
-            attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
+            attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.gsub('"', '&quot;') + ')"';
         } else if (node.indent != '0' && Object.isUndefined(node.children)) {
             // Node no children.
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
         } else if (!Object.isUndefined(node.children)) {
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
             if (!this.renderStatic) {
-                attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
+                attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.gsub('"', '&quot;') + ')"';
             }
         } else {
             // Top level node with no children.
