@@ -72,7 +72,7 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            self::_logMessage($e->getMessage(), 'ERR');
+            self::_logMessage('Login failed', 'INFO');
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
                 throw new Horde_Auth_Exception(_("Could not connect to the remote server."));
             }
