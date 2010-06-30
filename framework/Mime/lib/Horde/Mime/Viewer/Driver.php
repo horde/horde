@@ -77,10 +77,10 @@ class Horde_Mime_Viewer_Driver
     /**
      * Sets the Horde_Mime_Part object for the class.
      *
-     * @param Horde_Mime_Part &$mime_part  Reference to an object with the
-     *                                     information to be rendered.
+     * @param Horde_Mime_Part $mime_part  The object with the information to
+     *                                    be rendered.
      */
-    public function setMIMEPart(&$mime_part)
+    public function setMIMEPart($mime_part)
     {
         $this->_mimepart = $mime_part;
     }
