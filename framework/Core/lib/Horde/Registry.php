@@ -43,6 +43,13 @@ class Horde_Registry
     protected $_regmtime;
 
     /**
+     * Indicate that a new session ID has been generated for this page load.
+     *
+     * @var boolean
+     */
+    protected $_cleansession = false;
+
+    /**
      * Stack of in-use applications.
      *
      * @var array
@@ -1587,6 +1594,10 @@ class Horde_Registry
      */
     public function getCleanSession()
     {
+        if ($this->_cleansession) {
+            return;
+        }
+
         // Make sure to force a completely new session ID and clear all
         // session data.
         session_regenerate_id(true);
@@ -1601,6 +1612,8 @@ class Horde_Registry
             }
             $secret->setKey('auth');
         }
+
+        $this->_cleansession = true;
     }
 
     /**
