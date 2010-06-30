@@ -2,3 +2,6 @@
     width: 14%;
     margin: 0 .2%;
 }
+.kronolithEventsWeek:last-child {
+    margin-right: 0;
+}
