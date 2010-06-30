@@ -46,9 +46,9 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
     return $url;
 }
 
-function _getLogoutReasonString($code, $auth, $vars)
+function _getLogoutReasonString($auth, $vars)
 {
-    switch ($code) {
+    switch ($auth->getError()) {
     case Horde_Auth::REASON_SESSION:
         return _("Your session has expired. Please login again.");
 
@@ -221,8 +221,6 @@ if ($error_reason) {
         exit;
     }
 
-    $error_reason = $auth->getError();
-
     $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
                      $vars->horde_user, $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'ERR');
@@ -274,7 +272,7 @@ if (!$is_auth && !$prefs->isLocked('language')) {
 }
 
 $title = _("Log in");
-if ($reason = _getLogoutReasonString($error_reason, $auth, $vars)) {
+if ($reason = _getLogoutReasonString($auth, $vars)) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
