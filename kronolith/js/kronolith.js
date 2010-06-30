@@ -1851,8 +1851,7 @@ KronolithCore = {
                 var scrollArea = $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody');
                 if (draggerTop) {
                     opts.snap = function(x, y) {
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
+                        y = Math.max(0, step * (Math.min(maxTop, y) / step | 0)) - this.scrollTop;
                         return [0, y];
                     }.bind(this);
                     var d = new Drag(event.value.nodeId + 'top', opts);
@@ -1866,8 +1865,7 @@ KronolithCore = {
 
                 if (draggerBottom) {
                     opts.snap = function(x, y) {
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
+                        y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing - this.scrollTop;
                         return [0, y];
                     }.bind(this);
                     var d = new Drag(event.value.nodeId + 'bottom', opts);
@@ -1893,8 +1891,7 @@ KronolithCore = {
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
+                        y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0)) - this.scrollTop;
                         return [x, y];
                     }.bind(this)
                 });
