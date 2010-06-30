@@ -30,6 +30,19 @@ class IMP_Injector_Binder_Quota implements Horde_Injector_Binder
             $params['password'] = $secret->read($secret->getKey('imp'), $params['password']);
         }
 
+        switch (Horde_String::lower($driver)) {
+        case 'imap':
+            $params['imap_ob'] = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
+            $params['mbox'] = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox(IMP::$mailbox)
+                ? 'INBOX'
+                : IMP::$mailbox;
+            break;
+
+        case 'maildir':
+            $params['username'] = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->getParam('username');
+            break;
+        }
+
         return IMP_Quota::factory($driver, $params);
     }
 
