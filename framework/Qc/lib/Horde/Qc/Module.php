@@ -24,27 +24,16 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Qc
-erver
  */
-abstract class Horde_Qc_Module
+interface Horde_Qc_Module
 {
-    /**
-     * The parent module.
-     *
-     * @var Horde_Qc_Module
-     */
-    private $_parent;
+    public function getOptionGroupTitle();
 
-    public function __construct(Horde_Qc_Module $parent = null)
-    {
-        $this->_parent = $parent;
-    }
+    public function getOptionGroupDescription();
 
-    abstract public function getOptions();
+    public function getOptionGroupOptions();
 
-    abstract public function validateOptions();
+    public function handle(array $config);
 
-    abstract public function setup();
-
-    abstract public function run();
+    public function run();
 }

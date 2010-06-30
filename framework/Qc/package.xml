@@ -46,9 +46,15 @@
       <file name="Autoloader.php" role="php" />
       <dir name="Config">
        <file name="Cli.php" role="php" />
-       <file name="Interface.php" role="php" />
       </dir> <!-- /lib/Horde/Qc/Config -->
+      <file name="Config.php" role="php" />
+      <dir name="Module">
+       <file name="PearPackageXml.php" role="php" />
+      </dir> <!-- /lib/Horde/Qc/Module -->
+      <file name="Module.php" role="php" />
+      <file name="Modules.php" role="php" />
      </dir> <!-- /lib/Horde/Qc -->
+     <file name="Qc.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="script">
@@ -83,9 +89,13 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Qc.php" name="lib/Horde/Qc.php" />
    <install as="Horde/Qc/Autoloader.php" name="lib/Horde/Qc/Autoloader.php" />
+   <install as="Horde/Qc/Config.php" name="lib/Horde/Qc/Config.php" />
    <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
-   <install as="Horde/Qc/Config/Interface.php" name="lib/Horde/Qc/Config/Interface.php" />
+   <install as="Horde/Qc/Module.php" name="lib/Horde/Qc/Module.php" />
+   <install as="Horde/Qc/Module/PearPackageXml.php" name="lib/Horde/Qc/Module/PearPackageXml.php" />
+   <install as="Horde/Qc/Modules.php" name="lib/Horde/Qc/Modules.php" />
    <install as="hqc" name="script/horde-quality-control.php" />
   </filelist>
  </phprelease>

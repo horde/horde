@@ -26,17 +26,43 @@
  * @link     http://pear.horde.org/index.php?package=Qc
  */
 class Horde_Qc_Module_PearPackageXml
-extends Horde_Qc_Module
+implements Horde_Qc_Module
 {
-    public function getOptions()
+    public function getOptionGroupTitle()
+    {
+        return 'Pear Package Xml';
+    }
+
+    public function getOptionGroupDescription()
+    {
+        return 'This module allows manipulation of the package.xml.';
+    }
+
+    public function getOptionGroupOptions()
     {
         return array(
             new Horde_Argv_Option(
                 '-u',
-                '--update-packagexml',
-                array('action' => 'store_true')
+                '--updatexml',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'update the package.xml for the package'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-p',
+                '--packagexml',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'display an up-to-date package.xml for the package'
+                )
             )
+
         );
+    }
+
+    public function handle(array $config)
+    {
     }
 
     public function run()

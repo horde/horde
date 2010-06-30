@@ -4,30 +4,30 @@
  *
  * PHP version 5
  *
- * @category   Kolab
- * @package    Kolab_Config
+ * @category   Horde
+ * @package    Qc
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Config
+ * @link       http://pear.horde.org/index.php?package=Qc
  */
 
 /**
  * Base for story based package testing.
  *
- * Copyright 2010 Klarälvdalens Datakonsult AB
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category   Kolab
- * @package    Kolab_Config
+ * @category   Horde
+ * @package    Qc
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Config
+ * @link       http://pear.horde.org/index.php?package=Qc
  */
-class Horde_Kolab_Config_ConfigStoryTestCase
+class Horde_Qc_StoryTestCase
 extends PHPUnit_Extensions_Story_TestCase
 {
     /**
@@ -42,21 +42,7 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runGiven(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'that no Kolab server configuration file can be found':
-            $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/empty'
-            );
-            break;
-        case 'that a global configuration file was specified as a combination of a directory path and a file name':
-            $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/global',
-                'globals.conf'
-            );
-            break;
-        case 'that the location of the configuration files were specified with a directory path':
-            $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/local'
-            );
+        case 'the default QC package setup':
             break;
         default:
             return $this->notImplemented($action);
@@ -75,19 +61,14 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runWhen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'reading the configuration':
-            try {
-                $world['config']->read();
-            } catch (Horde_Kolab_Config_Exception $e) {
-                $world['result'] = $e;
-            }
-            break;
-        case 'reading the parameter':
-            try {
-                $world['result'] = $world['config'][$arguments[0]];
-            } catch (Exception $e) {
-                $world['result'] = $e;
-            }
+        case 'calling the package with the help option':
+            $_SERVER['argv'] = array('hqc', '--help', '--packagexml');
+            ob_start();
+            $parameters = array();
+            $parameters['config']['cli']['parser']['class'] = 'Horde_Qc_Stub_Parser';
+            Horde_Qc::main($parameters);
+            $world['output'] = ob_get_contents();
+            ob_end_clean();
             break;
         default:
             return $this->notImplemented($action);
@@ -106,24 +87,23 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runThen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'the Config Object will throw an exception of type':
-            $this->assertType(
-                $arguments[0], $world['result']
+        case 'the help will be displayed':
+            $this->assertRegExp(
+                '/-h,[ ]*--help[ ]*show this help message and exit/',
+                $world['output']
             );
             break;
-        case 'the exception has the message':
-            $this->assertEquals(
-                $arguments[0], $world['result']->getMessage()
+        case 'the help will contain the "p" option.':
+            $this->assertRegExp(
+                '/-p,\s*--packagexml/m',
+                $world['output']
             );
             break;
-        case 'the result will be':
-            if ($world['result'] instanceOf Exception) {
-                $this->assertEquals(
-                    '', $world['result']->getMessage()
-                );
-            } else {
-                $this->assertEquals($arguments[0], $world['result']);
-            }
+        case 'the help will contain the "u" option.':
+            $this->assertRegExp(
+                '/-u,\s*--updatexml/',
+                $world['output']
+            );
             break;
         default:
             return $this->notImplemented($action);
