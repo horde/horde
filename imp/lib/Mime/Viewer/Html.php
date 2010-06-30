@@ -18,6 +18,13 @@
 class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
+     * Cached block image.
+     *
+     * @var string
+     */
+    public $blockimg = null;
+
+    /**
      * The window target to use for links.
      * Needed for testing purposes.
      *
@@ -36,13 +43,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         'inline' => true,
         'raw' => false
     );
-
-    /**
-     * Cached block image.
-     *
-     * @var string
-     */
-    protected $_blockimg = null;
 
     /**
      * The regular expression to catch any tags and attributes that load
@@ -80,7 +80,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             # closing parenthesis
             \s*\)
             # remainder of the "style" attribute; match 6
-            ((?(3)[^"\'>]*|[^\s>]*))
+            ((?(3)[^"\'>]*|[^\s>]*)(?(3)\\3))
         )
         /isx';
 
@@ -243,7 +243,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             preg_match($this->_img_regex, $this->_mimepart->getContents()) &&
             (!$GLOBALS['prefs']->getValue('html_image_addrbook') ||
              !$this->_inAddressBook())) {
-            $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
+            $data = $this->blockImages($data);
 
             $status[] = array(
                 'icon' => Horde::img('mime/image.png'),
@@ -308,6 +308,18 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
+     * Block images in HTML data.
+     *
+     * @param string $data  Data in.
+     *
+     * @return string  Altered data.
+     */
+    public function blockImages($data)
+    {
+        return preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
+    }
+
+    /**
      * Called from the image-blocking regexp to construct the new image tags.
      *
      * @param array $matches
@@ -316,13 +328,13 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _blockImages($matches)
     {
-        if (is_null($this->_blockimg)) {
-            $this->_blockimg = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
+        if (is_null($this->blockimg)) {
+            $this->blockimg = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
         }
 
         return empty($matches[2])
-            ? $matches[1] . '"' . $this->_blockimg . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"'
-            : $matches[1] . "'" . $this->_blockimg . '\')' . $matches[6] . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"';
+            ? $matches[1] . '"' . $this->blockimg . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"'
+            : trim($matches[1] . "'" . $this->blockimg . '\')' . $matches[6], '\'" ') . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"';
     }
 
     /**
