@@ -146,13 +146,13 @@ class IMP_Auth
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
 
         $msg = sprintf(
-            $status_msg . '%s [%s]%s to {%s:%s [%s]}',
-            $auth_id ? '' : ' for ' . $auth_id,
+            $status_msg . '%s [%s]%s to {%s:%s%s}',
+            !strlen($auth_id) ? '' : ' for ' . $auth_id,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob ? $imap_ob->getParam('hostspec') : '',
             $imap_ob ? $imap_ob->getParam('port') : '',
-            empty($_SESSION['imp']['protocol']) ? '' : $_SESSION['imp']['protocol']
+            empty($_SESSION['imp']['protocol']) ? '' : ' [' . $_SESSION['imp']['protocol'] . ']'
         );
 
         Horde::logMessage($msg, $level);
