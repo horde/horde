@@ -422,6 +422,16 @@ class Horde_Registry
     }
 
     /**
+     * serialize() should never be called on this object. If it is, die.
+     *
+     * @throws Horde_Exception
+     */
+    public function __sleep()
+    {
+        throw new Horde_Exception('Horde_Registry objects should never be serialized.');
+    }
+
+    /**
      * Clear the registry cache.
      */
     public function clearCache()
