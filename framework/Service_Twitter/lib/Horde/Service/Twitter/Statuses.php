@@ -71,16 +71,16 @@ class Horde_Service_Twitter_Statuses
      *                        (i.e. `@username`) this update will be "in reply to"
      *                        the specifed status message id.
      * @param array $params   Any additional parameters.
+     *   <pre>
+     *     in_reply_to_status_id  - the status id this tweet is in response to.
+     *   </pre>
      *
      * @return string
      */
-    public function update($status, $replyTo = '', $params = array())
+    public function update($status, $params = array())
     {
         $url = $this->_endpoint . 'update.' . $this->_format;
-        $params = array('status' => $status);
-        if (!empty($replyTo)) {
-            $params['in_reply_to_status_id'] = $replyTo;
-        }
+        $params['status'] = $status;
 
         return $this->_twitter->request->post($url, $params);
     }
