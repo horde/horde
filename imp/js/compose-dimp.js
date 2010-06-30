@@ -693,10 +693,14 @@ var DimpCompose = {
              * row, and resize the textarea. */
             rows = parseInt(mah / (msg.clientHeight / msg.readAttribute('rows')), 10);
             if (!isNaN(rows)) {
-                msg.writeAttribute({ rows: rows, disabled: false });
-                if (de.scrollHeight - de.clientHeight) {
-                    msg.writeAttribute('rows', rows - 1);
-                }
+                /* Due to the funky (broken) way some browsers (FF) count
+                 * rows, we need to overshoot row estimate and increment
+                 * downward until textarea size does not cause window
+                 * scrolling. */
+                ++rows;
+                do {
+                    msg.writeAttribute({ rows: rows--, disabled: false });
+                } while (de.scrollHeight - de.clientHeight);
             }
         }
     },
