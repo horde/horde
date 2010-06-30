@@ -175,6 +175,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             $html .=  $body;
             $html .= '<div class="fbstreaminfo">' . sprintf(_("Posted %s via %s"), Horde_Date_Utils::relativeDateTime(strtotime($tweet->created_at), $GLOBALS['prefs']->getValue('date_format')), $appText) . '</div>';
             $html .= '<div class="fbstreaminfo">' . Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $tweet->id . '\', \'' . $tweet->user->screen_name . '\', \'' . $tweet->user->name . '\')') .  _("Reply") . '</a>';
+            $html .= '&nbsp;|&nbsp;' . Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $tweet->id . '\')') . _("Retweet") . '</a>';
             $html .= '</div><div class="clear">&nbsp;</div></div>';
         }
         $html .= '</div>';
@@ -198,7 +199,25 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                 params = new Object();
                 params.actionID = 'updateStatus';
                 params.statusText = statusText;
-                params.inReplyTo = this.inReplyTo;
+                params.params = { 'in_reply_to_status_id': this.inReplyTo };
+                new Ajax.Request('$endpoint', {
+                    method: 'post',
+                    parameters: params,
+                    onComplete: function(response) {
+                        this.updateCallback(response.responseJSON);
+                    }.bind(this),
+                    onFailure: function() {
+                        {$spinner}.toggle();
+                        this.inReplyTo = '';
+                    }
+                });
+            },
+
+            retweet: function(id) {
+                params = {
+                    actionID: 'retweet',
+                    tweetId: id
+                };
                 new Ajax.Request('$endpoint', {
                     method: 'post',
                     parameters: params,

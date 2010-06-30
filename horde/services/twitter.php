@@ -74,6 +74,12 @@ case 'updateStatus':
     header('Content-Type: application/json');
     echo $result;
     exit;
+
+case 'retweet':
+    $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
+    header('Content-Type: application/json');
+    echo $result;
+    exit;
 }
 
 /* No requested action, check to see if we have a valid token */
