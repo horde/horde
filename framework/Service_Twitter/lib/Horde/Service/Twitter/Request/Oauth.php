@@ -86,7 +86,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
         }
 
         if ($response->code >= 400 && $response->code <= 500) {
-            throw new Horde_Service_Twitter_Exception($body);
+            throw new Horde_Service_Twitter_Exception($response->getBody());
         }
         return $response->getBody();
     }
