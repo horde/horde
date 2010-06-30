@@ -70,10 +70,11 @@ class Horde_Service_Twitter_Statuses
      *                        a mention of the author of the replied to status
      *                        (i.e. `@username`) this update will be "in reply to"
      *                        the specifed status message id.
+     * @param array $params   Any additional parameters.
      *
      * @return string
      */
-    public function update($status, $replyTo = '')
+    public function update($status, $replyTo = '', $params = array())
     {
         $url = $this->_endpoint . 'update.' . $this->_format;
         $params = array('status' => $status);
