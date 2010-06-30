@@ -1,35 +1,32 @@
 --TEST--
- tests.
+IMP HTML MIME Viewer tests.
 --FILE--
 <?php
 
-require_once 'Horde.php';
-require_once 'Horde/Mime/Viewer/Driver.php';
-require_once 'Horde/Mime/Viewer/Html.php';
-require_once dirname(dirname(__FILE__)) . '/Mime/Viewer/Html.php';
+require_once dirname(__FILE__) . '/../Application.php';
+Horde_Registry::appInit('imp', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
-class MockRegistry {
-    function getImageDir()
-    {
-        return '';
-    }
-}
+$mock_part = new Horde_Mime_Part();
+$mock_part->setType('text/html');
 
-$registry = new MockRegistry();
-$mock_part = null;
-$v = new IMP_Horde_Mime_Viewer_html($mock_part);
+$v = Horde_Mime_Viewer::factory($mock_part);
+$v->newwinTarget = '_blank';
 
 // Test regex for converting links to open in a new window.
-echo $v->_openLinksInNewWindow('foo') . "\n";
-echo $v->_openLinksInNewWindow('example@example.com') . "\n";
-echo $v->_openLinksInNewWindow('foo <a href="#bar">Anchor</a>') . "\n";
-echo $v->_openLinksInNewWindow('foo <a href="http://www.example.com/">example</a>') . "\n";
-echo $v->_openLinksInNewWindow('foo <a target="foo" href="http://www.example.com/">example</a>') . "\n";
-echo $v->_openLinksInNewWindow('foo <a href="http://www.example.com/" target="foo">example</a>') . "\n";
-echo $v->_openLinksInNewWindow('foo <a mailto="example@example.com">Example Email</a>') . "\n";
-echo $v->_openLinksInNewWindow('<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>') . "\n";
-echo $v->_openLinksInNewWindow('<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="foo"></map>') . "\n";
+echo $v->openLinksInNewWindow('foo') . "\n";
+echo $v->openLinksInNewWindow('example@example.com') . "\n";
+echo $v->openLinksInNewWindow('foo <a href="#bar">Anchor</a>') . "\n";
+echo $v->openLinksInNewWindow('foo <a href="http://www.example.com/">example</a>') . "\n";
+echo $v->openLinksInNewWindow('foo <a target="foo" href="http://www.example.com/">example</a>') . "\n";
+echo $v->openLinksInNewWindow('foo <a href="http://www.example.com/" target="foo">example</a>') . "\n";
+echo $v->openLinksInNewWindow('foo <a mailto="example@example.com">Example Email</a>') . "\n";
+echo $v->openLinksInNewWindow('<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>') . "\n";
+echo $v->openLinksInNewWindow('<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="foo"></map>') . "\n";
 echo "\n";
+exit;
 
 // Test regex for hiding images.
 echo preg_replace_callback($v->_img_regex, array($v, '_blockImages'),
@@ -56,11 +53,11 @@ foo
 example@example.com
 foo <a href="#bar">Anchor</a>
 foo <a target="_blank" href="http://www.example.com/">example</a>
-foo <a   target="_blank" href="http://www.example.com/">example</a>
-foo <a  href="http://www.example.com/"  target="_blank">example</a>
+foo <a target="_blank" href="http://www.example.com/">example</a>
+foo <a href="http://www.example.com/" target="_blank">example</a>
 foo <a target="_blank" mailto="example@example.com">Example Email</a>
 <map name="Map"><area target="_blank" shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>
-<map name="Map"><area  shape="rect" coords="32,-2,293,29" href="http://www.example.com/"  target="_blank"></map>
+<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="_blank"></map>
 
 <img src="/spacer_red.png" blocked="http%3A%2F%2Fexample.com%2Fimage.png">
 <img src="/spacer_red.png" blocked="http%3A%2F%2Fexample.com%2Fimage.png" />

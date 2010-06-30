@@ -18,6 +18,14 @@
 class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
+     * The window target to use for links.
+     * Needed for testing purposes.
+     *
+     * @var string
+     */
+    public $newwinTarget = null;
+
+    /**
      * This driver's display capabilities.
      *
      * @var array
@@ -213,30 +221,12 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Convert links to open in new windows. First we hide all
          * mailto: links, links that have an "#xyz" anchor and ignore
          * all links that already have a target. */
-        $target = 'target_' . uniqid(mt_rand());
-        $data = preg_replace(
-            array('/<a\b([^>]*\s+href=["\']?(#|mailto:))/i',
-                  '/<a\b([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
-                  '/<a\s/i',
-                  '/<area\b([^>]*\s+href=["\']?(#|mailto:))/i',
-                  '/<area\b([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
-                  '/<area\s/i',
-                  "/\x01/",
-                  "/\x02/"),
-            array("<\x01\\1",
-                  "<\x01 \\1 target=\"" . $target . "\"",
-                  '<a target="' . $target . '" ',
-                  "<\x02\\1",
-                  "<\x02 \\1 target=\"" . $target . "\"",
-                  '<area target="' . $target . '" ',
-                  'a ',
-                  'area '),
-            $data);
+        $data = $this->openLinksInNewWindow($data);
 
         /* If displaying inline (in IFRAME), tables with 100% height seems to
          * confuse many browsers re: the iframe internal height. */
         if ($inline) {
-            $data = preg_replace('/<table\b([^>]*)\s+height=["\']?100\%["\']?/i', '<table \\1', $data);
+            $data = preg_replace('/<table\b([^>]*)\bheight=["\']?100\%["\']?/i', '<table \\1', $data);
         }
 
         /* Turn mailto: links into our own compose links. */
@@ -273,6 +263,40 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             'status' => $status,
             'type' => $this->_mimepart->getType(true)
         );
+    }
+
+    /**
+     * Scans HTML data and alters links to open in a new window.
+     * In public function so that it can be tested.
+     *
+     * @param string $data  Data in.
+     *
+     * @return string  Altered data.
+     */
+    public function openLinksInNewWindow($data)
+    {
+        $target = is_null($this->newwinTarget)
+            ? 'target_' . uniqid(mt_rand())
+            : $this->newwinTarget;
+
+        return preg_replace(
+            array('/<a\b([^>]*\bhref=["\']?(#|mailto:))/i',
+                  '/<a\b([^>]*)\btarget=["\']?[^>"\'\s]*["\']?/i',
+                  '/<a\b/i',
+                  '/<area\b([^>]*\bhref=["\']?(#|mailto:))/i',
+                  '/<area\b([^>]*)\btarget=["\']?[^>"\'\s]*["\']?/i',
+                  '/<area\b/i',
+                  "/\x01/",
+                  "/\x02/"),
+            array("<\x01\\1",
+                  "<\x01\\1target=\"" . $target . "\"",
+                  '<a target="' . $target . '"',
+                  "<\x02\\1",
+                  "<\x02\\1target=\"" . $target . "\"",
+                  '<area target="' . $target . '"',
+                  'a',
+                  'area'),
+            $data);
     }
 
     /**
