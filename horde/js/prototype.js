@@ -1304,6 +1304,10 @@ var Hash = Class.create(Enumerable, (function() {
     return new Hash(this);
   }
 
+  function toJSON() {
+    return Object.toJSON(this._object);
+  }
+
   return {
     initialize:             initialize,
     _each:                  _each,
@@ -1319,7 +1323,7 @@ var Hash = Class.create(Enumerable, (function() {
     update:                 update,
     toQueryString:          toQueryString,
     inspect:                inspect,
-    toJSON:                 toObject,
+    toJSON:                 toJSON,
     clone:                  clone
   };
 })());
