@@ -1848,7 +1848,6 @@ KronolithCore = {
                         }
                     };
 
-                var scrollArea = $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody');
                 if (draggerTop) {
                     opts.snap = function(x, y) {
                         y = Math.max(0, step * (Math.min(maxTop, y) / step | 0)) - this.scrollTop;
