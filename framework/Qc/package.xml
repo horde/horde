@@ -43,6 +43,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Qc">
+      <file name="Autoloader.php" role="php" />
       <dir name="Config">
        <file name="Cli.php" role="php" />
        <file name="Interface.php" role="php" />
@@ -82,6 +83,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Qc/Autoloader.php" name="lib/Horde/Qc/Autoloader.php" />
    <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
    <install as="Horde/Qc/Config/Interface.php" name="lib/Horde/Qc/Config/Interface.php" />
    <install as="hqc" name="script/horde-quality-control.php" />

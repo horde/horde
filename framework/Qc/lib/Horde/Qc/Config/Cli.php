@@ -29,11 +29,7 @@
 erver
  */
 class Horde_Qc_Config_Cli
-implements Horde_Qc_Config_Interface
 {
-
-    private $_parser;
-
     private $_opts;
 
     private $_args;
@@ -45,18 +41,16 @@ implements Horde_Qc_Config_Interface
      */
     public function __construct(Horde_Qc_Modules $modules)
     {
-        $options = array();
-
-        foreach ($modules as $module) {
-            $options = array_merge($options, $module->getOptions());
-        }
-
-        $this->_parser = new Horde_Argv_Parser(
+        $parser = new Horde_Argv_Parser(
             array(
-                'optionList' => array_values($options),
                 'usage' => '%prog ' . _("[options] PACKAGE_PATH")
             )
         );
+
+        foreach ($modules as $module) {
+            $parser->addOptionGroup($module->getOptions());
+        }
+
         list($this->_opts, $this->_args) = $parser->parseArgs();
     }
 }
