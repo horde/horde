@@ -31,8 +31,8 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
     /**
      * Perform a GET request with OAuth authorization.
      *
-     * @param string $url
-     * @param array  $params
+     * @param mixed (string | Horde_Url) $url  The url to request.
+     * @param array  $params                   URL parameters.
      *
      * @return mixed  Call results.
      */
@@ -48,6 +48,8 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
                        $this->_twitter->auth->oauth,
                        $this->_twitter->auth->getAccessToken());
         $client = new Horde_Http_Client();
+        $url = ($url instanceof Horde_Url) ? $url : new Horde_Url($url);
+        $url->add($params);
         try {
             $response = $client->get($url, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
         } catch (Horde_Http_Exception $e) {
