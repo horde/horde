@@ -308,10 +308,10 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             if (preg_match('/<head[^>]*>/si', $text, $matches, PREG_OFFSET_CAPTURE)) {
                 $end = $matches[0][1] + strlen($matches[0][0]);
                 $text = substr($text, 0, $end) .
-                    '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
+                    '<meta http-equiv="x-dns-prefetch-control" content="off" />' .
                     substr($text, $end);
             } else {
-                $text = '<meta http-equiv="x-dns-prefetch-control" value="off" />' . $text;
+                $text = '<meta http-equiv="x-dns-prefetch-control" content="off" />' . $text;
             }
         }
 
