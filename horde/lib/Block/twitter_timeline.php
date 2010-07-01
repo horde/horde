@@ -104,6 +104,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
     {
         global $conf;
 
+        /* Get the twitter driver */
         try {
             $twitter = $this->_getTwitterObject();
         }  catch (Horde_Exception $e) {
@@ -127,11 +128,38 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             }
         }
 
+        /* Build values to pass to the javascript twitter client */
+        $defaultText = _("What are you working on now?");
+        $endpoint = Horde::url('services/twitter.php', true);
+        $spinner = $instance . '_loading';
+        $inputNode = $instance . '_newStatus';
+        $inReplyToNode = $instance . '_inReplyTo';
+        $inReplyToText = _("In reply to:");
+        $contentNode = 'twitter_body' . $instance;
+        $justNowText = _("Just now...");
+
+        /* Add the client javascript / initialize it */
+        Horde::addScriptFile('twitterclient.js');
+        $script = <<<EOT
+            var Horde = window.Horde || {};
+            Horde.twitter = new Horde_Twitter({
+               input: '{$instance}_newStatus',
+               spinner: '{$instance}_loading',
+               content: 'twitter_body{$instance}',
+               endpoint: '{$endpoint}',
+               inreplyto: '{$inReplyToNode}',
+               strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
+            });
+EOT;
+        Horde::addInlineScript($script, 'dom');
+
+        /* Get the user's most recent tweet */
         $latestStatus = htmlspecialchars($this->_profile->status->text, ENT_COMPAT, Horde_Nls::getCharset());
 
         // Bring in the Facebook CSS
         $csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';
-        $defaultText = _("What are you working on now?");
+
+        /* Build the UI */
         $html = '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
         $html .= '<div style="float:left;padding-left: 8px;padding-right:8px;">'
            . '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus" value="' . $defaultText . '" />'
@@ -140,147 +168,10 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         $html .= '<div id="currentStatus" class="fbemptystatus" style="margin-left:10px;margin-top:10px;">' . sprintf(_("Latest: %s - %s"), $latestStatus, Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))) . '</div>';
         $html .= '<div style="height:' . $this->_params['height'] . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
         $filter = Horde_Text_Filter::factory('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-
         $html .= '</div>';
         $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.updateStream(++Horde.twitter.page);">' . _("Get More") . '</a></div>';
-        $endpoint = Horde::url('services/twitter.php', true);
-        $spinner = '$(\'' . $instance . '_loading\')';
-        $inputNode = '$(\'' . $instance . '_newStatus\')';
-        $inReplyToNode = '$(\'' . $instance . '_inReplyTo\')';
-        $inReplyToText = _("In reply to:");
-        $contentNode = 'twitter_body' . $instance;
-        $justNowText = _("Just now...");
-
-        $html .= <<<EOF
-        <script type="text/javascript">
-        var Horde = window.Horde || {};
-        Horde.twitter = {
-            inReplyTo: '',
-            page: 1,
-            updateStatus: function(statusText) {
-                {$inputNode}.stopObserving('blur');
-                {$spinner}.toggle();
-                params = new Object();
-                params.actionID = 'updateStatus';
-                params.statusText = statusText;
-                params.params = { 'in_reply_to_status_id': this.inReplyTo };
-                new Ajax.Request('$endpoint', {
-                    method: 'post',
-                    parameters: params,
-                    onComplete: function(response) {
-                        this.updateCallback(response.responseJSON);
-                    }.bind(this),
-                    onFailure: function() {
-                        {$spinner}.toggle();
-                        this.inReplyTo = '';
-                    }
-                });
-            },
-
-            retweet: function(id) {
-                {$spinner}.toggle();
-                params = {
-                    actionID: 'retweet',
-                    tweetId: id
-                };
-                new Ajax.Request('$endpoint', {
-                    method: 'post',
-                    parameters: params,
-                    onComplete: function(response) {
-                        this.updateCallback(response.responseJSON);
-                    }.bind(this),
-                    onFailure: function() {
-                        {$spinner}.toggle();
-                        this.inReplyTo = '';
-                    }
-                });
-            },
-
-            updateStream: function(page) {
-                new Ajax.Request('$endpoint', {
-                    method: 'post',
-                    parameters: { actionID: 'getPage', 'page': page },
-                    onComplete: function(response) {
-                        var content = new Element('div').update(response.responseText);
-                        var h = $('{$contentNode}').scrollHeight
-                        $('{$contentNode}').insert(content);
-                        // Don't scroll if it's the first request.
-                        if (page != 1) {
-                            $('{$contentNode}').scrollTop = h;
-                        } else {
-                            $('{$contentNode}').scrollTop = 0;
-                        }
-                    },
-                    onFailure: function() {
-                        {$spinner}.toggle();
-                    }
-                });
-            },
-
-            buildReply: function(id, userid, usertext) {
-                this.inReplyTo = id;
-                {$inputNode}.focus();
-                {$inputNode}.value = '@' + userid + ' ';
-                {$inReplyToNode}.update(' {$inReplyToText} ' + usertext);
-            },
-
-            updateCallback: function(response) {
-               this.buildNewTweet(response);
-               {$inputNode}.value = '{$defaultText}';
-               {$spinner}.toggle();
-               this.inReplyTo = '';
-               {$inReplyToNode}.update('');
-            },
-
-            buildNewTweet: function(response) {
-                var tweet = new Element('div', {'class':'fbstreamstory'});
-                var tPic = new Element('div', {'style':'float:left'}).update(
-                    new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
-                        new Element('img', {'src':response.user.profile_image_url})
-                    )
-                );
-                var tBody = new Element('div', {'class':'fbstreambody'}).update(response.text);
-                tBody.appendChild(new Element('div', {'class':'fbstreaminfo'}).update('{$justNowText}'));
-                tweet.appendChild(tPic);
-                tweet.appendChild(tBody);
-
-                $('{$contentNode}').insert({top:tweet});
-            },
-
-            buildTweet: function(response) {
-                var tweet = new Element('div', {'class':'fbstreamstory'});
-                var tPic = new Element('div', {'style':'float:left'}).update(
-                    new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
-                        new Element('img', {'src':response.user.profile_image_url})
-                    )
-                );
-                var tBody = new Element('div', {'class':'fbstreambody'}).update(response.text);
-                tBody.appendChild(new Element('div', {'class':'fbstreaminfo'}).update('{$justNowText}'));
-                tweet.appendChild(tPic);
-                tweet.appendChild(tBody);
-
-                $('{$contentNode}').insert(tweet);
-            },
-
-            clearInput: function() {
-                {$inputNode}.value = '';
-            }
-        };
-
-        document.observe('dom:loaded', function() {
-            {$inputNode}.observe('focus', function() {Horde.twitter.clearInput()});
-            {$inputNode}.observe('blur', function() {
-                if (!{$inputNode}.value.length) {
-                    {$inputNode}.value = '{$defaultText}';
-                }
-            });
-
-            /* Get the first page */
-            Horde.twitter.updateStream(1);
-        });
-        </script>
-EOF;
         $html .= '</div>';
+
         return $html;
     }
 
