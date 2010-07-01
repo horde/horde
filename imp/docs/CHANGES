@@ -175,7 +175,8 @@ v5.0-git
 v4.3.8-cvs
 ----------
 
-
+[mms] Turn DNS prefetching off when displaying untrusted message content
+      (Ticket #8836).
 
 
 ------
@@ -2445,9 +2446,20 @@ Updated lynx pages so lynx works again with IMP
 OLD DIMP CHANGELOG
 ==================
 
+----------
+v1.1.5-cvs
+----------
+
+[mms] Turn DNS prefetching off when displaying untrusted message content
+      (Ticket #8836).
+
+
 ------
 v1.1.4
 ------
+
+[jan] Add Basque translation (Euskal Herriko Unibertsitatea <webmaster@ehu.es>).
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
 [mms] Fix sizing fckeditor compose editor frame in IE (Bug #8616).
 
 
@@ -2665,6 +2677,13 @@ v1.0-ALPHA
 ==================
 OLD MIMP CHANGELOG
 ==================
+
+------
+v1.1.3
+------
+
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
+
 
 ------
 v1.1.2

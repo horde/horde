@@ -15,8 +15,6 @@ v4.0-cvs
 [mms] Add 'cssfiles' hook to add custom CSS files to a page.
 [jan] Add option to not automatically show all available shares.
 [jan] Add option to disallow world permissions for user shares.
-[mms] Allow Mozilla DNS prefetching to be turned off when displaying untrusted
-      content (Ticket #8836).
 [jan] Store alarm dates in UTC (Bug #8381).
 [mms] Add abstracted AJAX interface (Request #4561).
 [mms] Update scriptaculous to v1.8.3.
