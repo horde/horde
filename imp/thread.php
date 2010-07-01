@@ -161,6 +161,7 @@ $template->set('tree', $tree);
 /* Output page. */
 $title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
 Horde::addScriptFile('stripe.js', 'horde');
+Horde::noDnsPrefetch();
 IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();

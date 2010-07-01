@@ -173,9 +173,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
 
         // Make URLs clickable.
         $text = Horde_Text_Filter::filter($text, 'linkurls', array(
-            'callback' => 'Horde::externalUrl',
-            // See Ticket #8836
-            'noprefetch' => ($inline && $GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection())
+            'callback' => 'Horde::externalUrl'
         ));
 
         /* Wordwrap -- note this could impact on our above RFC compliance *IF*

@@ -305,18 +305,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
         }
 
         if ($this->_params['noprefetch']) {
-            if (preg_match('/<html[^>]*>/si', $text, $matches, PREG_OFFSET_CAPTURE)) {
-                preg_match('/<\/html>/si', $text, $matches2, PREG_OFFSET_CAPTURE);
+            if (preg_match('/<head[^>]*>/si', $text, $matches, PREG_OFFSET_CAPTURE)) {
                 $end = $matches[0][1] + strlen($matches[0][0]);
                 $text = substr($text, 0, $end) .
                     '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
-                    substr($text, $end, $matches2[0][1] - $end) .
-                    '<meta http-equiv="x-dns-prefetch-control" value="on" />' .
-                    substr($text, $matches2[0][1]);
+                    substr($text, $end);
             } else {
-                $text = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
-                    $text .
-                    '<meta http-equiv="x-dns-prefetch-control" value="on" />';
+                $text = '<meta http-equiv="x-dns-prefetch-control" value="off" />' . $text;
             }
         }
 

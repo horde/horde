@@ -2036,6 +2036,15 @@ HTML;
     }
 
     /**
+     * Adds a META tag to disable DNS prefetching.
+     * See Horde Bug #8836.
+     */
+    static public function noDnsPrefetch()
+    {
+        self::addMetaTag('x-dns-prefetch-control', 'off');
+    }
+
+    /**
      * Output META tags to page.
      */
     static public function outputMetaTags()

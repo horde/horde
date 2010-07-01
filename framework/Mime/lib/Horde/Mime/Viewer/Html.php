@@ -91,6 +91,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      *              DEFAULT: The base part charset.
      * 'inline' => (boolean) Are we viewing inline?
      *             DEFAULT: false
+     * 'noprefetch' => (boolean) Disable DNS prefetching?
+     *                 DEFAULT: false
      * 'phishing' => (boolean) Do phishing highlighting even if not viewing
      *               inline.
      *               DEFAULT: false.
@@ -141,8 +143,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
             ),
             array(
                 'body_only' => !empty($options['inline']),
-                // See Ticket #8836
-                'noprefetch' => (!empty($options['inline']) && $browser->isBrowser('mozilla') && !$browser->usingSSLConnection()),
+                'noprefetch' => !empty($options['noprefetch']),
                 'strip_styles' => $strip_styles,
                 'strip_style_attributes' => $strip_style_attributes
             )

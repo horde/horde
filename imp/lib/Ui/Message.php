@@ -237,9 +237,7 @@ class IMP_Ui_Message
                 break;
             } elseif (empty($data['email'])) {
                 if ($url = Horde_Text_Filter::filter($match, 'linkurls', array(
-                    'callback' => 'Horde::externalUrl',
-                    // See Ticket #8836
-                    'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection())
+                    'callback' => 'Horde::externalUrl'
                 ))) {
                     if (!empty($opts['raw'])) {
                         return $match;
@@ -627,8 +625,6 @@ class IMP_Ui_Message
     public function getDisplaySubject($subject)
     {
         return Horde_Text_Filter::filter(preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject)), 'text2html', array(
-            // See Ticket #8836
-            'noprefetch' => ($GLOBALS['browser']->isBrowser('mozilla') && !$GLOBALS['browser']->usingSSLConnection()),
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));
     }

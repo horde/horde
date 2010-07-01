@@ -111,6 +111,8 @@ if (isset($show_msg_result['js'])) {
 Horde::addInlineScript($js_out);
 Horde::addInlineScript(array_filter($js_onload), 'load');
 
+Horde::noDnsPrefetch();
+
 IMP::status();
 IMP_Dimp::header($show_msg_result['title'], $scripts);
 echo "<body>\n";

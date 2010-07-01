@@ -48,6 +48,7 @@ if (!empty($site_menu)) {
 }
 
 Horde::addInlineScript($js_code, 'load');
+Horde::noDnsPrefetch();
 IMP_Dimp::header('', $scripts);
 
 /* Get application folders list. */

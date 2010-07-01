@@ -183,7 +183,10 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $data = $this->_mimepart->getContents();
 
         /* Sanitize the HTML. */
-        $data = $this->_cleanHTML($data, array('phishing' => $inline));
+        $data = $this->_cleanHTML($data, array(
+            'noprefetch' => ($inline && ($_SESSION['imp']['view'] != 'mimp')),
+            'phishing' => $inline
+        ));
         $status = array($this->_phishingStatus());
 
         /* We are done processing if in mimp mode, or we are converting to

@@ -665,7 +665,10 @@ Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('imp.js', 'imp');
 Horde::addScriptFile('message.js', 'imp');
 IMP::prepareMenu();
+Horde::noDnsPrefetch();
+
 require IMP_TEMPLATES . '/common-header.inc';
+
 if (!empty($conf['maillog']['use_maillog'])) {
     IMP_Maillog::displayLog($envelope['message-id']);
 }
