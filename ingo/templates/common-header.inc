@@ -11,11 +11,11 @@ if (!empty($title)) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <?php echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html>' ?>
 <head>
-<?php if (!empty($refresh_time) && !empty($refresh_url)): ?>
-<meta http-equiv="refresh" content="<?php echo $refresh_time ?>;url=<?php echo $refresh_url ?>">
-<?php endif; ?>
-<?php Horde_Themes::includeStylesheetFiles() ?>
-<?php Horde::includeScriptFiles(); ?>
+<?php
+    Horde::outputMetaTags();
+    Horde_Themes::includeStylesheetFiles();
+    Horde::includeScriptFiles();
+?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php Horde::outputInlineScript(); ?>

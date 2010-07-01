@@ -25,8 +25,7 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
     if ($browser->hasFeature('xmlhttpreq')) {
         Horde::addScriptFile('prototype.js', 'horde', true);
     } else {
-        $refresh_time = $r_time;
-        $refresh_url = Horde::applicationUrl('mybugs.php');
+        Horde::metaRefresh($r_time, Horde::applicationUrl('mybugs.php'));
     }
 }
 

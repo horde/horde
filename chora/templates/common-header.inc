@@ -6,15 +6,16 @@ if (isset($language)) {
 echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html><head>';
 
 $page_title = $GLOBALS['registry']->get('name');
-if (!empty($title)) $page_title .= ' :: ' . $title;
-if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\">\n";
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
 }
 
+Horde::outputMetaTags();
+
 if (Horde_Util::nonInputVar('js_vars')) {
-    echo '<script type="text/javascript">//<![CDATA[' . "\n" .
-       'var Chora = ' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ";\n//]]></script>\n";
+    Horde::addInlineScript('var Chora = ' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, Horde_Nls::getCharset()));
 }
+
 Horde::includeScriptFiles();
 
 ?>

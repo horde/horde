@@ -10,11 +10,11 @@ if (isset($language)) {
 <?php
 
 $page_title = $registry->get('name');
-if (!empty($title)) $page_title .= ' :: ' . $title;
-if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\">\n";
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
 }
 
+Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
 if ($channel_id = Horde_Util::getFormData('channel_id')) {

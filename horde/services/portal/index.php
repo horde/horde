@@ -14,8 +14,7 @@ Horde_Registry::appInit('horde');
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
-    $refresh_time = $r_time;
-    $refresh_url = Horde::applicationUrl('services/portal/');
+    Horde::metaRefresh($r_time, Horde::applicationUrl('services/portal/'));
 }
 
 // Load layout from preferences.

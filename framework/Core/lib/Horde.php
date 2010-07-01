@@ -72,6 +72,13 @@ class Horde
     static protected $_contentSent = false;
 
     /**
+     * META tag cache.
+     *
+     * @var array
+     */
+    static protected $_metaTags = array();
+
+    /**
      * Shortcut to logging method.
      *
      * @see Horde_Core_Log_Logger
@@ -2002,6 +2009,42 @@ HTML;
     {
         return ((self::$_bufferLevel && self::$_contentSent) ||
                 (!self::$_bufferLevel && (ob_get_length() || headers_sent())));
+    }
+
+    /**
+     * Adds a META http-equiv tag to the page output.
+     *
+     * @param string $type     The http-equiv type value.
+     * @param string $content  The content of the META tag.
+     */
+    static public function addMetaTag($type, $content)
+    {
+        self::$_metaTags[$type] = $content;
+    }
+
+    /**
+     * Adds a META refresh tag.
+     *
+     * @param integer $time  Refresh time.
+     * @param string $url    Refresh URL
+     */
+    static public function metaRefresh($time, $url)
+    {
+        if (!empty($time) && !empty($url)) {
+            self::addMetaTag('refresh', $refresh_time . ';url=' . $refresh_url);
+        }
+    }
+
+    /**
+     * Output META tags to page.
+     */
+    static public function outputMetaTags()
+    {
+        foreach (self::$_metaTags as $key => $val) {
+            echo '<meta http-equiv="' . $key . '" content="' . $val . "\" />\n";
+        }
+
+        self::$_metaTags = array();
     }
 
 }

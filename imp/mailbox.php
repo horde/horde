@@ -286,7 +286,6 @@ if (!is_null($rss_box)) {
 }
 
 /* If user wants the mailbox to be refreshed, set time here. */
-$refresh_time = $prefs->getValue('refresh_time');
 $refresh_url = $mailbox_imp_url->copy()->add('page', $pageOb['page']);
 if (isset($filter_url)) {
     $filter_url->add('page', $pageOb['page']);
@@ -371,6 +370,7 @@ if (!empty($newmsgs)) {
 }
 
 IMP::prepareMenu();
+Horde::metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

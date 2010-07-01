@@ -50,8 +50,7 @@ $imaptree = $injector->getInstance('IMP_Imap_Tree');
 /* $folder_list is already encoded in UTF7-IMAP. */
 $folder_list = Horde_Util::getFormData('folder_list', array());
 
-/* Set the URL to refresh the page to in the META tag */
-$refresh_url = Horde::applicationUrl('folders.php', true);
+/* META refresh time (might be altered by actionID). */
 $refresh_time = $prefs->getValue('refresh_time');
 
 /* Run through the action handlers. */
@@ -474,6 +473,7 @@ $template->set('rows', $rows);
 
 $title = _("Folder Navigator");
 IMP::prepareMenu();
+Horde::metaRefresh($refresh_time, Horde::applicationUrl('folders.php', true));
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

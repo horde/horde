@@ -28,14 +28,11 @@ if (isset($GLOBALS['language'])) {
 echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
 
 $page_title = $GLOBALS['registry']->get('name');
-
 if (!empty($title)) {
     $page_title .= ' :: ' . $title;
 }
 
-if (!empty($refresh_time) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
-}
+Horde::outputMetaTags();
 
 switch ($imp_view) {
 case 'dimp':

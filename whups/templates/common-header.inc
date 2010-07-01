@@ -13,11 +13,11 @@ if (isset($language)) {
 <?php
 
 $page_title = $GLOBALS['registry']->get('name');
-if (!empty($title)) $page_title .= ' :: ' . $title;
-if (!empty($refresh_time) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
 }
 
+Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
 if (isset($ticket)) {
