@@ -183,7 +183,7 @@ EOF;
 
         // Bring in the Facebook CSS
         $html .= '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
-        $html .= '<div class="fbbody" style="float:left;padding-left: 8px;padding-right:8px;">';
+        $html .= '<div style="float:left;padding-left: 8px;padding-right:8px;">';
 
         // User's current status and input box to change it.
         $fql = 'SELECT first_name, last_name, status, pic_square_with_logo from user where uid=' . $fbp['uid'] . ' LIMIT 1';
@@ -215,7 +215,7 @@ EOF;
             //TODO: We could probably cache this perm somehow - maybe in the session?
             if ($facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM)) {
                 $html .= '<input style="width:100%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="newStatus" name="newStatus" />'
-                . '<div class="fbaction"><a class="fbbutton" onclick="updateStatus($F(\'newStatus\'), $(\'newStatus\'));" href="#">' . _("Update") . '</a></div>'
+                . '<div><a class="button" onclick="updateStatus($F(\'newStatus\'), $(\'newStatus\'));" href="#">' . _("Update") . '</a></div>'
                 . Horde::img('loading.gif', '', array('id' => 'loading', 'style' => 'display:none;'));
             }
         } catch (Horde_Service_Facebook_Exception $e) {

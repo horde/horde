@@ -137,9 +137,9 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         $csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';
         $defaultText = _("What are you working on now?");
         $html = '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
-        $html .= '<div class="fbbody" style="float:left;padding-left: 8px;padding-right:8px;">'
+        $html .= '<div style="float:left;padding-left: 8px;padding-right:8px;">'
            . '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus" value="' . $defaultText . '" />'
-           . '<div class="fbaction"><a class="fbbutton" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a><span id="' . $instance . '_inReplyTo"></span></div>'
+           . '<div><a class="button" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a><span id="' . $instance . '_inReplyTo"></span></div>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="fbemptystatus" style="margin-left:10px;margin-top:10px;">' . sprintf(_("Latest: %s - %s"), $latestStatus, Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))) . '</div>';
         $html .= '<div id="twitter_body' . $instance . '">';
