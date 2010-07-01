@@ -70,6 +70,13 @@ class Horde_Service_Twitter
     protected $_request;
 
     /**
+     * Hold the http client.
+     *
+     * @var Horde_Http_Client
+     */
+     protected $_httpClient;
+
+    /**
      * Const'r
      *
      * @param array $config  Configuration parameters:
@@ -112,6 +119,26 @@ class Horde_Service_Twitter
 
         $this->_auth = new $aclass($this, $params);
         $this->_request = new $rclass($this);
+    }
+
+    /**
+     * Set the http client.
+     *
+     * @param Horde_Http_Client $client  The http client
+     */
+    public function setHttpClient(Horde_Http_Client $client)
+    {
+        $this->_httpClient = $client;
+    }
+
+    /**
+     * Get the http client.
+     *
+     * @return Horde_Http_Client
+     */
+    public function getHttpClient()
+    {
+        return $this->_httpClient;
     }
 
     /**

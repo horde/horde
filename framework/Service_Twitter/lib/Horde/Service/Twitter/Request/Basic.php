@@ -43,9 +43,8 @@ class Horde_Service_Twitter_Request_Basic extends Horde_Service_Twitter_Request
         if (!empty($cache) && $results = $cache->get($key, $this->_twitter->cacheLifetime)) {
             return $results;
         }
-        $client = new Horde_Http_Client();
         try {
-            $response = $client->get($url, array('Authorization' => $this->_twitter->auth->buildAuthorizationHeader()));
+            $response = $this->_twitter->getHttpClient()->get($url, array('Authorization' => $this->_twitter->auth->buildAuthorizationHeader()));
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }
@@ -70,7 +69,7 @@ class Horde_Service_Twitter_Request_Basic extends Horde_Service_Twitter_Request
     {
         $client = new Horde_Http_Client();
         try {
-            $response = $client->post($url, $params, array('Authorization' => $this->_twitter->auth->buildAuthorizationHeader()));
+            $response = $this->_twitter->getHttpClient()->post($url, $params, array('Authorization' => $this->_twitter->auth->buildAuthorizationHeader()));
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }

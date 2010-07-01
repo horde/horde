@@ -127,7 +127,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
 
         /* Fetch the stream data */
         try {
-            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(), Horde_Serialize::JSON);
+            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(array('include_entities' => 'true')), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {
             $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
             return $msg
@@ -174,6 +174,9 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             $html .= ' <div class="fbstreambody">';
             $html .=  $body;
             $html .= '<div class="fbstreaminfo">' . sprintf(_("Posted %s via %s"), Horde_Date_Utils::relativeDateTime(strtotime($tweet->created_at), $GLOBALS['prefs']->getValue('date_format')), $appText) . '</div>';
+//            if (!empty($tweet->retweeted_status)) {
+//                $html .= '<div class="fbstreaminfo">' . sprintf(_("Retweeted by %s"), $tweet->user->screen_name) . '</div>';
+//            }
             $html .= '<div class="fbstreaminfo">' . Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $tweet->id . '\', \'' . $tweet->user->screen_name . '\', \'' . $tweet->user->name . '\')') .  _("Reply") . '</a>';
             $html .= '&nbsp;|&nbsp;' . Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $tweet->id . '\')') . _("Retweet") . '</a>';
             $html .= '</div><div class="clear">&nbsp;</div></div>';
@@ -315,8 +318,11 @@ EOF;
             $oauth = new Horde_Oauth_Consumer($params);
 
             /* Create the Twitter client */
+            // @TODO: use a binder - especially once we start integrating other
+            // apps with Twitter
             $twitter = new Horde_Service_Twitter(array('oauth' => $oauth,
                                                        'cache' => $cache));
+            $twitter->setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client'));
             $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
             $twitter->auth->setToken($auth_token);
 
