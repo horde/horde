@@ -286,65 +286,17 @@ EOF;
 
     private function _getTwitterObject()
     {
-        if (!empty($this->_twitter)) {
-            return $this->_twitter;
+        $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
+        if (empty($token['key']) && empty($token['secret'])) {
+            $pref_link = Horde::link(Horde::url('services/twitter.php', true));
+            throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
         }
 
-        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $this->_twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
+        $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
+        $this->_twitter->auth->setToken($auth_token);
 
-        if (!empty($GLOBALS['conf']['twitter']['key']) &&
-            !empty($GLOBALS['conf']['twitter']['secret'])) {
-
-            // Using OAuth but make sure the user has gotten a token
-            $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
-            if (empty($token['key']) && empty($token['secret'])) {
-                // No token - try HTTP Basic Auth
-                $pref_link = Horde::link(Horde::url('services/twitter.php', true));
-                throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
-            }
-
-            $consumer_key = $GLOBALS['conf']['twitter']['key'];
-            $consumer_secret = $GLOBALS['conf']['twitter']['secret'];
-
-            /* Parameters required for the Horde_Oauth_Consumer */
-            $params = array('key' => $consumer_key,
-                            'secret' => $consumer_secret,
-                            'requestTokenUrl' => Horde_Service_Twitter::REQUEST_TOKEN_URL,
-                            'authorizeTokenUrl' => Horde_Service_Twitter::USER_AUTHORIZE_URL,
-                            'accessTokenUrl' => Horde_Service_Twitter::ACCESS_TOKEN_URL,
-                            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1());
-
-            /* Create the Consumer */
-            $oauth = new Horde_Oauth_Consumer($params);
-
-            /* Create the Twitter client */
-            // @TODO: use a binder - especially once we start integrating other
-            // apps with Twitter
-            $twitter = new Horde_Service_Twitter(array('oauth' => $oauth,
-                                                       'cache' => $cache));
-            $twitter->setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client'));
-            $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
-            $twitter->auth->setToken($auth_token);
-
-            $this->_twitter = $twitter;
-            return $twitter;
-
-        } elseif (!empty($this->_params['username']) ||
-                  !empty($this->_params['password'])) {
-
-            // Store the username and password in the session to enable
-            // services/twitterapi.php's functionality.
-            $_SESSION['horde']['twitterblock']['username'] = $this->_params['username'];
-            $_SESSION['horde']['twitterblock']['password'] = $this->_params['password'];
-            $twitter = new Horde_Service_Twitter(array('username' => $this->_params['username'],
-                                                       'password' => $this->_params['password'],
-                                                       'cache' => $cache));
-
-            $this->_twitter = $twitter;
-            return $twitter;
-        }
-
-        throw new Horde_Exception(_("Must configure a Twitter username and password to use this block."));
+        return $this->_twitter;
     }
 
 }

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Core</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Core Framework libraries</summary>
  <description>These classes provide the core functionality of the Horde
-Application Framework.
- </description>
+Application Framework.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,7 +23,8 @@ Application Framework.
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2009-07-08</date>
+ <date>2010-07-01</date>
+ <time>12:29:52</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -37,7 +34,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Import application auth driver from horde/Auth.
+ <notes>
+* Import application auth driver from horde/Auth.
  * Import signup code from horde/Auth.
  * Import Horde backend driver from horde/LoginTasks.
  * Import perms UI handling class from horde/Perms.
@@ -54,19 +52,14 @@ Application Framework.
  * Converted Horde to Horde 4 coding conventions.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <file name="Config.php" role="php" />
      <dir name="Config">
       <file name="Form.php" role="php" />
      </dir> <!-- /lib/Horde/Config -->
      <dir name="Core">
       <dir name="Auth">
-       <file name="Application.php" role="php" />
-       <file name="Ldap.php" role="php" />
-       <file name="Msad.php" role="php" />
-       <file name="Shibboleth.php" role="php" />
        <dir name="Signup">
         <file name="Base.php" role="php" />
         <file name="Form.php" role="php" />
@@ -74,9 +67,12 @@ Application Framework.
         <file name="Sql.php" role="php" />
         <file name="SqlObject.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Auth/Signup -->
+       <file name="Application.php" role="php" />
+       <file name="Ldap.php" role="php" />
+       <file name="Msad.php" role="php" />
+       <file name="Shibboleth.php" role="php" />
        <file name="Signup.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
-      <file name="Autoloader.php" role="php" />
       <dir name="Autoloader">
        <dir name="Callback">
         <file name="Mime.php" role="php" />
@@ -93,6 +89,7 @@ Application Framework.
        <file name="DbPear.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
+       <file name="Facebook.php" role="php" />
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
@@ -106,17 +103,17 @@ Application Framework.
        <file name="Perms.php" role="php" />
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
+       <file name="Share.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="Token.php" role="php" />
+       <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
-       <file name="Facebook.php" role="php" />
-       <file name="Share.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
       <dir name="Factory">
        <file name="Auth.php" role="php" />
+       <file name="Data.php" role="php" />
        <file name="Db.php" role="php" />
        <file name="DbPear.php" role="php" />
-       <file name="Data.php" role="php" />
        <file name="Editor.php" role="php" />
        <file name="Identity.php" role="php" />
        <file name="KolabServer.php" role="php" />
@@ -148,14 +145,11 @@ Application Framework.
        </dir> <!-- /lib/Horde/Core/Prefs/Ui -->
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
+      <file name="Autoloader.php" role="php" />
      </dir> <!-- /lib/Horde/Core -->
-     <file name="ErrorHandler.php" role="php" />
      <dir name="Exception">
       <file name="HookNotSet.php" role="php" />
      </dir> <!-- /lib/Horde/Exception -->
-     <file name="Help.php" role="php" />
-     <file name="Menu.php" role="php" />
-     <file name="Registry.php" role="php" />
      <dir name="Registry">
       <file name="Api.php" role="php" />
       <file name="Application.php" role="php" />
@@ -164,24 +158,32 @@ Application Framework.
      <dir name="Script">
       <file name="Files.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
-     <file name="Themes.php" role="php" />
      <dir name="Themes">
       <file name="Element.php" role="php" />
       <file name="Image.php" role="php" />
       <file name="Sound.php" role="php" />
      </dir> <!-- /lib/Horde/Themes -->
+     <file name="Config.php" role="php" />
+     <file name="ErrorHandler.php" role="php" />
+     <file name="Help.php" role="php" />
+     <file name="Menu.php" role="php" />
+     <file name="Registry.php" role="php" />
+     <file name="Themes.php" role="php" />
     </dir> <!-- /lib/Horde -->
     <file name="Horde.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Core">
-      <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <dir name="Binder">
+       <file name="CacheTest.php" role="test" />
+      </dir> <!-- /test/Horde/Core/Binder -->
       <dir name="Factory">
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
       </dir> <!-- /test/Horde/Core/Factory -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="url.phpt" role="test" />
      </dir> <!-- /test/Horde/Core -->
@@ -271,89 +273,108 @@ Application Framework.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Config.php" as="Horde/Config.php" />
-   <install name="lib/Horde/Config/Form.php" as="Horde/Config/Form.php" />
-   <install name="lib/Horde/Core/Auth/Application.php" as="Horde/Core/Auth/Application.php" />
-   <install name="lib/Horde/Core/Auth/Ldap.php" as="Horde/Core/Auth/Ldap.php" />
-   <install name="lib/Horde/Core/Auth/Msad.php" as="Horde/Core/Auth/Msad.php" />
-   <install name="lib/Horde/Core/Auth/Shibboleth.php" as="Horde/Core/Auth/Shibboleth.php" />
-   <install name="lib/Horde/Core/Auth/Signup.php" as="Horde/Core/Auth/Signup.php" />
-   <install name="lib/Horde/Core/Auth/Signup/Base.php" as="Horde/Core/Auth/Signup/Base.php" />
-   <install name="lib/Horde/Core/Auth/Signup/Form.php" as="Horde/Core/Auth/Signup/Form.php" />
-   <install name="lib/Horde/Core/Auth/Signup/Null.php" as="Horde/Core/Auth/Signup/Null.php" />
-   <install name="lib/Horde/Core/Auth/Signup/Sql.php" as="Horde/Core/Auth/Signup/Sql.php" />
-   <install name="lib/Horde/Core/Auth/Signup/SqlObject.php" as="Horde/Core/Auth/Signup/SqlObject.php" />
-   <install name="lib/Horde/Core/Autoloader.php" as="Horde/Core/Autoloader.php" />
-   <install name="lib/Horde/Core/Autoloader/Callback/Mime.php" as="Horde/Core/Autoloader/Callback/Mime.php" />
-   <install name="lib/Horde/Core/Binder/Alarm.php" as="Horde/Core/Binder/Alarm.php" />
-   <install name="lib/Horde/Core/Binder/Auth.php" as="Horde/Core/Binder/Auth.php" />
-   <install name="lib/Horde/Core/Binder/AuthSignup.php" as="Horde/Core/Binder/AuthSignup.php" />
-   <install name="lib/Horde/Core/Binder/Cache.php" as="Horde/Core/Binder/Cache.php" />
-   <install name="lib/Horde/Core/Binder/Data.php" as="Horde/Core/Binder/Data.php" />
-   <install name="lib/Horde/Core/Binder/Db.php" as="Horde/Core/Binder/Db.php" />
-   <install name="lib/Horde/Core/Binder/DbBase.php" as="Horde/Core/Binder/DbBase.php" />
-   <install name="lib/Horde/Core/Binder/DbPear.php" as="Horde/Core/Binder/DbPear.php" />
-   <install name="lib/Horde/Core/Binder/Dns.php" as="Horde/Core/Binder/Dns.php" />
-   <install name="lib/Horde/Core/Binder/Editor.php" as="Horde/Core/Binder/Editor.php" />
-   <install name="lib/Horde/Core/Binder/History.php" as="Horde/Core/Binder/History.php" />
-   <install name="lib/Horde/Core/Binder/HttpClient.php" as="Horde/Core/Binder/HttpClient.php" />
-   <install name="lib/Horde/Core/Binder/Identity.php" as="Horde/Core/Binder/Identity.php" />
-   <install name="lib/Horde/Core/Binder/Ldap.php" as="Horde/Core/Binder/Ldap.php" />
-   <install name="lib/Horde/Core/Binder/Lock.php" as="Horde/Core/Binder/Lock.php" />
-   <install name="lib/Horde/Core/Binder/Logger.php" as="Horde/Core/Binder/Logger.php" />
-   <install name="lib/Horde/Core/Binder/LoginTasks.php" as="Horde/Core/Binder/LoginTasks.php" />
-   <install name="lib/Horde/Core/Binder/Mail.php" as="Horde/Core/Binder/Mail.php" />
-   <install name="lib/Horde/Core/Binder/Memcache.php" as="Horde/Core/Binder/Memcache.php" />
-   <install name="lib/Horde/Core/Binder/Notification.php" as="Horde/Core/Binder/Notification.php" />
-   <install name="lib/Horde/Core/Binder/Perms.php" as="Horde/Core/Binder/Perms.php" />
-   <install name="lib/Horde/Core/Binder/Secret.php" as="Horde/Core/Binder/Secret.php" />
-   <install name="lib/Horde/Core/Binder/SessionHandler.php" as="Horde/Core/Binder/SessionHandler.php" />
-   <install name="lib/Horde/Core/Binder/Template.php" as="Horde/Core/Binder/Template.php" />
-   <install name="lib/Horde/Core/Binder/Token.php" as="Horde/Core/Binder/Token.php" />
-   <install name="lib/Horde/Core/Binder/Vfs.php" as="Horde/Core/Binder/Vfs.php" />
-   <install name="lib/Horde/Core/Binder/Facebook.php" as="Horde/Core/Binder/Facebook.php" />
-   <install name="lib/Horde/Core/Binder/Share.php" as="Horde/Core/Binder/Share.php" />
-   <install name="lib/Horde/Core/Factory/Auth.php" as="Horde/Core/Factory/Auth.php" />
-   <install name="lib/Horde/Core/Factory/Db.php" as="Horde/Core/Factory/Db.php" />
-   <install name="lib/Horde/Core/Factory/DbPear.php" as="Horde/Core/Factory/DbPear.php" />
-   <install name="lib/Horde/Core/Factory/Data.php" as="Horde/Core/Factory/Data.php" />
-   <install name="lib/Horde/Core/Factory/Editor.php" as="Horde/Core/Factory/Editor.php" />
-   <install name="lib/Horde/Core/Factory/Identity.php" as="Horde/Core/Factory/Identity.php" />
-   <install name="lib/Horde/Core/Factory/KolabServer.php" as="Horde/Core/Factory/KolabServer.php" />
-   <install name="lib/Horde/Core/Factory/KolabSession.php" as="Horde/Core/Factory/KolabSession.php" />
-   <install name="lib/Horde/Core/Factory/KolabStorage.php" as="Horde/Core/Factory/KolabStorage.php" />
-   <install name="lib/Horde/Core/Factory/Ldap.php" as="Horde/Core/Factory/Ldap.php" />
-   <install name="lib/Horde/Core/Factory/LoginTasks.php" as="Horde/Core/Factory/LoginTasks.php" />
-   <install name="lib/Horde/Core/Factory/Share.php" as="Horde/Core/Factory/Share.php" />
-   <install name="lib/Horde/Core/Factory/Vfs.php" as="Horde/Core/Factory/Vfs.php" />
-   <install name="lib/Horde/Core/Log/Logger.php" as="Horde/Core/Log/Logger.php" />
-   <install name="lib/Horde/Core/LoginTasks/Backend/Horde.php" as="Horde/Core/LoginTasks/Backend/Horde.php" />
-   <install name="lib/Horde/Core/Notification/Hordelog.php" as="Horde/Core/Notification/Hordelog.php" />
-   <install name="lib/Horde/Core/Notification/Status.php" as="Horde/Core/Notification/Status.php" />
-   <install name="lib/Horde/Core/Perms/Ui.php" as="Horde/Core/Perms/Ui.php" />
-   <install name="lib/Horde/Core/Prefs/Ui/Widgets.php" as="Horde/Core/Prefs/Ui/Widgets.php" />
-   <install name="lib/Horde/Core/Prefs/Ui.php" as="Horde/Core/Prefs/Ui.php" />
-   <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
-   <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
-   <install name="lib/Horde/Help.php" as="Horde/Help.php" />
-   <install name="lib/Horde/Menu.php" as="Horde/Menu.php" />
-   <install name="lib/Horde/Registry.php" as="Horde/Registry.php" />
-   <install name="lib/Horde/Registry/Api.php" as="Horde/Registry/Api.php" />
-   <install name="lib/Horde/Registry/Application.php" as="Horde/Registry/Application.php" />
-   <install name="lib/Horde/Registry/Caller.php" as="Horde/Registry/Caller.php" />
-   <install name="lib/Horde/Script/Files.php" as="Horde/Script/Files.php" />
-   <install name="lib/Horde/Themes.php" as="Horde/Themes.php" />
-   <install name="lib/Horde/Themes/Element.php" as="Horde/Themes/Element.php" />
-   <install name="lib/Horde/Themes/Image.php" as="Horde/Themes/Image.php" />
-   <install name="lib/Horde/Themes/Sound.php" as="Horde/Themes/Sound.php" />
-   <install name="lib/Horde.php" as="Horde.php" />
-   <install name="test/Horde/Core/AllTests.php" as="Horde/Core/AllTests.php" />
-   <install name="test/Horde/Core/Autoload.php" as="Horde/Core/Autoload.php" />
-   <install name="test/Horde/Core/Factory/KolabServerTest.php" as="Horde/Core/Factory/KolabServerTest.php" />
-   <install name="test/Horde/Core/Factory/KolabSessionTest.php" as="Horde/Core/Factory/KolabSessionTest.php" />
+   <install as="Horde.php" name="lib/Horde.php" />
+   <install as="Horde/Config.php" name="lib/Horde/Config.php" />
+   <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
+   <install as="Horde/Help.php" name="lib/Horde/Help.php" />
+   <install as="Horde/Menu.php" name="lib/Horde/Menu.php" />
+   <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
+   <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
+   <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
+   <install as="Horde/Core/Autoloader.php" name="lib/Horde/Core/Autoloader.php" />
+   <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
+   <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
+   <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
+   <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
+   <install as="Horde/Core/Auth/Signup.php" name="lib/Horde/Core/Auth/Signup.php" />
+   <install as="Horde/Core/Auth/Signup/Base.php" name="lib/Horde/Core/Auth/Signup/Base.php" />
+   <install as="Horde/Core/Auth/Signup/Form.php" name="lib/Horde/Core/Auth/Signup/Form.php" />
+   <install as="Horde/Core/Auth/Signup/Null.php" name="lib/Horde/Core/Auth/Signup/Null.php" />
+   <install as="Horde/Core/Auth/Signup/Sql.php" name="lib/Horde/Core/Auth/Signup/Sql.php" />
+   <install as="Horde/Core/Auth/Signup/SqlObject.php" name="lib/Horde/Core/Auth/Signup/SqlObject.php" />
+   <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
+   <install as="Horde/Core/Binder/Alarm.php" name="lib/Horde/Core/Binder/Alarm.php" />
+   <install as="Horde/Core/Binder/Auth.php" name="lib/Horde/Core/Binder/Auth.php" />
+   <install as="Horde/Core/Binder/AuthSignup.php" name="lib/Horde/Core/Binder/AuthSignup.php" />
+   <install as="Horde/Core/Binder/Cache.php" name="lib/Horde/Core/Binder/Cache.php" />
+   <install as="Horde/Core/Binder/Data.php" name="lib/Horde/Core/Binder/Data.php" />
+   <install as="Horde/Core/Binder/Db.php" name="lib/Horde/Core/Binder/Db.php" />
+   <install as="Horde/Core/Binder/DbBase.php" name="lib/Horde/Core/Binder/DbBase.php" />
+   <install as="Horde/Core/Binder/DbPear.php" name="lib/Horde/Core/Binder/DbPear.php" />
+   <install as="Horde/Core/Binder/Dns.php" name="lib/Horde/Core/Binder/Dns.php" />
+   <install as="Horde/Core/Binder/Editor.php" name="lib/Horde/Core/Binder/Editor.php" />
+   <install as="Horde/Core/Binder/Facebook.php" name="lib/Horde/Core/Binder/Facebook.php" />
+   <install as="Horde/Core/Binder/History.php" name="lib/Horde/Core/Binder/History.php" />
+   <install as="Horde/Core/Binder/HttpClient.php" name="lib/Horde/Core/Binder/HttpClient.php" />
+   <install as="Horde/Core/Binder/Identity.php" name="lib/Horde/Core/Binder/Identity.php" />
+   <install as="Horde/Core/Binder/Ldap.php" name="lib/Horde/Core/Binder/Ldap.php" />
+   <install as="Horde/Core/Binder/Lock.php" name="lib/Horde/Core/Binder/Lock.php" />
+   <install as="Horde/Core/Binder/Logger.php" name="lib/Horde/Core/Binder/Logger.php" />
+   <install as="Horde/Core/Binder/LoginTasks.php" name="lib/Horde/Core/Binder/LoginTasks.php" />
+   <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
+   <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
+   <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
+   <install as="Horde/Core/Binder/Perms.php" name="lib/Horde/Core/Binder/Perms.php" />
+   <install as="Horde/Core/Binder/Secret.php" name="lib/Horde/Core/Binder/Secret.php" />
+   <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
+   <install as="Horde/Core/Binder/Share.php" name="lib/Horde/Core/Binder/Share.php" />
+   <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
+   <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
+   <install as="Horde/Core/Binder/Twitter.php" name="lib/Horde/Core/Binder/Twitter.php" />
+   <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
+   <install as="Horde/Core/Factory/Auth.php" name="lib/Horde/Core/Factory/Auth.php" />
+   <install as="Horde/Core/Factory/Data.php" name="lib/Horde/Core/Factory/Data.php" />
+   <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
+   <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
+   <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />
+   <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
+   <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
+   <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
+   <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
+   <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
+   <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
+   <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
+   <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
+   <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
+   <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
+   <install as="Horde/Core/Notification/Hordelog.php" name="lib/Horde/Core/Notification/Hordelog.php" />
+   <install as="Horde/Core/Notification/Status.php" name="lib/Horde/Core/Notification/Status.php" />
+   <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />
+   <install as="Horde/Core/Prefs/Ui.php" name="lib/Horde/Core/Prefs/Ui.php" />
+   <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
+   <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
+   <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
+   <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
+   <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
+   <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
+   <install as="Horde/Themes/Image.php" name="lib/Horde/Themes/Image.php" />
+   <install as="Horde/Themes/Sound.php" name="lib/Horde/Themes/Sound.php" />
+   <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
+   <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
+   <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
+   <install as="Horde/Core/url.phpt" name="test/Horde/Core/url.phpt" />
+   <install as="Horde/Core/Binder/CacheTest.php" name="test/Horde/Core/Binder/CacheTest.php" />
+   <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
+   <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-02-13</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial packaging
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>21:57:00</time>
@@ -367,21 +388,36 @@ Application Framework.
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-   * Converted to package.xml 2.0 for pear.horde.org
+* Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2004-02-13</date>
+   <date>2010-07-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial packaging
+   <notes>
+* Import application auth driver from horde/Auth.
+ * Import signup code from horde/Auth.
+ * Import Horde backend driver from horde/LoginTasks.
+ * Import perms UI handling class from horde/Perms.
+ * Import prefs UI handling class from horde/Prefs.
+ * Convert from PEAR Log to Horde_Log for logging.
+ * Add Horde_Themes:: class.
+ * Add Horde::nocacheUrl().
+ * Remove dependency on Horde_DOM package.
+ * Added Horde_Registry_Api:: and Horde_Registry_Application:: classes.
+ * Moved Horde_Exception to Exception package.
+ * Renamed Menu:: as Horde_Menu::.
+ * Renamed Help:: as Horde_Help::.
+ * Removed Text::/Horde_Text::.
+ * Converted Horde to Horde 4 coding conventions.
    </notes>
   </release>
  </changelog>

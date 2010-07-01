@@ -264,7 +264,8 @@ class Horde_Registry
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
-            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns()
+            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns(),
+            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter()
         );
 
         /* Define factories. */

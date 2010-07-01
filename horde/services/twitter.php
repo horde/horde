@@ -18,46 +18,15 @@ if (empty($conf['twitter']['enabled'])) {
     exit;
 }
 
-/* Using OAuth or Http Basic? */
-if (!empty($conf['twitter']['key']) && !empty($conf['twitter']['secret'])) {
-    /* Keys - these are obtained when registering for the service */
-    $consumer_key = $conf['twitter']['key'];
-    $consumer_secret = $conf['twitter']['secret'];
+$twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
 
-    /* Parameters required for the Horde_Oauth_Consumer */
-    $params = array(
-        'key' => $consumer_key,
-        'secret' => $consumer_secret,
-        'requestTokenUrl' => Horde_Service_Twitter::REQUEST_TOKEN_URL,
-        'authorizeTokenUrl' => Horde_Service_Twitter::USER_AUTHORIZE_URL,
-        'accessTokenUrl' => Horde_Service_Twitter::ACCESS_TOKEN_URL,
-        'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1()
-    );
+/* See if we have an existing token for the current user */
+$token = unserialize($prefs->getValue('twitter'));
 
-    /* Create the Consumer */
-    $oauth = new Horde_Oauth_Consumer($params);
-
-    /* Create the Twitter client */
-    $twitter = new Horde_Service_Twitter(array(
-        'cache' => $injector->getInstance('Horde_Cache'),
-        'oauth' => $oauth
-    ));
-
-    /* See if we have an existing token for the current user */
-    $token = unserialize($prefs->getValue('twitter'));
-
-    /* Check for an existing token */
-    if (!empty($token['key']) && !empty($token['secret'])) {
-        $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
-        $twitter->auth->setToken($auth_token);
-    }
-} elseif (!empty($_SESSION['horde']['twitterblock']['username']) &&
-          !empty($_SESSION['horde']['twitterblock']['password'])) {
-    $twitter = new Horde_Service_Twitter(array(
-        'cache' => $injector->getInstance('Horde_Cache'),
-        'password' => $_SESSION['horde']['twitterblock']['password'],
-        'username' => $_SESSION['horde']['twitterblock']['username']
-    ));
+/* Check for an existing token */
+if (!empty($token['key']) && !empty($token['secret'])) {
+    $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
+    $twitter->auth->setToken($auth_token);
 }
 
 /* See if we are here for any actions */
@@ -127,9 +96,6 @@ if (!empty($auth_token)) {
         }
     }
 }
-
-// Start rendering the prefs page
-//$csslink = $registry->get('themesuri', 'horde') . '/facebook.css';
 
 /* Could not find a valid auth token, and we are not in the process of getting one */
 if (empty($profile)) {
