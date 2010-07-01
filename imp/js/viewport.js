@@ -780,7 +780,7 @@ var ViewPort = Class.create({
         } else {
             cached = this._getBuffer(opts.view).getAllUIDs();
             cached = cached.size()
-                ? cached.toJSON()
+                ? Object.toJSON(cached)
                 : '';
         }
 

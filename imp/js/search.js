@@ -353,7 +353,7 @@ var ImpSearch = {
                         break;
                     }
                 }, this);
-                $('criteria_form').setValue(data.toJSON());
+                $('criteria_form').setValue(Object.toJSON(data));
                 $('search_form').submit();
             } else {
                 alert(this.text.need_criteria);
