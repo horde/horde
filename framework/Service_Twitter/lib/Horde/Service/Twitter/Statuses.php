@@ -98,10 +98,14 @@ class Horde_Service_Twitter_Statuses
      *
      * @param array $params  Parameters for the friends_timeline call
      *   <pre>
-     *     since_id   - Only tweets more recent the indicated tweet id
-     *     max_id     - Only tweets older then the indeicated tweet id
-     *     count      - Only return this many tweets (twitter limit = 200)
-     *     page       - The page number to return (note there are pagination limits)
+     *     since_id         - Only tweets more recent the indicated tweet id
+     *     max_id           - Only tweets older then the indeicated tweet id
+     *     count            - Only return this many tweets (twitter limit = 200)
+     *     page             - The page number to return (note there are
+     *                        pagination limits)
+     *     include_rts      - Include retweets
+     *     include_entities - Include twitter entities (will be mandatory in
+     *                        future twitter api release).
      *   </pre>
      *
      * @return string
