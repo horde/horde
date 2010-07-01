@@ -87,7 +87,12 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
      */
     function _params()
     {
-        return null;
+        return array(
+            'height' => array(
+                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'type' => 'int',
+                 'default' => 250)
+        );
     }
 
     /**
@@ -142,7 +147,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
            . '<div><a class="button" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a><span id="' . $instance . '_inReplyTo"></span></div>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="fbemptystatus" style="margin-left:10px;margin-top:10px;">' . sprintf(_("Latest: %s - %s"), $latestStatus, Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))) . '</div>';
-        $html .= '<div id="twitter_body' . $instance . '">';
+        $html .= '<div style="height:' . $this->_params['height'] . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
         $filter = Horde_Text_Filter::factory('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         foreach ($stream as $tweet) {
             /* links */
@@ -182,6 +187,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             $html .= '</div><div class="clear">&nbsp;</div></div></div>';
         }
         $html .= '</div>';
+        $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.updateStream(++Horde.twitter.page);">' . _("Get More") . '</a></div>';
         $endpoint = Horde::url('services/twitter.php', true);
         $spinner = '$(\'' . $instance . '_loading\')';
         $inputNode = '$(\'' . $instance . '_newStatus\')';
@@ -195,7 +201,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         var Horde = window.Horde || {};
         Horde.twitter = {
             inReplyTo: '',
-
+            page: 1,
             updateStatus: function(statusText) {
                 {$inputNode}.stopObserving('blur');
                 {$spinner}.toggle();
@@ -235,6 +241,25 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                 });
             },
 
+            updateStream: function(page) {
+                new Ajax.Request('$endpoint', {
+                    method: 'post',
+                    parameters: { actionID: 'getPage', 'page': page },
+                    onComplete: function(response) {
+                        var content = new Element('div').update(response.responseText);
+                        //var cHeight = $('{contentNode}').scrollHeight;
+                        //console.log(cHeight);
+                        var h = $('{$contentNode}').scrollHeight
+                        $('{$contentNode}').insert(content);
+                        //console.log($('{$contentNode}').scrollTop);
+                        $('{$contentNode}').scrollTop = h;
+                    },
+                    onFailure: function() {
+                        {$spinner}.toggle();
+                    }
+                });
+            },
+
             buildReply: function(id, userid, usertext) {
                 this.inReplyTo = id;
                 {$inputNode}.focus();
@@ -243,11 +268,26 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             },
 
             updateCallback: function(response) {
-               this.buildTweet(response);
+               this.buildNewTweet(response);
                {$inputNode}.value = '{$defaultText}';
                {$spinner}.toggle();
                this.inReplyTo = '';
                {$inReplyToNode}.update('');
+            },
+
+            buildNewTweet: function(response) {
+                var tweet = new Element('div', {'class':'fbstreamstory'});
+                var tPic = new Element('div', {'style':'float:left'}).update(
+                    new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
+                        new Element('img', {'src':response.user.profile_image_url})
+                    )
+                );
+                var tBody = new Element('div', {'class':'fbstreambody'}).update(response.text);
+                tBody.appendChild(new Element('div', {'class':'fbstreaminfo'}).update('{$justNowText}'));
+                tweet.appendChild(tPic);
+                tweet.appendChild(tBody);
+
+                $('{$contentNode}').insert({top:tweet});
             },
 
             buildTweet: function(response) {
@@ -262,7 +302,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                 tweet.appendChild(tPic);
                 tweet.appendChild(tBody);
 
-                $('{$contentNode}').insert({top:tweet});
+                $('{$contentNode}').insert(tweet);
             },
 
             clearInput: function() {
