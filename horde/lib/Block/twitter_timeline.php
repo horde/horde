@@ -127,7 +127,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
 
         /* Fetch the stream data */
         try {
-            $stream = Horde_Serialize::unserialize($twitter->statuses->friendsTimeline(), Horde_Serialize::JSON);
+            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {
             $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
             return $msg
@@ -214,6 +214,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             },
 
             retweet: function(id) {
+                {$spinner}.toggle();
                 params = {
                     actionID: 'retweet',
                     tweetId: id
