@@ -87,24 +87,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
      */
     function _params()
     {
-        if (empty($GLOBALS['conf']['twitter']['key']) &&
-            empty($GLOBALS['conf']['twitter']['secret'])) {
-
-            return array(
-                'username' => array(
-                    'type' => 'text',
-                    'name' => _("Twitter Username"),
-                    'required' => true,
-                ),
-                'password' => array(
-                    'type' => 'password',
-                    'name' => _("Twitter Password"),
-                    'required' => true,
-                )
-            );
-        } else {
-            return null;
-        }
+        return null;
     }
 
     /**
