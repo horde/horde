@@ -46,13 +46,6 @@ class Horde_Service_Twitter
     protected $_logger;
 
     /**
-     * Configuration values
-     *
-     * @var array
-     */
-    protected $_config;
-
-    /**
      * Can't lazy load the auth or request class since we need to know early if
      * we are OAuth or Basic
      *
