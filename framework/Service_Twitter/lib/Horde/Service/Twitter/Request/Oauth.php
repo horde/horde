@@ -13,22 +13,6 @@
 class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
 {
     /**
-     *
-     * @var Horde_Service_Twitter
-     */
-    protected $_twitter;
-
-    /**
-     * Const'r
-     *
-     * @param Horde_Service_Twitter $twitter
-     */
-    public function __construct($twitter)
-    {
-        $this->_twitter = $twitter;
-    }
-
-    /**
      * Perform a GET request with OAuth authorization.
      *
      * @param mixed (string | Horde_Url) $url  The url to request.

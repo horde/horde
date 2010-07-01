@@ -19,6 +19,11 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      */
     protected $_token;
 
+    public function __construct(Horde_OAuth_Consumer $oauth)
+    {
+        $this->_config['oauth'] = $oauth;
+    }
+
     /**
      * Obtain the URL used to get an authorization token.
      *
