@@ -259,13 +259,13 @@ class Horde_Registry
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
-            'Horde_Share' => new Horde_Core_Binder_Share(),
+            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter(),
             'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
+            'Horde_Share' => new Horde_Core_Binder_Share(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),
-            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns(),
-            'Horde_Service_Twitter' => new Horde_Core_Binder_Twitter()
+            'Net_DNS_Resolver' => new Horde_Core_Binder_Dns()
         );
 
         /* Define factories. */
