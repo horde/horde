@@ -6,7 +6,6 @@
  * Still @TODO:
  *  - configure block to show friendTimeline, specific user, public timeline,
  *    'mentions' for current user etc..
- *  - implement retweet (waiting on twitter API to turn this on).
  *  - keep track of call limits and either dynamically alter update time or
  *    at least provide feedback to user.
  *
@@ -20,7 +19,6 @@
  *
  * @package Horde_Block
  */
-
 if (!empty($GLOBALS['conf']['twitter']['enabled'])) {
     $block_name = _("Twitter Timeline");
 }
