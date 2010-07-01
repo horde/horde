@@ -113,15 +113,6 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         /* Get a unique ID in case we have multiple Twitter blocks. */
         $instance = md5(mt_rand());
 
-        /* Fetch the stream data */
-        try {
-            $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(array('include_entities' => 'true')), Horde_Serialize::JSON);
-        } catch (Horde_Service_Twitter_Exception $e) {
-            $msg = Horde_Serialize::unserialize($e->getMessage(), Horde_Serialize::JSON);
-            return $msg
-                ? sprintf(_("There was an error contacting Twitter: %s"), $msg->error)
-                : _("There was an error contacting Twitter.");
-        }
         /* Latest status */
         if (empty($this->_profile->status)) {
             // status might not be set if only updating the block via ajax
@@ -149,43 +140,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         $html .= '<div id="currentStatus" class="fbemptystatus" style="margin-left:10px;margin-top:10px;">' . sprintf(_("Latest: %s - %s"), $latestStatus, Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))) . '</div>';
         $html .= '<div style="height:' . $this->_params['height'] . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
         $filter = Horde_Text_Filter::factory('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-        foreach ($stream as $tweet) {
-            /* links */
-            $body = Horde_Text_Filter::filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
-            $body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
-            
-            /* If this is a retweet, use the original author's profile info */
-            if (!empty($tweet->retweeted_status)) {
-                $tweetObj = $tweet->retweeted_status;
-            } else {
-                $tweetObj = $tweet;
-            }
 
-            /* These are all referencing the *original* tweet */
-            $profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
-            $profileImg = $tweetObj->user->profile_image_url;
-            $authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, Horde_Nls::getCharset());
-            $authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, Horde_Nls::getCharset());
-            $createdAt = $tweetObj->created_at;
-
-            $appText = Horde_Text_Filter::filter($tweet->source, 'xss', array());
-            $html .= '<div class="fbstreamstory">';
-            $html .= '<div style="float:left;text-align:center;width:70px;margin-right:5px;">' . $profileLink
-                . '<img src="' . $profileImg . '" alt="' . $authorName . '" title="' . $authorFullname . '" />'
-                . '</a><div style="overflow:hidden;">' . $profileLink . $authorName . '</a></div></div>';
-            $html .= ' <div class="fbstreambody">';
-            $html .=  $body;
-            $html .= '<div class="fbstreaminfo">' . sprintf(_("Posted %s via %s"), Horde_Date_Utils::relativeDateTime(strtotime($createdAt), $GLOBALS['prefs']->getValue('date_format')), $appText) . '</div>';
-
-            /* Specify the retweeted status */
-            if (!empty($tweet->retweeted_status)) {
-                $html .= '<div class="fbstreaminfo">' . sprintf(_("Retweeted by %s"), Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweet->user->screen_name), true)) . htmlspecialchars($tweet->user->screen_name) . '</a></div>';
-            }
-
-            $html .= '<div class="fbstreaminfo">' . Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $tweet->id . '\', \'' . $tweet->user->screen_name . '\', \'' . $tweet->user->name . '\')') .  _("Reply") . '</a>';
-            $html .= '&nbsp;|&nbsp;' . Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $tweet->id . '\')') . _("Retweet") . '</a>';
-            $html .= '</div><div class="clear">&nbsp;</div></div></div>';
-        }
         $html .= '</div>';
         $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.updateStream(++Horde.twitter.page);">' . _("Get More") . '</a></div>';
         $endpoint = Horde::url('services/twitter.php', true);
@@ -247,12 +202,14 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                     parameters: { actionID: 'getPage', 'page': page },
                     onComplete: function(response) {
                         var content = new Element('div').update(response.responseText);
-                        //var cHeight = $('{contentNode}').scrollHeight;
-                        //console.log(cHeight);
                         var h = $('{$contentNode}').scrollHeight
                         $('{$contentNode}').insert(content);
-                        //console.log($('{$contentNode}').scrollTop);
-                        $('{$contentNode}').scrollTop = h;
+                        // Don't scroll if it's the first request.
+                        if (page != 1) {
+                            $('{$contentNode}').scrollTop = h;
+                        } else {
+                            $('{$contentNode}').scrollTop = 0;
+                        }
                     },
                     onFailure: function() {
                         {$spinner}.toggle();
@@ -317,6 +274,9 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                     {$inputNode}.value = '{$defaultText}';
                 }
             });
+
+            /* Get the first page */
+            Horde.twitter.updateStream(1);
         });
         </script>
 EOF;
