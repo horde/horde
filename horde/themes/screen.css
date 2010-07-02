@@ -26,6 +26,9 @@ p {
 a {
     cursor: pointer;
 }
+.horde-block-links a, a.horde-block-links {
+    display: block;
+}
 
 img, .img, .img:active, .img:hover, .img:visited, .image {
     border: none;
@@ -181,9 +184,10 @@ table.nopadding td, table.nopadding th {
 /* Horde UI standard tables */
 table.horde-table {
     width: 99%;
-    margin: 0 0 8px 5px;
+    margin-bottom: 8px;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
+    border-spacing: 0;
 }
 table.horde-table th {
     padding: 3px;
