@@ -10,6 +10,8 @@
 var Horde_Twitter = Class.create({
    inReplyTo: '',
    page: 1,
+   oldestId: null,
+   newestId: null,
 
    /**
     * Const'r
@@ -33,8 +35,7 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         /* Get the first page */
-        this.updateStream(1);
-
+        this.getNewEntries();
    },
 
    /**
@@ -91,24 +92,76 @@ var Horde_Twitter = Class.create({
      *
      * @param integer page  The page number to retrieve.
      */
-    updateStream: function(page) {
+    getOlderEntries: function() {
+        var params = { actionID: 'getPage' };
+        if (this.oldestId) {
+            params.max_id = this.oldestId;
+        }
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
-            parameters: { actionID: 'getPage', 'page': page },
-            onComplete: function(response) {
-                var h = $(this.opts.content).scrollHeight
-                $(this.opts.content).insert(response.responseText);
-                // Don't scroll if it's the first request.
-                if (page != 1) {
-                    $(this.opts.content).scrollTop = h;
-                } else {
-                    $(this.opts.content).scrollTop = 0;
-                }
-            }.bind(this),
+            parameters: params,
+            onComplete: this._getOlderEntriesCallback.bind(this),
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
         });
+    },
+
+    /**
+     * Get newer entries, or the first page of entries if this is the first
+     * request.
+     */
+    getNewEntries: function() {
+        var params = { actionID: 'getPage' };
+        if (this.newestId) {
+            params.since_id = this.newestId;
+        } else {
+            params.page = 1;
+        }
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onComplete: this._getNewEntriesCallback.bind(this),
+            onFailure: function() {
+                $(this.opts.spinner).toggle();
+            }
+        });
+    },
+
+    /**
+     * Callback for updateStream request. Updates display, remembers the oldest
+     * id we know about.
+     *
+     */
+    _getOlderEntriesCallback: function(response) {
+        var content = response.responseJSON.c;
+        this.oldestId = response.responseJSON.o;
+        var h = $(this.opts.content).scrollHeight
+        $(this.opts.content).insert(content);
+        $(this.opts.content).scrollTop = h;
+    },
+
+    /**
+     * Callback for retrieving new entries. Updates the display and remembers
+     * the newest id, and possible the older id as well.
+     * 
+     */
+    _getNewEntriesCallback: function(response) {
+        var content = response.responseJSON.c;
+        var h = $(this.opts.content).scrollHeight
+        $(this.opts.content).insert({ 'top': content });
+        // Don't scroll if it's the first request.
+        if (this.newestId) {
+            $(this.opts.content).scrollTop = h;
+        } else {
+            $(this.opts.content).scrollTop = 0;
+        }
+        this.newestId = response.responseJSON.n;
+
+        // First time we've been called, record the oldest one as well.'
+        if (!this.oldestId) {
+            this.oldestId = response.responseJSON.o;
+        }
     },
 
     /**

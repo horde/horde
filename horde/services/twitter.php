@@ -52,12 +52,20 @@ case 'retweet':
 
 case 'getPage':
     try {
-        $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(array('page' => Horde_Util::getPost('page'))), Horde_Serialize::JSON);
+        $params = array();
+        if ($max = Horde_Util::getPost('max_id')) {
+            $params['max_id'] = $max;
+        } elseif ($since = Horde_Util::getPost('since_id')) {
+            $params['since_id'] = $since;
+        }
+        
+        $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
     } catch (Horde_Service_Twitter_Exception $e) {
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
         exit;
     }
     $html = '';
+    $newest = $stream[0]->id;
     foreach ($stream as $tweet) {
         /* links */
         $body = Horde_Text_Filter::filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
@@ -94,8 +102,16 @@ case 'getPage':
         $html .= '<div class="fbstreaminfo">' . Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $tweet->id . '\', \'' . $tweet->user->screen_name . '\', \'' . $tweet->user->name . '\')') .  _("Reply") . '</a>';
         $html .= '&nbsp;|&nbsp;' . Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $tweet->id . '\')') . _("Retweet") . '</a>';
         $html .= '</div><div class="clear">&nbsp;</div></div></div>';
+        $oldest = $tweet->id;
     }
-    echo $html;
+
+    $result = array(
+        'o' => $oldest,
+        'n' => $newest,
+        'c' => $html
+    );
+    header('Content-Type: application/json');
+    echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
     exit;
 }
 

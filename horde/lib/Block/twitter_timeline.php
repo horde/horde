@@ -167,7 +167,7 @@ EOT;
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 250 : $this->_params['height']) . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
         $filter = Horde_Text_Filter::factory('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $html .= '</div>';
-        $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.updateStream(++Horde.twitter.page);return false;">' . _("Get More") . '</a></div>';
+        $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.getOlderEntries();return false;">' . _("Get More") . '</a></div>';
         $html .= '</div>';
 
         return $html;
