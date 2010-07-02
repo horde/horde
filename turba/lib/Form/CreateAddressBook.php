@@ -8,21 +8,18 @@
  * @package Turba
  */
 
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Turba_CreateAddressBookForm class provides the form for
+ * The Turba_Form_CreateAddressBook class provides the form for
  * creating an address book.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Turba
  */
-class Turba_CreateAddressBookForm extends Horde_Form {
-
-    function Turba_CreateAddressBookForm(&$vars)
+class Turba_Form_CreateAddressBook extends Horde_Form
+{
+    public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Create Address Book"));
+        parent::__construct($vars, _("Create Address Book"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));

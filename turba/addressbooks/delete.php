@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('turba');
 
-require_once TURBA_BASE . '/lib/Forms/DeleteAddressBook.php';
-
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
 if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) {
@@ -44,7 +42,7 @@ if (!$GLOBALS['registry']->getAuth() ||
     exit;
 }
 
-$form = new Turba_DeleteAddressBookForm($vars, $addressbook);
+$form = new Turba_Form_DeleteAddressBook($vars, $addressbook);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {

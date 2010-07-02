@@ -13,8 +13,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-require_once TURBA_BASE . '/lib/Forms/AddContact.php';
-
 /* Setup some variables. */
 $contact = null;
 $vars = Horde_Variables::getDefaultVariables();
@@ -62,7 +60,7 @@ if ($source) {
 }
 
 /* Set up the form. */
-$form = new Turba_AddContactForm($vars, $contact);
+$form = new Turba_Form_AddContact($vars, $contact);
 
 /* Validate the form. */
 if ($form->validate()) {

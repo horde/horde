@@ -1,7 +1,4 @@
 <?php
-/** Turba_ContactForm */
-require_once TURBA_BASE . '/lib/Forms/Contact.php';
-
 /**
  * The Turba_View_Contact:: class provides an API for viewing events.
  *
@@ -41,7 +38,7 @@ class Turba_View_Contact {
         }
 
         $vars = new Horde_Variables();
-        $form = new Turba_ContactForm($vars, $this->contact);
+        $form = new Turba_Form_Contact($vars, $this->contact);
         $userId = $GLOBALS['registry']->getAuth();
 
         /* Get the contact's history. */

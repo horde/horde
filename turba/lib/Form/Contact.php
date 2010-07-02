@@ -2,20 +2,13 @@
 /**
  * @package Turba
  */
-
-/** Horde_Form_Action */
-require_once 'Horde/Form/Action.php';
-
-/**
- * @package Turba
- */
-class Turba_ContactForm extends Horde_Form {
-
-    function Turba_ContactForm(&$vars, &$contact)
+class Turba_Form_Contact extends Horde_Form
+{
+    public function __construct(&$vars, &$contact)
     {
         global $conf, $notification;
 
-        parent::Horde_Form($vars, '', 'Turba_View_Contact');
+        parent::__construct($vars, '', 'Turba_View_Contact');
 
         /* Get the values through the Turba_Object class. */
         $object = array();

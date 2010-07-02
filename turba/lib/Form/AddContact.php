@@ -2,18 +2,11 @@
 /**
  * @package Turba
  */
-
-/** Turba_ContactForm */
-require_once dirname(__FILE__) . '/Contact.php';
-
-/**
- * @package Turba
- */
-class Turba_AddContactForm extends Turba_ContactForm {
-
+class Turba_Form_AddContact extends Turba_Form_Contact
+{
     var $_contact = null;
 
-    function Turba_AddContactForm(&$vars, &$contact)
+    public function __construct(&$vars, &$contact)
     {
         global $addSources, $notification;
 

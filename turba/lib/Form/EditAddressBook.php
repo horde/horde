@@ -8,27 +8,24 @@
  * @package Turba
  */
 
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Turba_EditAddressBookForm class provides the form for
+ * The Turba_Form_EditAddressBook class provides the form for
  * editing an address book.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Turba
  */
-class Turba_EditAddressBookForm extends Horde_Form {
-
+class Turba_Form_EditAddressBook extends Horde_Form
+{
     /**
      * Address book being edited
      */
     var $_addressbook;
 
-    function Turba_EditAddressBookForm(&$vars, &$addressbook)
+    public function __construct(&$vars, &$addressbook)
     {
         $this->_addressbook = &$addressbook;
-        parent::Horde_Form($vars, sprintf(_("Edit %s"), $addressbook->get('name')));
+        parent::__construct($vars, sprintf(_("Edit %s"), $addressbook->get('name')));
 
         $this->addHidden('', 'a', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);

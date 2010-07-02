@@ -11,8 +11,6 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('turba');
 
-require_once TURBA_BASE . '/lib/Forms/EditAddressBook.php';
-
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
 if (!$GLOBALS['registry']->getAuth() || empty($_SESSION['turba']['has_share'])) {
@@ -36,7 +34,7 @@ if (!$GLOBALS['registry']->getAuth() ||
     header('Location: ' . Horde::applicationUrl('addressbooks/', true));
     exit;
 }
-$form = new Turba_EditAddressBookForm($vars, $addressbook);
+$form = new Turba_Form_EditAddressBook($vars, $addressbook);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

@@ -13,8 +13,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-require_once TURBA_BASE . '/lib/Forms/EditContact.php';
-
 $listView = null;
 $vars = Horde_Variables::getDefaultVariables();
 $source = $vars->get('source');
@@ -74,9 +72,9 @@ if (!$contact->hasPermission(Horde_Perms::EDIT)) {
 
 /* Create the edit form. */
 if ($groupedit) {
-    $form = new Turba_EditContactGroupForm($vars, $contact);
+    $form = new Turba_Form_EditContactGroup($vars, $contact);
 } else {
-    $form = new Turba_EditContactForm($vars, $contact);
+    $form = new Turba_Form_EditContact($vars, $contact);
 }
 
 /* Execute() checks validation first. */
