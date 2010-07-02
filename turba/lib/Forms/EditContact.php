@@ -135,10 +135,8 @@ class Turba_EditContactGroupForm extends Turba_EditContactForm {
         $sources = Turba::getColumns();
         $columns = isset($sources[$source]) ? $sources[$source] : array();
 
-        require_once TURBA_BASE . '/lib/List.php';
-        require_once TURBA_BASE . '/lib/ListView.php';
         $results = new Turba_List($vars->get('objectkeys'));
-        $listView = new Turba_ListView($results, array('Group' => true), $columns);
+        $listView = new Turba_View_List($results, array('Group' => true), $columns);
         echo '<br />' . $listView->getPage($numDisplayed);
     }
 

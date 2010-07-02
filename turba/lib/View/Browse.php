@@ -362,7 +362,7 @@ class Turba_View_Browse {
                             $count = $list->count() - $results->count();
                             $notification->push(sprintf(ngettext("There is %d contact in this list that is not viewable to you", "There are %d contacts in this list that are not viewable to you", $count), $count), 'horde.message');
                         }
-                        $view = new Turba_ListView($results, null, $columns);
+                        $view = new Turba_View_List($results, null, $columns);
                         $view->setType('list');
                     }
                 } else {
@@ -391,7 +391,7 @@ class Turba_View_Browse {
                     } elseif (is_a($results, 'PEAR_Error')) {
                         $notification->push($results, 'horde.error');
                     } else {
-                        $view = new Turba_ListView($results, null, $columns);
+                        $view = new Turba_View_List($results, null, $columns);
                         $view->setType('directory');
                     }
                 }

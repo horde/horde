@@ -1,13 +1,13 @@
 <?php
 /**
- * The Turba_ListView:: class provides an interface for objects that
+ * The Turba_View_List:: class provides an interface for objects that
  * visualize Turba_lists.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jon Parise <jon@csh.rit.edu>
  * @package Turba
  */
-class Turba_ListView {
+class Turba_View_List {
 
     /**
      * The Turba_List object that we are visualizing.
@@ -94,13 +94,13 @@ class Turba_ListView {
     var $columns;
 
     /**
-     * Constructs a new Turba_ListView object.
+     * Constructs a new Turba_View_List object.
      *
      * @param Turba_List $list  List of contacts to display.
      * @param array $controls   Which icons to display
      * @param array $columns    The list of columns to display
      */
-    function Turba_ListView(&$list, $controls = null, $columns = null)
+    function Turba_View_List(&$list, $controls = null, $columns = null)
     {
         if ($controls === null) {
             $controls = array('Mark' => true,
@@ -265,7 +265,7 @@ class Turba_ListView {
             $max = $this->list->count();
         }
         return $this->_get($numDisplayed,
-                           new Turba_ListView_PageFilter($min, $max));
+                           new Turba_View_List_PageFilter($min, $max));
     }
 
     /**
@@ -280,7 +280,7 @@ class Turba_ListView {
     function getAlpha(&$numDisplayed, $alpha)
     {
         return $this->_get($numDisplayed,
-                           new Turba_ListView_AlphaFilter($alpha));
+                           new Turba_View_List_AlphaFilter($alpha));
     }
 
     /**
@@ -451,12 +451,12 @@ class Turba_ListView {
 /**
  * Skips objects whose name does not start with the specified letter
  */
-class Turba_ListView_AlphaFilter {
+class Turba_View_List_AlphaFilter {
 
     var $_alpha;
     var $_format;
 
-    function Turba_ListView_AlphaFilter($alpha)
+    function Turba_View_List_AlphaFilter($alpha)
     {
         $this->_alpha = Horde_String::lower($alpha);
         $this->_format = $GLOBALS['prefs']->getValue('name_sort');
@@ -477,13 +477,13 @@ class Turba_ListView_AlphaFilter {
 /**
  * Skips objects which are not on the current page
  */
-class Turba_ListView_PageFilter {
+class Turba_View_List_PageFilter {
 
     var $_min;
     var $_max;
     var $_count = 0;
 
-    function Turba_ListView_PageFilter($min, $max)
+    function Turba_View_List_PageFilter($min, $max)
     {
         $this->_min = $min;
         $this->_max = $max;

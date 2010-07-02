@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_ViewListTest extends Turba_TestBase {
+class Turba_View_ListTest extends Turba_TestBase {
 
     function setUp()
     {

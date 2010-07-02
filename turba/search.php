@@ -168,7 +168,7 @@ if (is_a($driver, 'PEAR_Error')) {
                 $columns = isset($sources[$source]) ? $sources[$source] : array();
                 $results->sort(Turba::getPreferredSortOrder());
 
-                $view = new Turba_ListView($results, null, $columns);
+                $view = new Turba_View_List($results, null, $columns);
                 $view->setType('search');
             }
         } else {
