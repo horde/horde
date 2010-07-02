@@ -1635,7 +1635,8 @@ class Horde_Registry
         $this->unloadPrefs();
 
         if ($destroy) {
-            @session_destroy();
+            session_destroy();
+            $this->_cleansession = true;
         }
     }
 
