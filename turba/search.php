@@ -71,24 +71,29 @@ function updateSortOrderFromVars()
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-/* Verify if the search mode variable is passed in form or is
- * registered in the session. Always use basic search by default. */
+/* Verify if the search mode variable is passed in form or is registered in
+ * the session. Always use basic search by default. */
 if (Horde_Util::getFormData('search_mode')) {
     $_SESSION['turba']['search_mode'] = Horde_Util::getFormData('search_mode');
 }
 if (!isset($_SESSION['turba']['search_mode']) ||
-    !in_array($_SESSION['turba']['search_mode'], array('basic', 'advanced'))) {
+    !in_array($_SESSION['turba']['search_mode'], array('basic', 'advanced', 'duplicate'))) {
     $_SESSION['turba']['search_mode'] = 'basic';
 }
 
 /* Get the current source. */
+$addressBooks = Turba::getAddressBooks();
+$editableAddressBooks = Turba::getAddressBooks(Horde_Perms::EDIT & Horde_Perms::DELETE,
+                                               array('require_add' => true));
+if ($_SESSION['turba']['search_mode'] == 'duplicate') {
+    $addressBooks = $editableAddressBooks;
+}
 $source = Horde_Util::getFormData('source', $default_source);
-if (!isset($cfgSources[$source])) {
-    reset($cfgSources);
-    $source = key($cfgSources);
+if (!isset($addressBooks[$source])) {
+    $source = key($addressBooks);
 
     /* If there are absolutely no valid sources, abort. */
-    if (!isset($cfgSources[$source])) {
+    if (!isset($addressBooks[$source])) {
         $notification->push(_("No Address Books are currently available. Searching is disabled."), 'horde.error');
         require TURBA_TEMPLATES . '/common-header.inc';
         require TURBA_TEMPLATES . '/menu.inc';
@@ -123,7 +128,10 @@ if (is_a($driver, 'PEAR_Error')) {
     updateSortOrderFromVars();
 
     /* Only try to perform a search if we actually have search criteria. */
-    if ((is_array($criteria) && count($criteria)) || !empty($val)) {
+    if ((is_array($criteria) && count($criteria)) ||
+        !empty($val) ||
+        ($_SESSION['turba']['search_mode'] == 'duplicate' &&
+         (Horde_Util::getFormData('search') || count($addressBooks) == 1))) {
         if (Horde_Util::getFormData('save_vbook')) {
             /* We create the vbook and redirect before we try to search
              * since we are not displaying the search results on this page
@@ -156,7 +164,11 @@ if (is_a($driver, 'PEAR_Error')) {
         }
 
         /* Perform a search. */
-        if (($_SESSION['turba']['search_mode'] == 'basic' &&
+        if ($_SESSION['turba']['search_mode'] == 'duplicate') {
+            $duplicates = $driver->searchDuplicates();
+            $view = new Turba_View_Duplicates($duplicates, $driver);
+            Horde::addScriptFile('tables.js', 'horde');
+        } elseif (($_SESSION['turba']['search_mode'] == 'basic' &&
              is_object($results = $driver->search(array($criteria => $val)))) ||
             ($_SESSION['turba']['search_mode'] == 'advanced' &&
              is_object($results = $driver->search($criteria)))) {
@@ -178,7 +190,6 @@ if (is_a($driver, 'PEAR_Error')) {
 }
 
 /* Build all available search criteria. */
-$addressBooks = Turba::getAddressBooks();
 $allCriteria = $shareSources = array();
 foreach ($addressBooks as $key => $entry) {
     $allCriteria[$key] = array();
@@ -196,6 +207,9 @@ $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs('search_mode', $vars);
 $tabs->addTab(_("Basic Search"), $sUrl, 'basic');
 $tabs->addTab(_("Advanced Search"), $sUrl, 'advanced');
+if (count($editableAddressBooks)) {
+    $tabs->addTab(_("Duplicate Search"), $sUrl, 'duplicate');
+}
 
 /* The form header. */
 $headerView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
@@ -216,10 +230,12 @@ $searchView->criteria = $criteria;
 $searchView->value = $val;
 
 /* The form footer and vbook section. */
-$vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
-$vbookView->hasShare = !empty($_SESSION['turba']['has_share']);
-$vbookView->shareSources = $shareSources;
-$vbookView->source = $source;
+if ($_SESSION['turba']['search_mode'] != 'duplicate') {
+    $vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
+    $vbookView->hasShare = !empty($_SESSION['turba']['has_share']);
+    $vbookView->shareSources = $shareSources;
+    $vbookView->source = $source;
+}
 
 switch ($_SESSION['turba']['search_mode']) {
 case 'basic':
@@ -229,6 +245,9 @@ case 'basic':
 case 'advanced':
     $title = _("Advanced Search");
     $notification->push('document.directory_search.name.focus();', 'javascript');
+    break;
+case 'duplicate':
+    $title = _("Duplicate Search");
     break;
 }
 
@@ -241,7 +260,9 @@ require TURBA_TEMPLATES . '/menu.inc';
 echo $tabs->render($_SESSION['turba']['search_mode']);
 echo $headerView->render('header');
 echo $searchView->render($_SESSION['turba']['search_mode']);
-echo $vbookView->render('vbook');
+if ($_SESSION['turba']['search_mode'] != 'duplicate') {
+    echo $vbookView->render('vbook');
+}
 if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/javascript.inc';
     require TURBA_TEMPLATES . '/browse/header.inc';
