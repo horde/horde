@@ -40,7 +40,7 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('fgc
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => (string) Horde::getServiceLink('ajax', 'imp'),
+    'URI_AJAX' => Horde::getServiceLink('ajax', 'imp')->url,
     'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add('ajaxui', 1),
     'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
     'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php')->setRaw(true)->add('ajaxui', 1),
