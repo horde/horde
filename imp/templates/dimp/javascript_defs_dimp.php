@@ -41,11 +41,11 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('fgc
 $code['conf'] = array_filter(array(
     // URL variables
     'URI_AJAX' => (string) Horde::getServiceLink('ajax', 'imp'),
-    'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php'),
+    'URI_COMPOSE' => (string) Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add('ajaxui', 1),
     'URI_DIMP' => (string) Horde::applicationUrl('index-dimp.php'),
-    'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php'),
+    'URI_MESSAGE' => (string) Horde::applicationUrl('message-dimp.php')->setRaw(true)->add('ajaxui', 1),
     'URI_PREFS' => (string) Horde::getServiceLink('prefsapi', 'imp'),
-    'URI_PREFS_IMP' => str_replace('&amp;', '&', (string) Horde::getServiceLink('options', 'imp')->add('ajaxui', 1)),
+    'URI_PREFS_IMP' => (string) Horde::getServiceLink('options', 'imp')->setRaw(true)->add('ajaxui', 1),
     'URI_SEARCH' => (string) Horde::applicationUrl('search.php'),
     'URI_VIEW' => (string) Horde::applicationUrl('view.php'),
 
