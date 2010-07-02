@@ -70,7 +70,7 @@ class Turba_Object {
      */
     function getGuid($delimiter = ':')
     {
-        return 'turba' . $delimiter . $this->driver->getName() . $delimiter . $this->getValue('__uid');
+        return 'turba' . $delimiter . $this->getSource() . $delimiter . $this->getValue('__uid');
     }
 
     /**
@@ -201,7 +201,9 @@ class Turba_Object {
 
         $history = array();
         try {
-            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory($this->getGuid());
+            $log = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getHistory($this->getGuid());
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
