@@ -217,6 +217,7 @@ class Horde_Url
 
         $url = $this->url;
         if (strlen($this->pathInfo)) {
+            $url = rtrim($url, '/');
             $url .= '/' . $this->pathInfo;
         }
         if (count($url_params)) {
