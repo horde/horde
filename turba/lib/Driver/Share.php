@@ -81,7 +81,7 @@ class Turba_Driver_Share extends Turba_Driver
     function _init()
     {
         $this->_share = &$this->_params['config']['params']['share'];
-        $this->_driver = &Turba_Driver::factory('_' . $this->name, $this->_params['config']);
+        $this->_driver = &Turba_Driver::factory($this->name, $this->_params['config']);
         if (is_a($this->_driver, 'PEAR_Error')) {
             return $this->_driver;
         }
