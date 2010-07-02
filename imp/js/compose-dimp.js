@@ -253,7 +253,7 @@ var DimpCompose = {
                     }
 
                     if (d.mailbox) {
-                        DIMP.baseWindow.DimpBase.mailboxCallback(d.mailbox);
+                        DIMP.baseWindow.DimpBase.mailboxCallback(d);
                     }
 
                     if (d.draft_delete) {
