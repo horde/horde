@@ -92,10 +92,10 @@ class Turba_List {
      * Filters/Sorts the list based on the specified sort routine.
      * The default sort order is by last name, ascending.
      *
-     * @param $order  Array of hashes describing sort fields.  Each hash has
-     *                the following fields:
-     *                'field'      =>  String sort field
-     *                'ascending'  =>  Boolean indicating sort direction
+     * @param array $order    Array of hashes describing sort fields.  Each
+     *                        hash has the following fields:
+     *                        - field:     String sort field
+     *                        - ascending: Boolean indicating sort direction
      */
     function sort($order = null)
     {

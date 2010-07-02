@@ -1,7 +1,7 @@
 <?php
 /**
  * The Turba_View_List:: class provides an interface for objects that
- * visualize Turba_lists.
+ * visualize Turba_List objects.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jon Parise <jon@csh.rit.edu>
