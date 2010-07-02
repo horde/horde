@@ -48,6 +48,7 @@ class Turba_View_DeleteContact {
 ?>
 <form action="delete.php" method="post">
 <?php echo Horde_Util::formInput() ?>
+<input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
 <input type="hidden" name="source" value="<?php echo htmlspecialchars($this->contact->driver->name) ?>" />
 <input type="hidden" name="key" value="<?php echo htmlspecialchars($this->contact->getValue('__key')) ?>" />
 <div class="headerbox" style="padding: 8px">

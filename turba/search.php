@@ -131,7 +131,9 @@ if (is_a($driver, 'PEAR_Error')) {
     if ((is_array($criteria) && count($criteria)) ||
         !empty($val) ||
         ($_SESSION['turba']['search_mode'] == 'duplicate' &&
-         (Horde_Util::getFormData('search') || count($addressBooks) == 1))) {
+         (Horde_Util::getFormData('search') ||
+          Horde_Util::getFormData('dupe') ||
+          count($addressBooks) == 1))) {
         if (Horde_Util::getFormData('save_vbook')) {
             /* We create the vbook and redirect before we try to search
              * since we are not displaying the search results on this page
@@ -165,9 +167,15 @@ if (is_a($driver, 'PEAR_Error')) {
 
         /* Perform a search. */
         if ($_SESSION['turba']['search_mode'] == 'duplicate') {
-            $duplicates = $driver->searchDuplicates();
-            $view = new Turba_View_Duplicates($duplicates, $driver);
-            Horde::addScriptFile('tables.js', 'horde');
+            try {
+                $duplicates = $driver->searchDuplicates();
+                $dupe = Horde_Util::getFormData('dupe');
+                $type = Horde_Util::getFormData('type');
+                $view = new Turba_View_Duplicates($duplicates, $driver, $type, $dupe);
+                Horde::addScriptFile('tables.js', 'horde');
+            } catch (Exception $e) {
+                $notification->push($e);
+            }
         } elseif (($_SESSION['turba']['search_mode'] == 'basic' &&
              is_object($results = $driver->search(array($criteria => $val)))) ||
             ($_SESSION['turba']['search_mode'] == 'advanced' &&

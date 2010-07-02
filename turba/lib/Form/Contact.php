@@ -4,7 +4,7 @@
  */
 class Turba_Form_Contact extends Horde_Form
 {
-    public function __construct(&$vars, &$contact)
+    public function __construct(&$vars, &$contact, $tabs = true)
     {
         global $conf, $notification;
 
@@ -17,7 +17,7 @@ class Turba_Form_Contact extends Horde_Form
         }
         $vars->set('object', $object);
 
-        $this->_addFields($contact);
+        $this->_addFields($contact, $tabs);
 
         /* List files. */
         $v_params = $GLOBALS['injector']->getInstance('Horde_Vfs')->getConfig('documents');
@@ -35,7 +35,7 @@ class Turba_Form_Contact extends Horde_Form
     /**
      * Set up the Horde_Form fields for $contact's attributes.
      */
-    function _addFields($contact)
+    function _addFields($contact, $useTabs = true)
     {
         global $attributes;
 
@@ -64,7 +64,11 @@ class Turba_Form_Contact extends Horde_Form
         }
         foreach ($tabs as $tab => $tab_fields) {
             if (!empty($tab)) {
-                $this->setSection($tab, $tab);
+                if ($useTabs) {
+                    $this->setSection($tab, $tab);
+                } else {
+                    $this->addVariable($tab, '', 'header', false);
+                }
             }
             foreach ($tab_fields as $field) {
                 if (!in_array($field, $fields) ||

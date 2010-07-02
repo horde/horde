@@ -21,6 +21,20 @@ class Turba_View_Duplicates
     protected $_duplicates;
 
     /**
+     * A field name.
+     *
+     * @var string
+     */
+    protected $_type;
+
+    /**
+     * A duplicate value.
+     *
+     * @var string
+     */
+    protected $_duplicate;
+
+    /**
      * A Turba_Driver instance.
      *
      * @var Turba_Driver
@@ -30,27 +44,69 @@ class Turba_View_Duplicates
     /**
      * Constructor.
      *
+     * If the $type and $duplicate parameters are specified, they are used to
+     * lookup a single Turba_List from $duplicates with a list of duplicate
+     * contacts. The resolution interface for those duplicates is rendered
+     * above the overview tables then.
+     *
      * @param array $duplicates     Hash of Turba_List objects.
      * @param Turba_Driver $driver  A Turba_Driver instance.
+     * @param string $type          A field name.
+     * @param string $duplicate     A duplicate value.
      */
-    public function __construct(array $duplicates, Turba_Driver $driver)
+    public function __construct(array $duplicates, Turba_Driver $driver,
+                                $type = null, $duplicate = null)
     {
         $this->_duplicates = $duplicates;
         $this->_driver     = $driver;
+        $this->_type       = $type;
+        $this->_duplicate  = $duplicate;
     }
 
+    /**
+     * Renders this view.
+     */
     public function display()
     {
         require TURBA_BASE . '/config/attributes.php';
-        $view = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
+
+        $view = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search/duplicate'));
         new Horde_View_Helper_Text($view);
+
+        $hasDuplicate = $this->_type && $this->_duplicate;
+        if ($hasDuplicate) {
+            $vars = new Horde_Variables();
+            $view->type = $attributes[$this->_type]['label'];
+            $view->value = $this->_duplicate;
+            echo $view->render('header');
+
+            $view->contactUrl = Horde::applicationUrl('contact.php');
+            $duplicate = $this->_duplicates[$this->_type][$this->_duplicate];
+            while ($contact = $duplicate->next()) {
+                $view->source = $contact->getSource();
+                $view->id = $contact->getValue('__key');
+                $history = $contact->getHistory();
+                if (isset($history['modified'])) {
+                    $view->changed = $history['modified'];
+                } elseif (isset($history['created'])) {
+                    $view->changed = $history['created'];
+                }
+                echo $view->render('contact_header');
+                $contactView = new Turba_Form_Contact($vars, $contact, false);
+                $contactView->renderInactive(new Horde_Form_Renderer(), $vars);
+                echo $view->render('contact_footer');
+            }
+
+            echo $view->render('footer');
+        }
+
         $view->duplicates = $this->_duplicates;
+        $view->hasDuplicate = (bool)$hasDuplicate;
         $view->attributes = $attributes;
         $view->link = Horde::applicationUrl('search.php')
             ->add(array('source' => $this->_driver->name,
-                        'search_mode' => 'duplicate',
-                        'search' => 1));
+                        'search_mode' => 'duplicate'));
 
-        echo $view->render('duplicate_list');
+        echo $view->render('list');
     }
 }

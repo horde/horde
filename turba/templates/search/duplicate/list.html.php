@@ -1,6 +1,9 @@
+<? if ($this->hasDuplicate): ?>
+<br class="clear" />
+<? endif; ?>
 <br />
 <? foreach ($this->duplicates as $field => $duplicates): ?>
-<p><? printf(_("Duplicates of %s"), $this->h($this->attributes[$field]['label'])) ?></p>
+<h3><?= $this->h(sprintf(_("Duplicates of %s"), $this->attributes[$field]['label'])) ?></h3>
 <table class="horde-table horde-block-links sortable">
   <thead>
     <tr>
@@ -11,8 +14,8 @@
   <tbody>
     <? foreach ($duplicates as $value => $list): ?>
     <tr>
-      <td><a href="<?= $this->link->add('dupe', $value) ?>"><?= $this->h($value) ?></a></td>
-      <td><a href="<?= $this->link->add('dupe', $value) ?>"><?= $list->count() ?></a></td>
+      <td><a href="<?= $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?= $this->h($value) ?></a></td>
+      <td><a href="<?= $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?= $list->count() ?></a></td>
     </tr>
     <? endforeach; ?>
   </tbody>
