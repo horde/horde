@@ -205,34 +205,18 @@ class Turba_Object {
                 ->getInstance('Horde_History')
                 ->getHistory($this->getGuid());
             foreach ($log as $entry) {
-                switch ($entry['action']) {
-                case 'add':
+                if ($entry['action'] == 'add' || $entry['action'] == 'modify') {
                     if ($GLOBALS['registry']->getAuth() != $entry['who']) {
-                        $createdby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
+                        $by = sprintf(_("by %s"), Turba::getUserName($entry['who']));
                     } else {
-                        $createdby = _("by me");
+                        $by = _("by me");
                     }
-                    $history['created']
+                    $history[$entry['action'] == 'add' ? 'created' : 'modified']
                         = strftime($GLOBALS['prefs']->getValue('date_format'), $entry['ts'])
                         . ' '
                         . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
                         . ' '
-                        . @htmlspecialchars($createdby, ENT_COMPAT, Horde_Nls::getCharset());
-                    break;
-
-                case 'modify':
-                    if ($GLOBALS['registry']->getAuth() != $entry['who']) {
-                        $modifiedby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
-                    } else {
-                        $modifiedby = _("by me");
-                    }
-                    $history['modified']
-                        = strftime($GLOBALS['prefs']->getValue('date_format'), $entry['ts'])
-                        . ' '
-                        . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
-                        . ' '
-                        . @htmlspecialchars($modifiedby, ENT_COMPAT, Horde_Nls::getCharset());
-                    break;
+                        . @htmlspecialchars($by, ENT_COMPAT, Horde_Nls::getCharset());
                 }
             }
         } catch (Exception $e) {
