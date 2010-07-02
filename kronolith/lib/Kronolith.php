@@ -200,7 +200,7 @@ class Kronolith
                 'exception' => (string)Horde_Themes::img('exception-fff.png'),
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-            'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')->add('ajaxui', 1)),
+            'prefs_url' => Horde::getServiceLink('options', 'kronolith')->setRaw(true)->add('ajaxui', 1),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => $has_tasks,
