@@ -51,7 +51,12 @@ case 'retweet':
     exit;
 
 case 'getPage':
-    $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(array('page' => Horde_Util::getPost('page'))), Horde_Serialize::JSON);
+    try {
+        $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline(array('page' => Horde_Util::getPost('page'))), Horde_Serialize::JSON);
+    } catch (Horde_Service_Twitter_Exception $e) {
+        echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
+        exit;
+    }
     $html = '';
     foreach ($stream as $tweet) {
         /* links */
