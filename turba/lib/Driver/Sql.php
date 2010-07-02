@@ -174,7 +174,7 @@ class Turba_Driver_Sql extends Turba_Driver
         while ($row = $result->fetchRow()) {
             if (is_a($row, 'PEAR_Error')) {
                 Horde::logMessage($row, 'ERR');
-                return $result;
+                return $row;
             }
 
             $row = $this->_convertFromDriver($row);
@@ -188,6 +188,149 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         return $results;
+    }
+
+    /**
+     * Prepares field lists for searchDuplicates().
+     *
+     * @param array $array  A list of field names.
+     *
+     * @return array  A prepared list of field names.
+     */
+    protected function _buildFields($array)
+    {
+        foreach ($array as &$entry) {
+            if (is_array($entry)) {
+                $entry = implode(',', $this->_buildFields($entry));
+            } else {
+                $entry = 'a1.' . $entry;
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Builds the WHERE conditions for searchDuplicates().
+     *
+     * @param array $array  A list of field names.
+     *
+     * @return array  A list of WHERE conditions.
+     */
+    protected function _buildWhere($array)
+    {
+        foreach ($array as &$entry) {
+            if (is_array($entry)) {
+                $entry = reset($entry);
+            }
+            $entry = 'a1.' . $entry . ' IS NOT NULL AND a1.' . $entry . ' <> \'\'';
+        }
+        return $array;
+    }
+
+    /**
+     * Builds the JOIN conditions for searchDuplicates().
+     *
+     * @param array $array  A list of field names.
+     *
+     * @return array  A list of JOIN conditions.
+     */
+    protected function _buildJoin($array)
+    {
+        foreach ($array as &$entry) {
+            if (is_array($entry)) {
+                $entry = implode(' AND ', $this->_buildJoin($entry));
+            } else {
+                $entry = 'a1.' . $entry . ' = a2.' . $entry;
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     *                <code>
+     *                array('name' => array('John Doe' => Turba_List, ...), ...)
+     *                </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        $owner = $this->getContactOwner();
+        $fields = array();
+        if (is_array($this->map['name'])) {
+            if (in_array('lastname', $this->map['name']['fields']) &&
+                isset($this->map['lastname'])) {
+                $field = array($this->map['lastname']);
+                if (in_array('firstname', $this->map['name']['fields']) &&
+                    isset($this->map['firstname'])) {
+                    $field[] = $this->map['firstname'];
+                }
+                $fields[] = $field;
+            }
+        } else {
+            $fields[] = $this->map['name'];
+        }
+        if (isset($this->map['email'])) {
+            $fields[] = $this->map['email'];
+        }
+
+        $order = $this->_buildFields($fields);
+        $joins = $this->_buildJoin($fields);
+        $where = $this->_buildWhere($fields);
+
+        $duplicates = array();
+        for ($i = 0; $i < count($joins); $i++) {
+            /* Build up the full query. */
+            $query = sprintf('SELECT DISTINCT a1.%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
+                             $this->map['__key'],
+                             $this->_params['table'],
+                             $this->_params['table'],
+                             $joins[$i],
+                             $this->map['__key'],
+                             $this->map['__key'],
+                             $this->map['__owner'],
+                             $this->map['__owner'],
+                             $where[$i],
+                             $order[$i]);
+
+            /* Log the query at a DEBUG log level. */
+            Horde::logMessage('SQL query by Turba_Driver_sql::searchDuplicates(): ' . $query, 'DEBUG');
+
+            /* Run query. */
+            $ids = $this->_db->getCol($query, 0, array($owner, $owner));
+            if (is_a($ids, 'PEAR_Error')) {
+                Horde::logMessage($ids, 'ERR');
+                throw new Turba_Exception($ids);
+            }
+            if ($i == 0) {
+                $field = 'name';
+            } else {
+                $field = array_search($fields[$i], $this->map);
+            }
+            $contacts = array();
+            foreach ($ids as $id) {
+                $contact = $this->getObject($id);
+                $value = $contact->getValue($field);
+                /* HACK! */
+                if ($field == 'email') {
+                    $value = Horde_String::lower($value);
+                }
+                if (!isset($contacts[$value])) {
+                    $contacts[$value] = new Turba_List();
+                }
+                $contacts[$value]->insert($contact);
+            }
+            if ($contacts) {
+                $duplicates[$field] = $contacts;
+            }
+        }
+
+        return $duplicates;
     }
 
     /**

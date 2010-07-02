@@ -527,12 +527,31 @@ class Turba_Driver
     }
 
     /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     *                <code>
+     *                array('name' => array('John Doe' => Turba_List, ...), ...)
+     *                </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        return array();
+    }
+
+    /**
      * Takes an array of object hashes and returns a Turba_List
      * containing the correct Turba_Objects
      *
-     * @param array $objects      An array of object hashes (keyed to backend).
-     * @param string $sort_order  Desired sort order to pass to
-     *                            Turba_List::sort()
+     * @param array $objects  An array of object hashes (keyed to backend).
+     * @param array $order    Array of hashes describing sort fields.  Each
+     *                        hash has the following fields:
+     *                        - field:     String sort field
+     *                        - ascending: Boolean indicating sort direction
      *
      * @return Turba_List containing requested Turba_Objects
      */

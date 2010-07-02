@@ -104,6 +104,23 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     *                <code>
+     *                array('name' => array('John Doe' => Turba_List, ...), ...)
+     *                </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        return $this->_driver->searchDuplicates();
+    }
+
+    /**
      * Reads the given data from the address book and returns the
      * results.
      *
