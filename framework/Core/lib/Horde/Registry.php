@@ -352,7 +352,6 @@ class Horde_Registry
             $_SESSION = array();
         } else {
             $this->setupSessionHandler();
-            session_start();
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be
                    made but values are still available. */
@@ -1557,9 +1556,11 @@ class Horde_Registry
      * The custom session handler object will be contained in the
      * $sessionHandler public member variable.
      *
+     * @param boolean $start  Initiate the session?
+     *
      * @throws Horde_Exception
      */
-    public function setupSessionHandler()
+    public function setupSessionHandler($start = true)
     {
         global $conf;
 
@@ -1586,6 +1587,10 @@ class Horde_Registry
         /* We want to create an instance here, not get, since we may be
          * destroying the previous instances in the page. */
         $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
+
+        if ($start) {
+            session_start();
+        }
     }
 
     /**

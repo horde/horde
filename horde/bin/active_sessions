@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 /* Check for sessionhandler object. */
-$registry->setupSessionHandler();
+$registry->setupSessionHandler(false);
 if (!$registry->sessionHandler) {
     throw new Horde_Exception('Horde is unable to load the session handler.');
 }

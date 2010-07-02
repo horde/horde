@@ -166,7 +166,6 @@ if ($error_reason) {
     }
 
     $registry->setupSessionHandler();
-    @session_start();
 
     Horde_Nls::setLanguageEnvironment($language, $vars->app);
 
