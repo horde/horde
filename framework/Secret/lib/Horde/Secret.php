@@ -100,7 +100,9 @@ class Horde_Secret
             throw new Horde_Secret_Exception($val);
         }
 
-        return $val;
+        /* Bug #9121: Data may be null padded - need to remove this
+         * padding. */
+        return rtrim($val, "\0");
     }
 
     /**
