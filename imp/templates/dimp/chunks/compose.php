@@ -19,9 +19,12 @@ $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
 
+$compose_link = Horde::getServiceLink('ajax', 'imp');
+$compose_link->pathInfo = 'addAttachment';
+
 ?>
 <?php if (!$redirect): ?>
-<form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo Horde::getServiceLink('ajax', 'imp') ?>addAttachment" method="post" target="submit_frame">
+<form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo $compose_link ?>" method="post" target="submit_frame">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" id="last_identity" name="last_identity" value="<?php echo (int)$selected_identity ?>" />
 <input type="hidden" id="html" name="html" value="<?php echo intval($rte && $compose_html) ?>" />
