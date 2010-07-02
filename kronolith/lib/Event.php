@@ -1064,13 +1064,13 @@ abstract class Kronolith_Event
 
         /* Recurrence */
         if ($rrule = $message->getRecurrence()) {
-            $this->recurrence = $rrule;
 
             /* Exceptions */
             /* Since AS keeps exceptions as part of the original event, we need to
              * delete all existing exceptions and re-create them. The only drawback
              * to this is that the UIDs will change.
              */
+            $this->recurrence = $rrule;
             if (!empty($this->uid)) {
                 $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
                 $search = new StdClass();
@@ -1102,7 +1102,11 @@ abstract class Kronolith_Event
                     $event->exceptionoriginaldate = $original;
                     $event->initialized = true;
                     $event->save();
-                }
+                } else {
+                    /* For exceptions that are deletions, just add the exception */
+                    $exceptiondt = $rule->getExceptionStartTime();
+                    $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
+               }
             }
         }
 
@@ -1205,7 +1209,7 @@ abstract class Kronolith_Event
                             array('start' => $exception->start,
                                   'end' => $exception->end,
                                   'allday' => $exception->isAllDay()));
-                        /* The start time of the original recurring event */
+                        /* The start time of the *original* recurring event */
                         $e->setExceptionStartTime($exception->exceptionoriginaldate);
                         $originaldate = $exception->exceptionoriginaldate->format('Ymd');
                         $key = array_search($originaldate, $exceptions);

@@ -45,7 +45,11 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
     }
 
     /**
-     * Exception start time
+     * Exception start time. This field seems to have different usages depending
+     * on if this is a command request from the client or from the server. If
+     * it's part of a request from client, then it represents the date of the
+     * exception that is to be deleted. If it is from server, it represents the
+     * date of the *original* recurring event.
      *
      * @return Horde_Date  The exception's start time
      */
