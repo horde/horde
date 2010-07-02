@@ -52,7 +52,7 @@ a.widget {
     background: #eee;
 }
 
-table.horde-table, table.horde-table td {
+table.horde-table, table.horde-table td, table.horde-table th {
     border-color: #999;
 }
 .sortup {
