@@ -188,6 +188,59 @@ class Turba_Object {
     }
 
     /**
+     * Returns history information about this contact.
+     *
+     * @return array  A hash with the optional entries 'created' and 'modified'
+     *                and human readable history information as the values.
+     */
+    function getHistory()
+    {
+        if (!$this->getValue('__uid')) {
+            return array();
+        }
+
+        $history = array();
+        try {
+            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory($this->getGuid());
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    if ($GLOBALS['registry']->getAuth() != $entry['who']) {
+                        $createdby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
+                    } else {
+                        $createdby = _("by me");
+                    }
+                    $history['created']
+                        = strftime($GLOBALS['prefs']->getValue('date_format'), $entry['ts'])
+                        . ' '
+                        . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
+                        . ' '
+                        . @htmlspecialchars($createdby, ENT_COMPAT, Horde_Nls::getCharset());
+                    break;
+
+                case 'modify':
+                    if ($GLOBALS['registry']->getAuth() != $entry['who']) {
+                        $modifiedby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
+                    } else {
+                        $modifiedby = _("by me");
+                    }
+                    $history['modified']
+                        = strftime($GLOBALS['prefs']->getValue('date_format'), $entry['ts'])
+                        . ' '
+                        . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
+                        . ' '
+                        . @htmlspecialchars($modifiedby, ENT_COMPAT, Horde_Nls::getCharset());
+                    break;
+                }
+            }
+        } catch (Exception $e) {
+            return array();
+        }
+
+        return $history;
+    }
+
+    /**
      * Returns true if this object is a group of multiple contacts.
      *
      * @return boolean  True if this object is a group of multiple contacts.

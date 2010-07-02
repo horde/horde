@@ -39,38 +39,15 @@ class Turba_View_Contact {
 
         $vars = new Horde_Variables();
         $form = new Turba_Form_Contact($vars, $this->contact);
-        $userId = $GLOBALS['registry']->getAuth();
 
         /* Get the contact's history. */
-        if ($this->contact->getValue('__uid')) {
-            try {
-                $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory($this->contact->getGuid());
-                foreach ($log as $entry) {
-                    switch ($entry['action']) {
-                    case 'add':
-                        if ($userId != $entry['who']) {
-                            $createdby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
-                        } else {
-                            $createdby = _("by me");
-                        }
-                        $v = &$form->addVariable(_("Created"), 'object[__created]', 'text', false, false);
-                        $v->disable();
-                        $vars->set('object[__created]', strftime($prefs->getValue('date_format'), $entry['ts']) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts']) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, Horde_Nls::getCharset()));
-                        break;
-
-                    case 'modify':
-                        if ($userId != $entry['who']) {
-                            $modifiedby = sprintf(_("by %s"), Turba::getUserName($entry['who']));
-                        } else {
-                            $modifiedby = _("by me");
-                        }
-                        $v = &$form->addVariable(_("Last Modified"), 'object[__modified]', 'text', false, false);
-                        $v->disable();
-                        $vars->set('object[__modified]', strftime($prefs->getValue('date_format'), $entry['ts']) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts']) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, Horde_Nls::getCharset()));
-                        break;
-                    }
-                }
-            } catch (Exception $e) {}
+        $history = $this->contact->getHistory();
+        foreach ($history as $what => $when) {
+            $v = &$form->addVariable(
+                $what == 'created' ? _("Created") : _("Last Modified"),
+                'object[__' . $what . ']', 'text', false, false);
+            $v->disable();
+            $vars->set('object[__' . $what . ']', $when);
         }
 
         echo '<div id="Contact"' . ($active ? '' : ' style="display:none"') . '>';
