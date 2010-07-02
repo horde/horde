@@ -52,6 +52,9 @@ a.widget {
     background: #eee;
 }
 
+table.horde-table, table.horde-table td {
+    border-color: #999;
+}
 .sortup {
     background: #ccc url("graphics/za.png") center left no-repeat;
 }
