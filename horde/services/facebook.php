@@ -13,9 +13,8 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-$GLOBALS['injector']->addBinder('Facebook', new Horde_Core_Binder_Facebook());
 try {
-    $facebook = $GLOBALS['injector']->getInstance('Facebook');
+    $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
 } catch (Horde_Exception $e) {
     $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');
     header('Location: ' . $horde_url);

@@ -84,11 +84,7 @@ class TimeObjects_Driver_FacebookEvents
             }
         }
 
-        $context = array('http_client' => new Horde_Http_Client(),
-                         'http_request' => new Horde_Controller_Request_Http());
-        $facebook = new Horde_Service_Facebook($conf['facebook']['key'],
-                                               $conf['facebook']['secret'],
-                                               $context);
+        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
         $facebook->auth->setUser($this->_fb_session['uid'],
                                         $this->_fb_session['sid'],
                                         0);
