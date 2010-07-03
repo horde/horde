@@ -2031,7 +2031,7 @@ HTML;
     static public function metaRefresh($time, $url)
     {
         if (!empty($time) && !empty($url)) {
-            self::addMetaTag('refresh', $refresh_time . ';url=' . $refresh_url);
+            self::addMetaTag('refresh', $time . ';url=' . $url);
         }
     }
 
