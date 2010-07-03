@@ -46,10 +46,12 @@ class TimeObjects_Driver_FacebookEvents
             // change it, who knows.
             $event['start_time'] -= 21600; //60 * 60 * 6;
             $start = new Horde_Date($event['start_time'], 'America/Los_Angeles');
-            $start->setTimezone($GLOBALS['prefs']->getValue('timezone', date_default_timezone_get()));
+            $tz = $GLOBALS['prefs']->getValue('timezone');
+
+            $start->setTimezone(empty($tz) ?  date_default_timezone_get() : $tz);
             $event['end_time'] -= 21600;
             $end = new Horde_Date($event['end_time'], 'America/Los_Angeles');
-            $end->setTimezone($GLOBALS['prefs']->getValue('timezone', date_default_timezone_get()));
+            $end->setTimezone(empty($tz) ?  date_default_timezone_get() : $tz);
 
             $objects[] = array('id' => $event['eid'],
                                'title' => $event['name'] . ' - ' . $event['tagline'],
