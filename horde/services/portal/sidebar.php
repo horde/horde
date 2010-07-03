@@ -132,7 +132,7 @@ function buildMenu()
                     'icon' => (string)$icon,
                     'status' => 'active',
                     'menu_parent' => 'administration',
-                    'url' => Horde::url($registry->applicationWebPath($vals['link'])),
+                    'url' => Horde::url($registry->applicationWebPath($vals['link']), 'horde'),
                     );
             }
         } catch (Horde_Exception $e) {}
@@ -174,7 +174,7 @@ function buildMenu()
                                                 'status' => 'active',
                                                 'menu_parent' => 'options',
                                                 'icon' => (string)$registry->get('icon', 'horde'),
-                                                'url' => Horde::applicationUrl('services/prefs.php?app=horde'));
+                                                'url' => Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php?app=horde'));
             unset($prefs_apps['horde']);
         }
 
@@ -184,7 +184,7 @@ function buildMenu()
                                              'status' => 'active',
                                              'menu_parent' => 'options',
                                              'icon' => (string)$registry->get('icon', $app),
-                                             'url' => Horde::applicationUrl('services/prefs.php?app=' . $app));
+                                             'url' => Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php?app=' . $app));
         }
     }
 
