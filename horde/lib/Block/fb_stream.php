@@ -74,16 +74,22 @@ class Horde_Block_Horde_fb_stream extends Horde_Block {
             } catch (Horde_Service_Facebook_Exception $e) {}
         }
 
-        return array('filter' => array('type' => 'enum',
-                                       'name' => _("Filter"),
-                                       'default' => 'nf',
-                                       'values' => $filters),
-                     'count' => array('type' => 'int',
-                                     'name' => _("Maximum number of entries to display"),
-                                     'default' => ''),
-                     'notifications' => array('type' => 'boolean',
-                                              'name' => _("Show notifications"),
-                                              'default' => true));
+        return array(
+            'filter' => array('type' => 'enum',
+                              'name' => _("Filter"),
+                              'default' => 'nf',
+                              'values' => $filters),
+            'count' => array('type' => 'int',
+                            'name' => _("Maximum number of entries to display"),
+                            'default' => ''),
+            'notifications' => array('type' => 'boolean',
+                                     'name' => _("Show notifications"),
+                                     'default' => true),
+            'height' => array(
+                 'name' => _("Height of map (width automatically adjusts to block)"),
+                 'type' => 'int',
+                 'default' => 250),
+            );
     }
 
     /**
@@ -225,6 +231,7 @@ EOF;
         }
         $html .= '</div>'; // Close the fbgreybox node that wraps the status
         // Build the stream feed.
+        $html .= '<div style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;">';
         foreach ($posts as $post) {
             $html .= '<div class="fbstreamstory">';
             $html .= '<div class="fbstreampic"><img style="float:left;" src="' . $profiles[(string)$post['actor_id']]['pic_square'] . '" /></div>';
@@ -294,7 +301,7 @@ EOF;
             $html .= '</div></div>'; // Close the fbstreambody, fbstreamstory nodes
             $html .= '<div class="fbcontentdivider">&nbsp;</div>';
         }
-        $html .= '</div>'; // fbbody end
+        $html .= '</div></div>'; // fbbody end
 
         return $html;
     }
