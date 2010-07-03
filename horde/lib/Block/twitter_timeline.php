@@ -26,12 +26,11 @@ if (!empty($GLOBALS['conf']['twitter']['enabled'])) {
 class Horde_Block_Horde_twitter_timeline extends Horde_Block
 {
     /**
-     * Whether this block has changing content. We dissallow autoupdating for
-     * sites not using OAuth since the per-hour limits are then based on IP
-     * address.
+     * Whether this block has changing content. Set this to false since we
+     * handle the updates via AJAX on our own.
      *
      */
-    var $updateable = true;
+    var $updateable = false;
 
     /**
      *
@@ -89,7 +88,11 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             'height' => array(
                  'name' => _("Height of map (width automatically adjusts to block)"),
                  'type' => 'int',
-                 'default' => 250)
+                 'default' => 250),
+            'refresh_rate' => array(
+                 'name' => _("Number of seconds to wait to refresh"),
+                 'type' => 'int',
+                 'default' => 300)
         );
     }
 
@@ -135,6 +138,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         $inReplyToText = _("In reply to:");
         $contentNode = 'twitter_body' . $instance;
         $justNowText = _("Just now...");
+        $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
         /* Add the client javascript / initialize it */
         Horde::addScriptFile('twitterclient.js');
@@ -146,6 +150,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                content: 'twitter_body{$instance}',
                endpoint: '{$endpoint}',
                inreplyto: '{$inReplyToNode}',
+               refreshrate: {$refresh},
                strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
             });
 EOT;

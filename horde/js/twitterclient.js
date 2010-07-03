@@ -9,7 +9,6 @@
  */
 var Horde_Twitter = Class.create({
    inReplyTo: '',
-   page: 1,
    oldestId: null,
    newestId: null,
 
@@ -21,12 +20,16 @@ var Horde_Twitter = Class.create({
     * opts.content The main content area, where the tweets are placed.
     * opts.endpoint  The url endpoint for horde/servcies/twitter.php
     * opts.inreplyto
+    * opts.refreshrate How often to refresh the stream
     * opts.strings.inreplyto
     * opts.strings.defaultText
     * opts.strings.justnow
     */
     initialize: function(opts) {
-        this.opts = opts;
+        this.opts = Object.extend({
+            refreshrate: 300
+        }, opts);
+
         $(this.opts.input).observe('focus', function() {this.clearInput()}.bind(this));
         $(this.opts.input).observe('blur', function() {
             if (!$(this.opts.input).value.length) {
@@ -100,7 +103,7 @@ var Horde_Twitter = Class.create({
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onComplete: this._getOlderEntriesCallback.bind(this),
+            onSuccess: this._getOlderEntriesCallback.bind(this),
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -121,7 +124,7 @@ var Horde_Twitter = Class.create({
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onComplete: this._getNewEntriesCallback.bind(this),
+            onSuccess: this._getNewEntriesCallback.bind(this),
             onFailure: function() {
                 $(this.opts.spinner).toggle();
             }
@@ -162,6 +165,8 @@ var Horde_Twitter = Class.create({
         if (!this.oldestId) {
             this.oldestId = response.responseJSON.o;
         }
+        
+        new PeriodicalExecuter(function(pe) { this.getNewEntries(); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 
     /**
