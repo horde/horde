@@ -121,7 +121,6 @@ function buildMenu()
 
         try {
             $list = $registry->callByPackage('horde', 'admin_list');
-            var_dump($list);
             foreach ($list as $method => $vals) {
                 $name = Horde::stripAccessKey($vals['name']);
                 $icon = isset($vals['icon'])
