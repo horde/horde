@@ -216,7 +216,7 @@ EOF;
                 . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']) . '</div>';
         }
 
-        $html .= '<div class="fbgreybox"><img style="float:left;" src="' . $status['pic_square_with_logo'] . '" /><div id="currentStatus" class="' . $class . '" style="margin-left:55px;">' . $status['status']['message'] . '</div>';
+        $html .= '<div class="fbgreybox fbboxfont"><img style="float:left;" src="' . $status['pic_square_with_logo'] . '" /><div id="currentStatus" class="' . $class . '" style="margin-left:55px;">' . $status['status']['message'] . '</div>';
         try {
             //TODO: We could probably cache this perm somehow - maybe in the session?
             if ($facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM)) {

@@ -178,10 +178,10 @@ if (empty($profile)) {
     echo sprintf(_("Login to Twitter and authorize the %s application:"), $registry->get('name')) . $link . 'Twitter</a>';
 } else {
     /* We know we have a good Twitter token here, so check for any actions... */
-    echo '<div class="fbbluebox" style="float:left">';
+    echo '<div class="fbbluebox fbboxfont" style="float:left">';
     echo '<span><img src="' . $profile->profile_image_url. '" alt="' . htmlspecialchars($profile->screen_name) . '" /></span>';
     echo '<span><div>' . htmlspecialchars($profile->name) . '</div><div>' . htmlspecialchars($profile->location) . '</div></span>';
     echo '</div><div class="clear">&nbsp;</div>';
-    echo '<div class="fbbluebox">' . sprintf(_("%s can interact with your Twitter account."), $registry->get('name'));
+    echo '<div class="fbbluebox fbboxfont">' . sprintf(_("%s can interact with your Twitter account."), $registry->get('name'));
     echo ' <div class="fbaction"><input type="submit" class="fbbutton" value="' . _("Disable") . '" onclick="document.prefs.actionID.value=\'revokeInfinite\'; return true" /></div></div>';
 }
