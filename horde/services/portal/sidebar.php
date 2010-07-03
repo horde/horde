@@ -121,6 +121,7 @@ function buildMenu()
 
         try {
             $list = $registry->callByPackage('horde', 'admin_list');
+            var_dump($list);
             foreach ($list as $method => $vals) {
                 $name = Horde::stripAccessKey($vals['name']);
                 $icon = isset($vals['icon'])
@@ -132,7 +133,7 @@ function buildMenu()
                     'icon' => (string)$icon,
                     'status' => 'active',
                     'menu_parent' => 'administration',
-                    'url' => Horde::url($registry->applicationWebPath($vals['link']), 'horde'),
+                    'url' => Horde::url($registry->applicationWebPath($vals['link'], 'horde')),
                     );
             }
         } catch (Horde_Exception $e) {}
