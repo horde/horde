@@ -33,7 +33,7 @@ class Horde_Core_Binder_Twitter implements Horde_Injector_Binder
             $request = new Horde_Service_Twitter_Request_Oauth();
             $twitter = new Horde_Service_Twitter($auth, $request);
 
-            $twitter->setCache($injector->getInstance('Horde_Cache'));
+            //$twitter->setCache($injector->getInstance('Horde_Cache'));
             $twitter->setLogger($injector->getInstance('Horde_Log_Logger'));
             $twitter->setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client'));
 
