@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('session_control' => 'readonly'));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 // Figure out if we've been inlined, or called directly.
 $send_headers = strstr($_SERVER['PHP_SELF'], 'javascript.php');
