@@ -105,12 +105,12 @@ class Turba_List {
 
         $need_lastname = false;
         $last_first = $GLOBALS['prefs']->getValue('name_format') == 'last_first';
-        foreach (array_keys($order) as $key) {
-            if ($last_first && $order[$key]['field'] == 'name') {
-                $order[$key]['field'] = 'lastname';
+        foreach ($order as &$field) {
+            if ($last_first && $field['field'] == 'name') {
+                $field['field'] = 'lastname';
             }
-            if ($order[$key]['field'] == 'lastname') {
-                $order[$key]['field'] = '__lastname';
+            if ($field['field'] == 'lastname') {
+                $field['field'] = '__lastname';
                 $need_lastname = true;
                 break;
             }
@@ -149,6 +149,7 @@ class Turba_List {
      */
     function cmp($a, $b)
     {
+        require TURBA_BASE . '/config/attributes.php';
         foreach ($this->_usortCriteria as $field) {
             // Set the comparison type based on the type of attribute we're
             // sorting by.
