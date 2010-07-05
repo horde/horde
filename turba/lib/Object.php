@@ -188,6 +188,42 @@ class Turba_Object {
     }
 
     /**
+     * Returns the timestamp of the last modification, whether this was the
+     * creation or editing of the object and stores it as the attribute
+     * __modified. The value is cached for the lifetime of the object.
+     *
+     * @return integer  The timestamp of the last modification or zero.
+     */
+    function lastModification()
+    {
+        $time = $this->getValue('__modified');
+        if (!is_null($time)) {
+            return $time;
+        }
+
+        if (!$this->getValue('__uid')) {
+            $this->setValue('__modified', 0);
+            return 0;
+        }
+
+        $time = 0;
+        try {
+            $log = $GLOBALS['injector']
+                ->getInstance('Horde_History')
+                ->getHistory($this->getGuid());
+            foreach ($log as $entry) {
+                if ($entry['action'] == 'add' || $entry['action'] == 'modify') {
+
+                    $time = max($time, $entry['ts']);
+                }
+            }
+        } catch (Exception $e) {}
+        $this->setValue('__modified', $time);
+
+        return $time;
+    }
+
+    /**
      * Returns history information about this contact.
      *
      * @return array  A hash with the optional entries 'created' and 'modified'

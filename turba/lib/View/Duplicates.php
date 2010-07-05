@@ -81,7 +81,13 @@ class Turba_View_Duplicates
             echo $view->render('header');
 
             $view->contactUrl = Horde::applicationUrl('contact.php');
+            $view->first = true;
             $duplicate = $this->_duplicates[$this->_type][$this->_duplicate];
+            while ($contact = $duplicate->next()) {
+                $contact->lastModification();
+            }
+            $duplicate->sort(array(array('field' => '__modified', 'ascending' => false)));
+            $view->mergeInto = $duplicate->reset()->getValue('__key');
             while ($contact = $duplicate->next()) {
                 $view->source = $contact->getSource();
                 $view->id = $contact->getValue('__key');
@@ -95,6 +101,7 @@ class Turba_View_Duplicates
                 $contactView = new Turba_Form_Contact($vars, $contact, false);
                 $contactView->renderInactive(new Horde_Form_Renderer(), $vars);
                 echo $view->render('contact_footer');
+                $view->first = false;
             }
 
             echo $view->render('footer');

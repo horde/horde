@@ -71,16 +71,24 @@ table#addressbook-list th.sortdown {
 
 /* Duplicates */
 .turba-duplicate {
+    overflow-y: hidden;
     overflow-x: auto;
     white-space: nowrap;
+    vertical-align: top;
 }
 .turba-duplicate-contact {
-    float: left;
+    display: inline-block;
     margin-top: 8px;
     margin-right: 8px;
 }
 .turba-duplicate-contact p {
-    padding: 8px;
+    margin: 8px;
+}
+.turba-duplicate-contact form {
+    display: inline;
+}
+.turba-duplicate-forms {
+    margin: 8px;
 }
 
 /* Preferences pages */

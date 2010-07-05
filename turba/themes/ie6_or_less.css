@@ -1,0 +1,9 @@
+/**
+ * CSS corrections for IE 6 and below.
+ */
+
+/* Fixes broken inline-block. */
+.turba-duplicate-contact {
+    zoom: 1;
+    display: inline;
+}
