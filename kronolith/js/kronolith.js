@@ -2497,8 +2497,8 @@ KronolithCore = {
         this.openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
         $('kronolithTaskForm').enable();
         $('kronolithTaskForm').reset();
-        $('kronolithTaskSave').show();
-        $('kronolithTaskDelete').show();
+        $('kronolithTaskSave').show().enable();
+        $('kronolithTaskDelete').show().enable();
         $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
         this.updateTasklistDropDown();
         this.disableAlarmMethods('Task');
@@ -2703,7 +2703,7 @@ KronolithCore = {
                               this.closeRedBox();
                               this.go(this.lastLocation);
                           } else {
-                              $('kronolithTaskSave').disable();
+                              $('kronolithTaskSave').enable();
                           }
                       }.bind(this));
     },
@@ -3983,6 +3983,7 @@ KronolithCore = {
                 break;
 
             case 'kronolithTaskDelete':
+                elt.disable();
                 var tasklist = $F('kronolithTaskOldList'),
                     taskid = $F('kronolithTaskId');
                 this.doAction('deleteTask',
@@ -3996,6 +3997,7 @@ KronolithCore = {
                                           $('kronolithTasksNoItems').show();
                                       }
                                   } else {
+                                      elt.enable();
                                       $('kronolithViewTasksBody').select('tr').find(function(el) {
                                           return el.retrieve('tasklist') == tasklist &&
                                               el.retrieve('taskid') == taskid;
