@@ -1763,8 +1763,7 @@ class Horde_Registry
      *         to display to the user.
      *         DEFAULT: None
      * 'params' - (array) Additional params to add to the URL (not allowed:
-     *            'app', 'horde_logout_token', 'msg', 'nosidebar', 'reason',
-     *            'url').
+     *            'app', 'horde_logout_token', 'msg', 'reason', 'url').
      *            DEFAULT: None
      * 'reason' - (integer) The reason for logout
      *            DEFAULT: None
@@ -1785,7 +1784,6 @@ class Horde_Registry
             ($options['reason'] == Horde_Auth::REASON_LOGOUT)) {
             $params = array(
                 'horde_logout_token' => Horde::getRequestToken('horde.logout'),
-                'nosidebar' => 1
             );
         } else {
             $params = array(

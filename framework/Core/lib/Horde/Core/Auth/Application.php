@@ -445,8 +445,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *             Horde::addInlineScript().
      * 'js_files' - (array) A list of javascript files to be included via
      *              Horde::addScriptFile().
-     * 'nosidebar' - (boolean) If true, never load the sidebar when
-     *               authenticating to this app.
      * 'params' - (array) A list of parameters to display on the login screen.
      *            Each entry is an array with the following entries:
      *            'label' - (string) The label of the entry.

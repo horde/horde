@@ -277,7 +277,6 @@ class IMP_Application extends Horde_Registry_Application
             'js_files' => array(
                 array('login.js', 'imp')
             ),
-            'nosidebar' => ($view_cookie != 'imp'),
             'params' => $params
         );
     }
