@@ -672,13 +672,9 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
 
             // Update a task list.
             $calendar_id = substr($calendar_id, 6);
-            $tasklists = $GLOBALS['registry']->tasks->listTasklists(true, Horde_Perms::EDIT);
-            if (!isset($tasklists[$calendar_id])) {
-                $GLOBALS['notification']->push(_("You are not allowed to change this task list."), 'horde.error');
-                return $result;
-            }
             try {
                 $GLOBALS['registry']->tasks->updateTasklist($calendar_id, $calendar);
+                $tasklists = $GLOBALS['registry']->tasks->listTasklists(true, Horde_Perms::EDIT);
                 Kronolith::readPermsForm($tasklists[$calendar_id]);
                 $result->perms = Kronolith::permissionToJson($tasklists[$calendar_id]->getPermission());
             } catch (Exception $e) {
