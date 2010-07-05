@@ -121,9 +121,17 @@ class Horde_Core_Factory_Db
             if ($config['phptype'] == 'oci8') {
                 $config['phptype'] = 'oci';
             }
-            $config['adapter'] = ($config['phptype'] == 'mysqli')
-                ? 'mysqli'
-                : 'pdo_' . $config['phptype'];
+            if ($config['phptype'] == 'mysqli') {
+                $config['adapter'] = 'mysqli';
+            } elseif ($config['phptype'] == 'mysql') {
+                if (extension_loaded('pdo_mysql')) {
+                    $config['adapter'] = 'pdo_mysql';
+                } else {
+                    $config['adapter'] = 'mysql';
+                }
+            } else {
+                $config['adapter'] = 'pdo_' . $config['phptype'];
+            }
         }
 
         if (!empty($config['hostspec'])) {
