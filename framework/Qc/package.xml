@@ -48,6 +48,8 @@
        <file name="Cli.php" role="php" />
       </dir> <!-- /lib/Horde/Qc/Config -->
       <file name="Config.php" role="php" />
+      <file name="Configs.php" role="php" />
+      <file name="Exception.php" role="php" />
       <dir name="Module">
        <file name="PearPackageXml.php" role="php" />
       </dir> <!-- /lib/Horde/Qc/Module -->
@@ -93,6 +95,8 @@
    <install as="Horde/Qc/Autoloader.php" name="lib/Horde/Qc/Autoloader.php" />
    <install as="Horde/Qc/Config.php" name="lib/Horde/Qc/Config.php" />
    <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
+   <install as="Horde/Qc/Configs.php" name="lib/Horde/Qc/Configs.php" />
+   <install as="Horde/Qc/Exception.php" name="lib/Horde/Qc/Exception.php" />
    <install as="Horde/Qc/Module.php" name="lib/Horde/Qc/Module.php" />
    <install as="Horde/Qc/Module/PearPackageXml.php" name="lib/Horde/Qc/Module/PearPackageXml.php" />
    <install as="Horde/Qc/Modules.php" name="lib/Horde/Qc/Modules.php" />

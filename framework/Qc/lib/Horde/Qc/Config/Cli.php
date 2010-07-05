@@ -28,6 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Qc
  */
 class Horde_Qc_Config_Cli
+implements Horde_Qc_Config
 {
     /**
      * The command line argument parser.
@@ -41,38 +42,23 @@ class Horde_Qc_Config_Cli
      *
      * @var array
      */
-    private $_opts;
+    private $_options;
 
     /**
      * Any additional arguments parsed from the command line.
      *
      * @var array
      */
-    private $_args;
+    private $_arguments;
 
     /**
      * Constructor.
      *
-     * @param array            $parameters A list of named configuration parameters.
-     * <pre>
-     * 'parser' - (array)  Parser configuration parameters.
-     *   'class'  - (string) The class name of the parser to use.
-     * </pre>
      */
     public function __construct(
-        $parameters = array()
+        Horde_Argv_Parser $parser
     ) {
-        if (empty($parameters['parser']['class'])) {
-            $parser_class = 'Horde_Argv_Parser';
-        } else {
-            $parser_class = $parameters['parser']['class'];
-        }
-        $this->_parser = new $parser_class(
-            array(
-                'usage' => '%prog ' . _("[options] PACKAGE_PATH")
-            )
-        );
-
+        $this->_parser = $parser;
     }
 
     /**
@@ -87,17 +73,27 @@ class Horde_Qc_Config_Cli
             $this->_addOptionsFromModule($this->_parser, $module);
         }
 
-        list($this->_opts, $this->_args) = $this->_parser->parseArgs();
+        list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
 
     /**
      * Return the options parsed from the command line.
      *
-     * @return array An array of options.
+     * @return Horde_Argv_Values The option values.
      */
     public function getOptions()
     {
-        return $this->_opts;
+        return $this->_options;
+    }
+
+    /**
+     * Return the arguments parsed from the command line.
+     *
+     * @return array An array of arguments.
+     */
+    public function getArguments()
+    {
+        return $this->_arguments;
     }
 
     /**

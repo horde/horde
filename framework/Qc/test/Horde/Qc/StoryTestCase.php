@@ -62,10 +62,15 @@ extends PHPUnit_Extensions_Story_TestCase
     {
         switch($action) {
         case 'calling the package with the help option':
-            $_SERVER['argv'] = array('hqc', '--help', '--packagexml');
+            $_SERVER['argv'] = array(
+                'hqc',
+                '--help',
+                '--packagexml',
+                dirname(__FILE__) . '/fixture'
+            );
             ob_start();
             $parameters = array();
-            $parameters['config']['cli']['parser']['class'] = 'Horde_Qc_Stub_Parser';
+            $parameters['cli']['parser']['class'] = 'Horde_Qc_Stub_Parser';
             Horde_Qc::main($parameters);
             $world['output'] = ob_get_contents();
             ob_end_clean();
