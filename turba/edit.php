@@ -81,7 +81,12 @@ if ($groupedit) {
 $edited = $form->execute();
 if (!is_a($edited, 'PEAR_Error')) {
     $url = Horde_Util::getFormData('url');
-    header('Location: ' . (empty($url) ? $contact->url('Contact', true) : $url));
+    if (empty($url)) {
+        $url = $contact->url('Contact', true);
+    } else {
+        $url = new Horde_Url($url, true);
+    }
+    header('Location: ' . $url->add('unique', hash('md5', microtime())));
     exit;
 }
 

@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Add duplicate search and merging.
 [mjr] The listTimeObjects API now returns categories for each source
       individually instead of returning only the categories available
       (Request #8504).

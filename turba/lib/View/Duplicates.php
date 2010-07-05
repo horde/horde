@@ -73,7 +73,9 @@ class Turba_View_Duplicates
         $view = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search/duplicate'));
         new Horde_View_Helper_Text($view);
 
-        $hasDuplicate = $this->_type && $this->_duplicate;
+        $hasDuplicate = $this->_type && $this->_duplicate &&
+            isset($this->_duplicates[$this->_type]) &&
+            isset($this->_duplicates[$this->_type][$this->_duplicate]);
         if ($hasDuplicate) {
             $vars = new Horde_Variables();
             $view->type = $attributes[$this->_type]['label'];
@@ -81,13 +83,14 @@ class Turba_View_Duplicates
             echo $view->render('header');
 
             $view->contactUrl = Horde::applicationUrl('contact.php');
+            $view->mergeUrl = Horde::applicationUrl('merge.php');
             $view->first = true;
             $duplicate = $this->_duplicates[$this->_type][$this->_duplicate];
             while ($contact = $duplicate->next()) {
                 $contact->lastModification();
             }
             $duplicate->sort(array(array('field' => '__modified', 'ascending' => false)));
-            $view->mergeInto = $duplicate->reset()->getValue('__key');
+            $view->mergeTarget = $duplicate->reset()->getValue('__key');
             while ($contact = $duplicate->next()) {
                 $view->source = $contact->getSource();
                 $view->id = $contact->getValue('__key');

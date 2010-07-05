@@ -224,6 +224,21 @@ class Turba_Object {
     }
 
     /**
+     * Merges another contact into this one by filling empty fields of this
+     * contact with values from the other.
+     *
+     * @param Turba_Object $contact  Another contact.
+     */
+    function merge(Turba_Object $contact)
+    {
+        foreach (array_keys($contact->attributes) as $attribute) {
+            if (!$this->hasValue($attribute) && $contact->hasValue($attribute)) {
+                $this->setValue($attribute, $contact->getValue($attribute));
+            }
+        }
+    }
+
+    /**
      * Returns history information about this contact.
      *
      * @return array  A hash with the optional entries 'created' and 'modified'
