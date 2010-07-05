@@ -44,7 +44,10 @@ if (is_a($result = $contact->store(), 'PEAR_Error')) {
 }
 if (is_a($result = $driver->delete($key), 'PEAR_Error')) {
     $notification->push($result);
+    header('Location: ' . $url);
+    exit;
 }
 
+$notification->push(_("Successfully merged two contacts."), 'horde.success');
 header('Location: ' . $url);
 exit;
