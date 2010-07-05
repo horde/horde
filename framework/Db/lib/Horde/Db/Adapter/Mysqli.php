@@ -348,25 +348,6 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $this->_connection->autocommit(false);
     }
 
-    /**
-     * Appends +LIMIT+ and +OFFSET+ options to a SQL statement.
-     *
-     * @param   string  $sql
-     * @param   array   $options
-     * @return  string
-     */
-    public function addLimitOffset($sql, $options)
-    {
-        if (isset($options['limit']) && $limit = $options['limit']) {
-            if (isset($options['offset']) && $offset = $options['offset']) {
-                $sql .= " LIMIT $offset, $limit";
-            } else {
-                $sql .= " LIMIT $limit";
-            }
-        }
-        return $sql;
-    }
-
 
     /*##########################################################################
     # Protected
