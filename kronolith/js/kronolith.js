@@ -343,6 +343,8 @@ KronolithCore = {
                                 if ($('kronolithTimeMarker')) {
                                     $('kronolithTimeMarker').show();
                                 }
+                                // Scroll to the work day start time.
+                                $('kronolithView' + locCap).down('.kronolithViewBody').scrollTop = 9 * this[loc + 'Sizes'].height;
                             }
                             this.loadNextView();
                         }.bind(this)
