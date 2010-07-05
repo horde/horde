@@ -3,22 +3,20 @@
  * Preferences storage implementation for PHP's LDAP extension.
  *
  * Required parameters:
- * 'basedn' - The base DN for the LDAP server.
- * 'hostspec' - The hostname of the LDAP server.
- * 'uid' - The username search key.
- * 'writedn' - One of "user", "admin", or "searchdn"
+ * - basedn:   The base DN for the LDAP server.
+ * - hostspec: The hostname of the LDAP server.
+ * - uid:      The username search key.
+ * - writeas:  One of "user", "admin", or "search"
  *
  * Optional parameters:
- * 'admindn' - The DN of the administrative account to bind for
- *             write operations.
- * 'adminpw' - 'admindn's password for bind authentication.
- * 'port' - The port of the LDAP server.
- *          DEFAULT: 389
- * 'searchdn' - The DN of a user with search permissions on the directory
- * 'searchpw' - 'searchdn's password for binding
- * 'tls' - Whether to use TLS connections.
- *         DEFAULT: false
- * 'version' - The version of the LDAP protocol to use.
+ * - binddn:   The DN of the administrative account to bind for write
+ *             operations.
+ * - bindpw:   'binddn's password for bind authentication.
+ * - port:     The port of the LDAP server. DEFAULT: 389
+ * - searchdn: The DN of a user with search permissions on the directory
+ * - searchpw: 'searchdn's password for binding
+ * - tls:      Whether to use TLS connections. DEFAULT: false
+ * - version:  The version of the LDAP protocol to use.
  *             DEFAULT: NONE (system default will be used)
  *
  * If setting up as the Horde preference handler in conf.php, the following
@@ -37,8 +35,8 @@
  * permission to modify their own LDAP accounts.
  *
  * <code>
- * $conf['prefs']['params']['admindn'] = 'cn=Manager,dc=example,dc=org';
- * $conf['prefs']['params']['adminpw'] = 'password';
+ * $conf['prefs']['params']['binddn'] = 'cn=Manager,dc=example,dc=org';
+ * $conf['prefs']['params']['bindpw'] = 'password';
  * </code>
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
@@ -123,7 +121,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         }
 
         Horde::assertDriverConfig($this->_params, 'prefs',
-            array('hostspec', 'basedn', 'uid', 'writedn'),
+            array('hostspec', 'basedn', 'uid', 'writeas'),
             'preferences LDAP');
 
         /* Connect to the LDAP server anonymously. */
@@ -220,7 +218,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
 
         // Now we should have the user's DN.  Re-bind as appropriate with write
         // permissions to be able to store preferences.
-        switch($this->_params['writedn']) {
+        switch($this->_params['writeas']) {
         case 'user':
             $result = @ldap_bind($this->_connection,
                                  $this->_dn, $this->_password);
@@ -228,11 +226,11 @@ class Horde_Prefs_Ldap extends Horde_Prefs
 
         case 'admin':
             $result = @ldap_bind($this->_connection,
-                                 $this->_params['admindn'],
-                                 $this->_params['adminpw']);
+                                 $this->_params['binddn'],
+                                 $this->_params['bindpw']);
             break;
 
-        case 'searchdn':
+        case 'search':
             // Since we've already bound as the search DN above, no rebinding
             // is necessary.
             $result = true;
@@ -272,18 +270,18 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         }
 
         /* Figure out the DN of the authenticating user. */
-        switch($this->_params['writedn']) {
+        switch($this->_params['writeas']) {
         case 'user':
             $bind_dn = $this->_dn;
             $bind_pw = $this->_password;
             break;
 
         case 'admin':
-            $bind_dn = $this->_params['admindn'];
-            $bind_pw = $this->_params['adminpw'];
+            $bind_dn = $this->_params['binddn'];
+            $bind_pw = $this->_params['bindpw'];
             break;
 
-        case 'searchdn':
+        case 'search':
             $bind_dn = $this->_params['searchdn'];
             $bind_dn = $this->_params['searchpw'];
             break;

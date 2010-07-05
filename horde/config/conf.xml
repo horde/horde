@@ -825,35 +825,9 @@
      </case>
      <case name="Ldap" desc="LDAP">
       <configsection name="params">
-       <configstring name="hostspec" desc="The hostname of the LDAP server">
-       localhost</configstring>
-       <configinteger name="port" desc="The port of the LDAP server">
-       389</configinteger>
-       <configenum name="version" desc="LDAP protocol version">3
-        <values>
-         <value desc="LDAPv2 (deprecated)">2</value>
-         <value desc="LDAPv3">3</value>
-        </values>
-       </configenum>
-       <configboolean name="tls" desc="Enable TLS?">false</configboolean>
-       <configstring name="basedn" desc="The base DN for LDAP preference
-       searches"/>
-       <configstring name="searchdn" required="false" desc="DN with which to
-       bind for searches - blank for anonymous"/>
-       <configstring name="searchpw" required="false"  desc="Password with
-       which to bind for searches - blank for anonymous"/>
-       <configswitch name="writedn" desc="Bind to LDAP as which user when
-       writing permissions to LDAP">
-         <case name="user" desc="Bind as User" />
-         <case name="admin" desc="Bind as Admin">
-           <configstring name="admindn" desc="DN of the administrative account
-           with which to bind for write operations"/>
-           <configstring name="adminpw" desc="Password of the administrative
-           DN"/>
-         </case>
-         <case name="searchdn" desc="Use search credentials"/>
-       </configswitch>
-       <configstring name="uid" desc="The username search key"/>
+       <configldap switchname="driverconfig">
+        <configstring name="uid" desc="The username search key"/>
+       </configldap>
       </configsection>
      </case>
      <case name="Session" desc="PHP Sessions"/>
@@ -1310,8 +1284,7 @@
     </case>
     <case name="Ldap" desc="LDAP">
      <configsection name="params">
-      <configldap switchname="driverconfig">
-      </configldap>
+      <configldap switchname="driverconfig"/>
      </configsection>
     </case>
     <case name="Memcache" desc="Memcache only">
