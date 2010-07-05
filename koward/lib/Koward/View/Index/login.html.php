@@ -1,12 +1,12 @@
-<?= $this->renderPartial('header'); ?>
+<?php echo $this->renderPartial('header'); ?>
 
 <div id="menu">
- <h1 style="text-align:center"><?= $this->welcome ?></h1>
+ <h1 style="text-align:center"><?php echo $this->welcome ?></h1>
 </div>
 
 <?php $this->koward->notification->notify(array('listeners' => 'status')) ?>
 
-<form name="koward_login" method="post" action="<?= $this->post ?>">
+<form name="koward_login" method="post" action="<?php echo $this->post ?>">
 <table width="100%"><tr><td align="center"><table width="300" align="center">
 
 <tr>

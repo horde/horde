@@ -1,1 +1,1 @@
-<p><?= $a ?> <?= $b ?></p>
+<p><?php echo $a ?> <?php echo $b ?></p>

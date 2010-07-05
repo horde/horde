@@ -20,7 +20,7 @@
  * and reports the result to the log.  Example:
  *
  *  <? $bench = $this->benchmark("Notes section") ?>
- *    <?= $this->expensiveNotesOperation() ?>
+ *    <?php echo $this->expensiveNotesOperation() ?>
  *  <? $bench->end() ?>
  *
  * Will add something like "Notes section (0.34523)" to the log.

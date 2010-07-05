@@ -100,7 +100,7 @@ class Horde_View_Helper_Tag extends Horde_View_Helper_Base
      * Escapes a value for output in a view template.
      *
      * <code>
-     *   <p><?= $this->escape($this->templateVar) ?></p>
+     *   <p><?php echo $this->escape($this->templateVar) ?></p>
      * </code>
      *
      * @param   mixed   $var The output to escape.

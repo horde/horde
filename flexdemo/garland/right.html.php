@@ -1,1 +1,1 @@
-<?= $this->blockContent('flexdemo', 'menu') ?>
+<?php echo $this->blockContent('flexdemo', 'menu') ?>

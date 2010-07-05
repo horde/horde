@@ -54,7 +54,7 @@ class Horde_View_Helper_Capture extends Horde_View_Helper_Base
      *
      * You can then use $this->contentForHeader anywhere in your templates:
      *
-     *    <?= $this->contentForHeader ?>
+     *    <?php echo $this->contentForHeader ?>
      *
      * @param string $name  Name of the content that becomes the instance
      *                      variable name. "foo" -> "$this->contentForFoo"

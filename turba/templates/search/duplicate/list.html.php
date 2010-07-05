@@ -3,19 +3,19 @@
 <? endif; ?>
 <br />
 <? foreach ($this->duplicates as $field => $duplicates): ?>
-<h3><?= $this->h(sprintf(_("Duplicates of %s"), $this->attributes[$field]['label'])) ?></h3>
+<h3><?php echo $this->h(sprintf(_("Duplicates of %s"), $this->attributes[$field]['label'])) ?></h3>
 <table class="horde-table horde-block-links sortable">
   <thead>
     <tr>
-      <th><?= $this->h($this->attributes[$field]['label']) ?></th>
-      <th><?= _("Count") ?></th>
+      <th><?php echo $this->h($this->attributes[$field]['label']) ?></th>
+      <th><?php echo _("Count") ?></th>
     </tr>
   </thead>
   <tbody>
     <? foreach ($duplicates as $value => $list): ?>
     <tr>
-      <td><a href="<?= $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?= $this->h($value) ?></a></td>
-      <td><a href="<?= $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?= $list->count() ?></a></td>
+      <td><a href="<?php echo $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?php echo $this->h($value) ?></a></td>
+      <td><a href="<?php echo $this->link->add(array('type' => $field, 'dupe' => $value)) ?>"><?php echo $list->count() ?></a></td>
     </tr>
     <? endforeach; ?>
   </tbody>

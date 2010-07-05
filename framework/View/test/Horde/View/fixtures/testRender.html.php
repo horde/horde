@@ -1,1 +1,1 @@
-<div><?= $this->myVar ?></div>
+<div><?php echo $this->myVar ?></div>

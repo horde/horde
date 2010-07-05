@@ -355,15 +355,15 @@ if (!$app) {
 
 
 	?>
-<a name="<?= md5($encstr) ?>">
-<table border=0 width=100% style="border: solid <?= $bgcolor ?>;">
+<a name="<?php echo md5($encstr) ?>">
+<table border=0 width=100% style="border: solid <?php echo $bgcolor ?>;">
 <tr>
  <td valign=top  class="control" style="height: 18px; border-bottom: 1px solid #999;"><b>MSGID</b></td>
  <td valign=top  class="control"  style="height: 18px; border-bottom: 1px solid #999;"><b>REFERENCES</b></td>
  <td valign=top  class="control"  style="height: 18px; border-bottom: 1px solid #999;"><b>STATUS</b></td>
 </tr>
 <tr><td valign=top  class="item0">
-  <?= Translate_Display::display_string($msgid) ?><br />&nbsp;
+  <?php echo Translate_Display::display_string($msgid) ?><br />&nbsp;
 </td>
 <td valign=top  rowspan=3 width=30%>
 <table border=0 width=100% cellspacing=0 cellpadding=0>

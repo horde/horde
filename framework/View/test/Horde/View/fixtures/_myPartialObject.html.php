@@ -1,1 +1,1 @@
-<p><?= $myPartialObject->string_value ?></p>
+<p><?php echo $myPartialObject->string_value ?></p>

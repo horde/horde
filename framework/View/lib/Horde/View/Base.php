@@ -261,7 +261,7 @@ abstract class Horde_View_Base
      *
      * <code>
      *   <div>
-     *   <?= $this->renderPartial('sidebarInfo') ?>
+     *   <?php echo $this->renderPartial('sidebarInfo') ?>
      *   </div>
      * </code>
      *

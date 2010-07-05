@@ -26,7 +26,7 @@
 
       <div id="sidebar-left" class="sidebar">
         <div class="clear-block block">
-            <?= $this->render('left.html.php') ?>
+            <?php echo $this->render('left.html.php') ?>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <div id="squeeze">
             <div class="right-corner">
                 <div class="left-corner">
-                    <?= $this->render('app.html.php') ?>
+                    <?php echo $this->render('app.html.php') ?>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
 
       <div id="sidebar-right" class="sidebar">
         <div class="clear-block block">
-          <?= $this->render('right.html.php') ?>
+          <?php echo $this->render('right.html.php') ?>
          </div>
       </div>
 

@@ -39,7 +39,7 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * Escapes a value for output in a view template.
      *
      * <code>
-     *   <p><?= $this->h($this->templateVar) ?></p>
+     *   <p><?php echo $this->h($this->templateVar) ?></p>
      * </code>
      *
      * @param   mixed   $var The output to escape.
@@ -78,7 +78,7 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * classes for table rows:
      *
      *   <? foreach($items as $item): ?>
-     *     <tr class="<?= $this->cycle("even", "odd") ?>">
+     *     <tr class="<?php echo $this->cycle("even", "odd") ?>">
      *       <td>item</td>
      *     </tr>
      *   <% endforeach %>
@@ -89,10 +89,10 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * name of the cycle.
      *
      *   <? foreach($items as $item): ?>
-     *     <tr class="<?= $this->cycle("even", "odd", array('name' => "row_class")) ?>">
+     *     <tr class="<?php echo $this->cycle("even", "odd", array('name' => "row_class")) ?>">
      *       <td>
      *         <? foreach ($item->values as $value) ?>
-     *           <span style="color:<?= $this->cycle("red", "green", "blue", array('name' => "colors")) ?>">
+     *           <span style="color:<?php echo $this->cycle("red", "green", "blue", array('name' => "colors")) ?>">
      *             value
      *           </span>
      *         <% end %>
