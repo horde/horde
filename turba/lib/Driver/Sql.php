@@ -278,6 +278,10 @@ class Turba_Driver_Sql extends Turba_Driver
         if (isset($this->map['email'])) {
             $fields[] = $this->map['email'];
         }
+        $nameFormat = $GLOBALS['prefs']->getValue('name_format');;
+        if ($nameFormat != 'first_last' && $nameFormat != 'last_first') {
+            $nameFormat = 'first_last';
+        }
 
         $order = $this->_buildFields($fields);
         $joins = $this->_buildJoin($fields);
@@ -316,6 +320,9 @@ class Turba_Driver_Sql extends Turba_Driver
             foreach ($ids as $id) {
                 $contact = $this->getObject($id);
                 $value = $contact->getValue($field);
+                if ($field == 'name') {
+                    $value = Turba::formatName($contact, $nameFormat);
+                }
                 /* HACK! */
                 if ($field == 'email') {
                     $value = Horde_String::lower($value);
