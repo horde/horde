@@ -241,10 +241,10 @@ KronolithCore = {
         }, this);
     },
 
-    logout: function()
+    logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(Kronolith.conf.URI_AJAX + 'logOut');
+        this.redirect(url || (Kronolith.conf.URI_AJAX + 'logOut'));
     },
 
     redirect: function(url, force)
