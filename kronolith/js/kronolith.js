@@ -4782,7 +4782,7 @@ KronolithCore = {
         }
         $('kronolithEventSave').show().enable();
         $('kronolithEventSaveAsNew').show().enable();
-        $('kronolithEventDelete').show();
+        $('kronolithEventDelete').show().enable();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         if (id) {
             RedBox.loading();
