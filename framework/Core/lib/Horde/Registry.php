@@ -1104,7 +1104,7 @@ class Horde_Registry
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
-            if ($this->getAuth() && !$this->checkExistingAuth($app)) {
+            if ($this->getAuth() && !$this->checkExistingAuth()) {
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
 
@@ -1698,7 +1698,7 @@ class Horde_Registry
         if ($this->getAuth() &&
             (($app == 'horde') ||
              isset($_SESSION['horde_auth']['app'][$app]))) {
-            return $this->checkExistingAuth($app);
+            return $this->checkExistingAuth();
         }
 
         /* Try transparent authentication. */
@@ -2031,16 +2031,10 @@ class Horde_Registry
     /**
      * Check existing auth for triggers that might invalidate it.
      *
-     * @param string $app  Check authentication for this app.
-     *
      * @return boolean  Is existing auth valid?
      */
-    public function checkExistingAuth($app)
+    public function checkExistingAuth()
     {
-        if ($app != 'horde') {
-            return true;
-        }
-
         $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
