@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-11-26</date>
- <time>22:26:28</time>
+ <date>2010-07-05</date>
+ <time>05:44:10</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -43,16 +43,16 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Qc">
-      <file name="Autoloader.php" role="php" />
       <dir name="Config">
        <file name="Cli.php" role="php" />
       </dir> <!-- /lib/Horde/Qc/Config -->
-      <file name="Config.php" role="php" />
-      <file name="Configs.php" role="php" />
-      <file name="Exception.php" role="php" />
       <dir name="Module">
        <file name="PearPackageXml.php" role="php" />
       </dir> <!-- /lib/Horde/Qc/Module -->
+      <file name="Autoloader.php" role="php" />
+      <file name="Config.php" role="php" />
+      <file name="Configs.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Module.php" role="php" />
       <file name="Modules.php" role="php" />
      </dir> <!-- /lib/Horde/Qc -->
@@ -62,6 +62,22 @@
    <dir name="script">
     <file name="horde-quality-control.php" role="script" />
    </dir> <!-- /script -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Qc">
+      <dir name="Integration">
+       <file name="QcTest.php" role="test" />
+      </dir> <!-- /test/Horde/Qc/Integration -->
+      <dir name="Stub">
+       <file name="Parser.php" role="test" />
+      </dir> <!-- /test/Horde/Qc/Stub -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="StoryTestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Qc -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
    <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
@@ -94,13 +110,36 @@
    <install as="Horde/Qc.php" name="lib/Horde/Qc.php" />
    <install as="Horde/Qc/Autoloader.php" name="lib/Horde/Qc/Autoloader.php" />
    <install as="Horde/Qc/Config.php" name="lib/Horde/Qc/Config.php" />
-   <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
    <install as="Horde/Qc/Configs.php" name="lib/Horde/Qc/Configs.php" />
    <install as="Horde/Qc/Exception.php" name="lib/Horde/Qc/Exception.php" />
    <install as="Horde/Qc/Module.php" name="lib/Horde/Qc/Module.php" />
-   <install as="Horde/Qc/Module/PearPackageXml.php" name="lib/Horde/Qc/Module/PearPackageXml.php" />
    <install as="Horde/Qc/Modules.php" name="lib/Horde/Qc/Modules.php" />
-   <install as="hqc" name="script/horde-quality-control.php" />
+   <install as="Horde/Qc/Config/Cli.php" name="lib/Horde/Qc/Config/Cli.php" />
+   <install as="Horde/Qc/Module/PearPackageXml.php" name="lib/Horde/Qc/Module/PearPackageXml.php" />
+   <install as="horde-quality-control" name="script/horde-quality-control.php" />
+   <install as="Horde/Qc/AllTests.php" name="test/Horde/Qc/AllTests.php" />
+   <install as="Horde/Qc/Autoload.php" name="test/Horde/Qc/Autoload.php" />
+   <install as="Horde/Qc/phpunit.xml" name="test/Horde/Qc/phpunit.xml" />
+   <install as="Horde/Qc/StoryTestCase.php" name="test/Horde/Qc/StoryTestCase.php" />
+   <install as="Horde/Qc/Integration/QcTest.php" name="test/Horde/Qc/Integration/QcTest.php" />
+   <install as="Horde/Qc/Stub/Parser.php" name="test/Horde/Qc/Stub/Parser.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-07-05</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* Initial release
+   </notes>
+  </release>
+ </changelog>
 </package>
