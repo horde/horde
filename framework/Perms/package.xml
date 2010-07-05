@@ -39,10 +39,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Perms">
       <dir name="Permission">
-       <file name="DataTreeObject.php" role="php" />
        <file name="SqlObject.php" role="php" />
       </dir> <!-- /lib/Horde/Perms/Permission -->
-      <file name="Datatree.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Permission.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -74,10 +72,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Tree</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -85,10 +79,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Perms/Datatree.php" as="Horde/Perms/Datatree.php" />
    <install name="lib/Horde/Perms/Exception.php" as="Horde/Perms/Exception.php" />
    <install name="lib/Horde/Perms/Permission.php" as="Horde/Perms/Permission.php" />
-   <install name="lib/Horde/Perms/Permission/DataTreeObject.php" as="Horde/Perms/Permission/DataTreeObject.php" />
    <install name="lib/Horde/Perms/Permission/SqlObject.php" as="Horde/Perms/Permission/SqlObject.php" />
    <install name="lib/Horde/Perms/Sql.php" as="Horde/Perms/Sql.php" />
    <install name="lib/Horde/Perms.php" as="Horde/Perms.php" />

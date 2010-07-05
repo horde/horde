@@ -7,20 +7,12 @@ class Horde_Core_Binder_Perms implements Horde_Injector_Binder
 {
     public function create(Horde_Injector $injector)
     {
-        $driver = empty($GLOBALS['conf']['perms']['driver'])
-            ? (empty($GLOBALS['conf']['datatree']['driver']) ? null : 'Datatree')
-            : $GLOBALS['conf']['perms']['driver'];
+        $driver = $GLOBALS['conf']['perms']['driver'];
         $params = isset($GLOBALS['conf']['perms'])
             ? Horde::getDriverConfig('perms', $driver)
             : array();
 
-        if (strcasecmp($driver, 'Datatree') === 0) {
-            $dt_driver = $GLOBALS['conf']['datatree']['driver'];
-            $params['datatree'] = DataTree::singleton(
-                $dt_driver,
-                array_merge(Horde::getDriverConfig('datatree', $dt_driver), array('group' => 'horde.perms'))
-            );
-        } elseif (strcasecmp($driver, 'Sql') === 0) {
+        if (strcasecmp($driver, 'Sql') === 0) {
             $params['db'] = $injector->getInstance('Horde_Db')->getDb('horde', 'perms');
         }
 
