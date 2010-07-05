@@ -122,6 +122,13 @@ implements Horde_Qc_Module
                     $file['attribs']['name'], $components[1]
                 );
             break;
+            case 'migration':
+                $components = explode('/', $components[1]);
+                array_splice($components, count($components) - 1, 0, 'migration');
+                $package->addInstallAs(
+                    $file['attribs']['name'], implode('/', $components)
+                );
+                break;
             case 'script':
                 $filename = basename($file['attribs']['name']);
                 if (substr($filename, strlen($filename) - 4)) {
@@ -129,13 +136,6 @@ implements Horde_Qc_Module
                 }
                 $package->addInstallAs(
                     $file['attribs']['name'], $filename
-                );
-                break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
-                $package->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
                 );
                 break;
             }
