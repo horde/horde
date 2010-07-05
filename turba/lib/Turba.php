@@ -221,9 +221,14 @@ class Turba {
     /**
      * Formats the name according to the user's preference.
      *
+     * If the format is 'none', the full name with all parts is returned. If
+     * the format is 'last_first' or 'first_last', only the first name and
+     * last name are returned.
+     *
      * @param Turba_Object $ob     The object to get a name from.
      * @param string $name_format  The formatting. One of 'none', 'last_first'
-     *                             or 'first_last'.
+     *                             or 'first_last'. Defaults to the user
+     *                             preference.
      *
      * @return string  The formatted name, either "Firstname Lastname"
      *                 or "Lastname, Firstname" depending on $name_format or
