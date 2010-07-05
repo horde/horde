@@ -23,11 +23,11 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
+class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 {
     /**
-     * Mysqli database connection object.
-     * @var mysqli
+     * Mysql database connection handle.
+     * @var resource
      */
     protected $_connection = null;
 
@@ -42,11 +42,6 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     protected $_schemaClass = 'Horde_Db_Adapter_Mysql_Schema';
 
-    /**
-     * @var boolean
-     */
-    protected $_hasMysqliFetchAll = false;
-
 
     /*##########################################################################
     # Public
@@ -60,7 +55,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function adapterName()
     {
-        return 'MySQLi';
+        return 'MySQL';
     }
 
     /**
@@ -81,34 +76,6 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
 
     /**
      * Connect to the db
-     *
-     * MySQLi can connect using SSL if $config contains an 'ssl' sub-array
-     * containing the following keys:
-     *     + key      The path to the key file.
-     *     + cert     The path to the certificate file.
-     *     + ca       The path to the certificate authority file.
-     *     + capath   The path to a directory that contains trusted SSL
-     *                CA certificates in pem format.
-     *     + cipher   The list of allowable ciphers for SSL encryption.
-     *
-     * Example of how to connect using SSL:
-     * <code>
-     * $config = array(
-     *     'username' => 'someuser',
-     *     'password' => 'apasswd',
-     *     'hostspec' => 'localhost',
-     *     'database' => 'thedb',
-     *     'ssl'      => array(
-     *         'key'      => 'client-key.pem',
-     *         'cert'     => 'client-cert.pem',
-     *         'ca'       => 'cacert.pem',
-     *         'capath'   => '/path/to/ca/dir',
-     *         'cipher'   => 'AES',
-     *     ),
-     * );
-     *
-     * $db = new Horde_Db_Adapter_Mysqli($config);
-     * </code>
      */
     public function connect()
     {
@@ -118,44 +85,27 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
 
         $config = $this->_parseConfig();
 
-        if (!empty($config['ssl'])) {
-            $mysqli = mysqli_init();
-            $mysqli->ssl_set(
-                empty($config['ssl']['key'])    ? null : $config['ssl']['key'],
-                empty($config['ssl']['cert'])   ? null : $config['ssl']['cert'],
-                empty($config['ssl']['ca'])     ? null : $config['ssl']['ca'],
-                empty($config['ssl']['capath']) ? null : $config['ssl']['capath'],
-                empty($config['ssl']['cipher']) ? null : $config['ssl']['cipher']
-            );
-            $mysqli->real_connect(
-                $config['host'], $config['username'], $config['password'],
-                $config['dbname'], $config['port'], $config['socket']);
-        } else {
-            $oldErrorReporting = error_reporting(0);
-            $mysqli = new mysqli(
-                $config['host'], $config['username'], $config['password'],
-                $config['dbname'], $config['port'], $config['socket']);
-            error_reporting($oldErrorReporting);
+        $oldErrorReporting = error_reporting(0);
+        $oldTrackErrors = ini_set('track_errors', 1);
+        $mysql = mysql_connect(
+            $config['host'], $config['username'], $config['password']);
+        error_reporting($oldErrorReporting);
+        ini_set('track_errors', $oldTrackErrors);
+
+        if (!$mysql) {
+            throw new Horde_Db_Exception('Connect failed: ' . $php_errormsg);
         }
-        if (mysqli_connect_errno()) {
-            throw new Horde_Db_Exception('Connect failed: (' . mysqli_connect_errno() . ') ' . mysqli_connect_error(), mysqli_connect_errno());
+        if (!mysql_select_db($config['dbname'])) {
+            throw new Horde_Db_Exception('Could not select database: ' . $config['dbname']);
         }
 
-        // If supported, request real datatypes from MySQL instead of returning
-        // everything as a string.
-        if (defined('MYSQLI_OPT_INT_AND_FLOAT_NATIVE')) {
-            $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
-        }
-
-        $this->_connection = $mysqli;
+        $this->_connection = $mysql;
         $this->_active     = true;
 
         // Set the default charset. http://dev.mysql.com/doc/refman/5.1/en/charset-connection.html
         if (!empty($config['charset'])) {
             $this->setCharset($config['charset']);
         }
-
-        $this->_hasMysqliFetchAll = function_exists('mysqli_fetch_all');
     }
 
     /**
@@ -163,7 +113,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function disconnect()
     {
-        if ($this->_connection) { $this->_connection->close(); }
+        if ($this->_connection) { mysql_close($this->_connection); }
         $this->_connection = null;
         $this->_active = false;
     }
@@ -175,7 +125,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-        return isset($this->_connection) && $this->_connection->query('SELECT 1');
+        return isset($this->_connection) && mysql_ping($this->_connection);
     }
 
 
@@ -192,7 +142,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function quoteString($string)
     {
-        return "'".$this->_connection->real_escape_string($string)."'";
+        return "'" . mysql_real_escape_string($string, $this->_connection) . "'";
     }
 
 
@@ -209,9 +159,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      * @return  array
      */
-    public function select($sql, $arg1=null, $arg2=null)
+    public function select($sql, $arg1 = null, $arg2 = null)
     {
-        return new Horde_Db_Adapter_Mysqli_Result($this, $sql, $arg1, $arg2);
+        return new Horde_Db_Adapter_Mysql_Result($this, $sql, $arg1, $arg2);
     }
 
     /**
@@ -222,17 +172,13 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   mixed   $arg1  Either an array of bound parameters or a query name.
      * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
      */
-    public function selectAll($sql, $arg1=null, $arg2=null)
+    public function selectAll($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        if ($this->_hasMysqliFetchAll) {
-            return $result->fetch_all(MYSQLI_BOTH);
-        } else {
-            $rows = array();
-            if ($result) {
-                while ($row = $result->fetch_array()) {
-                    $rows[] = $row;
-                }
+        $rows = array();
+        if ($result) {
+            while ($row = mysql_fetch_array($result)) {
+                $rows[] = $row;
             }
         }
         return $rows;
@@ -250,7 +196,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function selectOne($sql, $arg1=null, $arg2=null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetch_array() : array();
+        return $result ? mysql_fetch_array($result) : array();
     }
 
     /**
@@ -280,7 +226,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $values = array();
         $result = $this->execute($sql, $arg1, $arg2);
         if ($result) {
-            while ($row = $result->fetch_row()) {
+            while ($row = mysql_fetch_row($result)) {
                 $values[] = $row[0];
             }
         }
@@ -306,20 +252,18 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $t = new Horde_Support_Timer();
         $t->push();
 
-        $stmt = $this->_connection->query($sql);
+        $stmt = mysql_query($sql, $this->_connection);
         if (!$stmt) {
-            $this->_logInfo($sql, 'QUERY FAILED: ' . $this->_connection->error);
+            $this->_logInfo($sql, 'QUERY FAILED: ' . mysql_error($this->_connection));
             $this->_logInfo($sql, $name);
-            throw new Horde_Db_Exception('QUERY FAILED: ' . $this->_connection->error . "\n\n" . $sql,
-                                         $this->_errorCode($this->_connection->sqlstate, $this->_connection->errno));
+            throw new Horde_Db_Exception('QUERY FAILED: ' . mysql_error($this->_connection) . "\n\n" . $sql,
+                                         $this->_errorCode(null, mysql_errno($this->_connection)));
         }
 
         $this->_logInfo($sql, $name, $t->pop());
-        //@TODO if ($this->_connection->info) $this->_loginfo($sql, $this->_connection->info);
-        //@TODO also log warnings? http://php.net/mysqli.warning-count and http://php.net/mysqli.get-warnings
 
-        $this->_rowCount = $this->_connection->affected_rows;
-        $this->_insertId = $this->_connection->insert_id;
+        $this->_rowCount = mysql_affected_rows($this->_connection);
+        $this->_insertId = mysql_insert_id($this->_connection);
         return $stmt;
     }
 
@@ -333,7 +277,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      * @param   int     $idValue
      * @param   string  $sequenceName
      */
-    public function insert($sql, $arg1=null, $arg2=null, $pk=null, $idValue=null, $sequenceName=null)
+    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null, $idValue = null, $sequenceName = null)
     {
         $this->execute($sql, $arg1, $arg2);
         return isset($idValue) ? $idValue : $this->_insertId;
@@ -345,7 +289,28 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function beginDbTransaction()
     {
         $this->_transactionStarted = true;
-        $this->_connection->autocommit(false);
+        @mysql_query('SET AUTOCOMMIT=0', $this->_connection) && @mysql_query('BEGIN', $this->_connection);
+    }
+
+    /**
+     * Commits the transaction (and turns on auto-committing).
+     */
+    public function commitDbTransaction()
+    {
+        @mysql_query('COMMIT', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
+        $this->_transactionStarted = false;
+    }
+
+    /**
+     * Rolls back the transaction (and turns on auto-committing). Must be
+     * done if the transaction block raises an exception or returns false.
+     */
+    public function rollbackDbTransaction()
+    {
+        if (! $this->_transactionStarted) { return; }
+
+        @mysql_query('ROLLBACK', $this->_connection) && @mysql_query('SET AUTOCOMMIT=1', $this->_connection);
+        $this->_transactionStarted = false;
     }
 
     /**
@@ -386,10 +351,10 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     }
 
     /**
-     * Parse configuration array into options for MySQLi constructor.
+     * Parse configuration array into options for mysql_connect
      *
      * @throws  Horde_Db_Exception
-     * @return  array  [host, username, password, dbname, port, socket]
+     * @return  array  [host, username, password, dbname]
      */
     protected function _parseConfig()
     {
@@ -400,6 +365,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
             $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
             throw new Horde_Db_Exception($msg);
         }
+
         $rails2mysqli = array('database' => 'dbname');
         foreach ($rails2mysqli as $from => $to) {
             if (isset($this->_config[$from])) {
@@ -407,11 +373,23 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
                 unset($this->_config[$from]);
             }
         }
+
         if (isset($this->_config['port'])) {
             if (empty($this->_config['host'])) {
                 $msg = 'host is required if port is specified';
                 throw new Horde_Db_Exception($msg);
             }
+            $this->_config['host'] .= ':' . $this->_config['port'];
+            unset($this->_config['port']);
+        }
+
+        if (!empty($this->_config['socket'])) {
+            if (!empty($this->_config['host']) && $this->_config['host'] != 'localhost') {
+                $msg = 'can only specify host or socket, not both';
+                throw new Horde_Db_Exception($msg);
+            }
+            $this->_config['host'] = ':' . $this->_config['socket'];
+            unset($this->_config['socket']);
         }
 
         $config = $this->_config;
@@ -420,8 +398,6 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         if (!isset($config['username']))  $config['username'] = null;
         if (!isset($config['password']))  $config['password'] = null;
         if (!isset($config['dbname']))    $config['dbname'] = null;
-        if (!isset($config['port']))      $config['port'] = null;
-        if (!isset($config['socket']))    $config['socket'] = null;
 
         return $config;
     }

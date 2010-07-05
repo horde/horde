@@ -52,6 +52,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/Db/Adapter/Mssql -->
        <dir name="Mysql">
         <file name="Column.php" role="php" />
+        <file name="Result.php" role="php" />
         <file name="Schema.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysql -->
        <dir name="Mysqli">
@@ -77,6 +78,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/Db/Adapter/Sqlite -->
        <file name="Base.php" role="php" />
        <file name="Oci8.php" role="php" />
+       <file name="Mysql.php" role="php" />
        <file name="Mysqli.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
       <dir name="Migration">
@@ -129,7 +131,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Db/Adapter/Mssql/Schema.php" as="Horde/Db/Adapter/Mssql/Schema.php" />
 
    <install name="lib/Horde/Db/Adapter/Mysql/Column.php" as="Horde/Db/Adapter/Mysql/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Mysql/Result.php" as="Horde/Db/Adapter/Mysql/Result.php" />
    <install name="lib/Horde/Db/Adapter/Mysql/Schema.php" as="Horde/Db/Adapter/Mysql/Schema.php" />
+   <install name="lib/Horde/Db/Adapter/Mysql.php" as="Horde/Db/Adapter/Mysql.php" />
 
    <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Result.php" />
    <install name="lib/Horde/Db/Adapter/Mysqli.php" as="Horde/Db/Adapter/Mysqli.php" />
