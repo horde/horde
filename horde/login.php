@@ -155,8 +155,10 @@ if ($error_reason) {
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
 
-    /* Redirect the user on logout if redirection is enabled. */
-    if (!empty($conf['auth']['redirect_on_logout'])) {
+    /* Redirect the user on logout if redirection is enabled and this is an
+     * an intended logout. */
+    if ($error_reason == Horde_Auth::REASON_LOGOUT &&
+        !empty($conf['auth']['redirect_on_logout'])) {
         $logout_url = new Horde_Url($conf['auth']['redirect_on_logout'], true);
         if (!isset($_COOKIE[session_name()])) {
             $logout_url->add(session_name(), session_id());
