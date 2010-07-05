@@ -731,7 +731,20 @@ class Horde_Config
         );
 
         if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
-            return $fields;
+            return array(
+                'desc' => 'Use LDAP?',
+                'default' => $this->_default($ctx . '|' . $node->getAttribute('switchname'), false),
+                'switch' => array(
+                    'false' => array(
+                        'desc' => 'No',
+                        'fields' => array()
+                    ),
+                    'true' => array(
+                        'desc' => 'Yes',
+                        'fields' => $fields
+                    ),
+                )
+            );
         }
 
         list($default, $isDefault) = $this->__default($ctx . '|' . (isset($node) ? $node->getAttribute('switchname') : $switchname), 'horde');
