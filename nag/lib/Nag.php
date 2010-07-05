@@ -469,22 +469,28 @@ class Nag
      *
      * @param Horde_Share $share  The share to update.
      * @param array $info         Hash with task list information.
+     *
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Nag_Exception
      */
-    public static function updateTasklist(&$tasklist, $info)
+    public static function updateTasklist($tasklist, $info)
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to change this task list."));
+
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to change this task list."));
         }
 
         $tasklist->set('name', $info['name']);
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
         $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-        $result = $tasklist->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $result->getMessage()));
+
+        try {
+            $tasklist->save();
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $e->getMessage()));
         }
     }
 
@@ -496,24 +502,28 @@ class Nag
     public static function deleteTasklist($tasklist)
     {
         if ($tasklist->getName() == $GLOBALS['registry']->getAuth()) {
-            return PEAR::raiseError(_("This task list cannot be deleted."));
+            throw new Horde_Exception_PermissionDenied(_("This task list cannot be deleted."));
         }
 
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to delete this task list."));
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to delete this task list."));
         }
 
         // Delete the task list.
         $storage = &Nag_Driver::singleton($tasklist->getName());
         $result = $storage->deleteAll();
         if ($result instanceof PEAR_Error) {
-            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
+            throw new Nag_Exception(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
         }
 
         // Remove share and all groups/permissions.
-        return $GLOBALS['nag_shares']->removeShare($tasklist);
+        try {
+            return $GLOBALS['nag_shares']->removeShare($tasklist);
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception($e);
+        }
     }
 
     /**

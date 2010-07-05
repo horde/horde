@@ -23,11 +23,11 @@ $form = new Nag_CreateTaskListForm($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $form->execute();
         $notification->push(sprintf(_("The task list \"%s\" has been created."), $vars->get('name')), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
 
     header('Location: ' . Horde::applicationUrl('tasklists/', true));

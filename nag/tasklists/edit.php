@@ -36,15 +36,15 @@ $form = new Nag_EditTaskListForm($vars, $tasklist);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $original_name = $tasklist->get('name');
-    $result = $form->execute();
-    if ($result instanceof PEAR_Error) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $result = $form->execute();
         if ($tasklist->get('name') != $original_name) {
             $notification->push(sprintf(_("The task list \"%s\" has been renamed to \"%s\"."), $original_name, $tasklist->get('name')), 'horde.success');
         } else {
             $notification->push(sprintf(_("The task list \"%s\" has been saved."), $original_name), 'horde.success');
         }
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
 
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
