@@ -3933,6 +3933,14 @@ KronolithCore = {
                 this.toggleRecurrence(id.substring(18));
                 break;
 
+            case 'kronolithEventRepeatDaily':
+            case 'kronolithEventRepeatWeekly':
+            case 'kronolithEventRepeatMonthly':
+            case 'kronolithEventRepeatYearly':
+            case 'kronolithEventRepeatLength':
+                this.toggleRecurrence(id.substring(20));
+                break;
+
             case 'kronolithEventSave':
                 this.saveEvent();
                 e.stop();
@@ -5013,7 +5021,6 @@ KronolithCore = {
                 schemeLower = scheme.toLowerCase(),
                 div = $('kronolithEventRepeat' + scheme);
             $('kronolithEventLink' + scheme).setValue(true);
-            this.toggleRecurrence(scheme);
             if (scheme == 'Monthly' || scheme == 'Yearly') {
                 div.down('input[name=recur_' + schemeLower + '_scheme][value=' + ev.r.t + ']').setValue(true);
             }
@@ -5040,6 +5047,7 @@ KronolithCore = {
             } else {
                 $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
             }
+            this.toggleRecurrence(scheme);
         } else if (ev.bid) {
             var div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
@@ -5280,13 +5288,44 @@ KronolithCore = {
      */
     toggleRecurrence: function(recur)
     {
-        $('kronolithEventTabRecur').select('div').invoke('hide');
+        if (recur != 'Length') {
+            $('kronolithEventTabRecur').select('div').invoke('hide');
+        }
+
         if (recur == 'Exception') {
             $('kronolithEventRepeatException').show();
         } else if (recur != 'None') {
-            $('kronolithEventRepeat' + recur).show();
-            $('kronolithEventRepeatLength').show();
+            var div = $('kronolithEventRepeat' + recur),
+                length = $('kronolithEventRepeatLength');
+            div.show();
+            length.show();
             $('kronolithEventRepeatType').show();
+            switch (recur) {
+            case 'Daily':
+            case 'Weekly':
+            case 'Monthly':
+            case 'Yearly':
+                var recurLower = recur.toLowerCase();
+                if (div.down('input[name=recur_' + recurLower + '][value=1]').checked) {
+                    div.down('input[name=recur_' + recurLower + '_interval]').disable();
+                } else {
+                    div.down('input[name=recur_' + recurLower + '_interval]').enable();
+                }
+                break;
+            }
+
+            if (length.down('input[name=recur_end_type][value=date]').checked) {
+                $('kronolithEventRecurDate').enable();
+                $('kronolithEventRecurPicker').setStyle({ visibility: 'visible' });
+            } else {
+                $('kronolithEventRecurDate').disable();
+                $('kronolithEventRecurPicker').setStyle({ visibility: 'hidden' });
+            }
+            if (length.down('input[name=recur_end_type][value=count]').checked) {
+                $('kronolithEventRecurCount').enable();
+            } else {
+                $('kronolithEventRecurCount').disable();
+            }
         } else {
             $('kronolithEventRepeatType').show();
         }
