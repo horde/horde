@@ -61,82 +61,93 @@ implements Horde_Qc_Module
         );
     }
 
-    public function handle(array $config)
+    public function handle(Horde_Qc_Config $config)
     {
-    }
-
-    public function run()
-    {
-
-PEAR::setErrorHandling(PEAR_ERROR_DIE);
-
-
-        $package_file = $package_path . '/package.xml';
-
-if (!file_exists($package_file)) {
-    print sprintf("There is no package.xml at %s!\n", $package_path);
-    exit(1);
-}
-
-$package = PEAR_PackageFileManager2::importOptions(
-    $package_file,
-    array(
-        'packagedirectory' => $package_path,
-        'filelistgenerator' => 'file',
-        'clearcontents' => false,
-        'clearchangelog' => false,
-        'simpleoutput' => true,
-        'include' => '*',
-        'dir_roles' =>
-        array(
-            'lib'     => 'php',
-            'doc'     => 'doc',
-            'example' => 'doc',
-            'script'  => 'script',
-            'test'    => 'test',
-        ),
-    )
-);
-
-$package->generateContents();
-
-/**
- * This is required to clear the <phprelease><filelist></filelist></phprelease>
- * section.
- */
-$package->setPackageType('php');
-
-$contents = $package->getContents();
-$files = $contents['dir']['file'];
-
-foreach ($files as $file) {
-    $components = explode('/', $file['attribs']['name'], 2);
-    switch ($components[0]) {
-    case 'doc':
-    case 'example':
-    case 'lib':
-    case 'test':
-        $package->addInstallAs(
-            $file['attribs']['name'], $components[1]
-        );
-        break;
-    case 'script':
-        $filename = basename($file['attribs']['name']);
-        if (substr($filename, strlen($filename) - 4)) {
-            $filename = substr($filename, 0, strlen($filename) - 4);
+        $options = $config->getOptions();
+        if (!empty($options['packagexml']) ||
+            !empty($options['updatexml'])) {
+            $this->run($config);
         }
-        $package->addInstallAs(
-            $file['attribs']['name'], $filename
-        );
-        break;
     }
-}
 
-if (!empty($opts['update_packagexml'])) {
-    $package->writePackageFile();
-} else {
-    $package->debugPackageFile();
-}
+    public function run(Horde_Qc_Config $config)
+    {
+        $arguments = $config->getArguments();
+        $package_file = $arguments[0] . '/package.xml';
+
+        $pear = new PEAR();
+        $pear->setErrorHandling(PEAR_ERROR_DIE);
+
+        $package = PEAR_PackageFileManager2::importOptions(
+            $package_file,
+            array(
+                'packagedirectory' => $arguments[0],
+                'filelistgenerator' => 'file',
+                'clearcontents' => false,
+                'clearchangelog' => false,
+                'simpleoutput' => true,
+                'ignore' => array('*~', 'conf.php', 'CVS/*'),
+                'include' => '*',
+                'dir_roles' =>
+                array(
+                    'lib'       => 'php',
+                    'doc'       => 'doc',
+                    'example'   => 'doc',
+                    'script'    => 'script',
+                    'test'      => 'test',
+                    'migration' => 'data',
+                ),
+            )
+        );
+
+        $package->generateContents();
+
+        /**
+         * This is required to clear the <phprelease><filelist></filelist></phprelease>
+         * section.
+         */
+        $package->setPackageType('php');
+
+        $contents = $package->getContents();
+        $files = $contents['dir']['file'];
+
+        foreach ($files as $file) {
+            $components = explode('/', $file['attribs']['name'], 2);
+            switch ($components[0]) {
+            case 'doc':
+            case 'example':
+            case 'lib':
+            case 'test':
+                $package->addInstallAs(
+                    $file['attribs']['name'], $components[1]
+                );
+            break;
+            case 'script':
+                $filename = basename($file['attribs']['name']);
+                if (substr($filename, strlen($filename) - 4)) {
+                    $filename = substr($filename, 0, strlen($filename) - 4);
+                }
+                $package->addInstallAs(
+                    $file['attribs']['name'], $filename
+                );
+                break;
+            case 'migration':
+                $components = explode('/', $components[1]);
+                array_splice($components, count($components) - 1, 0, 'migration');
+                $package->addInstallAs(
+                    $file['attribs']['name'], implode('/', $components)
+                );
+                break;
+            }
+        }
+
+        $options = $config->getOptions();
+        if (!empty($options['packagexml'])) {
+            $package->debugPackageFile();
+        }
+        if (!empty($options['updatexml'])) {
+            $package->writePackageFile();
+        }
 
     }
 }

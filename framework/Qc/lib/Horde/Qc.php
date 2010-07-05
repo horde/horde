@@ -46,14 +46,13 @@ class Horde_Qc
         $modules = self::_prepareModules();
         $config->handleModules($modules);
         try {
-            self::_validateArguments($config->getArguments());
+            self::_validateArguments($config);
         } catch (Horde_Qc_Exception $e) {
             $parser->parserError($e->getMessage());
             return;
         }
-        $options = $config->getOptions();
         foreach ($modules as $module) {
-            $module->handle($options);
+            $module->handle($config);
         }
     }
 
@@ -89,8 +88,9 @@ class Horde_Qc
         return $modules;
     }
 
-    static private function _validateArguments(array $arguments)
+    static private function _validateArguments(Horde_Qc_Config $config)
     {
+        $arguments = $config->getArguments();
         if (empty($arguments[0])) {
             throw new Horde_Qc_Exception('Please specify the path of the PEAR package!');
         }

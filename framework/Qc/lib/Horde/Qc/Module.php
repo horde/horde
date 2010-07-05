@@ -33,7 +33,7 @@ interface Horde_Qc_Module
 
     public function getOptionGroupOptions();
 
-    public function handle(array $config);
+    public function handle(Horde_Qc_Config $config);
 
-    public function run();
+    public function run(Horde_Qc_Config $config);
 }

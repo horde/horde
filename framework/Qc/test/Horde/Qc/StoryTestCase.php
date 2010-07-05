@@ -65,7 +65,6 @@ extends PHPUnit_Extensions_Story_TestCase
             $_SERVER['argv'] = array(
                 'hqc',
                 '--help',
-                '--packagexml',
                 dirname(__FILE__) . '/fixture'
             );
             ob_start();
