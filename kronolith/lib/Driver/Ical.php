@@ -184,32 +184,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
-     * Returns a configured, cached HTTP client.
-     *
-     * @return Horde_Http_Client  A HTTP client.
-     */
-    protected function _getClient()
-    {
-        if ($this->_client) {
-            return $this->_client;
-        }
-
-        $options = array('request.timeout' => isset($this->_params['timeout'])
-                                              ? $this->_params['timeout']
-                                              : 5);
-        if (!empty($this->_params['user'])) {
-            $options['request.username'] = $this->_params['user'];
-            $options['request.password'] = $this->_params['password'];
-        }
-
-        $this->_client = $GLOBALS['injector']
-            ->getInstance('Horde_Http_Client')
-            ->getClient($options);
-
-        return $this->_client;
-    }
-
-    /**
      * Fetches a remote calendar into the session and return the data.
      *
      * @param boolean $cache  Whether to return data from the session cache.
@@ -277,6 +251,32 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         return $ical;
+    }
+
+    /**
+     * Returns a configured, cached HTTP client.
+     *
+     * @return Horde_Http_Client  A HTTP client.
+     */
+    protected function _getClient()
+    {
+        if ($this->_client) {
+            return $this->_client;
+        }
+
+        $options = array('request.timeout' => isset($this->_params['timeout'])
+                                              ? $this->_params['timeout']
+                                              : 5);
+        if (!empty($this->_params['user'])) {
+            $options['request.username'] = $this->_params['user'];
+            $options['request.password'] = $this->_params['password'];
+        }
+
+        $this->_client = $GLOBALS['injector']
+            ->getInstance('Horde_Http_Client')
+            ->getClient($options);
+
+        return $this->_client;
     }
 
 }
