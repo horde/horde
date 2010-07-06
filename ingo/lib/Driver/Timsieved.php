@@ -61,9 +61,11 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
                                       $this->_params['port'],
                                       $this->_params['logintype'],
                                       Ingo::getUser(false),
+                                      $this->_params['debug'],
                                       false,
-                                      false,
-                                      $this->_params['usetls']);
+                                      $this->_params['usetls'],
+                                      null,
+                                      array($this, '_debug'));
 
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
@@ -71,6 +73,8 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
             throw new Ingo_Exception($res);
         }
 
+        /* BC for older Net_Sieve versions that don't allow specify the debug
+         * handler in the constructor. */
         if (!empty($this->_params['debug'])) {
             $this->_sieve->setDebug(true, array($this, '_debug'));
         }
