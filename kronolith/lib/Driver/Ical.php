@@ -189,16 +189,24 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $url = trim($this->calendar);
 
         /* Treat webcal:// URLs as http://. */
-        if (substr($url, 0, 9) == 'webcal://') {
-            $url = str_replace('webcal://', 'http://', $url);
+        if (strpos($url, 'http') !== 0) {
+            $url = str_replace(array('webcal://', 'webdav://', 'webdavs://'),
+                               array('http://', 'http://', 'https://'),
+                               $url);
         }
 
-        $signature = $url . '|' . serialize($this->_params);
-        if ($cache && !empty($_SESSION['kronolith']['remote'][$signature])) {
-            if (!is_object($_SESSION['kronolith']['remote'][$signature])) {
-                throw new Kronolith_Exception($_SESSION['kronolith']['remote'][$signature]);
+        $cacheOb = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $cacheVersion = 1;
+        $signature = 'kronolith_remote_'  . $cacheVersion . '_' . $url . '_' . serialize($this->_params);
+        if ($cache) {
+            $calendar = $cacheOb->get($signature, 3600);
+            if ($calendar) {
+                $calendar = unserialize($calendar);
+                if (!is_object($calendar)) {
+                    throw new Kronolith_Exception($calendar);
+                }
+                return $calendar;
             }
-            return $_SESSION['kronolith']['remote'][$signature];
         }
 
         $options = array('request.timeout' => isset($this->_params['timeout'])
@@ -220,14 +228,19 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $response = $http->get($url);
         } catch (Horde_Http_Exception $e) {
             Horde::logMessage($e, 'INFO');
-            $_SESSION['kronolith']['remote'][$signature] = $e->getMessage();
+            if ($cache) {
+                $cacheOb->set($signature, $e->getMessage());
+            }
             throw new Kronolith_Exception($e);
         }
         if ($response->code != 200) {
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
                                       $url, $response->code), 'INFO');
-            $_SESSION['kronolith']['remote'][$signature] = sprintf(_("Could not open %s."), $url);
-            throw new Kronolith_Exception($_SESSION['kronolith']['remote'][$signature], $response->code);
+            $error = sprintf(_("Could not open %s."), $url);
+            if ($cache) {
+                $cacheOb->set($signature, $error);
+            }
+            throw new Kronolith_Exception($error, $response->code);
         }
 
         /* Log fetch at DEBUG level. */
@@ -235,13 +248,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                   $GLOBALS['registry']->getAuth(), $url), 'DEBUG');
 
         $data = $response->getBody();
-        $_SESSION['kronolith']['remote'][$signature] = new Horde_iCalendar();
-        $result = $_SESSION['kronolith']['remote'][$signature]->parsevCalendar($data);
+        $ical = new Horde_iCalendar();
+        $result = $ical->parsevCalendar($data);
+        if ($cache) {
+            $cacheOb->set($signature, $ical);
+        }
         if ($result instanceof PEAR_Error) {
             throw new Kronolith_Exception($result);
         }
 
-        return $_SESSION['kronolith']['remote'][$signature];
+        return $ical;
     }
 
 }
