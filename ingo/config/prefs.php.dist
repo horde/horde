@@ -25,7 +25,7 @@ $_prefs['auto_update'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Automatically update the script after each change?")
+    'desc' => _("Automatically activate the script after each change?")
 );
 
 // End script preferences
