@@ -108,31 +108,34 @@ if ($id) {
     }
 }
 
+$view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/admin/alarms'));
+new Horde_View_Helper_Text($view);
+
 try {
     $alarms = $horde_alarm->globalAlarms();
+    $url = Horde::url('alarms.php');
+    foreach ($alarms as &$alarm) {
+        $url->add('alarm', $alarm['id']);
+        $alarm['edit_link'] = $url->link()
+            . htmlspecialchars($alarm['title'])
+            . '</a>';
+        $alarm['delete_link'] = $url->copy()
+            ->add('delete', 1)
+            ->link(array('title' => sprintf(_("Delete \"%s\""), $alarm['title']),
+                         'onclick' => 'return confirm(\'' . addslashes(sprintf(_("Are you sure you want to delete '%s'?"), $alarm['title'])) . '\')'))
+            . Horde::img('delete.png')
+            . '</a>';
+    }
+    $view->alarms = $alarms;
 } catch (Horde_Alarm_Exception $e) {
-    $alarms = $e;
+    $view->alarms = array();
+    $view->error = sprintf(_("Listing alarms failed: %s"), $e->getMessage());
 }
 
 $title = _("Alarms");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
-
-echo '<h1 class="header">' . _("Current Alarms");
-if ($alarms instanceof Exception) {
-    echo '</h1><p class="headerbox"><em>' . sprintf(_("Listing alarms failed: %s"), $alarms->getMessage()) . '</em></p>';
-} else {
-    echo ' (' . count($alarms) . ')</h1>';
-    echo '<ul class="headerbox linedRow">';
-    foreach ($alarms as $alarm_details) {
-        $url = Horde_Util::addParameter(Horde::url('alarms.php'), 'alarm', $alarm_details['id']);
-        echo '<li>' . Horde::link(Horde_Util::addParameter($url, 'delete', 1), sprintf(_("Delete \"%s\""), $alarm_details['title']), '', '', 'return confirm(\'' . addslashes(sprintf(_("Are you sure you want to delete '%s'?"), $alarm_details['title'])) . '\')') . Horde::img('delete.png') . '</a> ' . Horde::link($url) . htmlspecialchars($alarm_details['title']) . '</a></li>';
-    }
-    echo '</ul>';
-}
-
-echo '<br />';
-
+echo $view->render('list');
 $form->renderActive();
 
 require HORDE_TEMPLATES . '/common-footer.inc';
