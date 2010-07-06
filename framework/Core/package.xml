@@ -115,6 +115,7 @@ Application Framework.</description>
        <file name="Db.php" role="php" />
        <file name="DbPear.php" role="php" />
        <file name="Editor.php" role="php" />
+       <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
@@ -327,6 +328,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Db.php" name="lib/Horde/Core/Factory/Db.php" />
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
    <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />
+   <install as="Horde/Core/Factory/HttpClient.php" name="lib/Horde/Core/Factory/HttpClient.php" />
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />

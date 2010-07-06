@@ -2269,7 +2269,9 @@ class IMP_Compose
             return $mime_part;
         }
 
-        $client = $GLOBALS['injector']->getInstance('Horde_Http_Client');
+        $client = $GLOBALS['injector']
+          ->getInstance('Horde_Http_Client')
+          ->getClient();
         $img_data = $img_parts = array();
 
         /* Go through list of results, download the image, and create

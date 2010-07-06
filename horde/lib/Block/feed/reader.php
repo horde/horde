@@ -21,11 +21,10 @@ class Horde_Block_Horde_feed_reader {
         }
 
         try {
-            if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                Horde_Feed::setHttpClient($GLOBALS['injector']->getInstance('Horde_Http_Client'));
-            }
-
-            $feed = Horde_Feed::readUri($uri);
+            $client = $GLOBALS['injector']
+              ->getInstance('Horde_Http_Client')
+              ->getClient();
+            $feed = Horde_Feed::readUri($uri, $client);
             $GLOBALS['cache']->set($key, serialize($feed));
             return $feed;
         } catch (Exception $e) {

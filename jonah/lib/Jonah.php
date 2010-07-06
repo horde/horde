@@ -44,7 +44,9 @@ class Jonah
     {
         global $conf;
 
-        $http = $GLOBALS['injector']->getInstance('Horde_Http_Client');
+        $http = $GLOBALS['injector']
+          ->getInstance('Horde_Http_Client')
+          ->getClient();
 
         try {
             $response = $http->get($url);
