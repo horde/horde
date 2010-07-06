@@ -92,6 +92,31 @@ class Horde_Alarm_Sql extends Horde_Alarm
     }
 
     /**
+     * Returns a list of all global alarms from the backend.
+     *
+     * @return array  A list of alarm hashes.
+     * @throws Horde_Alarm_Exception
+     */
+    protected function _global()
+    {
+        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_uid IS NULL OR alarm_uid = \'\' ORDER BY alarm_start, alarm_end',
+                         $this->_params['table']);
+
+        try {
+            $result = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Alarm_Exception($e);
+        }
+
+        $alarms = array();
+        foreach ($result as $val) {
+            $alarms[] = $this->_getHash($val);
+        }
+
+        return $alarms;
+    }
+
+    /**
      */
     protected function _getHash(array $alarm)
     {

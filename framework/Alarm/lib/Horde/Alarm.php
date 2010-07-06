@@ -200,6 +200,30 @@ abstract class Horde_Alarm
     abstract protected function _list($user, Horde_Date $time);
 
     /**
+     * Returns a list of all global alarms from the backend.
+     *
+     * @return array  A list of alarm hashes.
+     * @throws Horde_Alarm_Exception
+     */
+    public function globalAlarms()
+    {
+        $alarms = $this->_global();
+        foreach (array_keys($alarms) as $alarm) {
+            if (isset($alarms[$alarm]['mail']['body'])) {
+                $alarms[$alarm]['mail']['body'] = $this->_fromDriver($alarms[$alarm]['mail']['body']);
+            }
+        }
+        return $alarms;
+    }
+
+    /**
+     * Returns a list of all global alarms from the backend.
+     *
+     * @return array  A list of alarm hashes.
+     */
+    abstract protected function _global();
+
+    /**
      * Returns an alarm hash from the backend.
      *
      * @param string $id    The alarm's unique id.

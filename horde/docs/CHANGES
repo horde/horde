@@ -45,6 +45,7 @@ v4.0-cvs
 v3.3.9-cvs
 ----------
 
+[jan] Show future alarms in the alarm management screen too.
 [mjr] Fix bug in Horde_Cache that would prevent cache entries from being
       expired in certain cases, and prevent cache key collisions.
 

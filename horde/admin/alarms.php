@@ -109,7 +109,7 @@ if ($id) {
 }
 
 try {
-    $alarms = $horde_alarm->listAlarms('');
+    $alarms = $horde_alarm->globalAlarms();
 } catch (Horde_Alarm_Exception $e) {
     $alarms = $e;
 }
