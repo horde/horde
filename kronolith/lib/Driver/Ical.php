@@ -31,6 +31,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     private $_cache = array();
 
     /**
+     * HTTP client object.
+     *
+     * @var Horde_Http_Client
+     */
+    private $_client;
+
+    /**
      * Returns the background color of the current calendar.
      *
      * @return string  The calendar color.
@@ -177,6 +184,32 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
+     * Returns a configured, cached HTTP client.
+     *
+     * @return Horde_Http_Client  A HTTP client.
+     */
+    protected function _getClient()
+    {
+        if ($this->_client) {
+            return $this->_client;
+        }
+
+        $options = array('request.timeout' => isset($this->_params['timeout'])
+                                              ? $this->_params['timeout']
+                                              : 5);
+        if (!empty($this->_params['user'])) {
+            $options['request.username'] = $this->_params['user'];
+            $options['request.password'] = $this->_params['password'];
+        }
+
+        $this->_client = $GLOBALS['injector']
+            ->getInstance('Horde_Http_Client')
+            ->getClient($options);
+
+        return $this->_client;
+    }
+
+    /**
      * Fetches a remote calendar into the session and return the data.
      *
      * @param boolean $cache  Whether to return data from the session cache.
@@ -209,21 +242,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
         }
 
-        $options = array('request.timeout' => isset($this->_params['timeout'])
-                                              ? $this->_params['timeout']
-                                              : 5);
-        if (!empty($this->_params['user'])) {
-            $options['request.username'] = $this->_params['user'];
-            $options['request.password'] = $this->_params['password'];
-        }
-        if (isset($this->_params['proxy'])) {
-            $options['request.proxyServer'] = $this->_params['proxy']['proxy_host'];
-            $options['request.proxyPort'] = $this->_params['proxy']['proxy_port'];
-            $options['request.proxyUser'] = $this->_params['proxy']['proxy_user'];
-            $options['request.proxyPass'] = $this->_params['proxy']['proxy_pass'];
-        }
-
-        $http = new Horde_Http_Client($options);
+        $http = $this->_getClient();
         try {
             $response = $http->get($url);
         } catch (Horde_Http_Exception $e) {
