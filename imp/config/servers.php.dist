@@ -89,9 +89,9 @@
  *        Caching is HIGHLY RECOMMENDED. There is no reason not to cache if
  *        the IMAP server supports the CONDSTORE and/or QRESYNC IMAP
  *        extensions. If the server does not support these extensions, any
- *        flags changed by another mail agent while the IMP sesssion is active
+ *        flags changed by another mail agent while the IMP session is active
  *        will not be updated. If IMP will be the exclusive method of
- *        accessing the IMAP server, or you do not care about this behvaior,
+ *        accessing the IMAP server, or you do not care about this behavior,
  *        caching should be enabled on these servers.
  *
  *        The following optional configuration items are available:
