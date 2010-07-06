@@ -1,4 +1,4 @@
-#!@php_bin@
+#!/bin/env php
 <?php
 /**
  * Query the contents of a user's cached IMAP data.
@@ -93,6 +93,10 @@ if ($ob->cache) {
     $cli->fatal('Caching not setup for this server.');
 } else {
     $driver = $ob->getParam('cache');
+    if (!isset($driver['cacheob'])) {
+        $cli->message('Caching has been disabled for this server.', 'cli.error');
+        exit;
+    }
     $cli->message('Cache driver used: ' . get_class($driver['cacheob']));
 }
 
@@ -115,7 +119,7 @@ $opts = array(
     6 => 'Expire All Mailboxes',
     7 => 'Expire Mailbox',
     8 => 'Expire specific UIDs',
-    9 => 'Exit'
+    0 => 'Exit'
 );
 
 while (true) {
@@ -123,6 +127,9 @@ while (true) {
 
     $action = $cli->prompt('Action:', $opts);
     switch ($action) {
+    case 0:
+        exit;
+
     case 1:
         $mbox_list = array();
         $msg_cnt = $search_cnt = 0;
@@ -290,8 +297,5 @@ while (true) {
             $cli->message('Failed deleting UIDs. Error: ' . $e->getMessage(), 'cli.error');
         }
         break;
-
-    case 9:
-        exit;
     }
 }
