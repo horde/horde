@@ -80,11 +80,23 @@ class Horde_Block_Horde_feed extends Horde_Block {
             return;
         }
 
-        require_once dirname(__FILE__) . '/feed/reader.php';
-        $this->_feed = Horde_Block_Horde_feed_reader::read(
-            $this->_params['uri'],
-            $this->_params['interval']
-        );
+        $key = md5($this->_params['uri']);
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $feed = $cache->get($key, $this->_params['interval']);
+        if (!empty($feed)) {
+            $this->_feed = unserialize($feed);
+        }
+
+        try {
+            $client = $GLOBALS['injector']
+              ->getInstance('Horde_Http_Client')
+              ->getClient();
+            $feed = Horde_Feed::readUri($this->_params['uri'], $client);
+            $cache->set($key, serialize($feed));
+            $this->_feed = $feed;
+        } catch (Exception $e) {
+            $this->_feed = $e->getMessage();
+        }
     }
 
 }
