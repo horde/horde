@@ -62,6 +62,7 @@ $code = array(
         'login_password' => _("Please provide your password."),
 
         /* Strings used in multiple pages. */
+        'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
         'spam_report' => _("Are you sure you wish to report this message as spam?"),
         'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
         'newfolder' => _("You are copying/moving to a new folder.") . "\n" . _("Please enter a name for the new folder:") . "\n",

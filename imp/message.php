@@ -664,6 +664,12 @@ Horde::addInlineScript($inlineout['js_onload'], 'dom');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('imp.js', 'imp');
 Horde::addScriptFile('message.js', 'imp');
+
+if ($conf['tasklist']['use_notepad'] || $conf['tasklist']['use_tasklist']) {
+    Horde::addScriptFile('dialog.js', 'imp');
+    Horde::addScriptFile('redbox.js', 'horde');
+}
+
 IMP::prepareMenu();
 Horde::noDnsPrefetch();
 

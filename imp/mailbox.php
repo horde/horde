@@ -309,7 +309,7 @@ $vtrash = $imp_search->isVTrashFolder()
     ? $imp_search->createSearchID($search_mbox)
     : null;
 
-horde::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpMailbox.unread = ' . intval($unread)
 ));
 

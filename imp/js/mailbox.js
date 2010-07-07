@@ -105,26 +105,35 @@ var ImpMailbox = {
 
     _transfer: function(actID)
     {
-        var newFolder, tmbox;
+        var newFolder, target, tmbox;
 
         if (this.anySelected()) {
+            target = $F('targetMailbox1');
             tmbox = $('targetMbox');
-            tmbox.setValue($F('targetMailbox1'));
+            tmbox.setValue(target);
 
             // Check for a mailbox actually being selected.
-            if ($F(tmbox) == "\0create") {
+            if (target == "\0create") {
                 newFolder = prompt(IMP.text.newfolder, '');
                 if (newFolder != null && newFolder != '') {
                     $('newMbox').setValue(1);
                     tmbox.setValue(newFolder);
                     this.submit(actID);
                 }
+            } else if (target.empty()) {
+                alert(IMP.text.target_mbox);
+            } else if (target.startsWith("\0notepad_") ||
+                       target.startsWith("\0tasklist_")) {
+                this.actIDconfirm = actID;
+                IMPDialog.display({
+                    cancel_text: IMP.text.no,
+                    form_id: 'RB_ImpMailboxConfirm',
+                    noinput: true,
+                    ok_text: IMP.text.yes,
+                    text: IMP.text.moveconfirm
+                });
             } else {
-                if ($F(tmbox) == '') {
-                    alert(IMP.text.target_mbox);
-                } else {
-                    this.submit(actID);
-                }
+                this.submit(actID);
             }
         } else {
             alert(IMP.text.mailbox_selectone);
@@ -379,7 +388,13 @@ document.observe('dom:loaded', function() {
 });
 
 document.observe('IMPDialog:onClick', function(e) {
-    if (e.element().identify() == 'RB_ImpMailbox') {
+    switch (e.element().identify()) {
+    case 'RB_ImpMailbox':
         window.location = this.lastclick;
+        break;
+
+    case 'RB_ImpMailboxConfirm':
+        this.submit(this.actIDconfirm);
+        break;
     }
 }.bindAsEventListener(ImpMailbox));

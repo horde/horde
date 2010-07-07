@@ -61,23 +61,34 @@ var ImpMessage = {
 
     _transfer: function(actID)
     {
-        var newFolder, tmbox = $('targetMbox');
-        tmbox.setValue($F('target1'));
+        var newFolder,
+            target = $F('target1'),
+            tmbox = $('targetMbox');
+
+        tmbox.setValue(target);
 
         // Check for a mailbox actually being selected.
-        if ($F(tmbox) == "\0create") {
+        if (target == "\0create") {
             newFolder = window.prompt(IMP.text.newfolder, '');
             if (newFolder != null && newFolder != '') {
                 $('newMbox').setValue(1);
                 tmbox.setValue(newFolder);
                 this.submit(actID);
             }
+        } else if (target.empty()) {
+            window.alert(IMP.text.target_mbox);
+        } else if (target.startsWith("\0notepad_") ||
+                   target.startsWith("\0tasklist_")) {
+            this.actIDconfirm = actID;
+            IMPDialog.display({
+                cancel_text: IMP.text.no,
+                form_id: 'RB_ImpMessageConfirm',
+                noinput: true,
+                ok_text: IMP.text.yes,
+                text: IMP.text.moveconfirm
+            });
         } else {
-            if (!$F(tmbox)) {
-                window.alert(IMP.text.target_mbox);
-            } else {
-                this.submit(actID);
-            }
+            this.submit(actID);
         }
     },
 
@@ -187,3 +198,11 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
+
+document.observe('IMPDialog:onClick', function(e) {
+    switch (e.element().identify()) {
+    case 'RB_ImpMessageConfirm':
+        this.submit(this.actIDconfirm);
+        break;
+    }
+}.bindAsEventListener(ImpMessage));
