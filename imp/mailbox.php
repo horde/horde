@@ -344,6 +344,7 @@ if ($vfolder ||
     $pagetitle = $title = htmlspecialchars($title);
 }
 
+Horde::addScriptFile('dialog.js', 'imp');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('mailbox.js', 'imp');

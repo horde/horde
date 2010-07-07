@@ -22,13 +22,6 @@ var ImpMailbox = {
         id.down('INPUT.checkbox').setValue(select);
     },
 
-    confirmDialog: function(url, msg)
-    {
-        RedBox.overlay = true;
-        RedBox.showHtml('<div id="RB_confirm"><p>' + msg + '</p><input type="button" class="button" onclick="window.location=\'' + url + '\';" value="' + IMP.text.yes + '" />' +
-                        '<input type="button" class="button" onclick="RedBox.close();" value="' + IMP.text.no + '" /></div>');
-    },
-
     submit: function(actID)
     {
         if (!this.anySelected()) {
@@ -263,12 +256,26 @@ var ImpMailbox = {
                 return;
 
             case 'delete_vfolder':
-                this.confirmDialog(elt.readAttribute('href'), IMP.text.mailbox_delete_vfolder);
+                this.lastclick = elt.readAttribute('href');
+                IMPDialog.display({
+                    cancel_text: IMP.text.no,
+                    form_id: 'RB_ImpMailbox',
+                    noinput: true,
+                    ok_text: IMP.text.yes,
+                    text: IMP.text.mailbox_delete_vfolder
+                });
                 e.stop();
                 return;
 
             case 'empty_mailbox':
-                this.confirmDialog(elt.readAttribute('href'), IMP.text.mailbox_delete_all);
+                this.lastclick = elt.readAttribute('href');
+                IMPDialog.display({
+                    cancel_text: IMP.text.no,
+                    form_id: 'RB_ImpMailbox',
+                    noinput: true,
+                    ok_text: IMP.text.yes,
+                    text: IMP.text.mailbox_delete_all
+                });
                 e.stop();
                 return;
             }
@@ -370,3 +377,9 @@ document.observe('dom:loaded', function() {
         } catch (e) {}
     }
 });
+
+document.observe('IMPDialog:onClick', function(e) {
+    if (e.element().identify() == 'RB_ImpMailbox') {
+        window.location = this.lastclick;
+    }
+}.bindAsEventListener(ImpMailbox));
