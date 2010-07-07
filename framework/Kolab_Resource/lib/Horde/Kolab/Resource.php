@@ -22,9 +22,11 @@ require_once 'Horde/MIME/Headers.php';
 require_once 'Horde/MIME/Part.php';
 require_once 'Horde/MIME/Structure.php';
 
-/** Load Kolab_Filter elements */
+/** Load Kolab_Resource elements */
 require_once 'Horde/Kolab/Resource/Epoch.php';
 require_once 'Horde/Kolab/Resource/Itip.php';
+require_once 'Horde/Kolab/Resource/Reply.php';
+require_once 'Horde/Kolab/Resource/Freebusy.php';
 
 require_once 'Horde/String.php';
 Horde_String::setDefaultCharset('utf-8');
@@ -67,14 +69,14 @@ class Kolab_Resource
     function _getResourceData($sender, $resource)
     {
         require_once 'Horde/Kolab/Server.php';
-        $db = &Horde_Kolab_Server::singleton();
-        if (is_a($db, 'PEAR_Error')) {
+        $db = Horde_Kolab_Server::singleton();
+        if ($db instanceOf PEAR_Error) {
             $db->code = OUT_LOG | EX_SOFTWARE;
             return $db;
         }
 
         $dn = $db->uidForMail($resource, Horde_Kolab_Server_Object::RESULT_MANY);
-        if (is_a($dn, 'PEAR_Error')) {
+        if ($dn instanceOf PEAR_Error) {
             $dn->code = OUT_LOG | EX_NOUSER;
             return $dn;
         }
@@ -300,7 +302,7 @@ class Kolab_Resource
 
         // What is the events summary?
         $summary = $itip->getSummary();
-  
+
         $estart = new Horde_Kolab_Resource_Epoch($itip->getStart());
         $dtstart = $estart->getEpoch();
         $eend = new Horde_Kolab_Resource_Epoch($itip->getEnd());
@@ -312,9 +314,8 @@ class Kolab_Resource
         if ($action == RM_ACT_ALWAYS_REJECT) {
             if ($method == 'REQUEST') {
                 Horde::logMessage(sprintf('Rejecting %s method', $method), 'INFO');
-                $this->sendITipReply($cn, $resource, $itip, RM_ITIP_DECLINE,
-                                     $organiser, $uid, $is_update);
-                return false;
+                return $this->sendITipReply($cn, $resource, $itip, RM_ITIP_DECLINE,
+                                            $organiser, $uid, $is_update);
             } else {
                 Horde::logMessage(sprintf('Passing through %s method for ACT_ALWAYS_REJECT policy', $method), 'INFO');
                 return true;
@@ -458,9 +459,8 @@ class Kolab_Resource
                             return true;
                         } else if ($action == RM_ACT_REJECT_IF_CONFLICTS) {
                             Horde::logMessage('Conflict detected; rejecting', 'INFO');
-                            $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
-                                                 $organiser, $uid, $is_update);
-                            return false;
+                            return $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
+                                                        $organiser, $uid, $is_update);
                         }
                     }
                 }
@@ -468,9 +468,8 @@ class Kolab_Resource
 
             if (is_a($imap_error, 'PEAR_Error')) {
                 Horde::logMessage('Could not access users calendar; rejecting', 'INFO');
-                $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
-                                     $organiser, $uid, $is_update);
-                return false;
+                return $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
+                                            $organiser, $uid, $is_update);
             }
 
             // At this point there was either no conflict or RM_ACT_ALWAYS_ACCEPT
@@ -502,9 +501,8 @@ class Kolab_Resource
                     }
                     if ($counter == $timeout) {
                         Horde::logMessage(sprintf('Lock timeout of %s seconds exceeded. Rejecting invitation.', $timeout), 'ERR');
-                        $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
-                                             $organiser, $uid, $is_update);
-                        return false;
+                        return $this->sendITipReply($cn, $id, $itip, RM_ITIP_DECLINE,
+                                                    $organiser, $uid, $is_update);
                     }
                     $result = file_put_contents($lockfile, 'LOCKED');
                     if ($result === false) {
@@ -526,14 +524,13 @@ class Kolab_Resource
             }
 
             if ($outofperiod) {
-                $this->sendITipReply($cn, $resource, $itip, RM_ITIP_TENTATIVE,
-                                     $organiser, $uid, $is_update);
                 Horde::logMessage('No freebusy information available', 'NOTICE');
+                return $this->sendITipReply($cn, $resource, $itip, RM_ITIP_TENTATIVE,
+                                            $organiser, $uid, $is_update);
             } else {
-                $this->sendITipReply($cn, $resource, $itip, RM_ITIP_ACCEPT,
-                                     $organiser, $uid, $is_update);
+                return $this->sendITipReply($cn, $resource, $itip, RM_ITIP_ACCEPT,
+                                            $organiser, $uid, $is_update);
             }
-            return false;
 
         case 'CANCEL':
             Horde::logMessage(sprintf('Removing event %s', $uid), 'INFO');
@@ -579,15 +576,11 @@ class Kolab_Resource
             $msg_headers->addHeader('Subject', $subject);
             $msg_headers->addMIMEHeaders($mime);
 
-            $result = $this->transportReply($resource, MIME::encodeAddress($organiser),
-                                            $msg_headers->toString() . '\r\n\r\n' . $mime->toString());
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            Horde::logMessage('Successfully sent cancellation reply', 'INFO');
-
-            return false;
+            $reply = new Horde_Kolab_Resource_Reply(
+                $resource, $organiser, $msg_headers, $mime
+            );
+            Horde::logMessage('Successfully prepared cancellation reply', 'INFO');
+            return $reply;
 
         default:
             // We either don't currently handle these iTip methods, or they do not
@@ -743,51 +736,11 @@ class Kolab_Resource
         $msg_headers->addHeader('Subject', $subject);
         $msg_headers->addMIMEHeaders($mime);
 
-        $result = $this->transportReply($resource, MIME::encodeAddress($organiser),
-                                        $msg_headers->toString() . '\r\n\r\n' . $mime->toString());
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        Horde::logMessage('Successfully sent iTip reply', 'DEBUG');
-    }
-
-
-    function transportReply($sender, $recipients, $data)
-    {
-        global $conf;
-
-        if (isset($conf['kolab']['filter']['itipreply'])) {
-            $driver = $conf['kolab']['filter']['itipreply']['driver'];
-            $host   = $conf['kolab']['filter']['itipreply']['params']['host'];
-            $port   = $conf['kolab']['filter']['itipreply']['params']['port'];
-        } else {
-            $driver = 'smtp';
-            $host   = 'localhost';
-            $port   = 25;
-        }
-
-        $transport = &Horde_Kolab_Filter_Transport::factory($driver,
-                                                            array('host' => $host,
-                                                                  'port' => $port));
-
-        $result = $transport->start($sender, $recipients);
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
-                                    OUT_LOG | EX_TEMPFAIL);
-        }
-
-        $result = $transport->data($data);
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
-                                    OUT_LOG | EX_TEMPFAIL);
-        }
-
-        $result = $transport->end();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
-                                    OUT_LOG | EX_TEMPFAIL);
-        }
+        $reply = new Horde_Kolab_Resource_Reply(
+            $resource, $organiser, $msg_headers, $mime
+        );
+        Horde::logMessage('Successfully prepared iTip reply', 'DEBUG');
+        return $reply;
     }
 
     /**

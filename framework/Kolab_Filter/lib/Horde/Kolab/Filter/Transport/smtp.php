@@ -35,7 +35,7 @@ class Horde_Kolab_Filter_Transport_smtp extends Horde_Kolab_Filter_Transport
         }
 
         $transport = new Net_SMTP($this->_params['host'],
-                                   $this->_params['port']);
+                                  $this->_params['port']);
         return $transport;
     }
 }

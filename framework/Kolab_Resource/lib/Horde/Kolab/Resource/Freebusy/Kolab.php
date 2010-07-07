@@ -85,9 +85,9 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
                             $conf['kolab']['filter']['calendar_pass']);
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
-            throw new Horde_Kolab_Filter_Exception(sprintf('Unable to retrieve free/busy information for %s',
+            throw new Horde_Kolab_Resource_Exception(sprintf('Unable to retrieve free/busy information for %s',
                                                            $resource),
-                                                   Horde_Kolab_Filter_Exception::NO_FREEBUSY);
+                                                   Horde_Kolab_Resource_Exception::NO_FREEBUSY);
         }
         $vfb_text = $http->getResponseBody();
 
@@ -106,9 +106,9 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
         $vfb = &$iCal->findComponent('VFREEBUSY');
 
         if ($vfb === false) {
-            throw new Horde_Kolab_Filter_Exception(sprintf('Invalid or no free/busy information available for %s',
+            throw new Horde_Kolab_Resource_Exception(sprintf('Invalid or no free/busy information available for %s',
                                                            $resource),
-                                                   Horde_Kolab_Filter_Exception::NO_FREEBUSY);
+                                                   Horde_Kolab_Resource_Exception::NO_FREEBUSY);
         }
         $vfb->simplify();
 

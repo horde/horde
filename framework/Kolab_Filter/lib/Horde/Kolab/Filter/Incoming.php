@@ -143,6 +143,12 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 $r->cleanup();
                 if (is_a($rc, 'PEAR_Error')) {
                     return $rc;
+                } else if (is_a($rc, 'Horde_Kolab_Resource_Reply')) {
+                    $result = $this->_transportItipReply($rc);
+                    if (is_a($result, 'PEAR_Error')) {
+                        return $result;
+                    }
+                    Horde::logMessage('Successfully sent iTip reply', 'DEBUG');
                 } else if ($rc === true) {
                     $newrecips[] = $resource;
                 }
@@ -165,6 +171,44 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
         }
 
         Horde::logMessage("Filter_Incoming successfully completed.", 'DEBUG');
+    }
+
+    private function _transportItipReply(Horde_Kolab_Resource_Reply $reply)
+    {
+        global $conf;
+
+        if (isset($conf['kolab']['filter']['itipreply'])) {
+            $driver = $conf['kolab']['filter']['itipreply']['driver'];
+            $host   = $conf['kolab']['filter']['itipreply']['params']['host'];
+            $port   = $conf['kolab']['filter']['itipreply']['params']['port'];
+        } else {
+            $driver = 'smtp';
+            $host   = 'localhost';
+            $port   = 25;
+        }
+
+        $transport = Horde_Kolab_Filter_Transport::factory(
+            $driver,
+            array('host' => $host, 'port' => $port)
+        );
+
+        $result = $transport->start($reply->getSender(), $reply->getRecipient());
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
+                                    OUT_LOG | EX_TEMPFAIL);
+        }
+
+        $result = $transport->data($reply->getData());
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
+                                    OUT_LOG | EX_TEMPFAIL);
+        }
+
+        $result = $transport->end();
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError('Unable to send iTip reply: ' . $result->getMessage(),
+                                    OUT_LOG | EX_TEMPFAIL);
+        }
     }
 
     /**

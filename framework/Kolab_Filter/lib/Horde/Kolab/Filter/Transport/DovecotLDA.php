@@ -213,8 +213,8 @@ class Dovecot_LDA
 
         $deliver = $conf['kolab']['filter']['dovecot_deliver'];
 
-        $this->_deliver_fh = popen($deliver . ' -f ' . $this->_envelopeSender .
-                                   ' -d ' . $recipient, "w");
+        $this->_deliver_fh = popen($deliver . ' -f "' . $this->_envelopeSender .
+                                   '" -d "' . $recipient . '"', "w");
         if ($this->_deliver_fh === false) {
             return PEAR::raiseError('Failed to connect to the dovecot delivery tool!');
         }
