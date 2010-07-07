@@ -429,7 +429,7 @@ KronolithCore = {
             $('kronolithAgendaNoItems').hide();
             this.startLoading('search', query);
             this.doAction('searchEvents',
-                          { cals: cals.toJSON(), query: query, time: this.search },
+                          { cals: Object.toJSON(cals), query: query, time: this.search },
                           function(r) {
                               // Hide spinner.
                               this.loading--;
@@ -4560,7 +4560,7 @@ KronolithCore = {
                           sig: sig,
                           view_start: start,
                           view_end: end,
-                          att: $H({ offDays: diff }).toJSON()
+                          att: Object.toJSON($H({ offDays: diff }))
                       },
                       function(r) {
                           // Check if this is the still the result of the most
@@ -4721,7 +4721,7 @@ KronolithCore = {
                 sig: sig,
                 view_start: start,
                 view_end: end,
-                att: attributes.toJSON()
+                att: Object.toJSON(attributes)
             },
             function(r) {
                 // Check if this is the still the result of the most current
