@@ -38,6 +38,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     private $_client;
 
     /**
+     * Selects a calendar as the currently opened calendar.
+     *
+     * @param string $calendar  A calendar identifier.
+     */
+    public function open($calendar)
+    {
+        parent::open($calendar);
+        $this->_client = null;
+    }
+
+    /**
      * Returns the background color of the current calendar.
      *
      * @return string  The calendar color.
@@ -222,7 +233,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         } catch (Horde_Http_Exception $e) {
             Horde::logMessage($e, 'INFO');
             if ($cache) {
-                $cacheOb->set($signature, $e->getMessage());
+                $cacheOb->set($signature, serialize($e->getMessage()));
             }
             throw new Kronolith_Exception($e);
         }
@@ -231,7 +242,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                       $url, $response->code), 'INFO');
             $error = sprintf(_("Could not open %s."), $url);
             if ($cache) {
-                $cacheOb->set($signature, $error);
+                $cacheOb->set($signature, serialize($error));
             }
             throw new Kronolith_Exception($error, $response->code);
         }
@@ -244,7 +255,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $ical = new Horde_iCalendar();
         $result = $ical->parsevCalendar($data);
         if ($cache) {
-            $cacheOb->set($signature, $ical);
+            $cacheOb->set($signature, serialize($ical));
         }
         if ($result instanceof PEAR_Error) {
             throw new Kronolith_Exception($result);

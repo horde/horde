@@ -91,6 +91,16 @@ class Kronolith_Driver
     }
 
     /**
+     * Sets all configuration parameters for this driver.
+     *
+     * @param string $params  A parameters hash.
+     */
+    public function setParams($params)
+    {
+        $this->_params = $params;
+    }
+
+    /**
      * Selects a calendar as the currently opened calendar.
      *
      * @param string $calendar  A calendar identifier.

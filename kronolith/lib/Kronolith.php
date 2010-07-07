@@ -564,12 +564,8 @@ class Kronolith
             }
 
             /* Remote Calendars. */
-            $driver = self::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
-                $driver->open($url);
-                foreach (self::getRemoteParams($url) as $param => $value) {
-                    $driver->setParam($param, $value);
-                }
+                $driver = self::getDriver('Ical', $url);
                 $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
                 self::mergeEvents($results, $events);
             }
@@ -2642,7 +2638,6 @@ class Kronolith
         }
 
         if (!isset(self::$_instances[$driver])) {
-            $params = array();
             switch ($driver) {
             case 'Sql':
             case 'Resource':
@@ -2654,11 +2649,7 @@ class Kronolith
                 break;
 
             case 'Ical':
-                $params = self::getRemoteParams($calendar);
-                /* Check for HTTP proxy configuration */
-                if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-                    $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
-                }
+                $params = array();
                 break;
 
             case 'Horde':
@@ -2682,6 +2673,10 @@ class Kronolith
 
         if (!is_null($calendar)) {
             self::$_instances[$driver]->open($calendar);
+            /* Remote calendar parameters are per calendar. */
+            if ($driver == 'Ical') {
+                self::$_instances[$driver]->setParams(self::getRemoteParams($calendar));
+            }
         }
 
         return self::$_instances[$driver];
@@ -2702,9 +2697,8 @@ class Kronolith
                 $user = isset($cal['user']) ? $cal['user'] : '';
                 $password = isset($cal['password']) ? $cal['password'] : '';
                 $key = $GLOBALS['registry']->getAuthCredential('password');
-                if ($key && $user) {
+                if ($key && $password) {
                     $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                    $user = $secret->read($key, base64_decode($user));
                     $password = $secret->read($key, base64_decode($password));
                 }
                 if (!empty($user)) {
