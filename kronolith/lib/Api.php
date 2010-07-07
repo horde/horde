@@ -353,8 +353,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
                         // Don't change creator/owner.
                         $event->creator = $existing_event->creator;
-                    } catch (Kronolith_Exception $e) {
-                    }
+                    } catch (Horde_Exception_NotFound $e) {}
 
                     // Save entry.
                     $saved = $event->save();
