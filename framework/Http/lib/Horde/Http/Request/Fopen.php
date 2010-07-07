@@ -68,6 +68,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         if ($this->username) {
             switch ($this->authenticationScheme) {
             case Horde_Http::AUTH_BASIC:
+            case Horde_Http::AUTH_ANY:
                 $headers['Authorization'] = 'Basic ' . base64_encode($this->username . ':' . $this->password);
                 break;
 
