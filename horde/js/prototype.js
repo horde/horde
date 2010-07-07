@@ -1304,10 +1304,6 @@ var Hash = Class.create(Enumerable, (function() {
     return new Hash(this);
   }
 
-  function toJSON() {
-    return Object.toJSON(this._object);
-  }
-
   return {
     initialize:             initialize,
     _each:                  _each,
@@ -1323,7 +1319,7 @@ var Hash = Class.create(Enumerable, (function() {
     update:                 update,
     toQueryString:          toQueryString,
     inspect:                inspect,
-    toJSON:                 toJSON,
+    toJSON:                 toObject,
     clone:                  clone
   };
 })());
@@ -1887,7 +1883,7 @@ if (!Node.ELEMENT_NODE) {
 Element.idCounter = 1;
 Element.cache = { };
 
-function purgeElement(element) {
+Element._purgeElement = function(element) {
   var uid = element._prototypeUID;
   if (uid) {
     Element.stopObserving(element);
@@ -1968,6 +1964,7 @@ Element.Methods = {
 
     function update(element, content) {
       element = $(element);
+      var purgeElement = Element._purgeElement;
 
       var descendants = element.getElementsByTagName('*'),
        i = descendants.length;
@@ -3268,6 +3265,8 @@ Element.addMethods({
 
   purge: function(element) {
     if (!(element = $(element))) return;
+    var purgeElement = Element._purgeElement;
+
     purgeElement(element);
 
     var descendants = element.getElementsByTagName('*'),
@@ -3342,7 +3341,7 @@ Element.addMethods({
       }
 
       return (whole === null) ? 0 : whole * decimal;
-  }
+    }
 
     return 0;
   }
@@ -3756,11 +3755,38 @@ Element.addMethods({
   }
 
   function getDimensions(element) {
-    var layout = $(element).getLayout();
-    return {
-      width:  layout.get('width'),
-      height: layout.get('height')
+    element = $(element);
+    var display = Element.getStyle(element, 'display');
+
+    if (display && display !== 'none') {
+      return { width: element.offsetWidth, height: element.offsetHeight };
+    }
+
+    var style = element.style;
+    var originalStyles = {
+      visibility: style.visibility,
+      position:   style.position,
+      display:    style.display
     };
+
+    var newStyles = {
+      visibility: 'hidden',
+      display:    'block'
+    };
+
+    if (originalStyles.position !== 'fixed')
+      newStyles.position = 'absolute';
+
+    Element.setStyle(element, newStyles);
+
+    var dimensions = {
+      width:  element.offsetWidth,
+      height: element.offsetHeight
+    };
+
+    Element.setStyle(element, originalStyles);
+
+    return dimensions;
   }
 
   function getOffsetParent(element) {
