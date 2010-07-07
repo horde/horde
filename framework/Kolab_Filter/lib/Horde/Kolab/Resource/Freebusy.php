@@ -15,11 +15,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * Retrieves free/busy data for an email address.
  *
  * Copyright 2004-2009 Klarälvdalens Datakonsult AB
@@ -42,6 +37,13 @@ class Horde_Kolab_Resource_Freebusy
      * @var array
      */
     static protected $_instances = array();
+
+    /**
+     * Class parameters.
+     *
+     * @var array
+     */
+    protected $_params;
 
     /**
      * Constructor.
@@ -70,10 +72,12 @@ class Horde_Kolab_Resource_Freebusy
      */
     static public function factory($driver, $params = array())
     {
-        $driver = basename($driver);
-        $class  = ($driver == 'none')
+        $driver = ucfirst(basename($driver));
+        $class  = ($driver == 'None')
             ? 'Horde_Kolab_Resource_Freebusy'
-            : 'Horde_Kolab_Resource_Freebusy_' . ucfirst($driver);
+            : 'Horde_Kolab_Resource_Freebusy_' . $driver;
+
+        require_once dirname(__FILE__) . '/Freebusy/' . $driver . '.php';
 
         if (!class_exists($class)) {
             $class = 'Horde_Kolab_Resource_Freebusy';
@@ -104,6 +108,11 @@ class Horde_Kolab_Resource_Freebusy
     static public function singleton($driver = null, $params = array())
     {
         global $conf;
+
+        if (isset($GLOBALS['KOLAB_FILTER_TESTING'])) {
+            $driver = 'mock';
+            $params['data'] = $GLOBALS['KOLAB_FILTER_TESTING'];
+        }
 
         if (empty($driver)) {
             $driver = $conf['freebusy']['driver'];

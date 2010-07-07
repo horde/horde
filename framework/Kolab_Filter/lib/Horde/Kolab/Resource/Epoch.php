@@ -55,7 +55,7 @@ class Horde_Kolab_Resource_Epoch
      *
      * @return array The cleaned array.
      */
-    function cleanArray($ical_date)
+    private function cleanArray($ical_date)
     {
         if (!array_key_exists('hour', $ical_date)) {
             $temp['DATE'] = '1';

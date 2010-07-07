@@ -50,6 +50,6 @@ class Horde_Kolab_Resource_Freebusy_Mock extends Horde_Kolab_Resource_Freebusy
      */
     public function get($resource)
     {
-        return parent::get($resource);
+        return $this->_params['data'];
     }
 }

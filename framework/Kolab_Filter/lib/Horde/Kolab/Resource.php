@@ -2,7 +2,7 @@
 /**
  * Resource management for the Kolab server.
  *
- * PHP version 4
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -44,7 +44,7 @@ define('RM_ITIP_TENTATIVE',                 3);
 /**
  * Provides Kolab resource handling
  *
- * Copyright 2004-2009 Klarälvdalens Datakonsult AB
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
@@ -231,115 +231,6 @@ class Kolab_Resource
         return $default;
     }
 
-    function _objectFromItip(&$itip)
-    {
-        $object = array();
-        $object['uid'] = $itip->getAttributeDefault('UID', '');
-
-        $org_params = $itip->getAttribute('ORGANIZER', true);
-        if (!is_a( $org_params, 'PEAR_Error')) {
-            if (!empty($org_params[0]['CN'])) {
-                $object['organizer']['display-name'] = $org_params[0]['CN'];
-            }
-            $orgemail = $itip->getAttributeDefault('ORGANIZER', '');
-            if (preg_match('/mailto:(.*)/i', $orgemail, $regs )) {
-                $orgemail = $regs[1];
-            }
-            $object['organizer']['smtp-address'] = $orgemail;
-        }
-        $object['summary'] = $itip->getAttributeDefault('SUMMARY', '');
-        $object['location'] = $itip->getAttributeDefault('LOCATION', '');
-        $object['body'] = $itip->getAttributeDefault('DESCRIPTION', '');
-
-        $dtend = $itip->getAttributeDefault('DTEND', '');
-        if (is_array($dtend)) {
-            $object['_is_all_day'] = true;
-        }
-        $object['start-date'] = $this->convert2epoch($itip->getAttributeDefault('DTSTART', ''));
-        $object['end-date'] = $this->convert2epoch($dtend);
-
-        $attendees = $itip->getAttribute('ATTENDEE');
-        if (!is_a( $attendees, 'PEAR_Error')) {
-            $attendees_params = $itip->getAttribute('ATTENDEE', true);
-            if (!is_array($attendees)) {
-                $attendees = array($attendees);
-            }
-            if (!is_array($attendees_params)) {
-                $attendees_params = array($attendees_params);
-            }
-
-            $object['attendee'] = array();
-            for ($i = 0; $i < count($attendees); $i++) {
-                $attendee = array();
-                if (isset($attendees_params[$i]['CN'])) {
-                    $attendee['display-name'] = $attendees_params[$i]['CN'];
-                }
-
-                $attendeeemail = $attendees[$i];
-                if (preg_match('/mailto:(.*)/i', $attendeeemail, $regs)) {
-                    $attendeeemail = $regs[1];
-                }
-                $attendee['smtp-address'] = $attendeeemail;
-
-                if( $attendees_params[$i]['RSVP'] == 'FALSE' ) {
-                    $attendee['request-response'] = false;
-                } else {
-                    $attendee['request-response'] = true;
-                }
-
-                if (isset($attendees_params[$i]['ROLE'])) {
-                    $attendee['role'] = $attendees_params[$i]['ROLE'];
-                }
-
-                if (isset($attendees_params[$i]['PARTSTAT'])) {
-                    $status = strtolower($attendees_params[$i]['PARTSTAT']);
-                    switch ($status) {
-                    case 'needs-action':
-                    case 'delegated':
-                        $attendee['status'] = 'none';
-                        break;
-                    default:
-                        $attendee['status'] = $status;
-                        break;
-                    }
-                }
-
-                $object['attendee'][] = $attendee;
-            }
-        }
-
-        // Alarm
-        $valarm = $itip->findComponent('VALARM');
-        if ($valarm) {
-            $trigger = $valarm->getAttribute('TRIGGER');
-            if (!is_a($trigger, 'PEAR_Error')) {
-                $p = $valarm->getAttribute('TRIGGER', true);
-                if ($trigger < 0) {
-                    // All OK, enter the alarm into the XML
-                    // NOTE: The Kolab XML format seems underspecified
-                    // wrt. alarms currently...
-                    $object['alarm'] = -$trigger / 60;
-                }
-            } else {
-                Horde::logMessage('No TRIGGER in VALARM. ' . $trigger->getMessage(), 'ERR');
-            }
-        }
-
-        // Recurrence
-        $rrule_str = $itip->getAttribute('RRULE');
-        if (!is_a($rrule_str, 'PEAR_Error')) {
-            require_once 'Horde/Date/Recurrence.php';
-            $recurrence = new Horde_Date_Recurrence(time());
-            $recurrence->fromRRule20($rrule_str);
-            $object['recurrence'] = $recurrence->toHash();
-        }
-
-        Horde::logMessage(sprintf('Assembled event object: %s',
-                                  print_r($object, true)), 'DEBUG');
-
-        return $object;
-    }
-
     function handleMessage($fqhostname, $sender, $resource, $tmpfname)
     {
         global $conf;
@@ -509,7 +400,7 @@ class Kolab_Resource
                                               print_r($extraparams, true)), 'DEBUG');
                     $conflict = false;
                     if (!empty($object['recurrence'])) {
-                        $recurrence = new Horde_Date_Recurrence(time());
+                        $recurrence = new Horde_Date_Recurrence($dtstart);
                         $recurrence->fromHash($object['recurrence']);
                         $duration = $dtend - $dtstart;
                         $events = array();
@@ -530,6 +421,10 @@ class Kolab_Resource
                     }
 
                     foreach ($events as $dtstart => $dtend) {
+                        Horde::logMessage(sprintf('Requested event from %s to %s',
+                                                  strftime('%a, %d %b %Y %H:%M:%S %z', $dtstart),
+                                                  strftime('%a, %d %b %Y %H:%M:%S %z', $dtend)
+                                          ), 'DEBUG');
                         foreach ($busyperiods as $busyfrom => $busyto) {
                             if (empty($busyfrom) && empty($busyto)) {
                                 continue;
@@ -692,7 +587,7 @@ class Kolab_Resource
 
             Horde::logMessage('Successfully sent cancellation reply', 'INFO');
 
-            return false;;
+            return false;
 
         default:
             // We either don't currently handle these iTip methods, or they do not

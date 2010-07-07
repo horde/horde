@@ -37,7 +37,7 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
      *
      * @return string The Free/Busy URL for that resource.
      */
-    static protected function getUrl($resource)
+    protected function getUrl($resource)
     {
         $server = Horde_Kolab_Server::singleton();
         $uid    = $server->uidForIdOrMailOrAlias($resource);
