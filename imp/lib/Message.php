@@ -61,15 +61,15 @@ class IMP_Message
 
         /* If the target is a tasklist, handle the move/copy specially. */
         if ($conf['tasklist']['use_tasklist'] &&
-            (strpos($targetMbox, '_tasklist_') === 0)) {
-            $this->_createTasksOrNotes(str_replace('_tasklist_', '', $targetMbox), $action, $indices, 'task');
+            (strpos($targetMbox, '\0tasklist_') === 0)) {
+            $this->_createTasksOrNotes(str_replace('\0tasklist_', '', $targetMbox), $action, $indices, 'task');
             return true;
         }
 
         /* If the target is a notepad, handle the move/copy specially. */
         if ($conf['notepad']['use_notepad'] &&
-            (strpos($targetMbox, '_notepad_') === 0)) {
-            $this->_createTasksOrNotes(str_replace('_notepad_', '', $targetMbox), $action, $indices, 'note');
+            (strpos($targetMbox, '\0notepad_') === 0)) {
+            $this->_createTasksOrNotes(str_replace('\0notepad_', '', $targetMbox), $action, $indices, 'note');
             return true;
         }
 

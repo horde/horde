@@ -258,7 +258,7 @@ class IMP
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
                             'l' => Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                            'v' => '_tasklist_' . $id
+                            'v' => '\0tasklist_' . $id
                         );
                     }
                     $t->set('tasklist', $tasklist_list);
@@ -277,7 +277,7 @@ class IMP
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                            'v' => '_notepad_' . $id
+                            'v' => '\0notepad_' . $id
                         );
                     }
                     $t->set('notepad', $notepad_list);
