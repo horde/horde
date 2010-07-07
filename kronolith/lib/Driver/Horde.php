@@ -72,13 +72,13 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
                                             'year' => 9999));
         }
 
-        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
-
         $startDate = clone $startDate;
         $startDate->hour = $startDate->min = $startDate->sec = 0;
         $endDate = clone $endDate;
         $endDate->hour = 23;
         $endDate->min = $endDate->sec = 59;
+
+        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
 
         $results = array();
         foreach ($eventsList as $eventsListItem) {
