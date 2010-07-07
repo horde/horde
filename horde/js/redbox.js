@@ -1,5 +1,5 @@
 /**
- * Redbox.js
+ * RedBox - display a non-modal dialog box.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
