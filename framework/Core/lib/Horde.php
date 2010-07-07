@@ -1257,6 +1257,9 @@ HTML;
                 $_SERVER['SCRIPT_NAME'] :
                 $_SERVER['PHP_SELF'];
         }
+        if (substr($url, -9) == 'index.php') {
+            $url = substr($url, 0, -9);
+        }
 
         if ($script_params) {
             if ($pathInfo = Horde_Util::getPathInfo()) {
