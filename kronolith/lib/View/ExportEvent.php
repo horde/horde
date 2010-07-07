@@ -36,8 +36,7 @@ class Kronolith_View_ExportEvent {
             }
         }
 
-        $vEvent = $event->toiCalendar($iCal);
-        $iCal->addComponent($vEvent);
+        $iCal->addComponent($event->toiCalendar($iCal));
         $content = $iCal->exportvCalendar();
 
         $GLOBALS['browser']->downloadHeaders(

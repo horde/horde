@@ -315,13 +315,20 @@ class Horde_iCalendar {
     /**
      * Add a vCalendar component (eg vEvent, vTimezone, etc.).
      *
-     * @param Horde_iCalendar $component  Component (subclass) to add.
+     * @param mixed  Either a Horde_iCalendar component (subclass) or an array
+     *               of them.
      */
-    function addComponent($component)
+    function addComponent($components)
     {
-        if ($component instanceOf Horde_iCalendar) {
-            $component->_container = &$this;
-            $this->_components[] = &$component;
+        if (!is_array($components)) {
+            $components = array($components);
+        }
+
+        foreach ($components as $component) {
+            if ($component instanceOf Horde_iCalendar) {
+                $component->_container = &$this;
+                $this->_components[] = $component;
+            }
         }
     }
 

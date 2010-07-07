@@ -523,13 +523,13 @@ abstract class Kronolith_Event
      * @param Horde_iCalendar &$calendar  A Horde_iCalendar object that acts as
      *                                    a container.
      *
-     * @return Horde_iCalendar_vevent  The vEvent object for this event.
+     * @return array  An array of Horde_iCalendar_vevent objects for this event.
      */
     public function toiCalendar(&$calendar)
     {
         $vEvent = &Horde_iCalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
-
+        $vEvents = array();
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
@@ -744,8 +744,41 @@ abstract class Kronolith_Event
                 $vEvent->setAttribute('RRULE', $rrule);
             }
 
-            // Exceptions.
+            // Exceptions. An exception with no replacement event is represented
+            // by EXDATE, and those with replacement events are represented by
+            // a new vEvent element. We get all known replacement events first,
+            // then remove the exceptionoriginaldate from the list of the event
+            // exceptions. Any exceptions left should represent exceptions with
+            // no replacement.
             $exceptions = $this->recurrence->getExceptions();
+            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+            $search = new StdClass();
+            $search->start = $this->recurrence->getRecurStart();
+            $search->end = $this->recurrence->getRecurEnd();
+            $search->baseid = $this->uid;
+            $results = $kronolith_driver->search($search);
+            foreach ($results as $days) {
+                foreach ($days as $exceptionEvent) {
+                    // Need to change the UID so it links to the original
+                    // recurring event.
+                    $exceptionEvent->uid = $this->uid;
+                    $vEventException = $exceptionEvent->toIcalendar($calendar);
+                    // This should never happen, but protect against it anyway.
+                    if (count($vEventException) > 1) {
+                        throw new Kronolith_Exception(_("Unable to parse event."));
+                    }
+                    $vEventException = array_pop($vEventException);
+                    $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    $originaldate = $exceptionEvent->exceptionoriginaldate->format('Ymd');
+                    $key = array_search($originaldate, $exceptions);
+                    if ($key !== false) {
+                        unset($exceptions[$key]);
+                    }
+                    $vEvents[] = $vEventException;
+                }
+            }
+
+            /* The remaining exceptions represent deleted recurrences */
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
@@ -761,8 +794,9 @@ abstract class Kronolith_Event
                 }
             }
         }
+        array_unshift($vEvents, $vEvent);
 
-        return $vEvent;
+        return $vEvents;
     }
 
     /**
@@ -987,7 +1021,23 @@ abstract class Kronolith_Event
                 $this->recurrence->fromRRule10($rrule);
             }
 
-            // Exceptions.
+            /* Delete all existing exceptions to this event if it already exists */
+            if (!empty($this->uid)) {
+                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+                $search = new StdClass();
+                $search->start = $this->recurrence->getRecurStart();
+                $search->end = $this->recurrence->getRecurEnd();
+                $search->baseid = $this->uid;
+                $results = $kronolith_driver->search($search);
+                foreach ($results as $days) {
+                    foreach ($days as $exception) {
+                        $kronolith_driver->deleteEvent($exception->id);
+                    }
+                }
+            }
+
+            // Exceptions. EXDATE represents deleted events, just add the
+            // exception, no new event is needed.
             $exdates = $vEvent->getAttributeValues('EXDATE');
             if (is_array($exdates)) {
                 foreach ($exdates as $exdate) {
@@ -998,6 +1048,21 @@ abstract class Kronolith_Event
                     }
                 }
             }
+        }
+
+        // RECURRENCE-ID indicates that this event represents an exception
+        $recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
+        if (!($recurrenceid instanceof PEAR_Error)) {
+            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+            $originaldt = new Horde_Date($recurrenceid);
+            $this->exceptionoriginaldate = $originaldt;
+            $this->baseid = $this->uid;
+            $this->uid = null;
+            $originalEvent = $kronolith_driver->getByUID($this->baseid);
+            $originalEvent->recurrence->addException($originaldt->format('Y'),
+                                                     $originaldt->format('m'),
+                                                     $originaldt->format('d'));
+            $originalEvent->save();
         }
 
         $this->initialized = true;
@@ -2774,7 +2839,7 @@ abstract class Kronolith_Event
 
     /**
      * Getter for geo data
-     * 
+     *
      * @return array  An array of lat/lng data.
      */
     public function getGeolocation()

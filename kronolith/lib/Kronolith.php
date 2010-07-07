@@ -2243,6 +2243,7 @@ class Kronolith
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
+                $vevent = array_pop($vevent);
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
             }
             $iCal->addComponent($vevent);

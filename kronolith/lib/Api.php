@@ -488,7 +488,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendar = Kronolith::getDefaultCalendar();
         }
 
-        if ($calendar === false || 
+        if ($calendar === false ||
             !array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::READ))) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -564,7 +564,7 @@ class Kronolith_Api extends Horde_Registry_Api
         } else {
             $changes['modify'] = $uids;
         }
-        
+
         /* No way to figure out if this was an exception, so we must include all */
         $changes['delete'] = $this->listBy('delete', $start, $c, $end);
 
@@ -751,8 +751,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
 
             // Create a new vEvent.
-            $vEvent = $event->toiCalendar($iCal);
-            $iCal->addComponent($vEvent);
+            $iCal->addComponent($event->toiCalendar($iCal));
 
             return $iCal->exportvCalendar();
 
@@ -806,8 +805,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
-                    $vEvent = $event->toiCalendar($iCal);
-                    $iCal->addComponent($vEvent);
+                    $iCal->addComponent($event->toiCalendar($iCal));
                 }
             }
 
