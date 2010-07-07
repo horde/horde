@@ -6,6 +6,7 @@
  * 'dialog_load' - TODO
  * 'form' - TODO
  * 'form_id' - The ID for the form (default: RB_confirm).
+ * 'input_val' - TODO
  * 'noinput' - TODO
  * 'ok_text' - OK text.
  * 'password' - TODO
@@ -60,7 +61,7 @@ var IMPDialog = {
         if (data.form) {
             n.insert(data.form);
         } else if (!data.noinput) {
-            n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }));
+            n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }).setValue(data.input_val));
         }
 
         if (data.ok_text) {

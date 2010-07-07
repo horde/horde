@@ -703,7 +703,7 @@ var DimpBase = {
 
         case 'ctx_container_rename':
         case 'ctx_folder_rename':
-            this.renameFolder(baseelt);
+            this.renameFolder(e.findElement('LI'));
             break;
 
         case 'ctx_folder_empty':
@@ -1728,11 +1728,7 @@ var DimpBase = {
                 break;
 
             case Event.KEY_RETURN:
-                // Catch returns in RedBox
-                if (form.readAttribute('id') == 'RB_folder') {
-                    this.cfolderaction(e);
-                    e.stop();
-                } else if (elt.readAttribute('id') == 'qsearch_input') {
+                if (elt.readAttribute('id') == 'qsearch_input') {
                     if ($F('qsearch_input')) {
                         this.quicksearchRun();
                     } else {
@@ -2099,15 +2095,7 @@ var DimpBase = {
                 return;
 
             default:
-                if (elt.hasClassName('RBFolderOk')) {
-                    this.cfolderaction(e);
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('RBFolderCancel')) {
-                    this._closeRedBox();
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('printAtc')) {
+                if (elt.hasClassName('printAtc')) {
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP.printWindow);
                     e.stop();
                     return;
@@ -2154,8 +2142,7 @@ var DimpBase = {
         }
 
         folder = $(folder);
-        var n = this._createFolderForm(this._folderAction.bindAsEventListener(this, folder, 'rename'), DIMP.text.rename_prompt);
-        n.down('input').setValue(folder.retrieve('l'));
+        this._createFolderForm(this._folderAction.bindAsEventListener(this, folder, 'rename'), DIMP.text.rename_prompt, folder.retrieve('l'));
     },
 
     /* Handle insert folder actions. */
@@ -2171,29 +2158,20 @@ var DimpBase = {
         }
     },
 
-    _createFolderForm: function(action, text)
+    _createFolderForm: function(action, text, val)
     {
-        var n = $($('folderform').down().clone(true)).writeAttribute('id', 'RB_folder');
-        n.down('P').insert(text);
-
         this.cfolderaction = action;
-
-        RedBox.overlay = true;
-        RedBox.onDisplay = Form.focusFirstElement.curry(n);
-        RedBox.showHtml(n);
-        return n;
-    },
-
-    _closeRedBox: function()
-    {
-        RedBox.close();
-        this.cfolderaction = null;
+        IMPDialog.display({
+            cancel_text: DIMP.text.cancel,
+            form_id: 'RB_Folder',
+            input_val: val,
+            ok_text: DIMP.text.ok,
+            text: text
+        });
     },
 
     _folderAction: function(e, folder, mode)
     {
-        this._closeRedBox();
-
         var action, params, val,
             form = e.findElement('form');
         val = $F(form.down('input'));
@@ -3119,6 +3097,13 @@ document.observe('DragDrop2:drop', DimpBase.folderDropHandler.bindAsEventListene
 document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
 document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
+
+/* IMPDialog listener. */
+document.observe('IMPDialog:onClick', function(e) {
+    if (e.element().identify() == 'RB_Folder') {
+        this.cfolderaction(e.memo);
+    }
+}.bindAsEventListener(DimpBase));
 
 /* Route AJAX responses through ViewPort. */
 DimpCore.onDoActionComplete = function(r) {
