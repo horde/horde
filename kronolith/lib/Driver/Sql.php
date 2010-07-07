@@ -275,7 +275,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
-        if ($fetchTags) {
+        if ($fetchTags && count($events)) {
             $tags = Kronolith::getTagger()->getTags(array_keys($events));
         }
         foreach ($events as $id) {
