@@ -2,7 +2,7 @@
 /**
  * This file should be the basis for serving hosted attachments.  It
  * should fetch the file from the VFS and funnel it to the client
- * wishing to download the attachment. This will allow for the
+ * wants to download the attachment. This will allow for the
  * exchange of massive attachments without causing mail server havoc.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
