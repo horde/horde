@@ -29,9 +29,7 @@ class Horde_View extends Horde_View_Base
             }
         }
 
-        $oldShortOpenTag = ini_set('short_open_tag', 1);
         include func_get_arg(0);
-        ini_set('short_open_tag', $oldShortOpenTag);
     }
 
 }
