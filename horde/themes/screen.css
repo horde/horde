@@ -773,26 +773,26 @@ ul.sound-list {
     background: url("graphics/redbox_spinner.gif") no-repeat bottom center;
 }
 #RB_window {
-    z-index: 102;
     background-color: #fff;
     display: block;
-    text-align: left;
     margin: 20px auto 0 auto;
     position: absolute;
+    text-align: left;
+    z-index: 102;
+}
+#RB_window form {
+    background: #ffc;
+    border: 1px solid #ccc;
+    padding: 1em;
+    width: 20em;
 }
 #RB_window p, #RB_window ul {
     margin-bottom: 3px;
 }
-#RB_confirm {
-    width: 20em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ffc;
-}
-#RB_confirm input {
+#RB_window input {
     margin: .2em;
 }
-#RB_confirm ul {
+#RB_window ul {
     margin-left: .5em;
 }
 #RB_info {
