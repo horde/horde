@@ -233,10 +233,18 @@ if ($error_reason) {
 }
 
 /* If we currently are authenticated, and are not trying to authenticate to
- * an application, redirect to initial page. This is done in index.php. */
-if ($is_auth && !$vars->app) {
-    require HORDE_BASE . '/index.php';
-    exit;
+ * an application, redirect to initial page. This is done in index.php.
+ * If we are trying to authenticate to an application, but don't have to,
+ * redirect to the requesting URL. */
+if ($is_auth) {
+    if (!$vars->app) {
+        require HORDE_BASE . '/index.php';
+        exit;
+    } elseif ($url_in &&
+              $registry->isAuthenticated(array('app' => $vars->app))) {
+        header('Location: ' . _addAnchor($url_in, 'param', null, $url_anchor));
+        exit;
+    }
 }
 
 /* Redirect the user if an alternate login page has been specified. */
