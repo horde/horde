@@ -18,6 +18,8 @@ KronolithCore = {
 
     view: '',
     ecache: $H(),
+    cacheStart: null,
+    cacheEnd: null,
     holidays: [],
     tcache: $H(),
     eventsLoading: {},
@@ -1382,7 +1384,7 @@ KronolithCore = {
                 calendar = cal.join('|');
             loading = true;
             this.startLoading(calendar, start + end);
-            this.storeCache($H(), calendar);
+            this.storeCache($H(), calendar, null, true);
             this.doAction('listEvents',
                           {
                               start: start,
@@ -1391,7 +1393,9 @@ KronolithCore = {
                               sig: start + end,
                               view: view
                           },
-                          this.loadEventsCallback.bind(this));
+                          function(r) {
+                              this.loadEventsCallback(r, true);
+                          }.bind(this));
         }, this);
 
         if (!loading && view == 'year') {
@@ -1402,9 +1406,13 @@ KronolithCore = {
     /**
      * Callback method for inserting events in the current view.
      *
-     * @param object r  The ajax response object.
+     * @param object r             The ajax response object.
+     * @param boolean createCache  Whether to create a cache list entry for the
+     *                             response, if none exists yet. Useful for
+     *                             (not) adding individual events to the cache
+     *                             if it doesn't match any cached views.
      */
-    loadEventsCallback: function(r)
+    loadEventsCallback: function(r, createCache)
     {
         // Hide spinner.
         this.loading--;
@@ -1417,7 +1425,7 @@ KronolithCore = {
             dates = [start, end],
             currentDates;
 
-        this.storeCache(r.response.events || {}, r.response.cal, dates);
+        this.storeCache(r.response.events || {}, r.response.cal, dates, createCache);
 
         // Check if this is the still the result of the most current request.
         if (r.response.sig != this.eventsLoading[r.response.cal]) {
@@ -2242,8 +2250,9 @@ KronolithCore = {
      * @param object r             The ajax response object.
      * @param boolean createCache  Whether to create a cache list entry for the
      *                             response, if none exists yet. Useful for
-     *                             adding individual tasks to the cache without
-     *                             assuming to have all tasks of the list.
+     *                             (not) adding individual tasks to the cache
+     *                             without assuming to have all tasks of the
+     *                             list.
      */
     loadTasksCallback: function(r, createCache)
     {
@@ -3504,13 +3513,15 @@ KronolithCore = {
      * empty cache entries are created so that those dates aren't re-fetched
      * each time.
      *
-     * @param object events    A list of calendars and events as returned from
-     *                         an ajax request.
-     * @param string calendar  A calendar string or array.
-     * @param string dates     A date range in the format yyyymmddyyyymmdd as
-     *                         used in the ajax response signature.
+     * @param object events        A list of calendars and events as returned
+     *                             from an ajax request.
+     * @param string calendar      A calendar string or array.
+     * @param string dates         A date range in the format yyyymmddyyyymmdd
+     *                             as used in the ajax response signature.
+     * @param boolean createCache  Whether to create a cache list entry for the
+     *                             response, if none exists yet.
      */
-    storeCache: function(events, calendar, dates)
+    storeCache: function(events, calendar, dates, createCache)
     {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
@@ -3518,19 +3529,34 @@ KronolithCore = {
 
         // Create cache entry for the calendar.
         if (!this.ecache.get(calendar[0])) {
+            if (!createCache) {
+                return;
+            }
             this.ecache.set(calendar[0], $H());
         }
         if (!this.ecache.get(calendar[0]).get(calendar[1])) {
+            if (!createCache) {
+                return;
+            }
             this.ecache.get(calendar[0]).set(calendar[1], $H());
         }
         var calHash = this.ecache.get(calendar[0]).get(calendar[1]);
 
         // Create empty cache entries for all dates.
-        if (typeof dates != 'undefined') {
+        if (!!dates) {
             var day = dates[0].clone(), date;
             while (!day.isAfter(dates[1])) {
                 date = day.dateString();
                 if (!calHash.get(date)) {
+                    if (!createCache) {
+                        return;
+                    }
+                    if (!this.cacheStart || this.cacheStart.isAfter(day)) {
+                        this.cacheStart = day.clone();
+                    }
+                    if (!this.cacheEnd || this.cacheEnd.isBefore(day)) {
+                        this.cacheEnd = day.clone();
+                    }
                     calHash.set(date, $H());
                 }
                 day.add(1).day();
@@ -3582,22 +3608,20 @@ KronolithCore = {
         tasktypes.each(function(tasktype) {
             cacheExists[tasktype] = false;
             if (!this.tcache.get(tasktype)) {
-                if (createCache) {
-                    this.tcache.set(tasktype, $H());
-                } else {
+                if (!createCache) {
                     return;
                 }
+                this.tcache.set(tasktype, $H());
             }
             if (!tasklist) {
                 return;
             }
             if (!this.tcache.get(tasktype).get(tasklist)) {
-                if (createCache) {
-                    this.tcache.get(tasktype).set(tasklist, $H());
-                    cacheExists[tasktype] = true;
-                } else {
+                if (!createCache) {
                     return;
                 }
+                this.tcache.get(tasktype).set(tasklist, $H());
+                cacheExists[tasktype] = true;
             } else {
                 cacheExists[tasktype] = true;
             }
@@ -4595,7 +4619,7 @@ KronolithCore = {
                                   this.reRender(days);
                               }
                           }
-                          this.loadEventsCallback(r);
+                          this.loadEventsCallback(r, false);
                       }.bind(this));
     },
 
@@ -4746,7 +4770,7 @@ KronolithCore = {
                     r.response.sig == this.eventsLoading[r.response.cal]) {
                     this.removeEvent(event.key, event.value.calendar);
                 }
-                this.loadEventsCallback(r);
+                this.loadEventsCallback(r, false);
             }.bind(this));
     },
 
@@ -4835,6 +4859,26 @@ KronolithCore = {
     },
 
     /**
+     * Generates ajax request parameters for requests to save events.
+     *
+     * @return object  An object with request parameters.
+     */
+    saveEventParams: function()
+    {
+        var start, end, sig,
+            viewDates = this.viewDates(this.date, this.view),
+            params = { sig: viewDates[0].dateString() + viewDates[1].dateString() };
+        if (this.cacheStart) {
+            start = this.cacheStart.dateString();
+            end = this.cacheEnd.dateString();
+            params.view_start = start;
+            params.view_end = end;
+        }
+        params.view = this.view;
+        return params;
+    },
+
+    /**
      * Submits the event edit form to create or update an event.
      */
     saveEvent: function(asnew)
@@ -4847,9 +4891,11 @@ KronolithCore = {
         var cal = $F('kronolithEventCalendar'),
             target = $F('kronolithEventTarget'),
             eventid = $F('kronolithEventId'),
-            viewDates = this.viewDates(this.date, this.view),
-            start = viewDates[0].dateString(),
-            end = viewDates[1].dateString();
+            params;
+
+        params = $H($('kronolithEventForm').serialize({ hash: true }))
+            .merge(this.saveEventParams());
+        params.set('as_new', asnew ? 1 : 0);
 
         this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
@@ -4857,21 +4903,14 @@ KronolithCore = {
         if (this.mapInitialized) {
             $('kronolithEventMapZoom').value = this.map.getZoom();
         }
-        this.startLoading(target, start + end);
+        this.startLoading(target, params.get('sig'));
         this.doAction('saveEvent',
-                      $H($('kronolithEventForm').serialize({ hash: true }))
-                          .merge({
-                              view: this.view,
-                              view_start: start,
-                              view_end: end,
-                              sig: start + end,
-                              as_new: asnew ? 1 : 0
-                          }),
+                      params,
                       function(r) {
                           if (!asnew && r.response.events && eventid) {
                               this.removeEvent(eventid, cal);
                           }
-                          this.loadEventsCallback(r);
+                          this.loadEventsCallback(r, false);
                           if (r.response.events) {
                               this.resetMap();
                               this.closeRedBox();
@@ -4887,23 +4926,19 @@ KronolithCore = {
     {
         var text = $F('kronolithQuickinsertQ'),
             cal = $F('kronolithQuickinsertCalendars'),
-            viewDates = this.viewDates(this.date, this.view),
-            start = viewDates[0].dateString(),
-            end = viewDates[1].dateString();
+            params;
+
+        params = $H($('kronolithEventForm').serialize({ hash: true }))
+            .merge(this.saveEventParams());
+        params.set('text', text);
+        params.set('cal', cal);
 
         $('kronolithQuickinsert').fade({ duration: this.effectDur });
-        this.startLoading(cal, start + end);
+        this.startLoading(cal, params.get('sig'));
         this.doAction('quickSaveEvent',
-                      $H({
-                          text: text,
-                          cal: cal,
-                          view: this.view,
-                          sig: start + end,
-                          view_start: start,
-                          view_end: end
-                      }),
+                      params,
                       function(r) {
-                          this.loadEventsCallback(r);
+                          this.loadEventsCallback(r, false);
                           if (r.msgs.size()) {
                               this.editEvent(null, null, null, text);
                           } else {

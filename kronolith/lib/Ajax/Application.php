@@ -483,15 +483,16 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             return $result;
         }
 
-        if ($kronolith_driver = $this->_getDriver('tasklists|tasks/' . $task->tasklist)) {
+        if ($due &&
+            $kronolith_driver = $this->_getDriver('tasklists|tasks/' . $task->tasklist)) {
             try {
                 $event = $kronolith_driver->getEvent('_tasks' . $id);
-                $end = new Horde_Date($this->_vars->view_end);
+                $end = clone $due;
                 $end->hour = 23;
                 $end->min = $end->sec = 59;
-                Kronolith::addEvents($events, $event,
-                                     new Horde_Date($this->_vars->view_start),
-                                     $end, true, true);
+                $start = clone $due;
+                $start->hour = $start->min = $start->sec = 0;
+                Kronolith::addEvents($events, $event, $start, $end, true, true);
                 if (count($events)) {
                     $result->events = $events;
                 }
@@ -889,6 +890,10 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             $cal = $event->calendarType . '|' . $event->calendar;
         }
         $result = $this->_signedResponse($cal);
+        if (!$this->_vars->view_start || !$this->_vars->view_end) {
+            $result->events = array();
+            return $result;
+        }
         try {
             $event->save();
             $end = new Horde_Date($this->_vars->view_end);
@@ -897,9 +902,7 @@ class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
             Kronolith::addEvents($events, $event,
                                  new Horde_Date($this->_vars->view_start),
                                  $end, true, true);
-            if (count($events)) {
-                $result->events = $events;
-            }
+            $result->events = count($events) ? $events : array();
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
