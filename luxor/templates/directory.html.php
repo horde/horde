@@ -8,13 +8,13 @@
  </tr>
 </thead>
 <tbody>
- <? foreach ($this->files as $file): ?>
+ <?php foreach ($this->files as $file): ?>
  <tr>
   <td><a href="<?php echo $file['link'] ?>"><?php echo $file['icon'] ?> <?php echo $this->escape($file['name']) ?></a></td>
   <td><?php echo $this->escape($file['filesize']) ?> <?php echo $this->escape($file['bytes']) ?></td>
   <td><?php echo $this->escape($file['modtime']) ?></td>
   <td><?php echo $file['description'] ?></td>
  </tr>
- <? endforeach ?>
+ <?php endforeach ?>
 </tbody>
 </table>

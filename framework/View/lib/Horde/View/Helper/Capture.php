@@ -31,9 +31,9 @@ class Horde_View_Helper_Capture extends Horde_View_Helper_Base
      * instance variable. You can use this instance variable anywhere
      * in your templates and even in your layout.  Example:
      *
-     *  <? $capture = $this->capture() ?>
+     *  <?php $capture = $this->capture() ?>
      *    Welcome To my shiny new web page!
-     *  <? $this->greeting = $capture->end() ?>
+     *  <?php $this->greeting = $capture->end() ?>
      *
      * @return Horde_View_Helper_Capture_Base
      */
@@ -48,9 +48,9 @@ class Horde_View_Helper_Capture extends Horde_View_Helper_Base
      * that will be named "contentForName" in another template
      * or in the layout.  Example:
      *
-     *    <? $capture = $this->contentFor("header") %>
+     *    <?php $capture = $this->contentFor("header") %>
      *      <script type="text/javascript"> alert('hello world') </script>
-     *    <? $capture->end() %>
+     *    <?php $capture->end() %>
      *
      * You can then use $this->contentForHeader anywhere in your templates:
      *

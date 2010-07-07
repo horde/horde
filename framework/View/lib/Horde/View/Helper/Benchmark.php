@@ -19,9 +19,9 @@
  * Measures the execution time of a block in a template
  * and reports the result to the log.  Example:
  *
- *  <? $bench = $this->benchmark("Notes section") ?>
+ *  <?php $bench = $this->benchmark("Notes section") ?>
  *    <?php echo $this->expensiveNotesOperation() ?>
- *  <? $bench->end() ?>
+ *  <?php $bench->end() ?>
  *
  * Will add something like "Notes section (0.34523)" to the log.
  *
