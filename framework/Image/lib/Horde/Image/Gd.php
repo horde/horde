@@ -789,6 +789,99 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
+     * Applies the specified mask to the image.
+     *
+     * @param resource $gdimg_mask  The gd image resource representing the mask
+     *
+     * @return boolean
+     */
+    public function applyMask($gdimg_mask)
+    {
+        $imgX = round($this->call('imageSX', array($this->_im)));
+        $imgY = round($this->call('imageSY', array($this->_im)));
+        $gdimg_mask_resized = $this->create($imgX, $imgY);
+        $result = $this->call('imageCopyResampled',
+                               array($gdimg_mask_resized,
+                                     $gdimg_mask,
+                                     0, 0, 0, 0,
+                                     $imgX,
+                                     $imgY,
+                                     $this->call('imageSX', array($gdimg_mask)),
+                                     $this->call('imageSY', array($gdimg_mask))));
+
+        $gdimg_mask_blendtemp = $this->create($imgX, $imgY);
+        $mbtX = $this->call('imageSX', array($gdimg_mask_blendtemp));
+        $mbtY = $this->call('imageSY', array($gdimg_mask_blendtemp));
+
+        $color_background = $this->call('imageColorAllocate',
+                                         array($gdimg_mask_blendtemp, 0, 0, 0));
+
+        $this->call('imageFilledRectangle', array($gdimg_mask_blendtemp,
+                                                   0,
+                                                   0,
+                                                   $mbtX,
+                                                   $mbtY,
+                                                   $color_background));
+
+        $this->call('imageAlphaBlending',
+                     array($gdimg_mask_blendtemp, false));
+
+        $this->call('imageSaveAlpha',
+                     array($gdimg_mask_blendtemp, true));
+
+        for ($x = 0; $x < $imgX; $x++) {
+            for ($y = 0; $y < $imgY; $y++) {
+                $colorat = $this->call('imageColorAt',
+                                         array($this->_im, $x, $y));
+
+                if (is_a($colorat, 'PEAR_Error')) {
+                    return $colorat;
+                }
+
+                $realPixel = $this->call('imageColorsForIndex',
+                                          array($this->_im, $colorat));
+
+                $colorat = $this->call('imageColorAt',
+                                        array($gdimg_mask_resized, $x, $y));
+
+                if (is_a($colorat, 'PEAR_Error')) {
+                    return $colorat;
+                }
+
+                $maskPixel = Horde_Image::grayscalePixel($this->call('imageColorsForIndex', array($gdimg_mask_resized, $colorat)));
+                $maskAlpha = 127 - (floor($maskPixel['red'] / 2) * (1 - ($realPixel['alpha'] / 127)));
+                $newcolor = $this->_allocateColorAlpha($gdimg_mask_blendtemp,
+                                                       $realPixel['red'],
+                                                       $realPixel['green'],
+                                                       $realPixel['blue'],
+                                                       intval($maskAlpha));
+                $this->call('imageSetPixel',
+                             array($gdimg_mask_blendtemp, $x, $y, $newcolor));
+            }
+        }
+        $this->call('imageAlphaBlending', array($this->_im, false));
+        $this->call('imageSaveAlpha', array($this->_im, true));
+        $this->call('imageCopy', array($this->_im,
+                                        $gdimg_mask_blendtemp,
+                                        0, 0, 0, 0,
+                                        $mbtX,
+                                        $mbtY));
+
+        $this->call('imageDestroy', array($gdimg_mask_blendtemp));
+
+        $this->call('imageDestroy', array($gdimg_mask_resized));
+
+        return true;
+    }
+
+    protected function _allocateColorAlpha($gdimg_hexcolorallocate, $r, $g, $b , $alpha = false)
+    {
+        $result = $this->call('imageColorAllocateAlpha', array($gdimg_hexcolorallocate, $r, $g, $b, intval($alpha)));
+        $result = $this->call('imageColorAllocate', array($gdimg_hexcolorallocate, $r, $g, $b));
+        return $result;
+    }
+
+    /**
      * Request a specific image from the collection of images.
      *
      * @param integer $index  The index to return

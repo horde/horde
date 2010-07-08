@@ -116,7 +116,7 @@ class Horde_Image_Effect_Gd_RoundCorners extends Horde_Image_Effect
                                            $radius_x * 2,
                                            $radius_y * 2));
 
-                $result = $this->_image->_applyMask($gdimg_cornermask);
+                $result = $this->_image->applyMask($gdimg_cornermask);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
                 }
