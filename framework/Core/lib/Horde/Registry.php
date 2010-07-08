@@ -1437,7 +1437,7 @@ class Horde_Registry
         if (!is_null($fileroot) &&
             is_dir($fileroot . '/lib/' . $fileprefix)) {
             foreach (scandir($fileroot . '/lib/' . $fileprefix) as $file) {
-                $classname = $app . '_' . $prefix . '_' . basename($file, '.php');
+                $classname = Horde_String::ucfirst($app) . '_' . $prefix . '_' . basename($file, '.php');
                 if (class_exists($classname)) {
                     $classes[] = $classname;
                 }
