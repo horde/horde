@@ -15,17 +15,23 @@
 
  <configsection name="client">
    <configheader>Clients</configheader>
-   <configstring name="addressbook" desc="Name of client addressbook. If this
-   is a shared address book, use the share id, not the source
-   name.">localsql</configstring>
+   <configenum name="addressbook" desc="Name of client addressbook">
+     <values>
+       <configspecial name="list-contact-sources"/>
+     </values>
+   </configenum>
  </configsection>
 
  <configsection name="gal">
    <configheader>Exchange GAL</configheader>
-   <configstring name="addressbook" desc="If using a synchronization solution
+   <configenum name="addressbook" desc="If using a synchronization solution
    that supports Exchange-style Global Address List (GAL) searches enter the
    name of the addressbook that should act as the GAL. This is normally a
-   globally accessable, readonly addressbook." required="false">localsql</configstring>
+   globally accessable, readonly addressbook." required="false">
+     <values>
+       <configspecial name="list-contact-sources"/>
+     </values>
+   </configenum>
  </configsection>
 
  <configsection name="shares">
