@@ -149,9 +149,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                     }
                 }
                 $result = $imgk->polaroidImage(new ImagickDraw(), $angle);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+   
                  // Get the geometry of the image and remember the largest.
                 $geo = $imgk->getImageGeometry();
                 $length = max(

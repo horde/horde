@@ -451,7 +451,7 @@ case 'testPolaroidstackBlueBG':
  *
  * @param array $params  Any additional parameters
  *
- * @return Horde_Image_Base object | PEAR_Error
+ * @return Horde_Image_Base The image object.
  */
 function getImageObject($params = array())
 {

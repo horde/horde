@@ -328,13 +328,12 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Attempts to apply requested effect to this image.  If the
-     * effect cannot be found a PEAR_Error is returned.
+     * Attempts to apply requested effect to this image.
      *
      * @param string $type    The type of effect to apply.
      * @param array $params   Any parameters for the effect.
      *
-     * @return mixed  true on success | PEAR_Error on failure.
+     * @return boolean
      */
     public function addEffect($type, $params)
     {

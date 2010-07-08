@@ -23,7 +23,7 @@ class Horde_Image_Effect_Gd_UnsharpMask extends Horde_Image_Effect
     /**
      * Apply the unsharp_mask effect.
      *
-     * @return mixed true | PEAR_Error
+     * @return mixed true
      */
     public function apply()
     {
