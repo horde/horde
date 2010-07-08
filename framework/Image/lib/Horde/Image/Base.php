@@ -10,11 +10,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Horde_Image
- *
- * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
- *        - Exceptions
  */
 abstract class Horde_Image_Base extends EmptyIterator
 {
