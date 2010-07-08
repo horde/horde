@@ -50,7 +50,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         parent::__construct($params, $context);
         if (!empty($params['width'])) {
-            $this->_im = $this->create($this->_width, $this->_height);
+            $this->_im = $this->_create($this->_width, $this->_height);
             $this->_call('imageFill', array($this->_im, 0, 0, $this->_allocateColor($this->_background)));
         }
     }
@@ -255,7 +255,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
 
         $im = $this->_im;
-        $this->_im = $this->create($width, $height);
+        $this->_im = $this->_create($width, $height);
 
         /* Reset geometry since it will change */
         $this->_width = 0;
@@ -280,7 +280,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function crop($x1, $y1, $x2, $y2)
     {
         $im = $this->_im;
-        $this->_im = $this->create($x2 - $x1, $y2 - $y1);
+        $this->_im = $this->_create($x2 - $x1, $y2 - $y1);
         $this->_width = 0;
         $this->_height = 0;
         $this->_call('imageCopy', array($this->_im, $im, 0, 0, $x1, $y1, $x2 - $x1, $y2 - $y1));
@@ -306,10 +306,10 @@ class Horde_Image_Gd extends Horde_Image_Base
             $y = $this->_call('imageSY', array($this->_im));
             $xymax = max($x, $y);
 
-            $im = $this->create($xymax, $xymax);
+            $im = $this->_create($xymax, $xymax);
             $im = $this->_call('imageRotate', array($im, 270, $background));
             $this->_im = $im;
-            $im = $this->create($y, $x);
+            $im = $this->_create($y, $x);
             if ($x < $y) {
                 $this->_call('imageCopy', array($im, $this->_im, 0, 0, 0, 0, $xymax, $xymax));
             } elseif ($x > $y) {
@@ -331,7 +331,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $x = $this->_call('imageSX', array($this->_im));
         $y = $this->_call('imageSY', array($this->_im));
 
-        $im = $this->create($x, $y);
+        $im = $this->_create($x, $y);
         for ($curY = 0; $curY < $y; $curY++) {
             $this->_call('imageCopy', array($im, $this->_im, 0, $y - ($curY + 1), 0, $curY, $x, 1));
         }
@@ -347,7 +347,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $x = $this->_call('imageSX', array($this->_im));
         $y = $this->_call('imageSY', array($this->_im));
 
-        $im = $this->create($x, $y);
+        $im = $this->_create($x, $y);
         for ($curX = 0; $curX < $x; $curX++) {
             $this->_call('imageCopy', array($im, $this->_im, $x - ($curX + 1), 0, $curX, 0, 1, $y));
         }
