@@ -73,10 +73,23 @@ class Horde_Kolab_Filter_Base
      */
     var $_sasl_username;
 
-    public function __construct()
-    {
-        $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $injector->setInstance('Horde_Log_Logger', new Horde_Core_Log_Logger(new Horde_Log_Handler_Mock()));
+    /**
+     * The log backend that needs to implement the debug(), info() and err()
+     * methods.
+     *
+     * @param mixed 
+     */
+    private $_logger;
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $logger The logger.
+     */
+    public function __construct(
+        $logger
+    ) {
+        $this->_logger = $logger;
     }
 
     /**
@@ -105,11 +118,15 @@ class Horde_Kolab_Filter_Base
             return $result;
         }
 
-        Horde::logMessage(sprintf("%s starting up (sender=%s, recipients=%s, client_address=%s)",
-                                  get_class($this), $this->_sender,
-                                  join(', ',$this->_recipients),
-                                  $this->_client_address),
-                          'DEBUG');
+        $this->_logger->debug(
+            sprintf(
+                "%s starting up (sender=%s, recipients=%s, client_address=%s)",
+                get_class($this),
+                $this->_sender,
+                join(', ',$this->_recipients),
+                $this->_client_address
+            )
+        );
 
         $result = $this->_parse($inh, $transport);
         if (is_a($result, 'PEAR_Error')) {

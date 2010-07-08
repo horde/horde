@@ -54,7 +54,11 @@ class Horde_Kolab_Filter_FilterTest extends PHPUnit_Framework_TestCase
     public function testIncorrectUsage()
     {
         $_SERVER['argv'] = array($_SERVER['argv'][0]);
-        $parser   = &new Horde_Kolab_Filter_Incoming();
+        $parser   = new Horde_Kolab_Filter_Incoming(
+            new Horde_Log_Logger(
+                new Horde_Log_Handler_Mock()
+            )
+        );
         $inh = fopen(dirname(__FILE__) . '/fixtures/tiny.eml', 'r');
         try {
             $result = $parser->parse($inh, 'echo');
