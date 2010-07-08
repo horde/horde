@@ -115,8 +115,14 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
+                    $deleteParams = array('guid' => $guid);
+                    $instance = $components[$key]->getAttribute('RECURRENCE-ID');
+                    if (!($instance instanceof PEAR_Error)) {
+                        // This is a cancellation of a recurring event instance.
+                        $deleteParams['recurrenceId'] = $instance;
+                    }
                     try {
-                        $registry->call('calendar/delete', array('guid' => $guid));
+                        $registry->call('calendar/delete', $deleteParams);
                         $msgs[] = array('success', _("Event successfully deleted."));
                     } catch (Horde_Exception $e) {
                         $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $e->getMessage());
@@ -715,7 +721,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             } else {
                 $desc = _("%s has cancelled an instance of the recurring \"%s\".");
                 if ($registry->hasMethod('calendar/replace')) {
-                    $options[] = '<option value="import">' . _("Update in my calendar") . '</option>';
+                    $options[] = '<option value="delete">' . _("Update in my calendar") . '</option>';
                 }
             }
             break;

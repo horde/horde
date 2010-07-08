@@ -818,12 +818,16 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Deletes an event identified by UID.
      *
-     * @param string|array $uid  A single UID or an array identifying the
-     *                           event(s) to delete.
+     * @param string|array $uid     A single UID or an array identifying the
+     *                              event(s) to delete.
+     *
+     * @param string $recurrenceId  The reccurenceId for the event instance, if
+     *                              this is a deletion of a recurring event
+     *                              instance ($uid must not be an array).
      *
      * @throws Kronolith_Exception
      */
-    public function delete($uid)
+    public function delete($uid, $recurrenceId = null)
     {
         // Handle an array of UIDs for convenience of deleting multiple events
         // at once.
@@ -869,7 +873,15 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $kronolith_driver->deleteEvent($event->id);
+        if ($recurrenceId && $event->recurs()) {
+            $deleteDate = new Horde_Date($recurrenceId);
+            $event->recurrence->addException($deleteDate->format('Y'), $deleteDate->format('m'), $deleteDate->format('d'));
+            $event->save();
+        } elseif ($recurrenceId) {
+            throw new Kronolith_Exception(_("Unable to delete event. An exception date was provided but the event does not seem to be recurring."));
+        } else {
+            $kronolith_driver->deleteEvent($event->id);
+        }
     }
 
     /**

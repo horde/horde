@@ -2243,8 +2243,11 @@ class Kronolith
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
+                // Recurring event instance deletion, need to specify the
+                // RECURRENCE-ID but NOT the EXDATE.
                 $vevent = array_pop($vevent);
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
+                $vevent->removeAttribute('EXDATE');
             }
             $iCal->addComponent($vevent);
 
