@@ -831,23 +831,9 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         for ($x = 0; $x < $imgX; $x++) {
             for ($y = 0; $y < $imgY; $y++) {
-                $colorat = $this->call('imageColorAt',
-                                         array($this->_im, $x, $y));
-
-                if (is_a($colorat, 'PEAR_Error')) {
-                    return $colorat;
-                }
-
-                $realPixel = $this->call('imageColorsForIndex',
-                                          array($this->_im, $colorat));
-
-                $colorat = $this->call('imageColorAt',
-                                        array($gdimg_mask_resized, $x, $y));
-
-                if (is_a($colorat, 'PEAR_Error')) {
-                    return $colorat;
-                }
-
+                $colorat = $this->call('imageColorAt', array($this->_im, $x, $y));
+                $realPixel = $this->call('imageColorsForIndex', array($this->_im, $colorat));
+                $colorat = $this->call('imageColorAt', array($gdimg_mask_resized, $x, $y));
                 $maskPixel = Horde_Image::grayscalePixel($this->call('imageColorsForIndex', array($gdimg_mask_resized, $colorat)));
                 $maskAlpha = 127 - (floor($maskPixel['red'] / 2) * (1 - ($realPixel['alpha'] / 127)));
                 $newcolor = $this->_allocateColorAlpha($gdimg_mask_blendtemp,
@@ -855,8 +841,7 @@ class Horde_Image_Gd extends Horde_Image_Base
                                                        $realPixel['green'],
                                                        $realPixel['blue'],
                                                        intval($maskAlpha));
-                $this->call('imageSetPixel',
-                             array($gdimg_mask_blendtemp, $x, $y, $newcolor));
+                $this->call('imageSetPixel', array($gdimg_mask_blendtemp, $x, $y, $newcolor));
             }
         }
         $this->call('imageAlphaBlending', array($this->_im, false));
