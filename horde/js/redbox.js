@@ -143,4 +143,4 @@ var RedBox = {
         return ov && ov.visible();
     }
 
-}
+};
