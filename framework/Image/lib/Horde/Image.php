@@ -91,6 +91,23 @@ class Horde_Image
     }
 
     /**
+     * @TODO
+     */
+    static public function grayscaleValue($r, $g, $b)
+    {
+        return round(($r * 0.30) + ($g * 0.59) + ($b * 0.11));
+    }
+
+    /**
+     * @TODO
+     */
+    static public function grayscalePixel($originalPixel)
+    {
+        $gray = Horde_Image::grayscaleValue($originalPixel['red'], $originalPixel['green'], $originalPixel['blue']);
+        return array('red'=>$gray, 'green'=>$gray, 'blue'=>$gray);
+    }
+
+    /**
      * Normalizes an HTML color.
      *
      * @param string $color  An HTML color, e.g.: #ffffcc or #ffc.
