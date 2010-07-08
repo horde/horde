@@ -74,6 +74,13 @@ class Horde_Kolab_Filter_Base
     var $_sasl_username;
 
     /**
+     * Comman line parser.
+     *
+     * @param Horde_Kolab_Filter_Cli 
+     */
+    private $_cli;
+
+    /**
      * The log backend that needs to implement the debug(), info() and err()
      * methods.
      *
@@ -87,8 +94,10 @@ class Horde_Kolab_Filter_Base
      * @param mixed $logger The logger.
      */
     public function __construct(
+        Horde_Kolab_Filter_Cli $cli,
         $logger
     ) {
+        $this->_cli    = $cli;
         $this->_logger = $logger;
     }
 
@@ -187,55 +196,10 @@ class Horde_Kolab_Filter_Base
     {
         global $conf;
 
-        /* Get command line options. */
-        $p = new Horde_Kolab_Filter_Argv_Parser(
-            array('optionList' =>
-                  array(
-                      new Horde_Argv_Option('-s',
-                                            '--sender',
-                                            array('help' => 'The message sender.',
-                                                  'type' => 'string',
-                                                  'nargs' => 1)),
-                      new Horde_Argv_Option('-r',
-                                            '--recipient',
-                                            array('help' => 'A message recipient.',
-                                                  'action' => 'append',
-                                                  'type' => 'string')),
-                      new Horde_Argv_Option('-H',
-                                            '--host',
-                                            array('help' => 'The host running this script.')),
-                      new Horde_Argv_Option('-c',
-                                            '--client',
-                                            array('help' => 'The client sending the message.')),
-                      new Horde_Argv_Option('-u',
-                                            '--user',
-                                            array('help' => 'ID of the currently authenticated user.',
-                                                  'default' => '')),
-                      new Horde_Argv_Option('-C',
-                                            '--config',
-                                            array('help' => 'Path to the configuration file for this filter.'))
-                  )));
-
-        try {
-            list($values, $args) = $p->parseArgs();
-        } catch (InvalidArgumentException $e) {
-            $msg = $e->getMessage() . "\n\n" . $p->getUsage();
-            return PEAR::raiseError($msg, OUT_STDOUT | EX_USAGE);
-        }
+        $values = $this->_cli->getOptions();
 
         if (!empty($values['config']) && file_exists($values['config'])) {
             require_once $values['config'];
-        }
-
-        if (empty($values['recipient'])) {
-            throw new Horde_Kolab_Filter_Exception(
-                sprintf(
-                    "Please provide one or more recipients.\n\n%s",
-                    $p->getUsage()
-                ), 
-                Horde_Kolab_Filter_Exception::OUT_STDOUT |
-                Horde_Kolab_Filter_Exception::EX_USAGE
-            );
         }
 
         $this->_sender = strtolower($values['sender']);
@@ -298,15 +262,3 @@ class Horde_Kolab_Filter_Base
     }
 }
 
-class Horde_Kolab_Filter_Argv_Parser extends Horde_Argv_Parser
-{
-    public function parserError($msg)
-    {
-        throw new InvalidArgumentException(sprintf("%s: error: %s\n", $this->getProgName(), $msg));
-    }
-
-    public function parserExit($status = 0, $msg = null)
-    {
-        throw new InvalidArgumentException(sprintf("%s: error: %s\n", $this->getProgName(), $msg));
-    }
-}

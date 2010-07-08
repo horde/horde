@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the base filter class within the Kolab filter implementation.
+ * Test the CLI handling.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
- * Test the filter class.
+ * Test the CLI handling.
  *
  * Copyright 2008 Klarälvdalens Datakonsult AB
  *
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Filter
  */
-class Horde_Kolab_Filter_FilterTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Filter_Integration_CliTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -49,21 +49,53 @@ class Horde_Kolab_Filter_FilterTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * Test incorrect usage of the Filter
+     * Test incorrect usage of the Filter.
      */
     public function testIncorrectUsage()
     {
         $_SERVER['argv'] = array($_SERVER['argv'][0]);
         $parser   = new Horde_Kolab_Filter_Incoming(
+            new Horde_Kolab_Filter_Cli(),
             new Horde_Log_Logger(
                 new Horde_Log_Handler_Mock()
             )
         );
-        $inh = fopen(dirname(__FILE__) . '/fixtures/tiny.eml', 'r');
+        $inh = fopen(dirname(__FILE__) . '/../fixtures/tiny.eml', 'r');
         try {
             $result = $parser->parse($inh, 'echo');
         } catch (Horde_Kolab_Filter_Exception $e) {
-            $this->assertContains('Please provide one or more recipients.', $e->getMessage());
+            $this->assertContains(
+                'Please provide one or more recipients.',
+                $e->getMessage()
+            );
+            return;
+        }
+        $this->assertFail('No exception!');
+    }
+
+    /**
+     * Test incorrect usage of the Filter by providing an invalid option.
+     */
+    public function testIncorrectUsageWithInvalidOption()
+    {
+        $_SERVER['argv'] = array(
+            $_SERVER['argv'][0],
+            '--recipient'
+        );
+        $parser   = new Horde_Kolab_Filter_Incoming(
+            new Horde_Kolab_Filter_Cli(),
+            new Horde_Log_Logger(
+                new Horde_Log_Handler_Mock()
+            )
+        );
+        $inh = fopen(dirname(__FILE__) . '/../fixtures/tiny.eml', 'r');
+        try {
+            $result = $parser->parse($inh, 'echo');
+        } catch (Horde_Kolab_Filter_Exception $e) {
+            $this->assertContains(
+                'error: --recipient option requires an argument',
+                $e->getMessage()
+            );
             return;
         }
         $this->assertFail('No exception!');

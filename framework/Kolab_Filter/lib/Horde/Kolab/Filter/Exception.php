@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Filter
  */
 class Horde_Kolab_Filter_Exception
-extends Exception
+extends Horde_Exception
 {
     /**
      * Failure constants from postfix src/global/sys_exits.h
