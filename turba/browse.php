@@ -14,6 +14,17 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
+/* If default source is not browsable, try one from the addressbooks pref */
+if (empty($cfgSources[$default_source]['browse'])) {
+    $addressbooks = Horde_Serialize::unserialize($prefs->getValue('addressbooks'), Horde_Serialize::JSON);
+    foreach ($addressbooks as $source) {
+        if (!empty($cfgSources[$source]['browse'])) {
+            $default_source = $source;
+            break;
+        }
+    }
+}
+
 $params = array(
     'vars' => Horde_Variables::getDefaultVariables(),
     'prefs' => &$prefs,
