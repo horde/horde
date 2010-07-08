@@ -76,6 +76,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Filter">
        <file name="Content.php" role="php" />
        <file name="Base.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="Incoming.php" role="php" />
        <file name="Outlook.php" role="php" />
        <file name="Response.php" role="php" />
@@ -244,6 +245,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Filter/Content.php" as="Horde/Kolab/Filter/Content.php" />
    <install name="lib/Horde/Kolab/Test/Filter.php" as="Horde/Kolab/Test/Filter.php" />
    <install name="lib/Horde/Kolab/Filter/Base.php" as="Horde/Kolab/Filter/Base.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception.php" as="Horde/Kolab/Filter/Exception.php" />
    <install name="lib/Horde/Kolab/Filter/Incoming.php" as="Horde/Kolab/Filter/Incoming.php" />
    <install name="lib/Horde/Kolab/Filter/Outlook.php" as="Horde/Kolab/Filter/Outlook.php" />
    <install name="lib/Horde/Kolab/Filter/Response.php" as="Horde/Kolab/Filter/Response.php" />
