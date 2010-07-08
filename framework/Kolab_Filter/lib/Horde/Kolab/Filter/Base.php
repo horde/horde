@@ -3,9 +3,6 @@
  * @package Kolab_Filter
  */
 
-/** Load the Filter libraries */
-require_once dirname(__FILE__) . '/Response.php';
-
 /**
  * A basic definition for a PHP based postfix filter.
  *
@@ -76,6 +73,12 @@ class Horde_Kolab_Filter_Base
      */
     var $_sasl_username;
 
+    public function __construct()
+    {
+        $GLOBALS['injector'] = $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+        $injector->setInstance('Horde_Log_Logger', new Horde_Core_Log_Logger(new Horde_Log_Handler_Mock()));
+    }
+
     /**
      * Initialize the class.
      */
@@ -98,7 +101,7 @@ class Horde_Kolab_Filter_Base
     {
         /* Setup the temporary storage */
         $result = $this->_initTmp();
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceOf PEAR_Error) {
             return $result;
         }
 
@@ -208,9 +211,14 @@ class Horde_Kolab_Filter_Base
         }
 
         if (empty($values['recipient'])) {
-            $msg = 'Please provide one or more recipients.'
-                . "\n\n" . $p->getUsage();
-            return PEAR::raiseError($msg, OUT_STDOUT | EX_USAGE);
+            throw new Horde_Kolab_Filter_Exception(
+                sprintf(
+                    "Please provide one or more recipients.\n\n%s",
+                    $p->getUsage()
+                ), 
+                Horde_Kolab_Filter_Exception::OUT_STDOUT |
+                Horde_Kolab_Filter_Exception::EX_USAGE
+            );
         }
 
         $this->_sender = strtolower($values['sender']);
