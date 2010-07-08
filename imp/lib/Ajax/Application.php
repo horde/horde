@@ -1432,7 +1432,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $sm_displayed = !empty($GLOBALS['conf']['user']['select_sentmail_folder']) && !$GLOBALS['prefs']->isLocked('sent_mail_folder');
 
         $options = array(
-            'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->_vars->encrypt),
+            'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $GLOBALS['prefs']->getValue('default_encrypt') : $this->_vars->encrypt),
             'identity' => $identity,
             'priority' => $this->_vars->priority,
             'readreceipt' => $this->_vars->request_read_receipt,
