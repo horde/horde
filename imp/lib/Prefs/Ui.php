@@ -260,6 +260,15 @@ class IMP_Prefs_Ui
             if (empty($conf['maillog']['use_maillog'])) {
                 $ui->suppress[] = 'disposition_send_mdn';
             }
+
+            $mock_part = new Horde_Mime_Part();
+            $mock_part->setType('text/html');
+            $v = Horde_Mime_Viewer::factory($mock_part);
+
+            if (!$v->canRender('inline')) {
+                $ui->suppress[] = 'html_image_replacement';
+                $ui->suppress[] = 'html_image_addrbook';
+            }
             break;
         }
 
