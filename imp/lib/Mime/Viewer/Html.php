@@ -258,7 +258,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($GLOBALS['prefs']->getValue('emoticons')) {
-            $data = Horde_Text_Filter::filter($data, array('emoticons'), array(array('emoticons' => true)));
+            $data = Horde_Text_Filter::filter($data, array('emoticons'), array(array('entities' => true)));
         }
 
         return array(
