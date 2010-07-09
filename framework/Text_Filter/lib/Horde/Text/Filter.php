@@ -16,32 +16,29 @@ class Horde_Text_Filter
     /**
      * Attempts to return a concrete instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete subclass to return.
-     *                       This is based on the filter driver ($driver). The
-     *                       code is dynamically included. If $driver is an
-     *                       array, then we will look in $driver[0] for the
-     *                       subclass implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Text_Filter_Base).
+     * @param array $params   A hash containing any additional configuration
+     *                        parameters a subclass might need.
      *
-     * @return Text_Filter  The newly created concrete instance.
+     * @return Horde_Text_Filter_Base  The newly created concrete instance.
      * @throws Horde_Exception
      */
     static public function factory($driver, $params = array())
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
-        $class = (empty($app) ? 'Horde' : $app) . '_Text_Filter_' . ucfirst($driver);
+        /* Base drivers (in Filter/ directory). */
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        /* Explicit class name, */
+        $class = $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**

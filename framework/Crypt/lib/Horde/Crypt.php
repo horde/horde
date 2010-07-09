@@ -23,37 +23,34 @@ class Horde_Crypt
     /**
      * Attempts to return a concrete Horde_Crypt instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Crypt subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Crypt/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Crypt).
+     * @param array $params   A hash containing any additional configuration
+     *                        or parameters a subclass might need.
      *
-     * @return Horde_Crypt  The newly created concrete Horde_Crypt instance.
+     * @return Horde_Crypt  The newly created concrete instance.
      * @throws Horde_Exception
      */
     static public function factory($driver, $params = array())
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
         /* Return a base Horde_Crypt object if no driver is specified. */
         if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
             return new Horde_Crypt();
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Crypt_' . ucfirst($driver);
-
+        /* Base drivers (in Crypt/ directory). */
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        /* Explicit class name, */
+        $class = $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
