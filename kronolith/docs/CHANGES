@@ -40,6 +40,8 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
+[mjr] Send an iTip REQUEST, not ADD, when updating an existing event
+      (Bug #9131).
 [jan] Fix all-day events sometimes showing up an day early too (Bug #9012).
 [mjr] Sort exception list before displaying (Request #7688).
 [mjr] Do not remove history entries when removing user data (Bug #8755).
