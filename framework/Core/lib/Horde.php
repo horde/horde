@@ -989,10 +989,6 @@ HTML;
     static public function applicationUrl($uri, $full = false,
                                           $append_session = 0)
     {
-        if ($full) {
-            return self::url($uri, $full, $append_session);
-        }
-
         if (substr($uri, 0, 1) != '/') {
             $webroot = $GLOBALS['registry']->get('webroot');
             if (substr($webroot, -1) != '/') {
