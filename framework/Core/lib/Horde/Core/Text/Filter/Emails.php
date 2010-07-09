@@ -1,0 +1,88 @@
+<?php
+/**
+ * The Horde_Text_Filter_Emails:: class finds email addresses in a block of
+ * text and turns them into links.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
+ */
+class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
+{
+    /**
+     * Constructor.
+     *
+     * @param array $params  Parameters (in addition to base
+     *                       Horde_Text_Filter_Emails parameters):
+     * <pre>
+     * always_mailto - (boolean) If true, a mailto: link is generated always.
+     *                 Only if no mail/compose registry API method exists
+     *                 otherwise.
+     *                 DEFAULT: false
+     * </pre>
+     */
+    public function __construct(array $params = array())
+    {
+        $this->_params = array_merge(array(
+            'always_mailto' => false
+        ), $this->_params, $params);
+
+        parent::__construct($params);
+    }
+
+    /**
+     * Regular expression callback.
+     *
+     * @param array $matches  preg_replace_callback() matches.
+     *
+     * @return string  Replacement string.
+     */
+    protected function _regexCallback($matches)
+    {
+        if ($this->_params['always_mailto'] ||
+            !$GLOBALS['registry']->hasMethod('mail/compose')) {
+            return parent::_regexCallback($matches);
+        }
+
+        if (empty($email2)) {
+            $args = $matches[7];
+            $email = $matches[3];
+            $args_long = $matches[5];
+        } else {
+            $args = $matches[13];
+            $email = $matches[10];
+            $args_long = $matches[11];
+        }
+
+        parse_str($args, $extra);
+        try {
+            $url = strval($GLOBALS['registry']->call('mail/compose', array(array('to' => $email), $extra)));
+        } catch (Horde_Exception $e) {
+            return parent::_regexCallback($matches);
+        }
+
+        if (substr($url, 0, 11) == 'javascript:') {
+            $href = '#';
+            $onclick = ' onclick="' . substr($url, 11) . ';return false;"';
+        } else {
+            $href = $url;
+            $onclick = '';
+        }
+
+        $class = empty($this->_params['class'])
+            ? ''
+            : ' class="' . $this->_params['class'] . '"';
+
+        return $matches[1] . $matches[2] . $matches[9] . '<a' . $class .
+            ' href="' . $href . '"' . $onclick . '>' .
+            htmlspecialchars($email) . $args_long
+            . '</a>' . $matches[8] . $matches[4] . ($matches[14] ? '>' : '');
+    }
+
+}

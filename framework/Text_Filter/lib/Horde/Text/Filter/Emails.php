@@ -5,14 +5,13 @@
  *
  * Parameters:
  * <pre>
- * always_mailto - (boolean) If true, a mailto: link is generated always.
- *                 Only if no mail/compose registry API method exists
- *                 otherwise.
- * class - (string) CSS class of the generated <a> tag.  Defaults to none.
+ * class - (string) CSS class of the generated <a> tag.
+ *         DEFAULT: ''
  * encode - (boolean) Whether to escape special HTML characters in the URLs
  *          and finally "encode" the complete tag so that it can be decoded
  *          later with the decode() method. This is useful if you want to run
  *          htmlspecialchars() or similar *after* using this filter.
+ *          DEFAULT: false
  * </pre>
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -34,10 +33,39 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'always_mailto' => false,
         'class' => '',
         'encode' => false
     );
+
+    /**
+     * Email regular expression.
+     *
+     * @var string
+     */
+    protected $_regexp = <<<EOR
+        /
+            # Version 1: mailto: links with any valid email characters.
+            # Pattern 1: Outlook parenthesizes in square brackets
+            (\[\s*)?
+            # Pattern 2: mailto: protocol prefix
+            (mailto:\s?)
+            # Pattern 3: email address
+            ([^\s\?"<&]*)
+            # Pattern 4: closing angle brackets?
+            (&gt;)?
+            # Pattern 5 to 7: Optional parameters
+            ((\?)([^\s"<]*[\w+#?\/&=]))?
+            # Pattern 8: Closing Outlook square bracket
+            ((?(1)\s*\]))
+        |
+            # Version 2 Pattern 9 and 10: simple email addresses.
+            (^|\s|&lt;|<)([\w-+.=]+@[-A-Z0-9.]*[A-Z0-9])
+            # Pattern 11 to 13: Optional parameters
+            ((\?)([^\s"<]*[\w+#?\/&=]))?
+            # Pattern 14: Optional closing bracket
+            (>)?
+        /ix
+EOR;
 
     /**
      * Returns a hash with replace patterns.
@@ -46,126 +74,45 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter_Base
      */
     public function getPatterns()
     {
+        return array('regexp_callback' => array(
+            $this->_regexp => array($this, 'regexCallback')
+        ));
+    }
+
+    /**
+     * Regular expression callback.
+     *
+     * @param array $matches  preg_replace_callback() matches. See regex above
+     *                        for description of matching data.
+     *
+     * @return string  Replacement string.
+     */
+    public function regexCallback($matches)
+    {
+        $data = $this->_regexCallback($matches);
+
+        return $this->_params['encode']
+            ? "\01\01\01" . base64_encode($data) . "\01\01\01"
+           : $data;
+    }
+
+    /**
+     * Regular expression callback.
+     *
+     * @param array $matches  preg_replace_callback() matches. See regex above
+     *                        for description of matching data.
+     *
+     * @return string  Replacement string.
+     */
+    protected function _regexCallback($matches)
+    {
         $class = empty($this->_params['class'])
             ? ''
             : ' class="' . $this->_params['class'] . '"';
 
-        $regexp = <<<EOR
-            /
-                # Version 1: mailto: links with any valid email characters.
-                # Pattern 1: Outlook parenthesizes in square brackets
-                (\[\s*)?
-                # Pattern 2: mailto: protocol prefix
-                (mailto:\s?)
-                # Pattern 3: email address
-                ([^\s\?"<&]*)
-                # Pattern 4: closing angle brackets?
-                (&gt;)?
-                # Pattern 5 to 7: Optional parameters
-                ((\?)([^\s"<]*[\w+#?\/&=]))?
-                # Pattern 8: Closing Outlook square bracket
-                ((?(1)\s*\]))
-            |
-                # Version 2 Pattern 9 and 10: simple email addresses.
-                (^|\s|&lt;|<)([\w-+.=]+@[-A-Z0-9.]*[A-Z0-9])
-                # Pattern 11 to 13: Optional parameters
-                ((\?)([^\s"<]*[\w+#?\/&=]))?
-                # Pattern 14: Optional closing bracket
-                (>)?
-            /eix
-EOR;
-
-        if (isset($GLOBALS['registry']) &&
-            $GLOBALS['registry']->hasMethod('mail/compose') &&
-            !$this->_params['always_mailto']) {
-            /* If we have a mail/compose registry method, use it. */
-            $replacement = 'Horde_Text_Filter_Emails::callback(\'registry\', \''
-                . $this->_params['encode'] . '\', \'' . $class
-                . '\', \'$1\', \'$2\', \'$3\', \'$4\', \'$5\', \'$7\', \'$8\', \'$9\', \'$10\', \'$11\', \'$13\', \'$14\')';
-        } else {
-            /* Otherwise, generate a standard mailto: and let the browser
-             * handle it. */
-            if ($this->_params['encode']) {
-                $replacement = <<<EOP
-                    '$9' === ''
-                    ? htmlspecialchars('$1$2') . '<a$class href="mailto:'
-                        . htmlspecialchars('$3$5') . '" title="'
-                        . sprintf(_("New Message to %s"), htmlspecialchars('$3'))
-                        . '">' . htmlspecialchars('$3$5') . '</a>'
-                        . htmlspecialchars('$4$8')
-                    : htmlspecialchars('$9') . '<a$class href="mailto:'
-                        . htmlspecialchars('$10$11') . '" title="'
-                        . sprintf(_("New Message to %s"), htmlspecialchars('$10'))
-                        . '">' . htmlspecialchars('$10$11') . '</a>'
-                        . htmlspecialchars('$14')
-EOP;
-                $replacement = 'chr(1).chr(1).chr(1).base64_encode(' . $replacement . ').chr(1).chr(1).chr(1)';
-            } else {
-                $replacement = 'Horde_Text_Filter_Emails::callback(\'link\', \''
-                    . $this->_params['encode'] . '\', \'' . $class
-                    . '\', \'$1\', \'$2\', \'$3\', \'$4\', \'$5\', \'$7\', \'$8\', \'$9\', \'$10\', \'$11\', \'$13\', \'$14\')';
-            }
-        }
-
-        return array('regexp' => array($regexp => $replacement));
-    }
-
-    /**
-     * TODO
-     */
-    static public function callback($mode, $encode, $class, $bracket1,
-                                    $protocol, $email, $closing, $args_long,
-                                    $args, $bracket2, $prefix, $email2,
-                                    $args_long2, $args2, $closebracket)
-    {
-        if ($mode == 'link') {
-            if ($email2 === '') {
-                return $bracket1 . $protocol . '<a' . $class . ' href="mailto:' . $email . $args_long . '" title="' . sprintf(_("New Message to %s"), htmlspecialchars($email)) . '">' . $email . $args_long . '</a>' . $closing . $bracket2;
-            }
-
-            return (($prefix == '<') ? '&lt;' : $prefix) . '<a' . $class . ' href="mailto:' . $email2 . $args_long2 . '" title="' . sprintf(_("New Message to %s"), htmlspecialchars($email2)) . '">' . $email2 . $args_long2 . '</a>' . ($closebracket ? '&gt;' : '');
-        }
-
-        if (!empty($email2)) {
-            $args = $args2;
-            $email = $email2;
-            $args_long = $args_long2;
-        }
-
-        parse_str($args, $extra);
-        try {
-            $url = $GLOBALS['registry']->call('mail/compose', array(array('to' => $email), $extra));
-        } catch (Horde_Exception $e) {
-            $url = 'mailto:' . urlencode($email);
-        }
-
-        $url = str_replace('&amp;', '&', $url);
-        if (substr($url, 0, 11) == 'javascript:') {
-            $href = '#';
-            $onclick = ' onclick="' . substr($url, 11) . ';return false;"';
-        } else {
-            $href = $url;
-            $onclick = '';
-        }
-
-        if ($encode) {
-            return chr(1).chr(1).chr(1)
-                . base64_encode(
-                    htmlspecialchars($bracket1 . $protocol . $prefix)
-                    . '<a' . $class . ' href="' . htmlspecialchars($href)
-                    . '" title="' . sprintf(_("New Message to %s"),
-                                            htmlspecialchars($email))
-                    . '"' . $onclick . '>'
-                    . htmlspecialchars($email . $args_long) . '</a>'
-                    . htmlspecialchars($bracket2))
-                . chr(1).chr(1).chr(1) . $closing . ($closebracket ? '>' : '');
-        }
-
-        return $bracket1 . $protocol . $prefix . '<a' . $class
-            . ' href="' . $href . '" title="'
-            . sprintf(_("New Message to %s"), htmlspecialchars($email))
-            . '"' . $onclick . '>' . htmlspecialchars($email) . $args_long
-            . '</a>' . $bracket2 . $closing . ($closebracket ? '>' : '');
+        return ($matches[10] === '')
+            ? $matches[1] . $matches[2] . '<a' . $class . ' href="mailto:' . $matches[3] . $matches[5] . '">' . $matches[3] . $matches[5] . '</a>' . $matches[4] . $matches[8]
+            : (($matches[9] == '<') ? '&lt;' : $matches[9]) . '<a' . $class . ' href="mailto:' . $matches[10] . $matches[11] . '">' . $matches[10] . $matches[11] . '</a>' . ($matches[14] ? '&gt;' : '');
     }
 
     /**
