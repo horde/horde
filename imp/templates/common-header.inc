@@ -39,6 +39,7 @@ case 'dimp':
     Horde_Themes::includeStylesheetFiles(array('sub' => 'dimp'));
     if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
         Horde::includeScriptFiles();
+        Horde::outputInlineScript();
     }
     break;
 
@@ -53,6 +54,7 @@ case 'mimp':
 default:
     Horde_Themes::includeStylesheetFiles();
     Horde::includeScriptFiles();
+    Horde::outputInlineScript();
     break;
 }
 ?>
@@ -88,7 +90,6 @@ default:
 <?php if (!Horde_Util::nonInputVar('login_page')): ?>
 <link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
 <?php endif ?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body>
