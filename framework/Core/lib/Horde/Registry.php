@@ -2024,8 +2024,7 @@ class Horde_Registry
         $this->setAuthCredential($credentials, null, $app);
 
         /* Reload preferences for the new user. */
-        $this->loadPrefs();
-        Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
+        $this->_onAppSwitch($app);
     }
 
     /**
