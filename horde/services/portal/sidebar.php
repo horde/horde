@@ -282,7 +282,9 @@ if (!Horde_Util::getFormData('ajaxui') &&
      ($GLOBALS['registry']->getAuth() &&
       $GLOBALS['prefs']->getValue('show_sidebar')))) {
     sidebar();
+    echo '<div class="body" style="margin-left:' . $GLOBALS['prefs']->getValue('sidebar_width') . 'px">';
+} else {
+    echo '<div class="body">';
 }
 
 $GLOBALS['sidebarLoaded'] = true;
-echo '<div class="body" style="margin-left:' . $GLOBALS['prefs']->getValue('sidebar_width') . 'px">';
