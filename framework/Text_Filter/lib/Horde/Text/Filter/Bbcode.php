@@ -54,8 +54,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Carlos Pedrinaci <cpedrinaci@yahoo.es>
- * @package Horde_Text_Filter
+ * @author   Carlos Pedrinaci <cpedrinaci@yahoo.es>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
 class Horde_Text_Filter_Bbcode extends Horde_Text_Filter_Base
 {
