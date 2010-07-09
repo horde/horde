@@ -930,11 +930,10 @@ HTML;
             /* Store the webroot in a local variable. */
             $webroot = $registry->get('webroot');
 
-            $url = $protocol . '://' . $server_name;
-            if (preg_match('|^([\w+-]{1,20})://|', $webroot)) {
-                /* Don't prepend to webroot if it's already absolute. */
-                $url = '';
-            }
+            /* Don't prepend to webroot if it's already absolute. */
+            $url = preg_match('|^([\w+-]{1,20})://|', $webroot)
+                ? ''
+                : $protocol . '://' . $server_name;
 
             if (substr($uri, 0, 1) != '/') {
                 /* Simple case for http:// absolute webroots. */
