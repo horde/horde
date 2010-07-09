@@ -928,7 +928,7 @@ HTML;
             }
 
             /* Store the webroot in a local variable. */
-            $webroot = $registry->get('webroot');
+            $webroot = $registry->get('webroot', 'horde');
 
             /* Don't prepend to webroot if it's already absolute. */
             $url = preg_match('|^([\w+-]{1,20})://|', $webroot)
