@@ -159,10 +159,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 case 'vEvent':
                     $handled = false;
                     $guid = $components[$key]->getAttribute('UID');
-                    // Check if this is an update.
-                    try {
-                        $registry->call('calendar/export', array($guid, 'text/calendar'));
-                    } catch (Horde_Exception $e) {}
 
                     // Try to update in calendar.
                     if ($registry->hasMethod('calendar/replace')) {
