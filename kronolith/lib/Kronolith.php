@@ -2203,15 +2203,14 @@ class Kronolith
 
             case self::ITIP_REQUEST:
             default:
+                $method = 'REQUEST';
                 if ($status['response'] == self::RESPONSE_NONE) {
                     /* Invitation. */
-                    $method = 'REQUEST';
                     $filename = 'event-invitation.ics';
                     $view->subject = $event->getTitle();
                     $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $event->getTitle());
                 } else {
                     /* Update. */
-                    $method = 'REQUEST';
                     $filename = 'event-update.ics';
                     $view->subject = sprintf(_("Updated: %s."), $event->getTitle());
                     $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $event->getTitle());
