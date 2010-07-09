@@ -244,8 +244,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         if ($inline &&
             $GLOBALS['prefs']->getValue('html_image_replacement') &&
             preg_match($this->_img_regex, $this->_mimepart->getContents()) &&
-            (!$GLOBALS['prefs']->getValue('html_image_addrbook') ||
-             !$this->_inAddressBook())) {
+            !$this->_inAddressBook()) {
             $data = $this->blockImages($data);
 
             $status[] = array(
@@ -347,21 +346,21 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _inAddressBook()
     {
-        /* If we don't have a contacts provider available, give up. */
-        if (!$GLOBALS['registry']->hasMethod('contacts/getField')) {
-            return false;
+        $from = Horde_Mime_Address::bareAddress($this->_params['contents']->getHeaderOb()->getValue('from'));
+
+        if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
+            $GLOBALS['registry']->hasMethod('contacts/getField')) {
+            $params = IMP::getAddressbookSearchParams();
+            try {
+                if ($GLOBALS['registry']->call('contacts/getField', array($from, '__key', $params['sources'], false, true))) {
+                    return true;
+                }
+            } catch (Horde_Exception $e) {}
         }
 
-        $params = IMP::getAddressbookSearchParams();
-        $headers = $this->_params['contents']->getHeaderOb();
-
-        /* Try to get back a result from the search. */
-        try {
-            $res = $GLOBALS['registry']->call('contacts/getField', array(Horde_Mime_Address::bareAddress($headers->getValue('from')), '__key', $params['sources'], false, true));
-            return count($res);
-        } catch (Horde_Exception $e) {
-            return false;
-        }
+        /* Check admin defined e-mail list. */
+        $safe_addrs = $this->getConfigParam('safe_addrs');
+        return (!empty($safe_addrs) && in_array($from, $safe_addrs));
     }
 
 }
