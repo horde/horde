@@ -2211,7 +2211,7 @@ class Kronolith
                     $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $event->getTitle());
                 } else {
                     /* Update. */
-                    $method = 'ADD';
+                    $method = 'REQUEST';
                     $filename = 'event-update.ics';
                     $view->subject = sprintf(_("Updated: %s."), $event->getTitle());
                     $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $event->getTitle());
