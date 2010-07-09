@@ -665,7 +665,7 @@ Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('imp.js', 'imp');
 Horde::addScriptFile('message.js', 'imp');
 
-if ($conf['tasklist']['use_notepad'] || $conf['tasklist']['use_tasklist']) {
+if (!empty($conf['tasklist']['use_notepad']) || !empty($conf['tasklist']['use_tasklist'])) {
     Horde::addScriptFile('dialog.js', 'imp');
     Horde::addScriptFile('redbox.js', 'horde');
 }
