@@ -159,25 +159,25 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 case 'vEvent':
                     $handled = false;
                     $guid = $components[$key]->getAttribute('UID');
+
                     // Check if this is an update.
                     try {
                         $registry->call('calendar/export', array($guid, 'text/calendar'));
-                    } catch (Horde_Exception $e) {}
-
-                    // Try to update in calendar.
-                    if ($registry->hasMethod('calendar/replace')) {
-                        try {
-                            $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
-                            $handled = true;
-                            $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                            $msgs[] = array('success', _("The event was updated in your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
-                        } catch (Horde_Exception $e) {
-                            // Could be a missing permission.
-                            $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                        // Try to update in calendar.
+                        if ($registry->hasMethod('calendar/replace')) {
+                            try {
+                                $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
+                                $handled = true;
+                                $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
+                                $msgs[] = array('success', _("The event was updated in your calendar.") .
+                                                '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
+                            } catch (Horde_Exception $e) {
+                                // Could be a missing permission.
+                                $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                            }
                         }
-                    }
-
+                    } catch (Horde_Exception $e) {}
+                    
                     if (!$handled && $registry->hasMethod('calendar/import')) {
                         // Import into calendar.
                         $handled = true;
