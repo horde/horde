@@ -143,7 +143,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         if ($prefs->getValue('emoticons')) {
-            $filters['emoticons'] = array('entities' => true);
+            $filters['Horde_Core_Text_Filter_Emoticons'] = array('entities' => true);
         }
 
         // Run filters.

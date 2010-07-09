@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Html2text converter now uses XML parser to generate output.
+ <notes>* Remove Horde/Core dependency in the Emoticons driver.
+ * Html2text converter now uses XML parser to generate output.
  * Add ability to define filters to use with preg_replace_callback().
  * Add 'noprefetch' parameter to XSS filter (Ticket #8836).
  * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).

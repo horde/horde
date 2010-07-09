@@ -13,8 +13,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Marko Djukic <marko@oblo.com>
- * @package Horde_Text
+ * @author   Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
 class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
 {
@@ -25,16 +27,9 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      */
     protected $_params = array('entities' => false);
 
-    /**
-     * The icon path.
-     *
-     * @var string
-     */
-    static protected $_iconpath;
-
     /* List complex strings before simpler ones, otherwise for example :((
      * would be matched against :( before :(( is found. */
-    static protected $_icons = array(
+    protected $_icons = array(
         ':/' => 'frustrated', ':-/' => 'frustrated',
         // ':*>' => 'blush',
         ':e' => 'disappointed',
@@ -104,9 +99,11 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
         /* Check for a smiley either immediately at the start of a line or
          * following a space. Use {} as the preg delimiters as this is not
          * found in any smiley. */
-        $regexp['{' . $beg_pattern . implode('|', $patterns) . $end_pattern . '}e'] = 'Horde_Text_Filter_Emoticons::getImage(\'$2\', \'$1\', \'' . ($this->_params['entities'] ? '$3' : '') . '\')';
+        $regexp = '{' . $beg_pattern . implode('|', $patterns) . $end_pattern . '}';
 
-        return array('regexp' => $regexp);
+        return array('regexp_callback' => array(
+            $regexp => array($this, 'getImage')
+        ));
     }
 
     /**
@@ -114,20 +111,26 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      *
      * @see self::getPatterns()
      *
-     * @param string $icon     The emoticon.
-     * @param string $prefix   A html prefix.
-     * @param string $postfix  A html postfix.
+     * @param array $matches  Matches from preg_replace_callback().
      *
      * @return string  HTML code with the image tag and any additional prefix
      *                 or postfix.
      */
-    static public function getImage($icon, $prefix, $postfix)
+    public function getImage($matches)
     {
-        if (!isset(self::$_iconpath)) {
-            self::$_iconpath = Horde_Themes::img(null, 'horde') . '/emoticons';
-        }
+        return $matches[1] . $this->_getImage($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
+    }
 
-        return $prefix . Horde::img(self::getIcons($icon) . '.png', $icon, array('align' => 'middle', 'title' => $icon), self::$_iconpath) . $postfix;
+    /**
+     * Return the HTML image tag needed to display an emoticon.
+     *
+     * @param string $icon  The emoticon name.
+     *
+     * @return string  The HTML image code.
+     */
+    protected function _getImage($icon)
+    {
+        return '';
     }
 
     /**
@@ -138,11 +141,11 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      *
      * @return array|string  Patterns hash or icon name.
      */
-    static public function getIcons($icon = null)
+    public function getIcons($icon = null)
     {
         return is_null($icon)
-            ? self::$_icons
-            : (isset(self::$_icons[$icon]) ? self::$_icons[$icon] : null);
+            ? $this->_icons
+            : (isset($this->_icons[$icon]) ? $this->_icons[$icon] : null);
     }
 
 }
