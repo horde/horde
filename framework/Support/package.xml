@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Support</name>
  <channel>pear.horde.org</channel>
  <summary>Horde support package</summary>
- <description>This package provides supporting functionality for Horde that is not tied to Horde but is used by it. These classes can be used outside of Horde as well.
- </description>
+ <description>This package provides supporting functionality for Horde that is not tied to Horde but is used by it. These classes can be used outside of Horde as well.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-08-01</date>
+ <date>2010-07-10</date>
+ <time>10:39:15</time>
  <version>
-  <release>0.1.0</release>
+  <release>0.2.0</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -25,21 +22,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-   * Add Horde_Support_CombineStream::.
-   * Initial horde/support package
-   * Initial Horde_Support_Array object
-   * Initial Horde_Support_Backtrace object
-   * Initial Horde_Support_ConsistentHash object
-   * Initial Horde_Support_Inflector object
-   * Initial Horde_Support_Stack object
-   * Initial Horde_Support_StringStream object
-   * Initial Horde_Support_Stub object
-   * Initial Horde_Support_Timer object
-   * Initial Horde_Support_Uuid object
-   * Initial Horde_Support_Numerizer objects
+* Add Portuguese numerizer.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Support">
@@ -47,6 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Locale">
         <file name="Base.php" role="php" />
         <file name="De.php" role="php" />
+        <file name="Pt.php" role="php" />
        </dir> <!-- /lib/Horde/Support/Numerizer/Locale -->
       </dir> <!-- /lib/Horde/Support/Numerizer -->
       <file name="Array.php" role="php" />
@@ -64,6 +51,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Support -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Support">
+      <dir name="Numerizer">
+       <dir name="Locale">
+        <file name="BaseTest.php" role="test" />
+        <file name="DeTest.php" role="test" />
+       </dir> <!-- /test/Horde/Support/Numerizer/Locale -->
+      </dir> <!-- /test/Horde/Support/Numerizer -->
+      <file name="AllTests.php" role="test" />
+      <file name="ArrayTest.php" role="test" />
+      <file name="BacktraceTest.php" role="test" />
+      <file name="CombineStreamTest.php" role="test" />
+      <file name="ConsistentHashTest.php" role="test" />
+      <file name="InflectorTest.php" role="test" />
+      <file name="StringStreamTest.php" role="test" />
+      <file name="StubTest.php" role="test" />
+      <file name="TimerTest.php" role="test" />
+      <file name="UuidTest.php" role="test" />
+     </dir> <!-- /test/Horde/Support -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -82,20 +91,76 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Support/Array.php" as="Horde/Support/Array.php" />
-   <install name="lib/Horde/Support/Backtrace.php" as="Horde/Support/Backtrace.php" />
-   <install name="lib/Horde/Support/CombineStream.php" as="Horde/Support/CombineStream.php" />
-   <install name="lib/Horde/Support/ConsistentHash.php" as="Horde/Support/ConsistentHash.php" />
-   <install name="lib/Horde/Support/Guid.php" as="Horde/Support/Guid.php" />
-   <install name="lib/Horde/Support/Inflector.php" as="Horde/Support/Inflector.php" />
-   <install name="lib/Horde/Support/Numerizer/Locale/Base.php" as="Horde/Support/Numerizer/Locale/Base.php" />
-   <install name="lib/Horde/Support/Numerizer/Locale/De.php" as="Horde/Support/Numerizer/Locale/De.php" />
-   <install name="lib/Horde/Support/Numerizer.php" as="Horde/Support/Numerizer.php" />
-   <install name="lib/Horde/Support/Stack.php" as="Horde/Support/Stack.php" />
-   <install name="lib/Horde/Support/StringStream.php" as="Horde/Support/StringStream.php" />
-   <install name="lib/Horde/Support/Stub.php" as="Horde/Support/Stub.php" />
-   <install name="lib/Horde/Support/Timer.php" as="Horde/Support/Timer.php" />
-   <install name="lib/Horde/Support/Uuid.php" as="Horde/Support/Uuid.php" />
+   <install as="Horde/Support/Array.php" name="lib/Horde/Support/Array.php" />
+   <install as="Horde/Support/Backtrace.php" name="lib/Horde/Support/Backtrace.php" />
+   <install as="Horde/Support/CombineStream.php" name="lib/Horde/Support/CombineStream.php" />
+   <install as="Horde/Support/ConsistentHash.php" name="lib/Horde/Support/ConsistentHash.php" />
+   <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
+   <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
+   <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
+   <install as="Horde/Support/Stack.php" name="lib/Horde/Support/Stack.php" />
+   <install as="Horde/Support/StringStream.php" name="lib/Horde/Support/StringStream.php" />
+   <install as="Horde/Support/Stub.php" name="lib/Horde/Support/Stub.php" />
+   <install as="Horde/Support/Timer.php" name="lib/Horde/Support/Timer.php" />
+   <install as="Horde/Support/Uuid.php" name="lib/Horde/Support/Uuid.php" />
+   <install as="Horde/Support/Numerizer/Locale/Base.php" name="lib/Horde/Support/Numerizer/Locale/Base.php" />
+   <install as="Horde/Support/Numerizer/Locale/De.php" name="lib/Horde/Support/Numerizer/Locale/De.php" />
+   <install as="Horde/Support/Numerizer/Locale/Pt.php" name="lib/Horde/Support/Numerizer/Locale/Pt.php" />
+   <install as="Horde/Support/AllTests.php" name="test/Horde/Support/AllTests.php" />
+   <install as="Horde/Support/ArrayTest.php" name="test/Horde/Support/ArrayTest.php" />
+   <install as="Horde/Support/BacktraceTest.php" name="test/Horde/Support/BacktraceTest.php" />
+   <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
+   <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
+   <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
+   <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
+   <install as="Horde/Support/StubTest.php" name="test/Horde/Support/StubTest.php" />
+   <install as="Horde/Support/TimerTest.php" name="test/Horde/Support/TimerTest.php" />
+   <install as="Horde/Support/UuidTest.php" name="test/Horde/Support/UuidTest.php" />
+   <install as="Horde/Support/Numerizer/Locale/BaseTest.php" name="test/Horde/Support/Numerizer/Locale/BaseTest.php" />
+   <install as="Horde/Support/Numerizer/Locale/DeTest.php" name="test/Horde/Support/Numerizer/Locale/DeTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-07-10</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Add Horde_Support_CombineStream::.
+* Initial horde/support package
+* Initial Horde_Support_Array object
+* Initial Horde_Support_Backtrace object
+* Initial Horde_Support_ConsistentHash object
+* Initial Horde_Support_Inflector object
+* Initial Horde_Support_Stack object
+* Initial Horde_Support_StringStream object
+* Initial Horde_Support_Stub object
+* Initial Horde_Support_Timer object
+* Initial Horde_Support_Uuid object
+* Initial Horde_Support_Numerizer objects
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-07-10</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Add Portuguese numerizer.
+   </notes>
+  </release>
+ </changelog>
 </package>
