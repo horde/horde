@@ -642,42 +642,32 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
             $ids = array();
+            $recurrences = array();
             foreach ($components as $content) {
                 if ($content instanceof Horde_iCalendar_vevent) {
-                    $event = $kronolith_driver->getEvent();
-                    $event->fromiCalendar($content);
-                    // Check if the entry already exists in the data source,
-                    // first by UID.
-                    $uid = $event->uid;
-                    try {
-                        $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
-                        throw new Kronolith_Exception(_("Already Exists"),
-                                                      'horde.message', null, null, $uid);
-                    } catch (Horde_Exception $e) {
+                    // Need to ensure that the original recurring event is
+                    // added before any of the instance exceptions. Easiest way
+                    // to do that is just add all the recurrence-id entries last
+                    $recurrenceId = $content->getAttribute('RECURRENCE-ID');
+                    if (!($recurrenceId instanceof PEAR_Error)) {
+                        $recurrences[] = $content;
+                    } else {
+                        $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
                     }
-                    $result = $kronolith_driver->search($event);
-                    // Check if the match really is an exact match:
-                    if (is_array($result) && count($result) > 0) {
-                        foreach($result as $match) {
-                            if ($match->start == $event->start &&
-                                $match->end == $event->end &&
-                                $match->title == $event->title &&
-                                $match->location == $event->location &&
-                                $match->hasPermission(Horde_Perms::EDIT)) {
-                                    throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $match->uid);
-                                }
-                        }
-                    }
-
-                    $eventId = $event->save();
-                    $ids[] = $event->uid;
                 }
             }
+            
             if (count($ids) == 0) {
                 throw new Kronolith_Exception(_("No iCalendar data was found."));
             } else if (count($ids) == 1) {
                 return $ids[0];
             }
+
+            // Now add all the exception instances
+            foreach ($recurrences as $recurrence) {
+                $ids[] = $this->_addiCalEvent($recurrence, $kronolith_driver);
+            }
+
             return $ids;
 
             case 'activesync':
@@ -688,6 +678,43 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+    }
+
+    /**
+     * Imports a single vEvent part to storage.
+     *
+     * @param Horde_iCalendar_vEvent $content  The vEvent part
+     * @param Kronolith_Driver $driver         The kronolith driver
+     *
+     * @return string  The new event's uid
+     */
+    protected function _addiCalEvent($content, $driver)
+    {
+        $event = $driver->getEvent();
+        $event->fromiCalendar($content);
+        // Check if the entry already exists in the data source,
+        // first by UID.
+        $uid = $event->uid;
+        try {
+            $existing_event = $driver->getByUID($uid, array($driver->calendar));
+            throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $uid);
+        } catch (Horde_Exception $e) {}
+        $result = $driver->search($event);
+        // Check if the match really is an exact match:
+        if (is_array($result) && count($result) > 0) {
+            foreach($result as $match) {
+                if ($match->start == $event->start &&
+                    $match->end == $event->end &&
+                    $match->title == $event->title &&
+                    $match->location == $event->location &&
+                    $match->hasPermission(Horde_Perms::EDIT)) {
+                        throw new Kronolith_Exception(_("Already Exists"), 'horde.message', null, null, $match->uid);
+                    }
+            }
+        }
+        $event->save();
+
+        return $event->uid;
     }
 
     /**

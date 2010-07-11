@@ -244,6 +244,7 @@ if (is_array($next_step)) {
         }
     }
 
+    $recurrences = array();
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
             try {
@@ -264,7 +265,15 @@ if (is_array($next_step)) {
             break;
         }
         if ($row instanceof Horde_iCalendar_vevent) {
-            $event->fromiCalendar($row);
+            // RECURRENCE-ID entries must be imported after the original
+            // recurring event is imported.
+            $recurrence = $row->getAttribute('RECURRENCE-ID');
+            if (!($recurrence instanceof PEAR_Error)) {
+                $recurrences[] = $row;
+                continue;
+            } else {
+                $event->fromiCalendar($row);
+            }
         } elseif ($row instanceof Horde_iCalendar) {
             // Skip other iCalendar components for now.
             continue;
@@ -290,6 +299,20 @@ if (is_array($next_step)) {
             $num_events++;
         }
     }
+
+    // Any RECURRENCE-ID entries?
+    foreach ($recurrences as $recurrence) {
+        $event = $kronolith_driver->getEvent();
+        $event->fromiCalendar($row);
+        try {
+            $event->save();
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
+            $error = true;
+            break;
+        }
+    }
+
     if (!$error) {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.success');
