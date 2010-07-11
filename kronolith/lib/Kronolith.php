@@ -1924,7 +1924,7 @@ class Kronolith
             throw new Kronolith_Exception(_("You must specify a name and a URL."));
         }
 
-        if (strlen($info['username']) || strlen($info['password'])) {
+        if (!empty($info['username']) || !empty($info['password'])) {
             $key = $GLOBALS['registry']->getAuthCredential('password');
             if ($key) {
                 $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
