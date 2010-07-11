@@ -1011,6 +1011,18 @@ abstract class Kronolith_Event
             }
         }
 
+        $this->_handlevEventRecurrence($vEvent);
+
+        $this->initialized = true;
+    }
+
+    /**
+     * Handle parsing recurrence related fields.
+     *
+     * @param Horde_iCalendar $vEvent
+     */
+    protected function _handlevEventRecurrence($vEvent)
+    {
         // Recurrence.
         $rrule = $vEvent->getAttribute('RRULE');
         if (!is_array($rrule) && !($rrule instanceof PEAR_Error)) {
@@ -1064,8 +1076,6 @@ abstract class Kronolith_Event
                                                      $originaldt->format('d'));
             $originalEvent->save();
         }
-
-        $this->initialized = true;
     }
 
     /**
