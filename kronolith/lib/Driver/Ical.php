@@ -154,7 +154,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         /* Loop through all explicitly defined recurrence intances and create
-         * exceptions for those in the event with the matchin recurrence. */
+         * exceptions for those in the event with the matching recurrence. */
         $results = array();
         foreach ($events as $key => $event) {
             if ($event->recurs() &&
