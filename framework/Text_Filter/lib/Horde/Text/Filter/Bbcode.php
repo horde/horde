@@ -5,8 +5,9 @@
  *
  * Parameters:
  * <pre>
- * entities -- If true before replacing bbcode with HTML tags, any HTML
- *             entities will be replaced.
+ * entities - (boolean) Before replacing bbcode with HTML tags, replace HTML
+ *            entities?
+ *            DEFAULT: false
  * </pre>
  *
  * Supported bbcode:
@@ -138,7 +139,6 @@ class Horde_Text_Filter_Bbcode extends Horde_Text_Filter_Base
 
             "#\[color\=(.*)\](.*)\[/color\]#U" =>
             "<span style=\"color: $1;\">$2</span>"
-
         );
 
         return array('replace' => $replace, 'regexp' => $regexp);
