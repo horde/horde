@@ -1046,6 +1046,7 @@ ul.sound-list {
     padding-left: 10px;
 }
 div.GrowlerNoticeExit {
+    cursor: pointer;
     float: right;
     font-weight: bold;
 }
