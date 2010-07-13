@@ -64,6 +64,13 @@ class Horde_Url
     public $anchor = '';
 
     /**
+     * A callback function to use when converting to a string.
+     *
+     * @var callback
+     */
+    public $toStringCallback;
+
+    /**
      * Constructor.
      *
      * @param string $url   The basic URL, with or without query parameters.
@@ -200,6 +207,14 @@ class Horde_Url
      */
     public function toString($raw = false)
     {
+        if ($this->toStringCallback) {
+            $callback = $this->toStringCallback;
+            $this->toStringCallback = null;
+            $ret = call_user_func($callback, $this);
+            $this->toStringCallback = $callback;
+            return $ret;
+        }
+
         $url_params = array();
         foreach ($this->parameters as $parameter => $value) {
             if (is_array($value)) {

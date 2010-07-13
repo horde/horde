@@ -29,7 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for URL anchors.
+ <notes>* Add support for callback function for toString conversion.
+ * Add support for URL anchors.
  * Added Horde_Url::uriB64Encode() and Horde_Url::uriB64Decode().
  * Initial package.
  </notes>
