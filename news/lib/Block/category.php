@@ -48,7 +48,7 @@ class Horde_Block_News_category extends Horde_Block {
                  'ORDER BY n.publish DESC ' .
                  'LIMIT 0, ' . $this->_params['limit'];
 
-        $params = array(News::CONFIRMED, $this->_params['category'], $this->_params['category'], Horde_Nls::select());
+        $params = array(News::CONFIRMED, $this->_params['category'], $this->_params['category'], $GLOBALS['registry']->preferredLang());
         $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
         if ($rows instanceof PEAR_Error) {
             return $rows->getDebugInfo();

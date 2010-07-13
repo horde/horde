@@ -1,9 +1,13 @@
 <?php
 /**
  * NLS (National Language Support) configuration file.
+ *
+ * Local overrides should be placed in config/nls.local.php.
+ *
+ * $Id$
  */
 
-Horde_Nls::$config = array(
+$horde_nls_config = array(
     /* Defaults */
     'defaults' => array(
         /* The language to fall back on if we cannot determine one any other
@@ -208,11 +212,11 @@ Horde_Nls::$config = array(
 );
 
 /* Sort encodings. */
-asort(Horde_Nls::$config['encodings']);
+asort($horde_nls_config['encodings']);
 
 /* BSD charsets. */
 if (strpos(PHP_OS, 'BSD') !== false) {
-    Horde_Nls::$config['charsets'] = array_merge(Horde_Nls::$config['charsets'], array(
+    $horde_nls_config['charsets'] = array_merge($horde_nls_config['charsets'], array(
         'bs_BA' => 'ISO8859-2',
         'cs_CZ' => 'ISO8859-2',
         'el_GR' => 'ISO8859-7',
@@ -231,10 +235,10 @@ if (strpos(PHP_OS, 'BSD') !== false) {
 
 /* Turkish locales. */
 if (version_compare(PHP_VERSION, '6', 'ge')) {
-    Horde_Nls::$config['aliases']['tr'] = 'tr_TR';
-    Horde_Nls::$config['charsets']['tr_TR'] = (strpos(PHP_OS, 'BSD') === false) ? 'ISO-8859-9' : 'ISO8859-9';
-    Horde_Nls::$config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
-    Horde_Nls::$config['spelling']['tr_TR'] = '-d tr';
+    $horde_nls_config['aliases']['tr'] = 'tr_TR';
+    $horde_nls_config['charsets']['tr_TR'] = (strpos(PHP_OS, 'BSD') === false) ? 'ISO-8859-9' : 'ISO8859-9';
+    $horde_nls_config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
+    $horde_nls_config['spelling']['tr_TR'] = '-d tr';
 }
 
 /* Local overrides. */

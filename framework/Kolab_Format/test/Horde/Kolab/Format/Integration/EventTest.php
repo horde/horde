@@ -43,7 +43,7 @@ extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        Horde_Nls::setCharset('utf-8');
+        $GLOBALS['registry']->setCharset('utf-8');
         Horde_String::setDefaultCharset('iso-8859-1');
     }
 

@@ -59,7 +59,7 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => $data,
                 'status' => array(),
-                'type' => $type . '; charset=' . Horde_Nls::getCharset()
+                'type' => $type . '; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

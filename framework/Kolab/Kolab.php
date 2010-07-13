@@ -526,7 +526,7 @@ class Kolab {
 
     function &setElemStr(&$parent, $name, $value = '')
     {
-        return $this->setElemVal($parent, $name, Horde_String::convertCharset($value, Horde_Nls::getCharset(), 'utf-8'));
+        return $this->setElemVal($parent, $name, Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), 'utf-8'));
     }
 
     function &setVal($name, $value = '')
@@ -553,7 +553,7 @@ class Kolab {
      */
     function encodeImapFolderName($name)
     {
-        return Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        return Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
     }
 
     /**

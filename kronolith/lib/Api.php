@@ -775,7 +775,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $share = $kronolith_shares->getShare($event->calendar);
 
             $iCal = new Horde_iCalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'utf-8'));
 
             // Create a new vEvent.
             $iCal->addComponent($event->toiCalendar($iCal));
@@ -825,9 +825,9 @@ class Kronolith_Api extends Horde_Registry_Api
             $share = $kronolith_shares->getShare($calendar);
 
             $iCal = new Horde_iCalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'UTF-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'UTF-8'));
             if (strlen($share->get('desc'))) {
-                $iCal->setAttribute('X-WR-CALDESC', Horde_String::convertCharset($share->get('desc'), Horde_Nls::getCharset(), 'UTF-8'));
+                $iCal->setAttribute('X-WR-CALDESC', Horde_String::convertCharset($share->get('desc'), $GLOBALS['registry']->getCharset(), 'UTF-8'));
             }
 
             foreach ($events as $dayevents) {
@@ -1215,7 +1215,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (($reminder == 'owner' && $alarm_user == $owner) ||
                         ($reminder == 'show' && in_array($calendar, $shown_calendars)) ||
                         $reminder == 'read') {
-                            Horde_Nls::setLanguageEnvironment($prefs->getValue('language'));
+                            $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
                             $alarm = $event->toAlarm($time, $alarm_user, $prefs);
                             if ($alarm) {
                                 $alarm_list[] = $alarm;

@@ -92,7 +92,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         $tar = Horde_Compress::factory('tar');
         $tarData = $tar->decompress($contents);
 
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $fileCount = count($tarData);
 
         $name = $this->_mimepart->getName(true);

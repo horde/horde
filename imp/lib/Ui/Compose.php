@@ -354,7 +354,7 @@ class IMP_Ui_Compose
                 }
             }
 
-            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false));
+            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset(), 'wrap' => false));
             $sig = $txt_sig;
             break;
         }

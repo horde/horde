@@ -1060,7 +1060,7 @@ class Nag_Api extends Horde_Registry_Api
             $share = $GLOBALS['nag_shares']->getShare($tasklist);
 
             $iCal = new Horde_iCalendar($version);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'utf-8'));
 
             $tasks->reset();
             while ($task = $tasks->each()) {
@@ -1455,7 +1455,7 @@ class Nag_Api extends Horde_Registry_Api
             }
             foreach ($users as $alarm_user) {
                 $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'nag', $alarm_user, null, null, false);
-                Horde_Nls::setLanguageEnvironment($prefs->getValue('language'));
+                $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
                 $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
             }
         }

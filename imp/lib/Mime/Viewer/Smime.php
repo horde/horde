@@ -118,7 +118,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                     $id => array(
                         'data' => null,
                         'status' => self::$_cache[$id]['status'],
-                        'type' => 'text/plain; charset=' . Horde_Nls::getCharset(),
+                        'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset(),
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 );
@@ -363,7 +363,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => $this->_impsmime->certToHTML($sig_result->cert),
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

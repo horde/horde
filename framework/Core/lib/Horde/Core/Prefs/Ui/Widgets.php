@@ -83,7 +83,7 @@ class Horde_Core_Prefs_Ui_Widgets
                 );
             }
             Horde::addInlineScript(array(
-                'HordeSourceSelectPrefs.source_list = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'HordeSourceSelectPrefs.source_list = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
             ));
         }
 
@@ -223,8 +223,8 @@ class Horde_Core_Prefs_Ui_Widgets
             }
 
             Horde::addInlineScript(array(
-                'HordeAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset()),
-                'HordeAddressbooksPrefs.nonetext = ' . Horde_Serialize::serialize(_("No address book selected."), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'HordeAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
+                'HordeAddressbooksPrefs.nonetext = ' . Horde_Serialize::serialize(_("No address book selected."), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
             ));
         }
 

@@ -84,7 +84,7 @@ implements Iterator
      */
     public function __construct()
     {
-        $this->_charset = Horde_Nls::getCharset();
+        $this->_charset = $GLOBALS['registry']->getCharset();
         if (empty($this->_primaryPersonalNamespace)) {
             $personal = null;
             foreach ($this->_namespaces as $namespace) {

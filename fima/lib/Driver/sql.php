@@ -532,9 +532,9 @@ class Fima_Driver_sql extends Fima_Driver {
                         $this->_ledger,
                         sprintf('%\'04d', $number),
                         $type,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         (int)(bool)$eo,
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         (int)(bool)$closed);
 
         /* Log the query at a DEBUG log level. */
@@ -576,9 +576,9 @@ class Fima_Driver_sql extends Fima_Driver {
                          $this->_params['table_accounts']);
         $values = array(sprintf('%\'04d', $number),
                         $type,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         (int)(bool)$eo,
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         (int)(bool)$closed,
                         $this->_ledger,
                         $accountId);
@@ -722,7 +722,7 @@ class Fima_Driver_sql extends Fima_Driver {
                         $account,
                         (int)(bool)$eo,
                         (float)$amount,
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']));
+                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']));
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Fima_Driver_sql::_addPosting(): %s', $query), 'DEBUG');
@@ -769,7 +769,7 @@ class Fima_Driver_sql extends Fima_Driver {
                         $account,
                         (int)(bool)$eo,
                         (float)$amount,
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         $this->_ledger,
                         $postingId);
 

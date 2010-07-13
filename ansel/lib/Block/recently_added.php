@@ -54,7 +54,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block
             // Build the gallery name.
             if (isset($this->_params['gallery'])) {
                 $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
-                                          Horde_Nls::getCharset());
+                                          $GLOBALS['registry']->getCharset());
             }
 
             $style = $gallery->getStyle();
@@ -130,7 +130,7 @@ HEADER;
                 true);
             $galleryLink = $galleryLink->link()
                 . @htmlspecialchars($gallery->get('name'), ENT_COMPAT,
-                                    Horde_Nls::getCharset())
+                                    $GLOBALS['registry']->getCharset())
                 . '</a>';
 
             $caption = substr($image->caption, 0, 30);
@@ -153,7 +153,7 @@ HEADER;
                           'onmouseover' => 'previewImage(event, ' . $image->id . ');'))
                 . @htmlspecialchars(
                     strlen($caption) ? $caption : $image->filename,
-                    ENT_COMPAT, Horde_Nls::getCharset())
+                    ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . '</a></td><td class="nowrap">' . $galleryLink . '</td></tr>';
         }
 

@@ -68,7 +68,7 @@ class Horde_Block_ansel_gallery extends Horde_Block
                   'slug' => $gallery->get('slug')),
             true);
         return $viewurl->link()
-               . @htmlspecialchars($name, ENT_COMPAT, Horde_Nls::getCharset())
+               . @htmlspecialchars($name, ENT_COMPAT, $GLOBALS['registry']->getCharset())
                . '</a>';
 
     }

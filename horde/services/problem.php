@@ -101,7 +101,7 @@ case 'send_problem_report':
                                               'body' => $body,
                                               'to' => $conf['problems']['email'],
                                               'from' => $email,
-                                              'charset' => Horde_Nls::getCharset()));
+                                              'charset' => $GLOBALS['registry']->getCharset()));
             $mail->addHeader('Sender', 'horde-problem@' . $conf['problems']['maildomain']);
 
             /* Add attachment. */

@@ -800,11 +800,11 @@ class Nag_Task {
         }
 
         if (!empty($this->name)) {
-            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : Horde_String::convertCharset($this->name, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : Horde_String::convertCharset($this->name, $GLOBALS['registry']->getCharset(), 'utf-8'));
         }
 
         if (!empty($this->desc)) {
-            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : Horde_String::convertCharset($this->desc, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : Horde_String::convertCharset($this->desc, $GLOBALS['registry']->getCharset(), 'utf-8'));
         }
 
         if (isset($this->priority)) {
@@ -850,7 +850,7 @@ class Nag_Task {
         }
 
         if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : Horde_String::convertCharset($this->category, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : Horde_String::convertCharset($this->category, $GLOBALS['registry']->getCharset(), 'utf-8'));
         }
 
         /* Get the task's history. */
@@ -891,8 +891,8 @@ class Nag_Task {
         $message = new Horde_ActiveSync_Message_Task();
 
         /* Notes and Title */
-        $message->setBody(Horde_String::convertCharset($this->desc, Horde_Nls::getCharset(), 'utf-8'));
-        $message->setSubject(Horde_String::convertCharset($this->name, Horde_Nls::getCharset(), 'utf-8'));
+        $message->setBody(Horde_String::convertCharset($this->desc, $GLOBALS['registry']->getCharset(), 'utf-8'));
+        $message->setSubject(Horde_String::convertCharset($this->name, $GLOBALS['registry']->getCharset(), 'utf-8'));
 
         /* Completion */
         if ($this->completed) {
@@ -1043,8 +1043,8 @@ class Nag_Task {
     function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
         /* Notes and Title */
-        $this->desc = Horde_String::convertCharset($message->getBody(), 'utf-8', Horde_Nls::getCharset());
-        $this->name = Horde_String::convertCharset($message->getSubject(), 'utf-8', Horde_Nls::getCharset());
+        $this->desc = Horde_String::convertCharset($message->getBody(), 'utf-8', $GLOBALS['registry']->getCharset());
+        $this->name = Horde_String::convertCharset($message->getSubject(), 'utf-8', $GLOBALS['registry']->getCharset());
 
         /* Completion */
         if ($this->completed = $message->getComplete()) {

@@ -20,7 +20,7 @@ $name = $registry->get('name', 'whups') . ' (' . $url . ')';
 $icon = base64_encode(file_get_contents($registry->get('themesfs', 'whups') . '/graphics/whups.png'));
 
 // Charset.
-$charset = Horde_Nls::getCharset();
+$charset = $GLOBALS['registry']->getCharset();
 
 header('Content-Type: text/xml; charset=' . $charset);
 echo <<<PAYLOAD

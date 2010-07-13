@@ -70,7 +70,7 @@ class Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => $this->_content,
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

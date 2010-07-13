@@ -21,7 +21,7 @@
     <?php echo _("New Gallery Description") ?>
   </td>
   <td align="left">
-    <textarea name="gallery_desc" cols="33" rows="5"><?php echo htmlspecialchars($gallery_desc, ENT_COMPAT, Horde_Nls::getCharset()) ?></textarea>
+    <textarea name="gallery_desc" cols="33" rows="5"><?php echo htmlspecialchars($gallery_desc, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></textarea>
   </td>
 </tr>
 </table>

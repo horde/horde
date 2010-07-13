@@ -211,5 +211,5 @@ if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-
 }
 
 Horde::addInlineScript(array(
-    'var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
+    'var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
 ), null, true);

@@ -65,7 +65,7 @@ class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
             $this->_mimepart->getMimeId() => array(
                 'data' => $text,
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

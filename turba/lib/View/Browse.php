@@ -148,7 +148,7 @@ class Turba_View_Browse {
                     try {
                         $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$targetSource]['title']), ENT_COMPAT, Horde_Nls::getCharset());
+                        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$targetSource]['title']), ENT_COMPAT, $GLOBALS['registry']->getCharset());
                     }
                     $notification->push($message, 'horde.error', array('content.raw'));
                     break;
@@ -288,7 +288,7 @@ class Turba_View_Browse {
                         try {
                             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
                         } catch (Horde_Exception $e) {
-                            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title']), ENT_COMPAT, Horde_Nls::getCharset());
+                            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title']), ENT_COMPAT, $GLOBALS['registry']->getCharset());
                         }
                         $notification->push($message, 'horde.error', array('content.raw'));
                         break;

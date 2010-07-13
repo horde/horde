@@ -55,7 +55,7 @@ if ($type != 'colored') {
 $abbrev_r1 = $VC->abbrev($r1);
 $abbrev_r2 = $VC->abbrev($r2);
 $title = sprintf(_("Diff for %s between version %s and %s"),
-                 Horde_Text_Filter::filter($where, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)), $abbrev_r1, $abbrev_r2);
+                 Horde_Text_Filter::filter($where, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true)), $abbrev_r1, $abbrev_r2);
 
 /* Format log entries. */
 $log_messages = array();

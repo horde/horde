@@ -267,7 +267,7 @@ class Turba_Object {
                         . ' '
                         . date($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:i a', $entry['ts'])
                         . ' '
-                        . @htmlspecialchars($by, ENT_COMPAT, Horde_Nls::getCharset());
+                        . @htmlspecialchars($by, ENT_COMPAT, $GLOBALS['registry']->getCharset());
                 }
             }
         } catch (Exception $e) {

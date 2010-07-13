@@ -93,7 +93,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                     $this->_mimepart->getMimeId() => array(
                         'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
                         'status' => array(),
-                        'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                        'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
                     )
                 );
             } else {
@@ -123,7 +123,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }
@@ -161,7 +161,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }
@@ -202,7 +202,7 @@ EOD;
             $this->_mimepart->getMimeId() => array(
                 'data' => $str,
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }
@@ -293,7 +293,7 @@ EOD;
      */
     protected function _outputImgTag($type, $alt)
     {
-        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, Horde_Nls::getCharset()) . '" />';
+        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '" />';
     }
 
 }

@@ -360,7 +360,7 @@ class Luxor
         $res = '';
         foreach ($lines as $line) {
             $res .= !empty($res) ? "\n" : '';
-            $res .= $pre . Horde_Text_Filter::filter($line, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)) . $post;
+            $res .= $pre . Horde_Text_Filter::filter($line, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true)) . $post;
         }
         return $res;
     }

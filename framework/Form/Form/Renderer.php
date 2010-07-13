@@ -213,7 +213,7 @@ try {
                 }
             }
         }
-        echo '<input type="hidden" name="_formvars" value="' . @htmlspecialchars(serialize($vars), ENT_QUOTES, Horde_Nls::getCharset()) . '" />';
+        echo '<input type="hidden" name="_formvars" value="' . @htmlspecialchars(serialize($vars), ENT_QUOTES, $GLOBALS['registry']->getCharset()) . '" />';
     }
 
     function renderFormActive(&$form, &$vars)

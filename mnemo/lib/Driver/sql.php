@@ -233,10 +233,10 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
                  ' VALUES (?, ?, ?, ?, ?, ?)';
         $values = array($this->_notepad,
                         $noteId,
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($body, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($category, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($uid, Horde_Nls::getCharset(), $this->_params['charset']));
+                        Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($body, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($category, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($uid, $GLOBALS['registry']->getCharset(), $this->_params['charset']));
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Mnemo_Driver_sql::add(): %s', $query), 'DEBUG');
@@ -278,13 +278,13 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
 
         $query  = 'UPDATE ' . $this->_params['table'] .
                   ' SET memo_desc = ?, memo_body = ?';
-        $values = array(Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($body, Horde_Nls::getCharset(), $this->_params['charset']));
+        $values = array(Horde_String::convertCharset($desc, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($body, $GLOBALS['registry']->getCharset(), $this->_params['charset']));
 
         // Don't change the category if it isn't provided.
         if (!is_null($category)) {
             $query .= ', memo_category = ?';
-            $values[] = Horde_String::convertCharset($category, Horde_Nls::getCharset(), $this->_params['charset']);
+            $values[] = Horde_String::convertCharset($category, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
         }
         $query .= ' WHERE memo_owner = ? AND memo_id = ?';
         array_push($values, $this->_notepad, $noteId);

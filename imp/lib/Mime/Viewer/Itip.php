@@ -75,7 +75,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     {
         global $registry;
 
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -485,7 +485,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             }
             return array(
                 $mime_id => array(
-                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => Horde_Nls::getCharset())), Horde_Nls::getCharset(), 'UTF-8'),
+                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $GLOBALS['registry']->getCharset())), $GLOBALS['registry']->getCharset(), 'UTF-8'),
                     'status' => array(),
                     'name' => null,
                     'type' => 'application/json'

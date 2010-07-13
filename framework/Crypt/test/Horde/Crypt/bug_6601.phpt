@@ -5,17 +5,8 @@ Bug #6601
 --FILE--
 <?php
 
-// Fake preferences class to set the timezone to a consistent value.
-class mock_prefs {
-    function getValue($key)
-    {
-        return 'GMT';
-    }
-}
-$GLOBALS['prefs'] = new mock_prefs();
+@date_default_timezone_set('GMT');
 
-require_once 'Horde/Nls.php';
-Horde_Nls::setTimezone();
 require 'pgp.inc';
 
 echo $pgp->pgpPrettyKey(file_get_contents(dirname(__FILE__) . '/fixtures/bug_6601.asc'));

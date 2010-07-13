@@ -22,7 +22,7 @@
     <?php if (strlen($this->event->description)): ?>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?php echo _("Description:") ?></td>
-         <td><?php echo Horde_Text_Filter::filter($this->event->description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null, 'class' => null, 'charset' => Horde_Nls::getCharset())) ?></td>
+         <td><?php echo Horde_Text_Filter::filter($this->event->description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null, 'class' => null, 'charset' => $GLOBALS['registry']->getCharset())) ?></td>
     </tr>
     <?php endif; ?>
     <?php if ($this->attendees): ?>

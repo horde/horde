@@ -21,13 +21,15 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'mimp',
+    'timezone' => true
+));
 
-Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('a', 'm'));
     exit;
@@ -256,7 +258,7 @@ if ($prefs->getValue('mimp_preview_msg') &&
     $t->set('fullmsg_link', $self_link->copy()->add('fullmsg', 1));
 }
 
-$t->set('msg', nl2br(Horde_Text_Filter::filter($msg_text, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true))));
+$t->set('msg', nl2br(Horde_Text_Filter::filter($msg_text, 'space2html', array('charset' => $registry->getCharset(), 'encode' => true))));
 
 $compose_params = array(
     'identity' => $identity,

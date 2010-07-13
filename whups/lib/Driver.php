@@ -391,14 +391,14 @@ class Whups_Driver {
         } elseif (!empty($conf['mail']['from_addr'])) {
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
-            $mail->addHeader('From', Whups::formatUser($from), Horde_Nls::getCharset());
+            $mail->addHeader('From', Whups::formatUser($from), $GLOBALS['registry']->getCharset());
         }
 
         $subject = (is_null($ticket_id)
                     ? ''
                     : '[' . $registry->get('name') . ' #' . $ticket_id . '] ')
             . $subject;
-        $mail->addHeader('Subject', $subject, Horde_Nls::getCharset());
+        $mail->addHeader('Subject', $subject, $GLOBALS['registry']->getCharset());
 
         /* Get our array of comments, sorted in the appropriate order. */
         if (!is_null($ticket_id)) {
@@ -474,7 +474,7 @@ class Whups_Driver {
                 array('@@comment@@', '@@full_name@@'),
                 array("\n\n" . $formattedComment, $full_name),
                 $message);
-            $mail->setBody($body, Horde_Nls::getCharset());
+            $mail->setBody($body, $GLOBALS['registry']->getCharset());
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
             if ($ticket_id) {
@@ -488,7 +488,7 @@ class Whups_Driver {
             }
 
             $mail->clearRecipients();
-            $mail->addHeader('To', $to, Horde_Nls::getCharset());
+            $mail->addHeader('To', $to, $GLOBALS['registry']->getCharset());
 
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);

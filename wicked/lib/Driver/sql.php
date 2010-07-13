@@ -947,7 +947,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
      */
     function _convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->getCharset());
+        return Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $this->getCharset());
     }
 
     /**

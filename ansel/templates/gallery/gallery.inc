@@ -9,7 +9,7 @@
 <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
 
 <h1 class="header">
- <?php echo htmlspecialchars($title, ENT_COMPAT, Horde_Nls::getCharset()) ?>
+ <?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?>
 </h1>
 
 <table cellspacing="0" width="100%" class="striped headerbox">

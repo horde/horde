@@ -1,4 +1,4 @@
-<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, Horde_Nls::getCharset()) ?></h1>
+<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
 <?php
 $base_url = Horde::applicationUrl('image.php')->add(
         array_merge(

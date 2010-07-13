@@ -29,7 +29,7 @@ if (!count($layout_pref)) {
 // If we're serving a request to the JS update client, just return the blocks
 // updated HTML content.
 if (Horde_Util::getFormData('httpclient')) {
-    header('Content-Type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-Type: text/html; charset=' . $GLOBALS['registry']->getCharset());
     $row = Horde_Util::getFormData('row');
     $col = Horde_Util::getFormData('col');
     if (!is_null($row) && !is_null($col) && !empty($layout_pref[$row][$col])) {

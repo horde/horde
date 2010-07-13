@@ -1,6 +1,6 @@
 <?php
      if (isset($language)) {
-         header('Content-type: text/html; charset=' . Horde_NLS::getCharset());
+         header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
          header('Vary: Accept-Language');
      }
 ?>

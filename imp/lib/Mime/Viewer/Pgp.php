@@ -77,7 +77,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $id => array(
                 'data' => '',
                 'status' => array(),
-                'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
 
@@ -130,7 +130,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     $id => array(
                         'data' => null,
                         'status' => self::$_cache[$id]['status'],
-                        'type' => 'text/plain; charset=' . Horde_Nls::getCharset(),
+                        'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset(),
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 ), self::$_cache[$id]['other']);
@@ -313,7 +313,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $mime_id => array(
                 'data' => $data,
                 'status' => array($status),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }
@@ -339,7 +339,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                         'text' => array()
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset(),
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset(),
                 'wrap' => 'mimePartWrap'
             ),
             $sig_id => null

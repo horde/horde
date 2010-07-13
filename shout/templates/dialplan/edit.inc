@@ -94,10 +94,10 @@
 var ajax_url = '<?php echo Horde::getServiceLink('ajax', 'shout') ?>';
 var curmenu = null;
 var menuInfo = $H();
-var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
-var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
-var conferences = $H(<?php echo Horde_Serialize::serialize($conferences, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
-var recordings = $H(<?php echo Horde_Serialize::serialize($recordings, Horde_Serialize::JSON, Horde_Nls::getCharset()); ?>);
+var menuActions = $H(<?php echo Horde_Serialize::serialize(Shout::getMenuActions(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()); ?>);
+var destinations = $H(<?php echo Horde_Serialize::serialize($destinations, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()); ?>);
+var conferences = $H(<?php echo Horde_Serialize::serialize($conferences, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()); ?>);
+var recordings = $H(<?php echo Horde_Serialize::serialize($recordings, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()); ?>);
 
 function empty(p)
 {

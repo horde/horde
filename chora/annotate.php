@@ -42,7 +42,7 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Source Annotation of %s (revision %s)"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)), $rev);
+$title = sprintf(_("Source Annotation of %s (revision %s)"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true)), $rev);
 $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
@@ -72,7 +72,7 @@ while (list(,$line) = each($lines)) {
     }
     $prev = $fl->queryPreviousRevision($rev);
 
-    $line = Horde_Text_Filter::filter($line['line'], 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true));
+    $line = Horde_Text_Filter::filter($line['line'], 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true));
     include CHORA_TEMPLATES . '/annotate/line.inc';
 }
 

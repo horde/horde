@@ -269,10 +269,10 @@ if (empty($rss)) {
         }
     }
 
-    $charset = Horde_Nls::getCharset();
+    $charset = $GLOBALS['registry']->getCharset();
     $xsl = $registry->get('themesuri') . '/feed-rss.xsl';
-    $stream_name = @htmlspecialchars($params['name'], ENT_COMPAT, Horde_Nls::getCharset());
-    $stream_desc = @htmlspecialchars($params['desc'], ENT_COMPAT, Horde_Nls::getCharset());
+    $stream_name = @htmlspecialchars($params['name'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    $stream_desc = @htmlspecialchars($params['desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     $stream_updated = htmlspecialchars(date('r', $params['last_modified']));
     $stream_official = htmlspecialchars($params['link']);
     $image_url = htmlspecialchars($params['image_url']);

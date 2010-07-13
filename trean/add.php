@@ -20,7 +20,7 @@ case 'add_bookmark':
     /* Check permissions. */
     if (Trean::hasPermission('max_bookmarks') !== true &&
         Trean::hasPermission('max_bookmarks') <= $trean_shares->countBookmarks()) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d bookmarks."), Trean::hasPermission('max_bookmarks')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d bookmarks."), Trean::hasPermission('max_bookmarks')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         if (!empty($conf['hooks']['permsdenied'])) {
             $message = Horde::callHook('_perms_hook_denied', array('trean:max_bookmarks'), 'horde', $message);
         }
@@ -83,7 +83,7 @@ case 'add_folder':
     /* Check permissions. */
     if (Trean::hasPermission('max_folders') !== true &&
         Trean::hasPermission('max_folders') <= Trean::countFolders()) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), Trean::hasPermission('max_folders')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), Trean::hasPermission('max_folders')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         if (!empty($conf['hooks']['permsdenied'])) {
             $message = Horde::callHook('_perms_hook_denied', array('trean:max_folders'), 'horde', $message);
         }

@@ -1,6 +1,6 @@
 <?php
 if (isset($language)) {
-    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
     header('Vary: Accept-Language');
 }
 echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<html><head>';
@@ -13,7 +13,7 @@ if (!empty($title)) {
 Horde::outputMetaTags();
 
 if (Horde_Util::nonInputVar('js_vars')) {
-    Horde::addInlineScript('var Chora = ' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, Horde_Nls::getCharset()));
+    Horde::addInlineScript('var Chora = ' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()));
 }
 
 Horde::includeScriptFiles();

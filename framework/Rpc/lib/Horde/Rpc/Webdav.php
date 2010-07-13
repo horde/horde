@@ -588,7 +588,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Handle certain standard properties specially
         if (in_array('displayname', $properties['DAV:'])) {
-            $props[] = $this->mkprop('displayname', Horde_String::convertCharset($item['name'], Horde_Nls::getCharset(), 'UTF-8'));
+            $props[] = $this->mkprop('displayname', Horde_String::convertCharset($item['name'], $GLOBALS['registry']->getCharset(), 'UTF-8'));
             unset($properties['DAV:']['displayname']);
         }
         if (in_array('getlastmodified', $properties['DAV:'])) {

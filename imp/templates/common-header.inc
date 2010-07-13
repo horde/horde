@@ -19,7 +19,7 @@ default:
 }
 
 if (isset($GLOBALS['language'])) {
-    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
     header('Vary: Accept-Language');
 }
 ?>

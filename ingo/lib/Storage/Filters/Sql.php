@@ -123,11 +123,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
      */
     protected function _ruleToBackend($rule)
     {
-        return array(Horde_String::convertCharset($rule['name'], Horde_Nls::getCharset(), $this->_params['charset']),
+        return array(Horde_String::convertCharset($rule['name'], $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                      (int)$rule['action'],
-                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], Horde_Nls::getCharset(), $this->_params['charset']) : null,
+                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], $GLOBALS['registry']->getCharset(), $this->_params['charset']) : null,
                      isset($rule['flags']) ? (int)$rule['flags'] : null,
-                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], Horde_Nls::getCharset(), $this->_params['charset'])) : null,
+                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], $GLOBALS['registry']->getCharset(), $this->_params['charset'])) : null,
                      isset($rule['combine']) ? (int)$rule['combine'] : null,
                      isset($rule['stop']) ? (int)$rule['stop'] : null,
                      isset($rule['disable']) ? (int)(!$rule['disable']) : 1);

@@ -19,7 +19,7 @@ class Agora_View extends Horde_View {
     {
         /* Set default data. */
         parent::__construct(array('templatePath' => AGORA_TEMPLATES . '/',
-                                  'encoding' => Horde_Nls::getCharset()));
+                                  'encoding' => $GLOBALS['registry']->getCharset()));
     }
 
 }

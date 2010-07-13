@@ -63,7 +63,7 @@ class Translate_Display {
         if (preg_match('/charset=(.*)/i', $headers, $m)) {
             return $m[1];
         }
-	return Horde_Nls::getCharset();
+	return $GLOBALS['registry']->getCharset();
     }
 
     function convert_string($msg) {
@@ -72,7 +72,7 @@ class Translate_Display {
 	$f = array('/&lt;/', '/&gt;/');
 	$t = array('<', '>');
 	$msg = preg_replace($f, $t, $msg);
-	return Horde_String::convertCharset(html_entity_decode($msg), Horde_Nls::getCharset(), Translate_Display::parseCharset($po->meta['Content-Type']));
+	return Horde_String::convertCharset(html_entity_decode($msg), $GLOBALS['registry']->getCharset(), Translate_Display::parseCharset($po->meta['Content-Type']));
     }
 
     function display_string($msg) {
@@ -81,7 +81,7 @@ class Translate_Display {
 	$f = array('/</', '/>/');
 	$t = array('&lt;', '&gt;');
 	$msg = preg_replace($f, $t, $msg);
-	return Horde_String::convertCharset($msg, Translate_Display::parseCharset($po->meta['Content-Type']), Horde_Nls::getCharset());
+	return Horde_String::convertCharset($msg, Translate_Display::parseCharset($po->meta['Content-Type']), $GLOBALS['registry']->getCharset());
     }
 
     function get_percent($used, $total) {

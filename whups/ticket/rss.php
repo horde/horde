@@ -42,7 +42,7 @@ foreach (array_keys($history) as $i) {
 }
 
 $template = $injector->createInstance('Horde_Template');
-$template->set('charset', Horde_Nls::getCharset());
+$template->set('charset', $GLOBALS['registry']->getCharset());
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', htmlspecialchars($details['summary']));

@@ -417,7 +417,7 @@ class IMP_Contents
                                 'text' => $status
                             )
                         ),
-                        'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                        'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
                     )
                 );
             }
@@ -462,7 +462,7 @@ class IMP_Contents
             /* If this is a text/* part, AND the browser does not support
              * UTF-8, give the user a link to open the part in a new window
              * with the correct character set. */
-            $default_charset = Horde_String::upper(Horde_Nls::getCharset());
+            $default_charset = Horde_String::upper($GLOBALS['registry']->getCharset());
             if ($default_charset !== 'UTF-8') {
                 $charset_upper = Horde_String::upper($mime_part->getCharset());
                 if (($charset_upper != 'US-ASCII') &&
@@ -527,7 +527,7 @@ class IMP_Contents
         $ptext = $pmime->getContents();
         $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
-            $ptext = Horde_Text_Filter::filter($ptext, 'Html2text', array('charset' => Horde_Nls::getCharset()));
+            $ptext = Horde_Text_Filter::filter($ptext, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset()));
         }
 
         $this->_build = $oldbuild;

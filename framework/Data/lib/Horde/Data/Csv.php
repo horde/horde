@@ -88,14 +88,14 @@ class Horde_Data_Csv extends Horde_Data_Base
         if ($header) {
             $head = Horde_File_Csv::read($filename, $conf);
             if (!empty($charset)) {
-                $head = Horde_String::convertCharset($head, $charset, Horde_Nls::getCharset());
+                $head = Horde_String::convertCharset($head, $charset, $GLOBALS['registry']->getCharset());
             }
         }
 
         $data = array();
         while ($line = Horde_File_Csv::read($filename, $conf)) {
             if (!empty($charset)) {
-                $line = Horde_String::convertCharset($line, $charset, Horde_Nls::getCharset());
+                $line = Horde_String::convertCharset($line, $charset, $GLOBALS['registry']->getCharset());
             }
             if (!isset($head)) {
                 $data[] = $line;
@@ -232,7 +232,7 @@ class Horde_Data_Csv extends Horde_Data_Base
                 $line_no = 1;
                 while ($line_no < 3 && $line = fgets($fp)) {
                     if (!empty($_SESSION['import_data']['charset'])) {
-                        $line = Horde_String::convertCharset($line, $_SESSION['import_data']['charset'], Horde_Nls::getCharset());
+                        $line = Horde_String::convertCharset($line, $_SESSION['import_data']['charset'], $GLOBALS['registry']->getCharset());
                     }
                     $newline = Horde_String::length($line) > 100 ? "\n" : '';
                     $_SESSION['import_data']['first_lines'] .= substr($line, 0, 100) . $newline;

@@ -3,7 +3,7 @@
  * JavaScript variables for the traditional interface.
  */
 
-$charset = Horde_Nls::getCharset();
+$charset = $GLOBALS['registry']->getCharset();
 
 /* Variables used in core javascript files. */
 $var = array(

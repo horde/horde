@@ -26,7 +26,7 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
     exit;
 }
 
-$imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+$imp_search = $injector->getInstance('IMP_Search');
 
 /* If search_basic_mbox is set, we are processing the search query. */
 $search_mailbox = Horde_Util::getFormData('search_basic_mbox');

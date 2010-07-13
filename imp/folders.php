@@ -31,7 +31,7 @@ if (!$conf['user']['allow_folders']) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
-$charset = Horde_Nls::getCharset();
+$charset = $registry->getCharset();
 
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();
@@ -403,7 +403,7 @@ if ($a_template->get('javascript')) {
     $a_template->set('go', _("Go"));
 }
 
-$a_template->set('create_folder', !empty($GLOBALS['conf']['hooks']['permsdenied']) || ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')));
+$a_template->set('create_folder', !empty($conf['hooks']['permsdenied']) || ($injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders')));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");

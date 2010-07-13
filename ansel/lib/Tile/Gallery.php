@@ -81,7 +81,7 @@ class Ansel_Tile_Gallery
         }
 
         $image_link = $view_link . $gallery_image . '</a>';
-        $text_link = $view_link . htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset())
+        $text_link = $view_link . htmlspecialchars($gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset())
                      . '</a>';
 
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) && !$mini) {
@@ -105,7 +105,7 @@ class Ansel_Tile_Gallery
             if (empty($owner_string)) {
                 $owner_string = $gallery->get('owner');
             }
-            $owner_link .= htmlspecialchars($owner_string, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
+            $owner_link .= htmlspecialchars($owner_string, ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '</a>';
         }
 
         $gallery_count = $gallery->countImages(true);

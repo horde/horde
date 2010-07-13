@@ -65,7 +65,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
         $rar = Horde_Compress::factory('rar');
         $rarData = $rar->decompress($contents);
 
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $fileCount = count($rarData);
 
         $name = $this->_mimepart->getName(true);

@@ -31,9 +31,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'mimp',
+    'timezone' => true
+));
 
-Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* The message text and headers. */
@@ -252,7 +254,7 @@ case _("Send"):
     switch ($vars->a) {
     case _("Save Draft"):
         try {
-            $notification->push($imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), false), 'horde.success');
+            $notification->push($imp_compose->saveDraft($header, $message, $registry->getCharset(), false), 'horde.success');
             if ($prefs->getValue('close_draft')) {
                 $imp_compose->destroy('save_draft');
                 require IMP_BASE . '/mailbox-mimp.php';
@@ -277,7 +279,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, Horde_Nls::getEmailCharset(), false, $options)) {
+            if ($imp_compose->buildAndSendMessage($message, $header, $GLOBALS['registry']->getEmailCharset(), false, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');

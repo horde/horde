@@ -41,9 +41,9 @@ if (!$browser->hasFeature('javascript') ||
     exit;
 }
 
-$imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+$imp_search = $injector->getInstance('IMP_Search');
 
-$charset = Horde_Nls::getCharset();
+$charset = $registry->getCharset();
 $criteria = Horde_Util::getFormData('criteria_form');
 $dimp_view = ($_SESSION['imp']['view'] == 'dimp');
 $search_fields = $imp_search->searchFields();

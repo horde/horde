@@ -75,7 +75,7 @@ if ($can_validate && $form->validate($vars)) {
                                                             $password),
                                           'to' => $email,
                                           'from' => $email,
-                                          'charset' => Horde_Nls::getCharset()));
+                                          'charset' => $GLOBALS['registry']->getCharset()));
         try {
             $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');

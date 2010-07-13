@@ -72,7 +72,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testFolderTitleConvertsUtf7()
     {
-        Horde_Nls::setCharset('UTF8');
+        $GLOBALS['registry']->setCharset('UTF8');
         foreach ($this->_getNamespaces() as $namespace) {
             $name = Horde_String::convertCharset('äöü', 'UTF8', 'UTF7-IMAP');
             $folder = $this->_getFolder('INBOX/' . $name, $namespace);
@@ -190,7 +190,7 @@ class Horde_Kolab_Storage_NamespaceTest extends PHPUnit_Framework_TestCase
 
     public function testSetnameConvertsToUtf7()
     {
-        Horde_Nls::setCharset('UTF8');
+        $GLOBALS['registry']->setCharset('UTF8');
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder(null, $namespace);
             $folder->restore($this->_storage, $this->_connection);

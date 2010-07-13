@@ -613,7 +613,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function textWindowOutput($name, $msg)
     {
-        $GLOBALS['browser']->downloadHeaders($name, 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
+        $GLOBALS['browser']->downloadHeaders($name, 'text/plain; charset=' . $GLOBALS['registry']->getCharset(), true, strlen($msg));
         echo $msg;
     }
 

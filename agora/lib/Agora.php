@@ -406,7 +406,7 @@ class Agora {
 
         $body = new Horde_Mime_Part();
         $body->setType('text/plain');
-        $body->setCharset(Horde_Nls::getCharset());
+        $body->setCharset($GLOBALS['registry']->getCharset());
         $body->setContents($message['body']);
 
         $body->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);

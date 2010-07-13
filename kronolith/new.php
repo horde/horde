@@ -22,7 +22,7 @@ if ($perms->hasAppPermission('max_events') !== true &&
     try {
         $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
     } catch (Horde_Exception_HookNotSet $e) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
     $notification->push($message, 'horde.error', array('content.raw'));
     header('Location: ' . $url);

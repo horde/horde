@@ -143,7 +143,7 @@ class IMP
 
         $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
 
-        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
+        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, $GLOBALS['registry']->getCharset());
 
         try {
             if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
@@ -221,7 +221,7 @@ class IMP
                     : $mbox['abbrev'];
 
                 $mbox_list[] = array(
-                    'l' => Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                    'l' => Horde_Text_Filter::filter($label, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
                     'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
                     'v' => htmlspecialchars($mbox['val'])
                 );
@@ -238,7 +238,7 @@ class IMP
                 $vfolder_sel = $imp_search->searchMboxID();
                 foreach ($vfolders as $id => $val) {
                     $vfolder_list[] = array(
-                        'l' => Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                        'l' => Horde_Text_Filter::filter($val, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
                         'sel' => ($vfolder_sel == $id),
                         'v' => htmlspecialchars($imp_search->createSearchID($id))
                     );
@@ -257,7 +257,7 @@ class IMP
                     $tasklist_list = array();
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
-                            'l' => Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                            'l' => Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
                             'v' => '\0tasklist_' . $id
                         );
                     }
@@ -276,7 +276,7 @@ class IMP
                     $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
-                            'l' => Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                            'l' => Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
                             'v' => '\0notepad_' . $id
                         );
                     }
@@ -494,7 +494,7 @@ class IMP
                 stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }

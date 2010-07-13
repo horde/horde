@@ -43,4 +43,4 @@ if (!$filename) {
     $filename = _("contact");
 }
 
-$injector->getInstance('Horde_Data')->getData('Vcard')->exportFile($filename . '.vcf', array($driver->tovCard($object, '2.1', null, true)), Horde_Nls::getCharset());
+$injector->getInstance('Horde_Data')->getData('Vcard')->exportFile($filename . '.vcf', array($driver->tovCard($object, '2.1', null, true)), $GLOBALS['registry']->getCharset());

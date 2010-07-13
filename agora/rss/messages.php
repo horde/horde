@@ -31,11 +31,11 @@ if (!$rss) {
         exit;
     }
 
-    $rss = '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
     <rss version="2.0">
         <channel>
         <title>' . htmlspecialchars($message['message_subject']) . '</title>
-        <language>' . str_replace('_', '-', strtolower(Horde_Nls::select())) . '</language>
+        <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($message['message_subject']) . '</description>
         <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
@@ -59,5 +59,5 @@ if (!$rss) {
     $cache->set($cache_key, $rss);
 }
 
-header('Content-type: text/xml; charset=' . Horde_Nls::getCharset());
+header('Content-type: text/xml; charset=' . $GLOBALS['registry']->getCharset());
 echo $rss;

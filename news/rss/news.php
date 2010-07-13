@@ -24,7 +24,7 @@ if (empty($rss)) {
              'nl.title, nl.abbreviation ' .
              'FROM ' . $news->prefix . ' AS n, ' . $news->prefix . '_body AS nl ' .
              'WHERE n.status="' . News::CONFIRMED . '" AND n.publish<=NOW() ' .
-             'AND nl.lang="' . Horde_Nls::select() . '" AND n.id=nl.id  ORDER BY publish DESC';
+             'AND nl.lang="' . $registry->preferredLang() . '" AND n.id=nl.id  ORDER BY publish DESC';
     $rssbody = '';
     $query = $news->db->modifyLimitQuery($query, 0, 10);
     $list = $news->db->getAssoc($query, true, array(), DB_FETCHMODE_ASSOC);
@@ -53,14 +53,14 @@ if (empty($rss)) {
     }
 
     // Wee need the last published news time
-    $rssheader = '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '" ?>
+    $rssheader = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
 <rss version="2.0"
     xmlns:content="http://purl.org/rss/1.0/modules/content/"
     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
     xmlns:dc="http://purl.org/dc/elements/1.1/" >
 <channel>
     <title>' . htmlspecialchars($title) . '</title>
-    <language>' . str_replace('_', '-', strtolower(Horde_Nls::select())) . '</language>
+    <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
     <lastBuildDate>' . date('r', $lastnewstime) . '</lastBuildDate>
     <description>' . htmlspecialchars($title) . '</description>
     <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>

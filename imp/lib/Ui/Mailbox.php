@@ -252,7 +252,7 @@ class IMP_Ui_Mailbox
         $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
 
         if ($htmlspaces) {
-            $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true));
+            $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true));
             if (empty($new_subject)) {
                 $new_subject = htmlspecialchars($subject);
             }

@@ -419,7 +419,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _toDriver($value)
     {
-        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
+        return Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
     }
 
 }

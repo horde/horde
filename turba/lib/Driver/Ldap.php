@@ -233,7 +233,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         if (is_array($ids)) {
             $results = array();
             foreach ($ids as $d) {
-                $res = @ldap_read($this->_ds, Horde_String::convertCharset($d, Horde_Nls::getCharset(), $this->_params['charset']), $filter, $attr);
+                $res = @ldap_read($this->_ds, Horde_String::convertCharset($d, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $filter, $attr);
                 if ($res) {
                     if (!is_a($result = $this->_getResults($fields, $res), 'PEAR_Error')) {
                         $results = array_merge($results, $result);
@@ -247,7 +247,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             return $results;
         }
 
-        $res = @ldap_read($this->_ds, Horde_String::convertCharset($ids, Horde_Nls::getCharset(), $this->_params['charset']), $filter, $attr);
+        $res = @ldap_read($this->_ds, Horde_String::convertCharset($ids, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $filter, $attr);
         if (!$res) {
             return PEAR::raiseError(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
@@ -303,8 +303,8 @@ class Turba_Driver_Ldap extends Turba_Driver
 
         $this->_encodeAttributes($attributes);
 
-        if (!@ldap_add($this->_ds, Horde_String::convertCharset($dn, Horde_Nls::getCharset(), $this->_params['charset']), $attributes)) {
-            return PEAR::raiseError('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . ']).' . "Charset:" . Horde_Nls::getCharset());
+        if (!@ldap_add($this->_ds, Horde_String::convertCharset($dn, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $attributes)) {
+            return PEAR::raiseError('Failed to add an object: [' . ldap_errno($this->_ds) . '] "' . ldap_error($this->_ds) . '" DN: ' . $dn . ' (attributes: [' . serialize($attributes) . ']).' . "Charset:" . $GLOBALS['registry']->getCharset());
         } else {
             return true;
         }
@@ -324,7 +324,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             return PEAR::raiseError(_("Invalid key specified."));
         }
 
-        if (!@ldap_delete($this->_ds, Horde_String::convertCharset($object_id, Horde_Nls::getCharset(), $this->_params['charset']))) {
+        if (!@ldap_delete($this->_ds, Horde_String::convertCharset($object_id, $GLOBALS['registry']->getCharset(), $this->_params['charset']))) {
             return PEAR::raiseError(sprintf(_("Delete failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         } else {
             return true;
@@ -345,7 +345,7 @@ class Turba_Driver_Ldap extends Turba_Driver
          * values. These are needed so that we can delete any
          * attributes that have been removed by using ldap_mod_del. */
         $filter = $this->_buildObjectclassFilter();
-        $oldres = @ldap_read($this->_ds, Horde_String::convertCharset($object_id, Horde_Nls::getCharset(), $this->_params['charset']), $filter, array_merge(array_keys($attributes), array('objectclass')));
+        $oldres = @ldap_read($this->_ds, Horde_String::convertCharset($object_id, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $filter, array_merge(array_keys($attributes), array('objectclass')));
         $info = ldap_get_attributes($this->_ds, ldap_first_entry($this->_ds, $oldres));
 
         if ($this->_params['version'] == 3 &&
@@ -357,8 +357,8 @@ class Turba_Driver_Ldap extends Turba_Driver
                 return PEAR::raiseError(_("Missing DN in LDAP source configuration."));
             }
 
-            if (ldap_rename($this->_ds, Horde_String::convertCharset($object_id, Horde_Nls::getCharset(), $this->_params['charset']),
-                            Horde_String::convertCharset($newrdn, Horde_Nls::getCharset(), $this->_params['charset']), $this->_params['root'], true)) {
+            if (ldap_rename($this->_ds, Horde_String::convertCharset($object_id, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
+                            Horde_String::convertCharset($newrdn, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $this->_params['root'], true)) {
                 $object_id = $newrdn . ',' . $this->_params['root'];
             } else {
                 return PEAR::raiseError(sprintf(_("Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"),
@@ -382,7 +382,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 $attributes[$key] == '') {
 
                 $oldval[$key] = $var[0];
-                if (!@ldap_mod_del($this->_ds, Horde_String::convertCharset($object_id, Horde_Nls::getCharset(), $this->_params['charset']), $oldval)) {
+                if (!@ldap_mod_del($this->_ds, Horde_String::convertCharset($object_id, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $oldval)) {
                     return PEAR::raiseError(sprintf(_("Modify failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
                 }
                 unset($attributes[$key]);
@@ -398,7 +398,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         unset($attributes['objectclass']['count']);
         $attributes['objectclass'] = array_values($attributes['objectclass']);
 
-        if (!@ldap_modify($this->_ds, Horde_String::convertCharset($object_id, Horde_Nls::getCharset(), $this->_params['charset']), $attributes)) {
+        if (!@ldap_modify($this->_ds, Horde_String::convertCharset($object_id, $GLOBALS['registry']->getCharset(), $this->_params['charset']), $attributes)) {
             return PEAR::raiseError(sprintf(_("Modify failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         } else {
             return $object_id;
@@ -460,7 +460,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 $clause .= '(&' . $this->_buildSearchQuery($vals) . ')';
             } else {
                 if (isset($vals['field'])) {
-                    $rhs = Horde_String::convertCharset($vals['test'], Horde_Nls::getCharset(), $this->_params['charset']);
+                    $rhs = Horde_String::convertCharset($vals['test'], $GLOBALS['registry']->getCharset(), $this->_params['charset']);
                     $clause .= Horde_Ldap::buildClause($vals['field'], $vals['op'], $rhs, array('begin' => !empty($vals['begin'])));
                 } else {
                     foreach ($vals as $test) {
@@ -469,7 +469,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                         } elseif (!empty($test['AND'])) {
                             $clause .= '(&' . $this->_buildSearchQuery($test) . ')';
                         } else {
-                            $rhs = Horde_String::convertCharset($test['test'], Horde_Nls::getCharset(), $this->_params['charset']);
+                            $rhs = Horde_String::convertCharset($test['test'], $GLOBALS['registry']->getCharset(), $this->_params['charset']);
                             $clause .= Horde_Ldap::buildClause($test['field'], $test['op'], $rhs, array('begin' => !empty($vals['begin'])));
                         }
                     }
@@ -586,7 +586,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             }
 
             if (!is_array($val)) {
-                $attributes[$key] = Horde_String::convertCharset($val, Horde_Nls::getCharset(), $this->_params['charset']);
+                $attributes[$key] = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
             }
         }
     }

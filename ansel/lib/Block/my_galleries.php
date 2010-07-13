@@ -82,7 +82,7 @@ HEADER;
             $html .= '<tr><td>'
                 . $url->link(array('onmouseout' => '$("ansel_preview").hide();$("ansel_preview").update("");',
                                    'onmouseover' => 'previewImageMg(event, ' . $gallery->getDefaultImage('ansel_default') . ');'))
-                . @htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset()) . '</a></td><td>'
+                . @htmlspecialchars($gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '</a></td><td>'
                 . strftime($GLOBALS['prefs']->getValue('date_format'), $gallery->get('last_modified'))
                 . '</td><td>' . (int)$gallery->countImages(true) . '</td></tr>';
         }

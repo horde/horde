@@ -99,7 +99,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     {
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap');
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
@@ -119,7 +119,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
-            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap'));
+            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap'));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

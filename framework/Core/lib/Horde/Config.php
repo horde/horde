@@ -1514,7 +1514,7 @@ class Horde_Config
             return $apps;
 
         case 'list-horde-languages':
-            return array_map(create_function('$val', 'return preg_replace(array("/&#x([0-9a-f]{4});/ie", "/(&[^;]+;)/e"), array("Horde_String::convertCharset(pack(\"H*\", \"$1\"), \"ucs-2\", \"' . Horde_Nls::getCharset() . '\")", "Horde_String::convertCharset(html_entity_decode(\"$1\", ENT_COMPAT, \"iso-8859-1\"), \"iso-8859-1\", \"' . Horde_Nls::getCharset() . '\")"), $val);'), Horde_Nls::$config['languages']);
+            return array_map(create_function('$val', 'return preg_replace(array("/&#x([0-9a-f]{4});/ie", "/(&[^;]+;)/e"), array("Horde_String::convertCharset(pack(\"H*\", \"$1\"), \"ucs-2\", \"' . $GLOBALS['registry']->getCharset() . '\")", "Horde_String::convertCharset(html_entity_decode(\"$1\", ENT_COMPAT, \"iso-8859-1\"), \"iso-8859-1\", \"' . $GLOBALS['registry']->getCharset() . '\")"), $val);'), $GLOBALS['registry']->nlsconfig['languages']);
 
         case 'list-blocks':
             $collection = Horde_Block_Collection::singleton('portal');

@@ -40,9 +40,9 @@ foreach ($g->listGroups(true) as $id => $name) {
     $parents = implode(':', array_keys($parents));
 
     $params = array($id,
-                    Horde_String::convertCharset($object->name, Horde_Nls::getCharset(), $conf['sql']['charset']),
-                    Horde_String::convertCharset($parents, Horde_Nls::getCharset(), $conf['sql']['charset']),
-                    Horde_String::convertCharset($object->get('email'), Horde_Nls::getCharset(), $conf['sql']['charset']),
+                    Horde_String::convertCharset($object->name, $GLOBALS['registry']->getCharset(), $conf['sql']['charset']),
+                    Horde_String::convertCharset($parents, $GLOBALS['registry']->getCharset(), $conf['sql']['charset']),
+                    Horde_String::convertCharset($object->get('email'), $GLOBALS['registry']->getCharset(), $conf['sql']['charset']),
     );
     $result = $db->query($group_query, $params);
     if (is_a($result, 'PEAR_Error')) {

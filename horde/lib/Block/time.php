@@ -48,7 +48,7 @@ class Horde_Block_Horde_time extends Horde_Block {
         }
 
         // Set the timezone variable, if available.
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         $html = '<div style="font-size:200%; font-weight:bold; text-align:center">' .
             strftime('%A, %B %d, %Y ');

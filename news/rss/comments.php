@@ -16,15 +16,14 @@ require_once dirname(__FILE__) . '/../lib/base.php';
 $cache_key = 'news_rss_comments';
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);
 if (!$rss) {
-
     $list = News::getLastComments(50);
     $title = _("Last comments");
 
-    $rss = '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
 <rss version="2.0">
 <channel>
     <title>' . htmlspecialchars($title) . '</title>
-    <language>' . str_replace('_', '-', strtolower(Horde_Nls::select())) . '</language>
+    <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
     <lastBuildDate>' . date('r') . '</lastBuildDate>
     <description>' . htmlspecialchars($title) . '</description>
     <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
@@ -48,5 +47,5 @@ if (!$rss) {
     $cache->set($cache_key, $rss);
 }
 
-header('Content-type: text/xml; charset=' . Horde_Nls::getCharset());
+header('Content-type: text/xml; charset=' . $GLOBALS['registry']->getCharset());
 echo $rss;

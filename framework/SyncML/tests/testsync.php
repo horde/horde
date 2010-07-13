@@ -89,7 +89,7 @@ if ($syncml_backend_driver == 'Horde') {
     require_once dirname(__FILE__) . '/../../../lib/Application.php';
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'session_control' => 'none'));
     Horde_String::setDefaultCharset('UTF-8');
-    Horde_Nls::setCharset('UTF-8');
+    $registry->setCharset('UTF-8');
 }
 
 if (!empty($testsetuponly)) {

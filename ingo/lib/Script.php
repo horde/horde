@@ -127,7 +127,7 @@ class Ingo_Script
             $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
         }
         if (!isset($params['charset'])) {
-            $params['charset'] = Horde_Nls::getCharset();
+            $params['charset'] = $GLOBALS['registry']->getCharset();
         }
         if ($script == 'Sieve') {
             if (!isset($params['date_format'])) {

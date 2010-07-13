@@ -34,7 +34,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
     function __construct($request, $params = array())
     {
         parent::__construct($request, $params);
-        Horde_Nls::setCharsetEnvironment('UTF-8');
+        $GLOBALS['registry']->setCharsetEnvironment('UTF-8');
     }
 
     /**

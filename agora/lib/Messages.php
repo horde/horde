@@ -566,7 +566,7 @@ class Agora_Messages {
                                    strftime($GLOBALS['prefs']->getValue('date_format'), $message['message_timestamp']))
             . "\n-------------------------------------------------------\n"
             . $message['body'];
-        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ", Horde_Nls::getCharset());
+        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ", $GLOBALS['registry']->getCharset());
 
         return $message;
     }
@@ -993,7 +993,7 @@ class Agora_Messages {
         foreach ($messages as $id => &$message) {
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, Horde_Nls::getCharset());
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             $message['message_date'] = $this->dateFormat($message['message_timestamp']);
             if ($format) {
                 $message['body'] = $this->formatBody($this->convertFromDriver($message['body']));
@@ -1147,7 +1147,7 @@ class Agora_Messages {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, Horde_Nls::getCharset());
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             $message['message_body'] = Horde_Text_Filter::filter($this->convertFromDriver($message['body']), 'highlightquotes');
             if ($message['attachments']) {
                 $message['message_attachment'] = $this->getAttachmentLink($id);
@@ -2113,7 +2113,7 @@ class Agora_Messages {
         }
 
         if (!empty($filter['author'])) {
-            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author'], Horde_Nls::getCharset()));
+            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author'], $GLOBALS['registry']->getCharset()));
         }
 
         /* Sort by result column. */
@@ -2214,7 +2214,7 @@ class Agora_Messages {
      */
     public function convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
+        return Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $this->_params['charset']);
     }
 
     /**

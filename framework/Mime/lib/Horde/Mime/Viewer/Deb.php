@@ -78,7 +78,7 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => '<pre>' . htmlspecialchars($data) . '</pre>',
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

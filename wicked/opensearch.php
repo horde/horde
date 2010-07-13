@@ -24,7 +24,7 @@ $name = $registry->get('name', 'wicked') . ' (' . $url . ')';
 $icon = base64_encode(file_get_contents($registry->get('themesfs', 'wicked') . '/graphics/wicked.png'));
 
 // Charset.
-$charset = Horde_Nls::getCharset();
+$charset = $GLOBALS['registry']->getCharset();
 
 header('Content-Type: text/xml; charset=' . $charset);
 echo <<<PAYLOAD

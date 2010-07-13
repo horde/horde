@@ -370,7 +370,7 @@ class Horde_Group_Ldap extends Horde_Group
      */
     public function getGroupName($dn)
     {
-        $dn = Horde_String::convertCharset($dn, Horde_Nls::getCharset(), 'UTF-8');
+        $dn = Horde_String::convertCharset($dn, $GLOBALS['registry']->getCharset(), 'UTF-8');
         $result = @ldap_explode_dn($dn, 1);
         if ($result === false) {
             throw new Horde_Group_Exception('Invalid group ID passed (bad DN syntax)');
@@ -653,7 +653,7 @@ class Horde_Group_Ldap extends Horde_Group
             }
 
             $groups = array();
-            $current_charset = Horde_Nls::getCharset();
+            $current_charset = $GLOBALS['registry']->getCharset();
             for ($i = 0; $i < $result['count']; $i++) {
                 $utf8_dn = Horde_String::convertCharset($result[$i]['dn'], 'UTF-8', $current_charset);
                 $groups[$utf8_dn] = $this->getGroupName($utf8_dn);

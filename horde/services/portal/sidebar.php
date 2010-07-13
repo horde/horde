@@ -258,7 +258,7 @@ function sidebar()
     // If we're serving a request to the JS update client, just render the
     // updated node javascript.
     if (Horde_Util::getFormData('httpclient')) {
-        header('Content-Type: application/json; charset=' . Horde_Nls::getCharset());
+        header('Content-Type: application/json; charset=' . $GLOBALS['registry']->getCharset());
         $scripts = array(
             $tree->renderNodeDefinitions(),
             '$(\'horde_menu\').setStyle({ width: \'auto\', height: \'auto\' });');

@@ -22,11 +22,11 @@ if (!$rss) {
     $title = $registry->get('name', 'horde');
 
     $read_url = Horde::applicationUrl('read.php', true, -1);
-    $rss = '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '" ?>
     <rss version="2.0">
         <channel>
         <title>' . htmlspecialchars($title) . '</title>
-        <language>' . str_replace('_', '-', strtolower(Horde_Nls::select())) . '</language>
+        <language>' . str_replace('_', '-', strtolower($registry->preferredLang())) . '</language>
         <lastBuildDate>' . date('r') . '</lastBuildDate>
         <description>' . htmlspecialchars($title) . '</description>
         <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>

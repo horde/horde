@@ -65,7 +65,7 @@ class Horde_Prefs_Ui
 
         case 'language':
             if (!$prefs->isLocked('language')) {
-                $ui->override['language'] = Horde_Nls::$config['languages'];
+                $ui->override['language'] = $registry->nlsconfig['languages'];
                 array_unshift($ui->override['language'], _("Default"));
             }
 
@@ -199,7 +199,7 @@ class Horde_Prefs_Ui
 
         if ($prefs->isDirty('language')) {
             if ($prefs->isDirty('language')) {
-                Horde_Nls::setLanguageEnvironment($prefs->getValue('language'));
+                $registry->setLanguageEnvironment($prefs->getValue('language'));
                 foreach ($registry->listAPIs() as $api) {
                     if ($registry->hasMethod($api . '/changeLanguage')) {
                         $registry->call($api . '/changeLanguage');
@@ -233,7 +233,7 @@ class Horde_Prefs_Ui
              * frame. */
             if ($old_sidebar) {
                 Horde::addInlineScript(
-                    'window.parent.frames.location = ' . Horde_Serialize::serialize((string)$url, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';'
+                    'window.parent.frames.location = ' . Horde_Serialize::serialize((string)$url, Horde_Serialize::JSON, $registry->getCharset()) . ';'
                 );
             } else {
                 Horde::redirect($url);

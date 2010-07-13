@@ -45,7 +45,7 @@ if (!empty($GLOBALS['conf']['wicked']['captcha']) && !$GLOBALS['registry']->getA
 <?php endif; endif; ?>
 
 <div style="padding:8px">
- <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, Horde_Nls::getCharset()) ?></textarea>
+ <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></textarea>
 </div>
 
 </form>

@@ -45,7 +45,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         parent::setCharset($charset);
 
-        Horde_Nls::setCharset($this->getCharset());
+        $GLOBALS['registry']->setCharset($this->getCharset());
         Horde_String::setDefaultCharset($this->getCharset());
     }
 

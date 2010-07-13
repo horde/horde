@@ -988,7 +988,7 @@ class Turba_Driver
         $hash = $object->getAttributes();
         $vcard = new Horde_iCalendar_vcard($version);
         $formattedname = false;
-        $charset = $version == '2.1' ? array('CHARSET' => Horde_Nls::getCharset()) : array();
+        $charset = $version == '2.1' ? array('CHARSET' => $GLOBALS['registry']->getCharset()) : array();
 
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
@@ -996,7 +996,7 @@ class Turba_Driver
             }
 
             if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
 
             switch ($key) {
@@ -1656,8 +1656,8 @@ class Turba_Driver
         );
         $val = implode(';', $a);
         if ($version != '2.1') {
-            $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-            $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
+            $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+            $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
         }
         if (!$fields || isset($fields['N'])) {
             $vcard->setAttribute('N', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $a);
@@ -1687,8 +1687,8 @@ class Turba_Driver
         if (count($org) && (!$fields || isset($fields['ORG']))) {
             $val = implode(';', $org);
             if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $org = Horde_String::convertCharset($org, Horde_Nls::getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $org = Horde_String::convertCharset($org, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ORG', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $org);
         }
@@ -1740,12 +1740,12 @@ class Turba_Driver
             if ($version == '2.1') {
                 $params = array();
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
                 }
             } else {
                 $params = array('TYPE' => '');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1795,12 +1795,12 @@ class Turba_Driver
             if ($version == '2.1') {
                 $params = array('HOME' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
                 }
             } else {
                 $params = array('TYPE' => 'HOME');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1850,12 +1850,12 @@ class Turba_Driver
             if ($version == '2.1') {
                 $params = array('WORK' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = $GLOBALS['registry']->getCharset();
                 }
             } else {
                 $params = array('TYPE' => 'WORK');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
+                $val = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'utf-8');
+                $a = Horde_String::convertCharset($a, $GLOBALS['registry']->getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -2318,7 +2318,7 @@ class Turba_Driver
     public function toASContact(Turba_Object $object)
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $hash = $object->getAttributes();
         foreach ($hash as $field => $value) {
            switch ($field) {
@@ -2456,7 +2456,7 @@ class Turba_Driver
     public function fromASContact($message)
     {
         $hash = array();
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $formattedname = false;
 
         $textMap = array(

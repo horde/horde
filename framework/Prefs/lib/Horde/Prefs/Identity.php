@@ -71,7 +71,7 @@ class Horde_Prefs_Identity
         if (!($this->_identities = @unserialize($this->_prefs->getValue('identities', false)))) {
             $this->_identities = $this->_prefs->getDefault('identities');
         } else {
-            $this->_identities = $this->_prefs->convertFromDriver($this->_identities, Horde_Nls::getCharset());
+            $this->_identities = $this->_prefs->convertFromDriver($this->_identities, $GLOBALS['registry']->getCharset());
         }
 
         $this->setDefault($this->_prefs->getValue('default_identity'));
@@ -114,7 +114,7 @@ class Horde_Prefs_Identity
     {
         $identities = $this->_identities;
         if (is_array($identities)) {
-            $identities = $this->_prefs->convertToDriver($identities, Horde_Nls::getCharset());
+            $identities = $this->_prefs->convertToDriver($identities, $GLOBALS['registry']->getCharset());
         }
 
         $this->_prefs->setValue('identities', serialize($identities), false);
@@ -406,10 +406,10 @@ class Horde_Prefs_Identity
 
         $pref = @unserialize($this->_prefs->getValue('confirm_email', false));
         $pref = $pref
-            ? $this->_prefs->convertFromDriver($pref, Horde_Nls::getCharset())
+            ? $this->_prefs->convertFromDriver($pref, $GLOBALS['registry']->getCharset())
             : array();
         $pref[$hash] = $this->get($id);
-        $pref = $this->_prefs->convertToDriver($pref, Horde_Nls::getCharset());
+        $pref = $this->_prefs->convertToDriver($pref, $GLOBALS['registry']->getCharset());
         $this->_prefs->setValue('confirm_email', serialize($pref), false);
 
         $new_addr = $this->getValue('from_addr', $id);
@@ -429,7 +429,7 @@ class Horde_Prefs_Identity
         $body = new Horde_Mime_Part();
         $body->setType('text/plain');
         $body->setContents(Horde_String::wrap($message, 76, "\n"));
-        $body->setCharset(Horde_Nls::getCharset());
+        $body->setCharset($GLOBALS['registry']->getCharset());
 
         $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Horde_Mail'));
 
@@ -458,7 +458,7 @@ class Horde_Prefs_Identity
             return array(_("Email addresses to confirm not found."), 'horde.message');
         }
 
-        $identity = $this->_prefs->convertFromDriver($confirm[$hash], Horde_Nls::getCharset());
+        $identity = $this->_prefs->convertFromDriver($confirm[$hash], $GLOBALS['registry']->getCharset());
         $id = array_search($identity['id'], $this->getAll('id'));
         if ($id === false) {
             /* Adding a new identity. */

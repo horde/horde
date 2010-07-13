@@ -122,7 +122,7 @@ class Ansel_GalleryMode_Date
             $trail[] = array('title' => _("All dates"), 'navdata' => $navdata);
         }
 
-        $text = htmlspecialchars($this->_gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset());
+        $text = htmlspecialchars($this->_gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         $navdata = array('view' => 'Gallery',
                          'gallery' => $this->_gallery->id,
                          'slug' => $this->_gallery->get('slug'));

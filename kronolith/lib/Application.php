@@ -65,7 +65,7 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         /* Set the timezone variable, if available. */
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         /* Create a share instance. */
         $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();

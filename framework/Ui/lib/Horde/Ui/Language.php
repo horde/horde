@@ -26,7 +26,7 @@ class Horde_Ui_Language {
         $html = '';
 
         if (!$GLOBALS['prefs']->isLocked('language')) {
-            $_SESSION['horde_language'] = Horde_Nls::select();
+            $_SESSION['horde_language'] = $GLOBALS['registry']->preferredLang();
             $html = sprintf('<form name="language" action="%s">',
                             Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/language.php', false, -1));
             $html .= '<input type="hidden" name="url" value="' . @htmlspecialchars(Horde::selfUrl(false, false, true)) . '" />';

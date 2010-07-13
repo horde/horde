@@ -39,7 +39,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
         }
 
         // Set the timezone variable, if available.
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         list($lat, $long) = explode(':', $this->_params['location']);
         $rise = $this->_calculateSunset(time(), $lat, $long, false, floor(date('Z') / 3600));

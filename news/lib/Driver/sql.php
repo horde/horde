@@ -449,7 +449,7 @@ class News_Driver_sql extends News_Driver {
 
         $sql = 'FROM ' . $GLOBALS['news']->prefix . ' AS n, ' . $GLOBALS['news']->prefix . '_body AS l '
             . ' WHERE n.id = l.id AND l.lang = ?';
-        $params = array('_lang' => Horde_Nls::select());
+        $params = array('_lang' => $GLOBALS['registry']->preferredLang());
 
         if ($perms == Horde_Perms::READ) {
             $sql .= ' AND n.publish <= ? ';
@@ -588,7 +588,7 @@ class News_Driver_sql extends News_Driver {
                . $this->prefix . ' AS n WHERE l.lang = ? AND n.id = l.id AND n.status = ? ORDER BY n.publish DESC LIMIT 0, '
                . ($minimize ? '100' : '500');
 
-        $result = $this->db->query($sql, array(Horde_Nls::select(), News::CONFIRMED));
+        $result = $this->db->query($sql, array($GLOBALS['registry']->preferredLang(), News::CONFIRMED));
         if ($result instanceof PEAR_Error) {
             return $result;
         }

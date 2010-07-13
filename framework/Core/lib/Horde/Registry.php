@@ -36,6 +36,13 @@ class Horde_Registry
     protected $_cache = array();
 
     /**
+     * NLS cached information.
+     *
+     * @var array
+     */
+    protected $_nlscache = array();
+
+    /**
      * The last modified time of the newest modified registry file.
      *
      * @var integer
@@ -71,18 +78,25 @@ class Horde_Registry
     public $applications = array();
 
     /**
-     * The session handler object.
-     *
-     * @var Horde_SessionHandler
-     */
-    public $sessionHandler = null;
-
-    /**
      * The application that called appInit().
      *
      * @var string
      */
     public $initialApp;
+
+    /**
+     * NLS configuration.
+     *
+     * @var array
+     */
+    public $nlsconfig = array();
+
+    /**
+     * The session handler object.
+     *
+     * @var Horde_SessionHandler
+     */
+    public $sessionHandler = null;
 
     /**
      * Application bootstrap initialization.
@@ -94,6 +108,7 @@ class Horde_Registry
      *
      * Global variables defined:
      *   $cli - Horde_Cli object (if 'cli' is true)
+     *   $language - Language
      *   $registry - Horde_Registry object
      *
      * @param string $app  The application to initialize.
@@ -120,6 +135,8 @@ class Horde_Registry
      *   'none' - Do not start a session
      *   'readonly' - Start session readonly
      *   [DEFAULT] - Start read/write session
+     * 'timezone' - (boolean) Set the time zone?
+     *              DEFAULT: false
      * 'user_admin' - (boolean) Set authentication to an admin user?
      *                DEFAULT: false
      * </pre>
@@ -143,6 +160,7 @@ class Horde_Registry
             'nologintasks' => false,
             'session_cache_limiter' => null,
             'session_control' => null,
+            'timezone' => false,
             'user_admin' => null
         ), $args);
 
@@ -204,6 +222,10 @@ class Horde_Registry
 
         $registry->initialApp = $app;
 
+        if ($args['timezone']) {
+            $registry->setTimeZone();
+        }
+
         if (!$args['nocompress']) {
             Horde::compressOutput();
         }
@@ -231,7 +253,8 @@ class Horde_Registry
     {
         /* Define autoloader callbacks. */
         $callbacks = array(
-            'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime'
+            'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime',
+            'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls'
         );
 
         /* Define binders. */
@@ -304,7 +327,6 @@ class Horde_Registry
             $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
         }
 
-
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
@@ -312,8 +334,7 @@ class Horde_Registry
          * and egg issue - since loadConfiguration() uses registry in certain
          * instances. However, if HORDE_BASE is defined, and app is
          * 'horde', registry is not used in the method so we are free to
-         * call it here (prevents us from duplicating a bunch of code
-         * here. */
+         * call it here (prevents us from duplicating a bunch of code). */
         $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
         $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
 
@@ -363,12 +384,11 @@ class Horde_Registry
         /* Always need to load applications information. */
         $this->_loadApplicationsCache($vhost);
 
-        /* Initialize the localization routines and variables. We can't use
-         * Horde_Nls::setLanguageEnvironment() here because that depends on the
-         * registry to be already initialized. */
-        Horde_Nls::setLanguage();
-        Horde_Nls::setTextdomain('horde', HORDE_BASE . '/locale', Horde_Nls::getCharset());
-        Horde_String::setDefaultCharset(Horde_Nls::getCharset());
+        /* Load the language configuration. */
+        $this->nlsconfig = Horde::loadConfiguration('nls.php', 'horde_nls_config', 'horde');
+
+        /* Initialize the localization routines and variables. */
+        $this->setLanguageEnvironment(null, 'horde');
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
@@ -1124,10 +1144,10 @@ class Horde_Registry
         /* Chicken and egg problem: the language environment has to be loaded
          * before loading the configuration file, because it might contain
          * gettext strings. Though the preferences can specify a different
-         * language for this app, the have to be loaded after the
+         * language for this app, they have to be loaded after the
          * configuration, because they rely on configuration settings. So try
          * with the current language, and reset the language later. */
-        Horde_Nls::setLanguageEnvironment($GLOBALS['language'], $app);
+        $this->setLanguageEnvironment($GLOBALS['language'], $app);
 
         /* Load config and prefs and set proper language from the prefs. */
         $this->_onAppSwitch($app);
@@ -1209,7 +1229,7 @@ class Horde_Registry
          * preferences. */
         $language = $GLOBALS['prefs']->getValue('language');
         if ($language != $GLOBALS['language']) {
-            Horde_Nls::setLanguageEnvironment($language, $app);
+            $this->setLanguageEnvironment($language, $app);
         }
     }
 
@@ -2013,7 +2033,7 @@ class Horde_Registry
         $_SESSION['horde_auth'] = array(
             'app' => array(),
             'authId' => $authId,
-            'browser' => $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString(),
+            'browser' => $GLOBALS['browser']->getAgentString(),
             'change' => !empty($options['change']),
             'credentials' => $app,
             'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
@@ -2025,7 +2045,7 @@ class Horde_Registry
 
         /* Reload preferences for the new user. */
         $this->loadPrefs();
-        Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
+        $this->setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
     }
 
     /**
@@ -2045,12 +2065,360 @@ class Horde_Registry
         }
 
         if (!empty($GLOBALS['conf']['auth']['checkbrowser']) &&
-            ($_SESSION['horde_auth']['browser'] != $GLOBALS['injector']->getInstance('Horde_Browser')->getAgentString())) {
+            ($_SESSION['horde_auth']['browser'] != $GLOBALS['browser']->getAgentString())) {
             $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
             return false;
         }
 
         return $auth->validateAuth();
+    }
+
+    /* NLS functions. */
+
+    /**
+     * Returns the charset for the current language.
+     *
+     * @param boolean $original  If true returns the original charset of the
+     *                           translation, the actually used one otherwise.
+     *
+     * @return string  The character set that should be used with the current
+     *                 locale settings.
+     */
+    public function getCharset($original = false)
+    {
+        /* Get cached results. */
+        $cacheKey = intval($original);
+        $charset = $this->_cachedCharset($cacheKey);
+        if (!is_null($charset)) {
+            return $charset;
+        }
+
+        if ($original) {
+            $charset = empty($this->nlsconfig['charsets'][$GLOBALS['language']])
+                ? 'ISO-8859-1'
+                : $this->nlsconfig['charsets'][$GLOBALS['language']];
+        } elseif ($GLOBALS['browser']->hasFeature('utf') &&
+                  (Horde_Util::extensionExists('iconv') ||
+                   Horde_Util::extensionExists('mbstring'))) {
+            $charset = 'UTF-8';
+        }
+
+        if (is_null($charset)) {
+            $charset = $this->getExternalCharset();
+        }
+
+        $this->_cachedCharset($cacheKey, $charset);
+
+        return $charset;
+    }
+
+    /**
+     * Returns the current charset of the environment
+     *
+     * @return string  The character set that should be used with the current
+     *                 locale settings.
+     */
+    public function getExternalCharset()
+    {
+        /* Get cached results. */
+        $charset = $this->_cachedCharset(2);
+        if (!is_null($charset)) {
+            return $charset;
+        }
+
+        $lang_charset = setlocale(LC_ALL, 0);
+        if ((strpos($lang_charset, ';') === false) &&
+            (strpos($lang_charset, '/') === false)) {
+            $lang_charset = explode('.', $lang_charset);
+            if ((count($lang_charset) == 2) && !empty($lang_charset[1])) {
+                $this->_cachedCharset(2, $lang_charset[1]);
+                return $lang_charset[1];
+            }
+        }
+
+        return empty($this->nlsconfig['charsets'][$GLOBALS['language']])
+            ? 'ISO-8859-1'
+            : $this->nlsconfig['charsets'][$GLOBALS['language']];
+    }
+
+    /**
+     * Returns the charset to use for outgoing emails.
+     *
+     * @return string  The preferred charset for outgoing mails based on
+     *                 the user's preferences and the current language.
+     */
+    public function getEmailCharset()
+    {
+        $charset = $GLOBALS['prefs']->getValue('sending_charset');
+        if (!empty($charset)) {
+            return $charset;
+        }
+
+        return isset($this->nlsconfig['emails'][$GLOBALS['language']])
+            ? $this->nlsconfig['emails'][$GLOBALS['language']]
+            : (isset($this->nlsconfig['charsets'][$GLOBALS['language']]) ? $this->nlsconfig['charsets'][$GLOBALS['language']] : 'ISO-8859-1');
+    }
+
+    /**
+     * Selects the most preferred language for the current client session.
+     *
+     * @param string $lang  Force to use this language.
+     *
+     * @return string  The selected language abbreviation.
+     */
+    public function preferredLang($lang = null)
+    {
+        /* First, check if language pref is locked and, if so, set it to its
+         * value */
+        if (isset($GLOBALS['prefs']) &&
+            $GLOBALS['prefs']->isLocked('language')) {
+            $language = $GLOBALS['prefs']->getValue('language');
+        /* Check if the user selected a language from the login screen */
+        } elseif (!empty($lang) && $this->isValidLang($lang)) {
+            $language = $lang;
+        /* Check if we have a language set in the session */
+        } elseif (isset($_SESSION['horde_language'])) {
+            $language = $_SESSION['horde_language'];
+        /* Use site-wide default, if one is defined */
+        } elseif (!empty($this->nlsconfig['defaults']['language'])) {
+            $language = $this->nlsconfig['defaults']['language'];
+        /* Try browser-accepted languages. */
+        } elseif (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            /* The browser supplies a list, so return the first valid one. */
+            $browser_langs = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            foreach ($browser_langs as $lang) {
+                /* Strip quality value for language */
+                if (($pos = strpos($lang, ';')) !== false) {
+                    $lang = substr($lang, 0, $pos);
+                }
+                $lang = $this->_mapLang(trim($lang));
+                if ($this->isValidLang($lang)) {
+                    $language = $lang;
+                    break;
+                }
+
+                /* In case there's no full match, save our best guess. Try
+                 * ll_LL, followed by just ll. */
+                if (!isset($partial_lang)) {
+                    $ll_LL = Horde_String::lower(substr($lang, 0, 2)) . '_' . Horde_String::upper(substr($lang, 0, 2));
+                    if ($this->isValidLang($ll_LL)) {
+                        $partial_lang = $ll_LL;
+                    } else {
+                        $ll = $this->_mapLang(substr($lang, 0, 2));
+                        if ($this->isValidLang($ll))  {
+                            $partial_lang = $ll;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!isset($language)) {
+            $language = isset($partial_lang)
+                ? $partial_lang
+                /* No dice auto-detecting, default to US English. */
+                : 'en_US';
+        }
+
+        return basename($language);
+    }
+
+    /**
+     * Determines whether the supplied language is valid.
+     *
+     * @param string $language  The abbreviated name of the language.
+     *
+     * @return boolean  True if the language is valid, false if it's not
+     *                  valid or unknown.
+     */
+    public function isValidLang($language)
+    {
+        return !empty($this->nlsconfig['languages'][$language]);
+    }
+
+    /**
+     * Sets the UI charset.
+     *
+     * In general, the applied charset is automatically determined by browser
+     * language and browser capabilities and there's no need to manually call
+     * setCharset. However for headless (RPC) operations the charset may be
+     * set manually to ensure correct character conversion in the backend.
+     *
+     * @param string $charset  The new UI charset.
+     */
+    public function setCharset($charset)
+    {
+        $this->_cachedCharset(0, $charset);
+    }
+
+    /**
+     * Sets the charset and reloads the whole NLS environment.
+     *
+     * When setting the charset, the gettext catalogs have to be reloaded too,
+     * to match the new charset, among other things. This method takes care of
+     * all this.
+     *
+     * @param string $charset  The new UI charset.
+     */
+    public function setCharsetEnvironment($charset)
+    {
+        unset($GLOBALS['language']);
+        $this->setCharset($charset);
+        $this->setLanguageEnvironment();
+    }
+
+    /**
+     * Sets the language.
+     *
+     * @param string $lang  The language abbreviation.
+     *
+     * @throws Horde_Exception
+     */
+    public function setLanguage($lang = null)
+    {
+        if (empty($lang) || !$this->isValidLang($lang)) {
+            $lang = $this->preferredLang();
+        }
+
+        $_SESSION['horde_language'] = $lang;
+
+        if (isset($GLOBALS['language'])) {
+            if ($GLOBALS['language'] == $lang) {
+                return;
+            }
+            $this->clearCache();
+        }
+        $GLOBALS['language'] = $lang;
+
+        /* First try language with the current charset. */
+        $lang_charset = $lang . '.' . $this->getCharset();
+        if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
+            /* Next try language with its default charset. */
+            $charset = empty($this->nlsconfig['charsets'][$lang])
+                ? 'ISO-8859-1'
+                : $this->nlsconfig['charsets'][$lang];
+            $lang_charset = $lang . '.' . $charset;
+            $this->_cachedCharset(0, $charset);
+            if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
+                /* At last try language solely. */
+                $lang_charset = $lang;
+                setlocale(LC_ALL, $lang_charset);
+            }
+        }
+
+        @putenv('LC_ALL=' . $lang_charset);
+        @putenv('LANG=' . $lang_charset);
+        @putenv('LANGUAGE=' . $lang_charset);
+    }
+
+    /**
+     * Sets the language and reloads the whole NLS environment.
+     *
+     * When setting the language, the gettext catalogs have to be reloaded
+     * too, charsets have to be updated etc. This method takes care of all
+     * this.
+     *
+     * @param string $language  The new language.
+     * @param string $app       The application for reloading the gettext
+     *                          catalog. The current application if empty.
+     */
+    public function setLanguageEnvironment($lang = null, $app = null)
+    {
+        if (empty($app)) {
+            $app = $this->getApp();
+        }
+
+        $this->setLanguage($lang);
+        $this->setTextdomain(
+            $app,
+            $this->get('fileroot', $app) . '/locale'
+        );
+        Horde_String::setDefaultCharset($this->getCharset());
+    }
+
+    /**
+     * Sets the gettext domain.
+     *
+     * @param string $app        The application name.
+     * @param string $directory  The directory where the application's
+     *                           LC_MESSAGES directory resides.
+     * @param string $charset    The charset.
+     */
+    public function setTextdomain($app, $directory, $charset = null)
+    {
+        bindtextdomain($app, $directory);
+        textdomain($app);
+
+        if (is_null($charset)) {
+            $charset = $this->getCharset();
+        }
+
+        /* The existence of this function depends on the platform. */
+        if (function_exists('bind_textdomain_codeset')) {
+            $this->_cachedCharset(0, bind_textdomain_codeset($app, $charset));
+        }
+
+        if (!Horde::contentSent()) {
+            header('Content-Type: text/html; charset=' . $charset);
+        }
+    }
+
+    /**
+     * Sets the current timezone, if available.
+     */
+    public function setTimeZone()
+    {
+        $tz = $GLOBALS['prefs']->getValue('timezone');
+        if (!empty($tz)) {
+            @date_default_timezone_set($tz);
+        }
+    }
+
+    /**
+     * Maps languages with common two-letter codes (such as nl) to the
+     * full gettext code (in this case, nl_NL). Returns the language
+     * unmodified if it isn't an alias.
+     *
+     * @param string $language  The language code to map.
+     *
+     * @return string  The mapped language code.
+     */
+    protected function _mapLang($language)
+    {
+        // Translate the $language to get broader matches.
+        // (eg. de-DE should match de_DE)
+        $trans_lang = str_replace('-', '_', $language);
+        $lang_parts = explode('_', $trans_lang);
+        $trans_lang = Horde_String::lower($lang_parts[0]);
+        if (isset($lang_parts[1])) {
+            $trans_lang .= '_' . Horde_String::upper($lang_parts[1]);
+        }
+
+        return empty($this->nlsconfig['aliases'][$trans_lang])
+            ? $trans_lang
+            : $this->nlsconfig['aliases'][$trans_lang];
+    }
+
+
+    /**
+     * Sets or returns the charset used under certain conditions.
+     *
+     * @param integer $index   The ID of a cache slot. 0 for the UI charset, 1
+     *                         for the translation charset and 2 for the
+     *                         external charset.
+     * @param string $charset  If specified, this charset will be stored in
+     *                         the given cache slot. Otherwise the content of
+     *                         the specified cache slot will be returned.
+     */
+    protected function _cachedCharset($index, $charset = null)
+    {
+        if (is_null($charset)) {
+            return isset($this->_nlscache['charset'][$index])
+                ? $this->_nlscache['charset'][$index]
+                : null;
+        }
+
+        $this->_nlscache['charset'][$index] = $charset;
     }
 
 }

@@ -36,7 +36,7 @@ function _outputSummaries($msgs)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-Horde_Nls::setTimeZone();
+$registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
 try {
@@ -241,7 +241,7 @@ if ($readonly) {
 
 /* Generate paging links. */
 if ($pageOb['pagecount']) {
-    $rtl = !empty(Horde_Nls::$config['rtl'][$language]);
+    $rtl = !empty($registry->nlsconfig['rtl'][$language]);
     if ($pageOb['page'] == 1) {
         $pages_first = Horde::img($rtl ? 'nav/last-grey.png' : 'nav/first-grey.png');
         $pages_prev = Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png');
@@ -767,7 +767,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the From: Header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => Horde_Nls::getCharset()));
+    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => $registry->getCharset()));
     $msg['from'] = $getfrom['from'];
     $msg['fullfrom'] = $getfrom['fullfrom'];
     switch ($fromlinkstyle) {

@@ -535,7 +535,7 @@ HTML;
      */
     static public function sendHTTPResponse($data, $ct)
     {
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         // Output headers and encoded response.
         switch ($ct) {
@@ -587,7 +587,7 @@ HTML;
      * @param array $options  Additional options:
      * <pre>
      * 'charset' - (string) The charset of $data.
-     *             DEFAULT: Horde_Nls::getCharset()
+     *             DEFAULT: Horde_Registry::getCharset()
      * 'urlencode' - (boolean) URL encode the json string
      *               DEFAULT: No
      * </pre>
@@ -596,7 +596,7 @@ HTML;
      */
     static public function escapeJson($data, $options = array())
     {
-        $json = '/*-secure-' . Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? Horde_Nls::getCharset() : $options['charset']) . '*/';
+        $json = '/*-secure-' . Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? $GLOBALS['registry']->getCharset() : $options['charset']) . '*/';
         return empty($options['urlencode'])
             ? $json
             : '\'' . rawurlencode($json) . '\'';
@@ -1152,7 +1152,7 @@ HTML;
         }
         if (!empty($title)) {
             if ($escape) {
-                $charset = Horde_Nls::getCharset();
+                $charset = $GLOBALS['registry']->getCharset();
                 $old_error = error_reporting(0);
                 $title = str_replace(
                     array("\r", "\n"), '',
@@ -1189,7 +1189,7 @@ HTML;
                                        $attributes = array())
     {
         if (!empty($title)) {
-            $charset = Horde_Nls::getCharset();
+            $charset = $GLOBALS['registry']->getCharset();
             $old_error = error_reporting(0);
             $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
             error_reporting($old_error);
@@ -1309,7 +1309,7 @@ HTML;
      */
     static public function img($src, $alt = '', $attr = '')
     {
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
@@ -1355,7 +1355,7 @@ HTML;
      */
     static public function fullSrcImg($src, $options = array())
     {
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
@@ -1611,11 +1611,7 @@ HTML;
      */
     static public function stripAccessKey($label)
     {
-        if (!isset(Horde_Nls::$config['multibyte'])) {
-            self::loadConfiguration('nls.php', null, 'horde');
-        }
-
-        $multibyte = isset(Horde_Nls::$config['multibyte'][Horde_Nls::getCharset(true)]);
+        $multibyte = isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getCharset(true)]);
         return preg_replace('/_([A-Za-z])/',
                             $multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1',
                             $label);
@@ -1638,15 +1634,17 @@ HTML;
             return $stripped_label;
         }
 
-        if (isset($GLOBALS['nls']['multibyte'][Horde_Nls::getCharset(true)])) {
+        if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getCharset(true)])) {
             /* Prefix parenthesis with the UTF-8 representation of the LRO
              * (Left-to-Right-Override) Unicode codepoint U+202D. */
-            $prefix = Horde_Nls::getCharset() == 'UTF-8' ? "\xe2\x80\xad" : '';
+            $prefix = ($GLOBALS['registry']->getCharset() == 'UTF-8')
+                ? "\xe2\x80\xad"
+                : '';
             return $stripped_label . $prefix . '(<span class="accessKey">'
                 . strtoupper($accessKey) . '</span>' . ')';
-        } else {
-            return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);
         }
+
+        return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);
     }
 
     /**

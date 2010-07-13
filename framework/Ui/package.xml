@@ -30,7 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Added Horde_Ui_FlagImage::.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -41,6 +42,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Html.php" role="php" />
        <file name="TablesetHtml.php" role="php" />
       </dir> <!-- /lib/Horde/Ui/VarRenderer -->
+      <file name="FlagImage.php" role="php" />
       <file name="JsCalendar.php" role="php" />
       <file name="Language.php" role="php" />
       <file name="Pager.php" role="php" />
@@ -61,12 +63,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Nls</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Ui/VarRenderer/Html.php" as="Horde/Ui/VarRenderer/Html.php" />
    <install name="lib/Horde/Ui/VarRenderer/TablesetHtml.php" as="Horde/Ui/VarRenderer/TablesetHtml.php" />
+   <install name="lib/Horde/Ui/FlagImage.php" as="Horde/Ui/FlagImage.php" />
    <install name="lib/Horde/Ui/JsCalendar.php" as="Horde/Ui/JsCalendar.php" />
    <install name="lib/Horde/Ui/Language.php" as="Horde/Ui/Language.php" />
    <install name="lib/Horde/Ui/Pager.php" as="Horde/Ui/Pager.php" />

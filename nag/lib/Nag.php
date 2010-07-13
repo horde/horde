@@ -673,11 +673,11 @@ class Nag
                                    'mail/compose',
                                    array(array('to' => $email))))
                 . @htmlspecialchars($fullname . ' <' . $email . '>',
-                                    ENT_COMPAT, Horde_Nls::getCharset())
+                                    ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . '</a>';
-        } else {
-            return @htmlspecialchars($fullname, ENT_COMPAT, Horde_Nls::getCharset());
         }
+
+        return @htmlspecialchars($fullname, ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
 
     /**
@@ -909,7 +909,7 @@ class Nag
         $mail->addHeader('From', $from);
 
         foreach ($addresses as $lang => $twentyFour) {
-            Horde_Nls::setLanguageEnvironment($lang);
+            $GLOBALS['registry']->setLanguageEnvironment($lang);
 
             $view_link = Horde_Util::addParameter(Horde::applicationUrl('view.php', true),
                                             array('tasklist' => $task->tasklist,
@@ -1030,7 +1030,7 @@ class Nag
                 break;
             }
 
-            $mail->addHeader('Subject', $subject . ' ' . $task->name, Horde_Nls::getCharset());
+            $mail->addHeader('Subject', $subject . ' ' . $task->name, $GLOBALS['registry']->getCharset());
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
@@ -1042,7 +1042,7 @@ class Nag
                         $message .= "\n\n" . _("Task description:") . "\n\n" . $task->desc;
                     }
 
-                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->setBody($message, $GLOBALS['registry']->getCharset());
                     $mail->clearRecipients();
                     $mail->addRecipients($df_recipients);
 

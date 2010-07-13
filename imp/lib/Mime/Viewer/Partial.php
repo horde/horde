@@ -59,7 +59,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
                 $id => array(
                     'data' => null,
                     'status' => array(self::$_statuscache[$id]),
-                    'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                    'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
                 )
             );
         } else {

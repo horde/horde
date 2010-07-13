@@ -458,7 +458,7 @@ class Page {
                 $this->_proc->deleteRule('Embed');
             }
 
-            $this->_proc->setFormatConf('Xhtml', 'charset', Horde_Nls::getCharset());
+            $this->_proc->setFormatConf('Xhtml', 'charset', $GLOBALS['registry']->getCharset());
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
             $create = $this->allows(WICKED_MODE_CREATE) ? 1 : 0;
             $linkConf = array('pages' => $wicked->getPages(),

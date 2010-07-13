@@ -130,11 +130,11 @@ function send_agendas()
         $lang = $prefs->getValue('language');
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
-        Horde_Nls::setLanguageEnvironment($lang);
+        $GLOBALS['registry']->setLanguageEnvironment($lang);
         $mime_mail = new Horde_Mime_Mail(array('subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($dateFormat)),
                                                'to' => $email,
                                                'from' => $GLOBALS['conf']['reminder']['from_addr'],
-                                               'charset' => Horde_Nls::getCharset()));
+                                               'charset' => $GLOBALS['registry']->getCharset()));
         $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
 
         $pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
@@ -151,7 +151,7 @@ function send_agendas()
             $message .= $event->title . "\n";
         }
 
-        $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
+        $mime_mail->setBody($message, $GLOBALS['registry']->getCharset(), true);
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}

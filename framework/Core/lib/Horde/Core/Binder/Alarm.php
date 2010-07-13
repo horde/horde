@@ -41,7 +41,7 @@ class Horde_Core_Binder_Alarm implements Horde_Injector_Binder
         $handler_params = array(
             'identity' => $injector->getInstance('Horde_Prefs_Identity'),
             'mail' => $injector->getInstance('Horde_Mail'),
-            'charset' => Horde_Nls::getCharset()
+            'charset' => $GLOBALS['registry']->getCharset()
         );
         $alarm->addHandler('mail', new Horde_Alarm_Handler_Mail($handler_params));
 

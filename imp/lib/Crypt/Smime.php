@@ -451,7 +451,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function textWindowOutput($name, $msg, $html = false)
     {
-        $GLOBALS['browser']->downloadHeaders($name, $html ? 'text/html' : 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
+        $GLOBALS['browser']->downloadHeaders($name, $html ? 'text/html' : 'text/plain; charset=' . $GLOBALS['registry']->getCharset(), true, strlen($msg));
         echo $msg;
     }
 

@@ -49,13 +49,13 @@ class Ansel_Tags
                 }
                 $tag = Horde_String::lower(trim($tag));
                 $sql = $GLOBALS['ansel_db']->prepare('SELECT tag_id FROM ansel_tags WHERE tag_name = ?');
-                $result = $sql->execute(Horde_String::convertCharset($tag, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']));
+                $result = $sql->execute(Horde_String::convertCharset($tag, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']));
                 $results = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
                 $result->free();
 
                 if (empty($results)) {
                     $id = $GLOBALS['ansel_db']->nextId('ansel_tags');
-                    $result = $insert->execute(array($id, Horde_String::convertCharset($tag, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
+                    $result = $insert->execute(array($id, Horde_String::convertCharset($tag, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset'])));
                     $tagkeys[] = $id;
                 } elseif ($results instanceof PEAR_Error) {
                     Horde::logMessage($results->getMessage(), 'ERR');

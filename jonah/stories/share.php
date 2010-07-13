@@ -16,12 +16,12 @@ function _mail($story_part, $from, $recipients, $subject, $note)
     $mail = new Horde_Mime_Mail(array('subject' => $subject,
                                       'to' => $recipients,
                                       'from' => $from,
-                                      'charset' => Horde_Nls::getCharset()));
+                                      'charset' => $GLOBALS['registry']->getCharset()));
     $mail->addHeader('User-Agent', 'Jonah ' . $GLOBALS['registry']->getVersion());
 
     /* If a note has been provided, add it to the message as a text part. */
     if (strlen($note) > 0) {
-        $message_note = new MIME_Part('text/plain', null, Horde_Nls::getCharset());
+        $message_note = new MIME_Part('text/plain', null, $GLOBALS['registry']->getCharset());
         $message_note->setContents($message_note->replaceEOL($note));
         $message_note->setDescription(_("Note"));
         $mail->addMIMEPart($message_note);

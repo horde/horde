@@ -16,7 +16,7 @@
  */
 require_once 'Horde/Autoloader.php';
 
-Horde_Nls::setCharset('utf-8');
+$registry->setCharset('utf-8');
 
 /** Generate the format handler */
 $format = Horde_Kolab_Format::factory('Xml', 'Event');

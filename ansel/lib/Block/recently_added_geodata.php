@@ -60,7 +60,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
 
             // Build the gallery name.
             if (isset($this->_params['gallery'])) {
-                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset());
+                $name = @htmlspecialchars($gallery->get('name'), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             }
 
             $style = $gallery->getStyle();

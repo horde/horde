@@ -5,8 +5,9 @@ http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Nls</name>
  <channel>pear.horde.org</channel>
- <summary>Localization Package</summary>
- <description>TODO
+ <summary>This package provides Native Language Support (NLS).
+ </summary>
+ <description>Provide common methods for handling language data, timezones, and hostname->country lookups.
  </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -30,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Eliminate dependency on horde/Browser and horde/Core.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -56,14 +58,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Browser</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
    <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>

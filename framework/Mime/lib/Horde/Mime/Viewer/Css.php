@@ -95,7 +95,7 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
             $this->_mimepart->getMimeId() => array(
                 'data' => $this->_lineNumber(trim($css)),
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }

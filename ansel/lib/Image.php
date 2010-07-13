@@ -1236,7 +1236,7 @@ class Ansel_Image Implements Iterator
                 $output[$field] = $value;
             } else {
                 $description = isset($data['description']) ? $data['description'] : $field;
-                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value, ENT_COMPAT, Horde_Nls::getCharset()) . '</td>';
+                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value, ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '</td>';
             }
         }
 

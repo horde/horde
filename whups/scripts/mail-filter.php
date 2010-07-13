@@ -156,7 +156,7 @@ if (empty($info['ticket'])) {
 
 // Set charset to UTF-8 for most flexible conversion between email charset and
 // backend charset.
-Horde_Nls::setCharsetEnvironment('UTF-8');
+$registry->setCharsetEnvironment('UTF-8');
 
 // Read and parse the message.
 if (empty($mail['user'])) {

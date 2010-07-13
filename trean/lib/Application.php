@@ -48,7 +48,7 @@ class Trean_Application extends Horde_Registry_Application
     protected function _init()
     {
         // Set the timezone variable.
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         // Create db and share instances.
         $GLOBALS['trean_db'] = Trean::getDb();

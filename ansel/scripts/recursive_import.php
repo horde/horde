@@ -75,7 +75,7 @@ if (empty($dir)) {
     $cli->fatal(_("You must specify a valid directory."));
 }
 
-Horde_Nls::setCharset('utf-8');
+$registry->setCharset('utf-8');
 $gallery_id = processDirectory($dir);
 if (!$keepEmpties) {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);

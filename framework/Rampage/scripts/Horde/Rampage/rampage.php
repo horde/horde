@@ -850,7 +850,7 @@ function render_field($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "nl2br(Horde_Text::linkUrls(Horde_Text_Filter::filter(\$zitem['$n'], 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), false, 'text'))";
+        return "nl2br(Horde_Text::linkUrls(Horde_Text_Filter::filter(\$zitem['$n'], 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)), false, 'text'))";
 
     case 'bool':
     case 'boolean':
@@ -1224,7 +1224,7 @@ function field_get_quoted($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), Horde_Nls::getCharset(), \$this->_params['charset'])";
+        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), $GLOBALS['registry']->getCharset(), \$this->_params['charset'])";
 
     // Integer types
     case 'bit':

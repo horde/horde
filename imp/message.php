@@ -24,7 +24,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-Horde_Nls::setTimeZone();
+$registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
@@ -34,7 +34,7 @@ if (!($search_mbox = $injector->getInstance('IMP_Search')->isSearchMbox(IMP::$ma
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+$imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex(false)) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -249,14 +249,14 @@ if ($origin_host) {
         $origin_host = array($origin_host);
     }
     foreach ($origin_host as $host) {
-        $from_img .= Horde_Nls::generateFlagImageByHost($host, $injector->getInstance('Net_DNS_Resolver')) . ' ';
+        $from_img .= Horde_Ui_FlagImage::generateFlagImageByHost($host) . ' ';
     }
     trim($from_img);
 }
 
 if (empty($from_img) && !empty($envelope['from'])) {
     $from_ob = reset($envelope['from']);
-    $from_img .= Horde_Nls::generateFlagImageByHost($from_ob['host'], $injector->getInstance('Net_DNS_Resolver')) . ' ';
+    $from_img .= Horde_Ui_FlagImage::generateFlagImageByHost($from_ob['host']) . ' ';
 }
 
 if (!empty($from_img)) {
@@ -443,7 +443,7 @@ if (!$use_pop) {
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
 
-$rtl = !empty(Horde_Nls::$config['rtl'][$language]);
+$rtl = !empty($registry->nlsconfig['rtl'][$language]);
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
     $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<'));

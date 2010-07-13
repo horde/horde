@@ -39,7 +39,7 @@ class Horde_Block_News_most_commented extends Horde_Block {
                  'LIMIT 0, ' . $this->_params['limit'];
 
         $younger = $_SERVER['REQUEST_TIME'] - $this->_params['days'] * 86400;
-        $params = array(News::CONFIRMED, date('Y-m-d', $younger), Horde_Nls::select());
+        $params = array(News::CONFIRMED, date('Y-m-d', $younger), $GLOBALS['registry']->preferredLang());
         $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
         if ($rows instanceof PEAR_Error) {
             return $rows->getDebugInfo();

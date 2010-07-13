@@ -66,7 +66,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
                 if (!isset($addrlist)) {
                     $addrlist = IMP_Compose::getAddressList();
                 }
-                Horde::addInlineScript('if (!window.IMP) window.IMP = {}; IMP.ac_list = '. Horde_Serialize::serialize($addrlist, Horde_Serialize::JSON, Horde_Nls::getCharset()));
+                Horde::addInlineScript('if (!window.IMP) window.IMP = {}; IMP.ac_list = '. Horde_Serialize::serialize($addrlist, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()));
                 self::$_listOutput = true;
             }
 

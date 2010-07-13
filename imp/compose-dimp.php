@@ -30,9 +30,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
+Horde_Registry::appInit('imp', array(
+    'impmode' => 'dimp',
+    'timezone' => true
+));
 
-Horde_Nls::setTimeZone();
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Determine if compose mode is disabled. */

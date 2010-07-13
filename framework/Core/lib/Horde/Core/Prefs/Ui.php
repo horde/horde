@@ -748,7 +748,7 @@ class Horde_Core_Prefs_Ui
                     // Fall-through
 
                 default:
-                    $val2 = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF-8');
+                    $val2 = Horde_String::convertCharset($val, $GLOBALS['registry']->getCharset(), 'UTF-8');
                 }
 
                 // [0] = pref name

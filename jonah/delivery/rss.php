@@ -62,22 +62,22 @@ if (is_a($stories, 'PEAR_Error')) {
 
 
 $template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template->set('charset', $GLOBALS['registry']->getCharset());
 $template->set('jonah', 'Jonah ' . $registry->getVersion() . ' (http://www.horde.org/jonah/)');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 if (!empty($criteria['tag_id'])) {
-    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, @htmlspecialchars($channel['channel_name'], ENT_COMPAT, Horde_Nls::getCharset())));
+    $template->set('channel_name', sprintf(_("Stories tagged with %s in %s"), $tag_name, @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset())));
 } else {
-    $template->set('channel_name', @htmlspecialchars($channel['channel_name'], ENT_COMPAT, Horde_Nls::getCharset()));
+    $template->set('channel_name', @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset()));
 }
-$template->set('channel_desc', @htmlspecialchars($channel['channel_desc'], ENT_COMPAT, Horde_Nls::getCharset()));
+$template->set('channel_desc', @htmlspecialchars($channel['channel_desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset()));
 $template->set('channel_updated', htmlspecialchars(date('r', $channel['channel_updated'])));
 $template->set('channel_official', htmlspecialchars($channel['channel_official']));
 $template->set('channel_rss', htmlspecialchars(Horde_Util::addParameter(Horde::applicationUrl('delivery/rss.php', true, -1), array('type' => 'rss', 'channel_id' => $channel['channel_id']))));
 $template->set('channel_rss2', htmlspecialchars(Horde_Util::addParameter(Horde::applicationUrl('delivery/rss.php', true, -1), array('type' => 'rss2', 'channel_id' => $channel['channel_id']))));
 foreach ($stories as &$story) {
-    $story['story_title'] = @htmlspecialchars($story['story_title'], ENT_COMPAT, Horde_Nls::getCharset());
-    $story['story_desc'] = @htmlspecialchars($story['story_desc'], ENT_COMPAT, Horde_Nls::getCharset());
+    $story['story_title'] = @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    $story['story_desc'] = @htmlspecialchars($story['story_desc'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     $story['story_link'] = htmlspecialchars($story['story_link']);
     $story['story_permalink'] = (isset($story['story_permalink']) ? htmlspecialchars($story['story_permalink']) : '');
     $story['story_published'] = htmlspecialchars(date('r', $story['story_published']));

@@ -276,11 +276,11 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
 
         /* Get charset for mime part description. */
-        $charset = Horde_Nls::getEmailCharset();
+        $charset = $GLOBALS['registry']->getEmailCharset();
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($charset);
-        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), Horde_Nls::getCharset(), $charset));
+        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), $GLOBALS['registry']->getCharset(), $charset));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');

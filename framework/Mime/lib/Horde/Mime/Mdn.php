@@ -179,7 +179,7 @@ class Horde_Mime_Mdn
         $msg->setType('multipart/report');
         $msg->setContentTypeParameter('report-type', 'disposition-notification');
 
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         /* The first part is a human readable message. */
         $part_one = new Horde_Mime_Part('text/plain');

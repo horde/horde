@@ -14,15 +14,18 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp');
-
-Horde_Nls::setTimeZone();
+Horde_Registry::appInit('imp', array(
+    'timezone' => true
+));
 
 /* What mode are we in?
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
-$mode = Horde_Util::getFormData('mode', 'thread');
+$vars = Horde_Variables::getDefaultVariables();
+$mode = $vars->mode
+    ? $vars->mode
+    : 'thread';
 
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
@@ -35,7 +38,7 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $imp_indices = new IMP_Indices(Horde_Util::getFormData('msglist'));
+    $imp_indices = new IMP_Indices($vars->msglist);
     if (!$imp_indices->count()) {
         $error = true;
     }
@@ -50,11 +53,11 @@ if ($error) {
 }
 
 /* Run through action handlers. */
-$actionID = Horde_Util::getFormData('actionID');
+$actionID = $vars->actionID;
 switch ($actionID) {
 case 'add_address':
     try {
-        $contact_link = IMP::addAddress(Horde_Util::getFormData('address'), Horde_Util::getFormData('name'));
+        $contact_link = IMP::addAddress($vars->address, $vars->name);
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
@@ -78,7 +81,7 @@ if ($mode == 'thread') {
     $imp_indices = new IMP_Indices(IMP::$mailbox, $thread);
 }
 
-$charset = Horde_Nls::getCharset();
+$charset = $registry->getCharset();
 $imp_ui = new IMP_Ui_Message();
 
 foreach ($imp_indices->indices() as $mbox => $idxlist) {

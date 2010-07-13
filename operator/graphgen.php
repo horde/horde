@@ -18,8 +18,8 @@ $cache = &$GLOBALS['cache'];
 //error_reporting(E_NONE);
 //ini_set("display_errors", 0);
 
-#setlocale(LC_ALL, Horde_Nls::select());
-#setlocale(LC_ALL, 'en_US');
+//setlocale(LC_ALL, $registry->preferredLang());
+//setlocale(LC_ALL, 'en_US');
 
 $graphtype = Horde_Util::getFormData('graph');
 $graphinfo = Operator::getGraphInfo($graphtype);

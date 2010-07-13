@@ -53,7 +53,7 @@ $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\
                 $row['publish'],
                 News::getUrlFor('news', $id, true, -1));
 
-$mail = new Horde_Mime_Mail(array('subject' => $row['title'], 'body' => $body, 'to' => $to, 'from' => $from, 'charset' => Horde_Nls::getCharset()));
+$mail = new Horde_Mime_Mail(array('subject' => $row['title'], 'body' => $body, 'to' => $to, 'from' => $from, 'charset' => $GLOBALS['registry']->getCharset()));
 try {
     $mail->send($injector->getInstance('Horde_Mail'));
     $notification->push(sprintf(_("News succesfully send to %s"), $to), 'horde.success');

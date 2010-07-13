@@ -567,17 +567,17 @@ abstract class Kronolith_Event
             $vEvent->setAttribute('LAST-MODIFIED', $modified);
         }
 
-        $vEvent->setAttribute('SUMMARY', $v1 ? $this->getTitle() : Horde_String::convertCharset($this->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
+        $vEvent->setAttribute('SUMMARY', $v1 ? $this->getTitle() : Horde_String::convertCharset($this->getTitle(), $GLOBALS['registry']->getCharset(), 'utf-8'));
         $name = Kronolith::getUserName($this->creator);
         if (!$v1) {
-            $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'utf-8');
+            $name = Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), 'utf-8');
         }
         $vEvent->setAttribute('ORGANIZER',
                               'mailto:' . Kronolith::getUserEmail($this->creator),
                               array('CN' => $name));
         if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
             if (!empty($this->description)) {
-                $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, $GLOBALS['registry']->getCharset(), 'utf-8'));
             }
 
             // Tags
@@ -586,12 +586,12 @@ abstract class Kronolith_Event
                 $tags = implode(', ', $tags);
             }
             if (!empty($tags)) {
-                $vEvent->setAttribute('CATEGORIES', $v1 ? $tags : Horde_String::convertCharset($tags, Horde_Nls::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('CATEGORIES', $v1 ? $tags : Horde_String::convertCharset($tags, $GLOBALS['registry']->getCharset(), 'utf-8'));
             }
 
             // Location
             if (!empty($this->location)) {
-                $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, $GLOBALS['registry']->getCharset(), 'utf-8'));
             }
             if ($this->geoLocation) {
                 $vEvent->setAttribute('GEO', array('latitude' => $this->geoLocation['lat'], 'longitude' => $this->geoLocation['lon']));
@@ -709,7 +709,7 @@ abstract class Kronolith_Event
                 }
             } else {
                 if (!empty($status['name'])) {
-                    $params['CN'] = Horde_String::convertCharset($status['name'], Horde_Nls::getCharset(), 'utf-8');
+                    $params['CN'] = Horde_String::convertCharset($status['name'], $GLOBALS['registry']->getCharset(), 'utf-8');
                 }
                 if (!empty($email)) {
                     $email = 'mailto:' . $email;
@@ -1085,7 +1085,7 @@ abstract class Kronolith_Event
      */
     public function fromASAppointment(Horde_ActiveSync_Message_Appointment $message)
     {
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         /* New event? */
         if ($this->id === null) {
@@ -1212,7 +1212,7 @@ abstract class Kronolith_Event
      */
     public function toASAppointment()
     {
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
 
         $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $message->setSubject(Horde_String::convertCharset($this->getTitle(), $charset, 'utf-8'));
@@ -2001,7 +2001,7 @@ abstract class Kronolith_Event
                         // Convert IDN hosts to ASCII.
                         if (Horde_Util::extensionExists('idn')) {
                             $old_error = error_reporting(0);
-                            $url['host'] = idn_to_ascii(Horde_String::convertCharset($url['host'], Horde_Nls::getCharset(), 'UTF-8'));
+                            $url['host'] = idn_to_ascii(Horde_String::convertCharset($url['host'], $GLOBALS['registry']->getCharset(), 'UTF-8'));
                             error_reporting($old_error);
                         } elseif (Horde_Mime::is8bit($url['host'])) {
                             //throw new Kronolith_Exception(_("Invalid character in URL."));
@@ -2654,7 +2654,7 @@ abstract class Kronolith_Event
                                        '',
                                        array('style' => $this->getCSSColors(false)));
         }
-        $link .= @htmlspecialchars($event_title, ENT_QUOTES, Horde_Nls::getCharset());
+        $link .= @htmlspecialchars($event_title, ENT_QUOTES, $GLOBALS['registry']->getCharset());
         if ($read_permission && $view_url) {
             $link .= '</a>';
         }

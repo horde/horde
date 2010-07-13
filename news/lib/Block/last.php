@@ -33,7 +33,7 @@ class Horde_Block_News_last extends Horde_Block {
     {
         require_once dirname(__FILE__) . '/../base.php';
 
-        $params = array(News::CONFIRMED, Horde_Nls::select());
+        $params = array(News::CONFIRMED, $GLOBALS['registry']->preferredLang());
         $query = 'SELECT n.id, n.publish, n.comments, n.picture, n.category1, nl.title, nl.abbreviation ' .
                  'FROM ' . $GLOBALS['news']->prefix . ' AS n, ' . $GLOBALS['news']->prefix . '_body AS nl WHERE ' .
                  'n.status = ? AND n.publish <= NOW() ' .

@@ -86,7 +86,7 @@ case 'export':
                 break;
             case 'eo':
             case 'desc':
-                $row[$key] = Horde_String::convertCharset($value, Horde_Nls::getCharset(), $params['charset']);
+                $row[$key] = Horde_String::convertCharset($value, $GLOBALS['registry']->getCharset(), $params['charset']);
                 break;
             default:
                 break;
@@ -216,7 +216,7 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
             $charsets[$charset] = $charset;
         }
     }
-    $my_charset = Horde_Nls::getCharset(true);
+    $my_charset = $GLOBALS['registry']->getCharset(true);
 }
 
 foreach ($templates[$next_step] as $template) {

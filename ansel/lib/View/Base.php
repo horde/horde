@@ -254,7 +254,7 @@ abstract class Ansel_View_Base
             }
 
             $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
-                          htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()),
+                          htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()),
                           Horde_Text_Filter::filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                           $image->id,
                           $curpage);
@@ -276,7 +276,7 @@ abstract class Ansel_View_Base
             $json[] = $data;
         }
 
-        return Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset());
+        return Horde_Serialize::serialize($json, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset());
     }
 
     /**

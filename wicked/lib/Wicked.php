@@ -179,7 +179,7 @@ class Wicked {
                                           $conf['wicked']['notify_address'],
                                           'from' => $from . '<' . $from_addr
                                           . '>',
-                                          'charset' => Horde_Nls::getCharset()));
+                                          'charset' => $GLOBALS['registry']->getCharset()));
         $mail->addHeader('User-Agent', 'Wicked ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('Precedence', 'bulk');
         $mail->addHeader('Auto-Submitted', 'auto-replied');

@@ -462,7 +462,7 @@ class Wicked_Driver {
      */
     function getCharset()
     {
-        return Horde_Nls::getCharset();
+        return $GLOBALS['registry']->getCharset();
     }
 
     /**

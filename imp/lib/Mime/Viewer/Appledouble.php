@@ -108,7 +108,7 @@ class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
                     ? array(
                           'data' => '',
                           'status' => array($status),
-                          'type' => 'text/html; charset=' . Horde_Nls::getCharset(),
+                          'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset(),
                           'wrap' => 'mimePartWrap'
                       )
                     : null;

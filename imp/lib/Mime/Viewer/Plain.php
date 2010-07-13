@@ -79,7 +79,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Convert to the local charset.
         if ($inline) {
             $text = Horde_String::convertCharset($text, $charset);
-            $charset = Horde_Nls::getCharset();
+            $charset = $GLOBALS['registry']->getCharset();
         }
         $type = 'text/html; charset=' . $charset;
 
@@ -317,7 +317,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');
-        $text_part->setCharset(Horde_Nls::getCharset());
+        $text_part->setCharset($GLOBALS['registry']->getCharset());
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 
@@ -347,7 +347,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Escape text
         $filters = array(
             'text2html' => array(
-                'charset' => Horde_Nls::getCharset(),
+                'charset' => $GLOBALS['registry']->getCharset(),
                 'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),

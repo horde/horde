@@ -168,8 +168,7 @@ if ($error_reason) {
     }
 
     $registry->setupSessionHandler();
-
-    Horde_Nls::setLanguageEnvironment($language, $vars->app);
+    $registry->setLanguageEnvironment($language, $vars->app);
 
     /* Hook to preselect the correct language in the widget. */
     $_GET['new_lang'] = $language;
@@ -228,7 +227,7 @@ if ($error_reason) {
 } else {
     $new_lang = Horde_Util::getGet('new_lang');
     if ($new_lang) {
-        Horde_Nls::setLanguageEnvironment($new_lang);
+        $registry->setLanguageEnvironment($new_lang);
     }
 }
 
@@ -273,10 +272,10 @@ if (!empty($conf['auth']['alternate_login'])) {
 
 /* Build the <select> widget containing the available languages. */
 if (!$is_auth && !$prefs->isLocked('language')) {
-    $_SESSION['horde_language'] = Horde_Nls::select();
+    $_SESSION['horde_language'] = $registry->preferredLang($vars->new_lang);
     $langs = array();
 
-    foreach (Horde_Nls::$config['languages'] as $key => $val) {
+    foreach ($registry->nlsconfig['languages'] as $key => $val) {
         $langs[] = array(
             'sel' => ($key == $_SESSION['horde_language']),
             'val' => $key,

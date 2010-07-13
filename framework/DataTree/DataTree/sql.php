@@ -451,7 +451,7 @@ class DataTree_sql extends DataTree {
             return null;
         } else {
             $name = Horde_String::convertCharset($name, $this->_params['charset'],
-                                           Horde_Nls::getCharset());
+                                           $GLOBALS['registry']->getCharset());
             // Get the parent names, if any.
             $parent = $this->getParentById($id);
             if ($parent && !is_a($parent, 'PEAR_Error') &&
@@ -524,7 +524,7 @@ class DataTree_sql extends DataTree {
             } else {
                 require_once 'Horde/Serialize.php';
                 $ser = Horde_Serialize::UTF7_BASIC;
-                $data = Horde_Serialize::serialize($object->getData(), $ser, Horde_Nls::getCharset());
+                $data = Horde_Serialize::serialize($object->getData(), $ser, $GLOBALS['registry']->getCharset());
             }
         } else {
             $fullname = $object;
@@ -599,7 +599,7 @@ class DataTree_sql extends DataTree {
                  ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         $values = array((int)$id,
                         $this->_params['group'],
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         is_null($order) ? NULL : (int)$order,
                         $data,
                         (string)$GLOBALS['registry']->getAuth(),
@@ -978,7 +978,7 @@ class DataTree_sql extends DataTree {
         $id = $this->getId($old_object);
         $query = 'UPDATE ' . $this->_params['table'] .
                  ' SET datatree_name = ? WHERE datatree_id = ?';
-        $values = array(Horde_String::convertCharset($new_object_name, Horde_Nls::getCharset(), $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($new_object_name, $GLOBALS['registry']->getCharset(), $this->_params['charset']),
                         (int)$id);
 
         Horde::logMessage('SQL Query by DataTree_sql::rename(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
@@ -1015,11 +1015,11 @@ class DataTree_sql extends DataTree {
             $data = array();
             foreach ($result as $id => $row) {
                 $data[$id] = Horde_Serialize::unserialize($row[0], $row[1],
-                                                          Horde_Nls::getCharset());
+                                                          $GLOBALS['registry']->getCharset());
                 /* Convert old data to the new format. */
                 if ($row[1] == Horde_Serialize::BASIC) {
                     $data[$id] = Horde_String::convertCharset($data[$id],
-                                                        Horde_Nls::getCharset(true));
+                                                        $GLOBALS['registry']->getCharset(true));
                 }
 
                 $data[$id] = (is_null($data[$id]) || !is_array($data[$id]))
@@ -1039,10 +1039,10 @@ class DataTree_sql extends DataTree {
 
             $data = Horde_Serialize::unserialize($row['datatree_data'],
                                                  $row['datatree_serialized'],
-                                                 Horde_Nls::getCharset());
+                                                 $GLOBALS['registry']->getCharset());
             /* Convert old data to the new format. */
             if ($row['datatree_serialized'] == Horde_Serialize::BASIC) {
-                $data = Horde_String::convertCharset($data, Horde_Nls::getCharset(true));
+                $data = Horde_String::convertCharset($data, $GLOBALS['registry']->getCharset(true));
             }
             return (is_null($data) || !is_array($data)) ? array() : $data;
         }
@@ -1090,7 +1090,7 @@ class DataTree_sql extends DataTree {
                 }
                 $data[$row['datatree_id']][] = array('name' => $row['name'],
                                                      'key' => $row['key'],
-                                                     'value' => Horde_String::convertCharset($row['value'], $this->_params['charset'], Horde_Nls::getCharset()));
+                                                     'value' => Horde_String::convertCharset($row['value'], $this->_params['charset'], $GLOBALS['registry']->getCharset()));
             }
             return $data;
         } else {
@@ -1104,7 +1104,7 @@ class DataTree_sql extends DataTree {
             for ($i = 0; $i < count($rows); $i++) {
                 $rows[$i]['value'] = Horde_String::convertCharset($rows[$i]['value'],
                                                             $this->_params['charset'],
-                                                            Horde_Nls::getCharset());
+                                                            $GLOBALS['registry']->getCharset());
             }
             return $rows;
         }
@@ -1808,7 +1808,7 @@ class DataTree_sql extends DataTree {
                 $values = array((int)$id,
                                 $attr['name'],
                                 $attr['key'],
-                                Horde_String::convertCharset($attr['value'], Horde_Nls::getCharset(), $this->_params['charset']));
+                                Horde_String::convertCharset($attr['value'], $GLOBALS['registry']->getCharset(), $this->_params['charset']));
 
                 Horde::logMessage('SQL Query by DataTree_sql::updateData(): ' . $query . ', ' . var_export($values, true), 'DEBUG');
 
@@ -1829,7 +1829,7 @@ class DataTree_sql extends DataTree {
             /* Write to the datatree_data field. */
             require_once 'Horde/Serialize.php';
             $ser = Horde_Serialize::UTF7_BASIC;
-            $data = Horde_Serialize::serialize($object->getData(), $ser, Horde_Nls::getCharset());
+            $data = Horde_Serialize::serialize($object->getData(), $ser, $GLOBALS['registry']->getCharset());
 
             $query = 'UPDATE ' . $this->_params['table'] .
                      ' SET datatree_data = ?, datatree_serialized = ?' .

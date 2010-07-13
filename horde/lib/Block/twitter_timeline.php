@@ -157,7 +157,7 @@ EOT;
         Horde::addInlineScript($script, 'dom');
 
         /* Get the user's most recent tweet */
-        $latestStatus = htmlspecialchars($this->_profile->status->text, ENT_COMPAT, Horde_Nls::getCharset());
+        $latestStatus = htmlspecialchars($this->_profile->status->text, ENT_COMPAT, $GLOBALS['registry']->getCharset());
 
         // Bring in the Facebook CSS
         $csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';

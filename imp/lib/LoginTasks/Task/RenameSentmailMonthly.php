@@ -101,7 +101,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
         $text = (substr($GLOBALS['language'], 0, 2) == 'en') ? strtolower(strftime('-%b-%Y', $last_maintenance)) : strftime('-%m-%Y', $last_maintenance);
 
-        return $folder . Horde_String::convertCharset($text, Horde_Nls::getExternalCharset(), 'UTF7-IMAP');
+        return $folder . Horde_String::convertCharset($text, $GLOBALS['registry']->getExternalCharset(), 'UTF7-IMAP');
     }
 
 }

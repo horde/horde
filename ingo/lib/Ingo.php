@@ -139,7 +139,7 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
+                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)), "\n");
                 }
 
                 return $text . '</select>';
@@ -160,7 +160,7 @@ class Ingo
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, Horde_Nls::getCharset(), 'UTF7-IMAP')))
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP')))
             : false;
     }
 
@@ -508,7 +508,7 @@ class Ingo
         if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
             Horde::addScriptFile('new_folder.js', 'ingo');
             Horde::addInlineScript(array(
-                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
             ));
         }
     }

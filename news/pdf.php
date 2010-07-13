@@ -55,7 +55,7 @@ $pdf->newLine(4);
 
 $pdf->write(12, _("On") . ': ' . News::dateFormat($row['publish']) . "\n");
 $pdf->write(12, _("Link") . ': ' . News::getUrlFor('news', $id, true) . "\n\n", News::getUrlFor('news', $id, true));
-$pdf->multiCell(0, 12, Horde_String::convertCharset(strip_tags($row['content']), Horde_Nls::getCharset(), 'UTF-8'));
+$pdf->multiCell(0, 12, Horde_String::convertCharset(strip_tags($row['content']), $GLOBALS['registry']->getCharset(), 'UTF-8'));
 
 $browser->downloadHeaders($id . '.pdf', 'application/pdf');
 echo $pdf->getOutput();

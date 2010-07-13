@@ -45,7 +45,7 @@ require_once FIMA_BASE . '/lib/Driver.php';
 Horde::compressOutput();
 
 // Set the timezone variable.
-Horde_Nls::setTimeZone();
+$registry->setTimeZone();
 
 // Create a share instance.
 $GLOBALS['fima_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();

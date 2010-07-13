@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetNamespaceReturnsNamespaceHandler()
     {
-        Horde_Nls::setCharset('UTF8');
+        $GLOBALS['registry']->setCharset('UTF8');
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
             $this->group,
@@ -56,7 +56,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetNamespaceReturnsExpectedNamespaces()
     {
-        Horde_Nls::setCharset('UTF8');
+        $GLOBALS['registry']->setCharset('UTF8');
         $driver = new Horde_Kolab_Storage_Driver_Pear(
             $this->_getNamespaceMock(),
             $this->group,

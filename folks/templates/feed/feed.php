@@ -1,4 +1,4 @@
-<?php echo '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '"?>' ?>
+<?php echo '<?xml version="1.0" encoding="' . $GLOBALS['registry']->getCharset() . '"?>' ?>
 
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
  <channel>

@@ -226,7 +226,7 @@ class Horde_Prefs
      */
     public function getCharset()
     {
-        return Horde_Nls::getCharset();
+        return $GLOBALS['registry']->getCharset();
     }
 
     /**
@@ -339,7 +339,7 @@ class Horde_Prefs
         global $conf;
 
         if ($convert) {
-            $val = $this->convertToDriver($val, Horde_Nls::getCharset());
+            $val = $this->convertToDriver($val, $GLOBALS['registry']->getCharset());
         }
 
         // If the preference's value is already equal to $val, don't
@@ -396,8 +396,8 @@ class Horde_Prefs
                 /* Default values have the current UI charset.
                  * Stored values have the backend charset. */
                 $value = $this->isDefault($pref)
-                    ? Horde_String::convertCharset($this->_prefs[$pref]['v'], Horde_Nls::getCharset(), Horde_Nls::getCharset())
-                    : $this->convertFromDriver($this->_prefs[$pref]['v'], Horde_Nls::getCharset());
+                    ? Horde_String::convertCharset($this->_prefs[$pref]['v'], $GLOBALS['registry']->getCharset(), $GLOBALS['registry']->getCharset())
+                    : $this->convertFromDriver($this->_prefs[$pref]['v'], $GLOBALS['registry']->getCharset());
             } else {
                 $value = $this->_prefs[$pref]['v'];
             }
@@ -841,7 +841,7 @@ class Horde_Prefs
                 if ($this->_scopes[$pref_scope][$name]['m'] & self::PREFS_DEFAULT) {
                     $this->_scopes[$pref_scope][$name]['v'] = $val;
                 } else {
-                    $this->_scopes[$pref_scope][$name]['v'] = $this->convertToDriver($val, Horde_Nls::getCharset());
+                    $this->_scopes[$pref_scope][$name]['v'] = $this->convertToDriver($val, $GLOBALS['registry']->getCharset());
                 }
                 if (!($this->_scopes[$pref_scope][$name]['m'] & self::LOCKED)) {
                     $this->_scopes[$pref_scope][$name]['m'] |= self::DIRTY;

@@ -29,7 +29,7 @@ if ($form->validate($vars)) {
     }
     $now = time();
     $timers[$now] = array('name' => Horde_String::convertCharset($vars->get('description'),
-                                                       Horde_Nls::getCharset(),
+                                                       $GLOBALS['registry']->getCharset(),
                                                        $prefs->getCharset()),
                           'time' => $now);
     $prefs->setValue('running_timers', serialize($timers), false);

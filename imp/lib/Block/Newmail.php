@@ -33,7 +33,7 @@ class IMP_Block_Newmail extends Horde_Block
         if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
-            $charset = Horde_Nls::getCharset();
+            $charset = $GLOBALS['registry']->getCharset();
             $imp_ui = new IMP_Ui_Mailbox('INBOX');
             $shown = empty($this->_params['msgs_shown'])
                 ? 3

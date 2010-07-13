@@ -18,7 +18,7 @@
 <table width="100%" cellspacing="0">
   <tr class="control">
     <td>
-      <?php echo Horde::label('name', _("Rule Name:")) ?> <input class="input" id="name" name="name" size="50" value="<?php echo (isset($rule['name'])) ? @htmlspecialchars($rule['name'], ENT_COMPAT, Horde_Nls::getCharset()) : '' ?>" />
+      <?php echo Horde::label('name', _("Rule Name:")) ?> <input class="input" id="name" name="name" size="50" value="<?php echo (isset($rule['name'])) ? @htmlspecialchars($rule['name'], ENT_COMPAT, $GLOBALS['registry']->getCharset()) : '' ?>" />
     </td>
     <td width="40" class="rightAlign">
       <?php echo Horde_Help::link('ingo', 'rule-name') ?>&nbsp;

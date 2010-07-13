@@ -400,10 +400,10 @@ class Jonah_News
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $timestamp = time();
         if (is_a($cache, 'Horde_Cache') && ($stories = $cache->get($url, $interval))) {
-            $stories = Horde_Serialize::unserialize($stories, Horde_Serialize::UTF7_BASIC, Horde_Nls::getCharset());
+            $stories = Horde_Serialize::unserialize($stories, Horde_Serialize::UTF7_BASIC, $GLOBALS['registry']->getCharset());
         } else {
             $stories = Jonah_News::_fetchExternalStories($url, $timestamp);
-            $cache->set($url, Horde_Serialize::serialize($stories, Horde_Serialize::UTF7_BASIC, Horde_Nls::getCharset()));
+            $cache->set($url, Horde_Serialize::serialize($stories, Horde_Serialize::UTF7_BASIC, $GLOBALS['registry']->getCharset()));
         }
 
         /* If the stories from cache return the same timestamp as
@@ -630,18 +630,18 @@ class Jonah_News
             $body_text = Horde_Text_Filter::filter($body_html, 'html2text');
 
             /* Add description. */
-            $body_html = '<p>' . Horde_Text_Filter::filter($story['story_desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => Horde_Nls::getCharset(), 'class' => null, 'callback' => null)) . "</p>\n" . $body_html;
+            $body_html = '<p>' . Horde_Text_Filter::filter($story['story_desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => $GLOBALS['registry']->getCharset(), 'class' => null, 'callback' => null)) . "</p>\n" . $body_html;
             $body_text = Horde_String::wrap('  ' . $story['story_desc'], 70) . "\n\n" . $body_text;
 
             /* Add the text version of the story to the base message. */
             $message_text = new MIME_Part('text/plain');
-            $message_text->setCharset(Horde_Nls::getCharset());
+            $message_text->setCharset($GLOBALS['registry']->getCharset());
             $message_text->setContents($message_text->replaceEOL($body_text));
             $message_text->setDescription(_("Plaintext Version of Story"));
 
             /* Add an HTML version of the story to the base message. */
             $message_html = new MIME_Part('text/html', Horde_String::wrap($body_html),
-                                          Horde_Nls::getCharset(), 'inline');
+                                          $GLOBALS['registry']->getCharset(), 'inline');
             $message_html->setDescription(_("HTML Version of Story"));
 
             /* Add the two parts as multipart/alternative. */
@@ -655,7 +655,7 @@ class Jonah_News
             /* This is just a plain text story. */
             $message_text = new MIME_Part('text/plain');
             $message_text->setContents($message_text->replaceEOL($story['story_desc'] . "\n\n" . $story['story_body']));
-            $message_text->setCharset(Horde_Nls::getCharset());
+            $message_text->setCharset($GLOBALS['registry']->getCharset());
 
             return $message_text;
         }

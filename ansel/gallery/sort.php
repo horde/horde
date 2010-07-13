@@ -63,7 +63,7 @@ $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
 ?>
-<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, Horde_Nls::getCharset()) ?></h1>
+<h1 class="header"><?php echo htmlspecialchars($title, ENT_COMPAT, $GLOBALS['registry']->getCharset()) ?></h1>
 <div class="instructions">
  <form action="sort.php" method="post">
   <?php echo Horde_Util::formInput() ?>
@@ -85,7 +85,7 @@ require ANSEL_TEMPLATES . '/menu.inc';
 <?php
 $images = $gallery->getImages();
 foreach ($images as $image) {
-    $caption = empty($image->caption) ? htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()) : htmlspecialchars($image->caption, ENT_COMPAT, Horde_Nls::getCharset());
+    $caption = empty($image->caption) ? htmlspecialchars($image->filename, ENT_COMPAT, $GLOBALS['registry']->getCharset()) : htmlspecialchars($image->caption, ENT_COMPAT, $GLOBALS['registry']->getCharset());
     echo '<div id="o_' . (int)$image->id . '"><a title="'
         . $caption . '" href="#">'
         . '<img src="' . Ansel::getImageUrl($image->id, 'thumb', false, $style['name']) . '" alt="' . htmlspecialchars($image->filename) . '" />'

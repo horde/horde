@@ -493,7 +493,7 @@ $_prefs['sending_charset'] = array(
     'value' => '',
     'shared' => true,
     'type' => 'enum',
-    'enum' => array_merge(array('' => _("Default")), Horde_Nls::$config['encodings']),
+    'enum' => array_merge(array('' => _("Default")), $GLOBALS['registry']->nlsconfig['encodings']),
     'desc' => _("Your default charset for sending messages:")
 );
 
@@ -835,14 +835,14 @@ $_prefs['mail_hdr'] = array(
 
 // default message character set
 $_prefs['default_msg_charset'] = array(
-    'value' => isset($GLOBALS['nls']['emails'][$GLOBALS['language']])
-        ? $GLOBALS['nls']['emails'][$GLOBALS['language']]
-        : (isset($GLOBALS['nls']['charsets'][$GLOBALS['language']])
-            ? $GLOBALS['nls']['charsets'][$GLOBALS['language']]
+    'value' => isset($GLOBALS['registry']->nlsconfig['emails'][$GLOBALS['language']])
+        ? $GLOBALS['registry']->nlsconfig['emails'][$GLOBALS['language']]
+        : (isset($GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']])
+            ? $GLOBALS['registry']->nlsconfig['charsets'][$GLOBALS['language']]
             : ''),
     'type' => 'enum',
     'enum' => array_merge(
-        array('' => _("Default (US-ASCII)")), Horde_Nls::$config['encodings']
+        array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig['encodings']
     ),
     'desc' => _("The default charset for messages with no charset information:"),
     'help' => 'prefs-default_msg_charset'

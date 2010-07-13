@@ -118,7 +118,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                             )
                         )
                     ),
-                    'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                    'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
                 )
             );
         }
@@ -166,7 +166,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         )
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
         );
     }
@@ -193,13 +193,13 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * text. */
         if (($_SESSION['imp']['view'] == 'mimp') ||
             (!$inline && Horde_Util::getFormData('convert_text'))) {
-            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => Horde_Nls::getCharset(), 'wrap' => false));
+            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset(), 'wrap' => false));
 
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
                 'status' => array(),
-                'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
             );
         }
 
@@ -306,7 +306,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _mailtoCallback($m)
     {
-        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', Horde_Nls::getCharset()))) . '"';
+        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', $GLOBALS['registry']->getCharset()))) . '"';
     }
 
     /**

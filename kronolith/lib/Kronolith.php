@@ -79,7 +79,7 @@ class Kronolith
         Horde_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+            header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
             header('Vary: Accept-Language');
         }
 
@@ -396,7 +396,7 @@ class Kronolith
         // Maps
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
+        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, $registry->getCharset()) . ';');
     }
 
     /**
@@ -1653,7 +1653,7 @@ class Kronolith
             $userName = $identity->getName();
             $mail = new Horde_Mime_Mail(
                 array('from' => $identity->getDefaultFromAddress(true),
-                      'charset' => Horde_Nls::getCharset())
+                      'charset' => $GLOBALS['registry']->getCharset())
                 );
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
         }
@@ -1684,7 +1684,7 @@ class Kronolith
                     }
                     $mail->addHeader('Subject', _("Ownership assignment"));
                     $mail->addHeader('To', $to);
-                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->setBody($message, $GLOBALS['registry']->getCharset());
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
@@ -1838,7 +1838,7 @@ class Kronolith
                                        $share->get('name'));
                 }
                 $mail->addHeader('To', $to);
-                $mail->setBody($message, Horde_Nls::getCharset());
+                $mail->setBody($message, $GLOBALS['registry']->getCharset());
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         }
@@ -1894,7 +1894,7 @@ class Kronolith
                                            $share->get('name'));
                     }
                     $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>');
-                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->setBody($message, $GLOBALS['registry']->getCharset());
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
@@ -2160,7 +2160,7 @@ class Kronolith
     public static function sendITipNotifications($event, $notification,
                                                  $action, $instance = null)
     {
-        global $conf;
+        global $conf, $registry;
 
         if (!$event->attendees) {
             return;
@@ -2239,7 +2239,7 @@ class Kronolith
             /* Build the iCalendar data */
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute('METHOD', $method);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $registry->getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 // Recurring event instance deletion, need to specify the
@@ -2256,18 +2256,18 @@ class Kronolith
             $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
-            $ics->setCharset(Horde_Nls::getCharset());
+            $ics->setCharset($registry->getCharset());
 
             $multipart = new Horde_Mime_Part();
             $multipart->setType('multipart/alternative');
             $bodyText = new Horde_Mime_Part();
             $bodyText->setType('text/plain');
-            $bodyText->setCharset(Horde_Nls::getCharset());
+            $bodyText->setCharset($registry->getCharset());
             $bodyText->setContents($view->render('notification.plain.php'));
             $multipart->addPart($bodyText);
             $bodyHtml = new Horde_Mime_Part();
             $bodyHtml->setType('text/html');
-            $bodyHtml->setCharset(Horde_Nls::getCharset());
+            $bodyHtml->setCharset($registry->getCharset());
             $bodyHtml->setContents($view->render('notification.html.php'));
             $multipart->addPart($bodyHtml);
             $multipart->addPart($ics);
@@ -2275,7 +2275,7 @@ class Kronolith
             $mail = new Horde_Mime_Mail(array('subject' => $view->subject,
                                               'to' => $recipient,
                                               'from' => $ident->getDefaultFromAddress(true),
-                                              'charset' => Horde_Nls::getCharset()));
+                                              'charset' => $registry->getCharset()));
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
             $mail->setBasePart($multipart);
 
@@ -2373,7 +2373,7 @@ class Kronolith
         }
 
         foreach ($addresses as $lang => $twentyFour) {
-            Horde_Nls::setLanguageEnvironment($lang);
+            $GLOBALS['registry']->setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':
@@ -2405,9 +2405,9 @@ class Kronolith
                     $mime_mail = new Horde_Mime_Mail(array('subject' => $subject . ' ' . $event->title,
                                                            'to' => implode(',', $df_recipients),
                                                            'from' => $identity->getDefaultFromAddress(true),
-                                                           'charset' => Horde_Nls::getCharset()));
+                                                           'charset' => $GLOBALS['registry']->getCharset()));
                     $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
-                    $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
+                    $mime_mail->setBody($message, $GLOBALS['registry']->getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
                     $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
                 }

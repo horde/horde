@@ -57,15 +57,15 @@ class Horde_Block_Jonah_news_popular extends Horde_Block {
         $news = Jonah_News::factory();
         $channel = $news->getChannel($this->_params['source']);
         if (is_a($channel, 'PEAR_Error')) {
-            return @htmlspecialchars($channel->getMessage(), ENT_COMPAT, Horde_Nls::getCharset());
+            return @htmlspecialchars($channel->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset());
         }
 
         if (!empty($channel['channel_link'])) {
             $title = Horde::link(htmlspecialchars($channel['channel_link']), '', '', '_blank')
-                . @htmlspecialchars($channel['channel_name'], ENT_COMPAT, Horde_Nls::getCharset())
+                . @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . _(" - Most read stories") . '</a>';
         } else {
-            $title = @htmlspecialchars($channel['channel_name'], ENT_COMPAT, Horde_Nls::getCharset())
+            $title = @htmlspecialchars($channel['channel_name'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . _(" - Most read stories");
         }
 

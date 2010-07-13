@@ -105,7 +105,7 @@ class IMP_Prefs_Ui
         case 'display':
             /* Set the timezone on this page so the 'time_format' output uses
              * the configured time zone's time, not the system's time zone. */
-            Horde_Nls::setTimeZone();
+            $registry->setTimeZone();
             if ($pop3) {
                 $ui->suppress[] = 'nav_expanded';
                 $ui->suppress[] = 'tree_view';
@@ -224,7 +224,7 @@ class IMP_Prefs_Ui
             if (!empty($code)) {
                 Horde::addScriptFile('folderprefs.js', 'imp');
                 Horde::addInlineScript(array(
-                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
+                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
                 ));
             }
             break;
@@ -540,7 +540,7 @@ class IMP_Prefs_Ui
         $ui->nobuttons = true;
 
         Horde::addInlineScript(array(
-            'ImpAccountsPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+            'ImpAccountsPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -864,8 +864,8 @@ class IMP_Prefs_Ui
     protected function _flagManagement()
     {
         Horde::addInlineScript(array(
-            'ImpFlagPrefs.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset()),
-            'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+            'ImpFlagPrefs.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
+            'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
 
         $msgflags_locked = $GLOBALS['prefs']->isLocked('msgflags');
@@ -1189,8 +1189,8 @@ class IMP_Prefs_Ui
         Horde::addInlineScript(array(
             'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array(
                 'sent_mail_folder' => _("Create a new sent-mail folder")
-            ), Horde_Serialize::JSON, Horde_Nls::getCharset()),
-            'ImpFolderPrefs.sentmail = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+            ), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
+            'ImpFolderPrefs.sentmail = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -1223,7 +1223,7 @@ class IMP_Prefs_Ui
 
         $sent_mail_folder = $ui->vars->sent_mail_folder;
         if (empty($sent_mail_folder)) {
-            $sent_mail_new = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, Horde_Nls::getCharset(), 'UTF7-IMAP'));
+            $sent_mail_new = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'));
         } elseif (($sent_mail_folder == '-1') &&
                   ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
             $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sm_default);
@@ -1392,7 +1392,7 @@ class IMP_Prefs_Ui
         };
 
         Horde::addInlineScript(array(
-            'ImpHtmlSignaturePrefs.sigs = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, Horde_Nls::getCharset())
+            'ImpHtmlSignaturePrefs.sigs = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -1558,7 +1558,7 @@ class IMP_Prefs_Ui
         }
 
         if ($updated) {
-            $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset(array_values($ob->stationery_list), Horde_Nls::getCharset(), $GLOBALS['prefs']->getCharset())), false);
+            $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset(array_values($ob->stationery_list), $GLOBALS['registry']->getCharset(), $GLOBALS['prefs']->getCharset())), false);
             $GLOBALS['notification']->push($updated, 'horde.success');
         }
     }
@@ -1595,7 +1595,7 @@ class IMP_Prefs_Ui
 
         if ($ui->vars->last_type != $type) {
             $content = ($type == 'plain')
-                ? Horde_Text_Filter::filter($content, 'Html2text', array('charset' => Horde_Nls::getCharset()))
+                ? Horde_Text_Filter::filter($content, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset()))
                 : nl2br(htmlspecialchars(htmlspecialchars($content)));
         }
 
@@ -1688,7 +1688,7 @@ class IMP_Prefs_Ui
             return false;
         }
 
-        $new = Horde_String::convertCharset($new, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
 
         if ($folder == IMP::PREF_NO_FOLDER) {
             $prefs->setValue($pref, '');

@@ -23,7 +23,7 @@ class Horde_Notification_Event_Status extends Horde_Notification_Event
         $text = $this->message;
 
         if (!in_array('content.raw', $this->flags) && class_exists('Horde_Nls')) {
-            $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
+            $text = htmlspecialchars($text, ENT_COMPAT, $GLOBALS['registry']->getCharset());
         }
 
         return $text;

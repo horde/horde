@@ -72,7 +72,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        $new = Horde_String::convertCharset($this->_vars->mbox, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        $new = Horde_String::convertCharset($this->_vars->mbox, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
         try {
             $new = $imptree->createMailboxName($this->_vars->parent, $new);
 
@@ -165,7 +165,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         $result = false;
 
         try {
-            $new = Horde_String::convertCharset($imptree->createMailboxName($this->_vars->new_parent, $this->_vars->new_name), Horde_Nls::getCharset(), 'UTF7-IMAP');
+            $new = Horde_String::convertCharset($imptree->createMailboxName($this->_vars->new_parent, $this->_vars->new_name), $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
 
             if (($this->_vars->old_name != $new) &&
                 $GLOBALS['injector']->getInstance('IMP_Folder')->rename($this->_vars->old_name, $new)) {
@@ -1447,7 +1447,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
 
         try {
             // TODO: Use 'sending_charset'
-            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, Horde_Nls::getEmailCharset(), $this->_vars->html, $options);
+            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $GLOBALS['registry']->getEmailCharset(), $this->_vars->html, $options);
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
@@ -1655,7 +1655,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         try {
-            $res = $imp_compose->saveDraft($headers, $this->_vars->message, Horde_Nls::getCharset(), $this->_vars->html);
+            $res = $imp_compose->saveDraft($headers, $this->_vars->message, $GLOBALS['registry']->getCharset(), $this->_vars->html);
             if ($this->_action == 'autoSaveDraft') {
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
             } else {

@@ -77,7 +77,7 @@ class IMP_Views_ListMessages
         }
 
         /* Set the current time zone. */
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         /* Run filters now. */
         if (!$is_search &&
@@ -367,7 +367,7 @@ class IMP_Views_ListMessages
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => true, 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
-        $charset = Horde_Nls::getCharset();
+        $charset = $GLOBALS['registry']->getCharset();
         $imp_ui = new IMP_Ui_Mailbox($folder);
         $no_flags_hook = false;
 

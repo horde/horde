@@ -88,7 +88,7 @@ class Horde_Kolab_Storage_FolderTest extends PHPUnit_Framework_TestCase
         $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/Contacts');
         $folder->restore($storage, $connection);
         $folder->setName('TestAÖÜ');
-        $this->assertEquals(Horde_String::convertCharset('INBOX/TestAÖÜ', Horde_Nls::getCharset(), 'UTF7-IMAP'), $folder->new_name);
+        $this->assertEquals(Horde_String::convertCharset('INBOX/TestAÖÜ', $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'), $folder->new_name);
     }
 
     /**

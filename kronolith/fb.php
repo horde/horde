@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'none'));
 
 // We want to always generate UTF-8 iCalendar data.
-Horde_Nls::setCharset('UTF-8');
+$registry->setCharset('UTF-8');
 
 // Determine the username to show free/busy time for.
 $cal = Horde_Util::getFormData('c');
@@ -33,7 +33,7 @@ if (!$fb) {
     if ($user) {
         $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'kronolith', $user, '', null, false);
         $prefs->retrieve();
-        Horde_Nls::setTimeZone();
+        $registry->setTimeZone();
         $cal = @unserialize($prefs->getValue('fb_cals'));
         if (is_array($cal)) {
             $cal = implode('|', $cal);
@@ -60,7 +60,7 @@ if (!$fb) {
 }
 
 $browser->downloadHeaders(($user ? $user : $cal) . '.vfb',
-                          'text/calendar; charset=' . Horde_Nls::getCharset(),
+                          'text/calendar; charset=' . $GLOBALS['registry']->getCharset(),
                           true,
                           strlen($fb));
 echo $fb;

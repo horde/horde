@@ -48,7 +48,7 @@ class Nag_Application extends Horde_Registry_Application
     protected function _init()
     {
         // Set the timezone variable.
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         // Create a share instance.
         $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();

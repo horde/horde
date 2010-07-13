@@ -221,11 +221,11 @@ class Horde_Kolab_Filter_Base
 
         Horde::logMessage(sprintf("Arguments: %s", print_r($values, true)), 'DEBUG');
 
-        Horde_Nls::setCharset('utf-8');
+        $GLOBALS['registry']->setCharset('utf-8');
 
         if (!empty($conf['kolab']['filter']['locale_path'])
             && !empty($conf['kolab']['filter']['locale'])) {
-            Horde_Nls::setTextdomain('Kolab_Filter', $conf['kolab']['filter']['locale_path'], Horde_Nls::getCharset());
+            $GLOBALS['registry']->setTextdomain('Kolab_Filter', $conf['kolab']['filter']['locale_path']);
             setlocale(LC_ALL, $conf['kolab']['filter']['locale']);
         }
 

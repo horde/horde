@@ -1015,9 +1015,9 @@ class Trean_Bookmark {
                 return $update;
             }
             $result = $update->execute(array($this->folder,
-                                             Horde_String::convertCharset($this->url, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                             Horde_String::convertCharset($this->title, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                             Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             Horde_String::convertCharset($this->url, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             Horde_String::convertCharset($this->title, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                             Horde_String::convertCharset($this->description, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
                                              $this->clicks,
                                              $this->rating,
                                              $this->id));
@@ -1051,9 +1051,9 @@ class Trean_Bookmark {
 
         $result = $insert->execute(array($bookmark_id,
                                          $this->folder,
-                                         Horde_String::convertCharset($this->url, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                         Horde_String::convertCharset($this->title, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                         Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         Horde_String::convertCharset($this->url, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         Horde_String::convertCharset($this->title, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
+                                         Horde_String::convertCharset($this->description, $GLOBALS['registry']->getCharset(), $GLOBALS['conf']['sql']['charset']),
                                          $this->clicks,
                                          $this->rating,
         ));

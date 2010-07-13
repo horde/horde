@@ -57,11 +57,11 @@ class Horde_Block_Jonah_story extends Horde_Block {
 
         $story = $this->_fetch();
         return is_a($story, 'PEAR_Error')
-            ? @htmlspecialchars($story->getMessage(), ENT_COMPAT, Horde_Nls::getCharset())
+            ? @htmlspecialchars($story->getMessage(), ENT_COMPAT, $GLOBALS['registry']->getCharset())
             : '<span class="storyDate">'
-                . @htmlspecialchars($story['story_updated_date'], ENT_COMPAT, Horde_Nls::getCharset())
+                . @htmlspecialchars($story['story_updated_date'], ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . '</span> '
-                . @htmlspecialchars($story['story_title'], ENT_COMPAT, Horde_Nls::getCharset());
+                . @htmlspecialchars($story['story_title'], ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
 
     /**

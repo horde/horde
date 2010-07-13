@@ -63,8 +63,8 @@ if (!$note || !isset($note['memo_id'])) {
 /* Let's assume that the note content can be converted to ISO-8859-1 if this
  * is the current language's charset, as long as we don't have UTF-8 support
  * in File_PDF. */
-if (Horde_Nls::getCharset(true) == 'ISO-8859-1') {
-    $note = String::convertCharset($note, Horde_Nls::getCharset(), 'ISO-8859-1');
+if ($GLOBALS['registry']->getCharset(true) == 'ISO-8859-1') {
+    $note = String::convertCharset($note, $GLOBALS['registry']->getCharset(), 'ISO-8859-1');
 }
 
 /* Set up the PDF object. */

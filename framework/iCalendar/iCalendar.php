@@ -1025,7 +1025,7 @@ class Horde_iCalendar {
                         // Add CHARSET as well. At least the synthesis client
                         // gets confused otherwise
                         if (empty($params['CHARSET'])) {
-                            $params['CHARSET'] = Horde_Nls::getCharset();
+                            $params['CHARSET'] = $GLOBALS['registry']->getCharset();
                             $params_str .= ';CHARSET=' . $params['CHARSET'];
                         }
                     }

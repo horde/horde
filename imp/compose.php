@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('session_control' => 'netscape'));
 
-Horde_Nls::setTimeZone();
+$registry->setTimeZone();
 
 /* The message headers and text. */
 $header = array();
@@ -127,10 +127,10 @@ $imp_ui = new IMP_Ui_Compose();
  * $encoding - best guessed charset offered to the user as the default value
  *             in the charset dropdown list. */
 $charset = $prefs->isLocked('sending_charset')
-    ? Horde_Nls::getEmailCharset()
+    ? $registry->getEmailCharset()
     : $vars->charset;
 $encoding = empty($charset)
-    ? Horde_Nls::getEmailCharset()
+    ? $registry->getEmailCharset()
     : $charset;
 
 /* Is this a popup window? */
@@ -373,7 +373,7 @@ case 'send_message':
     if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
         if (!$readonly_drafts) {
             try {
-                $result = $imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), $rtemode);
+                $result = $imp_compose->saveDraft($header, $message, $registry->getCharset(), $rtemode);
 
                 /* Closing draft if requested by preferences. */
                 if ($vars->actionID == 'save_draft') {
@@ -819,7 +819,7 @@ if ($redirect) {
         $t->set('charset_label', Horde::label('charset', _("C_harset")));
         $t->set('charset_tabindex', ++$tabindex);
         $charset_array = array();
-        foreach (Horde_Nls::$config['encodings'] as $charset => $label) {
+        foreach ($registry->nlsconfig['encodings'] as $charset => $label) {
             $charset_array[] = array('value' => $charset, 'selected' => (strtolower($charset) == strtolower($encoding)), 'label' => $label);
         }
         $t->set('charset_array', $charset_array);

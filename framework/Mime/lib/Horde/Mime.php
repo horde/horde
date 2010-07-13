@@ -97,7 +97,7 @@ class Horde_Mime
     static public function encode($text, $charset = null)
     {
         if (is_null($charset)) {
-            $charset = Horde_Nls::getCharset();
+            $charset = $GLOBALS['registry']->getCharset();
         }
         $charset = Horde_String::lower($charset);
 
@@ -322,7 +322,7 @@ class Horde_Mime
         $rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));
 
         if (is_null($to_charset)) {
-            $to_charset = Horde_Nls::getCharset();
+            $to_charset = $GLOBALS['registry']->getCharset();
         }
 
         switch ($encoding) {
