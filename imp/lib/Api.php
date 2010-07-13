@@ -35,7 +35,7 @@ class IMP_Api extends Horde_Registry_Api
      * @param array $extra        Hash of extra, non-standard arguments to
      *                            pass to compose.php.
      *
-     * @return string  The link to the message composition screen.
+     * @return Horde_Url  The link to the message composition screen.
      */
     public function compose($args = array(), $extra = array())
     {
@@ -54,7 +54,8 @@ class IMP_Api extends Horde_Registry_Api
      * @param array $extra        List of hashes of extra, non-standard
      *                            arguments to pass to compose.php.
      *
-     * @return string  The list of links to the message composition screen.
+     * @return array  The list of Horde_Url objects with links to the message
+     *                composition screen.
      */
     public function batchCompose($args = array(), $extra = array())
     {

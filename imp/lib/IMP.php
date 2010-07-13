@@ -386,7 +386,7 @@ class IMP
      *                      compose.php.
      * @param string $view  The IMP view to create a link for.
      *
-     * @return string|Horde_Url  The link to the message composition screen.
+     * @return Horde_Url  The link to the message composition screen.
      */
     static public function composeLink($args = array(), $extra = array(),
                                        $view = null)
@@ -398,28 +398,48 @@ class IMP
         }
 
         if ($view == 'dimp') {
-            // IE 6 & 7 handles window.open() URL param strings differently if
-            // triggered via an href or an onclick.  Since we have no hint
-            // at this point where this link will be used, we have to always
-            // encode the params and explicitly call rawurlencode() in
-            // compose.php.
-            $encode_args = array('popup' => 1);
-            foreach ($args as $k => $v) {
-                $encode_args[$k] = rawurlencode($v);
-            }
-            return 'javascript:void(window.open(\'' . Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add($encode_args) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
-        }
+            $args['popup'] = 1;
 
-        if (($view != 'mimp') &&
-            $GLOBALS['prefs']->getValue('compose_popup') &&
-            $GLOBALS['browser']->hasFeature('javascript')) {
+            $url = Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add($args);
+            $url->toStringCallback = array(__CLASS__, 'composeLinkDimpCallback');
+        } elseif (($view != 'mimp') &&
+                  $GLOBALS['prefs']->getValue('compose_popup') &&
+                  $GLOBALS['browser']->hasFeature('javascript')) {
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
-            return 'javascript:' . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
+
+            $url = Horde::applicationUrl('compose.php')->add($args);
+            $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
+        } else {
+            $url = Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
         }
 
-        return Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+        return $url;
+    }
+
+    /**
+     * Callback for Horde_Url when generating DIMP compose links.
+     *
+     * @param Horde_Url $url  URL object.
+     *
+     * @return string  URL string representation.
+     */
+    static public function composeLinkDimpCallback($url)
+    {
+        return "javascript:void(window.open('" . strval($url) . "', '', 'width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
+    }
+
+    /**
+     * Callback for Horde_Url when generating javascript compose links.
+     *
+     * @param Horde_Url $url  URL object.
+     *
+     * @return string  URL string representation.
+     */
+    static public function composeLinkJsCallback($url)
+    {
+        return 'javascript:' . Horde::popupJs(strval($url), array('urlencode' => true));
     }
 
     /**

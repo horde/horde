@@ -41,7 +41,7 @@ $compose_disable = !IMP::canCompose();
 /* The headers of the message. */
 $header = array();
 foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = rawurldecode($vars->$v);
+    $header[$v] = $vars->$v;
 }
 
 $fillform_opts = array('noupdate' => 1);
