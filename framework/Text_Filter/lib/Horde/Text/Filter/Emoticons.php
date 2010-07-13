@@ -1,11 +1,14 @@
 <?php
 /**
- * The Horde_Text_Filter_Emoticons:: class finds emoticon strings ( :), etc.)
- * in a block of text and turns them into image links.
+ * The Horde_Text_Filter_Emoticons:: class finds emoticon strings in a block
+ * of text and does a transformation on them.
+ *
+ * By default, this filter does not do any transformation to the emoticon.
  *
  * Parameters:
  * <pre>
- * entities -- If true the html entity versions of the patterns will be used.
+ * entities - (boolean) Use HTML entity versions of the patterns?
+ *            DEFAULT: false
  * </pre>
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -25,11 +28,13 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      *
      * @var array
      */
-    protected $_params = array('entities' => false);
+    protected $_params = array(
+        'entities' => false
+    );
 
     /* List complex strings before simpler ones, otherwise for example :((
      * would be matched against :( before :(( is found. */
-    protected $_icons = array(
+    protected $_emoticons = array(
         ':/' => 'frustrated', ':-/' => 'frustrated',
         // ':*>' => 'blush',
         ':e' => 'disappointed',
@@ -102,35 +107,32 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
         $regexp = '{' . $beg_pattern . implode('|', $patterns) . $end_pattern . '}';
 
         return array('regexp_callback' => array(
-            $regexp => array($this, 'getImage')
+            $regexp => array($this, 'emoticonReplace')
         ));
     }
 
     /**
-     * Returns the img tag for an emoticon.
-     *
-     * @see self::getPatterns()
+     * Returns the replacement emoticon text.
      *
      * @param array $matches  Matches from preg_replace_callback().
      *
-     * @return string  HTML code with the image tag and any additional prefix
-     *                 or postfix.
+     * @return string  The replacement text.
      */
-    public function getImage($matches)
+    public function emoticonReplace($matches)
     {
-        return $matches[1] . $this->_getImage($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
+        return $matches[1] . $this->_emoticonReplace($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
     }
 
     /**
-     * Return the HTML image tag needed to display an emoticon.
+     * Return the replacement emoticon text.
      *
      * @param string $icon  The emoticon name.
      *
-     * @return string  The HTML image code.
+     * @return string  The replacement text.
      */
-    protected function _getImage($icon)
+    protected function _emoticonReplace($icon)
     {
-        return '';
+        return $icon;
     }
 
     /**
@@ -139,13 +141,13 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      *
      * @param string $icon  If set, return the name for that emoticon only.
      *
-     * @return array|string  Patterns hash or icon name.
+     * @return array|string  Patterns hash or emoticon name.
      */
     public function getIcons($icon = null)
     {
         return is_null($icon)
-            ? $this->_icons
-            : (isset($this->_icons[$icon]) ? $this->_icons[$icon] : null);
+            ? $this->_emoticons
+            : (isset($this->_emoticons[$icon]) ? $this->_emoticons[$icon] : null);
     }
 
 }

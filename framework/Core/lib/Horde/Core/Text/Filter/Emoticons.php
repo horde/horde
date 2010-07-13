@@ -22,7 +22,7 @@ class Horde_Core_Text_Filter_Emoticons extends Horde_Text_Filter_Emoticons
      *
      * @return string  The HTML image code.
      */
-    protected function _getImage($icon)
+    protected function _emoticonReplace($icon)
     {
         return Horde::img(Horde_Themes::img('emoticons/' . $this->getIcons($icon) . '.png'), $icon, array('align' => 'middle', 'title' => $icon));
     }
