@@ -19,8 +19,7 @@ class IMP_Injector_Binder_Pgp implements Horde_Injector_Binder
     public function create(Horde_Injector $injector)
     {
         $params = array(
-            'program' => $GLOBALS['conf']['gnupg']['path'],
-            'temp' => Horde::getTempDir()
+            'program' => $GLOBALS['conf']['gnupg']['path']
         );
 
         if (isset($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
@@ -30,7 +29,7 @@ class IMP_Injector_Binder_Pgp implements Horde_Injector_Binder
             }
         }
 
-        return Horde_Crypt::factory('IMP_Crypt_Pgp', $params);
+        return $injector->getInstance('Horde_Crypt')->getCrypt('IMP_Crypt_Pgp', $params);
     }
 
     /**

@@ -1306,8 +1306,9 @@ EOT;
         if (empty($key)) {
             return '';
         }
-        $pgp = Horde_Crypt::factory('pgp', $var->type->getPGPParams());
-        return '<pre>' . $pgp->pgpPrettyKey($key) . '</pre>';
+        return '<pre>' .
+            $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypr('Pgp', $var->type->getPGPParams())->pgpPrettyKey($key) .
+            '</pre>';
     }
 
     protected function _renderVarDisplay_smime($form, &$var, &$vars)
@@ -1316,8 +1317,7 @@ EOT;
         if (empty($cert)) {
             return '';
         }
-        $smime = Horde_Crypt::factory('smime', $var->type->getSMIMEParams());
-        return $smime->certToHTML($cert);
+        return $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('Smime', $var->type->getSMIMEParams())->certToHTML($cert);
     }
 
     protected function _renderVarDisplay_country($form, &$var, &$vars)

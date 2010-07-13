@@ -14,6 +14,13 @@
 class Horde_Crypt
 {
     /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * The temporary directory to use.
      *
      * @var string
@@ -58,18 +65,30 @@ class Horde_Crypt
      *
      * @param array $params  Configuration parameters:
      * <pre>
+     * 'charset' - (string) The default charset.
+     *             DEFAULT: NONE
+     * 'email_charset' - (string) The default email charset.
+     *                   DEFAULT: NONE
+     * 'external_charset' - (string) The default external charset.
+     *                      DEFAULT: NONE
      * 'temp' - (string) [REQUIRED] Location of temporary directory.
      * </pre>
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (empty($params['temp'])) {
             throw new InvalidArgumentException('A temporary directory must be provided.');
         }
 
         $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
+
+        $this->_params = array_merge(array(
+            'charset' => null,
+            'email_charset' => null,
+            'external_charset' => null,
+        ), $params);
     }
 
     /**

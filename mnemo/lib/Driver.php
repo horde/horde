@@ -118,10 +118,10 @@ class Mnemo_Driver {
             $this->_pgp = PEAR::raiseError(_("Encryption support has not been configured, please contact your administrator."));
             return;
         }
-        require_once 'Horde/Crypt.php';
-        $this->_pgp = Horde_Crypt::factory('pgp',
-                                           array('program' => $GLOBALS['conf']['utils']['gnupg'],
-                                                 'temp' => Horde::getTempDir()));
+
+        $this->_pgp = $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('pgp', array(
+            'program' => $GLOBALS['conf']['utils']['gnupg']
+        ));
     }
 
     /**

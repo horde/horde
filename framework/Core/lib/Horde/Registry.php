@@ -264,6 +264,7 @@ class Horde_Registry
             // 'Horde_Browser' - initialized below
             'Horde_Cache' => new Horde_Core_Binder_Cache(),
             'Horde_Core_Auth_Signup' => new Horde_Core_Binder_AuthSignup(),
+            'Horde_Crypt' => new Horde_Core_Binder_Crypt(),
             'Horde_Data' => new Horde_Core_Binder_Data(),
             'Horde_Db' => new Horde_Core_Binder_Db(),
             'Horde_Db_Adapter_Base' => new Horde_Core_Binder_DbBase(),
