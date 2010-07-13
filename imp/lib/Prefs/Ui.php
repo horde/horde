@@ -1224,10 +1224,9 @@ class IMP_Prefs_Ui
         $sent_mail_folder = $ui->vars->sent_mail_folder;
         if (empty($sent_mail_folder)) {
             $sent_mail_new = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, Horde_Nls::getCharset(), 'UTF7-IMAP'));
-        } elseif ($sent_mail_folder == '-1') {
-            if ($sent_mail_default = $prefs->getValue('sent_mail_folder')) {
-                $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sent_mail_default);
-            }
+        } elseif (($sent_mail_folder == '-1') &&
+                  ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
+            $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sm_default);
         }
 
         if (empty($sent_mail_folder)) {
