@@ -20,11 +20,11 @@
 class Horde_Data_Csv extends Horde_Data_Base
 {
     /**
-     * File extension.
+     * Default charset.
      *
      * @var string
      */
-    protected $_extension = 'csv';
+    protected $_charset = null;
 
     /**
      * MIME content type.
@@ -32,6 +32,34 @@ class Horde_Data_Csv extends Horde_Data_Base
      * @var string
      */
     protected $_contentType = 'text/comma-separated-values';
+
+    /**
+     * File extension.
+     *
+     * @var string
+     */
+    protected $_extension = 'csv';
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'charset' - (string) The default charset.
+     *             DEFAULT: NONE
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(array $params = array())
+    {
+        if (isset($params['charset'])) {
+            $this->_charset = $params['charset'];
+            unset($params['charset']);
+        }
+
+        parent::__construct($params);
+    }
 
     /**
      * Tries to discover the CSV file's parameters.
@@ -88,14 +116,14 @@ class Horde_Data_Csv extends Horde_Data_Base
         if ($header) {
             $head = Horde_File_Csv::read($filename, $conf);
             if (!empty($charset)) {
-                $head = Horde_String::convertCharset($head, $charset, $GLOBALS['registry']->getCharset());
+                $head = Horde_String::convertCharset($head, $charset, $this->_charset);
             }
         }
 
         $data = array();
         while ($line = Horde_File_Csv::read($filename, $conf)) {
             if (!empty($charset)) {
-                $line = Horde_String::convertCharset($line, $charset, $GLOBALS['registry']->getCharset());
+                $line = Horde_String::convertCharset($line, $charset, $this->_charset);
             }
             if (!isset($head)) {
                 $data[] = $line;
@@ -232,7 +260,7 @@ class Horde_Data_Csv extends Horde_Data_Base
                 $line_no = 1;
                 while ($line_no < 3 && $line = fgets($fp)) {
                     if (!empty($_SESSION['import_data']['charset'])) {
-                        $line = Horde_String::convertCharset($line, $_SESSION['import_data']['charset'], $GLOBALS['registry']->getCharset());
+                        $line = Horde_String::convertCharset($line, $_SESSION['import_data']['charset'], $this->_charset);
                     }
                     $newline = Horde_String::length($line) > 100 ? "\n" : '';
                     $_SESSION['import_data']['first_lines'] .= substr($line, 0, 100) . $newline;

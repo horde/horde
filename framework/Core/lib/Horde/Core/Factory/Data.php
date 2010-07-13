@@ -58,6 +58,10 @@ class Horde_Core_Factory_Data
         $params['browser'] = $this->_injector->getInstance('Horde_Browser');
         $params['vars'] = Horde_Variables::getDefaultVariables();
 
+        if (strcasecmp($driver, 'csv') === 0) {
+            $params['charset'] = $GLOBALS['registry']->getCharset();
+        }
+
         return Horde_Data::factory($driver, $params);
     }
 

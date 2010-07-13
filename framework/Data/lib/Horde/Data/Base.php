@@ -63,14 +63,15 @@ abstract class Horde_Data_Base
      * <pre>
      * 'browser' - (Horde_Browser) A Horde_Browser object.
      * 'cleanup' - (callback) A callback to call at cleanup time.
+     * 'vars' - (Horde_Variables) Form data.
      * </pre>
      *
-     * @throws Horde_Data_Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
         if (!isset($params['browser'])) {
-            throw new Horde_Data_Exception('Missing browser parameter.');
+            throw new InvalidArgumentException('Missing browser parameter.');
         }
         $this->_browser = $params['browser'];
 
