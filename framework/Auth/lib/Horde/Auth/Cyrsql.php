@@ -109,6 +109,8 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      *
      * @param array $params  Parameters:
      * <pre>
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
      * 'domain_field' - (string) If set to anything other than 'none' this is
      *                  used as field name where domain is stored.
      *                  DEFAULT: 'domain_name'
@@ -138,6 +140,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         unset($params['imap']);
 
         $params = array_merge(array(
+            'charset' => null,
             'domain_field' => 'domain_name',
             'folders' => array(),
             'hidden_accounts' => array('cyrus'),
@@ -245,7 +248,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         }
 
         try {
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $this->_imap->createMailbox($mailbox);
             $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
@@ -257,12 +260,12 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                 ($this->_params['domain_field'] != 'none')) {
                 list($userName, $domain) = explode('@', $userName);
                 $tmp = $userName . $this->_separator . $value . '@' . $domain;
-Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, $this->_params['charset'], 'utf7-imap');
             } else {
                 $tmp = $userName . $this->_separator . $value;
             }
 
-            $tmp = Horde_String::convertCharset($tmp, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+            $tmp = Horde_String::convertCharset($tmp, $this->_params['charset'], 'utf7-imap');
             $this->_imap->createMailbox($tmp);
             $this->_oimap>setACL($tmp, $this->_params['cyradm'], 'lrswipcda');
         }

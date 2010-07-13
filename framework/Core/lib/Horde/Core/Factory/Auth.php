@@ -125,12 +125,18 @@ class Horde_Core_Factory_Auth
                 if ($lc_driver == 'cyrus') {
                     $params['backend'] = $this->getOb($params['backend']['driver'], $params['backend']['params']);
                 }
+
+                $params['charset'] = $GLOBALS['registry']->getCharset();
                 break;
 
             case 'http_remote':
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
                     $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
                 }
+                break;
+
+            case 'imap':
+                $params['charset'] = $GLOBALS['registry']->getCharset();
                 break;
 
             case 'kolab':

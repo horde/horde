@@ -53,8 +53,9 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * TODO
      * 'backend' - (Horde_Auth_Base) [REQUIRED] The backend object.
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
      * 'folders' - (array) An array of folders to create under username.
      *             DEFAULT: NONE
      * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
@@ -85,6 +86,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
         unset($params['backend']);
 
         $params = array_merge(array(
+            'charset' => null,
             'separator' => '.',
         ), $params);
 
@@ -119,7 +121,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
     {
         $this->_backend->addUser($userId, $credentials);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $this->_params['charset'], 'utf7-imap');
 
         try {
             $this->_imap->createMailbox($mailbox);
@@ -131,7 +133,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             is_array($this->_params['folders'])) {
             foreach ($this->_params['folders'] as $folder) {
                 try {
-                    $this->_imap->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, $GLOBALS['registry']->getCharset(), 'utf7-imap'));
+                    $this->_imap->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, $this->_params['charset'], 'utf7-imap'));
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
@@ -157,7 +159,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
     {
         $this->_backend->removeUser($userId);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $this->_params['charset'], 'utf7-imap');
 
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);

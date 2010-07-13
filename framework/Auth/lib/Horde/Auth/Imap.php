@@ -33,6 +33,8 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      *                    DEFAULT: null
      * 'admin_user' - (string) The name of a user with admin privileges.
      *                DEFAULT: null
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
      * 'hostspec' - (string) The hostname or IP address of the server.
      *              DEFAULT: 'localhost'
      * 'port' - (integer) The server port to which we will connect.
@@ -51,6 +53,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         $params = array_merge(array(
             'admin_password' => null,
             'admin_user' => null,
+            'charset' => null,
             'hostspec' => '',
             'port' => null,
             'secure' => 'none',
@@ -99,7 +102,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     {
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
@@ -119,7 +122,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
-            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $GLOBALS['registry']->getCharset(), 'utf7-imap'));
+            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap'));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
