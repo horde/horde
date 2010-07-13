@@ -177,7 +177,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             }
                         }
                     } catch (Horde_Exception $e) {}
-                    
+
                     if (!$handled && $registry->hasMethod('calendar/import')) {
                         // Import into calendar.
                         $handled = true;
