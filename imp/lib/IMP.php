@@ -934,7 +934,7 @@ class IMP
         case Horde_Imap_Client::SORT_THREAD:
             /* Can't do threaded searches in search mailboxes. */
             if (!self::threadSortAvailable($mbox)) {
-                $ob['by'] = IMP::IMAP_SORT_DATE;
+                $ob['by'] = self::IMAP_SORT_DATE;
             }
             break;
 
@@ -953,7 +953,7 @@ class IMP
             break;
         }
 
-        if ($convert && ($ob['by'] == IMP::IMAP_SORT_DATE)) {
+        if ($convert && ($ob['by'] == self::IMAP_SORT_DATE)) {
             $ob['by'] = $prefs->getValue('sortdate');
         }
 
