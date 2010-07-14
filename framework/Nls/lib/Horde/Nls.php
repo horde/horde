@@ -112,14 +112,16 @@ class Horde_Nls
     /**
      * Get country information from a hostname or IP address.
      *
-     * @param string $host  The hostname or IP address.
+     * @param string $host      The hostname or IP address.
+     * @param string $datafile  The datafile for the GeoIP lookup. If not set,
+     *                          will skip this lookup.
      *
      * @return mixed  On success, return an array with the following entries:
      *                'code'  =>  Country Code
      *                'name'  =>  Country Name
      *                On failure, return false.
      */
-    static public function getCountryByHost($host)
+    static public function getCountryByHost($host, $datafile = null)
     {
         /* List of generic domains that we know is not in the country TLD
            list. See: http://www.iana.org/gtld/gtld.htm */
@@ -162,8 +164,7 @@ class Horde_Nls
         }
 
         /* Try GeoIP lookup next. */
-        $geoip = Horde_Nls_Geoip::singleton(!empty($GLOBALS['conf']['geoip']['datafile']) ? $GLOBALS['conf']['geoip']['datafile'] : null);
-
+        $geoip = new Horde_Nls_Geoip($datafile);
         return $geoip->getCountryInfo($checkHost);
     }
 
