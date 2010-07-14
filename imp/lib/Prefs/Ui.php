@@ -1029,8 +1029,9 @@ class IMP_Prefs_Ui
                 $t->set('sendkey', Horde::link($ui->selfUrl(array('special' => true))->add('send_pgp_key', 1), _("Send Key to Public Keyserver")));
                 $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
 
-                $imple = Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('type' => 'pgpPersonal'));
-                $imple->attach();
+                $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('imp', 'PassphraseDialog'), array(
+                    'type' => 'pgpPersonal'
+                ));
 
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
                 $passphrase = $imp_pgp->getPassphrase('personal');
@@ -1276,8 +1277,9 @@ class IMP_Prefs_Ui
                 $t->set('viewpublic', Horde::link($smime_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Certificate"), null, 'view_key'));
                 $t->set('infopublic', Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key'));
 
-                $imple = Horde_Ajax_Imple::factory(array('imp', 'PassphraseDialog'), array('type' => 'smimePersonal'));
-                $imple->attach();
+                $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('imp', 'PassphraseDialog'), array(
+                    'type' => 'smimePersonal'
+                ));
 
                 $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
                 $passphrase = $imp_smime->getPassphrase();

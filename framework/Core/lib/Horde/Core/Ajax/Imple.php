@@ -4,13 +4,15 @@
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Ajax
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-abstract class Horde_Ajax_Imple_Base
+abstract class Horde_Core_Ajax_Imple
 {
     /**
      * Parameters needed by the subclasses.
@@ -64,7 +66,8 @@ abstract class Horde_Ajax_Imple_Base
             $qstring .= '/' . $key . '=' . rawurlencode($val);
         }
 
-        return Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/imple.php?' . $qstring, $full);
+        $url = Horde::getServiceLink('imple');
+        return Horde::url($url->url . '?' . $qstring, $full);
     }
 
     /**

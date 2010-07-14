@@ -101,8 +101,9 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                            array('icon' => $img, 'icondir' => '', 'url' => $link));
         }
         Horde::startBuffer();
-        $imple = Horde_Ajax_Imple::factory(array('ansel', 'ToggleOtherGalleries'), array('bindTo' => 'othergalleries'));
-        $imple->attach();
+        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'ToggleOtherGalleries'), array(
+            'bindTo' => 'othergalleries'
+        ));
 
         $tree->sort('label');
         $tree->renderTree();

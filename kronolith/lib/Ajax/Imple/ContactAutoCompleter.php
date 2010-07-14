@@ -10,14 +10,15 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
+class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
      * Attach the Imple object to a javascript event.
      *
-     * @param array $js_params  See Horde_Ajax_Imple_AutoCompleter::_attach().
+     * @param array $js_params  See
+     *                          Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      *
-     * @return array  See Horde_Ajax_Imple_AutoCompleter::_attach().
+     * @return array  See Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      */
     protected function _attach($js_params)
     {

@@ -121,7 +121,7 @@ class IMP_Hooks
      * @param Horde_Variables $vars  The URL parameters.
      *
      * @return mixed  The data to send to the browser (will be JSON encoded).
-     * @throws Horde_Ajax_Exception
+     * @throws Horde_Exception
      */
 //     public function ajaxaction($action, $vars)
 //     {
@@ -130,7 +130,7 @@ class IMP_Hooks
 //            return 'bar';
 //        }
 //
-//        throw new Horde_Ajax_Exception('Unknown action');
+//        throw new Horde_Exception('Unknown action');
 //     }
 
 

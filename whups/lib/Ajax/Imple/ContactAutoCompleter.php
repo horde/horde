@@ -9,7 +9,7 @@
  * @package Whups
  */
 
-class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
+class Whups_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
 
     /**

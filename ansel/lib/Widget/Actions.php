@@ -97,8 +97,9 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         /* Attach the ajax action */
         Horde::startBuffer();
-        $imple = Horde_Ajax_Imple::factory(array('ansel', 'ToggleGalleryActions'), array('bindTo' => 'gallery-actions'));
-        $imple->attach();
+        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'ToggleGalleryActions'), array(
+            'bindTo' => 'gallery-actions'
+        ));
         $html .= Horde::endBuffer();
 
         /* Buid the url parameters to the zip link */

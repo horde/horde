@@ -11,7 +11,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Core_Ajax_Imple
 {
     // Noop since this isn't attached to any UI Element
     public function attach() {}

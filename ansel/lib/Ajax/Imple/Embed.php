@@ -10,7 +10,7 @@
  *
  * @package Ansel
  */
-class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 {
     // Noop since we don't attach this to any UI element.
     public function attach(){}

@@ -448,9 +448,19 @@ HTML;
      *
      * @param string $type       The service to display.
      * <pre>
-     * TODO
-     * 'ajax', 'cache', 'download', 'go', 'logintasks', 'prefsapi'
-     * 'help', 'problem', 'logout', 'login', 'options', 'sidebar'
+     * 'ajax'
+     * 'cache'
+     * 'download'
+     * 'go'
+     * 'help'
+     * 'imple'
+     * 'login'
+     * 'logintasks'
+     * 'logout'
+     * 'prefsapi
+     * 'problem'
+     * 'sidebar'
+     * 'options'
      * </pre>
      * @param string $app        The name of the current Horde application.
      *
@@ -461,21 +471,32 @@ HTML;
         $webroot = $GLOBALS['registry']->get('webroot', 'horde');
 
         switch ($type) {
+        case 'ajax':
+            return self::url($webroot . '/services/ajax.php/' . $app . '/');
+
+        case 'cache':
+            return self::url($webroot . '/services/cache.php', false, -1);
+
+        case 'download':
+            return self::url($webroot . '/services/download/')
+                ->add('module', $app);
+
+        case 'go':
+            return self::url($webroot . '/services/go.php');
+
         case 'help':
             return self::url($webroot . '/services/help/')->add('module', $app);
 
-        case 'problem':
-            return self::url($webroot . '/services/problem.php')
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
-
-        case 'logout':
-            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT))->setRaw(false);
+        case 'imple':
+            return self::url($webroot . '/services/imple.php');
 
         case 'login':
             return self::url($webroot . '/login.php');
 
         case 'logintasks':
             return self::url($webroot . '/services/logintasks.php')->add('app', $app);
+        case 'logout':
+            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT))->setRaw(false);
 
         case 'options':
         case 'prefsapi':
@@ -488,18 +509,9 @@ HTML;
             }
             break;
 
-        case 'cache':
-            return self::url($webroot . '/services/cache.php', false, -1);
-
-        case 'download':
-            return self::url($webroot . '/services/download/')
-                ->add('module', $app);
-
-        case 'go':
-            return self::url($webroot . '/services/go.php');
-
-        case 'ajax':
-            return self::url($webroot . '/services/ajax.php/' . $app . '/');
+        case 'problem':
+            return self::url($webroot . '/services/problem.php')
+                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
         case 'sidebar':
             return self::url($webroot . '/services/portal/sidebar.php');

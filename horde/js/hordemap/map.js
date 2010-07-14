@@ -143,7 +143,7 @@ HordeMap = {
     /**
      * Base Geocoder implementations.
      * The Horde Class will implement a geocoding service utilizing the various
-     * Horde_Ajax_Imple_Geocoder_* classes. Mapping providers that include
+     * Horde_Core_Ajax_Imple_Geocoder_* classes. Mapping providers that include
      * geocoding services will have HordeMap.Geocoder implementations in their
      * respective *.js files.  The Null driver provides fallback implementaions
      * for those without geocoder support.

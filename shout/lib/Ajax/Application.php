@@ -11,7 +11,7 @@
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Shout
  */
-class Shout_Ajax_Application extends Horde_Ajax_Application_Base
+class Shout_Ajax_Application extends Horde_Core_Ajax_Application
 {
     protected $_responseType = 'json';
     /**

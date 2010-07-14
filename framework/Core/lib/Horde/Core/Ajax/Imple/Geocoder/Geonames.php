@@ -4,13 +4,15 @@
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Ajax
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
+class Horde_Core_Ajax_Imple_Geocoder_Geonames extends Horde_Core_Ajax_Imple
 {
     /**
      * Constructor.
@@ -32,7 +34,6 @@ class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
     {
     }
 
-
     /**
      * Handle the geocoding request.
      *
@@ -45,7 +46,7 @@ class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
      * $args['locations'] will trigger a forward geocoding request.
      * $args['lat'] and $args['lon'] will trigger a reverse geocoding request.
      *
-     * @see framework/Ajax/lib/Horde/Ajax/Imple/Horde_Ajax_Imple_Base#handle($args, $post)
+     * @see Horde_Core_Ajax_Imple#handle($args, $post)
      * @throws Horde_Exception
      */
     public function handle($args, $post)
@@ -57,14 +58,18 @@ class Horde_Ajax_Imple_Geocoder_Geonames extends Horde_Ajax_Imple_Base
             $url = new Horde_Url('http:/ws.geonames.org/findNearestJSON');
             $url = $url->add(array('lat' => $args['lat'], 'lng' => $args['lon']));
         }
-        $client = new Horde_Http_Client();
+
+        $client = $GLOBALS['injector']->getInstance('Horde_Http_Client')->getClient();
         try {
             $response = $client->get($url);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_Prior($e);
         }
-        return array('status' => 200,
-                     'results' => $response->getBody());
+
+        return array(
+            'results' => $response->getBody(),
+            'status' => 200
+        );
     }
 
 }

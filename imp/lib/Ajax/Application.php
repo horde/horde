@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Ajax_Application extends Horde_Ajax_Application_Base
+class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
      * Determines if notification information is sent in response.

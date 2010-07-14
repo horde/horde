@@ -2011,15 +2011,13 @@ class Kronolith
     public static function embedCode($calendar)
     {
         /* Get the base url */
-        $imple = Horde_Ajax_Imple::factory(array('kronolith', 'Embed'),
-                                           array('container' => 'kronolithCal',
-                                                 'view' => 'month',
-                                                 'calendar' => $calendar));
+        $imple = $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith', 'Embed'), array(
+            'calendar' => $calendar,
+            'container' => 'kronolithCal',
+            'view' => 'month'
+        ), true);
 
-
-        $url = $imple->getUrl();
-
-        $html = '<div id="kronolithCal"></div><script src="' . $url
+        $html = '<div id="kronolithCal"></div><script src="' . $imple->getUrl()
             . '" type="text/javascript"></script>';
 
         return $html;

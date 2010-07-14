@@ -8,7 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Core_Ajax_Imple
 {
     public function attach()
     {

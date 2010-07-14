@@ -259,6 +259,8 @@ class Horde_Registry
 
         /* Define binders. */
         $binders = array(
+            'Horde_Ajax' => new Horde_Core_Binder_Ajax(),
+            'Horde_Ajax_Imple' => new Horde_Core_Binder_Imple(),
             'Horde_Alarm' => new Horde_Core_Binder_Alarm(),
             'Horde_Auth' => new Horde_Core_Binder_Auth(),
             // 'Horde_Browser' - initialized below

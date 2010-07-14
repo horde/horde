@@ -115,10 +115,10 @@ class Ansel_Tile_Image
         Horde::startBuffer();
         // In-line caption editing if we have Horde_Perms::EDIT
         if ($option_edit) {
-            $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
-                                               array('id' => $image->id,
-                                                     'domid' => $image->id . 'caption'));
-            $imple->attach();
+            $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'EditCaption'), array(
+                'domid' => $image->id . 'caption',
+                'id' => $image->id
+            ));
         }
         include ANSEL_BASE . '/templates/tile/image.inc';
 

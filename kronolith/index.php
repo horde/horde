@@ -95,33 +95,39 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-Horde_Ajax_Imple::factory(
+$injector->getInstance('Horde_Ajax_Imple')->getImple(
     array('kronolith', 'TagAutoCompleter'),
-    array('triggerId' => 'kronolithEventTags',
-          'box' => 'kronolithEventACBox',
-          'pretty' => true,
-          'var' => 'KronolithCore.eventTagAc'))
-    ->attach();
+    array(
+        'box' => 'kronolithEventACBox',
+        'pretty' => true,
+        'triggerId' => 'kronolithEventTags',
+        'var' => 'KronolithCore.eventTagAc'
+    )
+);
 
-Horde_Ajax_Imple::factory(
+$injector->getInstance('Horde_Ajax_Imple')->getImple(
     array('kronolith', 'TagAutoCompleter'),
-    array('triggerId' => 'kronolithCalendarinternalTags',
-          'triggerContainer' => 'kronolithACCalendarTriggerContainer',
-          'box' => 'kronolithCalendarinternalACBox',
-          'pretty' => true,
-          'var' => 'KronolithCore.calendarTagAc'))
-    ->attach();
+    array(
+        'box' => 'kronolithCalendarinternalACBox',
+        'pretty' => true,
+        'triggerContainer' => 'kronolithACCalendarTriggerContainer',
+        'triggerId' => 'kronolithCalendarinternalTags',
+        'var' => 'KronolithCore.calendarTagAc'
+    )
+);
 
-Horde_Ajax_Imple::factory(
+$injector->getInstance('Horde_Ajax_Imple')->getImple(
     array('kronolith', 'ContactAutoCompleter'),
-    array('triggerId' => 'kronolithEventAttendees',
-          'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
-          'box' => 'kronolithAttendeesACBox',
-          'pretty' => true,
-          'var' => 'KronolithCore.attendeesAc',
-          'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
-          'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)'))
-    ->attach();
+    array(
+        'box' => 'kronolithAttendeesACBox',
+        'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
+        'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
+        'pretty' => true,
+        'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
+        'triggerId' => 'kronolithEventAttendees',
+        'var' => 'KronolithCore.attendeesAc'
+    )
+);
 
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);

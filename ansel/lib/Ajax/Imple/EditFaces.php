@@ -10,7 +10,7 @@
  *
  * @package Ansel
  */
-class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
 {
     /**
      * Attach these actions to the view

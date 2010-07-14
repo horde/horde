@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Ajax_Imple_PassphraseDialog extends Horde_Ajax_Imple_Base
+class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
 {
     /**
      * Passphrase DOM ID counter.

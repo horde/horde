@@ -8,7 +8,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
+class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 {
     /**
      */

@@ -133,7 +133,7 @@
  *   $vars (Horde_Variables): The URL parameters.
  *
  * The return value from this hook is as follows:
- *   [throw Horde_Ajax_Exception] - Fatal error.
+ *   [throw Horde_Exception] - Fatal error.
  *   [mixed] - The data to send to the browser (will be JSON encoded).
  *
  *
@@ -149,7 +149,7 @@
  *   $theme (string): The current theme.
  *
  * The return value from this hook is as follows:
- *   [throw Horde_Ajax_Exception] - Fatal error.
+ *   [throw Horde_Exception] - Fatal error.
  *   [array] - An array of CSS files to add. Keys are the filesystem location,
  *             values are the URI location.
  *

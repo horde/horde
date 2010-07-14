@@ -12,7 +12,7 @@
  * @author  Gonçalo Queirós <mail@goncaloqueiros.net>
  * @package Kronolith
  */
-class Kronolith_Ajax_Application extends Horde_Ajax_Application_Base
+class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
      * Determines if notification information is sent in response.

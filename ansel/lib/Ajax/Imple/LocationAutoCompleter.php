@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
+class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     protected function _attach($js_params)
     {

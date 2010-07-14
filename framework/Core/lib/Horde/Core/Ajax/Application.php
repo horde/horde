@@ -4,13 +4,15 @@
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Ajax
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-abstract class Horde_Ajax_Application_Base
+abstract class Horde_Core_Ajax_Application
 {
     /**
      * Determines if notification information is sent in response.
@@ -58,12 +60,14 @@ abstract class Horde_Ajax_Application_Base
     /**
      * Constructor.
      *
-     * @param string $app     The application name.
-     * @param string $action  The AJAX action to perform.
+     * @param string $app            The application name.
+     * @param Horde_Variables $vars  Form/request data.
+     * @param string $action         The AJAX action to perform.
      */
-    public function __construct($app, $action = null)
+    public function __construct($app, $vars, $action = null)
     {
         $this->_app = $app;
+        $this->_vars = $vars;
 
         if (!is_null($action)) {
             /* Close session if action is labeled as read-only. */
@@ -79,15 +83,13 @@ abstract class Horde_Ajax_Application_Base
      * Performs the AJAX action.
      *
      * @return mixed  The result of the action call.
-     * @throws Horde_Ajax_Exception
+     * @throws Horde_Exception
      */
     public function doAction()
     {
         if (!$this->_action) {
             return false;
         }
-
-        $this->_vars = Horde_Variables::getDefaultVariables();
 
         if (method_exists($this, $this->_action)) {
             return call_user_func(array($this, $this->_action));
@@ -97,9 +99,9 @@ abstract class Horde_Ajax_Application_Base
         try {
             return Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
         } catch (Horde_Exception_HookNotSet $e) {
-        } catch (Horde_Ajax_Exception $e) {}
+        } catch (Horde_Exception $e) {}
 
-        throw new Horde_Ajax_Exception('Handler for action "' . $this->_action . '" does not exist.');
+        throw new Horde_Exception('Handler for action "' . $this->_action . '" does not exist.');
     }
 
     /**

@@ -363,11 +363,11 @@ class Ansel_View_Image extends Ansel_View_Base
 
             /* In line caption editing */
             if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
-                                                array('id' => $this->resource->id,
-                                                      'domid' => "Caption",
-                                                      'cols' => 120));
-                $imple->attach();
+                $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'EditCaption'), array(
+                    'cols' => 120,
+                    'domid' => "Caption",
+                    'id' => $this->resource->id
+                ));
             }
         }
 

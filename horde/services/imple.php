@@ -1,6 +1,6 @@
 <?php
 /**
- * Handle Horde_Ajax_Imple:: requests.
+ * Handle Horde_Core_Ajax_Imple:: requests.
  *
  * Mandatory components:
  * 'imple'
@@ -65,7 +65,7 @@ if (isset($args['impleApp'])) {
     $impleargs = array($args['impleApp'], $impleName);
 }
 
-$imple = Horde_Ajax_Imple::factory($impleargs);
+$imple = $injector->getInstance('Horde_Ajax_Imple')->getImple($impleargs);
 $result = $imple->handle($args, $post);
 
 $ct = empty($_SERVER['Content-Type'])
