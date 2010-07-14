@@ -211,8 +211,9 @@ $horde_nls_config = array(
     )
 );
 
-/* Sort encodings. */
-asort($horde_nls_config['encodings']);
+/* Sort encodings. Disabled by default - encoding list is already sorted by
+ * default in English. */
+//asort($horde_nls_config['encodings']);
 
 /* BSD charsets. */
 if (strpos(PHP_OS, 'BSD') !== false) {
