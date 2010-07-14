@@ -138,17 +138,6 @@ class Horde_Tree
     }
 
     /**
-     * Provide a simpler renderer to fallback to.
-     *
-     * @return string  The next best renderer.
-     * @throws Horde_Tree_Exception
-     */
-    public function fallback()
-    {
-        throw new Horde_Tree_Exception('No fallback renderer found.');
-    }
-
-    /**
      * Constructor.
      *
      * @param string $name   The name of this tree instance.
@@ -160,12 +149,31 @@ class Horde_Tree
      *               use the widths.
      * lines - (boolean) Show tree lines?
      * multiline - (boolean) Do the node labels contain linebreaks?
+     * session - (string) The name of the session array key to store data.
+     *           If this is an empty string, session storage will be disabled.
+     *           DEFAULT: No session storage
      * </pre>
      */
     public function __construct($name, array $params = array())
     {
         $this->_instance = $name;
         $this->setOption($params);
+
+        if (!empty($this->_options['session']) &&
+            !isset($_SESSION[$this->_options['session']][$this->_instance])) {
+            $_SESSION[$this->_options['session']][$this->_instance] = array();
+        }
+    }
+
+    /**
+     * Provide a simpler renderer to fallback to.
+     *
+     * @return string  The next best renderer.
+     * @throws Horde_Tree_Exception
+     */
+    public function fallback()
+    {
+        throw new Horde_Tree_Exception('No fallback renderer found.');
     }
 
     /**
@@ -262,6 +270,23 @@ class Horde_Tree
                             $expanded = true, $params = array(),
                             $extra_right = array(), $extra_left = array())
     {
+        if (!empty($this->_options['session'])) {
+            $sess = &$_SESSION[$this->_options['session']][$this->_instance];
+            $toggle_id = Horde_Util::getFormData(self::TOGGLE . $this->_instance);
+
+            if ($id == $toggle_id) {
+                /* We have a URL toggle request for this node. */
+                $expanded = $sess['expanded'][$id] = isset($sess['expanded'][$id])
+                    /* Use session state if it is set. */
+                    ? (!$sess['expanded'][$id])
+                    /* Otherwise use what was passed through the function. */
+                    : (!$expanded);
+            } elseif (isset($sess['expanded'][$id])) {
+                /* If we have a saved session state use it. */
+                $expanded = $sess['expanded'][$id];
+            }
+        }
+
         $this->_nodes[$id]['label'] = $label;
         $this->_nodes[$id]['expanded'] = $expanded;
 

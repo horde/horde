@@ -78,6 +78,8 @@ class Horde_Core_Factory_Tree
                 break;
             }
 
+            $params['session'] = 'horde_tree';
+
             $this->_instances[$id] = Horde_Tree::factory($name, $renderer, $params);
         }
 

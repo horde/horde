@@ -30,12 +30,13 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         Horde::addScriptFile('hordetree.js', 'horde');
 
         /* Check for a javascript session state. */
-        if (isset($_COOKIE[$this->_instance . '_expanded'])) {
+        if (!empty($this->_options['session']) &&
+            isset($_COOKIE[$this->_instance . '_expanded'])) {
             /* Remove "exp" prefix from cookie value. */
             $nodes = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
 
             /* Save nodes to the session. */
-            $_SESSION['horde_tree'][$this->_instance]['expanded'] = array_combine(
+            $_SESSION[$this->_options['session']][$this->_instance]['expanded'] = array_combine(
                 $nodes,
                 array_fill(0, count($nodes), true)
             );
