@@ -1,7 +1,7 @@
 <?php
 /**
  * The Horde_Tree:: class provides a tree view of hierarchical information. It
- * allows for expanding/collapsing of branches and maintains their state.
+ * allows for expanding/collapsing of branches.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,7 +10,8 @@
  *
  * @author   Marko Djukic <marko@oblo.com>
  * @category Horde
- * @package  Horde_Tree
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Tree
  */
 class Horde_Tree
 {
@@ -29,13 +30,6 @@ class Horde_Tree
      * collapse/expand submissions.
      */
     const TOGGLE = 'ht_toggle_';
-
-    /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
 
     /**
      * The name of this instance.
@@ -91,47 +85,11 @@ class Horde_Tree
     );
 
     /**
-      * Image directory location.
-      *
-      * @var string
-      */
-    protected $_img_dir = '';
-
-    /**
-     * Images array.
-     *
-     * @var array
-     */
-    protected $_images = array(
-        'line' => 'line.png',
-        'blank' => 'blank.png',
-        'join' => 'join.png',
-        'join_bottom' => 'joinbottom.png',
-        'plus' => 'plus.png',
-        'plus_bottom' => 'plusbottom.png',
-        'plus_only' => 'plusonly.png',
-        'minus' => 'minus.png',
-        'minus_bottom' => 'minusbottom.png',
-        'minus_only' => 'minusonly.png',
-        'null_only' => 'nullonly.png',
-        'folder' => 'folder.png',
-        'folderopen' => 'folderopen.png',
-        'leaf' => 'leaf.png'
-    );
-
-    /**
      * Stores the sorting criteria temporarily.
      *
      * @var string
      */
     protected $_sortCriteria;
-
-    /**
-     * Use session to store cached Tree data?
-     *
-     * @var boolean
-     */
-    protected $_usesession = true;
 
     /**
      * Should the tree be rendered statically?
@@ -141,112 +99,86 @@ class Horde_Tree
     protected $_static = false;
 
     /**
-     * Attempts to return a reference to a concrete instance.
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_Tree::singleton($name[, $renderer[, $params]]);
-     *
-     * @param mixed $name       @see Horde_Tree::factory.
-     * @param string $renderer  @see Horde_Tree::factory.
-     * @param array $params     @see Horde_Tree::factory.
-     *
-     * @return Horde_Tree  The concrete instance.
-     * @throws Horde_Exception
-     */
-    static public function singleton($name, $renderer, $params = array())
-    {
-        ksort($params);
-        $id = $name . ':' . $renderer . ':' . serialize($params);
-
-        if (!isset(self::$_instances[$id])) {
-            self::$_instances[$id] = self::factory($name, $renderer, $params);
-            if (!self::$_instances[$id]->isSupported()) {
-                $renderer = self::fallback($renderer);
-                return self::singleton($name, $renderer, $params);
-            }
-        }
-
-        return self::$_instances[$id];
-    }
-
-    /**
      * Attempts to return a concrete instance.
      *
-     * @param string $name     The name of this tree instance.
-     * @param mixed $renderer  The type of concrete subclass to return. This
-     *                         is based on the rendering driver. The code is
-     *                         dynamically included.
-     * @param array $params    Any additional parameters the constructor
-     *                         needs.
+     * @param string $name      The name of this tree instance.
+     * @param string $renderer  Either the tree renderer driver or a full
+     *                          class name to use.
+     * @param array $params     Any additional parameters the constructor
+     *                          needs.
      *
      * @return Horde_Tree  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Tree_Exception
      */
     static public function factory($name, $renderer, $params = array())
     {
+        $ob = null;
+
+        /* Base drivers (in Tree/ directory). */
         $class = __CLASS__ . '_' . ucfirst($renderer);
         if (class_exists($class)) {
-            return new $class($name, $params);
+            $ob = new $class($name, $params);
+        } else {
+            /* Explicit class name, */
+            $class = $renderer;
+            if (class_exists($class)) {
+                $ob = new $class($name, $params);
+            }
         }
 
-        throw new Horde_Exception('Horde_Tree renderer not found: ' . $renderer);
+        if ($ob) {
+            if ($ob->isSupported()) {
+                return $ob;
+            }
+
+            return self::factory($name, $ob->fallback(), $params);
+        }
+
+        throw new Horde_Tree_Exception(__CLASS__ . ' renderer not found: ' . $renderer);
     }
 
     /**
-     * Try to fall back to a simpler renderer.
-     *
-     * @paran string $renderer  The renderer that we can't handle.
+     * Provide a simpler renderer to fallback to.
      *
      * @return string  The next best renderer.
-     * @throws Horde_Exception
+     * @throws Horde_Tree_Exception
      */
-    public function fallback($renderer)
+    public function fallback()
     {
-        switch ($renderer) {
-        case 'javascript':
-            return 'html';
-
-        case 'html':
-            throw new Horde_Exception('No fallback renderer found.');
-        }
+        throw new Horde_Tree_Exception('No fallback renderer found.');
     }
 
     /**
      * Constructor.
      *
      * @param string $name   The name of this tree instance.
-     * @param array $params  Additional parameters:
+     * @param array $params  Additional parameters.
      * <pre>
-     * 'nosession' - (boolean) If true, do not store tree data in session.
+     * alternate - (boolean) Alternate shading in the table?
+     * class - (string) The class to use for the table.
+     * hideHeaders - (boolean) Don't render any HTML for the header row, just
+     *               use the widths.
+     * lines - (boolean) Show tree lines?
+     * multiline - (boolean) Do the node labels contain linebreaks?
      * </pre>
      */
-    public function __construct($name, $params = array())
+    public function __construct($name, array $params = array())
     {
         $this->_instance = $name;
-        $this->_usesession = empty($params['nosession']);
-        unset($params['nosession']);
         $this->setOption($params);
+    }
 
-        /* Set up the session for later to save tree states. */
-        if ($this->_usesession &&
-            !isset($_SESSION['horde_tree'][$this->_instance])) {
-            $_SESSION['horde_tree'][$this->_instance] = array();
-        }
-
-        $this->_img_dir = Horde_Themes::img(null, array('app' => 'horde', 'notheme' => true)) . '/tree';
-
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-            $rev_imgs = array(
-                'line', 'join', 'join_bottom', 'plus', 'plus_bottom',
-                'plus_only', 'minus', 'minus_bottom', 'minus_only',
-                'null_only', 'leaf'
-            );
-            foreach ($rev_imgs as $val) {
-                $this->_images[$val] = 'rev-' . $this->_images[$val];
-            }
-        }
+    /**
+     * Returns the tree.
+     *
+     * @param boolean $static  If true the tree nodes can't be expanded and
+     *                         collapsed and the tree gets rendered expanded.
+     *
+     * @return string  The HTML code of the rendered tree.
+     */
+    public function getTree($static = false)
+    {
+        return '';
     }
 
     /**
@@ -263,16 +195,9 @@ class Horde_Tree
     /**
      * Sets an option.
      *
-     * @param mixed $option  The option name -or- an array of option name/value
-     *                       pairs. Available options:
-     * <pre>
-     * alternate - (boolean) Alternate shading in the table?
-     * class - (string) The class to use for the table.
-     * hideHeaders - (boolean) Don't render any HTML for the header row, just
-     *               use the widths.
-     * lines - (boolean) Show tree lines?
-     * multiline - (boolean) Do the node labels contain linebreaks?
-     * </pre>
+     * @param mixed $option  The option name -or- an array of option
+     *                       name/value pairs. See constructor for available
+     *                       options.
      * @param mixed $value   The option's value.
      */
     public function setOption($options, $value = null)
@@ -338,29 +263,6 @@ class Horde_Tree
                             $extra_right = array(), $extra_left = array())
     {
         $this->_nodes[$id]['label'] = $label;
-
-        if ($this->_usesession) {
-            $session_state = $_SESSION['horde_tree'][$this->_instance];
-            $toggle_id = Horde_Util::getFormData(self::TOGGLE . $this->_instance);
-            if ($id == $toggle_id) {
-                /* We have a url toggle request for this node. */
-                if (isset($session_state['expanded'][$id])) {
-                    /* Use session state if it is set. */
-                    $expanded = (!$session_state['expanded'][$id]);
-                } else {
-                    /* Otherwise use what was passed through the
-                     * function. */
-                    $expanded = (!$expanded);
-                }
-
-                /* Save this state to session. */
-                $_SESSION['horde_tree'][$this->_instance]['expanded'][$id] = $expanded;
-            } elseif (isset($session_state['expanded'][$id])) {
-                /* If we have a saved session state use it. */
-                $expanded = $session_state['expanded'][$id];
-            }
-        }
-
         $this->_nodes[$id]['expanded'] = $expanded;
 
         /* If any params included here add them now. */
@@ -559,15 +461,6 @@ class Horde_Tree
     public function isSupported()
     {
         return true;
-    }
-
-    /**
-     * Returns just the JS node definitions as a string.
-     *
-     * @return string  The Javascript node array definitions.
-     */
-    public function renderNodeDefinitions()
-    {
     }
 
 }

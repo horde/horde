@@ -10,26 +10,27 @@
  *
  * @author   Marko Djukic <marko@oblo.com>
  * @category Horde
- * @package  Horde_Tree
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Tree
  */
 class Horde_Tree_Html extends Horde_Tree
 {
     /**
-     * TODO
+     * Node list.
      *
      * @var array
      */
     protected $_nodes = array();
 
     /**
-     * TODO
+     * Node position list.
      *
      * @var array
      */
     protected $_node_pos = array();
 
     /**
-     * TODO
+     * Drop line cache.
      *
      * @var array
      */
@@ -41,6 +42,28 @@ class Horde_Tree_Html extends Horde_Tree
      * @var integer
      */
     protected $_alt_count = 0;
+
+    /**
+     * Images array.
+     *
+     * @var array
+     */
+    protected $_images = array(
+        'line' => null,
+        'blank' => null,
+        'join' => null,
+        'join_bottom' => null,
+        'plus' => null,
+        'plus_bottom' => null,
+        'plus_only' => null,
+        'minus' => null,
+        'minus_bottom' => null,
+        'minus_only' => null,
+        'null_only' => null,
+        'folder' => null,
+        'folderopen' => null,
+        'leaf' => null
+    );
 
     /**
      * Returns the tree.
@@ -193,15 +216,15 @@ class Horde_Tree_Html extends Horde_Tree
         }
 
         for ($i = $this->_static ? 1 : 0; $i < $this->_nodes[$node_id]['indent']; $i++) {
-            $line .= '<img src="' . $this->_img_dir . '/';
+            $line .= '<img src="';
             if ($this->_dropline[$i] && $this->getOption('lines', false, true)) {
                 $line .= $this->_images['line'] . '" '
-                    . 'alt="|&nbsp;&nbsp;&nbsp;" ';
+                    . 'alt="|&nbsp;&nbsp;&nbsp;"';
             } else {
                 $line .= $this->_images['blank'] . '" '
-                    . 'alt="&nbsp;&nbsp;&nbsp;" ';
+                    . 'alt="&nbsp;&nbsp;&nbsp;"';
             }
-            $line .= 'height="20" width="20" style="vertical-align:middle" />';
+            $line .= ' />';
         }
         $line .= $this->_setNodeToggle($node_id) . $this->_setNodeIcon($node_id);
         if ($this->getOption('multiline')) {
@@ -298,9 +321,9 @@ class Horde_Tree_Html extends Horde_Tree
                 $img = $this->_images['plus_only'];
                 $alt = '+';
             }
+
             if (!$this->_static) {
-                $url = Horde_Util::addParameter(Horde::selfUrl(), self::TOGGLE . $this->_instance, $node_id);
-                $link_start = Horde::link($url);
+                $link_start = $this->_generateUrlTag($node_id);
             }
         } elseif (($this->_nodes[$node_id]['indent'] != 0) &&
             !isset($this->_nodes[$node_id]['children'])) {
@@ -361,9 +384,9 @@ class Horde_Tree_Html extends Horde_Tree
                 }
                 $this->_dropline[$this->_nodes[$node_id]['indent']] = false;
             }
+
             if (!$this->_static) {
-                $url = Horde_Util::addParameter(Horde::selfUrl(), self::TOGGLE . $this->_instance, $node_id);
-                $link_start = Horde::link($url);
+                $link_start = $this->_generateUrlTag($node_id);
             }
         } else {
             /* Top level node with no children. */
@@ -382,12 +405,27 @@ class Horde_Tree_Html extends Horde_Tree
 
         $link_end = ($link_start) ? '</a>' : '';
 
-        $img = $link_start . '<img src="' . $this->_img_dir . '/' . $img . '"'
+        $img = $link_start . '<img class="treeToggle" src="' . $img . '"'
             . (isset($alt) ? ' alt="' . $alt . '"' : '')
-            . ' height="20" width="20" style="vertical-align:middle" border="0" />'
+            . ' />'
             . $link_end;
 
         return $img;
+    }
+
+    /**
+     * Generate a link URL.
+     *
+     * @param string $node_id  The node ID.
+     *
+     * @return string  The link tag.
+     */
+    protected function _generateUrlTag($node_id)
+    {
+        $url = new Horde_Url($_SERVER['PHP_SELF']);
+        $url->add(self::TOGGLE . $this->_instance, $node_id);
+
+        return '<a href="' . strval($url) . '">';
     }
 
     /**
@@ -399,11 +437,6 @@ class Horde_Tree_Html extends Horde_Tree
      */
     protected function _setNodeIcon($node_id)
     {
-        $img_dir = isset($this->_nodes[$node_id]['icondir']) ? $this->_nodes[$node_id]['icondir'] : $this->_img_dir;
-        if ($img_dir) {
-            $img_dir .= '/';
-        }
-
         if (isset($this->_nodes[$node_id]['icon'])) {
             if (empty($this->_nodes[$node_id]['icon'])) {
                 return '';
@@ -426,7 +459,7 @@ class Horde_Tree_Html extends Horde_Tree
             }
         }
 
-        $imgtxt = '<img src="' . $img_dir . $img . '"';
+        $imgtxt = '<img class="treeIcon" src="' . $img . '"';
 
         /* Does the node have user defined alt text? */
         if (isset($this->_nodes[$node_id]['iconalt'])) {

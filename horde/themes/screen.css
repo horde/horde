@@ -387,10 +387,16 @@ div.nicetitle {
 }
 
 /* Tree styles. */
+.treeIcon {
+    padding-right: 5px;
+}
 .treeRow {
     overflow: hidden;
     min-height: 20px;
     clear: both;
+}
+.treeToggle {
+    cursor: pointer;
 }
 
 /* Menu styles. */

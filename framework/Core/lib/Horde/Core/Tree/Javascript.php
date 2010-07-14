@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Tree_Javascript:: class extends the Horde_Tree class to provide
- * javascript specific rendering functions.
+ * The Horde_Core_Tree_Javascript:: class extends the Horde_Core_Tree_Html
+ * class to provide a javascript rendering of a tree.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -9,39 +9,47 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Marko Djukic <marko@oblo.com>
+ * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
- * @package  Horde_Tree
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Tree_Javascript extends Horde_Tree
+class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
 {
     /**
      * Constructor.
      *
-     * @param string $name   @see Horde_Tree::__construct().
-     * @param array $params  @see Horde_Tree::__construct().
+     * @param string $name   @see parent::__construct().
+     * @param array $params  @see parent::__construct().
      */
-    public function __construct($tree_name, $params = array())
+    public function __construct($name, array $params = array())
     {
-        parent::__construct($tree_name, $params);
-
-        /* Check for a javascript session state. */
-        if ($this->_usesession &&
-            isset($_COOKIE[$this->_instance . '_expanded'])) {
-            /* Remove "exp" prefix from cookie value. */
-            $nodes = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
-
-            /* Make sure there are no previous nodes stored in the
-             * session. */
-            $_SESSION['horde_tree'][$this->_instance]['expanded'] = array();
-
-            /* Save nodes to the session. */
-            foreach ($nodes as $id) {
-                $_SESSION['horde_tree'][$this->_instance]['expanded'][$id] = true;
-            }
-        }
+        parent::__construct($name, $params);
 
         Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('hordetree.js', 'horde');
+
+        /* Check for a javascript session state. */
+        if (isset($_COOKIE[$this->_instance . '_expanded'])) {
+            /* Remove "exp" prefix from cookie value. */
+            $nodes = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
+
+            /* Save nodes to the session. */
+            $_SESSION['horde_tree'][$this->_instance]['expanded'] = array_combine(
+                $nodes,
+                array_fill(0, count($nodes), true)
+            );
+        }
+    }
+
+    /**
+     * Provide a simpler renderer to fallback to.
+     *
+     * @return string  The next best renderer.
+     */
+    public function fallback()
+    {
+        return 'Horde_Core_Tree_Html';
     }
 
     /**
@@ -68,7 +76,6 @@ class Horde_Tree_Javascript extends Horde_Tree
 
             'scrollbar_in_way' => $GLOBALS['browser']->hasQuirk('scrollbar_in_way'),
 
-            'imgDir' => $this->_img_dir,
             'imgBlank' => $this->_images['blank'],
             'imgFolder' => $this->_images['folder'],
             'imgFolderOpen' => $this->_images['folderopen'],
@@ -84,7 +91,7 @@ class Horde_Tree_Javascript extends Horde_Tree
             'imgNullOnly' => $this->_images['null_only'],
             'imgLeaf' => $this->_images['leaf'],
 
-            'floatDir' => empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'float:left;' : 'float:right'
+            'floatDir' => (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'float:left;' : 'float:right')
         );
 
         Horde::addInlineScript(array(

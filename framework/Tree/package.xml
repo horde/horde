@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Tree</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Tree API</summary>
- <description>The Horde_Tree:: class provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state. It can work together with javascript code to achieve this in DHTML on supported browsers.
+ <description>The Horde_Tree:: package provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.
  </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -30,15 +30,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Remove dependency on horde/Core.
+ * Move javascript renderer to horde/Core.
+ * Add Horde_Tree_Exception::.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
+      <file name="Exception.php" role="php" />
       <file name="Html.php" role="php" />
-      <file name="Javascript.php" role="php" />
       <file name="Select.php" role="php" />
      </dir> <!-- /lib/Horde/Tree -->
      <file name="Tree.php" role="php" />
@@ -55,7 +58,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -71,8 +74,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Tree/Exception.php" as="Horde/Tree/Exception.php" />
    <install name="lib/Horde/Tree/Html.php" as="Horde/Tree/Html.php" />
-   <install name="lib/Horde/Tree/Javascript.php" as="Horde/Tree/Javascript.php" />
    <install name="lib/Horde/Tree/Select.php" as="Horde/Tree/Select.php" />
    <install name="lib/Horde/Tree.php" as="Horde/Tree.php" />
   </filelist>

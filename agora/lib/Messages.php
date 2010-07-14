@@ -1395,7 +1395,7 @@ class Agora_Messages {
         /* Render threaded lists with Horde_Tree. */
         $current = key($threads);
         if (!$template_file && isset($threads[$current]['indent'])) {
-            $tree = Horde_Tree::factory('threads', 'html');
+            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('threads', 'Html');
             $tree->setOption(array('multiline' => $bodies,
                                    'lines' => !$bodies));
             $tree->setHeader(array(

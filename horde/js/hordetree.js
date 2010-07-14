@@ -174,13 +174,13 @@ var Horde_Tree = Class.create({
         }
 
         for (i = this.renderStatic ? 1 : 0; i < node.indent; ++i) {
-            o.push('<img src="' + this.opts.imgDir + '/');
+            o.push('<img src="');
             if (this.dropline[i] && this.opts.options.lines) {
                 o.push(this.opts.imgLine + '" alt="|');
             } else {
                 o.push(this.opts.imgBlank + '" alt="');
             }
-            o.push('&nbsp;&nbsp;&nbsp;" height="20" width="20" />');
+            o.push('&nbsp;&nbsp;&nbsp;" />');
         }
 
         o.push(this._setNodeToggle(nodeId));
@@ -284,14 +284,14 @@ var Horde_Tree = Class.create({
             if (this.renderStatic) {
                 return '';
             }
-            attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
+            attrib = ' onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
         } else if (node.indent != '0' && Object.isUndefined(node.children)) {
             // Node no children.
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
         } else if (!Object.isUndefined(node.children)) {
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
             if (!this.renderStatic) {
-                attrib = ' style="cursor:pointer" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
+                attrib = ' onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
             }
         } else {
             // Top level node with no children.
@@ -301,11 +301,11 @@ var Horde_Tree = Class.create({
             this.dropline[0] = false;
         }
 
-        img.push('<img id="nodeToggle_' + nodeId + '" src="' + this.opts.imgDir + '/' + nodeToggle[0] + '" ');
+        img.push('<img class="treeToggle" id="nodeToggle_' + nodeId + '" src="' + nodeToggle[0] + '" ');
         if (nodeToggle[1]) {
             img.push('alt="' + nodeToggle[1] + '" ');
         }
-        img.push(attrib + ' height="20" width="20" />');
+        img.push(attrib + ' />');
 
         return img.join('');
     },
@@ -405,15 +405,11 @@ var Horde_Tree = Class.create({
         var img = [],
             node = this.nodes[nodeId];
 
-        img.push('<img id="nodeIcon_' + nodeId + '" src="');
+        img.push('<img class="treeIcon" id="nodeIcon_' + nodeId + '" src="');
 
         // Image directory.
-        if (!Object.isUndefined(node.icondir)) {
-            if (node.icondir) {
-                img.push(node.icondir + '/');
-            }
-        } else if (this.opts.imgDir) {
-            img.push(this.opts.imgDir + '/');
+        if (!Object.isUndefined(node.icondir) && node.icondir) {
+            img.push(node.icondir + '/');
         }
 
         // Image.
@@ -441,14 +437,14 @@ var Horde_Tree = Class.create({
             img.push(' alt="' + node.iconalt + '"');
         }
 
-        img.push(' /> ');
+        img.push(' />');
 
         return img.join('');
     },
 
     toggle: function(nodeId)
     {
-        var icon, nodeToggle, toggle, children
+        var icon, nodeToggle, toggle, children,
             node = this.nodes[nodeId],
             src = [];
 
@@ -457,17 +453,12 @@ var Horde_Tree = Class.create({
             children.setStyle({ display: node.expanded ? 'block' : 'none' });
         }
 
-        // Toggle the node's icon if it has seperate open and closed
+        // Toggle the node's icon if it has separate open and closed
         // icons.
-        if (!Object.isUndefined(node.iconopen) &&
-            (icon = $('nodeIcon_' + nodeId))) {
+        if (icon = $('nodeIcon_' + nodeId)) {
             // Image directory.
-            if (!Object.isUndefined(node.icondir)) {
-                if (node.icondir) {
-                    src.push(node.icondir + '/');
-                }
-            } else if (this.opts.imgDir) {
-                src.push(this.opts.imgDir + '/');
+            if (!Object.isUndefined(node.icondir) && node.icondir) {
+                src.push(node.icondir + '/');
             }
 
             // Image.
@@ -488,7 +479,7 @@ var Horde_Tree = Class.create({
 
         nodeToggle = this._getNodeToggle(nodeId);
         if (toggle = $('nodeToggle_' + nodeId)) {
-            toggle.src = this.opts.imgDir + '/' + nodeToggle[0];
+            toggle.src = nodeToggle[0];
             toggle.alt = nodeToggle[1];
         }
 

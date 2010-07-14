@@ -88,7 +88,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
         Horde::fatal($deliverables, __FILE__, __LINE__);
     }
 
-    $tree = Horde_Tree::factory('deliverables', 'javascript');
+    $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('deliverables', 'Javascript');
     $tree->setOption(array('class'       => 'item',
                            'alternate'   => true));
 

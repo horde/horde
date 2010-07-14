@@ -91,7 +91,7 @@ class Trean
             $folders = array();
         }
 
-        $tree = Horde_Tree::factory('folder_select', 'select');
+        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('folder_select', 'Select');
 
         foreach ($folders as $folder_name => $folder) {
             /* Selected or not? */

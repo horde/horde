@@ -30,7 +30,7 @@ function Submit(action)
 <?php
 
 $params = array('icondir' => Horde_Themes::img(), 'icon' => '');
-$tree = Horde_Tree::factory('account_tree', 'Javascript');
+$tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('account_tree', 'Javascript');
 
 foreach ($accounts as $accountId => $account) {
     $params['icon'] = $account['icon'];

@@ -108,6 +108,7 @@ Application Framework.</description>
        <file name="Share.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="Token.php" role="php" />
+       <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Binder -->
@@ -126,6 +127,7 @@ Application Framework.</description>
        <file name="Ldap.php" role="php" />
        <file name="LoginTasks.php" role="php" />
        <file name="Share.php" role="php" />
+       <file name="Tree.php" role="php" />
        <file name="Vfs.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Log">
@@ -154,6 +156,10 @@ Application Framework.</description>
         <file name="Emoticons.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Text/Filter -->
       </dir> <!-- /lib/Horde/Core/Text -->
+      <dir name="Tree">
+       <file name="Html.php" role="php" />
+       <file name="Javascript.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Tree -->
       <file name="Autoloader.php" role="php" />
      </dir> <!-- /lib/Horde/Core -->
      <dir name="Exception">
@@ -290,6 +296,10 @@ Application Framework.</description>
     <name>Text_Filter</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Tree</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -342,6 +352,7 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/SessionHandler.php" name="lib/Horde/Core/Binder/SessionHandler.php" />
    <install as="Horde/Core/Binder/Share.php" name="lib/Horde/Core/Binder/Share.php" />
    <install as="Horde/Core/Binder/Template.php" name="lib/Horde/Core/Binder/Template.php" />
+   <install as="Horde/Core/Binder/Tree.php" name="lib/Horde/Core/Binder/Tree.php" />
    <install as="Horde/Core/Binder/Token.php" name="lib/Horde/Core/Binder/Token.php" />
    <install as="Horde/Core/Binder/Twitter.php" name="lib/Horde/Core/Binder/Twitter.php" />
    <install as="Horde/Core/Binder/Vfs.php" name="lib/Horde/Core/Binder/Vfs.php" />
@@ -359,6 +370,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
+   <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
@@ -368,6 +380,8 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs/Ui.php" name="lib/Horde/Core/Prefs/Ui.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
+   <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
+   <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
    <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />

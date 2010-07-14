@@ -10,28 +10,24 @@
  *
  * @author   Ben Chavet <ben@horde.org>
  * @category Horde
- * @package  Horde_Tree
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Tree
  */
 class Horde_Tree_Select extends Horde_Tree
 {
     /**
-     * TODO
+     * Node list.
      *
      * @var array
      */
     protected $_nodes = array();
 
     /**
-     * Constructor.
+     * Should the tree be rendered statically?
      *
-     * @param string $name   @see Horde_Tree::__construct().
-     * @param array $params  @see Horde_Tree::__construct().
+     * @var boolean
      */
-    public function __construct($tree_name, $params = array())
-    {
-        parent::__construct($tree_name, $params);
-        $this->_static = true;
-    }
+    protected $_static = true;
 
     /**
      * Returns the tree.
@@ -84,16 +80,18 @@ class Horde_Tree_Select extends Horde_Tree
      */
     protected function _buildTree($node_id)
     {
-        $selected = $this->_nodes[$node_id]['selected'] ? ' selected="selected"' : '';
+        $selected = $this->_nodes[$node_id]['selected']
+            ? ' selected="selected"'
+            : '';
 
         $output = '<option value="' . htmlspecialchars($node_id) . '"' . $selected . '>' .
-            str_repeat('&nbsp;&nbsp;', (int)$this->_nodes[$node_id]['indent']) . htmlspecialchars($this->_nodes[$node_id]['label']) .
+            str_repeat('&nbsp;&nbsp;', intval($this->_nodes[$node_id]['indent'])) . htmlspecialchars($this->_nodes[$node_id]['label']) .
             '</option>';
 
         if (isset($this->_nodes[$node_id]['children']) &&
             $this->_nodes[$node_id]['expanded']) {
             $num_subnodes = count($this->_nodes[$node_id]['children']);
-            for ($c = 0; $c < $num_subnodes; $c++) {
+            for ($c = 0; $c < $num_subnodes; ++$c) {
                 $child_node_id = $this->_nodes[$node_id]['children'][$c];
                 $output .= $this->_buildTree($child_node_id);
             }

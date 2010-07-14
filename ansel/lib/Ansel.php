@@ -86,9 +86,10 @@ class Ansel
             ->getScope()
             ->listGalleries($params);
 
-        $tree = Horde_Tree::factory('gallery_tree', 'Select');
+        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('gallery_tree', 'Select');
 
-        /* Remove the ignored gallery, make sure it's also not the selected gallery */
+        /* Remove the ignored gallery, make sure it's also not the selected
+         * gallery */
         if ($params->ignore) {
            if ($params->selected == $params->ignore) {
                $params->selected = null;

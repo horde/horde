@@ -60,7 +60,8 @@ $base_node_params = $icondir + array('icon' => 'administration.png');
 $device_node = $icondir + array('icon' => 'mobile.png');
 $user_node = $icondir + array('icon' => 'user.png');
 $users = array();
-$tree = Horde_Tree::factory('admin_devices', 'Javascript');
+
+$tree = $injector->getInstance('Horde_Tree')->getTree('admin_devices', 'Javascript');
 $tree->setOption(array('alternate' => true));
 $tree->setHeader(array(
                    array('width' => '30%'),
