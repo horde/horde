@@ -73,7 +73,7 @@ class IMP_Ui_Mailbox
             $this->_cache['drafts_sm_folder'] = IMP::isSpecialFolder($this->_mailbox);
         }
 
-        $from = Horde_Mime_Address::getAddressesFromObject($ob['from']);
+        $from = Horde_Mime_Address::getAddressesFromObject($ob['from'], array('charset' => $GLOBALS['registry']->getCharset()));
         $from = reset($from);
 
         if (empty($from)) {
@@ -87,7 +87,7 @@ class IMP_Ui_Mailbox
                     $ret['from'] = _("Undisclosed Recipients");
                     $ret['error'] = true;
                 } else {
-                    $to = Horde_Mime_Address::getAddressesFromObject($ob['to']);
+                    $to = Horde_Mime_Address::getAddressesFromObject($ob['to'], array('charset' => $GLOBALS['registry']->getCharset()));
                     $first_to = reset($to);
                     if (empty($first_to)) {
                         $ret['from'] = _("Undisclosed Recipients");

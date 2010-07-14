@@ -30,7 +30,7 @@ class IMP_Views_ShowMessage
 
         $addr_array = array();
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
+        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => $GLOBALS['registry']->getCharset())) as $ob) {
             if (!empty($ob['inner'])) {
                 try {
                     $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));

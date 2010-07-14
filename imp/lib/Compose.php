@@ -367,10 +367,11 @@ class IMP_Compose
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
+        $charset = $GLOBALS['registry']->getCharset();
         $header = array(
-            'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to')),
-            'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc')),
-            'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
+            'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to'), array('charset' => $charset)),
+            'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc'), array('charset' => $charset)),
+            'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc'), array('charset' => $charset)),
             'subject' => $headers->getValue('subject')
         );
 
@@ -1271,6 +1272,7 @@ class IMP_Compose
             'subject' => ''
         );
 
+        $charset = $GLOBALS['registry']->getCharset();
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
         $reply_type = 'reply';
@@ -1301,10 +1303,10 @@ class IMP_Compose
         $force = false;
         if (in_array($type, array('reply', 'reply_auto', '*'))) {
             if (($header['to'] = $to) ||
-                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
+                ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'), array('charset' => $charset)))) {
                 $force = true;
             } else {
-                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+                $header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
             }
 
             if ($type == '*') {
@@ -1355,7 +1357,7 @@ class IMP_Compose
 
                 $ob = $h->getOb($val);
                 if (!empty($ob)) {
-                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('filter' => $all_addrs));
+                    $addr_obs = Horde_Mime_Address::getAddressesFromObject($ob, array('charset' => $charset, 'filter' => $all_addrs));
                     if (!empty($addr_obs)) {
                         if (isset($addr_obs[0]['groupname'])) {
                             $cc_addrs = array_merge($cc_addrs, $addr_obs);
@@ -1375,7 +1377,7 @@ class IMP_Compose
                                 if (!$addr_obs[0]['personal'] &&
                                     ($to_ob = $h->getOb('from')) &&
                                     $to_ob[0]['personal'] &&
-                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob)) &&
+                                    ($to_addr = Horde_Mime_Address::addrArray2String($to_ob, array('charset' => $charset))) &&
                                     Horde_Mime_Address::bareAddress($to_addr) == $addr_obs[0]['address']) {
                                     $header['to'] = $to_addr;
                                 } else {
@@ -1412,7 +1414,7 @@ class IMP_Compose
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
-            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
+            $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('charset' => $charset, 'filter' => $all_addrs));
             if ($type == '*') {
                 $all_headers['reply_all'] = $header;
             }
@@ -1438,7 +1440,7 @@ class IMP_Compose
             );
         }
 
-        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+        $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset));
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $msg_pre = '----- ' .
@@ -1550,7 +1552,7 @@ class IMP_Compose
         }
 
         if (in_array($type, array('forward_body', 'forward_both'))) {
-            $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
+            $from = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $GLOBALS['registry']->getCharset()));
 
             $msg_pre = "\n----- " .
                 ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
@@ -1725,17 +1727,18 @@ class IMP_Compose
      */
     protected function _getMsgHeaders($h)
     {
+        $charset = $GLOBALS['registry']->getCharset();
         $tmp = array();
 
         if (($ob = $h->getValue('date'))) {
             $tmp[_("Date")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from')))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from'), array('charset' => $charset)))) {
             $tmp[_("From")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'), array('charset' => $charset)))) {
             $tmp[_("Reply-To")] = $ob;
         }
 
@@ -1743,11 +1746,11 @@ class IMP_Compose
             $tmp[_("Subject")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to')))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to'), array('charset' => $charset)))) {
             $tmp[_("To")] = $ob;
         }
 
-        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc')))) {
+        if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc'), array('charset' => $charset)))) {
             $tmp[_("Cc")] = $ob;
         }
 

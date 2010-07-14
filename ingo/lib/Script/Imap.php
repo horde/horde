@@ -161,7 +161,7 @@ class Ingo_Script_Imap extends Ingo_Script
                  * address match. */
                 $msgs = $this->_api->fetchEnvelope($indices);
                 foreach ($msgs as $k => $v) {
-                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v['envelope']['from']));
+                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v['envelope']['from'], array('charset' => $this->_params['charset'])));
                     $found = false;
                     foreach ($addr as $val) {
                         if (strtolower($from_addr) == strtolower($val)) {
@@ -273,7 +273,7 @@ class Ingo_Script_Imap extends Ingo_Script
                                 $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
                                             !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], $this->_params['charset']) : _("[No Subject]"),
-                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode(Horde_Mime_Address::addrArray2String($msg['envelope']['from']), $this->_params['charset']) : _("[No Sender]"),
+                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode(Horde_Mime_Address::addrArray2String($msg['envelope']['from'], $this->_params['charset']), $this->_params['charset']) : _("[No Sender]"),
                                             Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', $this->_params['charset'])),
                                     'horde.message');
                             }

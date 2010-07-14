@@ -163,6 +163,8 @@ class Horde_Mime_Address
      * @param array $ob    The address object to be turned into a string.
      * @param array $opts  Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings. If the address
      *            matches $filter, an empty string will be returned.
@@ -177,9 +179,13 @@ class Horde_Mime_Address
      */
     static public function addrObject2String($ob, $opts = array())
     {
+        $opts = array_merge(array(
+            'charset' => null
+        ), $opts);
+
         /* If the personal name is set, decode it. */
         $ob['personal'] = isset($ob['personal'])
-            ? Horde_Mime::decode($ob['personal'])
+            ? Horde_Mime::decode($ob['personal'], $opts['charset'])
             : '';
 
         /* If both the mailbox and the host are empty, return an empty string.
@@ -222,6 +228,8 @@ class Horde_Mime_Address
      * @param array $addresses  The array of address objects.
      * @param array $opts       Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings.
      *            DEFAULT: No filter
@@ -258,6 +266,8 @@ class Horde_Mime_Address
      * @param array $obs   An array of header objects.
      * @param array $opts  Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings.
      *            DEFAULT: No filter
@@ -279,6 +289,10 @@ class Horde_Mime_Address
      */
     static public function getAddressesFromObject($obs, $opts = array())
     {
+        $opts = array_merge(array(
+            'charset' => null
+        ), $opts);
+
         $ret = array();
 
         if (!is_array($obs) || empty($obs)) {
@@ -288,7 +302,7 @@ class Horde_Mime_Address
         foreach ($obs as $ob) {
             if (isset($ob['groupname'])) {
                 $ret[] = array(
-                    'addresses' => self::getAddressesFromObject($ob['addresses']),
+                    'addresses' => self::getAddressesFromObject($ob['addresses'], $opts),
                     'groupname' => $ob['groupname']
                 );
                 continue;
@@ -302,7 +316,7 @@ class Horde_Mime_Address
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
-                $ob['personal'] = trim(stripslashes(Horde_Mime::decode($ob['personal'])), '"');
+                $ob['personal'] = trim(stripslashes(Horde_Mime::decode($ob['personal'], $opts['charset'])), '"');
             }
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);

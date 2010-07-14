@@ -720,7 +720,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'atc' => isset($ob['structure']) ? $ob['structure'] : null,
         'div' => true,
         'flags' => $ob['flags'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $registry->getCharset())),
         'priority' => $ob['headers']
     ));
 

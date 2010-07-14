@@ -325,7 +325,7 @@ class IMP_Ui_Message
             } catch (Horde_Exception $e) {}
         }
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
+        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => $registry->getCharset())) as $ob) {
             if (isset($ob['groupname'])) {
                 $group_array = array();
                 foreach ($ob['addresses'] as $ad) {

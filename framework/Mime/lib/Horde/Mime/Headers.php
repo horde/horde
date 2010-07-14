@@ -296,7 +296,7 @@ class Horde_Mime_Headers
                     $value = '';
                 }
             } else {
-                $value = Horde_Mime::decode($value);
+                $value = Horde_Mime::decode($value, null);
             }
         }
 

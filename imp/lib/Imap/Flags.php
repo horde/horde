@@ -270,7 +270,7 @@ class IMP_Imap_Flags
      * 'personal' - (mixed) Personal message info. Either an array of to
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject(), or the
-     *              identity that matched the address list..
+     *              identity that matched the address list.
      * 'priority' - (Horde_Mime_Headers) Determines priority information from
      *              a headers object.
      * </pre>

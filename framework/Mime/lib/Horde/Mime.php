@@ -558,7 +558,7 @@ class Horde_Mime
          * it was doing. */
         if (empty($convert)) {
             foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
-                $ret['params'][$name] = self::decode($ret['params'][$name]);
+                $ret['params'][$name] = self::decode($ret['params'][$name], $charset);
             }
         }
 

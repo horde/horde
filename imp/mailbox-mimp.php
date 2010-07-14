@@ -180,7 +180,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Get flag information. */
     $flag_parse = $injector->getInstance('IMP_Imap_Flags')->parse(array(
         'flags' => $ob['flags'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $registry->getCharset())),
         'priority' => $ob['headers']
     ));
 

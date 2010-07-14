@@ -392,7 +392,7 @@ class IMP_Views_ListMessages
             $flag_parse = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->parse(array(
                 'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],
-                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset)),
                 'priority' => $ob['headers']
             ));
 
