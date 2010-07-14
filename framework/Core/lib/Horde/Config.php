@@ -88,13 +88,53 @@ class Horde_Config
     protected $_configEnd = "/* CONFIG END. DO NOT CHANGE ANYTHING IN OR BEFORE THIS LINE. */\n";
 
     /**
+     * Horde URL to check version information.
+     *
+     * @var string
+     */
+    protected $_versionUrl = 'http://www.horde.org/versions.php';
+
+    /**
      * Constructor.
      *
      * @param string $app  The name of the application to be configured.
      */
-    public function __construct($app)
+    public function __construct($app = 'horde')
     {
         $this->_app = $app;
+    }
+
+    /**
+     * Contact Horde servers and get version information.
+     *
+     * @return array  Keys are app names, values are arrays with two keys:
+     *                'version' and 'url'.
+     * @throws Horde_Exception
+     * @throws Horde_Http_Client_Exception
+     */
+    public function checkVersions()
+    {
+        if (!Horde_Util::extensionExists('SimpleXML')) {
+            throw new Horde_Exception('SimpleXML not available.');
+        }
+
+        $http = $GLOBALS['injector']->getInstance('Horde_Http_Client')->getClient();
+        $response = $http->get($this->_versionUrl);
+        if ($response->code != 200) {
+            throw new Horde_Exception('Unexpected response from server.');
+        }
+
+        $xml = new SimpleXMLElement($response->getBody());
+        $versions = array();
+
+        foreach ($xml->stable->application as $app) {
+            $versions[strval($app['name'])] = array(
+                'version' => $app->version,
+                'url' => $app->url
+            );
+        }
+
+        return $versions;
     }
 
     /**
@@ -133,7 +173,7 @@ class Horde_Config
         $node = $dom->firstChild;
         while (!empty($node)) {
             if (($node->nodeType == XML_COMMENT_NODE) &&
-                ($vers_tag = self::getVersion($node->nodeValue))) {
+                ($vers_tag = $this->getVersion($node->nodeValue))) {
                 $this->_versionTag = $vers_tag . "\n";
                 break;
             }
@@ -157,7 +197,7 @@ class Horde_Config
      *
      * @return string  The version string or false if not found.
      */
-    static public function getVersion($text)
+    public function getVersion($text)
     {
         // Old CVS tag
         if (preg_match('/\$.*?conf\.xml,v .*? .*\$/', $text, $match) ||

@@ -55,34 +55,15 @@ function _uploadFTP($params)
     return $no_errors;
 }
 
+$hconfig = new Horde_Config();
+
 /* Check for versions if requested. */
 $versions = array();
 if (Horde_Util::getFormData('check_versions')) {
-    $http = new HTTP_Request('http://www.horde.org/versions.php');
-    $result = $http->sendRequest();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } elseif ($http->getResponseCode() != 200) {
-        $notification->push(_("Unexpected response from server, try again later."), 'horde.error');
-    } else {
-        $dom = DOMDocument::loadXML($http->getResponseBody());
-        $stable = $dom->getElementsByTagName('stable');
-        if (!$stable->length || !$stable->item(0)->hasChildNodes()) {
-            $notification->push(_("Invalid response from server."), 'horde.error');
-        } else {
-            for ($app = $stable->item(0)->firstChild;
-                 !empty($app);
-                 $app = $app->nextSibling) {
-                if (!($app instanceof DOMElement)) {
-                    continue;
-                }
-                $version = $app->getElementsByTagName('version');
-                $url = $app->getElementsByTagName('url');
-                $versions[$app->getAttribute('name')] = array(
-                    'version' => $version->item(0)->textContent,
-                    'url' => $url->item(0)->textContent);
-            }
-        }
+    try {
+        $versions = $hconfig->checkVersions();
+    } catch (Horde_Exception $e) {
+        $notification->push(_("Could not contact server. Try again later."), 'horde.error');
     }
 }
 
@@ -154,13 +135,13 @@ foreach ($a as $app) {
         $apps[$i]['status'] = _("Missing configuration. You must generate it before using this application.");
     } else {
         /* A conf.php exists, get the xml version. */
-        if (($xml_ver = Horde_Config::getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
+        if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
             $apps[$i]['conf'] = $conf_link . $warning . '</a>';
             $apps[$i]['status'] = _("No version found in original configuration. Regenerate configuration.");
             continue;
         }
         /* Get the generated php version. */
-        if (($php_ver = Horde_Config::getVersion(@file_get_contents($path . '/conf.php'))) === false) {
+        if (($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) === false) {
             /* No version found in generated php, suggest regenarating
              * just in case. */
             $apps[$i]['conf'] = $conf_link . $warning . '</a>';
