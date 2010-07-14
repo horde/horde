@@ -88,7 +88,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encrypt($text, $params = array())
     {
@@ -113,7 +113,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The decrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decrypt($text, $params = array())
     {
@@ -141,7 +141,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                   'cert' -> The certificate of the signer stored
      *                             in the message (in PEM format).
      *                   'email' -> The email of the signing person.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function verify($text, $certs)
     {
@@ -183,11 +183,11 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
 
         if ($result === true) {
-            throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."));
+            throw new Horde_Crypt_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."));
         } elseif ($result == -1) {
-            throw new Horde_Exception(_("Verification failed - an unknown error has occurred."));
+            throw new Horde_Crypt_Exception(_("Verification failed - an unknown error has occurred."));
         } else {
-            throw new Horde_Exception(_("Verification failed - this message may have been tampered with."));
+            throw new Horde_Crypt_Exception(_("Verification failed - this message may have been tampered with."));
         }
 
         $ob->cert = file_get_contents($output);
@@ -203,7 +203,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param string $sslpath  The path to the OpenSSL binary.
      *
      * @return string  The contents embedded in the signed data.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function extractSignedContents($data, $sslpath)
     {
@@ -225,7 +225,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return $ret;
         }
 
-        throw new Horde_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."));
+        throw new Horde_Crypt_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."));
     }
 
     /**
@@ -235,7 +235,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param array $params               The parameters required for signing.
      *
      * @return mixed  A Horde_Mime_Part object that is signed.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signMIMEPart($mime_part, $params)
     {
@@ -268,7 +268,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                                    encryption.
      *
      * @return mixed  A Horde_Mime_Part object that is encrypted.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encryptMIMEPart($mime_part, $params = array())
     {
@@ -299,13 +299,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptMessage($text, $params)
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Exception(_("A public S/MIME key is required to encrypt a message."));
+            throw new Horde_Crypt_Exception(_("A public S/MIME key is required to encrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -324,7 +324,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
         }
 
-        throw new Horde_Exception(_("Could not S/MIME encrypt message."));
+        throw new Horde_Crypt_Exception(_("Could not S/MIME encrypt message."));
     }
 
     /**
@@ -346,7 +346,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The signed message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptSignature($text, $params)
     {
@@ -354,7 +354,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
+            throw new Horde_Crypt_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input/output/certificates. */
@@ -385,7 +385,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         if (!$res) {
-            throw new Horde_Exception(_("Could not S/MIME sign message."));
+            throw new Horde_Crypt_Exception(_("Could not S/MIME sign message."));
         }
 
         $data = file_get_contents($output);
@@ -408,7 +408,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The decrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptMessage($text, $params)
     {
@@ -416,7 +416,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
+            throw new Horde_Crypt_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -434,7 +434,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return file_get_contents($output);
         }
 
-        throw new Horde_Exception(_("Could not decrypt S/MIME data."));
+        throw new Horde_Crypt_Exception(_("Could not decrypt S/MIME data."));
     }
 
     /**
@@ -448,7 +448,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                                     @see _encryptMessage().
      *
      * @return mixed  A Horde_Mime_Part object that is signed and encrypted.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signAndEncryptMIMEPart($mime_part, $sign_params = array(),
                                            $encrypt_params = array())
@@ -1125,22 +1125,22 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param array $params  The parameters needed for verification.
      *
      * @return string  The verification message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptSignature($text, $params)
     {
-        throw new Horde_Exception('_decryptSignature() ' . _("not yet implemented"));
+        throw new Horde_Crypt_Exception('_decryptSignature() ' . _("not yet implemented"));
     }
 
     /**
      * Check for the presence of the OpenSSL extension to PHP.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function checkForOpenSSL()
     {
         if (!Horde_Util::extensionExists('openssl')) {
-            throw new Horde_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
+            throw new Horde_Crypt_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
         }
     }
 
@@ -1203,7 +1203,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                   'private' -  The private key in PEM format.
      *                   'public'  -  The public key in PEM format.
      *                   'certs'   -  An array of additional certs.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function parsePKCS12Data($pkcs12, $params)
     {
@@ -1211,7 +1211,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $this->checkForOpenSSL();
 
         if (!isset($params['sslpath'])) {
-            throw new Horde_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
+            throw new Horde_Crypt_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
         }
         $sslpath = escapeshellcmd($params['sslpath']);
 
@@ -1245,12 +1245,12 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
         }
 
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
-            throw new Horde_Exception(_("Password incorrect"));
+            throw new Horde_Crypt_Exception(_("Password incorrect"));
         }
 
         /* Extract the client public key next. */
@@ -1263,7 +1263,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
         }
 
         $ob->public = trim(file_get_contents($output));
@@ -1278,7 +1278,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(_("Error while talking to smime binary."));
         }
 
         $ob->certs = trim(file_get_contents($output));

@@ -36,7 +36,7 @@ class Horde_Crypt
      *                        or parameters a subclass might need.
      *
      * @return Horde_Crypt  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -57,7 +57,7 @@ class Horde_Crypt
             return new $class($params);
         }
 
-        throw new Horde_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
+        throw new Horde_Crypt_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
@@ -113,7 +113,7 @@ class Horde_Crypt
      * @param array $params  An array of arguments needed to decrypt the data.
      *
      * @return array  The decrypted data.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decrypt($data, $params = array())
     {

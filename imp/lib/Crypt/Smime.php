@@ -94,20 +94,20 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *
      * @param string $cert  A public certificate to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function addPublicKey($cert)
     {
         /* Make sure the certificate is valid. */
         $key_info = openssl_x509_parse($cert);
         if (!is_array($key_info) || !isset($key_info['subject'])) {
-            throw new Horde_Exception(_("Not a valid public key."));
+            throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
 
         /* Add key to the user's address book. */
         $email = $this->getEmailFromKey($cert);
         if (is_null($email)) {
-            throw new Horde_Exception(_("No email information located in the public key."));
+            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
         }
 
         /* Get the name corresponding to this key. */
@@ -116,7 +116,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } elseif (isset($key_info['subject']['OU'])) {
             $name = $key_info['subject']['OU'];
         } else {
-            throw new Horde_Exception(_("Not a valid public key."));
+            throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
 
         $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
@@ -129,7 +129,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param string $address  The e-mail address of the recipient.
      *
      * @return array  The list of parameters needed by encrypt().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptParameters($address)
     {
@@ -161,8 +161,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             if ($key) {
                 return $key;
             }
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         $params = IMP::getAddressbookSearchParams();
 
@@ -189,7 +188,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * Retrieves all public keys from a user's address book(s).
      *
      * @return array  All S/MIME public keys available.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function listPublicKeys()
     {
@@ -205,7 +204,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *
      * @param string $email  The e-mail address to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function deletePublicKey($email)
     {
@@ -236,7 +235,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param string $text  The text to verify.
      *
      * @return stdClass  See Horde_Crypt_Smime::verify().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function verifySignature($text)
     {
@@ -250,7 +249,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param string $text  The text to decrypt.
      *
      * @return string  See Horde_Crypt_Smime::decrypt().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decryptMessage($text)
     {
@@ -345,7 +344,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *                              encryption.
      *
      * @return MIME_Part  See Horde_Crypt_Smime::encryptMIMEPart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function IMPencryptMIMEPart($mime_part, $to_address)
     {
@@ -358,7 +357,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param MIME_Part $mime_part  The MIME_Part object to sign.
      *
      * @return MIME_Part  See Horde_Crypt_Smime::signMIMEPart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function IMPsignMIMEPart($mime_part)
     {
@@ -373,7 +372,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *                              encryption.
      *
      * @return MIME_Part  See Horde_Crypt_Smime::signAndencryptMIMEPart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function IMPsignAndEncryptMIMEPart($mime_part, $to_address)
     {
@@ -388,7 +387,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param string $password  The password of the PKCS 12 file.
      * @param string $pkpass    The password to use to encrypt the private key.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function addFromPKCS12($pkcs12, $password, $pkpass = null)
     {
@@ -413,7 +412,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @param string $data  The signed S/MIME data.
      *
      * @return string  The contents embedded in the signed data.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function extractSignedContents($data)
     {

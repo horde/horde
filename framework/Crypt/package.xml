@@ -24,13 +24,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Better error handling for gnupg and openssl command line binaries.
-* Initial Horde 4 package.</notes>
+ <notes>* Add Horde_Crypt_Exception::.
+ * Better error handling for gnupg and openssl command line binaries.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Crypt">
+      <file name="Exception.php" role="php" />
       <file name="Pgp.php" role="php" />
       <file name="Smime.php" role="php" />
      </dir> <!-- /lib/Horde/Crypt -->
@@ -84,6 +86,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -100,6 +106,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Crypt/Exception.php" as="Horde/Crypt/Exception.php" />
    <install name="lib/Horde/Crypt/Pgp.php" as="Horde/Crypt/Pgp.php" />
    <install name="lib/Horde/Crypt/Smime.php" as="Horde/Crypt/Smime.php" />
    <install name="lib/Horde/Crypt.php" as="Horde/Crypt.php" />
