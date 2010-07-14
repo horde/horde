@@ -22,6 +22,14 @@ class Horde_Core_Factory_HttpClient
         $this->_injector = $injector;
     }
 
+    /**
+     * Get client object.
+     *
+     * @param array $opts  Configuration options.
+     *
+     * @return Horde_Http_Client  Client object.
+     * @throws Horde_Http_Client_Exception
+     */
     public function getClient(array $opts = array())
     {
         global $conf;
@@ -40,4 +48,5 @@ class Horde_Core_Factory_HttpClient
 
         return new Horde_Http_Client(array_merge($client_opts, $opts));
     }
+
 }
