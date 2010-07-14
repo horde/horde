@@ -477,8 +477,14 @@ class News_Categories {
                         'icon' => 'folder_open.png');
 
         // Set up the tree
-        $tree = Horde_Tree::singleton('news_cats', 'Javascript');
-        $tree->setOption(array('width' => '100%', 'border' => '0', 'class' => 'item', 'cellpadding' => '0', 'cellspacing' => '0', 'alternate' => true));
+        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('news_cats', 'Javascript', array(
+            'alternate' => true,
+            'border' => '0',
+            'cellpadding' => '0',
+            'cellspacing' => '0',
+            'class' => 'item',
+            'width' => '100%'
+        ));
 
         // prepare add link
         if ($have_add_item) {

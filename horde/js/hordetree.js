@@ -7,8 +7,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author   Marko Djukic <marko@oblo.com>
+ * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
- * @package  Horde_Tree
  */
 
 var Horde_Tree = Class.create({

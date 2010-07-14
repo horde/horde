@@ -76,8 +76,10 @@ class Horde_Core_Perms_Ui
         $blank_img = Horde::img('blank.gif', '', array('width' => 16, 'height' => 16));
 
         /* Set up the tree. */
-        $tree = Horde_Tree::singleton('perms_ui', 'Javascript');
-        $tree->setOption(array('alternate' => true, 'hideHeaders' => true));
+        $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('perms_ui', 'Javascript', array(
+            'alternate' => true,
+            'hideHeaders' => true
+        ));
         $tree->setHeader(array(array('width' => '50%')));
 
         foreach ($nodes as $perm_id => $node) {
@@ -85,7 +87,7 @@ class Horde_Core_Perms_Ui
                 ? array('class' => 'selected')
                 : array();
             if ($perm_id == Horde_Perms::ROOT) {
-                $add_link = $add->add('perm_id', $perm_id)->link(array('title' => _("Add New Permission"))) . $add_img . '</a>'; 
+                $add_link = $add->add('perm_id', $perm_id)->link(array('title' => _("Add New Permission"))) . $add_img . '</a>';
                 $base_node_params = $icondir +
                     array('icon' => 'administration.png');
 
@@ -115,7 +117,7 @@ class Horde_Core_Perms_Ui
 
                 if (isset($app_perms['tree']) &&
                     is_array(Horde_Array::getElement($app_perms['tree'], $parents))) {
-                    $add_link = $add->add('perm_id', $perm_id)->link(array('title' => _("Add Child Permission"))) . $add_img . '</a>'; 
+                    $add_link = $add->add('perm_id', $perm_id)->link(array('title' => _("Add Child Permission"))) . $add_img . '</a>';
                     $perms_extra[] = $add_link;
                 } else {
                     $perms_extra[] = $blank_img;

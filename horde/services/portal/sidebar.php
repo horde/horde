@@ -209,7 +209,7 @@ function sidebar()
     global $registry, $conf, $language, $prefs;
 
     // Set up the tree.
-    $tree = Horde_Tree::singleton('horde_menu', 'Javascript');
+    $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('horde_menu', 'Javascript');
     $menu = buildMenu();
     foreach ($menu as $app => $params) {
         if ($params['status'] == 'block') {
