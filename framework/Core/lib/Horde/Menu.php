@@ -191,7 +191,7 @@ class Horde_Menu
                 $auth_target = '_parent';
             }
 
-            if ($GLOBALS['registry']->getAuth()) {
+            if ($registry->getAuth()) {
                 if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
                     ($logout_link = Horde::getServiceLink('logout', $app))) {
                     $this->add($logout_link, _("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
@@ -212,7 +212,7 @@ class Horde_Menu
 
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+        if (!empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
             $this->_menu = array_reverse($this->_menu);
         }
 

@@ -56,6 +56,8 @@ class IMP_Ui_Folder
      */
     protected function _getTreeImage($elt, $options = array())
     {
+        global $registry;
+
         $alt = $dir = null;
         $dir2 = $elt['user_icon']
             ? Horde::img($elt['icon'], $elt['alt'], null, $elt['icondir'])
@@ -70,7 +72,7 @@ class IMP_Ui_Folder
                     $alt = _("Collapse Folder");
                 }
 
-                if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
                     $tree_img = ($elt['value'] == 'INBOX')
                         ? 9
                         : ($elt['peek'] ? 10 : 11);
@@ -85,7 +87,7 @@ class IMP_Ui_Folder
                     $alt = _("Expand Folder");
                 }
 
-                if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
                     $tree_img = ($elt['value'] == 'INBOX')
                         ? 15
                         : ($elt['peek'] ? 16 : 17);
@@ -103,7 +105,7 @@ class IMP_Ui_Folder
             if (($elt['value'] == 'INBOX') && !$elt['peek']) {
                 $dir = '<span class="treeImg"></span>' . $dir2;
             } else {
-                if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
                     $tree_img = ($elt['value'] == 'INBOX')
                         ? 3
                         : ($elt['peek'] ? 2 : 4);
@@ -120,7 +122,7 @@ class IMP_Ui_Folder
         $this->_moreMbox[$elt['level']] = $elt['peek'];
         for ($i = 0; $i < $elt['level']; $i++) {
             if ($this->_moreMbox[$i]) {
-                $line .= '<span class="treeImg treeImg' . (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>';
+                $line .= '<span class="treeImg treeImg' . (empty($registry->nlsconfig['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>';
             } else {
                 $line .= '<span class="treeImg"></span>';
             }

@@ -47,7 +47,7 @@ class Horde_Core_Tree_Html extends Horde_Tree_Html
     {
         parent::__construct($name, $params);
 
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+        if (!empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']])) {
             $no_rev = array('blank', 'folder', 'folder_open');
             foreach (array_diff(array_keys($this->_images), $no_rev) as $key) {
                 $this->_images[$key] = 'rev-' . $this->_images[$key];

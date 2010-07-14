@@ -56,7 +56,7 @@ class IMP_Imap_Thread
     public function getThreadTreeOb($indices, $sortdir)
     {
         $container = $last_level = $last_thread = null;
-        $rtl = !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]);
+        $rtl = !empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]);
         $thread_level = $tree = array();
         $t = &$this->_thread;
 

@@ -138,9 +138,9 @@ if (count($list) > 0) {
             $counter = 0;
             foreach ($class['_students'] as $student) {
                 if (++$counter < count($class['_students'])) {
-                    $treeIcon = Horde::img(empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+', '', $treedir);
+                    $treeIcon = Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+', '', $treedir);
                 } else {
-                    $treeIcon = Horde::img(empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\', '', $treedir);
+                    $treeIcon = Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\', '', $treedir);
                 }
                 require SKOLI_TEMPLATES . '/list/students.inc';
             }
