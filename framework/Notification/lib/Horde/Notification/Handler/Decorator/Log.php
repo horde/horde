@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Notification
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Handler_Decorator_Log
 extends Horde_Notification_Handler_Decorator_Base

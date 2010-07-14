@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Notification
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
 {

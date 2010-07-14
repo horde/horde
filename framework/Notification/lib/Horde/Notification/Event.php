@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Hans Lellelid <hans@velum.net>
- * @package Horde_Notification
+ * @author   Hans Lellelid <hans@velum.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Event
 {

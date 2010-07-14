@@ -3,7 +3,7 @@
  * A class that stores notifications in an object.
  *
  * @category Horde
- * @package  Horde_Notification
+ * @package  Notification
  * @author   Jan Schneider <jan@horde.org>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Notification

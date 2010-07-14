@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Notification
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Event_Status extends Horde_Notification_Event
 {
