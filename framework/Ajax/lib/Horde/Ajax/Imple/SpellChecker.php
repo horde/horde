@@ -39,12 +39,12 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
         }
 
         if (empty($params['locales'])) {
-            $key_list = array_keys(Horde_Nls::$config['spelling']);
+            $key_list = array_keys($GLOBALS['registry']->nlsconfig['spelling']);
             asort($key_list, SORT_LOCALE_STRING);
             $params['locales'] = array();
 
             foreach ($key_list as $lcode) {
-                $params['locales'][] = array('l' => Horde_Nls::$config['languages'][$lcode], 'v' => $lcode);
+                $params['locales'][] = array('l' => $GLOBALS['registry']->nlsconfig['languages'][$lcode], 'v' => $lcode);
             }
         }
 
