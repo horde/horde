@@ -14,6 +14,13 @@
 class Horde_Notification_Event_Status extends Horde_Notification_Event
 {
     /**
+     * Charset of the message.
+     *
+     * @var string
+     */
+    public $charset = null;
+
+    /**
      * String representation of this object.
      *
      * @return string  String representation.
@@ -22,8 +29,8 @@ class Horde_Notification_Event_Status extends Horde_Notification_Event
     {
         $text = $this->message;
 
-        if (!in_array('content.raw', $this->flags) && class_exists('Horde_Nls')) {
-            $text = htmlspecialchars($text, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        if (!in_array('content.raw', $this->flags)) {
+            $text = htmlspecialchars($text, ENT_COMPAT, $charset);
         }
 
         return $text;

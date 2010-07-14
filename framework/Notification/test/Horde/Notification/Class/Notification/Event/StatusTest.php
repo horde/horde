@@ -32,11 +32,8 @@ class Horde_Notification_Class_Notification_Event_StatusTest extends PHPUnit_Fra
 {
     public function testMethodTostringHasResultTheTextOfTheEvent()
     {
-        if (!class_exists('Horde_Nls')) {
-            $this->markTestSkipped('The Horde_Nls class is not available!');
-        }
-        $GLOBALS['registry']->setCharset('ISO-8859-1');
         $event = new Horde_Notification_Event_Status('<b>test</b>');
+        $event->charset = 'ISO-8859-1';
         $this->assertEquals('&lt;b&gt;test&lt;/b&gt;', (string) $event);
     }
 

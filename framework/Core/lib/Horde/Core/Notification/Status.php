@@ -29,6 +29,8 @@ class Horde_Core_Notification_Status extends Horde_Notification_Event_Status
                 : (is_string($data) ? 'horde.message' : 'horde.error');
         }
 
+        $this->charset = $GLOBALS['registry']->getCharset();
+
         parent::__construct($data, $type, $flags);
     }
 
