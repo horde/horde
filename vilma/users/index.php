@@ -39,7 +39,7 @@ $page = Horde_Util::getGet('page', 0);
 $perpage = $prefs->getValue('addresses_perpage');
 $url = 'users/index.php';
 $url = Horde_Util::addParameter($url, 'section', $section);
-$pager = new Horde_Ui_Pager('page',
+$pager = new Horde_Core_Ui_Pager('page',
                             Horde_Variables::getDefaultVariables(),
                             array('num' => count($addresses),
                                   'url' => $url,

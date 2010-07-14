@@ -71,7 +71,7 @@ $view->notify = Horde::endBuffer();
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
-$pager_ob = new Horde_Ui_Pager('moderate_page', $vars, array('num' => $messages_count, 'url' => Horde::selfUrl(true), 'perpage' => $messages_per_page));
+$pager_ob = new Horde_Core_Ui_Pager('moderate_page', $vars, array('num' => $messages_count, 'url' => Horde::selfUrl(true), 'perpage' => $messages_per_page));
 $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager = $pager_ob->render();
 

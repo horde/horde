@@ -27,7 +27,7 @@ $_SESSION['beatnik']['curpage'] = $page;
 $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('domains_perpage');
-$pager = new Horde_Ui_Pager('page', $pager_vars,
+$pager = new Horde_Core_Ui_Pager('page', $pager_vars,
                             array('num' => count($beatnik->domains),
                                   'url' => 'listzones.php',
                                   'page_count' => 10,

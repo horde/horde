@@ -99,7 +99,7 @@ class Agora_ViewComments {
 
             if ($messages->_forum['message_count'] > $thread_per_page && $view_bodies == 2) {
                 $vars = new Horde_Variables(array('comments_page' => $thread_page));
-                $pager_ob = new Horde_Ui_Pager('comments_page', $vars,
+                $pager_ob = new Horde_Core_Ui_Pager('comments_page', $vars,
                                                 array('num' => $messages->_forum['message_count'],
                                                       'url' => $base_url,
                                                       'perpage' => $thread_per_page));

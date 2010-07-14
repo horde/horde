@@ -73,7 +73,7 @@ $view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/threads.php', t
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
-$pager_ob = new Horde_Ui_Pager('thread_page', $vars, array('num' => $threads_count, 'url' => 'threads.php', 'perpage' => $threads_per_page));
+$pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $threads_count, 'url' => 'threads.php', 'perpage' => $threads_per_page));
 $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager_link = $pager_ob->render();
 

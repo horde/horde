@@ -70,7 +70,7 @@ $page = Horde_Util::getGet('page', 0);
 $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('rowsperpage');
-$pager = new Horde_Ui_Pager('page', $pager_vars,
+$pager = new Horde_Core_Ui_Pager('page', $pager_vars,
                             array('num' => count($data),
                                   'url' => 'search.php',
                                   'page_count' => 10,

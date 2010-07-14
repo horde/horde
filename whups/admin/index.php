@@ -26,7 +26,7 @@ if (!$vars->exists('action')) {
 
 // Admin actions.
 $adminurl = Horde::selfUrl(false, false);
-$tabs = new Horde_Ui_Tabs('action', $vars);
+$tabs = new Horde_Core_Ui_Tabs('action', $vars);
 $tabs->addTab(_("_Edit Queues"), $adminurl, 'queue');
 $tabs->addTab(_("Edit _Types"), $adminurl, 'type');
 $tabs->addTab(_("Queue/Type Matri_x"), $adminurl, 'mtmatrix');

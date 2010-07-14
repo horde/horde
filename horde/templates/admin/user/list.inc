@@ -38,7 +38,7 @@ foreach ($users as $user):
 </table>
 <?php
 if ($numitem) {
-    $pager = new Horde_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
+    $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
     echo $pager->render($page, $total, $viewurl);
 }
 ?>

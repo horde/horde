@@ -46,7 +46,7 @@ class Horde_Form_Renderer {
      * @param array $params  This is a hash of renderer-specific parameters.
      *                       Possible keys:<code>
      *                       'varrenderer_driver': specifies the driver
-     *                           parameter to Horde_Ui_VarRenderer::factory().
+     *                           parameter to Horde_Core_Ui_VarRenderer::factory().
      *                       'encode_title': @see $_encodeTitle</code>
      */
     function Horde_Form_Renderer($params = array())
@@ -68,7 +68,7 @@ class Horde_Form_Renderer {
         if (isset($params['varrenderer_driver'])) {
             $driver = $params['varrenderer_driver'];
         }
-        $this->_varRenderer = Horde_Ui_VarRenderer::factory($driver, $params);
+        $this->_varRenderer = Horde_Core_Ui_VarRenderer::factory($driver, $params);
     }
 
     function showHeader($bool)

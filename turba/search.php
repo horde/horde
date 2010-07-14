@@ -212,7 +212,7 @@ foreach ($addressBooks as $key => $entry) {
 /* Build search mode tabs. */
 $sUrl = Horde::applicationUrl('search.php');
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Ui_Tabs('search_mode', $vars);
+$tabs = new Horde_Core_Ui_Tabs('search_mode', $vars);
 $tabs->addTab(_("Basic Search"), $sUrl, 'basic');
 $tabs->addTab(_("Advanced Search"), $sUrl, 'advanced');
 if (count($editableAddressBooks)) {

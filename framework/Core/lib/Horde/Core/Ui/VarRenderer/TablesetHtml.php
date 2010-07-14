@@ -5,9 +5,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Horde_Ui
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_VarRenderer_TablesetHtml extends Horde_Ui_VarRenderer_Html
+class Horde_Core_Ui_VarRenderer_TablesetHtml extends Horde_Core_Ui_VarRenderer_Html
 {
     protected function _renderVarInput_tableset($form, &$var, &$vars)
     {

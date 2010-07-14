@@ -1,33 +1,32 @@
 <?php
 /**
- * The Horde_Ui_Pager:: provides links to individual pages.
+ * The Horde_Core_Ui_Pager:: provides links to individual pages.
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Ben Chavet <ben@chavet.net>
- * @author  Joel Vandal <joel@scopserv.com>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Ui
+ * @author   Ben Chavet <ben@chavet.net>
+ * @author   Joel Vandal <joel@scopserv.com>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_Pager extends Horde_Ui_Widget
+class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * TODO
      */
-    public function __construct($name, &$vars, $config)
+    public function __construct($name, $vars, $config)
     {
-        if (!isset($config['page_limit'])) {
-            $config['page_limit'] = 10;
-        }
-
-        if (!isset($config['perpage'])) {
-            $config['perpage'] = 100;
-        }
+        $config = array_merge(array(
+            'page_limit' => 10,
+            'perpage' => 100
+        ), $config);
 
         parent::__construct($name, $vars, $config);
     }

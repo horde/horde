@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Ui_VarRenderer:: class provides base functionality for
+ * The Horde_Core_Ui_VarRenderer:: class provides base functionality for
  * other Horde UI elements.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Ui
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_VarRenderer
+class Horde_Core_Ui_VarRenderer
 {
     /**
      * Parameters which change this renderer's behavior.
@@ -48,7 +50,7 @@ class Horde_Ui_VarRenderer
      *                       name.
      * @param array $params  Parameters specific to the subclass.
      *
-     * @return Horde_Ui_VarRenderer  A subclass instance.
+     * @return Horde_Core_Ui_VarRenderer  A subclass instance.
      * @throws Horde_Exception
      */
     static public function factory($driver, $params = array())
@@ -63,7 +65,7 @@ class Horde_Ui_VarRenderer
             include $GLOBALS['registry']->get('fileroot', $app) . '/lib/Ui/VarRenderer/' . $driver . '.php';
         }
 
-        $class = 'Horde_Ui_VarRenderer_' . $driver;
+        $class = __CLASS__ . '_' . $driver;
         if (!class_exists($class)) {
             throw new Horde_Exception('Class definition of ' . $class . ' not found.');
         }

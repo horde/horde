@@ -1,7 +1,7 @@
 <?php
 /**
- * This file contains all Horde_Ui_VarRenderer extensions required for editing
- * tasks.
+ * This file contains all Horde_Core_Ui_VarRenderer extensions required for
+ * editing tasks.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -10,14 +10,14 @@
  */
 
 /**
- * The Horde_Ui_VarRenderer_Nag class provides additional methods for
+ * The Horde_Core_Ui_VarRenderer_Nag class provides additional methods for
  * rendering Nag specific fields.
  *
  * @todo    Clean this hack up with Horde_Form/H4
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
-class Horde_Ui_VarRenderer_Nag extends Horde_Ui_VarRenderer_Html
+class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 {
     protected function _renderVarInput_nag_method($form, $var, $vars)
     {

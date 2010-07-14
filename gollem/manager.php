@@ -455,7 +455,7 @@ if (is_array($list) && $numitem && $read_perms) {
 
         $vars = Horde_Variables::getDefaultVariables();
         $vars->set('page', $page);
-        $pager = new Horde_Ui_Pager('page', $vars, array('num' => $total, 'url' => $refresh_url, 'page_count' => 10, 'perpage' => $perpage));
+        $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $refresh_url, 'page_count' => 10, 'perpage' => $perpage));
         $page_caption = $pager->render();
     }
 

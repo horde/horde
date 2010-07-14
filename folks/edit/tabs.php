@@ -16,7 +16,7 @@ if (!$registry->isAuthenticated()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Ui_Tabs('what', $vars);
+$tabs = new Horde_Core_Ui_Tabs('what', $vars);
 $tabs->addTab(_("Edit my profile"), Horde::applicationUrl('edit/edit.php'), 'edit');
 $tabs->addTab(_("Privacy"), Horde::applicationUrl('edit/privacy.php'), 'privacy');
 $tabs->addTab(_("Blacklist"), Horde::applicationUrl('edit/friends/blacklist.php'), 'blacklist');

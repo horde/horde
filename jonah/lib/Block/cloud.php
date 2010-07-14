@@ -40,7 +40,7 @@ class Horde_Block_jonah_cloud extends Horde_Block {
         /* Get the tags */
         $tags = $news->listTagInfo();
         if (count($tags)) {
-            $cloud = new Horde_Ui_TagCloud();
+            $cloud = new Horde_Core_Ui_TagCloud();
             foreach ($tags as $id => $tag) {
                 $cloud->addElement($tag['tag_name'], str_replace(array('@id@', '@tag@'), array($id, $tag['tag_name']), $this->_params['results_url']), $tag['total']);
             }

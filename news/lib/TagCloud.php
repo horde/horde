@@ -12,7 +12,7 @@
  * @author  Duck <duck@obala.net>
  * @package News
  */
-class News_TagCloud extends Horde_Ui_TagCloud {
+class News_TagCloud extends Horde_Core_Ui_TagCloud {
 
     /**
      * create a Element of HTML part

@@ -76,7 +76,7 @@ class Kronolith
         Horde::addScriptFile('date/' . $datejs, 'horde');
         Horde::addScriptFile('date/date.js', 'horde');
         Horde::addScriptFile('kronolith.js', 'kronolith');
-        Horde_Ui_JsCalendar::init(array('short_weekdays' => true));
+        Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         if (isset($GLOBALS['language'])) {
             header('Content-type: text/html; charset=' . $GLOBALS['registry']->getCharset());
@@ -2527,7 +2527,7 @@ class Kronolith
         $date = self::currentDate();
         $date_stamp = $date->dateString();
 
-        $tabs = new Horde_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->preserve('date', $date_stamp);
 
         $tabs->addTab(_("Day"), Horde::applicationUrl('day.php'),
@@ -2557,7 +2557,7 @@ class Kronolith
             return;
         }
 
-        $tabs = new Horde_Ui_Tabs('event', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Core_Ui_Tabs('event', Horde_Variables::getDefaultVariables());
 
         $date = self::currentDate();
         $tabs->preserve('datetime', $date->dateString());

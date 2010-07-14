@@ -1,7 +1,7 @@
 <?php
 /**
- * This file contains all Horde_Ui_VarRenderer extensions required for editing
- * accounts.
+ * This file contains all Horde_Core_Ui_VarRenderer extensions required for
+ * editing accounts.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -10,13 +10,13 @@
  */
 
 /**
- * The Horde_Ui_VarRenderer_fima class provides additional methods for
+ * The Horde_Core_Ui_VarRenderer_fima class provides additional methods for
  * rendering Fima specific Horde_Form_Type fields.
  *
  * @author  Thomas Trethan <thomas@trethan.net>
  * @package Fima
  */
-class Horde_Ui_VarRenderer_Fima extends Horde_Ui_VarRenderer_Html {
+class Horde_Core_Ui_VarRenderer_Fima extends Horde_Core_Ui_VarRenderer_Html {
 
     protected function _renderVarInput_fima_dspostings($form, &$var, &$vars)
     {

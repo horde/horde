@@ -17,7 +17,7 @@ Horde_Registry::appInit('ingo');
 /**
  * Dummy class to hold the select box created by {@link Ingo::flistSelect()}.
  *
- * @see Horde_Ui_VarRenderer_Ingo
+ * @see Horde_Core_Ui_VarRenderer_Ingo
  * @see Ingo::flistSelect()
  */
 class Horde_Form_Type_ingo_folders extends Horde_Form_Type {

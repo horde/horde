@@ -95,7 +95,7 @@ echo '<div id="page">';
 
 if (!$prefs->isLocked('show_completed')) {
     $listurl = Horde::applicationUrl('list.php');
-    $tabs = new Horde_Ui_Tabs('show_completed', $vars);
+    $tabs = new Horde_Core_Ui_Tabs('show_completed', $vars);
     $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
     $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
     $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);

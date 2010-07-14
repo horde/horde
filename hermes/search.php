@@ -110,7 +110,7 @@ if (isset($_SESSION['hermes_search_criteria'])) {
         $criteria = $form->getSearchCriteria($searchVars);
     }
 
-    $table = new Horde_Ui_Table('results', $vars,
+    $table = new Horde_Core_Ui_Table('results', $vars,
                                 array('title' => _("Search Results"),
                                       'name' => 'hermes/hours',
                                       'params' => $criteria));

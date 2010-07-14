@@ -249,14 +249,14 @@ if ($origin_host) {
         $origin_host = array($origin_host);
     }
     foreach ($origin_host as $host) {
-        $from_img .= Horde_Ui_FlagImage::generateFlagImageByHost($host) . ' ';
+        $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($host) . ' ';
     }
     trim($from_img);
 }
 
 if (empty($from_img) && !empty($envelope['from'])) {
     $from_ob = reset($envelope['from']);
-    $from_img .= Horde_Ui_FlagImage::generateFlagImageByHost($from_ob['host']) . ' ';
+    $from_img .= Horde_Core_Ui_FlagImage::generateFlagImageByHost($from_ob['host']) . ' ';
 }
 
 if (!empty($from_img)) {

@@ -65,7 +65,7 @@ class ObjectController extends Koward_Controller_Application
             }
         }
 
-        $this->tabs = new Horde_Ui_Tabs(null, Horde_Variables::getDefaultVariables());
+        $this->tabs = new Horde_Core_Ui_Tabs(null, Horde_Variables::getDefaultVariables());
         foreach ($this->koward->objects as $key => $configuration) {
             if (!$this->koward->hasAccess($this->getPermissionId() . '/' . $key)) {
                 continue;

@@ -1,17 +1,19 @@
 <?php
 /**
- * The Horde_Ui_JsCalendar:: class generates the necessary javascript code
- * to allow the javascript calendar widget to be displayed on the page.
+ * The Horde_Core_Ui_JsCalendar:: class generates the necessary javascript
+ * code to allow the javascript calendar widget to be displayed on the page.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Ui
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_JsCalendar
+class Horde_Core_Ui_JsCalendar
 {
     /**
      * Output the necessary javascript code to allow display of the calendar
@@ -30,6 +32,7 @@ class Horde_Ui_JsCalendar
                 $day = substr($day, 0, 1);
             }
         }
+
         Horde::addScriptFile('calendar.js', 'horde');
         Horde::addInlineScript(array(
             'Horde_Calendar.firstDayOfWeek = ' . (isset($GLOBALS['prefs']) ? intval($GLOBALS['prefs']->getValue('first_week_day')) : 1),

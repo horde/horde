@@ -148,7 +148,7 @@ $queryTabs = $whups_query->getTabs($vars);
 // Criterion form types.
 $queryurl = Horde::applicationUrl('query/index.php');
 $vars->set('action', $_SESSION['whups']['query_form']);
-$criteriaTabs = new Horde_Ui_Tabs('action', $vars);
+$criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));
 $criteriaTabs->addTab(_("_Property Criteria"), $queryurl, 'props');
 $criteriaTabs->addTab(_("_User Criteria"), $queryurl, 'user');

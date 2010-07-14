@@ -74,7 +74,7 @@ case 'DeleteContact':
 
 // Get tabs.
 $url = $contact->url();
-$tabs = new Horde_Ui_Tabs('view', $vars);
+$tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
               array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {

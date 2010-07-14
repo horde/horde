@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Ui_FlagImage:: class provides a widget for linking to a flag
+ * The Horde_Core_Ui_FlagImage:: class provides a widget for linking to a flag
  * image.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -11,9 +11,9 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @package  Ui
+ * @package  Core
  */
-class Horde_Ui_FlagImage
+class Horde_Core_Ui_FlagImage
 {
     /**
      * Render the language selection.

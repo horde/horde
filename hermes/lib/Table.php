@@ -7,10 +7,8 @@
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
- *
- * @package Horde_Ui
  */
-class Horde_Ui_Table extends Horde_Ui_Widget {
+class Horde_Core_Ui_Table extends Horde_Core_Ui_Widget {
 
     /**
      * Data loaded from the getTableMetaData API.
@@ -120,7 +118,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
             return false;
         }
 
-        $varRenderer = new Horde_Ui_VarRenderer_Html();
+        $varRenderer = new Horde_Core_Ui_VarRenderer_Html();
 
         $html = '<h1 class="header">';
 
@@ -180,7 +178,7 @@ class Horde_Ui_Table extends Horde_Ui_Widget {
             $html .= ($secname == 'footer') ? '<tfoot>' : '<tbody>';
 
             /* This Horde_Variables object is populated for each table row
-             * so that we can use the Horde_Ui_VarRenderer. */
+             * so that we can use the Horde_Core_Ui_VarRenderer. */
             $vars = new Horde_Variables();
             $form = null;
             foreach ($data[$secname] as $row) {

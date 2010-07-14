@@ -66,7 +66,7 @@ case 'sidebar':
     }
 
     /* Generate Tabs */
-    $tabs = new Horde_Ui_Tabs('side_show', $vars);
+    $tabs = new Horde_Core_Ui_Tabs('side_show', $vars);
     $tabs->addTab(_("Help _Topics"), $sidebar_url, 'index');
     $tabs->addTab(_("Sea_rch"), $sidebar_url, 'search');
 

@@ -490,7 +490,7 @@ $viewurl = Horde_Util::addParameter($viewurl, array('editmode' => $editmode,
 					      'module' => $app,
 					      'filter' => $filter,
 					      'search' => $search));
- $pager = new Horde_Ui_Pager('page', $vars, array('num' => $numitem, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
+ $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $numitem, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
  echo $pager->render($page, $numitem, $viewurl);
 ?>
 </td></tr></table>

@@ -288,7 +288,7 @@ class Whups {
      */
     function getTicketTabs(&$vars, $id)
     {
-        $tabs = new Horde_Ui_Tabs(null, $vars);
+        $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = $vars->get('queue');
 
         $tabs->addTab(_("_History"), Whups::urlFor('ticket', $id), 'history');

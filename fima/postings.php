@@ -696,7 +696,7 @@ if ($pageOb['mode'] == 'edit') {
 
 /* Generate tabs. */
 if ($pageOb['mode'] != 'transfer' && !$print_view) {
-    $tabs = new Horde_Ui_Tabs('postingtype', $vars);
+    $tabs = new Horde_Core_Ui_Tabs('postingtype', $vars);
     $postingtypes = Fima::getPostingTypes();
     foreach ($postingtypes as $typeValue => $typeLabel) {
         $tabs->addTab($typeLabel, $pageOb['url'], $typeValue);

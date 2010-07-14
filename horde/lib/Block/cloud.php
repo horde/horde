@@ -32,7 +32,7 @@ class Horde_Block_Horde_cloud extends Horde_Block
     {
         Horde::addScriptFile('prototype.js', 'horde');
 
-        $cloud = new Horde_Ui_TagCloud();
+        $cloud = new Horde_Core_Ui_TagCloud();
         foreach ($this->_getTags() as $tag) {
             $cloud->addElement($tag['tag_name'], '#', $tag['total'],
                                null,

@@ -67,7 +67,7 @@ $view->actions = empty($actions) ? null : $actions;
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
-$pager_ob = new Horde_Ui_Pager('forum_page', $vars, array('num' => $forums_count, 'url' => 'forums.php', 'perpage' => $forums_per_page));
+$pager_ob = new Horde_Core_Ui_Pager('forum_page', $vars, array('num' => $forums_count, 'url' => 'forums.php', 'perpage' => $forums_per_page));
 $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 

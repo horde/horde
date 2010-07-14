@@ -245,7 +245,7 @@ class Shout
     static public function getAdminTabs()
     {
         $tabname = Horde_Util::getFormData('view');
-        $tabs = new Horde_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->addTab(_("Telephone Numbers"),
                       Horde::applicationUrl('admin/numbers.php'),
                       array('view' => 'numbers', id => 'tabnumbers'));

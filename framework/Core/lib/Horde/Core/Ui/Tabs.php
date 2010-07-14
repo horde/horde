@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Ui_Tabs:: class manages and renders a tab-like interface.
+ * The Horde_Core_Ui_Tabs:: class manages and renders a tab-like interface.
  *
  * Copyright 2001-2003 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Ui
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_Tabs extends Horde_Ui_Widget
+class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
 {
     /**
      * The array of tabs.

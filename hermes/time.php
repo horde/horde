@@ -57,7 +57,7 @@ $tabs = Hermes::tabs();
 $criteria = array('employee' => $GLOBALS['registry']->getAuth(),
                   'submitted' => false,
                   'link_page' => 'time.php');
-$table = new Horde_Ui_Table('week', $vars,
+$table = new Horde_Core_Ui_Table('week', $vars,
                             array('title' => _("My Unsubmitted Time"),
                                   'name' => 'hermes/hours',
                                   'params' => $criteria));

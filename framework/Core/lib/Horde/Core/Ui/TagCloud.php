@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Ui_TagCloud:: for creating and displaying tag clouds.
+ * Horde_Core_Ui_TagCloud:: for creating and displaying tag clouds.
  *
  * Based on a striped down version of Pear's HTML_TagCloud
  *
@@ -9,9 +9,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Horde_Ui
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_TagCloud
+class Horde_Core_Ui_TagCloud
 {
     /**
      * @var integer

@@ -218,7 +218,7 @@ class Hermes {
     {
         /* Build search mode tabs. */
         $sUrl = Horde::selfUrl();
-        $tabs = new Horde_Ui_Tabs('search_mode', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Core_Ui_Tabs('search_mode', Horde_Variables::getDefaultVariables());
         $tabs->addTab(_("Summary"), $sUrl, 'summary');
         $tabs->addTab(_("By Date"), $sUrl, 'date');
         $tabs->addTab(_("By Employee"), $sUrl, 'employee');

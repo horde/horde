@@ -1,7 +1,7 @@
 <?php
 /**
- * This file contains all Horde_UI_VarRenderer extensions for Whups specific
- * form fields.
+ * This file contains all Horde_Core_Ui_VarRenderer extensions for Whups
+ * specific form fields.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -9,17 +9,17 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_UI
+ * @package Whups
  */
 
 /**
- * The Horde_UI_VarRenderer_whups class provides additional methods for
+ * The Horde_Core_Ui_VarRenderer_whups class provides additional methods for
  * rendering Horde_Form_Type_whups_email fields.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @package Horde_UI
+ * @package Whups
  */
-class Horde_Ui_VarRenderer_whups extends Horde_Ui_VarRenderer_Html {
+class Horde_Core_Ui_VarRenderer_whups extends Horde_Core_Ui_VarRenderer_Html {
 
     function _renderVarInput_whups_email($form, &$var, &$vars)
     {

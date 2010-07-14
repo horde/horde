@@ -41,7 +41,7 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
 
 $title = _("Photo search");
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_Ui_Pager(
+$pager = new Horde_Core_Ui_Pager(
     'page',
     $vars,
     array(

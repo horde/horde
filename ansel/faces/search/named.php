@@ -24,7 +24,7 @@ try {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_Ui_Pager(
+$pager = new Horde_Core_Ui_Pager(
     'page', $vars,
     array(
         'num' => $count,

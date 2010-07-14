@@ -1,17 +1,19 @@
 <?php
 /**
- * The Horde_Ui_Widget:: class provides base functionality for other Horde
- * UI elements.
+ * The Horde_Core_Ui_Widget:: class provides base functionality for other
+ * Horde UI elements.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Ui
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-abstract class Horde_Ui_Widget
+abstract class Horde_Core_Ui_Widget
 {
     /**
      * Any variables that should be preserved in all of the widget's

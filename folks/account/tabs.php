@@ -16,7 +16,7 @@ require_once dirname(__FILE__) . '/../lib/base.php';
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Ui_Tabs('what', $vars);
+$tabs = new Horde_Core_Ui_Tabs('what', $vars);
 $tabs->addTab(_("Login"), Horde::applicationUrl('login.php'), 'login');
 
 if ($conf['signup']['allow'] === true && $auth->hasCapability('add')) {

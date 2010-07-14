@@ -17,7 +17,7 @@
     {
         global $whups_driver;
 
-        $droptext = Horde_UI_VarRenderer_html::selectOptions($whups_driver->getAllTypes());
+        $droptext = Horde_Core_Ui_VarRenderer_html::selectOptions($whups_driver->getAllTypes());
         include WHUPS_TEMPLATES . '/renderer/querysetcurrenttype.inc';
     }
 

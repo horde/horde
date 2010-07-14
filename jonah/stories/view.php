@@ -41,7 +41,7 @@ if (is_a($story, 'PEAR_Error')) {
 }
 
 /* Grab tag related content for entire channel */
-$cloud = new Horde_Ui_TagCloud();
+$cloud = new Horde_Core_Ui_TagCloud();
 $allTags = $news->listTagInfo(array(), $channel_id);
 foreach ($allTags as $tag_id => $taginfo) {
     $cloud->addElement($taginfo['tag_name'], Horde_Util::addParameter('results.php', array('tag_id' => $tag_id, 'channel_id' => $channel_id)), $taginfo['total']);

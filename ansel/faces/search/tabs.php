@@ -17,7 +17,7 @@ $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
 /* Show tabs */
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Ui_Tabs('search_faces', $vars);
+$tabs = new Horde_Core_Ui_Tabs('search_faces', $vars);
 $tabs->addTab(_("All faces"), Horde::applicationUrl('faces/search/all.php'), 'all');
 $tabs->addTab(_("From my galleries"), Horde::applicationUrl('faces/search/owner.php'), 'owner');
 $tabs->addTab(_("Named faces"), Horde::applicationUrl('faces/search/named.php'), 'named');

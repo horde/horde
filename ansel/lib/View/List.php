@@ -219,7 +219,7 @@ class Ansel_View_List extends Ansel_View_Base
         if ($override) {
             $p_params['url_callback'] = null;
         }
-        $this->_pager = new Horde_Ui_Pager('page', $vars, $p_params);
+        $this->_pager = new Horde_Core_Ui_Pager('page', $vars, $p_params);
         $preserve = array('sort_dir' => $this->_sortDir);
         if (!empty($this->_sortBy)) {
             $preserve['sort'] = $this->_sortBy;

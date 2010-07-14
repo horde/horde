@@ -1,16 +1,18 @@
 <?php
 /**
- * The Horde_Ui_VarRenderer_html:: class renders variables to HTML.
+ * The Horde_Core_Ui_VarRenderer_html:: class renders variables to HTML.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Ui
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
+class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 {
     protected $_onLoadJS = array();
 
@@ -499,7 +501,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
 
         if ($var->type->getProperty('picker') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
-            Horde_Ui_JsCalendar::init();
+            Horde_Core_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
             $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', null)') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"') . "</a>\n";
         }

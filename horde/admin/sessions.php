@@ -47,7 +47,7 @@ try {
             } else {
                 $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Ui_FlagImage::generateFlagImageByHost($host);
+            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
         }
 
         echo '<li><div class="sesstoggle">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'

@@ -207,7 +207,7 @@ class Whups_Query {
         $edit = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         $delete = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
 
-        $tabs = new Horde_Ui_Tabs('action', $vars);
+        $tabs = new Horde_Core_Ui_Tabs('action', $vars);
         $tabs->addTab(_("Ne_w Query"), $queryurl, 'new');
         if (!$this->id || $edit) {
             $tabs->addTab(_("_Edit Query"), $queryurl, 'edit');

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Ui_Language:: class provides a widget for changing the
+ * The Horde_Core_Ui_Language:: class provides a widget for changing the
  * currently selected language.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Horde_Ui
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Core
  */
-class Horde_Ui_Language {
+class Horde_Core_Ui_Language {
 
     /**
      * Render the language selection.

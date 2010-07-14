@@ -45,7 +45,7 @@ if ($form->isSubmitted() || $thread_page != null) {
     }
 
     if ($searchResults['total'] > count($searchResults['results'])) {
-        $pager_ob = new Horde_Ui_Pager('thread_page', $vars, array('num' => $searchResults['total'], 'url' => 'search.php', 'perpage' => $thread_per_page));
+        $pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $searchResults['total'], 'url' => 'search.php', 'perpage' => $thread_per_page));
         foreach ($info as $key => $val) {
             if ($val) {
                 if ($key == 'keywords') {

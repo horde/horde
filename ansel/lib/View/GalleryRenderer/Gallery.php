@@ -89,7 +89,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
                         'perpage' => $this->perpage,
                         'url_callback' => $callback);
 
-        $pager = new Horde_Ui_Pager('page', $vars, $params);
+        $pager = new Horde_Core_Ui_Pager('page', $vars, $params);
 
         // Note that we can't use Horde_Util::bufferOutput() here since the
         // include file would be included inside that method's scope, and not
