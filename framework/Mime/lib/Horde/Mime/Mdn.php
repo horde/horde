@@ -30,9 +30,9 @@ class Horde_Mime_Mdn
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Headers $mime_headers  A Horde_Mime_Headers object.
+     * @param Horde_Mime_Headers $mime_headers  A headers object.
      */
-    public function __construct($headers = null)
+    public function __construct(Horde_Mime_Headers $headers)
     {
         $this->_headers = $headers;
     }
@@ -45,7 +45,7 @@ class Horde_Mime_Mdn
      */
     public function getMdnReturnAddr()
     {
-        /* RFC 3798 [2.1] requires the Disposition-Notificaion-To header
+        /* RFC 3798 [2.1] requires the Disposition-Notification-To header
          * for an MDN to be created. */
         return $this->_headers->getValue('Disposition-Notification-To');
     }
@@ -126,6 +126,13 @@ class Horde_Mime_Mdn
      * </pre>
      * @param string $name      The name of the local server.
      * @param Mail $mailer      A Mail driver.
+     * @param array $opts       Additional options:
+     * <pre>
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
+     * 'from_addr' - (string) From address.
+     *               DEFAULT: NONE
+     * </pre>
      * @param array $mod        The list of modifications.
      * <pre>
      * Per RFC 3798 [3.2.6.3] the following modifications are valid:
@@ -138,11 +145,13 @@ class Horde_Mime_Mdn
      * @throws Horde_Mime_Exception
      */
     public function generate($action, $sending, $type, $name, $mailer,
-                             $mod = array(), $err = array())
+                             array $opts = array(), array $mod = array(),
+                             array $err = array())
     {
-        /* Set up some variables we use later. */
-        $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
-        $from_addr = $identity->getDefaultFromAddress();
+        $opts = array_merge(array(
+            'charset' => null,
+            'from_addr' => null
+        ), $opts);
 
         $to = $this->getMdnReturnAddr();
         $ua = $this->_headers->getUserAgent();
@@ -170,7 +179,9 @@ class Horde_Mime_Mdn
         $msg_headers->addMessageIdHeader();
         $msg_headers->addUserAgentHeader($ua);
         $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('From', $from_addr);
+        if ($opts['from_addr']) {
+            $msg_headers->addHeader('From', $opts['from_addr']);
+        }
         $msg_headers->addHeader('To', $this->getMdnReturnAddr());
         $msg_headers->addHeader('Subject', _("Disposition Notification"));
 
@@ -179,14 +190,12 @@ class Horde_Mime_Mdn
         $msg->setType('multipart/report');
         $msg->setContentTypeParameter('report-type', 'disposition-notification');
 
-        $charset = $GLOBALS['registry']->getCharset();
-
         /* The first part is a human readable message. */
         $part_one = new Horde_Mime_Part('text/plain');
-        $part_one->setCharset($charset);
+        $part_one->setCharset($opts['charset']);
         if ($type == 'displayed') {
             $contents = sprintf(_("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
-            $flowed = new Horde_Text_Flowed($contents, $charset);
+            $flowed = new Horde_Text_Flowed($contents, $opts['charset']);
             $flowed->setDelSp(true);
             $part_one->setContentTypeParameter('format', 'flowed');
             $part_one->setContentTypeParameter('DelSp', 'Yes');
@@ -201,7 +210,9 @@ class Horde_Mime_Mdn
         if (!empty($orig_recip)) {
             $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
         }
-        $part_two_text[] = 'Final-Recipient: rfc822;' . $from_addr . "\n";
+        if ($opts['from_addr']) {
+            $part_two_text[] = 'Final-Recipient: rfc822;' . $from_addr . "\n";
+        }
         if (!empty($msg_id)) {
             $part_two_text[] = 'Original-Message-ID: rfc822;' . $msg_id . "\n";
         }
@@ -230,14 +241,12 @@ class Horde_Mime_Mdn
      * Add a MDN (read receipt) request headers to the Horde_Mime_Headers::
      * object.
      *
-     * @param Horde_Mime_Headers $ob   The object to add the headers to.
-     * @param string $to               The address the receipt should be
-     *                                 mailed to.
+     * @param string $to  The address the receipt should be mailed to.
      */
-    public function addMdnRequestHeaders($ob, $to)
+    public function addMdnRequestHeaders($to)
     {
         /* This is the RFC 3798 way of requesting a receipt. */
-        $ob->addHeader('Disposition-Notification-To', $to);
+        $this->_headers->addHeader('Disposition-Notification-To', $to);
     }
 
 }

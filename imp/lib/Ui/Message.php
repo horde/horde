@@ -79,7 +79,7 @@ class IMP_Ui_Message
 
         /* Check to see if an MDN has been requested. */
         $mdn = new Horde_Mime_Mdn($headers);
-        $return_addr = $mdn->getMDNReturnAddr();
+        $return_addr = $mdn->getMdnReturnAddr();
         if (!$return_addr) {
             return false;
         }
@@ -119,7 +119,17 @@ class IMP_Ui_Message
 
         /* Send out the MDN now. */
         try {
-            $mdn->generate(false, $confirmed, 'displayed', $GLOBALS['conf']['server']['name'], $GLOBALS['injector']->getInstance('IMP_Mail'));
+            $mdn->generate(
+                false,
+                $confirmed,
+                'displayed',
+                $GLOBALS['conf']['server']['name'],
+                $GLOBALS['injector']->getInstance('IMP_Mail'),
+                array(
+                    'charset' => $GLOBALS['registry']->getCharset(),
+                    'from_addr' => $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity()->getDefaultFromAddress()
+                )
+            );
             IMP_Maillog::log('mdn', $msg_id, 'displayed');
             $success = true;
 

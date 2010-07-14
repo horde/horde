@@ -2089,7 +2089,7 @@ class Kronolith
                     : $newAttendeeParsedPart->personal;
 
                 try {
-                    $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name));
+                    $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name), $GLOBALS['registry']->getCharset());
                     $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, array(
                         'default_domain' => null
                     ));

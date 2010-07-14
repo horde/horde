@@ -533,8 +533,8 @@ class IMP_Compose
         $mdn = null;
         if (!empty($opts['readreceipt']) &&
             $conf['compose']['allow_receipts']) {
-            $mdn = new Horde_Mime_Mdn();
-            $mdn->addMDNRequestHeaders($headers, $barefrom);
+            $mdn = new Horde_Mime_Mdn($headers);
+            $mdn->addMdnRequestHeaders($barefrom);
         }
 
         $browser_charset = $GLOBALS['registry']->getCharset();

@@ -94,11 +94,8 @@ class Horde_Mime
      * @return string  The text, encoded only if it contains non-ASCII
      *                 characters.
      */
-    static public function encode($text, $charset = null)
+    static public function encode($text, $charset)
     {
-        if (is_null($charset)) {
-            $charset = $GLOBALS['registry']->getCharset();
-        }
         $charset = Horde_String::lower($charset);
 
         if (($charset == 'us-ascii') || !self::is8bit($text, $charset)) {
@@ -231,7 +228,7 @@ class Horde_Mime
      *                 characters.
      * @throws Horde_Mime_Exception
      */
-    static public function encodeAddress($addresses, $charset = null,
+    static public function encodeAddress($addresses, $charset,
                                          $defserver = null)
     {
         if (!is_array($addresses)) {
@@ -284,7 +281,7 @@ class Horde_Mime
      *
      * @return string  The decoded text.
      */
-    static public function decode($string, $to_charset = null)
+    static public function decode($string, $to_charset)
     {
         if (($pos = strpos($string, '=?')) === false) {
             return $string;
@@ -320,10 +317,6 @@ class Horde_Mime
 
         $encoded_text = substr($search, 0, $end);
         $rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));
-
-        if (is_null($to_charset)) {
-            $to_charset = $GLOBALS['registry']->getCharset();
-        }
 
         switch ($encoding) {
         case 'Q':
