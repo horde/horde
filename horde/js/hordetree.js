@@ -21,6 +21,8 @@ var Horde_Tree = Class.create({
             this.renderTree(this.opts.initTree.nodes, this.opts.initTree.root_nodes, this.opts.initTree.is_static);
             this.opts.initTree = null;
         }
+
+        $(this.opts.target).observe('click', this._onClick.bindAsEventListener(this));
     },
 
     renderTree: function(nodes, rootNodes, renderStatic)
@@ -244,7 +246,7 @@ var Horde_Tree = Class.create({
             node = this.nodes[nodeId];
 
         if (node.url) {
-            label.push('<span class="toggle"><a');
+            label.push('<span><a');
 
             if (node.urlclass) {
                 label.push(' class="' + node.urlclass + '"');
@@ -270,7 +272,7 @@ var Horde_Tree = Class.create({
 
             label.push('>' + this._setNodeIcon(nodeId) + node.label + '</a></span>');
         } else {
-            label.push('<span class="toggle" onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')">' + this._setNodeIcon(nodeId) + node.label + '</span>');
+            label.push('<span class="toggle">' + this._setNodeIcon(nodeId) + node.label + '</span>');
         }
 
         return label.join('');
@@ -278,8 +280,7 @@ var Horde_Tree = Class.create({
 
     _setNodeToggle: function(nodeId)
     {
-        var attrib = '',
-            img = [],
+        var img = [],
             node = this.nodes[nodeId],
             nodeToggle = this._getNodeToggle(nodeId);
 
@@ -289,15 +290,11 @@ var Horde_Tree = Class.create({
             if (this.renderStatic) {
                 return '';
             }
-            attrib = ' onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
         } else if (node.indent != '0' && Object.isUndefined(node.children)) {
             // Node no children.
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
         } else if (!Object.isUndefined(node.children)) {
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
-            if (!this.renderStatic) {
-                attrib = ' onclick="' + this.opts.target + '.toggle(' + nodeId.toJSON().gsub('"', '&quot;') + ')"';
-            }
         } else {
             // Top level node with no children.
             if (this.renderStatic) {
@@ -310,7 +307,7 @@ var Horde_Tree = Class.create({
         if (nodeToggle[1]) {
             img.push('alt="' + nodeToggle[1] + '" ');
         }
-        img.push(attrib + ' />');
+        img.push('/>');
 
         return img.join('');
     },
@@ -564,10 +561,26 @@ var Horde_Tree = Class.create({
              * works */
             if (document.documentElement.clientHeight == document.documentElement.offsetHeight) {
                 // no scrollbar present, take away extra margin
-                document.body.style.marginRight = '0';
+                document.body.style.marginRight = 0;
             } else {
                 document.body.style.marginRight = '15px';
             }
+        }
+    },
+
+    _onClick: function(e)
+    {
+        var elt = e.element();
+
+        if (elt.hasClassName('treeIcon')) {
+            elt = elt.up().previous();
+        } else if (elt.hasClassName('toggle')) {
+            elt = elt.previous();
+        }
+
+        if (elt.readAttribute('id').startsWith('nodeToggle_')) {
+            this.toggle(elt.readAttribute('id').substr(11));
+            e.stop();
         }
     }
 
