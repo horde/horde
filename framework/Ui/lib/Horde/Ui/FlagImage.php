@@ -26,7 +26,6 @@ class Horde_Ui_FlagImage
     static public function generateFlagImageByHost($host)
     {
         $data = Horde_Nls::getCountryByHost($host, empty($GLOBALS['conf']['geoip']['datafile']) ? null : $GLOBALS['conf']['geoip']['datafile']);
-    );
         if ($data === false) {
             return '';
         }
