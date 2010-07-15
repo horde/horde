@@ -465,7 +465,7 @@ var Horde_Tree = Class.create({
 
             // Image.
             if (!Object.isUndefined(node.icon)) {
-                src.push(node.expanded ? node.iconopen : node.icon);
+                src.push((node.expanded && node.iconopen) ? node.iconopen : node.icon);
             } else {
                 // Use standard icon set.
                 src.push(node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
