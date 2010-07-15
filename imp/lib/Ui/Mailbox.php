@@ -244,7 +244,7 @@ class IMP_Ui_Mailbox
      */
     public function getSubject($subject, $htmlspaces = false)
     {
-        $subject = Horde_Mime::decode($subject);
+        $subject = Horde_Mime::decode($subject, $GLOBALS['registry']->getCharset());
         if (empty($subject)) {
             return _("[No Subject]");
         }
