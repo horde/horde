@@ -73,7 +73,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <?php echo $blocks->getBlocksWidget($blockInfo['app'], $blockInfo['block'], true) ?>
+              <?php echo $blocks->getBlocksWidget($blockInfo['app'], $blockInfo['block'], ($layout->isRemovable($row, $col) ? false : true), ($layout->isRemovable($row, $col) ? false : true)) ?>
             </td>
           </tr>
 <?php

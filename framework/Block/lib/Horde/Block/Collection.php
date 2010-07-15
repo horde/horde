@@ -217,15 +217,20 @@ class Horde_Block_Collection
      *
      * @param string $cur_app    The block from this application gets selected.
      * @param string $cur_block  The block with this name gets selected.
+     * @param boolean $onchange  Include the onchange action
+     * @param boolean $readonly  Indicates if this block type is changeable.
      *
      * @return string  The select tag with all available blocks.
      */
     public function getBlocksWidget($cur_app = null, $cur_block = null,
-                                    $onchange = false)
+                                    $onchange = false, $readonly = false)
     {
         $widget = '<select name="app"';
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
+        }
+        if ($readonly) {
+            $widget .= ' disabled="disabled"';
         }
         $widget .= ">\n";
 
