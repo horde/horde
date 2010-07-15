@@ -131,7 +131,7 @@ class Horde_Kolab_Filter_Configuration
         }
 
         /* Always display all possible problems */
-        ini_set('error_reporting', E_ALL);
+        ini_set('error_reporting', E_ERROR);
         ini_set('track_errors', '1');
 
         /* Setup error logging */

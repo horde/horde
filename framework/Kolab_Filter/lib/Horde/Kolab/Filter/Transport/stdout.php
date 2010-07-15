@@ -21,7 +21,7 @@ class Horde_Kolab_Filter_Transport_stdout extends Horde_Kolab_Filter_Transport
      *
      * @return StdOutWrapper Wraps STDOUT as transport
      */
-    function &_createTransport()
+    function _createTransport()
     {
         $transport = new StdOutWrapper();
         return $transport;

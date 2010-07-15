@@ -99,7 +99,7 @@ class Horde_Kolab_Filter_Response
         /* Ignore strict errors for now since even PEAR will raise
          * strict notices
          */
-        if ($errno == E_STRICT) {
+        if ($errno == E_STRICT || $errno == E_DEPRECATED) {
             return false;
         }
 
@@ -117,7 +117,7 @@ class Horde_Kolab_Filter_Response
             $msg = 'PHP Error: ' . $errmsg;
         }
 
-        $error = new PEAR_Error($msg, $code);
+        $error = new PEAR_Error($msg, $code, null, null, 'FILE: ' . $filename . ', LINE: ' . $linenum);
         $this->handle($error);
 
         return false;
@@ -134,21 +134,37 @@ class Horde_Kolab_Filter_Response
 
         $msg = $result->getMessage() . '; Code: ' . $result->getCode();
 
-        /* Log all errors */
-        $file = __FILE__;
-        $line = __LINE__;
+        $file = false;
+        $line = false;
 
-        $frames = $result->getBacktrace();
-        if (count($frames) > 1) {
-            $frame = $frames[1];
-        } else if (count($frames) == 1) {
-            $frame = $frames[0];
+        $user_info = $result->getUserInfo();
+
+        if (!empty($user_info)) {
+            if (preg_match('/FILE: (.*), LINE: (.*)/', $user_info, $matches)) {
+                $file = $matches[1];
+                $line = $matches[2];
+            }
         }
-        if (isset($frame['file'])) {
-            $file = $frame['file'];
+
+        if (!$file) {
+            $frames = $result->getBacktrace();
+            if (count($frames) > 1) {
+                $frame = $frames[1];
+            } else if (count($frames) == 1) {
+                $frame = $frames[0];
+            }
+            if (isset($frame['file'])) {
+                $file = $frame['file'];
+            }
+            if (isset($frame['line'])) {
+                $line = $frame['line'];
+            }
         }
-        if (isset($frame['line'])) {
-            $line = $frame['line'];
+
+        if (!$file) {
+            /* Log all errors */
+            $file = __FILE__;
+            $line = __LINE__;
         }
 
         /* In debugging mode the errors get delivered to the screen

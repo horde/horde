@@ -22,7 +22,7 @@ class Horde_Kolab_Filter_Transport_lmtp extends Horde_Kolab_Filter_Transport
      *
      * @return Net_LMTP The LMTP handler.
      */
-    function &_createTransport()
+    function _createTransport()
     {
         require_once dirname(__FILE__) . '/LMTPTLS.php';
 
