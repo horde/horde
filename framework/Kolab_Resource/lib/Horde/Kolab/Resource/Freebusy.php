@@ -115,7 +115,11 @@ class Horde_Kolab_Resource_Freebusy
         }
 
         if (empty($driver)) {
-            $driver = $conf['freebusy']['driver'];
+            if (isset($conf['freebusy']['driver'])) {
+                $driver = $conf['freebusy']['driver'];
+            } else {
+                $driver = 'Kolab';
+            }
         }
 
         ksort($params);

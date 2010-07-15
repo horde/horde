@@ -40,7 +40,7 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
     protected function getUrl($resource)
     {
         $server = Horde_Kolab_Server::singleton();
-        $uid    = $server->uidForIdOrMailOrAlias($resource);
+        $uid    = $server->uidForMailAddress($resource);
         $result = $server->fetch($uid)->getServer('freebusy');
         return sprintf('%s/%s.xfb', $result, $resource);
     }
