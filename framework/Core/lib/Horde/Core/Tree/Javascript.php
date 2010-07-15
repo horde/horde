@@ -20,7 +20,11 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
      * Constructor.
      *
      * @param string $name   @see parent::__construct().
-     * @param array $params  @see parent::__construct().
+     * @param array $params  @see parent::__construct(). Additional options:
+     * <pre>
+     * 'jsvar' - The JS variable name to store the tree object in.
+     *           DEFAULT: $_instance
+     * </pre>
      */
     public function __construct($name, array $params = array())
     {
@@ -97,8 +101,12 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'initTree' => $this->renderNodeDefinitions()
         );
 
+        $js_var = empty($this->_options['jsvar'])
+            ? $this->_instance
+            : $this->_options['jsvar'];
+
         Horde::addInlineScript(array(
-            'window.' . $this->_instance . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')'
+            'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')'
         ), 'dom');
 
         return '<div id="' . $this->_instance . '"></div>';

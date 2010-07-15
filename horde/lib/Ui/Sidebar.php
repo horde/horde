@@ -191,7 +191,7 @@ class Horde_Ui_Sidebar
         }
 
         // Set up the tree.
-        $tree = $injector->getInstance('Horde_Tree')->getTree('HordeSidebar.tree', 'Javascript');
+        $tree = $injector->getInstance('Horde_Tree')->getTree('horde_sidebar', 'Javascript', array('jsvar' => 'HordeSidebar.tree'));
 
         foreach ($menu as $app => $params) {
             if ($params['status'] == 'block') {
