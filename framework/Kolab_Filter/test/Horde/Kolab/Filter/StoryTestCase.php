@@ -42,7 +42,41 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runGiven(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'that no Kolab server configuration file can be found':
+        case 'an incoming message on host':
+            $world['hostname'] = $arguments[0];
+            $world['type'] = 'Incoming';
+            break;
+        case 'the SMTP sender address is':
+            $world['sender'] = $arguments[0];
+            break;
+        case 'the SMTP recipient address is':
+            $world['recipient'] = $arguments[0];
+            break;
+        case 'the client address is':
+            $world['client'] = $arguments[0];
+            break;
+        case 'the hostname is':
+            $world['hostname'] = $arguments[0];
+            break;
+        case 'the unmodified message content is':
+            $world['infile'] = $arguments[0];
+            $world['fp']     = fopen($world['infile'], 'r');
+            break;
+        case 'the modified message template is':
+            $world['infile'] = $arguments[0];
+            $world['fp']     = fopen($world['infile'], 'r');
+            stream_filter_register(
+                'addresses', 'Horde_Kolab_Filter_Helper_AddressFilter'
+            );
+            stream_filter_append(
+                $world['fp'],
+                'addresses',
+                STREAM_FILTER_READ,
+                array(
+                    'recipient' => $world['recipient'],
+                    'sender'    => $world['sender']
+                )
+            );
             break;
         default:
             return $this->notImplemented($action);
@@ -61,7 +95,13 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runWhen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'reading the configuration':
+        case 'handling the message':
+            $_SERVER['argv'] = $this->_prepareArguments($world);
+            $filter = new Horde_Kolab_Filter();
+            ob_start();
+            $result = $filter->main($world['type'], $world['fp'], 'echo');
+            $world['output'] = ob_get_contents();
+            ob_end_clean();
             break;
         default:
             return $this->notImplemented($action);
@@ -80,11 +120,49 @@ extends PHPUnit_Extensions_Story_TestCase
     public function runThen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'the Config Object will throw an exception of type':
+        case 'the result will be the same as the content in':
+            $out = file_get_contents($arguments[0]);
+            $this->_cleanAndCompareOutput($out, $world['output']);
             break;
         default:
             return $this->notImplemented($action);
         }
     }
 
+    private function _prepareArguments(&$world)
+    {
+        $recipient = isset($world['recipient']) ? $world['recipient'] : '';
+        $sender    = isset($world['sender']) ? $world['sender'] : '';
+        $user      = isset($world['user']) ? $world['user'] : '';
+        $hostname  = isset($world['hostname']) ? $world['hostname'] : '';
+        $client    = isset($world['client']) ? $world['client'] : '';
+        return array(
+            $_SERVER['argv'][0],
+            '--sender=' . $sender,
+            '--recipient=' . $recipient,
+            '--user=' . $user,
+            '--host=' . $hostname,
+            '--client=' . $client
+        );
+
+    }
+
+    private function _cleanAndCompareOutput($received, $expected)
+    {
+        $replace = array(
+            '/^Received:.*$/m' => '',
+            '/^Date:.*$/m' => '',
+            '/DTSTAMP:.*$/m' => '',
+            '/^--+=.*$/m' => '----',
+            '/^Message-ID.*$/m' => '----',
+            '/boundary=.*$/m' => '----',
+            '/\s/' => '',
+        );
+        foreach ($replace as $pattern => $replacement) {
+            $received = preg_replace($pattern, $replacement, $received);
+            $expected = preg_replace($pattern, $replacement, $expected);
+        }
+
+        $this->assertEquals($received, $expected);
+    }
 }

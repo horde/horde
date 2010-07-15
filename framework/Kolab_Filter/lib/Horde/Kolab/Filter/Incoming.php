@@ -24,6 +24,12 @@ require_once dirname(__FILE__) . '/Transport.php';
  */
 class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
 {
+    /**
+     * A temporary storage place for incoming messages.
+     *
+     * @param Horde_Kolab_Filter_Temporary
+     */
+    private $_temporary;
 
     /**
      * An array of headers to be added to the message
@@ -31,6 +37,34 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
      * @var array
      */
     var $_add_headers;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Filter_Configuration $config     The configuration.
+     * @param Horde_Kolab_Filter_Temporary     $temporaray Temporary storage
+     *                                                     location.
+     * @param Horde_Kolab_Filter_Logger        $logger     The logging backend.
+     */
+    public function __construct(
+        Horde_Kolab_Filter_Configuration $config,
+        Horde_Kolab_Filter_Temporary $temporary,
+        Horde_Log_Logger $logger
+    ) {
+        parent::__construct($config, $logger);
+        $this->_temporary = $temporary;
+    }
+
+    /**
+     * Initialize the filter.
+     *
+     * @return NULL
+     */
+    public function init()
+    {
+        parent::init();
+        $this->_temporary->init();
+    }
 
     /**
      * Handle the message.
@@ -44,11 +78,6 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
     {
         global $conf;
 
-        $result = $this->init();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         if (empty($transport)) {
             if (isset($conf['kolab']['filter']['delivery_backend'])) {
                 $transport = $conf['kolab']['filter']['delivery_backend'];
@@ -56,6 +85,8 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
                 $transport = 'lmtp';
             }
         }
+
+        $this->_tmpfh = $this->_temporary->getHandle();
 
         $ical = false;
         $add_headers = array();
@@ -161,7 +192,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
 
         /* Check if we still have recipients */
         if (empty($this->_recipients)) {
-            Horde::logMessage("No recipients left.", 'DEBUG');
+            $this->_logger->debug("No recipients left.", 'DEBUG');
             return;
         } else {
             $result = $this->_deliver($transport);
@@ -170,7 +201,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             }
         }
 
-        Horde::logMessage("Filter_Incoming successfully completed.", 'DEBUG');
+        $this->_logger->debug("Filter_Incoming successfully completed.", 'DEBUG');
     }
 
     private function _transportItipReply(Horde_Kolab_Resource_Reply $reply)
@@ -287,7 +318,7 @@ class Horde_Kolab_Filter_Incoming extends Horde_Kolab_Filter_Base
             }
             $transport = &Horde_Kolab_Filter_Transport::factory($transport, $params);
 
-            $tmpf = @fopen($this->_tmpfile, 'r');
+            $tmpf = $this->_temporary->getReadHandle();
             if (!$tmpf) {
                 $msg = $php_errormsg;
                 return PEAR::raiseError(sprintf("Error: Could not open %s for writing: %s",

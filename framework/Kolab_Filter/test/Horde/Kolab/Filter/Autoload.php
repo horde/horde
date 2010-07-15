@@ -36,3 +36,6 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/StoryTestCase.php';
+
+/** Load the test helpers */
+require_once dirname(__FILE__) . '/Helper/AddressFilter.php';
