@@ -450,7 +450,7 @@ HTML;
      * <pre>
      * TODO
      * 'ajax', 'cache', 'download', 'go', 'logintasks', 'prefsapi'
-     * 'help', 'problem', 'logout', 'login', 'options'
+     * 'help', 'problem', 'logout', 'login', 'options', 'sidebar'
      * </pre>
      * @param string $app        The name of the current Horde application.
      *
@@ -500,6 +500,9 @@ HTML;
 
         case 'ajax':
             return self::url($webroot . '/services/ajax.php/' . $app . '/');
+
+        case 'sidebar':
+            return self::url($webroot . '/services/portal/sidebar.php');
         }
 
         return false;
