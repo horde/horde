@@ -87,7 +87,14 @@ class IMP
      *
      * @var array
      */
-    static private $_menuTemplate = null;
+    static private $_menu = null;
+
+    /**
+     * Sidebar buffer.
+     *
+     * @var array
+     */
+    static private $_sidebar;
 
     /**
      * Returns the current view mode for IMP.
@@ -590,7 +597,7 @@ class IMP
      */
     static public function prepareMenu()
     {
-        if (isset(self::$_menuTemplate)) {
+        if (isset(self::$_menu)) {
             return;
         }
 
@@ -610,7 +617,13 @@ class IMP
         }
         $t->set('menu_string', self::getMenu()->render());
 
-        self::$_menuTemplate = $t;
+        self::$_menu = $t;
+
+        /* Need to buffer sidebar output here, because it may add things like
+         * cookies which need to be sent before output begins. */
+        Horde::startBuffer();
+        require HORDE_BASE . '/services/portal/sidebar.php';
+        self::$_sidebar = Horde::endBuffer();
     }
 
     /**
@@ -619,8 +632,9 @@ class IMP
     static public function menu()
     {
         self::prepareMenu();
-        echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
-        require HORDE_BASE . '/services/portal/sidebar.php';
+
+        echo self::$_menu->fetch(IMP_TEMPLATES . '/imp/menu/menu.html') .
+             self::$_sidebar;
     }
 
     /**
