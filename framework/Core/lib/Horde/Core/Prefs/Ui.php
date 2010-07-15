@@ -521,10 +521,9 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        if (!Horde_Util::getFormData('ajaxui')) {
-            if ($registry->hasAppMethod($this->app, 'prefsMenu')) {
-                $menu = $registry->callAppMethod($this->app, 'prefsMenu', array('args' => array($this)));
-            }
+        if (!$this->vars->ajaxui &&
+            $registry->hasAppMethod($this->app, 'prefsMenu')) {
+            $menu = $registry->callAppMethod($this->app, 'prefsMenu', array('args' => array($this)));
         }
 
         /* Get list of accessible applications. */
@@ -541,7 +540,7 @@ class Horde_Core_Prefs_Ui
         $GLOBALS['bodyId'] = 'services_prefs';
         require $h_templates . '/common-header.inc';
 
-        if (!Horde_Util::getFormData('ajaxui')) {
+        if (!$this->vars->ajaxui) {
             require $h_templates . '/menu/menu.inc';
         }
 
