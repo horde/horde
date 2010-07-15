@@ -92,12 +92,13 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'imgNullOnly' => $this->_images['null_only'],
             'imgLeaf' => $this->_images['leaf'],
 
-            'floatDir' => (empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'float:left;' : 'float:right')
+            'floatDir' => (empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'float:left;' : 'float:right'),
+
+            'initTree' => $this->renderNodeDefinitions()
         );
 
         Horde::addInlineScript(array(
-            'window.' . $this->_instance . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')',
-            $this->renderNodeDefinitions()
+            'window.' . $this->_instance . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')'
         ), 'dom');
 
         return '<div id="' . $this->_instance . '"></div>';
@@ -117,13 +118,17 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
     /**
      * Returns just the JS node definitions as a string.
      *
-     * @return string  The Javascript node array definitions.
+     * @return array  The following keys: 'is_static', 'nodes', 'root_nodes'.
      */
     public function renderNodeDefinitions()
     {
         $this->_buildIndents($this->_root_nodes);
 
-        return 'window.' . $this->_instance . '.renderTree(' . Horde_Serialize::serialize($this->_nodes, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ',' . Horde_Serialize::serialize($this->_root_nodes, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ',' . ($this->_static ? 'true' : 'false') . ');';
+        return array(
+            'is_static' => intval($this->_static),
+            'nodes' => $this->_nodes,
+            'root_nodes' => $this->_root_nodes
+        );
     }
 
 }

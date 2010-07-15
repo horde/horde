@@ -7,7 +7,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author   Marko Djukic <marko@oblo.com>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  */
 
@@ -16,6 +16,11 @@ var Horde_Tree = Class.create({
     initialize: function(opts)
     {
         this.opts = opts;
+
+        if (this.opts.initTree) {
+            this.renderTree(this.opts.initTree.nodes, this.opts.initTree.root_nodes, this.opts.initTree.is_static);
+            this.opts.initTree = null;
+        }
     },
 
     renderTree: function(nodes, rootNodes, renderStatic)
