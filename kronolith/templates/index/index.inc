@@ -146,6 +146,7 @@
   </div>
 
   <h3>
+    <a href="#" id="kronolithAddholiday" class="kronolithAdd" title="<?php echo _("Add Holidays") ?>">+</a>
     <span><?php echo _("Holidays") ?></span>
   </h3>
 

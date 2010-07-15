@@ -1138,7 +1138,9 @@ KronolithCore = {
         }, this);
 
         $H(Kronolith.conf.calendars.holiday).each(function(cal) {
-            this.insertCalendarInList('holiday', cal.key, cal.value);
+            if (cal.value.show) {
+               this.insertCalendarInList('holiday', cal.key, cal.value);
+            }
         }, this);
     },
 
@@ -2848,6 +2850,20 @@ KronolithCore = {
                     $('kronolithCalendarremoteId').setValue(calendar);
                 }
                 break;
+            case 'holiday':
+                $('kronolithCalendarholidayDriver').update();
+                $H(Kronolith.conf.calendars.holiday).each(function(calendar) {
+                    calendar = calendar.value;
+                    if (calendar.show) {
+                        return;
+                    }
+                    $('kronolithCalendarholidayDriver').insert(
+                        new Element('option', { value: calendar.name })
+                            .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
+                            .insert(calendar.name)
+                    );
+                });
+                break;
             }
             $('kronolithCalendar' + type + 'Id').clear();
             var color = '#', i;
@@ -3363,6 +3379,16 @@ KronolithCore = {
             this.colorPicker.hide();
         }
         var data = form.serialize({ hash: true });
+
+        if (data.type == 'holiday') {
+            this.insertCalendarInList('holiday', data.driver, Kronolith.conf.calendars.holiday[data.driver]);
+            this.toggleCalendar('holiday', data.driver);
+            form.down('.kronolithCalendarSave').enable();
+            this.closeRedBox();
+            this.go(this.lastLocation);
+            return;
+        }
+
         if (data.name.empty()) {
             this.showNotifications([ { type: 'horde.warning', message: data.type == 'tasklists' ? Kronolith.text.no_tasklist_title : Kronolith.text.no_calendar_title }]);
             $('kronolithCalendar' + data.type + 'Name').focus();

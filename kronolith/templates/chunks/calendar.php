@@ -270,4 +270,29 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 </form>
 
+<?php if (!empty($GLOBALS['conf']['holidays']['enable']) && class_exists('Date_Holidays')): ?>
+<form id="kronolithCalendarFormholiday" action="">
+<input type="hidden" name="type" value="holiday" />
+<input id="kronolithCalendarholidayId" type="hidden" name="calendar" />
+<input id="kronolithCalendarholidayColor" type="hidden" name="color" />
+<input class="kronolithColorPicker" type="hidden" />
+
+<div class="kronolithCalendarDiv" id="kronolithCalendarholiday1">
+<div>
+  <label><?php echo _("Holidays") ?>:<br />
+    <select id="kronolithCalendarholidayDriver" name="driver">
+    </select>
+  </label>
+</div>
+
+<div class="kronolithFormActions">
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+
+</form>
+<?php endif ?>
+
 </div>
