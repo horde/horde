@@ -1329,9 +1329,6 @@ HTML;
         if (is_array($attr)) {
             $attributes = array_merge($attributes, $attr);
         }
-        if (empty($attributes['title'])) {
-            $attributes['title'] = '';
-        }
 
         $img = '<img';
         $old_error = error_reporting(0);
