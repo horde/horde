@@ -819,6 +819,7 @@ if ($redirect) {
         $t->set('charset_label', Horde::label('charset', _("C_harset")));
         $t->set('charset_tabindex', ++$tabindex);
         $charset_array = array();
+        asort($registry->nlsconfig['encodings']);
         foreach ($registry->nlsconfig['encodings'] as $charset => $label) {
             $charset_array[] = array('value' => $charset, 'selected' => (strtolower($charset) == strtolower($encoding)), 'label' => $label);
         }

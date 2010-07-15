@@ -208,8 +208,9 @@ require FIMA_TEMPLATES . '/menu.inc';
 
 if ($next_step == Horde_Data::IMPORT_FILE) {
     /* Build the charset options. */
-    $charsets = Horde_Nls::$config['encodings'];
-    $all_charsets = Horde_Nls::$config['charsets'];
+    $charsets = $registry->nlsconfig['encodings'];
+    asort($charsets);
+    $all_charsets = $registry->nlsconfig['charsets'];
     natcasesort($all_charsets);
     foreach ($all_charsets as $charset) {
         if (!isset($charsets[$charset])) {

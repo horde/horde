@@ -86,6 +86,11 @@ class IMP_Prefs_Ui
             if (empty($conf['compose']['allow_receipts'])) {
                 $ui->suppress[] = 'disposition_request_read';
             }
+
+            /* Sort encodings. */
+            if (!$prefs->isLocked('sending_charset')) {
+                asort($registry->nlsconfig['encodings']);
+            }
             break;
 
         case 'delmove':
@@ -268,6 +273,11 @@ class IMP_Prefs_Ui
             if (!$v->canRender('inline')) {
                 $ui->suppress[] = 'html_image_replacement';
                 $ui->suppress[] = 'html_image_addrbook';
+            }
+
+            /* Sort encodings. */
+            if (!$prefs->isLocked('default_msg_charset')) {
+                asort($registry->nlsconfig['encodings']);
             }
             break;
         }
