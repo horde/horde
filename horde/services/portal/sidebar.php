@@ -266,7 +266,7 @@ function sidebar()
         exit;
     }
 
-    $rtl = isset(Horde_Nls::$config['rtl'][$language]);
+    $rtl = isset($GLOBALS['registry']->config['rtl'][$language]);
     Horde::addScriptFile('prototype.js', 'horde');
     Horde::addScriptFile('sidebar.js', 'horde');
     require $GLOBALS['registry']->get('templates', 'horde') . '/portal/sidebar.inc';
