@@ -32,7 +32,7 @@ class Horde_Notification_Event_Status extends Horde_Notification_Event
         $text = $this->message;
 
         if (!in_array('content.raw', $this->flags)) {
-            $text = htmlspecialchars($text, ENT_COMPAT, $charset);
+            $text = htmlspecialchars($text, ENT_COMPAT, $this->charset);
         }
 
         return $text;
