@@ -548,6 +548,7 @@ class Horde_Core_Prefs_Ui
 
         $base_ui = clone $base;
         $base_ui->set('action', $options_link);
+        $base_ui->set('ajaxui', intval($this->vars->ajaxui));
         $base_ui->set('forminput', Horde_Util::formInput());
 
         /* Show the current application and a form for switching
