@@ -299,8 +299,8 @@ class IMP_Search
                                    $sortdir = null)
     {
         try {
-            $results = $this->imapSearch($mailbox, $query, array('reverse' => $sortdir, 'sort' => array($sortby)));
-            return new IMP_Indices($mailbox, $results['sort']);
+            $results = $this->imapSearch($mailbox, $query, array('reverse' => $sortdir, 'sort' => is_null($sortby) ? null : array($sortby)));
+            return new IMP_Indices($mailbox, is_null($sortby) ? $results['match'] : $results['sort']);
         } catch (Horde_Imap_Client_Exception $e) {
             return new IMP_Indices();
         }
@@ -326,7 +326,7 @@ class IMP_Search
          * Although there is a fallback to a PHP-based display sort, for
          * performance reasons only do a display sort if it is supported
          * on the server. */
-        if (($_SESSION['imp']['protocol'] == 'imap') && isset($opts['sort'])) {
+        if (($_SESSION['imp']['protocol'] == 'imap') && !empty($opts['sort'])) {
             $sort_cap = $imp_imap->queryCapability('SORT');
 
             if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
