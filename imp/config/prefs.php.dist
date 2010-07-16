@@ -1267,7 +1267,7 @@ $prefGroups['folderdisplay'] = array(
     'label' => _("Folder Display Options"),
     'desc' => _("Change folder navigation display options."),
     'members' => array(
-        'nav_expanded', 'tree_view', 'nav_expanded_sidebar', 'nav_poll_all'
+        'nav_expanded', 'tree_view', 'nav_poll_all'
     )
 );
 
@@ -1291,18 +1291,6 @@ $_prefs['tree_view'] = array(
         1 => _("Show non-private mailboxes in separate folders")
     ),
     'desc' => _("How should namespaces be displayed in the folder tree view?")
-);
-
-// expand folder tree by default in sidebar
-$_prefs['nav_expanded_sidebar'] = array(
-    'value' => 0,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("No"),
-        1 => _("Yes"),
-        2 => _("Current expanded status in the folders view")
-    ),
-    'desc' => _("Expand the entire folder tree by default in the sidebar?")
 );
 
 // poll all folders for new mail?

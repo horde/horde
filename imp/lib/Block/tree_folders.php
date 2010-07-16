@@ -83,7 +83,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             );
             $tree->addNode($parent . $val['value'],
                            ($val['level']) ? $parent . $val['parent'] : $parent,
-                           $label, $indent + $val['level'], $imaptree->isOpenSidebar($val['value']), $node_params);
+                           $label, $indent + $val['level'], $imaptree->isOpen($val['value']), $node_params);
         }
 
         /* We want to rewrite the parent node of the INBOX to include new mail
@@ -109,7 +109,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                 $node_params['icondir'] = $image_dir;
                 $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
             }
-            $tree->addNode($parent, $menu_parent, $name, $indent - 1, $imaptree->isOpenSidebar($parent), $node_params);
+            $tree->addNode($parent, $menu_parent, $name, $indent - 1, $imaptree->isOpen($parent), $node_params);
         }
     }
 

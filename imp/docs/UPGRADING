@@ -66,11 +66,11 @@ your ``config/prefs.php`` file and your preferences backend::
    attachment_display
    filter_on_sidebar
    forward_bodytext
+   nav_expanded_sidebar
 
 
 Hooks
 -----
-
 
 * hooks.php has changed
 

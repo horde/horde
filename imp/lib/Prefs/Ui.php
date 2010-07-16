@@ -114,7 +114,6 @@ class IMP_Prefs_Ui
             if ($pop3) {
                 $ui->suppress[] = 'nav_expanded';
                 $ui->suppress[] = 'tree_view';
-                $ui->suppress[] = 'nav_expanded_sidebar';
             }
             break;
 

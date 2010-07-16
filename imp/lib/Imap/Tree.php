@@ -1757,32 +1757,6 @@ class IMP_Imap_Tree
     }
 
     /**
-     * Is the mailbox open in the sidebar?
-     *
-     * @param array $mbox  A mailbox name.
-     *
-     * @return integer  True if the mailbox is open in the sidebar.
-     */
-    public function isOpenSidebar($mbox)
-    {
-        switch ($GLOBALS['prefs']->getValue('nav_expanded_sidebar')) {
-        case self::OPEN_USER:
-            $this->_initExpandedList();
-            return !empty($this->_expanded[$mbox]);
-            break;
-
-        case self::OPEN_ALL:
-            return true;
-            break;
-
-        case self::OPEN_NONE:
-        default:
-            return false;
-            break;
-        }
-    }
-
-    /**
      * Init frequently used element() data.
      */
     protected function _initElement()
