@@ -56,6 +56,7 @@ class IMP_Imap_Tree
     const FLIST_NOCHILDREN = 32;
     const FLIST_ANCESTORS = 64;
     const FLIST_SAMELEVEL = 128;
+    const FLIST_EXPANDED = 256;
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
@@ -1675,6 +1676,8 @@ class IMP_Imap_Tree
      * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors.
      * IMP_Imap_Tree::FLIST_SAMELEVEL - Also return mailboxes at the same
      *                                  level as $base.
+     * IMP_Imap_Tree::FLIST_EXPANDED - Only included expanded folders.
+     * </pre>
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
@@ -1721,7 +1724,9 @@ class IMP_Imap_Tree
             }
         }
 
-        $nextmask = self::NEXT_SHOWCLOSED;
+        $nextmask = ($mask & self::FLIST_EXPANDED)
+            ? 0
+            : self::NEXT_SHOWCLOSED;
         if ($mask & self::FLIST_NOCHILDREN) {
             $nextmask |= self::NEXT_NOCHILDREN;
         }

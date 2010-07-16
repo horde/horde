@@ -270,6 +270,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
      * @return mixed  False on failure, or an object with the following
      *                entries:
      * <pre>
+     * 'expand' - (integer) Expand subfolders on load.
      * 'mailbox' - (object) Mailboxes that were altered. Contains the
      *             following properties:
      *   'a' - (array) Mailboxes that were added.
@@ -281,6 +282,8 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
     public function listMailboxes()
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $initreload = ($this->_vars->initial || $this->_vars->reload);
+        $result = new stdClass;
 
         $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_ELT;
         if ($this->_vars->unsub) {
@@ -288,9 +291,16 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         if (!$this->_vars->all) {
-            $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
-            if ($this->_vars->initial || $this->_vars->reload) {
+            if ($initreload) {
                 $mask |= IMP_Imap_Tree::FLIST_ANCESTORS | IMP_Imap_Tree::FLIST_SAMELEVEL;
+                if ($GLOBALS['prefs']->getValue('nav_expanded')) {
+                    $result->expand = 1;
+                    $mask |= IMP_Imap_Tree::FLIST_EXPANDED;
+                } else {
+                    $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
+                }
+            } else {
+                $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
             }
         }
 
@@ -303,9 +313,13 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         if (!empty($this->_vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
                 $folder_list += $imptree->folderList($mask, $val);
+
+                if (!$initreload) {
+                    $imptree->expand($val);
+                }
             }
 
-            if (($this->_vars->initial || $this->_vars->reload) && empty($folder_list)) {
+            if ($initreload && empty($folder_list)) {
                 $folder_list = $imptree->folderList($mask, 'INBOX');
             }
         }
@@ -313,7 +327,7 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         /* Add special folders explicitly to the initial folder list, since
          * they are ALWAYS displayed and may appear outside of the folder
          * slice requested. */
-        if ($this->_vars->initial || $this->_vars->reload) {
+        if ($initreload) {
             foreach ($imptree->getSpecialMailboxes() as $val) {
                 if (!is_array($val)) {
                     $val = array($val);
@@ -328,7 +342,6 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
             }
         }
 
-        $result = new stdClass;
         $result->mailbox = $this->_getMailboxResponse($imptree, array(
             'a' => array_values($folder_list),
             'c' => array(),
@@ -341,6 +354,33 @@ class IMP_Ajax_Application extends Horde_Ajax_Application_Base
         }
 
         return $result;
+    }
+
+    /**
+     * AJAX action: Collapse mailboxes.
+     *
+     * Variables used:
+     * <pre>
+     * 'all' - (integer) 1 to show all mailboxes.
+     * 'mboxes' - (string) The list of mailboxes to process (JSON encoded
+     *            array) if 'all' is 0.
+     * </pre>
+     *
+     * @return boolean  True.
+     */
+    public function collapseMailboxes()
+    {
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
+        if ($this->_vars->all) {
+            $imptree->collapseAll();
+        } elseif (!empty($this->_vars->mboxes)) {
+            foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
+                $imptree->collapse($val);
+            }
+        }
+
+        return true;
     }
 
     /**

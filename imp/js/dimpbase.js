@@ -9,8 +9,9 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, pollPE, pp, preview_replace,
-    //   resize, rownum, search, splitbar, template, uid, viewport
+    //   cfolderaction, expandfolder, folder, folderswitch, pollPE, pp,
+    //   preview_replace, resize, rownum, search, splitbar, template, uid,
+    //   viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
     cacheids: {},
@@ -2293,7 +2294,13 @@ var DimpBase = {
 
     _folderLoadCallback: function(r, callback)
     {
+        if (r.response.expand) {
+            this.expandfolder = true;
+        }
+
         this.mailboxCallback(r);
+
+        this.expandfolder = false;
 
         if (callback) {
             callback();
@@ -2344,7 +2351,7 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect)
     {
-        var need = [], subs = [];
+        var collapse = [], need = [], subs = [];
 
         if (mode == 'expall' || mode == 'colall') {
             if (base.hasClassName('subfolders')) {
@@ -2395,6 +2402,11 @@ var DimpBase = {
                 ((mode == 'col' || mode == 'colall') && s.visible())) {
                 s.previous().down().toggleClassName('exp').toggleClassName('col');
 
+                if (mode == 'col' ||
+                    ((mode == 'tog') && s.visible())) {
+                    collapse.push(s.previous().retrieve('mbox'));
+                }
+
                 if (noeffect) {
                     s.toggle();
                 } else {
@@ -2408,6 +2420,14 @@ var DimpBase = {
                 }
             }
         });
+
+        if (DIMP.conf.mbox_expand) {
+            if (collapse.size()) {
+                DimpCore.doAction('collapseMailboxes', { mboxes: collapse.toJSON() });
+            } else if (mode == 'colall') {
+                DimpCore.doAction('collapseMailboxes', { all: 1 });
+            }
+        }
     },
 
     _listFolders: function(params)
@@ -2433,6 +2453,7 @@ var DimpBase = {
 
     // Folder actions.
     // For format of the ob object, see IMP_Dimp::_createFolderElt().
+    // If this.expandfolder is set, expand folder list on initial display.
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp,
@@ -2526,11 +2547,15 @@ var DimpBase = {
                 f_node.insert({ before: li });
             } else {
                 parent_e.insert(li);
+                if (this.expandfolder && !parent_e.hasClassName('folderlist')) {
+                    parent_e.up('LI').show().previous().down().removeClassName('exp').addClassName('col');
+                }
             }
 
             // Make sure the sub<mbox> ul is created if necessary.
             if (!ob.s && ob.ch) {
-                li.insert({ after: new Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
+                li.insert({ after: Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
+                li.insert({ after: tmp });
             }
         }
 

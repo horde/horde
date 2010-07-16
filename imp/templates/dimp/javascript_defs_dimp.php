@@ -64,6 +64,7 @@ $code['conf'] = array_filter(array(
     'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
+    'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
     'popup_height' => 610,
     'popup_width' => 820,
@@ -72,7 +73,7 @@ $code['conf'] = array_filter(array(
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
-    'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width'), 150) . 'px',
+    'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
     'sort' => array(
         'sequence' => array(
             't' => '',

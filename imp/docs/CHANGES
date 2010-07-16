@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Honor nav_expanded preference (DIMP).
 [mms] Allow admin to define list of safe e-mail addresses that will not
       experience HTML image blocking (Request #9129).
 [mms] HTML compose editor uses Horde language for UI (Request #9084;
