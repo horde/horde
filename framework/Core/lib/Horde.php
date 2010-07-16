@@ -1162,7 +1162,11 @@ HTML;
                     htmlspecialchars(
                         nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
                         ENT_QUOTES, $charset));
+
                 error_reporting($old_error);
+
+                /* Remove double encoded entities. */
+                $title = preg_replace('/&amp;([a-z]+|(#\d+));/i', '&\\1;', $title);
             }
             $attributes['title.raw'] = $title;
         }
