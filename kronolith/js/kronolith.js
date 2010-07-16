@@ -4893,6 +4893,10 @@ KronolithCore = {
             eventid = $F('kronolithEventId'),
             params;
 
+        if (this.mapInitialized) {
+            $('kronolithEventMapZoom').value = this.map.getZoom();
+        }
+
         params = $H($('kronolithEventForm').serialize({ hash: true }))
             .merge(this.saveEventParams());
         params.set('as_new', asnew ? 1 : 0);
@@ -4900,9 +4904,6 @@ KronolithCore = {
         this.eventTagAc.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
-        if (this.mapInitialized) {
-            $('kronolithEventMapZoom').value = this.map.getZoom();
-        }
         this.startLoading(target, params.get('sig'));
         this.doAction('saveEvent',
                       params,
@@ -5116,7 +5117,7 @@ KronolithCore = {
         if (ev.gl) {
             $('kronolithEventLocationLat').value = ev.gl.lat;
             $('kronolithEventLocationLon').value = ev.gl.lon;
-            $('kronolithEventMapZoom').value = ev.gl.zoom;
+            $('kronolithEventMapZoom').value = Math.max(1, ev.gl.zoom);
         }
 
         if (!ev.pe) {
