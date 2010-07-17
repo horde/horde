@@ -147,47 +147,28 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      *
      * @param integer $images      Number of images in action
      * @param boolean $add         True if adding, false if removing
-     * @param integer $gallery_id  Gallery id to update images for, if not self
      *
      * @return boolean true on success
      * @throws Ansel_Exception
      */
-    public function updateImageCount($images, $add = true, $gallery_id = null)
+    public function updateImageCount($images, $add = true)
     {
-        if (is_null($gallery_id) || $gallery_id === $this->id) {
-            /* Updating self */
-            if ($add) {
-                $this->data['attribute_images'] += $images;
-            } else {
-                $this->data['attribute_images'] -= $images;
-            }
-            try {
-                $this->save();
-            } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage, 'ERR');
-                throw Ansel_Exception($e);
-            }
+        /* Updating self */
+        if ($add) {
+            $this->data['attribute_images'] += $images;
         } else {
-            /* Updating other gallery */
-            $g = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
-            $count = $g->get('images');
-            if ($add) {
-                $count += $images;
-            } else {
-                $count['attribute_images'] -= $images;
-            }
-            try {
-                $g->save();
-            } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage, 'ERR');
-                throw Ansel_Exception($e);
-            }
+            $this->data['attribute_images'] -= $images;
+        }
+        try {
+            $this->save();
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage, 'ERR');
+            throw Ansel_Exception($e);
         }
 
         /* Need to expire the cache for the gallery that was changed */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $id = (is_null($gallery_id) ? $this->id : $gallery_id);
-            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
         }
 
         return true;

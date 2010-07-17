@@ -2,6 +2,11 @@
 /**
  * The Ansel_View_Abstract:: Parent class for the various Ansel_View classes
  *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

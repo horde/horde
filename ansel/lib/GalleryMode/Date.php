@@ -455,12 +455,13 @@ class Ansel_GalleryMode_Date
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
             foreach ($gallery_ids as $id => $count) {
-                $this->_gallery->updateImageCount($count, false, $id);
+                $g = $GLOBALS['injector']->getInstance('Ansel_Storage')-getScope()->getGallery($id);
+                $g->updateImageCount($count, false);
             }
         } else {
             $this->_gallery->updateImageCount(count($ids), false);
         }
-        $this->_gallery->updateImageCount(count($ids), true, $gallery->id);
+        $gallery->updateImageCount(count($ids), true);
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -522,7 +523,9 @@ class Ansel_GalleryMode_Date
         $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
 
         if (!$isStack) {
-            $this->_gallery->updateImageCount(1, false, $image_gallery);
+            $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
+                    ->getGallery($image_gallery)
+                    ->updateImageCount(1, false);
         }
 
         /* Update the modified flag if we are not a stack image */
