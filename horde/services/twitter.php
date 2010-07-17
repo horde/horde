@@ -88,7 +88,7 @@ case 'getPage':
         $appText = Horde_Text_Filter::filter($tweet->source, 'xss', array());
         $html .= '<div class="fbstreamstory">';
         $html .= '<div style="float:left;text-align:center;width:70px;margin-right:5px;">' . $profileLink
-            . '<img src="' . $profileImg . '" alt="' . $authorName . '" title="' . $authorFullname . '" />'
+            . '<img width="73" height="73" src="' . $profileImg . '" alt="' . $authorName . '" title="' . $authorFullname . '" />'
             . '</a><div style="overflow:hidden;">' . $profileLink . $authorName . '</a></div></div>';
         $html .= ' <div class="fbstreambody">';
         $html .=  $body;
