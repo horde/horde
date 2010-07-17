@@ -419,12 +419,8 @@ class Trean_Bookmarks {
             return PEAR::raiseError('Folders must be DataTreeObject_Folder objects or extend that class.');
         }
 
-        $perm = &$GLOBALS['perms']->newPermission($folder->getName());
-        if (is_a($perm, 'PEAR_Error')) {
-            return $perm;
-        }
-
         /* Give the owner full access */
+        $perm = $GLOBALS['injector']->getInstance('Horde_Perms')->newPermission($folder->getName());
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::SHOW, false);
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::READ, false);
         $perm->addUserPermission($folder->get('owner'), Horde_Perms::EDIT, false);

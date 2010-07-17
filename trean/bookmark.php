@@ -18,7 +18,7 @@ if (is_a($bookmark, 'PEAR_Error')) {
 $folder = $trean_shares->getFolder($bookmark->folder);
 if (is_a($folder, 'PEAR_Error')) {
     die($folder);
-} elseif (!$folder->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+} elseif (!$folder->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     die('Permission denied');
 }
 

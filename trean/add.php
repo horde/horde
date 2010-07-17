@@ -37,7 +37,7 @@ case 'add_bookmark':
         $properties = array();
         $properties['name'] = $new_folder;
 
-        $parent_id = $trean_shares->getId(Horde_Auth::getAuth());
+        $parent_id = $trean_shares->getId($registry->getAuth());
         $parent = &$trean_shares->getFolder($parent_id);
         $result = $parent->addFolder($properties);
 
@@ -77,7 +77,7 @@ case 'add_bookmark':
 case 'add_folder':
     $parent_id = Horde_Util::getFormData('f');
     if (is_null($parent_id)) {
-        $parent_id = $trean_shares->getId(Horde_Auth::getAuth());
+        $parent_id = $trean_shares->getId($registry->getAuth());
     }
 
     /* Check permissions. */
