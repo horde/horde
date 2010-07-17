@@ -46,7 +46,7 @@ case 'category':
 
 case 'owner':
     try {
-        if ($num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->countOwners(Horde_Perms::SHOW, null, false)) {
+        if ($num_groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->countOwners(Horde_Perms::SHOW, null, false)) {
 
             $groups = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->shares->listOwners(Horde_Perms::SHOW,
                                                          null,
