@@ -67,9 +67,12 @@ case 'getPage':
     $html = '';
     $newest = $stream[0]->id;
     foreach ($stream as $tweet) {
-        /* links */
+         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+         $view->addHelper('Tag');
+
+         /* links */
         $body = Horde_Text_Filter::filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
-        $body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
+        $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
 
         /* If this is a retweet, use the original author's profile info */
         if (!empty($tweet->retweeted_status)) {
@@ -79,30 +82,15 @@ case 'getPage':
         }
 
         /* These are all referencing the *original* tweet */
-        $profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
-        $profileImg = $tweetObj->user->profile_image_url;
-        $authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
-        $authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
-        $createdAt = $tweetObj->created_at;
-
-        $appText = Horde_Text_Filter::filter($tweet->source, 'xss', array());
-        $html .= '<div class="fbstreamstory">';
-        $html .= '<div style="float:left;text-align:center;width:70px;margin-right:5px;">' . $profileLink
-            . '<img width="73" height="73" src="' . $profileImg . '" alt="' . $authorName . '" title="' . $authorFullname . '" />'
-            . '</a><div style="overflow:hidden;">' . $profileLink . $authorName . '</a></div></div>';
-        $html .= ' <div class="fbstreambody">';
-        $html .=  $body;
-        $html .= '<div class="fbstreaminfo">' . sprintf(_("Posted %s via %s"), Horde_Date_Utils::relativeDateTime(strtotime($createdAt), $GLOBALS['prefs']->getValue('date_format')), $appText) . '</div>';
-
-        /* Specify the retweeted status */
-        if (!empty($tweet->retweeted_status)) {
-            $html .= '<div class="fbstreaminfo">' . sprintf(_("Retweeted by %s"), Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweet->user->screen_name), true)) . htmlspecialchars($tweet->user->screen_name) . '</a></div>';
-        }
-
-        $html .= '<div class="fbstreaminfo">' . Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $tweet->id . '\', \'' . $tweet->user->screen_name . '\', \'' . $tweet->user->name . '\')') .  _("Reply") . '</a>';
-        $html .= '&nbsp;|&nbsp;' . Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $tweet->id . '\')') . _("Retweet") . '</a>';
-        $html .= '</div><div class="clear">&nbsp;</div></div></div>';
+        $view->profileLink = Horde::externalUrl('http://twitter.com/' . htmlspecialchars($tweetObj->user->screen_name), true);
+        $view->profileImg = $tweetObj->user->profile_image_url;
+        $view->authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $view->authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
+        $view->createdAt = $tweetObj->created_at;
+        $view->clientText = Horde_Text_Filter::filter($tweet->source, 'xss', array());
+        $view->tweet = $tweet;
         $oldest = $tweet->id;
+        $html .= $view->render('twitter_tweet');
     }
 
     $result = array(
