@@ -16,7 +16,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * The gallery mode helper
      *
-     * @var Ansel_Gallery_Mode object
+     * @var Ansel_GalleryMode_* object
      */
     protected $_modeHelper;
 
@@ -488,10 +488,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             $style = $parent->getStyle();
         } else {
             $style = Ansel::getStyleDefinition($style);
-        }
-
-        if (!empty($view_url)) {
-            $view_url = str_replace('%g', $this->id, $view_url);
         }
 
         return Ansel_Tile_Gallery::getTile($this, $style, $mini, $params);
