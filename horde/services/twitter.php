@@ -32,11 +32,6 @@ if (!empty($token['key']) && !empty($token['secret'])) {
 /* See if we are here for any actions */
 $action = Horde_Util::getPost('actionID');
 switch ($action) {
-case 'revokeInfinite':
-    $twitter->account->endSession();
-    $prefs->setValue('twitter', 'a:0:{}');
-    echo '<script type="text/javascript">location.href="' . Horde::selfUrl(false) . '?app=horde&nomenu=0&group=twitter";</script>';
-    exit;
 
 case 'updateStatus':
     $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), Horde_Util::getPost('inReplyTo', ''));
@@ -147,29 +142,4 @@ if (!empty($auth_token)) {
             echo '<script type="text/javascript">window.opener.location.reload(true);window.close();</script>';
         }
     }
-}
-
-/* Could not find a valid auth token, and we are not in the process of getting one */
-if (empty($profile)) {
-    try {
-        $results = $twitter->auth->getRequestToken();
-    } catch (Horde_Service_Twitter_Exception $e) {
-        echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-        echo '</form>';
-        require HORDE_TEMPLATES . '/common-footer.inc';
-        exit;
-    }
-    $_SESSION['twitter_request_secret'] = $results->secret;
-    echo '<div class="fberrorbox">' . sprintf(_("Could not find authorization for %s to interact with your Twitter account."), $registry->get('name')) . '</div>';
-    $link = Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'fbbutton', '', 'openTwitterWindow(); return false;');
-    echo '<script type="text/javascript">function openTwitterWindow() {' . Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true)) . '}</script>';
-    echo sprintf(_("Login to Twitter and authorize the %s application:"), $registry->get('name')) . $link . 'Twitter</a>';
-} else {
-    /* We know we have a good Twitter token here, so check for any actions... */
-    echo '<div class="fbbluebox fbboxfont" style="float:left">';
-    echo '<span><img src="' . $profile->profile_image_url. '" alt="' . htmlspecialchars($profile->screen_name) . '" /></span>';
-    echo '<span><div>' . htmlspecialchars($profile->name) . '</div><div>' . htmlspecialchars($profile->location) . '</div></span>';
-    echo '</div><div class="clear">&nbsp;</div>';
-    echo '<div class="fbbluebox fbboxfont">' . sprintf(_("%s can interact with your Twitter account."), $registry->get('name'));
-    echo ' <div class="fbaction"><input type="submit" class="fbbutton" value="' . _("Disable") . '" onclick="document.prefs.actionID.value=\'revokeInfinite\'; return true" /></div></div>';
 }

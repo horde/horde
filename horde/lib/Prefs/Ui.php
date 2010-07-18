@@ -147,6 +147,9 @@ class Horde_Prefs_Ui
         case 'facebookmanagement':
             return $this->_facebookManagement($ui);
 
+        case 'twittermanagement':
+            return $this->_twitterManagement($ui);
+
         return '';
         }
     }
@@ -180,6 +183,9 @@ class Horde_Prefs_Ui
         case 'facebookmanagement':
             $this->_updateFacebookManagement($ui);
             break;
+
+        case 'twittermanagement':
+            $this->_updateTwitterManagement($ui);
         }
 
         return false;
@@ -555,6 +561,55 @@ class Horde_Prefs_Ui
         return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
     }
 
+    protected function _twitterManagement($ui)
+    {
+        global $prefs, $registry;
+
+        $twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
+        $token = unserialize($prefs->getValue('twitter'));
+
+        /* Check for an existing token */
+        if (!empty($token['key']) && !empty($token['secret'])) {
+            $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
+            $twitter->auth->setToken($auth_token);
+        }
+        try {
+            $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
+        } catch (Horde_Service_Twitter_Exception $e) {}
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+        $t->set('css_link', $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css');
+
+        /* Could not find a valid auth token, and we are not in the process of getting one */
+        if (empty($profile)) {
+            try {
+                $results = $twitter->auth->getRequestToken();
+            } catch (Horde_Service_Twitter_Exception $e) {
+                $t->set('error', sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()), true);
+                //echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
+                //echo '</form>';
+                //require HORDE_TEMPLATES . '/common-footer.inc';
+                exit;
+            }
+            $_SESSION['twitter_request_secret'] = $results->secret;
+
+            $t->set('appname', $registry->get('name'));
+            $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'fbbutton', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');
+            $t->set('popupjs', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true)));
+        } else {
+            /* We know we have a good Twitter token here, so check for any actions... */
+            $t->set('haveSession', true, true);
+            $t->set('profile_image_url', $profile->profile_image_url);
+            $t->set('profile_screenname', htmlspecialchars($profile->screen_name));
+            $t->set('profile_name', htmlspecialchars($profile->name));
+            $t->set('profile_location', htmlspecialchars($profile->location));
+            $t->set('appname', $registry->get('name'));
+        }
+
+        return $t->fetch(HORDE_TEMPLATES . '/prefs/twitter.html');
+    }
+
     /**
      * Update category related preferences.
      *
@@ -765,4 +820,25 @@ class Horde_Prefs_Ui
         }
     }
 
+    protected function _updateTwitterManagement($ui)
+    {
+        global $prefs, $registry;
+
+        $twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
+        $token = unserialize($prefs->getValue('twitter'));
+
+        /* Check for an existing token */
+        if (!empty($token['key']) && !empty($token['secret'])) {
+            $auth_token = new Horde_Oauth_Token($token['key'], $token['secret']);
+            $twitter->auth->setToken($auth_token);
+        }
+
+        switch ($ui->vars->twitteractionID) {
+        case 'revokeInfinite':
+            $twitter->account->endSession();
+            $prefs->setValue('twitter', 'a:0:{}');
+            echo '<script type="text/javascript">location.href="' .  $url = Horde::url('services/prefs.php', true)->add(array('group' => 'twitter', 'app'  => 'horde')) . '";</script>';
+            exit;
+        }
+    }
 }
