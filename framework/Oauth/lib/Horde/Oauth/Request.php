@@ -55,7 +55,7 @@ class Horde_Oauth_Request
             $this->_params['oauth_consumer_key'] = $consumer->key;
         }
 
-        if (empty($this->_params['oauth_token']) && !is_null($token)) {
+        if (empty($this->_params['oauth_token']) && !empty($token)) {
             $this->_params['oauth_token'] = $token->key;
         }
 

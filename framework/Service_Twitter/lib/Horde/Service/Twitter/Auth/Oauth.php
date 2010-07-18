@@ -58,7 +58,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      *                                          the application.
      * @return Horde_Oauth_Token
      */
-    public function getAccessToken($request = null, $requestSecret = null)
+    public function getAccessToken(Horde_Controller_Request_Http $request, $requestSecret = null)
     {
         if (!empty($this->_token)) {
             return $this->_token;

@@ -18,6 +18,17 @@ abstract class Horde_Service_Twitter_Request
      */
     protected $_twitter;
 
+    /**
+     * 
+     * @var Horde_Controller_Request_Http
+     */
+    protected $_request;
+
+    public function __construct(Horde_Controller_Request_Http $request)
+    {
+        $this->_request = $request;
+    }
+
     public function setTwitter(Horde_Service_Twitter $twitter)
     {
         $this->_twitter = $twitter;
