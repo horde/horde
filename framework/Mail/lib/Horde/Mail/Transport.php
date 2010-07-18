@@ -1,6 +1,6 @@
 <?php
 /**
- * Mail driver base class.
+ * Mail transport base class.
  *
  * LICENSE:
  *
@@ -42,13 +42,13 @@
  */
 
 /**
- * Mail driver base class.
+ * Mail transport base class.
  *
  * @access public
  * @version $Revision: 294747 $
  * @package Mail
  */
-abstract class Horde_Mail_Driver
+abstract class Horde_Mail_Transport
 {
     /**
      * Line terminator used for separating header lines.
@@ -210,5 +210,4 @@ abstract class Horde_Mail_Driver
 
         return $headers;
     }
-
 }

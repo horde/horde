@@ -25,9 +25,9 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
     protected $_identity;
 
     /**
-     * A Horde_Mail_Driver object.
+     * A Horde_Mail_Transport object.
      *
-     * @var Horde_Mail_Driver
+     * @var Horde_Mail_Transport
      */
     protected $_mail;
 
@@ -45,7 +45,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      *                       Required parameter:
      *                       - identity: An identity factory that implements
      *                                   getIdentity().
-     *                       - mail: A Horde_Mail_Driver instance.
+     *                       - mail: A Horde_Mail_Transport instance.
      *                       - charset: The charset of the messages.
      */
     public function __construct(array $params = null)
@@ -58,9 +58,8 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
         if (!method_exists($params['identity'], 'getIdentity')) {
             throw new Horde_Alarm_Exception('Parameter \'identity\' does not implement getIdentity().');
         }
-        $r = new ReflectionObject($params['mail']);
-        if (!($params['mail'] instanceof Horde_Mail_Driver)) {
-            throw new Horde_Alarm_Exception('Parameter \'mail\' is not a Horde_Mail_Driver object.');
+        if (!($params['mail'] instanceof Horde_Mail_Transport)) {
+            throw new Horde_Alarm_Exception('Parameter \'mail\' is not a Horde_Mail_Transport object.');
         }
         $this->_identity = $params['identity'];
         $this->_mail     = $params['mail'];

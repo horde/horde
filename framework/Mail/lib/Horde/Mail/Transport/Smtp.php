@@ -47,7 +47,7 @@
  * @category Horde
  * @package  Mail
  */
-class Horde_Mail_Smtp extends Horde_Mail_Driver
+class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 {
     /* Error: Failed to create a Net_SMTP object */
     const ERROR_CREATE = 10000;
@@ -352,5 +352,4 @@ class Horde_Mail_Smtp extends Horde_Mail_Driver
         /* Build our standardized error string. */
         throw new Horde_Mail_Exception($text . ' [SMTP: ' . $error->getMessage() . " (code: $code, response: $response)]", $e_code);
     }
-
 }

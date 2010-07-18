@@ -1471,17 +1471,13 @@ class Horde_Mime_Part
      * @param string $email                The address list to send to.
      * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
      *                                     holding this message's headers.
-     * @param Horde_Mail_Driver $mailer    A Horde_Mail_Driver object.
+     * @param Horde_Mail_Transport $mailer A Horde_Mail_Transport object.
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
      */
-    public function send($email, $headers, $mailer)
+    public function send($email, $headers, Horde_Mail_Transport $mailer)
     {
-        if (!($mailer instanceof Horde_Mail_Driver)) {
-            throw new InvalidArgumentException('Invalid Horde_Mail_Driver object passed to send().');
-        }
-
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
 

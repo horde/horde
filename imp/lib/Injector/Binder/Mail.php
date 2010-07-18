@@ -41,7 +41,12 @@ class IMP_Injector_Binder_Mail implements Horde_Injector_Binder
             $params['password'] = $imap_ob->getParam('password');
         }
 
-        return Horde_Mail::factory($GLOBALS['conf']['mailer']['type'], $params);
+        $transport = $GLOBALS['conf']['mailer']['type'];
+        $class = 'Horde_Mail_Transport_' . ucfirst($transport);
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+        throw new Horde_Exception('Unable to find class for transport ' . $transport);
     }
 
     /**
@@ -50,5 +55,4 @@ class IMP_Injector_Binder_Mail implements Horde_Injector_Binder
     {
         return false;
     }
-
 }

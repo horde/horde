@@ -38,15 +38,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mail">
-      <file name="Driver.php" role="php" />
+      <dir name="Transport">
+       <file name="Mail.php" role="php" />
+       <file name="Mock.php" role="php" />
+       <file name="Null.php" role="php" />
+       <file name="Sendmail.php" role="php" />
+       <file name="Smtp.php" role="php" />
+       <file name="Smtpmx.php" role="php" />
+      </dir> <!-- /lib/Horde/Mail/Transport -->
       <file name="Exception.php" role="php" />
-      <file name="Mail.php" role="php" />
-      <file name="Mock.php" role="php" />
-      <file name="Null.php" role="php" />
       <file name="Rfc822.php" role="php" />
-      <file name="Sendmail.php" role="php" />
-      <file name="Smtp.php" role="php" />
-      <file name="Smtpmx.php" role="php" />
+      <file name="Transport.php" role="php" />
      </dir> <!-- /lib/Horde/Mail -->
      <file name="Mail.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -84,18 +86,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Mail/Driver.php" as="Horde/Mail/Driver.php" />
+   <install name="lib/Horde/Mail/Transport/Mail.php" as="Horde/Mail/Transport/Mail.php" />
+   <install name="lib/Horde/Mail/Transport/Mock.php" as="Horde/Mail/Transport/Mock.php" />
+   <install name="lib/Horde/Mail/Transport/Null.php" as="Horde/Mail/Transport/Null.php" />
+   <install name="lib/Horde/Mail/Transport/Sendmail.php" as="Horde/Mail/Transport/Sendmail.php" />
+   <install name="lib/Horde/Mail/Transport/Smtp.php" as="Horde/Mail/Transport/Smtp.php" />
+   <install name="lib/Horde/Mail/Transport/Smtpmx.php" as="Horde/Mail/Transport/Smtpmx.php" />
    <install name="lib/Horde/Mail/Exception.php" as="Horde/Mail/Exception.php" />
-   <install name="lib/Horde/Mail/Mail.php" as="Horde/Mail/Mail.php" />
-   <install name="lib/Horde/Mail/Mock.php" as="Horde/Mail/Mock.php" />
-   <install name="lib/Horde/Mail/Null.php" as="Horde/Mail/Null.php" />
    <install name="lib/Horde/Mail/Rfc822.php" as="Horde/Mail/Rfc822.php" />
-   <install name="lib/Horde/Mail/Sendmail.php" as="Horde/Mail/Sendmail.php" />
-   <install name="lib/Horde/Mail/Smtp.php" as="Horde/Mail/Smtp.php" />
-   <install name="lib/Horde/Mail/Smtpmx.php" as="Horde/Mail/Smtpmx.php" />
+   <install name="lib/Horde/Mail/Transport.php" as="Horde/Mail/Transport.php" />
    <install name="lib/Horde/Mail.php" as="Horde/Mail.php" />
-   <install name="test/Horde/Mail/AllTests.php" as="test/Horde/Mail/AllTests.php" />
-   <install name="test/Horde/Mail/ParseTest.php" as="test/Horde/Mail/ParseTest.php" />
   </filelist>
  </phprelease>
 </package>

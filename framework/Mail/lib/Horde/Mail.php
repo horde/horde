@@ -50,23 +50,22 @@
 class Horde_Mail
 {
     /**
-     * Returns a Horde_Mail_Driver:: object.
+     * Returns a Horde_Mail_Transport:: object.
      *
-     * @param string $driver  The driver to instantiate.
-     * @param array $params   The parameters to pass to the object.
+     * @param string $transport  The transport to instantiate.
+     * @param array $params      The parameters to pass to the transport.
      *
-     * @return Horde_Mail_Driver  The driver instance.
+     * @return Horde_Mail_Transport  The transport instance.
      * @throws Horde_Mail_Exception
+     * @deprecated
      */
-    static public function factory($driver, $params = array())
+    static public function factory($transport, $params = array())
     {
-        $class = __CLASS__ . '_' . ucfirst($driver);
-
+        $class = 'Horde_Mail_Transport_' . ucfirst($transport);
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Mail_Exception('Unable to find class for driver ' . $driver);
+        throw new Horde_Mail_Exception('Unable to find class for transport ' . $transport);
     }
-
 }

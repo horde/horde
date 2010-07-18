@@ -47,7 +47,7 @@
  * @category Horde
  * @package  Mail
  */
-class Horde_Mail_Smtpmx extends Horde_Mail_Driver
+class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
 {
     /**
      * SMTP connection object.
@@ -385,5 +385,4 @@ class Horde_Mail_Smtpmx extends Horde_Mail_Driver
 
         throw new Horde_Mail_Exception($msg, $this->_errorCode[$id]['code']);
     }
-
 }

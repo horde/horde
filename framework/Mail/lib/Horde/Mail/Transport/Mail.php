@@ -1,6 +1,6 @@
 <?php
 /**
- * Mock mail driver.
+ * Internal PHP-mail() interface.
  *
  * LICENSE:
  *
@@ -35,64 +35,43 @@
  * @category  Horde
  * @package   Mail
  * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
  * @copyright 2010 Chuck Hagenbuch
+ * @copyright 2010 Michael Slusarz
  * @license   http://opensource.org/licenses/bsd-license.php New BSD License
  */
 
 /**
- * Mock implementation, for testing.
+ * Internal PHP-mail() interface.
  *
  * @category Horde
  * @package  Mail
  */
-class Horde_Mail_Mock extends Horde_Mail_Driver
+class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
 {
-    /**
-     * Array of messages that have been sent with the mock.
-     *
-     * @var array
-     */
-    public $sentMessages = array();
-
-    /**
-     * Callback before sending mail.
-     *
-     * @var callback
-     */
-    protected $_preSendCallback;
-
-    /**
-     * Callback after sending mai.
-     *
-     * @var callback
-     */
-    protected $_postSendCallback;
-
     /**
      * Constructor.
      *
-     * @param array  Optional parameters:
+     * @param array $params  Additional parameters:
      * <pre>
-     * 'preSendCallback' - (callback) Called before an email would be sent.
-     * 'postSendCallback' - (callback) Called after an email would have been
-     *                      sent.
+     * 'args' - (string) Extra arguments for the mail() function.
      * </pre>
      */
     public function __construct(array $params = array())
     {
-        if (isset($params['preSendCallback']) &&
-            is_callable($params['preSendCallback'])) {
-            $this->_preSendCallback = $params['preSendCallback'];
-        }
+        $this->_params = array_merge($this->_params, $params);
 
-        if (isset($params['postSendCallback']) &&
-            is_callable($params['postSendCallback'])) {
-            $this->_postSendCallback = $params['postSendCallback'];
-        }
+        /* Because the mail() function may pass headers as command
+         * line arguments, we can't guarantee the use of the standard
+         * "\r\n" separator.  Instead, we use the system's native line
+         * separator. */
+        $this->sep = defined('PHP_EOL')
+            ? PHP_EOL
+            : (strpos(PHP_OS, 'WIN') === false) ? "\n" : "\r\n";
     }
 
     /**
-     * Send a message. Silently discards all mail.
+     * Send a message.
      *
      * @param mixed $recipients  Either a comma-seperated list of recipients
      *                           (RFC822 compliant), or an array of
@@ -116,23 +95,54 @@ class Horde_Mail_Mock extends Horde_Mail_Driver
      */
     public function send($recipients, array $headers, $body)
     {
-        if ($this->_preSendCallback) {
-            call_user_func_array($this->_preSendCallback, array($this, $recipients, $headers, $body));
+        $headers = $this->_sanitizeHeaders($headers);
+
+        // If we're passed an array of recipients, implode it.
+        if (is_array($recipients)) {
+            $recipients = array_map('trim', implode(',', $recipients));
         }
 
-        $headers = $this->_sanitizeHeaders($headers);
+        $subject = '';
+
+        foreach (array_keys($headers) as $hdr) {
+            if (strcasecmp($hdr, 'Subject') === 0) {
+                // Get the Subject out of the headers array so that we can
+                // pass it as a separate argument to mail().
+                $subject = $headers[$hdr];
+                unset($headers[$hdr]);
+            } elseif (strcasecmp($hdr, 'To') === 0) {
+                // Remove the To: header.  The mail() function will add its
+                // own To: header based on the contents of $recipients.
+                unset($headers[$hdr]);
+            }
+        }
+
+        // Flatten the headers out.
         list(, $text_headers) = $this->prepareHeaders($headers);
 
-        $this->sentMessages[] = array(
-            'body' => $body,
-            'headers' => $headers,
-            'header_text' => $text_headers,
-            'recipients' => $recipients
-        );
+        // mail() requires a string for $body. If resource, need to convert
+        // to a string.
+        if (is_resource($body)) {
+            $body_str = '';
+            rewind($body);
+            while (!feof($body)) {
+                $body_str .= fread($body, 8192);
+            }
+            $body = $body_str;
+        }
 
-        if ($this->_postSendCallback) {
-            call_user_func_array($this->_postSendCallback, array($this, $recipients, $headers, $body));
+        // We only use mail()'s optional fifth parameter if the additional
+        // parameters have been provided and we're not running in safe mode.
+        if (empty($this->_params) || ini_get('safe_mode')) {
+            $result = mail($recipients, $subject, $body, $text_headers);
+        } else {
+            $result = mail($recipients, $subject, $body, $text_headers, isset($this->_params['args']) ? $this->_params['args'] : '');
+        }
+
+        // If the mail() function returned failure, we need to create an
+        // Exception and return it instead of the boolean result.
+        if ($result === false) {
+            throw new Horde_Mail_Exception('mail() returned failure.');
         }
     }
-
 }

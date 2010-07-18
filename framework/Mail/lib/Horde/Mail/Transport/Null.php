@@ -1,6 +1,6 @@
 <?php
 /**
- * Null implementation of the mail interface.
+ * Null implementation of the mail transport interface.
  *
  * LICENSE:
  *
@@ -40,12 +40,12 @@
  */
 
 /**
- * Null implementation of the mail interface.
+ * Null implementation of the mail transport interface.
  *
  * @category Horde
  * @package  Mail
  */
-class Horde_Mail_Null extends Horde_Mail_Driver
+class Horde_Mail_Transport_Null extends Horde_Mail_Transport
 {
     /**
      * Send a message.
@@ -73,5 +73,4 @@ class Horde_Mail_Null extends Horde_Mail_Driver
     public function send($recipients, array $headers, $body)
     {
     }
-
 }

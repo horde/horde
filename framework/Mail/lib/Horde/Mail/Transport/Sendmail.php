@@ -47,7 +47,7 @@
  * @category Horde
  * @package  Mail
  */
-class Horde_Mail_Sendmail extends Horde_Mail_Driver
+class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
 {
     /**
      * Any extra command-line parameters to pass to the sendmail or
@@ -243,5 +243,4 @@ class Horde_Mail_Sendmail extends Horde_Mail_Driver
 
         throw new Horde_Mail_Exception('sendmail: ' . $msg . ' (' . $result . ')', $result);
     }
-
 }
