@@ -1,17 +1,16 @@
-<link href="<tag:css_link />" rel="stylesheet" type="text/css" />
 <input type="hidden" name="twitteractionID" id="twitteractionID" />
 <if:haveSession>
-    <div class="fbbluebox fbboxfont" style="float:left">
+    <div  style="float:left">
       <img src="<tag:profile_image_url />" alt="<tag:profile_screenname />" />
       <div><tag:profile_name /></div><div><tag:profile_location /></div>
     </div>
     <div class="clear">&nbsp;</div>
-    <div class="fbbluebox fbboxfont">
+    <div>
       <tag:appname /> <gettext>can interact with your Twitter account</gettext>.
-      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.twitteractionID.value='revokeInfinite'; return true" /></div>
+      <div><input type="submit" class="button" value="<gettext>Disable</gettext>" onclick="document.prefs.twitteractionID.value='revokeInfinite'; return true" /></div>
     </div>
 <else:haveSession>
-    <div class="fberrorbox">
+    <div class="horde-warning">
       <gettext>Could not find authorization for</gettext> <tag:appname /> <gettext>to interact with your Twitter account</gettext>
     </div>
     <script type="text/javascript">
