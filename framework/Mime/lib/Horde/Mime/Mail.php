@@ -226,7 +226,7 @@ class Horde_Mime_Mail
      *                              generated automatically. If false, a
      *                              text/html message is generated.
      */
-    public function setHTMLBody($body, $charset = 'iso-8859-1',
+    public function setHtmlBody($body, $charset = 'iso-8859-1',
                                 $alternative = true)
     {
         $this->_htmlBody = new Horde_Mime_Part();
