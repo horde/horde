@@ -44,6 +44,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="View.php" role="php" />
       </dir> <!-- /lib/Horde/Block/Layout -->
       <file name="Collection.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Layout.php" role="php" />
       <file name="Ui.php" role="php" />
      </dir> <!-- /lib/Horde/Block -->
@@ -80,6 +81,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Block/Layout/Manager.php" as="Horde/Block/Layout/Manager.php" />
    <install name="lib/Horde/Block/Layout/View.php" as="Horde/Block/Layout/View.php" />
    <install name="lib/Horde/Block/Collection.php" as="Horde/Block/Collection.php" />
+   <install name="lib/Horde/Block/Exception.php" as="Horde/Block/Exception.php" />
    <install name="lib/Horde/Block/Layout.php" as="Horde/Block/Layout.php" />
    <install name="lib/Horde/Block/Ui.php" as="Horde/Block/Ui.php" />
    <install name="lib/Horde/Block.php" as="Horde/Block.php" />
