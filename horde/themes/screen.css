@@ -1182,6 +1182,30 @@ div.GrowlerNoticeExit:hover {
     background: #ffa;
 }
 
+/* Social Media Related CSS */
+.fbstreamstory {
+    margin-bottom: 7px;
+    padding-top: 7px;
+    position: relative;
+}
+.fbstreambody {
+    padding: 0 0 0 70px;
+    min-height: 60px;
+}
+.fbstreaminfo {
+    color: #777777;
+    padding: 2px 0 0;
+    font-style: italic;
+}
+.fbgetmore {
+    text-align: center;
+    font-style: italic;
+}
+.fbcurrent {
+    font-style: italic;
+    color: gray;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {

@@ -15,7 +15,7 @@
  */
 ?>
 <div class="fbstreamstory">
-  <div class="fbgreybox" style="float:left;text-align:center;height:73px;width:73px;margin-right:5px;">
+  <div class="solidbox" style="float:left;text-align:center;height:73px;width:73px;margin-right:5px;padding-top:5px;">
     <?php echo $this->profileLink ?><img width="48" height="48" src="<?php echo $this->profileImg?>" alt="<?php echo $this->authorName?>" title="<?php echo $this->authorFullname?>" /></a>
     <div style="overflow:hidden;"><?php echo $this->profileLink . $this->authorName ?></a></div>
   </div>

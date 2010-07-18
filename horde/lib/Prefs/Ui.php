@@ -595,7 +595,7 @@ class Horde_Prefs_Ui
             $_SESSION['twitter_request_secret'] = $results->secret;
 
             $t->set('appname', $registry->get('name'));
-            $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'fbbutton', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');
+            $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');
             $t->set('popupjs', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true)));
         } else {
             /* We know we have a good Twitter token here, so check for any actions... */

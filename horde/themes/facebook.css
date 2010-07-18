@@ -112,27 +112,12 @@
     background: #3B5998;
 }
 
-/* Stream css */
-.fbstreamstory {
-    margin-bottom: 7px;
-    padding-top: 7px;
-    position: relative;
-}
+/* Stream CSS */
 .fbstreampic {
     display: inline;
     height: 50px;
     width: 50px;
 }
-.fbstreambody {
-    padding: 0 0 0 70px;
-    min-height: 60px;
-}
-.fbstreaminfo {
-    color: #777777;
-    padding: 2px 0 0;
-    font-style: italic;
-}
-
 .fbattachment {
     margin-top: 6px;
     overflow: hidden;
@@ -144,7 +129,6 @@
     color: gray;
     padding-top: 3px;
 }
-
 .fbmedia {
     float: left;
     overflow: hidden;
@@ -167,13 +151,7 @@
 .fbmediaitemmultiple {
     padding-left: 5px;
 }
-
 .fbemptystatus {
     font-style: italic;
     color: gray;
-}
-
-.fbgetmore {
-    text-align: center;
-    font-style: italic;
 }
