@@ -39,10 +39,15 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
             throw new Horde_Service_Twitter_Exception($e);
         }
 
-        $body = $response->getBody();
-        if ($response->code >= 400 && $response->code <= 500) {
-            throw new Horde_Service_Twitter_Exception($body);
-        }
+        // Looks like some of the http clients (like Fopen) will thrown an
+        // exception if we try to read an empty stream. Ignore this.
+        try {
+            $body = $response->getBody();
+            if ($response->code >= 400 && $response->code <= 500) {
+                throw new Horde_Service_Twitter_Exception($body);
+            }
+        } catch (Horde_Http_Exception $e) {}
+        
         if (!empty($cache)) {
             $cache->set($key, $body);
         }
