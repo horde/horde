@@ -51,7 +51,7 @@ var Horde_Twitter = Class.create({
         params = {
             actionID: 'updateStatus',
             statusText: statusText,
-            params: { 'in_reply_to_status_id': this.inReplyTo }
+            inReplyTo: this.inReplyTo
         };
 
         new Ajax.Request(this.opts.endpoint, {
