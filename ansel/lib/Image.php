@@ -401,23 +401,23 @@ class Ansel_Image Implements Iterator
         }
 
         try {
-           $iview = Ansel_ImageView::factory($viewType, array('image' => $this, 'style' => $style));
+           $iview = Ansel_ImageGenerator::factory($viewType, array('image' => $this, 'style' => $style));
         } catch (Ansel_Exception $e) {
             // It could be we don't support the requested effect, try
             // ansel_default before giving up.
             if ($view == 'prettythumb') {
                 // If we still fail, the exception gets thrown up the chain.
-                $iview = Ansel_ImageView::factory('Thumb', array('image' => $this, 'style' => 'ansel_default'));
+                $iview = Ansel_ImageGenerator::factory('Thumb', array('image' => $this, 'style' => 'ansel_default'));
             } else {
                 // If it wasn't a prettythumb, then something else must be wrong
                 throw $e;
             }
         }
 
-        /* Create the ImageView */
+        /* Create the ImageGenerator */
         $iview->create();
 
-        /* Cache the data from the new imageview */
+        /* Cache the data from the new ImageGenerator */
         try {
             $this->_data[$vHash] = $this->_image->raw();
         } catch (Horde_Image_Exception $e) {

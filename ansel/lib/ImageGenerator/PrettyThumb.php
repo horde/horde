@@ -1,11 +1,11 @@
 <?php
 /**
- * ImageView to create the prettythumb view (rounded, shadowed thumbnails).
+ * ImageGenerator to create the prettythumb view (rounded, shadowed thumbnails).
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView_PrettyThumb extends Ansel_ImageView
+class Ansel_ImageGenerator_PrettyThumb extends Ansel_ImageGenerator
 {
     public $need = array('RoundCorners', 'DropShadow');
 

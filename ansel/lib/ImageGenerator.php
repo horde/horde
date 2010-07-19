@@ -15,7 +15,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView
+class Ansel_ImageGenerator
 {
     /**
      * Ansel_Image object that this view is created from.
@@ -46,7 +46,7 @@ class Ansel_ImageView
     protected $_style = array();
 
     /**
-     * Array of required, supported features for this ImageView to work
+     * Array of required, supported features for this ImageGenerator to work
      *
      * @var array
      */
@@ -55,7 +55,7 @@ class Ansel_ImageView
     /**
      * Const'r
      *
-     * @return Horde_ImageView
+     * @return Horde_ImageGenerator
      */
     public function __construct($params)
     {
@@ -85,20 +85,20 @@ class Ansel_ImageView
     }
 
     /**
-     * Horde_ImageView factory
+     * Horde_ImageGenerator factory
      *
      * @param string $type   The type of concrete instance to return.
      * @param array $params  Additional parameters needed for the instance.
      *
-     * @return Ansel_ImageView
+     * @return Ansel_ImageGenerator
      * @throws Ansel_Exception
      */
     function factory($type, $params = array())
     {
         $type = basename($type);
-        $class = 'Ansel_ImageView_' . $type;
+        $class = 'Ansel_ImageGenerator_' . $type;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/ImageView/' . $type . '.php';
+            include dirname(__FILE__) . '/ImageGenerator/' . $type . '.php';
         }
         if (class_exists($class)) {
             $view = new $class($params);

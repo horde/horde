@@ -277,7 +277,7 @@ case 'save':
 case 'editimage':
 case 'cropedit':
 case 'resizeedit':
-    $imageview_url = Ansel::getUrlFor('view', array_merge(
+    $ImageGenerator_url = Ansel::getUrlFor('view', array_merge(
                                      array('gallery' => $gallery_id,
                                            'image' => $image_id,
                                            'view' => 'Image',
@@ -304,7 +304,7 @@ case 'resizeedit':
                             'horde.error');
 
         /* Return to the image view. */
-        header('Location: ' . $imageview_url);
+        header('Location: ' . $ImageGenerator_url);
         exit;
     }
 

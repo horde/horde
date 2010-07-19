@@ -1,11 +1,11 @@
 <?php
 /**
- * ImageView to create the gallery image stacks.
+ * ImageGenerator to create the gallery image stacks.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView_PlainStack extends Ansel_ImageView
+class Ansel_ImageGenerator_PlainStack extends Ansel_ImageGenerator
 {
     public $need = array('PhotoStack');
 

@@ -627,7 +627,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             // Don't already have one, must generate it.
             $params = array('gallery' => $this, 'style' => $gal_style);
             try {
-                $iview = Ansel_ImageView::factory($gal_style['default_galleryimage_type'], $params);
+                $iview = Ansel_ImageGenerator::factory($gal_style['default_galleryimage_type'], $params);
                 $img = $iview->create();
 
                 // Note the gallery_id is negative for generated stacks
@@ -913,7 +913,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
             // Manually convert the charset since we're not going through save()
             // @TODO: Look at this usage - maybe each app's share object should
             //  have this method or just keep it public?
-            $data = $this->getshareOb()->toDriverChaset(array($driver_key => $value));
+            $data = $this->getshareOb()->toDriverCharset(array($driver_key => $value));
             $query = $db->prepare('UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                 $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);

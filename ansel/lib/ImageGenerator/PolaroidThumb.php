@@ -1,17 +1,17 @@
 <?php
 /**
- * ImageView to create the shadowsharpthumb view (sharp corners, shadowed)
+ * ImageGenerator to create the shadowsharpthumb view (sharp corners, shadowed)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView_ShadowSharpThumb extends Ansel_ImageView
+class Ansel_ImageGenerator_PolaroidThumb extends Ansel_ImageGenerator
 {
-    public $need = array('DropShadow');
+    public $need = array('PolaroidImage');
 
     /**
      *
-     * @return boolean
+     * @return Horde_Image
      */
     protected function _create()
     {
@@ -19,8 +19,8 @@ class Ansel_ImageView_ShadowSharpThumb extends Ansel_ImageView
                               min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
                               true);
 
-        /* Don't bother with these effects for a stack image
-         * (which will have a negative gallery_id). */
+        /* Don't bother with these effects for a custom gallery default image
+           (which will have a negative gallery_id). */
         if ($this->_image->gallery > 0) {
             if (is_null($this->_style)) {
                 $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->_image->gallery);
@@ -28,20 +28,17 @@ class Ansel_ImageView_ShadowSharpThumb extends Ansel_ImageView
             } else {
                 $styleDef = Ansel::getStyleDefinition($this->_style);
             }
-
             try {
-                $this->_image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
-                $this->_image->addEffect('DropShadow',
+                $this->_image->addEffect('PolaroidImage',
                                          array('background' => $styleDef['background'],
-                                               'padding' => 5,
-                                               'distance' => 8,
-                                               'fade' => 2));
+                                               'padding' => 5));
+
                 $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {
                 throw new Ansel_Exception($e);
             }
 
-            return $this->_image->getHordeImage();
+            return true;
         }
     }
 

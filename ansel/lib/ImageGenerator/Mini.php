@@ -1,11 +1,11 @@
 <?php
 /**
- * ImageView to create the mini view.
+ * ImageGenerator to create the mini view.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView_Mini extends Ansel_ImageView
+class Ansel_ImageGenerator_Mini extends Ansel_ImageGenerator
 {
     /**
      *

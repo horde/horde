@@ -221,7 +221,7 @@ abstract class Ansel_View_Base
      *      full   -     Should a full URL be generated? [false]
      *      from   -     Starting image count [0]
      *      count  -     The number of images to include (starting at from) [0]
-     *      image_view - The type of ImageView to obtain the src url for. [screen]
+     *      image_view - The type of ImageGenerator to obtain the src url for. [screen]
      *      view_links - Should the JSON include links to the Image and/or Gallery View? [false]
      *      perpage    - Number of images per page [from user prefs]
      *   </pre>

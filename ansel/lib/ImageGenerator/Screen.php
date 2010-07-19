@@ -1,11 +1,11 @@
 <?php
 /**
- * ImageView to create the screen view - image sized for slideshow view.
+ * ImageGenerator to create the screen view - image sized for slideshow view.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_ImageView_Screen extends Ansel_ImageView
+class Ansel_ImageGenerator_Screen extends Ansel_ImageGenerator
 {
     /**
      *
