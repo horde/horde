@@ -5,23 +5,23 @@ $block_name = _("Tasks Summary");
 /**
  * @package Horde_Block
  */
-class Horde_Block_nag_summary extends Horde_Block {
+class Horde_Block_nag_summary extends Horde_Block
+{
+    protected $_app = 'nag';
 
-    var $_app = 'nag';
-
-    function _title()
+    protected function _title()
     {
         global $registry;
 
         $label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
-        return Horde::link(Horde::applicationUrl($registry->getInitialPage(),
-                                                 true))
+
+        return Horde::applicationUrl($registry->getInitialPage(), true)->link()
             . htmlspecialchars($label) . '</a>';
     }
 
-    function _params()
+    protected function _params()
     {
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = array();
@@ -88,7 +88,7 @@ class Horde_Block_nag_summary extends Horde_Block {
                          'values' => $categories));
     }
 
-    function _content()
+    protected function _content()
     {
         global $registry, $prefs;
 

@@ -8,11 +8,11 @@ $block_name = _("Calendar Summary");
  *
  * @package Horde_Block
  */
-class Horde_Block_Kronolith_summary extends Horde_Block {
+class Horde_Block_Kronolith_summary extends Horde_Block
+{
+    protected $_app = 'kronolith';
 
-    var $_app = 'kronolith';
-
-    function __construct($params = array(), $row = null, $col = null)
+    protected function __construct($params = array(), $row = null, $col = null)
     {
         parent::__construct($params, $row, $col);
         if (!isset($this->_params['days'])) {
@@ -20,7 +20,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         }
     }
 
-    function _params()
+    protected function _params()
     {
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
@@ -72,7 +72,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&

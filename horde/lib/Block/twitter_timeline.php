@@ -30,33 +30,33 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
      * handle the updates via AJAX on our own.
      *
      */
-    var $updateable = false;
+    public $updateable = false;
 
     /**
      *
      * @ Horde_Service_Twitter
      */
-    var $_twitter;
+    private $_twitter;
 
     /**
      * Twitter profile information returned from verify_credentials
      *
      * @var Object
      */
-    var $_profile;
+    private $_profile;
 
     /**
      *
      * @var string
      */
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         try {
             $twitter = $this->_getTwitterObject();
@@ -80,7 +80,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
 
     /**
      */
-    function _params()
+    protected function _params()
     {
         return array(
             'height' => array(
@@ -99,7 +99,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $conf;
 
@@ -107,7 +107,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         try {
             $twitter = $this->_getTwitterObject();
         }  catch (Horde_Exception $e) {
-            return sprintf(_("There was an error contacting Twitter: %s"), $e->getMessage());
+            throw new Horde_Block_Exception(sprintf(_("There was an error contacting Twitter: %s"), $e->getMessage()));
         }
 
         /* Get a unique ID in case we have multiple Twitter blocks. */

@@ -15,18 +15,34 @@ $block_name = _("Random photo");
  * @author  Ben Chavet <ben@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_random_photo extends Horde_Block {
+class Horde_Block_ansel_random_photo extends Horde_Block
+{
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    var $_app = 'ansel';
+    /**
+     *
+     * @var boolean
+     */
+    public $updateable = true;
 
-    var $updateable = true;
-
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         return _("Random photo");
     }
 
-    function _content()
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRandomGallery();
         if (!$gallery) {
@@ -47,6 +63,7 @@ class Horde_Block_ansel_random_photo extends Horde_Block {
         } else {
             $img = Horde::img('thumb-error.png');
         }
+
         return $viewurl->link(array('title' => _("View Photo"))) . $img . '</a>';
     }
 

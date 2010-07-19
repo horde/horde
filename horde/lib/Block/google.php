@@ -5,16 +5,16 @@ $block_name = _("Google Search");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_google extends Horde_Block {
-
-    var $_app = 'horde';
+class Horde_Block_Horde_google extends Horde_Block
+{
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("Google Search");
     }
@@ -24,13 +24,13 @@ class Horde_Block_Horde_google extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         if (empty($GLOBALS['conf']['api']['googlesearch'])) {
             return '<p><em>' . _("Google search is not enabled.") . '</em></p>';
         }
 
-        ob_start();
+        Horde::startBuffer();
 ?>
 <link href="http://www.google.com/uds/css/gsearch.css" type="text/css" rel="stylesheet"/>
 <div id="googlesearch">...</div>
@@ -60,7 +60,7 @@ GSearch.setOnLoadCallback(GoogleSearchSetup);
 //]]>
 </script>
 <?php
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
 }

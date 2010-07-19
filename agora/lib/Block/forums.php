@@ -17,16 +17,21 @@ $block_name = _("Forums");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_agora_forums extends Horde_Block {
+class Horde_Block_agora_forums extends Horde_Block
+{
 
-    var $_app = 'agora';
+    protected $_app = 'agora';
 
-    function _title()
+    protected function _title()
     {
-        return Horde::link(Horde::applicationUrl('forums.php', true)) . _("Forums") . '</a>';
+        return Horde::applicationUrl('forums.php', true)->link() . _("Formus") . '</a>';
     }
 
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         /* Display the last X number of threads. */
         $forum_display = array();
@@ -38,7 +43,7 @@ class Horde_Block_agora_forums extends Horde_Block {
         return array('forum_display' => $forum_display);
     }
 
-    function _content()
+    protected function _content()
     {
         global $registry;
 
@@ -89,4 +94,5 @@ class Horde_Block_agora_forums extends Horde_Block {
 
         return $view->render('block/forums.html.php');
     }
+
 }

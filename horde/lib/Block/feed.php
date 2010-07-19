@@ -5,13 +5,13 @@ $block_name = _("Syndicated Feed");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_feed extends Horde_Block {
+class Horde_Block_Horde_feed extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
+    private $_feed = null;
 
-    var $_feed = null;
-
-    function _params()
+    protected function _params()
     {
         return array('uri' => array('type' => 'text',
                                     'name' => _("Feed Address")),
@@ -31,7 +31,7 @@ class Horde_Block_Horde_feed extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $this->_read();
         if (is_a($this->_feed, 'Horde_Feed_Base')) {
@@ -46,7 +46,7 @@ class Horde_Block_Horde_feed extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         $this->_read();
         if (is_a($this->_feed, 'Horde_Feed_Base')) {
@@ -74,7 +74,7 @@ class Horde_Block_Horde_feed extends Horde_Block {
         }
     }
 
-    function _read()
+    private function _read()
     {
         if (empty($this->_params['uri'])) {
             return;

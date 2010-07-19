@@ -13,11 +13,19 @@ $block_name = _("Tag Cloud");
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_cloud extends Horde_Block {
+class Horde_Block_ansel_cloud extends Horde_Block
+{
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    var $_app = 'ansel';
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('count' => array(
                             'name' => _("Number of tags to display"),
@@ -26,12 +34,21 @@ class Horde_Block_ansel_cloud extends Horde_Block {
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         return _("Tag Cloud");
     }
 
-    function _content()
+    /**
+     *
+     * @global Horde_Registry $registry
+     * @return string
+     */
+    protected function _content()
     {
         global $registry;
 

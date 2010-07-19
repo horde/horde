@@ -5,11 +5,15 @@ $block_name = _("View an external web page");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_iframe extends Horde_Block {
+class Horde_Block_Horde_iframe extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         return array('iframe' => array('type' => 'text',
                                        'name' => _("URL"),
@@ -30,14 +34,15 @@ class Horde_Block_Horde_iframe extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         global $registry;
 
         $title = !empty($this->_params['title']) ? $this->_params['title'] : $this->_params['iframe'];
-        return htmlspecialchars($title) .
-            Horde::link($this->_params['iframe'], _("Open in a new window"), '', '_blank') .
-            Horde::img('external.png', '', array('style' => 'vertical-align:middle;padding-left:.3em')) . '</a>';
+        $url = new Horde_Url(Horde::externalUrl($this->_params['iframe']));
+        
+        return htmlspecialchars($title) . $url->link(array('target' => '_blank'))
+            . Horde::img('external.png', '', array('style' => 'vertical-align:middle;padding-left:.3em')) . '</a>';
     }
 
     /**
@@ -45,7 +50,7 @@ class Horde_Block_Horde_iframe extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $browser;
 

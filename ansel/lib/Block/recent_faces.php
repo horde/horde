@@ -17,9 +17,15 @@ if (!empty($GLOBALS['conf']['faces']['driver'])) {
  */
 class Horde_Block_ansel_recent_faces extends Horde_Block
 {
-    var $_app = 'ansel';
+    /**
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    function _params()
+    /**
+     * @return array
+     */
+    protected function _params()
     {
         return array('limit' => array(
                         'name' => _("Maximum number of faces"),
@@ -27,12 +33,20 @@ class Horde_Block_ansel_recent_faces extends Horde_Block
                         'default' => 10));
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         return _("Recent faces");
     }
 
-    function _content()
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         $results = $faces->allFaces(0, $this->_params['limit']);

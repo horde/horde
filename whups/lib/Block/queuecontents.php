@@ -7,11 +7,11 @@ $block_name = _("Queue Contents");
  *
  * @package Horde_Block
  */
-class Horde_Block_Whups_queuecontents extends Horde_Block {
+class Horde_Block_Whups_queuecontents extends Horde_Block
+{
+    protected $_app = 'whups';
 
-    var $_app = 'whups';
-
-    function _params()
+    protected function _params()
     {
         global $whups_driver;
 
@@ -38,7 +38,7 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         if ($queue = $this->_getQueue()) {
             return sprintf(_("Open Tickets in %s"), htmlspecialchars($queue['name']));
@@ -51,7 +51,7 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $whups_driver, $prefs;
 
@@ -88,10 +88,11 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
         }
 
         Horde::addScriptFile('tables.js', 'horde', true);
+
         return '<table id="whups_block_queue_' . htmlspecialchars($this->_params['queue']) . '" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
     }
 
-    function _getQueue()
+    private function _getQueue()
     {
         global $whups_driver;
 
@@ -105,6 +106,7 @@ class Horde_Block_Whups_queuecontents extends Horde_Block {
         if (is_a($queue, 'PEAR_Error')) {
             return false;
         }
+
         return $queue;
     }
 

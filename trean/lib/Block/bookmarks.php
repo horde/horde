@@ -5,9 +5,7 @@ $block_name = _("Bookmarks");
 /**
  * Implementation of Horde_Block api to show bookmarks.
  *
- * $Horde: trean/lib/Block/bookmarks.php,v 1.39 2009-11-29 15:51:42 chuck Exp $
- *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,12 +14,12 @@ $block_name = _("Bookmarks");
  * @since   Trean 1.0
  * @package Horde_Block
  */
-class Horde_Block_Trean_bookmarks extends Horde_Block {
+class Horde_Block_Trean_bookmarks extends Horde_Block
+{
+    protected $_app = 'trean';
+    private $_folder = null;
 
-    var $_app = 'trean';
-    var $_folder = null;
-
-    function _params()
+    protected  function _params()
     {
         require_once dirname(__FILE__) . '/../base.php';
 
@@ -68,7 +66,7 @@ class Horde_Block_Trean_bookmarks extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         global $registry;
 
@@ -82,7 +80,7 @@ class Horde_Block_Trean_bookmarks extends Horde_Block {
             }
         }
 
-        return Horde::link(Horde::url($registry->getInitialPage(), true)) . $name . '</a>';
+        return Horde::url($registry->getInitialPage(), true)->link() . $name . '</a>';
     }
 
     /**
@@ -90,7 +88,7 @@ class Horde_Block_Trean_bookmarks extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
         require_once TREAN_TEMPLATES . '/star_rating_helper.php';
@@ -131,7 +129,7 @@ class Horde_Block_Trean_bookmarks extends Horde_Block {
         return $html;
     }
 
-    function _getFolder()
+    private function _getFolder()
     {
         require_once dirname(__FILE__) . '/../base.php';
 

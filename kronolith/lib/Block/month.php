@@ -8,12 +8,12 @@ $block_name = _("This Month");
  *
  * @package Horde_Block
  */
-class Horde_Block_Kronolith_month extends Horde_Block {
+class Horde_Block_Kronolith_month extends Horde_Block
+{
+    protected $_app = 'kronolith';
+    private $_share = null;
 
-    var $_app = 'kronolith';
-    var $_share = null;
-
-    function _params()
+    protected function _params()
     {
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
@@ -37,6 +37,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                 }
             }
         }
+
         return $params;
     }
 
@@ -45,7 +46,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $title = _("All Calendars");
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
@@ -73,7 +74,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $prefs;
 
@@ -83,7 +84,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                 try {
                     $this->_share = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
                 } catch (Exception $e) {
-                    return _(sprintf("There was an error accessing the calendar: %s", $e->getMessage()));
+                    throw new Horde_Block_Exception(_(sprintf("There was an error accessing the calendar: %s", $e->getMessage())));
                 }
             }
             if (!$this->_share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {

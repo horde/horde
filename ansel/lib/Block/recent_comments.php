@@ -18,11 +18,22 @@ if ($GLOBALS['registry']->images->hasComments() &&
  */
 class Horde_Block_ansel_recent_comments extends Horde_Block
 {
+    /**
+     * @var string
+     */
+    protected $_app = 'ansel';
+    
+    /**
+     *
+     * @var Ansel_Gallery
+     */
+    private $_gallery = null;
 
-    var $_app = 'ansel';
-    var $_gallery = null;
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('gallery' => array(
                         'name' => _("Gallery"),
@@ -39,7 +50,11 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         if ($this->_params['gallery'] != 'all') {
             try {
@@ -67,7 +82,12 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         return sprintf(_("Recent Comments In %s"), $viewurl->link() . $name . '</a>');
     }
 
-    function _content()
+    /**
+     *
+     * @global Horde_Registry $registry
+     * @return string
+     */
+    protected function _content()
     {
         global $registry;
 
@@ -130,7 +150,13 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         return $html;
     }
 
-    function _getGallery()
+    /**
+     *
+     * @return Ansel_Gallery
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_PermissionDenied
+     */
+    private function _getGallery()
     {
         // Make sure we haven't already selected a gallery.
         if ($this->_gallery instanceof Ansel_Gallery) {
@@ -146,7 +172,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
         }
 
         if (empty($this->_gallery)) {
-            throw new Horde_Exception_NotFount(_("Gallery does not exist."));
+            throw new Horde_Exception_NotFound(_("Gallery does not exist."));
         } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied viewing this gallery."));
         }
@@ -165,7 +191,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
      * @param string $index      The index that contains the numerical value
      *                           to sort by.
      */
-    function _asortbyindex ($sortarray, $index) {
+    private function _asortbyindex ($sortarray, $index) {
         $lastindex = count ($sortarray) - 1;
         for ($subindex = 0; $subindex < $lastindex; $subindex++) {
             $lastiteration = $lastindex - $subindex;

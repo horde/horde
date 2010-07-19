@@ -5,27 +5,26 @@ $block_name = _("Notes Summary");
 /**
  * Implementation of Horde_Block api to show notes summary.
  *
- * $Horde: mnemo/lib/Block/summary.php,v 1.39 2009/12/04 17:42:25 jan Exp $
  *
  * @package Horde_Block
  */
-class Horde_Block_Mnemo_summary extends Horde_Block {
+class Horde_Block_Mnemo_summary extends Horde_Block
+{
+    protected $_app = 'mnemo';
 
-    var $_app = 'mnemo';
-
-    function _title()
+    protected function _title()
     {
         global $registry;
 	
 	$label = !empty($this->_params['block_title'])
             ? $this->_params['block_title']
             : $registry->get('name');
-        return Horde::link(Horde::applicationUrl($registry->getInitialPage(),
-						 true))
+
+        return Horde::link(Horde::applicationUrl($registry->getInitialPage(), true))
             . htmlspecialchars($label) . '</a>';
     }
 
-    function _params()
+    protected function _params()
     {
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = array();
@@ -48,7 +47,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
                          'values' => $categories));
     }
 
-    function _content()
+    protected function _content()
     {
         global $registry, $prefs;
 
@@ -110,6 +109,7 @@ class Horde_Block_Mnemo_summary extends Horde_Block {
         if (!$memos) {
             return '<p><em>' . _("No notes to display") . '</em></p>';
         }
+        
         return '<link href="'
             . htmlspecialchars(Horde::applicationUrl('themes/categoryCSS.php',
                                                      true))

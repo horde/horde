@@ -17,22 +17,22 @@ $block_name = _("Threads");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_agora_threads extends Horde_Block {
-
+class Horde_Block_agora_threads extends Horde_Block
+{
     /**
      * @var array
      */
-    var $_threads = array();
+    private $_threads = array();
 
     /**
      * @var string
      */
-    var $_app = 'agora';
+    protected $_app = 'agora';
 
     /**
      * @return array
      */
-    function _params()
+    protected function _params()
     {
         $forums = Agora_Messages::singleton();
 
@@ -58,7 +58,7 @@ class Horde_Block_agora_threads extends Horde_Block {
     /**
      * @return string
      */
-    function _title()
+    protected function _title()
     {
         if (!isset($this->_params['forum_id'])) {
             return _("Threads");
@@ -76,23 +76,25 @@ class Horde_Block_agora_threads extends Horde_Block {
         if (!empty($scope)) {
             $url = Horde_Util::addParameter($url, 'scope', $scope);
         }
+
         return Horde::link(Agora::setAgoraId($this->_params['forum_id'], null, $url))
             . $title . '</a>';
     }
 
     /**
      * @return string
+     * @throws Horde_Block_Exception
      */
-    function _content()
+    protected function _content()
     {
         if (!isset($this->_params['forum_id'])) {
-            return _("No forum selected");
+            throw new Horde_Block_Exception(_("No forum selected"));
         }
 
         if (empty($this->_threads)) {
             $this->_threads = &Agora_Messages::singleton('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
-                return PEAR::raiseError(_("Unable to fetch threads for selected forum."));
+                throw new Horde_Block_Exception(_("Unable to fetch threads for selected forum."));
             }
         }
 
@@ -121,4 +123,5 @@ class Horde_Block_agora_threads extends Horde_Block {
 
         return $view->render('block/threads.html.php');
     }
+
 }

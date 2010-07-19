@@ -8,16 +8,16 @@ $block_name = _("My Tickets");
  *
  * @package Horde_Block
  */
-class Horde_Block_Whups_mytickets extends Horde_Block {
-
-    var $_app = 'whups';
+class Horde_Block_Whups_mytickets extends Horde_Block
+{
+    protected $_app = 'whups';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("My Tickets");
     }
@@ -27,7 +27,7 @@ class Horde_Block_Whups_mytickets extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $whups_driver, $prefs;
 
@@ -62,6 +62,7 @@ class Horde_Block_Whups_mytickets extends Horde_Block {
         }
 
         Horde::addScriptFile('tables.js', 'horde', true);
+
         return '<table id="whups_block_mytickets" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
     }
 

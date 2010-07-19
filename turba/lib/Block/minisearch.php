@@ -8,19 +8,18 @@ $block_name = _("Contact Search");
  *
  * @package Horde_Block
  */
-class Horde_Block_turba_minisearch extends Horde_Block {
-
-    var $_app = 'turba';
+class Horde_Block_turba_minisearch extends Horde_Block
+{
+    protected $_app = 'turba';
 
     /**
      * The title to go in this block.
      *
      * @return string  The title text.
      */
-    function _title()
+    protected function _title()
     {
-        return Horde::link(Horde::url($GLOBALS['registry']->getInitialPage(),
-                                      true))
+        return Horde::url($GLOBALS['registry']->getInitialPage(), true)->link()
             . _("Contact Search") . '</a>';
     }
 
@@ -29,7 +28,7 @@ class Horde_Block_turba_minisearch extends Horde_Block {
      *
      * @return string  The block content.
      */
-    function _content()
+    protected function _content()
     {
         if ($GLOBALS['browser']->hasFeature('iframes')) {
             Horde::addScriptFile('prototype.js', 'horde');

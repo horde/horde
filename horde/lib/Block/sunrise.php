@@ -5,16 +5,16 @@ $block_name = _("Sunrise/Sunset");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_sunrise extends Horde_Block {
+class Horde_Block_Horde_sunrise extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
-
-    function _title()
+    protected function _title()
     {
         return _("Sunrise/Sunset");
     }
 
-    function _params()
+    protected function _params()
     {
         $params = array('location' => array('type' => 'mlenum',
                                             'name' => _("Location"),
@@ -32,10 +32,10 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
         return $params;
     }
 
-    function _content()
+    protected function _content()
     {
         if (empty($this->_params['location'])) {
-            return _("No location is set.");
+            throw new Horde_Block_Exception(_("No location is set."));
         }
 
         // Set the timezone variable, if available.
@@ -70,7 +70,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
     /**
      * http://www.zend.com/codex.php?id=135&single=1
      */
-    function _calculateSunset($date, $latitude, $longitude, $sunset = true, $timezone)
+    private function _calculateSunset($date, $latitude, $longitude, $sunset = true, $timezone)
     {
         $yday = date('z', $date);
         $mon = date('n', $date);

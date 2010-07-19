@@ -13,19 +13,19 @@ if (!empty($GLOBALS['conf']['facebook']['enabled'])) {
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_Horde_fb_stream extends Horde_Block {
-
+class Horde_Block_Horde_fb_stream extends Horde_Block
+{
     /**
      * Whether this block has changing content.
      *
      * Set this to false, since we handle the updates via AJAX on our own.
      */
-    var $updateable = false;
+    public $updateable = false;
 
     /**
      * @var string
      */
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * @var Horde_Service_Facebook
@@ -62,7 +62,7 @@ class Horde_Block_Horde_fb_stream extends Horde_Block {
      *
      * @return array
      */
-    function _params()
+    protected function _params()
     {
         $filters = array();
 
@@ -100,7 +100,7 @@ class Horde_Block_Horde_fb_stream extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return Horde::externalUrl('http://facebook.com', true) . _("My Facebook Stream") . '</a>';
     }
@@ -110,7 +110,7 @@ class Horde_Block_Horde_fb_stream extends Horde_Block {
      *
      * @return string   The content.
      */
-    function _content()
+    protected function _content()
     {
         $instance = md5(mt_rand());
         $csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';

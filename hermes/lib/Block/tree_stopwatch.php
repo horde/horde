@@ -6,11 +6,11 @@ $block_type = 'tree';
 /**
  * @package Horde_Block
  */
-class Horde_Block_hermes_tree_stopwatch extends Horde_Block {
+class Horde_Block_hermes_tree_stopwatch extends Horde_Block
+{
+    protected $_app = 'hermes';
 
-    var $_app = 'hermes';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         global $registry, $prefs;
 

@@ -5,9 +5,7 @@ $block_name = _("Most-clicked Bookmarks");
 /**
  * Implementation of Horde_Block api to show the most-clicked bookmarks.
  *
- * $Horde: trean/lib/Block/mostclicked.php,v 1.4 2009/01/06 18:02:13 jan Exp $
- *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -15,14 +13,14 @@ $block_name = _("Most-clicked Bookmarks");
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_Trean_mostclicked extends Horde_Block {
-
-    var $_app = 'trean';
+class Horde_Block_Trean_mostclicked extends Horde_Block
+{
+    protected $_app = 'trean';
 
     /**
      * Block configuration.
      */
-    function _params()
+    protected function _params()
     {
         return array('rows' => array('name' => _("Number of bookmarks to show"),
                                      'type' => 'enum',
@@ -43,10 +41,9 @@ class Horde_Block_Trean_mostclicked extends Horde_Block {
      *
      * @return string The title text.
      */
-    function _title()
+    protected function _title()
     {
-        global $registry;
-        return Horde::link(Horde::url($registry->getInitialPage(), true)) . _("Most-clicked Bookmarks") . '</a>';
+        return Horde::url($GLOBALS['registry']->getInitialPage(), true)->link() . _("Most-clicked Bookmarks") . '</a>';
     }
 
     /**
@@ -54,7 +51,7 @@ class Horde_Block_Trean_mostclicked extends Horde_Block {
      *
      * @return string The content.
      */
-    function _content()
+    protected function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
         require_once TREAN_TEMPLATES . '/star_rating_helper.php';

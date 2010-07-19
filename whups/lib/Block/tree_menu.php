@@ -6,11 +6,11 @@ $block_type = 'tree';
 /**
  * @package Horde_Block
  */
-class Horde_Block_whups_tree_menu extends Horde_Block {
+class Horde_Block_whups_tree_menu extends Horde_Block
+{
+    protected $_app = 'whups';
 
-    var $_app = 'whups';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         global $registry;
 

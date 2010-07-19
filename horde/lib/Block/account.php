@@ -12,16 +12,17 @@ $block_name = _("Account Information");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_Horde_account extends Horde_Block {
+class Horde_Block_Horde_account extends Horde_Block
+{
 
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("My Account Information");
     }
@@ -31,7 +32,7 @@ class Horde_Block_Horde_account extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $registry, $conf;
 
@@ -105,17 +106,19 @@ class Horde_Block_Horde_account extends Horde_Block {
 
         if ($registry->get('status', 'forwards') != 'inactive' &&
             $registry->hasMethod('summary', 'forwards')) {
-            $summary = $registry->callByPackage('forwards', 'summary');
-            if (!is_a($summary, 'PEAR_Error')) {
+            try {
+                $summary = $registry->callByPackage('forwards', 'summary');
                 $output .= '<br />' . $summary . "\n";
-            }
+            } catch (Exception $e) {}
         }
+
         if ($registry->get('status', 'vacation') != 'inactive' &&
             $registry->hasMethod('summary', 'vacation')) {
-            $summary = $registry->callByPackage('vacation', 'summary');
-            if (!is_a($summary, 'PEAR_Error')) {
+            
+            try {
+                $summary = $registry->callByPackage('vacation', 'summary');
                 $output .= '<br />' . $summary . "\n";
-            }
+            } catch (Exception $e) {}
         }
 
         return $output;

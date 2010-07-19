@@ -12,18 +12,18 @@ $block_name = _("Overview");
  * @author  Oliver Kuhl <okuhl@netcologne.de>
  * @package Horde_Block
  */
-class Horde_Block_ingo_overview extends Horde_Block {
-
-    var $_app = 'ingo';
+class Horde_Block_ingo_overview extends Horde_Block
+{
+    protected $_app = 'ingo';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
-        return Horde::link(Horde::url($GLOBALS['registry']->getInitialPage(), true)) . $GLOBALS['registry']->get('name') . '</a>';
+        return Horde::url($GLOBALS['registry']->getInitialPage(), true)->link() . $GLOBALS['registry']->get('name') . '</a>';
     }
 
     /**
@@ -31,7 +31,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         /* Get list of filters */
         $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
@@ -51,7 +51,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
                     $html .= $html_pre .
                         Horde::img('vacation.png', _("Vacation")) .
                         '</td><td>' .
-                        Horde::link(Horde::applicationUrl('vacation.php'), _("Edit")) .
+                        Horde::applicationUrl('vacation.php')->link(array('title' => _("Edit"))) .
                         _("Vacation") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -60,7 +60,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
                 if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
                     $html .= $html_pre .
                         Horde::img('forward.png', _("Forward")) . '</td><td>' .
-                        Horde::link(Horde::applicationUrl('forward.php'), _("Edit")) .
+                        Horde::applicationUrl('forward.php')->link(array('title' => _("Edit"))) .
                         _("Forward") . '</a> ' . $active;
                     $data = unserialize($GLOBALS['prefs']->getValue('forward'));
                     if (!empty($data['a'])) {
@@ -75,7 +75,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
                     $html .= $html_pre .
                         Horde::img('whitelist.png', _("Whitelist")) .
                         '</td><td>' .
-                        Horde::link(Horde::applicationUrl('whitelist.php'), _("Edit")) .
+                        Horde::applicationUrl('whitelist.php')->link(array('title' => _("Edit"))) .
                         _("Whitelist") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -85,7 +85,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
                     $html .= $html_pre .
                         Horde::img('blacklist.png', _("Blacklist")) .
                         '</td><td>' .
-                        Horde::link(Horde::applicationUrl('blacklist.php'), _("Edit")) .
+                        Horde::applicationUrl('blacklist.php')->link(array('title' => _("Edit"))) .
                         _("Blacklist") . '</a> ' . $active . $html_post;
                 }
                 break;
@@ -95,7 +95,7 @@ class Horde_Block_ingo_overview extends Horde_Block {
                     $html .= $html_pre .
                         Horde::img('spam.png', _("Spam Filter")) .
                         '</td><td>' .
-                        Horde::link(Horde::applicationUrl('spam.php'), _("Edit")) .
+                        Horde::applicationUrl('spam.php')->link(array('title' => _("Edit"))) .
                         _("Spam Filter") . '</a> ' . $active . $html_post;
                 }
                 break;

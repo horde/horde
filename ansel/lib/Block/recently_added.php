@@ -15,10 +15,23 @@ $block_name = _("Recently Added Photos");
  */
 class Horde_Block_ansel_recently_added extends Horde_Block
 {
-    var $_app = 'ansel';
-    var $_gallery = null;
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    function _params()
+    /**
+     *
+     * @var Ansel_Gallery
+     */
+    private $_gallery = null;
+
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
@@ -42,7 +55,11 @@ class Horde_Block_ansel_recently_added extends Horde_Block
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         if ($this->_params['gallery'] != 'all') {
             try {
@@ -67,10 +84,15 @@ class Horde_Block_ansel_recently_added extends Horde_Block
             $viewurl = Ansel::getUrlFor('view', array('view' => 'List'), true);
             $name = _("All Galleries");
         }
+
         return sprintf(_("Recently Added Photos From %s"), $viewurl->link() . $name . '</a>');
     }
 
-    function _content()
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         if ($this->_params['gallery'] == 'all') {
             $galleries = array();
@@ -80,8 +102,7 @@ class Horde_Block_ansel_recently_added extends Horde_Block
             $galleries = $this->_params['gallery'];
         }
 
-        // Retrieve the images, but protect against very large values for
-        // limit.
+        // Retrieve the images, but protect against very large values for limit.
         try {
             $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages(
             $galleries, min($this->_params['limit'], 100));
@@ -156,12 +177,16 @@ HEADER;
                     ENT_COMPAT, $GLOBALS['registry']->getCharset())
                 . '</a></td><td class="nowrap">' . $galleryLink . '</td></tr>';
         }
-
         $html .= '</tbody></table>';
+
         return $html;
     }
 
-    function _getGallery()
+    /**
+     *
+     * @return Ansel_Gallery
+     */
+    private function _getGallery()
     {
         /* Make sure we haven't already selected a gallery. */
         if ($this->_gallery instanceof Ansel_Gallery) {

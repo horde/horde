@@ -6,24 +6,19 @@ $block_name = _("Tag Cloud");
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_Horde_cloud extends Horde_Block {
-
-    /**
-     * Whether this block has changing content.
-     */
-    var $updateable = false;
-
+class Horde_Block_Horde_cloud extends Horde_Block
+{
     /**
      * @var string
      */
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("Tag Cloud");
     }
@@ -33,7 +28,7 @@ class Horde_Block_Horde_cloud extends Horde_Block {
      *
      * @return string   The content.
      */
-    function _content()
+    protected function _content()
     {
         Horde::addScriptFile('prototype.js', 'horde');
 
@@ -54,7 +49,11 @@ class Horde_Block_Horde_cloud extends Horde_Block {
             . '<div id="cloudsearch"></div>';
     }
 
-    function _getTags()
+    /**
+     *
+     * @return array
+     */
+    private function _getTags()
     {
         $results = array();
         foreach ($GLOBALS['registry']->listAPIs() as $api) {
@@ -65,6 +64,7 @@ class Horde_Block_Horde_cloud extends Horde_Block {
                 }
             }
         }
+
         return $results;
     }
 

@@ -14,11 +14,11 @@ $block_type = 'tree';
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Gollem
  */
-class Horde_Block_gollem_tree_menu extends Horde_Block {
+class Horde_Block_gollem_tree_menu extends Horde_Block
+{
+    protected $_app = 'gollem';
 
-    var $_app = 'gollem';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         // TODO
         return;

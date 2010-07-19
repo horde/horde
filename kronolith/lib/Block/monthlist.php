@@ -8,11 +8,11 @@ $block_name = _("Upcoming Events");
  *
  * @package Horde_Block
  */
-class Horde_Block_Kronolith_monthlist extends Horde_Block {
+class Horde_Block_Kronolith_monthlist extends Horde_Block
+{
+    protected $_app = 'kronolith';
 
-    var $_app = 'kronolith';
-
-    function _params()
+    protected function _params()
     {
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
@@ -53,7 +53,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&
@@ -68,7 +68,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $registry, $prefs;
 

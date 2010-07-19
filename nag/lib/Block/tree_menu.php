@@ -6,11 +6,11 @@ $block_type = 'tree';
 /**
  * @package Horde_Block
  */
-class Horde_Block_nag_tree_menu extends Horde_Block {
+class Horde_Block_nag_tree_menu extends Horde_Block
+{
+    protected $_app = 'nag';
 
-    var $_app = 'nag';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         global $registry;
 

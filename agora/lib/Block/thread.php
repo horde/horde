@@ -16,11 +16,19 @@ $block_name = _("Single Thread");
  * @author  Marko Djukic <marko@oblo.com>
  * @package Horde_Block
  */
-class Horde_Block_agora_thread extends Horde_Block {
+class Horde_Block_agora_thread extends Horde_Block
+{
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'agora';
 
-    var $_app = 'agora';
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $forumOb = &Agora_Messages::singleton();
         $forums_list = $forumOb->getForums(0, true, 'forum_name', 0, true);
@@ -43,11 +51,20 @@ class Horde_Block_agora_thread extends Horde_Block {
         return array('thread_id' => $threads);
     }
 
+    /**
+     *
+     * @return string
+     */
     function _title()
     {
         return _("Single Thread");
     }
 
+    /**
+     *
+     * @return string
+     * @throws Horde_Block_Exception
+     */
     function _content()
     {
         /* Return empty if we don't have a thread set. */
@@ -61,7 +78,7 @@ class Horde_Block_agora_thread extends Horde_Block {
 
         /* Check if valid thread, otherwise show forum list. */
         if ($messages instanceof PEAR_Error || empty($messages)) {
-            return PEAR::raiseError(_("Unable to fetch selected thread."));
+            throw new Horde_Block_Exception(_("Unable to fetch selected thread."));
         }
 
         /* Get the sorting. */
@@ -85,4 +102,5 @@ class Horde_Block_agora_thread extends Horde_Block {
 
         return $view->render('block/thread.html.php');
     }
+
 }

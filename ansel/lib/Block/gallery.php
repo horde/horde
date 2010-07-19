@@ -17,10 +17,23 @@ $block_name = _("Gallery");
  */
 class Horde_Block_ansel_gallery extends Horde_Block
 {
-    var $_app = 'ansel';
-    var $_gallery = null;
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
+    
+    /**
+     *
+     * @var Ansel_Gallery
+     */
+    private $_gallery = null;
 
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
@@ -35,6 +48,7 @@ class Horde_Block_ansel_gallery extends Horde_Block
                             'name' => _("Use a lightbox to view photos"),
                             'type' => 'checkbox',
                             'default' => true));
+
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
         if ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
             foreach ($storage->listGalleries() as $gal) {
@@ -45,7 +59,11 @@ class Horde_Block_ansel_gallery extends Horde_Block
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         try {
             $gallery = $this->_getGallery();
@@ -67,12 +85,17 @@ class Horde_Block_ansel_gallery extends Horde_Block
                   'gallery' => $gallery->id,
                   'slug' => $gallery->get('slug')),
             true);
+
         return $viewurl->link()
                . @htmlspecialchars($name, ENT_COMPAT, $GLOBALS['registry']->getCharset())
                . '</a>';
-
     }
-    function _content()
+
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         try {
            $gallery = $this->_getGallery();
@@ -107,7 +130,12 @@ class Horde_Block_ansel_gallery extends Horde_Block
         return $html . '</a></noscript>';
     }
 
-    function _getGallery($retry = false)
+    /**
+     *
+     * @param boolean $retry
+     * @return Ansel_Gallery
+     */
+    private function _getGallery($retry = false)
     {
         // Make sure we haven't already selected a gallery.
         if ($this->_gallery instanceof Ansel_Gallery) {

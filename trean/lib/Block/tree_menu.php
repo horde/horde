@@ -4,13 +4,12 @@ $block_name = _("Menu List");
 $block_type = 'tree';
 
 /**
- * $Horde: trean/lib/Block/tree_menu.php,v 1.9 2009/12/22 03:44:05 mrubinsk Exp $
  */
-class Horde_Block_trean_tree_menu extends Horde_Block {
+class Horde_Block_trean_tree_menu extends Horde_Block
+{
+    protected $_app = 'trean';
 
-    var $_app = 'trean';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         global $registry;
 

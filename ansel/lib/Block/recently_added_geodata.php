@@ -13,12 +13,24 @@ $block_name = _("Recently Geotagged");
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
+class Horde_Block_ansel_recently_added_geodata extends Horde_Block
+{
+    /**
+     * @var string
+     */
+    protected $_app = 'ansel';
+    
+    /**
+     *
+     * @var Ansel_Gallery
+     */
+    private $_gallery = null;
 
-    var $_app = 'ansel';
-    var $_gallery = null;
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('gallery' => array(
                             'name' => _("Gallery"),
@@ -46,7 +58,11 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
         Horde::addScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel', array('external' => true));
@@ -73,10 +89,15 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
             $viewurl = Ansel::getUrlFor('view', array('view' => 'List'), true);
             $name = _("All Galleries");
         }
+
         return sprintf(_("Recently Geotagged Photos From %s"), $viewurl->link() . $name . '</a>');
     }
 
-    function _content()
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         if ($this->_params['gallery'] == 'all') {
             $galleries = array();
@@ -134,10 +155,15 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         Event.observe(window, "load", function() {doMap(pageImages);});
         </script>
 EOT;
+
         return $html;
     }
 
-    function _getGallery()
+    /**
+     *
+     * @return Ansel_Gallery
+     */
+    protected function _getGallery()
     {
         if ($this->_gallery instanceof Ansel_Gallery) {
             return $this->_gallery;

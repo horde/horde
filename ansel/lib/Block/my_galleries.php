@@ -13,11 +13,19 @@ $block_name = _("My Galleries");
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_my_galleries extends Horde_Block {
+class Horde_Block_ansel_my_galleries extends Horde_Block
+{
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    var $_app = 'ansel';
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         $params = array('limit' => array(
                             'name' => _("Maximum number of galleries"),
@@ -26,7 +34,11 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
         return $params;
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         return Ansel::getUrlFor('view',
                                 array('groupby' => 'owner',
@@ -35,9 +47,14 @@ class Horde_Block_ansel_my_galleries extends Horde_Block {
             . _("My Galleries") . '</a>';
     }
 
-    function _content()
+    /**
+     *
+     * @return string
+     */
+    protected function _content()
     {
         Horde::addScriptFile('tooltips.js', 'horde');
+
         /* Get the top level galleries */
         try {
             $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')

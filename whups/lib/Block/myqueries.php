@@ -8,16 +8,16 @@ $block_name = _("My Queries");
  *
  * @package Horde_Block
  */
-class Horde_Block_Whups_myqueries extends Horde_Block {
-
-    var $_app = 'whups';
+class Horde_Block_Whups_myqueries extends Horde_Block
+{
+    protected $_app = 'whups';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("My Queries");
     }
@@ -27,7 +27,7 @@ class Horde_Block_Whups_myqueries extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         require_once WHUPS_BASE . '/lib/Query.php';
 

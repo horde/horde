@@ -12,26 +12,26 @@ if ((@include_once 'Services/Weather.php') &&
  *
  * @package Horde_Block
  */
-class Horde_Block_Horde_metar extends Horde_Block {
-
+class Horde_Block_Horde_metar extends Horde_Block
+{
     /**
      * Whether this block has changing content.
      */
-    var $updateable = true;
+    public $updateable = true;
 
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("Current Weather");
     }
 
-    function _params()
+    protected function _params()
     {
         if (!class_exists('Services_Weather')) {
             Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
@@ -88,12 +88,12 @@ class Horde_Block_Horde_metar extends Horde_Block {
         }
     }
 
-    function _row($label, $content)
+    private function _row($label, $content)
     {
         return '<br /><strong>' . $label . ':</strong> ' . $content;
     }
 
-    function _sameRow($label, $content)
+    private function _sameRow($label, $content)
     {
         return ' <strong>' . $label . ':</strong> ' . $content;
     }
@@ -103,22 +103,22 @@ class Horde_Block_Horde_metar extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         if (!@include_once 'Services/Weather.php') {
             Horde::logMessage('The metar block will not work without Services_Weather from PEAR. Run pear install Services_Weather.', 'ERR');
-            return _("Metar block not available. Details have been logged for the administrator.");
+            throw new Horde_Block_Exception(_("Metar block not available. Details have been logged for the administrator."));
         }
 
         global $conf;
         static $metarLocs;
 
         if (!isset($conf['sql'])) {
-            return _("A database backend is required for this block.");
+            throw new Horde_Block_Exception(_("A database backend is required for this block."));
         }
 
         if (empty($this->_params['location'])) {
-            return _("No location is set.");
+            throw new Horde_Block_Exception(_("No location is set."));
         }
 
         if (!is_array($metarLocs)) {

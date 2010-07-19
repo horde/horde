@@ -6,11 +6,11 @@ $block_type = 'tree';
 /**
  * @package Horde_Block
  */
-class Horde_Block_kronolith_tree_menu extends Horde_Block {
+class Horde_Block_kronolith_tree_menu extends Horde_Block
+{
+    protected $_app = 'kronolith';
 
-    var $_app = 'kronolith';
-
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
         global $registry;
 
