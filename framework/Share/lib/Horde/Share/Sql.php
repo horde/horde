@@ -749,7 +749,7 @@ class Horde_Share_Sql extends Horde_Share
         }
 
         $attributes = $this->_toDriverKeys($attributes);
-        $attributes = $this->_toDriverCharset($attributes);
+        $attributes = $this->toDriverCharset($attributes);
 
         if (is_array($attributes)) {
             // Build attribute/key filter.
@@ -896,10 +896,9 @@ class Horde_Share_Sql extends Horde_Share
     /**
      * Utility function to convert TO the SQL server's charset.
      *
-     * @TODO: This needs to be public since it's called by the share object.
-     * Look at making this outright public or maybe moving it to the object.
+     * @see Horde_Share#toDriverCharset
      */
-    public function _toDriverCharset($data)
+    public function toDriverCharset($data)
     {
         if (!is_array($data)) {
             return $data;

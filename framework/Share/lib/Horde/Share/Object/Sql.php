@@ -107,7 +107,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         $fields = array();
         $params = array();
 
-        foreach ($this->_shareOb->_toDriverCharset($this->data) as $key => $value) {
+        foreach ($this->_shareOb->toDriverCharset($this->data) as $key => $value) {
             if ($key != 'share_id' && $key != 'perm' && $key != 'share_flags') {
                 $fields[] = $key;
                 $params[] = $value;

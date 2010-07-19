@@ -416,6 +416,17 @@ class Horde_Share
     }
 
     /**
+     * Convert TO the storage driver's charset. Individual share objects should
+     * implement this method if needed.
+     *
+     * @param array $data  Data to be converted.
+     */
+    public function toDriverCharset($data)
+    {
+        // noop
+    }
+    
+    /**
      * Utility function to be used with uasort() for sorting arrays of
      * Horde_Share objects.
      *

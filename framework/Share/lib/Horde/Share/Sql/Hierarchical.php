@@ -236,7 +236,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $attributes = $this->_toDriverKeys($attributes);
 
         /* ...and to driver charset */
-        $attributes = $this->_toDriverCharset($attributes);
+        $attributes = $this->toDriverCharset($attributes);
 
         if (is_array($attributes)) {
             // Build attribute/key filter.
