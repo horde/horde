@@ -24,7 +24,7 @@ class Horde_Text_Filter
      *                        parameters a subclass might need.
      *
      * @return Horde_Text_Filter_Base  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Text_Filter_Exception
      */
     static public function factory($driver, $params = array())
     {
@@ -40,7 +40,7 @@ class Horde_Text_Filter
             return new $class($params);
         }
 
-        throw new Horde_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
+        throw new Horde_Text_Filter_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
@@ -61,7 +61,7 @@ class Horde_Text_Filter
         foreach ($filters as $num => $filter) {
             try {
                 $filterOb = self::factory($filter, isset($params[$num]) ? $params[$num] : array());
-            } catch (Horde_Exception $e) {
+            } catch (Horde_Text_Filter_Exception $e) {
                 return $e->getMessage();
             }
             $patterns = $filterOb->getPatterns();
