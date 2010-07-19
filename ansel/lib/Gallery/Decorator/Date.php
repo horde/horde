@@ -1,11 +1,8 @@
 <?php
 /**
- * A wrapper/decorator around an Ansel_Gallery to allow multiple date groupings
- * to access the same Ansel_Gallery instance. This is not a full Ansel_Gallery
- * implementation.
+ * A decorator around an Ansel_Gallery to allow multiple date groupings
+ * to access the same Ansel_Gallery instance.
  *
- * TODO: For PHP5, this should be rewritten to get rid of all these gosh-darn
- * pass through functions.
  *
  * @package Ansel
  */
