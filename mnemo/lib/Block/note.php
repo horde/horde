@@ -10,7 +10,8 @@ $block_name = _("View note");
 class Horde_Block_Mnemo_note extends Horde_Block
 {
     protected $_app = 'mnemo';
-
+    private $_notename = '';
+    
     protected function _params()
     {
         global $prefs;
@@ -26,11 +27,7 @@ class Horde_Block_Mnemo_note extends Horde_Block
                 'type' => 'enum',
                 'name' => _("Show this note"),
                 'values' => $notes,
-            ),
-            'note_name' => array(
-                'type' => 'hidden',
-                'name' => 'note_name'
-            ),
+            )
         );
     }
 
@@ -62,8 +59,8 @@ class Horde_Block_Mnemo_note extends Horde_Block
         $storage = Mnemo_Driver::singleton();
         $memo = $storage->getByUID($uid);
         if (is_a($memo, 'PEAR_Error')) {
-            if (!empty($this->_params['note_name'])) {
-                $msg = sprintf(_("An error occurred displaying %s"), $this->_params['note_name']);
+            if (!empty($this->_notename)) {
+                $msg = sprintf(_("An error occurred displaying %s"), $this->_notename);
             } else {
                 $msg = _("An error occurred displaying the note");
             }
@@ -75,10 +72,10 @@ class Horde_Block_Mnemo_note extends Horde_Block
 
     private function _getTitle()
     {
-        if (empty($this->_params['note_name'])) {
+        if (empty($this->_notename)) {
             $note = $this->_getNote();
-            $this->_params['note_name'] = $note['desc'];
+            $this->_notename = $note['desc'];
         }
-        return $this->_params['note_name'];
+        return $this->_notename;
     }
 }
