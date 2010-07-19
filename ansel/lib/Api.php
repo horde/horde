@@ -313,7 +313,7 @@ class Ansel_Api extends Horde_Registry_Api
     {
         /* Set application scope */
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set($params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
 
         /* Build image upload structure */
@@ -742,7 +742,7 @@ class Ansel_Api extends Horde_Registry_Api
     public function selectGalleries($params = array())
     {
         if (!empty($params['scope'])) {
-            $GLOBALS['injector']->getInstance('Ansel_Config')->set($params['scope']);
+            $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
             unset($params['scope']);
         }
 
