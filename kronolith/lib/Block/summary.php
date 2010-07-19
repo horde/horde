@@ -12,7 +12,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block
 {
     protected $_app = 'kronolith';
 
-    protected function __construct($params = array(), $row = null, $col = null)
+    public function __construct($params = array(), $row = null, $col = null)
     {
         parent::__construct($params, $row, $col);
         if (!isset($this->_params['days'])) {
