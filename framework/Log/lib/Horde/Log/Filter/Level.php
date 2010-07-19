@@ -42,7 +42,8 @@ class Horde_Log_Filter_Level implements Horde_Log_Filter
     }
 
     /**
-     * Returns TRUE to accept the message, FALSE to block it.
+     * Returns Horde_Log_Filter::ACCEPT to accept the message,
+     * Horde_Log_Filter::IGNORE to ignore it.
      *
      * @param  array    $event    Log event
      * @return boolean            accepted?

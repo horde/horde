@@ -25,7 +25,18 @@
 interface Horde_Log_Filter
 {
     /**
-     * Returns TRUE to accept the message, FALSE to block it.
+     * Accept a message
+     */
+    const ACCEPT = true;
+
+    /**
+     * Filter out a message
+     */
+    const IGNORE = false;
+
+    /**
+     * Returns Horde_Log_Filter::ACCEPT to accept the message,
+     * Horde_Log_Filter::IGNORE to ignore it.
      *
      * @param  array    $event    Log event
      * @return boolean            accepted?
