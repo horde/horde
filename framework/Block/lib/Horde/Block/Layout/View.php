@@ -84,9 +84,6 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                         if ($block instanceof Horde_Block) {
                             $header = $block->getTitle();
                             $content = $block->getContent();
-                            if ($content instanceof PEAR_Error) {
-                                $content = $content->getMessage();
-                            }
                             if ($GLOBALS['browser']->hasFeature('xmlhttpreq')) {
                                 $refresh_time = isset($item['params']['params']['_refresh_time']) ? $item['params']['params']['_refresh_time'] : $interval;
                             }

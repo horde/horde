@@ -424,9 +424,6 @@ class Horde_Block_Collection
     {
         if (!isset($this->_blocks[$app][$block]['params'])) {
             $blockOb = $this->getBlock($app, $block);
-            if ($blockOb instanceof PEAR_Error) {
-                return $blockOb;
-            }
             $this->_blocks[$app][$block]['params'] = $blockOb->getParams();
         }
 
