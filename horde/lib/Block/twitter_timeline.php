@@ -79,8 +79,6 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
     }
 
     /**
-     * @TODO verify if we have oauth support - if so, don't show these...
-     * @see framework/Block/Horde_Block#_params()
      */
     function _params()
     {
