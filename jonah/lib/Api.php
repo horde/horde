@@ -47,7 +47,7 @@ class Jonah_Api extends Horde_Registry_Api
 
         foreach (array_keys($stories) as $s) {
             if (empty($stories[$s]['story_body_type']) || $stories[$s]['story_body_type'] == 'text') {
-                $stories[$s]['story_body_html'] = Horde_Text_Filter::filter($stories[$s]['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+                $stories[$s]['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($stories[$s]['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
             } else {
                 $stories[$s]['story_body_html'] = $stories[$s]['story_body'];
             }
@@ -74,7 +74,7 @@ class Jonah_Api extends Horde_Registry_Api
             return false;
         }
         if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-            $story['story_body_html'] = Horde_Text_Filter::filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+            $story['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         } else {
             $story['story_body_html'] = $story['story_body'];
         }
@@ -184,7 +184,7 @@ class Jonah_Api extends Horde_Registry_Api
             $comments = $GLOBALS['conf']['comments']['allow'] && $registry->hasMethod('forums/numMessages');
             foreach ($results as $story) {
                 if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-                    $story['story_body_html'] = Horde_Text_Filter::filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+                    $story['story_body_html'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
                 } else {
                     $story['story_body_html'] = $story['story_body'];
                 }

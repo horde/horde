@@ -78,7 +78,7 @@ class Horde_Block_Jonah_story extends Horde_Block {
         }
 
         if (empty($story['story_body_type']) || $story['story_body_type'] == 'text') {
-            $story['story_body'] = Horde_Text_Filter::filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+            $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
 
         $tag_html = array();

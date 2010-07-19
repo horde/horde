@@ -319,7 +319,6 @@ class Folks_Driver {
             $profile = unserialize($profile);
 
         } else {
-
             // Load profile
             $profile = $this->_getProfile($user);
             if ($profile instanceof PEAR_Error) {
@@ -338,7 +337,7 @@ class Folks_Driver {
                 $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
             }
 
-            $profile['user_description'] = Horde_Text_Filter::filter(trim($profile['user_description']), $filters, $filters_params);
+            $profile['user_description'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(trim($profile['user_description']), $filters, $filters_params);
 
             // Get user last external data
             foreach ($profile as $key => $value) {

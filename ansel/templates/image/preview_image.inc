@@ -32,5 +32,5 @@ if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT))
 <div align="center">
 <?php echo '<img src="' . $image_url . '" alt="[preview]" />' ?>
 <br />
-<?php $caption = $image->caption ? $image->caption : $image->filename; echo Horde_Text_Filter::filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+<?php $caption = $image->caption ? $image->caption : $image->filename; echo $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </div>

@@ -139,7 +139,7 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)), "\n");
+                                     $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($label, 'space2html', array('encode' => true)), "\n");
                 }
 
                 return $text . '</select>';

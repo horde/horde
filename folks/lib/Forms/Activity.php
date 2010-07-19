@@ -48,7 +48,7 @@ class Folks_Activity_Form extends Horde_Form {
             $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
         }
 
-        $message = Horde_Text_Filter::filter(trim($message), $filters, $filters_params);
+        $message = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(trim($message), $filters, $filters_params);
 
         $result = $GLOBALS['folks_driver']->logActivity($message, 'folks:custom');
         if ($result instanceof PEAR_Error) {

@@ -1023,7 +1023,7 @@ class IMP_Compose
 
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = Horde_Text_Filter::filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
+            $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $charset));
         }
 
         /* Get trailer message (if any). */
@@ -1039,7 +1039,7 @@ class IMP_Compose
             }
 
             if (!empty($trailer_file)) {
-                $trailer = Horde_Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
+                $trailer = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter("\n" . file_get_contents($trailer_file), 'environment');
                 try {
                     $trailer = Horde::callHook('trailer', array($trailer), 'imp');
                 } catch (Horde_Exception_HookNotSet $e) {}
@@ -1072,7 +1072,7 @@ class IMP_Compose
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version"), $nls_charset, $charset));
-            $htmlBody->setContents(Horde_Text_Filter::filter($body_html, 'cleanhtml', array('charset' => $charset)));
+            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version"), $nls_charset, $charset));
 
@@ -2462,9 +2462,9 @@ class IMP_Compose
         }
 
         if ($mode == 'html') {
-            $msg = Horde_Text_Filter::filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true, 'charset' => $charset), array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false)));
+            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true), array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false)));
         } elseif ($type == 'text/html') {
-            $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
+            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'html2text');
             $type = 'text/plain';
         }
 
@@ -2622,7 +2622,7 @@ class IMP_Compose
      */
     static public function text2html($msg)
     {
-        return Horde_Text_Filter::filter($msg, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null));
+        return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'callback' => null));
     }
 
     /**

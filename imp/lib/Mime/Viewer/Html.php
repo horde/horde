@@ -193,7 +193,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * text. */
         if (($_SESSION['imp']['view'] == 'mimp') ||
             (!$inline && Horde_Util::getFormData('convert_text'))) {
-            $data = Horde_Text_Filter::filter($data, 'Html2text', array('charset' => $GLOBALS['registry']->getCharset(), 'wrap' => false));
+            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array('wrap' => false));
 
             // Filter bad language.
             return array(
@@ -257,7 +257,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($GLOBALS['prefs']->getValue('emoticons')) {
-            $data = Horde_Text_Filter::filter($data, array('Horde_Core_Text_Filter_Emoticons'), array(array('entities' => true)));
+            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, array('emoticons'), array(array('entities' => true)));
         }
 
         return array(

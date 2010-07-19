@@ -140,9 +140,9 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
             $flowed = new Horde_Text_Flowed($comment);
             $flowed->setDelSp(true);
             $comment = $flowed->toFlowed(false);
-            $comment = Horde_Text_Filter::filter(
+            $comment = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(
                 $comment, array('text2html', 'simplemarkup', 'highlightquotes'),
-                array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null),
+                array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
                       array(), array()));
             if ($prefs->getValue('autolink_tickets') &&
                 $conf['prefs']['autolink_terms']) {

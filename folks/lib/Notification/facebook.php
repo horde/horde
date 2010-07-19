@@ -158,6 +158,6 @@ class Folks_Notification_facebook extends Folks_Notification {
     private function _formatBody($subject, $body)
     {
         return '<b>' . $subject . ':</b> '
-                . Horde_Text_Filter::filter($body, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
+                . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
     }
 }

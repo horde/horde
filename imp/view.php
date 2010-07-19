@@ -265,7 +265,7 @@ case 'print_attach':
                     }
                 }
 
-                if ($style = Horde_Text_Filter::filter(Horde_Themes::loadCssFiles(Horde_Themes::getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
+                if ($style = $injector->getInstance('Horde_Text_Filter')->filter(Horde_Themes::loadCssFiles(Horde_Themes::getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
                     $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
                 }
             }

@@ -22,7 +22,7 @@ Don't link http://test@www.horde.org/ test.
 Real world example: mailto:pmx-auto-approve%2b27f0e770e2d85bf9bd8fea61f9dedbff@example.com?subject=Release%20message%20from%20quarantine&body=%5b%23ptn6Pw-1%5d
 EOT;
 
-echo Horde_Text_Filter::filter($emails, 'emails', array('always_mailto' => true, 'class' => 'pagelink'));
+echo Horde_Text_Filter::filter($emails, 'emails', array('class' => 'pagelink'));
 
 ?>
 --EXPECT--

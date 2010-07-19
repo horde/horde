@@ -53,7 +53,7 @@ case 'getPage':
         } elseif ($since = Horde_Util::getPost('since_id')) {
             $params['since_id'] = $since;
         }
-        
+
         $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
     } catch (Horde_Service_Twitter_Exception $e) {
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
@@ -65,8 +65,10 @@ case 'getPage':
          $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
          $view->addHelper('Tag');
 
+         $filter = $injector->getInstance('Horde_Text_Filter');
+
          /* links */
-        $body = Horde_Text_Filter::filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
+        $body = $filter->filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
         $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
 
         /* If this is a retweet, use the original author's profile info */
@@ -82,7 +84,7 @@ case 'getPage':
         $view->authorName = htmlspecialchars($tweetObj->user->screen_name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
         $view->authorFullname = htmlspecialchars($tweetObj->user->name, ENT_COMPAT, $GLOBALS['registry']->getCharset());
         $view->createdAt = $tweetObj->created_at;
-        $view->clientText = Horde_Text_Filter::filter($tweet->source, 'xss', array());
+        $view->clientText = $filter->filter($tweet->source, 'xss');
         $view->tweet = $tweet;
         $oldest = $tweet->id;
         $html .= $view->render('twitter_tweet');

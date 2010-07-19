@@ -41,7 +41,7 @@ function openHtmlHelper(type, target)
     if (type == 'emoticons') {
         row = document.createElement('TR');
         cell = document.createElement('TD');
-        <?php $filter = Horde_Text_Filter::factory('emoticons'); $icons = array_flip($filter->getIcons()); foreach ($icons as $icon => $string): ?>
+        <?php $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('emoticons'); $icons = array_flip($filter->getIcons()); foreach ($icons as $icon => $string): ?>
         link = document.createElement('A');
         link.href = '#';
         link.onclick = function() {

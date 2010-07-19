@@ -234,7 +234,7 @@ class Horde_Mime_Mail
         $this->_htmlBody->setCharset($charset);
         $this->_htmlBody->setContents($body);
         if ($alternative) {
-            $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('wrap' => false)), $charset);
+            $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('charset' => $charset, 'wrap' => false)), $charset);
         }
     }
 

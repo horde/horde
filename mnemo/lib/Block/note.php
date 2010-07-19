@@ -11,7 +11,7 @@ class Horde_Block_Mnemo_note extends Horde_Block
 {
     protected $_app = 'mnemo';
     private $_notename = '';
-    
+
     protected function _params()
     {
         global $prefs;
@@ -40,7 +40,7 @@ class Horde_Block_Mnemo_note extends Horde_Block
     {
         $memo = $this->_getNote();
         $html = '<div class="noteBody">';
-        $body = Horde_Text_Filter::filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+        $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             $body = Horde::callHook('format_description', array($body), 'mnemo', $body);
         } catch (Horde_Exception_HookNotSet $e) {}

@@ -290,6 +290,7 @@ class Horde_Registry
             'Horde_SessionHandler' => new Horde_Core_Binder_SessionHandler(),
             'Horde_Share' => new Horde_Core_Binder_Share(),
             'Horde_Template' => new Horde_Core_Binder_Template(),
+            'Horde_Text_Filter' => new Horde_Core_Binder_TextFilter(),
             'Horde_Tree' => new Horde_Core_Binder_Tree(),
             'Horde_Token' => new Horde_Core_Binder_Token(),
             'Horde_Vfs' => new Horde_Core_Binder_Vfs(),

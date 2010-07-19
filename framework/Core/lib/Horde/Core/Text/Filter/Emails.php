@@ -50,14 +50,14 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             return parent::_regexCallback($matches);
         }
 
-        if (empty($email2)) {
+        if ($matches[10] === '') {
             $args = $matches[7];
             $email = $matches[3];
             $args_long = $matches[5];
         } else {
-            $args = $matches[13];
+            $args = isset($matches[13]) ? $matches[13] : '';
             $email = $matches[10];
-            $args_long = $matches[11];
+            $args_long = isset($matches[11]) ? $matches[11] : '';
         }
 
         parse_str($args, $extra);
@@ -71,7 +71,7 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             $href = '#';
             $onclick = ' onclick="' . substr($url, 11) . ';return false;"';
         } else {
-            $href = $url;
+            $href = htmlspecialchars($url);
             $onclick = '';
         }
 
@@ -79,10 +79,9 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             ? ''
             : ' class="' . $this->_params['class'] . '"';
 
-        return $matches[1] . $matches[2] . $matches[9] . '<a' . $class .
-            ' href="' . $href . '"' . $onclick . '>' .
-            htmlspecialchars($email) . $args_long
-            . '</a>' . $matches[8] . $matches[4] . ($matches[14] ? '>' : '');
+        return '<a' . $class .' href="' . $href . '"' . $onclick . '>' .
+            htmlspecialchars($email) . htmlspecialchars($args_long) .
+            '</a>';
     }
 
 }

@@ -91,9 +91,13 @@ EOR;
     {
         $data = $this->_regexCallback($matches);
 
-        return $this->_params['encode']
-            ? "\01\01\01" . base64_encode($data) . "\01\01\01"
-           : $data;
+        if ($this->_params['encode']) {
+            $data = "\01\01\01" . base64_encode($data) . "\01\01\01";
+        }
+
+        return $matches[1] . $matches[2] . $matches[9] .
+            $data .
+            $matches[4] . $matches[8] . (isset($matches[14]) ? $matches[14] : '');
     }
 
     /**
@@ -109,10 +113,11 @@ EOR;
         $class = empty($this->_params['class'])
             ? ''
             : ' class="' . $this->_params['class'] . '"';
+        $email = ($matches[10] === '')
+            ? $matches[3] . $matches[5]
+            : $matches[10] . $matches[11];
 
-        return ($matches[10] === '')
-            ? $matches[1] . $matches[2] . '<a' . $class . ' href="mailto:' . $matches[3] . $matches[5] . '">' . $matches[3] . $matches[5] . '</a>' . $matches[4] . $matches[8]
-            : (($matches[9] == '<') ? '&lt;' : $matches[9]) . '<a' . $class . ' href="mailto:' . $matches[10] . $matches[11] . '">' . $matches[10] . $matches[11] . '</a>' . ($matches[14] ? '&gt;' : '');
+        return '<a' . $class . ' href="mailto:' . htmlspecialchars($email) . '">' . htmlspecialchars($email) . '</a>';
     }
 
     /**

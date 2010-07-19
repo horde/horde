@@ -59,7 +59,7 @@ foreach ($story['story_tags'] as $id => $tag) {
 $story['story_title'] = htmlspecialchars($story['story_title']);
 $story['story_desc'] = htmlspecialchars($story['story_desc']);
 if (!empty($story['story_body_type']) && $story['story_body_type'] == 'text') {
-    $story['story_body'] = Horde_Text_Filter::filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+    $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 }
 if (!empty($story['story_url'])) {
     $story['story_body'] .= "\n<p>" . Horde::link(Horde::externalUrl($story['story_url'])) . htmlspecialchars($story['story_url']) . '</a></p>';

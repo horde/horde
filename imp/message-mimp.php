@@ -258,7 +258,7 @@ if ($prefs->getValue('mimp_preview_msg') &&
     $t->set('fullmsg_link', $self_link->copy()->add('fullmsg', 1));
 }
 
-$t->set('msg', nl2br(Horde_Text_Filter::filter($msg_text, 'space2html', array('charset' => $registry->getCharset(), 'encode' => true))));
+$t->set('msg', nl2br($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg_text, 'space2html', array('encode' => true))));
 
 $compose_params = array(
     'identity' => $identity,

@@ -76,10 +76,10 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
                     return '';
                 }
             }
-            $imageCaption = Horde_Text_Filter::filter(
-                $image->caption, 'text2html',
+            return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(
+                $image->caption,
+                'text2html',
                 array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-            return $imageCaption;
         }
     }
 

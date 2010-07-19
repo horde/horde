@@ -164,7 +164,7 @@ EOT;
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="" style="margin: 10px;"><strong>' . _("Latest") . '</strong> ' . $latestStatus . ' - <span class="fbstreaminfo">' . Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) . '</span></div></div>';
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
-        $filter = Horde_Text_Filter::factory('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $html .= '</div>';
         $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.getOlderEntries();return false;">' . _("Get More") . '</a></div>';
         $html .= '</div>';

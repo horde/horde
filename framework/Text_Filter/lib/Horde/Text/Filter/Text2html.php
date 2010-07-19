@@ -5,12 +5,12 @@
  *
  * Parameters:
  * <pre>
- * callback - (string) See Horde_Text_Filter_Linkurls::.
  * charset - (string) The charset to use for htmlspecialchars() calls.
  * class - (string) See Horde_Text_Filter_Linkurls::.
- * nofollow - (boolean) See Horde_Text_Filter_Linkurls::.
- * noprefetch - (boolean) See Horde_Text_Filter_Linkurls::.
+ * emails - (array)
+ * linkurls - (array)
  * parselevel - (integer) The parselevel of the output (see below).
+ * space2html - (array)
  * </pre>
  *
  * <pre>
@@ -53,12 +53,12 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      * @var array
      */
     protected $_params = array(
-        'callback' => 'Horde::externalUrl',
         'charset' => 'ISO-8859-1',
         'class' => 'fixed',
-        'nofollow' => false,
-        'noprefetch' => false,
-        'parselevel' => 0
+        'linkurls' => false,
+        'text2html' => false,
+        'parselevel' => 0,
+        'space2html' => false
     );
 
     /**
@@ -95,15 +95,29 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         }
 
         if ($this->_params['parselevel'] < self::NOHTML) {
-            $filters = array('linkurls' => array(
-                'callback' => $this->_params['callback'],
-                'nofollow' => $this->_params['nofollow'],
-                'noprefetch' => $this->_params['noprefetch'],
-                'encode' => true
-            ));
-            if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
-                $filters['emails'] = array('encode' => true);
+            $filters = array();
+            if ($this->_params['linkurls']) {
+                reset($this->_params['linkurls']);
+                $this->_params['linkurls'][key($this->_params['linkurls'])]['encode'] = true;
+                $filters = $this->_params['linkurls'];
+            } else {
+                $filters['linkurls'] = array(
+                    'encode' => true
+                );
             }
+
+            if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
+                if ($this->_params['emails']) {
+                    reset($this->_params['emails']);
+                    $this->_params['emails'][key($this->_params['emails'])]['encode'] = true;
+                    $filters += $this->_params['emails'];
+                } else {
+                    $filters['emails'] = array(
+                        'encode' => true
+                    );
+                }
+            }
+
             $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
         }
 
@@ -126,7 +140,15 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
                 $text = Horde_Text_Filter_Emails::decode($text);
             }
 
-            $text = Horde_Text_Filter::filter($text, 'space2html');
+            if ($this->_params['space2html']) {
+                $params = reset($this->_params['space2html']);
+                $driver = key($this->_params['space2html']);
+            } else {
+                $driver = 'space2html';
+                $params = array();
+            }
+
+            $text = Horde_Text_Filter::filter($text, $driver, $params);
         }
 
         /* Do the newline ---> <br /> substitution. Everybody gets this; if

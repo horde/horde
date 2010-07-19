@@ -228,7 +228,7 @@ class IMP
                     : $mbox['abbrev'];
 
                 $mbox_list[] = array(
-                    'l' => Horde_Text_Filter::filter($label, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
+                    'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($label, 'space2html', array('encode' => true)),
                     'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
                     'v' => htmlspecialchars($mbox['val'])
                 );
@@ -245,7 +245,7 @@ class IMP
                 $vfolder_sel = $imp_search->searchMboxID();
                 foreach ($vfolders as $id => $val) {
                     $vfolder_list[] = array(
-                        'l' => Horde_Text_Filter::filter($val, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
+                        'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
                         'sel' => ($vfolder_sel == $id),
                         'v' => htmlspecialchars($imp_search->createSearchID($id))
                     );
@@ -264,7 +264,7 @@ class IMP
                     $tasklist_list = array();
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
-                            'l' => Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
+                            'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
                             'v' => '\0tasklist_' . $id
                         );
                     }
@@ -283,7 +283,7 @@ class IMP
                     $notepad_list[] = array();
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
-                            'l' => Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true)),
+                            'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($notepad->get('name'), 'space2html', array('encode' => true)),
                             'v' => '\0notepad_' . $id
                         );
                     }
@@ -522,7 +522,10 @@ class IMP
     static public function filterText($text)
     {
         if ($GLOBALS['prefs']->getValue('filtering') && strlen($text)) {
-            return Horde_Text_Filter::filter($text, 'words', array('words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words'], 'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement']));
+            return $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($text, 'words', array(
+                'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement'],
+                'words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words']
+            ));
         }
 
         return $text;

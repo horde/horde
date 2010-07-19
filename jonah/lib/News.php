@@ -627,10 +627,10 @@ class Jonah_News
         case 'richtext':
             /* Get a plain text version of a richtext story. */
             $body_html = $story['story_body'];
-            $body_text = Horde_Text_Filter::filter($body_html, 'html2text');
+            $body_text = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'html2text');
 
             /* Add description. */
-            $body_html = '<p>' . Horde_Text_Filter::filter($story['story_desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => $GLOBALS['registry']->getCharset(), 'class' => null, 'callback' => null)) . "</p>\n" . $body_html;
+            $body_html = '<p>' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_desc'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) . "</p>\n" . $body_html;
             $body_text = Horde_String::wrap('  ' . $story['story_desc'], 70) . "\n\n" . $body_text;
 
             /* Add the text version of the story to the base message. */
@@ -763,7 +763,7 @@ class Jonah_News
                 $items[$key]['story_body'] = isset($story['body']) ? Horde_String::convertCharset($story['body'], 'utf-8') : null;
                 $items[$key]['story_body_type'] = isset($story['body_type']) ? Horde_String::convertCharset($story['body_type'], 'utf-8') : 'text';
                 if ($items[$key]['story_body_type'] == 'html') {
-                    $items[$key]['story_body'] = Horde_Text_Filter::filter($items[$key]['story_body'], 'xss');
+                    $items[$key]['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($items[$key]['story_body'], 'xss');
                 }
 
                 if (isset($story['pubdate']) && $pubdate_dt = strtotime($story['pubdate'])) {

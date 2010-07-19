@@ -384,7 +384,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 'icon' => $icon,
                 'success' => $success,
                 'text' => array(
-                    Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML))
+                    $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML))
                 )
             );
 

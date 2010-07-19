@@ -43,7 +43,7 @@ if (is_a($story, 'PEAR_Error')) {
 
 // Convert the body from HTML to text if necessary.
 if (!empty($story['story_body_type']) && $story['story_body_type'] == 'richtext') {
-    $story['story_body'] = Horde_Text_Filter::filter($story['story_body'], 'html2text');
+    $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'html2text');
 }
 
 // Set up the PDF object.

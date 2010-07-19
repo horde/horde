@@ -82,7 +82,7 @@ foreach ($stories as &$story) {
     $story['story_permalink'] = (isset($story['story_permalink']) ? htmlspecialchars($story['story_permalink']) : '');
     $story['story_published'] = htmlspecialchars(date('r', $story['story_published']));
     if (!empty($story['story_body_type']) && $story['story_body_type'] == 'text') {
-        $story['story_body'] = Horde_Text_Filter::filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null));
+        $story['story_body'] = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($story['story_body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
     }
 }
 $template->set('stories', $stories);

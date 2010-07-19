@@ -143,11 +143,11 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         if ($prefs->getValue('emoticons')) {
-            $filters['Horde_Core_Text_Filter_Emoticons'] = array('entities' => true);
+            $filters['emoticons'] = array('entities' => true);
         }
 
         // Run filters.
-        $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
+        $text = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($text, array_keys($filters), array_values($filters));
 
         // Wordwrap.
         $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);
@@ -347,14 +347,13 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Escape text
         $filters = array(
             'text2html' => array(
-                'charset' => $GLOBALS['registry']->getCharset(),
                 'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),
         );
 
         return '<div class="fixed">' .
-            Horde_Text_Filter::filter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset()), array_keys($filters), array_values($filters)) .
+            $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset()), array_keys($filters), array_values($filters)) .
             ' [...]</div>';
     }
 

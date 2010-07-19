@@ -60,7 +60,7 @@ class Chora
                 if (!empty($onb)) {
                     $url = Horde_Util::addParameter($url, array('onb' => $onb));
                 }
-                $bar .= '/ <a href="' . $url . '">'. Horde_Text_Filter::filter($dir, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true)) . '</a> ';
+                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
             }
         }
 
@@ -467,7 +467,7 @@ class Chora
      */
     static public function formatLogMessage($log)
     {
-        $log = Horde_Text_Filter::filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => $GLOBALS['registry']->getCharset(), 'class' => ''));
+        $log = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 
         return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
             ? $log

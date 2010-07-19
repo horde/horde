@@ -46,8 +46,9 @@ class Horde_Text_Filter
     /**
      * Applies a set of patterns to a block of text.
      *
-     * @param string $text     The text to filter.
-     * @param array $patterns  The array of patterns to filter with.
+     * @param string $text    The text to filter.
+     * @param mixed $filters  The list of filters (or a single filter).
+     * @param mixed $params   The list of params to use with each filter.
      *
      * @return string  The transformed text.
      */
@@ -58,7 +59,9 @@ class Horde_Text_Filter
             $params = array($params);
         }
 
-        foreach ($filters as $num => $filter) {
+        $params = array_values($params);
+
+        foreach (array_values($filters) as $num => $filter) {
             try {
                 $filterOb = self::factory($filter, isset($params[$num]) ? $params[$num] : array());
             } catch (Horde_Text_Filter_Exception $e) {
