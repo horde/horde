@@ -18,7 +18,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-interface Horde_Log_Formatter_Interface
+interface Horde_Log_Formatter
 {
     /**
      * Formats an event to be written by the handler.
@@ -27,5 +27,4 @@ interface Horde_Log_Formatter_Interface
      * @return string             formatted line
      */
     public function format($event);
-
 }

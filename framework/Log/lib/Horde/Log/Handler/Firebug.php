@@ -22,7 +22,7 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
 {
     /**
      * Formats the log message before writing.
-     * @var Horde_Log_Formatter_Interface
+     * @var Horde_Log_Formatter
      */
     protected $_formatter;
 
@@ -58,9 +58,9 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
     /**
      * Class Constructor
      *
-     * @param Horde_Log_Formatter_Interface $formatter  Log formatter
+     * @param Horde_Log_Formatter $formatter  Log formatter
      */
-    public function __construct($formatter = null)
+    public function __construct(Horde_Log_Formatter $formatter = null)
     {
         if (is_null($formatter)) {
             $formatter = new Horde_Log_Formatter_Simple();
