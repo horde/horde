@@ -2,7 +2,7 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2009-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
@@ -19,7 +19,7 @@
  *
  * @category   Horde
  * @package    Support
- * @copyright  2009 The Horde Project (http://www.horde.org/)
+ * @copyright  2009-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_Guid
