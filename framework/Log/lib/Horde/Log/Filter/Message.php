@@ -22,7 +22,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Filter_Message implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Message implements Horde_Log_Filter
 {
     /**
      * @var string
@@ -53,5 +53,4 @@ class Horde_Log_Filter_Message implements Horde_Log_Filter_Interface
     {
         return preg_match($this->_regexp, $event['message']) > 0;
     }
-
 }

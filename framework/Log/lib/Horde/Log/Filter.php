@@ -22,7 +22,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-interface Horde_Log_Filter_Interface
+interface Horde_Log_Filter
 {
     /**
      * Returns TRUE to accept the message, FALSE to block it.
@@ -31,5 +31,4 @@ interface Horde_Log_Filter_Interface
      * @return boolean            accepted?
      */
     public function accept($event);
-
 }

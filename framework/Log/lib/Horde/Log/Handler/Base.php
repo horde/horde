@@ -30,14 +30,14 @@ abstract class Horde_Log_Handler_Base
     protected $_options = array();
 
     /**
-     * @var array of Horde_Log_Filter_Interface
+     * @var array of Horde_Log_Filter
      */
     protected $_filters = array();
 
     /**
      * Add a filter specific to this handler.
      *
-     * @param  Horde_Log_Filter_Interface  $filter
+     * @param  Horde_Log_Filter $filter
      * @return void
      */
     public function addFilter($filter)
@@ -91,5 +91,4 @@ abstract class Horde_Log_Handler_Base
      * @param  array    $event    Log event
      */
     abstract public function write($event);
-
 }

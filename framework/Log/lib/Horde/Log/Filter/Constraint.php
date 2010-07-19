@@ -20,7 +20,7 @@
  * @todo Implement constraint objects for the different types of filtering ie
  * regex,required,type..etc..  so we can add different constaints ad infinitum.
  */
-class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Constraint implements Horde_Log_Filter
 {
     /**
      * @var array

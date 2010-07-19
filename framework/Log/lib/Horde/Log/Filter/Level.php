@@ -20,7 +20,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Filter_Level implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Level implements Horde_Log_Filter
 {
     /**
      * @var integer
@@ -51,5 +51,4 @@ class Horde_Log_Filter_Level implements Horde_Log_Filter_Interface
     {
         return $event['level'] <= $this->_level;
     }
-
 }

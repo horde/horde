@@ -39,19 +39,19 @@ class Horde_Log_Logger
     private $_levels = array();
 
     /**
-     * @var array of Horde_Log_Handler_Abstract objects
+     * @var array of Horde_Log_Handler_Base objects
      */
     private $_handlers = array();
 
     /**
-     * @var array of Horde_Log_Filter_Interface objects
+     * @var array of Horde_Log_Filter objects
      */
     private $_filters = array();
 
     /**
      * Class constructor.  Create a new logger
      *
-     * @param Horde_Log_Handler_Abstract|null  $handler  default handler
+     * @param Horde_Log_Handler_Base|null  $handler  default handler
      */
     public function __construct($handler = null)
     {
@@ -174,7 +174,7 @@ class Horde_Log_Logger
      * Before a message will be received by any of the handlers, it
      * must be accepted by all filters added with this method.
      *
-     * @param  Horde_Log_Filter_Interface  $filter
+     * @param  Horde_Log_Filter  $filter
      * @return void
      */
     public function addFilter($filter)
@@ -190,7 +190,7 @@ class Horde_Log_Logger
      * Add a handler.  A handler is responsible for taking a log
      * message and writing it out to storage.
      *
-     * @param  Horde_Log_Handler_Abstract $handler
+     * @param  Horde_Log_Handler_Base $handler
      * @return void
      */
     public function addHandler($handler)

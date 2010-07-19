@@ -40,7 +40,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Log">
       <dir name="Filter">
        <file name="Constraint.php" role="php" />
-       <file name="Interface.php" role="php" />
        <file name="Level.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="Suppress.php" role="php" />
@@ -60,6 +59,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Syslog.php" role="php" />
       </dir> <!-- /lib/Horde/Log/Handler -->
       <file name="Exception.php" role="php" />
+      <file name="Filter.php" role="php" />
       <file name="Formatter.php" role="php" />
       <file name="Logger.php" role="php" />
      </dir> <!-- /lib/Horde/Log -->
@@ -92,10 +92,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Log/Exception.php" as="Horde/Log/Exception.php" />
    <install name="lib/Horde/Log/Filter/Constraint.php" as="Horde/Log/Filter/Constraint.php" />
-   <install name="lib/Horde/Log/Filter/Interface.php" as="Horde/Log/Filter/Interface.php" />
    <install name="lib/Horde/Log/Filter/Level.php" as="Horde/Log/Filter/Level.php" />
    <install name="lib/Horde/Log/Filter/Message.php" as="Horde/Log/Filter/Message.php" />
    <install name="lib/Horde/Log/Filter/Suppress.php" as="Horde/Log/Filter/Suppress.php" />
+   <install name="lib/Horde/Log/Filter.php" as="Horde/Log/Filter.php" />
    <install name="lib/Horde/Log/Formatter/Simple.php" as="Horde/Log/Formatter/Simple.php" />
    <install name="lib/Horde/Log/Formatter/Xml.php" as="Horde/Log/Formatter/Xml.php" />
    <install name="lib/Horde/Log/Formatter.php" as="Horde/Log/Formatter.php" />
