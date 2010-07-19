@@ -24,7 +24,7 @@
     <div class="fbstreaminfo">
       <?php echo sprintf(_("Posted %s via %s"), Horde_Date_Utils::relativeDateTime(strtotime($this->createdAt), $GLOBALS['prefs']->getValue('date_format')), $this->clientText)?>
     </div>
-    <?php if (!empty($tweet->retweeted_status)):?>
+    <?php if (!empty($this->tweet->retweeted_status)):?>
     <div class="fbstreaminfo">
       <?php echo sprintf(_("Retweeted by %s"), Horde::externalUrl('http://twitter.com/' . $this->escape($this->tweet->user->screen_name), true)) . $this->escape($this->tweet->user->screen_name) ?></a>
     </div>
