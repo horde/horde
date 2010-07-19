@@ -66,7 +66,7 @@ $returnLink = Ansel::getUrlFor('view', array('view' => 'Image',
                                              'gallery' => $gallery->id));
 $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" alt="[thumbnail]" />';
 /* Url for geotag ajax helper */
-$gt = $injector->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'Imple_ImageSaveGeotag'));
+$gt = $injector->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'ImageSaveGeotag'));
 $gtUrl = $gt->getUrl();
 
 $loadingImg = Horde::img('loading.gif', _("Loading..."));
