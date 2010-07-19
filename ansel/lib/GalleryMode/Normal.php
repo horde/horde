@@ -12,39 +12,16 @@
  * @package Ansel
  */
 
-class Ansel_GalleryMode_Normal {
-
+class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
+{
     /**
-     * @var Ansel_Gallery
-     */
-    var $_gallery;
-
-    var $_features = array('subgalleries', 'stacks', 'sort_images',
-                           'image_captions', 'faces', 'slideshow',
-                           'zipdownload', 'upload');
-
-    /**
-     * Constructor
+     * The array of supported features
      *
-     * @param Ansel_Gallery $gallery  The gallery to bind to.
-     *
-     * @return Ansel_Gallery_ModeNormal
+     * @var array
      */
-    function Ansel_GalleryMode_Normal($gallery)
-    {
-        $this->_gallery = $gallery;
-    }
-
-    function init()
-    {
-        // noop
-        return true;
-    }
-
-    function hasFeature($feature)
-    {
-        return in_array($feature, $this->_features);
-    }
+    protected $_features = array('subgalleries', 'stacks', 'sort_images',
+                                 'image_captions', 'faces', 'slideshow',
+                                 'zipdownload', 'upload');
 
     /**
      * Get the children of this gallery.
@@ -56,7 +33,7 @@ class Ansel_GalleryMode_Normal {
      * @return array  A mixed array of Ansel_Gallery and Ansel_Image objects
      *                that are children of this gallery.
      */
-    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
+    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
     {
         $galleries = array();
         $num_galleries = 0;
@@ -99,7 +76,7 @@ class Ansel_GalleryMode_Normal {
      * @return  An array of 'title' and 'navdata' hashes with the [0] element
      *          being the deepest part.
      */
-    function getGalleryCrumbData()
+    public function getGalleryCrumbData()
     {
         $trail = array();
         $text = htmlspecialchars($this->_gallery->get('name'));
@@ -119,16 +96,6 @@ class Ansel_GalleryMode_Normal {
         return $trail;
     }
 
-    function setDate($date = array())
-    {
-        //noop
-    }
-
-    function getDate()
-    {
-        return array();
-    }
-
     /**
      * Return the count this gallery's children
      *
@@ -137,23 +104,27 @@ class Ansel_GalleryMode_Normal {
      *
      * @return integer The count of this gallery's children.
      */
-    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
+    public function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
     {
         if (!$galleries_only && !$this->hasSubGalleries()) {
             return $this->_gallery->data['attribute_images'];
         }
 
-        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(),
-                                                          $perm, null,
-                                                          $this->_gallery, false);
+        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Storage')
+                ->getScope()
+                ->countGalleries($GLOBALS['registry']->getAuth(),
+                                 $perm, null,
+                                 $this->_gallery, false);
 
         if (!$galleries_only) {
             $iCnt = $this->countImages(false);
         } else {
             $iCnt = 0;
         }
+
         return $gCnt + $iCnt;
     }
+
     /**
      * Lists a slice of the image ids in this gallery.
      *
@@ -162,22 +133,24 @@ class Ansel_GalleryMode_Normal {
      *
      * @return mixed  An array of image_ids | PEAR_Error
      */
-    function listImages($from = 0, $count = 0)
+    public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->listImages($this->_gallery->id, $from,
-                                                     $count);
+        return $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getScope()
+            ->listImages($this->_gallery->id, $from, $count);
     }
 
     /**
+     * Move images from this gallery to another.
      *
      * @param array $images           The image ids to move.
      * @param Ansel_Gallery $gallery  The gallery to move images into.
      *
+     * @return boolean
      * @throws Ansel_Exception
      * @throws Horde_Exception_PermissionDenied
-     * @return boolean
      */
-    function moveImagesTo($images, $gallery)
+    public function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
           throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
@@ -200,7 +173,7 @@ class Ansel_GalleryMode_Normal {
         }
 
         $this->_gallery->updateImageCount(count($ids), false);
-        $this->_gallery->updateImageCount(count($ids), true, $gallery->id);
+        $gallery->updateImageCount(count($ids), true);
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -212,26 +185,27 @@ class Ansel_GalleryMode_Normal {
     }
 
     /**
+     * Remove an image from Ansel.
      *
      * @param integer | Ansel_Image $image  The image id or object
      * @param boolean $isStack              This represents a stack image
      *
      * @return boolean
+     * @throws Horde_Exception_NotFound
      */
-    function removeImage($image, $isStack)
+    public function removeImage($image, $isStack)
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
         if (!($image instanceof Ansel_Image)) {
-            $img = &$this->_gallery->getImage($image);
-            $image = $img;
+            $image = $this->_gallery->getImage($image);
         } else {
             /* Make sure the image is in this gallery. */
             if ($image->gallery != $this->_gallery->id) {
-                return false;
+                throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
 
-        /* Change gallery info. */
+        /* Was this image the gallery's key image? */
         if ($this->_gallery->data['attribute_default'] == $image->id) {
             $this->_gallery->data['attribute_default'] = null;
             $this->_gallery->data['attribute_default_type'] = 'auto';
@@ -286,19 +260,22 @@ class Ansel_GalleryMode_Normal {
 
         return true;
     }
+
     /**
      * Gets a slice of the images in this gallery.
      *
      * @param integer $from  The image to start fetching.
      * @param integer $count The numer of images to return.
      *
-     * @param mixed An array of Ansel_Image objects
+     * @param array An array of Ansel_Image objects
      */
-    function getImages($from = 0, $count = 0)
+    public function getImages($from = 0, $count = 0)
     {
-        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('gallery_id' => $this->_gallery->id,
-                                                             'count' => $count,
-                                                             'from' => $from));
+        $images = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            ->getScope()
+            ->getImages(array('gallery_id' => $this->_gallery->id,
+                              'count' => $count,
+                              'from' => $from));
 
         return array_values($images);
     }
@@ -308,7 +285,7 @@ class Ansel_GalleryMode_Normal {
      *
      * @return boolean
      */
-    function hasSubGalleries()
+    public function hasSubGalleries()
     {
         return $this->_gallery->get('has_subgalleries') == 1;
     }
@@ -322,7 +299,7 @@ class Ansel_GalleryMode_Normal {
      *
      * @return integer number of images in this gallery
      */
-    function countImages($subgalleries = false)
+    public function countImages($subgalleries = false)
     {
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
@@ -340,6 +317,5 @@ class Ansel_GalleryMode_Normal {
 
         return $this->_gallery->data['attribute_images'];
     }
-
 
 }

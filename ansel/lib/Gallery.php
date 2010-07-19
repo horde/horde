@@ -5,7 +5,7 @@
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
+ * See the enclos   ed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -77,7 +77,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         $type = basename($type);
         $class = 'Ansel_GalleryMode_' . $type;
         $this->_modeHelper = new $class($this);
-        $this->_modeHelper->init();
+        //$this->_modeHelper->init();
     }
 
     /**

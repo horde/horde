@@ -11,42 +11,37 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_GalleryMode_Date
+class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 {
-    /**
-     * @var Ansel_Gallery
-     */
-    var $_gallery;
-
     /**
      * The date part array for the current grouping.
      *
      * @var array
      */
-    var $_date = array();
-
-    var $_features = array('slideshow', 'zipdownload', 'upload');
-
-    var $_subGalleries = null;
+    protected $_date = array();
 
     /**
-     * Constructor
+     * Supported features
      *
-     * @param Ansel_Gallery $gallery  The gallery to bind to.
-     *
-     * @return Ansel_Gallery_ModeDate
+     * @var array
      */
-    function Ansel_GalleryMode_Date($gallery)
-    {
-        $this->_gallery = $gallery;
-    }
+    protected $_features = array('slideshow', 'zipdownload', 'upload');
 
-    function init() {
-        // noop
-        return true;
-    }
+    /**
+     * The subgalleries whose images need to be included in this date grouping.
+     *
+     * @var array
+     */
+    protected $_subGalleries = null;
 
-    function hasFeature($feature)
+    /**
+     * See if a feature is supported.
+     *
+     * @param string $feature  The feature
+     *
+     * @return boolean
+     */
+    public function hasFeature($feature)
     {
         /* First, some special cases */
         switch ($feature) {
@@ -56,10 +51,12 @@ class Ansel_GalleryMode_Date
             /* Only allowed when we are on a specific day */
             if (!empty($this->_date['day'])) {
                 return true;
+            } else {
+                return false;
             }
-            break;
+        default:
+            return parent::hasFeature($feature);
         }
-        return in_array($feature, $this->_features);
     }
 
     /**
@@ -68,16 +65,15 @@ class Ansel_GalleryMode_Date
      * @return  An array of 'title' and 'navdata' hashes with the [0] element
      *          being the deepest part.
      */
-    function getGalleryCrumbData()
+    public function getGalleryCrumbData()
     {
-        // Convienience
         $year = !empty($this->_date['year']) ? $this->_date['year'] : 0;
         $month = !empty($this->_date['month']) ? $this->_date['month'] : 0;
         $day = !empty($this->_date['day']) ? $this->_date['day'] : 0;
         $trail = array();
 
 
-        // Do we have any date parts?
+        /* Do we have any date parts? */
         if (!empty($year)) {
             if (!empty($day)) {
                 $date = new Horde_Date($this->_date);
@@ -133,36 +129,25 @@ class Ansel_GalleryMode_Date
     }
 
     /**
-     * Getter for _date
+     * Getter for date
      *
      * @return array  A date parts array.
      */
-    function getDate()
+    public function getDate()
     {
         return $this->_date;
     }
 
     /**
-     * Setter for _date
+     * Setter for date
      *
      * @param array $date
      */
-    function setDate($date = array())
+    public function setDate($date = array())
     {
         $this->_date = $date;
     }
 
-    function _getSubGalleries()
-    {
-        if (!is_array($this->_subGalleries)) {
-            /* Get a list of all the subgalleries */
-            $subs = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getScope()
-                ->listGalleries(array('parent' => $this->_gallery));
-            $this->_subGalleries = array_keys($subs);
-        }
-    }
 
     /**
      * Get the children of this gallery.
@@ -171,12 +156,10 @@ class Ansel_GalleryMode_Date
      * @param integer $from  The child to start at.
      * @param integer $to    The child to end with.
      *
-     * @return A mixed array of Ansel_Gallery_Date and Ansel_Image objects.
+     * @return A mixed array of Ansel_Gallery_Decorator_Date and Ansel_Image objects.
      */
-    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
+    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
-        global $ansel_db;
-
         /* Cache the results */
         static $children = array();
 
@@ -338,14 +321,16 @@ class Ansel_GalleryMode_Date
                               'day' => (int)$key);
             }
 
-            $obj = new Ansel_Gallery_Date($this->_gallery, $images);
+            $obj = new Ansel_Gallery_Decorator_Date($this->_gallery, $images);
             $obj->setDate($date);
             $results[$key] = $obj;
         }
+
         $children[$cache_key] = $results;
         if ($from > 0 || $to > 0) {
             return $this->_getArraySlice($results, $from, $to, true);
         }
+
         return $results;
     }
 
@@ -364,7 +349,7 @@ class Ansel_GalleryMode_Date
      *                 etc..) that need to be displayed, or a count of all the
      *                 images in the current date grouping (for a specific day).
      */
-    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
+    public function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
     {
         $results = $this->getGalleryChildren($this->_date, 0, 0, $noauto);
         return count($results);
@@ -378,12 +363,13 @@ class Ansel_GalleryMode_Date
      * @param integer $from  The image to start listing.
      * @param integer $count The numer of images to list.
      *
-     * @return mixed  An array of image_ids | PEAR_Error
+     * @return array  An array of image_ids
      */
-    function listImages($from = 0, $count = 0)
+    public function listImages($from = 0, $count = 0)
     {
         // FIXME: Custom query to get only image_ids when we are at a specific
         //        date.
+
         /* Get all of this grouping's children. */
         $children = $this->getGalleryChildren();
 
@@ -392,9 +378,9 @@ class Ansel_GalleryMode_Date
             $images = array_keys($children);
         } else {
             $images = array();
-            // typeof $child == Ansel_Gallery_Date
+            // typeof $child == Ansel_Gallery_Decorator_Date
             foreach ($children as $child) {
-                $images = array_merge($images, $child->_images);
+                $images = array_merge($images, $child->getImagesByGrouping());
             }
         }
 
@@ -409,9 +395,9 @@ class Ansel_GalleryMode_Date
      * @param array $images           An array of image_ids to move.
      * @param Ansel_Gallery $gallery  The Ansel_Gallery to move them to.
      *
-     * @return mixed  boolean || PEAR_Error
+     * @return boolean
      */
-    function moveImagesTo($images, $gallery)
+    public function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
@@ -455,8 +441,9 @@ class Ansel_GalleryMode_Date
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
             foreach ($gallery_ids as $id => $count) {
-                $g = $GLOBALS['injector']->getInstance('Ansel_Storage')-getScope()->getGallery($id);
-                $g->updateImageCount($count, false);
+                $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
+                    ->getGallery($id)
+                    ->updateImageCount($count, false);
             }
         } else {
             $this->_gallery->updateImageCount(count($ids), false);
@@ -481,8 +468,9 @@ class Ansel_GalleryMode_Date
      * @param boolean $isStack  Image is a stack image (doesn't update count).
      *
      * @return boolean
+     * @throws Horde_Exception_NotFound
      */
-    function removeImage($image, $isStack)
+    public function removeImage($image, $isStack)
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
         if (!($image instanceof Ansel_Image)) {
@@ -493,7 +481,7 @@ class Ansel_GalleryMode_Date
         if ($image->gallery != $this->_gallery->id) {
             $this->_getSubGalleries();
             if (!in_array($image->gallery, $this->_subGalleries)) {
-                return false;
+                throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
 
@@ -547,10 +535,10 @@ class Ansel_GalleryMode_Date
         /* Clear any comments */
         if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
-
-            $result = $GLOBALS['registry']->call('forums/deleteForum', array('ansel', $image->id));
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
+            try {
+                $GLOBALS['registry']->call('forums/deleteForum', array('ansel', $image->id));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 return false;
             }
         }
@@ -559,45 +547,28 @@ class Ansel_GalleryMode_Date
     }
 
     /**
-     * Helper function to get an array slice while preserving keys.
-     *
-     * @param unknown_type $array
-     * @param unknown_type $from
-     * @param unknown_type $count
-     * @return unknown
-     */
-    function _getArraySlice($array, $from, $count, $preserve = false)
-    {
-        if ($from == 0 && $count == 0) {
-            return $array;
-        }
-
-        return array_slice($array, $from, $count, $preserve);
-    }
-
-    /**
      * Gets a slice of the images in this gallery.
      *
      * @param integer $from  The image to start fetching.
      * @param integer $count The numer of images to return.
      *
-     * @param mixed An array of Ansel_Image objects | PEAR_Error
+     * @param array An array of Ansel_Image objects
      */
-    function getImages($from = 0, $count = 0)
+    public function getImages($from = 0, $count = 0)
     {
         /* Get all of this grouping's children. */
         $children = $this->getGalleryChildren(Horde_Perms::SHOW);
 
         /* At day level, these are all Ansel_Images, otherwise they are
-         * Ansel_Gallery_Date objects.
+         * Ansel_Gallery_Decorator_Date objects.
          */
         if (!empty($this->_date['day'])) {
             $images = $this->_getArraySlice($children, $from, $count, true);
         } else {
-            // typeof $child == Ansel_Gallery_Date
+            // typeof $child == Ansel_Gallery_Decorator_Date
             $ids = array();
             foreach ($children as $child) {
-                $ids = array_merge($ids, $child->_images);
+                $ids = array_merge($ids, $child->getImagesByGrouping());
             }
             $ids = $this->_getArraySlice($ids, $from, $count);
             $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $ids));
@@ -609,8 +580,10 @@ class Ansel_GalleryMode_Date
    /**
      * Checks if the gallery has any subgalleries. This will always be false
      * for a gallery in date view.
+    *
+    * @return boolean
      */
-    function hasSubGalleries()
+    public function hasSubGalleries()
     {
         return false;
     }
@@ -624,400 +597,44 @@ class Ansel_GalleryMode_Date
      *
      * @return integer number of images in this gallery
      */
-    function countImages($subgalleries = false)
+    public function countImages($subgalleries = false)
     {
         return count($this->listImages());
     }
 
-}
-
-/**
- * A wrapper/decorator around an Ansel_Gallery to allow multiple date groupings
- * to access the same Ansel_Gallery instance. This is not a full Ansel_Gallery
- * implementation.
- *
- * TODO: For PHP5, this should be rewritten to get rid of all these gosh-darn
- * pass through functions.
- *
- * @package Ansel
- */
-class Ansel_Gallery_Date {
-
-    /* Cache the Gallery Id */
-    var $id;
-
     /**
-     * The gallery mode helper
+     * Helper function to get an array slice while preserving keys.
      *
-     * @var Ansel_Gallery_Mode object
+     * @param unknown_type $array
+     * @param unknown_type $from
+     * @param unknown_type $count
+     * @return unknown
      */
-    var $_modeHelper;
-
-    /* The gallery we are decorating */
-    var $_gallery;
-
-    /* An array of image ids that this "gallery" contains */
-    var $_images;
-
-    /**
-     * The Ansel_Gallery_Date constructor.
-     *
-     * @param Ansel_Gallery $gallery  The gallery we are decorating.
-     * @param array $images           An array of image ids that this grouping
-     *                                contains.
-     */
-    function Ansel_Gallery_Date($gallery, $images = array())
+    protected function _getArraySlice($array, $from, $count, $preserve = false)
     {
-        $this->_gallery = $gallery;
-        $this->id = $gallery->id;
-        $this->_setModeHelper();
-        $this->data = $this->_gallery->data;
-        $this->_images = $images;
-    }
-
-    /**
-     * Sets a new GalleryMode helper for this decorated gallery. The client
-     * code (Ansel_GalleryMode_Date) needs to call the setDate() method on the
-     * new GalleryMode_Date object before it's used.
-     *
-     * @return Ansel_Gallery_Mode object
-     */
-    function _setModeHelper()
-    {
-        $this->_modeHelper = new Ansel_GalleryMode_Date($this);
-    }
-
-    /**
-     * Checks if the user can download the full photo
-     *
-     * @return boolean  Whether or not user can download full photos
-     */
-    function canDownload()
-    {
-        return $this->_gallery->canDownload();
-    }
-
-    /**
-     * Copy image and related data to specified gallery.
-     *
-     * @param array $images           An array of image ids.
-     * @param Ansel_Gallery $gallery  The gallery to copy images to.
-     *
-     * @return integer | PEAR_Error The number of images copied or error message
-     */
-    function copyImagesTo($images, $gallery)
-    {
-        return $this->_gallery->copyImagesTo($images, $gallery);
-    }
-
-    /**
-     * Set the order of an image in this gallery.
-     *
-     * @param integer $imageId The image to sort.
-     * @param integer $pos     The sort position of the image.
-     */
-    function setImageOrder($imageId, $pos)
-    {
-        return $this->_gallery->setImageOrder($imageId, $pos);
-    }
-
-    /**
-     * Remove the given image from this gallery.
-     *
-     * @param mixed   $image   Image to delete. Can be an Ansel_Image
-     *                         or an image ID.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    function removeImage($image, $isStack = false)
-    {
-        return $this->_gallery->removeImage($image, $isStack = false);
-    }
-
-    /**
-     * Returns this share's owner's Identity object.
-     *
-     * @return Identity object for the owner of this gallery.
-     */
-    function getOwner()
-    {
-        return $this->_gallery->getOwner();
-    }
-
-    /**
-     * Output the HTML for this gallery's tile.
-     *
-     * @param Ansel_Gallery $parent  The parent Ansel_Gallery object
-     * @param string $style          A named gallery style to use.
-     * @param boolean $mini          Force the use of a mini thumbnail?
-     * @param array $params          Any additional parameters the Ansel_Tile
-     *                               object may need.
-     */
-    function getTile($parent = null, $style = null, $mini = false,
-                     $params = array())
-    {
-        if (!is_null($parent) && is_null($style)) {
-            $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
+        if ($from == 0 && $count == 0) {
+            return $array;
         }
 
-        return Ansel_Tile_DateGallery::getTile($this, $style, $mini, $params);
+        return array_slice($array, $from, $count, $preserve);
     }
 
     /**
-     * Get the children of this gallery.
+     * Get this gallery's subgalleries. Populates the private member
+     *  _subGalleries
      *
-     * @param integer $perm  The permissions to limit to.
-     * @param integer $from  The child to start at.
-     * @param integer $to    The child to end with.
-     *
-     * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
-     *         children of this gallery.
+     * @return void
      */
-    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
+    protected function _getSubGalleries()
     {
-        return $this->_modeHelper->getGalleryChildren($perm, $from, $to, $noauto);
-    }
-
-
-    /**
-     * Return the count this gallery's children
-     *
-     * @param integer $perm            The permissions to require.
-     * @param boolean $galleries_only  Only include galleries, no images.
-     *
-     * @return integer The count of this gallery's children.
-     */
-    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
-    {
-        // Need to force the date helper to not auto drill down when counting
-        // from this method, since we are only called here when we are not
-        // autonavigating.
-        return $this->_modeHelper->countGalleryChildren($perm, $galleries_only, $noauto);
-    }
-
-    /**
-     * Lists a slice of the image ids in this gallery.
-     *
-     * @param integer $from  The image to start listing.
-     * @param integer $count The numer of images to list.
-     *
-     * @return mixed  An array of image_ids | PEAR_Error
-     */
-    function listImages($from = 0, $count = 0)
-    {
-        return $this->_modeHelper->listImages(0, 0);
-    }
-
-    /**
-     * Gets a slice of the images in this gallery.
-     *
-     * @param integer $from  The image to start fetching.
-     * @param integer $count The numer of images to return.
-     *
-     * @param mixed An array of Ansel_Image objects | PEAR_Error
-     */
-    function getImages($from = 0, $count = 0)
-    {
-        return $this->_modeHelper->getImages($from, $count);
-    }
-
-    /**
-     * Return the most recently added images in this gallery.
-     *
-     * @param integer $limit  The maximum number of images to return.
-     *
-     * @return mixed  An array of Ansel_Image objects | PEAR_Error
-     */
-    function getRecentImages($limit = 10)
-    {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages(array($this->id),
-                                                          $limit);
-    }
-
-    /**
-     * Returns the image in this gallery corresponding to the given id.
-     *
-     * @param integer $id  The ID of the image to retrieve.
-     *
-     * @return Ansel_Image  The image object corresponding to the given id.
-     */
-    function &getImage($id)
-    {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($id);
-    }
-
-    /**
-     * Checks if the gallery has any subgallery
-     */
-    function hasSubGalleries()
-    {
-        return $this->_modeHelper->hasSubGalleries();
-    }
-
-    /**
-     * Returns the number of images in this gallery and, optionally, all
-     * sub-galleries.
-     *
-     * @param boolean $subgalleries  Determines whether subgalleries should
-     *                               be counted or not.
-     *
-     * @return integer number of images in this gallery
-     */
-    function countImages($subgalleries = false)
-    {
-        return count($this->_images);
-    }
-
-    /**
-     * Returns the default image for this gallery.
-     *
-     * @param string $style  Force the use of this style, if it's available
-     *                       otherwise use whatever style is choosen for this
-     *                       gallery. If prettythumbs are not available then
-     *                       we always use ansel_default style.
-     *
-     * @return mixed  The image_id of the default image or false.
-     */
-    function getDefaultImage($style = null)
-    {
-        if (count($this->_images)) {
-            return reset($this->_images);
-        } else {
-            return 0;
+        if (!is_array($this->_subGalleries)) {
+            /* Get a list of all the subgalleries */
+            $subs = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getScope()
+                ->listGalleries(array('parent' => $this->_gallery));
+            $this->_subGalleries = array_keys($subs);
         }
-    }
-
-    /**
-     * Returns this gallery's tags.
-     */
-    function getTags()
-    {
-        return $this->_gallery->getTags();
-    }
-
-    /**
-     * Set/replace this gallery's tags.
-     *
-     * @param array $tags  AN array of tag names to associate with this image.
-     */
-    function setTags($tags)
-    {
-        $this->_gallery->setTags($tags);
-    }
-
-    /**
-     * Return the style definition for this gallery. Returns the first available
-     * style in this order: Explicitly configured style if available, if
-     * configured style is not available, use ansel_default.  If nothing has
-     * been configured, the user's selected default is attempted.
-     *
-     * @return array  The style definition array.
-     */
-    function getStyle()
-    {
-        return $this->_gallery->getStyle();
-    }
-
-    /**
-     * Return a hash key for the given view and style.
-     *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
-     *
-     * @return string  A md5 hash suitable for use as a key.
-     */
-    function getViewHash($view, $style = null)
-    {
-        return $this->_gallery->getViewHash($view, $style);
-    }
-
-    /**
-     * Checks to see if a user has a given permission.
-     *
-     * @param string $userid       The userid of the user.
-     * @param integer $permission  A Horde_Perms::* constant to test for.
-     * @param string $creator      The creator of the event.
-     *
-     * @return boolean  Whether or not $userid has $permission.
-     */
-    function hasPermission($userid, $permission, $creator = null)
-    {
-        return $this->_gallery->hasPermission($userid, $permission, $creator);
-    }
-
-    /**
-     * Check user age limtation
-     *
-     * @return boolean
-     */
-    function isOldEnough()
-    {
-        return $this->_gallery->isOldEnough();
-    }
-
-    /**
-     * Return a count of the number of children this share has
-     *
-     * @param integer $perm  A Horde_Perms::* constant
-     * @param boolean $allLevels  Count grandchildren or just children
-     *
-     * @return mixed  The number of child shares || PEAR_Error
-     */
-    function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
-    {
-        return $this->_gallery->getShareOb()->countShares($GLOBALS['registry']->getAuth(), $perm, null, $this, $allLevels);
-    }
-
-    /**
-     * Get all children of this share.
-     *
-     * @param int $perm           Horde_Perms::* constant. If NULL will return
-     *                            all shares regardless of permissions.
-     * @param boolean $allLevels  Return all levels.
-     *
-     * @return mixed  An array of Horde_Share_Object objects || PEAR_Error
-     */
-    function getChildren($perm = Horde_Perms::SHOW, $allLevels = true)
-    {
-        return $this->_gallery->getChildren($perm, $allLevels);
-    }
-
-    /**
-     * Returns a child's direct parent
-     *
-     * @return mixed  The direct parent Horde_Share_Object or PEAR_Error
-     */
-    function getParent()
-    {
-        return $this->_gallery->getShareOb()->getParent($this);
-    }
-
-    /**
-     * Get all of this share's parents.
-     *
-     * @return array()  An array of Horde_Share_Objects
-     */
-    function getParents()
-    {
-        return $this->_gallery->getParents();
-
-    }
-
-    function get($attribute)
-    {
-        return $this->_gallery->get($attribute);
-    }
-
-    function getDate()
-    {
-        return $this->_modeHelper->getDate();
-    }
-
-    function setDate($date)
-    {
-        $this->_modeHelper->setDate($date);
     }
 
 }
