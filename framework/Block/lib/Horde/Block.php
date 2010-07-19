@@ -132,8 +132,11 @@ class Horde_Block
             return $e->getMessage();
         }
 
-        $title = $this->_title();
-
+        try {
+            $title = $this->_title();
+        } catch (Horde_Block_Exception $e) {
+            $title = $e->getMessage();
+        }
         /* If we changed application context in the course of this
          * call, undo that change now. */
         if ($app_pushed) {
@@ -172,7 +175,11 @@ class Horde_Block
             return $e->getMessage();
         }
 
-        $content = $this->_content();
+        try {
+            $content = $this->_content();
+        } catch (Horde_Block_Exception $e) {
+            $content = $e->getMessage();
+        }
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
