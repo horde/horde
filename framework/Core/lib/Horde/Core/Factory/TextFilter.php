@@ -103,12 +103,20 @@ class Horde_Core_Factory_TextFilter
         $lc_driver = Horde_String::lower($driver);
 
         switch ($lc_driver) {
+        case 'bbcode':
+            $driver = 'Horde_Core_Text_Filter_Bbcode';
+            break;
+
         case 'emails':
             $driver = 'Horde_Core_Text_Filter_Emails';
             break;
 
         case 'emoticons':
             $driver = 'Horde_Core_Text_Filter_Emoticons';
+            break;
+
+        case 'highlightquotes':
+            $driver = 'Horde_Core_Text_Filter_Highlightquotes';
             break;
 
         case 'linkurls':

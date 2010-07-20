@@ -37,8 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Text_Filter_Exception::.
- * Remove Horde/Core dependency in the Emoticons driver.
+ <notes>* Remove Horde/Core dependency.
+ * Add Horde_Text_Filter_Exception::.
  * Html2text converter now uses XML parser to generate output.
  * Add ability to define filters to use with preg_replace_callback().
  * Add 'noprefetch' parameter to XSS filter (Ticket #8836).
@@ -201,10 +201,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
    <package>
     <name>Exception</name>
     <channel>pear.horde.org</channel>
