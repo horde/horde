@@ -435,6 +435,8 @@ class Kronolith
     /**
      * Returns all the events that happen each day within a time period
      *
+     * @deprecated
+     *
      * @param Horde_Date $startDate    The start of the time range.
      * @param Horde_Date $endDate      The end of the time range.
      * @param array $calendars         The calendars to check for events.
@@ -453,7 +455,6 @@ class Kronolith
      *                                 storage?
      *
      * @return array  The events happening in this time period.
-     * @throws Kronolith_Exception
      */
     public static function listEvents($startDate, $endDate, $calendars = null,
                                       $showRecurrence = true,
@@ -469,12 +470,16 @@ class Kronolith
         }
         $driver = self::getDriver();
         foreach ($calendars as $calendar) {
-            $driver->open($calendar);
-            $events = $driver->listEvents($startDate, $endDate, $showRecurrence,
-                                          $alarmsOnly, false, $coverDates,
-                                          $hideExceptions, $fetchTags);
-            
-            self::mergeEvents($results, $events);
+            try {
+                $driver->open($calendar);
+                $events = $driver->listEvents($startDate, $endDate,
+                                              $showRecurrence, $alarmsOnly,
+                                              false, $coverDates,
+                                              $hideExceptions, $fetchTags);
+                self::mergeEvents($results, $events);
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push($e);
+            }
         }
 
         /* Resource calendars (this would only be populated if explicitly
@@ -487,9 +492,13 @@ class Kronolith
         if (!empty($GLOBALS['display_resource_calendars'])) {
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
-                $driver->open($calendar);
-                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
-                self::mergeEvents($results, $events);
+                try {
+                    $driver->open($calendar);
+                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    self::mergeEvents($results, $events);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e);
+                }
             }
         }
 
@@ -497,24 +506,36 @@ class Kronolith
             /* Horde applications providing listTimeObjects. */
             $driver = self::getDriver('Horde');
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
-                $driver->open($external_cal);
-                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
-                self::mergeEvents($results, $events);
+                try {
+                    $driver->open($external_cal);
+                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    self::mergeEvents($results, $events);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e);
+                }
             }
 
             /* Remote Calendars. */
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
-                $driver = self::getDriver('Ical', $url);
-                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
-                self::mergeEvents($results, $events);
+                try {
+                    $driver = self::getDriver('Ical', $url);
+                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    self::mergeEvents($results, $events);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e);
+                }
             }
 
             /* Holidays. */
             $driver = self::getDriver('Holidays');
             foreach ($GLOBALS['display_holidays'] as $holiday) {
-                $driver->open($holiday);
-                $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
-                self::mergeEvents($results, $events);
+                try {
+                    $driver->open($holiday);
+                    $events = $driver->listEvents($startDate, $endDate, $showRecurrence);
+                    self::mergeEvents($results, $events);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e);
+                }
             }
         }
 
