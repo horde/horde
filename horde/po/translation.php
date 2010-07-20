@@ -282,7 +282,7 @@ function xtract()
         chdir($dirs[$i]);
         if ($apps[$i] == 'horde') {
             $files = search_ext('php', '.', true);
-            foreach (array('admin', 'framework', 'lib', 'services', 'templates', 'util', 'themes') as $search_dir) {
+            foreach (array('admin', '../framework', 'lib', 'services', 'templates', 'util', 'themes') as $search_dir) {
                 $files = array_merge($files, search_ext('(php|inc|js)', $search_dir));
             }
             $files = array_merge($files, search_ext('dist', 'config'));
