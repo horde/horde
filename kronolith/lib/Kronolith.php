@@ -101,67 +101,6 @@ class Kronolith
     }
 
     /**
-     * Initialize the event map.
-     *
-     * @param array $params Parameters to pass the the map
-     *
-     * @return void
-     */
-    public static function initEventMap($params)
-    {
-        // Add the apikeys
-        if (!empty($params['providers'])) {
-            /* It is safe to put configuration specific to horde driver inside
-            this block since horde driver *must* contain a provider array */
-
-            // Language specific file needed?
-            //$language = str_replace('_', '-', $GLOBALS['language']);
-            $language = $GLOBALS['language'];
-            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/hordemap/' . $language . '.js')) {
-                $language = 'en-US';
-            }
-            $params['conf'] = array(
-                'markerImage' => (string)Horde_Themes::img('map/marker.png', 'horde'),
-                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png', 'horde'),
-                'useMarkerLayer' => true,
-                'language' => $language,
-            );
-
-            foreach ($params['providers'] as $layer) {
-                switch ($layer) {
-                case 'Google':
-                    $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                    break;
-                case 'Yahoo':
-                    $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                    break;
-                case 'Cloudmade':
-                    $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
-                    break;
-                }
-            }
-        }
-
-        if (!empty($params['geocoder'])) {
-            switch ($params['geocoder']) {
-            case 'Google':
-                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
-                break;
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
-                break;
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
-                break;
-            }
-        }
-        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/hordemap/';
-        Horde::addScriptFile('hordemap/map.js', 'horde');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
-    }
-
-    /**
      * Outputs the javascript code which defines all javascript variables
      * that are dependent on the local user's account.
      *
@@ -1235,6 +1174,67 @@ class Kronolith
             $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
         }
 
+    }
+
+    /**
+     * Initialize the event map.
+     *
+     * @param array $params Parameters to pass the the map
+     *
+     * @return void
+     */
+    public static function initEventMap($params)
+    {
+        // Add the apikeys
+        if (!empty($params['providers'])) {
+            /* It is safe to put configuration specific to horde driver inside
+            this block since horde driver *must* contain a provider array */
+
+            // Language specific file needed?
+            //$language = str_replace('_', '-', $GLOBALS['language']);
+            $language = $GLOBALS['language'];
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/hordemap/' . $language . '.js')) {
+                $language = 'en-US';
+            }
+            $params['conf'] = array(
+                'markerImage' => (string)Horde_Themes::img('map/marker.png', 'horde'),
+                'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png', 'horde'),
+                'useMarkerLayer' => true,
+                'language' => $language,
+            );
+
+            foreach ($params['providers'] as $layer) {
+                switch ($layer) {
+                case 'Google':
+                    $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                    break;
+                case 'Yahoo':
+                    $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                    break;
+                case 'Cloudmade':
+                    $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                    break;
+                }
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                break;
+            }
+        }
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/hordemap/';
+        Horde::addScriptFile('hordemap/map.js', 'horde');
+        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
+        Horde::addinlineScript($js);
     }
 
     /**
