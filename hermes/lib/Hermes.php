@@ -7,7 +7,7 @@
  */
 class Hermes {
 
-    function &getDriver()
+    public static function &getDriver()
     {
         global $conf;
 
@@ -15,7 +15,7 @@ class Hermes {
         return Hermes_Driver::singleton();
     }
 
-    function listClients()
+    public static function listClients()
     {
         static $clients;
 
@@ -40,7 +40,7 @@ class Hermes {
         return $clients;
     }
 
-    function getDayOfWeek($timestamp)
+    public static function getDayOfWeek($timestamp)
     {
         // Return 0-6, indicating the position of $timestamp in the
         // period.
@@ -51,7 +51,7 @@ class Hermes {
     /**
      * Build Hermes' list of menu items.
      */
-    function getMenu($returnType = 'object')
+    public static function getMenu($returnType = 'object')
     {
         global $registry, $conf, $print_link;
 
@@ -87,7 +87,7 @@ class Hermes {
         }
     }
 
-    function canEditTimeslice($id)
+    public static function canEditTimeslice($id)
     {
         $hermes = $GLOBALS['registry']->getApiInstance('hermes', 'application');
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
@@ -117,7 +117,7 @@ class Hermes {
      *                              $hermes->driver->getHours().
      * @return array an array suitable for Horde_Data::
      */
-    function makeExportHours($hours)
+    public static function makeExportHours($hours)
     {
         if (is_null($hours)) {
             return null;
@@ -161,7 +161,7 @@ class Hermes {
      *
      * @return array A two-element array of the type and the type's parameters.
      */
-    function getEmployeesType($enumtype = 'multienum')
+    public static function getEmployeesType($enumtype = 'multienum')
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         if (!$auth->hasCapability('list')) {
@@ -187,7 +187,7 @@ class Hermes {
         return array($enumtype, array($employees));
     }
 
-    function getCostObjectByID($id)
+    public static function getCostObjectByID($id)
     {
         static $cost_objects;
 
@@ -214,7 +214,7 @@ class Hermes {
         return PEAR::raiseError(_("Not found."));
     }
 
-    function tabs()
+    public static function tabs()
     {
         /* Build search mode tabs. */
         $sUrl = Horde::selfUrl();
