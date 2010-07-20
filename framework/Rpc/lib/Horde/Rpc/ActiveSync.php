@@ -97,8 +97,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     {
         /* Not sure about this, but it's what zpush did so... */
         ob_start(null, 1048576);
-
-        switch ($this->_request->getServer('REQUEST_METHOD')) {
+        $serverVars = $this->_request->getServerVars();
+        switch ($serverVars['REQUEST_METHOD']) {
         case 'OPTIONS':
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             $this->_server->handleRequest('Options', null, null);
@@ -165,7 +165,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         }
 
         /* Get user and possibly domain */
-        $user = $this->_request->getServer('PHP_AUTH_USER');
+        $serverVars = $this->_request->getServerVars();
+        $user = $serverVars['PHP_AUTH_USER'];
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
@@ -175,7 +176,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         }
 
         /* Get passwd */
-        $pass = $this->_request->getServer('PHP_AUTH_PW');
+        $pass = $serverVars['PHP_AUTH_PW'];
 
         /* Attempt to auth to backend */
         $results = $this->_backend->logon($user, $pass, $domain);
