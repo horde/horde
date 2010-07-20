@@ -184,6 +184,19 @@ class Horde_Url
     }
 
     /**
+     * Adds an anchor.
+     *
+     * @param string $anchor  An anchor to add.
+     *
+     * @return Horde_Url  This (modified) object, to allow chaining.
+     */
+    public function addAnchor($anchor)
+    {
+        $this->anchor = $anchor;
+        return $this;
+    }
+
+    /**
      * Sets the $raw value.  This call can be chained.
      *
      * @param boolean $raw  Whether to output the URL in the raw URL format or

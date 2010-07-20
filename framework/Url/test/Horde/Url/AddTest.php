@@ -23,6 +23,8 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
 
         $url->anchor = 'boo';
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#boo', (string)$url);
+        $url->addAnchor('bee');
+        $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#bee', (string)$url);
     }
 
     public function testAddArray()
