@@ -2881,6 +2881,21 @@ class Kronolith
     }
 
     /**
+     * Returns whether to display the ajax view.
+     *
+     * return boolean  True if the ajax view should be displayed.
+     */
+    public static function showAjaxView()
+    {
+        return $GLOBALS['prefs']->getValue('dynamic_view') &&
+            $GLOBALS['browser']->hasFeature('xmlhttpreq') &&
+            (!$GLOBALS['browser']->isBrowser('msie') ||
+             $GLOBALS['browser']->getMajor() >= 7) &&
+            (!$GLOBALS['browser']->hasFeature('issafari') ||
+             $GLOBALS['browser']->getMajor() >= 2);
+    }
+
+    /**
      * Used with usort() to sort events based on their start times.
      */
     public static function _sortEventStartTime($a, $b)
