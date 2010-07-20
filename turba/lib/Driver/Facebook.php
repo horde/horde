@@ -115,56 +115,63 @@ class Turba_Driver_Facebook extends Turba_Driver
 
     function _getEntry($keys, $fields)
     {
-        if (!is_a($facebook = $this->_getFacebook(), 'PEAR_Error')) {
-            $fields = implode(', ', $fields);
-            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
+        try {
+            $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        } catch (Horde_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
 
-            try {
-                $results = $facebook->fql->run($fql);
-            } catch (Horde_Service_Facebook_Exception $e) {
-                $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, 'ERR');
-
-                return $error;
-            }
-
-            return $results;
-        } else {
-
-            return $facebook;
+            return $error;
         }
+        $fields = implode(', ', $fields);
+        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
+
+        try {
+            $results = $facebook->fql->run($fql);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
+
+            return $error;
+        }
+
+        return $results;
     }
 
     function _getAddressBook($fields = array())
     {
-        if (!is_a($facebook = $this->_getFacebook(), 'PEAR_Error')) {
-            $fields = implode(', ', $fields);
-            // For now, just try a fql query with name and email.
-            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
-                . 'SELECT uid2 FROM friend WHERE uid1=' . $facebook->auth->getUser() . ')';
+        try {
+            $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        } catch (Horde_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
 
-            try {
-                $results = $facebook->fql->run($fql);
-            } catch (Horde_Service_Facebook_Exception $e) {
-                $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, 'ERR');
-                return array();
-            }
-            $addressbook = array();
-            foreach ($results as $result) {
-                if (!empty($result['birthday'])) {
-                    // Make sure the birthdate is in a standard format that
-                    // listDateObjects will understand.
-                    $bday = new Horde_Date($result['birthday']);
-                    $result['birthday'] = $bday->format('Y-m-d');
-                }
-                $addressbook[$result['uid']] = $result;
-            }
-
-            return $addressbook;
-        } else {
-            return $facebook;
+            return $error;
         }
+        $fields = implode(', ', $fields);
+        // For now, just try a fql query with name and email.
+        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
+            . 'SELECT uid2 FROM friend WHERE uid1=' . $facebook->auth->getUser() . ')';
+
+        try {
+            $results = $facebook->fql->run($fql);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
+            return array();
+        }
+        $addressbook = array();
+        foreach ($results as $result) {
+            if (!empty($result['birthday'])) {
+                // Make sure the birthdate is in a standard format that
+                // listDateObjects will understand.
+                $bday = new Horde_Date($result['birthday']);
+                $result['birthday'] = $bday->format('Y-m-d');
+            }
+            $addressbook[$result['uid']] = $result;
+        }
+
+        return $addressbook;
     }
 
     function _getFacebook()
