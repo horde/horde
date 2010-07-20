@@ -2736,6 +2736,9 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
+        if (!$w('internal tasklists remote holiday').include(type)) {
+            return;
+        }
 
         if (cal &&
             (Object.isUndefined(Kronolith.conf.calendars[type]) ||
