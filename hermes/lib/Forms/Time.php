@@ -285,7 +285,7 @@ class TimeReviewForm extends TimeForm {
         $employees = array();
 
         require_once 'Horde/Identity.php';
-        $auth = Horde_Auth::singleton($conf['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
         $users = $auth->listUsers();
         if (!is_a($users, 'PEAR_Error')) {
             foreach ($users as $user) {
