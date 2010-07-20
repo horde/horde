@@ -1632,7 +1632,9 @@ KronolithCore = {
                     } else {
                         title += event.value.start.toString('t') + '-' + event.value.end.toString('t');
                     }
-                    title += ': ' + event.value.t.escapeHTML();
+                    if (event.value.t) {
+                        title += ': ' + event.value.t.escapeHTML();
+                    }
                     if (event.value.x == Kronolith.conf.status.tentative ||
                         event.value.x == Kronolith.conf.status.confirmed) {
                         busy = true;
