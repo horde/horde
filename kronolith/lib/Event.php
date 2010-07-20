@@ -1847,10 +1847,6 @@ abstract class Kronolith_Event
             $user = $GLOBALS['registry']->getAuth();
         }
 
-        $twentyFour = $GLOBALS['prefs']->getValue('twentyFour');
-        $start = $this->start->format($twentyFour ? 'G:i' : 'g:ia');
-        $end = $this->end->format($twentyFour ? 'G:i' : 'g:ia');
-
         // We explicitly allow admin access here for the alarms notifications.
         if (!$GLOBALS['registry']->isAdmin() && $this->private &&
             $this->creator != $user) {
