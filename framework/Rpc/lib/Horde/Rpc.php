@@ -116,12 +116,12 @@ class Horde_Rpc
 
         // @TODO: inject this
         $auth = $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth();
-
-        if ($this->_request->getServer('PHP_AUTH_USER')) {
-            $user = $this->_request->getServer('PHP_AUTH_USER');
-            $pass = $this->_request->getServer('PHP_AUTH_PW');
-        } elseif ($this->_request->getServer('Authorization')) {
-            $hash = str_replace('Basic ', '', $this->_request->getServer('Authorization'));
+        $serverVars = $this->_request->getServerVars();
+        if ($serverVars['PHP_AUTH_USER']) {
+            $user = $serverVars['PHP_AUTH_USER'];
+            $pass = $serverVars['PHP_AUTH_PW'];
+        } elseif ($serverVars['Authorization']) {
+            $hash = str_replace('Basic ', '', $serverVars['Authorization']);
             $hash = base64_decode($hash);
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);

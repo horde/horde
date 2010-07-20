@@ -106,7 +106,7 @@ if (!empty($auth_token)) {
 } elseif (!empty($_SESSION['twitter_request_secret'])) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken(new Horde_Controller_Request_Http(), $_SESSION['twitter_request_secret']);
+        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $_SESSION['twitter_request_secret']);
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';

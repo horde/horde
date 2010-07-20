@@ -139,7 +139,7 @@ class Folks_Notification_facebook extends Folks_Notification {
         $this->_fb = new Horde_Service_Facebook($GLOBALS['conf']['facebook']['key'],
                                                 $GLOBALS['conf']['facebook']['secret'],
                                                 array('http_client' => new Horde_Http_Client(),
-                                                      'http_request' => new Horde_Controller_Request_Http()));
+                                                      'http_request' => $GLOBALS['injector']->getInstance('Horde_Controller_Request')));
 
         // Set Auth user
         $this->_fb->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);

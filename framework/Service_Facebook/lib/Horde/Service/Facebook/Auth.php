@@ -203,7 +203,8 @@ class Horde_Service_Facebook_Auth
     public function expireSession()
     {
         if ($this->_expireSession()) {
-            if ($this->_request->getCookie($this->_facebook->apiKey . '_user')) {
+            $cookies = $this->_request->getCookieVars();
+            if ($cookies[$this->_facebook->apiKey . '_user']) {
                 $cookies = array('user', 'session_key', 'expires', 'ss');
                 foreach ($cookies as $name) {
                     setcookie($this->_facebook->apiKey . '_' . $name, false, time() - 3600);
@@ -243,8 +244,8 @@ class Horde_Service_Facebook_Auth
     {
         // Prefer $_POST data - but if absent, try $_GET and $_POST with
         // 'fb_post_sig' since that might be returned by FQL queries.
-        $post = $this->_request->getPostParams();
-        $get = $this->_request->getGetParams();
+        $post = $this->_request->getPostVars();
+        $get = $this->_request->getGetVars();
 
         // Parse the values
         $fb_params = $this->_getParams($post, 48 * 3600, 'fb_sig');
@@ -269,14 +270,15 @@ class Horde_Service_Facebook_Auth
             $this->setUser($user, $sessionKey, $expires);
 
         } elseif (!$ignore_cookies &&
-                  $fb_params = $this->_getParams($this->_request->getCookie(), null, $this->_facebook->apiKey)) {
+                  $fb_params = $this->_getParams($this->_request->getCookieVars(), null, $this->_facebook->apiKey)) {
 
+            $cookies = $this->_reqeust->getCookieVars();
             // Nothing yet, try cookies...this is where we will get our values
             // for an extenral web app accessing FB's API - assuming the session
             // has already been retrieved previously.
             $base_domain_cookie = 'base_domain_' . $this->_facebook->apiKey;
-            if ($this->_request->getCookie($base_domain_cookie)) {
-                $this->_base_domain = $this->_request->getCookie($base_domain_cookie);
+            if ($cookies[$base_domain_cookie]) {
+                $this->_base_domain = $cookie[$base_domain_cookie];
             }
             // use $api_key . '_' as a prefix for the cookies in case there are
             // multiple facebook clients on the same domain.
@@ -435,8 +437,9 @@ class Horde_Service_Facebook_Auth
      */
     public function setUser($user, $sessionKey, $expires = null, $noCookie = false)
     {
-        if (!$noCookie && (!$this->_request->getCookie($this->_facebook->apiKey . '_user') ||
-            $this->_request->getCookie($this->_facebook->apiKey . '_user') != $user)) {
+        $cookies = $this->_request->getCookieVars();
+        if (!$noCookie && (!$cookie[$this->_facebook->apiKey . '_user'] ||
+            $cookie[$this->_facebook->apiKey . '_user'] != $user)) {
 
             $this->setCookies($user, $sessionKey, $expires);
         }

@@ -26,7 +26,7 @@ class Horde_ActiveSync_Factory
         $decoder = new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r'),
                                                       Horde_ActiveSync::$zpushdtd);
 
-        $request = new Horde_Controller_Request_Http();
+        $request = $injector->getInstance('Horde_Controller_Request');
         $server = new Horde_ActiveSync($driver, $state, $decoder, $encoder, $request);
     }
     

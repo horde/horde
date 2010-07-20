@@ -30,7 +30,7 @@ class Horde_Core_Binder_Twitter implements Horde_Injector_Binder
 
             /* Create the Consumer */
             $auth = new Horde_Service_Twitter_Auth_Oauth(new Horde_Oauth_Consumer($params));
-            $request = new Horde_Service_Twitter_Request_Oauth(new Horde_Controller_Request_Http());
+            $request = new Horde_Service_Twitter_Request_Oauth($injector->getInstance('Horde_Controller_Request'));
             $twitter = new Horde_Service_Twitter($auth, $request);
 
             //$twitter->setCache($injector->getInstance('Horde_Cache'));

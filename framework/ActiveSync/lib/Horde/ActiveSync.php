@@ -347,7 +347,7 @@ class Horde_ActiveSync
         }
         $state = $this->_driver->getStateObject();
         if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
-            $get = $this->_request->getGetParams();
+            $get = $this->_request->getGetVars();
             $device = new StdClass();
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';

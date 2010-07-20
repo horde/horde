@@ -79,9 +79,7 @@ Horde_Registry::appInit('horde', array(
     'session_control' => $session_control
 ));
 
-$request = new Horde_Controller_Request_Http(array(
-    'session_control' => $session_control
-));
+$request = $GLOBALS['injector']->getInstance('Horde_Controller_Request);
 
 $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 

@@ -66,7 +66,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
 
         //@TODO: Verify the existence of requestSecret...
 
-        $params = $request->getGetParams();
+        $params = $request->getGetVars();
         if (empty($params['oauth_token'])) {
             return false;
         }

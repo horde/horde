@@ -176,7 +176,7 @@ class Turba_Driver_Facebook extends Turba_Driver
 
         if (empty($this->_facebook)) {
             $context = array('http_client' => new Horde_Http_Client(),
-                             'http_request' => new Horde_Controller_Request_Http());
+                             'http_request' => $GLOBALS['injector']->getInstance('Horde_Controller_Request'));
             $this->_facebook = new Horde_Service_Facebook($conf['facebook']['key'],
                                                    $conf['facebook']['secret'],
                                                    $context);
