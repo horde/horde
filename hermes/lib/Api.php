@@ -11,7 +11,7 @@
 class Hermes_Api extends Horde_Registry_Api
 {
 
-    function getTableMetaData($name, $params)
+    public static function getTableMetaData($name, $params)
     {
         switch ($name) {
         case 'hours':
@@ -39,7 +39,7 @@ class Hermes_Api extends Horde_Registry_Api
                       'title'  => _("Employee"),
                       'type'   => $emptype[0],
                       'params' => $emptype[1]),
-                array('name'   => 'client',
+                array('name'   => '_client_name',
                       'title'  => _("Client"),
                       'type'   => 'enum',
                       'params' => array($clients)),
@@ -102,7 +102,7 @@ class Hermes_Api extends Horde_Registry_Api
         }
     }
 
-    function getTableData($name, $params)
+    public static function getTableData($name, $params)
     {
         switch ($name) {
         case 'hours':
@@ -135,21 +135,19 @@ class Hermes_Api extends Horde_Registry_Api
                     break;
                 }
 
-                if (!empty($subtotal_column)) {
-                    $clients = Hermes::listClients();
-                    $column = array();
-                    foreach ($time_data as $key => $row) {
-                        if (empty($row['client'])) {
-                            $time_data[$key]['_client_name'] = _("no client");
-                        } elseif (isset($clients[$row['client']])) {
-                            $time_data[$key]['_client_name'] = $clients[$row['client']];
-                        } else {
-                            $time_data[$key]['_client_name'] = $row['client'];
-                        }
-                        $column[$key] = $time_data[$key][$subtotal_column];
+                $clients = Hermes::listClients();
+                $column = array();
+                foreach ($time_data as $key => $row) {
+                    if (empty($row['client'])) {
+                        $time_data[$key]['_client_name'] = _("no client");
+                    } elseif (isset($clients[$row['client']])) {
+                        $time_data[$key]['_client_name'] = $clients[$row['client']];
+                    } else {
+                        $time_data[$key]['_client_name'] = $row['client'];
                     }
-                    array_multisort($column, SORT_ASC, $time_data);
+                    $column[$key] = $time_data[$key][$subtotal_column];
                 }
+                array_multisort($column, SORT_ASC, $time_data);
             }
 
             $total_hours = 0.0;
@@ -167,7 +165,7 @@ class Hermes_Api extends Horde_Registry_Api
 
                 if (!empty($subtotal_column) &&
                     $vals[$subtotal_column] != $subtotal_control) {
-                    renderSubtotals($result['data'], $subtotal_hours, $subtotal_billable_hours,
+                    Hermes_Api::renderSubtotals($result['data'], $subtotal_hours, $subtotal_billable_hours,
                                     $subtotal_column == 'date' ? strftime("%m/%d/%Y", $subtotal_control) :
                                     $subtotal_control);
                     $subtotal_hours = 0.0;
@@ -210,7 +208,7 @@ class Hermes_Api extends Horde_Registry_Api
             }
 
             if (!empty($subtotal_column)) {
-                renderSubtotals($result['data'], $subtotal_hours, $subtotal_billable_hours,
+                Hermes_Api::renderSubtotals($result['data'], $subtotal_hours, $subtotal_billable_hours,
                                 $subtotal_column == 'date' ? strftime("%m/%d/%Y", $subtotal_control) :
                                 $subtotal_control);
             }
@@ -244,7 +242,7 @@ class Hermes_Api extends Horde_Registry_Api
         return $result;
     }
 
-    function renderSubtotals(&$table_data, $hours, $billable_hours, $value)
+    public static function renderSubtotals(&$table_data, $hours, $billable_hours, $value)
     {
         $billable_pct = ($hours == 0.0) ? 0.0 :
              round($billable_hours / $hours * 100.0);
