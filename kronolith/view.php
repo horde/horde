@@ -11,6 +11,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 $view = Kronolith::getView(Horde_Util::getFormData('view'));
 if ($view) {
     Kronolith::tabs(strtolower(str_replace('kronolith_view_', '', Horde_String::lower(get_class($view)))));

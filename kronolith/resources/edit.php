@@ -11,6 +11,11 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 require_once KRONOLITH_BASE . '/lib/Forms/EditResource.php';
 
 // Exit if this isn't an authenticated administrative user.

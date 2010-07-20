@@ -11,6 +11,14 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+$vars = Horde_Variables::getDefaultVariables();
+$url = $vars->get('url');
+
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:remote|' . rawurlencode($url)));
+    exit;
+}
+
 require_once KRONOLITH_BASE . '/lib/Forms/UnsubscribeRemoteCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
@@ -20,12 +28,11 @@ if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
     exit;
 }
 
-$vars = Horde_Variables::getDefaultVariables();
 $remote_calendar = null;
 
 $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
 foreach ($remote_calendars as $key => $calendar) {
-    if ($calendar['url'] == $vars->get('url')) {
+    if ($calendar['url'] == $url) {
         $remote_calendar = $calendar;
         break;
     }

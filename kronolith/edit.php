@@ -42,6 +42,11 @@ function _check_max()
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 $kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Horde_Util::getFormData('del_exception')) {

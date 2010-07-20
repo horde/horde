@@ -20,6 +20,11 @@ if (is_string($view->event)) {
     exit;
 }
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString())));
+    exit;
+}
+
 switch ($viewName) {
 case 'DeleteEvent':
     /* Shortcut when we're deleting events and don't want confirmation. */

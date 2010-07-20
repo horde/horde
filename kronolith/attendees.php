@@ -10,6 +10,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 // Get the current attendees array from the session cache.
 $attendees = (isset($_SESSION['kronolith']['attendees']) &&
               is_array($_SESSION['kronolith']['attendees']))

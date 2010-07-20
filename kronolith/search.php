@@ -11,6 +11,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 /* Get search parameters. */
 $search_mode = Horde_Util::getFormData('search_mode', 'basic');
 $search_calendar = explode('|', Horde_Util::getFormData('calendar', '|__any'), 2);

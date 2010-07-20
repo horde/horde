@@ -24,6 +24,11 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));

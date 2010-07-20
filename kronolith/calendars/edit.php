@@ -11,6 +11,13 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+$vars = Horde_Variables::getDefaultVariables();
+
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:internal|' . $vars->get('c')));
+    exit;
+}
+
 require_once KRONOLITH_BASE . '/lib/Forms/EditCalendar.php';
 
 // Exit if this isn't an authenticated user.
@@ -19,7 +26,6 @@ if (!$GLOBALS['registry']->getAuth()) {
     exit;
 }
 
-$vars = Horde_Variables::getDefaultVariables();
 try {
     $calendar = $kronolith_shares->getShare($vars->get('c'));
 } catch (Exception $e) {

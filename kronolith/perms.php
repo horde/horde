@@ -12,6 +12,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true));
+    exit;
+}
+
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {
     throw new Horde_Exception('Permission denied.');

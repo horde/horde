@@ -11,6 +11,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('event'));
+    exit;
+}
+
 /* Check permissions. */
 $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
       ->add(array('month' => Horde_Util::getFormData('month'),

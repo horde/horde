@@ -12,6 +12,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('year:' . Kronolith::currentDate()->dateString()));
+    exit;
+}
+
 $view = Kronolith::getView('Year');
 $title = $view->year;
 

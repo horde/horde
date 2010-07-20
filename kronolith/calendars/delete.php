@@ -26,6 +26,12 @@ if ($calendar_id == $GLOBALS['registry']->getAuth()) {
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
 }
+
+if (Kronolith::showAjaxView()) {
+    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:internal|' . $calendar_id));
+    exit;
+}
+
 try {
     $calendar = $kronolith_shares->getShare($calendar_id);
 } catch (Exception $e) {
