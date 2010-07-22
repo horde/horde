@@ -95,4 +95,29 @@ class Horde_Kolab_Filter_Factory
         $handler->addFilter(constant('Horde_Log::' . $conf['log']['priority']));
         return new Horde_Log_Logger($handler);
     }
+
+    /**
+     * Creates the connection to the user database.
+     *
+     * @param Horde_Injector $injector The injector provides the required
+     *                                 configuration.
+     *
+     * @return Horde_Kolab_Server_Composite The connection to the user DB.
+     */
+    public function getUserDb(Horde_Injector $injector)
+    {
+        $configuration = $injector->getInstance('Horde_Kolab_Filter_Configuration');
+
+        $conf = $configuration->getConf();
+
+        $factory = new Horde_Kolab_Server_Factory();
+
+        return new Horde_Kolab_Server_Composite(
+            $factory->getServer($conf['server']),
+            new Horde_Kolab_Server_Objects_Base(),
+            new Horde_Kolab_Server_Structure_Kolab(),
+            new Horde_Kolab_Server_Search_Base(),
+            new Horde_Kolab_Server_Schema_Base()
+        );
+    }
 }

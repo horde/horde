@@ -96,6 +96,10 @@ extends PHPUnit_Extensions_Story_TestCase
     {
         switch($action) {
         case 'handling the message':
+            global $conf;
+            $conf['server']['mock'] = true;
+            //@todo: Fix guid => dn here
+            $conf['server']['data'] = array('dn=example' => array('dn' => 'dn=example', 'data' => array('mail' => array('me@example.org'), 'kolabHomeServer' => array('localhost'), 'objectClass' => array('kolabInetOrgPerson'), 'guid' => 'dn=example')));
             $_SERVER['argv'] = $this->_prepareArguments($world);
             $filter = new Horde_Kolab_Filter();
             ob_start();

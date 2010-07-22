@@ -118,16 +118,19 @@ class Horde_Kolab_Filter_Configuration
         }
 
         /* This is used as the default domain for unqualified adresses */
-        if (!array_key_exists('SERVER_NAME', $_SERVER)) {
-            $_SERVER['SERVER_NAME'] = $conf['kolab']['imap']['server'];
-        }
+        /* @todo: What do we need this for? Which libraries grab these infos from global scope? MIME? */
+        if (isset($conf['kolab']['imap']['server'])) {
+            if (!array_key_exists('SERVER_NAME', $_SERVER)) {
+                $_SERVER['SERVER_NAME'] = $conf['kolab']['imap']['server'];
+            }
 
-        if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
-            $_SERVER['REMOTE_ADDR'] = $conf['kolab']['imap']['server'];
-        }
+            if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
+                $_SERVER['REMOTE_ADDR'] = $conf['kolab']['imap']['server'];
+            }
 
-        if (!array_key_exists('REMOTE_HOST', $_SERVER)) {
-            $_SERVER['REMOTE_HOST'] = $conf['kolab']['imap']['server'];
+            if (!array_key_exists('REMOTE_HOST', $_SERVER)) {
+                $_SERVER['REMOTE_HOST'] = $conf['kolab']['imap']['server'];
+            }
         }
 
         /* Always display all possible problems */

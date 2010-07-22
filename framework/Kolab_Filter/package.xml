@@ -85,6 +85,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Exception.php" role="php" />
        <dir name="Exception">
         <file name="IoError.php" role="php" />
+        <file name="Temporary.php" role="php" />
         <file name="Usage.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Filter/Exception -->
        <file name="Factory.php" role="php" />
@@ -268,6 +269,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Filter/Content.php" as="Horde/Kolab/Filter/Content.php" />
    <install name="lib/Horde/Kolab/Filter/Base.php" as="Horde/Kolab/Filter/Base.php" />
    <install name="lib/Horde/Kolab/Filter/Exception.php" as="Horde/Kolab/Filter/Exception.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception/IoError.php" as="Horde/Kolab/Filter/Exception/IoError.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception/Temporary.php" as="Horde/Kolab/Filter/Exception/Temporary.php" />
    <install name="lib/Horde/Kolab/Filter/Exception/Usage.php" as="Horde/Kolab/Filter/Exception/Usage.php" />
    <install name="lib/Horde/Kolab/Filter/Factory.php" as="Horde/Kolab/Filter/Factory.php" />
    <install name="lib/Horde/Kolab/Filter/Incoming.php" as="Horde/Kolab/Filter/Incoming.php" />
