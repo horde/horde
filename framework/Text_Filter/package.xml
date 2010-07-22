@@ -89,105 +89,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Filter">
        <dir name="fixtures">
         <file name="html2text.html" role="test" />
-        <file name="style_xss01.html" role="test" />
         <file name="text2html.txt" role="test" />
-        <file name="xss01.html" role="test" />
-        <file name="xss02.html" role="test" />
-        <file name="xss03.html" role="test" />
-        <file name="xss04.html" role="test" />
-        <file name="xss05.html" role="test" />
-        <file name="xss06.html" role="test" />
-        <file name="xss07.html" role="test" />
-        <file name="xss08.html" role="test" />
-        <file name="xss09.html" role="test" />
-        <file name="xss10.html" role="test" />
-        <file name="xss11.html" role="test" />
-        <file name="xss12.html" role="test" />
-        <file name="xss13.html" role="test" />
-        <file name="xss14.html" role="test" />
-        <file name="xss15.html" role="test" />
-        <file name="xss16.html" role="test" />
-        <file name="xss17.html" role="test" />
-        <file name="xss18.html" role="test" />
-        <file name="xss19.html" role="test" />
-        <file name="xss20.html" role="test" />
-        <file name="xss21.html" role="test" />
-        <file name="xss22.html" role="test" />
-        <file name="xss23.html" role="test" />
-        <file name="xss24.html" role="test" />
-        <file name="xss25.html" role="test" />
-        <file name="xss26.html" role="test" />
-        <file name="xss27.html" role="test" />
-        <file name="xss28.html" role="test" />
-        <file name="xss29.html" role="test" />
-        <file name="xss30.html" role="test" />
-        <file name="xss31.html" role="test" />
-        <file name="xss32.html" role="test" />
-        <file name="xss33.html" role="test" />
-        <file name="xss34.html" role="test" />
-        <file name="xss35.html" role="test" />
-        <file name="xss36.html" role="test" />
-        <file name="xss37.html" role="test" />
-        <file name="xss38.html" role="test" />
-        <file name="xss39.html" role="test" />
-        <file name="xss40.html" role="test" />
-        <file name="xss41.html" role="test" />
-        <file name="xss42.html" role="test" />
-        <file name="xss43.html" role="test" />
-        <file name="xss44.html" role="test" />
-        <file name="xss45.html" role="test" />
-        <file name="xss46.html" role="test" />
-        <file name="xss47.html" role="test" />
-        <file name="xss48.html" role="test" />
-        <file name="xss49.html" role="test" />
-        <file name="xss50.html" role="test" />
-        <file name="xss51.html" role="test" />
-        <file name="xss52.html" role="test" />
-        <file name="xss53.html" role="test" />
-        <file name="xss54.html" role="test" />
-        <file name="xss55.html" role="test" />
-        <file name="xss56.html" role="test" />
-        <file name="xss57.html" role="test" />
-        <file name="xss58.html" role="test" />
-        <file name="xss59.html" role="test" />
-        <file name="xss60.html" role="test" />
-        <file name="xss61.html" role="test" />
-        <file name="xss62.html" role="test" />
-        <file name="xss63.html" role="test" />
-        <file name="xss64.html" role="test" />
-        <file name="xss65.html" role="test" />
-        <file name="xss66.html" role="test" />
-        <file name="xss67.html" role="test" />
-        <file name="xss68.html" role="test" />
-        <file name="xss69.html" role="test" />
-        <file name="xss70.html" role="test" />
-        <file name="xss71.html" role="test" />
-        <file name="xss72.html" role="test" />
-        <file name="xss73.html" role="test" />
-        <file name="xss74.html" role="test" />
-        <file name="xss75.html" role="test" />
-        <file name="xss76.html" role="test" />
-        <file name="xss77.html" role="test" />
-        <file name="xss78.html" role="test" />
-        <file name="xss79.html" role="test" />
-        <file name="xss80.html" role="test" />
-        <file name="xss81.html" role="test" />
-        <file name="xss82.html" role="test" />
-        <file name="xss83.html" role="test" />
-        <file name="xss84.html" role="test" />
-        <file name="xss85.html" role="test" />
-        <file name="xss97.html" role="test" />
-        <file name="xss98.html" role="test" />
-        <file name="xss99.html" role="test" />
-        <file name="xss100.html" role="test" />
        </dir> <!-- /test/Horde/Text/Filter/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="XssTest.php" role="test" />
        <file name="emails.phpt" role="test" />
        <file name="environment.phpt" role="test" />
        <file name="html2text.phpt" role="test" />
        <file name="html2text2.phpt" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="space2html.phpt" role="test" />
        <file name="text2html.phpt" role="test" />
-       <file name="xss.phpt" role="test" />
       </dir> <!-- /test/Horde/Text/Filter -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
