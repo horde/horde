@@ -29,7 +29,7 @@ class Horde_Text_Filter_Environment extends Horde_Text_Filter_Base
         );
 
         $regexp_callback = array(
-            '/%([A-Za-z_]+)%/e' => array($this, 'regexCallback')
+            '/%([A-Za-z_]+)%/' => array($this, 'regexCallback')
         );
 
         return array(
