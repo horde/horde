@@ -54,7 +54,7 @@ document.observe('dom:loaded', function() {
         callback = this.imgOnload.bind(this, iframeid);
 
         s.findElements(iframe.contentWindow.document).each(function(img) {
-            var src = decodeURIComponent(img.getAttribute('htmlimgblocked'));
+            var src = img.getAttribute('htmlimgblocked');
             if (img.getAttribute('src')) {
                 img.onload = callback;
                 ++IMP.imgs[iframeid];

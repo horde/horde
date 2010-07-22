@@ -33,6 +33,13 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     public $newwinTarget = null;
 
     /**
+     * Temp array for storing data when parsing the HTML document.
+     *
+     * @var array
+     */
+    protected $_tmp = array();
+
+    /**
      * This driver's display capabilities.
      *
      * @var array
@@ -43,46 +50,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         'inline' => true,
         'raw' => false
     );
-
-    /**
-     * The regular expression to catch any tags and attributes that load
-     * external images.
-     *
-     * @var string
-     */
-    protected $_img_regex = '/
-        # match 1
-        (
-            # <img> tags
-            <img\b[^>]+?src=
-            # <input> tags
-            |<input\b[^>]+?src=
-            # "background" attributes
-            |<body\b[^>]+?background=|<td[^>]*background=|<table[^>]*background=
-            # "style" attributes; match 2; quotes: match 3
-            |(style=\s*("|\')?[^>]*?background(?:-image)?:(?(3)[^"\']|[^>])*?url\s*\()
-        )
-        # whitespace
-        \s*
-        # opening quotes, parenthesis; match 4
-        ("|\')?
-        # the image url; match 5
-        ((?(2)
-            # matched a "style" attribute
-            (?(4)[^"\')>]*|[^\s)>]*)
-            # did not match a "style" attribute
-            |(?(4)[^"\'>]*|[^\s>]*)
-        ))
-        # closing quotes
-        (?(4)\\4)
-        # matched a "style" attribute?
-        (?(2)
-            # closing parenthesis
-            \s*\)
-            # remainder of the "style" attribute; match 6
-            ((?(3)[^"\'>]*|[^\s>]*)(?(3)\\3))
-        )
-        /isx';
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -203,6 +170,18 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             );
         }
 
+        $data = $this->parseHtml($inline, $data)->saveHTML();
+
+        if ($this->_tmp['imgblock']) {
+            $status[] = array(
+                'icon' => Horde::img('mime/image.png'),
+                'text' => array(
+                    _("Images have been blocked to protect your privacy."),
+                    Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
+                )
+            );
+        }
+
         /* Search for inlined links that we can display (multipart/related
          * parts). */
         if (isset($this->_params['related_id'])) {
@@ -221,44 +200,23 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
         }
 
-        /* Convert links to open in new windows. First we hide all
-         * mailto: links, links that have an "#xyz" anchor and ignore
-         * all links that already have a target. */
-        $data = $this->openLinksInNewWindow($data);
-
-        /* If displaying inline (in IFRAME), tables with 100% height seems to
-         * confuse many browsers re: the iframe internal height. */
-        if ($inline) {
-            $data = preg_replace('/<table\b([^>]*)\bheight=["\']?100\%["\']?/i', '<table \\1', $data);
+        $filters = array();
+        if ($GLOBALS['prefs']->getValue('emoticons')) {
+            $filters['emoticons'] = array(
+                'entities' => true
+            );
         }
 
-        /* Turn mailto: links into our own compose links. */
-        if ($inline && $GLOBALS['registry']->hasMethod('mail/compose')) {
-            $data = preg_replace_callback('/href\s*=\s*(["\'])?mailto:((?(1)[^\1]*?|[^\s>]+))(?(1)\1|)/i', array($this, '_mailtoCallback'), $data);
+        if ($inline) {
+            $filters['emails'] = array();
+        }
+
+        if (!empty($filters)) {
+            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, array_keys($filters), array(array_values($filters)));
         }
 
         /* Filter bad language. */
         $data = IMP::filterText($data);
-
-        /* Image filtering. */
-        if ($inline &&
-            $GLOBALS['prefs']->getValue('html_image_replacement') &&
-            preg_match($this->_img_regex, $this->_mimepart->getContents()) &&
-            !$this->_inAddressBook()) {
-            $data = $this->blockImages($data);
-
-            $status[] = array(
-                'icon' => Horde::img('mime/image.png'),
-                'text' => array(
-                    _("Images have been blocked to protect your privacy."),
-                    Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
-                )
-            );
-        }
-
-        if ($GLOBALS['prefs']->getValue('emoticons')) {
-            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, array('emoticons'), array(array('entities' => true)));
-        }
 
         return array(
             'data' => $data,
@@ -268,75 +226,31 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     * Scans HTML data and alters links to open in a new window.
-     * In public function so that it can be tested.
-     *
-     * @param string $data  Data in.
-     *
-     * @return string  Altered data.
      */
-    public function openLinksInNewWindow($data)
+    public function parseHtml($inline, $data)
     {
-        $target = is_null($this->newwinTarget)
-            ? 'target_' . uniqid(mt_rand())
-            : $this->newwinTarget;
+        $this->_tmp = array(
+            'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
+            'imgblock' => false,
+            'inline' => $inline,
+            'target' => (is_null($this->newwinTarget) ? 'target_' . uniqid(mt_rand()) : $this->newwinTarget)
+        );
 
-        return preg_replace(
-            array('/<a\b([^>]*\bhref=["\']?(#|mailto:))/i',
-                  '/<a\b([^>]*)\btarget=["\']?[^>"\'\s]*["\']?/i',
-                  '/<a\b/i',
-                  '/<area\b([^>]*\bhref=["\']?(#|mailto:))/i',
-                  '/<area\b([^>]*)\btarget=["\']?[^>"\'\s]*["\']?/i',
-                  '/<area\b/i',
-                  "/\x01/",
-                  "/\x02/"),
-            array("<\x01\\1",
-                  "<\x01\\1target=\"" . $target . "\"",
-                  '<a target="' . $target . '"',
-                  "<\x02\\1",
-                  "<\x02\\1target=\"" . $target . "\"",
-                  '<area target="' . $target . '"',
-                  'a',
-                  'area'),
-            $data);
-    }
-
-    /**
-     * TODO
-     */
-    protected function _mailtoCallback($m)
-    {
-        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', $GLOBALS['registry']->getCharset()))) . '"';
-    }
-
-    /**
-     * Block images in HTML data.
-     *
-     * @param string $data  Data in.
-     *
-     * @return string  Altered data.
-     */
-    public function blockImages($data)
-    {
-        return preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
-    }
-
-    /**
-     * Called from the image-blocking regexp to construct the new image tags.
-     *
-     * @param array $matches
-     *
-     * @return string The new image tag.
-     */
-    protected function _blockImages($matches)
-    {
-        if (is_null($this->blockimg)) {
+        /* Image filtering. */
+        if ($this->_tmp['img'] && is_null($this->blockimg)) {
             $this->blockimg = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
         }
 
-        return empty($matches[2])
-            ? $matches[1] . '"' . $this->blockimg . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"'
-            : trim($matches[1] . "'" . $this->blockimg . '\')' . $matches[6], '\'" ') . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"';
+        $old_error = libxml_use_internal_errors(true);
+        $doc = new DOMDocument();
+        $doc->loadHTML($data);
+        if ($old_error) {
+            libxml_use_internal_errors(false);
+        }
+
+        $this->_node($doc, $doc);
+
+        return $doc;
     }
 
     /**
@@ -346,6 +260,10 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _inAddressBook()
     {
+        if (empty($this->_params['contents'])) {
+            return false;
+        }
+
         $from = Horde_Mime_Address::bareAddress($this->_params['contents']->getHeaderOb()->getValue('from'));
 
         if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
@@ -361,6 +279,92 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Check admin defined e-mail list. */
         $safe_addrs = $this->getConfigParam('safe_addrs');
         return (!empty($safe_addrs) && in_array($from, $safe_addrs));
+    }
+
+    /**
+     * Process DOM node.
+     *
+     * @param DOMDocument $doc  Document node.
+     * @param DOMElement $node  Element node.
+     */
+    protected function _node($doc, $node)
+    {
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                if ($child instanceof DOMElement) {
+                    switch (strtolower($child->tagName)) {
+                    case 'a':
+                    case 'area':
+                        /* Convert links to open in new windows. Ignore
+                         * mailto: links, links that have an "#xyz" anchor,
+                         * and links that already have a target. */
+                        if (!$child->hasAttribute('target') &&
+                            $child->hasAttribute('href')) {
+                            $url = parse_url($child->getAttribute('href'));
+                            if (empty($url['fragment']) &&
+                                ($url['scheme'] != 'mailto:')) {
+                                $child->setAttribute('target', $this->_tmp['target']);
+                            }
+                        }
+                        break;
+
+                    case 'img':
+                    case 'input':
+                        if ($this->_tmp['img'] && $child->hasAttribute('src')) {
+                            $child->setAttribute('htmlimgblocked', $child->getAttribute('src'));
+                            $child->setAttribute('src', $this->blockimg);
+                            $this->_tmp['imgblock'] = true;
+                        }
+                        break;
+
+                    case 'table':
+                        /* If displaying inline (in IFRAME), tables with 100%
+                         * height seems to confuse many browsers re: the
+                         * iframe internal height. */
+                        if ($this->_tmp['inline'] &&
+                            $child->hasAttribute('height') &&
+                            ($child->getAttribute('height') == '100%')) {
+                            $child->removeAttribute('height');
+                        }
+
+                        // Fall-through
+
+                    case 'body':
+                    case 'td':
+                        if ($this->_tmp['img'] &&
+                            $child->hasAttribute('background')) {
+                            $child->setAttribute('htmlimgblocked', $child->getAttribute('background'));
+                            $child->setAttribute('background', $this->blockimg);
+                            $this->_tmp['imgblock'] = true;
+                        }
+                        break;
+                    }
+
+                    if ($this->_tmp['img'] && $child->hasAttribute('style')) {
+                        $this->_tmp['child'] = $child;
+                        $style = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $child->getAttribute('style'), -1, $matches);
+                        if ($matches) {
+                            $child->setAttribute('style', $style);
+                        }
+                    }
+                }
+
+                $this->_node($doc, $child);
+            }
+        }
+    }
+
+    /**
+     * preg_replace_callback() callback for style/background matching.
+     *
+     * @param array $matches  The list of matches.
+     *
+     * @return string  The replacement image string.
+     */
+    protected function _styleCallback($matches)
+    {
+        $this->_tmp['child']->setAttribute('htmlimgblocked', $matches[2]);
+        return $matches[1] . $this->blockimg . $matches[3];
     }
 
 }
