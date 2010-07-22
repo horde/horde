@@ -87,20 +87,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
-       <dir name="fixtures">
-        <file name="html2text.html" role="test" />
-        <file name="text2html.txt" role="test" />
-       </dir> <!-- /test/Horde/Text/Filter/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="Emails.php" role="test" />
+       <file name="EnvironmentTest.php" role="test" />
+       <file name="Html2textTest.php" role="test" />
+       <file name="Space2htmlTest.php" role="test" />
+       <file name="Text2htmlTest.php" role="test" />
        <file name="XssTest.php" role="test" />
-       <file name="emails.phpt" role="test" />
-       <file name="environment.phpt" role="test" />
-       <file name="html2text.phpt" role="test" />
-       <file name="html2text2.phpt" role="test" />
        <file name="phpunit.xml" role="test" />
-       <file name="space2html.phpt" role="test" />
-       <file name="text2html.phpt" role="test" />
       </dir> <!-- /test/Horde/Text/Filter -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
