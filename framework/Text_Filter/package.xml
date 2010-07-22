@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove Horde/Core dependency.
+ <notes>* XSS filter now uses PHP DOM parser to process incoming text.
+ * Remove Horde/Core dependency.
  * Add Horde_Text_Filter_Exception::.
  * Html2text converter now uses XML parser to generate output.
  * Add ability to define filters to use with preg_replace_callback().

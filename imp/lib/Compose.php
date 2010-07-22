@@ -2462,7 +2462,7 @@ class IMP_Compose
         }
 
         if ($mode == 'html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true), array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false)));
+            $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true), array('strip_styles' => true, 'strip_style_attributes' => false)));
         } elseif ($type == 'text/html') {
             $msg = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($msg, 'html2text');
             $type = 'text/plain';

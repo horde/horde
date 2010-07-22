@@ -142,8 +142,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
                 'charset' => isset($options['charset']) ? $options['charset'] : $this->_mimepart->getCharset()
             ),
             array(
-                'body_only' => !empty($options['inline']),
                 'noprefetch' => !empty($options['noprefetch']),
+                'return_document' => empty($options['inline']),
                 'strip_styles' => $strip_styles,
                 'strip_style_attributes' => $strip_style_attributes
             )
