@@ -107,7 +107,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
             $text = Horde_String::convertCharset($text, $this->_params['charset'], 'UTF-8');
 
             $old_error = libxml_use_internal_errors(true);
-            $doc = DOMDocument::loadHTML('<?xml encoding="UTF-8">' . $text);
+            $doc = new DOMDocument();
+            $doc->loadHTML('<?xml encoding="UTF-8">' . $text);
             if ($old_error) {
                 libxml_use_internal_errors(false);
             }
