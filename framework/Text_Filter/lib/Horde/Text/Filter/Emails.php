@@ -95,7 +95,7 @@ EOR;
             $data = "\01\01\01" . base64_encode($data) . "\01\01\01";
         }
 
-        return $matches[1] . $matches[2] . $matches[9] .
+        return $matches[1] . $matches[2] . (isset($matches[9]) ? $matches[9] : '') .
             $data .
             $matches[4] . $matches[8] . (isset($matches[14]) ? $matches[14] : '');
     }
@@ -113,9 +113,9 @@ EOR;
         $class = empty($this->_params['class'])
             ? ''
             : ' class="' . $this->_params['class'] . '"';
-        $email = ($matches[10] === '')
+        $email = (!isset($matches[10]) || $matches[10] === '')
             ? $matches[3] . $matches[5]
-            : $matches[10] . $matches[11];
+            : $matches[10] . (isset($matches[11]) ? $matches[11] : '');
 
         return '<a' . $class . ' href="mailto:' . htmlspecialchars($email) . '">' . htmlspecialchars($email) . '</a>';
     }
