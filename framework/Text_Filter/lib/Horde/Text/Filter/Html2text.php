@@ -6,8 +6,6 @@
  * <pre>
  * charset - (string) The charset to use for html_entity_decode() calls.
  * width - (integer) The wrapping width. Set to 0 to not wrap.
- * charset - (string) The charset of the text.
- * width - (integer) The wrapping width.
  * </pre>
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
