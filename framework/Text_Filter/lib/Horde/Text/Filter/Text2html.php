@@ -55,6 +55,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
     protected $_params = array(
         'charset' => 'ISO-8859-1',
         'class' => 'fixed',
+        'emails' => false,
         'linkurls' => false,
         'text2html' => false,
         'parselevel' => 0,
