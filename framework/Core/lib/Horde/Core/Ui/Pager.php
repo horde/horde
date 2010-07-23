@@ -29,6 +29,11 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
         ), $config);
 
         parent::__construct($name, $vars, $config);
+
+        // @todo Make sure 'url' argument is a Horde_Url object.
+        if (!($this->_config['url'] instanceof Horde_Url)) {
+            $this->_config['url'] = new Horde_Url($this->_config['url']);
+        }
     }
 
     /**
@@ -65,14 +70,13 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 
         if ($current_page > 0) {
             // Create the '<< Prev' link if we are not on the first page.
-            $link = Horde_Util::addParameter($url, $this->_name, $current_page - 1);
-            $link = $this->_addPreserved($link);
-            $link = $this->_link($link);
-            if (isset($this->_config['previousHTML'])) {
-                $html .= Horde::link($link, '', 'prev') . $this->_config['previousHTML'] . '</a>';
-            } else {
-                $html .= Horde::link($link, '', 'prev') . htmlspecialchars(_("<Previous")) . '</a>';
-            }
+            $link = $this->_link($this->_addPreserved($url->copy()->add($this->_name, $current_page - 1)));
+
+            $prev_text = isset($this->_config['previousHTML'])
+                ? $this->_config['previousHTML']
+                : htmlspecialchars(_("<Previous"));
+
+            $html .= Horde::link($link, '', 'prev') . $prev_text . '</a>';
         }
 
         // Figure out the top & bottom display limits.
@@ -84,10 +88,8 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
         }
 
         // Create bottom '[x-y]' link if necessary.
-        $link = $this->_addPreserved(Horde_Util::addParameter($url, $this->_name, $bottom - 1));
-        $link = $this->_link($link);
-
         if ($bottom > 0) {
+            $link = $this->_link($this->_addPreserved($url->copy()->add($this->_name, $bottom - 1)));
             $html .= ' ' . Horde::link($link, '', 'prevRange') . '[' . ($bottom == 1 ? $bottom : '1-' . $bottom) . ']</a>';
         }
 
@@ -96,16 +98,14 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
             if ($i == $current_page) {
                 $html .= ' <strong>(' . ($i + 1) . ')</strong>';
             } elseif ($i >= 0 && $i <= $pages) {
-                $link = $this->_addPreserved(Horde_Util::addParameter($url, $this->_name, $i));
-                $link = $this->_link($link);
+                $link = $this->_link($this->_addPreserved($url->copy()->add($this->_name, $i)));
                 $html .= ' ' . Horde::link($link) . ($i + 1) . '</a>';
             }
         }
 
         // Create top '[x-y]' link if necessary.
         if ($top < $pages) {
-            $link = $this->_addPreserved(Horde_Util::addParameter($url, $this->_name, $top + 1));
-            $link = $this->_link($link);
+            $link = $this->_link($this->_addPreserved($url->copy()->add($this->_name, $top + 1)));
 
             $html .= ' ' . Horde::link($link, '', 'nextRange') . '[' .
                 ($top + 2 == $pages + 1 ? $pages + 1 : ($top + 2) . '-' . ($pages + 1)) . ']</a>';
@@ -113,13 +113,13 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
 
         // Create the 'Next>>' link if we are not on the last page.
         if ($current_page < $pages) {
-            $link = $this->_addPreserved(Horde_Util::addParameter($url, $this->_name, $current_page + 1));
-            $link = $this->_link($link);
-            if (isset($this->_config['nextHTML'])) {
-                $html .= Horde::link($link, '', 'next') . $this->_config['nextHTML'] . '</a>';
-            } else {
-                $html .= ' ' . Horde::link($link, '', 'next') . htmlspecialchars(_("Next>")) . '</a>';
-            }
+            $link = $this->_link($this->_addPreserved($url->copy()->add($this->_name, $current_page + 1)));
+
+            $next_text = isset($this->_config['nextHTML'])
+                ? $this->_config['nextHTML']
+                : htmlspecialchars(_("Next>"));
+
+            $html .= Horde::link($link, '', 'next') . $next_text . '</a>';
         }
 
         return $html . '</div>';
