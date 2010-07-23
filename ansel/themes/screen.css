@@ -287,29 +287,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     padding-left: 15px;
 }
 
-/* For in place editing */
-form.inplaceeditor-form {
-    background: none;
-}
-form.inplaceeditor-form input[type="submit"] {
-    background:#AAFFAA none repeat scroll 0%;
-    border:1px solid #000000;
-    cursor:pointer;
-    font-weight:bold;
-    padding:2px;
-}
-form.inplaceeditor-form a {
-    background:#FFAAAA none repeat scroll 0%;
-    border:1px solid #000000;
-    cursor:pointer;
-    font-weight:bold;
-    padding:2px;
-}
-.inplaceeditor-empty {
-    font-style: italic;
-    color: #999;
-}
-
 /* Image resizer/slider */
 #slider-track {
     background: url('graphics/scaler_slider_track.gif') no-repeat;

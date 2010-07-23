@@ -25,8 +25,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
     public function attach()
     {
         Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('controls.js', 'horde');
-        Horde::addScriptFile('editcaption.js', 'ansel');
+        Horde::addScriptFile('inplaceeditor.js', 'horde');
 
         $params = array('input' => 'value',
                         'id' => $this->_params['id']);
@@ -35,14 +34,17 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
         $loadTextUrl = $this->_getUrl('EditCaption', 'ansel', array_merge($params, array('action' => 'load')));
         $js = array();
 
-        $js[] = "new Ajax.InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
-                . "    callback: function(form, value) {"
-                . "      return 'value=' + encodeURIComponent(value);},"
+        $js[] = "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
+                . "   callback: function(form, value) {"
+                . "       return 'value=' + encodeURIComponent(value);},"
                 . "   loadTextURL: '". $loadTextUrl . "',"
                 . "   rows:" . $this->_params['rows'] . ","
-                . "   cols:" . $this->_params['cols'] . ","
+                . "   width:" . $this->_params['width'] . ","
                 . "   emptyText: '" . _("Click to add caption...") . "',"
-                . "   onComplete: function(transport, element) {tileExit(this);}"
+                . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
+                . "   cancelText: '" . _("Cancel") . "',"
+                . "   okText: '" . _("Ok") . "',"
+                . "   cancelClassName: ''"
                 . "  });";
 
         Horde::addInlineScript($js, 'dom');

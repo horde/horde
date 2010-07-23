@@ -1206,6 +1206,15 @@ div.GrowlerNoticeExit:hover {
     color: gray;
 }
 
+/* For in place editing */
+form.inplaceeditor-form {
+    background: none;
+}
+.inplaceeditor-empty {
+    font-style: italic;
+    color: #999;
+}
+
 /* Print CSS. */
 @media print {
     body, .header, .smallheader {
