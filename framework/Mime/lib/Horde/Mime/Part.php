@@ -1793,7 +1793,7 @@ class Horde_Mime_Part
         }
 
         if (isset($data['description'])) {
-            $ob->setDescription(Horde_Mime::decode($data['description']));
+            $ob->setDescription(Horde_Mime::decode($data['description']), $ob->getCharset());
         }
 
         /* Set the name. */
