@@ -130,7 +130,7 @@ class Horde_Util
      *                               name).
      * @param boolean $encode        Encode the argument separator?
      *
-     * @return string  The modified URL.
+     * @return Horde_Url  The modified URL.
      */
     static public function addParameter($url, $parameter, $value = null,
                                         $encode = true)
@@ -163,7 +163,7 @@ class Horde_Util
      * @param mixed $remove          Either a single parameter to remove or an
      *                               array of parameters to remove.
      *
-     * @return string  The modified URL.
+     * @return Horde_Url  The modified URL.
      */
     static public function removeParameter($url, $remove)
     {
