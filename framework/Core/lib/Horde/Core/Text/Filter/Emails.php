@@ -50,7 +50,7 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
             return parent::_regexCallback($matches);
         }
 
-        if ($matches[10] === '') {
+        if (!isset($matches[10]) || ($matches[10] === '')) {
             $args = $matches[7];
             $email = $matches[3];
             $args_long = $matches[5];
