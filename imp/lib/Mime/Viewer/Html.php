@@ -283,12 +283,12 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 /* Convert links to open in new windows. Ignore
                  * mailto: links, links that have an "#xyz" anchor,
                  * and links that already have a target. */
-                if (!$node->hasAttribute('target') &&
-                    $node->hasAttribute('href')) {
+                if ($node->hasAttribute('href')) {
                     $url = parse_url($node->getAttribute('href'));
                     if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
                         $node->setAttribute('href', IMP::composeLink($node->getAttribute('href')));
-                    } elseif (empty($url['fragment'])) {
+                    } elseif (!$node->hasAttribute('target') &&
+                              empty($url['fragment'])) {
                         $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }
