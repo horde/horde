@@ -63,6 +63,7 @@ InPlaceEditor = Class.create(
             stripLoadedTextTags: false,
             submitOnBlur: false,
             width: null,
+            autoWidth: false,
 
             /** Default Callbacks **/
             callback: function(form)
@@ -191,8 +192,11 @@ InPlaceEditor = Class.create(
         fld.value = text; // No HTML breaks conversion anymore
         fld.className = 'editor_field';
         if (this.options.width) {
-            fld.setStyle({ width: this.options.width + 'px' });
+            var w = this.options.width + 'px';
+        } else if (this.options.autoWidth) {
+            var w = this.element.up().getWidth() + 'px';
         }
+        fld.setStyle({ width: w });
         if (this.options.submitOnBlur) {
             fld.observe('blur', this._boundSubmitHandler);
         }

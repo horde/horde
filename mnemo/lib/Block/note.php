@@ -39,13 +39,16 @@ class Horde_Block_Mnemo_note extends Horde_Block
     protected function _content()
     {
         $memo = $this->_getNote();
-        $html = '<div class="noteBody">';
+        $html = '<div id="noteBody' . $memo['memo_id'] . '" class="noteBody">';
         $body = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             $body = Horde::callHook('format_description', array($body), 'mnemo', $body);
         } catch (Horde_Exception_HookNotSet $e) {}
         $html .= $body . '</div>';
-
+        $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('mnemo', 'EditNote'), array(
+            'domid' => "noteBody" . $memo['memo_id'],
+            'id' => $this->_params['note_uid']
+        ));
         return $html;
     }
 
