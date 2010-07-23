@@ -380,8 +380,8 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
             /* If we didn't find the address, check for the domain. */
             if (!empty($address['host']) &&
-                isset($this->_cached['tie_addresses']['@' . $host])) {
-                return $this->_cached['tie_addresses']['@' . $host];
+                isset($this->_cached['tie_addresses']['@' . $address['host']])) {
+                return $this->_cached['tie_addresses']['@' . $address['host']];
             }
 
             /* Next, search all from addresses. */
