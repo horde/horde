@@ -226,8 +226,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
         $href_url = parse_url($href);
 
         /* Only concern ourselves with HTTP and FTP links. */
-        if (!isset($text_url['scheme']) ||
-            !in_array($text_url['scheme'], array('ftp', 'http', 'https'))) {
+        if (!isset($href_url['scheme']) ||
+            !in_array($href_url['scheme'], array('ftp', 'http', 'https'))) {
             return false;
         }
 
