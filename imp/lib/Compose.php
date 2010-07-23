@@ -463,7 +463,7 @@ class IMP_Compose
         if (!$this->getMetadata('identity_check') &&
             (count($recip['list']) === 1) &&
             isset($opts['identity'])) {
-            $identity_search = $opts['identity']->getMatchingIdentity($recip['list']);
+            $identity_search = $opts['identity']->getMatchingIdentity($recip['list'], false);
             if (!is_null($identity_search) &&
                 ($opts['identity']->getDefault() != $identity_search)) {
                 $this->_metadata['identity_check'] = true;

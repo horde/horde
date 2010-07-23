@@ -332,16 +332,16 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     /**
      * Returns the identity's id that matches the passed addresses.
      *
-     * @param mixed $addresses      Either an array or a single string or a
-     *                              comma-separated list of email addresses.
-     * @param boolean $search_ties  Search for a matching identity in tied
-     *                              addresses too?
+     * @param mixed $addresses     Either an array or a single string or a
+     *                             comma-separated list of email addresses.
+     * @param boolean $search_own  Search for a matching identity in own
+     *                             addresses also?
      *
      * @return integer  The id of the first identity that from or alias
      *                  addresses match (one of) the passed addresses or
      *                  null if none matches.
      */
-    public function getMatchingIdentity($addresses, $search_ties = true)
+    public function getMatchingIdentity($addresses, $search_own = true)
     {
         if (!isset($this->_cached['tie_addresses'])) {
             $this->_cached['tie_addresses'] = $this->getAllTieAddresses();
@@ -365,6 +365,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             if (empty($address['mailbox'])) {
                 continue;
             }
+
             $find_address = $address['mailbox'];
             if (!empty($address['host'])) {
                 $find_address .= '@' . $address['host'];
@@ -373,23 +374,19 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
             /* Search 'tieto' addresses first. */
             /* Check for this address explicitly. */
-            if ($search_ties &&
-                isset($this->_cached['tie_addresses'][$find_address])) {
+            if (isset($this->_cached['tie_addresses'][$find_address])) {
                 return $this->_cached['tie_addresses'][$find_address];
             }
 
             /* If we didn't find the address, check for the domain. */
-            if (!empty($address['host'])) {
-                $host = '@' . $address['host'];
-                if ($search_ties &&
-                    isset($this->_cached['tie_addresses'][$host]) &&
-                    ($host != '@')) {
-                    return $this->_cached['tie_addresses'][$host];
-                }
+            if (!empty($address['host']) &&
+                isset($this->_cached['tie_addresses']['@' . $host])) {
+                return $this->_cached['tie_addresses']['@' . $host];
             }
 
             /* Next, search all from addresses. */
-            if (isset($this->_cached['own_addresses'][$find_address])) {
+            if ($search_own &&
+                isset($this->_cached['own_addresses'][$find_address])) {
                 return $this->_cached['own_addresses'][$find_address];
             }
         }
