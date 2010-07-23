@@ -301,8 +301,9 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         if (!$child->hasAttribute('target') &&
                             $child->hasAttribute('href')) {
                             $url = parse_url($child->getAttribute('href'));
-                            if (empty($url['fragment']) &&
-                                ($url['scheme'] != 'mailto:')) {
+                            if ($url['scheme'] == 'mailto') {
+                                $child->setAttribute('href', IMP::composeLink($child->getAttribute('href')));
+                            } elseif (empty($url['fragment'])) {
                                 $child->setAttribute('target', $this->_tmp['target']);
                             }
                         }

@@ -297,13 +297,9 @@ class IMP
 
     /**
      * Checks for To:, Subject:, Cc:, and other compose window arguments and
-     * pass back either a URI fragment or an associative array with any of
-     * them which are present.
+     * pass back an associative array of those that are present.
      *
-     * @param string $format  Either 'uri' or 'array'.
-     *
-     * @return string  A URI fragment or an associative array with any compose
-     *                 arguments present.
+     * @return string  An associative array with compose arguments.
      */
     static public function getComposeArgs()
     {
@@ -316,7 +312,18 @@ class IMP
             }
         }
 
-        /* Decode mailto: URLs. */
+        return self::_decodeMailto($args);
+    }
+
+    /**
+     * Checks for mailto: prefix in the To field.
+     *
+     * @param array $args  A list of compose arguments.
+     *
+     * @return array  The array with the To: argument stripped of mailto:.
+     */
+    static protected function _decodeMailto($args)
+    {
         if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
             $mailto = @parse_url($args['to']);
             if (is_array($mailto)) {
@@ -375,6 +382,8 @@ class IMP
                 $args['to'] = $string;
             }
         }
+
+        $args = self::_decodeMailto($args);
 
         /* Merge the two argument arrays. */
         return (is_array($extra) && !empty($extra))
