@@ -42,6 +42,13 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
     protected $_phishWarn = false;
 
     /**
+     * Temp array for storing data when parsing the HTML document.
+     *
+     * @var array
+     */
+    protected $_tmp = array();
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
@@ -87,15 +94,15 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      * @param string $data    The HTML data.
      * @param array $options  Additional options:
      * <pre>
-     * 'charset' => (string) The charset of $data.
-     *              DEFAULT: The base part charset.
-     * 'inline' => (boolean) Are we viewing inline?
-     *             DEFAULT: false
-     * 'noprefetch' => (boolean) Disable DNS prefetching?
-     *                 DEFAULT: false
-     * 'phishing' => (boolean) Do phishing highlighting even if not viewing
-     *               inline.
-     *               DEFAULT: false.
+     * 'charset' - (string) The charset of $data.
+     *             DEFAULT: The base part charset.
+     * 'inline' - (boolean) Are we viewing inline?
+     *            DEFAULT: false
+     * 'noprefetch' - (boolean) Disable DNS prefetching?
+     *                DEFAULT: false
+     * 'phishing' - (boolean) Do phishing highlighting even if not viewing
+     *              inline.
+     *              DEFAULT: false.
      * </pre>
      *
      * @return string  The cleaned HTML string.
@@ -104,38 +111,10 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
     {
         global $browser;
 
-        /* Deal with <base> tags in the HTML, since they will screw up our own
-         * relative paths. */
-        if (!empty($options['inline']) &&
-            preg_match('/<base\s+href="?([^"> ]*)"? ?\/?>/i', $data, $matches)) {
-            $base = $matches[1];
-            if (substr($base, -1) != '/') {
-                $base .= '/';
-            }
-
-            /* Recursively call _cleanHTML() to prevent clever fiends from
-             * sneaking nasty things into the page via $base. */
-            $base = $this->_cleanHTML($base, $options);
-
-            /* Attempt to fix paths that were relying on a <base> tag. */
-            if (!empty($base)) {
-                $pattern = array('|src=(["\'])([^:"\']+)\1|i',
-                                 '|src=([^: >"\']+)|i',
-                                 '|href= *(["\'])([^:"\']+)\1|i',
-                                 '|href=([^: >"\']+)|i');
-                $replace = array('src=\1' . $base . '\2\1',
-                                 'src=' . $base . '\1',
-                                 'href=\1' . $base . '\2\1',
-                                 'href=' . $base . '\1');
-                $data = preg_replace($pattern, $replace, $data);
-            }
-        }
-
-        $strip_style_attributes = !empty($options['inline']) &&
-                                 (($browser->isBrowser('mozilla') &&
-                                   $browser->getMajor() == 4) ||
-                                   $browser->isBrowser('msie'));
-        $strip_styles = !empty($options['inline']) || $strip_style_attributes;
+        $strip_style_attributes = (!empty($options['inline']) &&
+                                   (($browser->isBrowser('mozilla') &&
+                                    ($browser->getMajor() == 4)) ||
+                                    $browser->isBrowser('msie')));
 
         $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
             array(
@@ -143,108 +122,164 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
             ),
             array(
                 'noprefetch' => !empty($options['noprefetch']),
-                'return_document' => empty($options['inline']),
-                'strip_styles' => $strip_styles,
+                'return_dom' => true,
+                'strip_styles' => (!empty($options['inline']) || $strip_style_attributes),
                 'strip_style_attributes' => $strip_style_attributes
             )
         ));
 
-        /* Check for phishing exploits. */
-        if (!empty($options['inline']) || !empty($options['phishing'])) {
-            $data = $this->_phishingCheck($data);
-        }
+        $this->_tmp = array(
+            'base' => null,
+            'inline' => !empty($options['inline']),
+            'phish' => ((!empty($options['inline']) || !empty($options['phishing'])) && $this->getConfigParam('phishing_check'))
+        );
+        $this->_phishWarn = false;
 
-        /* Try to derefer all external references. */
-        $data = preg_replace_callback('/href\s*=\s*(["\'])?((?(1)[^\1]*?|[^\s>]+))(?(1)\1|)/i', array($this, '_dereferCallback'), $data);
+        $this->_node($data, $data);
 
-        return $data;
+        return $data->saveHTML();
     }
 
     /**
-     * TODO
+     * Process DOM node.
      *
-     * @param string $m  TODO
-     *
-     * @return string  TODO
+     * @param DOMDocument $doc  Document node.
+     * @param DOMNode $node     Node.
      */
-    protected function _dereferCallback($m)
+    protected function _node($doc, $node)
     {
-        return 'href="' . Horde::externalUrl($m[2]) . '"';
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                if ($child instanceof DOMElement) {
+                    switch (strtolower($child->tagName)) {
+                    case 'base':
+                        /* Deal with <base> tags in the HTML, since they will
+                         * screw up our own relative paths. */
+                        if ($this->_tmp['inline'] &&
+                            $child->hasAttribute('href')) {
+                            $base = $child->getAttribute('href');
+                            if (substr($base, -1) != '/') {
+                                $base .= '/';
+                            }
+
+                            $this->_tmp['base'] = $base;
+                            $child->removeAttribute('href');
+                        }
+                        break;
+                    }
+
+                    foreach ($child->attributes as $val) {
+                        /* Attempt to fix paths that were relying on a <base>
+                         * tag. */
+                        if (!is_null($this->_tmp['base']) &&
+                            in_array($val->name, array('href', 'src'))) {
+                            $child->setAttribute($val->name, $this->_tmp['base'] . ltrim($val->value, '/'));
+                        }
+
+                        if ($val->name == 'href') {
+                            if ($this->_tmp['phish'] &&
+                                $this->_phishingCheck($val->value, $child->textContent)) {
+                                $this->_phishWarn = true;
+                                $child->setAttribute('style', ($child->hasAttribute('style') ? rtrim($child->getAttribute('style'), '; ') . ';' : '') . $this->_phishCss);
+                            }
+
+                            /* Try to derefer all external references. */
+                            $child->setAttribute('href', Horde::externalUrl($val->value));
+                        }
+                    }
+                }
+
+                $this->_nodeCallback($doc, $child);
+                $this->_node($doc, $child);
+            }
+        }
+    }
+
+    /**
+     * Process DOM node (callback).
+     *
+     * @param DOMDocument $doc  Document node.
+     * @param DOMNode $node     Node.
+     */
+    protected function _nodeCallback($doc, $node)
+    {
     }
 
     /**
      * Check for phishing exploits.
      *
-     * @param string $data       The html data.
-     * @param boolean $scanonly  Only scan data; don't replace anything.
+     * @param string $href  The HREF value.
+     * @param string $text  The text value of the link.
      *
-     * @return string  The string, with phishing links highlighted.
+     * @return boolean  True if phishing is detected.
      */
-    protected function _phishingCheck($data, $scanonly = false)
+    protected function _phishingCheck($href, $text)
     {
-        $this->_phishWarn = false;
-
-        if (!$this->getConfigParam('phishing_check')) {
-            return $data;
+        /* For phishing, we are checking whether the displayable text URL is
+         * the same as the HREF URL. If we can't parse the text URL, then we
+         * can't do phishing checks. */
+        $text_url = @parse_url($text);
+        if (!$text_url) {
+            return false;
         }
 
-        if (preg_match('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:[^>]*>\s*(?:\\1:\/\/)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^<]*<\/a)?/i', $data, $m)) {
-            /* Check 1: Check for IP address links, but ignore if the link
-             * text has the same IP address. */
-            if (!isset($m[3]) || ($m[2] != $m[3])) {
-                if (isset($m[3]) && !$scanonly) {
-                    $data = preg_replace('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/' . preg_quote($m[2], '/') . '(?:[^>]*>\s*(?:$1:\/\/)?' . preg_quote($m[3], '/') . '[^<]*<\/a)?/i', 'style="' . $this->_phishCss . '" $0', $data);
-                }
-                $this->_phishWarn = true;
+        $href_url = parse_url($href);
+
+        /* Only concern ourselves with HTTP and FTP links. */
+        if (!isset($text_url['scheme']) ||
+            !in_array($text_url['scheme'], array('ftp', 'http', 'https'))) {
+            return false;
+        }
+
+        /* Check for case where text is just the domain name. */
+        if (!isset($text_url['host'])) {
+            if (!isset($text_url['path']) ||
+                !preg_match("/^[^\.\s]+(?:\.[^\.\s]+)+$/", $text_url['path'])) {
+                return false;
             }
-        } elseif (preg_match_all('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/([^\s"\'>]+)["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?(.*?)<\/a/is', $data, $m)) {
-            /* $m[1] = Link; $m[2] = Target
-             * Check 2: Check for links that point to a different host than
-             * the target url; if target looks like a domain name, check it
-             * against the link. */
-            for ($i = 0, $links = count($m[0]); $i < $links; ++$i) {
-                $link = strtolower(urldecode($m[1][$i]));
-                $target = strtolower(preg_replace('/^(http|https|ftp):\/\//', '', strip_tags($m[2][$i])));
-                if (preg_match('/^[-._\da-z]+\.[a-z]{2,}/i', $target) &&
-                    (strpos($link, $target) !== 0) &&
-                    (strpos($target, $link) !== 0)) {
-                    /* Don't consider the link a phishing link if the domain
-                     * is the same on both links (e.g. adtracking.example.com
-                     * & www.example.com). */
-                    preg_match('/\.?([^\.\/]+\.[^\.\/]+)[\/?]/', $link, $host1);
-                    preg_match('/\.?([^\.\/]+\.[^\.\/ ]+)([\/ ].*)?$/s', $target, $host2);
-                    if (!(count($host1) && count($host2)) ||
-                        (strcasecmp($host1[1], $host2[1]) !== 0)) {
-                        if (!$scanonly) {
-                            $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'style="' . $this->_phishCss . '" $0', $data);
-                        }
-                        $this->_phishWarn = true;
-                    }
+
+            $text_url['host'] = $text_url['path'];
+        }
+
+        /* If port exists on link, and text link has scheme or port defined,
+         * do extra checks:
+         * 1. If port exists on text link, and doesn't match, this is
+         * phishing.
+         * 2. If port doesn't exist on text link, and port does not match
+         * defaults, this is phishing. */
+        if (isset($href_url['port']) &&
+            (isset($text_url['scheme']) || isset($text_url['port']))) {
+            if (!isset($text_url['port'])) {
+                switch ($text_url['scheme']) {
+                case 'ftp':
+                    $text_url['port'] = 25;
+                    break;
+
+                case 'http':
+                    $text_url['port'] = 80;
+                    break;
+
+                case 'https':
+                    $text_url['port'] = 443;
+                    break;
                 }
+            }
+
+            if ($href_url['port'] != $text_url['port']) {
+                return false;
             }
         }
 
-        return $data;
-    }
-
-    /**
-     * Returns any phishing warnings that should be shown to the user.
-     *
-     * @return array  The status array.
-     */
-    protected function _phishingStatus()
-    {
-        if (!$this->_phishWarn) {
-            return array();
+        if (strcasecmp($href_url['host'], $text_url['host']) === 0) {
+            return false;
         }
 
-        return array(
-            'class' => 'mimestatuswarning',
-            'text' => array(
-                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
-            _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE") . '.</span>'
-            )
-        );
+        /* Don't consider the link a phishing link if the domain is the same
+         * on both links (e.g. adtracking.example.com & www.example.com). */
+        $host1 = explode('.', $href_url['host']);
+        $host2 = explode('.', $text_url['host']);
+
+        return (strcasecmp(implode('.', array_slice($host1, -2)), implode('.', array_slice($host2, -2))) !== 0);
     }
 
 }

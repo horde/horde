@@ -9,12 +9,41 @@ Horde_Registry::appInit('imp', array(
     'cli' => true
 ));
 
-$mock_part = new Horde_Mime_Part();
-$mock_part->setType('text/html');
+// Suppress DOM parsing errors.
+libxml_use_internal_errors(true);
 
-$v = Horde_Mime_Viewer::factory($mock_part);
-$v->blockimg = 'imgblock.png';
-$v->newwinTarget = '_blank';
+require_once dirname(__FILE__) . '/../Mime/Viewer/Html.php';
+class IMP_Html_Viewer_Test extends IMP_Horde_Mime_Viewer_Html
+{
+    public function runTest($html)
+    {
+        $this->_imptmp = array(
+            'blockimg' => 'imgblock.png',
+            'img' => true,
+            'imgblock' => false,
+            'inline' => true,
+            'target' => '_blank'
+        );
+
+        $doc = DOMDocument::loadHTML($html);
+        $this->_node($doc, $doc);
+
+        return $doc->saveXML($doc->getElementsByTagName('body')->item(0)->firstChild) . "\n";
+    }
+
+    protected function _node($doc, $node)
+    {
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                $this->_nodeCallback($doc, $child);
+                $this->_node($doc, $child);
+            }
+        }
+    }
+
+}
+
+$v = new IMP_Html_Viewer_Test(new Horde_Mime_Part());
 
 // Test regex for converting links to open in a new window.
 $links = array(
@@ -30,8 +59,7 @@ $links = array(
 );
 
 foreach ($links as $val) {
-    $doc = $v->parseHtml(true, $val);
-    echo $doc->saveXML($doc->getElementsByTagName('body')->item(0)->firstChild) . "\n";
+    echo $v->runTest($val);
 }
 
 echo "\n";
@@ -49,8 +77,7 @@ $images = array(
 );
 
 foreach ($images as $val) {
-    $doc = $v->parseHtml(true, $val);
-    echo $doc->saveXML($doc->getElementsByTagName('body')->item(0)->firstChild) . "\n";
+    echo $v->runTest($val);
 }
 
 ?>

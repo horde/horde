@@ -18,26 +18,11 @@
 class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
-     * Cached block image.
-     *
-     * @var string
-     */
-    public $blockimg = null;
-
-    /**
-     * The window target to use for links.
-     * Needed for testing purposes.
-     *
-     * @var string
-     */
-    public $newwinTarget = null;
-
-    /**
      * Temp array for storing data when parsing the HTML document.
      *
      * @var array
      */
-    protected $_tmp = array();
+    protected $_imptmp = array();
 
     /**
      * This driver's display capabilities.
@@ -149,17 +134,45 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         $data = $this->_mimepart->getContents();
 
+        /* Don't do IMP DOM processing if in mimp mode or converting to
+         * text. */
+        if (($_SESSION['imp']['view'] == 'mimp') ||
+            (!$inline && Horde_Util::getFormData('convert_text'))) {
+            $this->_imptmp = null;
+        } else {
+            $this->_imptmp = array(
+                'blockimg' => null,
+                'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
+                'imgblock' => false,
+                'inline' => $inline,
+                'target' => 'target_' . uniqid(mt_rand())
+            );
+
+            /* Image filtering. */
+            if ($this->_imptmp['img']) {
+                $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
+            }
+        }
+
         /* Sanitize the HTML. */
         $data = $this->_cleanHTML($data, array(
             'noprefetch' => ($inline && ($_SESSION['imp']['view'] != 'mimp')),
             'phishing' => $inline
         ));
-        $status = array($this->_phishingStatus());
+        $status = array();
+        if ($this->_phishWarn) {
+            $status[] = array(
+                'class' => 'mimestatuswarning',
+                'text' => array(
+                    sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
+                _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE") . '.</span>'
+                )
+            );
+        }
 
         /* We are done processing if in mimp mode, or we are converting to
          * text. */
-        if (($_SESSION['imp']['view'] == 'mimp') ||
-            (!$inline && Horde_Util::getFormData('convert_text'))) {
+        if (is_null($this->_imptmp)) {
             $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array('wrap' => false));
 
             // Filter bad language.
@@ -170,9 +183,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             );
         }
 
-        $data = $this->parseHtml($inline, $data)->saveHTML();
-
-        if ($this->_tmp['imgblock']) {
+        if ($this->_imptmp['imgblock']) {
             $status[] = array(
                 'icon' => Horde::img('mime/image.png'),
                 'text' => array(
@@ -226,34 +237,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     */
-    public function parseHtml($inline, $data)
-    {
-        $this->_tmp = array(
-            'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
-            'imgblock' => false,
-            'inline' => $inline,
-            'target' => (is_null($this->newwinTarget) ? 'target_' . uniqid(mt_rand()) : $this->newwinTarget)
-        );
-
-        /* Image filtering. */
-        if ($this->_tmp['img'] && is_null($this->blockimg)) {
-            $this->blockimg = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
-        }
-
-        $old_error = libxml_use_internal_errors(true);
-        $doc = new DOMDocument();
-        $doc->loadHTML($data);
-        if ($old_error) {
-            libxml_use_internal_errors(false);
-        }
-
-        $this->_node($doc, $doc);
-
-        return $doc;
-    }
-
-    /**
      * Determine whether the sender appears in an available addressbook.
      *
      * @return boolean  Does the sender appear in an addressbook?
@@ -282,75 +265,73 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     * Process DOM node.
+     * Process DOM node (callback).
      *
      * @param DOMDocument $doc  Document node.
-     * @param DOMElement $node  Element node.
+     * @param DOMNode $node     Node.
      */
-    protected function _node($doc, $node)
+    protected function _nodeCallback($doc, $node)
     {
-        if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child) {
-                if ($child instanceof DOMElement) {
-                    switch (strtolower($child->tagName)) {
-                    case 'a':
-                    case 'area':
-                        /* Convert links to open in new windows. Ignore
-                         * mailto: links, links that have an "#xyz" anchor,
-                         * and links that already have a target. */
-                        if (!$child->hasAttribute('target') &&
-                            $child->hasAttribute('href')) {
-                            $url = parse_url($child->getAttribute('href'));
-                            if ($url['scheme'] == 'mailto') {
-                                $child->setAttribute('href', IMP::composeLink($child->getAttribute('href')));
-                            } elseif (empty($url['fragment'])) {
-                                $child->setAttribute('target', $this->_tmp['target']);
-                            }
-                        }
-                        break;
+        if (is_null($this->_imptmp)) {
+            return;
+        }
 
-                    case 'img':
-                    case 'input':
-                        if ($this->_tmp['img'] && $child->hasAttribute('src')) {
-                            $child->setAttribute('htmlimgblocked', $child->getAttribute('src'));
-                            $child->setAttribute('src', $this->blockimg);
-                            $this->_tmp['imgblock'] = true;
-                        }
-                        break;
-
-                    case 'table':
-                        /* If displaying inline (in IFRAME), tables with 100%
-                         * height seems to confuse many browsers re: the
-                         * iframe internal height. */
-                        if ($this->_tmp['inline'] &&
-                            $child->hasAttribute('height') &&
-                            ($child->getAttribute('height') == '100%')) {
-                            $child->removeAttribute('height');
-                        }
-
-                        // Fall-through
-
-                    case 'body':
-                    case 'td':
-                        if ($this->_tmp['img'] &&
-                            $child->hasAttribute('background')) {
-                            $child->setAttribute('htmlimgblocked', $child->getAttribute('background'));
-                            $child->setAttribute('background', $this->blockimg);
-                            $this->_tmp['imgblock'] = true;
-                        }
-                        break;
-                    }
-
-                    if ($this->_tmp['img'] && $child->hasAttribute('style')) {
-                        $this->_tmp['child'] = $child;
-                        $style = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $child->getAttribute('style'), -1, $matches);
-                        if ($matches) {
-                            $child->setAttribute('style', $style);
-                        }
+        if ($node instanceof DOMElement) {
+            switch (strtolower($node->tagName)) {
+            case 'a':
+            case 'area':
+                /* Convert links to open in new windows. Ignore
+                 * mailto: links, links that have an "#xyz" anchor,
+                 * and links that already have a target. */
+                if (!$node->hasAttribute('target') &&
+                    $node->hasAttribute('href')) {
+                    $url = parse_url($node->getAttribute('href'));
+                    if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
+                        $node->setAttribute('href', IMP::composeLink($node->getAttribute('href')));
+                    } elseif (empty($url['fragment'])) {
+                        $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }
+                break;
 
-                $this->_node($doc, $child);
+            case 'img':
+            case 'input':
+                if ($this->_imptmp['img'] && $node->hasAttribute('src')) {
+                    $node->setAttribute('htmlimgblocked', $node->getAttribute('src'));
+                    $node->setAttribute('src', $this->_imptmp['blockimg']);
+                    $this->_imptmp['imgblock'] = true;
+                }
+                break;
+
+            case 'table':
+                /* If displaying inline (in IFRAME), tables with 100%
+                 * height seems to confuse many browsers re: the
+                 * iframe internal height. */
+                if ($this->_imptmp['inline'] &&
+                    $node->hasAttribute('height') &&
+                    ($node->getAttribute('height') == '100%')) {
+                    $node->removeAttribute('height');
+                }
+
+                // Fall-through
+
+            case 'body':
+            case 'td':
+                if ($this->_imptmp['img'] &&
+                    $node->hasAttribute('background')) {
+                    $node->setAttribute('htmlimgblocked', $node->getAttribute('background'));
+                    $node->setAttribute('background', $this->_imptmp['blockimg']);
+                    $this->_imptmp['imgblock'] = true;
+                }
+                break;
+            }
+
+            if ($this->_imptmp['img'] && $node->hasAttribute('style')) {
+                $this->_imptmp['node'] = $node;
+                $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                if ($matches) {
+                    $node->setAttribute('style', $style);
+                }
             }
         }
     }
@@ -364,8 +345,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _styleCallback($matches)
     {
-        $this->_tmp['child']->setAttribute('htmlimgblocked', $matches[2]);
-        return $matches[1] . $this->blockimg . $matches[3];
+        $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
+        return $matches[1] . $this->_imptmp['blockimg'] . $matches[3];
     }
 
 }
