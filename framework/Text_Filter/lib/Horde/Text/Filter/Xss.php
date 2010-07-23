@@ -220,8 +220,6 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                     foreach ($remove as $val) {
                         $child->removeAttribute($val);
                     }
-
-                    //$patterns['/<(([^>]*)|(style[^>]*>[^<]*))binding:((?(3)[^<]*<\/style)[^>]*)>/i'] = '<\1' . $this->_params['replace'] . ':\4>';
                 } elseif ($child instanceof DOMComment) {
                     /* Remove HTML comments (including some scripts &
                      * styles). */
