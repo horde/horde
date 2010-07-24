@@ -46,8 +46,9 @@ class Horde_Block_Mnemo_note extends Horde_Block
         } catch (Horde_Exception_HookNotSet $e) {}
         $html .= $body . '</div>';
         $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('mnemo', 'EditNote'), array(
-            'domid' => "noteBody" . $memo['memo_id'],
-            'id' => $this->_params['note_uid']
+            'domid' => 'noteBody' . $memo['memo_id'],
+            'id' => $this->_params['note_uid'],
+            'rows' => substr_count($memo['body'], "\n"),
         ));
         return $html;
     }

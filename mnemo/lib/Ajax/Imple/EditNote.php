@@ -33,18 +33,19 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
         $loadTextUrl = $this->_getUrl('EditNote', 'mnemo', array_merge($params, array('action' => 'load')));
         $js = array();
 
-        $js[] = "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
-                . "   callback: function(form, value) {"
-                . "       return 'value=' + encodeURIComponent(value);},"
-                . "   loadTextURL: '". $loadTextUrl . "',"
-                . "   rows: 4, "
-                . "   autoWidth: true,"
-                . "   emptyText: '" . _("Click to add text...") . "',"
-                . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
-                . "   cancelText: '" . _("Cancel") . "',"
-                . "   okText: '" . _("Ok") . "',"
-                . "   cancelClassName: ''"
-                . "  });";
+        $js[] =
+            "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
+            . "   callback: function(form, value) {"
+            . "       return 'value=' + encodeURIComponent(value);},"
+            . "   loadTextURL: '". $loadTextUrl . "',"
+            . "   rows: " . (int)$this->_params['rows'] . ", "
+            . "   autoWidth: true,"
+            . "   emptyText: '" . _("Click to add text...") . "',"
+            . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
+            . "   cancelText: '" . _("Cancel") . "',"
+            . "   okText: '" . _("Ok") . "',"
+            . "   cancelClassName: ''"
+            . "  });";
 
         Horde::addInlineScript($js, 'dom');
     }
@@ -80,5 +81,4 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple
                 array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
     }
-
 }
