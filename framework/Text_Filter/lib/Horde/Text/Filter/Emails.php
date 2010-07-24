@@ -38,11 +38,13 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter_Base
     );
 
     /**
-     * Email regular expression.
+     * Returns a hash with replace patterns.
      *
-     * @var string
+     * @return array  Patterns hash.
      */
-    protected $_regexp = <<<EOR
+    public function getPatterns()
+    {
+        $this->_regexp = <<<EOR
         /
             # Version 1: mailto: links with any valid email characters.
             # Pattern 1: Outlook parenthesizes in square brackets
@@ -67,13 +69,6 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter_Base
         /ix
 EOR;
 
-    /**
-     * Returns a hash with replace patterns.
-     *
-     * @return array  Patterns hash.
-     */
-    public function getPatterns()
-    {
         return array('regexp_callback' => array(
             $this->_regexp => array($this, 'regexCallback')
         ));
