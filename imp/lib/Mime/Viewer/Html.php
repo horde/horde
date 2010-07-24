@@ -159,6 +159,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             'noprefetch' => ($inline && ($_SESSION['imp']['view'] != 'mimp')),
             'phishing' => $inline
         ));
+
         $status = array();
         if ($this->_phishWarn) {
             $status[] = array(
@@ -326,11 +327,27 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 break;
             }
 
-            if ($this->_imptmp['img'] && $node->hasAttribute('style')) {
-                $this->_imptmp['node'] = $node;
-                $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
-                if ($matches) {
-                    $node->setAttribute('style', $style);
+
+            if (!is_null($this->_imptmp)) {
+                $remove = array();
+                foreach ($node->attributes as $val) {
+                    /* Catch random mailto: strings in attributes that will
+                     * cause problems with e-mail linking. */
+                    if (stripos($val->value, 'mailto:') === 0) {
+                        $remove[] = $val->name;
+                    }
+                }
+
+                foreach ($remove as $val) {
+                    $node->removeAttribute($val);
+                }
+
+                if ($this->_imptmp['img'] && $node->hasAttribute('style')) {
+                    $this->_imptmp['node'] = $node;
+                    $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                    if ($matches) {
+                        $node->setAttribute('style', $style);
+                    }
                 }
             }
         }
