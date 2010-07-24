@@ -60,7 +60,6 @@ class Horde_Service_Facebook_Auth
     const EXTEND_PERMS_READSTREAM = 'read_stream';
 
 
-
     /**
      * Const'r
      *
@@ -104,7 +103,6 @@ class Horde_Service_Facebook_Auth
         return $this->_facebook->getFacebookUrl() . '/code_gen.php?v=1.0&api_key='
             . $this->_facebook->apiKey;
     }
-
 
     /**
      * Return the URL needed for approving an extendted permission.
@@ -438,9 +436,8 @@ class Horde_Service_Facebook_Auth
     public function setUser($user, $sessionKey, $expires = null, $noCookie = false)
     {
         $cookies = $this->_request->getCookieVars();
-        if (!$noCookie && (!$cookie[$this->_facebook->apiKey . '_user'] ||
-            $cookie[$this->_facebook->apiKey . '_user'] != $user)) {
-
+        if (!$noCookie && (!$cookies[$this->_facebook->apiKey . '_user'] ||
+                           $cookies[$this->_facebook->apiKey . '_user'] != $user)) {
             $this->setCookies($user, $sessionKey, $expires);
         }
         $this->_user = $user;
