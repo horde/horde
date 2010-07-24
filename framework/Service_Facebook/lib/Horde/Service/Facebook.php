@@ -46,7 +46,6 @@
  *
  * For help with this library, contact developers-help@facebook.com
  */
-
 class Horde_Service_Facebook
 {
     /**
