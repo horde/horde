@@ -32,7 +32,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         global $conf, $prefs, $registry;
 
         $galleryOwner = $this->view->gallery->get('owner');
-        $id = $this->view->gallery->getOwner();
+        $id = $this->view->gallery->getIdentity();
         $owner = $id->getValue('fullname');
         if (!$owner) {
             $owner = $galleryOwner;

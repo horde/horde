@@ -100,7 +100,7 @@ class Ansel_Tile_Gallery
                                                   'owner' => $gallery->get('owner'),
                                                   'groupby' => 'owner'),
                                             true)->link();
-            $gallery_owner = $gallery->getOwner();
+            $gallery_owner = $gallery->getIdentity();
             $owner_string = $gallery_owner->getValue('fullname');
             if (empty($owner_string)) {
                 $owner_string = $gallery->get('owner');

@@ -20,7 +20,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
     public function attach(Ansel_View_Base $view)
     {
         parent::attach($view);
-        $owner = $this->_view->gallery->getOwner();
+        $owner = $this->_view->gallery->getIdentity();
         $name = $owner->getValue('fullname');
         if (!$name) {
             $name = $this->_view->gallery->get('owner');

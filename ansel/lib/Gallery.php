@@ -442,12 +442,9 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     /**
      * Returns this share's owner's Identity object.
      *
-     * @TODO: Maybe rename this to getIdentity() to avoid confusion with
-     *        the share's owner attribute?
-     *
-     * @return Identity object for the owner of this gallery.
+     * @return Horde_Prefs_Identity object for the owner of this gallery.
      */
-    public function getOwner()
+    public function getIdentity()
     {
         return $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($this->data['share_owner']);
     }

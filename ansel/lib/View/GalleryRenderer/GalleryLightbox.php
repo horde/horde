@@ -42,7 +42,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         global $conf, $prefs, $registry;
 
         $galleryOwner = $this->view->gallery->get('owner');
-        $id = $this->view->gallery->getOwner();
+        $id = $this->view->gallery->getIdentity();
         $owner = $id->getValue('fullname');
         if (!$owner) {
             $owner = $galleryOwner;
