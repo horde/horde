@@ -7,23 +7,22 @@
  */
 class Horde_Controller_Request_Http implements Horde_Controller_Request
 {
+    /**
+     * Request path
+     * @var string
+     */
     protected $_path;
 
     /**
-     * All the headers.
+     * All the headers
      * @var array
      */
     protected $_headers = null;
 
-    /*##########################################################################
-    # Construct/Destruct
-    ##########################################################################*/
-
-    public function __construct($path)
+    public function setPath($path)
     {
         $this->_path = $path;
     }
-
 
     public function getPath()
     {
