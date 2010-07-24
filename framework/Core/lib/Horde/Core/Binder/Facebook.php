@@ -21,7 +21,7 @@ class Horde_Core_Binder_Facebook implements Horde_Injector_Binder
         $context = array('http_client' => $injector->getInstance('Horde_Http_Client')->getClient(),
                          'http_request' => $injector->getInstance('Horde_Controller_Request_Http'));
 
-       return new Horde_Service_Facebook($apikey, $secret, $context);
+        return new Horde_Service_Facebook($apikey, $secret, $context);
     }
 
     public function equals (Horde_Injector_Binder $binder)
