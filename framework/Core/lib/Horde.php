@@ -114,15 +114,6 @@ class Horde
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
         }
 
-        if ($error instanceof Exception) {
-            if (is_null($file)) {
-                $file = $error->getFile();
-            }
-            if (is_null($line)) {
-                $line = $error->getLine();
-            }
-        }
-
         if ($admin) {
             if ($error instanceof Exception) {
                 $trace = $error;
@@ -132,9 +123,9 @@ class Horde
             $backtrace = new Horde_Support_Backtrace($trace);
             $errortext .= '<div id="backtrace"><pre>' . $backtrace->getMap() . '</pre></div>';
             if (is_object($error)) {
-                $errortext .= '<h3>' . _("Details:") . '</h3>';
+                $errortext .= '<h3>' . _("Details") . '</h3>';
                 $errortext .= '<h4>' . _("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                $errortext .= '<p><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></p>';
+                $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
             }
         } elseif ($log) {
             $errortext .= '<h3>' . _("Details have been logged for the administrator.") . '</h3>';
