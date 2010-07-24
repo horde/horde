@@ -158,7 +158,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
-        /* Sanitize image ids, and see if we're removing our default image. */
+        /* Sanitize image ids, and see if we're removing our key image. */
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
@@ -167,11 +167,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             }
         }
 
-        $result = $this->_gallery->getShareOb()->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
-        if ($result instanceof PEAR_Error) {
-            throw new Ansel_Exception($result->getMessage());
-        }
-
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->setImagesGallery($ids, $gallery->id);
         $this->_gallery->updateImageCount(count($ids), false);
         $gallery->updateImageCount(count($ids), true);
 
@@ -219,12 +215,8 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs('images')->deleteFile($image->getVFSPath('full'), $image->getVFSName('full'));
         } catch (VFS_Exception $e) {}
 
-        /* Delete from SQL. */
-        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
-
-        /* Remove any attributes */
-        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
-
+        /* Delete from storage */
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->deleteImage($image->id);
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
         }

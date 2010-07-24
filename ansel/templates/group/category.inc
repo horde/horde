@@ -42,7 +42,7 @@ $mini_count = 0;
 <?php foreach ($preview_gallery as $galleryId => $gallery): ?>
    <td align="center">
     <?php if ($gallery->isOldEnough() && !$gallery->hasPasswd()): ?>
-     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($gallery->getDefaultImage('ansel_default'), 'mini', false, 'ansel_default'); ?>" alt="<?php echo htmlspecialchars($gallery->get('name'))?>" /></a>
+     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($gallery->getKeyImage('ansel_default'), 'mini', false, 'ansel_default'); ?>" alt="<?php echo htmlspecialchars($gallery->get('name'))?>" /></a>
     <?php else: ?>
      <?php echo $link . Horde::img('gallery-locked-mini.png') ?></a>
     <?php endif; ?>

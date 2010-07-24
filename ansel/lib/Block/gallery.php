@@ -119,10 +119,10 @@ class Horde_Block_ansel_gallery extends Horde_Block
                                     true);
         $html .= '<noscript>';
         $html .= $viewurl->link(array('title' => sprintf(_("View %s"), $gallery->get('name'))));
-        if ($iid = $gallery->getDefaultImage('ansel_default') &&
+        if ($iid = $gallery->getKeyImage('ansel_default') &&
             $gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
 
-            $html .= '<img src="' . Ansel::getImageUrl($gallery->getDefaultImage('ansel_default'), 'thumb', true) . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
+            $html .= '<img src="' . Ansel::getImageUrl($gallery->getKeyImage('ansel_default'), 'thumb', true) . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
         } else {
             $html .= Horde::img('thumb-error.png');
         }

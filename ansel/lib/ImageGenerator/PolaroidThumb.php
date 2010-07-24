@@ -19,7 +19,7 @@ class Ansel_ImageGenerator_PolaroidThumb extends Ansel_ImageGenerator
                               min($GLOBALS['conf']['thumbnail']['height'], $this->_dimensions['height']),
                               true);
 
-        /* Don't bother with these effects for a custom gallery default image
+        /* Don't bother with these effects for a custom gallery key image
            (which will have a negative gallery_id). */
         if ($this->_image->gallery > 0) {
             if (is_null($this->_style)) {

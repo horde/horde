@@ -142,16 +142,16 @@ class Ansel_Gallery_Decorator_Date
     }
 
     /**
-     * Returns the default image for this gallery.
+     * Returns the key image for this gallery.
      *
      * @param string $style  Force the use of this style, if it's available
      *                       otherwise use whatever style is choosen for this
      *                       gallery. If prettythumbs are not available then
      *                       we always use ansel_default style.
      *
-     * @return mixed  The image_id of the default image or false.
+     * @return mixed  The image_id of the key image or false.
      */
-    public function getDefaultImage($style = null)
+    public function getKeyImage($style = null)
     {
         if (count($this->_images)) {
             return reset($this->_images);

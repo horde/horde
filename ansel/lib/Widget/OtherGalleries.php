@@ -90,7 +90,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gal->getDefaultImage('ansel_default'), 'mini', true);
+            $img = (string)Ansel::getImageUrl($gal->getKeyImage('ansel_default'), 'mini', true);
             $link = Ansel::getUrlFor('view', array('gallery' => $gal->id,
                                                    'slug' => $gal->get('slug'),
                                                    'view' => 'Gallery'),

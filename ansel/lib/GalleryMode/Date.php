@@ -405,7 +405,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
-        /* Sanitize image ids, and see if we're removing our default image. */
+        /* Sanitize image ids, and see if we're removing our key image. */
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
@@ -431,12 +431,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
 
         /* Bulk update the images to their new gallery_id */
-        // @TODO: Move this to Ansel_Storage::
-        $result = $this->_gallery->getShareOb()->getWriteDb()->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Ansel_Exception($result);
-        }
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->setImagesGallery($ids, $gallery->id);
 
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
@@ -503,12 +498,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                                               $image->getVFSName('full'));
         } catch (VFS_Exception $e) {}
 
-        /* Delete from SQL. */
-        // @TODO: Move to Horde_Storage
-        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
-
-        /* Remove any attributes */
-        $this->_gallery->getShareOb()->getWriteDb()->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
+        /* Delete from storage */
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()
+                ->deleteImage($image->id);
 
         if (!$isStack) {
             $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()

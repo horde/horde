@@ -1164,6 +1164,39 @@ class Ansel_Storage
     }
 
     /**
+     * Set the gallery id for a set of images. Useful for bulk updating images
+     * when moving from one gallery to another.
+     * 
+     * @param array $image_ids     An array of image ids
+     * @param integer $gallery_id  The gallery id to move the images to.
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function setImagesGallery($image_ids, $gallery_id)
+    {
+        $result = $this->_db->exec('UPDATE ansel_images SET gallery_id = ' . $gallery_id . ' WHERE image_id IN (' . implode(',', $image_ids) . ')');
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, 'ERR');
+            throw new Ansel_Exception($result);
+        }
+    }
+
+    /**
+     * Deletes an Ansel_Image from data storage.
+     *
+     * @param integer $image_id  The image id(s) to remove.
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function removeImage($image_id)
+    {
+        $this->_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
+        $this->_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$imageid);
+    }
+    
+    /**
      * Helper function to get a string of field names
      *
      * @return string

@@ -65,20 +65,20 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                 return '';
             }
 
-            /* Ideally, since gallery default images are unique in that each style
+            /* Ideally, since gallery key images are unique in that each style
              * needs it's own unique image_id, the thumbsize and style parameters
              * are mutually exclusive - specifying a specific gallery style is only
              * needed if requesting the prettythumb thumbsize value. Make sure that
              * both were not passed in.
              */
             if ($thumbsize == 'thumb') {
-                $images[] = $gallery->getDefaultImage('ansel_default');
+                $images[] = $gallery->getKeyImage('ansel_default');
             } else {
                 // Default to gallery's defined style if not provided.
                 $gallery_style = empty($this->_params['style']) ?
                 $gallery->get('style') :
                 $this->_params['style'];
-                $images[] = $gallery->getDefaultImage($gallery_style);
+                $images[] = $gallery->getKeyImage($gallery_style);
             }
         }
         $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImageJson($images, null, true, $thumbsize, true);

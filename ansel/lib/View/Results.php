@@ -28,8 +28,7 @@ class Ansel_View_Results extends Ansel_View_Base
     /**
      * Contructor.
      *
-     * Also handles any actions from the view. TODO: These should be done with
-     * an init() or handle() method instead.
+     * Also handles any actions from the view.
      *
      * @return Ansel_View_Results
      */

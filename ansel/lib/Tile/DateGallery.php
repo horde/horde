@@ -74,7 +74,7 @@ class Ansel_Tile_DateGallery
 
             $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
             $gallery_image = Ansel::getImageUrl(
-                $dgallery->getDefaultImage(),
+                $dgallery->getKeyImage(),
                 $thumbstyle, true, $style['name']);
 
             // No need to escape alt here since it's generated enitrely within

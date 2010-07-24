@@ -550,7 +550,7 @@ class Ansel_Api extends Horde_Registry_Api
      *     (string)slug    Ignore gallery_id, and use this as the slug
      *   </pre>
      *
-     * @return integer  The default image id.
+     * @return integer  The key image id.
      */
     public function getGalleryKeyImage($gallery_id, $params = array())
     {
@@ -564,7 +564,7 @@ class Ansel_Api extends Horde_Registry_Api
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
         }
 
-        return $gallery->getDefaultImage(empty($params['style']) ? 'ansel_default' : $params['style']);
+        return $gallery->getKeyImage(empty($params['style']) ? 'ansel_default' : $params['style']);
     }
 
     /**

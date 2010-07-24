@@ -52,7 +52,7 @@ class Ansel_Tile_Gallery
                 $gallery_image = Horde::img('gallery-locked.png');
             } else {
                 $gallery_image = Ansel::getImageUrl(
-                    $gallery->getDefaultImage($style['name']),
+                    $gallery->getKeyImage($style['name']),
                     $thumbstyle, true, $style['name']);
                 $gallery_image = '<img src="' . $gallery_image . '" alt="' . htmlspecialchars($gallery->get('name')) . '" />';
             }

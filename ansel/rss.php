@@ -92,7 +92,7 @@ if (empty($rss)) {
                 $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getRecentImages($subs);
             } else {
                 $images = $gallery->getRecentImages();
-                $owner = &$gallery->getOwner();
+                $owner = $gallery->getIdentity();
                 $author = $owner->getValue('from_addr');
             }
         }
@@ -105,7 +105,7 @@ if (empty($rss)) {
                                         array('view' => 'Gallery',
                                               'gallery' => $id),
                                         true);
-            $img = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($gallery->getDefaultImage('ansel_default'));
+            $img = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($gallery->getKeyImage('ansel_default'));
             $params = array('last_modified' => $gallery->get('last_modified'),
                             'name' => sprintf(_("%s on %s"),
                                               $gallery->get('name'),
