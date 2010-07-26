@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Wordperfect extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Wordperfect extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -32,7 +32,7 @@ class Horde_Mime_Viewer_Wordperfect extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -49,18 +49,14 @@ class Horde_Mime_Viewer_Wordperfect extends Horde_Mime_Viewer_Driver
 
         exec($this->_conf['location'] . " $tmp_wpd > $tmp_output");
 
-        if (file_exists($tmp_output)) {
-            $data = file_get_contents($tmp_output);
-        } else {
-            $data = _("Unable to translate this WordPerfect document");
-        }
+        $data = file_exists($tmp_output)
+            ? file_get_contents($tmp_output)
+            : _("Unable to translate this WordPerfect document");
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $data,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            $data,
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

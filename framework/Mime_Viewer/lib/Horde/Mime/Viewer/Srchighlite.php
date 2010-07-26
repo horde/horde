@@ -17,7 +17,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -34,24 +34,17 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
-
-        reset($ret);
-        $ret[key($ret)]['data'] = '<html><body>' .
-            $ret[key($ret)]['data'] .
-            '</body></html>';
-
-        return $ret;
+        return $this->_renderFullReturn($this->_renderInline());
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -63,7 +56,7 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Driver
 
         /* Create temporary files for Webcpp. */
         $tmpin  = Horde::getTempFile('SrcIn');
-        $tmpout = Horde::getTempFile('SrcOut', false);
+        $tmpout = Horde::getTempFile('SrcOut');
 
         /* Write the contents of our buffer to the temporary input file. */
         file_put_contents($tmpin, $this->_mimepart->getContents());
@@ -76,12 +69,9 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Driver
         $results = file_get_contents($tmpout);
         unlink($tmpout);
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $results,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            $results,
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 

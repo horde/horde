@@ -18,7 +18,7 @@ class IMP_Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {

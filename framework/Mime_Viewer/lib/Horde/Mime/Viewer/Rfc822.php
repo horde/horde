@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -30,23 +30,20 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $this->_mimepart->getContents(),
-                'status' => array(),
-                'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            null,
+            'text/plain; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -83,12 +80,10 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
             }
         }
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . Horde_Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>'),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            (empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . Horde_Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>')),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

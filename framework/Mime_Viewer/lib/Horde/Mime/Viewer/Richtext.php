@@ -34,7 +34,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -51,32 +51,27 @@ class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $this->_toHTML(),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $this->_mimepart->getCharset()
-            )
-        );
+        return $this->_renderFullReturn($this->_renderReturn(
+            $this->_toHTML(),
+            'text/html; charset=' . $this->_mimepart->getCharset()
+
+        ));
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
@@ -150,4 +145,5 @@ class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Driver
 
         return '<p style="font-size:100%;font-family:Lucida Console,Courier,Courier New;">' . nl2br($text) . '</p>';
     }
+
 }

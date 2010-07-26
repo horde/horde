@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -30,7 +30,7 @@ class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -41,8 +41,8 @@ class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Driver
         }
 
         $data = '';
-        $tmp_ppt = Horde::getTempFile('horde_mspowerpoint');
 
+        $tmp_ppt = Horde::getTempFile('horde_mspowerpoint');
         file_put_contents($tmp_ppt, $this->_mimepart->getContents());
 
         $fh = popen($this->_conf['location'] . " $tmp_ppt 2>&1", 'r');
@@ -51,12 +51,10 @@ class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Driver
         }
         pclose($fh);
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $data,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_returnRender(
+            $data,
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

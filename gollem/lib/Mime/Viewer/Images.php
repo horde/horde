@@ -33,7 +33,7 @@ class Gollem_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * TODO
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {

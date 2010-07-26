@@ -39,7 +39,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      *   'view_thumbnail' - TODO
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -78,7 +78,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -131,7 +131,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {

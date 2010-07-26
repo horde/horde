@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -36,7 +36,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -57,7 +57,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -399,12 +399,9 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
         Horde::startBuffer();
         $notification->notify(array('listeners' => 'status'));
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => Horde::endBuffer() . $html,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            Horde::endBuffer() . $html,
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
@@ -421,4 +418,5 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             '</td><td class="item" valign="top">' . nl2br($value) .
             "</td></tr>\n";
     }
+
 }

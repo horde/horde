@@ -24,7 +24,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      * 'zip_attachment' - (integer) The ZIP attachment to download.
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _render()

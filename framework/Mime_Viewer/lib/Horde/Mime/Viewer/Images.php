@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -45,17 +45,11 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $this->_mimepart->getContents(),
-                'status' => array(),
-                'type' => $this->_getType()
-            )
-        );
+        return $this->_renderReturn(null, $this->_getType());
     }
 
     /**
@@ -81,4 +75,5 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Driver
             return $type;
         }
     }
+
 }

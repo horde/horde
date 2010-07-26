@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -41,22 +41,17 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        $ret = $this->_renderInfo();
-        if (!empty($ret)) {
-            reset($ret);
-            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
-        }
-        return $ret;
+        return $this->_renderFullReturn($this->_renderInfo());
     }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -66,22 +61,21 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $tmp_deb = Horde::getTempFile('horde_deb');
+        $data = '';
 
+        $tmpin = Horde::getTempFile('horde_deb');
         file_put_contents($tmp_deb, $this->_mimepart->getContents());
 
-        $fh = popen($this->_conf['location'] . " -f $tmp_deb 2>&1", 'r');
-        while (($rc = fgets($fh, 8192))) {
+        $fh = popen($this->_conf['location'] . " -f $tmpin 2>&1", 'r');
+        while ($rc = fgets($fh, 8192)) {
             $data .= $rc;
         }
         pclose($fh);
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => '<pre>' . htmlspecialchars($data) . '</pre>',
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            '<pre>' . htmlspecialchars($data) . '</pre>',
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

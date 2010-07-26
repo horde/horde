@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
+class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -41,7 +41,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -51,7 +51,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -65,7 +65,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
      * @param boolean $prefer_plain  For MIMP, prefer text/plain part over
      *                               all others.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _IMPrender($inline, $prefer_plain = true)
     {

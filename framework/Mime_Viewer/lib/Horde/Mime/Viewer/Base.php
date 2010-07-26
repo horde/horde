@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Mime_Viewer_Driver:: class provides the API for specific viewer
+ * The Horde_Mime_Viewer_Base:: class provides the API for specific viewer
  * drivers to extend.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Base
 {
     /**
      * Viewer configuration.
@@ -65,12 +65,13 @@ class Horde_Mime_Viewer_Driver
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  Reference to an object with the
-     *                                    information to be rendered.
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
      * @param array $conf                 Configuration specific to the
      *                                    driver.
      */
-    public function __construct($mime_part, $conf = array())
+    public function __construct(Horde_Mime_Part $mime_part,
+                                array $conf = array())
     {
         $this->_mimepart = $mime_part;
         $this->_conf = $conf;
@@ -79,10 +80,10 @@ class Horde_Mime_Viewer_Driver
     /**
      * Sets the Horde_Mime_Part object for the class.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the information to
-     *                                    be rendered.
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
      */
-    public function setMIMEPart($mime_part)
+    public function setMimePart(Horde_Mime_Part $mime_part)
     {
         $this->_mimepart = $mime_part;
     }
@@ -93,7 +94,7 @@ class Horde_Mime_Viewer_Driver
      * @param array $params  An array of params to add to the internal
      *                       params list.
      */
-    public function setParams($params = array())
+    public function setParams(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
     }
@@ -175,7 +176,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See render().
      * @throws Horde_Exception
      */
     protected function _render()
@@ -189,7 +190,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See render().
      * @throws Horde_Exception
      */
     protected function _renderInline()
@@ -203,7 +204,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See render().
      * @throws Horde_Exception
      */
     protected function _renderInfo()
@@ -217,7 +218,7 @@ class Horde_Mime_Viewer_Driver
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See render().
      * @throws Horde_Exception
      */
     protected function _renderRaw()
@@ -348,6 +349,46 @@ class Horde_Mime_Viewer_Driver
     protected function _getViewer()
     {
         return false;
+    }
+
+    /**
+     * Internal helper function to create render data array for a MIME Part
+     * object that only has a single part.
+     *
+     * @param string $data  The rendered data.
+     * @param string $type  The rendered type.
+     *
+     * @return array  See render().
+     */
+    protected function _renderReturn($data = null, $type = null)
+    {
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => (is_null($data) ? $this->_mimepart->getContents() : $data),
+                'status' => array(),
+                'type' => (is_null($type) ? $this->_mimepart->getType() : $type)
+            )
+        );
+    }
+
+    /**
+     * Internal helper function to add base HTML tags to a render() return
+     * array that contains a single MIME part.
+     *
+     * @param array $data  See render().
+     *
+     * @return array  See render().
+     */
+    protected function _renderFullReturn($data)
+    {
+        if (!empty($data)) {
+            reset($data);
+            $data[key($data)]['data'] = '<html><body>' .
+                $data[key($data)]['data'] .
+                '</body></html>';
+        }
+
+        return $data;
     }
 
 }

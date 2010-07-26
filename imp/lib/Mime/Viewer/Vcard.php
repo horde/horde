@@ -24,7 +24,7 @@ class IMP_Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Vcard
      * 'p' - (integer) The index of image inside the component to display.
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _render()

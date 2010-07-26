@@ -46,10 +46,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="table_rows.xsl" role="php" />
        </dir> <!-- /lib/Horde/Mime/Viewer/Ooo -->
        <file name="Audio.php" role="php" />
+       <file name="Base.php" role="php" />
        <file name="Css.php" role="php" />
        <file name="Deb.php" role="php" />
        <file name="Default.php" role="php" />
-       <file name="Driver.php" role="php" />
        <file name="Enriched.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Html.php" role="php" />
@@ -155,10 +155,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" as="Horde/Mime/Viewer/Ooo/table_columns.xsl" />
    <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
    <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
+   <install name="lib/Horde/Mime/Viewer/Base.php" as="Horde/Mime/Viewer/Base.php" />
    <install name="lib/Horde/Mime/Viewer/Css.php" as="Horde/Mime/Viewer/Css.php" />
    <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
    <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
-   <install name="lib/Horde/Mime/Viewer/Driver.php" as="Horde/Mime/Viewer/Driver.php" />
    <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
    <install name="lib/Horde/Mime/Viewer/Exception.php" as="Horde/Mime/Viewer/Exception.php" />
    <install name="lib/Horde/Mime/Viewer/Html.php" as="Horde/Mime/Viewer/Html.php" />

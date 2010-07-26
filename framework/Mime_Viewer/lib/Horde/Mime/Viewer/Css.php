@@ -66,7 +66,7 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -86,19 +86,17 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
         $css = preg_replace_callback('!(}|\*/).*?({|/\*)!s', array($this, '_handles'), htmlspecialchars($this->_mimepart->getContents(), ENT_NOQUOTES));
         $css = preg_replace_callback('!{[^}]*}!s', array($this, '_attributes'), $css);
         $css = preg_replace_callback('!/\*.*?\*/!s', array($this, '_comments'), $css);
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $this->_lineNumber(trim($css)),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+
+        return $this->_renderReturn(
+            $this->_lineNumber(trim($css)),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
@@ -127,4 +125,5 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
     {
         return preg_replace(array_keys($this->_handlesPatterns), array_values($this->_handlesPatterns), $matches[0]);
     }
+
 }

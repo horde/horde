@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -31,7 +31,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -43,22 +43,21 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
             $text = $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'));
         }
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => '<html><body><tt>' . Horde_Text_Filter::filter($text, 'text2html', array(
-                    'charset' => $charset,
-                    'parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL
-                )) . '</tt></body></html>',
-                'status' => array(),
-                'type' => 'text/html; charset=' . $charset
-            )
+        $text = '<html><body><tt>' . Horde_Text_Filter::filter($text, 'text2html', array(
+            'charset' => $charset,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL
+        )) . '</tt></body></html>';
+
+        return $this->_renderReturn(
+            $text,
+            'text/html; charset=' . $charset
         );
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -69,12 +68,9 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
             ? $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'))
             : $text;
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $data,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            $data,
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
@@ -93,6 +89,8 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
         if (!is_null($delsp)) {
             $flowed->setDelSp($delsp);
         }
+
         return $flowed->toFixed();
     }
+
 }

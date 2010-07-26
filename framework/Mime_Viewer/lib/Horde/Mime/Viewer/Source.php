@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Source extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Source extends Horde_Mime_Viewer_Base
 {
     /**
      * Add line numbers to a block of code.

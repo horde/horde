@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -49,23 +49,18 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _render()
     {
-        $ret = $this->_toHTML();
-        if (!empty($ret)) {
-            reset($ret);
-            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
-        }
-        return $ret;
+        return $this->_renderFullReturn($this->_toHTML());
     }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _renderInfo()
@@ -76,7 +71,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     /**
      * Converts the ZIP file to an HTML display.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _toHTML()
@@ -145,12 +140,10 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 "\n";
         }
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 59 + $maxlen) . "\n</span></td></tr></table>"),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            nl2br($text . str_repeat('-', 59 + $maxlen) . "\n</span></td></tr></table>"),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -42,32 +42,26 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => '<html><body>' . $this->_toHTML(false) . '</body></html>',
-                'status' => array(),
-                'type' => 'text/html; charset=' . $this->_mimepart->getCharset()
-            )
+        return $this->_renderReturn(
+            '<html><body>' . $this->_toHTML(false) . '</body></html>',
+            'text/html; charset=' . $this->_mimepart->getCharset()
         );
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => Horde_String::convertCharset($this->_toHTML(true), $this->_mimepart->getCharset()),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            Horde_String::convertCharset($this->_toHTML(true), $this->_mimepart->getCharset()),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
 
@@ -199,4 +193,5 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
         }
         return '<span style="color: #' . $colors[1] . $colors[2] . $colors[3] . '">' . $colors[4] . '</span>';
     }
+
 }

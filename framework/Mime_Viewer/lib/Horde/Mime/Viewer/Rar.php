@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -42,22 +42,17 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        $ret = $this->_renderInfo();
-        if (!empty($ret)) {
-            reset($ret);
-            $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
-        }
-        return $ret;
+        return $this->_renderFullReturn($this->_renderInfo());
     }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _renderInfo()
@@ -109,12 +104,9 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
             ) . "\n";
         }
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 106) . "\n</pre></td></tr></table>"),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $charset
-            )
+        return $this->_renderReturn(
+            nl2br($text . str_repeat('-', 106) . "\n</pre></td></tr></table>"),
+            'text/html; charset=' . $charset
         );
     }
 

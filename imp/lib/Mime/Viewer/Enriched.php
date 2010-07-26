@@ -18,7 +18,7 @@ class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -33,7 +33,7 @@ class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -78,4 +78,5 @@ class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
         // Filter bad language.
         return IMP::filterText($text);
     }
+
 }

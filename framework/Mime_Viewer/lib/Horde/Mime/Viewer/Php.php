@@ -30,45 +30,30 @@ class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
-
-        // Need Horde headers for CSS tags.
-        reset($ret);
-        Horde::startBuffer();
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo $ret[key($ret)]['data'];
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
-        $ret[key($ret)]['data'] = Horde::endBuffer();
-
-        return $ret;
+        return $this->_renderFullReturn($this->_renderInline());
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
         $code = $this->_mimepart->getContents();
-        if (strpos($code, '<?php') === false) {
-            $text = str_replace('&lt;?php&nbsp;', '', highlight_string('<?php ' . $code, true));
-        } else {
-            $text = highlight_string($code, true);
-        }
-        $text = trim(str_replace(array("\n", '<br />'), array('', "\n"), $text));
-        $text = $this->_lineNumber($text);
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $text,
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        $text = (strpos($code, '<?php') === false)
+            ? str_replace('&lt;?php&nbsp;', '', highlight_string('<?php ' . $code, true))
+            : highlight_string($code, true);
+
+        return $this->_renderReturn(
+            $this->_lineNumber(trim(str_replace(array("\n", '<br />'), array('', "\n"), $text))),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

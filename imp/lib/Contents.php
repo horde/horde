@@ -355,9 +355,9 @@ class IMP_Contents
      *          identified in the MIME part.
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render(). The following
+     * @return array  See Horde_Mime_Viewer_Base::render(). The following
      *                fields may also be present in addition to the fields
-     *                defined in Horde_Mime_Viewer_Driver:
+     *                defined in Horde_Mime_Viewer_Base:
      *                'attach' - (boolean) Force display of this part as an
      *                           attachment.
      *                'js' - (array) A list of javascript commands to run

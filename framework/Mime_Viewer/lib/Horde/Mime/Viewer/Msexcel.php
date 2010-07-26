@@ -9,11 +9,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -30,7 +31,7 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -40,20 +41,18 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $tmp_xls = Horde::getTempFile('horde_msexcel');
+        $tmp_in = Horde::getTempFile('horde_msexcel');
         $tmp_out = Horde::getTempFile('horde_msexcel');
 
         file_put_contents($tmp_xls, $this->_mimepart->getContents());
-        $args = ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_xls . ' ' . $tmp_out;
+        $args = ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_in . ' ' . $tmp_out;
 
         exec($this->_conf['location'] . $args);
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => file_get_contents($tmp_out),
-                'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_returnRender(
+            file_get_contents($tmp_out),
+            'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

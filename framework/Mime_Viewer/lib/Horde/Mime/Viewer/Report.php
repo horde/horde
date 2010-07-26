@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Base
 {
     /**
      * Return the underlying MIME Viewer for this part.
@@ -40,4 +40,5 @@ class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Driver
 
         return $viewer;
     }
+
 }

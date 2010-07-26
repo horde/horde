@@ -9,11 +9,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime_Viewer
  */
-class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -30,7 +31,7 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Driver
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -40,12 +41,11 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $tmp_word = Horde::getTempFile('msword');
-        $tmp_output = Horde::getTempFile('msword');
-        $tmp_file = str_replace(Horde::getTempDir() . '/', '', $tmp_output);
+        $tmp_in = Horde::getTempFile('msword');
+        $tmp_out = Horde::getTempFile('msword');
 
-        file_put_contents($tmp_word, $this->_mimepart->getContents());
-        $args = ' --to=html --to-name=' . $tmp_output . ' ' . $tmp_word;
+        file_put_contents($tmp_in, $this->_mimepart->getContents());
+        $args = ' --to=html --to-name=' . $tmp_out . ' ' . $tmp_in;
 
         exec($this->_conf['location'] . $args);
 
@@ -57,12 +57,10 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Driver
             $type = 'text/plain';
         }
 
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $data,
-                'status' => array(),
-                'type' => $type . '; charset=' . $GLOBALS['registry']->getCharset()
-            )
+        return $this->_renderReturn(
+            $data,
+            $type . '; charset=' . $GLOBALS['registry']->getCharset()
         );
     }
+
 }

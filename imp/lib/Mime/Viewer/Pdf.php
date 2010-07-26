@@ -35,7 +35,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      * 'pdf_view_thumbnail' - (boolean) Output the thumbnail info.
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -69,7 +69,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
