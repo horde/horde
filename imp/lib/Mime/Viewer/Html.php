@@ -363,6 +363,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _styleCallback($matches)
     {
         $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
+        $this->_imptmp['imgblock'] = true;
         return $matches[1] . $this->_imptmp['blockimg'] . $matches[3];
     }
 
