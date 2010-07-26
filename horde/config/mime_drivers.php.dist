@@ -545,6 +545,11 @@ $mime_drivers['horde']['report'] = array(
 $mime_drivers['horde']['ooo'] = array(
     'inline' => false,
     'handles' => array(
+        'application/vnd.stardivision.calc',
+        'application/vnd.stardivision.draw',
+        'application/vnd.stardivision.impress',
+        'application/vnd.stardivision.math',
+        'application/vnd.stardivision.writer',
         'application/vnd.sun.xml.calc',
         'application/vnd.sun.xml.calc.template',
         'application/vnd.sun.xml.draw',
@@ -555,29 +560,30 @@ $mime_drivers['horde']['ooo'] = array(
         'application/vnd.sun.xml.writer',
         'application/vnd.sun.xml.writer.global',
         'application/vnd.sun.xml.writer.template',
-        'application/vnd.stardivision.calc',
-        'application/vnd.stardivision.draw',
-        'application/vnd.stardivision.impress',
-        'application/vnd.stardivision.math',
-        'application/vnd.stardivision.writer'
+        'application/vnd.oasis.opendocument.presentation',
+        'application/vnd.oasis.opendocument.spreadsheet',
+        'application/vnd.oasis.opendocument.text'
     ),
     'icons' => array(
         'default'                                  => 'ooo_calc.png',
-        'application/vnd.sun.xml.calc'             => 'ooo_calc.png',
         'application/vnd.stardivision.calc'        => 'ooo_calc.png',
+        'application/vnd.stardivision.draw'        => 'ooo_draw.png',
+        'application/vnd.stardivision.impress'     => 'ooo_impress.png',
+        'application/vnd.stardivision.math'        => 'ooo_math.png',
+        'application/vnd.stardivision.writer'      => 'ooo_writer.png',
+        'application/vnd.sun.xml.calc'             => 'ooo_calc.png',
         'application/vnd.sun.xml.calc.template'    => 'ooo_calc.png',
         'application/vnd.sun.xml.draw'             => 'ooo_draw.png',
-        'application/vnd.stardivision.draw'        => 'ooo_draw.png',
         'application/vnd.sun.xml.draw.template'    => 'ooo_draw.png',
         'application/vnd.sun.xml.impress'          => 'ooo_impress.png',
-        'application/vnd.stardivision.impress'     => 'ooo_impress.png',
         'application/vnd.sun.xml.impress.template' => 'ooo_impress.png',
         'application/vnd.sun.xml.math'             => 'ooo_math.png',
-        'application/vnd.stardivision.math'        => 'ooo_math.png',
         'application/vnd.sun.xml.writer'           => 'ooo_writer.png',
-        'application/vnd.stardivision.writer'      => 'ooo_writer.png',
         'application/vnd.sun.xml.writer.global'    => 'ooo_writer.png',
-        'application/vnd.sun.xml.writer.template'  => 'ooo_writer.png'
+        'application/vnd.sun.xml.writer.template'  => 'ooo_writer.png',
+        'application/vnd.oasis.opendocument.presentation' => 'ooo_impress.png',
+        'application/vnd.oasis.opendocument.spreadsheet'  => 'ooo_calc.png',
+        'application/vnd.oasis.opendocument.text'         => 'ooo_writer.png'
     )
 );
 
