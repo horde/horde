@@ -20,8 +20,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Horde_Mime_Viewer
+ * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
 class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
 {

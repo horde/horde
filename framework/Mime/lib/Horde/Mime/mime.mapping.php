@@ -12,7 +12,8 @@
  * 'x-extension/<ext>' where <ext> is the unknown file extension.
  *
  * @category Horde
- * @package  Horde_Mime
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  *
  * Generated: 02/09/10 13:08:53 by slusarz on bigworm.curecanti.org
  */
