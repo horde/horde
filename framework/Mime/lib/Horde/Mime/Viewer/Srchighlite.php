@@ -1,9 +1,10 @@
 <?php
 /**
  * The Horde_Mime_Viewer_Srchighlite class renders out various content in HTML
- * format by using Source-highlight.
+ * format by using the GNU source-highlight package.
  *
  * Source-highlight: http://www.gnu.org/software/src-highlite/
+ * Tested with v3.1.3
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,11 +12,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Mime
  */
-class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
+class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Driver
 {
     /**
      * This driver's display capabilities.
@@ -38,13 +40,10 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
     {
         $ret = $this->_renderInline();
 
-        // Need Horde headers for CSS tags.
         reset($ret);
-        Horde::startBuffer();
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo $ret[key($ret)]['data'];
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
-        $ret[key($ret)]['data'] = Horde::endBuffer();
+        $ret[key($ret)]['data'] = '<html><body>' .
+            $ret[key($ret)]['data'] .
+            '</body></html>';
 
         return $ret;
     }
@@ -73,13 +72,13 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
         $lang = $this->_typeToLang($this->_mimepart->getType());
 
         /* Execute Source-Highlite. */
-        exec($this->_conf['location'] . " --src-lang $lang --out-format xhtml --input $tmpin --output $tmpout");
+        exec($this->_conf['location'] . " --src-lang $lang --out-format html --input $tmpin --output $tmpout");
         $results = file_get_contents($tmpout);
         unlink($tmpout);
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $this->_lineNumber($results),
+                'data' => $results,
                 'status' => array(),
                 'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
             )
@@ -96,16 +95,9 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
      */
     protected function _typeToLang($type)
     {
-        // TODO: 'prolog', 'flex', 'changelog', 'ruby'
-
         switch ($type) {
-        case 'text/x-java':
-            return 'java';
-
-        case 'text/x-csrc':
-        case 'text/x-c++src':
-        case 'text/cpp':
-            return 'cpp';
+        case 'application/x-javascript':
+            return 'js';
 
         case 'application/x-perl':
             return 'perl';
@@ -116,10 +108,78 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
         case 'application/x-httpd-php':
         case 'application/x-httpd-php3':
         case 'application/x-httpd-phps':
-            return 'php3';
+            return 'php';
 
         case 'application/x-python':
             return 'python';
+
+        case 'application/x-ruby':
+            return 'ruby';
+
+        case 'application/x-sh':
+        case 'application/x-shellscript':
+            return 'sh';
+
+        case 'application/x-tcl':
+            return 'tcl';
+
+        case 'application/xml':
+        case 'text/xml':
+            return 'xml';
+
+        case 'text/cpp':
+        case 'text/x-c++src':
+        case 'text/x-c++hdr':
+            return 'cpp';
+
+        case 'text/css':
+        case 'x-extension/css':
+            return 'css';
+
+        case 'text/diff':
+        case 'text/x-diff':
+        case 'text/x-patch':
+            return 'diff';
+
+        case 'text/x-chdr':
+        case 'text/x-csrc':
+            return 'c';
+
+        case 'text/x-emacs-lisp':
+            return 'lisp';
+
+        case 'text/x-fortran':
+        case 'x-extension/f77':
+        case 'x-extension/f90':
+        case 'x-extension/for':
+        case 'x-extension/ftn':
+            return 'fortran';
+
+        case 'text/x-java':
+            return 'java';
+
+        case 'text/x-pascal':
+            return 'pascal';
+
+        case 'text/x-sql':
+            return 'sql';
+
+        case 'text/x-tex':
+            return 'tex';
+
+        case 'x-extension/asm':
+            return 'asm';
+
+        case 'x-extension/bat':
+            return 'batch';
+
+        case 'x-extension/cs':
+            return 'csharp';
+
+        case 'x-extension/vb':
+        case 'x-extension/vba':
+            return 'vbs';
         }
     }
+
 }

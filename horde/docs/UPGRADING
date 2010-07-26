@@ -47,6 +47,8 @@ Removed support for dBase, Frontbase, and mSQL database servers.
 
 Removed support for krb5 authentication driver.
 
+Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Srchighlite' instead.
+
 
 Upgrading Horde from 3.3.x to 3.3.5
 ===================================

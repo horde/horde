@@ -31,7 +31,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* No need to generate Content-Transfer-Encoding header if part data is 7bit.
+ <notes>* Removed Webcpp and Enscript viewers. Source code highlighting is now
+ exclusively handled by the Srchighlight driver.
+ * No need to generate Content-Transfer-Encoding header if part data is 7bit.
  * Default disposition should be empty by default, not inline (RFC 2183 [2]).
  * Request #8556: Allow specifying a header charset for a part.
  * Add 'raw' render view to Horde_Mime_Viewer.
@@ -68,7 +70,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Default.php" role="php" />
        <file name="Driver.php" role="php" />
        <file name="Enriched.php" role="php" />
-       <file name="Enscript.php" role="php" />
        <file name="Html.php" role="php" />
        <file name="Images.php" role="php" />
        <file name="Msexcel.php" role="php" />
@@ -92,7 +93,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Tgz.php" role="php" />
        <file name="Tnef.php" role="php" />
        <file name="Vcard.php" role="php" />
-       <file name="Webcpp.php" role="php" />
        <file name="Wordperfect.php" role="php" />
        <file name="Zip.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Viewer -->
@@ -231,7 +231,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
    <install name="lib/Horde/Mime/Viewer/Driver.php" as="Horde/Mime/Viewer/Driver.php" />
    <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
-   <install name="lib/Horde/Mime/Viewer/Enscript.php" as="Horde/Mime/Viewer/Enscript.php" />
    <install name="lib/Horde/Mime/Viewer/Html.php" as="Horde/Mime/Viewer/Html.php" />
    <install name="lib/Horde/Mime/Viewer/Images.php" as="Horde/Mime/Viewer/Images.php" />
    <install name="lib/Horde/Mime/Viewer/Msexcel.php" as="Horde/Mime/Viewer/Msexcel.php" />
@@ -255,7 +254,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
    <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
    <install name="lib/Horde/Mime/Viewer/Vcard.php" as="Horde/Mime/Viewer/Vcard.php" />
-   <install name="lib/Horde/Mime/Viewer/Webcpp.php" as="Horde/Mime/Viewer/Webcpp.php" />
    <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
    <install name="lib/Horde/Mime/Viewer/Zip.php" as="Horde/Mime/Viewer/Zip.php" />
    <install name="lib/Horde/Mime/Address.php" as="Horde/Mime/Address.php" />

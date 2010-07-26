@@ -10,7 +10,6 @@
  * css            CSS Styles
  * deb            Debian packages
  * enriched       Enriched text format
- * enscript       GNU enscript
  * html           HTML data
  * images         Image files
  * msword         Microsoft Word files via AbiWord
@@ -34,7 +33,6 @@
  * tgz            Tarballs, including gzipped ones
  * tnef           MS-TNEF attachments
  * vcard          vCards
- * webcpp         Web C Plus Plus
  * wordperfect    WordPerfect documents via wpd2html
  * zip            Zip files
  *
@@ -48,14 +46,12 @@ $mime_drivers_map['horde']['registered'] = array(
     /* The following mime drivers require external applications to be
      * installed and are disabled by default. */
     // 'deb',
-    // 'enscript',
     // 'msword',
     // 'msexcel',
     // 'mspowerpoint',
     // 'rpm',
     // 'rtf',
     // 'srchighlite',
-    // 'webcpp',
     // 'wordperfect',
 );
 
@@ -166,8 +162,11 @@ $mime_drivers['horde']['smil'] = array(
 $mime_drivers['horde']['php'] = array(
     'inline' => true,
     'handles' => array(
-        'application/x-php', 'x-extension/phps', 'x-extension/php3s',
-        'application/x-httpd-php', 'application/x-httpd-php3',
+        'application/x-php',
+        'x-extension/phps',
+        'x-extension/php3s',
+        'application/x-httpd-php',
+        'application/x-httpd-php3',
         'application/x-httpd-phps'
     ),
     'icons' => array(
@@ -182,7 +181,8 @@ $mime_drivers['horde']['php'] = array(
 $mime_drivers['horde']['css'] = array(
     'inline' => true,
     'handles' => array(
-        'text/css', 'x-extension/css'
+        'text/css',
+        'x-extension/css'
     ),
     'icons' => array(
         'default' => 'html.png'
@@ -236,37 +236,6 @@ $mime_drivers['horde']['richtext'] = array(
 
 
 /**
- * Web C Plus Plus driver settings
- * http://webcpp.sourceforge.net/
- */
-$mime_drivers['horde']['webcpp'] = array(
-    'location' => '/usr/bin/webcpp',
-    'inline' => true,
-    'handles' => array(
-        'text/xml', 'text/sgml', 'application/xml', 'application/x-sh',
-        'application/x-javascript', 'application/x-tcl', 'x-extension/asm',
-        'application/x-asp', 'x-extension/bas', 'x-extension/cs',
-        'text/x-csrc', 'x-extension/rc', 'text/x-c++src', 'text/x-c++src',
-        'text/x-c++src', 'text/x-chdr', 'x-extension/bat', 'text/x-fortran',
-        'x-extension/f77', 'x-extension/f90', 'x-extension/for',
-        'x-extension/ftn', 'text/x-java', 'application/x-javascript',
-        'text/sgml', 'text/xml', 'text/x-pascal', 'application/x-cgi',
-        'application/x-perl', 'application/x-python', 'text/x-sql',
-        'text/x-tcl', 'application/x-shellscript', 'x-extension/vhd',
-        'x-extension/vhdl'
-    ),
-    'icons' => array(
-        'default'                  => 'text.png',
-        'text/xml'                 => 'xml.png',
-        'text/x-csrc'              => 'source-c.png',
-        'text/x-chdr'              => 'source-h.png',
-        'text/x-java'              => 'source-java.png',
-        'application/x-javascript' => 'script-js.png'
-    )
-);
-
-
-/**
  * Source-Highlight driver settings
  * http://www.gnu.org/software/src-highlite/
  */
@@ -274,41 +243,72 @@ $mime_drivers['horde']['srchighlite'] = array(
     'location' => '/usr/bin/source-highlight',
     'inline' => true,
     'handles' => array(
-        'text/x-csrc', 'text/x-c++src', 'text/x-java', 'application/x-perl',
-        'application/x-python', 'text/x-c++src', 'text/cpp'
+        'application/x-httpd-php',
+        'application/x-httpd-php3',
+        'application/x-httpd-phps',
+        'application/x-javascript',
+        'application/x-perl',
+        'application/x-php',
+        'application/x-python',
+        'application/x-ruby',
+        'application/x-sh',
+        'application/x-shellscript',
+        'application/x-tcl',
+        'application/xml',
+        'text/cpp',
+        'text/css',
+        'text/diff',
+        'text/x-c++hdr',
+        'text/x-c++src',
+        'text/x-chdr',
+        'text/x-csrc',
+        'text/x-diff',
+        'text/x-emacs-lisp',
+        'text/x-fortran',
+        'text/x-java',
+        'text/x-pascal',
+        'text/x-patch',
+        'text/x-sql',
+        'text/x-tex',
+        'text/xml',
+        'x-extension/asm',
+        'x-extension/bat',
+        'x-extension/cs',
+        'x-extension/css'
+        'x-extension/f77',
+        'x-extension/f90',
+        'x-extension/for',
+        'x-extension/ftn',
+        'x-extension/php3s',
+        'x-extension/phps',
+        'x-extension/rc',
+        'x-extension/vb',
+        'x-extension/vba'
     ),
     'icons' => array(
-        'default'       => 'text.png',
-        'text/x-csrc'   => 'source-c.png',
-        'text/x-c++src' => 'source-c.png',
-        'text/cpp'      => 'source-c.png',
-        'text/x-java'   => 'source-java.png'
-    )
-);
-
-
-/**
- * GNU Enscript driver settings
- */
-$mime_drivers['horde']['enscript'] = array(
-    'location' => '/usr/bin/enscript',
-    'inline' => true,
-    'handles' => array(
-        'application/x-cgi', 'application/x-shellscript',
-        'application/x-javascript', 'application/x-perl', 'application/xml',
-        'text/xml', 'text/diff', 'text/x-diff', 'text/x-patch', 'text/x-csrc',
-        'x-extension/cs', 'text/x-java', 'text/x-chdr', 'text/x-c++src',
-        'text/x-c++hdr', 'x-extension/vhd', 'x-extension/vhdl', 'text/x-sql',
-        'x-extension/vb', 'x-extension/vba', 'text/x-emacs-lisp', 'text/x-tex'
-    ),
-    'icons' => array(
-        'default'                  => 'text.png',
-        'text/xml'                 => 'xml.png',
-        'application/xml'          => 'xml.png',
-        'text/x-csrc'              => 'source-c.png',
-        'text/x-chdr'              => 'source-h.png',
-        'text/x-java'              => 'source-java.png',
-        'application/x-javascript' => 'script-js.png'
+        'default'                   => 'text.png',
+        'application/x-httpd-php'   => 'php.png',
+        'application/x-httpd-php3'  => 'php.png',
+        'application/x-httpd-phps'  => 'php.png',
+        'application/x-javascript'  => 'script-js.png',
+        'application/x-php'         => 'php.png',
+        'application/x-python'      => 'source-python.png',
+        'application/x-sh'          => 'shell.png',
+        'application/x-shellscript' => 'shell.png',
+        'application/xml'           => 'xml.png',
+        'text/cpp'                  => 'source-c.png',
+        'text/css'                  => 'html.png',
+        'text/x-c++hdr'             => 'source-c.png',
+        'text/x-c++src'             => 'source-c.png',
+        'text/x-chdr'               => 'source-h.png',
+        'text/x-csrc'               => 'source-c.png',
+        'text/x-java'               => 'source-java.png',
+        'text/x-sql'                => 'sql.png',
+        'text/xml'                  => 'xml.png',
+        'x-extension/css'           => 'html.png',
+        'x-extension/php3s'         => 'php.png',
+        'x-extension/phps'          => 'php.png',
+        'x-extension/rc'            => 'xml.png'
     )
 );
 
@@ -321,9 +321,13 @@ $mime_drivers['horde']['enscript'] = array(
 $mime_drivers['horde']['tgz'] = array(
     'inline' => true,
     'handles' => array(
-        'application/x-compressed-tar', 'application/x-tar',
-        'application/x-tgz', 'application/x-gzip', 'application/x-gtar',
-        'application/gzip', 'application/x-gzip-compressed'
+        'application/gzip',
+        'application/x-compressed-tar',
+        'application/x-gtar',
+        'application/x-gzip',
+        'application/x-gzip-compressed',
+        'application/x-tar',
+        'application/x-tgz'
     ),
     'icons' => array(
         'default' => 'compressed.png'
@@ -337,8 +341,9 @@ $mime_drivers['horde']['tgz'] = array(
 $mime_drivers['horde']['zip'] = array(
     'inline' => true,
     'handles' => array(
-        'application/zip', 'application/x-compressed',
-        'application/x-zip-compressed'
+        'application/x-compressed',
+        'application/x-zip-compressed',
+        'application/zip'
     ),
     'icons' => array(
         'default' => 'compressed.png'
@@ -352,7 +357,8 @@ $mime_drivers['horde']['zip'] = array(
 $mime_drivers['horde']['rar'] = array(
     'inline' => true,
     'handles' => array(
-        'application/x-rar', 'application/x-rar-compressed'
+        'application/x-rar',
+        'application/x-rar-compressed'
     ),
     'icons' => array(
         'default' => 'compressed.png'
@@ -369,7 +375,8 @@ $mime_drivers['horde']['msword'] = array(
     'location' => '/usr/bin/abiword',
     'inline' => false,
     'handles' => array(
-        'application/vnd.ms-word', 'application/msword'
+        'application/msword',
+        'application/vnd.ms-word'
     ),
     'icons' => array(
         'default' => 'msword.png'
@@ -386,8 +393,9 @@ $mime_drivers['horde']['msexcel'] = array(
     'location' => '/usr/bin/ssconvert',
     'inline' => false,
     'handles' => array(
-        'application/vnd.ms-excel', 'application/msexcel',
-        'application/x-msexcel'
+        'application/msexcel',
+        'application/x-msexcel',
+        'application/vnd.ms-excel'
     ),
     'icons' => array(
         'default' => 'msexcel.png'
@@ -404,7 +412,8 @@ $mime_drivers['horde']['mspowerpoint'] = array(
     'location' => '/usr/bin/ppthtml',
     'inline' => false,
     'handles' => array(
-        'application/vnd.ms-powerpoint', 'application/mspowerpoint'
+        'application/mspowerpoint',
+        'application/vnd.ms-powerpoint'
     ),
     'icons' => array(
         'default' => 'mspowerpoint.png'
@@ -417,7 +426,9 @@ $mime_drivers['horde']['mspowerpoint'] = array(
  */
 $mime_drivers['horde']['vcard'] = array(
     'handles' => array(
-        'text/vcard', 'text/x-vcard', 'text/directory'
+        'text/directory',
+        'text/vcard',
+        'text/x-vcard'
     ),
     'icons' => array(
         'default' => 'vcard.png'
@@ -447,7 +458,8 @@ $mime_drivers['horde']['deb'] = array(
     'location' => '/usr/bin/dpkg',
     'inline' => false,
     'handles' => array(
-        'application/x-deb', 'application/x-debian-package'
+        'application/x-deb',
+        'application/x-debian-package'
     ),
     'icons' => array(
         'default' => 'deb.png'
@@ -461,7 +473,8 @@ $mime_drivers['horde']['deb'] = array(
 $mime_drivers['horde']['security'] = array(
     'inline' => true,
     'handles' => array(
-        'multipart/encrypted', 'multipart/signed'
+        'multipart/encrypted',
+        'multipart/signed'
     ),
     'icons' => array(
         'default' => 'encryption.png'
@@ -503,7 +516,8 @@ $mime_drivers['horde']['tnef'] = array(
 $mime_drivers['horde']['rfc822'] = array(
     'inline' => false,
     'handles' => array(
-        'message/rfc822', 'x-extension/eml'
+        'message/rfc822',
+        'x-extension/eml'
     ),
     'icons' => array(
         'default' => 'mail.png'
@@ -575,7 +589,9 @@ $mime_drivers['horde']['pdf'] = array(
     /* This setting is irrelevant - PDF files can not be displayed inline. */
     'inline' => false,
     'handles' => array(
-        'application/pdf', 'application/x-pdf', 'image/pdf'
+        'application/pdf',
+        'application/x-pdf',
+        'image/pdf'
     ),
     'icons' => array(
         'default' => 'pdf.png'
@@ -592,7 +608,8 @@ $mime_drivers['horde']['rtf'] = array(
     'location' => '/usr/bin/unrtf',
     'inline' => false,
     'handles' => array(
-        'text/rtf', 'application/rtf'
+        'application/rtf',
+        'text/rtf'
     ),
     'icons' => array(
         'default' => 'text.png'
@@ -609,8 +626,11 @@ $mime_drivers['horde']['wordperfect'] = array(
     'location' => '/usr/bin/wpd2html',
     'inline' => false,
     'handles' => array(
-        'application/vnd.wordperfect', 'application/wordperf',
-        'application/wordperfect', 'application/wpd', 'application/x-wpwin'
+        'application/vnd.wordperfect',
+        'application/wordperf',
+        'application/wordperfect',
+        'application/wpd',
+        'application/x-wpwin'
     ),
     'icons' => array(
         'default' => 'wordperfect.png'
