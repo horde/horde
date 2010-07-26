@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Mime</name>
  <channel>pear.horde.org</channel>
  <summary>Horde MIME Library</summary>
- <description>The Horde_Mime:: class provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.
+ <description>Provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.
  </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Webcpp and Enscript viewers. Source code highlighting is now
+ <notes>* Moved viewer code to horde/Mime_Viewer package.
+ * Removed Webcpp and Enscript viewers. Source code highlighting is now
  exclusively handled by the Srchighlight driver.
  * No need to generate Content-Transfer-Encoding header if part data is 7bit.
  * Default disposition should be empty by default, not inline (RFC 2183 [2]).
@@ -50,52 +51,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
-      <dir name="Viewer">
-       <dir name="Ooo">
-        <file name="common.xsl" role="php" />
-        <file name="global_document.xsl" role="php" />
-        <file name="main_html.xsl" role="php" />
-        <file name="palm.xsl" role="php" />
-        <file name="style_header.xsl" role="php" />
-        <file name="style_inlined.xsl" role="php" />
-        <file name="style_mapping.xsl" role="php" />
-        <file name="table.xsl" role="php" />
-        <file name="table_cells.xsl" role="php" />
-        <file name="table_columns.xsl" role="php" />
-        <file name="table_rows.xsl" role="php" />
-       </dir> <!-- /lib/Horde/Mime/Viewer/Ooo -->
-       <file name="Audio.php" role="php" />
-       <file name="Css.php" role="php" />
-       <file name="Deb.php" role="php" />
-       <file name="Default.php" role="php" />
-       <file name="Driver.php" role="php" />
-       <file name="Enriched.php" role="php" />
-       <file name="Html.php" role="php" />
-       <file name="Images.php" role="php" />
-       <file name="Msexcel.php" role="php" />
-       <file name="Mspowerpoint.php" role="php" />
-       <file name="Msword.php" role="php" />
-       <file name="Ooo.php" role="php" />
-       <file name="Pdf.php" role="php" />
-       <file name="Php.php" role="php" />
-       <file name="Plain.php" role="php" />
-       <file name="Rar.php" role="php" />
-       <file name="Report.php" role="php" />
-       <file name="Rfc822.php" role="php" />
-       <file name="Richtext.php" role="php" />
-       <file name="Rpm.php" role="php" />
-       <file name="Rtf.php" role="php" />
-       <file name="Security.php" role="php" />
-       <file name="Simple.php" role="php" />
-       <file name="Smil.php" role="php" />
-       <file name="Source.php" role="php" />
-       <file name="Srchighlite.php" role="php" />
-       <file name="Tgz.php" role="php" />
-       <file name="Tnef.php" role="php" />
-       <file name="Vcard.php" role="php" />
-       <file name="Wordperfect.php" role="php" />
-       <file name="Zip.php" role="php" />
-      </dir> <!-- /lib/Horde/Mime/Viewer -->
       <file name="Address.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
@@ -103,7 +58,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Mail.php" role="php" />
       <file name="Mdn.php" role="php" />
       <file name="Part.php" role="php" />
-      <file name="Viewer.php" role="php" />
       <file name="mime.mapping.php" role="php" />
      </dir> <!-- /lib/Horde/Mime -->
      <file name="Mime.php" role="php" />
@@ -116,13 +70,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="attachment.bin" role="test" />
        <file name="bug_325.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
-       <file name="url1.html" role="test" />
-       <file name="url2.html" role="test" />
-       <file name="url3.html" role="test" />
-       <file name="url4.html" role="test" />
-       <file name="url5.html" role="test" />
-       <file name="url6.html" role="test" />
-       <file name="url7.html" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bug_325.phpt" role="test" />
@@ -141,8 +88,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="parse_002.phpt" role="test" />
       <file name="parse_003.phpt" role="test" />
       <file name="rfc2231.phpt" role="test" />
-      <file name="url.phpt" role="test" />
-      <file name="viewer_php.phpt" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -156,10 +101,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
    <package>
     <name>Exception</name>
     <channel>pear.horde.org</channel>
@@ -186,25 +127,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pecl.php.net</channel>
    </package>
    <package>
-    <name>Browser</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Compress</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>iCalendar</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Net_SMTP</name>
     <channel>pear.php.net</channel>
     <min>1.3.0</min>
-   </package>
-   <package>
-    <name>Prefs</name>
-    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Text_Filter</name>
@@ -214,48 +139,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Mime/Viewer/Ooo/common.xsl" as="Horde/Mime/Viewer/Ooo/common.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" as="Horde/Mime/Viewer/Ooo/global_document.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" as="Horde/Mime/Viewer/Ooo/main_html.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" as="Horde/Mime/Viewer/Ooo/palm.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" as="Horde/Mime/Viewer/Ooo/style_header.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table.xsl" as="Horde/Mime/Viewer/Ooo/table.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" as="Horde/Mime/Viewer/Ooo/table_cells.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" as="Horde/Mime/Viewer/Ooo/table_columns.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
-   <install name="lib/Horde/Mime/Viewer/Css.php" as="Horde/Mime/Viewer/Css.php" />
-   <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
-   <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
-   <install name="lib/Horde/Mime/Viewer/Driver.php" as="Horde/Mime/Viewer/Driver.php" />
-   <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
-   <install name="lib/Horde/Mime/Viewer/Html.php" as="Horde/Mime/Viewer/Html.php" />
-   <install name="lib/Horde/Mime/Viewer/Images.php" as="Horde/Mime/Viewer/Images.php" />
-   <install name="lib/Horde/Mime/Viewer/Msexcel.php" as="Horde/Mime/Viewer/Msexcel.php" />
-   <install name="lib/Horde/Mime/Viewer/Mspowerpoint.php" as="Horde/Mime/Viewer/Mspowerpoint.php" />
-   <install name="lib/Horde/Mime/Viewer/Msword.php" as="Horde/Mime/Viewer/Msword.php" />
-   <install name="lib/Horde/Mime/Viewer/Ooo.php" as="Horde/Mime/Viewer/Ooo.php" />
-   <install name="lib/Horde/Mime/Viewer/Pdf.php" as="Horde/Mime/Viewer/Pdf.php" />
-   <install name="lib/Horde/Mime/Viewer/Php.php" as="Horde/Mime/Viewer/Php.php" />
-   <install name="lib/Horde/Mime/Viewer/Plain.php" as="Horde/Mime/Viewer/Plain.php" />
-   <install name="lib/Horde/Mime/Viewer/Rar.php" as="Horde/Mime/Viewer/Rar.php" />
-   <install name="lib/Horde/Mime/Viewer/Report.php" as="Horde/Mime/Viewer/Report.php" />
-   <install name="lib/Horde/Mime/Viewer/Rfc822.php" as="Horde/Mime/Viewer/Rfc822.php" />
-   <install name="lib/Horde/Mime/Viewer/Richtext.php" as="Horde/Mime/Viewer/Richtext.php" />
-   <install name="lib/Horde/Mime/Viewer/Rpm.php" as="Horde/Mime/Viewer/Rpm.php" />
-   <install name="lib/Horde/Mime/Viewer/Rtf.php" as="Horde/Mime/Viewer/Rtf.php" />
-   <install name="lib/Horde/Mime/Viewer/Security.php" as="Horde/Mime/Viewer/Security.php" />
-   <install name="lib/Horde/Mime/Viewer/Simple.php" as="Horde/Mime/Viewer/Simple.php" />
-   <install name="lib/Horde/Mime/Viewer/Smil.php" as="Horde/Mime/Viewer/Smil.php" />
-   <install name="lib/Horde/Mime/Viewer/Source.php" as="Horde/Mime/Viewer/Source.php" />
-   <install name="lib/Horde/Mime/Viewer/Srchighlite.php" as="Horde/Mime/Viewer/Srchighlite.php" />
-   <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
-   <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
-   <install name="lib/Horde/Mime/Viewer/Vcard.php" as="Horde/Mime/Viewer/Vcard.php" />
-   <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
-   <install name="lib/Horde/Mime/Viewer/Zip.php" as="Horde/Mime/Viewer/Zip.php" />
    <install name="lib/Horde/Mime/Address.php" as="Horde/Mime/Address.php" />
    <install name="lib/Horde/Mime/Exception.php" as="Horde/Mime/Exception.php" />
    <install name="lib/Horde/Mime/Headers.php" as="Horde/Mime/Headers.php" />
@@ -263,7 +146,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Magic.php" as="Horde/Mime/Magic.php" />
    <install name="lib/Horde/Mime/Mail.php" as="Horde/Mime/Mail.php" />
    <install name="lib/Horde/Mime/Part.php" as="Horde/Mime/Part.php" />
-   <install name="lib/Horde/Mime/Viewer.php" as="Horde/Mime/Viewer.php" />
    <install name="lib/Horde/Mime/mime.mapping.php" as="Horde/Mime/mime.mapping.php" />
    <install name="lib/Horde/Mime.php" as="Horde/Mime.php" />
   </filelist>

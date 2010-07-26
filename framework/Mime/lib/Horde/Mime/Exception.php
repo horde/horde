@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Mime class.
+ * Exception handler for the horde/MIME package.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
