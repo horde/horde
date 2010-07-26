@@ -274,7 +274,7 @@ $mime_drivers['horde']['srchighlite'] = array(
         'x-extension/asm',
         'x-extension/bat',
         'x-extension/cs',
-        'x-extension/css'
+        'x-extension/css',
         'x-extension/f77',
         'x-extension/f90',
         'x-extension/for',
