@@ -161,10 +161,24 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {
             $html .= '<div class="form-html-helper">';
-            Horde::addScriptFile('open_html_helper.js', 'horde', array('direct' => false));
+            Horde::addScriptFile('open_html_helper.js', 'horde');
             $imgId = $var->getVarName() . 'ehelper';
             if ($var->type->hasHelper('emoticons')) {
-                $html .= Horde::link('#', _("Emoticons"), '', '', 'openHtmlHelper(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
+                $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('emoticons');
+                $icon_list = array();
+
+                foreach (array_flip($filter->getIcons()) as $icon => $string) {
+                    $icon_list[] = array(
+                        $filter->getIcon($icon),
+                        $string
+                    );
+                }
+
+                Horde::addInlineScript(array(
+                    'Horde_Html_Helper.iconlist = ' . Horde_Serialize::serialize($icon_list, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+                ));
+
+                $html .= Horde::link('#', _("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
                     . Horde::img('emoticons/smile.png', _("Emoticons"), 'id="' . $imgId . '" align="middle"')
                     . '</a>'."\n";
             }

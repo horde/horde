@@ -120,7 +120,7 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      */
     public function emoticonReplace($matches)
     {
-        return $matches[1] . $this->_emoticonReplace($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
+        return $matches[1] . $this->getIcon($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
     }
 
     /**
@@ -130,7 +130,7 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
      *
      * @return string  The replacement text.
      */
-    protected function _emoticonReplace($icon)
+    public function getIcon($icon)
     {
         return $icon;
     }
