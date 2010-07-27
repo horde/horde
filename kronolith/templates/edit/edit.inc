@@ -1,4 +1,8 @@
-<?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1 && empty($GLOBALS['show_resource_calendars'])); ?>
+<?php
+$showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1 && empty($GLOBALS['show_resource_calendars']));
+$show_img = Horde::img('plus.png', _("Show"));
+$hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
+?>
 
 <form action="<?php echo ($event->initialized && $event->hasPermission(Horde_Perms::EDIT)) ? 'edit.php' : 'add.php' ?>" method="post" name="eventform" id="eventform">
 <?php Horde_Util::pformInput() ?>
@@ -34,8 +38,8 @@
  <td></td>
  <td colspan="4" class="warning">
   <?php echo _("This is a recurring event. Edit the current event only, this occurrence<br />and all future occurences, all occurences, or save this event as new?") ?><br /><br />
-  <input type="radio" name="edit_recur" value="current" id="edit_current" onclick="KronolithEventForm.setStartDate($F('recur_ex'))" /> <?php echo Horde::label('edit_current', _("Current")) ?>
-  <input type="radio" name="edit_recur" value="future" id="edit_future" onclick="KronolithEventForm.setStartDate($F('recur_ex'))" /> <?php echo Horde::label('edit_future', _("Future")) ?>
+  <input type="radio" name="edit_recur" value="current" id="edit_current" /> <?php echo Horde::label('edit_current', _("Current")) ?>
+  <input type="radio" name="edit_recur" value="future" id="edit_future" /> <?php echo Horde::label('edit_future', _("Future")) ?>
   <input type="radio" name="edit_recur" value="all" id="edit_all" checked="checked" /> <?php echo Horde::label('edit_all', _("All")) ?>
   <input type="radio" name="edit_recur" value="copy" id="edit_copy" /> <?php echo Horde::label('edit_copy', _("Save As New")) ?>
   <input type="hidden" name="recur_ex" id="recur_ex" value="<?php echo Horde_Util::getFormData('datetime') ?>" />
@@ -49,7 +53,7 @@
  <td colspan="4">
   <?php echo implode("\n", $buttons) ?>
   <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" onclick="document.eventform.reset(); KronolithEventForm.updateWday('start_wday'); KronolithEventForm.updateWday('end_wday');" />
+  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
  </td>
 </tr>
 
@@ -155,12 +159,14 @@ if ($event->alarm) {
 }
 ?>
 <tr>
- <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('alarm')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_alarm')) . ' <strong>' . Horde::label('alarm', _("_Alarm")) ?></strong>
+ <td colspan="5" id="toggle_alarm" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo Horde::label('alarm', _("_Alarm")) ?></strong>
   <span class="extra" id="extra_alarm"><?php if ($alarm_set) printf(_("%d %s before the event starts"), $alarm_value, $alarm_unit_title); ?></span>
 </td>
 </tr>
-<tbody id="section_alarm">
+<tbody id="section_alarm" style="display:none">
 <tr>
  <td class="rightAlign" valign="top">
   <strong><?php echo _("Alarm") ?></strong>
@@ -190,8 +196,8 @@ if ($event->alarm) {
   <strong><?php echo _("Notification") ?></strong>
  </td>
  <td valign="top">
-  <input id="nooverwrite" name="alarm_change_method" type="radio" class="checkbox" value="0"<?php if (empty($event->methods)) echo ' checked="checked"' ?> onclick="KronolithEventForm.toggleAlarmMethods()" /><br />
-  <input id="yesoverwrite" name="alarm_change_method" type="radio" class="checkbox" value="1"<?php if (!empty($event->methods)) echo ' checked="checked"' ?> onclick="KronolithEventForm.toggleAlarmMethods()" />
+  <input id="nooverwrite" name="alarm_change_method" type="radio" class="checkbox" value="0"<?php if (empty($event->methods)) echo ' checked="checked"' ?> /><br />
+  <input id="yesoverwrite" name="alarm_change_method" type="radio" class="checkbox" value="1"<?php if (!empty($event->methods)) echo ' checked="checked"' ?> />
  </td>
  <td>&nbsp;</td>
  <td valign="top" colspan="2">
@@ -220,12 +226,14 @@ if ($event->alarm) {
 
 <!-- description -->
 <tr>
- <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('description')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_description')) . ' <strong>' . Horde::label('description', _("Descri_ption")) ?></strong>
+ <td colspan="5" id="toggle_description" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo Horde::label('description', _("Descri_ption")) ?></strong>
   <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '  ', $event->description), 0, 80)) ?></span>
 </td>
 </tr>
-<tr id="section_description">
+<tr id="section_description" style="display:none">
  <td colspan="5">
   <textarea id="description" name="description" rows="4"><?php echo htmlspecialchars($event->description) ?></textarea>
  </td>
@@ -233,12 +241,14 @@ if ($event->alarm) {
 
 <!-- url -->
 <tr>
- <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('url')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_url')) . ' <strong>' . Horde::label('url', _("URL")) ?></strong>
+ <td colspan="5" id="toggle_url" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo Horde::label('url', _("URL")) ?></strong>
   <span class="extra" id="extra_url"><?php echo htmlspecialchars($event->url) ?></span>
 </td>
 </tr>
-<tr id="section_url">
+<tr id="section_url" style="display:none">
  <td class="rightAlign"><strong><?php echo Horde::label('url', _("URL")) ?></strong></td>
  <td colspan="4">
   <input type="text" name="eventurl" id="url" value="<?php echo htmlspecialchars($event->url) ?>" size="40" maxlength="2048" />
@@ -247,29 +257,33 @@ if ($event->alarm) {
 
 <!-- attendees/resources -->
 <tr>
- <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('attendees')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_attendees')) . ' <strong>' . _("Attendees and Resources") ?></strong>
+ <td colspan="5" id="toggle_attendees" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo _("Attendees and Resources") ?></strong>
   <span class="extra"><?php echo htmlspecialchars(Kronolith::attendeeList()) ?></span>
  </td>
 </tr>
 
-<tbody id="section_attendees">
+<tbody id="section_attendees" style="display:none">
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::applicationUrl('attendees.php')->link(array('class' => 'button', 'target' => '_blank', 'onclick' => 'var date = (\'000\' + $F(\'start_year\')).slice(-4) + (\'0\' + $F(\'start_month\')).slice(-2) + (\'0\' + $F(\'start_day\')).slice(-2) + (\'0\' + $(\'start_hour\').value).slice(-2) + (\'0\' + $(\'start_min\').value).slice(-2) + \'00\';var enddate = (\'000\' + $F(\'end_year\')).slice(-4) + (\'0\' + $F(\'end_month\')).slice(-2) + (\'0\' + $F(\'end_day\')).slice(-2) + (\'0\' + $(\'end_hour\').value).slice(-2) + (\'0\' + $(\'end_min\').value).slice(-2) + \'00\'; this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date + \'&enddate=\' + enddate;Horde.popup({ url: this.href });return false;')) . _("Edit Attendees and Resources") . '</a>' ?>
+  <?php echo Horde::applicationUrl('attendees.php')->link(array('class' => 'button', 'id' => 'attendees_button', 'target' => '_blank')) . _("Edit Attendees and Resources") . '</a>' ?>
  </td>
 </tr>
 </tbody>
 
 <!-- recurrence -->
 <tr>
- <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('recurrence')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_recurrence')) . ' <strong>' . _("Recurrence") ?></strong>
+ <td colspan="5" id="toggle_recurrence" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo _("Recurrence") ?></strong>
   <span class="extra" id="extra_recurrence"><?php echo $event->getRecurName(); if ($event->recurs()) echo $event->recurrence->hasRecurEnd() ? sprintf(_(" until %s"), $event->recurrence->recurEnd->strftime($GLOBALS['prefs']->getValue('date_format')) . ($this->event->recurrence->recurEnd->hour == 23 && $this->event->recurrence->recurEnd->min == 59 ? '' : ' ' . $this->event->recurrence->recurEnd->format($GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:ia'))) : ($event->recurrence->getRecurCount() ? sprintf(_(", %d times"), $event->recurrence->getRecurCount()) : _(" without end")) ?></span>
  </td>
 </tr>
-<tbody id="section_recurrence">
+<tbody id="section_recurrence" style="display:none">
 <tr>
 <?php if (!empty($event->baseid)):?>
  <td>&nbsp;</td>
@@ -280,57 +294,57 @@ if ($event->alarm) {
   <table cellspacing="0" width="100%">
    <tr>
     <td class="nowrap">
-     <input id="recurnone" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.clearFields(0);" value="<?php echo Horde_Date_Recurrence::RECUR_NONE ?>"<?php if (!$event->recurs()) echo ' checked="checked"' ?> /><label for="recurnone"> <?php echo _("No recurrence") ?></label>
+     <input id="recurnone" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_NONE ?>"<?php if (!$event->recurs()) echo ' checked="checked"' ?> /><label for="recurnone"> <?php echo _("No recurrence") ?></label>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurdaily" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_daily_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_DAILY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)) echo ' checked="checked"' ?> /><label for="recurdaily"> <?php echo _("Daily: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_daily_interval" name="recur_daily_interval" size="2" onkeypress="KronolithEventForm.setRecur(1);" onchange="KronolithEventForm.setRecur(1);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_daily_interval', _("day(s)")) ?>
+     <input id="recurdaily" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_DAILY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)) echo ' checked="checked"' ?> /><label id="recurdaily_label" for="recurdaily"> <?php echo _("Daily: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_daily_interval" name="recur_daily_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_daily_interval', _("day(s)")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurweekly" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_weekly_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_WEEKLY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)) echo ' checked="checked"' ?> /><label for="recurweekly"> <?php echo _("Weekly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_weekly_interval" name="recur_weekly_interval" size="2" onkeypress="KronolithEventForm.setRecur(2);" onchange="KronolithEventForm.setRecur(2);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;
+     <input id="recurweekly" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_WEEKLY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)) echo ' checked="checked"' ?> /><label id="recurweekly_label" for="recurweekly"> <?php echo _("Weekly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_weekly_interval" name="recur_weekly_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;
      <?php echo Horde::label('recur_weekly_interval', _("week(s) on:")) ?><br />
-     <label for="mo"><?php echo _("Mo") ?></label><input id="mo" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_MONDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_MONDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="tu"><?php echo _("Tu") ?></label><input id="tu" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_TUESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_TUESDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="we"><?php echo _("We") ?></label><input id="we" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_WEDNESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_WEDNESDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="th"><?php echo _("Th") ?></label><input id="th" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_THURSDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_THURSDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="fr"><?php echo _("Fr") ?></label><input id="fr" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_FRIDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_FRIDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="sa"><?php echo _("Sa") ?></label><input id="sa" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_SATURDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_SATURDAY)) echo ' checked="checked"' ?> />&nbsp;
-     <label for="su"><?php echo _("Su") ?></label><input id="su" type="checkbox" class="checkbox" name="weekly[]" onclick="KronolithEventForm.setInterval('recur_weekly_interval');KronolithEventForm.setRecur(2);" value="<?php echo Horde_Date::MASK_SUNDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_SUNDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="mo"><?php echo _("Mo") ?></label><input id="mo" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_MONDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_MONDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="tu"><?php echo _("Tu") ?></label><input id="tu" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_TUESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_TUESDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="we"><?php echo _("We") ?></label><input id="we" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_WEDNESDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_WEDNESDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="th"><?php echo _("Th") ?></label><input id="th" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_THURSDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_THURSDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="fr"><?php echo _("Fr") ?></label><input id="fr" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_FRIDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_FRIDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="sa"><?php echo _("Sa") ?></label><input id="sa" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_SATURDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_SATURDAY)) echo ' checked="checked"' ?> />&nbsp;
+     <label for="su"><?php echo _("Su") ?></label><input id="su" type="checkbox" class="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_SUNDAY ?>"<?php if ($event->recurs() && $event->recurrence->recurOnDay(Horde_Date::MASK_SUNDAY)) echo ' checked="checked"' ?> />&nbsp;
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurmonthday" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_day_of_month_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE)) echo ' checked="checked"' ?> /><label for="recurmonthday"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_day_of_month_interval" name="recur_day_of_month_interval" size="2" onkeypress="KronolithEventForm.setRecur(3);" onchange="KronolithEventForm.setRecur(3);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_day_of_month_interval', _("month(s)") . ' ' . _("on the same date")) ?>
+     <input id="recurmonthday" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE)) echo ' checked="checked"' ?> /><label id="recurmonthday_label" for="recurmonthday"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_day_of_month_interval" name="recur_day_of_month_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_day_of_month_interval', _("month(s)") . ' ' . _("on the same date")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recurmonthweek" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_week_of_month_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recurmonthweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" onkeypress="KronolithEventForm.setRecur(4);" onchange="KronolithEventForm.setRecur(4);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday")) ?>
+     <input id="recurmonthweek" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)) echo ' checked="checked"' ?> /><label id="recurmonthweek_label" for="recurmonthweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryear" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_yearly_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)) echo ' checked="checked"' ?> /><label for="recuryear"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" onkeypress="KronolithEventForm.setRecur(5);" onchange="KronolithEventForm.setRecur(5);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_interval', _("year(s) on the same date")) ?>
+     <input id="recuryear" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)) echo ' checked="checked"' ?> /><label id="recuryear_label" for="recuryear"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_interval', _("year(s) on the same date")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryearday" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_yearly_day_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY)) echo ' checked="checked"' ?> /><label for="recuryearday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_day_interval" name="recur_yearly_day_interval" size="2" onkeypress="KronolithEventForm.KronolithEventForm.setRecur(6);" onchange="KronolithEventForm.setRecur(6);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_day_interval', _("year(s) on the same day of the year")) ?>
+     <input id="recuryearday" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY)) echo ' checked="checked"' ?> /><label id="recuryearday_label" for="recuryearday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_day_interval" name="recur_yearly_day_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_day_interval', _("year(s) on the same day of the year")) ?>
     </td>
    </tr>
    <tr>
     <td class="nowrap">
-     <input id="recuryearweekday" type="radio" class="checkbox" name="recur" onclick="KronolithEventForm.setInterval('recur_yearly_weekday_interval');" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY)) echo ' checked="checked"' ?> /><label for="recuryearweekday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
-     <input type="text" id="recur_yearly_weekday_interval" name="recur_yearly_weekday_interval" size="2" onkeypress="KronolithEventForm.setRecur(7);" onchange="KronolithEventForm.setRecur(7);" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_weekday_interval', _("year(s) on the same weekday and month of the year")) ?>
+     <input id="recuryearweekday" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY)) echo ' checked="checked"' ?> /><label id="recuryearweekday_label" for="recuryearweekday"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_yearly_weekday_interval" name="recur_yearly_weekday_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_weekday_interval', _("year(s) on the same weekday and month of the year")) ?>
     </td>
    </tr>
   </table>
@@ -356,14 +370,10 @@ if ($event->alarm) {
   <?php echo $event->html('recur_end[year]') ?> - <?php echo $event->html('recur_end[month]') ?> - <?php echo $event->html('recur_end[day]') ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="recur_end_wday"></span>
-  <script type="text/javascript">KronolithEventForm.updateWday('recur_end_wday');</script>
  </td>
  <td>
-<?php
-Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"') . '</a>';
-endif;
-?>
+  <?php echo Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_end_img"') ?>
+<?php endif; ?>
  </td>
 </tr>
 <tr>
@@ -396,12 +406,14 @@ endif;
 
 <!-- tags  -->
 <tr>
-<td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('tags')">
- <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_tags')) . ' <strong>' . _("Tags") ?></strong>
+<td colspan="5" id="toggle_tags" class="control toggle">
+  <?php echo $show_img ?>
+  <?php echo $hide_img ?>
+  <strong><?php echo _("Tags") ?></strong>
   <span class="extra" id="extra_tags"><?php echo (!empty($tags) ? htmlspecialchars($tags) : '');?></span>
   </td>
 </tr>
-<tr id="section_tags">
+<tr id="section_tags" style="display:none">
  <td class="rightAlign">
      <strong><?php echo Horde::label('tags', _("Tags"))?></strong>
  </td>
@@ -429,7 +441,7 @@ endif;
  <td colspan="4">
   <?php echo implode("\n", $buttons) ?>
   <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" onclick="document.eventform.reset(); KronolithEventForm.updateWday('start_wday'); KronolithEventForm.updateWday('end_wday');" />
+  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
   </td>
  </tr>
 </table>

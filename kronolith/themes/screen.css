@@ -85,6 +85,9 @@ table.monthgrid th, table.monthgrid td {
     border: 1px solid #fff760;
     padding: 8px;
 }
+#eventform #start_img, #eventform #end_img, #eventform #recur_end_img {
+    cursor: pointer;
+}
 
 /* Block-specific styles. */
 .block-monthgrid {

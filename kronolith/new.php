@@ -80,11 +80,15 @@ foreach ($all_calendars as $id => $calendar) {
     $calendars[$id] = $calendar;
 }
 
+Horde_Core_Ui_JsCalendar::init(array(
+    'full_weekdays' => true
+));
+
 $title = _("Add a new event");
+Horde::addScriptFile('edit.js', 'kronolith');
 Horde::addScriptFile('popup.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
-require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

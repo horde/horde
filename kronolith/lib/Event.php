@@ -2364,7 +2364,7 @@ abstract class Kronolith_Event
         case 'start[year]':
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("Start Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $this->start->year .
-                '" type="text" onchange="' . $this->js($property) .
+                '" type="text"' .
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'start[month]':
@@ -2372,7 +2372,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 13; ++$i) {
                 $options[$i] = strftime('%b', mktime(1, 1, 1, $i, 1));
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Start Month");
             break;
 
@@ -2381,7 +2380,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 32; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Start Day");
             break;
 
@@ -2392,7 +2390,6 @@ abstract class Kronolith_Event
             for ($i = $hour_min; $i < $hour_max; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();"';
             $label = _("Start Hour");
             break;
 
@@ -2402,14 +2399,13 @@ abstract class Kronolith_Event
                 $min = sprintf('%02d', $i * 5);
                 $options[$min] = $min;
             }
-            $attributes = ' onchange="document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();"';
             $label = _("Start Minute");
             break;
 
         case 'end[year]':
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("End Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $this->end->year .
-                '" type="text" onchange="' . $this->js($property) .
+                '" type="text"' .
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'end[month]':
@@ -2417,7 +2413,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 13; ++$i) {
                 $options[$i] = strftime('%b', mktime(1, 1, 1, $i, 1));
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("End Month");
             break;
 
@@ -2426,7 +2421,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 32; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("End Day");
             break;
 
@@ -2439,7 +2433,6 @@ abstract class Kronolith_Event
             for ($i = $hour_min; $i < $hour_max; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="KronolithEventForm.updateDuration(); document.eventform.end_or_dur[0].checked = true"';
             $label = _("End Hour");
             break;
 
@@ -2450,7 +2443,6 @@ abstract class Kronolith_Event
                 $min = sprintf('%02d', $i * 5);
                 $options[$min] = $min;
             }
-            $attributes = ' onchange="KronolithEventForm.updateDuration(); document.eventform.end_or_dur[0].checked = true"';
             $label = _("End Minute");
             break;
 
@@ -2458,7 +2450,7 @@ abstract class Kronolith_Event
             $dur = $this->getDuration();
             return  '<label for="' . $property . '" class="hidden">' . _("Duration Day") . '</label>' .
                 '<input name="' . $property . '" value="' . $dur->day .
-                '" type="text" onchange="' . $this->js($property) .
+                '" type="text"' .
                 '" id="' . $property . '" size="4" maxlength="4" />';
 
         case 'dur_hour':
@@ -2467,7 +2459,6 @@ abstract class Kronolith_Event
             for ($i = 0; $i < 24; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Duration Hour");
             break;
 
@@ -2478,7 +2469,6 @@ abstract class Kronolith_Event
                 $min = sprintf('%02d', $i * 5);
                 $options[$min] = $min;
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Duration Minute");
             break;
 
@@ -2492,7 +2482,7 @@ abstract class Kronolith_Event
             }
             return  '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . _("Recurrence End Year") . '</label>' .
                 '<input name="' . $property . '" value="' . $end .
-                '" type="text" onchange="' . $this->js($property) .
+                '" type="text"' .
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
         case 'recur_end[month]':
@@ -2506,7 +2496,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 13; ++$i) {
                 $options[$i] = strftime('%b', mktime(1, 1, 1, $i, 1));
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Recurrence End Month");
             break;
 
@@ -2521,7 +2510,6 @@ abstract class Kronolith_Event
             for ($i = 1; $i < 32; ++$i) {
                 $options[$i] = $i;
             }
-            $attributes = ' onchange="' . $this->js($property) . '"';
             $label = _("Recurrence End Day");
             break;
         }
@@ -2534,34 +2522,6 @@ abstract class Kronolith_Event
             '<select name="' . $property . '"' . $attributes . ' id="' . $this->_formIDEncode($property) . '">' .
             $this->_varRenderer->selectOptions($options, $sel) .
             '</select>';
-    }
-
-    public function js($property)
-    {
-        switch ($property) {
-        case 'start[month]':
-        case 'start[year]':
-        case 'start[day]':
-        case 'start':
-            return 'KronolithEventForm.updateWday(\'start_wday\'); document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate();';
-
-        case 'end[month]':
-        case 'end[year]':
-        case 'end[day]':
-        case 'end':
-            return 'KronolithEventForm.updateWday(\'end_wday\'); updateDuration(); document.eventform.end_or_dur[0].checked = true;';
-
-        case 'recur_end[month]':
-        case 'recur_end[year]':
-        case 'recur_end[day]':
-        case 'recur_end':
-            return 'KronolithEventForm.updateWday(\'recur_end_wday\'); document.eventform.recur_end_type[1].checked = true;';
-
-        case 'dur_day':
-        case 'dur_hour':
-        case 'dur_min':
-            return 'document.eventform.whole_day.checked = false; KronolithEventForm.updateEndDate(); document.eventform.end_or_dur[1].checked = true;';
-        }
     }
 
     /**

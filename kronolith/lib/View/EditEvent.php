@@ -119,9 +119,14 @@ class Kronolith_View_EditEvent {
         $tags = $tagger->getTags($event->uid, 'event');
         $tags = implode(',', array_values($tags));
 
-        echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
+        Horde_Core_Ui_JsCalendar::init(array(
+            'full_weekdays' => true
+        ));
+
+        Horde::addScriptFile('edit.js', 'kronolith');
         Horde::addScriptFile('popup.js', 'horde');
-        require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
+
+        echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
         require KRONOLITH_TEMPLATES . '/edit/edit.inc';
         echo '</div>';
 

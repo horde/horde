@@ -19,14 +19,10 @@
   <?php echo $event->html('start[day]') ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="start_wday"></span>
-  <script type="text/javascript">
-  KronolithEventForm.updateWday('start_wday');
-  </script>
  </td>
  <td>
-<?php Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false)); ?>
-  <div id="goto" style="display:none"></div>
-  <?php echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'startimg\', \'start\', \'' . addslashes($event->js('start')) . '\'); return false;')) . Horde::img('calendar.png', _("Set start date"), 'id="startimg"') . '</a>'; endif; ?>
+  <?php echo Horde::img('calendar.png', _("Set start date"), 'id="start_img"') ?>
+<?php endif; ?>
  </td>
 </tr>
 
@@ -46,8 +42,8 @@
           $pm = ' checked="checked"';
       }
   ?>
-  <input id="am" type="radio" class="checkbox" name="am_pm" value="AM"<?php echo $am ?> onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();" /><label for="am" onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();">AM</label>
-  <input id="pm" type="radio" class="checkbox" name="am_pm" value="PM"<?php echo $pm ?> onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();" /><label for="pm" onclick="$('allday').checked=false;KronolithEventForm.updateEndDate();">PM</label>
+  <input id="am" type="radio" class="checkbox" name="am_pm" value="AM"<?php echo $am ?> /><label id="am_label" for="am">AM</label>
+  <input id="pm" type="radio" class="checkbox" name="am_pm" value="PM"<?php echo $pm ?> /><label id="pm_label" for="pm">PM</label>
   <?php } ?>
  </td>
 </tr>
@@ -69,16 +65,10 @@
   <?php echo $event->html('end[day]') ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="end_wday"></span>
-  <script type="text/javascript">
-  KronolithEventForm.updateWday('end_wday');
-  </script>
   </td>
   <td rowspan="2" valign="top">
-<?php
-Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-echo Horde::url('#')->link(array('title' => _("Select a date"), 'onclick' => 'openCalendar(\'endimg\', \'end\', \'' . addslashes($event->js('end')) . '\'); return false;')) . Horde::img('calendar.png', _("Set end date"), array('id' => 'endimg')) . '</a>';
-endif;
-?>
+   <?php echo Horde::img('calendar.png', _("Set end date"), array('id' => 'end_img')) ?>
+<?php endif; ?>
  </td>
 </tr>
 
@@ -101,8 +91,8 @@ endif;
           $pm = ' checked="checked"';
       }
   ?>
-  <input id="eam" type="radio" class="checkbox" name="end_am_pm" value="AM"<?php echo $am ?> onclick="$('end').checked=true;KronolithEventForm.updateDuration()" /><label for="eam" onclick="$('end').checked=true;KronolithEventForm.updateDuration()">AM</label>
-  <input id="epm" type="radio" class="checkbox" name="end_am_pm" value="PM"<?php echo $pm ?> onclick="$('end').checked=true;KronolithEventForm.updateDuration()" /><label for="epm" onclick="$('end').checked=true;KronolithEventForm.updateDuration()">PM</label>
+  <input id="eam" type="radio" class="checkbox" name="end_am_pm" value="AM"<?php echo $am ?> /><label id="eam_label" for="eam">AM</label>
+  <input id="epm" type="radio" class="checkbox" name="end_am_pm" value="PM"<?php echo $pm ?> /><label id="epm_label" for="epm">PM</label>
   <?php } ?>
  </td>
 </tr>
@@ -115,8 +105,8 @@ endif;
  </td>
  <td>&nbsp;</td>
  <td valign="top">
-  <input id="allday" name="whole_day" type="checkbox" class="checkbox" value="1" onclick="KronolithEventForm.setWholeDay(this.value); KronolithEventForm.updateEndDate(); $('duration').checked = true"<?php $dur = $event->getDuration(); if ($dur->wholeDay) echo ' checked="checked"' ?> />
-  <?php echo Horde::label('allday', _("All day")) ?><br />
+  <input id="allday" name="whole_day" type="checkbox" class="checkbox"<?php $dur = $event->getDuration(); if ($dur->wholeDay) echo ' checked="checked"' ?> />
+  <label id="allday_label" for="allday"><?php echo _("All day") ?></label><br />
   <?php printf(_("%s Day(s) %s Hour(s) %s Minutes"), $event->html('dur_day'), $event->html('dur_hour'), $event->html('dur_min')) ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
  </td>

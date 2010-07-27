@@ -101,6 +101,11 @@ if ($search_mode == 'basic') {
     }
 }
 
+if ($search_mode != 'basic') {
+    Horde_Core_Ui_JsCalendar::init();
+    Horde::addScriptFile('edit.js', 'kronolith');
+}
+
 $title = _("Search");
 Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
