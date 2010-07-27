@@ -20,12 +20,22 @@ class Horde_Core_Ui_JsCalendar
      * widget.
      *
      * @param array $params  Configuration parameters for the widget:
-     *                       - short_weekdays: display only the first letter of
-     *                         weekdays?
+     * <pre>
+     * 'full_weekdays' - (boolean) Add full weekday localized list to
+     *                   javascript object.
+     *                   DEFAULT: false
+     * 'short_weekdays' - (boolean) Display only the first letter of
+     *                    weekdays?
+     *                    DEFAULT: false
+     * </pre>
      */
-    static public function init($params = array())
+    static public function init(array $params = array())
     {
-        $params += array('short_weekdays' => false);
+        $params = array_merge(array(
+            'full_weekdays' => false,
+            'short_weekdays' => false
+        ), $params);
+
         $weekdays = self::weekdays();
         if ($params['short_weekdays']) {
             foreach ($weekdays as &$day) {
@@ -37,8 +47,13 @@ class Horde_Core_Ui_JsCalendar
         Horde::addInlineScript(array(
             'Horde_Calendar.firstDayOfWeek = ' . (isset($GLOBALS['prefs']) ? intval($GLOBALS['prefs']->getValue('first_week_day')) : 1),
             'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize($weekdays, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-            'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
+            'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
+        if ($params['full_weekdays']) {
+            Horde::addInlineScript(array(
+                'Horde_Calendar.fullweekdays = ' . Horde_Serialize::serialize(self::fullWeekdays(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+            ));
+        }
     }
 
     /**
@@ -56,6 +71,24 @@ class Horde_Core_Ui_JsCalendar
             _("Th"),
             _("Fr"),
             _("Sa")
+        );
+    }
+
+    /**
+     * Return the list of localized full weekday names.
+     *
+     * @return array  Full weekday names.
+     */
+    static public function fullWeekdays()
+    {
+        return array(
+            _("Sunday"),
+            _("Monday"),
+            _("Tuesday"),
+            _("Wednesday"),
+            _("Thursday"),
+            _("Friday"),
+            _("Saturday"),
         );
     }
 

@@ -9,7 +9,8 @@
 
 var Horde_Calendar =
 {
-    // Variables set externally: firstDayOfWeek, months, weekdays
+    // Variables set externally: firstDayOfWeek, fullweekdays, months,
+    //                           weekdays
     // Variables defaulting to null: date, month, openDate, trigger, year
 
     open: function(trigger, data)
