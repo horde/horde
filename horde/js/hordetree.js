@@ -570,7 +570,8 @@ var Horde_Tree = Class.create({
 
     _onClick: function(e)
     {
-        var elt = e.element();
+        var elt = e.element(),
+            id = elt.readAttribute('id');
 
         if (elt.hasClassName('treeIcon')) {
             elt = elt.up().previous();
@@ -578,8 +579,9 @@ var Horde_Tree = Class.create({
             elt = elt.previous();
         }
 
-        if (elt.readAttribute('id').startsWith('nodeToggle_')) {
-            this.toggle(elt.readAttribute('id').substr(11));
+        id = elt.readAttribute('id');
+        if (id && id.startsWith('nodeToggle_')) {
+            this.toggle(id.substr(11));
             e.stop();
         }
     }
