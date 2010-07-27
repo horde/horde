@@ -179,9 +179,6 @@ HTML;
      *                        application.
      * @param array $options  Additional options:
      * <pre>
-     * 'direct' - (boolean) Include the file directly without passing it
-     *            through javascript.php.
-     *            DEFAULT: true
      * 'external' - (boolean) Treat $file as an external URL.
      *              DEFAULT: $file is located in the app's js/ directory.
      * 'full' - (boolean) Output a full URL
@@ -195,7 +192,7 @@ HTML;
     {
         $hsf = $GLOBALS['injector']->getInstance('Horde_Script_Files');
         if (empty($options['external'])) {
-            $hsf->add($file, $app, isset($options['direct']) ? $options['direct'] : true, !empty($options['full']));
+            $hsf->add($file, $app, !empty($options['full']));
         } else {
             $hsf->addExternal($file, $app);
         }

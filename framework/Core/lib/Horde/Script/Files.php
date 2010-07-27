@@ -33,16 +33,14 @@ class Horde_Script_Files
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include.
      *
-     * @param string $file     The full javascript file name.
-     * @param string $app      The application name. Defaults to the current
-     *                         application.
-     * @param boolean $direct  Include the file directly without passing it
-     *                         through javascript.php?
-     * @param boolean $full    Output a full url?
+     * @param string $file   The full javascript file name.
+     * @param string $app    The application name. Defaults to the current
+     *                       application.
+     * @param boolean $full  Output a full url?
      */
-    public function add($file, $app = null, $direct = false, $full = false)
+    public function add($file, $app = null, $full = false)
     {
-        if (($this->_add($file, $app, $direct, $full) === false) ||
+        if (($this->_add($file, $app, $full) === false) ||
             !Horde::contentSent()) {
             return;
         }
@@ -89,7 +87,7 @@ class Horde_Script_Files
      *
      * @return boolean  True if the file needs to be output.
      */
-    public function _add($file, $app, $direct, $full)
+    public function _add($file, $app, $full)
     {
         global $registry;
 
@@ -114,38 +112,19 @@ class Horde_Script_Files
             Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
         }
 
-        // Explicitly check for a directly serve-able version of the script.
-        $path = $registry->get('fileroot', $app);
-        if (!$direct &&
-            file_exists($file[0] == '/'
-                        ? $path . $file
-                        : $registry->get('jsfs', $app) . '/' . $file)) {
-            $direct = true;
-        }
-
-        if ($direct) {
-            if ($file[0] == '/') {
-                $url = Horde::url($registry->get('webroot', $app) . $file,
-                                  $full, -1);
-            } else {
-                $url = Horde::url($registry->get('jsuri', $app) . '/' . $file,
-                                  $full, -1);
-                $path = $registry->get('jsfs', $app) . '/';
-            }
-
+        if ($file[0] == '/') {
+            $url = Horde::url($registry->get('webroot', $app) . $file, $full, -1);
+            $path = $registry->get('fileroot', $app);
         } else {
-            $path = $registry->get('templates', $app) . '/javascript/';
-            $url = Horde::url(
-                Horde_Util::addParameter(
-                    $registry->get('webroot', 'horde') . '/services/javascript.php',
-                    array('file' => $file, 'app' => $app)));
+            $url = Horde::url($registry->get('jsuri', $app) . '/' . $file, $full, -1);
+            $path = $registry->get('jsfs', $app) . '/';
         }
 
         $this->_files[$app][] = array(
+            'd' => true,
             'f' => $file,
-            'd' => $direct,
-            'u' => $url,
-            'p' => $path
+            'p' => $path,
+            'u' => $url
         );
 
         return true;
