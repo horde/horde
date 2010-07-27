@@ -208,7 +208,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                 $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_default',  '&', $perm) . ')';
 
                 // (name == perm_users and key == $userid and val & $perm)
-                $query .= ' LEFT JOIN ' . $this->_table . '_users AS u ON u.share_id = s.share_id';
+                $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
                 $where .= ' OR ( u.user_uid = ' .  $this->_write_db->quote($userid)
                 . ' AND (' . Horde_SQL::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
 
@@ -224,7 +224,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                         foreach ($ids as $id) {
                             $group_ids[] = $this->_db->quote((string)$id);
                         }
-                        $query .= ' LEFT JOIN ' . $this->_table . '_groups AS g ON g.share_id = s.share_id';
+                        $query .= ' LEFT JOIN ' . $this->_table . '_groups g ON g.share_id = s.share_id';
                         $where .= ' OR (g.group_uid IN (' . implode(',', $group_ids) . ')'
                             . ' AND (' . Horde_SQL::buildClause($this->_db, 'g.perm', '&', $perm) . '))';
                     }
