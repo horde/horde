@@ -341,15 +341,6 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                              $this->_selectOptions($dates[$part], $date[$part]));
         }
 
-        if ($var->type->picker && $GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-            $imgId = $var->getVarName() .'goto';
-            $html .= '<div id="goto"></div>';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'' . $imgId . '\', \'' . $var->getVarName() . '\'); return false;')
-                . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '" ')
-                . '</a>';
-        }
-
         return $html;
     }
 

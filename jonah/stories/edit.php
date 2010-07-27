@@ -64,9 +64,6 @@ if ($form->validate($vars)) {
     }
 }
 
-/* Needed javascript. */
-Horde::addScriptFile('open_calendar.js', 'horde');
-
 /* Render the form. */
 $template = new Horde_Template();
 

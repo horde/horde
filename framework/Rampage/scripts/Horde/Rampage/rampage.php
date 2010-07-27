@@ -946,24 +946,14 @@ function render_edit($field)
     // Date/Time Types
     case 'date':
     case 'unixdate':
-        return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>
-                                        <?php if (\$GLOBALS['browser']->hasFeature('javascript')) {
-                                                  Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-                                                  echo '<div id=\"goto\" class=\"control\" style=\"position:absolute;visibility:hidden;padding:1px\"></div>';
-                                                  echo Horde::link('#', _(\"Select a date\"), '', '', 'openCalendar(\'${n}img\', \'$n\', \'\'); return false;') . Horde::img('calendar.gif', _(\"Calendar\"), 'align=\"top\" id=\"${n}img\"', \$GLOBALS['registry']->get('graphics', 'horde')) . '</a>';
-                                              } ?>";
+        return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>";
 
     case 'datetime':
     case 'timestamp':
     case 'unixepoch':
         return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>
-                                        <?php if (\$GLOBALS['browser']->hasFeature('javascript')) {
-                                                  Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-                                                  echo '<div id=\"goto\" class=\"control\" style=\"position:absolute;visibility:hidden;padding:1px\"></div>';
-                                                  echo Horde::link('#', _(\"Select a date\"), '', '', 'openCalendar(\'${n}img\', \'$n\', \'\'); return false;') . Horde::img('calendar.gif', _(\"Calendar\"), 'align=\"top\" id=\"${n}img\"', \$GLOBALS['registry']->get('graphics', 'horde')) . '</a>';
-                                              } ?>
-                                              <p>
-                                              <?php echo Zombie::buildTimeWidget('$n',\$zitem['$n']) ?>";
+                <p>
+                <?php echo Zombie::buildTimeWidget('$n',\$zitem['$n']) ?>";
 
     case 'time':
     case 'unixtime':
