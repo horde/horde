@@ -55,7 +55,8 @@ if (!$main_page) {
     } else {
         /* Search for a user-specified initial application. */
         $initial_app = $prefs->getValue('initial_application');
-        if (!empty($initial_app) &&
+        if (Horde_Util::nonInputVar('login_redirect') &&
+            !empty($initial_app) &&
             ($initial_app != 'horde') &&
             $registry->hasPermission($initial_app)) {
             $main_page = Horde::url($initial_app, true) . '/';

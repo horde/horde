@@ -217,6 +217,7 @@ if ($error_reason) {
             }
         }
 
+        $login_redirect = true;
         require HORDE_BASE . '/index.php';
         exit;
     }
