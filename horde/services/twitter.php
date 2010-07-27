@@ -34,7 +34,12 @@ $action = Horde_Util::getPost('actionID');
 switch ($action) {
 
 case 'updateStatus':
-    $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), Horde_Util::getPost('inReplyTo', ''));
+    if ($inreplyTo = Horde_Util::getPost('inReplyTo')) {
+        $params = array('in_reply_to_status_id', $inreplyTo);
+    } else {
+        $params = array();
+    }
+    $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), $params);
     header('Content-Type: application/json');
     echo $result;
     exit;

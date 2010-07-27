@@ -66,10 +66,6 @@ class Horde_Service_Twitter_Statuses
      * Update the current user's status.
      *
      * @param string $status  The new status text.
-     * @param string $replyTo If specified, *and* the text of the status contains
-     *                        a mention of the author of the replied to status
-     *                        (i.e. `@username`) this update will be "in reply to"
-     *                        the specifed status message id.
      * @param array $params   Any additional parameters.
      *   <pre>
      *     in_reply_to_status_id  - the status id this tweet is in response to.
