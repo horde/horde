@@ -198,6 +198,11 @@ table#tasklist-list th.sortdown {
     word-wrap: break-word;
 }
 
+#dueimg, #startimg {
+    cursor: pointer;
+    padding-left: 3px;
+}
+
 @media print {
     .header .smallheader, .tabset, .notices, #pageControls, #quicksearchL, #quicksearch {
         display: none;

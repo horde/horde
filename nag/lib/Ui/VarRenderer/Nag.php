@@ -82,13 +82,10 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
     protected function _renderVarInput_nag_start($form, $var, $vars)
     {
         $var->type->getInfo($vars, $var, $task_start);
-        if ($task_start == 0) {
-            $start_date = getdate(time() + 604800); // About a week from now
-        } else {
-            $start_date = getdate($task_start);
-        }
-
-        $javascript_start = 'onchange="document.' . $form->getName() . '.start_date[1].checked = true;"';
+        $start_date = ($task_start == 0)
+            // About a week from now
+            ? getdate(time() + 604800)
+            : getdate($task_start);
 
         /* Set up the radio buttons. */
         $no_start_checked = ($task_start == 0) ? 'checked="checked" ' : '';
@@ -103,13 +100,16 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 <label for="start_day" class="hidden"><?php echo _("Day") ?></label>
 <label for="start_month" class="hidden"><?php echo _("Month") ?></label>
 <label for="start_year" class="hidden"><?php echo _("Year") ?></label>
-<?php echo $this->buildDayWidget('start[day]', $start_date['mday'], $javascript_start) . ' ' . $this->buildMonthWidget('start[month]', $start_date['mon'], $javascript_start) . ' ' . $this->buildYearWidget('start[year]', 3, $start_date['year'], $javascript_start) ?>
-<?php if ($GLOBALS['browser']->hasFeature('javascript')) {
-Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-echo '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>';
-echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'start\', \'document.' . $form->getName() . '.start_date[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="startimg"') . '</a>';
-} ?>
+<?php echo $this->buildDayWidget('start[day]', $start_date['mday']) . ' ' . $this->buildMonthWidget('start[month]', $start_date['mon']) . ' ' . $this->buildYearWidget('start[year]', 3, $start_date['year']) ?>
 <?php
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'full_weekdays' => true
+            ));
+            Horde::addScriptFile('calendar.js', 'nag');
+            echo '<span id="start_wday"></span>' .
+                Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
+        }
     }
 
     protected function _renderVarInput_nag_due($form, $var, $vars)
@@ -134,10 +134,9 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'
             $due_date = getdate($task_due);
         }
 
-        $javascript_due = 'onchange="document.' . $form->getName() . '.due_type[1].checked = true;"';
-        $hour_widget = $this->buildHourWidget('due_hour', $due_date['hours'], $javascript_due);
-        $minute_widget = $this->buildMinuteWidget('due_minute', 15, $due_date['minutes'], $javascript_due);
-        $am_pm_widget = $this->buildAmPmWidget('due_am_pm', $due_date['hours'], $javascript_due, $javascript_due);
+        $hour_widget = $this->buildHourWidget('due_hour', $due_date['hours']);
+        $minute_widget = $this->buildMinuteWidget('due_minute', 15, $due_date['minutes']);
+        $am_pm_widget = $this->buildAmPmWidget('due_am_pm', $due_date['hours']);
 
         /* Set up the radio buttons. */
         $none_checked = ($task_due == 0) ? 'checked="checked" ' : '';
@@ -152,11 +151,17 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'
 <label for="due_day" class="hidden"><?php echo _("Day") ?></label>
 <label for="due_month" class="hidden"><?php echo _("Month") ?></label>
 <label for="due_year" class="hidden"><?php echo _("Year") ?></label>
-<?php echo $this->buildDayWidget('due[day]', $due_date['mday'], $javascript_due) . ' ' . $this->buildMonthWidget('due[month]', $due_date['mon'], $javascript_due) . ' ' . $this->buildYearWidget('due[year]', 3, $due_date['year'], $javascript_due) ?>
-<?php if ($GLOBALS['browser']->hasFeature('javascript')) {
-echo '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>';
-echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'due\', \'document.' . $form->getName() . '.due_type[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="dueimg"') . '</a>';
-} ?>
+<?php echo $this->buildDayWidget('due[day]', $due_date['mday']) . ' ' . $this->buildMonthWidget('due[month]', $due_date['mon']) . ' ' . $this->buildYearWidget('due[year]', 3, $due_date['year']) ?>
+<?php
+        if ($GLOBALS['browser']->hasFeature('javascript')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'full_weekdays' => true
+            ));
+            Horde::addScriptFile('calendar.js', 'nag');
+            echo '<span id="due_wday"></span>' .
+                Horde::img('calendar.png', _("Calendar"), 'id="dueimg"');
+        }
+?>
 <br />
 
 <input type="radio" class="radio" style="visibility:hidden;" />
@@ -219,20 +224,14 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @param string $name      The name of the widget.
      * @param integer $default  The value to select by default. Range: 1-31
-     * @param string $params    Any additional parameters to include in the
-     *                          <select> tag.
      *
      * @return string  The HTML <select> widget.
      */
-    public function buildDayWidget($name, $default = null, $params = null)
+    public function buildDayWidget($name, $default = null)
     {
         $id = str_replace(array('[', ']'), array('_', ''), $name);
 
-        $html = '<select id="' . $id . '" name="' . $name. '"';
-        if (!is_null($params)) {
-            $html .= ' ' . $params;
-        }
-        $html .= '>';
+        $html = '<select id="' . $id . '" name="' . $name. '">';
 
         for ($day = 1; $day <= 31; $day++) {
             $html .= '<option value="' . $day . '"';
@@ -248,20 +247,14 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @param string $name      The name of the widget.
      * @param integer $default  The value to select by default.
-     * @param string $params    Any additional parameters to include in the
-     *                          <select> tag.
      *
      * @return string  The HTML <select> widget.
      */
-    public function buildMonthWidget($name, $default = null, $params = null)
+    public function buildMonthWidget($name, $default = null)
     {
         $id = str_replace(array('[', ']'), array('_', ''), $name);
 
-        $html = '<select id="' . $id . '" name="' . $name. '"';
-        if (!is_null($params)) {
-            $html .= ' ' . $params;
-        }
-        $html .= '>';
+        $html = '<select id="' . $id . '" name="' . $name. '">';
 
         for ($month = 1; $month <= 12; $month++) {
             $html .= '<option value="' . $month . '"';
@@ -280,12 +273,10 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *                         If (+): future years
      *                         If (-): past years
      * @param string $default  The timestamp to select by default.
-     * @param string $params   Any additional parameters to include in the
-     *                         <select> tag.
      *
      * @return string  The HTML <select> widget.
      */
-    public function buildYearWidget($name, $years, $default = null, $params = null)
+    public function buildYearWidget($name, $years, $default = null)
     {
         $curr_year = date('Y');
         $yearlist = array();
@@ -301,11 +292,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
 
         $id = str_replace(array('[', ']'), array('_', ''), $name);
 
-        $html = '<select id="' . $id . '" name="' . $name. '"';
-        if (!is_null($params)) {
-            $html .= ' ' . $params;
-        }
-        $html .= '>';
+        $html = '<select id="' . $id . '" name="' . $name. '">';
 
         foreach ($yearlist as $year) {
             $html .= '<option value="' . $year . '"';
@@ -321,23 +308,17 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @param string $name      The name of the widget.
      * @param integer $default  The timestamp to select by default.
-     * @param string $params    Any additional parameters to include in the
-     *                          <select> tag.
      *
      * @return string  The HTML <select> widget.
      */
-    public function buildHourWidget($name, $default = null, $params = null)
+    public function buildHourWidget($name, $default = null)
     {
         global $prefs;
         if (!$prefs->getValue('twentyFour')) {
             $default = ($default + 24) % 12;
         }
 
-        $html = '<select id="' . $name . '" name="' . $name. '"';
-        if (!is_null($params)) {
-            $html .= ' ' . $params;
-        }
-        $html .= '>';
+        $html = '<select id="' . $name . '" name="' . $name. '">';
 
         $min = $prefs->getValue('twentyFour') ? 0 : 1;
         $max = $prefs->getValue('twentyFour') ? 23 : 12;
@@ -350,10 +331,12 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
         return $html . '</select>';
     }
 
-    public function buildAmPmWidget($name, $default = 'am', $amParams = null, $pmParams = null)
+    /**
+     * TODO
+     */
+    public function buildAmPmWidget($name, $default = 'am')
     {
-        global $prefs;
-        if ($prefs->getValue('twentyFour')) {
+        if ($GLOBALS['prefs']->getValue('twentyFour')) {
             return;
         }
 
@@ -368,8 +351,8 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
             $pm = ' checked="checked"';
         }
 
-        $html  = '<input id="' . $name . '_am" type="radio" class="radio" name="' . $name . '" value="am"' . $am . (!empty($amParams) ? ' ' . $amParams : '') . ' /><label for="' . $name . '_am">AM</label>&nbsp;&nbsp;';
-        $html .= '<input id="' . $name . '_pm" type="radio" class="radio" name="' . $name . '" value="pm"' . $pm . (!empty($pmParams) ? ' ' . $pmParams : '') . ' /><label for="' . $name . '_pm">PM</label>';
+        $html  = '<input id="' . $name . '_am" type="radio" class="radio" name="' . $name . '" value="am"' . $am . ' /><label id="' . $name . '_am_label" for="' . $name . '_am">AM</label>&nbsp;&nbsp;';
+        $html .= '<input id="' . $name . '_pm" type="radio" class="radio" name="' . $name . '" value="pm"' . $pm . ' /><label id="' . $name . '_pm_label" for="' . $name . '_pm">PM</label>';
 
         return $html;
     }
@@ -380,19 +363,12 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      * @param string $name        The name of the widget.
      * @param integer $increment  The increment between minutes.
      * @param integer $default    The timestamp to select by default.
-     * @param string $params      Any additional parameters to include in the
-     *                            <select> tag.
      *
      * @return string  The HTML <select> widget.
      */
-    public function buildMinuteWidget($name, $increment = 1, $default = null,
-                                      $params = null)
+    public function buildMinuteWidget($name, $increment = 1, $default = null)
     {
-        $html = '<select id="' . $name . '" name="' . $name. '"';
-        if (!is_null($params)) {
-            $html .= ' ' . $params;
-        }
-        $html .= '>';
+        $html = '<select id="' . $name . '" name="' . $name. '">';
 
         for ($minute = 0; $minute < 60; $minute += $increment) {
             $html .= '<option value="' . $minute . '"';
