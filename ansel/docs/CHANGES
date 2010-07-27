@@ -10,6 +10,7 @@ v2.0-git
 v1.1.2-cvs
 ----------
 
+[jan] Add French translation (Maxime Chavagne <maxime@chavagne.net>).
 [mjr] Enforce the same allowed characters for tags as slugs (Bug #9005).
 [mjr] Fix clicking on image edit actions causes logout when not using cookies.
 [mjr] Fix adding a face name from the gallery faces view (Bug #9002).
