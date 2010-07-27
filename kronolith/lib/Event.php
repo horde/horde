@@ -1395,6 +1395,9 @@ abstract class Kronolith_Event
         if (!empty($hash['location'])) {
             $this->location = $hash['location'];
         }
+        if (!empty($hash['private'])) {
+            $this->private = true;
+        }
         if (!empty($hash['start_date'])) {
             $date = explode('-', $hash['start_date']);
             if (empty($hash['start_time'])) {

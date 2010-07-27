@@ -40,6 +40,7 @@ v3.0-git
 v2.3.5-cvs
 ----------
 
+[jan] Import and export the privacy field in CSV data (Request #9139).
 [mjr] Send an iTip REQUEST, not ADD, when updating an existing event
       (Bug #9131).
 [jan] Fix all-day events sometimes showing up an day early too (Bug #9012).
