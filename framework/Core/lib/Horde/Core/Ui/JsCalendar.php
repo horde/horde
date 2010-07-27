@@ -16,6 +16,13 @@
 class Horde_Core_Ui_JsCalendar
 {
     /**
+     * Make sure init() is only run once.
+     *
+     * @var boolean
+     */
+    static protected $_initRun = false;
+
+    /**
      * Output the necessary javascript code to allow display of the calendar
      * widget.
      *
@@ -31,6 +38,11 @@ class Horde_Core_Ui_JsCalendar
      */
     static public function init(array $params = array())
     {
+        if (self::$_initRun) {
+            return;
+        }
+        self::$_initRun = true;
+
         $params = array_merge(array(
             'full_weekdays' => false,
             'short_weekdays' => false
