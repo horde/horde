@@ -1112,7 +1112,7 @@ function commit($help_only = false)
         }
         if (!$test) system($sh);
         if ($git) {
-            $c->writeln('You have to push the commit manually!');
+            $c->message('You have to push the commit manually!', 'cli.warning');
         }
     }
 }
