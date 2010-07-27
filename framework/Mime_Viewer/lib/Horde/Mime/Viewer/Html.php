@@ -110,6 +110,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
     {
         global $browser;
 
+        $charset = isset($options['charset'])
+            ? $options['charset']
+            : $this->_mimepart->getCharset();
         $strip_style_attributes = (!empty($options['inline']) &&
                                    (($browser->isBrowser('mozilla') &&
                                     ($browser->getMajor() == 4)) ||
@@ -136,7 +139,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         $this->_node($data, $data);
 
-        return $data->saveHTML();
+        return Horde_String::convertCharset($data->saveHTML(), $data->encoding, $charset);
     }
 
     /**
