@@ -178,6 +178,7 @@ v5.0-git
 v4.3.8-cvs
 ----------
 
+[jan] Include "anyone" user when listing users in the ACL screen (Bug 9135).
 [mms] Turn DNS prefetching off when displaying untrusted message content
       (Ticket #8836).
 

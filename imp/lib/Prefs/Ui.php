@@ -712,7 +712,7 @@ class IMP_Prefs_Ui
             $t->set('noadmin', true);
         } else {
             $current_users = array_keys($curr_acl);
-            $new_user = array();
+            $new_user = array('anyone');
 
             foreach ($GLOBALS['registry']->callByPackage('listUsers', 'imp') as $user) {
                 if (in_array($user, $current_users)) {
