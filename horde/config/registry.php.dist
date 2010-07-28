@@ -64,7 +64,7 @@
 $this->applications['horde'] = array(
     'fileroot' => dirname(__FILE__) . '/..',
     'webroot' => _detect_webroot(),
-    'initial_page' => 'index.php',
+    'initial_page' => 'services/portal/index.php',
     'name' => _("Horde"),
     'status' => 'active',
     'templates' => dirname(__FILE__) . '/../templates',
