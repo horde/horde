@@ -264,7 +264,7 @@ class Ansel
                     if ($data['view'] == 'Image' &&
                         !empty($data['gallery_view']) &&
                         $data['gallery_view'] == 'GalleryLightbox') {
-                        $url->addAnchor($data['image']);
+                        $url->setAnchor($data['image']);
                     }
 
                 } elseif ($data['view'] == 'Results')  {
@@ -303,7 +303,7 @@ class Ansel
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
                     $data['view'] = 'Gallery';
-                    $url->addAnchor($data['image']);
+                    $url->setAnchor($data['image']);
                 }
 
                 return $url->add($data)->setRaw(true);

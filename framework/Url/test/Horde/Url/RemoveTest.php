@@ -24,7 +24,7 @@ class Horde_Url_RemoveTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?bar=2&baz=3', (string)$url->remove('foo'));
 
         $url = new Horde_Url('test?foo=1#baz');
-        $url->addAnchor('');
+        $url->setAnchor('');
         $this->assertEquals('test?foo=1', (string)$url);
     }
 
@@ -43,7 +43,7 @@ class Horde_Url_RemoveTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?bar=2&amp;baz=3', (string)$url->remove('foo'));
 
         $url = new Horde_Url('test?foo=1&amp;bar=2#baz');
-        $url->addAnchor('');
+        $url->setAnchor('');
         $this->assertEquals('test?foo=1&amp;bar=2', (string)$url);
     }
 

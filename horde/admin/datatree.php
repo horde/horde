@@ -18,7 +18,7 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
 
     foreach ($nodes as $id => $node) {
         if ($id != $parent_id) {
-            $node_url = $url->copy()->add('show', $datatree->getParam('group') . ':' . $id)->addAnchor('show');
+            $node_url = $url->copy()->add('show', $datatree->getParam('group') . ':' . $id)->setAnchor('show');
 
             $tree->addNode($parent . ':' . $id, $parent, $datatree->getShortName($node), $indent, false, array('url' => strval($node_url)));
             _addTree($parent . ':' . $id, $id, $datatree, $tree, $indent + 1);
