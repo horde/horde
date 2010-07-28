@@ -2888,8 +2888,20 @@ class Kronolith
             $menu->add(Horde::applicationUrl('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
-            Horde::addScriptFile('goto.js', 'kronolith', array('direct' => false));
-            $menu->add('#', _("_Goto"), 'goto.png', null, '', 'openKGoto(kronolithDate, event); return false;');
+            Horde_Core_Ui_JsCalendar::init(array(
+                'click_month' => true,
+                'click_week' => true,
+                'click_year' => true,
+                'full_weekdays' => true
+            ));
+            Horde::addScriptFile('goto.js', 'kronolith');
+            Horde::addInlineScript(array(
+                'KronolithGoto.dayurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('day.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.monthurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('month.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.weekurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('week.php')), Horde_Serialize::JSON, $registry->getCharset()),
+                'KronolithGoto.yearurl = ' . Horde_Serialize::serialize(strval(Horde::applicationUrl('year.php')), Horde_Serialize::JSON, $registry->getCharset()),
+            ));
+            $menu->add('#', _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
         }
         $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
