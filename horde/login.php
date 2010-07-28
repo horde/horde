@@ -262,8 +262,8 @@ if (!empty($conf['auth']['alternate_login'])) {
     $anchor = _addAnchor($url_in, 'param', $vars, $url_anchor);
     $found = false;
     foreach ($url->parameters as $key => $value) {
-        if (strpos($value, '%25u') || strpos($value, '%u')) {
-            $url->parameters[$key] = str_replace(array('%25u', '%u'), rawurlencode($anchor), $value);
+        if (strpos($value, '%u') !== false) {
+            $url->parameters[$key] = str_replace('%u', $anchor, $value);
             $found = true;
         }
     }
