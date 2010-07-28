@@ -634,7 +634,7 @@ class IMP
         /* Need to buffer sidebar output here, because it may add things like
          * cookies which need to be sent before output begins. */
         Horde::startBuffer();
-        require HORDE_BASE . '/services/portal/sidebar.php';
+        require HORDE_BASE . '/services/sidebar.php';
         self::$_sidebar = Horde::endBuffer();
     }
 

@@ -6,7 +6,7 @@
  */
 
 var HordeSidebar = {
-    // Variables set in services/portal/sidebar.php:
+    // Variables set in services/sidebar.php:
     // domain, path, refresh, rtl, tree, url, width
 
     getCookie: function(name, deflt)

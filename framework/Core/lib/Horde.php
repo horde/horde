@@ -508,7 +508,7 @@ HTML;
                 ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
         case 'sidebar':
-            return self::url($webroot . '/services/portal/sidebar.php');
+            return self::url($webroot . '/services/sidebar.php');
         }
 
         return false;

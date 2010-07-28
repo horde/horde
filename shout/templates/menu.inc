@@ -55,4 +55,4 @@ function accountSubmit(clear)
 
   <?php echo Shout::getMenu('string') ?>
 </div>
-<?php require HORDE_BASE . '/services/portal/sidebar.php'; ?>
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>

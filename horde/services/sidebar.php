@@ -43,7 +43,7 @@ if (!Horde_Util::getFormData('ajaxui') &&
         'HordeSidebar.width = ' . intval($prefs->getValue('sidebar_width'))
     ));
 
-    require $registry->get('templates', 'horde') . '/portal/sidebar.inc';
+    require $registry->get('templates', 'horde') . '/sidebar/sidebar.inc';
 
     echo '<div id="horde_body" class="body" style="margin-left:' . intval($prefs->getValue('sidebar_width')) . 'px">';
 } else {

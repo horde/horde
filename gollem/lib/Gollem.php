@@ -714,7 +714,7 @@ class Gollem
         $t->set('menu_string', Gollem::getMenu()->render());
 
         echo $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
-        require HORDE_BASE . '/services/portal/sidebar.php';
+        require HORDE_BASE . '/services/sidebar.php';
     }
 
     /**

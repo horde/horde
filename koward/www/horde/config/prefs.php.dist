@@ -427,7 +427,7 @@ $_prefs['moz_sidebar'] = array(
     'type' => 'link',
     'xurl' => sprintf('javascript:if (window.sidebar && window.sidebar.addPanel) window.sidebar.addPanel(\'%s\', \'%s\', \'%s\'); else alert(\'%s\');',
                       $GLOBALS['registry']->get('name', 'horde'),
-                      Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/portal/sidebar.php', true, -1), 'mozbar', '1'),
+                      Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/sidebar.php', true, -1), 'mozbar', '1'),
                       Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/prefs.php', true, -1),
                       addslashes(_("Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."))),
     'desc' => sprintf(_("Add the %s Menu as a Mozilla Sidebar"), $GLOBALS['registry']->get('name', 'horde'))
