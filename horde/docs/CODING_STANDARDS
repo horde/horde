@@ -419,6 +419,10 @@ http://home.fnal.gov/~dbox/SQL_API_Portability.html and
 http://articles.techrepublic.com.com/5100-10878_11-1045051.html for more
 information.
 
+Other portability guidlines: Always use the database abstraction layer's
+capabilities for result set pagination ('LIMIT' is not portable). Also, do not
+use the 'AS' keyword for table aliases.
+
 In SQL queries, keywords should be capitalized.
 
 In table creation statements, SQL keywords and datatypes should be
