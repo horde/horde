@@ -260,12 +260,14 @@ if (!empty($conf['auth']['alternate_login'])) {
         $url_in = Horde::selfUrl(true, true, true);
     }
     $anchor = _addAnchor($url_in, 'param', $vars, $url_anchor);
+    $found = false;
     foreach ($url->parameters as $key => $value) {
         if (strpos($value, '%u')) {
             $url->parameters[$key] = str_replace('%u', rawurlencode($anchor), $value);
+            $found = true;
         }
-
-    } else {
+    }
+    if (!$found) {
         $url->add('url', $anchor);
     }
     header('Location: ' . _addAnchor($url, 'url', $vars, $url_anchor));
