@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('event'));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('event'));
     exit;
 }
 

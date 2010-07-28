@@ -28,7 +28,7 @@ if ($calendar_id == $GLOBALS['registry']->getAuth()) {
 }
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:internal|' . $calendar_id));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $calendar_id));
     exit;
 }
 

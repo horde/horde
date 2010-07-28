@@ -36,7 +36,7 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
     case 'url':
         $anchor = $vars->anchor_string;
         if (!empty($anchor)) {
-            $url->addAnchor($anchor);
+            $url->setAnchor($anchor);
         } else {
             return _addAnchor($url, 'param', $vars, $url_anchor);
         }

@@ -15,7 +15,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $url = $vars->get('url');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:remote|' . rawurlencode($url)));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:remote|' . rawurlencode($url)));
     exit;
 }
 

@@ -184,13 +184,13 @@ class Horde_Url
     }
 
     /**
-     * Adds an anchor.
+     * Sets the URL anchor.
      *
      * @param string $anchor  An anchor to add.
      *
      * @return Horde_Url  This (modified) object, to allow chaining.
      */
-    public function addAnchor($anchor)
+    public function setAnchor($anchor)
     {
         $this->anchor = $anchor;
         return $this;

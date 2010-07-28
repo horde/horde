@@ -21,7 +21,7 @@ if (is_string($view->event)) {
 }
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString())));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString())));
     exit;
 }
 

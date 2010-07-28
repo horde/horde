@@ -14,7 +14,7 @@ Horde_Registry::appInit('kronolith');
 $vars = Horde_Variables::getDefaultVariables();
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('calendar:internal|' . $vars->get('c')));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $vars->get('c')));
     exit;
 }
 

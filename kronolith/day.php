@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->addAnchor('day:' . Kronolith::currentDate()->dateString()));
+    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('day:' . Kronolith::currentDate()->dateString()));
     exit;
 }
 
