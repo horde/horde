@@ -149,6 +149,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
                endpoint: '{$endpoint}',
                inreplyto: '{$inReplyToNode}',
                refreshrate: {$refresh},
+               counter: '{$instance}_counter',
                strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
             });
 EOT;
@@ -159,8 +160,8 @@ EOT;
 
         /* Build the UI */
         $html = '<div style="padding-left:8px;padding-right:8px;">'
-           . '<div class="fbgreybox"><input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus" value="' . $defaultText . '" />'
-           . '<a class="button" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a><span id="' . $instance . '_inReplyTo"></span>'
+           . '<div class="fbgreybox"><textarea rows="2" style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus">' . $defaultText . '</textarea>'
+           . '<a class="button" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Update") . '</a><span id="' . $instance . '_counter" style="color: rgb(204, 204, 204);margin-left:6px;">140</span>  <span id="' . $instance . '_inReplyTo"></span>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="" style="margin: 10px;"><strong>' . _("Latest") . '</strong> ' . $latestStatus . ' - <span class="fbstreaminfo">' . Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) . '</span></div></div>';
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';

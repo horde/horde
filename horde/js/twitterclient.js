@@ -16,6 +16,7 @@ var Horde_Twitter = Class.create({
     * Const'r
     *
     * opts.input   The domid of the input form element.
+    * opts.counter The domid of the node to display chars remaining.
     * opts.spinner The domid of the spinner element.
     * opts.content The main content area, where the tweets are placed.
     * opts.endpoint  The url endpoint for horde/servcies/twitter.php
@@ -37,6 +38,10 @@ var Horde_Twitter = Class.create({
             }
         }.bind(this));
 
+        $(this.opts.input).observe('keyup', function() {
+            $(this.opts.counter).update(140 - $F(this.opts.input).length);
+        }.bind(this));
+        
         /* Get the first page */
         this.getNewEntries();
    },
