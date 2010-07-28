@@ -478,6 +478,10 @@ div.nicetitle {
     color: #000;
 }
 
+#expandedSidebar {
+    overflow: hidden;
+}
+
 #hiddenSidebar img {
     padding-right: 2px;
 }

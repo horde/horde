@@ -9,37 +9,17 @@ var HordeSidebar = {
     // Variables set in services/sidebar.php:
     // domain, path, refresh, rtl, tree, url, width
 
-    getCookie: function(name, deflt)
-    {
-        var cookie = document.cookie.toQueryParams('; ');
-        if (!cookie) {
-            cookie = document.cookie.toQueryParams(';');
-        }
-
-        return cookie[name]
-            ? unescape(cookie[name])
-            : deflt;
-    },
-
     toggleSidebar: function()
     {
         var expanded = $('expandedSidebar').visible(),
-            expires = new Date(),
-            margin;
+            expires = new Date();
 
         $('expandedSidebar', 'hiddenSidebar').invoke('toggle');
         if ($('themelogo')) {
             $('themelogo').toggle();
         }
 
-        margin = expanded
-            ? $('hiddenSidebar').down().getWidth()
-            : this.width;
-        if (this.rtl) {
-            $('horde_body').setStyle({ marginRight: margin + 'px' });
-        } else {
-            $('horde_body').setStyle({ marginLeft: margin + 'px' });
-        }
+        this.setMargin(!expanded);
 
         // Expire in one year.
         expires.setTime(expires.getTime() + 31536000000);
@@ -67,18 +47,34 @@ var HordeSidebar = {
 
             this.resizeSidebar();
         }
+    },
+
+    setMargin: function(expanded)
+    {
+        var margin = expanded
+            ? this.width
+            : $('hiddenSidebar').down().getWidth();
+
+        if (this.rtl) {
+            $('horde_body').setStyle({ marginRight: margin + 'px' });
+        } else {
+            $('horde_body').setStyle({ marginLeft: margin + 'px' });
+        }
+    },
+
+    onDomLoad: function()
+    {
+        if ($('hiddenSidebar').visible()) {
+            this.setMargin(false);
+        }
+
+        if (this.refresh) {
+            this.updateSidebar.bind(this).delay(this.refresh);
+        }
+
+        $('expandButton', 'hiddenSidebar').invoke('observe', 'click', this.toggleSidebar.bind(this));
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    $('hiddenSidebar').hide();
-    if (HordeSidebar.getCookie('horde_sidebar_expanded', 1) != Number($('expandedSidebar').visible())) {
-        HordeSidebar.toggleSidebar();
-    }
-    if (HordeSidebar.refresh) {
-        HordeSidebar.updateSidebar.bind(HordeSidebar).delay(HordeSidebar.refresh);
-    }
-
-    $('expandButton', 'hiddenSidebar').invoke('observe', 'click', HordeSidebar.toggleSidebar.bind(HordeSidebar));
-});
+document.observe('dom:loaded', HordeSidebar.onDomLoad.bind(HordeSidebar));
