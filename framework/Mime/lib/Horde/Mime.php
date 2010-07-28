@@ -77,7 +77,7 @@ class Horde_Mime
      *
      * @return boolean  True if string contains non US-ASCII characters.
      */
-    static public function is8bit($string, $charset = null)
+    static public function is8bit($string, $charset = 'us-ascii')
     {
         /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
          * it needs to be entirely encoded. */
