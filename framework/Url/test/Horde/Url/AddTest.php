@@ -21,7 +21,7 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
         $url->add('fez');
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez', (string)$url);
 
-        $url->setAnchor('boo');
+        $url->addAnchor('boo');
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#boo', (string)$url);
         $url->addAnchor('bee');
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#bee', (string)$url);
@@ -102,14 +102,14 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
     public function testParseUrlAnchor()
     {
         $url = new Horde_Url('test?foo=1#bar');
-        $url->setAnchor('baz');
+        $url->addAnchor('baz');
         $this->assertEquals('test?foo=1#baz', (string)$url);
     }
 
     public function testEncodeAnchor()
     {
         $url = new Horde_Url('test');
-        $url->setAnchor('a@b.com');
+        $url->addAnchor('a@b.com');
         $this->assertEquals('test#a%40b.com', (string)$url);
     }
 
