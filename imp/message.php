@@ -376,13 +376,10 @@ $mailbox_url = IMP::generateIMPUrl('mailbox.php', IMP::$mailbox)->add('start', $
 /* Everything below here is related to preparing the output. */
 
 /* Set the status information of the message. */
-$identity = $match_identity = $status = null;
-
-if (!empty($msgAddresses)) {
-    $identity = $match_identity = $user_identity->getMatchingIdentity($msgAddresses);
-    if (is_null($identity)) {
-        $identity = $user_identity->getDefault();
-    }
+$msgAddresses[] = $mime_headers->getValue('from');
+$identity = $match_identity = $user_identity->getMatchingIdentity($msgAddresses);
+if (is_null($identity)) {
+    $identity = $user_identity->getDefault();
 }
 
 $flag_parse = $imp_flags->parse(array(
@@ -391,6 +388,7 @@ $flag_parse = $imp_flags->parse(array(
     'personal' => $match_identity
 ));
 
+$status = '';
 foreach ($flag_parse as $val) {
     if ($val['type'] == 'imapp') {
         $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '">' . htmlspecialchars($val['label']) . '</span>';
