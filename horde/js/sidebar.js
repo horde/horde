@@ -11,7 +11,11 @@ var HordeSidebar = {
 
     getCookie: function(name, deflt)
     {
-        var cookie = document.cookie.toQueryParams(';');
+        var cookie = document.cookie.toQueryParams('; ');
+        if (!cookie) {
+            cookie = document.cookie.toQueryParams(';');
+        }
+
         return cookie[name]
             ? unescape(cookie[name])
             : deflt;
@@ -39,7 +43,7 @@ var HordeSidebar = {
 
         // Expire in one year.
         expires.setTime(expires.getTime() + 31536000000);
-        document.cookie = 'horde_sidebar_expanded=' + !expanded + ';DOMAIN=' + this.domain + ';PATH=' + this.path + ';expires=' + expires.toGMTString();
+        document.cookie = 'horde_sidebar_expanded=' + Number(!expanded) + ';DOMAIN=' + this.domain + ';PATH=' + this.path + ';expires=' + expires.toGMTString();
     },
 
     updateSidebar: function()
@@ -69,7 +73,7 @@ var HordeSidebar = {
 
 document.observe('dom:loaded', function() {
     $('hiddenSidebar').hide();
-    if (HordeSidebar.getCookie('horde_sidebar_expanded', true).toString() != $('expandedSidebar').visible().toString()) {
+    if (HordeSidebar.getCookie('horde_sidebar_expanded', 1) != Number($('expandedSidebar').visible())) {
         HordeSidebar.toggleSidebar();
     }
     if (HordeSidebar.refresh) {

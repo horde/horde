@@ -478,6 +478,10 @@ div.nicetitle {
     color: #000;
 }
 
+#hiddenSidebar img {
+    padding-right: 2px;
+}
+
 /* Main body. */
 .body {
     position: absolute;
