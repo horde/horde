@@ -115,14 +115,14 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
                              implode(', ', $filter));
         }
 
-        $query = sprintf('SELECT sentmail_recipient, count(*) AS sentmail_count FROM %s WHERE sentmail_who = %s AND sentmail_success = 1%s GROUP BY sentmail_recipient ORDER BY sentmail_count DESC LIMIT %d',
+        $query = sprintf('SELECT sentmail_recipient, count(*) AS sentmail_count FROM %s WHERE sentmail_who = %s AND sentmail_success = 1%s GROUP BY sentmail_recipient ORDER BY sentmail_count DESC',
                          $this->_params['table'],
                          $this->_db->quote($GLOBALS['registry']->getAuth()),
-                         $where,
-                         $limit);
+                         $where);
 
         /* Execute the query. */
         try {
+            $this->_db->addLimitOffset($sql, array('limit' => $limit));
             return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {
             throw new IMP_Exception($e);

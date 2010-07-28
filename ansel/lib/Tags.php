@@ -151,8 +151,9 @@ class Ansel_Tags
         }
         $sql .= 'GROUP BY tn.tag_id, tag_name ORDER BY total DESC';
         if ($limit > 0) {
-            $sql .= ' LIMIT ' . (int)$limit;
+            $GLOBALS['ansel_db']->setLimit((int)$limit);
         }
+
         $results = $GLOBALS['ansel_db']->queryAll($sql, null, MDB2_FETCHMODE_ASSOC, true);
         foreach ($results as $id => $taginfo) {
             $results[$id]['tag_name'] = Horde_String::convertCharset(

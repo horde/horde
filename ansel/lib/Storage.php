@@ -728,7 +728,10 @@ class Ansel_Storage
             return array();
         }
 
-        $sql .= ' ORDER BY image_uploaded_date DESC LIMIT ' . (int)$limit;
+        $sql .= ' ORDER BY image_uploaded_date DESC';
+        if ($limit > 0) {
+            $GLOBALS['ansel_db']->setLimit((int)$limit);
+        }
         $query = $this->_db->prepare($sql);
         if ($query instanceof PEAR_Error) {
            throw new Ansel_Exception($query);

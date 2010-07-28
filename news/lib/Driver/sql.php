@@ -588,7 +588,7 @@ class News_Driver_sql extends News_Driver {
                . $this->prefix . ' AS n WHERE l.lang = ? AND n.id = l.id AND n.status = ? ORDER BY n.publish DESC LIMIT 0, '
                . ($minimize ? '100' : '500');
 
-        $result = $this->db->query($sql, array($GLOBALS['registry']->preferredLang(), News::CONFIRMED));
+        $result = $this->db->limitQuery($sql, 0, ($minimize ? '100' : '500'), array($GLOBALS['registry']->preferredLang(), News::CONFIRMED));
         if ($result instanceof PEAR_Error) {
             return $result;
         }

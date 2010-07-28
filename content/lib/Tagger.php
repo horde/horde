@@ -496,11 +496,10 @@ class Content_Tagger
             WHERE tags.tag IN ($tagList)
             GROUP BY matches.object_id
             HAVING num_common_tags >= $threshold
-            ORDER BY num_common_tags DESC
-            LIMIT 0, $max_objects
-            ";
+            ORDER BY num_common_tags DESC";
 
-        $rs = $db->Execute($sql) or die("Syntax Error: $sql, Error: " . $db->ErrorMsg());
+        $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
+        $rs = $this->_db->Execute($sql) or die("Syntax Error: $sql, Error: " . $this->_db->ErrorMsg());
         while (!$rs->EOF) {
             $retarr[] = array (
                 'object_id' => $rs->fields['object_id'],
@@ -509,7 +508,7 @@ class Content_Tagger
             $rs->MoveNext();
         }
 
-        return $retarra;
+        return $retarr;
     }
 
     /**
