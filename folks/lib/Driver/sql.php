@@ -77,9 +77,11 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $sql = 'SELECT user_uid FROM ' . $this->_params['online']
             . ' WHERE user_uid <> "" AND user_uid <> "0" '
-            . ' ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
+            . ' ORDER BY time_last_click DESC';
 
-        return $this->_db->getCol($sql);
+        $result = $this->_db->limitQuery($sql, 0, $limit);
+        $value = $result->fetchRow(DB_FETCHMODE_ORDERED);
+        return $value[0];
     }
 
     /**
@@ -94,13 +96,15 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         if ($online) {
             $sql = 'SELECT u.user_uid FROM ' . $this->_params['table'] . ' u, .' . $this->_params['online'] . ' o '
-                . ' WHERE u.user_picture = 1 AND o.user_uid = u.user_uid ORDER BY RAND() LIMIT 0, ' . (int)$limit;
+                . ' WHERE u.user_picture = 1 AND o.user_uid = u.user_uid ORDER BY RAND()';
         } else {
             $sql = 'SELECT user_uid FROM ' . $this->_params['table']
-                . ' WHERE user_picture = 1 ORDER BY RAND() LIMIT 0, ' . (int)$limit;
-        }
+                . ' WHERE user_picture = 1 ORDER BY RAND()';
+        
+        $result = $this->_db->limitQuery($sql, 0, $limit);
+        $value = $result->fetchRow(DB_FETCHMODE_ORDERED);
 
-        return $this->_db->getCol($sql);
+        return $value[0];
     }
 
     /**

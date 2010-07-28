@@ -252,15 +252,14 @@ class Fima_Driver_sql extends Fima_Driver {
                 $limit[0] += ceil($this->_postingsCount / $limit[1]) + 1;
             }
             $limit[0] = ($limit[0] - 1) * $limit[1];
-
-            $query .= ' LIMIT ' . $limit[0];
-            if (isset($limit[1])) {
-                $query .= ', ' . $limit[1];
-            }
+            /* Log the query at a DEBUG log level. */
+            Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings() limitQuery: %s', $query), 'DEBUG');
+            $result = $this->_db->queryLimit($query, $limit[0], $limit[1], $values);
+        } else {
+            /* Log the query at a DEBUG log level. */
+            Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query), 'DEBUG');
+            $result = $this->_db->query($query, $values);
         }
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Fima_Driver_sql::retrievePostings(): %s', $query), 'DEBUG');
 
         /* Execute the query. */
         $result = $this->_db->query($query, $values);

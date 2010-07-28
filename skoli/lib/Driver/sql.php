@@ -382,14 +382,15 @@ class Skoli_Driver_sql extends Skoli_Driver {
     function lastEntry($studentid)
     {
         $query = 'SELECT object_time FROM ' . $this->_params['objects_table'] .
-                 ' WHERE class_id = ? AND student_id = ? ORDER BY object_time DESC LIMIT 1';
+                 ' WHERE class_id = ? AND student_id = ? ORDER BY object_time DESC';
         $values = array($this->_class, $studentid);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Skoli_Driver_sql::lastEntry(): %s', $query), 'DEBUG');
 
         /* Attempt the select query. */
-        $lastentry = $this->_db->getRow($query, $values, DB_FETCHMODE_ORDERED);
+        $lastentry = $this->_db->limitQuery($query, 0, 1);
+        $lastentry = $lastentry->fetchRow(DB_FETCHMODE_ORDERED);
 
         /* Return an error immediately if the query failed. */
         if (is_a($lastentry, 'PEAR_Error')) {

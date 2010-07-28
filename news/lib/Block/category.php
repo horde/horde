@@ -45,15 +45,17 @@ class Horde_Block_News_category extends Horde_Block {
                  'n.status = ? AND n.publish <= NOW() ' .
                  'AND (n.category1 = ? OR n.category2 = ?) ' .
                  'AND nl.lang = ? AND n.id = nl.id ' .
-                 'ORDER BY n.publish DESC ' .
-                 'LIMIT 0, ' . $this->_params['limit'];
+                 'ORDER BY n.publish DESC';
 
         $params = array(News::CONFIRMED, $this->_params['category'], $this->_params['category'], $GLOBALS['registry']->preferredLang());
-        $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
-        if ($rows instanceof PEAR_Error) {
-            return $rows->getDebugInfo();
+        $res = $GLOBALS['news']->db->limitQuery($query, 0, $this->_params['limit'], $params);
+        if ($res instanceof PEAR_Error) {
+            return $res->getDebugInfo();
         }
-
+        $rows = array();
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+            $rows[$row['id']] = $row;
+        }
         $view = new News_View();
         $view->news = $rows;
         $view->moreurl = Horde_Util::addParameter(Horde::applicationUrl('browse.php'), 'category', $this->_params['category']);

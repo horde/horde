@@ -30,15 +30,16 @@ class Horde_Block_News_last_blogs extends Horde_Block {
                  'FROM ' . $GLOBALS['news']->prefix . ' AS n, ' . $GLOBALS['news']->prefix . '_body AS nl WHERE ' .
                  'n.status = ? AND n.publish <= NOW() AND n.trackbacks > ? ' .
                  'AND nl.lang = ? AND n.id = nl.id ' .
-                 'ORDER BY n.publish DESC ' .
-                 'LIMIT 0, ' . $this->_params['limit'];
+                 'ORDER BY n.publish DESC';
 
         $params = array(News::CONFIRMED, 0, $GLOBALS['registry']->preferredLang());
-        $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
-        if ($rows instanceof PEAR_Error) {
-            return $rows->getDebugInfo();
+        $res = $GLOBALS['news']->db->limitQuery($query, 0, $this->_params['limit'], $params);
+        if ($res instanceof PEAR_Error) {
+            return $res->getDebugInfo();
         }
-
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+            $rows[$row['id']] = $row;
+        }
         $view = new News_View();
         $view->news = $rows;
 

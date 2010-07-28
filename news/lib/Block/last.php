@@ -44,14 +44,15 @@ class Horde_Block_News_last extends Horde_Block {
             $params[] = (int)$this->_params['category'];
         }
 
-        $query .= 'ORDER BY n.publish DESC ' .
-                 'LIMIT 0, ' . $this->_params['limit'];
-
-        $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
-        if ($rows instanceof PEAR_Error) {
-            return $rows->getDebugInfo();
+        $query .= 'ORDER BY n.publish DESC';
+        $res = $GLOBALS['news']->db->queryLimit($query, 0, $this->_params['limit'], $params);
+        if ($res instanceof PEAR_Error) {
+            return $res->getDebugInfo();
         }
-
+        $rows = array();
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+            $rows[$row['id']] = $row;
+        }
         $view = new News_View();
         $view->news = $rows;
         $view->moreurl = Horde::applicationUrl('browse.php');
