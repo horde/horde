@@ -5,11 +5,25 @@
  * --------------
  * Horde_Calendar:select
  *   params: Date object
+ *   Fired when a date is selected.
+ *
+ * Horde_Calendar:selectMonth
+ *   params: Date object
+ *   Fired when a month is selected.
+ *
+ * Horde_Calendar:selectWeek
+ *   params: Date object
+ *   Fired when a week is selected.
+ *
+ * Horde_Calendar:selectYear
+ *   params: Date object
+ *   Fired when a year is selected.
  */
 
 var Horde_Calendar =
 {
-    // Variables set externally: firstDayOfWeek, fullweekdays, months,
+    // Variables set externally: click_month, click_week, click_year,
+    //                           firstDayOfWeek, fullweekdays, months,
     //                           weekdays
     // Variables defaulting to null: date, month, openDate, trigger, year
 
@@ -63,6 +77,17 @@ var Horde_Calendar =
         return Math.ceil((this.daysInMonth(month, year) - firstWeekDays) / 7) + weeks;
     },
 
+    // http://javascript.about.com/library/blstdweek.htm
+    weekOfYear: function(d)
+    {
+        var newYear = new Date(d.getFullYear(), 0, 1),
+            day = newYear.getDay();
+        if (this.firstDayOfWeek != 0) {
+            day = ((day + (7 - this.firstDayOfWeek)) % 7);
+        }
+        return Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
+    },
+
     draw: function(timestamp, init)
     {
         this.date = new Date(timestamp);
@@ -91,16 +116,6 @@ var Horde_Calendar =
 
         if (this.firstDayOfWeek == 0) {
             startOfView = 1 - firstOfMonth;
-
-            // We may need to adjust the number of days in the view if
-            // we're starting weeks on Sunday.
-            if (firstOfMonth == 0) {
-                //daysInView -= 7;
-            }
-
-            if ((new Date(this.year, this.month, daysInMonth)).getDay() == 0) {
-                daysInView += 7;
-            }
         } else {
             // @TODO Adjust this for days other than Monday.
             startOfView = (firstOfMonth == 0)
@@ -108,43 +123,38 @@ var Horde_Calendar =
                 : 2 - firstOfMonth;
         }
 
-        div.down('THEAD').down('TR', 1).down('TD', 1).update(this.year);
-        div.down('THEAD').down('TR', 2).down('TD', 1).update(this.months[this.month]);
+        div.down('.hordeCalendarYear').update(this.year);
+        div.down('.hordeCalendarMonth').update(this.months[this.month]);
         tbody.update('');
 
         for (i = startOfView, i_max = startOfView + daysInView; i < i_max; ++i) {
             if (count == 1) {
                 row = new Element('TR');
+                if (this.click_week) {
+                    row.insert(new Element('TD').insert(new Element('A', { className: 'hordeCalendarWeek' }).insert(this.weekOfYear(new Date(this.year, this.month, (i < 1) ? 1 : i)))));
+                }
             }
 
             cell = new Element('TD');
 
             if (i < 1 || i > daysInMonth) {
                 cell.addClassName('hordeCalendarEmpty');
-                row.appendChild(cell);
-
-                if (count == 7) {
-                    tbody.insert(row);
-                    count = 0;
+                row.insert(cell);
+            } else {
+                if (today_year == this.year &&
+                    today_month == this.month &&
+                    today_day == i) {
+                    cell.writeAttribute({ className: 'hordeCalendarToday' });
                 }
 
-                ++count;
-                continue;
-            }
+                if (open_year == this.year &&
+                    open_month == this.month &&
+                    open_day == i) {
+                    cell.addClassName('hordeCalendarCurrent');
+                }
 
-            if (today_year == this.year &&
-                today_month == this.month &&
-                today_day == i) {
-                cell.writeAttribute({ className: 'hordeCalendarToday' });
+                row.insert(cell.insert(new Element('A', { className: 'hordeCalendarDay', href: '#' }).insert(i)));
             }
-
-            if (open_year == this.year &&
-                open_month == this.month &&
-                open_day == i) {
-                cell.addClassName('hordeCalendarCurrent');
-            }
-
-            row.insert(cell.insert(new Element('A', { href: '#' }).insert(i).observe('click', this.dayOnClick.bindAsEventListener(this))));
 
             if (count == 7) {
                 tbody.insert(row);
@@ -183,7 +193,7 @@ var Horde_Calendar =
             iframe = $('hordeCalendarIframe');
             if (!iframe) {
                 iframe = new Element('IFRAME', { name: 'hordeCalendarIframe', id: 'hordeCalendarIframe', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
-                document.body.appendChild(iframe);
+                $(document.body).insert(iframe);
             }
             iframe.clonePosition(div).setStyle({
                 position: 'absolute',
@@ -192,15 +202,6 @@ var Horde_Calendar =
             });
             div.setStyle({ zIndex: 2 });
         }
-    },
-
-    dayOnClick: function(e)
-    {
-        this.hideCal();
-
-        this.trigger.fire('Horde_Calendar:select', new Date(this.year, this.month, parseInt(e.element().innerHTML, 10)));
-
-        e.stop();
     },
 
     hideCal: function()
@@ -235,50 +236,94 @@ var Horde_Calendar =
     init: function()
     {
         var i, link, row,
+            offset = this.click_week ? 1 : 0,
             thead = new Element('THEAD'),
             table = new Element('TABLE', { className: 'hordeCalendarPopup', cellSpacing: 0 }).insert(thead).insert(new Element('TBODY'));
 
         // Title bar.
-        link = new Element('A', { href: '#', className: 'hordeCalendarClose' }).insert('x');
-        link.observe('click', function(e) { this.hideCal(); e.stop(); }.bind(this));
-        thead.insert(new Element('TR').insert(new Element('TD', { colSpan: 7, className: 'rightAlign' }).insert(link)));
+        link = new Element('A', { href: '#', className: 'hordeCalendarClose rightAlign' }).insert('x');
+        thead.insert(new Element('TR').insert(new Element('TD', { colspan: 6 + offset })).insert(new Element('TD').insert(link)));
 
         // Year.
         row = new Element('TR');
-        link = new Element('A', { href: '#' }).insert('&laquo;');
-        link.observe('click', this.changeYear.bind(this, -1));
+        link = new Element('A', { className: 'hordeCalendarPrevYear', href: '#' }).insert('&laquo;');
         row.insert(new Element('TD').insert(link));
 
-        row.insert(new Element('TD', { colSpan: 5, align: 'center' }));
+        tmp = new Element('TD', { align: 'center', colspan: 5 + offset });
+        if (this.click_year) {
+            tmp.insert(new Element('A', { className: 'hordeCalendarYear' }));
+        } else {
+            tmp.addClassName('hordeCalendarYear');
+        }
+        row.insert(tmp);
 
-        link = new Element('A', { href: '#' }).insert('&raquo;');
-        link.observe('click', this.changeYear.bind(this, 1));
+        link = new Element('A', { className: 'hordeCalendarNextYear', href: '#' }).insert('&raquo;');
         row.insert(new Element('TD', { className: 'rightAlign' }).insert(link));
 
         thead.insert(row);
 
         // Month name.
         row = new Element('TR');
-        link = new Element('A', { href: '#' }).insert('&laquo;');
-        link.observe('click', this.changeMonth.bind(this, -1));
+        link = new Element('A', { className: 'hordeCalendarPrevMonth', href: '#' }).insert('&laquo;');
         row.insert(new Element('TD').insert(link));
 
-        row.insert(new Element('TD', { colSpan: 5, align: 'center' }));
+        tmp = new Element('TD', { align: 'center', colspan: 5 + offset });
+        if (this.click_year) {
+            tmp.insert(new Element('A', { className: 'hordeCalendarMonth' }));
+        } else {
+            tmp.addClassName('hordeCalendarMonth');
+        }
+        row.insert(tmp);
 
-        link = new Element('A', { href: '#' }).insert('&raquo;');
-        link.observe('click', this.changeMonth.bind(this, 1));
+        link = new Element('A', { className: 'hordeCalendarNextMonth', href: '#' }).insert('&raquo;');
         row.insert(new Element('TD', { className: 'rightAlign' }).insert(link));
 
         thead.insert(row);
 
         // Weekdays.
         row = new Element('TR');
+        if (this.click_week) {
+            row.insert(new Element('TH'));
+        }
         for (i = 0; i < 7; ++i) {
             row.insert(new Element('TH').insert(this.weekdays[(i + this.firstDayOfWeek) % 7]));
         }
         thead.insert(row);
 
         $(document.body).insert({ bottom: new Element('DIV', { id: 'hordeCalendar' }).setStyle({ position: 'absolute' }).hide().insert(table) });
+
+        $('hordeCalendar').observe('click', this.clickHandler.bindAsEventListener(this));
+    },
+
+    clickHandler: function(e)
+    {
+        var elt = e.element();
+
+        if (elt.hasClassName('hordeCalendarDay')) {
+            this.hideCal();
+            this.trigger.fire('Horde_Calendar:select', new Date(this.year, this.month, parseInt(e.element().textContent, 10)));
+        } else if (elt.hasClassName('hordeCalendarClose')) {
+            this.hideCal();
+        } else if (elt.hasClassName('hordeCalendarPrevYear')) {
+            this.changeYear(-1);
+        } else if (elt.hasClassName('hordeCalendarNextYear')) {
+            this.changeYear(1);
+        } else if (elt.hasClassName('hordeCalendarPrevMonth')) {
+            this.changeMonth(-1);
+        } else if (elt.hasClassName('hordeCalendarNextMonth')) {
+            this.changeMonth(1);
+        } else if (this.click_year && elt.hasClassName('hordeCalendarYear')) {
+            this.trigger.fire('Horde_Calendar:selectYear', new Date(this.year, this.month, 1));
+            this.hideCal();
+        } else if (this.click_month && elt.hasClassName('hordeCalendarMonth')) {
+            this.trigger.fire('Horde_Calendar:selectMonth', new Date(this.year, this.month, 1));
+            this.hideCal();
+        } else if (this.click_week && elt.hasClassName('hordeCalendarWeek')) {
+            this.trigger.fire('Horde_Calendar:selectWeek', new Date(this.year, this.month, elt.up('TR').down('A.hordeCalendarDay').textContent));
+            this.hideCal();
+        }
+
+        e.stop();
     }
 
 };

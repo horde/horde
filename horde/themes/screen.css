@@ -751,6 +751,11 @@ ul.sound-list {
 .hordeCalendarPopup .hordeCalendarToday {
     font-weight: bold;
 }
+.hordeCalendarPopup .hordeCalendarWeek {
+    background: #bbb;
+    font-size: 90%;
+    font-style: italic;
+}
 
 .hidden {
     display: none;

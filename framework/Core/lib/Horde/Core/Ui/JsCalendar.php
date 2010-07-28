@@ -28,6 +28,12 @@ class Horde_Core_Ui_JsCalendar
      *
      * @param array $params  Configuration parameters for the widget:
      * <pre>
+     * 'click_month' - (boolean) If true, the month is clickable.
+     *                 DEFAULT: false
+     * 'click_week' - (boolean) If true, will display a clickable week.
+     *                DEFAULT: false
+     * 'click_year' - (boolean) If true, the year is clickable.
+     *                DEFAULT: false
      * 'full_weekdays' - (boolean) Add full weekday localized list to
      *                   javascript object.
      *                   DEFAULT: false
@@ -44,6 +50,9 @@ class Horde_Core_Ui_JsCalendar
         self::$_initRun = true;
 
         $params = array_merge(array(
+            'click_month' => false,
+            'click_week' => false,
+            'click_year' => false,
             'full_weekdays' => false,
             'short_weekdays' => false
         ), $params);
@@ -57,9 +66,12 @@ class Horde_Core_Ui_JsCalendar
 
         Horde::addScriptFile('calendar.js', 'horde');
         Horde::addInlineScript(array(
-            'Horde_Calendar.firstDayOfWeek = ' . (isset($GLOBALS['prefs']) ? intval($GLOBALS['prefs']->getValue('first_week_day')) : 1),
-            'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize($weekdays, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
-            'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+            'Horde_Calendar.click_month = ' . intval($params['click_month']),
+            'Horde_Calendar.click_week = ' . intval($params['click_week']),
+            'Horde_Calendar.click_year = ' . intval($params['click_year']),
+            'Horde_Calendar.firstDayOfWeek = ' . intval($GLOBALS['prefs']->getValue('first_week_day')),
+            'Horde_Calendar.months = ' . Horde_Serialize::serialize(self::months(), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()),
+            'Horde_Calendar.weekdays = ' . Horde_Serialize::serialize($weekdays, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
         ));
         if ($params['full_weekdays']) {
             Horde::addInlineScript(array(
