@@ -752,6 +752,16 @@ class IMP_Compose
     protected function _prepSendMessage($email, $headers = null,
                                         $message = null)
     {
+        /* Validate the recipient addresses. */
+        try {
+            $alist = Horde_Mime_Address::parseAddressList($email, array(
+                'defserver' => $_SESSION['imp']['maildomain'],
+                'validate' => true
+            ));
+        } catch (Horde_Mime_Exception $e) {
+            throw new IMP_Compose_Exception($e);
+        }
+
         $timelimit = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
             $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
@@ -759,14 +769,19 @@ class IMP_Compose
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                 throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }
+
             try {
                 $recipients = $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
             } catch (IMP_Exception $e) {
                 $recipients = 0;
             }
-            foreach ($result as $address) {
-                $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
+
+            foreach ($alist as $address) {
+                $recipients += isset($address['grounpname'])
+                    ? count($address['addresses'])
+                    : 1;
             }
+
             if ($recipients > $timelimit) {
                 try {
                     $error = Horde::callHook('perms_denied', array('imp:max_timelimit'));
@@ -786,14 +801,7 @@ class IMP_Compose
 
         /* Properly encode the addresses we're sending to. */
         try {
-            $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
-        } catch (Horde_Mime_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        /* Validate the recipient addresses. */
-        try {
-            Horde_Mime_Address::parseAddressList($email, array('defserver' => $_SESSION['imp']['maildomain'], 'validate' => true));
+            $email = Horde_Mime::encodeAddress($email, is_null($message) ? $GLOBALS['registry']->getCharset() : $message->getHeaderCharset(), $_SESSION['imp']['maildomain']);
         } catch (Horde_Mime_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -822,7 +830,7 @@ class IMP_Compose
         }
 
         try {
-            $r_array = Horde_Mime::encodeAddress($recipients, null, $_SESSION['imp']['maildomain']);
+            $r_array = Horde_Mime::encodeAddress($recipients, $GLOBALS['registry']->getCharset(), $_SESSION['imp']['maildomain']);
             $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
         } catch (Horde_Mime_Exception $e) {}
 
