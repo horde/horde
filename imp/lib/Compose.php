@@ -1072,6 +1072,24 @@ class IMP_Compose
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version"), $nls_charset, $charset));
+
+            /* Add default font CSS information here. The data comes to us
+             * with no HTML body tag - so simply wrap the data in a body
+             * tag with the CSS information. */
+            $styles = array();
+            if ($font_family = $GLOBALS['prefs']->getValue('compose_html_font_family')) {
+                $styles[] = 'font-family:' . $font_family;
+            }
+            if ($font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'))) {
+                $styles[] = 'font-size:' . $font_size . 'px';
+            }
+
+            if (!empty($styles)) {
+                $body_html = '<body style="' . implode(';', $styles) . '">' .
+                    $body_html .
+                    '</body>';
+            }
+
             $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version"), $nls_charset, $charset));

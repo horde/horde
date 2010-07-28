@@ -149,6 +149,18 @@ class IMP_Ui_Compose
     {
         $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('basic' => $basic));
 
+        $font_family = $GLOBALS['prefs']->getValue('compose_html_font_family');
+        if (!$font_family) {
+            $font_family = 'Arial';
+        }
+
+        $font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'));
+        $font_size = $font_size
+            /* Font size should be between 8 and 24 pixels. Or else recipients
+             * will hate us. Default to 14px. */
+            ? min(24, max(8, $font_size)) . 'px'
+            : '14px';
+
         $config = array(
             /* To more closely match "normal" textarea behavior, send <BR> on
              * enter instead of <P>. */
@@ -174,9 +186,9 @@ class IMP_Ui_Compose
 
             /* Default display font. This is NOT the font used to send
              * the message, however. */
-            'contentsCss: "body { font-family: Arial; font-size: 12px; }"',
-            'font_defaultLabel: "Arial"',
-            'fontSize_defaultLabel: "12px"'
+            'contentsCss: "body { font-family: ' . $font_family . '; font-size: ' . $font_size . '; }"',
+            'font_defaultLabel: "' . $font_family . '"',
+            'fontSize_defaultLabel: "' . $font_size . '"'
         );
 
         $buttons = $GLOBALS['prefs']->getValue('ckeditor_buttons');

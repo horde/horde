@@ -392,7 +392,8 @@ $prefGroups['compose'] = array(
     'members' => array(
         'stationery_link', 'mailto_handler', 'compose_cc', 'compose_bcc',
         'compose_spellcheck', 'compose_confirm', 'set_priority',
-        'compose_popup', 'compose_html', 'mail_domain', 'compose_cursor',
+        'compose_popup', 'compose_html', 'compose_html_font_family',
+        'compose_html_font_size', 'mail_domain', 'compose_cursor',
         'sending_charset', 'encryptselect', 'save_attachments',
         'disposition_request_read'
     )
@@ -467,6 +468,25 @@ $_prefs['compose_html'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Compose messages with an HTML editor by default?")
+);
+
+// For the HTML editor, this is the default font family.
+// This needs to be in CSS-parseable format.
+$_prefs['compose_html_font_family'] = array(
+    'value' => 'Arial',
+    'advanced' => true,
+    'locked' => true,
+    'type' => 'string',
+    'desc' => _("The default font family to use in the HTML editor.")
+);
+
+// For the HTML editor, this is the default font size.
+$_prefs['compose_html_font_size'] = array(
+    'value' => 14,
+    'advanced' => true,
+    'locked' => true,
+    'type' => 'number',
+    'desc' => _("The default font size to use in the HTML editor (in pixels).")
 );
 
 // default outgoing mail domain and address completion
