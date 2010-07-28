@@ -51,6 +51,11 @@ class Ansel
             $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
             break;
         default:
+            switch ($mdb->phptype) {
+            case 'oci8':
+                $mdb->setOption('emulate_database', false);
+                break;
+            }
             $mdb->setOption('field_case', CASE_LOWER);
             $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
         }

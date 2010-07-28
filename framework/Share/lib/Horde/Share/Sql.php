@@ -828,15 +828,20 @@ class Horde_Share_Sql extends Horde_Share
             $this->_write_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
             break;
 
-        case 'pgsql':
-            /* The debug handler breaks PostgreSQL. In most cases it shouldn't
-             * be necessary, but this may mean we simply can't support use of
-             * multiple Postgres databases right now. See
-             * http://bugs.horde.org/ticket/7825 */
-            $this->_write_db->setOption('debug', false);
-            // Fall through
-
         default:
+            switch ($this->_write_db->phptype) {
+            case 'oci8':
+                $this->_write_db->setOption('emulate_database', false);
+                break;
+
+            case 'pgsql':
+                /* The debug handler breaks PostgreSQL. In most cases it
+                 * shouldn't be necessary, but this may mean we simply can't
+                 * support use of multiple Postgres databases right now. See
+                 * http://bugs.horde.org/ticket/7825 */
+                $this->_write_db->setOption('debug', false);
+                break;
+            }
             $this->_write_db->setOption('field_case', CASE_LOWER);
             $this->_write_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
         }
@@ -858,15 +863,20 @@ class Horde_Share_Sql extends Horde_Share
                 $this->_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
                 break;
 
-            case 'pgsql':
-                /* The debug handler breaks PostgreSQL. In most cases it shouldn't
-                 * be necessary, but this may mean we simply can't support use of
-                 * multiple Postgres databases right now. See
-                 * http://bugs.horde.org/ticket/7825 */
-                $this->_write_db->setOption('debug', false);
-                // Fall through
-
             default:
+                switch ($this->_db->phptype) {
+                case 'oci8':
+                    $this->_db->setOption('emulate_database', false);
+                    break;
+
+                case 'pgsql':
+                    /* The debug handler breaks PostgreSQL. In most cases it
+                     * shouldn't be necessary, but this may mean we simply
+                     * can't support use of multiple Postgres databases right
+                     * now. See http://bugs.horde.org/ticket/7825 */
+                    $this->_write_db->setOption('debug', false);
+                    break;
+                }
                 $this->_db->setOption('field_case', CASE_LOWER);
                 $this->_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
             }
