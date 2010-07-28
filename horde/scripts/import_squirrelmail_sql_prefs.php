@@ -31,15 +31,16 @@ require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 
 // Connect to database.
 $db = DB::connect($dsn);
-if (is_a($db, 'PEAR_Error')) {
+if ($db instanceof PEAR_Error) {
     $cli->fatal($db->toString());
 }
 
 // Loop through SquirrelMail address books.
 $handle = $db->query('SELECT user, prefkey, prefval FROM userprefs ORDER BY user');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
+
 $user = null;
 $prefs_cache = array();
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -54,13 +55,14 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 
     $prefs_cache[$row['prefkey']] = $row['prefval'];
 }
+
 importPrefs();
 
 function importPrefs()
 {
     global $cli, $conf, $user, $prefs_cache;
 
-    Horde_Auth::setAuth($user, array());
+    $GLOBALS['registry']->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
     $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
     savePrefs($user, null, $prefs_cache);

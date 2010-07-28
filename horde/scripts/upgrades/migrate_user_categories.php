@@ -30,7 +30,7 @@ foreach ($users as $user) {
     echo 'Migrating prefs for ' . $cli->bold($user);
 
     // Set $user as the current user.
-    Horde_Auth::setAuth($user, array(), '');
+    $registry->setAuth($user, array());
 
     // Fetch current categories and colors.
     $colors = $cManager->colors();

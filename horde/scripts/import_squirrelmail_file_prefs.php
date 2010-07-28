@@ -53,13 +53,11 @@ foreach($files as $file) {
 
     // Set current user
     $user = substr(basename($file), 0, -5);
-    Horde_Auth::setAuth($user, array());
+    $registry->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
 
     // Reset user prefs
-    unset($prefs);
     $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
-    unset($prefs_cache);
     $prefs_cache = array();
 
     // Read pref file, one line at a time
@@ -79,8 +77,7 @@ foreach($files as $file) {
             $value = substr($pref, $equalsAt + 1);
             /* this is to 'rescue' old-style highlighting rules. */
             if (substr($key, 0, 9) == 'highlight') {
-                $key = 'highlight' . $highlight_num;
-                $highlight_num ++;
+                $key = 'highlight' . $highlight_num++;
             }
 
             if ($value != '') {
