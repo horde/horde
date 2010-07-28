@@ -983,7 +983,7 @@ class IMP_Compose
             $old_error = error_reporting(0);
             $host = idn_to_ascii(Horde_String::convertCharset($host, $GLOBALS['registry']->getCharset(), 'UTF-8'));
             error_reporting($old_error);
-        } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
+        } elseif (Horde_Mime::is8bit($ob['mailbox'], $GLOBALS['registry']->getCharset())) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
         }
 
