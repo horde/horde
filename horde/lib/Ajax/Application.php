@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Horde
  */
-class Horde_Ajax_Application extends Horde_Ajax_Application_Base
+class Horde_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
      * AJAX action: Update sidebar.
