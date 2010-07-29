@@ -1832,7 +1832,7 @@ HTML;
 
         // If headers have already been sent, we need to output a
         // <script> tag directly.
-        if (ob_get_length() || headers_sent()) {
+        if (self::contentSent()) {
             self::outputInlineScript();
         }
     }
