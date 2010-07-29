@@ -101,7 +101,14 @@ if ($search_mode == 'basic') {
     }
 }
 
-if ($search_mode != 'basic') {
+if ($search_mode == 'basic') {
+    Horde::addInlineScript(array(
+        '$("pattern_title").focus()'
+    ), 'dom');
+} else {
+    Horde::addInlineScript(array(
+        '$("title").focus()'
+    ), 'dom');
     Horde_Core_Ui_JsCalendar::init();
     Horde::addScriptFile('edit.js', 'kronolith');
 }
@@ -112,12 +119,11 @@ require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 
 echo '<div id="page">';
+
 if ($search_mode == 'basic') {
     require KRONOLITH_TEMPLATES . '/search/search.inc';
-    $notification->push('document.eventform.pattern_title.focus()', 'javascript');
 } else {
     require KRONOLITH_TEMPLATES . '/search/search_advanced.inc';
-    $notification->push('document.eventform.title.focus()', 'javascript');
 }
 
 /* Display search results. */
