@@ -14,11 +14,13 @@ class Horde_Date_Parser_Locale_Pt_Separator extends Horde_Date_Parser_Locale_Bas
     public $atScanner = array(
         '/^(em|@|de)$/' => 'at',
 		'/^(as|ao)$/' => 'at',
+		'/^(at|@)$/' => 'at',
     );
 
 
     public $inScanner = array(
         '/^no$/' => 'in',
+		'/^in$/' => 'in',
     );
 
     public function scan($tokens)

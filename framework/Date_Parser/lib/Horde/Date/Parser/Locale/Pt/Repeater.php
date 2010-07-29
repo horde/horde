@@ -67,7 +67,13 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
         '/^(?:de|na|a|durante\s+a) tarde$/' => 'afternoon',
         '/^((fim\s(d[ea]\s)tarde)|anoitecer)$/' => 'evening',
         '/^noite$/' => 'night',
-    );
+        '/^ams?$/' => 'am',
+	    '/^pms?$/' => 'pm',
+	    '/^mornings?$/' => 'morning',
+	    '/^afternoons?$/' => 'afternoon',
+	    '/^evenings?$/' => 'evening',
+	    '/^(night|nite)s?$/' => 'night',
+	);
 
     public $unitScanner = array(
         '/^anos?$/' => 'year',
@@ -80,6 +86,16 @@ class Horde_Date_Parser_Locale_Pt_Repeater extends Horde_Date_Parser_Locale_Base
         '/^horas?$/' => 'hour',
         '/^minutos?$/' => 'minute',
         '/^segundos?$/' => 'second',
+        '/^years?$/' => 'year',
+        '/^seasons?$/' => 'season',
+        '/^months?$/' => 'month',
+        '/^fortnights?$/' => 'fortnight',
+        '/^weeks?$/' => 'week',
+        '/^weekends?$/' => 'weekend',
+        '/^days?$/' => 'day',
+        '/^hours?$/' => 'hour',
+        '/^minutes?$/' => 'minute',
+        '/^seconds?$/' => 'second',
     );
 
     public $timeRegex = '/^\d{1,2}(:?\d{2})?([\.:]?\d{2})?$/';

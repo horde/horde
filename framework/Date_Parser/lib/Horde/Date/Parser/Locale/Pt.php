@@ -120,6 +120,7 @@ class Horde_Date_Parser_Locale_Pt extends Horde_Date_Parser_Locale_Base
             return $result->span;
         case 'date':
             return $result->guess();
+		// TODO: return end date (force) like all day event = 0-24
         }
     }
 
@@ -191,27 +192,25 @@ class Horde_Date_Parser_Locale_Pt extends Horde_Date_Parser_Locale_Base
     public function preNormalize($text)
     {
         $text = strtolower($text);
-        // $text = $this->numericizeNumbers($text);
+        $text = $this->numericizeNumbers($text);
         $text = preg_replace('/[\'"\.]/', '', $text);
         $text = preg_replace('/([\/\-\,\@])/', ' $1 ', $text);
         $text = preg_replace('/\bhoje\b/', 'this day', $text);
-        // $text = preg_replace('/^amanh[aã]$/', 'next day', $text);
-        $text = preg_replace('/^amanha$/', 'next day', $text);
-
-		$text = preg_replace('/^ontem$/', 'last day', $text);
+        $text = preg_replace('/\bamanh[aã]\b/', 'next day', $text);
+		$text = preg_replace('/\bontem\b/', 'last day', $text);
         $text = preg_replace('/\bmeio\s+dia\b/', '12:00', $text);
         $text = preg_replace('/\bmeia\s+noite\b/', '24:00', $text);
         $text = preg_replace('/\b(antes|anterior)\b/', 'past', $text);
         $text = preg_replace('/\b(agora|j[aá])\b/', 'this second', $text);
-        $text = preg_replace('/\b[uú]ltimo\b/', 'last', $text);
+        $text = preg_replace('/\b[uú]ltim[oa]\b/', 'last', $text);
         $text = preg_replace('/\b(?:de|na|durante\s+a|logo(?:\s[aà]|de))\s+(manh[aã]|madrugada)\b/', 'morning', $text);
         $text = preg_replace('/\b(?:de|[àa]|durante\s+a|logo(?:\s[aà]|de))\s+tarde\b/', 'afternoon', $text);
         $text = preg_replace('/\b((?:de|[àa]|durante\s+a|logo(?:\s[aà]))\s+noite|(?:ao)\s+anoitecer)\b/', 'this night', $text);
-        $text = preg_replace('/\b(horas?|h|hrs?)\b/', 'oclock', $text);
+        $text = preg_replace('/\b(horas?|h|hrs?)\b/', ' oclock', $text);
         $text = preg_replace('/\b(depois|ap[oó]s)\b/', 'future', $text);
-        $text = $this->numericizeNumbers($text);
-//        $text = preg_replace('/\bdebug\b/', 'filho da mae', $text);
-        return $text;
+        // $text = $this->numericizeNumbers($text);
+
+		return $text;
     }
 
     /**

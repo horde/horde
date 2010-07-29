@@ -4,7 +4,10 @@ class Horde_Date_Parser_Locale_Pt_Pointer extends Horde_Date_Parser_Locale_Base_
     public $scanner = array(
         '/^antes$/' => 'past',
         '/^(depois(\s+de)?|ap[oó]s|dentro\s+de|daqui\s+a)$/' => 'future',
-    );
+        '/\bpast\b/' => 'past',
+		'/\bfuture\b/' => 'future',
+		'/\bin\b/' => 'future',
+	);
 
     public function scan($tokens)
     {

@@ -5,7 +5,8 @@ class Horde_Date_Parser_Locale_Pt_Scalar extends Horde_Date_Parser_Locale_Base_S
     public $dayRegex = '/^(0[1-9]|[12][0-9]|3[01])?$/';
     public $monthRegex = '/^(0[1-9]|1[012])$/';
     public $yearRegex = '/^(19|20)?\d\d$/';		
-    public $timeSignifiers = array('manha', 'manhã', 'tarde', 'noite', 'madrugada', 'anoitecer');
+    // public $timeSignifiers = array('manha', 'manhã', 'tarde', 'noite', 'madrugada', 'anoitecer');
+	public $timeSignifiers = array('am', 'pm', 'morning', 'afternoon', 'evening', 'night');
 
     public function scan($tokens)
     {
