@@ -2439,7 +2439,7 @@ var DimpBase = {
         if (!Object.isArray(params.mboxes)) {
             params.mboxes = [ params.mboxes ];
         }
-        params.mboxes = params.mboxes.toJSON();
+        params.mboxes = Object.toJSON(params.mboxes);
 
         if (params.callback) {
             cback = function(func, r) { this._folderLoadCallback(r, func); }.bind(this, params.callback);
@@ -2799,7 +2799,7 @@ var DimpBase = {
 
         this.updateFlag(vs, flag, set);
         if (!opts.noserver) {
-            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({ flags: flags.toJSON(), view: this.folder }), { uids: vs });
+            DimpCore.doAction('flagMessages', this.viewport.addRequestParams({ flags: Object.toJSON(flags), view: this.folder }), { uids: vs });
         }
     },
 
@@ -2807,7 +2807,7 @@ var DimpBase = {
     // mbox = (string) The mailbox to flag
     flagAll: function(type, set, mbox)
     {
-        DimpCore.doAction('flagAll', { flags: [ type ].toJSON(), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
+        DimpCore.doAction('flagAll', { flags: Object.toJSON([ type ]), set: Number(set), mbox: mbox }, { callback: this._flagAllCallback.bind(this) });
     },
 
     hasFlag: function(f, r)

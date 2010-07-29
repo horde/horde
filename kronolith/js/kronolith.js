@@ -433,7 +433,7 @@ KronolithCore = {
             $('kronolithAgendaNoItems').hide();
             this.startLoading('search', query);
             this.doAction('searchEvents',
-                          { cals: cals.toJSON(), query: query, time: this.search },
+                          { cals: Object.toJSON(cals), query: query, time: this.search },
                           function(r) {
                               // Hide spinner.
                               this.loading--;
@@ -1862,11 +1862,9 @@ KronolithCore = {
                         }
                     };
 
-                var scrollArea = $(view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody');
                 if (draggerTop) {
                     opts.snap = function(x, y) {
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
+                        y = Math.max(0, step * (Math.min(maxTop, y - this.scrollTop) / step | 0));
                         return [0, y];
                     }.bind(this);
                     var d = new Drag(event.value.nodeId + 'top', opts);
@@ -1880,8 +1878,7 @@ KronolithCore = {
 
                 if (draggerBottom) {
                     opts.snap = function(x, y) {
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
+                        y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y - this.scrollTop) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
                     }.bind(this);
                     var d = new Drag(event.value.nodeId + 'bottom', opts);
@@ -1907,8 +1904,7 @@ KronolithCore = {
                         x = (view == 'week')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
-                        y += scrollArea.scrollTop - this.scrollTop;
-                        y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
+                        y = Math.max(0, step * (Math.min(maxDiv, y - this.scrollTop) / step | 0));
                         return [x, y];
                     }.bind(this)
                 });
@@ -4200,7 +4196,7 @@ KronolithCore = {
 
             case 'kronolithEventsDay':
                 var date = this.date.clone();
-                date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.daySizes.height * 2) * 30).minutes();
+                date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / this.daySizes.height * 2) * 30).minutes();
                 this.go('event:' + date.toString('yyyyMMddHHmm'));
                 e.stop();
                 return;
@@ -4420,7 +4416,7 @@ KronolithCore = {
                     date += 'all';
                 } else {
                     date = this.parseDate(date);
-                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top) / this.weekSizes.height * 2) * 30).minutes();
+                    date.add(Math.round((e.pointerY() - elt.cumulativeOffset().top + elt.up('.kronolithViewBody').scrollTop) / this.weekSizes.height * 2) * 30).minutes();
                     date = date.toString('yyyyMMddHHmm');
                 }
                 this.go('event:' + date);
@@ -4631,7 +4627,7 @@ KronolithCore = {
                           sig: sig,
                           view_start: start,
                           view_end: end,
-                          att: $H({ offDays: diff }).toJSON()
+                          att: Object.toJSON($H({ offDays: diff }))
                       },
                       function(r) {
                           // Check if this is the still the result of the most
@@ -4792,7 +4788,7 @@ KronolithCore = {
                 sig: sig,
                 view_start: start,
                 view_end: end,
-                att: attributes.toJSON()
+                att: Object.toJSON(attributes)
             },
             function(r) {
                 // Check if this is the still the result of the most current
