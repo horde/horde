@@ -81,9 +81,9 @@ abstract class Horde_Core_Auth_Signup_Base
             $message = sprintf(_("A new account for the user \"%s\" has been requested through the signup form."), $signup->name)
                 . "\n\n"
                 . _("Approve the account:")
-                . "\n" . Horde_Util::addParameter($link, 'a', 'approve') . "\n"
+                . "\n" . $link->copy()->add('a', 'approve') . "\n"
                 . _("Deny the account:")
-                . "\n" . Horde_Util::addParameter($link, 'a', 'deny');
+                . "\n" . $link->copy()->add('a', 'deny');
             $mail = new Horde_Mime_Mail(array(
                 'subject' => sprintf(_("Account signup request for \"%s\""), $signup->name),
                 'body' => $message,

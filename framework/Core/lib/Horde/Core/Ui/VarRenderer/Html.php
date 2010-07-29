@@ -209,39 +209,41 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $img = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/images/view.php');
             if (isset($image['img']['vfs_id'])) {
                 /* Calling an image from VFS. */
-                $img = Horde_Util::addParameter($img, array('f' => $image['img']['vfs_id'],
-                                                      's' => 'vfs',
-                                                      'p' => $image['img']['vfs_path']));
+                $img->add(array(
+                    'f' => $image['img']['vfs_id'],
+                    'p' => $image['img']['vfs_path'],
+                    's' => 'vfs'
+                ));
             } else {
                 /* Calling an image from a tmp directory (uploads). */
-                $img = Horde_Util::addParameter($img, 'f', $image['img']['file']);
+                $img->add('f', $image['img']['file']);
             }
 
             /* Reset. */
             $html .= Horde::link('#', _("Reset"), '', '', 'showImage(\'' . $img . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/refresh.png', _("Reset")) . '</a>';
 
             /* Rotate 270. */
-            $html .= Horde::link('#', _("Rotate Left"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-270.png', _("Rotate Left")) . '</a>';
+            $html .= Horde::link('#', _("Rotate Left"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-270.png', _("Rotate Left")) . '</a>';
 
             /* Rotate 180. */
-            $html .= Horde::link('#', _("Rotate 180"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-180.png', _("Rotate 180")) . '</a>';
+            $html .= Horde::link('#', _("Rotate 180"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-180.png', _("Rotate 180")) . '</a>';
 
             /* Rotate 90. */
-            $html .= Horde::link('#', _("Rotate Right"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-90.png', _("Rotate Right")) . '</a>';
+            $html .= Horde::link('#', _("Rotate Right"), '', '', 'showImage(\'' . $img->copy()->add(array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/rotate-90.png', _("Rotate Right")) . '</a>';
 
             /* Flip image. */
-            $html .= Horde::link('#', _("Flip"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/flip.png', _("Flip")) . '</a>';
+            $html .= Horde::link('#', _("Flip"), '', '', 'showImage(\'' . $img->copy()->add('a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/flip.png', _("Flip")) . '</a>';
 
             /* Mirror image. */
-            $html .= Horde::link('#', _("Mirror"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/mirror.png', _("Mirror")) . '</a>';
+            $html .= Horde::link('#', _("Mirror"), '', '', 'showImage(\'' . $img->copy()->add('a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/mirror.png', _("Mirror")) . '</a>';
 
             /* Apply grayscale. */
-            $html .= Horde::link('#', _("Grayscale"), '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/grayscale.png', _("Grayscale")) . '</a>';
+            $html .= Horde::link('#', _("Grayscale"), '', '', 'showImage(\'' . $img->copy()->add('a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('image/grayscale.png', _("Grayscale")) . '</a>';
 
             /* Resize width. */
             $html .= sprintf('%s<input type="text" size="4" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
                    _("w:"),
-                   Horde_Util::addParameter($img, 'a', 'resize'),
+                   $img->copy()->add('a', 'resize'),
                    $varname,
                    $varname,
                    $this->_genID('_w_' . $varname));
@@ -249,13 +251,13 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             /* Resize height. */
             $html .= sprintf('%s<input type="text" size="4" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
                    _("h:"),
-                   Horde_Util::addParameter($img, 'a', 'resize'),
+                   $img->copy()->add('a', 'resize'),
                    $varname,
                    $varname,
                    $this->_genID('_h_' . $varname));
 
             /* Apply fixed ratio resize. */
-            $html .= Horde::link('#', _("Fix ratio"), '', '', 'src=getResizeSrc(\'' . Horde_Util::addParameter($img, 'a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', _("Fix ratio"), '', '', 'src=getResizeSrc(\'' . $img->copy()->add('a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio"), '', $img_dir) . '</a>';
 
             /* Keep also original if it has been requested. */
             if ($var->type->getProperty('show_keeporig')) {
@@ -1140,14 +1142,17 @@ EOT;
         }
 
         $img = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/images/view.php');
+
         if (isset($image['img']['vfs_id'])) {
             /* Calling an image from VFS. */
-            $img = Horde_Util::addParameter($img, array('f' => $image['img']['vfs_id'],
-                                                  's' => 'vfs',
-                                                  'p' => $image['img']['vfs_path']));
+            $img->add(array(
+                'f' => $image['img']['vfs_id'],
+                'p' => $image['img']['vfs_path'],
+                's' => 'vfs'
+            ));
         } else {
             /* Calling an image from a tmp directory (uploads). */
-            $img = (string)Horde_Util::addParameter($img, 'f', $image['img']['file']);
+            $img->add('f', $image['img']['file']);
         }
 
         return Horde::img($img, '', '', '');
@@ -1460,8 +1465,7 @@ EOT;
         $cache->set($cid, serialize(array('data' => $captcha->getCAPTCHAAsJPEG(),
                                           'ctype' => 'image/jpeg')));
 
-        $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/cacheview.php');
-        $url = Horde_Util::addParameter($url, 'cid', $cid, false);
+        $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/cacheview.php')->add('cid', $cid);
 
         return '<img src="' . $url . '" />';
 

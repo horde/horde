@@ -199,7 +199,7 @@ class Horde_Menu
             } else {
                 if ($this->showService('login') &&
                     ($login_link = Horde::getServiceLink('login', $app))) {
-                    $this->add(Horde_Util::addParameter($login_link, array('url' => Horde::selfUrl(true, true, true))), _("_Log in"), 'login.png', null, $auth_target, null, '__noselection');
+                    $this->add($login_link->add('url', Horde::selfUrl(true, true, true)), _("_Log in"), 'login.png', null, $auth_target, null, '__noselection');
                 }
             }
         }
