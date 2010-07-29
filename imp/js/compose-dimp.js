@@ -287,7 +287,12 @@ var DimpCompose = {
             case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach(d.atc.num, d.atc.name, d.atc.type, d.atc.size);
+                    this.addAttach({
+                        name: d.atc.name,
+                        num: d.atc.num,
+                        size: d.atc.size,
+                        type: d.atc.type
+                    });
                 }
 
                 $('upload_wait').hide();
@@ -563,7 +568,12 @@ var DimpCompose = {
     {
         if (f && f.size()) {
             f.each(function(ptr) {
-                this.addAttach(ptr.num, ptr.name, ptr.type, ptr.size);
+                this.addAttach({
+                    name: ptr.name,
+                    num: ptr.num,
+                    size: ptr.size,
+                    type: ptr.type
+                });
             }, this);
         }
     },
@@ -600,15 +610,20 @@ var DimpCompose = {
         }
     },
 
-    addAttach: function(atc_num, name, type, size)
+    // opts = (Object)
+    //   'name' - (string) Attachment name
+    //   'num' - (integer) Attachment number
+    //   'size' - (integer) Size, in KB
+    //   'type' - (string) MIME type
+    addAttach: function(opts)
     {
-        var span = new Element('SPAN').insert(name),
-            li = new Element('LI').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
-            input = new Element('SPAN', { atc_id: atc_num, className: 'remove' }).insert(DIMP.text_compose.remove);
+        var span = new Element('SPAN').insert(opts.name),
+            li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
+            input = new Element('SPAN', { atc_id: opts.num, className: 'remove' }).insert(DIMP.text_compose.remove);
         li.insert(input);
         $('attach_list').insert(li).show();
 
-        if (type != 'application/octet-stream') {
+        if (opts.type != 'application/octet-stream') {
             span.addClassName('attachName');
         }
 

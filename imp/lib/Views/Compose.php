@@ -61,7 +61,13 @@ class IMP_Views_Compose
                 $imp_compose->numberOfAttachments()) {
                 foreach ($imp_compose->getAttachments() as $num => $atc) {
                     $mime = $atc['part'];
-                    $result['jsonload'][] = 'DimpCompose.addAttach(' . $num . ', \'' . addslashes($mime->getName(true)) . '\', \'' . addslashes($mime->getType()) . '\', \'' . addslashes($mime->getSize()) . "')";
+                    $opts = Horde_Serialize::serialize(array(
+                        'name' => $mime->getName(true),
+                        'num' => intval($num),
+                        'size' => $mime->getSize(),
+                        'type' => $mime->getType()
+                    ), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset());
+                    $result['jsonload'][] = 'DimpCompose.addAttach(' . $opts . ')';
                 }
             }
 
