@@ -11,7 +11,7 @@
 $app_urls = $code = $flags = array();
 
 foreach (IMP_Dimp::menuList() as $app) {
-    $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+    $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
 }
 
 include IMP_BASE . '/config/portal.php';
@@ -19,7 +19,7 @@ foreach ($dimp_block_list as $block) {
     if ($block['ob'] instanceof Horde_Block) {
         $app = $block['ob']->getApp();
         if (empty($app_urls[$app])) {
-            $app_urls[$app] = (string) Horde::url($GLOBALS['registry']->getInitialPage($app), true);
+            $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
         }
     }
 }
