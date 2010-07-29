@@ -659,7 +659,13 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                     return $result;
                 }
                 try {
-                    $tasklist = $GLOBALS['registry']->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
+                    $tasklistId = $GLOBALS['registry']->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
+                    $tasklists = $GLOBALS['registry']->tasks->listTasklists(true);
+                    if (!isset($tasklists[$tasklistId])) {
+                        $GLOBALS['notification']->push(_("Added task list not found."), 'horde.error');
+                        return $result;
+                    }
+                    $tasklist = $tasklists[$tasklistId];
                     Kronolith::readPermsForm($tasklist);
                     $result->perms = Kronolith::permissionToJson($tasklist->getPermission());
                 } catch (Exception $e) {
