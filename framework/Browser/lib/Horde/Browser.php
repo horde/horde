@@ -1194,32 +1194,6 @@ class Horde_Browser
     }
 
     /**
-     * Escapes characters in javascript code if the browser requires it.  %23,
-     * %26, and %2B (for some browsers) and %27 need to be escaped or else
-     * javascript will interpret it as a single quote, pound sign, or
-     * ampersand and refuse to work.
-     *
-     * @param string $code  The JS code to escape.
-     *
-     * @return string  The escaped code.
-     */
-    public function escapeJSCode($code)
-    {
-        $from = $to = array();
-
-        if ($this->isBrowser('msie') ||
-            ($this->isBrowser('mozilla') && ($this->getMajor() >= 5)) ||
-            $this->isBrowser('konqueror')) {
-            $from = array('%23', '%26', '%2B');
-            $to = array('%2523', '%2526', '%252B');
-        }
-        $from[] = '%27';
-        $to[] = '\%27';
-
-        return str_replace($from, $to, $code);
-    }
-
-    /**
      * Sets the IE version in the session.
      *
      * @param string $ver  The IE Version string.
