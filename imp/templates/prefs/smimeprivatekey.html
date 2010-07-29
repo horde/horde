@@ -31,14 +31,14 @@
  </div>
 
  <p>
-  <input type="submit" name="delete_smime_personal" class="button" onclick="confirm('<tag:deletekeypair />')" value="<gettext>Delete Personal Certificate</gettext>" />
+  <input type="submit" id="delete_smime_personal" name="delete_smime_personal" class="button" value="<gettext>Delete Personal Certificate</gettext>" />
   <tag:personalkey-delete-help />
  </p>
 <else:has_key>
 <if:import_url>
  <div>
   <p>
-   <input type="submit" name="save" class="button" onclick="<tag:import_url />return false;" value="<gettext>Import Personal Certificate</gettext>" />
+   <input type="submit" name="save" class="button" id="import_smime_personal" value="<gettext>Import Personal Certificate</gettext>" />
    <tag:import-cert-help />
   </p>
  </div>

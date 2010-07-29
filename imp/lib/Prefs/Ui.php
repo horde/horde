@@ -1045,8 +1045,11 @@ class IMP_Prefs_Ui
                 $t->set('viewprivate', Horde::link($pgp_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
                 $t->set('infoprivate', Horde::link($pgp_url->copy()->add('actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
                 $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
-                $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
+
+                Horde::addInlineScript(array(
+                    '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                ), 'dom');
             } else {
                 $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                 $t->set('fullname', $imp_identity->getFullname());
@@ -1056,11 +1059,16 @@ class IMP_Prefs_Ui
                 $t->set('personalkey-create-email-help', Horde_Help::link('imp', 'pgp-personalkey-create-email'));
                 $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
                 $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
-                $t->set('keygen', addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
+
+                Horde::addInlineScript(array(
+                    '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                ), 'dom');
 
                 if ($_SESSION['imp']['file_upload']) {
                     $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-                    $t->set('import_url', Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
+                    Horde::addInlineScript(array(
+                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                    ), 'dom');
                 }
 
                 $t->set('personalkey-create-actions-help', Horde_Help::link('imp', 'pgp-personalkey-create-actions'));
@@ -1157,11 +1165,15 @@ class IMP_Prefs_Ui
         }
 
         if ($_SESSION['imp']['file_upload']) {
+            $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-                $t->set('import_url', Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
+
+                Horde::addInlineScript(array(
+                    '$("import_pgp_public").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                ), 'dom');
             }
         }
 
@@ -1291,12 +1303,18 @@ class IMP_Prefs_Ui
                 $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getPassphraseId())) . _("Enter Passphrase") : Horde::link($ui->selfUrl(array('special' => true))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase"));
 
                 $t->set('viewprivate', Horde::link($smime_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
-                $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
                 $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
+
+                Horde::addInlineScript(array(
+                    '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')) { e.stop(); } })'
+                ), 'dom');
             } elseif ($_SESSION['imp']['file_upload']) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-                $t->set('import_url', Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
+
+                Horde::addInlineScript(array(
+                    '$("import_smime_personal").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                ), 'dom');
             }
         }
 
@@ -1366,8 +1384,11 @@ class IMP_Prefs_Ui
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
-                $t->set('import_url', Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
+
+                Horde::addInlineScript(array(
+                    '$("import_pgp").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                ), 'dom');
             }
         }
 

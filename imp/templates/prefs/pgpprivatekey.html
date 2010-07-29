@@ -37,7 +37,7 @@
  </div>
 
  <p>
-  <input type="submit" name="delete_pgp_privkey" class="button" onclick="confirm('<tag:deletekeypair />')" value="<gettext>Delete Current Keys</gettext>" />
+  <input type="submit" id="delete_pgp_privkey" name="delete_pgp_privkey" class="button" value="<gettext>Delete Current Keys</gettext>" />
   <tag:personalkey-delete-help />
  </p>
 <else:has_key>
@@ -113,9 +113,9 @@
   </table>
 
   <p>
-   <input type="submit" name="create_pgp_key" class="button" onclick="confirm('<tag:keygen />')" value="<gettext>Create Keys</gettext>" />
+   <input type="submit" id="create_pgp_key" name="create_pgp_key" class="button" value="<gettext>Create Keys</gettext>" />
 <if:import_url>
-   <input type="submit" name="save" class="button" onclick="<tag:import_url />return false;" value="<gettext>Import Keypair</gettext>" />
+   <input type="submit" name="save" class="button" id="import_pgp_personal" value="<gettext>Import Keypair</gettext>" />
 </if:import_url>
    <tag:personalkey-create-actions-help />
   </p>

@@ -19,7 +19,7 @@
 </else:pubkey_list></if:pubkey_list>
   </div>
 
-<if:import_url>
+<if:can_import>
 <if:no_source>
   <div>
    <em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em>
@@ -27,15 +27,15 @@
 <else:no_source>
   <div>
    <p>
-    <input type="submit" name="save" class="button" onclick="<tag:import_url />return false;" value="<gettext>Import Public Key</gettext>" />
+    <input type="submit" name="save" id="import_pgp_public" class="button" value="<gettext>Import Public Key</gettext>" />
    <tag:import_pubkey-help />
    </p>
   </div>
  </else:no_source></if:no_source>
-<else:import_url>
+<else:can_import>
   <div>
    <div class="prefsPgpWarning"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></div>
   </div>
-</else:import_url></if:import_url>
+</else:can_import></if:can_import>
  </div>
 </div>
