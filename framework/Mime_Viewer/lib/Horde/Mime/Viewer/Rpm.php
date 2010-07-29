@@ -72,7 +72,7 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Base
         }
         pclose($fh);
 
-        return $this->_returnRender(
+        return $this->_renderReturn(
             '<pre>' . htmlspecialchars($data) . '</pre>',
             'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );

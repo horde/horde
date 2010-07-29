@@ -51,7 +51,7 @@ class Horde_Mime_Viewer_Mspowerpoint extends Horde_Mime_Viewer_Base
         }
         pclose($fh);
 
-        return $this->_returnRender(
+        return $this->_renderReturn(
             $data,
             'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );

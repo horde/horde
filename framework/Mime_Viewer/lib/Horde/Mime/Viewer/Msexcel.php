@@ -44,12 +44,12 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
         $tmp_in = Horde::getTempFile('horde_msexcel');
         $tmp_out = Horde::getTempFile('horde_msexcel');
 
-        file_put_contents($tmp_xls, $this->_mimepart->getContents());
+        file_put_contents($tmp_in, $this->_mimepart->getContents());
         $args = ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_in . ' ' . $tmp_out;
 
         exec($this->_conf['location'] . $args);
 
-        return $this->_returnRender(
+        return $this->_renderReturn(
             file_get_contents($tmp_out),
             'text/html; charset=' . $GLOBALS['registry']->getCharset()
         );
