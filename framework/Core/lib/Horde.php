@@ -1855,10 +1855,12 @@ HTML;
 
             switch ($key) {
             case 'dom':
+                Horde::addScriptFile('prototype.js', 'horde');
                 $val = 'document.observe("dom:loaded", function() {' . $val . '});';
                 break;
 
             case 'load':
+                Horde::addScriptFile('prototype.js', 'horde');
                 $val = 'Event.observe(window, "load", function() {' . $val . '});';
                 break;
             }
