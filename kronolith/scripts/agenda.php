@@ -54,6 +54,8 @@ function send_agendas()
     $runtime = new Horde_Date($runtime);
     $default_timezone = date_default_timezone_get();
     $kronolith_driver = Kronolith::getDriver();
+    $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/agenda', 'encoding' => $GLOBALS['registry']->getCharset()));
+    new Horde_View_Helper_Text($view);
 
     // Loop through the users and generate an agenda for them
     foreach ($users as $user) {
@@ -62,26 +64,18 @@ function send_agendas()
         $prefs->retrieve();
         $agenda_calendars = $prefs->getValue('daily_agenda');
 
-        // Check if user has a timezone pref, and set it. Otherwise, make
-        // sure to use the server's default timezone.
-        $tz = $prefs->getValue('timezone');
-        date_default_timezone_set(empty($tz) ? $default_timezone : $tz);
-
         if (!$agenda_calendars) {
             continue;
         }
 
-        // try to find an email address for the user
+        // Try to find an email address for the user.
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($user);
-        $email = $identity->getValue('from_addr');
-        if (strstr($email, '@')) {
-            list($mailbox, $host) = explode('@', $email);
-            $email = Horde_Mime_Address::writeAddress($mailbox, $host, $identity->getValue('fullname'));
-        }
+        $email = $identity->getDefaultFromAddress(true);
 
-        if (empty($email)) {
-            continue;
-        }
+        // Check if user has a timezone pref, and set it. Otherwise, make
+        // sure to use the server's default timezone.
+        $tz = $prefs->getValue('timezone');
+        date_default_timezone_set(empty($tz) ? $default_timezone : $tz);
 
         // If we found an email address, generate the agenda.
         switch ($agenda_calendars) {
@@ -130,31 +124,37 @@ function send_agendas()
         $lang = $prefs->getValue('language');
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
+
+        $view->pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
+        $view->date = $runtime->strftime($dateFormat);
+        $view->timeformat = $twentyFour  ? 'H:i' : 'h:ia';
+        $view->events = $eventlist;
+
         $GLOBALS['registry']->setLanguageEnvironment($lang);
-        $mime_mail = new Horde_Mime_Mail(array('subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($dateFormat)),
-                                               'to' => $email,
-                                               'from' => $GLOBALS['conf']['reminder']['from_addr'],
-                                               'charset' => $GLOBALS['registry']->getCharset()));
+        $mime_mail = new Horde_Mime_Mail(
+            array('subject' => sprintf(_("Your daily agenda for %s"), $view->date),
+                  'to' => $email,
+                  'from' => $GLOBALS['conf']['reminder']['from_addr'],
+                  'charset' => $GLOBALS['registry']->getCharset()));
         $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
-
-        $pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
-
-        $message = sprintf(_("Your daily agenda for %s"),
-                           $runtime->strftime($dateFormat))
-            . "\n\n";
-        foreach ($eventlist as $event) {
-            if ($event->isAllDay()) {
-                $message .= str_pad(_("All day") . ':', $pad);
-            } else {
-                $message .= str_pad($event->start->format($twentyFour  ? 'H:i' : 'h:ia'), $pad);
-            }
-            $message .= $event->title . "\n";
-        }
-
-        $mime_mail->setBody($message, $GLOBALS['registry']->getCharset(), true);
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}
+
+        $multipart = new Horde_Mime_Part();
+        $multipart->setType('multipart/alternative');
+        $bodyText = new Horde_Mime_Part();
+        $bodyText->setType('text/plain');
+        $bodyText->setCharset($GLOBALS['registry']->getCharset());
+        $bodyText->setContents($view->render('notification.plain.php'));
+        $multipart->addPart($bodyText);
+        $bodyHtml = new Horde_Mime_Part();
+        $bodyHtml->setType('text/html');
+        $bodyHtml->setCharset($GLOBALS['registry']->getCharset());
+        $bodyHtml->setContents($view->render('notification.html.php'));
+        $multipart->addPart($bodyHtml);
+        $mime_mail->setBasePart($multipart);
+
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
         try {
             $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), false, false);
