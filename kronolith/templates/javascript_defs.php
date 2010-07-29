@@ -15,11 +15,11 @@ $var = array(
 );
 
 /* Gettext strings used in core javascript files. */
-$gettext = array_map('addslashes', array(
+$gettext = array(
     'close' => _("Close"),
     'enddate_error' => _("The end date must be later than the start date."),
     'loading' => _("Loading ..."),
-));
+);
 
 ?>
 <script type="text/javascript">//<![CDATA[
