@@ -155,7 +155,10 @@ if ($mode == 'thread') {
     foreach ($thread as $val) {
         $delete_link->add(array('indices[]' => strval(new IMP_Indices(IMP::$mailbox, $val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
-    $template->set('delete', Horde::link('#', _("Delete Thread"), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete all messages in this thread?")) . "')) { window.location = '" . $delete_link . "'; } return false;") . Horde::img('delete.png', _("Delete Thread")) . '</a>');
+    $template->set('delete', Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete')) . Horde::img('delete.png', _("Delete Thread")) . '</a>');
+    Horde::addInlineScript(array(
+        '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
+    ), 'dom');
 }
 $template->set('thread', $mode == 'thread');
 $template->set('messages', $msgs);
