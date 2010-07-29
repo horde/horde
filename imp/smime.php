@@ -24,25 +24,30 @@ $vars = Horde_Variables::getDefaultVariables();
 switch ($vars->actionID) {
 case 'import_public_key':
     $imp_smime->importKeyDialog('process_import_public_key', $vars->reload);
-    exit;
+    break;
 
 case 'process_import_public_key':
+    $error = false;
     try {
         $publicKey = $imp_smime->getImportKey($vars->import_key);
 
         /* Add the public key to the storage system. */
         $imp_smime->addPublicKey($publicKey);
-        $notification->push(_("S/MIME Public Key successfully added."), 'horde.success');
+        $notification->push(_("S/MIME public key successfully added."), 'horde.success');
         $imp_smime->reloadWindow($vars->reload);
     } catch (Horde_Browser_Exception $e) {
         $notification->push(_("No S/MIME public key imported."), 'horde.error');
-        throw new IMP_Exception($e);
+        $error = true;
     } catch (Horde_Exception $e) {
         $notification->push($e);
+        $error = true;
+    }
+
+    if ($error) {
         $vars->actionID = 'import_public_key';
         $imp_smime->importKeyDialog('process_import_public_key', $vars->reload);
     }
-    exit;
+    break;
 
 case 'view_public_key':
 case 'info_public_key':
@@ -56,23 +61,23 @@ case 'info_public_key':
     } else {
         $imp_smime->printCertInfo($key);
     }
-    exit;
+    break;
 
 case 'view_personal_public_key':
     $imp_smime->textWindowOutput('S/MIME Personal Public Key', $imp_smime->getPersonalPublicKey());
-    exit;
+    break;
 
 case 'info_personal_public_key':
     $imp_smime->printCertInfo($imp_smime->getPersonalPublicKey());
-    exit;
+    break;
 
 case 'view_personal_private_key':
     $imp_smime->textWindowOutput('S/MIME Personal Private Key', $imp_smime->getPersonalPrivateKey());
-    exit;
+    break;
 
 case 'import_personal_certs':
     $imp_smime->importKeyDialog('process_import_personal_certs', $vars->reload);
-    exit;
+    break;
 
 case 'process_import_personal_certs':
     try {
@@ -80,14 +85,20 @@ case 'process_import_personal_certs':
         $imp_smime->addFromPKCS12($pkcs12, $vars->upload_key_pass, $vars->upload_key_pk_pass);
         $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
         $imp_smime->reloadWindow($vars->reload);
+        $error = false;
     } catch (Horde_Browser_Exception $e) {
-        throw new IMP_Exception($e);
+        $notification->push(_("Personal S/MIME certificates NOT imported."), 'horde.error');
+        $error = true;
     } catch (Horde_Exception $e) {
         $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
+        $error = true;
+    }
+
+    if ($error) {
         $vars->actionID = 'import_personal_certs';
         $imp_smime->importKeyDialog('process_import_personal_certs', $vars->reload);
     }
-    exit;
+    break;
 
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
@@ -104,5 +115,5 @@ case 'save_attachment_public_key':
     } catch (Horde_Exception $e) {
         $notification->push(_("No Certificate found"), 'horde.error');
     }
-    exit;
+    break;
 }
