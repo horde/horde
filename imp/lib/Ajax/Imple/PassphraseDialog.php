@@ -100,7 +100,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             $js = '$("' . $this->_domid . '").observe("click", function(e) { ' . $js . 'e.stop(); })';
         }
 
-        Horde::addInlineScript(array($js));
+        Horde::addInlineScript(array($js), 'dom');
     }
 
     /**
