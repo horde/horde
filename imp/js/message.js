@@ -1,11 +1,19 @@
 /**
  * Provides the javascript for the message.php script (standard view).
  *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @package  IMP
  */
 
 var ImpMessage = {
+
+    // Set in message.php: pop3delete, stripatc
 
     _arrowHandler: function(e)
     {
@@ -172,6 +180,12 @@ var ImpMessage = {
 
         while (Object.isElement(elt)) {
             if (elt.match('.msgactions A.widget')) {
+                if (this.pop3delete && elt.hasClassName('deleteAction')) {
+                    if (!window.confirm(this.pop3delete)) {
+                        e.stop();
+                        return;
+                    }
+                }
                 if (elt.hasClassName('moveAction')) {
                     this._transfer('move_message');
                 } else if (elt.hasClassName('copyAction')) {
@@ -180,6 +194,11 @@ var ImpMessage = {
                     this.submit('spam_report');
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
+                } else if (elt.hasClassName('stripAllAtc')) {
+                    if (!window.confirm(this.stripatc)) {
+                        e.stop();
+                        return;
+                    }
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP.unblockImages(e);
