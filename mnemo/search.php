@@ -14,9 +14,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
+Horde::addInlineScript(array(
+    '$("search_pattern").focus()'
+), 'dom');
+
 $title = _("Search");
-$notification->push('document.getElementById(\'search_pattern\').focus();', 'javascript');
-Horde::addScriptFile('prototype.js', 'horde', true);
 require MNEMO_TEMPLATES . '/common-header.inc';
 require MNEMO_TEMPLATES . '/menu.inc';
 $notification->notify();

@@ -12,6 +12,6 @@ try {
 if (typeof(_setHordeTitle) == 'undefined' && document.title && parent.frames.horde_main) parent.document.title = document.title;
 // -->
 </script>
-<?php if (isset($GLOBALS['notification'])) $GLOBALS['notification']->notify(array('listeners' => array('audio', 'javascript'))); ?>
+<?php if (isset($GLOBALS['notification'])) $GLOBALS['notification']->notify(array('listeners' => array('audio'))); ?>
 </body>
 </html>

@@ -161,12 +161,14 @@ class EditPage extends Page {
                 (Horde_String::lower(Horde_Util::getFormData('wicked_captcha')) != Horde_String::lower(Wicked::getCAPTCHA()))) {
                 $notification->push(_("Random string did not match."), 'horde.error');
                 return;
-            } 
+            }
             $text = Horde_Util::getFormData('page_text');
             $changelog = Horde_Util::getFormData('changelog');
             if ($conf['wicked']['require_change_log'] && empty($changelog)) {
                 $notification->push(_("You must provide a change log."), 'horde.error');
-                $notification->push('if (document.editform && document.editform.changelog) document.editform.changelog.focus();', 'javascript');
+                Horde::addInlineScript(array(
+                    'if (document.editform && document.editform.changelog) document.editform.changelog.focus()'
+                ), 'dom');
                 return;
             }
             $minorchange = Horde_Util::getFormData('minor');

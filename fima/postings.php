@@ -663,6 +663,8 @@ $rowId = 0;
 $datefmt = $prefs->getValue('date_format');
 $amountfmt = $prefs->getValue('amount_format');
 
+$js_onload = array();
+
 if ($pageOb['mode'] == 'edit') {
     /* Fix date format. */
     $datefmt = Fima::convertDateFormat($datefmt);
@@ -670,14 +672,18 @@ if ($pageOb['mode'] == 'edit') {
     /* Add current date in first field if no postings. */
     foreach ($postings as $key => $value) {
         if ($value['date'] == '') {
-            $notification->push('document.getElementById(\'date1\').value = \'' . strftime($datefmt) . '\';', 'javascript');
+            $js_onload[] = '$("date1").setValue(' . Horde_Serialize::serialize(strftime($datefmt), Horde_Serialize::JSON, $registry->getCharset()) . ')';
         }
         break;
     }
 
     /* Select first date field. */
-    $notification->push('updateResult(); updateAssetResult(_getall(\'asset[]\')[0]); document.getElementById(\'date1\').focus(); document.getElementById(\'date1\').select();', 'javascript');
+    $js_onload[] = 'updateResult()';
+    $js_onload[] = 'updateAssetResult(_getall("asset[]")[0])';
+    $js_onload[] = '$("date1").focus().select()';
 }
+
+Horde::addInlineScript($js_onload, 'dom');
 
 require FIMA_TEMPLATES . '/common-header.inc';
 if ($print_view) {

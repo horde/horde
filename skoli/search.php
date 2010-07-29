@@ -117,8 +117,11 @@ if ($conf['objects']['allow_absences']) {
                       htmlspecialchars(_("Absences")) . "</option>\n";
 }
 
+Horde::addInlineScript(array(
+    '$("stext").focus()'
+), 'dom');
+
 $title = _("Search");
-$notification->push('document.skoli_searchform.stext.focus();', 'javascript');
 
 Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');

@@ -57,8 +57,13 @@ case 'Sort':
     exit;
 }
 
+Horde::addInlineScript(array(
+    'Sortable.create("sortContainer", { tag: "div", overlap: "horizontal", constraint: false })'
+), 'dom');
+
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('dragdrop.js', 'horde');
+
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
@@ -92,5 +97,4 @@ foreach ($images as $image) {
         . '</a></div>';
 }
 echo '</div>';
-$notification->push('Sortable.create(\'sortContainer\', {tag: \'div\', overlap: \'horizontal\', constraint: false })', 'javascript');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

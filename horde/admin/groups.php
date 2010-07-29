@@ -155,7 +155,9 @@ case 'editform':
 
 switch ($form) {
 case 'addchild.inc':
-    $notification->push('document.add_child.child.focus()', 'javascript');
+    Horde::addInlineScript(array(
+        '$("child").focus()'
+    ), 'dom');
     break;
 
 case 'edit.inc':

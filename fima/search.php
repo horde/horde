@@ -66,8 +66,11 @@ $eos = array('-1' => '',
 $datefmt = $prefs->getValue('date_format');
 $amountfmt = $prefs->getValue('amount_format');
 
+Horde::addInlineScript(array(
+    '$("search_type").focus()'
+), 'dom');
+
 $title = _("Search Postings");
-$notification->push('document.search.search_type.focus();', 'javascript');
 require FIMA_TEMPLATES . '/common-header.inc';
 require FIMA_TEMPLATES . '/menu.inc';
 if ($browser->hasFeature('javascript')) {

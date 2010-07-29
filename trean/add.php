@@ -108,8 +108,11 @@ case 'add_folder':
 }
 
 if (Horde_Util::getFormData('popup')) {
-    $notification->push('window.focus();', 'javascript');
+    Horde::addInlineScript(array(
+        'window.focus()'
+    ), 'dom');
 }
+
 $title = _("New Bookmark");
 require TREAN_TEMPLATES . '/common-header.inc';
 if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')) {

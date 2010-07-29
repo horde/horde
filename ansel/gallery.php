@@ -35,7 +35,9 @@ case 'add':
     $gallery_mode = 'Normal';
     $gallery_passwd = '';
 
-    $notification->push('document.gallery.gallery_name.focus();', 'javascript');
+    Horde::addInlineScript(array(
+        '$("gallery_name").focus()'
+    ), 'dom');
 
     $title = _("Adding A New Gallery");
     break;
@@ -73,7 +75,10 @@ case 'addchild':
     $gallery_mode = 'Normal';
     $gallery_passwd = '';
 
-    $notification->push('document.gallery.gallery_name.focus();', 'javascript');
+    Horde::addInlineScript(array(
+        '$("gallery_name").focus()'
+    ), 'dom');
+
     $title = sprintf(_("Adding A Subgallery to %s"), $parent->get('name'));
     break;
 

@@ -18,11 +18,11 @@
 class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
 {
     /**
-     * A notification handler.
+     * A notification callback.
      *
-     * @var Horde_Notification_Handler
+     * @var callback
      */
-    protected $_notification;
+    protected $_jsNotify;
 
     /**
      * An icon URL.
@@ -36,7 +36,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
      *
      * @param array $params  Any parameters that the handler might need.
      *                       Required parameter:
-     *                       - notification: A Horde_Notification_Handler
+     *                       - js_notify: A Horde_Notification_Handler
      *                         instance.
      *                       Optional parameter:
      *                       - icon: URL of an icon to display.
@@ -44,23 +44,25 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
     public function __construct(array $params = null)
     {
         /*
-        if (!isset($params['notification'])) {
-            throw new Horde_Alarm_Exception('Parameter \'notification\' missing.');
+        if (!isset($params['js_notify'])) {
+            throw new InvalidArgumentException('Parameter \'js_notify\' missing.');
         }
-        if (!($params['notification'] instanceof Horde_Notification_Handler)) {
-            throw new Horde_Alarm_Exception('Parameter \'notification\' is not a Horde_Notification_Handler object.');
+        if (!is_callable($params['js_notify'])) {
+            throw new Horde_Alarm_Exception('Parameter \'js_notify\' is not a Horde_Notification_Handler object.');
         }
-        $this->_notification = $params['notification'];
+        $this->_jsNotify = $params['jsNotify'];
         if (isset($params['icon'])) {
             $this->_icon = $params['icon'];
         }
         */
-        $this->_notification = isset($params['notification']) ? $params['notification'] : $GLOBALS['injector']->getInstance('Horde_Notification');
+        $this->_jsNotify = isset($params['js_notify'])
+            ? $params['js_notify']
+            : array('Horde', 'addInlineScript');
         $this->_icon = isset($params['icon']) ? $params['icon'] : (string)Horde_Themes::img('alerts/alarm.png');
     }
 
     /**
-     * Notifies about an alarm through Horde_Notification.
+     * Notifies about an alarm through javscript.
      *
      * @param array $alarm  An alarm hash.
      */
@@ -70,7 +72,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
                       $this->_icon,
                       addslashes($alarm['title']),
                       isset($alarm['text']) ? addslashes($alarm['text']) : '');
-        $this->_notification->push($js, 'javascript');
+        call_user_func($this->_jsNotify($js));
     }
 
     /**

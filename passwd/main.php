@@ -268,7 +268,10 @@ if (empty($userid)) {
     }
 }
 
-$notification->push('setFocus()', 'javascript');
+Horde::addInlineScript(array(
+    'setFocus()'
+), 'dom');
+
 $title = _("Change Password");
 require PASSWD_TEMPLATES . '/common-header.inc';
 require PASSWD_TEMPLATES . '/main/main.inc';

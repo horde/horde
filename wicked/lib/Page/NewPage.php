@@ -85,8 +85,6 @@ class NewPage extends Page {
      */
     function display()
     {
-        global $notification;
-
         // Load the page template.
         if ($this->_template) {
             $page = Page::getPage($this->_template);
@@ -95,7 +93,10 @@ class NewPage extends Page {
             $page_text = '';
         }
 
-        $notification->push('if (document.editform && document.editform.page_text) document.editform.page_text.focus();', 'javascript');
+        Horde::addInlineScript(array(
+            'if (document.editform && document.editform.page_text) document.editform.changelog.page_text()'
+        ), 'dom');
+
         require WICKED_TEMPLATES . '/edit/new.inc';
         return true;
     }

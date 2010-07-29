@@ -158,7 +158,10 @@ default:
 $datefmt = $prefs->getValue('date_format');
 $amountfmt = $prefs->getValue('amount_format');
 
-$notification->push('document.report.report_id.focus();', 'javascript');
+Horde::addInlineScript(array(
+    '$("report_id").focus()'
+), 'dom');
+
 require FIMA_TEMPLATES . '/common-header.inc';
 require FIMA_TEMPLATES . '/menu.inc';
 if ($browser->hasFeature('javascript')) {

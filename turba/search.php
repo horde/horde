@@ -248,12 +248,18 @@ if ($_SESSION['turba']['search_mode'] != 'duplicate') {
 switch ($_SESSION['turba']['search_mode']) {
 case 'basic':
     $title = _("Basic Search");
-    $notification->push('document.directory_search.val.focus();', 'javascript');
+    Horde::addInlineScript(array(
+        '$("val").focus()'
+    ), 'dom');
     break;
+
 case 'advanced':
     $title = _("Advanced Search");
-    $notification->push('document.directory_search.name.focus();', 'javascript');
+    Horde::addInlineScript(array(
+        '$("name").focus()'
+    ), 'dom');
     break;
+
 case 'duplicate':
     $title = _("Duplicate Search");
     break;

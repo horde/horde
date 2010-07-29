@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added unit tests.
+ <notes>* Removed javascript listener.
+ * Added unit tests.
  * Added Horde_Notification::replace().
  * Initial Horde 4 package.
  </notes>
@@ -45,7 +46,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Notification/Handler -->
       <dir name="Listener">
        <file name="Audio.php" role="php" />
-       <file name="Javascript.php" role="php" />
        <file name="Status.php" role="php" />
       </dir> <!-- /lib/Horde/Notification/Listener -->
       <dir name="Storage">
@@ -80,7 +80,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="ListenerTest.php" role="test" />
         <dir name="Listener">
          <file name="AudioTest.php" role="test" />
-         <file name="JavascriptTest.php" role="test" />
          <file name="StatusTest.php" role="test" />
         </dir> <!-- /test/Horde/Notification/Class/Notification/Listener -->
        </dir> <!-- /test/Horde/Notification/Class/Notification -->
@@ -124,7 +123,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Notification/Handler/Decorator/Base.php" as="Horde/Notification/Handler/Decorator/Base.php" />
    <install name="lib/Horde/Notification/Handler/Decorator/Log.php" as="Horde/Notification/Handler/Decorator/Log.php" />
    <install name="lib/Horde/Notification/Listener/Audio.php" as="Horde/Notification/Listener/Audio.php" />
-   <install name="lib/Horde/Notification/Listener/Javascript.php" as="Horde/Notification/Listener/Javascript.php" />
    <install name="lib/Horde/Notification/Listener/Status.php" as="Horde/Notification/Listener/Status.php" />
    <install name="lib/Horde/Notification/Storage/Interface.php" as="Horde/Notification/Storage/Interface.php" />
    <install name="lib/Horde/Notification/Storage/Object.php" as="Horde/Notification/Storage/Object.php" />
@@ -142,7 +140,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Notification/Class/Notification/Handler/Decorator/LogTest.php" as="Horde/Notification/Class/Notification/Handler/Decorator/LogTest.php" />
    <install name="test/Horde/Notification/Class/Notification/ListenerTest.php" as="Horde/Notification/Class/Notification/ListenerTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Listener/AudioTest.php" as="Horde/Notification/Class/Notification/Listener/AudioTest.php" />
-   <install name="test/Horde/Notification/Class/Notification/Listener/JavascriptTest.php" as="Horde/Notification/Class/Notification/Listener/JavascriptTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Listener/StatusTest.php" as="Horde/Notification/Class/Notification/Listener/StatusTest.php" />
   </filelist>
  </phprelease>
