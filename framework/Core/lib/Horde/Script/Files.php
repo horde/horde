@@ -71,7 +71,7 @@ class Horde_Script_Files
 
         // Always add prototype.js.
         if (!isset($this->_included[$app]['prototype.js'])) {
-            $this->add('prototype.js', 'horde', true);
+            $this->add('prototype.js', 'horde');
         }
 
         $this->_files[$app][] = array(
@@ -104,7 +104,7 @@ class Horde_Script_Files
         // Always add prototype.js.
         if (!isset($this->_included[$app]['prototype.js']) &&
             ($file != 'prototype.js')) {
-            $this->add('prototype.js', 'horde', true);
+            $this->add('prototype.js', 'horde');
         }
 
         // Add localized string for popup.js
@@ -167,7 +167,7 @@ class Horde_Script_Files
 
         /* Add accesskeys.js if access keys are enabled. */
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
-            $this->_add('accesskeys.js', 'horde', true, false);
+            $this->_add('accesskeys.js', 'horde', false);
         }
 
         return $this->_files;
