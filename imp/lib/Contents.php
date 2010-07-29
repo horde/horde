@@ -690,7 +690,7 @@ class IMP_Contents
             (strpos($id, '.') === false)) {
             if ($mask & self::SUMMARY_STRIP_LINK) {
                 $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')') . '</a>';
             } else {
                 $part['strip'] = Horde::link('#', _("Strip Attachment"), 'deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
             }

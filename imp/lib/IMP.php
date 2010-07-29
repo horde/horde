@@ -574,14 +574,14 @@ class IMP
                 if (!empty($mailbox) &&
                     !$GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->isReadOnly($mailbox)) {
                     $menu_trash_url = self::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
+                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
                 }
             }
 
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
                 $menu_spam_url = self::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
+                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, $GLOBALS['registry']->getCharset()) . ')', '__noselection');
             }
         }
 
