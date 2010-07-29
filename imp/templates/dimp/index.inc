@@ -8,8 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$usetrash = $prefs->getValue('use_trash');
 $use_sub = $prefs->getValue('subscribe');
+$use_trash = $prefs->getValue('use_trash');
 
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
@@ -19,6 +19,19 @@ $show_quota = (isset($_SESSION['imp']['imap']['quota']) && is_array($_SESSION['i
 
 // Get the list of available IMAP flags
 $flag_list = $injector->getInstance('IMP_Imap_Flags')->getList(array('imap' => true));
+
+// Get application folders list.
+$application_folders = array();
+foreach (IMP_Dimp::menuList() as $app) {
+    if (($registry->get('status', $app) != 'inactive') &&
+        $registry->hasPermission($app, Horde_Perms::SHOW)) {
+        $application_folders[] = array(
+            'app' => rawurlencode($app),
+            'icon' => $registry->get('icon', $app),
+            'name' => htmlspecialchars($registry->get('name', $app))
+        );
+    }
+}
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
 {
@@ -30,6 +43,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
         '<span class="iconSpan ' . $image . '"></span>' .
         '<a>' . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
+
 ?>
 <div id="dimpLoading">
  <?php echo _("Loading...") ?>
@@ -388,7 +402,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_message_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
  <a id="ctx_message_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
-<?php if (!$usetrash): ?>
+<?php if (!$use_trash): ?>
  <a id="ctx_message_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
  <div style="display:none">
@@ -441,7 +455,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_selectall"><span class="contextImg"></span><?php echo _("Select All") ?></a>
-<?php if (!$usetrash): ?>
+<?php if (!$use_trash): ?>
  <div class="sep"></div>
  <a id="oa_purge_deleted"><span class="contextImg"></span><?php echo _("Purge Deleted") ?></a>
  <a id="oa_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>

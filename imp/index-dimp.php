@@ -51,19 +51,6 @@ Horde::addInlineScript($js_code, 'load');
 Horde::noDnsPrefetch();
 IMP_Dimp::header('', $scripts);
 
-/* Get application folders list. */
-$application_folders = array();
-foreach (IMP_Dimp::menuList() as $app) {
-    if ($registry->get('status', $app) != 'inactive' &&
-        $registry->hasPermission($app, Horde_Perms::SHOW)) {
-        $application_folders[] = array(
-            'name' => htmlspecialchars($registry->get('name', $app)),
-            'icon' => $registry->get('icon', $app),
-            'app' => rawurlencode($app)
-        );
-    }
-}
-
 echo "<body>\n";
 require IMP_TEMPLATES . '/dimp/index.inc';
 Horde::includeScriptFiles();
