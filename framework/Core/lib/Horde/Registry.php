@@ -1695,11 +1695,11 @@ class Horde_Registry
      * <pre>
      * 'permission' - (string) Allow users with this permission admin access
      *                in the current context.
-     * @param integer $permlevel  The level of permissions to check for.
-     *                            Defaults to Horde_Perms::EDIT.
+     * 'permlevel' - (integer) The level of permissions to check for.
+     *               Defaults to Horde_Perms::EDIT.
+     * 'user' - (string) The user to check.
+     *          Defaults to self::getAuth().
      * </pre>
-     * @param string $user        The user to check. Defaults to
-     *                            self::getAuth().
      *
      * @return boolean  Whether or not this is an admin user.
      */
