@@ -94,7 +94,7 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
 } else {
     $own_icon = '';
     $own_link = '<span class="smallheader rightFloat">'
-        . Horde::link(Horde_Util::addParameter($url, array('action' => 'mark_own')))
+        . $url->copy()->add('action', 'mark_own')->link()
         . _("Mark this as your own contact") . '</a></span>';
 }
 

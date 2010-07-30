@@ -53,42 +53,42 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
 
         $this->getInfo($this->_vars, $info);
 
-        $next_page = Horde::applicationUrl('edit.php', true);
-        $next_page = Horde_Util::addParameter($next_page,
-                                        array('source' => $info['source'],
-                                              'original_source' => $info['original_source'],
-                                              'objectkeys' => $info['objectkeys'],
-                                              'url' => $info['url'],
-                                              'actionID' => 'groupedit'),
-                                        null, false);
+        $next_page = Horde::applicationUrl('edit.php', true)->add(array(
+            'source' => $info['source'],
+            'original_source' => $info['original_source'],
+            'objectkeys' => $info['objectkeys'],
+            'url' => $info['url'],
+            'actionID' => 'groupedit'
+        );
+
         $objectkey = array_search($info['source'] . ':' . $info['key'], $info['objectkeys']);
 
         $submitbutton = $this->_vars->get('submitbutton');
         if ($submitbutton == _("Finish")) {
             $next_page = Horde::url('browse.php', true);
             if ($info['original_source'] == '**search') {
-                $next_page = Horde_Util::addParameter($next_page, 'key', $info['original_source'], false);
+                $next_page->add('key', $info['original_source']);
             } else {
-                $next_page = Horde_Util::addParameter($next_page, 'source', $info['original_source'], false);
+                $next_page->add('source', $info['original_source']);
             }
         } elseif ($submitbutton == _("Previous") && $info['source'] . ':' . $info['key'] != $info['objectkeys'][0]) {
             /* Previous contact */
             list(, $previous_key) = explode(':', $info['objectkeys'][$objectkey - 1]);
-            $next_page = Horde_Util::addParameter($next_page, 'key', $previous_key, false);
+            $next_page->add('key', $previous_key);
             if ($this->getOpenSection()) {
-                $next_page = Horde_Util::addParameter($next_page, '__formOpenSection', $this->getOpenSection(), false);
+                $next_page->add('__formOpenSection', $this->getOpenSection());
             }
         } elseif ($submitbutton == _("Next") &&
                   $info['source'] . ':' . $info['key'] != $info['objectkeys'][count($info['objectkeys']) - 1]) {
             /* Next contact */
             list(, $next_key) = explode(':', $info['objectkeys'][$objectkey + 1]);
-            $next_page = Horde_Util::addParameter($next_page, 'key', $next_key, false);
+            $next_page->add('key', $next_key);
             if ($this->getOpenSection()) {
-                $next_page = Horde_Util::addParameter($next_page, '__formOpenSection', $this->getOpenSection(), false);
+                $next_page->add('__formOpenSection', $this->getOpenSection());
             }
         }
 
-        header('Location: ' . $next_page);
+        header('Location: ' . $next_page->setRaw(true));
         exit;
     }
 

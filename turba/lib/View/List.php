@@ -174,10 +174,10 @@ class Turba_View_List {
         }
         list($addToList, $addToListSources) = $this->getAddSources();
 
-        $viewurl = urldecode(Horde_Util::addParameter(
-            'browse.php',
-            array('key' => Horde_Util::getFormData('key'),
-                  'url' => Horde::selfUrl(true, false, true))));
+        $viewurl = Horde::applicationUrl('browse.php')->add(array(
+            'key' => Horde_Util::getFormData('key'),
+            'url' => Horde::selfUrl(true, false, true)
+        ));
 
         if ($this->type == 'search') {
             $page = Horde_Util::getFormData('page', 0);
@@ -214,7 +214,7 @@ class Turba_View_List {
                 'val' => Horde_Util::getFormData('val'),
                 'source' => Horde_Util::getFormData('source', $default_source)
             ));
-            $viewurl = urldecode(Horde_Util::addParameter('search.php', $params));
+            $viewurl = Horde::applicationUrl('search.php')-add($params);
 
             $vars = Horde_Variables::getDefaultVariables();
             $pager = new Horde_Core_Ui_Pager('page', $vars,

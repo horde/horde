@@ -658,7 +658,7 @@ class Turba_Driver
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
                 'params' => array('source' => $this->name, 'key' => $key),
-                'link' => Horde_Util::addParameter(Horde::applicationUrl('contact.php', true), array('source' => $this->name, 'key' => $key), null, false));
+                'link' => Horde::applicationUrl('contact.php', true)->add(array('source' => $this->name, 'key' => $key))->setRaw(true));
         }
 
         return $t_objects;

@@ -36,7 +36,7 @@ class Horde_Block_turba_tree_menu extends Horde_Block
                                false,
                                array('icon' => 'new.png',
                                      'icondir' => $icondir,
-                                     'url' => Horde_Util::addParameter($add, array('source' => $addressbook))));
+                                     'url' => $add->copy()->add('source', $addressbook)));
             }
         }
 
@@ -49,7 +49,7 @@ class Horde_Block_turba_tree_menu extends Horde_Block
                                false,
                                array('icon' => 'browse.png',
                                      'icondir' => $icondir,
-                                     'url' => Horde_Util::addParameter($browse, array('source' => $addressbook))));
+                                     'url' => $browse->copy()->add('source', $addressbook)));
             }
         }
 

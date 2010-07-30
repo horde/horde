@@ -159,9 +159,8 @@ if (is_a($driver, 'PEAR_Error')) {
             }
             $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
 
-            $url = Horde::applicationURL('browse.php', true);
-            $url = Horde_Util::addParameter($url, array('source' => $vid, null, false));
-            header('Location: ' . $url);
+            $url = Horde::applicationURL('browse.php', true)->add('source', $vid);;
+            header('Location: ' . $url->setRaw(true));
             exit;
         }
 

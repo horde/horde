@@ -23,13 +23,13 @@
    <?php if ($this->isSortColumn($i)): ?>
       <?php $sortdir = $this->getColumnSortDirection($i); ?>
       <?php $changetitle = sprintf(_("Change %s sort to %s"), $columnlabel, $sortdir == 0 ? _("descending") : _("ascending")) ?>
-      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortadd' => 1, 'sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>"><?php echo $this->getColumnSortImage($i) ?></a>
+      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo $s_url->copy()->add(array('sortadd' => 1, 'sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>"><?php echo $this->getColumnSortImage($i) ?></a>
       <?php $changetitle = sprintf(_("Sort by %s only"), $columnlabel) ?>
-      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>">
+      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo $s_url->copy()->add(array('sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>">
    <?php else: ?>
       <?php $sorttitle = sprintf(_("Sort by %s, then by %s"), $this->getSortOrderDescription(), $columnlabel) ?>
-      <a class="widget" title="<?php echo $sorttitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortadd' => 1, 'sortby' => $i, 'sortdir' => 0)) ?>"><?php echo $this->getColumnSortImage($i, $sorttitle) ?></a>
-      <a class="widget" title="<?php echo sprintf(_("Sort by %s"), $columnlabel) ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortby' => $i, 'sortdir' => 0)) ?>">
+      <a class="widget" title="<?php echo $sorttitle ?>" href="<?php echo $s_url->copy()->add(array('sortadd' => 1, 'sortby' => $i, 'sortdir' => 0)) ?>"><?php echo $this->getColumnSortImage($i, $sorttitle) ?></a>
+      <a class="widget" title="<?php echo sprintf(_("Sort by %s"), $columnlabel) ?>" href="<?php echo $s_url->copy()->add(array('sortby' => $i, 'sortdir' => 0)) ?>">
    <?php endif; ?>
 <?php endif; ?>
    <?php echo $columnlabel ?>

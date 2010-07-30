@@ -314,14 +314,16 @@ class Turba_Object {
      */
     function url($view = null, $full = false)
     {
-        $url = Horde_Util::addParameter('contact.php',
-                                  array('source' => $this->driver->name,
-                                        'key' => $this->getValue('__key')));
+        $url = Horde::applicationUrl('contact.php', $full)->add(array(
+            'source' => $this->driver->name,
+            'key' => $this->getValue('__key')
+        ));
+
         if (!is_null($view)) {
-            $url = Horde_Util::addParameter($url, 'view', $view);
+            $url->add('view', $view);
         }
 
-        return Horde::applicationUrl($url, $full);
+        return $url;
     }
 
     /**
@@ -433,9 +435,7 @@ class Turba_Object {
 
         // Let's see if we can view this one, too.
         if ($viewer && !is_a($viewer, 'Horde_Mime_Viewer_default')) {
-            $url = Horde::applicationUrl('view.php');
-            $url_params['actionID'] = 'view_file';
-            $url = Horde_Util::addParameter($url, $url_params);
+            $url = Horde::applicationUrl('view.php')->add('actionID', 'view_file');
             $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {
             $link = $file['name'];

@@ -37,10 +37,10 @@ class Turba_Object_Group extends Turba_Object {
      */
     function url($view = null, $full = false)
     {
-        $url = Horde_Util::addParameter('browse.php',
-                                  array('source' => $this->getSource(),
-                                        'key' => $this->getValue('__key')));
-        return Horde::applicationUrl($url, $full);
+        return Horde::applicationUrl('browse.php', $full)->add(array(
+            'source' => $this->getSource(),
+            'key' => $this->getValue('__key')
+        ));
     }
 
     /**
