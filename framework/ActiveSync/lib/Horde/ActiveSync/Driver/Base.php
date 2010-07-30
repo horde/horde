@@ -147,7 +147,7 @@ abstract class Horde_ActiveSync_Driver_Base
 
         /* Override any security policies */
         if (!empty($params['policies'])) {
-            array_merge($this->_policies, $params['policies']);
+            $this->_policies = array_merge($this->_policies, $params['policies']);
         }
     }
 
