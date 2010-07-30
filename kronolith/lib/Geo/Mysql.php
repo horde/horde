@@ -54,9 +54,10 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         } else {
             $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates, event_zoom) VALUES(?, GeomFromText(\'POINT(%F %F)\'), ?)', $point['lat'], $point['lon']);
         }
+        $values = array($event_id, $point['zoom']);
         Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
-            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
-        $result = $this->_write_db->query($sql, array($event_id, $point['zoom']));
+                                  $GLOBALS['registry']->getAuth(), $sql, implode(',', $values)), 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, 'ERR');
             throw new Horde_Exception($result);
