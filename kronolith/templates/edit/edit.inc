@@ -446,6 +446,3 @@ if ($event->alarm) {
  </tr>
 </table>
 </form>
-<script type="text/javascript">
-document.eventform.title.focus();
-</script>

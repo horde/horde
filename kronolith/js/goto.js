@@ -50,7 +50,7 @@ var KronolithGoto =
     onDomLoad: function()
     {
         $('menu').down('A.kgotomenu').observe('click', function(e) {
-            Horde_Calendar.open(e.element(), Object.isUndefined(window.kronolithDate) ? new Date() : window.kronolithDate);
+            Horde_Calendar.open(e.element(), Object.isUndefined(window.KronolithDate) ? new Date() : window.KronolithDate);
         });
     }
 

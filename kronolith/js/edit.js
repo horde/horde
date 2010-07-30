@@ -520,6 +520,8 @@ var KronolithEdit =
         $('eventform').observe('click', this.clickHandler.bindAsEventListener(this));
         $('eventform').observe('change', this.changeHandler.bindAsEventListener(this));
         $('eventform').observe('keypress', this.keypressHandler.bindAsEventListener(this));
+
+        $('title').focus();
     }
 
 };

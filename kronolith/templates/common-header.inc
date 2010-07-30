@@ -30,13 +30,7 @@ $bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
     ? 'rightPanel'
     : '';
 
-$currentDate = Kronolith::currentDate();
-
 ?>
-<script type="text/javascript">//<![CDATA[
-var kronolithView = '<?php if (isset($view) && is_object($view)) echo $view->getName() ?>';
-var kronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) ?>);
-//]]></script>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php Horde_Themes::includeStylesheetFiles() ?>

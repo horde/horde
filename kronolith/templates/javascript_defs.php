@@ -4,6 +4,7 @@
  */
 
 $charset = $GLOBALS['registry']->getCharset();
+$currentDate = Kronolith::currentDate();
 
 /* Variables used in core javascript files. */
 $var = array(
@@ -23,6 +24,8 @@ $gettext = array(
 
 ?>
 <script type="text/javascript">//<![CDATA[
-var KronolithVar = <?php echo Horde_Serialize::serialize($var, Horde_Serialize::JSON, $charset) ?>;
+var KronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) ?>);
 var KronolithText = <?php echo Horde_Serialize::serialize($gettext, Horde_Serialize::JSON, $charset) ?>;
+var KronolithVar = <?php echo Horde_Serialize::serialize($var, Horde_Serialize::JSON, $charset) ?>;
+var KronolithView = '<?php if (isset($view) && is_object($view)) echo $view->getName() ?>';
 //]]></script>

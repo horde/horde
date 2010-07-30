@@ -90,8 +90,8 @@ function _ShowView()
 
     var viewVars = $('view_vars');
     if (viewVars) {
-        kronolithView = viewVars.readAttribute('view');
-        kronolithDate = new Date(viewVars.readAttribute('date'));
+        KronolithView = viewVars.readAttribute('view');
+        KronolithDate = new Date(viewVars.readAttribute('date'));
     }
 }
 
