@@ -145,6 +145,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      * Add group
      *
      * @param string $group   Group name
+     * @throws Horde_Share_Exception
      */
     public function addGroup($name)
     {
@@ -159,16 +160,10 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
 
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Share')->getScope();
 
-        $share = $GLOBALS['folks_shares']->newShare(hash('md5', microtime()));
-        if ($share instanceof PEAR_Error) {
-            return $share;
-        }
+        $share = $GLOBALS['folks_shares']->newShare(strval(new Horde_Support_Uuid()));
 
         $share->set('name', $name);
         $result = $GLOBALS['folks_shares']->addShare($share);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
 
         return $share->getId();
     }

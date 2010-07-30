@@ -40,9 +40,7 @@ foreach ($horde_alarm->handlers() as $name => $method) {
 if ($form->validate()) {
     $form->getInfo($vars, $info);
     if (empty($info['alarm'])) {
-        $info['alarm'] = date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
+        $info['alarm'] = strval(new Horde_Support_Uuid());
     }
 
     $params = array();

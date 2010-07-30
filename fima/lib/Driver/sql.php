@@ -520,7 +520,7 @@ class Fima_Driver_sql extends Fima_Driver {
      */
     function _addAccount($number, $type, $name, $eo, $desc, $closed)
     {
-        $accountId = md5(uniqid(mt_rand(), true));
+        $accountId = strval(new Horde_Support_Uuid());
 
         $query = sprintf(
             'INSERT INTO %s (account_id, account_owner, account_number, account_type, ' .
@@ -706,7 +706,7 @@ class Fima_Driver_sql extends Fima_Driver {
      */
     function _addPosting($type, $date, $asset, $account, $eo, $amount, $desc)
     {
-        $postingId = md5(uniqid(mt_rand(), true));
+        $postingId = strval(new Horde_Support_Uuid());
 
         $query = sprintf(
             'INSERT INTO %s (posting_id, posting_owner, posting_type, posting_date, ' .

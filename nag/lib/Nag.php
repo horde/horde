@@ -445,7 +445,7 @@ class Nag
     public static function addTasklist($info)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
+            $tasklist = $GLOBALS['nag_shares']->newShare(strval(new Horde_Support_Uuid()));
             $tasklist->set('name', $info['name']);
             $tasklist->set('color', $info['color']);
             $tasklist->set('desc', $info['description']);

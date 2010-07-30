@@ -999,7 +999,7 @@ class Ansel
     static public function embedCode($options)
     {
         if (empty($options['container'])) {
-            $domid = md5(uniqid());
+            $domid = uniqid();
             $options['container'] = $domid;
         } else {
             $domid = $options['container'];

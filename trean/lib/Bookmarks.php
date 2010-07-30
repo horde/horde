@@ -821,7 +821,7 @@ class DataTreeObject_Folder extends DataTreeObject {
      */
     function addFolder($properties)
     {
-        $folder = &$this->_shareOb->newFolder($this->getName() . ':' . md5(uniqid(mt_rand())), $properties);
+        $folder = &$this->_shareOb->newFolder($this->getName() . ':' . strval(new Horde_Support_Uuid()), $properties);
         $this->_shareOb->addFolder($folder);
         return $this->datatree->getId($folder);
     }

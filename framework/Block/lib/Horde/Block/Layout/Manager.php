@@ -293,8 +293,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         }
 
         if (!empty($url)) {
-            header('Location: ' . Horde_Util::addParameter($url, 'unique',
-                                                     md5(microtime()), false));
+            $url = new Horde_Url($url);
+            header('Location: ' . strval($url->unique()->setRaw(true)));
         }
     }
 

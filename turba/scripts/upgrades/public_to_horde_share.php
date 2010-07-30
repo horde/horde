@@ -58,9 +58,9 @@ if (!$sourceKey) {
 }
 
 // Create the new share.
-$owner_uid = md5(microtime());
+$owner_uid = strval(new Horde_Support_Uuid());
 $share = &$turba_shares->newShare($sourceKey . ':' . $owner_uid);
-if (is_a($share, 'PEAR_Error')) {
+if ($share instanceof Horde_Share_Exception) {
     var_dump($share);
     exit;
 }

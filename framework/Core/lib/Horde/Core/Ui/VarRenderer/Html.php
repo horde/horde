@@ -923,7 +923,7 @@ EOT;
     {
         $varname = $var->getVarName();
         $varvalue = $vars->get($varname);
-        $fieldId = $this->_genID(md5(uniqid(rand(), true)), false) . 'id';
+        $fieldId = $this->_genID(uniqid(mt_rand()), false) . 'id';
         $html = '
             <script type="text/javascript">
             var obrowserWindowName;

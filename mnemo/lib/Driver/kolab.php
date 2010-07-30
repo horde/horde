@@ -351,7 +351,7 @@ class Mnemo_Driver_kolab_wrapper_old extends Mnemo_Driver_kolab_wrapper {
         if (isset($uid)) {
             $result = $this->_kolab->loadObject($uid);
         } else {
-            $uid = md5(uniqid(mt_rand(), true));
+            $uid = strval(new Horde_Support_Uuid());
             $result = $this->_kolab->newObject($uid);
         }
         if (is_a($result, 'PEAR_Error')) {
@@ -594,7 +594,7 @@ class Mnemo_Driver_kolab_wrapper_new extends Mnemo_Driver_kolab_wrapper {
     function _setObject($desc, $body, $category = '', $uid = null, $passphrase = null)
     {
         if (empty($uid)) {
-            $note_uid = $this->_store->generateUID();
+            $note_uid = strval(new Horde_Support_Uuid());
             $old_uid = null;
             $action = array('action' => 'add');
         } else {

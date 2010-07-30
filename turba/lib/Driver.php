@@ -789,7 +789,7 @@ class Turba_Driver
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = $this->generateUID();
+            $attributes['__uid'] = strval(new Horde_Support_Uuid());
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
@@ -956,20 +956,6 @@ class Turba_Driver
     function getFields()
     {
         return array_flip($this->fields);
-    }
-
-    /**
-     * Generates a universal/unique identifier for a contact. This is NOT
-     * something that we expect to be able to parse into an addressbook and a
-     * contactId.
-     *
-     * @return string  A nice unique string (should be 255 chars or less).
-     */
-    function generateUID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
     }
 
     /**

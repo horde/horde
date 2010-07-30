@@ -168,7 +168,7 @@ class Skoli_CreateClassForm extends Horde_Form {
         }
 
         // Create new share.
-        $this->shareid = md5(microtime());
+        $this->shareid = strval(new Horde_Support_Uuid());
         $class = $GLOBALS['skoli_shares']->newShare($this->shareid);
         if (is_a($class, 'PEAR_Error')) {
             return $class;

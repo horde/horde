@@ -478,7 +478,7 @@ class Gollem_Api extends Horde_Registry_Api
     public function setSelectlist($selectid = '', $files = array())
     {
         if (empty($selectid)) {
-            $selectid = uniqid(mt_rand(), true);
+            $selectid = uniqid(mt_rand());
         }
 
         if (count($files) > 0) {

@@ -20,7 +20,7 @@ $currdir = Gollem::getDir();
 /* Create a new cache ID if one does not already exist. */
 $cacheid = Horde_Util::getFormData('cacheid');
 if (empty($cacheid)) {
-    $cacheid = uniqid(mt_rand(), true);
+    $cacheid = uniqid(mt_rand());
     $_SESSION['gollem']['selectlist'][$cacheid] = array();
 }
 

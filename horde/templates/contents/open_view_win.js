@@ -20,7 +20,7 @@ function tr(badval)
 function view(url, partid)
 {
     param = "menubar=yes,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes";
-    window.open(url, '<?php echo base_convert(microtime(), 10, 36) ?>' + tr(partid), param);
+    window.open(url, '<?php echo uniqid() ?>' + tr(partid), param);
 }
 
 // -->

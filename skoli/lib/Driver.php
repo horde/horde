@@ -135,17 +135,4 @@ class Skoli_Driver {
         return $instances[$signature];
     }
 
-    /**
-     * Generate a universal / unique identifier for an entry. This is
-     * NOT something that we expect to be able to parse into a
-     * entry list.
-     *
-     * @return string  A nice unique string (should be 255 chars or less).
-     */
-    function generateUID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
-    }
 }

@@ -122,10 +122,10 @@ if ($cmd == 'new') {
         } catch (Ansel_Exception $e) {
             $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $e->getMessage());
             Horde::logMessage($error, 'ERR');
-        } 
+        }
     } else {
         if (empty($galleryId) && $prefs->getValue('autoname')) {
-            $galleryId = md5(microtime());
+            $galleryId = strval(new Horde_Support_Uuid());
         }
         if (!$gallery_name) {
             $gallery_name = _("Untitled");

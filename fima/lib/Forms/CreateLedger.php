@@ -36,7 +36,7 @@ class Fima_CreateLedgerForm extends Horde_Form {
     function execute()
     {
         // Create new share.
-        $ledger = $GLOBALS['fima_shares']->newShare(md5(microtime()));
+        $ledger = $GLOBALS['fima_shares']->newShare(strval(new Horde_Support_Uuid()));
         if (is_a($ledger, 'PEAR_Error')) {
             return $ledger;
         }

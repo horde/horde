@@ -402,7 +402,7 @@ class Horde_Prefs_Identity
     {
         global $conf;
 
-        $hash = base_convert(microtime() . mt_rand(), 10, 36);
+        $hash = base_convert(strval(new Horde_Support_Uuid()), 10, 36);
 
         $pref = @unserialize($this->_prefs->getValue('confirm_email', false));
         $pref = $pref

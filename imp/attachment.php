@@ -67,7 +67,7 @@ if ($conf['compose']['link_attachments_notify']) {
         }
     } else {
         /* Create a random identifier for this file. */
-        $id = uniqid(mt_rand());
+        $id = strval(new Horde_Support_Uuid());
         try {
             $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
 

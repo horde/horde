@@ -214,7 +214,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
      */
     function add($desc, $body, $category = '', $uid = null, $passphrase = null)
     {
-        $noteId = md5(uniqid(mt_rand(), true));
+        $noteId = strval(new Horde_Support_Uuid());
 
         if ($passphrase) {
             $body = $this->encrypt($body, $passphrase);
@@ -225,7 +225,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
         }
 
         if (is_null($uid)) {
-            $uid = $this->generateUID();
+            $uid = strval(new Horde_Support_Uuid());
         }
 
         $query = 'INSERT INTO ' . $this->_params['table'] .
@@ -429,7 +429,7 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
     {
         /* Make sure notes always have a UID. */
         if (empty($row['memo_uid'])) {
-            $row['memo_uid'] = $this->generateUID();
+            $row['memo_uid'] = strval(new Horde_Support_Uuid());
 
             $query = 'UPDATE ' . $this->_params['table'] .
                 ' SET memo_uid = ?' .

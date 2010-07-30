@@ -47,7 +47,7 @@ class Hylax_Driver_spandsp extends Hylax_Driver {
         $data .= sprintf("Application: %s\n", 'txfax');
         $data .= sprintf("Data: %s|caller\n", $filename);
 
-        $outfile = sprintf("%s/%s.call", $conf['fax']['params']['outgoing'], md5(microtime()));
+        $outfile = sprintf("%s/%s.call", $conf['fax']['params']['outgoing'], strval(new Horde_Support_Uuid()));
         if ($fh = fopen($outfile, "w")) {
             fwrite($fh, $data);
             fclose($fh);

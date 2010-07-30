@@ -241,7 +241,7 @@ $backends['sivtest'] = array(
         'command' => '/usr/bin/sivtest',
         // name of the socket we're using
         'socket' => Horde::getTempDir() . '/sivtest.'
-            . md5(uniqid(rand())) . '.sock',
+            . uniqid(mt_rand()) . '.sock',
     ),
     'script' => 'sieve',
     'scriptparams' => array(),

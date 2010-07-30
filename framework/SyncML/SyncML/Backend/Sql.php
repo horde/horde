@@ -305,7 +305,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here.
-        $suid = $this->_generateID();
+        $suid = strval(new Horde_Support_Uuid());
         $created_ts = $this->getCurrentTimeStamp();
 
         $r = $this->_db->exec(
@@ -803,25 +803,6 @@ class SyncML_Backend_Sql extends SyncML_Backend {
     }
 
     /**
-     * Generates a unique ID used as suid
-     *
-     * @return string  A unique ID.
-     */
-    function _generateID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36),
-                             16,
-                             uniqid(mt_rand()),
-                             STR_PAD_LEFT),
-                     -16)
-            . '@'
-            . (!empty($_SERVER['SERVER_NAME'])
-               ? $_SERVER['SERVER_NAME']
-               : 'localhost');
-    }
-
-    /**
      * Checks if the parameter is a PEAR_Error object and if so logs the
      * error.
      *
@@ -1040,7 +1021,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here. */
-        $suid = $this->_generateID();
+        $suid = strval(new Horde_Support_Uuid());
 
         $created_ts = $this->getCurrentTimeStamp();
         $r = $this->_db->exec(

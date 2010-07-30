@@ -83,20 +83,6 @@ class Nag_Driver
     }
 
     /**
-     * Generate a universal / unique identifier for a task. This is
-     * NOT something that we expect to be able to parse into a
-     * tasklist and a taskId.
-     *
-     * @return string  A nice unique string (should be 255 chars or less).
-     */
-    function generateUID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
-    }
-
-    /**
      * Attempts to return a concrete Nag_Driver instance based on $driver.
      *
      * @param string    $tasklist   The name of the tasklist to load.
@@ -211,7 +197,7 @@ class Nag_Driver
                  $owner = null, $assignee = null)
     {
         if (is_null($uid)) {
-            $uid = $this->generateUID();
+            $uid = strval(new Horde_Support_Uuid());
         }
         if (is_null($owner)) {
             $owner = $GLOBALS['registry']->getAuth();

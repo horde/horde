@@ -1844,7 +1844,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
                 // a little naive, this sequence *might* be part of the content
                 // but it's really not likely and rather expensive to check
-                $this->multipart_separator = "SEPARATOR_".md5(microtime());
+                $this->multipart_separator = "SEPARATOR_" . uniqid(mt_rand());
 
                 // generate HTTP header
                 header("Content-type: multipart/byteranges; boundary=".$this->multipart_separator);

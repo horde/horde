@@ -145,7 +145,7 @@ class Horde_Secret
                 $key = $_COOKIE[$keyname . '_key'];
                 $set = false;
             } else {
-                $key = $_COOKIE[$keyname . '_key'] = hash('md5', uniqid());
+                $key = $_COOKIE[$keyname . '_key'] = uniqid(mt_rand());
             }
         } else {
             $key = session_id();

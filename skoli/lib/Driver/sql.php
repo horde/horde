@@ -504,9 +504,9 @@ class Skoli_Driver_sql extends Skoli_Driver {
             $query = 'INSERT INTO ' . $this->_params['objects_table'] .
                      ' (object_id, object_owner, object_uid, class_id, student_id, object_time, object_type)' .
                      ' VALUES (?, ?, ?, ?, ?, ?, ?)';
-            $entryId = md5(uniqid(mt_rand(), true));
+            $entryId = strval(new Horde_Support_Uuid());
             $date = new Horde_Date($vars->get('object_time'));
-            $values = array($entryId, $GLOBALS['registry']->getAuth(), $this->generateUID(), $this->_class, $studentid, $date->datestamp(), $vars->get('object_type'));
+            $values = array($entryId, $GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()), $this->_class, $studentid, $date->datestamp(), $vars->get('object_type'));
 
             /* Log the query at a DEBUG log level. */
             Horde::logMessage(sprintf('Skoli_Driver_sql::addEntry(): %s', $query), 'DEBUG');

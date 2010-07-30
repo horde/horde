@@ -99,7 +99,7 @@ if ($message->getType() == 'text/plain') {
 $pageBody .= "\n";
 
 if (is_null($pageName)) {
-    $pageName = "EmailMessage" . ucfirst(md5(uniqid('wicked', true)));
+    $pageName = "EmailMessage" . ucfirst(md5(uniqid('wicked')));
 }
 
 $res = $wicked->newPage($pageName, $pageBody);

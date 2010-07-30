@@ -57,7 +57,7 @@ class Horde_Token
      */
     static public function generateId($seed = '')
     {
-        return Horde_Url::uriB64Encode(pack('H*', sha1(uniqid(mt_rand(), true) . $seed . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''))));
+        return Horde_Url::uriB64Encode(pack('H*', hash('sha1', uniqid(mt_rand()) . $seed . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''))));
     }
 
 }

@@ -440,7 +440,7 @@ class Horde_Util
         /* Get the first 8 characters of a random string to use as a temporary
            directory name. */
         do {
-            $new_dir = $temp_dir . '/' . substr(base_convert(mt_rand() . microtime(), 10, 36), 0, 8);
+            $new_dir = $temp_dir . '/' . substr(base_convert(uniqid(mt_rand()), 10, 36), 0, 8);
         } while (file_exists($new_dir));
 
         $old_umask = umask(0000);

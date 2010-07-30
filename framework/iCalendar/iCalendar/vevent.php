@@ -24,9 +24,7 @@ class Horde_iCalendar_vevent extends Horde_iCalendar {
         // Default values.
         $requiredAttributes = array();
         $requiredAttributes['DTSTAMP'] = time();
-        $requiredAttributes['UID'] = $this->_exportDateTime(time())
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost');
+        $requiredAttributes['UID'] = strval(new Horde_Support_Uuid());
 
         $method = !empty($this->_container) ?
             $this->_container->getAttribute('METHOD') : 'PUBLISH';

@@ -151,11 +151,9 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     function generateUID()
     {
-        if (method_exists($this->_wrapper, 'generateUID')) {
-            return $this->_wrapper->generateUID();
-        } else {
-            return parent::generateUID();
-        }
+        return method_exists($this->_wrapper, 'generateUID')
+            ? $this->_wrapper->generateUID()
+            : strval(new Horde_Support_Uuid());
     }
 
     /**
@@ -1281,7 +1279,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         }
 
         do {
-            $key = md5(uniqid(mt_rand(), true));
+            $key = strval(new Horde_Support_Uuid());
         } while(in_array($key, array_keys($this->_contacts_cache)));
 
         return $key;

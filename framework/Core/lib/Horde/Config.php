@@ -426,7 +426,7 @@ class Horde_Config
             switch ($node->tagName) {
             case 'configdescription':
                 if (empty($name)) {
-                    $name = hash('md5', uniqid(mt_rand(), true));
+                    $name = uniqid(mt_rand());
                 }
 
                 $conf[$name] = array(
@@ -437,7 +437,7 @@ class Horde_Config
 
             case 'configheader':
                 if (empty($name)) {
-                    $name = hash('md5', uniqid(mt_rand(), true));
+                    $name = uniqid(mt_rand());
                 }
 
                 $conf[$name] = array(
@@ -603,7 +603,7 @@ class Horde_Config
                     '_type' => 'text',
                     'required' => true,
                     'desc' => $desc,
-                    'default' => $this->_default($curctx, sha1(uniqid(mt_rand(), true))),
+                    'default' => $this->_default($curctx, strval(new Horde_Support_Uuid())),
                     'is_default' => $this->_isDefault($curctx, $this->_getNodeOnlyText($node))
                 );
                 break;
@@ -625,7 +625,7 @@ class Horde_Config
                 break;
 
             case 'configtab':
-                $key = hash('md5', uniqid(mt_rand(), true));
+                $key = uniqid(mt_rand());
 
                 $conf[$key] = array(
                     'tab' => $name,
@@ -638,7 +638,7 @@ class Horde_Config
                 break;
 
             case 'configplaceholder':
-                $conf[hash('md5', uniqid(mt_rand(), true))] = 'placeholder';
+                $conf[uniqid(mt_rand())] = 'placeholder';
                 break;
 
             default:

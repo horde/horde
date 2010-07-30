@@ -85,6 +85,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>XML_WBXML</name>
     <channel>pear.horde.org</channel>
    </package>

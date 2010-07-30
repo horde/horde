@@ -436,7 +436,7 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
     {
         // Usually provided by the generic Driver class
         if ($uid !== null) {
-            $uid = $this->generateUID();
+            $uid = strval(new Horde_Support_Uuid());
         }
 
         // Load the object into the kolab driver
@@ -785,7 +785,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
                         $completed_date = null)
     {
         if (empty($uid)) {
-            $task_uid = $this->_store->generateUID();
+            $task_uid = strval(new Horde_Support_Uuid());
             $old_uid = null;
         } else {
             list($task_uid, $tasklist) = $this->_splitId($uid);
