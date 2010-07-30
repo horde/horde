@@ -1381,13 +1381,14 @@ class IMP_Prefs_Ui
         }
 
         if ($_SESSION['imp']['file_upload']) {
+            $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
                 $cacheSess = $GLOBALS['injector']->getInstance('Horde_SessionObjects');
                 $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
 
                 Horde::addInlineScript(array(
-                    '$("import_pgp").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                    '$("import_smime_public").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                 ), 'dom');
             }
         }
