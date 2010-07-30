@@ -192,7 +192,7 @@ class Turba_View_Browse {
                         if (!is_array($targetDriver->map[$info_key]) ||
                             isset($targetDriver->map[$info_key]['attribute'])) {
                             $objectValue = $object->getValue($info_key);
-                            
+
                             // Get 'data' value if object type is image, the
                             // direct value in other case.
                             $objAttributes[$info_key] = isset($GLOBALS['attributes'][$info_key]) && $GLOBALS['attributes'][$info_key]['type'] == 'image' ? $objectValue['load']['data'] : $objectValue;
@@ -338,7 +338,7 @@ class Turba_View_Browse {
 
         $templates = array();
         if (isset($driver)) {
-            $templates[] = '/browse/javascript.inc';
+            Turba::addBrowseJs();
 
             // Read the columns to display from the preferences.
             $sources = Turba::getColumns();

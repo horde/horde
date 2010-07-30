@@ -1,4 +1,11 @@
-<script type="text/javascript">
+/**
+ * browse.js
+ */
+
+var TurbaBrowse = {
+    // Defined externally: contact1, contact2, contact3, copy1, copy2,
+    //                     submit1, submit2, delete1
+};
 
 function AnySelected()
 {
@@ -13,18 +20,18 @@ function AnySelected()
 function Add(select)
 {
     if (!AnySelected()) {
-        window.alert('<?php echo addslashes(_("You must select at least one contact first.")) ?>');
+        window.alert(TurbaBrowse.contact1);
         return false;
     }
 
     key = select[select.selectedIndex].value;
     if (key == '') {
-        alert('<?php echo addslashes(_("You must select a target contact list.")) ?>');
+        window.alert(TurbaBrowse.contact2);
         return false;
     }
 
     if (key.indexOf(':') == -1 || key.lastIndexOf(':') == key.length - 1) {
-        var newList = window.prompt('<?php echo addslashes(_("Please name the new contact list:")) ?>\n', '');
+        var newList = window.prompt(TurbaBrowse.contact3, '');
         if (newList != null && newList != '') {
             if (key.lastIndexOf(':') == key.length - 1) {
                 key = key.substr(0, key.length - 1);
@@ -45,13 +52,13 @@ function Add(select)
 function CopyMove(action, select)
 {
     if (!AnySelected()) {
-        window.alert('<?php echo addslashes(_("You must select at least one contact first.")) ?>');
+        window.alert(TurbaBrowse.contact1);
         return false;
     }
 
     key = select[select.selectedIndex].value;
     if (key == '') {
-        alert('<?php echo addslashes(_("You must select a target address book.")) ?>');
+        window.alert(TurbaBrowse.copymove);
         return false;
     }
 
@@ -62,13 +69,12 @@ function CopyMove(action, select)
 function Submit(action)
 {
     if (AnySelected()) {
-        if (action != 'delete' ||
-            confirm('<?php echo addslashes(_("Are you sure that you want to delete the selected contacts?")) ?>')) {
+        if (action != 'delete' || window.confirm(TurbaBrowse.submit)) {
             document.contacts.actionID.value = action;
             document.contacts.submit();
         }
     } else {
-        window.alert('<?php echo addslashes(_("You must select at least one contact first.")) ?>');
+        window.alert(TurbaBrowse.contact1);
         return false;
     }
 }
@@ -82,7 +88,5 @@ function SelectAll()
 
 function confirmDelete(name)
 {
-    return confirm('<?php echo addslashes(_("Are you sure that you want to delete %s?")) ?>'.replace('%s', name));
+    return window.confirm(TurbaBrowse.confirmdelete.replace('%s', name));
 }
-
-</script>

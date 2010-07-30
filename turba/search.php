@@ -269,6 +269,10 @@ Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('search.js', 'turba');
+if (isset($view) && is_object($view)) {
+    Turba::addBrowseJs();
+}
+
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 echo $tabs->render($_SESSION['turba']['search_mode']);
@@ -278,7 +282,6 @@ if ($_SESSION['turba']['search_mode'] != 'duplicate') {
     echo $vbookView->render('vbook');
 }
 if (isset($view) && is_object($view)) {
-    require TURBA_TEMPLATES . '/browse/javascript.inc';
     require TURBA_TEMPLATES . '/browse/header.inc';
     $view->display();
 }
