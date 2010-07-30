@@ -113,9 +113,10 @@ class Chora
 
         if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
             if (in_array($script, array('browse.php', 'browsedir.php'))) {
-                $script = $uri;
-                if (substr($script, 0, 1) == '/') {
-                    $script = substr($script, 1);
+                if (substr($uri, 0, 1) == '/') {
+                    $script = "browse$uri";
+                } else {
+                    $script = "browse/$uri";
                 }
             } else {
                 $script .= '/' . $uri;
