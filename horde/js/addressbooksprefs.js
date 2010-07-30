@@ -48,7 +48,7 @@ var HordeAddressbooksPrefs = {
                 out.set(f.key, f.value.selected);
             });
 
-            $('search_fields').setValue(out.toJSON());
+            $('search_fields').setValue(Object.toJSON(out));
         }
     },
 

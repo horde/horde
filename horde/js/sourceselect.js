@@ -29,7 +29,7 @@ var HordeSourceSelectPrefs = {
             });
         }
 
-        $('sources').setValue(out.toJSON());
+        $('sources').setValue(Object.toJSON(out));
     },
 
     moveAction: function(from, to)
