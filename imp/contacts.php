@@ -112,11 +112,11 @@ $js = array(
 if (isset($vars->formfield)) {
     $js[] = 'ImpContacts.formfield = "' . $vars->formfield . '"';
 }
+Horde::addInlineScript($js);
 
 /* Display the form. */
 $title = _("Address Book");
 Horde::addScriptFile('contacts.js', 'imp');
 require IMP_TEMPLATES . '/common-header.inc';
-Horde::addInlineScript($js);
 echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
