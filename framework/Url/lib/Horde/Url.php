@@ -255,7 +255,7 @@ class Horde_Url
             $url .= '#' . rawurlencode($this->anchor);
         }
 
-        return $url;
+        return strval($url);
     }
 
     /**
