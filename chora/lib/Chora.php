@@ -105,8 +105,7 @@ class Chora
      *
      * @return string  The URL, with session information if necessary.
      */
-    static public function url($script, $uri = '', $args = array(),
-                               $anchor = '')
+    static public function url($script, $uri = '', $args = array(), $anchor = '')
     {
         $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], $args);
         $script .= '.php';
@@ -117,6 +116,10 @@ class Chora
                     $script = "browse$uri";
                 } else {
                     $script = "browse/$uri";
+                }
+                if (isset($args['rt'])) {
+                    $script = urlencode($arglist['rt']) . "/-/$script";
+                    unset($arglist['rt']);
                 }
             } else {
                 $script .= '/' . $uri;

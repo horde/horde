@@ -1,9 +1,9 @@
 Allow from all
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteRule   ^([a-z]+).php/(.*)$ $1.php?f=$2 [QSA,L]
-	RewriteCond   %{REQUEST_FILENAME}  !-d
-	RewriteCond   %{REQUEST_FILENAME}  !-f
-	RewriteRule   ^browse/(.*)$ browsedir.php?f=$1 [QSA]
-	RewriteRule   ^(.*)$ browsedir.php?f=$1 [QSA]
+    RewriteEngine On
+    RewriteRule   ^([a-z]+).php/(.*)$ $1.php?f=$2 [QSA,L]
+    RewriteCond   %{REQUEST_FILENAME} !-d
+    RewriteCond   %{REQUEST_FILENAME} !-f
+    RewriteRule   ^browse/(.*)$ browsedir.php?f=$1 [QSA]
+    RewriteRule   ^([a-z-]+)/-/browse/(.*)$ browsedir.php?f=$2&rt=$1 [QSA]
 </IfModule>
