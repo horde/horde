@@ -60,7 +60,7 @@ class Horde_Mime
 {
     /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
-     * a RFC 2047-like parameter name and  also the correct RFC 2231
+     * a RFC 2047-like parameter name and also the correct RFC 2231
      * parameter.  See:
      * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html
      *
@@ -77,8 +77,12 @@ class Horde_Mime
      *
      * @return boolean  True if string contains non US-ASCII characters.
      */
-    static public function is8bit($string, $charset = 'us-ascii')
+    static public function is8bit($string, $charset = null)
     {
+        if (empty($charset)) {
+            $charset = 'us-ascii';
+        }
+
         /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
          * it needs to be entirely encoded. */
         return is_string($string) &&
