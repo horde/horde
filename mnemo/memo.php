@@ -71,9 +71,9 @@ $cManager = new Horde_Prefs_CategoryManager();
 switch ($actionID) {
 case 'add_memo':
     /* Check permissions. */
-    if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
-        $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), Mnemo::hasPermission('max_notes')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
+    if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
+        $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes')), ENT_COMPAT, $registry->getCharset());
         if (!empty($conf['hooks']['permsdenied'])) {
             $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
         }
@@ -130,12 +130,12 @@ case 'save_memo':
     $memo_passphrase2 = Horde_Util::getFormData('memo_passphrase2');
 
     try {
-        $share = $GLOBALS['mnemo_shares']->getShare($notepad_target);
+        $share = $mnemo_shares->getShare($notepad_target);
     } catch (Horde_Share_Exception $e) {
         throw new Mnemo_Exception($e);
     }
 
-    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
@@ -173,17 +173,17 @@ case 'save_memo':
             if ($memolist_original != $notepad_target) {
                 /* Moving the note to another notepad. */
                 try {
-                    $share = $GLOBALS['mnemo_shares']->getShare($memolist_original);
+                    $share = $mnemo_shares->getShare($memolist_original);
                 } catch (Horde_Share_Exception $e) {
                     throw new Mnemo_Exception($e);
                 }
-                if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+                if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                     try {
-                        $share = &$GLOBALS['mnemo_shares']->getShare($notepad_target);
+                        $share = &$mnemo_shares->getShare($notepad_target);
                     } catch (Horde_Share_Exception $e) {
                         throw new Mnemo_Exception($e);
                     }
-                    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                    if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                         $result = $storage->move($memo_id, $notepad_target);
                         $storage = &Mnemo_Driver::singleton($notepad_target);
                     } else {
@@ -201,8 +201,8 @@ case 'save_memo':
             $result = $storage->modify($memo_id, $memo_desc, $memo_body, $memo_category, $memo_passphrase);
         } else {
             /* Check permissions. */
-            if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
-                $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
+            if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
+                $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
                 header('Location: ' . Horde::applicationUrl('list.php', true));
                 exit;
             }
@@ -233,11 +233,11 @@ case 'delete_memos':
 
     if (!is_null($memo_id) && Mnemo::getMemo($memolist_id, $memo_id)) {
         try {
-            $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
+            $share = $mnemo_shares->getShare($memolist_id);
         } catch (Horde_Share_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+        if ($share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $storage = &Mnemo_Driver::singleton($memolist_id);
             $result = $storage->delete($memo_id);
             if ($result instanceof PEAR_Error) {

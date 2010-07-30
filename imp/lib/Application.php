@@ -178,27 +178,26 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Returns the specified permission for the given app permission.
      *
-     * @param mixed $allowed  The allowed permissions.
-     * @param array $opts     Additinal options ('value').
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options ('value').
      *
      * @return mixed  The value of the specified permission.
      */
-    public function hasPermission($allowed, $opts = array())
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'create_folders':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
+        switch ($permission) {
+        case 'create_folders':
+            $allowed = (bool)count(array_filter($allowed));
+            break;
 
-            case 'max_folders':
-            case 'max_recipients':
-            case 'max_timelimit':
-                $allowed = max($allowed);
-                break;
-            }
+        case 'max_folders':
+        case 'max_recipients':
+        case 'max_timelimit':
+            $allowed = max($allowed);
+            break;
         }
 
         return (($permission == 'max_folders') && empty($opts['value']))

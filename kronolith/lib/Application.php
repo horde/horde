@@ -89,20 +89,20 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Returns the specified permission for the given app permission.
      *
-     * @param mixed $allowed  The allowed permissions.
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options (NONE).
      *
      * @return mixed  The value of the specified permission.
      */
-    public function hasPermission($allowed)
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_events':
-                $allowed = max($allowed);
-                break;
-            }
+        switch ($permission) {
+        case 'max_events':
+            $allowed = max($allowed);
+            break;
         }
 
         return $allowed;

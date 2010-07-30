@@ -1737,33 +1737,6 @@ HTML;
     }
 
     /**
-     * Returns the specified permission for the current user.
-     *
-     * @param string $permission  A permission, currently only 'max_blocks'.
-     *
-     * @return mixed  The value of the specified permission.
-     */
-    static public function hasPermission($permission)
-    {
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
-        if (!$perms->exists('horde:' . $permission)) {
-            return true;
-        }
-
-        $allowed = $perms->getPermissions('horde:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_blocks':
-                $allowed = max($allowed);
-                break;
-            }
-        }
-
-        return $allowed;
-    }
-
-    /**
      * Utility function to send redirect headers to browser, handling any
      * browser quirks.
      *

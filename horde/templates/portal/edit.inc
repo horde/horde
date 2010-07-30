@@ -1,10 +1,11 @@
 <table class="nopadding" cellspacing="6" width="100%">
 <?php
 $rows = $layout->rows();
+$max_blocks = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_blocks');
 list($current_row, $current_col) = $layout->getCurrentBlock();
 $allow_add = !empty($conf['hooks']['permsdenied']) ||
-    (Horde::hasPermission('max_blocks') === true) ||
-    (Horde::hasPermission('max_blocks') > $layout->count());
+    ($max_blocks === true) ||
+    ($max_blocks > $layout->count());
 $columns = 0;
 for ($row = 0; $row < $rows; ++$row):
 ?>

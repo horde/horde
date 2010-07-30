@@ -450,10 +450,16 @@ class Horde_Perms
             : $GLOBALS['registry']->getApp();
 
         if ($this->exists($app . ':' . $permission)) {
-            $args = array($this->getPermissions($app . ':' . $permission));
-            if (isset($opts['opts'])) {
-                $args[] = $opts['opts'];
+            $perms = $this->getPermissions($app . ':' . $permission);
+            if ($perms === false) {
+                return false;
             }
+
+            $args = array(
+                $permission,
+                $perms,
+                isset($opts['opts']) ? $opts['opts'] : array()
+            );
 
             try {
                 return $GLOBALS['registry']->callAppMethod($app, 'hasPermission', array('args' => $args));

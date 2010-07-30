@@ -43,6 +43,26 @@ class Horde_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns the specified permission for the given app permission.
+     *
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options (NONE).
+     *
+     * @return mixed  The value of the specified permission.
+     */
+    public function hasPermission($permission, $allowed, $opts = array())
+    {
+        switch ($permission) {
+        case 'max_blocks':
+            $allowed = max($allowed);
+            break;
+        }
+
+        return $allowed;
+    }
+
+    /**
      * Populate dynamically-generated preference values.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

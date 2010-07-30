@@ -22,32 +22,32 @@ class Mnemo {
      * Sort by memo description.
      */
     const SORT_DESC = 0;
-    
+
     /**
      * Sort by memo category.
      */
     const SORT_CATEGORY = 1;
-    
+
     /**
      * Sort by notepad.
      */
     const SORT_NOTEPAD = 2;
-    
+
     /**
      * Sort in ascending order.
      */
     const SORT_ASCEND = 0;
-    
+
     /**
      * Sort in descending order.
      */
     const SORT_DESCEND = 1;
-    
+
     /**
      * No passphrase provided.
      */
     const ERR_NO_PASSPHRASE = 100;
-    
+
     /**
      * Decrypting failed
      */
