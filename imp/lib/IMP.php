@@ -343,22 +343,6 @@ class IMP
     }
 
     /**
-     * Open an (IMP) compose window.
-     *
-     * @return boolean  True if window was opened.
-     */
-    static public function openComposeWin($options = array())
-    {
-        if ($GLOBALS['prefs']->getValue('compose_popup')) {
-            return false;
-        }
-
-        $options += self::getComposeArgs();
-        header('Location: ' . Horde::applicationUrl('compose.php', true)->add($options));
-        return true;
-    }
-
-    /**
      * Prepares the arguments to use for composeLink().
      *
      * @param mixed $args   List of arguments to pass to compose.php. If this

@@ -68,7 +68,6 @@ $do_filter = false;
 $imp_flags = $injector->getInstance('IMP_Imap_Flags');
 $imp_imap = $injector->getInstance('IMP_Imap')->getOb();
 $indices = new IMP_Indices($vars->indices);
-$open_compose_window = null;
 
 /* Run through the action handlers */
 if ($actionID && ($actionID != 'message_missing')) {
@@ -127,8 +126,19 @@ case 'message_missing':
 
 case 'fwd_digest':
     if ($indices->count()) {
-        $options = array('fwddigest' => strval($indices), 'actionID' => 'fwd_digest');
-        $open_compose_window = IMP::openComposeWin($options);
+        $options = array_merge(array(
+            'actionID' => 'fwd_digest',
+            'fwddigest' => strval($indices)
+        ), IMP::getComposeArgs());
+
+        if ($prefs->getValue('compose_popup')) {
+            Horde::addInlineScript(array(
+                Horde::popupJs(Horde::applicationUrl('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
+            ), 'dom');
+        } else {
+            header('Location: ' . Horde::applicationUrl('compose.php', true)->add($options));
+            exit;
+        }
     }
     break;
 
@@ -348,16 +358,6 @@ Horde::addScriptFile('dialog.js', 'imp');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('mailbox.js', 'imp');
-
-/* Handle compose_popup. */
-if ($open_compose_window === false) {
-    if (!isset($options)) {
-        $options = array();
-    }
-    Horde::addInlineScript(array(
-        Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => array_merge(array('popup' => 1), $options, IMP::getComposeArgs())))
-    ), 'dom');
-}
 
 if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
