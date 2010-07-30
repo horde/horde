@@ -597,15 +597,21 @@ HTML;
      * <pre>
      * 'charset' - (string) The charset of $data.
      *             DEFAULT: Horde_Registry::getCharset()
+     * 'nodelimit' - (boolean) Don't add security delimiters?
+     *               DEFAULT: false
      * 'urlencode' - (boolean) URL encode the json string
-     *               DEFAULT: No
+     *               DEFAULT: false
      * </pre>
      *
      * @return string  The escaped string.
      */
-    static public function escapeJson($data, $options = array())
+    static public function escapeJson($data, array $options = array())
     {
-        $json = '/*-secure-' . Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? $GLOBALS['registry']->getCharset() : $options['charset']) . '*/';
+        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? $GLOBALS['registry']->getCharset() : $options['charset']);
+        if (empty($options['nodelimit'])) {
+            $json = '/*-secure-' . $json . '*/';
+        }
+
         return empty($options['urlencode'])
             ? $json
             : '\'' . rawurlencode($json) . '\'';
@@ -1955,7 +1961,7 @@ HTML;
             $params->width = $options['width'];
         }
 
-        return 'void(Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . '));';
+        return 'void(Horde.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
     }
 
     /**
