@@ -301,6 +301,16 @@ class Horde_Url
     }
 
     /**
+     * Add a unique parameter to the URL to aid in cache-busting.
+     *
+     * @return Horde_Url  This (modified) object, to allow chaining.
+     */
+    public function unique()
+    {
+        return $this->add('u', uniqid(mt_rand()));
+    }
+
+    /**
      * URL-safe base64 encoding, with trimmed '='.
      *
      * @param string $string  String to encode.

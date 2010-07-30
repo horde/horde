@@ -32,7 +32,7 @@ class IMP_Ui_Mimp
         }
 
         if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
-            $items[] = array(_("New Message"), Horde::applicationUrl('compose-mimp.php')->add('u', uniqid(mt_rand())));
+            $items[] = array(_("New Message"), Horde::applicationUrl('compose-mimp.php')->unique());
         }
 
         if (!in_array($page, array('folders', 'search'))) {

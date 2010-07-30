@@ -590,7 +590,7 @@ class IMP
         }
 
         if ($conf['user']['allow_folders']) {
-            $menu->add(Horde::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
+            $menu->add(Horde::applicationUrl('folders.php')->unique(), _("_Folders"), 'folders/folder.png');
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {

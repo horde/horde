@@ -1245,7 +1245,8 @@ HTML;
      *
      * @param boolean $script_params Include script parameters like
      *                               QUERY_STRING and PATH_INFO?
-     * @param boolean $nocache       Include a nocache parameter in the URL?
+     * @param boolean $nocache       Include a cache-buster parameter in the
+     *                               URL?
      * @param boolean $full          Return a full URL?
      * @param boolean $force_ssl     Ignore $conf['use_ssl'] and force creation
      *                               of a SSL URL?
@@ -1280,32 +1281,9 @@ HTML;
 
         $url = self::url($url, $full, 0, $force_ssl);
 
-        return $nocache
-            ? self::nocacheUrl($url)
+        return ($nocache && $GLOBALS['browser']->hasQuirk('cache_same_url'))
+            ? $url->unique()
             : $url;
-    }
-
-    /**
-     * Returns a url with the 'nocache' parameter added, if the browser is
-     * buggy and caches old URLs.
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     *
-     * @return Horde_Url  The requested URL.
-     */
-    static public function nocacheUrl($url)
-    {
-        if (!$url instanceof Horde_Url) {
-            $url = new Horde_Url($url);
-        }
-
-        /* We may need to set a dummy parameter 'nocache' since some
-         * browsers do not always honor the 'no-cache' header. */
-        if ($GLOBALS['browser']->hasQuirk('cache_same_url')) {
-            $url->add('nocache', uniqid());
-        }
-
-        return $url;
     }
 
     /**

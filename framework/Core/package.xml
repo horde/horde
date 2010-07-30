@@ -34,7 +34,8 @@ Application Framework.</description>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Absorb horde/Ui package.
+ <notes>* Remove Horde::nocacheUrl.
+ * Absorb horde/Ui package.
  * Absorb horde/Ajax package.
  * Import application auth driver from horde/Auth.
  * Import signup code from horde/Auth.

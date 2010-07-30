@@ -19,8 +19,7 @@ $mergeInto = Horde_Util::getFormData('merge_into');
 $driver = Turba_Driver::singleton($source);
 
 if ($url = Horde_Util::getFormData('url')) {
-    $url = new Horde_Url($url, true);
-    $url->add('unique', hash('md5', microtime()));
+    $url = new Horde_Url($url, true)->unique();
 }
 
 $contact = $driver->getObject($mergeInto);

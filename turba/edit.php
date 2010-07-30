@@ -86,7 +86,7 @@ if (!is_a($edited, 'PEAR_Error')) {
     } else {
         $url = new Horde_Url($url, true);
     }
-    header('Location: ' . $url->add('unique', hash('md5', microtime())));
+    header('Location: ' . $url->unique());
     exit;
 }
 

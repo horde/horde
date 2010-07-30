@@ -195,4 +195,4 @@ if (!empty($url)) {
 }
 
 // Make sure URL is unique.
-header('Location: ' . $url->add('unique', hash('md5', microtime())));
+header('Location: ' . $url->unique());

@@ -77,17 +77,16 @@ class Horde_Block_Layout
      * @param integer $row    A layout row.
      * @param integer $col    A layout column.
      *
-     * @return string  An URL with all necessary parameters.
+     * @return Horde_Url  An URL with all necessary parameters.
      */
     public function getActionUrl($action, $row, $col)
     {
-        return Horde_Util::addParameter(
-            Horde::url($this->_editUrl),
-            array('col' => $col,
-                  'row' => $row,
-                  'action' => $action,
-                  'url' => $this->_viewUrl,
-                  'nocache' => base_convert(microtime(), 10, 36))) . '#block';
+        return Horde::url($this->_editUrl)->unique()->setAnchor('block')->add(array(
+            'col' => $col,
+            'row' => $row,
+            'action' => $action,
+            'url' => $this->_viewUrl
+        ));
     }
 
     /**
