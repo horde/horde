@@ -311,6 +311,15 @@ class Horde_Url
     }
 
     /**
+     * Sends a redirect request to the browser to the URL in this object.
+     */
+    public function redirect()
+    {
+        header('Location: ' . strval($this->setRaw(true)));
+        exit;
+    }
+
+    /**
      * URL-safe base64 encoding, with trimmed '='.
      *
      * @param string $string  String to encode.
