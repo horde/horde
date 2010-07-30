@@ -27,14 +27,14 @@ try {
     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
 } catch (Ansel_Exception $e) {
     $notification->push($image);
-    header('Location: ' . Horde::applicationUrl('list.php'));
+    Horde::applicationUrl('list.php')->redirect();
     exit;
 }
 
 $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("Access denied editing the photo."));
-    header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $image->gallery)));
+    Ansel::getUrlFor('view', array('gallery' => $image->gallery))->redirect();
     exit;
 }
 
@@ -57,7 +57,7 @@ if ($face_id) {
         }
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage());
-        header('Location: ' . Horde::applicationUrl('list.php'));
+        Horde::applicationUrl('list.php')->redirect();
     }
 }
 

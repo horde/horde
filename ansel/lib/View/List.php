@@ -79,7 +79,7 @@ class Ansel_View_List extends Ansel_View_Base
             $this->_category = $this->_params['category'];
         }
         if (!$this->_owner && !$this->_category && !$this->_special && $this->_groupby != 'none' ) {
-            header('Location: ' . Ansel::getUrlFor('group', array('groupby' => $this->_groupby), true));
+            Ansel::getUrlFor('group', array('groupby' => $this->_groupby))->redirect();
             exit;
         }
 
@@ -90,7 +90,7 @@ class Ansel_View_List extends Ansel_View_Base
             $this->_page = Horde_Util::getFormData('page', 0);
         }
         $this->_g_perPage = $prefs->getValue('tilesperpage');
-        
+
         // If we are calling from the api, we can just pass a list of gallery
         // ids instead of doing grouping stuff.
         if (!empty($this->_params['api']) &&
@@ -127,9 +127,8 @@ class Ansel_View_List extends Ansel_View_Base
 
             if ($this->_numGalleries == 0 && empty($this->_params['api'])) {
                 if ($this->_owner && $filter == $this->_owner && $this->_owner == $GLOBALS['registry']->getAuth()) {
-                    $notification->push(_("You have no photo galleries, add one!"),
-                                        'horde.message');
-                    header('Location: ' .Horde::applicationUrl('gallery.php')->add('actionID', 'add'));
+                    $notification->push(_("You have no photo galleries, add one!"), 'horde.message');
+                    Horde::applicationUrl('gallery.php')->add('actionID', 'add')->redirect();
                     exit;
                 }
                 $notification->push(_("There are no photo galleries available."), 'horde.message');

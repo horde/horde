@@ -15,15 +15,14 @@ Horde_Registry::appInit('ansel');
  * list. */
 $galleryId = Horde_Util::getFormData('gallery');
 if (!isset($galleryId)) {
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
 } catch (Ansel_Excception $e) {
     $notification->push(_("There was an error accessing the gallery."), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -48,12 +47,14 @@ case 'Sort':
     $notification->push(_("Gallery sorted."), 'horde.success');
     $style = $gallery->getStyle();
 
-    header('Location: ' . Ansel::getUrlFor('view', array_merge(
-                                           array('view' => 'Gallery',
-                                                 'gallery' => $galleryId,
-                                                 'slug' => $gallery->get('slug')),
-                                           $date),
-                                           true));
+    Ansel::getUrlFor('view',
+                     array_merge(
+                           array('view' => 'Gallery',
+                                 'gallery' => $galleryId,
+                                 'slug' => $gallery->get('slug')),
+                           $date
+                     ),
+                     true)->redirect();
     exit;
 }
 

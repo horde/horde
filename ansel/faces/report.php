@@ -20,7 +20,7 @@ try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    header('Location: ' . Horde::applicationUrl('faces/search/all.php'));
+    Horde::applicationUrl('faces/search/all.php')->redirect();
     exit;
 }
 
@@ -61,7 +61,7 @@ if ($form->validate()) {
         $notification->push(_("The owner of the photo was notified."), 'horde.success');
     }
 
-    header('Location: ' . Ansel_Faces::getLink($face));
+    Ansel_Faces::getLink($face)->redirect();
     exit;
 }
 

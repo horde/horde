@@ -16,7 +16,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -227,14 +227,12 @@ if ($form->validate($vars)) {
 
     if ($valid) {
         /* Return to the gallery view. */
-        $imageurl = Ansel::getUrlFor('view',
-                                     array('gallery' => $gallery_id,
-                                           'slug' => $gallery->get('slug'),
-                                           'view' => 'Gallery',
-                                           'page' => $page),
-                                     true);
-
-        header('Location: ' . $imageurl);
+        Ansel::getUrlFor('view',
+                         array('gallery' => $gallery_id,
+                               'slug' => $gallery->get('slug'),
+                               'view' => 'Gallery',
+                               'page' => $page),
+                         true)->redirect();
         exit;
     }
 }

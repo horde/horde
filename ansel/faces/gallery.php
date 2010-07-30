@@ -18,19 +18,19 @@ Horde_Registry::appInit('ansel');
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 if (empty($gallery_id)) {
     $notification->push(_("No gallery specified"), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('default_view', array()));
+    Ansel::getUrlFor('default_view', array())->redirect();
     exit;
 }
 try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
+    Ansel::getUrlFor('view', array('gallery' => $gallery_id))->redirect();
     exit;
 }
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $gallery_id)));
+    Ansel::getUrlFor('view', array('gallery' => $gallery_id))->redirect();
     exit;
 }
 $gallery->setDate(Ansel::getDateParameter());

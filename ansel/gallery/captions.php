@@ -13,21 +13,20 @@ Horde_Registry::appInit('ansel');
 
 $galleryId = Horde_Util::getFormData('gallery');
 if (!$galleryId) {
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($galleryId);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $e->getMessage()), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied setting captions for %s."), $gallery->get('name')), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -50,11 +49,10 @@ case 'save':
 
     $notification->push(_("Captions Saved."), 'horde.success');
     $style = $gallery->getStyle();
-    header('Location: ' . Ansel::getUrlFor('view', array_merge(
-                                           array('gallery' => $galleryId,
-                                                 'slug' => $gallery->get('slug'),
-                                                 'view' => 'Gallery'),
-                                           $date), true));
+    Ansel::getUrlFor('view', array_merge(array('gallery' => $galleryId,
+                                               'slug' => $gallery->get('slug'),
+                                               'view' => 'Gallery'),
+                                         $date), true)->redirect();
     exit;
 }
 

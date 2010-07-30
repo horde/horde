@@ -47,8 +47,7 @@ $tags = Horde_Util::getFormData('addtag');
 
 /* Redirect to the image list if no other action has been requested. */
 if (is_null($actionID) && is_null($tags)) {
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -57,7 +56,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push(sprintf(_("Gallery %s not found."), $gallery_id), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -92,7 +91,7 @@ if (!is_null($tags) && strlen($tags)) {
 
                                     true);
         }
-        header('Location: ' . $url);
+        $url->redirect();
         exit;
     }
 }
@@ -122,7 +121,7 @@ case 'deletetags':
     $eTags = $resource->getTags();
     unset($eTags[$tag]);
     $resource->setTags($eTags);
-    header('Location: ' . $url);
+    $url->redirect();
     exit;
 
 case 'modify':
@@ -131,7 +130,7 @@ case 'modify':
         $ret = Horde_Util::getFormData('ret', 'gallery');
     } catch (Ansel_Exception $e) {
         $notification->push(_("Photo not found."), 'horde.error');
-        header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+        Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
         exit;
     }
 
@@ -166,14 +165,13 @@ case 'save':
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
                             'horde.error');
-        $imageurl = Ansel::getUrlFor('view', array_merge(
-                array('gallery' => $gallery_id,
-                      'slug' => $gallery->get('slug'),
-                      'view' => 'Gallery',
-                      'page' => $page),
-                $date),
-            true);
-        header('Location: ' . $imageurl);
+        Ansel::getUrlFor('view',
+                         array_merge(array('gallery' => $gallery_id,
+                                           'slug' => $gallery->get('slug'),
+                                           'view' => 'Gallery',
+                                           'page' => $page),
+                                     $date),
+                         true)->redirect();
         exit;
     }
 
@@ -258,7 +256,7 @@ case 'save':
                                      true);
         if ($actionID == 'save') {
             /* Return to the image view. */
-            header('Location: ' . $imageurl);
+            $imageurl->redirect();
         } elseif ($actionID == 'saveclose') {
             echo Horde::wrapInlineScript(array(
                 'window.opener.location.href = window.opener.location.href;',
@@ -304,7 +302,7 @@ case 'resizeedit':
                             'horde.error');
 
         /* Return to the image view. */
-        header('Location: ' . $ImageGenerator_url);
+        $ImageGenerator_url->redirect();
         exit;
     }
 
@@ -356,29 +354,27 @@ case 'watermark':
                                     $gallery->get('name')),
                             'horde.error');
         /* Return to the image view. */
-        $imageurl = Ansel::getUrlFor('view', array_merge(
+        Ansel::getUrlFor('view', array_merge(
                                      array('gallery' => $gallery_id,
                                            'image' => $image_id,
                                            'view' => 'Image',
                                            'page' => $page,
                                            'slug' => $gallery->get('slug')),
                                      $date),
-                                     true);
-        header('Location: ' . $imageurl);
+                                     true)->redirect();
         exit;
     } else {
         $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         $image->watermark('screen', $watermark, $watermark_halign,
                                 $watermark_valign, $watermark_font);
         $image->updateData($image->raw('screen'), 'screen');
-        $imageurl = Horde::applicationUrl('image.php', true)->add(
+        Horde::applicationUrl('image.php', true)->add(
                 array_merge(
                        array('gallery' => $gallery_id,
                              'image' => $image_id,
                              'actionID' => 'editimage',
                              'page' => $page),
-                       $date));
-        header('Location: ' . $imageurl);
+                       $date))->redirect();
         exit;
     }
 
@@ -399,7 +395,7 @@ case 'resize':
             $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
         } catch (Ansel_Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
-            header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+            Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
             exit;
         }
 
@@ -447,14 +443,13 @@ case 'resize':
         }
     }
 
-    $imageurl = Horde::applicationUrl('image.php', true)->add(
+    Horde::applicationUrl('image.php', true)->add(
             array_merge(
                     array('gallery' => $gallery_id,
                           'image' => $image_id,
                           'actionID' => 'editimage',
                           'page' => $page),
-                    $date));
-    header('Location: ' . $imageurl);
+                    $date))->redirect();
     exit;
 
 case 'setwatermark':
@@ -463,7 +458,7 @@ case 'setwatermark':
         $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
     } catch (Ansel_Exception $e) {
         $notification->push($image->getMessage(), 'horde.error');
-        header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'), true));
+        Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
         exit;
     }
     /* Set up the form object. */
@@ -594,14 +589,14 @@ case 'delete':
     }
 
     /* Return to the image list. */
-    $imageurl = Ansel::getUrlFor('view', array_merge(
-                                 array('gallery' => $gallery_id,
-                                       'view' => 'Gallery',
-                                       'page' => $page,
-                                       'slug' => $gallery->get('slug')),
-                                 $date),
-                                 true);
-    header('Location: ' . $imageurl);
+    Ansel::getUrlFor('view',
+                     array_merge(
+                         array('gallery' => $gallery_id,
+                               'view' => 'Gallery',
+                               'page' => $page,
+                               'slug' => $gallery->get('slug')),
+                         $date),
+                     true)->redirect();
     exit;
 
 case 'move':
@@ -638,14 +633,13 @@ case 'move':
     }
 
     /* Return to the image list. */
-    $imageurl = Ansel::getUrlFor('view', array_merge(
+    Ansel::getUrlFor('view', array_merge(
                                  array('gallery' => $gallery_id,
                                        'view' => 'Gallery',
                                        'page' => $page,
                                        'slug' => $gallery->get('slug')),
                                  $date),
-                                 true);
-    header('Location: ' . $imageurl);
+                                 true)->redirect();
     exit;
 
 case 'copy':
@@ -674,14 +668,14 @@ case 'copy':
     }
 
     /* Return to the image list. */
-    $imageurl = Ansel::getUrlFor('view', array_merge(
-                                 array('gallery' => $gallery_id,
-                                       'view' => 'Gallery',
-                                       'page' => $page,
-                                       'slug' => $gallery->get('slug')),
-                                 $date),
-                                 true);
-    header('Location: ' . $imageurl);
+    Ansel::getUrlFor('view',
+                     array_merge(
+                         array('gallery' => $gallery_id,
+                               'view' => 'Gallery',
+                               'page' => $page,
+                               'slug' => $gallery->get('slug')),
+                         $date),
+                     true)->redirect();
     exit;
 
 case 'downloadzip':
@@ -693,7 +687,7 @@ case 'downloadzip':
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
             $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+            Horde::applicationUrl('view.php?view=List', true)->redirect();
             exit;
         }
     }
@@ -709,7 +703,7 @@ case 'downloadzip':
         } else {
             $url = Ansel::getUrlFor('view', array('view' => 'List'));
         }
-        header('Location: ' . $url);
+        $url->redirect();
         exit;
     }
     exit;
@@ -719,12 +713,11 @@ case 'previewcrop':
 
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing the photo."), 'horde.error');
-        $imageurl = Ansel::getUrlFor(
+        Ansel::getUrlFor(
             'view', array('gallery' => $gallery_id,
                           'image' => $image_id,
                           'view' => 'Image',
-                          'page' => $page));
-        header('Location: ' . $imageurl);
+                          'page' => $page))->redirect();
     } else {
         $x1 = (int)Horde_Util::getFormData('x1');
         $y1 = (int)Horde_Util::getFormData('y1');
@@ -760,7 +753,7 @@ case 'imagecrop':
         exit;
 
 default:
-    header('Location: ' . Ansel::getUrlFor('default_view', array()));
+    Ansel::getUrlFor('default_view', array())->redirect();
     exit;
 }
 

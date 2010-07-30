@@ -64,12 +64,12 @@ case 'owner':
     break;
 
 default:
-    header('Location: ' . Ansel::getUrlFor('view',
-                                           array(
-                                               'view' => 'List',
-                                               'groupby' => $groupby
-                                           ),
-                                           true));
+    Ansel::getUrlFor('view',
+                     array(
+                         'view' => 'List',
+                         'groupby' => $groupby
+                     ),
+                     true)->redirect();
     exit;
 }
 

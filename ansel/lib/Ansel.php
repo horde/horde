@@ -120,7 +120,7 @@ class Ansel
             $parent = (empty($params['parent'])) ? null : $params['parent']->id;
             if ((!empty($params['parent']) && !empty($galleries[$params['parent']])) ||
                 (empty($params['parent']))) {
-                
+
                 $tree->addNode($gallery->id, $parent, $label, $indents, true, $treeparams);
             }
         }
@@ -258,7 +258,7 @@ class Ansel
                     if (count($extras)) {
                         $url->add($extras);
                     }
-                    
+
                     /* Slight hack until we delegate at least some of the url
                      * generation to the gallery/image/view object. */
                     if ($data['view'] == 'Image' &&
@@ -294,10 +294,10 @@ class Ansel
                 }
 
                 return Horde::applicationUrl($url, $full, $append_session);
-            
+
             } else {
                 $url = Horde::applicationUrl('view.php', $full, $append_session);
-                
+
                 /* See note above about delegating url generation to gallery/view */
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
@@ -919,7 +919,7 @@ class Ansel
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
             $GLOBALS['notification']->push(_("Downloading zip files is not enabled. Talk to your server administrator."));
-            header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+            Horde::applicationUrl('view.php?view=List', true)->redirect();
             exit;
         }
 
@@ -942,7 +942,8 @@ class Ansel
         if (!count($images)) {
             $notification->push(sprintf(_("There are no photos in %s to download."),
                                 $gallery->get('name')), 'horde.message');
-            header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+
+            Horde::applicationUrl('view.php?view=List', true)->redirect();
             exit;
         }
 

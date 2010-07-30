@@ -21,7 +21,7 @@ if ($galleryId) {
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
         // Return to the default view.
-        header('Location: ' . Ansel::getUrlFor('default_view', array()));
+        Ansel::getUrlFor('default_view', array())->redirect();
         exit;
     }
     switch ($actionID) {
@@ -49,7 +49,7 @@ if ($galleryId) {
         }
 
         // Return to the default view.
-        header('Location: ' . Ansel::getUrlFor('default_view', array()));
+        Ansel::getUrlFor('default_view', array())->redirect();
         exit;
 
     case 'empty':
@@ -61,12 +61,11 @@ if ($galleryId) {
             $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->emptyGallery($gallery);
             $notification->push(sprintf(_("Successfully emptied \"%s\""), $gallery->get('name')));
         }
-        header('Location: '
-               . Ansel::getUrlFor('view',
-                                  array('view' => 'Gallery',
-                                        'gallery' => $galleryId,
-                                        'slug' => $gallery->get('slug')),
-                                  true));
+        Ansel::getUrlFor('view',
+                         array('view' => 'Gallery',
+                               'gallery' => $galleryId,
+                               'slug' => $gallery->get('slug')),
+                         true)->redirect();
         exit;
     }
 }

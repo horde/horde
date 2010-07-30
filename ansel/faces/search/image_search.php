@@ -21,14 +21,14 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
         $results = $faces->getSignatureMatches($signature, $face_id, $perpage * $page, $perpage);
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage());
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::applicationUrl('faces/search/image.php')->redirect();
     }
 } else {
     $tmp = Horde::getTempDir();
     $path = $tmp . '/search_face_' . $registry->getAuth() . '.sig';
     if (file_exists($path) !== true) {
         $notification->push(_("You must upload the search photo first"));
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::applicationUrl('faces/search/image.php')->redirect();
     }
     $signature = file_get_contents($path);
     try {

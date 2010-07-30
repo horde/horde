@@ -20,7 +20,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($gallery_id);
 } catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
-    header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+    Horde::applicationUrl('view.php?view=List', true)->redirect();
     exit;
 }
 
@@ -78,7 +78,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("Gallery was not reported."), 'horde.warning');
     }
-    header('Location: ' . $return_url);
+    $return_url->redirect();
     exit;
 }
 

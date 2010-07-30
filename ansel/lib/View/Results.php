@@ -76,9 +76,7 @@ class Ansel_View_Results extends Ansel_View_Base
                  }
              }
 
-             header('Location: ' . Ansel::getUrlFor('view',
-                                                    array('view' => 'Results'),
-                                                    true));
+             Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
              exit;
 
         case 'move':
@@ -119,9 +117,8 @@ class Ansel_View_Results extends Ansel_View_Base
                     $notification->push(_("Bad input."), 'horde.error');
                 }
             }
-            header('Location: ' . Ansel::getUrlFor('view',
-                                                   array('view' => 'Results'),
-                                                   true));
+
+            Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
             exit;
 
         case 'copy':
@@ -160,7 +157,7 @@ class Ansel_View_Results extends Ansel_View_Base
                     $notification->push(_("Bad input."), 'horde.error');
                 }
             }
-            header('Location: ' . Ansel::getUrlFor('view', array('view' => 'Results'), true));
+            Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
             exit;
 
         /* Tag related actions */
@@ -188,7 +185,7 @@ class Ansel_View_Results extends Ansel_View_Base
 
         /* Check for empty tag search and redirect if empty */
         if ($this->_search->tagCount() < 1) {
-            header('Location: ' . Horde::applicationUrl('browse.php', true));
+            Horde::applicationUrl('browse.php', true)->redirect();
             exit;
         }
     }

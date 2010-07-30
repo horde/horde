@@ -10,5 +10,4 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
-
-header('Location: ' . Ansel::getUrlFor('default_view', array()));
+Ansel::getUrlFor('default_view', array())->redirect();

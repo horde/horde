@@ -27,7 +27,7 @@ $back_url = empty($url)
 
 if (Horde_Util::getPost('submit') == _("Cancel")) {
     $notification->push(_("Changes cancelled."), 'horde.warning');
-    header('Location: ' . $back_url);
+    $back_url->redirect();
     exit;
 }
 try {
@@ -42,7 +42,7 @@ try {
                            Horde_Util::getFormData('name'));
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    header('Location: ' . $back_url);
+    $back_url->redirect();
     exit;
 }
 
@@ -52,5 +52,5 @@ if ($face_id == 0) {
     $notification->push(_("Face successfuly updated"), 'horde.success');
 }
 
-header('Location: ' . $back_url);
+$back_url->redirect();
 exit;

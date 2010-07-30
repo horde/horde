@@ -16,7 +16,7 @@ try {
     $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($vars->get('gallery'));
 } catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
-    header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+    Horde::applicationUrl('view.php?view=List', true)->redirect();
     exit;
 }
 $url = $vars->get('url');
@@ -32,11 +32,11 @@ $form->setButtons(array(sprintf(_("Continue - I'm over %d"), $gallery->get('age'
 if ($form->isSubmitted()) {
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push("You are not authorised to view this photo.", 'horde.warning');
-        header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+        Horde::applicationUrl('view.php?view=List', true)->redirect();
         exit;
     } else {
         $_SESSION['ansel']['user_age'] = (int)$gallery->get('age');
-        header('Location: ' . $url, true);
+        $url->redirect();
         exit;
     }
 }
