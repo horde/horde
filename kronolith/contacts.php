@@ -10,8 +10,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 if (!$GLOBALS['registry']->getAuth()) {

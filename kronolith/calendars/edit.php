@@ -14,30 +14,26 @@ Horde_Registry::appInit('kronolith');
 $vars = Horde_Variables::getDefaultVariables();
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $vars->get('c')));
-    exit;
+    Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $vars->get('c'))->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/EditCalendar.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 try {
     $calendar = $kronolith_shares->getShare($vars->get('c'));
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 $form = new Kronolith_EditCalendarForm($vars, $calendar);
 
@@ -54,8 +50,7 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 
 $vars->set('name', $calendar->get('name'));

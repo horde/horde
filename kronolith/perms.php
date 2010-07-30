@@ -13,8 +13,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 // Exit if the user shouldn't be able to change share permissions.

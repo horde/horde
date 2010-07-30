@@ -15,8 +15,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/EditResourceGroup.php';
 
 // Exit if this isn't an authenticated administrative user.
 if (!$registry->isAdmin()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -24,13 +23,11 @@ try {
     $group = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
     if (!$group->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to change this resource."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('resources/groups/', true));
-        exit;
+        Horde::applicationUrl('resources/groups/', true)->redirect();
     }
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('resources/groups/', true));
-    exit;
+    Horde::applicationUrl('resources/groups/', true)->redirect();
 }
 $form = new Kronolith_EditResourceGroupForm($vars, $group);
 
@@ -48,8 +45,7 @@ if ($form->validate($vars)) {
         $notification->push($e, 'horde.error');
     }
 
-    header('Location: ' . Horde::applicationUrl('resources/groups/', true));
-    exit;
+    Horde::applicationUrl('resources/groups/', true)->redirect();
 }
 
 $vars->set('name', $group->get('name'));

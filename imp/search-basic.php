@@ -35,8 +35,7 @@ if ($search_mailbox) {
     $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
 
     /* Redirect to the mailbox screen. */
-    header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $imp_search->createSearchID($id)));
-    exit;
+    Horde::applicationUrl('mailbox.php', true)->add('mailbox', $imp_search->createSearchID($id))->redirect();
 }
 
 $f_fields = $s_fields = array();

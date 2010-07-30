@@ -12,14 +12,12 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 // Exit if this isn't an authenticated, administrative user
 if (!$registry->isAdmin()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/CreateResource.php';
@@ -36,7 +34,7 @@ if ($form->validate($vars)) {
         $notification->push($e, 'horde.error');
     }
 
-    header('Location: ' . Horde::applicationUrl('resources/', true));
+    Horde::applicationUrl('resources/', true)->redirect();
     exit;
 }
 

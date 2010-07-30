@@ -227,10 +227,10 @@ class IMP_Ui_Compose
      *
      * @return string  The mailbox return URL.
      */
-    public function mailboxReturnUrl($url)
+    public function mailboxReturnUrl($url = null)
     {
         if (!$url) {
-            $url = Horde::applicationUrl('mailbox.php')->setRaw(true);
+            $url = Horde::applicationUrl('mailbox.php');
         }
 
         foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {

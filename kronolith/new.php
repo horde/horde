@@ -12,8 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('event'));
-    exit;
+    Horde::applicationUrl('', true)->setAnchor('event')->redirect();
 }
 
 /* Check permissions. */
@@ -30,13 +29,12 @@ if ($perms->hasAppPermission('max_events') !== true &&
         $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
     $notification->push($message, 'horde.error', array('content.raw'));
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
 if (!$calendar_id) {
-    header('Location: ' . $url);
+    $url->redirect();
 }
 
 $event = Kronolith::getDriver()->getEvent();

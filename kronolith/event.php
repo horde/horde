@@ -16,13 +16,11 @@ $viewName = Horde_Util::getFormData('view', 'Event');
 $view = Kronolith::getView($viewName);
 if (is_string($view->event)) {
     $notification->push($view->event, 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString())));
-    exit;
+    Horde::applicationUrl('', true)->setAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString()))->redirect();
 }
 
 switch ($viewName) {
@@ -31,8 +29,7 @@ case 'DeleteEvent':
     if (!$view->event->recurs() &&
         !($prefs->getValue('confirm_delete') ||
           Horde_Util::getFormData('confirm'))) {
-        header('Location: ' . Horde::applicationUrl('delete.php?' . $_SERVER['QUERY_STRING'], true));
-        exit;
+        Horde::applicationUrl('delete.php?' . $_SERVER['QUERY_STRING'], true)->redirect();
     }
     break;
 
@@ -45,8 +42,7 @@ case 'EditEvent':
         } else {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
         }
-        header('Location: ' . $url->unique());
-        exit;
+        $url->unique()->redirect();
     }
     break;
 }

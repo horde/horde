@@ -8,8 +8,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 $title = _("Edit resources");
@@ -19,8 +18,7 @@ require KRONOLITH_TEMPLATES . '/menu.inc';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php')->redirect();
 }
 $edit_url_base = Horde::applicationUrl('resources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));

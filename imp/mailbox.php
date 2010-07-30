@@ -42,9 +42,7 @@ $registry->setTimeZone();
 try {
     $redirect = Horde::callHook('mbox_redirect', array(IMP::$mailbox), 'imp');
     if (!empty($redirect)) {
-        $redirect = Horde::applicationUrl($redirect, true);
-        header('Location: ' . $redirect);
-        exit;
+        Horde::applicationUrl($redirect, true)->redirect();
     }
 } catch (Horde_Exception_HookNotSet $e) {}
 
@@ -136,8 +134,7 @@ case 'fwd_digest':
                 Horde::popupJs(Horde::applicationUrl('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
             ), 'dom');
         } else {
-            header('Location: ' . Horde::applicationUrl('compose.php', true)->add($options));
-            exit;
+            Horde::applicationUrl('compose.php', true)->add($options)->redirect();
         }
     }
     break;
@@ -190,9 +187,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $redirect = IMP::generateIMPUrl('thread.php', IMP::$mailbox, null, null, false)->setRaw(true)->add(array('mode' => 'msgview', 'msglist' => strval($indices)));
-    header('Location: ' . $redirect);
-    exit;
+    IMP::generateIMPUrl('thread.php', IMP::$mailbox, null, null, false)->add(array('mode' => 'msgview', 'msglist' => strval($indices)))->redirect();
 }
 
 /* Token to use in requests */

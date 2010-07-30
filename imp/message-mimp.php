@@ -31,8 +31,7 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Make sure we have a valid index. */
 $imp_mailbox = $injector->getInstance('IMP_Mailbox')->getOb(IMP::$mailbox, new IMP_Indices(IMP::$thismailbox, IMP::$uid));
 if (!$imp_mailbox->isValidIndex(false)) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('a', 'm'));
-    exit;
+    IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('a', 'm')->redirect();
 }
 
 $readonly = $injector->getInstance('IMP_Imap')->getOb()->isReadOnly(IMP::$mailbox);
@@ -91,8 +90,7 @@ if ($msg_delete && $imp_ui->moveAfterAction()) {
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
     ($msg_delete && $prefs->getValue('mailbox_return'))) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->setRaw(true)->add('s', $msg_index));
-    exit;
+    IMP::generateIMPUrl('mailbox-mimp.php', IMP::$mailbox)->add('s', $msg_index)->redirect();
 }
 
 /* Now that we are done processing the messages, get the index and
@@ -113,8 +111,7 @@ try {
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
     ), array('ids' => array($uid)));
 } catch (Horde_Imap_Client_Exception $e) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->setRaw(true)->add('a', 'm'));
-    exit;
+    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
 }
 
 $envelope = $fetch_ret[$uid]['envelope'];
@@ -126,8 +123,7 @@ $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 try {
     $imp_contents = $injector->getInstance('IMP_Contents')->getOb(new IMP_Indices($imp_mailbox));
 } catch (IMP_Exception $e) {
-    header('Location: ' . IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->setRaw(true)->add('a', 'm'));
-    exit;
+    IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name)->add('a', 'm')->redirect();
 }
 
 /* Get the starting index for the current message and the message count. */

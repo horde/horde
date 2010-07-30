@@ -83,10 +83,10 @@ if (!empty($criteria)) {
         print '<html><head>' .
             Horde::wrapInlineScript(array('window.parent.DimpBase.go(' . Horde_Serialize::serialize('folder:' . $id, Horde_Serialize::JSON, $charset) . ')')) .
             '</head></html>';
-    } else {
-        header('Location: ' . Horde::applicationUrl('mailbox.php', true)->setRaw(true)->add('mailbox', $id));
+        exit;
     }
-    exit;
+
+    Horde::applicationUrl('mailbox.php', true)->add('mailbox', $id)->redirect();
 }
 
 /* Generate master folder list. */
@@ -149,8 +149,7 @@ if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
     if ($imp_search->isVFolder($edit_query)) {
         if (!$imp_search->isEditableVFolder($edit_query)) {
             $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('mailbox.php', true));
-            exit;
+            Horde::applicationUrl('mailbox.php', true)->redirect();
         }
         $t->set('edit_query_vfolder', htmlspecialchars($edit_query));
     }

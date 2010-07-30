@@ -23,8 +23,7 @@ Horde::addScriptFile('folders.js', 'imp');
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$conf['user']['allow_folders']) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('mailbox.php', true));
-    exit;
+    Horde::applicationUrl('mailbox.php', true)->redirect();
 }
 
 /* Decide whether or not to show all the unsubscribed folders */

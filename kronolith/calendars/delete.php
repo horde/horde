@@ -15,35 +15,30 @@ require_once KRONOLITH_BASE . '/lib/Forms/DeleteCalendar.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
 if ($calendar_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $calendar_id));
-    exit;
+    Horde::applicationUrl('', true)->setAnchor('calendar:internal|' . $calendar_id)->redirect();
 }
 
 try {
     $calendar = $kronolith_shares->getShare($calendar_id);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 $form = new Kronolith_DeleteCalendarForm($vars, $calendar);
 
@@ -55,8 +50,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 
 $title = $form->getTitle();

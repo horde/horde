@@ -11,8 +11,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 // Get the current attendees array from the session cache.
@@ -163,8 +162,7 @@ case 'dismiss':
     }
 
     // Make sure URL is unique.
-    header('Location: ' . $url->unique());
-    exit;
+    $url->unique()->redirect();
 
 case 'clear':
     // Remove all the attendees and resources.

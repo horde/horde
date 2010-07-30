@@ -14,8 +14,7 @@ require KRONOLITH_TEMPLATES . '/menu.inc';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php')->redirect();
 }
 $edit_url_base = Horde::applicationUrl('resources/groups/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));

@@ -43,8 +43,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true));
-    exit;
+    Horde::applicationUrl('', true)->redirect();
 }
 
 $kronolith_driver = Kronolith::getDriver();
@@ -195,4 +194,4 @@ if (!empty($url)) {
 }
 
 // Make sure URL is unique.
-header('Location: ' . $url->unique());
+$url->unique()->redirect();

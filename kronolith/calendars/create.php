@@ -12,8 +12,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    header('Location: ' . Horde::applicationUrl('', true)->setAnchor('calendar:internal'));
-    exit;
+    Horde::applicationUrl('', true)->setAnchor('calendar:internal')->redirect();
 }
 
 require_once KRONOLITH_BASE . '/lib/Forms/CreateCalendar.php';
@@ -21,8 +20,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/CreateCalendar.php';
 // Exit if this isn't an authenticated user or if the user can't
 // create new calendars (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_share')) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -36,8 +34,7 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::applicationUrl('calendars/', true)->redirect();
 }
 
 $title = $form->getTitle();

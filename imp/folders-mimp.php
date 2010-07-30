@@ -24,8 +24,7 @@ Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (empty($conf['user']['allow_folders'])) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('mailbox-mimp.php', true));
-    exit;
+    Horde::applicationUrl('mailbox-mimp.php', true)->redirect();
 }
 
 /* Decide whether or not to show all the unsubscribed folders */

@@ -140,8 +140,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
-            header('Location: ' . IMP_Auth::getInitialPage(true)->setRaw(true));
-            exit;
+            IMP_Auth::getInitialPage(true)->redirect();
         }
     }
 
