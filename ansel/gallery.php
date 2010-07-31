@@ -288,6 +288,8 @@ case 'save':
         $url = Horde::applicationUrl('img/upload.php')->add('gallery', $galleryId);
     } elseif (empty($url)) {
         $url = Horde::applicationUrl('index.php', true);
+    } else {
+        $url = new Horde_Url($url);
     }
     $url->redirect();
     exit;

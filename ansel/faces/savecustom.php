@@ -23,7 +23,7 @@ $back_url = empty($url)
     ? Horde::applicationUrl('faces/gallery.php')->add(
             array('gallery' => $gallery_id,
                   'page' => $page))->setRaw(true)
-    : $url;
+    : new Horde_Url($url);
 
 if (Horde_Util::getPost('submit') == _("Cancel")) {
     $notification->push(_("Changes cancelled."), 'horde.warning');
