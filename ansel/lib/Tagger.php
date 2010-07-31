@@ -275,7 +275,7 @@ class Ansel_Tagger
      *
      * @param array $tags     An array of either tag names or ids.
      * @param integer $limit  Limit results to this many.
-     * 
+     *
      * @return array  An array of hashes, tag_id, tag_name, and count.
      * @throws Ansel_Exception
      */
@@ -342,6 +342,43 @@ class Ansel_Tagger
         /* TODO: Filter out images whose gallery has already matched? */
         $results = array('galleries' => array_values($gal_results),
                          'images' => array_values($image_results));
+
+        return $results;
+    }
+
+    /**
+     * List image ids of images related (via similar tags) to the specified
+     * image
+     *
+     * @param Ansel_Image $image  The image to get related images for.
+     * @param bolean $ownerOnly   Only return images owned by the specified
+     *                            image's owner.
+     *
+     * @return array  An array of 'image' and 'rank' keys..
+     */
+    public function listRelatedImages(Ansel_Image $image, $ownerOnly = true)
+    {
+        $args = array('typeId' => 'image', 'limit' => 1);
+        if ($ownerOnly) {
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);
+            $args['userId'] = $gallery->get('owner');
+        }
+
+        try {
+            $ids = $GLOBALS['injector']->getInstance('Content_Tagger')->getSimilarObjects(array('object' => (string)$image->id, 'type' => 'image'), $args);
+        } catch (Content_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+
+        try {
+            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => array_keys($ids)));
+        } catch (Horde_Exception_NotFound $e) {
+            $images = array();
+        }
+        $results = array();
+        foreach ($images as $key => $image) {
+            $results[] = array('image' => $image, 'rank' => $ids[$key]);
+        }
 
         return $results;
     }

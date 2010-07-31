@@ -212,7 +212,7 @@ class Kronolith_Tagger
             $args['typeId'] = $this->_type_ids['event'];
             $event_results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
         }
-        
+
         $results = array('calendars' => array_values($cal_results),
                          'events' => (!empty($args['calendarId']) && count($event_results))
                                      ? Kronolith::getDriver()->filterEventsByCalendar(array_values($event_results), $args['calendarId'])
