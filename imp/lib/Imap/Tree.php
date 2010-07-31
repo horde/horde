@@ -315,7 +315,9 @@ class IMP_Imap_Tree
             if (empty($result['INBOX'])) {
                 $result = $imp_imap->listMailboxes('INBOX', Horde_Imap_Client::MBOX_ALL, array('attributes' => true, 'delimiter' => true)) + $result;
             }
-        } catch (Horde_Imap_Client_Exception $e) {}
+        } catch (Horde_Imap_Client_Exception $e) {
+            $result = array();
+        }
 
         if ($showunsub) {
             $this->_fulllist = $result;
