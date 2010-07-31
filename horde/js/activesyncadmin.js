@@ -23,5 +23,11 @@ var HordeActiveSyncAdmin = {
         document.forms.activesyncadmin.uid.value = user;
         document.forms.activesyncadmin.actionID.value = 'delete';
         document.forms.activesyncadmin.submit();
+    },
+
+    reprovision: function() {
+        document.forms.activesyncadmin.actionID.value = 'reset';
+        document.forms.activesyncadmin.submit();
     }
+
 }

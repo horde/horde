@@ -512,6 +512,19 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Reset ALL device policy keys. Used when server policies have changed
+     * and you want to force ALL devices to pick up the changes. This will
+     * cause all devices that support provisioning to be reprovisioned.
+     *
+     * @throws Horde_ActiveSync_Exception
+     *
+     */
+    public function resetAllPolicyKeys()
+    {
+        throw new Horde_ActiveSync_Exception('Not Implemented');
+    }
+
+    /**
      * Set a new remotewipe status for the device
      *
      * @param string $devId

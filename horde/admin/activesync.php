@@ -28,18 +28,26 @@ if ($actionID = Horde_Util::getPost('actionID')) {
     switch ($actionID) {
     case 'wipe':
         $stateMachine->setDeviceRWStatus($deviceID, Horde_ActiveSync::RWSTATUS_PENDING);
+        $GLOBALS['notification']->push(_("A device wipe has been requested. Device will be wiped on next syncronization attempt."), 'horde.success');
         break;
 
     case 'cancelwipe':
         $stateMachine->setDeviceRWStatus($deviceID, Horde_ActiveSync::RWSTATUS_OK);
+        $GLOBALS['notification']->push(_("Device wipe successfully canceled."), 'horde.success');
         break;
 
     case 'delete':
         $stateMachine->removeState(null, $deviceID, Horde_Util::getPost('uid'));
+        $GLOBALS['notification']->push(_("Device successfully removed."), 'horde.success');
+        break;
+
+    case 'reset':
+        $stateMachine->resetAllPolicyKeys();
+        $GLOBALS['notification']->push(_("All policy keys successfully reset."), 'horde.success');
         break;
     }
 
-    header('Location: ' . Horde::selfUrl());
+    Horde::selfUrl()->redirect();
 }
 
 Horde::addScriptFile('activesyncadmin.js');
@@ -75,11 +83,22 @@ $tree->setHeader(array(
                    array('html' => $spacer),
                    array('width' => '10%', 'html' => _("Actions"))
  ));
-$tree->addNode('root', null, _("Registered User Devices"), 0, true, $base_node_params);
+
+/* Root tree node, and reprovision button */
+$tree->addNode('root',
+               null,
+               _("Registered User Devices"),
+               0,
+               true,
+               $base_node_params,
+               array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' ));
 
 /* To hold the inline javascript */
 $js = array();
 $i = 0;
+
+/* Observe the reprovision button */
+$js[] = '$("reset").observe("click", function() {HordeActiveSyncAdmin.reprovision();});';
 
 /* Build the device entry */
 foreach ($devices as $device) {
