@@ -463,69 +463,75 @@ class Content_Tagger
      * Return objects related to the given object via tags, along with a
      * similarity rank.
      *
+     * @param mixed $object_id  The object to find relations for.
      * @param array $args
      *   limit      Maximum number of objects to return (default 10).
      *   userId     Only return objects that have been tagged by a specific user.
      *   typeId     Only return objects of a specific type.
-     *   objectId   The object to find relations for.
      *   threshold  Number of tags-in-common objects must have to match (default 1).
      *
      * @return array
      */
-    public function getSimilarObjects($args)
+    public function getSimilarObjects($object_id, $args = array())
     {
-        $object_id = $this->_ensureObject($args['objectId']);
+        $defaults = array('limit' => 10,
+                          'threshold' => 1);
+        $args = array_merge($defaults, $args);
+        if (is_array($object_id)) {
+            $object_id = $this->_objectManager->exists($object_id['object'], $object_id['type']);
+            if ($object_id) {
+                $object_id = current(array_keys($object_id));
+            } else {
+                return array();
+            }
+        } elseif (!is_int($object_id)) {
+            throw new InvalidArgumentException(_("Missing or invalid object type parameter."));
+        }
 
-        /* TODO */
-        $threshold = intval($threshold);
-        $max_objects = intval($max_objects);
+        $threshold = intval($args['threshold']);
+        $max_objects = intval($args['limit']);
         if (!isset($object_id) || !($object_id > 0)) {
-            return $retarr;
+            return array();
         }
         if ($threshold <= 0) {
-            return $retarr;
+            return array();
         }
         if ($max_objects <= 0) {
-            return $retarr;
+            return array();
         }
 
-        // Pass in a zero-limit to get all tags.
-        $tagObjects = $this->get_tags_on_object($object_id, 0, 0);
-
-        $tagArray = array();
-        foreach ($tagObjects as $tagObject) {
-            $tagArray[] = $db->Quote($tagObject['tag']);
-        }
-        $tagArray = array_unique($tagArray);
-
+        /* Get the object's tags */
+        $tagObjects = $this->getTags(array('objectId' => $object_id));
+        $tagArray = array_keys($tagObjects);
         $numTags = count($tagArray);
         if ($numTags == 0) {
-            return $retarr; // Return empty set of matches
+            return array(); // Return empty set of matches
         }
 
-        $tagList = implode(',', $tagArray);
+        $sql = 'SELECT matches.object_id, COUNT(matches.object_id) AS num_common_tags FROM '
+            . $this->_t('tagged') . ' matches INNER JOIN '
+            . $this->_t('tags') . ' tags ON (tags.tag_id = matches.tag_id)';
 
-        $prefix = $this->_table_prefix;
+        if (!empty($args['userId'])) {
+            $sql .= ' INNER JOIN ' . $this->_t('users') . ' users ON users.user_id = matches.user_id AND users.user_name = ' . $this->_db->quoteString($args['userId']);
+        }
 
-        $sql = "SELECT matches.object_id, COUNT(matches.object_id) AS num_common_tags
-            FROM ${prefix}freetagged_objects AS matches
-            INNER JOIN ${prefix}freetags AS tags ON (tags.id = matches.tag_id)
-            WHERE tags.tag IN ($tagList)
-            GROUP BY matches.object_id
-            HAVING num_common_tags >= $threshold
-            ORDER BY num_common_tags DESC";
+        if (!empty($args['typeId'])) {
+            $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = matches.object_id '
+                . 'INNER JOIN ' . $this->_t('types') . ' types ON types.type_id=objects.type_id AND types.type_name = ' . $this->_db->quoteString($args['typeId']);
+        }
+
+        $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id;
+
+        $sql .= ' GROUP BY matches.object_id HAVING num_common_tags >= ' . $threshold
+            . ' ORDER BY num_common_tags DESC';
 
         $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
-        $rs = $this->_db->Execute($sql) or die("Syntax Error: $sql, Error: " . $this->_db->ErrorMsg());
-        while (!$rs->EOF) {
-            $retarr[] = array (
-                'object_id' => $rs->fields['object_id'],
-                'strength' => ($rs->fields['num_common_tags'] / $numTags)
-                );
-            $rs->MoveNext();
+        try {
+            return $this->_db->selectAssoc($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
-
-        return $retarr;
     }
 
     /**
