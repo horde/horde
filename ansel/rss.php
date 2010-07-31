@@ -179,9 +179,10 @@ if (empty($rss)) {
         break;
 
     case 'tag':
-        $tag_id = array_values(Ansel_Tags::getTagIds(array($id)));
-        $images = Ansel_Tags::searchTagsById($tag_id, 10, 0, 'images');
-        $tag_id = array_pop($tag_id);
+        $filter = array('typeId' => 'image',
+                        'limit' => 10);
+        $images = $GLOBALS['injector']->getInstance('Ansel_Tagger')->search(array($id), $filter);
+
         try {
             $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => $images['images']));
         } catch (Ansel_Exception $e) {
@@ -189,7 +190,6 @@ if (empty($rss)) {
              $images = array();
         }
         if (count($images)) {
-            $tag_id = $tag_id[0];
             $images = array_values($images);
             $params = array('last_modified' => $images[0]->uploaded,
                             'name' => sprintf(_("Photos tagged with %s on %s"),

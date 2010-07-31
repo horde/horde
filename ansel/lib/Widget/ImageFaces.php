@@ -62,7 +62,6 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         // Generate the top ajax action links and attach the edit actions. Falls
         // back on going to the find all faces in gallery page if no js...
         // although, currently, *that* page requires js as well so...
-        // TODO: A way to 'close', or go back to, the normal widget view.
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
             $html .= Horde::applicationUrl('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(

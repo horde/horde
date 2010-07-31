@@ -1011,4 +1011,35 @@ class Ansel
        return '<script type="text/javascript" src="' . $imple->getUrl() . '"></script><div id="' . $domid . '"></div>';
     }
 
+    /**
+     * Get the URL for a tag search link
+     *
+     * @TODO: Move this to Tagger
+     *
+     * @param array $tags      The tag ids to link to
+     * @param string $action   The action we want to perform with this tag.
+     * @param string $owner    The owner we want to filter the results by
+     *
+     * @return string  The URL for this tag and action
+     */
+    static public function getTagLinks($tags, $action = 'add', $owner = null)
+    {
+
+        $results = array();
+        foreach ($tags as $id => $taginfo) {
+            $params = array('view' => 'Results',
+                            'tag' => $taginfo['tag_name']);
+            if (!empty($owner)) {
+                $params['owner'] = $owner;
+            }
+            if ($action != 'add') {
+                $params['actionID'] = $action;
+            }
+            $link = Ansel::getUrlFor('view', $params, true);
+            $results[$id] = $link;
+        }
+
+        return $results;
+    }
+
 }

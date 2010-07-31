@@ -511,8 +511,6 @@ class Ansel_Image Implements Iterator
     /**
      * Save image details to storage.
      *
-     * @TODO: Move all SQL queries to Ansel_Storage::
-     *
      * @return integer image id
      * @throws Ansel_Exception
      */
@@ -1121,7 +1119,7 @@ class Ansel_Image Implements Iterator
         }
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($this->gallery);
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            return Ansel_Tags::readTags($this->id);
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($this->id, 'image');
         } else {
             throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
         }
@@ -1141,7 +1139,7 @@ class Ansel_Image Implements Iterator
         if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
-            Ansel_Tags::writeTags($this->id, $tags);
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($this->id, $tags, $gallery->get('owner'), 'image');
         } else {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding tags to this photo."));
         }

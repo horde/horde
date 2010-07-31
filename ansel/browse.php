@@ -17,7 +17,7 @@ $layout = new Horde_Block_Layout_View(
 
 $layout_html = $layout->toHtml();
 $title = _("Photo Galleries");
-Ansel_Tags::clearSearch();
+Ansel_Search_Tag::clearSearch();
 require ANSEL_BASE . '/templates/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
 echo '<div id="menuBottom"><a href="' . Horde::applicationUrl('browse_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';

@@ -9,7 +9,7 @@
 class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
 {
     /**
-     * @TODO
+     * Array of views that this widget may appear in.
      *
      * @var unknown_type
      */
@@ -46,7 +46,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
      *
      * @TODO Rethink the way we determine if an image is related. This one is
      *       not ideal, as it just pops tags off the tag list until all the tags
-     *       match. This could miss many related images.
+     *       match. This could miss many related images. Maybe make this random?
      *
      * @return string  The HTML
      */
@@ -56,11 +56,10 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
 
         $html = '';
         $tags = array_values($this->_view->resource->getTags());
-        $imgs = Ansel_Tags::searchTags($tags);
-
+        $imgs = $GLOBALS['injector']->getInstance('Ansel_Tagger')->search($tags);
         while (count($imgs['images']) <= 5 && count($tags)) {
             array_pop($tags);
-            $newImgs = Ansel_Tags::searchTags($tags);
+            $newImgs =$GLOBALS['injector']->getInstance('Ansel_Tagger')->search($tags);
             $imgs['images'] = array_merge($imgs['images'], $newImgs['images']);
         }
         if (count($imgs['images'])) {

@@ -53,13 +53,13 @@ class Horde_Block_ansel_cloud extends Horde_Block
         global $registry;
 
         /* Get the tags */
-        $tags = Ansel_Tags::listTagInfo(null, $this->_params['count']);
+        $tags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getCloud(null, $this->_params['count']);
         if (count($tags)) {
             $cloud = new Horde_Core_Ui_TagCloud();
             foreach ($tags as $id => $tag) {
                 $link = Ansel::getUrlFor('view', array('view' => 'Results',
                                                        'tag' => $tag['tag_name']));
-                $cloud->addElement($tag['tag_name'], $link, $tag['total']);
+                $cloud->addElement($tag['tag_name'], $link, $tag['count']);
             }
             $html = $cloud->buildHTML();
         } else {

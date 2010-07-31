@@ -57,6 +57,14 @@ class Ansel_Application extends Horde_Registry_Application
             throw new Horde_Exception('You must configure a Horde_Image driver to use Ansel');
         }
 
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
+        }
+
         $binders = array(
             'Ansel_Styles' => new Ansel_Injector_Binder_Styles(),
             'Ansel_Faces' => new Ansel_Injector_Binder_Faces(),

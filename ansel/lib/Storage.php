@@ -146,9 +146,6 @@ class Ansel_Storage
         }
 
         /* Fill up the new gallery */
-        // TODO: New private method to bulk load these (it's done this way
-        // since the data is stored in the Share_Object class keyed by the
-        // DB specific fields and set() translates them.
         foreach ($attributes as $key => $value) {
             $gallery->set($key, $value);
         }

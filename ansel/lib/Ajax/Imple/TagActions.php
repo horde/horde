@@ -66,16 +66,12 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
             if (!empty($tags)) {
                 $tags = rawurldecode($post['tags']);
                 $tags = explode(',', $tags);
-
-                /* Get current tags so we don't overwrite them */
-                $etags = Ansel_Tags::readTags($id, $type);
-                $tags = array_keys(array_flip(array_merge($tags, array_values($etags))));
-                $resource->setTags($tags);
+                $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($id, $tags, $GLOBALS['registry']->getAuth(), $type);
 
                 /* Get the tags again since we need the newly added tag_ids */
-                $newTags = $resource->getTags();
+                $newTags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($id, $type);
                 if (count($newTags)) {
-                    $newTags = Ansel_Tags::listTagInfo(array_keys($newTags));
+                    $newTags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo(array_keys($newTags));
                 }
 
                 return array('response' => 1,
@@ -85,15 +81,13 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
             break;
 
         case 'remove':
-            $existingTags = $resource->getTags();
-            unset($existingTags[$tags]);
-            $resource->setTags($existingTags);
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->untag($resource->id, (int)$tags, $type);
+            $existingTags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($resource->id, $type);
             if (count($existingTags)) {
-                $newTags = Ansel_Tags::listTagInfo(array_keys($existingTags));
+                $newTags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo(array_keys($existingTags));
             } else {
                 $newTags = array();
             }
-
             return array('response' => 1,
                          'message' => $this->_getTagHtml($newTags,
                                                          $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)));
@@ -105,10 +99,11 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
     private function _getTagHtml($tags, $hasEdit)
     {
         global $registry;
-        $links = Ansel_Tags::getTagLinks($tags, 'add');
+        $links = Ansel::getTagLinks($tags, 'add');
         $html = '<ul>';
-        foreach ($tags as $tag_id => $taginfo) {
-            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
+        foreach ($tags as $taginfo) {
+            $tag_id = $taginfo['tag_id'];
+            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
         return $html;

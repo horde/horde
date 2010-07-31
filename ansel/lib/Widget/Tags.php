@@ -68,21 +68,23 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
 
         /* Clear the tag cache? */
         if (Horde_Util::getFormData('havesearch', 0) == 0) {
-            Ansel_Tags::clearSearch();
+            Ansel_Search_Tag::clearSearch();
         }
 
+        $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');
         $hasEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
                                                         Horde_Perms::EDIT);
         $owner = $this->_view->gallery->get('owner');
-        $tags = $this->_view->resource->getTags();
+        $tags = $tagger->getTags((int)$this->_view->resource->id, $this->_resourceType);
         if (count($tags)) {
-            $tags = Ansel_Tags::listTagInfo(array_keys($tags));
+            $tags = $tagger->getTagInfo(array_keys($tags), 500, $this->_resourceType);
         }
 
-        $links = Ansel_Tags::getTagLinks($tags, 'add', $owner);
+        $links = Ansel::getTagLinks($tags, 'add', $owner);
         $html = '<ul>';
-        foreach ($tags as $tag_id => $taginfo) {
-            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['total']), $taginfo['total']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
+        foreach ($tags as $taginfo) {
+            $tag_id = $taginfo['tag_id'];
+            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="removeTag(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
 

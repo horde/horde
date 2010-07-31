@@ -122,7 +122,7 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCh
    </td>
    <td width="20%" valign="top">
     <div id="anselWidgets">
-     <?php /* Tags if we are using related */ if ($conf['tags']['relatedtags']): ?>
+     <?php if ($conf['tags']['relatedtags']): ?>
       <div style="background-color:<?php echo $styleDef['background'] ?>;">
        <h2 class="header tagTitle"><?php echo _("Related Tags") ?></h2>
        <div id="tags"><?php echo $rtaghtml ?></div>

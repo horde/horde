@@ -372,21 +372,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                                'image_type' => $img->getType(),
                                'image_uploaded_date' => $img->uploaded));
             /* Copy any tags */
-            // Since we know that the tags already exist, no need to
-            // go through Ansel_Tags::writeTags() - this saves us a SELECT query
-            // for each tag - just write the data into the DB ourselves.
             $tags = $img->getTags();
-            $query = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_images_tags (image_id, tag_id) VALUES(' . $newId . ',?);');
-            if ($query instanceof PEAR_Error) {
-                throw new Ansel_Exception($query);
-            }
-            foreach ($tags as $tag_id => $tag_name) {
-                $result = $query->execute($tag_id);
-                if ($result instanceof PEAR_Error) {
-                    throw new Ansel_Exception($result);
-                }
-            }
-            $query->free();
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($newId, $tags, $gallery->get('owner'), 'image');
 
             /* exif data */
             // First check to see if the exif data was present in the raw data.
@@ -688,7 +675,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
      */
     public function getTags() {
         if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            return Ansel_Tags::readTags($this->id, 'gallery');
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($this->id, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied viewing this gallery."));
         }
@@ -705,7 +692,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     public function setTags($tags)
     {
         if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            return Ansel_Tags::writeTags($this->id, $tags, 'gallery');
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($this->id, $tags, $this->get('owner'), 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied adding tags to this gallery."));
         }

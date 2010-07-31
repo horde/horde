@@ -3,8 +3,15 @@
  * The Ansel_View_Results:: class wraps display of images/galleries from
  * multiple parent sources..
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
 class Ansel_View_Results extends Ansel_View_Base
 {
@@ -22,7 +29,18 @@ class Ansel_View_Results extends Ansel_View_Base
      */
     protected $_owner;
 
+    /**
+     * The current page
+     *
+     * @var integer
+     */
     private $_page;
+
+    /**
+     * Number of resources per page.
+     *
+     * @var integer
+     */
     private $_perPage;
 
     /**
@@ -39,8 +57,9 @@ class Ansel_View_Results extends Ansel_View_Base
         $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
 
-        $this->_owner = Horde_Util::getFormData('owner', null);
-        $this->_search = Ansel_Tags::getSearch(null, $this->_owner);
+        $this->_owner = Horde_Util::getFormData('owner', '');
+        //@TODO: Inject the search object when we have more then just a tag search
+        $this->_search = new Ansel_Search_Tag($GLOBALS['injector']->getInstance('Ansel_Tagger'), null, $this->_owner);
         $this->_page = Horde_Util::getFormData('page', 0);
         $action = Horde_Util::getFormData('actionID', '');
         $image_id = Horde_Util::getFormData('image');
@@ -68,7 +87,6 @@ class Ansel_View_Results extends Ansel_View_Base
                      try {
                          $result = $gallery->removeImage($image);
                          $notification->push(_("Deleted the photo."), 'horde.success');
-                         Ansel_Tags::clearCache();
                      } catch (Ansel_Exception $e) {
                         $notification->push(
                             sprintf(_("There was a problem deleting photos: %s"), $e->getMessage()), 'horde.error');
@@ -164,8 +182,6 @@ class Ansel_View_Results extends Ansel_View_Base
         case 'remove':
             $tag = Horde_Util::getFormData('tag');
             if (isset($tag)) {
-                $tag = Ansel_Tags::getTagIds(array($tag));
-                $tag = array_pop($tag);
                 $this->_search->removeTag($tag);
                 $this->_search->save();
             }
@@ -175,8 +191,6 @@ class Ansel_View_Results extends Ansel_View_Base
         default:
             $tag = Horde_Util::getFormData('tag');
             if (isset($tag)) {
-                $tag = Ansel_Tags::getTagIds(array($tag));
-                $tag = array_pop($tag);
                 $this->_search->addTag($tag);
                 $this->_search->save();
             }
@@ -227,7 +241,8 @@ class Ansel_View_Results extends Ansel_View_Base
         if ($conf['tags']['relatedtags']) {
             $rtags = $this->_search->getRelatedTags();
             $rtaghtml = '<ul>';
-            $links = Ansel_Tags::getTagLinks($rtags, 'add');
+
+            $links = Ansel::getTagLinks($rtags, 'add');
             foreach ($rtags as $id => $taginfo) {
                 if (!empty($this->_owner)) {
                     $links[$id]->add('owner', $this->_owner);
@@ -243,7 +258,6 @@ class Ansel_View_Results extends Ansel_View_Base
 
         $vars = Horde_Variables::getDefaultVariables();
         $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);
-
 
         $this->_pagestart = ($this->_page * $this->_perPage) + 1;
         $this->_pageend = min($this->_pagestart + $numimages - 1, $this->_pagestart + $this->_perPage - 1);
