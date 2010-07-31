@@ -47,6 +47,7 @@ class Content_Tagger
         'tag_stats' => 'rampage_tag_stats',
         'user_tag_stats' => 'rampage_user_tag_stats',
         'users' => 'rampage_users',
+        'types' => 'rampage_types',
     );
 
     /**
@@ -470,7 +471,7 @@ class Content_Tagger
      *   typeId     Only return objects of a specific type.
      *   threshold  Number of tags-in-common objects must have to match (default 1).
      *
-     * @return array
+     * @return array  An array of (client) object ids => similarity rank
      */
     public function getSimilarObjects($object_id, $args = array())
     {
@@ -508,22 +509,21 @@ class Content_Tagger
             return array(); // Return empty set of matches
         }
 
-        $sql = 'SELECT matches.object_id, COUNT(matches.object_id) AS num_common_tags FROM '
+        $sql = 'SELECT objects.object_name, COUNT(matches.object_id) AS num_common_tags FROM '
             . $this->_t('tagged') . ' matches INNER JOIN '
             . $this->_t('tags') . ' tags ON (tags.tag_id = matches.tag_id)';
 
         if (!empty($args['userId'])) {
             $sql .= ' INNER JOIN ' . $this->_t('users') . ' users ON users.user_id = matches.user_id AND users.user_name = ' . $this->_db->quoteString($args['userId']);
         }
-
+        $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = matches.object_id';
         if (!empty($args['typeId'])) {
-            $sql .= ' INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = matches.object_id '
-                . 'INNER JOIN ' . $this->_t('types') . ' types ON types.type_id=objects.type_id AND types.type_name = ' . $this->_db->quoteString($args['typeId']);
+            $sql .= ' INNER JOIN ' . $this->_t('types') . ' types ON types.type_id=objects.type_id AND types.type_name = ' . $this->_db->quoteString($args['typeId']);
         }
 
         $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id;
 
-        $sql .= ' GROUP BY matches.object_id HAVING num_common_tags >= ' . $threshold
+        $sql .= ' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
             . ' ORDER BY num_common_tags DESC';
 
         $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
