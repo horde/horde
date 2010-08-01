@@ -20,13 +20,6 @@ class Ansel_Storage
     private $_db = null;
 
     /**
-     * Local gallery cache
-     *
-     * @var array
-     */
-    private $_galleries = array();
-
-    /**
      * The Horde_Shares object to use for this scope.
      *
      * @var Horde_Share
@@ -301,17 +294,10 @@ class Ansel_Storage
      */
     public function getGallery($gallery_id, $overrides = array())
     {
-        // avoid cache server hits
-        if (isset($this->_galleries[$gallery_id]) && !count($overrides)) {
-            return $this->_galleries[$gallery_id];
-        }
-
        if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
            ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
 
-               $this->_galleries[$gallery_id] = unserialize($gallery);
-
-               return $this->_galleries[$gallery_id];
+           return unserialize($gallery);
        }
 
        try {
@@ -319,7 +305,6 @@ class Ansel_Storage
        } catch (Horde_Share_Exception $e) {
            throw new Ansel_Exception($e);
        }
-       $this->_galleries[$gallery_id] = $result;
 
        // Don't cache if we have overridden anything
        if (!count($overrides)) {
@@ -328,11 +313,11 @@ class Ansel_Storage
            }
        } else {
            foreach ($overrides as $key => $value) {
-               $this->_galleries[$gallery_id]->set($key, $value, false);
+               $result->set($key, $value, false);
            }
        }
 
-        return $this->_galleries[$gallery_id];
+        return $result;
     }
 
     /**
@@ -438,7 +423,6 @@ class Ansel_Storage
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
             $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $id);
         }
-        unset($this->_galleries[$id]);
 
         /* See if we need to clear the has_subgalleries field */
         if ($parent instanceof Ansel_Gallery) {
@@ -447,7 +431,6 @@ class Ansel_Storage
                 if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                     $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $parent->id);
                 }
-                unset($this->_galleries[$id]);
             }
         }
 
@@ -752,7 +735,7 @@ class Ansel_Storage
             $results[] = new Ansel_Image($image);
         }
         $images->free();
-        
+
         return $results;
     }
 
@@ -1166,7 +1149,7 @@ class Ansel_Storage
     /**
      * Set the gallery id for a set of images. Useful for bulk updating images
      * when moving from one gallery to another.
-     * 
+     *
      * @param array $image_ids     An array of image ids
      * @param integer $gallery_id  The gallery id to move the images to.
      *
@@ -1195,7 +1178,7 @@ class Ansel_Storage
         $this->_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
         $this->_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$imageid);
     }
-    
+
     /**
      * Helper function to get a string of field names
      *
