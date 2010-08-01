@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[mjr] Move tag handling to Content_Tagger.
 [mjr] Support for multipage images (Request #6022).
 [mjr] Exif code removed and placed in Horde_Image_Exif
 
