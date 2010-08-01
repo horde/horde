@@ -61,7 +61,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
             foreach ($results as $result) {
                 $img = $result['image'];
                 $rGal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($img->gallery);
-                if ($rGal->hasPermission())
+                if ($rGal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ))
                 $html .= Ansel::getUrlFor(
                         'view',
                          array('image' => $img->id,
