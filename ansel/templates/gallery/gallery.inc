@@ -1,4 +1,4 @@
-<form method="post" name="gallery" action="<?php echo Horde::selfUrl() ?>" onsubmit="return checkCategory();">
+<form method="post" name="gallery" action="<?php echo Horde::selfUrl() ?>" >
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="save" />
 <?php if ($actionID == 'addchild'): ?>
@@ -24,15 +24,6 @@
   </select>
  </td>
 </tr>
-<tr>
-  <td align="right" valign="top"><strong><?php echo _("Gallery Category") ?></strong>&nbsp;</td>
-  <td>
-    <input type="hidden" name="new_category" value="" />
-    <?php echo Horde_Prefs_CategoryManager::getJavaScript('gallery', 'gallery_category') .
-               Horde_Prefs_CategoryManager::getSelect("gallery_category", $gallery_category) ?>
-  </td>
-</tr>
-
 <?php
 if ($prefs->isLocked('default_gallerystyle')) {
     echo '<input type="hidden" name="gallery_style" value="' . $prefs->getValue('default_gallerystyle') . '" />';

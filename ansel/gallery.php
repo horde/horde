@@ -24,7 +24,6 @@ case 'add':
     // Set up the gallery attributes.
     $gallery_name = '';
     $gallery_desc = '';
-    $gallery_category = $prefs->getValue('default_category');
     $gallery_tags = '';
     $gallery_thumbstyle = '';
     $gallery_slug = '';
@@ -64,7 +63,6 @@ case 'addchild':
     // Set up the gallery attributes.
     $gallery_name = '';
     $gallery_desc = '';
-    $gallery_category = $prefs->getValue('default_category');
     $gallery_tags = '';
     $gallery_slug = '';
     $gallery_age = 0;
@@ -104,7 +102,6 @@ case 'modify':
          // Set up the gallery attributes.
         $gallery_name = $gallery->get('name');
         $gallery_desc = $gallery->get('desc');
-        $gallery_category = $gallery->get('category');
         $gallery_tags = implode(',', $gallery->getTags());
         $gallery_thumbstyle = $gallery->get('style');
         $gallery_slug = $gallery->get('slug');
@@ -142,16 +139,6 @@ case 'save':
     $gallery_download = Horde_Util::getFormData('gallery_download');
     $gallery_mode = Horde_Util::getFormData('view_mode', 'Normal');
     $gallery_passwd = Horde_Util::getFormData('gallery_passwd');
-    if ($new_category = Horde_Util::getFormData('new_category')) {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $new_category = $cManager->add($new_category);
-        if ($new_category) {
-            $gallery_category = $new_category;
-        }
-    } else {
-        $gallery_category = Horde_Util::getFormData('gallery_category');
-    }
-
     $gallery_tags = Horde_Util::getFormData('gallery_tags');
     $gallery_thumbstyle = Horde_Util::getFormData('gallery_style');
     $gallery_parent = Horde_Util::getFormData('gallery_parent');
@@ -173,7 +160,6 @@ case 'save':
             }
 
             $gallery->set('desc', $gallery_desc);
-            $gallery->set('category', $gallery_category);
             $gallery->setTags(explode(',', $gallery_tags));
             $gallery->set('style', $gallery_thumbstyle);
             $gallery->set('slug', $gallery_slug);
@@ -251,7 +237,6 @@ case 'save':
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->createGallery(
                     array('name' => $gallery_name,
                           'desc' => $gallery_desc,
-                          'category' => $gallery_category,
                           'tags' => explode(',', $gallery_tags),
                           'style' => $gallery_thumbstyle,
                           'slug' => $gallery_slug,

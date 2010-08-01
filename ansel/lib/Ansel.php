@@ -167,13 +167,6 @@ class Ansel
 
                 /* Viewing a List */
                 if ($data['view'] == 'List') {
-                    if (!empty($data['groupby']) &&
-                        $data['groupby'] == 'category' &&
-                        empty($data['category']) &&
-                        empty($data['special'])) {
-
-                        $data['groupby'] = 'owner';
-                    }
 
                     $groupby = isset($data['groupby'])
                         ? $data['groupby']
@@ -182,12 +175,6 @@ class Ansel
                         $url = 'user/' . urlencode($data['owner']) . '/';
                     } elseif ($groupby == 'owner') {
                         $url = 'user/';
-                    } elseif ($groupby == 'category' &&
-                              !empty($data['category'])) {
-                            $url = 'category/' . urlencode($data['category']) . '/';
-
-                    } elseif ($groupby == 'category') {
-                        $url = 'category/';
                     } elseif ($groupby == 'none') {
                        $url = 'all/';
                     }
@@ -317,9 +304,6 @@ class Ansel
 
                 if ($data['groupby'] == 'owner') {
                     $url = 'user/';
-                }
-                if ($data['groupby'] == 'category') {
-                    $url = 'category/';
                 }
                 if ($data['groupby'] == 'none') {
                     $url = 'all/';

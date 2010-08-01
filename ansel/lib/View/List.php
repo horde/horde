@@ -1,6 +1,8 @@
 <?php
 /**
- * The Ansel_View_Gallery:: class wraps display of individual images.
+ * The Ansel_View_List:: provides a view for handling lists of galleries.
+ *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -12,7 +14,6 @@ class Ansel_View_List extends Ansel_View_Base
 {
     private $_groupby;
     private $_owner;
-    private $_category;
     private $_special;
     private $_page;
     private $_start;
@@ -72,13 +73,8 @@ class Ansel_View_List extends Ansel_View_Base
         }
 
         $this->_special = Horde_Util::getFormData('special');
-        if (empty($this->_params['category'])) {
-            $this->_category = Horde_Util::getFormData('category');
-            $this->_category = empty($this->_category) ? null : $this->_category;
-        } else {
-            $this->_category = $this->_params['category'];
-        }
-        if (!$this->_owner && !$this->_category && !$this->_special && $this->_groupby != 'none' ) {
+
+        if (!$this->_owner && !$this->_special && $this->_groupby != 'none' ) {
             Ansel::getUrlFor('group', array('groupby' => $this->_groupby))->redirect();
             exit;
         }
@@ -116,10 +112,6 @@ class Ansel_View_List extends Ansel_View_Base
             $filter = array();
             if (!is_null($this->_owner)) {
                 $filter['owner'] = $this->_owner;
-            }
-
-            if (!is_null($this->_category)) {
-                $filter['category'] = $this->_category;
             }
 
             $this->_numGalleries = $ansel_storage->countGalleries(
@@ -173,12 +165,6 @@ class Ansel_View_List extends Ansel_View_Base
             } else {
                 return sprintf(_("%s's Galleries"), $this->_owner);
             }
-        } elseif ($this->_category || ($this->_groupby == 'category' && $this->_special)) {
-            if ($this->_special == 'unfiled') {
-                return sprintf(_("Galleries in category \"%s\""), _("Unfiled"));
-            } else {
-                return sprintf(_("Galleries in category \"%s\""), $this->_category);
-            }
         } else {
             return _("Gallery List");
         }
@@ -206,7 +192,6 @@ class Ansel_View_List extends Ansel_View_Base
             $override = false;
             $this->_pagerurl = Ansel::getUrlFor('view',
                                     array('owner' => $this->_owner,
-                                          'category' => $this->_category,
                                           'special' => $this->_special,
                                           'groupby' => $this->_groupby,
                                           'view' => 'List'));
@@ -245,8 +230,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $refresh_link = Ansel::getUrlFor('view',
                                                  array('view' => 'List',
                                                        'groupby' => $this->_groupby,
-                                                       'page' => $this->_page,
-                                                       'category' => $this->_category));
+                                                       'page' => $this->_page));
             }
 
             // Get top-level / default gallery style.

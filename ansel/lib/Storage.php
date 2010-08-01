@@ -95,7 +95,6 @@ class Ansel_Storage
         $attributes['default'] = isset($attributes['default']) ? (int)$attributes['default'] : 0;
         $attributes['default_prettythumb'] = isset($attributes['default_prettythumb']) ? $attributes['default_prettythumb'] : '';
         $attributes['style'] = isset($attributes['style']) ? $attributes['style'] : $GLOBALS['prefs']->getValue('default_gallerystyle');
-        $attributes['category'] = isset($attributes['category']) ? $attributes['category'] : $GLOBALS['prefs']->getValue('default_category');
         $attributes['date_created'] = time();
         $attributes['last_modified'] = $attributes['date_created'];
         $attributes['images'] = isset($attributes['images']) ? (int)$attributes['images'] : 0;
@@ -766,56 +765,6 @@ class Ansel_Storage
 
             return (bool)$this->slugExists($slug);
         }
-    }
-
-   /**
-    * Return a list of categories containing galleries with the given
-    * permissions for the current user.
-    *
-    * @param integer $perm   The level of permissions required.
-    * @param integer $from   The gallery to start listing at.
-    * @param integer $count  The number of galleries to return.
-    *
-    * @return array  List of categories
-    * @throws Horde_Exception
-    *
-    * @TODO: Remove category support, in lieu of tags
-    */
-    public function listCategories($perm = Horde_Perms::SHOW, $from = 0, $count = 0)
-    {
-        $sql = 'SELECT DISTINCT attribute_category FROM '
-               . $this->_shares->getTable();
-        $results = $this->_shares->getReadDb()->query($sql);
-        if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
-        }
-        $all_categories = $results->fetchCol('attribute_category');
-        $results->free();
-        if (count($all_categories) < $from) {
-            return array();
-        } else {
-            $categories = array();
-            foreach ($all_categories as $category) {
-                $categories[] = Horde_String::convertCharset(
-                    $category, $GLOBALS['conf']['sql']['charset']);
-            }
-            if ($count > 0) {
-                return array_slice($categories, $from, $count);
-            } else {
-                return array_slice($categories, $from);
-            }
-        }
-    }
-
-    /**
-     * @TODO REMOVE
-     * @param $perms
-     *
-     * @return int  The count of categories
-     */
-    public function countCategories($perms = Horde_Perms::SHOW)
-    {
-        return count($this->listCategories($perms));
     }
 
    /**

@@ -131,10 +131,6 @@ class Ansel_Application extends Horde_Registry_Application
     public function prefsSpecial($ui, $item)
     {
         switch ($item) {
-        case 'default_category_select':
-            $cManager = new Horde_Prefs_CategoryManager();
-            return _("Default category for galleries") . $cManager->getSelect('default_category_select', $GLOBALS['prefs']->getValue('default_category'));
-
         case 'default_gallerystyle_select':
             return _("Default style for galleries") .
                 Ansel::getStyleSelect('default_gallerystyle_select', $GLOBALS['prefs']->getValue('default_gallerystyle')) .
@@ -155,13 +151,6 @@ class Ansel_Application extends Horde_Registry_Application
     public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
-        case 'default_category_select':
-            if (isset($ui->vars->default_category_select)) {
-                $GLOBALS['prefs']->setValue('default_category', $ui->vars->default_category_select);
-                return true;
-            }
-            break;
-
         case 'default_gallerystyle_select':
             if (isset($ui->vars->default_gallerystyle_select)) {
                 $GLOBALS['prefs']->setValue('default_gallerystyle', $ui->vars->default_gallerystyle_select);
