@@ -200,8 +200,9 @@ var Horde_Calendar =
                 display: 'block',
                 zIndex: 1
             });
-            div.setStyle({ zIndex: 2 });
         }
+
+        div.setStyle({ zIndex: 999 });
     },
 
     hideCal: function()
@@ -290,7 +291,7 @@ var Horde_Calendar =
         }
         thead.insert(row);
 
-        $(document.body).insert({ bottom: new Element('DIV', { id: 'hordeCalendar' }).setStyle({ position: 'absolute' }).hide().insert(table) });
+        $(document.body).insert({ bottom: new Element('DIV', { id: 'hordeCalendar' }).setStyle({ position: 'absolute', 'z-index': 999 }).hide().insert(table) });
 
         $('hordeCalendar').observe('click', this.clickHandler.bindAsEventListener(this));
     },
