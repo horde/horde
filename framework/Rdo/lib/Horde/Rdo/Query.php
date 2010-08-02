@@ -367,7 +367,7 @@ class Horde_Rdo_Query
                 }
             }
 
-            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' AS ' . $tableAlias . ' ON ' . implode(' AND ', $relsql);
+            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' ' . $tableAlias . ' ON ' . implode(' AND ', $relsql);
         }
     }
 
