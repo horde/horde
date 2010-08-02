@@ -713,7 +713,8 @@ class IMP_Contents
      *
      * @return string  The URL to view.php.
      */
-    public function urlView($mime_part, $actionID, $options = array())
+    public function urlView($mime_part = null, $actionID = 'view_attach',
+                            $options = array())
     {
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 

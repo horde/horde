@@ -142,6 +142,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         } else {
             $this->_imptmp = array(
                 'blockimg' => null,
+                'cid' => null,
                 'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
                 'imgblock' => false,
                 'inline' => $inline,
@@ -151,6 +152,22 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             /* Image filtering. */
             if ($this->_imptmp['img']) {
                 $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, -1);
+            }
+
+            /* Search for inlined images that we can display
+             * (multipart/related parts). */
+            if (isset($this->_params['related_id'])) {
+                $cid_replace = array();
+
+                foreach ($this->_params['related_cids'] as $mime_id => $cid) {
+                    if ($cid = trim($cid, '<>')) {
+                        $cid_replace['cid:' . $cid] = $mime_id;
+                    }
+                }
+
+                if (!empty($cid_replace)) {
+                    $this->_imptmp['cid'] = $cid_replace;
+                }
             }
         }
 
@@ -192,24 +209,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
                 )
             );
-        }
-
-        /* Search for inlined links that we can display (multipart/related
-         * parts). */
-        if (isset($this->_params['related_id'])) {
-            $cid_replace = array();
-
-            foreach ($this->_params['related_cids'] as $mime_id => $cid) {
-                $cid = trim($cid, '<>');
-                if ($cid) {
-                    $cid_part = $this->_params['contents']->getMIMEPart($mime_id);
-                    $cid_replace['cid:' . $cid] = $this->_params['contents']->urlView($cid_part, 'view_attach', array('params' => array('related_data' => 1)));
-                }
-            }
-
-            if (!empty($cid_replace)) {
-                $data = str_replace(array_keys($cid_replace), array_values($cid_replace), $data);
-            }
         }
 
         $filters = array();
@@ -278,7 +277,9 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($node instanceof DOMElement) {
-            switch (strtolower($node->tagName)) {
+            $tag = strtolower($node->tagName);
+
+            switch ($tag) {
             case 'a':
             case 'area':
                 /* Convert links to open in new windows. Ignore
@@ -297,10 +298,26 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             case 'img':
             case 'input':
-                if ($this->_imptmp['img'] && $node->hasAttribute('src')) {
-                    $node->setAttribute('htmlimgblocked', $node->getAttribute('src'));
-                    $node->setAttribute('src', $this->_imptmp['blockimg']);
-                    $this->_imptmp['imgblock'] = true;
+                if ($this->_imptmp && $node->hasAttribute('src')) {
+                    $val = $node->getAttribute('src');
+
+                    /* Multipart/related. */
+                    if (($tag == 'img') &&
+                        $this->_imptmp['cid'] &&
+                        isset($this->_imptmp['cid'][$val])) {
+                        $val = $this->_params['contents']->urlView(null, 'view_attach', array('params' => array(
+                            'id' => $this->_imptmp['cid'][$val],
+                            'related_data' => 1
+                        )));
+                        $node->setAttribute('src', $val);
+                    }
+
+                    /* Block images.*/
+                    if ($this->_imptmp['img']) {
+                        $node->setAttribute('htmlimgblocked', $val);
+                        $node->setAttribute('src', $this->_imptmp['blockimg']);
+                        $this->_imptmp['imgblock'] = true;
+                    }
                 }
                 break;
 
