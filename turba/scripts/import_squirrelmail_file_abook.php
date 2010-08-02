@@ -59,7 +59,10 @@ foreach($files as $file) {
 
     // Reset user prefs
     unset($prefs);
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
+    $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('turba', array(
+        'cache' => false,
+        'user' => $user
+    ));
 
     // Reset $cfgSources for current user.
     unset($cfgSources);

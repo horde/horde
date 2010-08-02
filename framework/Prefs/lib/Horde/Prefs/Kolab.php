@@ -15,16 +15,15 @@
  */
 class Horde_Prefs_Kolab extends Horde_Prefs_Ldap
 {
-    /**
+   /**
      * Constructor.
      *
-     * @param string $scope     The current application scope.
-     * @param string $user      The user who owns these preferences.
-     * @param string $password  The password associated with $user.
-     * @param array $params     A hash containing connection parameters.
-     * @param boolean $caching  Should caching be used?
+     * @param string $scope  The scope for this set of preferences.
+     * @param array $opts    See factory() for list of options.
+     * @param array $params  A hash containing any additional configuration
+     *                       or connection parameters a subclass might need.
      */
-    public function __construct($scope, $user, $password, $params, $caching)
+    protected function __construct($scope, $opts, $params)
     {
         require_once 'Horde/Kolab.php';
         $params = array(
@@ -38,7 +37,7 @@ class Horde_Prefs_Kolab extends Horde_Prefs_Ldap
             'uid' => 'mail'
         );
 
-        parent::__construct($scope, $user, $password, $params, $caching);
+        parent::__construct($scope, $opts, $params);
     }
 
 }

@@ -143,8 +143,10 @@ class Folks_Friends {
             return (boolean)$GLOBALS['prefs']->getValue('friends_approval');
         }
 
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'folks', $registry->convertUsername($user, true), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('folks', array(
+            'cache' => false,
+            'user' => $GLOBALS['registry']->convertUsername($user, true)
+        ));
 
         return (boolean)$prefs->getValue('friends_approval');
     }

@@ -64,7 +64,10 @@ function importPrefs()
 
     $GLOBALS['registry']->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
+    $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        'cache' => false,
+        'user' => $user
+    ));
     savePrefs($user, null, $prefs_cache);
 }
 

@@ -34,8 +34,11 @@ while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
         if (!is_null($creator)) {
             echo "$count\n";
         }
-        $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde',
-                                      $row['event_creator_id']);
+        $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+            'cache' => false,
+            'user' => $row['event_creator_id']
+        ));
+
         $timezone = $prefs->getValue('timezone');
         if (empty($timezone)) {
             $timezone = date_default_timezone_get();

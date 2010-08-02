@@ -50,8 +50,10 @@ $form->setButtons(_("Continue"));
 // Get user security pass
 $user = Horde_Util::getFormData('username');
 if ($user) {
-    $u_prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $registry->convertUsername($user, true), '', null, false);
-    $u_prefs->retrieve();
+    $u_prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        'cache' => false,
+        'user' => $registry->convertUsername($user, true)
+    ));
     $answer = $u_prefs->getValue('security_answer');
     $question = $u_prefs->getValue('security_question');
 } else {

@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_File extends Horde_Prefs
+class Horde_Prefs_File extends Horde_Prefs_Base
 {
     /**
      * Current version number of the data format
@@ -44,37 +44,29 @@ class Horde_Prefs_File extends Horde_Prefs
     /**
      * Constructor.
      *
-     * @param string $scope     The current preferences scope.
-     * @param string $user      The user who owns these preferences.
-     * @param string $password  The password associated with $user. (Unused)
-     * @param array $params     A hash containing connection parameters.
-     * @param boolean $caching  Should caching be used?
+     * @param string $scope  The scope for this set of preferences.
+     * @param array $opts    See factory() for list of options.
+     * @param array $params  Additional parameters:
+     * <pre>
+     * 'directory' - (string) [REQUIRED] Preference storage directory.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($scope, $user, $password, $params, $caching)
+    public function __construct($scope, $opts, $params);
     {
-        parent::__construct($scope, $user, $password, $params, $caching);
+        parent::__construct($scope, $opts, $params);
 
         // Sanity check for directory
-        $error = false;
         if (empty($params['directory']) || !is_dir($params['directory'])) {
-            Horde::logMessage(_("Preference storage directory is not available."), 'ERR');
-            $error = true;
-        } elseif (!is_writable($params['directory'])) {
-            Horde::logMessage(sprintf(_("Directory %s is not writeable"), $params['directory']), 'ERR');
-            $error = true;
+            throw new InvalidArgumentException('Preference storage directory is not available.');
+        }
+        if (!is_writable($params['directory'])) {
+            throw new InvalidArgumentException(sprintf('Directory %s is not writeable.', $params['directory']));
         }
 
-        if ($error) {
-            $this->_dirname = null;
-            $this->_fullpath = null;
-
-            if (isset($GLOBALS['notification'])) {
-                $GLOBALS['notification']->push(_("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default settings."));
-            }
-        } else {
-            $this->_dirname = $params['directory'];
-            $this->_fullpath = $this->_dirname . '/' . basename($user) . '.prefs';
-        }
+        $this->_dirname = $params['directory'];
+        $this->_fullpath = $this->_dirname . '/' . basename($user) . '.prefs';
     }
 
     /**
@@ -82,7 +74,7 @@ class Horde_Prefs_File extends Horde_Prefs
      *
      * @param string $scope  Scope specifier.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _retrieve($scope)
     {
@@ -105,7 +97,7 @@ class Horde_Prefs_File extends Horde_Prefs
                 if ($this->_fileCache['__file_version'] == 1) {
                     $this->transformV1V2();
                 } else {
-                    throw new Horde_Exception(sprintf('Wrong version number found: %s (should be %d)', $this->_fileCache['__file_version'], $this->_version));
+                    throw new Horde_Prefs_Exception(sprintf('Wrong version number found: %s (should be %d)', $this->_fileCache['__file_version'], $this->_version));
                 }
             }
         }
@@ -183,7 +175,7 @@ class Horde_Prefs_File extends Horde_Prefs
      * Stores preferences in the current session.
      *
      * @return boolean  True on success.
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     public function store()
     {
@@ -218,7 +210,7 @@ class Horde_Prefs_File extends Horde_Prefs
         }
 
         if ($this->_writeCache() == false) {
-            throw new Horde_Exception(sprintf('Write of preferences to %s failed', $this->_filename));
+            throw new Horde_Prefs_Exception(sprintf('Write of preferences to %s failed', $this->_filename));
         }
 
         return true;

@@ -1095,10 +1095,10 @@ class Nag
      */
     public static function _notificationPref($user, $mode, $tasklist = null)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        'nag', $user, '', null,
-                                        false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('nag', array(
+            'cache' => false,
+            'user' => $user
+        ));
         $vals = array('lang' => $prefs->getValue('language'),
                       'tf' => $prefs->getValue('twentyFour'),
                       'df' => $prefs->getValue('date_format'));

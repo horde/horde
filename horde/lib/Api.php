@@ -213,9 +213,12 @@ class Horde_Api extends Horde_Registry_Api
         $haveError = false;
 
         /* Remove user's prefs */
-        $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], null, $user);
-        if (is_a($result = $prefs->clear(), 'PEAR_Error')) {
-            Horde::logMessage($result, 'ERR');
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('horde', array(
+            'user' => $user
+        ));
+        try {
+            $prefs->clear();
+        } catch (Horde_Exception $e) {
             $haveError = true;
         }
 

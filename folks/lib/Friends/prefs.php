@@ -104,8 +104,9 @@ class Folks_Friends_prefs extends Folks_Friends {
             $user = $GLOBALS['registry']->getAuth();
         }
 
-        $u_prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], $GLOBALS['registry']->getApp(), $user);
-        $u_prefs->retrieve();
+        $u_prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs($GLOBALS['registry']->getApp(), array(
+            'user' => $user
+        ));
 
         $list = $u_prefs->getValue($type);
 

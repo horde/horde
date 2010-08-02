@@ -24,7 +24,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Moved UI code to Horde_Core::.
+ <notes>* Remove dependency on horde/Core.
+ * Use Horde_Db as backend for Sql driver.
+ * Moved UI code to horde/Core.
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -33,6 +35,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Prefs">
       <file name="CategoryManager.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
       <file name="Identity.php" role="php" />
       <file name="Imsp.php" role="php" />
@@ -63,7 +66,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -72,6 +75,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
   <optional>
+   <package>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <package>
     <name>Mime</name>
     <channel>pear.horde.org</channel>
@@ -84,6 +91,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Prefs/CategoryManager.php" as="Horde/Prefs/CategoryManager.php" />
+   <install name="lib/Horde/Prefs/Exception.php" as="Horde/Prefs/Exception.php" />
    <install name="lib/Horde/Prefs/File.php" as="Horde/Prefs/File.php" />
    <install name="lib/Horde/Prefs/Identity.php" as="Horde/Prefs/Identity.php" />
    <install name="lib/Horde/Prefs/Imsp.php" as="Horde/Prefs/Imsp.php" />

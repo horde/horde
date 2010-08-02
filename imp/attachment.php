@@ -73,8 +73,10 @@ if ($conf['compose']['link_attachments_notify']) {
 
             /* Load $mail_user's preferences so that we can use their
              * locale information for the notification message. */
-            $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
-            $prefs->retrieve();
+            $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+                'cache' => false,
+                'user' => $mail_user
+            ));
 
             $mail_identity = $injector->getInstance('Horde_Prefs_Identity')->getIdentity($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();

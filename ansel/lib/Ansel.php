@@ -643,9 +643,10 @@ class Ansel
             } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                           'ansel',
-                                           $owner, '', null, false);
+                $uprefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ansel', array(
+                    'cache' => false,
+                    'user' => $owner
+                ));
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
                     $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity($owner);

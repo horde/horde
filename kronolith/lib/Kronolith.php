@@ -2495,10 +2495,10 @@ class Kronolith
      */
     public static function _notificationPref($user, $mode, $calendar = null)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        'kronolith', $user, '', null,
-                                        false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('kronolith', array(
+            'cache' => false,
+            'user' => $user
+        ));
         $vals = array('lang' => $prefs->getValue('language'),
                       'tf' => $prefs->getValue('twentyFour'),
                       'df' => $prefs->getValue('date_format'));

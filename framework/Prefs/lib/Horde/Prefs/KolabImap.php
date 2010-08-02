@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_KolabImap extends Horde_Prefs
+class Horde_Prefs_KolabImap extends Horde_Prefs_Base
 {
     /**
      * ID of the config default share
@@ -30,7 +30,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
     /**
      * Opens a connection to the Kolab server.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _connect()
     {
@@ -41,22 +41,28 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
         $shares = $GLOBALS['injector']->getInstance('Horde_Share')->getScope('h-prefs');
         $default = $shares->getDefaultShare();
         if ($default instanceof PEAR_Error) {
-            Horde::logMessage($default, 'ERR');
-            throw new Horde_Exception_Prior($default);
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($default, 'ERR');
+            }
+            throw new Horde_Prefs_Exception($default);
         }
         $this->_share = $default->getName();
 
         require_once 'Horde/Kolab.php';
         $connection = new Kolab('h-prefs');
         if ($connection instanceof PEAR_Error) {
-            Horde::logMessage($connection, 'ERR');
-            throw new Horde_Exception_Prior($connection);
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($connection, 'ERR');
+            }
+            throw new Horde_Prefs_Exception($connection);
         }
 
         $result = $this->_connection->open($this->_share, 1);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Exception_Prior($result);
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($result, 'ERR');
+            }
+            throw new Horde_Prefs_Exception($result);
         }
 
         $this->_connection = $connection;
@@ -67,25 +73,15 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
      *
      * @param string $scope  Scope specifier.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _retrieve($scope)
     {
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if (empty($_SESSION['prefs_cache']['unavailable'])) {
-                $_SESSION['prefs_cache']['unavailable'] = true;
-                if (isset($GLOBALS['notification'])) {
-                    $GLOBALS['notification']->push(_("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default settings."));
-                }
-            }
-            return;
-        }
+        $this->_connect();
 
         try {
             $pref = $this->_getPref($scope);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Prefs_Exception $e) {
             return;
         }
 
@@ -120,7 +116,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
      * @param string $scope  Scope specifier.
      *
      * @return array  The preference value.
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _getPref($scope)
     {
@@ -128,8 +124,10 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
 
         $prefs = $this->_connection->getObjects();
         if ($prefs instanceof PEAR_Error) {
-            Horde::logMessage($prefs, 'ERR');
-            throw new Horde_Exception_Prior($prefs);
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($prefs, 'ERR');
+            }
+            throw new Horde_Prefs_Exception($prefs);
         }
 
         foreach ($prefs as $pref) {
@@ -144,7 +142,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
     /**
      * Stores preferences to the Kolab server.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     public function store()
     {
@@ -174,7 +172,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
 
             try {
                 $pref = $this->_getPref($scope);
-            } catch (Horde_Exception $e) {
+            } catch (Horde_Prefs_Exception $e) {
                 return;
             }
 
@@ -194,7 +192,9 @@ class Horde_Prefs_KolabImap extends Horde_Prefs
 
             $result = $this->_connection->_storage->save($object, $old_uid);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
+                if ($this->_opts['logger']) {
+                    $this->_opts['logger']->log($result, 'ERR');
+                }
                 return;
             }
         }

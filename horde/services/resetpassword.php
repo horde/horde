@@ -35,8 +35,10 @@ $can_validate = false;
 /* If a username has been supplied try fetching the prefs stored info. */
 if ($username = $vars->get('username')) {
     $username = Horde_Auth::addHook($username);
-    $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $username, '', null, false);
-    $prefs->retrieve();
+    $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        'cache' => false,
+        'user' => $username
+    ));
     $email = $prefs->getValue('alternate_email');
     /* Does the alternate email stored in prefs match the one submitted? */
     if ($vars->get('email') == $email) {

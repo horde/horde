@@ -63,6 +63,8 @@ class Horde_Core_Factory_Identity
      */
     public function getIdentity($user = null, $driver = null)
     {
+        global $injector, $prefs, $registry;
+
         $class = empty($driver)
             ? 'Horde_Prefs_Identity'
             : Horde_String::ucfirst($driver) . '_Prefs_Identity';
@@ -74,14 +76,16 @@ class Horde_Core_Factory_Identity
             }
 
             $params = array(
-                'user' => is_null($user) ? $GLOBALS['registry']->getAuth() : $user,
+                'user' => is_null($user) ? $registry->getAuth() : $user,
             );
 
-            if (isset($GLOBALS['prefs']) &&
-                ($params['user'] == $GLOBALS['registry']->getAuth())) {
-                $params['prefs'] = $GLOBALS['prefs'];
+            if (isset($prefs) && ($params['user'] == $registry->getAuth())) {
+                $params['prefs'] = $prefs;
             } else {
-                $params['prefs'] = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], $GLOBALS['registry']->getApp(), $user, '', null, false);
+                $params['prefs'] = $injector->getInstance('Horde_Prefs')->getPrefs($registry->getApp(), array(
+                    'cache' => false,
+                    'user' => $user
+                ));
                 $params['prefs']->retrieve();
             }
 

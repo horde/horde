@@ -34,10 +34,10 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _retrieve($field, $readonly = false)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        $GLOBALS['registry']->getApp(),
-                                        Ingo::getUser(), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ingo', array(
+            'cache' => false,
+            'user' => Ingo::getUser()
+        ));
 
         switch ($field) {
         case self::ACTION_BLACKLIST:
@@ -87,7 +87,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 /* Convert vacation from the old format. */
                 $data = unserialize($prefs->getValue('vacation'));
             } elseif (is_array($data)) {
-                $data = $prefs->convertFromDriver($data, $GLOBALS['registry']->getCharset());
+                $data = $prefs->convertFromDriver($data);
             }
             if ($data) {
                 $ob->setVacationAddresses($data['addresses'], false);
@@ -131,10 +131,10 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _store($ob)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        $GLOBALS['registry']->getApp(),
-                                        Ingo::getUser(), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('ingo', array(
+            'cache' => false,
+            'user' => Ingo::getUser()
+        ));
 
         switch ($ob->obType()) {
         case self::ACTION_BLACKLIST:
@@ -165,7 +165,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'start' => $ob->getVacationStart(),
                 'end' => $ob->getVacationEnd(),
             );
-            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data, $GLOBALS['registry']->getCharset())), false);
+            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data)), false);
 
         case self::ACTION_WHITELIST:
             return $prefs->setValue('whitelist', serialize($ob->getWhitelist()));

@@ -1206,9 +1206,10 @@ class Kronolith_Api extends Horde_Registry_Api
                     if ($alarm_user == $current_user) {
                         $prefs = $GLOBALS['prefs'];
                     } else {
-                        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                            'kronolith', $alarm_user, null,
-                            null, false);
+                        $prefs = $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('kronolith', array(
+                            'cache' => false,
+                            'user' => $alarm_user
+                        ));
                     }
                     $shown_calendars = unserialize($prefs->getValue('display_cals'));
                     $reminder = $prefs->getValue('event_reminder');

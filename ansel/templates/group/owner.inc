@@ -3,9 +3,10 @@ if ($group == $GLOBALS['registry']->getAuth()) {
     $owner_title = _("My Galleries");
     $custom = '';
 } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-    $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                'ansel',
-                                $group, '', null, false);
+    $uprefs = $injector->getInstance('Horde_Prefs')->getPrefs('ansel', array(
+        'cache' => false,
+        'user' => $group
+    ));
     $custom = $uprefs->getValue('grouptitle');
     $identity = new Horde_Prefs_Identity(array('prefs' => $GLOBALS['prefs'], 'user' => $group));
     $fullname = $identity->getValue('fullname');

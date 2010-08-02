@@ -29,11 +29,11 @@ class Horde_Prefs
     const PREFS_DEFAULT = 8;
 
     /**
-     * Singleton instances.
+     * Connection parameters.
      *
      * @var array
      */
-    static protected $_instances = array();
+    protected $_params = array();
 
     /**
      * Hash holding the current set of preferences. Each preference is
@@ -71,19 +71,17 @@ class Horde_Prefs
     protected $_scopes = array();
 
     /**
-     * String containing the current username. This indicates the owner of the
-     * preferences.
+     * General library options.
      *
-     * @var string
+     * @var array
      */
-    protected $_user = '';
-
-    /**
-     * Boolean indicating whether preference caching should be used.
-     *
-     * @var boolean
-     */
-    protected $_caching = false;
+    protected $_opts = array(
+        'cache' => false,
+        'logger' => null,
+        'password' => '',
+        'sizecallback' => null,
+        'user' => ''
+    );
 
     /**
      * Array to cache in. Usually a reference to an array in $_SESSION, but
@@ -101,86 +99,44 @@ class Horde_Prefs
     protected $_hooks = array();
 
     /**
-     * Attempts to return a reference to a concrete instance based on $driver.
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * This should be used if multiple preference sources (and, thus,
-     * multiple instances) are required.
-     *
-     * @param mixed $driver     The type of concrete subclass to return.
-     * @param string $scope     The scope for this set of preferences.
-     * @param string $user      The name of the user who owns this set of
-     *                          preferences.
-     * @param string $password  The password associated with $user.
-     * @param array $params     A hash containing any additional configuration
-     *                          or connection parameters a subclass might need.
-     * @param boolean $caching  Should caching be used?
-     *
-     * @return Horde_Prefs  The concrete reference, or false on an error.
-     * @throws Horde_Exception
-     */
-    static public function singleton($driver, $scope = 'horde', $user = '',
-                                     $password = '', $params = null,
-                                     $caching = true)
-    {
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('prefs', $driver);
-        }
-
-        $signature = serialize(array($driver, $user, $params, $caching));
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $scope, $user, $password, $params, $caching);
-        }
-
-        /* Preferences may be cached with a different scope. */
-        self::$_instances[$signature]->setScope($scope);
-
-        return self::$_instances[$signature];
-    }
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
-     * @param mixed $driver     The type of concrete subclass to return.
-     * @param string $scope     The scope for this set of preferences.
-     * @param string $user      The name of the user who owns this set of
-     *                          preferences.
-     * @param string $password  The password associated with $user.
-     * @param array $params     A hash containing any additional configuration
-     *                          or connection parameters a subclass might need.
-     * @param boolean $caching  Should caching be used?
+     * @param mixed $driver  The type of concrete subclass to return.
+     * @param string $scope  The scope for this set of preferences.
+     * @param array $opts    Additional options:
+     * <pre>
+     * 'cache' - (boolean) Should caching be used?
+     *           DEFAULT: false
+     * 'charset' - (string) Default charset. [REQUIRED]
+     * 'logger' - (Horde_Log_Logger) Logging object.
+     *            DEFAULT: NONE
+     * 'password' - (string) The password associated with 'user'.
+     *              DEFAULT: NONE
+     * 'sizecallback' - (callback) If set, called when setting a value in
+     *                  the backend.
+     *                  DEFAULT: NONE
+     * 'uicharset' - (string) UI charset. [REQUIRED]
+     * 'user' - (string) The name of the user who owns this set of
+     *          preferences.
+     *          DEFAULT: NONE
+     * </pre>
+     * @param array $params  A hash containing any additional configuration
+     *                       or connection parameters a subclass might need.
      *
      * @return Horde_Prefs  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
-    static public function factory($driver, $scope = 'horde', $user = '',
-                                   $password = '', $params = null,
-                                   $caching = true)
+    static public function factory($driver, $scope, array $opts = array(),
+                                   array $params = array())
     {
         $driver = ucfirst(basename($driver));
-        if (empty($driver) || $driver == 'None') {
-            $driver = 'Session';
-        }
-
         $class = __CLASS__ . '_' . $driver;
+
         if (!class_exists($class)) {
-            throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+            throw new Horde_Prefs_Exception(__CLASS__ . ': class definition not found - ' . $class);
         }
 
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('prefs', strtolower($driver));
-        }
-
-        /* If $params['user_hook'] is defined, use it to retrieve the value to
-         * use for the username ($this->_user). Otherwise, just use the value
-         * passed in the $user parameter. */
-        if (!empty($params['user_hook']) &&
-            function_exists($params['user_hook'])) {
-            $user = call_user_func($params['user_hook'], $user);
-        }
-
-        $prefs = new $class($scope, $user, $password, $params, $caching);
+        $prefs = new $class($scope, $opts, $params);
         $prefs->retrieve($scope);
 
         return $prefs;
@@ -189,34 +145,36 @@ class Horde_Prefs
     /**
      * Constructor.
      *
-     * @param string $scope     The scope for this set of preferences.
-     * @param string $user      The name of the user who owns this set of
-     *                          preferences.
-     * @param string $password  The password associated with $user.
-     * @param array $params     A hash containing any additional configuration
-     *                          or connection parameters a subclass might need.
-     * @param boolean $caching  Should caching be used?
+     * @param string $scope  The scope for this set of preferences.
+     * @param array $opts    See factory() for list of options.
+     * @param array $params  A hash containing any additional configuration
+     *                       or connection parameters a subclass might need.
      *
+     * @throws InvalidArgumentException
      */
-    protected function __construct($scope, $user, $password, $params, $caching)
+    protected function __construct($scope, $opts, $params)
     {
-        register_shutdown_function(array($this, 'store'));
+        foreach (array('charset', 'uicharset') as $val) {
+            if (!isset($opts[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
+        }
 
-        $this->_user = $user;
-        $this->_password = $password;
-        $this->_scope = $scope;
+        $this->_opts = array_merge($this->_opts, $opts);
         $this->_params = $params;
-        $this->_caching = $caching;
+        $this->_scope = $scope;
 
         // Create a unique key that's safe to use for caching even if we want
         // another user's preferences later, then register the cache array in
         // $_SESSION.
-        if ($this->_caching) {
-            $cacheKey = 'horde_prefs_' . hash('sha1', $this->_user);
+        if ($this->_opts['cache']) {
+            $cacheKey = 'horde_prefs_' . $this->getUser();
 
             // Store a reference to the $_SESSION array.
             $this->_cache = &$_SESSION[$cacheKey];
         }
+
+        register_shutdown_function(array($this, 'store'));
     }
 
     /**
@@ -226,7 +184,7 @@ class Horde_Prefs
      */
     public function getCharset()
     {
-        return $GLOBALS['registry']->getCharset();
+        return $this->_opts['charset'];
     }
 
     /**
@@ -236,7 +194,7 @@ class Horde_Prefs
      */
     public function getUser()
     {
-        return $this->_user;
+        return $this->_opts['user'];
     }
 
     /**
@@ -295,7 +253,9 @@ class Horde_Prefs
 
         $result = $this->_setValue($pref, $val, true, $convert);
 
-        Horde::logMessage(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
+        if ($this->_opts['logger']) {
+            $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
+        }
 
         if ($result && $this->isDirty($pref)) {
             $scope = $this->_getPreferenceScope($pref);
@@ -339,7 +299,7 @@ class Horde_Prefs
         global $conf;
 
         if ($convert) {
-            $val = $this->convertToDriver($val, $GLOBALS['registry']->getCharset());
+            $val = $this->convertToDriver($val);
         }
 
         // If the preference's value is already equal to $val, don't
@@ -353,10 +313,8 @@ class Horde_Prefs
 
         // Check to see if the value exceeds the allowable storage
         // limit.
-        if (isset($GLOBALS['conf']['prefs']['maxsize']) &&
-            (strlen($val) > $GLOBALS['conf']['prefs']['maxsize']) &&
-            isset($GLOBALS['notification'])) {
-            $GLOBALS['notification']->push(sprintf(_("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
+        if ($this->_opts['sizecallback'] &&
+            call_user_func($this->_opts['sizecallback'], $pref, strlen($val))) {
             return false;
         }
 
@@ -396,8 +354,8 @@ class Horde_Prefs
                 /* Default values have the current UI charset.
                  * Stored values have the backend charset. */
                 $value = $this->isDefault($pref)
-                    ? Horde_String::convertCharset($this->_prefs[$pref]['v'], $GLOBALS['registry']->getCharset(), $GLOBALS['registry']->getCharset())
-                    : $this->convertFromDriver($this->_prefs[$pref]['v'], $GLOBALS['registry']->getCharset());
+                    ? $this->_prefs[$pref]['v']
+                    : $this->convertFromDriver($this->_prefs[$pref]['v']);
             } else {
                 $value = $this->_prefs[$pref]['v'];
             }
@@ -565,7 +523,7 @@ class Horde_Prefs
      */
     protected function _getPreferenceScope($pref)
     {
-        return $this->isShared($pref) ? 'horde' : $this->_scope;
+        return $this->isShared($pref) ? 'horde' : $this->getScope();
     }
 
     /**
@@ -578,9 +536,9 @@ class Horde_Prefs
     public function retrieve($scope = null)
     {
         if (is_null($scope)) {
-            $scope = $this->_scope;
+            $scope = $this->getScope();
         } else {
-            $this->_scope = $scope;
+            $this->setScope($scope);
         }
 
         $this->_loadScope('horde');
@@ -658,7 +616,7 @@ class Horde_Prefs
             unset($this->_cache);
         } else {
             /* Remove this scope from the preferences cache, if it exists. */
-            unset($this->_cache[$this->_scope]);
+            unset($this->_cache[$this->getScope()]);
         }
     }
 
@@ -673,27 +631,29 @@ class Horde_Prefs
     /**
      * Converts a value from the driver's charset to the specified charset.
      *
-     * @param mixed $value     A value to convert.
-     * @param string $charset  The charset to convert to.
+     * @param mixed $value  A value to convert.
      *
      * @return mixed  The converted value.
      */
-    public function convertFromDriver($value, $charset)
+    public function convertFromDriver($value)
     {
-        return $value;
+        return is_bool($value)
+            ? $value
+            : Horde_String::convertCharset($value, $this->getCharset(), $this->_opts['uicharset']);
     }
 
     /**
      * Converts a value from the specified charset to the driver's charset.
      *
-     * @param mixed $value     A value to convert.
-     * @param string $charset  The charset to convert from.
+     * @param mixed $value  A value to convert.
      *
      * @return mixed  The converted value.
      */
-    public function convertToDriver($value, $charset)
+    public function convertToDriver($value)
     {
-        return $value;
+        return is_bool($value)
+            ? $value
+            : Horde_String::convertCharset($value, $this->_opts['uicharset'], $this->getCharset());
     }
 
     /**
@@ -726,7 +686,7 @@ class Horde_Prefs
      */
     protected function _cacheUpdate($scope, $prefs)
     {
-        if ($this->_caching && isset($this->_cache)) {
+        if ($this->_opts['cache'] && isset($this->_cache)) {
             /* Place each preference in the cache according to its
              * scope. */
             foreach ($prefs as $name) {
@@ -745,7 +705,7 @@ class Horde_Prefs
      */
     protected function _cacheLookup($scope)
     {
-        if ($this->_caching && isset($this->_cache[$scope])) {
+        if ($this->_opts['cache'] && isset($this->_cache[$scope])) {
             $this->_scopes[$scope] = $this->_cache[$scope];
             return true;
         }
@@ -833,7 +793,7 @@ class Horde_Prefs
                 $this->_scopes[$pref_scope][$name]['m'] & self::PREFS_DEFAULT) {
 
                 try {
-                    $val = Horde::callHook('prefs_hook_' . $name, array($this->_user), $scope);
+                    $val = Horde::callHook('prefs_hook_' . $name, array($this->getUser()), $scope);
                 } catch (Horde_Exception_HookNotSet $e) {
                     continue;
                 }
@@ -841,7 +801,7 @@ class Horde_Prefs
                 if ($this->_scopes[$pref_scope][$name]['m'] & self::PREFS_DEFAULT) {
                     $this->_scopes[$pref_scope][$name]['v'] = $val;
                 } else {
-                    $this->_scopes[$pref_scope][$name]['v'] = $this->convertToDriver($val, $GLOBALS['registry']->getCharset());
+                    $this->_scopes[$pref_scope][$name]['v'] = $this->convertToDriver($val);
                 }
                 if (!($this->_scopes[$pref_scope][$name]['m'] & self::LOCKED)) {
                     $this->_scopes[$pref_scope][$name]['m'] |= self::DIRTY;

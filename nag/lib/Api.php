@@ -1454,7 +1454,10 @@ class Nag_Api extends Horde_Registry_Api
                 $users = array($user);
             }
             foreach ($users as $alarm_user) {
-                $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'nag', $alarm_user, null, null, false);
+                $GLOBALS['injector']->getInstance('Horde_Prefs')->getPrefs('nag', array(
+                    'cache' => false,
+                    'user' => $alarm_user
+                ));
                 $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
                 $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
             }

@@ -282,6 +282,7 @@ class Horde_Registry
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
+            'Horde_Prefs' => new Horde_Core_Binder_Prefs(),
             'Horde_Prefs_Identity' => new Horde_Core_Binder_Identity(),
             // 'Horde_Registry' - initialized below
             'Horde_Secret' => new Horde_Core_Binder_Secret(),
@@ -1328,43 +1329,34 @@ class Horde_Registry
      */
     public function loadPrefs($app = null)
     {
+        global $injector, $prefs;
+
         if (is_null($app)) {
             $app = $this->getApp();
         } else {
             $this->pushApp($app);
         }
 
-        /* If there is no logged in user, return an empty Horde_Prefs::
-         * object with just default preferences. */
-        if (!$this->getAuth()) {
-            $GLOBALS['prefs'] = Horde_Prefs::factory('Session', $app, '', '', null, false);
-        } else {
-            if (!isset($GLOBALS['prefs']) ||
-                ($GLOBALS['prefs']->getUser() != $this->getAuth())) {
-                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, $this->getAuth(), $this->getAuthCredential('password'));
-            } else {
-                $GLOBALS['prefs']->retrieve($app);
+        if ($this->getAuth()) {
+            if (isset($prefs) && ($prefs->getUser() == $this->getAuth())) {
+                $prefs->retrieve($app);
+                return;
             }
-        }
-    }
 
-    /**
-     * Unload preferences from an application or (if no application is
-     * specified) from ALL applications. Useful when a user has logged
-     * out but you need to continue on the same page, etc.
-     *
-     * After unloading, if there is an application on the app stack to
-     * load preferences from, then we reload a fresh set.
-     *
-     * @param string $app  The application to unload prefrences for. If null,
-     *                     ALL preferences are reset.
-     */
-    public function unloadPrefs($app = null)
-    {
-        // TODO: $app not being used?
-        if ($this->getApp()) {
-            $this->loadPrefs();
+            $opts = array(
+                'password' => $this->getAuthCredential('password'),
+                'user' => $this->getAuth()
+            );
+        } else {
+            /* If there is no logged in user, return an empty Horde_Prefs::
+             * object with just default preferences. */
+            $opts = array(
+                'cache' => false,
+                'session' => true
+            );
         }
+
+        $prefs = $injector->getInstance('Horde_Prefs')->getPrefs($app, $opts);
     }
 
     /**
@@ -1680,7 +1672,7 @@ class Horde_Registry
         unset($_SESSION['horde_auth']);
 
         /* Remove the user's cached preferences if they are present. */
-        $this->unloadPrefs();
+        $GLOBALS['injector']->getInstance('Horde_Prefs')->clearCache();
 
         if ($destroy) {
             session_destroy();
@@ -2054,9 +2046,6 @@ class Horde_Registry
             return;
         }
 
-        /* Clear any existing info. */
-        $this->clearAuth(false);
-
         $_SESSION['horde_auth'] = array(
             'app' => array(),
             'authId' => $authId,
@@ -2071,7 +2060,10 @@ class Horde_Registry
         $this->setAuthCredential($credentials, null, $app);
 
         /* Reload preferences for the new user. */
+        unset($GLOBALS['prefs']);
+        $GLOBALS['injector']->getInstance('Horde_Prefs')->clearCache();
         $this->loadPrefs();
+
         $this->setLanguageEnvironment($GLOBALS['prefs']->getValue('language'), $app);
     }
 

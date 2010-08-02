@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_Imsp extends Horde_Prefs
+class Horde_Prefs_Imsp extends Horde_Prefs_Base
 {
     /**
      * Handle for the IMSP server connection.
@@ -21,13 +21,6 @@ class Horde_Prefs_Imsp extends Horde_Prefs
     protected $_imsp;
 
     /**
-     * User password.
-     *
-     * @var string
-     */
-    protected $_password;
-
-    /**
      * Boolean indicating whether or not we're connected to the IMSP server.
      *
      * @var boolean
@@ -35,35 +28,21 @@ class Horde_Prefs_Imsp extends Horde_Prefs
     protected $_connected = false;
 
     /**
-     * Holds the driver specific parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Retrieves the requested set of preferences from the IMSP server.
      *
      * @param string $scope  Scope specifier.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _retrieve($scope)
     {
-        /* Now connect to the IMSP server. */
-        try {
-            $this->_connect();
-        } catch (Horde_Exception $e) {
-            if (empty($_SESSION['prefs_cache']['unavailable'])) {
-                $_SESSION['prefs_cache']['unavailable'] = true;
-                $GLOBALS['notification']->push(_("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default settings."));
-            }
-            return;
-        }
+        $this->_connect();
 
         $prefs = $this->_imsp->get($scope . '.*');
         if ($prefs instanceof PEAR_Error) {
-            Horde::logMessage($prefs, 'ERR');
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($prefs, 'ERR');
+            }
             return;
         }
 
@@ -111,7 +90,9 @@ class Horde_Prefs_Imsp extends Horde_Prefs
 
                 $result = $this->_imsp->set($scope . '.' . $name, $value);
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
+                    if ($this->_opts['logger']) {
+                        $this->_opts['logger']->log($result, 'ERR');
+                    }
                     return;
                 }
 
@@ -127,7 +108,7 @@ class Horde_Prefs_Imsp extends Horde_Prefs
     /**
      * Attempts to set up a connection to the IMSP server.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     protected function _connect()
     {
@@ -135,10 +116,10 @@ class Horde_Prefs_Imsp extends Horde_Prefs
             return;
         }
 
-        $this->_params['username'] = preg_match('/(^.*)@/', $this->_user, $matches)
+        $this->_params['username'] = preg_match('/(^.*)@/', $this->getUser(), $matches)
             ? $matches[1]
-            : $this->_user;
-        $this->_params['password'] = $this->_password;
+            : $this->getUser();
+        $this->_params['password'] = $this->_opts['password'];
 
         if (isset($this->_params['socket'])) {
             $this->_params['socket'] = $params['socket'] . 'imsp_' . $this->_params['username'] . '.sck';
@@ -147,11 +128,14 @@ class Horde_Prefs_Imsp extends Horde_Prefs
         $this->_imsp = Net_IMSP::factory('Options', $this->_params);
         $result = $this->_imsp->init();
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Exception_Prior($result);
+            if ($this->_opts['logger']) {
+                $this->_opts['logger']->log($result, 'ERR');
+            }
+            throw new Horde_Prefs_Exception($result);
         }
 
-        $this->_imsp->setLogger($GLOBALS['conf']['log']);
+        // TODO
+        //$this->_imsp->setLogger($GLOBALS['conf']['log']);
         $this->_connected = true;
     }
 

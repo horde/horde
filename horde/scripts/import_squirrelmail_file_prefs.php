@@ -57,7 +57,10 @@ foreach($files as $file) {
     $cli->message('Importing ' . $user . '\'s preferences');
 
     // Reset user prefs
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
+    $prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        'cache' => false,
+        'user' => $user
+    ));
     $prefs_cache = array();
 
     // Read pref file, one line at a time
