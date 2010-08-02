@@ -5,7 +5,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_LoginTasks
  */
-class Turba_LoginTasks_SystemTask_UpgradeList extends Horde_LoginTasks_SystemTask
+class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTask
 {
     /**
      * The interval at which to run the task.
