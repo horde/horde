@@ -445,6 +445,7 @@ HTML;
      * 'ajax'
      * 'cache'
      * 'download'
+     * 'emailconfirm'
      * 'go'
      * 'help'
      * 'imple'
@@ -474,6 +475,9 @@ HTML;
         case 'download':
             return self::url($webroot . '/services/download/')
                 ->add('module', $app);
+
+        case 'emailconfirm':
+            return self::url($webroot . '/services/confirm.php');
 
         case 'go':
             return self::url($webroot . '/services/go.php');

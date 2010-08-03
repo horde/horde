@@ -837,10 +837,7 @@ class Horde_Core_Prefs_Ui
             ($current_from != $new_from) &&
             !in_array($new_from, $from_addresses)) {
             try {
-                $result = $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
-                if ($result instanceof Notification_Event) {
-                    $notification->push($result, 'horde.message');
-                }
+                $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
             } catch (Horde_Exception $e) {
                 $notification->push(_("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
                 Horde::logMessage($e, 'ERR');

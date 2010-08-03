@@ -66,7 +66,7 @@ class Horde_Core_Factory_Identity
         global $injector, $prefs, $registry;
 
         $class = empty($driver)
-            ? 'Horde_Prefs_Identity'
+            ? 'Horde_Core_Prefs_Identity'
             : Horde_String::ucfirst($driver) . '_Prefs_Identity';
         $key = $class . '|' . $user;
 

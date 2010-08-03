@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class Imp_Prefs_Identity extends Horde_Prefs_Identity
+class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 {
     /**
      * Cached data.
@@ -42,8 +42,8 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     {
         parent::__construct($params);
 
-        $this->_properties = array_merge(
-            $this->_properties,
+        $this->_prefnames['properties'] = array_merge(
+            $this->_prefnames['properties'],
             array(
                 'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
                 'signature', 'signature_html', 'sig_first', 'sig_dashes',
@@ -121,7 +121,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             $address = $from_address;
         }
 
-        if (empty($address) || $this->_prefs->isLocked('from_addr')) {
+        if (empty($address) || $this->_prefs->isLocked($this->_prefnames['from_addr'])) {
             $address = $this->getFromAddress($ident);
             $name = $this->getFullname($ident);
         }
@@ -168,7 +168,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getSelectList()
     {
-        $ids = $this->getAll('id');
+        $ids = $this->getAll($this->_prefnames['id']);
         foreach ($ids as $key => $id) {
             $list[$key] = $this->getFromAddress($key) . ' (' . $id . ')';
         }
@@ -201,7 +201,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     public function getFromAddress($ident = null)
     {
         if (!isset($this->_cached['fromList'][$ident])) {
-            $val = $this->getValue('from_addr', $ident);
+            $val = $this->getValue($this->_prefnames['from_addr'], $ident);
             if (empty($val)) {
                 $val = $GLOBALS['registry']->getAuth('bare');
             }
@@ -407,7 +407,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             return $this->_cached['names'][$ident];
         }
 
-        $this->_cached['names'][$ident] = $this->getValue('fullname', $ident);
+        $this->_cached['names'][$ident] = $this->getValue($this->_prefnames['fullname'], $ident);
 
         return $this->_cached['names'][$ident];
     }

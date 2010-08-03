@@ -70,6 +70,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -77,10 +81,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <optional>
    <package>
     <name>Db</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>

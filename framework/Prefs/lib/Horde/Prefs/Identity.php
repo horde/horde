@@ -1,10 +1,6 @@
 <?php
 /**
- * This class provides an interface to all identities a user might have. Its
- * methods take care of any site-specific restrictions configured in prefs.php
- * and conf.php.
- *
- * @todo Remove notification and gettext references.
+ * This class provides an interface to all identities a user might have.
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,6 +9,7 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
 class Horde_Prefs_Identity
@@ -41,11 +38,18 @@ class Horde_Prefs_Identity
     protected $_user = null;
 
     /**
-     * Array containing all of the properties in this identity.
+     * Preference names.
      *
      * @var array
      */
-    protected $_properties = array('id', 'fullname', 'from_addr');
+    protected $_prefnames = array(
+        'default_identity' => 'default_identity',
+        'from_addr' => 'from_addr',
+        'fullname' => 'fullname',
+        'id' => 'id',
+        'identities' => 'identities',
+        'properties' => array('id', 'fullname', 'from_addr')
+    );
 
     /**
      * The prefs object that this Identity points to.
@@ -59,22 +63,39 @@ class Horde_Prefs_Identity
      *
      * @param array $params  Parameters:
      * <pre>
+     * 'default_identity' - (string) The preference name for the default
+     *                      identity.
+     *                      DEFAULT: 'default_identity'
+     * 'from_addr' - (string) The preference name for the user's from e-mail
+     *               address.
+     *               DEFAULT: 'from_addr'
+     * 'fullname' - (string) The preference name for the user's full name.
+     *              DEFAULT: 'fullname'
+     * 'id' - (string) The preference name for the identity name.
+     *        DEFAULT: 'id'
+     * 'identities' - (string) The preference name for the identity store.
+     *                DEFAULT: 'identities'
      * 'prefs' - (Horde_Prefs) [REQUIRED] The prefs object to use.
+     * 'properties' - (array) The list of properties for the identity.
+     *                DEFAULT: array('from_addr', 'fullname', 'id')
      * 'user' - (string) [REQUIRED] The user whose prefs we are handling.
      * </pre>
      */
     public function __construct($params = array())
     {
+        foreach (array_keys($this->_prefnames) as $val) {
+            if (isset($params[$val])) {
+                $this->_prefnames[$val] = $params[$val];
+            }
+        }
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (!($this->_identities = @unserialize($this->_prefs->getValue('identities', false)))) {
-            $this->_identities = $this->_prefs->getDefault('identities');
-        } else {
-            $this->_identities = $this->_prefs->convertFromDriver($this->_identities);
+        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'])))) {
+            $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
         }
 
-        $this->setDefault($this->_prefs->getValue('default_identity'));
+        $this->setDefault($this->_prefs->getValue($this->_prefnames['default_identity']));
     }
 
     /**
@@ -95,7 +116,7 @@ class Horde_Prefs_Identity
             $this->verify(0);
         }
 
-        if ($this->_prefs->isLocked('default_identity')) {
+        if ($this->_prefs->isLocked($this->_prefnames['default_identity'])) {
             foreach ($this->_properties as $key) {
                 $value = $this->getValue($key);
                 if (is_array($value)) {
@@ -112,13 +133,8 @@ class Horde_Prefs_Identity
      */
     public function save()
     {
-        $identities = $this->_identities;
-        if (is_array($identities)) {
-            $identities = $this->_prefs->convertToDriver($identities);
-        }
-
-        $this->_prefs->setValue('identities', serialize($identities), false);
-        $this->_prefs->setValue('default_identity', $this->_default);
+        $this->_prefs->setValue($this->_prefnames['identities'], serialize($identities));
+        $this->_prefs->setValue($this->_prefnames['default_identity'], $this->_default);
     }
 
     /**
@@ -305,7 +321,7 @@ class Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to verify.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Prefs_Exception
      */
     public function verify($identity = null)
     {
@@ -319,19 +335,14 @@ class Horde_Prefs_Identity
 
         /* RFC 2822 [3.2.5] does not allow the '\' character to be used in the
          * personal portion of an e-mail string. */
-        if (strpos($this->getValue('fullname', $identity), '\\') !== false) {
-            throw new Horde_Exception('You cannot have the \ character in your full name.');
+        if (strpos($this->getValue($this->_prefnames['fullname'], $identity), '\\') !== false) {
+            throw new Horde_Prefs_Exception('You cannot have the \ character in your full name.');
         }
 
-        /* Prepare email validator */
-        require_once 'Horde/Form.php';
-        $email = new Horde_Form_Type_email();
-        $vars = new Horde_Variables();
-        $var = new Horde_Form_Variable('', 'replyto_addr', $email, false);
-
-        /* Verify From address. */
-        if (!$email->isValid($var, $vars, $this->getValue('from_addr', $identity), $error_message)) {
-            throw new Horde_Exception($error_message);
+        try {
+            Horde_Mime_Address::parseAddressList($this->getValue($this->_prefnames['from_addr'], $identity), array('validate' => true));
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Prefs_Exception($e);
         }
     }
 
@@ -349,7 +360,7 @@ class Horde_Prefs_Identity
             return $this->_names[$ident];
         }
 
-        $this->_names[$ident] = $this->getValue('fullname', $ident);
+        $this->_names[$ident] = $this->getValue($this->_prefnames['fullname'], $ident);
         if (!strlen($this->_names[$ident])) {
             $this->_names[$ident] = $this->_user;
         }
@@ -369,13 +380,13 @@ class Horde_Prefs_Identity
         $from_addr = '';
 
         if ($fullname) {
-            $name = $this->getValue('fullname');
+            $name = $this->getValue($this->_prefnames['fullname']);
             if (!empty($name)) {
                 $from_addr = $name . ' ';
             }
         }
 
-        $addr = $this->getValue('from_addr');
+        $addr = $this->getValue($this->_prefnames['from_addr']);
         if (empty($addr)) {
             $addr = $this->_user;
             if (empty($from_addr)) {
@@ -384,102 +395,6 @@ class Horde_Prefs_Identity
         }
 
         return $from_addr . '<' . $addr . '>';
-    }
-
-    /**
-     * Sends a message to an email address supposed to be added to the
-     * identity.
-     * A message is send to this address containing a link to confirm that the
-     * address really belongs to that user.
-     *
-     * @param integer $id       The identity's ID.
-     * @param string $old_addr  The old From: address.
-     *
-     * @return TODO
-     * @throws Horde_Mime_Exception
-     */
-    public function verifyIdentity($id, $old_addr)
-    {
-        global $conf;
-
-        $hash = base_convert(strval(new Horde_Support_Uuid()), 10, 36);
-
-        $pref = @unserialize($this->_prefs->getValue('confirm_email', false));
-        $pref = $pref
-            ? $this->_prefs->convertFromDriver($pref)
-            : array();
-        $pref[$hash] = $this->get($id);
-        $pref = $this->_prefs->convertToDriver($pref);
-        $this->_prefs->setValue('confirm_email', serialize($pref), false);
-
-        $new_addr = $this->getValue('from_addr', $id);
-        $confirm = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/confirm.php', true, -1), 'h', $hash, false);
-        $message = sprintf(_("You have requested to add the email address \"%s\" to the list of your personal email addresses.\n\nGo to the following link to confirm that this is really your address:\n%s\n\nIf you don't know what this message means, you can delete it."),
-                           $new_addr,
-                           $confirm);
-
-        $msg_headers = new Horde_Mime_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addUserAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('To', $new_addr);
-        $msg_headers->addHeader('From', $old_addr);
-        $msg_headers->addHeader('Subject', _("Confirm new email address"));
-
-        $body = new Horde_Mime_Part();
-        $body->setType('text/plain');
-        $body->setContents(Horde_String::wrap($message, 76, "\n"));
-        $body->setCharset($GLOBALS['registry']->getCharset());
-
-        $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Horde_Mail'));
-
-        return new Horde_Notification_Event(sprintf(_("A message has been sent to \"%s\" to verify that this is really your address. The new email address is activated as soon as you confirm this message."), $new_addr));
-    }
-
-    /**
-     * Checks whether an identity confirmation is valid, and adds the
-     * validated identity.
-     *
-     * @param string $hash  The saved hash of the identity being validated.
-     *
-     * @return array  A message for the user, and the message level.
-     */
-    public function confirmIdentity($hash)
-    {
-        $confirm = $this->_prefs->getValue('confirm_email', false);
-        if (empty($confirm)) {
-            return array(_("There are no email addresses to confirm."), 'horde.message');
-        }
-
-        $confirm = @unserialize($confirm);
-        if (empty($confirm)) {
-            return array(_("There are no email addresses to confirm."), 'horde.message');
-        } elseif (!isset($confirm[$hash])) {
-            return array(_("Email addresses to confirm not found."), 'horde.message');
-        }
-
-        $identity = $this->_prefs->convertFromDriver($confirm[$hash]);
-        $id = array_search($identity['id'], $this->getAll('id'));
-        if ($id === false) {
-            /* Adding a new identity. */
-            $verified = array();
-            foreach ($identity as $key => $value) {
-                if (!$this->_prefs->isLocked($key)) {
-                    $verified[$key] = $value;
-                }
-            }
-            $this->add($verified);
-        } else {
-            /* Updating an existing identity. */
-            foreach ($identity as $key => $value) {
-                $this->setValue($key, $value, $id);
-            }
-        }
-        $this->save();
-        unset($confirm[$hash]);
-        $this->_prefs->setValue('confirm_email', serialize($confirm), false);
-
-        return array(sprintf(_("The email address %s has been added to your identities. You can close this window now."), $verified['from_addr']), 'horde.success');
     }
 
 }
