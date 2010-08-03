@@ -3639,7 +3639,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
-            fwrite($this->_debug, '(' . microtime(true) . ') C: ');
+            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') C: ');
             if (is_resource($data)) {
                 rewind($data);
                 while ($in = fread($data, 8192)) {
@@ -3910,7 +3910,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 rewind($data);
             }
 
-            fwrite($this->_debug, '(' . microtime(true) . ') S: ' . ($binary ? '[BINARY DATA - ' . $old_len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
+            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') S: ' . ($binary ? '[BINARY DATA - ' . $old_len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
         }
 
         return is_null($len) ? rtrim($data) : $data;
