@@ -90,6 +90,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         /* Add IMP-specific binders. */
         $binders = array(
+            'IMP_AuthImap' => new IMP_Injector_Binder_AuthImap(),
             'IMP_Compose' => new IMP_Injector_Binder_Compose(),
             'IMP_Contents' => new IMP_Injector_Binder_Contents(),
             'IMP_Crypt_Pgp' => new IMP_Injector_Binder_Pgp(),
@@ -342,21 +343,11 @@ class IMP_Application extends Horde_Registry_Application
      *                            this must contain a password entry.
      *
      * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function authAddUser($userId, $credentials)
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
-        }
-
-        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
-        }
-
-        $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->addUser($userId, $credentials);
+        $GLOBALS['injector']->getInstance('IMP_AuthImap')->addUser($userId, $credentials);
     }
 
     /**
@@ -365,21 +356,11 @@ class IMP_Application extends Horde_Registry_Application
      * @param string $userId  The userId to delete.
      *
      * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function authRemoveUser($userId)
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
-        }
-
-        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
-        }
-
-        $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->removeUser($userId);
+        $GLOBALS['injector']->getInstance('IMP_AuthImap')->removeUser($userId);
     }
 
     /**
@@ -387,21 +368,11 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @return array  The array of userIds.
      * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function authUserList()
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
-        }
-
-        $params = array_merge($params, $_SESSION['imp']['imap']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $params['admin_password'] = $secret->read($secret->getKey('imp'), $params['admin_password']);
-        }
-
-        return $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth('imap', $params)->listUsers();
+        return $GLOBALS['injector']->getInstance('IMP_AuthImap')->listUsers();
     }
 
     /* Preferences display/handling methods. Code is contained in
