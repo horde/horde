@@ -978,13 +978,6 @@ var DimpCompose = {
         $('pageContainer').show();
 
         this.resizeMsgArea();
-
-        // Safari requires a submit target iframe to be at least 1x1 size or
-        // else it will open content in a new window.  See:
-        //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
-        if (Prototype.Browser.WebKit) {
-            $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
-        }
     }
 
 };
