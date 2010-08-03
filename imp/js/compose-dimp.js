@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl, last_msg, loaded, old_action,
-    //   old_identity, rte, skip_spellcheck, spellcheck, sc_submit, uploading
+    //   editor_wait, is_popup, knl, last_msg, old_action, old_identity,
+    //   resizing, rte, skip_spellcheck, spellcheck, sc_submit, uploading
 
     knl: {},
 
@@ -684,10 +684,18 @@ var DimpCompose = {
             msg = $('composeMessage'),
             pad = 0;
 
+        if (this.resizing) {
+            return;
+        }
+
         if (!document.loaded) {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
+
+        /* Needed because IE 8 will trigger resize events when we change
+         * the rows attribute, which will cause an infinite loop. */
+        this.resizing = true;
 
         mah = document.viewport.getHeight() - cmp.offsetTop;
 
@@ -718,6 +726,8 @@ var DimpCompose = {
                 } while ((de.scrollHeight - de.clientHeight) > 0);
             }
         }
+
+        this.resizing = false;
     },
 
     uploadAttachment: function()
