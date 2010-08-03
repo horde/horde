@@ -64,7 +64,7 @@ class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
         return $url;
     }
 
-    public function getLoginTasksUrl(array $tasks = null)
+    public function getLoginTasksUrl()
     {
         return 'URL';
     }

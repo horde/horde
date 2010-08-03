@@ -86,9 +86,7 @@ abstract class Horde_LoginTasks_Backend
     /**
      * Return the URL of the login tasks view.
      *
-     * @param array $tasks  The tasks to be displayed next.
-     *
      * @return string  The URL of the login tasks view
      */
-    abstract public function getLoginTasksUrl(array $tasks = null);
+    abstract public function getLoginTasksUrl();
 }

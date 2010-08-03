@@ -158,22 +158,20 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
     /**
      * Redirect to the given URL.
      *
-     * @param string $url  The URL to redirect to.
+     * @param Horde_Url|string $url  The URL to redirect to.
      */
     public function redirect($url)
     {
-        header('Location: ' . $url);
-        exit;
+        $url = new Horde_url($url);
+        $url->redirect();
     }
 
     /**
      * Return the URL of the login tasks view.
      *
-     * @param array $tasks  The tasks to be displayed next.
-     *
      * @return string  The URL of the login tasks view.
      */
-    public function getLoginTasksUrl(array $tasks = null)
+    public function getLoginTasksUrl()
     {
         return Horde::getServiceLink('logintasks', $this->_app);
     }
