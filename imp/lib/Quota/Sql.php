@@ -18,9 +18,9 @@
 class IMP_Quota_Sql extends IMP_Quota_Driver
 {
     /**
-     * SQL connection object.
+     * DB object.
      *
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
 
@@ -29,6 +29,7 @@ class IMP_Quota_Sql extends IMP_Quota_Driver
      *
      * @param array $params  Parameters:
      * <pre>
+     * 'db' - (Horde_Db_Adapter_Base) [REQUIRED] The DB instance.
      * 'query_quota' - (string) SQL query which returns single row/column with
      *                 user quota (in bytes). %u is replaced with current user
      *                 name, %U with the user name without the domain part, %d
@@ -37,53 +38,46 @@ class IMP_Quota_Sql extends IMP_Quota_Driver
      *                user used space (in bytes). Placeholders are the same
      *                as in 'query_quota'.
      * </pre>
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        parent::__construct(array_merge(array(
+        if (!isset($params['db'])) {
+            throw new IMP_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+        unset($params['db']);
+
+        $params = array_merge(array(
             'query_quota' => null,
             'query_used' => null
         ), $params);
-    }
 
-    /**
-     * Connects to the database.
-     *
-     * @throws IMP_Exception
-     */
-    protected function _connect()
-    {
-        if (!$this->_db) {
-            $this->_db = DB::connect($this->_params, array(
-                'persistent' => !empty($this->_params['persistent']),
-                'ssl' => !empty($this->_params['ssl'])
-            ));
-
-            if ($this->_db instanceof PEAR_Error) {
-                throw new IMP_Exception(_("Unable to connect to SQL server."));
-            }
-        }
+        parent::__construct($params);
     }
 
     /**
      * Returns quota information.
      *
      * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
+     * <pre>
+     * 'limit' - Maximum quota allowed
+     * 'usage' - Currently used portion of quota (in bytes)
+     * </pre>
      * @throws IMP_Exception
      */
     public function getQuota()
     {
-        $this->_connect();
-
         $user = $_SESSION['imp']['user'];
         $quota = array(
             'limit' => 0,
             'usage' => 0
         );
 
-        if (!empty($this->_params['query_quota'])) {
+        if (empty($this->_params['query_quota'])) {
+            Horde::logMessage(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
+        } else {
             @list($bare_user, $domain) = explode('@', $user, 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
                                  array($this->_db->quote($user),
@@ -91,20 +85,18 @@ class IMP_Quota_Sql extends IMP_Quota_Driver
                                        $this->_db->quote($bare_user),
                                        $this->_db->quote($domain)),
                                  $this->_params['query_quota']);
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                throw new IMP_Exception($result);
+            try {
+                $result = $this->_db->selectOne($query);
+            } catch (Horde_Db_Exception $e) {
+                throw new IMP_Exception($e);
             }
 
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-            if (is_array($row)) {
-                $quota['limit'] = current($row);
-            }
-        } else {
-            Horde::logMessage('IMP_Quota_Sql: query_quota SQL query not set', 'DEBUG');
+            $quota['limit'] = $result;
         }
 
-        if (!empty($this->_params['query_used'])) {
+        if (empty($this->_params['query_used'])) {
+            Horde::logMessage(__CLASS__ . ': query_used SQL query not set.', 'ERR');
+        } else {
             @list($bare_user, $domain) = explode('@', $user, 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
                                  array($this->_db->quote($user),
@@ -112,17 +104,13 @@ class IMP_Quota_Sql extends IMP_Quota_Driver
                                        $this->_db->quote($bare_user),
                                        $this->_db->quote($domain)),
                                  $this->_params['query_used']);
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                throw new IMP_Exception($result);
+            try {
+                $result = $this->_db->selectOne($query);
+            } catch (Horde_Db_Exception $e) {
+                throw new IMP_Exception($e);
             }
 
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-            if (is_array($row)) {
-                $quota['usage'] = current($row);
-            }
-        } else {
-            Horde::logMessage('IMP_Quota_Sql: query_used SQL query not set', 'DEBUG');
+            $quota['usage'] = $result;
         }
 
         return $quota;
