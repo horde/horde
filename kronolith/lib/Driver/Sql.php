@@ -607,7 +607,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         if ($event->id) {
             $id = $event->id;
         } else {
-            $id = strval(new Horde_Support_Uuid);
+            $id = strval(new Horde_Support_Randomid);
             $event->id = $id;
         }
 

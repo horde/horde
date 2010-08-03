@@ -789,7 +789,7 @@ class Turba_Driver
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = strval(new Horde_Support_Uuid());
+            $attributes['__uid'] = strval(new Horde_Support_Randomid());
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));

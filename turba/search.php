@@ -27,7 +27,7 @@ function _createVBook($params)
                                     'criteria' => $params['criteria'])));
 
     try {
-        $share = Turba::createShare(strval(new Horde_Support_Uuid()), $params);
+        $share = Turba::createShare(strval(new Horde_Support_RandomId()), $params);
     } catch (Horde_Share_Exception $e) {
         throw new Turba_Exception($e);
     }

@@ -197,7 +197,7 @@ class Nag_Driver
                  $owner = null, $assignee = null)
     {
         if (is_null($uid)) {
-            $uid = strval(new Horde_Support_Uuid());
+            $uid = strval(new Horde_Support_Guid());
         }
         if (is_null($owner)) {
             $owner = $GLOBALS['registry']->getAuth();

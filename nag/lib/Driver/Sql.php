@@ -162,9 +162,9 @@ class Nag_Driver_Sql extends Nag_Driver {
                   $methods = null, $uid = null, $parent = '', $private = false,
                   $owner = null, $assignee = null)
     {
-        $taskId = strval(new Horde_Support_Uuid());
+        $taskId = strval(new Horde_Support_Randomid());
         if ($uid === null) {
-            $uid = strval(new Horde_Support_Uuid());
+            $uid = strval(new Horde_Support_Guid());
         }
 
         $query = sprintf(
@@ -528,7 +528,7 @@ class Nag_Driver_Sql extends Nag_Driver {
     {
         /* Make sure tasks always have a UID. */
         if (empty($row['task_uid'])) {
-            $row['task_uid'] = strval(new Horde_Support_Uuid());
+            $row['task_uid'] = strval(new Horde_Support_Guid());
 
             $query = 'UPDATE ' . $this->_params['table'] .
                 ' SET task_uid = ?' .

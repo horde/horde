@@ -587,7 +587,7 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     function _makeKey($attributes)
     {
-        return strval(new Horde_Support_Uuid());
+        return strval(new Horde_Support_Randomid());
     }
 
     /**
