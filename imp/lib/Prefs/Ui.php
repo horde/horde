@@ -713,13 +713,13 @@ class IMP_Prefs_Ui
 
         $t->set('canedit', $canEdit);
 
-        if (empty($_SESSION['imp']['admin'])) {
+        if (empty($_SESSION['imp']['imap']['admin'])) {
             $t->set('noadmin', true);
         } else {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
-            foreach (array('anyone') + $GLOBALS['registry']->callByPackage('listUsers', 'imp') as $user) {
+            foreach (array('anyone') + $GLOBALS['registry']->callAppMethod('imp', 'authUserList') as $user) {
                 if (in_array($user, $current_users)) {
                     continue;
                 }
