@@ -21,8 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>
-* Add Portuguese numerizer.
+ <notes> * Add Horde_Support_Randomid::.
+ * Add Portuguese numerizer.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,6 +43,7 @@
       <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
       <file name="Numerizer.php" role="php" />
+      <file name="Randomid.php" role="php" />
       <file name="Stack.php" role="php" />
       <file name="StringStream.php" role="php" />
       <file name="Stub.php" role="php" />
@@ -66,6 +67,7 @@
       <file name="CombineStreamTest.php" role="test" />
       <file name="ConsistentHashTest.php" role="test" />
       <file name="InflectorTest.php" role="test" />
+      <file name="RandomidTest.php" role="test" />
       <file name="StringStreamTest.php" role="test" />
       <file name="StubTest.php" role="test" />
       <file name="TimerTest.php" role="test" />
@@ -98,6 +100,7 @@
    <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
    <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
    <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
+   <install as="Horde/Support/Randomid.php" name="lib/Horde/Support/Randomid.php" />
    <install as="Horde/Support/Stack.php" name="lib/Horde/Support/Stack.php" />
    <install as="Horde/Support/StringStream.php" name="lib/Horde/Support/StringStream.php" />
    <install as="Horde/Support/Stub.php" name="lib/Horde/Support/Stub.php" />
@@ -112,6 +115,7 @@
    <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
    <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
+   <install as="Horde/Support/RandomidTest.php" name="test/Horde/Support/RandomidTest.php" />
    <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
    <install as="Horde/Support/StubTest.php" name="test/Horde/Support/StubTest.php" />
    <install as="Horde/Support/TimerTest.php" name="test/Horde/Support/TimerTest.php" />
@@ -145,21 +149,6 @@
 * Initial Horde_Support_Timer object
 * Initial Horde_Support_Uuid object
 * Initial Horde_Support_Numerizer objects
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2010-07-10</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
-   <notes>
-* Add Portuguese numerizer.
    </notes>
   </release>
  </changelog>
