@@ -99,6 +99,10 @@ class Horde_Core_Factory_Prefs
             $this->_instances[$sig]->setScope($scope);
         } else {
             switch ($driver) {
+            case 'Ldap':
+                //$params['ldap'] = $this->_injector->getInstance('Horde_Ldap')->getLdap('horde', 'ldap');
+                break;
+
             case 'Sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db')->getDb();
                 // @todo All DB's use UTF-8(?) Does not seem to be a way to
