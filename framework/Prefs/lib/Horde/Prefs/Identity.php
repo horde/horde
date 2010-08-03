@@ -105,7 +105,7 @@ class Horde_Prefs_Identity
     public function init()
     {
         if (!is_array($this->_identities) || (count($this->_identities) <= 0)) {
-            foreach ($this->_properties as $key) {
+            foreach (array_keys($this->_prefnames) as $key) {
                 $identity[$key] = $this->_prefs->getValue($key);
             }
             if (empty($identity['id'])) {
@@ -133,7 +133,7 @@ class Horde_Prefs_Identity
      */
     public function save()
     {
-        $this->_prefs->setValue($this->_prefnames['identities'], serialize($identities));
+        $this->_prefs->setValue($this->_prefnames['identities'], serialize($this->_identities));
         $this->_prefs->setValue($this->_prefnames['default_identity'], $this->_default);
     }
 
