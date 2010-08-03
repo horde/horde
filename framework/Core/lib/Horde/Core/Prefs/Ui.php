@@ -104,7 +104,14 @@ class Horde_Core_Prefs_Ui
         $this->vars = $vars;
 
         /* Load the application's base environment. */
-        $GLOBALS['registry']->pushApp($this->app);
+        try {
+            $GLOBALS['registry']->pushApp($this->app);
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+                $GLOBALS['registry']->authenticateFailure($this->app, $e);
+            }
+            throw $e;
+        }
 
         /* Load preferences. */
         $this->_loadPrefs($this->app);
