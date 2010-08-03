@@ -54,8 +54,7 @@ class Horde_Core_Factory_Prefs
     /**
      * Return the Horde_Prefs:: instance.
      *
-     * @param string $scope  The scope for this set of preferences. 'session'
-     *                       will load a session prefs instance.
+     * @param string $scope  The scope for this set of preferences.
      * @param array $opts    See Horde_Prefs::factory(). Additional options:
      * <pre>
      * 'session' - (boolean) Use the session driver.
