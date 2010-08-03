@@ -764,8 +764,8 @@ class IMP_Prefs_Ui
         $new_user = $ui->vars->new_user;
 
         /* Check to see if $new_user already has an acl on the folder. */
-        if (strlen($new_user)) {
-            if (isset($acl_list[$new_user]) && $ui->vars->new_acl) {
+        if (strlen($new_user) && $ui->vars->new_acl) {
+            if (isset($acl_list[$new_user])) {
                 $acl_list[$new_user] = $ui->vars->new_acl;
             } else {
                 try {
