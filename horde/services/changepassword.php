@@ -15,8 +15,7 @@ Horde_Registry::appInit('horde', array('nologintasks' => true));
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
-    header('Location: ' . Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->setRaw(true));
-    exit;
+    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -54,11 +53,10 @@ if ($vars->exists('formname')) {
 
                 $index_url = Horde::applicationUrl('index.php', true);
                 if (!empty($info['return_to'])) {
-                    $index_url = Horde_Util::addParameter($index_url, array('url' => $info['return_to']));
+                    $index_url->add('url', $info['return_to']);
                 }
 
-                header('Location: ' . $index_url);
-                exit;
+                $index_url->redirect();
             } catch (Horde_Auth_Exception $e) {
                 $notification->push(sprintf(_("Error updating password: %s"), $e->getMessage()), 'horde.error');
             }

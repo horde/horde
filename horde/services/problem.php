@@ -11,9 +11,7 @@
 /* Send the browser back to the correct page. */
 function _returnToPage()
 {
-    $url = Horde_Util::getFormData('return_url', Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', true));
-    header('Location: ' . str_replace('&amp;', '&', $url));
-    exit;
+    (new Horde_Url(Horde_Util::getFormData('return_url', Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', true))))->redirect();
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';

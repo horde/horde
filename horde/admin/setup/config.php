@@ -22,9 +22,7 @@ $title = sprintf(_("%s Setup"), $appname);
 
 if (empty($app) || !in_array($app, $registry->listAllApps())) {
     $notification->push(_("Invalid application."), 'horde.error');
-    $url = Horde::applicationUrl('admin/setup/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('admin/setup/index.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -61,8 +59,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
         fclose($fp);
         $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
         $registry->clearCache();
-        header('Location: ' . Horde::applicationUrl('admin/setup/index.php', true));
-        exit;
+        Horde::applicationUrl('admin/setup/index.php', true)->redirect();
     } else {
         /* Cannot write. */
         $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($path . '/conf.php'), Horde::link(Horde::url('index.php') . '#update', _("Setup")) . _("Setup") . '</a>', Horde_Util::realPath($path . '/conf.php')), 'horde.warning', array('content.raw'));

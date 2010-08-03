@@ -26,7 +26,8 @@ foreach ($registry->listAPIs() as $api) {
 
 /* Redirect to the url or login page if none given. */
 $url = Horde_Util::getFormData('url');
-if (empty($url)) {
-    $url = Horde::applicationUrl('index.php', true);
-}
-header('Location: ' . $url);
+$url = empty($url)
+    ? Horde::applicationUrl('index.php', true)
+    : $url;
+
+$url->redirect();

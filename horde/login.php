@@ -163,8 +163,7 @@ if ($error_reason) {
         if (!isset($_COOKIE[session_name()])) {
             $logout_url->add(session_name(), session_id());
         }
-        header('Location: ' . _addAnchor($logout_url, 'url', $vars, $url_anchor));
-        exit;
+        _addAnchor($logout_url, 'url', $vars, $url_anchor)->redirect();
     }
 
     $registry->setupSessionHandler();
@@ -212,8 +211,7 @@ if ($error_reason) {
                     $change_url->add('return_to', $horde_login_url);
                 }
 
-                header('Location: ' . $change_url->setRaw(true));
-                exit;
+                $change_url->redirect();
             }
         }
 
@@ -241,8 +239,7 @@ if ($is_auth) {
         exit;
     } elseif ($url_in &&
               $registry->isAuthenticated(array('app' => $vars->app))) {
-        header('Location: ' . _addAnchor($url_in, 'param', null, $url_anchor));
-        exit;
+        _addAnchor($url_in, 'param', null, $url_anchor)->redirect();
     }
 }
 
@@ -270,8 +267,7 @@ if (!empty($conf['auth']['alternate_login'])) {
     if (!$found) {
         $url->add('url', $anchor);
     }
-    header('Location: ' . _addAnchor($url, 'url', $vars, $url_anchor));
-    exit;
+    _addAnchor($url, 'url', $vars, $url_anchor)->redirect();
 }
 
 /* Build the <select> widget containing the available languages. */

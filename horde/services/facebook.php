@@ -16,8 +16,7 @@ Horde_Registry::appInit('horde');
 try {
     $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
 } catch (Horde_Exception $e) {
-    $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');
-    header('Location: ' . $horde_url);
+    Horde::url($registry->get('webroot', 'horde') . '/index.php')->redirect();
 }
 
 /* See why we are here. */
@@ -37,10 +36,8 @@ if ($token = Horde_Util::getFormData('auth_token')) {
         $uid = $facebook->auth->getUser();
         $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
         $notification->push(_("Succesfully connected your Facebook account."), 'horde.success');
-        $url = Horde::url('services/prefs.php', true)->add(array('group' => 'facebook', 'app'  => 'horde'));
-        header('Location: ' . $url);
+        Horde::url('services/prefs.php', true)->add(array('group' => 'facebook', 'app'  => 'horde'))->redirect();
     }
-
 } else {
 
     /* We are here for an Action request */

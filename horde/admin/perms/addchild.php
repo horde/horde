@@ -21,9 +21,7 @@ try {
     $permission = $perms->getPermissionById($perm_id);
 } catch (Exception $e) {
     $notification->push(_("Invalid parent permission."), 'horde.error');
-    $url = Horde::applicationUrl('admin/perms/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('admin/perms/index.php', true)->redirect();
 }
 
 /* Set up form. */
@@ -43,10 +41,7 @@ if ($ui->validateAddForm($info)) {
             $result = $perms->addPermission($child);
         }
         $notification->push(sprintf(_("\"%s\" was added to the permissions system."), $perms->getTitle($child->getName())), 'horde.success');
-        $url = Horde::applicationUrl('admin/perms/edit.php', true);
-        $url = Horde_Util::addParameter($url, 'perm_id', $child->getId(), false);
-        header('Location: ' . $url);
-        exit;
+        Horde::applicationUrl('admin/perms/edit.php', true)->add('perm_id', $child->getId())->redirect();
     } catch (Exception $e) {
         Horde::logMessage($e, 'ERR');
         $notification->push(sprintf(_("\"%s\" was not created: %s."), $perms->getTitle($child->getName()), $e->getMessage()), 'horde.error');

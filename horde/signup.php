@@ -17,8 +17,7 @@ $auth = $injector->getInstance('Horde_Auth')->getAuth();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    header('Location: ' . Horde::getServiceLink('login')->setRaw(true));
-    exit;
+    Horde::getServiceLink('login')->redirect();
 }
 
 try {
@@ -26,8 +25,7 @@ try {
 } catch (Horde_Exception $e) {
     Horde::logMessage($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
-    header('Location: ' . Horde::getServiceLink('login')->setRaw(true));
-    exit;
+    Horde::getServiceLink('login')->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -61,8 +59,7 @@ if ($formsignup->validate()) {
             $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
         } else {
             $notification->push($success_message, 'horde.success');
-            header('Location: ' . Horde::getServiceLink('login')->add('url', $info['url'])->setRaw(true));
-            exit;
+            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
         }
     }
 }

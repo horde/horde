@@ -196,9 +196,7 @@ if (!empty($_SESSION['_config'])) {
         $upload = _uploadFTP($info);
         if ($upload) {
             $notification->push(_("Uploaded all application setup files to the server."), 'horde.success');
-            $url = Horde::applicationUrl('admin/setup/index.php', true);
-            header('Location: ' . $url);
-            exit;
+            Horde::applicationUrl('admin/setup/index.php', true)->redirect();
         }
     }
     /* Render the form. */

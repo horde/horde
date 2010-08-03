@@ -47,7 +47,9 @@ if (!empty($main_page)) {
     }
 }
 
-if (!$main_page) {
+if ($main_page) {
+    $main_page = new Horde_Url($main_page);
+} else {
     /* Always redirect to login page if there is no incoming URL and nobody
      * is authenticated. */
     if (!$registry->getAuth()) {
@@ -58,7 +60,7 @@ if (!$main_page) {
         if (!empty($initial_app) &&
             ($initial_app != 'horde') &&
             $registry->hasPermission($initial_app)) {
-            $main_page = Horde::url($initial_app, true) . '/';
+            $main_page = Horde::url($initial_app, true);
         } else {
             /* Next, try the initial horde page if it is something other than
              * index.php or login.php, since that would lead to inifinite
@@ -76,5 +78,4 @@ if (!$main_page) {
     }
 }
 
-header('Location: ' . $main_page);
-exit;
+$main_page->redirect();

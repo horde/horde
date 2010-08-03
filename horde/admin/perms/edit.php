@@ -9,13 +9,6 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _redirect()
-{
-    $GLOBALS['notification']->push(_("Attempt to edit a non-existent permission."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('admin/perms/index.php', true));
-    exit;
-}
-
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
@@ -26,6 +19,7 @@ $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
 
 /* See if we need to (and are supposed to) autocreate the permission. */
+$redirect = false;
 if ($category !== null) {
     try {
         $permission = $perms->getPermission($category);
@@ -80,18 +74,23 @@ if ($category !== null) {
             }
             $permission->save();
         } else {
-            _redirect();
+            $redirect = true;
         }
     } catch (Exception $e) {
-        _redirect();
+        $redirect = true;
     }
     $vars->set('perm_id', $perm_id);
 } else {
     try {
         $permission = $perms->getPermissionById($perm_id);
     } catch (Exception $e) {
-        _redirect();
+        $redirect = true;
     }
+}
+
+if ($redirect) {
+    $notification->push(_("Attempt to edit a non-existent permission."), 'horde.error');
+    Horde::applicationUrl('admin/perms/index.php', true)->redirect();
 }
 
 $ui = new Horde_Core_Perms_Ui($perms);
