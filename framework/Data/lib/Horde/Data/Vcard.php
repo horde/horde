@@ -17,7 +17,7 @@ class Horde_Data_Vcard extends Horde_Data_Imc {
      * Exports vcalendar data as a string. Unlike vEvent, vCard data
      * is not enclosed in BEGIN|END:vCalendar.
      *
-     * @param array $data     An array containing Horde_iCalendar_Vcard
+     * @param array $data     An array containing Horde_Icalendar_Vcard
      *                        objects.
      * @param string $method  The iTip method to use.
      *

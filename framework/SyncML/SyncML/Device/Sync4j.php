@@ -7,7 +7,7 @@
 require_once 'Horde/Date.php';
 
 /** Horde_iCalendar */
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 
 /**
  * Sync4j (www.sync4j.org)
@@ -224,12 +224,12 @@ class SyncML_Device_sync4j extends SyncML_Device {
     {
         $a = SyncML_Device_sync4j::sif2array($sif);
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '1.1');
         $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
-        $vnote = &Horde_iCalendar::newComponent('vnote', $iCal);
+        $vnote = Horde_Icalendar::newComponent('vnote', $iCal);
         $vnote->setAttribute('BODY', isset($a['Body']) ? $a['Body'] : '');
         if (isset($a['Subject'])) {
             $vnote->setAttribute('SUMMARY', $a['Subject']);
@@ -245,12 +245,12 @@ class SyncML_Device_sync4j extends SyncML_Device {
     {
         $a = SyncML_Device_sync4j::sif2array($sif);
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '3.0');
         $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
-        $vcard = &Horde_iCalendar::newComponent('vcard', $iCal);
+        $vcard = Horde_Icalendar::newComponent('vcard', $iCal);
 
         $map = array(
             'FileAs' => array('FN'),
@@ -295,44 +295,44 @@ class SyncML_Device_sync4j extends SyncML_Device {
         $map = array(
             array(
                 'N',
-                array(VCARD_N_FAMILY => 'LastName',
-                      VCARD_N_GIVEN  => 'FirstName',
-                      VCARD_N_ADDL   => 'MiddleName',
-                      VCARD_N_PREFIX => 'Title',
-                      VCARD_N_SUFFIX => 'Suffix'),
+                array(Horde_Icalendar_Vcard::N_FAMILY => 'LastName',
+                      Horde_Icalendar_Vcard::N_GIVEN  => 'FirstName',
+                      Horde_Icalendar_Vcard::N_ADDL   => 'MiddleName',
+                      Horde_Icalendar_Vcard::N_PREFIX => 'Title',
+                      Horde_Icalendar_Vcard::N_SUFFIX => 'Suffix'),
                 array(),
                 false),
             array(
                 'ADR',
-                array(VCARD_ADR_POB      => 'HomeAddressPostOfficeBox',
-                      VCARD_ADR_EXTEND   => '',
-                      VCARD_ADR_STREET   => 'HomeAddressStreet',
-                      VCARD_ADR_LOCALITY => 'HomeAddressCity',
-                      VCARD_ADR_REGION   => 'HomeAddressState',
-                      VCARD_ADR_POSTCODE => 'HomeAddressPostalCode',
-                      VCARD_ADR_COUNTRY  => 'HomeAddressCountry'),
+                array(Horde_Icalendar_Vcard::ADR_POB      => 'HomeAddressPostOfficeBox',
+                      Horde_Icalendar_Vcard::ADR_EXTEND   => '',
+                      Horde_Icalendar_Vcard::ADR_STREET   => 'HomeAddressStreet',
+                      Horde_Icalendar_Vcard::ADR_LOCALITY => 'HomeAddressCity',
+                      Horde_Icalendar_Vcard::ADR_REGION   => 'HomeAddressState',
+                      Horde_Icalendar_Vcard::ADR_POSTCODE => 'HomeAddressPostalCode',
+                      Horde_Icalendar_Vcard::ADR_COUNTRY  => 'HomeAddressCountry'),
                 array('TYPE' => 'HOME'),
                 true),
             array(
                 'ADR',
-                array(VCARD_ADR_POB      => 'BusinessAddressPostOfficeBox',
-                      VCARD_ADR_EXTEND   => '',
-                      VCARD_ADR_STREET   => 'BusinessAddressStreet',
-                      VCARD_ADR_LOCALITY => 'BusinessAddressCity',
-                      VCARD_ADR_REGION   => 'BusinessAddressState',
-                      VCARD_ADR_POSTCODE => 'BusinessAddressPostalCode',
-                      VCARD_ADR_COUNTRY  => 'BusinessAddressCountry'),
+                array(Horde_Icalendar_Vcard::ADR_POB      => 'BusinessAddressPostOfficeBox',
+                      Horde_Icalendar_Vcard::ADR_EXTEND   => '',
+                      Horde_Icalendar_Vcard::ADR_STREET   => 'BusinessAddressStreet',
+                      Horde_Icalendar_Vcard::ADR_LOCALITY => 'BusinessAddressCity',
+                      Horde_Icalendar_Vcard::ADR_REGION   => 'BusinessAddressState',
+                      Horde_Icalendar_Vcard::ADR_POSTCODE => 'BusinessAddressPostalCode',
+                      Horde_Icalendar_Vcard::ADR_COUNTRY  => 'BusinessAddressCountry'),
                 array('TYPE' => 'WORK'),
                 true),
             array(
                 'ADR',
-                array(VCARD_ADR_POB      => 'OtherAddressPostOfficeBox',
-                      VCARD_ADR_EXTEND   => '',
-                      VCARD_ADR_STREET   => 'OtherAddressStreet',
-                      VCARD_ADR_LOCALITY => 'OtherAddressCity',
-                      VCARD_ADR_REGION   => 'OtherAddressState',
-                      VCARD_ADR_POSTCODE => 'OtherAddressPostalCode',
-                      VCARD_ADR_COUNTRY  => 'OtherAddressCountry'),
+                array(Horde_Icalendar_Vcard::ADR_POB      => 'OtherAddressPostOfficeBox',
+                      Horde_Icalendar_Vcard::ADR_EXTEND   => '',
+                      Horde_Icalendar_Vcard::ADR_STREET   => 'OtherAddressStreet',
+                      Horde_Icalendar_Vcard::ADR_LOCALITY => 'OtherAddressCity',
+                      Horde_Icalendar_Vcard::ADR_REGION   => 'OtherAddressState',
+                      Horde_Icalendar_Vcard::ADR_POSTCODE => 'OtherAddressPostalCode',
+                      Horde_Icalendar_Vcard::ADR_COUNTRY  => 'OtherAddressCountry'),
                 array(),
                 true),
         );
@@ -369,11 +369,11 @@ class SyncML_Device_sync4j extends SyncML_Device {
     {
         $a = SyncML_Device_sync4j::sif2array($sif);
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
-        $vEvent = &Horde_iCalendar::newComponent('vevent', $iCal);
+        $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
         $vEvent->setAttribute('DTSTAMP', time());
 
         $map = array('Subject' => 'SUMMARY',
@@ -546,11 +546,11 @@ class SyncML_Device_sync4j extends SyncML_Device {
     {
         $a = SyncML_Device_sync4j::sif2array($sif);
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
-        $vtodo = &Horde_iCalendar::newComponent('vtodo', $iCal);
+        $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
         $vtodo->setAttribute('SUMMARY', $a['Subject']);
         $vtodo->setAttribute('DESCRIPTION', $a['Body']);
@@ -603,7 +603,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
     function vnote2sif($vnote)
     {
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($vnote)) {
             // handle plain text:
             $a = array('Body' => $vnote);
@@ -628,7 +628,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
     function vcard2sif($vcard)
     {
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($vcard)) {
             // @TODO: NEVER use die() in a library.
             die("There was an error importing the data.");
@@ -662,11 +662,11 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
             case 'N':
                 $name = $item['values'];
-                $hash['LastName'] = $name[VCARD_N_FAMILY];
-                $hash['FirstName'] = $name[VCARD_N_GIVEN];
-                $hash['MiddleName'] = $name[VCARD_N_ADDL];
-                $hash['Title'] = $name[VCARD_N_PREFIX];
-                $hash['Suffix'] = $name[VCARD_N_SUFFIX];
+                $hash['LastName'] = $name[Horde_Icalendar_Vcard::N_FAMILY];
+                $hash['FirstName'] = $name[Horde_Icalendar_Vcard::N_GIVEN];
+                $hash['MiddleName'] = $name[Horde_Icalendar_Vcard::N_ADDL];
+                $hash['Title'] = $name[Horde_Icalendar_Vcard::N_PREFIX];
+                $hash['Suffix'] = $name[Horde_Icalendar_Vcard::N_SUFFIX];
                 break;
 
             case 'NICKNAME':
@@ -706,28 +706,28 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
                     if ($prefix) {
                         $hash[$prefix . 'Street'] =
-                            isset($address[VCARD_ADR_STREET])
-                            ? $address[VCARD_ADR_STREET]
+                            isset($address[Horde_Icalendar_Vcard::ADR_STREET])
+                            ? $address[Horde_Icalendar_Vcard::ADR_STREET]
                             : null;
                         $hash[$prefix . 'City'] =
-                            isset($address[VCARD_ADR_LOCALITY])
-                            ? $address[VCARD_ADR_LOCALITY]
+                            isset($address[Horde_Icalendar_Vcard::ADR_LOCALITY])
+                            ? $address[Horde_Icalendar_Vcard::ADR_LOCALITY]
                             : null;
                         $hash[$prefix . 'State'] =
-                            isset($address[VCARD_ADR_REGION])
-                            ? $address[VCARD_ADR_REGION]
+                            isset($address[Horde_Icalendar_Vcard::ADR_REGION])
+                            ? $address[Horde_Icalendar_Vcard::ADR_REGION]
                             : null;
                         $hash[$prefix . 'PostalCode'] =
-                            isset($address[VCARD_ADR_POSTCODE])
-                            ? $address[VCARD_ADR_POSTCODE]
+                            isset($address[Horde_Icalendar_Vcard::ADR_POSTCODE])
+                            ? $address[Horde_Icalendar_Vcard::ADR_POSTCODE]
                             : null;
                         $hash[$prefix . 'Country'] =
-                            isset($address[VCARD_ADR_COUNTRY])
-                            ? $address[VCARD_ADR_COUNTRY]
+                            isset($address[Horde_Icalendar_Vcard::ADR_COUNTRY])
+                            ? $address[Horde_Icalendar_Vcard::ADR_COUNTRY]
                             : null;
                         $hash[$prefix . 'PostOfficeBox'] =
-                            isset($address[VCARD_ADR_POB])
-                            ? $address[VCARD_ADR_POB]
+                            isset($address[Horde_Icalendar_Vcard::ADR_POB])
+                            ? $address[Horde_Icalendar_Vcard::ADR_POB]
                             : null;
                     }
                 }
@@ -775,28 +775,28 @@ class SyncML_Device_sync4j extends SyncML_Device {
                 $email_set = false;
                 if (isset($item['params']['HOME']) && (!isset($hash['Email2Address']) ||
                     isset($item['params']['PREF']))) {
-                   $hash['Email2Address'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                   $hash['Email2Address'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                    $email_set = true;
-                } elseif (isset($item['params']['WORK']) && (!isset($hash['Email3Address']) || 
+                } elseif (isset($item['params']['WORK']) && (!isset($hash['Email3Address']) ||
                           isset($item['params']['PREF']))) {
-                   $hash['Email3Address'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                   $hash['Email3Address'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                    $email_set = true;
                 } elseif (isset($item['params']['TYPE'])) {
                    if (!is_array($item['params']['TYPE'])) {
                       $item['params']['TYPE'] = array($item['params']['TYPE']);
                    }
-                   if (in_array('HOME', $item['params']['TYPE']) && 
+                   if (in_array('HOME', $item['params']['TYPE']) &&
                        (!isset($hash['Email2Address']) || in_array('PREF', $item['params']['TYPE']))) {
-                      $hash['Email2Address'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                      $hash['Email2Address'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                       $email_set = true;
                    } elseif (in_array('WORK', $item['params']['TYPE']) &&
                              (!isset($hash['Email3Address']) || in_array('PREF', $item['params']['TYPE']))) {
-                      $hash['Email3Address'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                      $hash['Email3Address'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                       $email_set = true;
                    }
                 }
                 if (!$email_set && (!isset($hash['Email1Address']) || isset($item['params']['PREF']))) {
-                   $hash['Email1Address'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                   $hash['Email1Address'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
                 break;
 
@@ -869,7 +869,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             }
             // @TODO: else: handle case with DTEND= T240000
         }
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($vcard)) {
             // @TODO: NEVER use die() in a library.
             die("There was an error importing the data.");
@@ -910,7 +910,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
                                 $start['value']['year']);
             } else {
                 $hash['AllDayEvent'] = 0;
-                $hash['Start'] = Horde_iCalendar::_exportDateTime($start);
+                $hash['Start'] = Horde_Icalendar::_exportDateTime($start);
                 $start = $start;
             }
         }
@@ -938,7 +938,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
                     $end = $date->datestamp();
                 } else {
                     $hash['AllDayEvent'] = 0;
-                    $hash['End'] = Horde_iCalendar::_exportDateTime($item['value']);
+                    $hash['End'] = Horde_Icalendar::_exportDateTime($item['value']);
                     $end = $item['value'];
                 }
                 break;
@@ -1091,7 +1091,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
                         $d->correct();
                         $hash['Exceptions'][] = array('ExcludeDate' => $d->format('Y-m-d'));
                     } else {
-                        $hash['Exceptions'][] = array('ExcludeDate' => Horde_iCalendar::_exportDate($date));
+                        $hash['Exceptions'][] = array('ExcludeDate' => Horde_Icalendar::_exportDate($date));
                     }
                 }
                 break;
@@ -1104,7 +1104,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
             } else {
                 // Parse VALARM components.
                 foreach ($content->getComponents() as $component) {
-                    if (!is_a($component, 'Horde_iCalendar_valarm') ||
+                    if ($component->getType != 'vAlarm') ||
                         is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
                         is_array($trigger) ||
                         empty($trigger)) {
@@ -1132,7 +1132,7 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
     function vtodo2sif($vcard)
     {
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($vcard)) {
             return PEAR::raiseError('There was an error importing the data.');
         }
@@ -1176,11 +1176,11 @@ class SyncML_Device_sync4j extends SyncML_Device {
                 break;
 
             case 'DTSTART':
-                $hash['StartDate'] = Horde_iCalendar::_exportDateTime($item['value']);
+                $hash['StartDate'] = Horde_Icalendar::_exportDateTime($item['value']);
                 break;
 
             case 'DUE':
-                $hash['DueDate'] = Horde_iCalendar::_exportDateTime($item['value']);
+                $hash['DueDate'] = Horde_Icalendar::_exportDateTime($item['value']);
                 $due = $item['value'];
                 break;
 
@@ -1218,14 +1218,14 @@ class SyncML_Device_sync4j extends SyncML_Device {
         if ($due && !isset($hash['ReminderSet'])) {
             // Parse VALARM components.
             foreach ($content->getComponents() as $component) {
-                if (!is_a($component, 'Horde_iCalendar_valarm') ||
+                if ($component->getType() != 'vAlarm' ||
                     is_a($trigger = $component->getAttribute('TRIGGER'), 'PEAR_Error') ||
                     is_array($trigger) ||
                     empty($trigger)) {
                     continue;
                 }
                 $hash['ReminderSet'] = 1;
-                $hash['ReminderTime'] = Horde_iCalendar::_exportDateTime($due - $trigger);
+                $hash['ReminderTime'] = Horde_Icalendar::_exportDateTime($due - $trigger);
             }
         }
 

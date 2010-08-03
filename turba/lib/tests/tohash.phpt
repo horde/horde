@@ -4,7 +4,7 @@ Turba_Driver::toHash() test.
 <?php
 
 require_once 'PEAR.php';
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 require dirname(__FILE__) . '/../Object.php';
 require dirname(__FILE__) . '/../Driver.php';
 
@@ -193,7 +193,7 @@ END:VCARD
 ';
 
 $driver = new Turba_Driver(array());
-$iCal = new Horde_iCalendar();
+$iCal = new Horde_Icalendar();
 
 $iCal->parsevCalendar($vcard1);
 var_export($driver->toHash($iCal->getComponent(0)));

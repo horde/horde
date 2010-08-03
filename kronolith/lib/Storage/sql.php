@@ -107,7 +107,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
      * @param boolean $private_only (optional) Only return free/busy
      *                              information owned by this used.
      *
-     * @return Horde_iCalendar_vFreebusy
+     * @return Horde_Icalendar_Vfreebusy
      * @throws Kronolith_Exception
      */
     public function search($email, $private_only = false)
@@ -146,7 +146,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage
      * Store the freebusy information for a given email address.
      *
      * @param string                     $email        The email address to store fb info for.
-     * @param Horde_iCalendar_vFreebusy  $vfb          TODO
+     * @param Horde_Icalendar_Vfreebusy  $vfb          TODO
      * @param boolean                    $private_only (optional) TODO
      *
      * @throws Kronolith_Exception

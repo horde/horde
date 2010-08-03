@@ -17,7 +17,7 @@ $data = <<<EVENT
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:cdillon's Calendar
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20080630T110000Z

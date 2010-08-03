@@ -44,7 +44,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   * Extended iTip reply delivery to support different transport mechanisms.
   * Splitted Free/Busy functionality in a separate driver class.
   * kolab/issue4257 ("Always accept" policy doesn't set atendee status to
-    "accepted") 
+    "accepted")
   * kolab/issue3962 (Names of config variables for "untrusted" text missleading)
   * kolab/issue3967 (UNTRUSTED vs. UNAUTHENTICATED, distinction considered
     harmful)
@@ -196,7 +196,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>0.0.2</min>
    </package>
    <package>
-    <name>Horde_iCalendar</name>
+    <name>Icalendar</name>
     <channel>pear.horde.org</channel>
     <min>0.0.3</min>
    </package>

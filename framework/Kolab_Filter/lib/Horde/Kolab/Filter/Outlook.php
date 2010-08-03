@@ -4,7 +4,7 @@
  */
 
 /* Load the iCal handling */
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 
 /* Load MIME handlers */
 require_once 'Horde/MIME.php';
@@ -96,7 +96,7 @@ class Kolab_Filter_Outlook
             $email_domain = 'localhost';
         }
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar($icaltxt);
         $vevent =& $iCal->findComponent('VEVENT');
         if ($vevent) {

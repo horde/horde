@@ -22,7 +22,7 @@ class Kronolith_View_ExportEvent {
             exit;
         }
 
-        $iCal = new Horde_iCalendar('2.0');
+        $iCal = new Horde_Icalendar('2.0');
 
         if ($event->calendarType == 'internal') {
             try {

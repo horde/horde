@@ -7,7 +7,7 @@
 
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Recurrence.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
@@ -22,7 +22,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         Horde_String::setDefaultCharset('UTF-8');
-        $this->ical = new Horde_iCalendar();
+        $this->ical = new Horde_Icalendar();
         $this->_oldTimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
     }
@@ -911,14 +911,14 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     {
         require_once 'PEAR.php';
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(file_get_contents(dirname(__FILE__) . '/fixtures/bug2813.ics'));
         $components = $iCal->getComponents();
 
         date_default_timezone_set('US/Eastern');
 
         foreach ($components as $content) {
-            if ($content instanceof Horde_iCalendar_vevent) {
+            if ($content instanceof Horde_Icalendar_Vevent) {
                 $start = new Horde_Date($content->getAttribute('DTSTART'));
                 $end = new Horde_Date($content->getAttribute('DTEND'));
                 $rrule = $content->getAttribute('RRULE');
@@ -946,8 +946,8 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
         $rrule->setRecurOnDay(Horde_Date::MASK_SATURDAY);
 
-        $this->assertEquals('MP1 1+ SA #0', $rrule->toRRule10(new Horde_iCalendar()));
-        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=1SA', $rrule->toRRule20(new Horde_iCalendar()));
+        $this->assertEquals('MP1 1+ SA #0', $rrule->toRRule10(new Horde_Icalendar()));
+        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=1SA', $rrule->toRRule20(new Horde_Icalendar()));
     }
 
 }

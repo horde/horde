@@ -27,7 +27,7 @@ class Horde_Data_Imc extends Horde_Data_Base
      */
     public function importData($text)
     {
-        $this->_iCal = new Horde_iCalendar();
+        $this->_iCal = new Horde_Icalendar();
         if (!$this->_iCal->parsevCalendar($text)) {
             throw new Horde_Data_Exception('There was an error importing the iCalendar data.');
         }
@@ -39,7 +39,7 @@ class Horde_Data_Imc extends Horde_Data_Base
      * Builds an iCalendar file from a given data structure and
      * returns it as a string.
      *
-     * @param array $data     An array containing Horde_iCalendar_vevent
+     * @param array $data     An array containing Horde_Icalendar_Vevent
      *                        objects
      * @param string $method  The iTip method to use.
      *
@@ -47,7 +47,7 @@ class Horde_Data_Imc extends Horde_Data_Base
      */
     public function exportData($data, $method = 'REQUEST')
     {
-        $this->_iCal = new Horde_iCalendar();
+        $this->_iCal = new Horde_Icalendar();
         $this->_iCal->setAttribute('METHOD', $method);
 
         foreach ($data as $event) {
@@ -63,7 +63,7 @@ class Horde_Data_Imc extends Horde_Data_Base
      * only outputs the correct headers and data.
      *
      * @param string $filename   The name of the file to be downloaded.
-     * @param array $data        An array containing Horde_iCalendar_vevents
+     * @param array $data        An array containing Horde_Icalendar_Vevents
      */
     public function exportFile($filename, $data)
     {

@@ -651,7 +651,7 @@ class Turba_Api extends Horde_Registry_Api
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
-        if (!($content instanceof Horde_iCalendar_vcard)) {
+        if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
             case 'array':
                 break;
@@ -659,7 +659,7 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/x-vcard':
             case 'text/vcard':
             case 'text/directory':
-                $iCal = new Horde_iCalendar();
+                $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Horde_Exception(_("There was an error importing the iCalendar data."));
                 }
@@ -674,7 +674,7 @@ class Turba_Api extends Horde_Registry_Api
                 default:
                     $ids = array();
                     foreach ($iCal->getComponents() as $c) {
-                        if ($c instanceof Horde_iCalendar_vcard) {
+                        if ($c instanceof Horde_Icalendar_Vcard) {
                             $content = $driver->toHash($c);
                             $result = $driver->search($content);
                             if ($result instanceof PEAR_Error) {
@@ -707,7 +707,7 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
-        if ($content instanceof Horde_iCalendar_vcard) {
+        if ($content instanceof Horde_Icalendar_Vcard) {
             $content = $driver->toHash($content);
         }
 
@@ -1064,7 +1064,7 @@ class Turba_Api extends Horde_Registry_Api
             case 'text/x-vcard':
             case 'text/vcard':
             case 'text/directory':
-                $iCal = new Horde_iCalendar();
+                $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Horde_Exception(_("There was an error importing the iCalendar data."));
                 }

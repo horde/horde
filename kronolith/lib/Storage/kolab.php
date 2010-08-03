@@ -54,10 +54,10 @@ class Kronolith_Storage_kolab extends Kronolith_Storage
         }
         $vfb_text = $http->getResponseBody();
 
-        $iCal = new Horde_iCalendar;
+        $iCal = new Horde_Icalendar;
         $iCal->parsevCalendar($vfb_text);
 
-        $vfb = &$iCal->findComponent('VFREEBUSY');
+        $vfb = $iCal->findComponent('VFREEBUSY');
         if ($vfb === false) {
             throw new Horde_Exception_NotFound();
         }

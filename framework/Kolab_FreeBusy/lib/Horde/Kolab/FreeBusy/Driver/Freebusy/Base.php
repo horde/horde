@@ -87,12 +87,12 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
         }
 
         // Create the new iCalendar.
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         // Create new vFreebusy.
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
 
         $cn = $access->owner_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_CN);

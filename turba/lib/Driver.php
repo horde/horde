@@ -967,12 +967,12 @@ class Turba_Driver
      *                              properties with the requested fields.
      * @param boolean $skipEmpty    Whether to skip empty fields.
      *
-     * @return Horde_iCalendar_vcard  A Horde_iCalendar_vcard object.
+     * @return Horde_Icalendar_vcard  A Horde_Icalendar_vcard object.
      */
     function tovCard($object, $version = '2.1', $fields = null, $skipEmpty = false)
     {
         $hash = $object->getAttributes();
-        $vcard = new Horde_iCalendar_vcard($version);
+        $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
         $charset = $version == '2.1' ? array('CHARSET' => $GLOBALS['registry']->getCharset()) : array();
 
@@ -1398,7 +1398,7 @@ class Turba_Driver
                     break;
                 }
                 $vcard->setAttribute('EMAIL',
-                                     Horde_iCalendar_vcard::getBareEmail($val));
+                                     Horde_Icalendar_Vcard::getBareEmail($val));
                 break;
             case 'homeEmail':
                 if ($fields &&
@@ -1409,11 +1409,11 @@ class Turba_Driver
                 }
                 if ($version == '2.1') {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('HOME' => null));
                 } else {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('TYPE' => 'HOME'));
                 }
                 break;
@@ -1426,11 +1426,11 @@ class Turba_Driver
                 }
                 if ($version == '2.1') {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('WORK' => null));
                 } else {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('TYPE' => 'WORK'));
                 }
                 break;
@@ -1441,7 +1441,7 @@ class Turba_Driver
                 $emails = explode(',', $val);
                 foreach ($emails as $email) {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($email));
+                                         Horde_Icalendar_Vcard::getBareEmail($email));
                 }
                 break;
 
@@ -1634,11 +1634,11 @@ class Turba_Driver
         }
 
         $a = array(
-            VCARD_N_FAMILY => isset($hash['lastname']) ? $hash['lastname'] : '',
-            VCARD_N_GIVEN  => isset($hash['firstname']) ? $hash['firstname'] : '',
-            VCARD_N_ADDL   => isset($hash['middlenames']) ? $hash['middlenames'] : '',
-            VCARD_N_PREFIX => isset($hash['namePrefix']) ? $hash['namePrefix'] : '',
-            VCARD_N_SUFFIX => isset($hash['nameSuffix']) ? $hash['nameSuffix'] : '',
+            Horde_Icalendar_Vcard::N_FAMILY => isset($hash['lastname']) ? $hash['lastname'] : '',
+            Horde_Icalendar_Vcard::N_GIVEN  => isset($hash['firstname']) ? $hash['firstname'] : '',
+            Horde_Icalendar_Vcard::N_ADDL   => isset($hash['middlenames']) ? $hash['middlenames'] : '',
+            Horde_Icalendar_Vcard::N_PREFIX => isset($hash['namePrefix']) ? $hash['namePrefix'] : '',
+            Horde_Icalendar_Vcard::N_SUFFIX => isset($hash['nameSuffix']) ? $hash['nameSuffix'] : '',
         );
         $val = implode(';', $a);
         if ($version != '2.1') {
@@ -1706,19 +1706,19 @@ class Turba_Driver
                 $hash['commonStreet'] = $hash['commonAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['commonPOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['commonPOBox'])
                     ? $hash['commonPOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['commonExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['commonExtended'])
                     ? $hash['commonExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['commonStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['commonStreet'])
                     ? $hash['commonStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['commonCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['commonCity'])
                     ? $hash['commonCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['commonProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['commonProvince'])
                     ? $hash['commonProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['commonPostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['commonPostalCode'])
                     ? $hash['commonPostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['commonCountry'])
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['commonCountry'])
                     ? Turba_Driver::getCountry($hash['commonCountry']) : '',
             );
 
@@ -1761,19 +1761,19 @@ class Turba_Driver
                 $hash['homeStreet'] = $hash['homeAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['homePOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['homePOBox'])
                     ? $hash['homePOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['homeExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['homeExtended'])
                     ? $hash['homeExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['homeStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['homeStreet'])
                     ? $hash['homeStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['homeCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['homeCity'])
                     ? $hash['homeCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['homeProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['homeProvince'])
                     ? $hash['homeProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['homePostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['homePostalCode'])
                     ? $hash['homePostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['homeCountry'])
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['homeCountry'])
                     ? Turba_Driver::getCountry($hash['homeCountry']) : '',
             );
 
@@ -1816,19 +1816,19 @@ class Turba_Driver
                 $hash['workStreet'] = $hash['workAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['workPOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['workPOBox'])
                     ? $hash['workPOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['workExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['workExtended'])
                     ? $hash['workExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['workStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['workStreet'])
                     ? $hash['workStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['workCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['workCity'])
                     ? $hash['workCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['workProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['workProvince'])
                     ? $hash['workProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['workPostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['workPostalCode'])
                     ? $hash['workPostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['workCountry'])
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['workCountry'])
                     ? Turba_Driver::getCountry($hash['workCountry']) : '',
             );
 
@@ -1868,22 +1868,18 @@ class Turba_Driver
     }
 
     /**
-     * Function to convert a Horde_iCalendar_vcard object into a Turba
+     * Function to convert a Horde_Icalendar_Vcard object into a Turba
      * Object Hash with Turba attributes suitable as a parameter for add().
      *
      * @see add()
      *
-     * @param Horde_iCalendar_vcard $vcard  The Horde_iCalendar_vcard object
+     * @param Horde_Icalendar_Vcard $vcard  The Horde_Icalendar_Vcard object
      *                                      to parse.
      *
      * @return array  A Turba attribute hash.
      */
-    function toHash(&$vcard)
+    function toHash(Horde_Icalendar_Vcard $vcard)
     {
-        if (!is_a($vcard, 'Horde_iCalendar_vcard')) {
-            return PEAR::raiseError('Invalid parameter for Turba_Driver::toHash(), expected Horde_iCalendar_vcard object.');
-        }
-
         $hash = array();
         $attr = $vcard->getAllAttributes();
         foreach ($attr as $item) {
@@ -1894,20 +1890,20 @@ class Turba_Driver
 
             case 'N':
                 $name = $item['values'];
-                if (!empty($name[VCARD_N_FAMILY])) {
-                    $hash['lastname'] = $name[VCARD_N_FAMILY];
+                if (!empty($name[Horde_Icalendar_Vcard::N_FAMILY])) {
+                    $hash['lastname'] = $name[Horde_Icalendar_Vcard::N_FAMILY];
                 }
-                if (!empty($name[VCARD_N_GIVEN])) {
-                    $hash['firstname'] = $name[VCARD_N_GIVEN];
+                if (!empty($name[Horde_Icalendar_Vcard::N_GIVEN])) {
+                    $hash['firstname'] = $name[Horde_Icalendar_Vcard::N_GIVEN];
                 }
-                if (!empty($name[VCARD_N_ADDL])) {
-                    $hash['middlenames'] = $name[VCARD_N_ADDL];
+                if (!empty($name[Horde_Icalendar_Vcard::N_ADDL])) {
+                    $hash['middlenames'] = $name[Horde_Icalendar_Vcard::N_ADDL];
                 }
-                if (!empty($name[VCARD_N_PREFIX])) {
-                    $hash['namePrefix'] = $name[VCARD_N_PREFIX];
+                if (!empty($name[Horde_Icalendar_Vcard::N_PREFIX])) {
+                    $hash['namePrefix'] = $name[Horde_Icalendar_Vcard::N_PREFIX];
                 }
-                if (!empty($name[VCARD_N_SUFFIX])) {
-                    $hash['nameSuffix'] = $name[VCARD_N_SUFFIX];
+                if (!empty($name[Horde_Icalendar_Vcard::N_SUFFIX])) {
+                    $hash['nameSuffix'] = $name[Horde_Icalendar_Vcard::N_SUFFIX];
                 }
                 break;
 
@@ -1966,38 +1962,38 @@ class Turba_Driver
 
                     $hash[$prefix . 'Address'] = '';
 
-                    if (!empty($address[VCARD_ADR_STREET])) {
-                        $hash[$prefix . 'Street'] = $address[VCARD_ADR_STREET];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_STREET])) {
+                        $hash[$prefix . 'Street'] = $address[Horde_Icalendar_Vcard::ADR_STREET];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'Street'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_EXTEND])) {
-                        $hash[$prefix . 'Extended'] = $address[VCARD_ADR_EXTEND];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_EXTEND])) {
+                        $hash[$prefix . 'Extended'] = $address[Horde_Icalendar_Vcard::ADR_EXTEND];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'Extended'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_POB])) {
-                        $hash[$prefix . 'POBox'] = $address[VCARD_ADR_POB];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_POB])) {
+                        $hash[$prefix . 'POBox'] = $address[Horde_Icalendar_Vcard::ADR_POB];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'POBox'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_LOCALITY])) {
-                        $hash[$prefix . 'City'] = $address[VCARD_ADR_LOCALITY];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_LOCALITY])) {
+                        $hash[$prefix . 'City'] = $address[Horde_Icalendar_Vcard::ADR_LOCALITY];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'City'];
                     }
-                    if (!empty($address[VCARD_ADR_REGION])) {
-                        $hash[$prefix . 'Province'] = $address[VCARD_ADR_REGION];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_REGION])) {
+                        $hash[$prefix . 'Province'] = $address[Horde_Icalendar_Vcard::ADR_REGION];
                         $hash[$prefix . 'Address'] .= ', ' . $hash[$prefix . 'Province'];
                     }
-                    if (!empty($address[VCARD_ADR_POSTCODE])) {
-                        $hash[$prefix . 'PostalCode'] = $address[VCARD_ADR_POSTCODE];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_POSTCODE])) {
+                        $hash[$prefix . 'PostalCode'] = $address[Horde_Icalendar_Vcard::ADR_POSTCODE];
                         $hash[$prefix . 'Address'] .= ' ' . $hash[$prefix . 'PostalCode'];
                     }
-                    if (!empty($address[VCARD_ADR_COUNTRY])) {
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_COUNTRY])) {
                         include 'Horde/Nls/Countries.php';
-                        $country = array_search($address[VCARD_ADR_COUNTRY], $countries);
+                        $country = array_search($address[Horde_Icalendar_Vcard::ADR_COUNTRY], $countries);
                         if ($country === false) {
-                            $country = $address[VCARD_ADR_COUNTRY];
+                            $country = $address[Horde_Icalendar_Vcard::ADR_COUNTRY];
                         }
                         $hash[$prefix . 'Country'] = $country;
-                        $hash[$prefix . 'Address'] .= "\n" . $address[VCARD_ADR_COUNTRY];
+                        $hash[$prefix . 'Address'] .= "\n" . $address[Horde_Icalendar_Vcard::ADR_COUNTRY];
                     }
 
                     $hash[$prefix . 'Address'] = trim($hash[$prefix . 'Address']);
@@ -2137,12 +2133,12 @@ class Turba_Driver
                 if (isset($item['params']['HOME']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['homeEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
-                    $hash['workEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $email_set = true;
                 } elseif (isset($item['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
@@ -2151,25 +2147,25 @@ class Turba_Driver
                     if (in_array('HOME', $item['params']['TYPE']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['homeEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                        $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['workEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                        $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $email_set = true;
                     }
                 }
                 if (!$email_set &&
                     (!isset($hash['email']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['email'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
 
                 if (!isset($hash['emails'])) {
-                    $hash['emails'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 } else {
-                    $hash['emails'] .= ', ' . Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['emails'] .= ', ' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
                 break;
 
@@ -2380,7 +2376,7 @@ class Turba_Driver
                 break;
 
             case 'email':
-                $message->email1address = Horde_iCalendar_vcard::getBareEmail($value);
+                $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
             case 'title':
@@ -2496,7 +2492,7 @@ class Turba_Driver
 
         /* Email addresses */
         if (!$message->isGhosted('email1address')) {
-            $hash['email'] = Horde_iCalendar_vcard::getBareEmail($message->email1address);
+            $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
 
         /* Categories */

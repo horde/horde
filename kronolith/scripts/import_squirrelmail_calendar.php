@@ -83,7 +83,7 @@ $handle = $db->query('SELECT event_id, calendar_id, ical_raw, owner_name, prefva
 if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
-$ical = new Horde_iCalendar();
+$ical = new Horde_Icalendar();
 $tz = $calendar = $user = $count = null;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     // Open calendar.
@@ -107,9 +107,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         Horde_Auth::setAuth($user, array());
     }
     // Parse event.
-    $parsed = $ical->parsevCalendar($row['ical_raw']);
-    if ($parsed instanceof PEAR_Error) {
-        $cli->message('  ' . $parsed->getMessage(), 'cli.warning');
+    try {
+        $ical->parsevCalendar($row['ical_raw']);
+    } catch (Horde_Icalendar_Exception $e) {
+        $cli->message('  ' . $e->getMessage(), 'cli.warning');
         continue;
     }
     $components = $ical->getComponents();

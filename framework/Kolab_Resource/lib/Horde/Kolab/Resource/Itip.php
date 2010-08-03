@@ -32,16 +32,16 @@ class Horde_Kolab_Resource_Itip
 {
 
     /**
-     * Reference to the iCalendar iTip object.
+     * Reference to the Icalendar iTip object.
      *
-     * @var Horde_iCalendar_vevent
+     * @var Horde_Icalendar_Vevent
      */
     private $_itip;
 
     /**
      * Constructor.
      *
-     * @param Horde_iCalendar_vevent $itip Reference to the iCalendar iTip object.
+     * @param Horde_Icalendar_Vevent $itip  An iCalendar iTip object.
      */
     public function __construct($itip)
     {

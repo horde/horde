@@ -155,7 +155,7 @@ case 'export':
         exit;
 
     case Horde_Data::EXPORT_ICALENDAR:
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
 
         $calIds = array();
         foreach ($events as $cal => $calevents) {
@@ -269,17 +269,17 @@ if (is_array($next_step)) {
             $error = true;
             break;
         }
-        if ($row instanceof Horde_iCalendar_vevent) {
+        if ($row instanceof Horde_Icalendar_Vevent) {
             // RECURRENCE-ID entries must be imported after the original
             // recurring event is imported.
-            $recurrence = $row->getAttribute('RECURRENCE-ID');
-            if (!($recurrence instanceof PEAR_Error)) {
+            try {
+                $row->getAttribute('RECURRENCE-ID');
                 $recurrences[] = $row;
                 continue;
-            } else {
+            } catch (Horde_Icalendar_Exception $e) {
                 $event->fromiCalendar($row);
             }
-        } elseif ($row instanceof Horde_iCalendar) {
+        } elseif ($row instanceof Horde_Icalendar) {
             // Skip other iCalendar components for now.
             continue;
         } else {

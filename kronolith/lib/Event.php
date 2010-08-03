@@ -520,14 +520,14 @@ abstract class Kronolith_Event
     /**
      * Exports this event in iCalendar format.
      *
-     * @param Horde_iCalendar &$calendar  A Horde_iCalendar object that acts as
-     *                                    a container.
+     * @param Horde_Icalendar $calendar  A Horde_iCalendar object that acts as
+     *                                   a container.
      *
-     * @return array  An array of Horde_iCalendar_vevent objects for this event.
+     * @return array  An array of Horde_Icalendar_Vevent objects for this event.
      */
-    public function toiCalendar(&$calendar)
+    public function toiCalendar($calendar)
     {
-        $vEvent = &Horde_iCalendar::newComponent('vevent', $calendar);
+        $vEvent = Horde_Icalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
         $vEvents = array();
         if ($this->isAllDay()) {
@@ -726,7 +726,7 @@ abstract class Kronolith_Event
                 $alarm->min -= $this->alarm;
                 $vEvent->setAttribute('AALARM', $alarm);
             } else {
-                $vAlarm = &Horde_iCalendar::newComponent('valarm', $vEvent);
+                $vAlarm = Horde_Icalendar::newComponent('valarm', $vEvent);
                 $vAlarm->setAttribute('ACTION', 'DISPLAY');
                 $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                 $vEvent->addComponent($vAlarm);
@@ -800,84 +800,101 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Updates the properties of this event from a Horde_iCalendar_vevent
+     * Updates the properties of this event from a Horde_Icalendar_Vevent
      * object.
      *
-     * @param Horde_iCalendar_vevent $vEvent  The iCalendar data to update
+     * @param Horde_Icalendar_Vevent $vEvent  The iCalendar data to update
      *                                        from.
      */
     public function fromiCalendar($vEvent)
     {
         // Unique ID.
-        $uid = $vEvent->getAttribute('UID');
-        if (!empty($uid) && !($uid instanceof PEAR_Error)) {
-            $this->uid = $uid;
-        }
+        try {
+            $uid = $vEvent->getAttribute('UID');
+            if (!empty($uid)) {
+                $this->uid = $uid;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Sequence.
-        $seq = $vEvent->getAttribute('SEQUENCE');
-        if (is_int($seq)) {
-            $this->sequence = $seq;
-        }
+        try {
+            $seq = $vEvent->getAttribute('SEQUENCE');
+            if (is_int($seq)) {
+                $this->sequence = $seq;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Title, tags and description.
-        $title = $vEvent->getAttribute('SUMMARY');
-        if (!is_array($title) && !($title instanceof PEAR_Error)) {
-            $this->title = $title;
-        }
+        try {
+            $title = $vEvent->getAttribute('SUMMARY');
+            if (!is_array($title)) {
+                $this->title = $title;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Tags
-        $categories = $vEvent->getAttributeValues('CATEGORIES');
-        if (!($categories instanceof PEAR_Error)) {
-            $this->_tags = $categories;
-        }
+        try {
+            $this->_tags = $vEvent->getAttributeValues('CATEGORIES');
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Description
-        $desc = $vEvent->getAttribute('DESCRIPTION');
-        if (!is_array($desc) && !($desc instanceof PEAR_Error)) {
-            $this->description = $desc;
-        }
+        try {
+            $desc = $vEvent->getAttribute('DESCRIPTION');
+            if (!is_array($desc)) {
+                $this->description = $desc;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Remote Url
-        $url = $vEvent->getAttribute('URL');
-        if (!is_array($url) && !($url instanceof PEAR_Error)) {
-            $this->url = $url;
-        }
+        try {
+            $url = $vEvent->getAttribute('URL');
+            if (!is_array($url)) {
+                $this->url = $url;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Location
-        $location = $vEvent->getAttribute('LOCATION');
-        if (!is_array($location) && !($location instanceof PEAR_Error)) {
-            $this->location = $location;
-        }
-        $geolocation = $vEvent->getAttribute('GEO');
-        if (!($geolocation instanceof PEAR_Error)) {
+        try {
+            $location = $vEvent->getAttribute('LOCATION');
+            if (!is_array($location)) {
+                $this->location = $location;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $geolocation = $vEvent->getAttribute('GEO');
             $this->geolocation = array(
                 'lat' => $geolocation['latitude'],
-                'lon' => $geolocation['longitude']);
-        }
+                'lon' => $geolocation['longitude']
+            );
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Class
-        $class = $vEvent->getAttribute('CLASS');
-        if (!is_array($class) && !($class instanceof PEAR_Error)) {
-            $class = Horde_String::upper($class);
-            $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
-        }
+        try {
+            $class = $vEvent->getAttribute('CLASS');
+            if (!is_array($class)) {
+                $class = Horde_String::upper($class);
+                $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Status.
-        $status = $vEvent->getAttribute('STATUS');
-        if (!is_array($status) && !($status instanceof PEAR_Error)) {
-            $status = Horde_String::upper($status);
-            if ($status == 'DECLINED') {
-                $status = 'CANCELLED';
+        try {
+            $status = $vEvent->getAttribute('STATUS');
+            if (!is_array($status)) {
+                $status = Horde_String::upper($status);
+                if ($status == 'DECLINED') {
+                    $status = 'CANCELLED';
+                }
+                if (defined('Kronolith::STATUS_' . $status)) {
+                    $this->status = constant('Kronolith::STATUS_' . $status);
+                }
             }
-            if (defined('Kronolith::STATUS_' . $status)) {
-                $this->status = constant('Kronolith::STATUS_' . $status);
-            }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // Start and end date.
-        $start = $vEvent->getAttribute('DTSTART');
-        if (!($start instanceof PEAR_Error)) {
+        try {
+            $start = $vEvent->getAttribute('DTSTART');
             if (!is_array($start)) {
                 // Date-Time field
                 $this->start = new Horde_Date($start);
@@ -888,9 +905,10 @@ abstract class Kronolith_Event
                           'month' => (int)$start['month'],
                           'mday'  => (int)$start['mday']));
             }
-        }
-        $end = $vEvent->getAttribute('DTEND');
-        if (!($end instanceof PEAR_Error)) {
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $end = $vEvent->getAttribute('DTEND');
             if (!is_array($end)) {
                 // Date-Time field
                 $this->end = new Horde_Date($end);
@@ -905,19 +923,28 @@ abstract class Kronolith_Event
                               'month' => (int)$this->end->month,
                               'mday'  => (int)$this->end->mday + 1));
                 }
-            } elseif (is_array($end) && !($end instanceof PEAR_Error)) {
+            } else {
                 // Date field
                 $this->end = new Horde_Date(
                     array('year'  => (int)$end['year'],
                           'month' => (int)$end['month'],
                           'mday'  => (int)$end['mday']));
             }
-        } else {
-            $duration = $vEvent->getAttribute('DURATION');
-            if (!is_array($duration) && !($duration instanceof PEAR_Error)) {
-                $this->end = new Horde_Date($this->start);
-                $this->end->sec += $duration;
-            } else {
+        } catch (Horde_Icalendar_Exception $e) {
+            $end = null;
+        }
+
+        if (is_null($end)) {
+            try {
+                $duration = $vEvent->getAttribute('DURATION');
+                if (!is_array($duration)) {
+                    $this->end = new Horde_Date($this->start);
+                    $this->end->sec += $duration;
+                    $end = 1;
+                }
+            } catch (Horde_Icalendar_Exception $e) {}
+
+            if (is_null($end)) {
                 // End date equal to start date as per RFC 2445.
                 $this->end = new Horde_Date($this->start);
                 if (is_array($start)) {
@@ -928,12 +955,12 @@ abstract class Kronolith_Event
         }
 
         // vCalendar 1.0 alarms
-        $alarm = $vEvent->getAttribute('AALARM');
-        if (!is_array($alarm) &&
-            !($alarm instanceof PEAR_Error) &&
-            intval($alarm)) {
-            $this->alarm = intval(($this->start->timestamp() - $alarm) / 60);
-        }
+        try {
+            $alarm = $vEvent->getAttribute('AALARM');
+            if (!is_array($alarm) && intval($alarm)) {
+                $this->alarm = intval(($this->start->timestamp() - $alarm) / 60);
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // @TODO: vCalendar 2.0 alarms
 
@@ -944,9 +971,8 @@ abstract class Kronolith_Event
         // default. However to allow updates by SyncML replication, the custom
         // X-ATTENDEE attribute is used which has the same syntax as
         // ATTENDEE.
-        $attendee = $vEvent->getAttribute('X-ATTENDEE');
-        if (!($attendee instanceof PEAR_Error)) {
-
+        try {
+            $attendee = $vEvent->getAttribute('X-ATTENDEE');
             if (!is_array($attendee)) {
                 $attendee = array($attendee);
             }
@@ -1009,7 +1035,7 @@ abstract class Kronolith_Event
 
                 $this->addAttendee($email, $attendance, $response, $name);
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         $this->_handlevEventRecurrence($vEvent);
 
@@ -1019,52 +1045,54 @@ abstract class Kronolith_Event
     /**
      * Handle parsing recurrence related fields.
      *
-     * @param Horde_iCalendar $vEvent
+     * @param Horde_Icalendar $vEvent
      */
     protected function _handlevEventRecurrence($vEvent)
     {
         // Recurrence.
-        $rrule = $vEvent->getAttribute('RRULE');
-        if (!is_array($rrule) && !($rrule instanceof PEAR_Error)) {
-            $this->recurrence = new Horde_Date_Recurrence($this->start);
-            if (strpos($rrule, '=') !== false) {
-                $this->recurrence->fromRRule20($rrule);
-            } else {
-                $this->recurrence->fromRRule10($rrule);
-            }
+        try {
+            $rrule = $vEvent->getAttribute('RRULE');
+            if (!is_array($rrule)) {
+                $this->recurrence = new Horde_Date_Recurrence($this->start);
+                if (strpos($rrule, '=') !== false) {
+                    $this->recurrence->fromRRule20($rrule);
+                } else {
+                    $this->recurrence->fromRRule10($rrule);
+                }
 
-            /* Delete all existing exceptions to this event if it already exists */
-            if (!empty($this->uid)) {
-                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-                $search = new StdClass();
-                $search->start = $this->recurrence->getRecurStart();
-                $search->end = $this->recurrence->getRecurEnd();
-                $search->baseid = $this->uid;
-                $results = $kronolith_driver->search($search);
-                foreach ($results as $days) {
-                    foreach ($days as $exception) {
-                        $kronolith_driver->deleteEvent($exception->id);
+                /* Delete all existing exceptions to this event if it already exists */
+                if (!empty($this->uid)) {
+                    $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+                    $search = new StdClass();
+                    $search->start = $this->recurrence->getRecurStart();
+                    $search->end = $this->recurrence->getRecurEnd();
+                    $search->baseid = $this->uid;
+                    $results = $kronolith_driver->search($search);
+                    foreach ($results as $days) {
+                        foreach ($days as $exception) {
+                            $kronolith_driver->deleteEvent($exception->id);
+                        }
+                    }
+                }
+
+                // Exceptions. EXDATE represents deleted events, just add the
+                // exception, no new event is needed.
+                $exdates = $vEvent->getAttributeValues('EXDATE');
+                if (is_array($exdates)) {
+                    foreach ($exdates as $exdate) {
+                        if (is_array($exdate)) {
+                            $this->recurrence->addException((int)$exdate['year'],
+                                (int)$exdate['month'],
+                                (int)$exdate['mday']);
+                        }
                     }
                 }
             }
-
-            // Exceptions. EXDATE represents deleted events, just add the
-            // exception, no new event is needed.
-            $exdates = $vEvent->getAttributeValues('EXDATE');
-            if (is_array($exdates)) {
-                foreach ($exdates as $exdate) {
-                    if (is_array($exdate)) {
-                        $this->recurrence->addException((int)$exdate['year'],
-                                                        (int)$exdate['month'],
-                                                        (int)$exdate['mday']);
-                    }
-                }
-            }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         // RECURRENCE-ID indicates that this event represents an exception
-        $recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
-        if (!($recurrenceid instanceof PEAR_Error)) {
+        try {
+            $recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $originaldt = new Horde_Date($recurrenceid);
             $this->exceptionoriginaldate = $originaldt;
@@ -1072,10 +1100,10 @@ abstract class Kronolith_Event
             $this->uid = null;
             $originalEvent = $kronolith_driver->getByUID($this->baseid);
             $originalEvent->recurrence->addException($originaldt->format('Y'),
-                                                     $originaldt->format('m'),
-                                                     $originaldt->format('d'));
+                $originaldt->format('m'),
+                $originaldt->format('d'));
             $originalEvent->save();
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
     }
 
     /**

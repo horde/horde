@@ -270,8 +270,8 @@ class SyncML_Device {
     function convertUTC2LocalTime($utc)
     {
         $dateParts = explode('T', $utc[0]);
-        $date = Horde_iCalendar::_parseDate($dateParts[0]);
-        $time = Horde_iCalendar::_parseTime($dateParts[1]);
+        $date = Horde_Icalendar::_parseDate($dateParts[0]);
+        $time = Horde_Icalendar::_parseTime($dateParts[1]);
 
         // We don't know the timezone so assume local timezone.
         $ts = @gmmktime($time['hour'], $time['minute'], $time['second'],

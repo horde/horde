@@ -50,7 +50,7 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
      *
      * @param string $resource Fetch the Free/Busy data for this resource.
      *
-     * @return Horde_iCalendar_vfreebusy The Free/Busy data.
+     * @return Horde_Icalendar_Vfreebusy The Free/Busy data.
      */
     public function get($resource)
     {
@@ -100,7 +100,7 @@ class Horde_Kolab_Resource_Freebusy_Kolab extends Horde_Kolab_Resource_Freebusy
             $charset = 'UTF-8';
         }
 
-        $iCal = new Horde_iCalendar;
+        $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar($vfb_text, 'VCALENDAR', $charset);
 
         $vfb = &$iCal->findComponent('VFREEBUSY');

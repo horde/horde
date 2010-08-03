@@ -21,7 +21,7 @@ class Kronolith_Event_Ical extends Kronolith_Event
     /**
      * Imports a backend specific event object.
      *
-     * @param Horde_iCalendar_vEvent  Backend specific event object that this
+     * @param Horde_Icalendar_Vevent  Backend specific event object that this
      *                                object will represent.
      */
     public function fromDriver($vEvent)
@@ -88,33 +88,35 @@ class Kronolith_Event_Ical extends Kronolith_Event
      * Parses the various exception related fields. Only deal with the EXDATE
      * field here.
      *
-     * @param Horde_iCalendar $vEvent  The vEvent part.
+     * @param Horde_Icalendar $vEvent  The vEvent part.
      */
     protected function _handlevEventRecurrence($vEvent)
     {
         // Recurrence.
-        $rrule = $vEvent->getAttribute('RRULE');
-        if (!is_array($rrule) && !($rrule instanceof PEAR_Error)) {
-            $this->recurrence = new Horde_Date_Recurrence($this->start);
-            if (strpos($rrule, '=') !== false) {
-                $this->recurrence->fromRRule20($rrule);
-            } else {
-                $this->recurrence->fromRRule10($rrule);
-            }
+        try {
+            $rrule = $vEvent->getAttribute('RRULE');
+            if (!is_array($rrule)) {
+                $this->recurrence = new Horde_Date_Recurrence($this->start);
+                if (strpos($rrule, '=') !== false) {
+                    $this->recurrence->fromRRule20($rrule);
+                } else {
+                    $this->recurrence->fromRRule10($rrule);
+                }
 
-            // Exceptions. EXDATE represents deleted events, just add the
-            // exception, no new event is needed.
-            $exdates = $vEvent->getAttributeValues('EXDATE');
-            if (is_array($exdates)) {
-                foreach ($exdates as $exdate) {
-                    if (is_array($exdate)) {
-                        $this->recurrence->addException((int)$exdate['year'],
-                                                        (int)$exdate['month'],
-                                                        (int)$exdate['mday']);
+                // Exceptions. EXDATE represents deleted events, just add the
+                // exception, no new event is needed.
+                $exdates = $vEvent->getAttributeValues('EXDATE');
+                if (is_array($exdates)) {
+                    foreach ($exdates as $exdate) {
+                        if (is_array($exdate)) {
+                            $this->recurrence->addException((int)$exdate['year'],
+                                                            (int)$exdate['month'],
+                                                            (int)$exdate['mday']);
+                        }
                     }
                 }
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
     }
 
 }

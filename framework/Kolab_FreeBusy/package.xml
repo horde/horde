@@ -139,7 +139,7 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_iCalendar</name>
+    <name>Icalendar</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

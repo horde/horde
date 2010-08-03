@@ -199,7 +199,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @param boolean $cache  Whether to return data from the session cache.
      *
-     * @return Horde_iCalendar  The calendar data, or an error on failure.
+     * @return Horde_Icalendar  The calendar data, or an error on failure.
      * @throws Kronolith_Exception
      */
     public function getRemoteCalendar($cache = true)
@@ -252,7 +252,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                   $GLOBALS['registry']->getAuth(), $url), 'DEBUG');
 
         $data = $response->getBody();
-        $ical = new Horde_iCalendar();
+        $ical = new Horde_Icalendar();
         $result = $ical->parsevCalendar($data);
         if ($cache) {
             $cacheOb->set($signature, serialize($ical));

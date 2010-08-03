@@ -11,9 +11,9 @@ require 'Date/Calc.php';
 require 'Horde/Date.php';
 require 'Horde/Date/Recurrence.php';
 require 'Horde/String.php';
-require 'Horde/iCalendar.php';
+require 'Horde/Icalendar.php';
 
-$iCal = new Horde_iCalendar();
+$iCal = new Horde_Icalendar();
 $iCal->parsevCalendar(file_get_contents(dirname(__FILE__) . '/bug7068.ics'));
 $components = $iCal->getComponents();
 
@@ -24,7 +24,7 @@ require KRONOLITH_BASE . '/lib/Event.php';
 require KRONOLITH_BASE . '/lib/Event/Sql.php';
 $event = new Kronolith_Event_Sql(new Driver);
 foreach ($components as $content) {
-    if ($content instanceof Horde_iCalendar_vevent) {
+    if ($content instanceof Horde_Icalendar_vevent) {
         $event->fromiCalendar($content);
         var_export($event->recurrence->exceptions);
         echo "\n";

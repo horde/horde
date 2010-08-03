@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Icalendar</name>
+ <channel>pear.horde.org</channel>
+ <summary>iCalendar API</summary>
+ <description>This package provides an API for dealing with iCalendar data.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-08-02</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Icalendar">
+      <file name="exchange.ics" role="doc" />
+      <file name="exdate.ics" role="doc" />
+      <file name="ical.ics" role="doc" />
+      <file name="parser.php" role="doc" />
+      <file name="test_recurring.vcs" role="doc" />
+      <file name="vnote.txt" role="doc" />
+     </dir> <!-- /examples/Horde/Icalendar -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="ICalendar">
+      <file name="Daylight.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Standard.php" role="php" />
+      <file name="Valarm.php" role="php" />
+      <file name="Vcard.php" role="php" />
+      <file name="Vevent.php" role="php" />
+      <file name="Vfreebusy.php" role="php" />
+      <file name="Vjournal.php" role="php" />
+      <file name="Vnote.php" role="php" />
+      <file name="Vtimezone.php" role="php" />
+      <file name="Vtodo.php" role="php" />
+     </dir> <!-- /lib/Horde/Icalendar -->
+     <file name="Icalendar.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Icalendar">
+      <dir name="fixtures">
+       <dir name="vTimezone">
+        <file name="AuthorChats.ics" role="test" />
+        <file name="MMMPseminar.ics" role="test" />
+        <file name="Moon_Days.ics" role="test" />
+        <file name="ProjectCalendar.ics" role="test" />
+        <file name="SpanishHolidays.ics" role="test" />
+        <file name="allcategories.ics" role="test" />
+        <file name="arsenal32FC.ics" role="test" />
+        <file name="events.ics" role="test" />
+        <file name="exchange.ics" role="test" />
+        <file name="exdate.ics" role="test" />
+        <file name="iscw.ics" role="test" />
+        <file name="meeting.ics" role="test" />
+        <file name="privacy_events.ics" role="test" />
+        <file name="rfc2445.ics" role="test" />
+        <file name="test.vcs" role="test" />
+        <file name="test4.vcs" role="test" />
+        <file name="test_recurring.vcs" role="test" />
+        <file name="wicca.ics" role="test" />
+       </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
+      </dir> <!-- /test/Horde/Icalendar/fixtures -->
+      <file name="bug_7423.phpt" role="test" />
+      <file name="charset1.phpt" role="test" />
+      <file name="empty_data.phpt" role="test" />
+      <file name="geo.phpt" role="test" />
+      <file name="iCalendar.phpt" role="test" />
+      <file name="line-folding.phpt" role="test" />
+      <file name="quoted-params.phpt" role="test" />
+      <file name="read-escapes.phpt" role="test" />
+      <file name="read-vcard-org.phpt" role="test" />
+      <file name="read-write-escapes.phpt" role="test" />
+      <file name="timezones.phpt" role="test" />
+      <file name="vcal20.phpt" role="test" />
+      <file name="vfreebusy.phpt" role="test" />
+      <file name="write-escapes.phpt" role="test" />
+     </dir> <!-- /test/Horde/Icalendar -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <install name="lib/Horde/Icalendar/Daylight.php" as="Horde/Icalendar/Daylight.php" />
+  <install name="lib/Horde/Icalendar/Exception.php" as="Horde/Icalendar/Exception.php" />
+  <install name="lib/Horde/Icalendar/Standard.php" as="Horde/Icalendar/Standard.php" />
+  <install name="lib/Horde/Icalendar/Valarm.php" as="Horde/Icalendar/Valarm.php" />
+  <install name="lib/Horde/Icalendar/Vcard.php" as="Horde/Icalendar/Vcard.php" />
+  <install name="lib/Horde/Icalendar/Vevent.php" as="Horde/Icalendar/Vevent.php" />
+  <install name="lib/Horde/Icalendar/Vfreebusy.php" as="Horde/Icalendar/Vfreebusy.php" />
+  <install name="lib/Horde/Icalendar/Vjournal.php" as="Horde/Icalendar/Vjournal.php" />
+  <install name="lib/Horde/Icalendar/Vnote.php" as="Horde/Icalendar/Vnote.php" />
+  <install name="lib/Horde/Icalendar/Vtimezone.php" as="Horde/Icalendar/Vtimezone.php" />
+  <install name="lib/Horde/Icalendar/Vtodo.php" as="Horde/Icalendar/Vtodo.php" />
+  <install name="lib/Horde/Icalendar.php" as="Horde/Icalendar.php" />
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2008-09-25</date>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Fix vFreebusy merging (Bug #4807).
+   * Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
+   * Correctly produce vcard parameters without value, like "ADR;WORK:...".
+   * Support departments in vCard's ORG properties (martin@matuska.org, Bug #4285).
+   * Fixed _parseDateTime() (wrobel@pardus.de, Bug #4808).
+   * Fix exporting of recurring exceptions (Bug #4627).
+   * Use lowercase mailto: for better Apple iCal compatibility.
+   * We must *not* escape colons per RFC in param values.
+   * Fix encoding issues with iCalendar 2.0 exports.
+   * Move version specific vCalendar/iCalendar export to Kronolith_Event.
+   * Use QUOTED-PRINTABLE when there's a newline in VNOTE data.
+   * Anniversary support (ntai@smartfruit.com, Request #5059).
+   * Support for all day events with VCALENDAR 1.0.
+   * Use ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.
+   * Fix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).
+   * Handle AALARM data with parameters (delimited by a ";").
+   * Fix GEO parsing and generation.
+   * Refactor line folding and quoted-printable encoding.
+   * Add missing softline break (Bug #6541).
+   * Don't require a newline after END (Bug #6641, #6706).
+   * Fix detecting of "old" formats when parsing vCalendar/vCard data.
+   * Request charset on the fly, because it depends on the VERSION property.
+   * Fix passing value arrays with only one element.
+   * Correctly parse quoted parameters (Bug #7031)
+   * Set the correct version if none provided through the vcard data.
+   * BODY is not required, but N is, and FN for vcard3.0.
+   * Return the passed address unmodified if Mail_RFC822::validateMailbox() fails.
+   * Fixed importing of several events at once.
+   * Removed required calendar component properties in vevent.php.
+   * Fix generation of UIDs with PHP 5.2+.
+   * Fix generation of free periods with overlapping events (cedric.parent@multitel.be).
+   * Add support for extended vfreebusy parameters (wrobel@gentoo.org, Request #4690).
+   * Ensure vnotes and vcards are created with a valid default version number.
+   </notes>
+  </release>
+  <release>
+   <date>2006-05-08</date>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Converted to package.xml 2.0 for pear.horde.org.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-12-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

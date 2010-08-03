@@ -69,7 +69,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $import_msg = null;
         $title = _("vCard");
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         if (!$iCal->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
             $notification->push(_("There was an error reading the contact data."), 'horde.error');
         }
@@ -80,7 +80,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             $source = Horde_Util::getFormData('source');
             $count = 0;
             foreach ($iCal->getComponents() as $c) {
-                if ($c instanceof Horde_iCalendar_vcard) {
+                if ($c->getType() == 'vcard') {
                     try {
                         $contacts = $registry->call('contacts/import', array($c, null, $source));
                         ++$count;
@@ -207,23 +207,23 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 } else {
                     $item['params']['TYPE'] = array_keys($item['params']);
                 }
+
                 $address = $item['values'];
                 $a = array();
-                if (isset($address[VCARD_ADR_STREET])) {
-                    $a[] = $address[VCARD_ADR_STREET];
+                $a_list = array(
+                    Horde_Icalendar_Vcard::ADR_STREET,
+                    Horde_Icalendar_Vcard::ADR_LOCALITY,
+                    Horde_Icalendar_Vcard::ADR_REGION,
+                    Horde_Icalendar_Vcard::ADR_POSTCODE,
+                    Horde_Icalendar_Vcard::ADR_COUNTRY
+                );
+
+                foreach ($a_list as $val) {
+                    if (isset($address[$val])) {
+                        $a[] = $address[$val];
+                    }
                 }
-                if (isset($address[VCARD_ADR_LOCALITY])) {
-                    $a[] = $address[VCARD_ADR_LOCALITY];
-                }
-                if (isset($address[VCARD_ADR_REGION])) {
-                    $a[] = $address[VCARD_ADR_REGION];
-                }
-                if (isset($address[VCARD_ADR_POSTCODE])) {
-                    $a[] = $address[VCARD_ADR_POSTCODE];
-                }
-                if (isset($address[VCARD_ADR_COUNTRY])) {
-                    $a[] = $address[VCARD_ADR_COUNTRY];
-                }
+
                 $types = array();
                 foreach ($item['params']['TYPE'] as $type) {
                     switch(Horde_String::upper($type)) {

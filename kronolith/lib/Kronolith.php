@@ -2256,7 +2256,7 @@ class Kronolith
             }
 
             /* Build the iCalendar data */
-            $iCal = new Horde_iCalendar();
+            $iCal = new Horde_Icalendar();
             $iCal->setAttribute('METHOD', $method);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $registry->getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);

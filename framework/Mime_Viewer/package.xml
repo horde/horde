@@ -132,7 +132,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>iCalendar</name>
+    <name>Icalendar</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

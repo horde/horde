@@ -13,8 +13,8 @@ require_once 'Horde/Kolab/Test/Filter.php';
 require_once 'Horde.php';
 require_once 'Horde/Kolab/Resource.php';
 require_once 'Horde/Kolab/Filter/Incoming.php';
-require_once 'Horde/iCalendar.php';
-require_once 'Horde/iCalendar/vfreebusy.php';
+require_once 'Horde/Icalendar.php';
+require_once 'Horde/Icalendar/Vfreebusy.php';
 
 /**
  * Test resource handling
@@ -103,9 +103,9 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
     {
         $this->markTestIncomplete('Fails for unknown reason.');
 
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20080926T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20081126T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20080926T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20081126T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -134,10 +134,10 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
     {
         $this->markTestIncomplete('Fails for unknown reason.');
 
-        require_once 'Horde/iCalendar/vfreebusy.php';
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20080926T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20081126T000000Z'));
+        require_once 'Horde/Icalendar/Vfreebusy.php';
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20080926T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20081126T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -168,10 +168,10 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
      */
     public function testWholeDayInvitation()
     {
-        require_once 'Horde/iCalendar/vfreebusy.php';
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20090401T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20090601T000000Z'));
+        require_once 'Horde/Icalendar/Vfreebusy.php';
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20090401T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20090601T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -202,10 +202,10 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
      */
     public function testInvitationWithPlusAddressing()
     {
-        require_once 'Horde/iCalendar/vfreebusy.php';
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20090401T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20090601T000000Z'));
+        require_once 'Horde/Icalendar/Vfreebusy.php';
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20090401T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20090601T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -236,9 +236,9 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
      */
     public function testRecurrenceNodefault()
     {
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20080926T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20081126T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20080926T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20081126T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -258,9 +258,9 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
     {
         $this->markTestIncomplete('Fails for unknown reason.');
 
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20090901T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20091101T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20090901T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20091101T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -287,9 +287,9 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
      */
     public function testAllDay()
     {
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20090901T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20091101T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20090901T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20091101T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);
@@ -320,10 +320,10 @@ class Horde_Kolab_Filter_ResourceTest extends Horde_Kolab_Test_Filter
     {
         $this->markTestIncomplete('Sends mail');
 
-        require_once 'Horde/iCalendar/vfreebusy.php';
-        $GLOBALS['KOLAB_FILTER_TESTING'] = &new Horde_iCalendar_vfreebusy();
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_iCalendar::_parseDateTime('20080926T000000Z'));
-        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_iCalendar::_parseDateTime('20081126T000000Z'));
+        require_once 'Horde/Icalendar/Vfreebusy.php';
+        $GLOBALS['KOLAB_FILTER_TESTING'] = new Horde_Icalendar_Vfreebusy();
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTSTART', Horde_Icalendar::_parseDateTime('20080926T000000Z'));
+        $GLOBALS['KOLAB_FILTER_TESTING']->setAttribute('DTEND', Horde_Icalendar::_parseDateTime('20081126T000000Z'));
 
         $params = array('unmodified_content' => true,
                         'incoming' => true);

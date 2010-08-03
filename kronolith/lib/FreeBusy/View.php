@@ -53,10 +53,10 @@ class Kronolith_FreeBusy_View {
 
         $this->_render($day);
 
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
 
         /* Required members */
-        $required = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $required = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         foreach ($this->_requiredMembers as $member) {
             $required->merge($member, false);
         }
@@ -66,7 +66,7 @@ class Kronolith_FreeBusy_View {
         $required->simplify();
 
         /* Optional members */
-        $optional = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $optional = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         foreach ($this->_optionalMembers as $member) {
             $optional->merge($member, false);
         }
@@ -76,7 +76,7 @@ class Kronolith_FreeBusy_View {
         $optional->simplify();
 
         /* Optimal time calculation */
-        $optimal = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $optimal = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $optimal->merge($required, false);
         $optimal->merge($optional);
 
@@ -300,7 +300,7 @@ class Kronolith_FreeBusy_View {
 
         $blocks = '';
         foreach ($this->_timeBlocks as $span) {
-            /* Horde_iCalendar_vfreebusy only supports timestamps at the
+            /* Horde_Icalendar_Vfreebusy only supports timestamps at the
              * moment. */
             $start = $span[0]->timestamp();
             $end = $span[1]->timestamp();

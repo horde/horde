@@ -62,7 +62,7 @@ class Horde_Kolab_FreeBusy_View_vfb extends Horde_Kolab_FreeBusy_View {
     /**
      * The free/busy data that should be displayed.
      *
-     * @var Horde_iCalendar
+     * @var Horde_Icalendar
      */
     var $_vfb;
 
@@ -76,7 +76,7 @@ class Horde_Kolab_FreeBusy_View_vfb extends Horde_Kolab_FreeBusy_View {
     /**
      * Constructor.
      *
-     * @param Horde_iCalendar $vfb The free/busy data to display.
+     * @param Horde_Icalendar $vfb The free/busy data to display.
      */
     function Horde_Kolab_FreeBusy_View_vfb(&$data)
     {

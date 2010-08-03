@@ -46,7 +46,7 @@ class Horde_Kolab_Resource_Freebusy_Mock extends Horde_Kolab_Resource_Freebusy
      * @param string $resource Fetch the Free/Busy data for this resource
      *                         (usually a mail address).
      *
-     * @return Horde_iCalendar_vfreebusy The Free/Busy data.
+     * @return Horde_Icalendar_Vfreebusy The Free/Busy data.
      */
     public function get($resource)
     {

@@ -302,8 +302,8 @@ class Kronolith_Api extends Horde_Registry_Api
         switch ($content_type) {
         case 'text/calendar':
         case 'text/x-vcalendar':
-            $iCal = new Horde_iCalendar();
-            if (!($content instanceof Horde_iCalendar_vevent)) {
+            $iCal = new Horde_Icalendar();
+            if (!($content instanceof Horde_Icalendar_Vevent)) {
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
@@ -313,7 +313,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
             $kronolith_driver = Kronolith::getDriver();
             foreach ($iCal->getComponents() as $content) {
-                if ($content instanceof Horde_iCalendar_vevent) {
+                if ($content instanceof Horde_Icalendar_Vevent) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
                     $uid = $event->uid;
@@ -627,8 +627,8 @@ class Kronolith_Api extends Horde_Registry_Api
         switch ($contentType) {
         case 'text/calendar':
         case 'text/x-vcalendar':
-            $iCal = new Horde_iCalendar();
-            if (!($content instanceof Horde_iCalendar_vevent)) {
+            $iCal = new Horde_Icalendar();
+            if (!($content instanceof Horde_Icalendar_Vevent)) {
                 if (!$iCal->parsevCalendar($content)) {
                     throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                 }
@@ -644,7 +644,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $ids = array();
             $recurrences = array();
             foreach ($components as $content) {
-                if ($content instanceof Horde_iCalendar_vevent) {
+                if ($content instanceof Horde_Icalendar_Vevent) {
                     // Need to ensure that the original recurring event is
                     // added before any of the instance exceptions. Easiest way
                     // to do that is just add all the recurrence-id entries last
@@ -683,7 +683,7 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Imports a single vEvent part to storage.
      *
-     * @param Horde_iCalendar_vEvent $content  The vEvent part
+     * @param Horde_Icalendar_Vevent $content  The vEvent part
      * @param Kronolith_Driver $driver         The kronolith driver
      *
      * @return string  The new event's uid
@@ -774,7 +774,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/calendar':
             $share = $kronolith_shares->getShare($event->calendar);
 
-            $iCal = new Horde_iCalendar($version);
+            $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'utf-8'));
 
             // Create a new vEvent.
@@ -824,7 +824,7 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/calendar':
             $share = $kronolith_shares->getShare($calendar);
 
-            $iCal = new Horde_iCalendar($version);
+            $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), $GLOBALS['registry']->getCharset(), 'UTF-8'));
             if (strlen($share->get('desc'))) {
                 $iCal->setAttribute('X-WR-CALDESC', Horde_String::convertCharset($share->get('desc'), $GLOBALS['registry']->getCharset(), 'UTF-8'));
@@ -917,11 +917,11 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param string $uid          Idenfity the event to replace.
      * @param mixed  $content      The content of the event. String or
-     *                             Horde_iCalendar_vevent
+     *                             Horde_Icalendar_Vevent
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/calendar
      *                             text/x-vcalendar
-     *                             (Ignored if content is Horde_iCalendar_vevent)
+     *                             (Ignored if content is Horde_Icalendar_Vevent)
      *
      * @throws Kronolith_Exception
      */
@@ -934,7 +934,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        if ($content instanceof Horde_iCalendar_vevent) {
+        if ($content instanceof Horde_Icalendar_Vevent) {
             $component = $content;
         } elseif ($content instanceof Horde_ActiveSync_Message_Appointment) {
             $event->fromASAppointment($content);
@@ -945,8 +945,8 @@ class Kronolith_Api extends Horde_Registry_Api
             switch ($contentType) {
             case 'text/calendar':
             case 'text/x-vcalendar':
-                if (!($content instanceof Horde_iCalendar_vevent)) {
-                    $iCal = new Horde_iCalendar();
+                if (!($content instanceof Horde_Icalendar_Vevent)) {
+                    $iCal = new Horde_Icalendar();
                     if (!$iCal->parsevCalendar($content)) {
                         throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
                     }
@@ -954,7 +954,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $components = $iCal->getComponents();
                     $component = null;
                     foreach ($components as $content) {
-                        if ($content instanceof Horde_iCalendar_vevent) {
+                        if ($content instanceof Horde_Icalendar_Vevent) {
                             if ($component !== null) {
                                 throw new Kronolith_Exception(_("Multiple iCalendar components found; only one vEvent is supported."));
                             }
@@ -988,7 +988,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar     The calendar to view free/busy slots for.
      *                             Defaults to the user's default calendar.
      *
-     * @return Horde_iCalendar_vfreebusy  A freebusy object that covers the
+     * @return Horde_Icalendar_Vfreebusy  A freebusy object that covers the
      *                                    specified time period.
      * @throws Kronolith_Exception
      */
@@ -1024,7 +1024,7 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Updates an attendee's response status for a specified event.
      *
-     * @param Horde_iCalender_vevent $response  A Horde_iCalender_vevent
+     * @param Horde_Icalender_Vevent $response  A Horde_Icalender_Vevent
      *                                          object, with a valid UID
      *                                          attribute that points to an
      *                                          existing event.  This is
@@ -1043,9 +1043,10 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function updateAttendee($response, $sender = null)
     {
-        $uid = $response->getAttribute('UID');
-        if ($uid instanceof PEAR_Error) {
-            throw new Kronolith_Exception($uid);
+        try {
+            $uid = $response->getAttribute('UID');
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         $events = Kronolith::getDriver()->getByUID($uid, null, true);

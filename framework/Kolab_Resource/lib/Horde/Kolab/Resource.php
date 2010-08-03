@@ -13,7 +13,7 @@
  */
 
 /** Load the iCal handling */
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 
 /** Load MIME handlers */
 require_once 'Horde/MIME.php';
@@ -163,7 +163,7 @@ class Kolab_Resource
             if ($conttype == 'text/calendar') {
                 $part = $mime->getPart($mimeid);
 
-                $iCalendar = new Horde_iCalendar();
+                $iCalendar = new Horde_Icalendar();
                 $iCalendar->parsevCalendar($part->transferDecode());
 
                 return $iCalendar;
@@ -613,7 +613,7 @@ class Kolab_Resource
      * @param string  $cn                     Common name to be used in the iTip
      *                                        response.
      * @param string  $resource               Resource we send the reply for.
-     * @param string  $Horde_iCalendar_vevent The iTip information.
+     * @param string  $Horde_Icalendar_Vevent The iTip information.
      * @param int     $type                   Type of response.
      * @param string  $organiser              The event organiser.
      * @param string  $uid                    The UID of the event.
@@ -626,13 +626,13 @@ class Kolab_Resource
                                   $cn, $resource, get_class($itip), $type), 'DEBUG');
 
         // Build the reply.
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
         $vCal->setAttribute('METHOD', 'REPLY');
 
         $summary = _('No summary available');
 
-        $itip_reply =& Horde_iCalendar::newComponent('VEVENT', $vCal);
+        $itip_reply = Horde_Icalendar::newComponent('VEVENT', $vCal);
         $itip_reply->setAttribute('UID', $uid);
         if (!is_a($itip->getAttribute('SUMMARY'), 'PEAR_error')) {
             $itip_reply->setAttribute('SUMMARY', $itip->getAttribute('SUMMARY'));

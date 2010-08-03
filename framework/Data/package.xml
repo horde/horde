@@ -89,15 +89,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Icalendar</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Util</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>iCalendar</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>

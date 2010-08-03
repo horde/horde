@@ -304,14 +304,14 @@ class Horde_Kolab_FreeBusy_Imap {
      * @param string  $user           Set organizer to this user.
      * @param string  $cn             Set the common name of this user.
      *
-     * @return Horde_iCalendar  The iCal object or a PEAR error.
+     * @return Horde_Icalendar  The iCal object or a PEAR error.
      */
     function &generate($startstamp = null, $endstamp = null,
                        $fbpast = 0, $fbfuture = 60,
                        $user = null, $cn = null)
     {
         /* Get the iCalendar library at this point */
-        require_once 'Horde/iCalendar.php';
+        require_once 'Horde/Icalendar.php';
 
         /* Default the start date to today. */
         if (is_null($startstamp)) {
@@ -347,12 +347,12 @@ class Horde_Kolab_FreeBusy_Imap {
         }
 
         /* Create the new iCalendar. */
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
         if ($cn) {
             $params['cn'] = $cn;

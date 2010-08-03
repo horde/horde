@@ -958,7 +958,7 @@ class Horde_Date_Recurrence
      * @link http://www.imc.org/pdi/vcal-10.txt
      * @link http://www.shuchow.com/vCalAddendum.html
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object instance.
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object instance.
      *
      * @return string  A vCalendar 1.0 conform RRULE value.
      */
@@ -1124,7 +1124,7 @@ class Horde_Date_Recurrence
      * @link http://rfc.net/rfc2445.html#s4.8.5
      * @link http://www.shuchow.com/vCalAddendum.html
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object instance.
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object instance.
      *
      * @return string  An iCalendar 2.0 conform RRULE value.
      */

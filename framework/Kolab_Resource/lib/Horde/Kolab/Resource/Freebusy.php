@@ -3,7 +3,7 @@
  * Provides methods to retrieve free/busy data for resources.
  *
  * PHP version 5
- * 
+ *
  * @todo Merge this class with Kolab_FreeBusy and Kronolith_FreeBusy into a
  *       single Horde_Freebusy handler.
  *
@@ -151,13 +151,13 @@ class Horde_Kolab_Resource_Freebusy
      * @param string $resource Fetch the Free/Busy data for this resource
      *                         (usually a mail address).
      *
-     * @return Horde_iCalendar_vfreebusy The Free/Busy data.
+     * @return Horde_Icalendar_vfreebusy The Free/Busy data.
      */
     public function get($resource)
     {
         /* Return an empty VFB object. */
-        $vCal = new Horde_iCalendar();
-        $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vCal = new Horde_Icalendar();
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $vFb->setAttribute('ORGANIZER', $resource);
 
         return $vFb;

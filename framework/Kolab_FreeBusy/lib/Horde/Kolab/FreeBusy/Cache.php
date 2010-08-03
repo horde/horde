@@ -6,8 +6,8 @@
  */
 
 /** We require the iCalendar library to build the free/busy list */
-require_once 'Horde/iCalendar.php';
-require_once 'Horde/iCalendar/vfreebusy.php';
+require_once 'Horde/Icalendar.php';
+require_once 'Horde/Icalendar/Vfreebusy.php';
 
 /**
  * The Horde_Kolab_FreeBusy_Cache:: class provides functionality to store
@@ -191,7 +191,7 @@ class Horde_Kolab_FreeBusy_Cache {
      * @param boolean               $extended Should the data hold the extended
      *                                        free/busy information?
      *
-     * @return Horde_iCalendar|PEAR_Error The free/busy data of a
+     * @return Horde_Icalendar|PEAR_Error The free/busy data of a
      *                                    single calendar.
      */
     function &loadPartial(&$access, $extended)
@@ -297,7 +297,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 Horde::logMessage($message, 'INFO');
             }
 
-            $rvCal = new Horde_iCalendar();
+            $rvCal = new Horde_Icalendar();
             $result = $rvCal->parsevCalendar($remote);
 
             if (is_a($result, 'PEAR_Error')) {

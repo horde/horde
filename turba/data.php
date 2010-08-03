@@ -438,7 +438,7 @@ if (is_array($next_step)) {
 
         $error = false;
         foreach ($next_step as $row) {
-            if ($row instanceof Horde_iCalendar_vcard) {
+            if ($row instanceof Horde_Icalendar_Vcard) {
                 $row = $driver->toHash($row);
             }
 

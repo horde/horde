@@ -89,12 +89,12 @@ class Kronolith_FreeBusy
         }
 
         /* Create the new iCalendar. */
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//The Horde Project//Kronolith ' . $GLOBALS['registry']->getVersion() . '//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */
-        $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
         if (!empty($cn)) {
             $params['CN'] = $cn;
@@ -120,7 +120,7 @@ class Kronolith_FreeBusy
                     continue;
                 }
 
-                /* Horde_iCalendar_vfreebusy only supports timestamps at the
+                /* Horde_Icalendar_Vfreebusy only supports timestamps at the
                  * moment. */
                 $vFb->addBusyPeriod('BUSY', $event->start->timestamp(), null,
                                     $event->end->timestamp() - $event->start->timestamp());
@@ -148,7 +148,7 @@ class Kronolith_FreeBusy
      * @param boolean $json  Whether to return the free/busy data as a simple
      *                       object suitable to be transferred as json.
      *
-     * @return Horde_iCalendar_vfreebusy  Free/busy component.
+     * @return Horde_Icalendar_Vfreebusy  Free/busy component.
      * @throws Kronolith_Exception
      */
     public static function get($email, $json = false)
@@ -199,16 +199,16 @@ class Kronolith_FreeBusy
                     $charset = 'UTF-8';
                 }
 
-                $vCal = new Horde_iCalendar();
+                $vCal = new Horde_Icalendar();
                 $vCal->parsevCalendar($data, 'VCALENDAR', $charset);
                 $components = $vCal->getComponents();
 
-                $vCal = new Horde_iCalendar();
-                $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+                $vCal = new Horde_Icalendar();
+                $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
                 $vFb->setAttribute('ORGANIZER', $email);
                 $found = false;
                 foreach ($components as $component) {
-                    if ($component instanceof Horde_iCalendar_vfreebusy) {
+                    if ($component instanceof Horde_Icalendar_Vfreebusy) {
                         $found = true;
                         $vFb->merge($component);
                     }
@@ -238,8 +238,8 @@ class Kronolith_FreeBusy
         }
 
         /* Or else return an empty VFB object. */
-        $vCal = new Horde_iCalendar();
-        $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vCal = new Horde_Icalendar();
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $vFb->setAttribute('ORGANIZER', $email);
 
         return $json ? self::toJson($vFb) : $vFb;
@@ -274,11 +274,11 @@ class Kronolith_FreeBusy
      * Converts free/busy data to a simple object suitable to be transferred
      * as json.
      *
-     * @param Horde_iCalendar_vfreebusy $fb  A Free/busy component.
+     * @param Horde_Icalendar_Vfreebusy $fb  A Free/busy component.
      *
      * @return object  A simple object representation.
      */
-    function toJson($fb)
+    function toJson(Horde_Icalendar_Vfreebusy $fb)
     {
         $json = new stdClass;
         $start = $fb->getStart();
