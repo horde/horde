@@ -2554,8 +2554,10 @@ var DimpBase = {
 
             // Make sure the sub<mbox> ul is created if necessary.
             if (!ob.s && ob.ch) {
-                li.insert({ after: Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
-                li.insert({ after: tmp });
+                li.insert({ after: new Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
+                if (tmp) {
+                    li.insert({ after: tmp });
+                }
             }
         }
 
