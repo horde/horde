@@ -715,7 +715,7 @@ var DimpCompose = {
                 ++rows;
                 do {
                     msg.writeAttribute({ rows: rows--, disabled: false });
-                } while (de.scrollHeight - de.clientHeight);
+                } while ((de.scrollHeight - de.clientHeight) > 0);
             }
         }
     },
