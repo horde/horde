@@ -15,8 +15,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 if (!$registry->isAdmin()) {
-    header('Location: ' . Horde::applicationUrl('forums.php'));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Set up the messages object. */
@@ -24,9 +23,7 @@ $scope = Horde_Util::getFormData('scope', 'agora');
 $messages = &Agora_Messages::singleton($scope);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Moderator action */
@@ -39,16 +36,14 @@ if ($action) {
         $notification->push($result->getMessage(), 'horde.error');
     }
 
-    header('Location: ' . Horde::applicationUrl('moderators.php', true));
-    exit;
+    Horde::applicationUrl('moderators.php', true)->redirect();
 }
 
 /* Get the list of forums. */
 $forums_list = $messages->getForums(0, true, 'forum_name');
 if ($forums_list instanceof PEAR_Error) {
     $notification->push($forums_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Add delete links to moderators */

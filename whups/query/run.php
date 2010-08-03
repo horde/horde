@@ -42,8 +42,8 @@ if (!isset($whups_query) ||
     } elseif (isset($whups_query)) {
         $notification->push(_("Permission denied."), 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 // Query actions.

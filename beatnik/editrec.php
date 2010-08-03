@@ -32,14 +32,12 @@ if ($form->validate($vars)) {
     $edit = $vars->get('id');
     if ($info['rectype'] == 'soa' && !$edit) {
         // if added a soa redirect to the autogeneration page
-        $url = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'),
-                                  array('rectype' => 'soa', 'curdomain' => $info['zonename']), false, false);
+        $url = Horde::applicationUrl('autogenerate.php')->add(array('rectype' => 'soa', 'curdomain' => $info['zonename']));
     } else {
         $url = Horde::applicationUrl('viewzone.php');
     }
 
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 
 } elseif (!$form->isSubmitted() && $record) {
     foreach ($record as $field => $value) {

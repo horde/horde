@@ -35,18 +35,14 @@ if (!is_null($channel_id)) {
 /* Make sure we actually requested a tag search */
 if (empty($tag_id)) {
     $notification->push(_("No tag requested."), 'horde.error');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 $tag_name = array_shift($news->getTagNames(array($tag_id)));
 
 $stories = $news->searchTagsById(array($tag_id), 10, 0, $channel_ids);
 if (is_a($stories, 'PEAR_Error')) {
     $notification->push(sprintf(_("Invalid channel requested. %s"), $stories->getMessage()), 'horde.error');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 
 /* Do some state tests. */

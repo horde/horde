@@ -25,8 +25,8 @@ if ($slug) {
 
 if (!$id || is_a($queue, 'PEAR_Error')) {
     $notification->push(_("Invalid queue"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl(basename($prefs->getValue('whups_default_view')) . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 // Update sorting preferences.

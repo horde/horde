@@ -28,8 +28,8 @@ if (isset($_SESSION['whups']['query'])) {
     $whups_query = unserialize($_SESSION['whups']['query']);
     if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
         $notification->push(_("Permission denied."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-        exit;
+        Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+            ->redirect();
     }
 } else {
     $whups_query = $qManager->newQuery();

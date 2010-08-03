@@ -36,13 +36,13 @@ if ($perms->exists($backendTag)) {
     $result = $perms->addPermission($permission, $app);
     if ($result instanceof PEAR_Error) {
         $notification->push(sprintf(_("Unable to create backend permission: %s"), $result->getMessage()), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('redirect.php', true));
-        exit;
+        Horde::applicationUrl('redirect.php', true)->redirect();
     }
     $perm_id = $perms->getPermissionId($permission);
     $notification->push(sprintf(_("Created empty permissions for \"%s\". You must explicitly grant access to this backend now."), $key), 'horde.warning');
 }
 
 /* Redirect to horde permissions administration interface. */
-$url = Horde_Util::addParameter($registry->get('webroot', 'horde') . '/admin/perms/edit.php', 'perm_id', $permission->getId());
-header('Location: ' . Horde::url($url, true));
+Horde::url($registry->get('webroot', 'horde') . '/admin/perms/edit.php', true)
+  ->add('perm_id', $permission->getId())
+  ->redirect();

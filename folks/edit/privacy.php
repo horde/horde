@@ -20,8 +20,7 @@ $title = _("Privacy");
 $profile = $folks_driver->getRawProfile($GLOBALS['registry']->getAuth());
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $statuses = array('public' => _("Public"),
@@ -63,16 +62,13 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Your data were successfully updated."), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('edit/privacy.php'));
-        exit;
+        Horde::applicationUrl('edit/privacy.php')->redirect();
     }
 
 }
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
-
 echo $tabs->render('privacy');
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

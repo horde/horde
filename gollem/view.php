@@ -21,9 +21,11 @@ $filename = Horde_Util::getFormData('file');
 $type = Horde_Util::getFormData('type');
 
 if ($driver != $GLOBALS['gollem_be']['driver']) {
-    $url = Horde_Util::addParameter(Horde::applicationUrl('login.php'), array('backend_key' => $driver, 'change_backend' => 1, 'url' => Horde::selfURL(true)), null, false);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('login.php')
+        ->add(array('backend_key' => $driver,
+                    'change_backend' => 1,
+                    'url' => Horde::selfURL(true)))
+        ->redirect();
 }
 
 $stream = null;

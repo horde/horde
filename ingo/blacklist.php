@@ -17,8 +17,7 @@ Horde_Registry::appInit('ingo');
 /* Redirect if blacklist is not available. */
 if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Blacklist is not supported in the current filtering driver."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::applicationUrl('filters.php', true)->redirect();
 }
 
 /* Get the backend. */

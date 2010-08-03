@@ -17,8 +17,7 @@ Chora::fatal('History display is currently broken', '500 Internal Server Error')
 
 /* Exit if it's not supported. */
 if (!$VC->hasFeature('branches')) {
-    header('Location: ' . Chora::url('browsefile', $where));
-    exit;
+    Chora::url('browsefile', $where)->redirect();
 }
 
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');

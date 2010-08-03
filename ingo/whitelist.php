@@ -18,8 +18,7 @@ Horde_Registry::appInit('ingo');
 /* Redirect if whitelist not available. */
 if (!in_array(Ingo_Storage::ACTION_WHITELIST, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Whitelist is not supported in the current filtering driver."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::applicationUrl('filters.php', true)->redirect();
 }
 
 $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);

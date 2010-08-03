@@ -22,9 +22,7 @@ if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
 $have_news = Jonah_News::getAvailableTypes();
 if (empty($have_news)) {
     $notification->push(_("News is not enabled."), 'horde.warning');
-    $url = Horde::applicationUrl('index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('index.php', true)->redirect();
 }
 
 $news = Jonah_News::factory();

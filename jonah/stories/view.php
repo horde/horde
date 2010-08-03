@@ -36,8 +36,7 @@ if (is_a($story, 'PEAR_Error')) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 } elseif (empty($story['story_body']) && !empty($story['story_url'])) {
-    header('Location: ' . Horde::externalUrl($story['story_url']));
-    exit;
+    Horde::externalUrl($story['story_url'])->redirect();
 }
 
 /* Grab tag related content for entire channel */

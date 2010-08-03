@@ -11,8 +11,7 @@ require_once SKOLI_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $edit_url_base = Horde::applicationUrl('classes/edit.php');

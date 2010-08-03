@@ -28,8 +28,7 @@ if (!$addSources) {
     $url = $url
         ? Horde::url($url, true)
         : Horde::applicationUrl('index.php', true);
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 /* A source has been selected, connect and set up the fields. */
@@ -51,8 +50,7 @@ if ($source) {
             $url = $url
                 ? Horde::url($url, true)
                 : Horde::applicationUrl('index.php', true);
-            header('Location: ' . $url);
-            exit;
+            $url->redirect();
         }
 
         $contact = new Turba_Object($driver);

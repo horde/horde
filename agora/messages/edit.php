@@ -25,9 +25,7 @@ $formname = $vars->get('formname');
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Check edit permissions */

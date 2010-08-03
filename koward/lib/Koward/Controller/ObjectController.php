@@ -115,9 +115,9 @@ class ObjectController extends Koward_Controller_Application
                         $this->koward->notification->push(_("Failed to delete the object."),
                                                           'horde.error');
                     }
-                    header('Location: ' . $this->urlFor(array('controller' => 'object',
-                                                              'action' => 'listall')));
-                    exit;
+                    $this->urlFor(array('controller' => 'object',
+                                        'action' => 'listall'))
+                        ->redirect();
                 }
             }
         } catch (Exception $e) {
@@ -171,11 +171,12 @@ class ObjectController extends Koward_Controller_Application
                                 $this->koward->notification->push(_("Failed to delete the object."),
                                                                   'horde.error');
                             }
-                            header('Location: ' . $this->urlFor(array('controller' => 'object',
-                                                                      'action' => 'view',
-                                                                      'id' => $this->params->id)));
-                            exit;
-                        } else if ($this->actions->validate()) {
+                            $this->urlFor(array('controller' => 'object',
+                                                'action' => 'view',
+                                                'id' => $this->params->id))
+                                ->redirect();
+                        }
+                        if ($this->actions->validate()) {
                             $action = $this->actions->execute();
                             //FIXME: Hack
                             $result = $this->object->$action();
@@ -292,10 +293,10 @@ class ObjectController extends Koward_Controller_Application
                 $object = $this->form->execute();
 
                 if (!empty($object)) {
-                    header('Location: ' . $this->urlFor(array('controller' => 'object',
-                                                              'action' => 'view',
-                                                              'id' => $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID))));
-                    exit;
+                    $this->urlFor(array('controller' => 'object',
+                                        'action' => 'view',
+                                        'id' => $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)))
+                        ->redirect();
                 }
             }
         } catch (Exception $e) {
@@ -338,11 +339,12 @@ class ObjectController extends Koward_Controller_Application
                 $uids = array_keys($this->objectlist);
 
                 if (count($uids) == 1) {
-                    header('Location: ' . $this->urlFor(array('controller' => 'object',
-                                                              'action' => 'view',
-                                                              'id' => $uids[0])));
-                    exit;
-                } else if (count($uids) == 0) {
+                    $this->urlFor(array('controller' => 'object',
+                                        'action' => 'view',
+                                        'id' => $uids[0]))
+                        ->redirect();
+                }
+                if (count($uids) == 0) {
                     $this->koward->notification->push(_("No results found!"), 'horde.message');
                 } else {
                     foreach ($this->objectlist as $uid => $info) {

@@ -69,8 +69,7 @@ default:
         $id = $vars->get('id');
         if (!Hermes::canEditTimeslice($id)) {
             $notification->push(_("Access denied; user cannot modify this timeslice."), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('time.php'));
-            exit;
+            Horde::applicationUrl('time.php')->redirect();
         }
         $myhours = $hermes->driver->getHours(array('id' => $id));
         if (is_array($myhours)) {

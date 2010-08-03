@@ -50,10 +50,9 @@ case 'unlock':
 case 'history':
     if ($page->allows(WICKED_MODE_HISTORY)) {
         /* Redirect to history page. */
-        $url = Horde::applicationUrl('history.php', true);
-        $url = Horde_Util::addParameter($url, 'page', $page->pageName());
-        header('Location: ' . $url);
-        exit;
+        Horde::applicationUrl('history.php')
+            ->add('page', $page->pageName())
+            ->redirect();
     }
     $notification->push(_("This page does not have a history"), 'horde.error');
     break;
@@ -68,10 +67,8 @@ case 'export':
                             'horde.error');
         if ($page->pageName() == 'WikiHome') {
             Horde::fatal(_("You don't have permission to view this page."), __FILE__, __LINE__);
-        } else {
-            header('Location: ' . Wicked::url('WikiHome', true));
         }
-        exit;
+        Wicked::url('WikiHome', true)->redirect();
     }
 
     switch (Horde_Util::getGet('format')) {
@@ -114,10 +111,8 @@ if (!$page->allows(WICKED_MODE_DISPLAY)) {
                         'horde.error');
     if ($page->pageName() == 'WikiHome') {
         Horde::fatal(_("You don't have permission to view this page."), __FILE__, __LINE__);
-    } else {
-        header('Location: ' . Wicked::url('WikiHome', true));
     }
-    exit;
+    Wicked::url('WikiHome', true)->redirect();
 }
 
 $params = Horde_Util::getFormData('params');

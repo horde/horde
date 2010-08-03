@@ -41,8 +41,7 @@ case 'delete':
         $notification->push(sprintf(_("Group \"%s\" has been deleted."), $groups[$g]), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-    exit;
+    Horde::applicationUrl('edit/groups.php')->redirect();
 
 break;
 
@@ -60,8 +59,7 @@ case 'edit':
 
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push(sprintf(_("Group \"%s\" has not been renamed."), $groups[$g]), 'horde.warning');
-        header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-        exit;
+        Horde::applicationUrl('edit/groups.php')->redirect();
     } elseif (Horde_Util::getFormData('submitbutton') == _("Rename")) {
         $new_name = Horde_Util::getFormData('new_name');
         $result = $friends->renameGroup($g, $new_name);
@@ -69,8 +67,7 @@ case 'edit':
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("Group \"%s\" has been renamed to \"%s\"."), $groups[$g], $new_name), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-            exit;
+            Horde::applicationUrl('edit/groups.php')->redirect();
         }
     }
 
@@ -101,8 +98,7 @@ default:
                 $name = $translated[$info['translated_name']];
             }
             $notification->push(sprintf(_("Group \"%s\" was success added."), $name), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-            exit;
+            Horde::applicationUrl('edit/groups.php')->redirect();
         }
     }
 

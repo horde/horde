@@ -58,8 +58,7 @@ class DeletePage extends Page {
     {
         $page = Page::getPage($this->referrer());
         if (!$page->allows(WICKED_MODE_REMOVE)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
@@ -73,8 +72,7 @@ class DeletePage extends Page {
         $version = Horde_Util::getFormData('version');
         $page = Page::getPage($this->referrer(), $version);
         if (!$page->isValid()) {
-            header('Location: ' . Wicked::url('WikiHome', true));
-            exit;
+            Wicked::url('WikiHome', true)->redirect();
         }
 
         if (empty($version)) {
@@ -134,20 +132,17 @@ class DeletePage extends Page {
                 $GLOBALS['notification']->push(sprintf(_("Successfully deleted \"%s\"."), $pagename), 'horde.success');
                 Wicked::mail("Deleted page: $pagename\n",
                              array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename));
-                header('Location: ' . Wicked::url('WikiHome', true));
-            } else {
-                $GLOBALS['wicked']->removeVersion($pagename, $version);
-                $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');
-                Wicked::mail("Deleted version: $version of $pagename\n",
-                             array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename . ' [' . $version . ']'));
-                header('Location: ' . Wicked::url($pagename, true));
+                Wicked::url('WikiHome', true)->redirect();
             }
-            exit;
+            $GLOBALS['wicked']->removeVersion($pagename, $version);
+            $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');
+            Wicked::mail("Deleted version: $version of $pagename\n",
+                         array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename . ' [' . $version . ']'));
+            Wicked::url($pagename, true)->redirect();
         }
 
         $GLOBALS['notification']->push(sprintf(_("You don't have permission to delete \"%s\"."), $pagename), 'horde.warning');
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

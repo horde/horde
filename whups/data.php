@@ -14,8 +14,7 @@ Horde_Registry::appInit('whups');
 require WHUPS_BASE . '/config/templates.php';
 
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('search.php', true));
-    exit;
+    Horde::applicationUrl('search.php', true)->redirect();
 }
 
 $tpl = Horde_Util::getFormData('template');

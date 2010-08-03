@@ -28,9 +28,7 @@ if ($form->validate($vars)) {
 
         $notification->push(sprintf('Paste saved. %s', $uuid), 'horde.success');
 
-        $url = Horde::applicationUrl('uuid/' . $uuid, true);
-        header('Location: ' . $url);
-        exit;
+        Horde::applicationUrl('uuid/' . $uuid, true)->redirect();
     } catch (Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }

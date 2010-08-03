@@ -27,4 +27,4 @@ if (is_a($bookmark, 'PEAR_Error')) {
 ++$bookmark->clicks;
 $bookmark->save();
 
-header('Location: ' . Horde::externalUrl($bookmark->url));
+Horde::externalUrl($bookmark->url)->redirect();

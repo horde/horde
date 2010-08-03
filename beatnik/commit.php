@@ -49,5 +49,4 @@ foreach ($domains as $domain) {
     }
 }
 
-header('Location: ' . $url);
-exit;
+$url->redirect();

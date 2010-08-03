@@ -31,8 +31,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("Category was not deleted."), 'horde.warning');
     }
-    header('Location: ' . Horde::applicationUrl('admin/categories/index.php'));
-    exit;
+    Horde::applicationUrl('admin/categories/index.php')->redirect();
 }
 
 require NEWS_BASE . '/templates/common-header.inc';

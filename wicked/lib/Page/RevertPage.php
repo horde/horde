@@ -52,8 +52,7 @@ class RevertPage extends Page {
     {
         $page = Page::getPage($this->referrer());
         if (!$page->allows(WICKED_MODE_EDIT)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
@@ -116,21 +115,18 @@ class RevertPage extends Page {
             $version = Horde_Util::getPost('version');
             if (empty($version)) {
                 $notification->push(sprintf(_("Can't revert to an unknown version.")), 'horde.error');
-                header('Location: ' . Wicked::url($this->referrer(), true));
-            } else {
-                $oldpage = Page::getPage($this->referrer(), $version);
-                $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
-                    substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
-                $page->updateText($oldpage->getText(), 'Revert', $minor);
-                $notification->push(sprintf(_("Reverted to version %s of \"%s\"."), $version, $page->pageName()));
-                header('Location: ' . Wicked::url($page->pageName(), true));
+                Wicked::url($this->referrer(), true)->redirect();
             }
-            exit;
+            $oldpage = Page::getPage($this->referrer(), $version);
+            $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
+                substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
+            $page->updateText($oldpage->getText(), 'Revert', $minor);
+            $notification->push(sprintf(_("Reverted to version %s of \"%s\"."), $version, $page->pageName()));
+            Wicked::url($page->pageName(), true)->redirect();
         }
 
         $notification->push(sprintf(_("You don't have permission to edit \"%s\"."), $page->pageName()), 'horde.warning');
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

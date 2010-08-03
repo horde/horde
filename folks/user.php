@@ -18,8 +18,7 @@ $user = Horde_Util::getFormData('user', $GLOBALS['registry']->getAuth());
 $profile = $folks_driver->getProfile($user);
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 // Load its friend list
@@ -55,8 +54,7 @@ if ($user == $GLOBALS['registry']->getAuth()) {
             $notification->push($result);
         } else {
             $notification->push(_("Activity successfully posted"), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('user.php'));
-            exit;
+            Horde::applicationUrl('user.php')->redirect();
         }
     }
 }

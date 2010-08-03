@@ -16,8 +16,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $user = Horde_Util::getFormData('user');
 if (empty($user)) {
     $notification->push(_("User is not selected"), 'horde.warning');
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $title = _("Do you really want to report this user?");
@@ -60,8 +59,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("User was not reported."), 'horde.warning');
     }
-    header('Location: ' . Folks::getUrlFor('user', $user));
-    exit;
+    Folks::getUrlFor('user', $user)->redirect();
 }
 
 require FOLKS_TEMPLATES . '/common-header.inc';

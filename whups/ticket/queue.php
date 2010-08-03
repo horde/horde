@@ -125,8 +125,8 @@ foreach ($ticket->getDetails() as $varname => $value) {
 // Check permissions on this ticket.
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 $form = $vars->get('formname');

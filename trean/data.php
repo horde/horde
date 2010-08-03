@@ -155,9 +155,9 @@ case 'import':
 
     $notification->push(sprintf(_("%d Folders and %d Bookmarks imported."), $folders, $bookmarks), 'horde.success');
 
-    $url = Horde_Util::addParameter('browse.php', 'f', $root->getId());
-    header('Location: ' . Horde::applicationUrl($url, true));
-    exit;
+    Horde::applicationUrl('browse.php', true)
+        ->add('f', $root->getId())
+        ->redirect();
 
 case 'export':
     $folderId = Horde_Util::getFormData('export_folder');

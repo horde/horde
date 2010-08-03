@@ -25,28 +25,23 @@ if ($url = Horde_Util::getFormData('url')) {
 $contact = $driver->getObject($mergeInto);
 if (is_a($contact, 'PEAR_Error')) {
     $notification->push($contact);
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 $toMerge = $driver->getObject($key);
 if (is_a($toMerge, 'PEAR_Error')) {
     $notification->push($toMerge);
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $contact->merge($toMerge);
 if (is_a($result = $contact->store(), 'PEAR_Error')) {
     $notification->push($result);
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 if (is_a($result = $driver->delete($key), 'PEAR_Error')) {
     $notification->push($result);
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $notification->push(_("Successfully merged two contacts."), 'horde.success');
-header('Location: ' . $url);
-exit;
+$url->redirect();

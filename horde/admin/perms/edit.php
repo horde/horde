@@ -102,10 +102,9 @@ if ($ui->validateEditForm($info)) {
     $permission->updatePermissions($info);
     $permission->save();
     $notification->push(sprintf(_("Updated \"%s\"."), $perms->getTitle($permission->getName())), 'horde.success');
-    $url = Horde_Util::addParameter('admin/perms/edit.php', 'perm_id', $permission->getId());
-    $url = Horde::applicationUrl($url, true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('admin/perms/edit.php', true)
+        ->add('perm_id', $permission->getId())
+        ->redirect();
 }
 
 $title = _("Permissions Administration");

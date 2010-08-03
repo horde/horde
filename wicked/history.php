@@ -14,15 +14,12 @@ Horde_Registry::appInit('wicked');
 $page = Page::getCurrentPage();
 if (is_a($page, 'PEAR_Error')) {
     $notification->push(_("Internal error viewing requested page"), 'horde.error');
-    header('Location: ' . Wicked::url('WikiHome', true));
-    exit;
+    Wicked::url('WikiHome', true)->redirect();
 }
 
 if (!$page->allows(WICKED_MODE_HISTORY)) {
     /* Redirect to display page and force it to display an error. */
-    $url = Horde_Util::addParameter(Wicked::url($page->pageName(), true), 'actionID', 'history');
-    header('Location: ' . $url);
-    exit;
+    Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
 
 $title = sprintf(_("History: %s"), $page->pageName());

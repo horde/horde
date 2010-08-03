@@ -17,16 +17,14 @@ $vars = Horde_Variables::getDefaultVariables();
 $source = $vars->get('source');
 if (!isset($GLOBALS['cfgSources'][$source])) {
     $notification->push(_("The contact you requested does not exist."));
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 /* Set the contact from the key requested. */
 $driver = Turba_Driver::singleton($source);
 if ($driver instanceof PEAR_Error) {
     $notification->push($driver->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $contact = null;
@@ -42,8 +40,7 @@ if (!$contact || ($contact instanceof PEAR_Error)) {
     $contact = $driver->getObject($vars->get('key'));
     if ($contact instanceof PEAR_Error) {
         $notification->push($contact->getMessage(), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 

@@ -105,28 +105,25 @@ if($groupsCount > 0) {
 }
 $form->addVariable(sprintf(_($desc), $user_name), 'description', 'description', false);
 if ($vars->get('submitbutton') == _("Delete")) {
-    if($type == 'alias') {
+    if ($type == 'alias') {
         if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
             $deleteInfo = array();
-             $deleteInfo['address'] = $address['destination'];
-             $deleteInfo['alias'] = $user_id;
-             $delete = $vilma->driver->deleteAlias($deleteInfo);
+            $deleteInfo['address'] = $address['destination'];
+            $deleteInfo['alias'] = $user_id;
+            $delete = $vilma->driver->deleteAlias($deleteInfo);
             if (is_a($delete, 'PEAR_Error')) {
                 Horde::logMessage($delete, 'ERR');
-                 $notification->push(sprintf(_("Error deleting alias. %s."), $delete->getMessage()), 'horde.error');
-                 $url = Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                 header('Location: ' . $url);
-                 exit;
-             } else {
-                 $notification->push(_("Alias deleted."), 'horde.success');
-                 $url = Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                 header('Location: ' . $url);
-                 exit;
-             }
-         }
-     } elseif ($type == 'forward') {
-      if ($form->validate($vars)) {
+                $notification->push(sprintf(_("Error deleting alias. %s."), $delete->getMessage()), 'horde.error');
+            } else {
+                $notification->push(_("Alias deleted."), 'horde.success');
+            }
+            Horde::applicationUrl('users/index.php')
+                ->add('domain_id', $domain['id'])
+                ->redirect();
+        }
+    } elseif ($type == 'forward') {
+        if ($form->validate($vars)) {
             $form->getInfo($vars, $info);
             $deleteInfo = array();
             $deleteInfo['address'] = $address['destination'];
@@ -135,15 +132,12 @@ if ($vars->get('submitbutton') == _("Delete")) {
             if (is_a($delete, 'PEAR_Error')) {
                 Horde::logMessage($delete, 'ERR');
                 $notification->push(sprintf(_("Error deleting forward. %s."), $delete->getMessage()), 'horde.error');
-                $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                header('Location: ' . $url);
-                exit;
             } else {
                 $notification->push(_("Forward deleted."), 'horde.success');
-                $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                header('Location: ' . $url);
-                exit;
             }
+            Horde::applicationUrl('users/index.php')
+                ->add('domain_id', $domain['id'])
+                ->redirect();
         }
     } else {
         if ($form->validate($vars)) {
@@ -153,22 +147,19 @@ if ($vars->get('submitbutton') == _("Delete")) {
             if (is_a($delete, 'PEAR_Error')) {
                 Horde::logMessage($delete, 'ERR');
                 $notification->push(sprintf(_("Error deleting user. %s."), $delete->getMessage()), 'horde.error');
-                $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                header('Location: ' . $url);
-                exit;
             } else {
                 $notification->push(_("$type deleted."), 'horde.success');
-                $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-                header('Location: ' . $url);
-                exit;
             }
+            Horde::applicationUrl('users/index.php')
+                ->add('domain_id', $domain['id'])
+                ->redirect();
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("User not deleted."), 'horde.message');
-    $url = Horde_Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['domain_id'], false);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('users/index.php')
+        ->add('domain_id', $domain['id'])
+        ->redirect();
 }
 
 /* Render the form. */

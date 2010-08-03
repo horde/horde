@@ -17,8 +17,7 @@ Horde_Registry::appInit('chora');
 
 // Exit if cvsgraph isn't active or it's not supported.
 if (empty($conf['paths']['cvsgraph']) || !$VC->hasFeature('branches')) {
-    header('Location: ' . Chora::url('browsefile', $where));
-    exit;
+    Chora::url('browsefile', $where)->redirect();
 }
 
 if (!is_file($fullname . ',v')) {

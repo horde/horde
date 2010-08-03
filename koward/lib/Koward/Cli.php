@@ -94,8 +94,8 @@ class Koward_Cli extends Horde_Controller_Request_Base
                                || $this->auth_handler != $this->params[':action']);
         } catch (Horde_Exception $e) {
             if ($e->getCode() == 'permission_denied') {
-                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
-                exit;
+                $this->urlFor(array('controller' => 'index', 'action' => 'login'))
+                    ->redirect();
             }
         }
 

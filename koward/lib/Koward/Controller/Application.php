@@ -14,8 +14,8 @@ class Koward_Controller_Application extends Horde_Controller_Base
                                || $this->auth_handler != $this->params[':action']);
         } catch (Horde_Exception $e) {
             if ($e->getCode() == 'permission_denied') {
-                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
-                exit;
+                $this->urlFor(array('controller' => 'index', 'action' => 'login'))
+                    ->redirect();
             }
         }
 
@@ -104,8 +104,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
             } else {
                 $url = $this->urlFor(array('controller' => 'index', 'action' => 'login'));
             }
-            header('Location: ' . $url);
-            exit;
+            $url->redirect();
         }
     }
 }

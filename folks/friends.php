@@ -28,8 +28,7 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully posted"), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('friends.php'));
-        exit;
+        Horde::applicationUrl('friends.php')->redirect();
     }
 }
 
@@ -62,15 +61,11 @@ $firendActivities = array_slice($firendActivities, 0, 30);
 $activities = $folks_driver->getActivity($GLOBALS['registry']->getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 Horde::addScriptFile('stripe.js', 'horde');
-
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
-
 require FOLKS_TEMPLATES . '/friends/friends.php';
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -60,8 +60,7 @@ $memo_id = Horde_Util::getFormData('memo');
 $memolist_id = Horde_Util::getFormData('memolist');
 $actionID = Horde_Util::getFormData('actionID');
 if (is_null($actionID)) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 /* Load category manager. */
@@ -78,8 +77,7 @@ case 'add_memo':
             $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
         }
         $notification->push($message, 'horde.error', array('content.raw'));
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit;
+        Horde::applicationUrl('list.php', true)->redirect();
     }
     /* Set up the note attributes. */
     if (empty($memolist_id)) {
@@ -104,8 +102,7 @@ case 'modify_memo':
     $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
     if (!$memo || !isset($memo['memo_id'])) {
         $notification->push(_("Note not found."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit;
+        Horde::applicationUrl('list.php', true)->redirect();
     }
     $storage = &Mnemo_Driver::singleton($memolist_id);
 
@@ -146,8 +143,7 @@ case 'save_memo':
             $memo = Mnemo::getMemo($memolist_original, $memo_id);
             if (!$memo || !isset($memo['memo_id'])) {
                 $notification->push(_("Note not found."), 'horde.error');
-                header('Location: ' . Horde::applicationUrl('list.php', true));
-                exit;
+                Horde::applicationUrl('list.php', true)->redirect();
             }
             $title = sprintf(_("Edit: %s"), $memo['desc']);
             $show_passphrase = showPassphrase($memo);
@@ -203,8 +199,7 @@ case 'save_memo':
             /* Check permissions. */
             if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
                 $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
-                header('Location: ' . Horde::applicationUrl('list.php', true));
-                exit;
+                Horde::applicationUrl('list.php', true)->redirect();
             }
             /* Creating a new note. */
             $storage = Mnemo_Driver::singleton($notepad_target);
@@ -223,8 +218,7 @@ case 'save_memo':
     }
 
     /* Return to the notepad view. */
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 
 case 'delete_memos':
     /* Delete the note if we're provided with a valid note ID. */
@@ -251,12 +245,10 @@ case 'delete_memos':
     }
 
     /* Return to the notepad. */
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 
 default:
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);

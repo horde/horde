@@ -529,8 +529,7 @@ class Whups_Ticket {
      */
     function show()
     {
-        header('Location: ' . Whups::urlFor('ticket', $this->_id, true));
-        exit;
+        Whups::urlFor('ticket', $this->_id, true)->redirect();
     }
 
     /**

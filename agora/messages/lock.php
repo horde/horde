@@ -18,17 +18,14 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Check delete permissions */

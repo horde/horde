@@ -16,28 +16,24 @@ require_once MNEMO_BASE . '/lib/Forms/DeleteNotepad.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $notepad_id = $vars->get('n');
 if ($notepad_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This notepad cannot be deleted"), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 try {
     $notepad = $mnemo_shares->getShare($notepad_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 if (!$GLOBALS['registry']->getAuth() || $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
     $notification->push(_("You are not allowed to delete this notepad."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 
 $form = new Mnemo_DeleteNotepadForm($vars, $notepad);
@@ -51,8 +47,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $notification->push(sprintf(_("The notepad \"%s\" has been deleted."), $notepad->get('name')), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 
 $title = $form->getTitle();

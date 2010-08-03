@@ -30,8 +30,9 @@ foreach ($memos as $memo_id => $memo) {
 
 if (count($search_results) == 1) {
     $note = array_shift($search_results);
-    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('view.php', array('memo' => $note['memo_id'], 'memolist' => $note['memolist_id'])), true));
-    exit;
+    Horde::applicationUrl('view.php', true)
+        ->add(array('memo' => $note['memo_id'], 'memolist' => $note['memolist_id']))
+        ->redirect();
 }
 
 $title = _("Search Results");

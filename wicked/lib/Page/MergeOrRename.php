@@ -158,8 +158,7 @@ class MergeOrRename extends Page {
         global $wicked, $notification, $registry;
 
         if (Horde_Util::getFormData('submit') == _("Cancel")) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+            Wicked::url($this->referrer(), true)->redirect();
         }
 
         $referrer = $this->referrer();
@@ -298,8 +297,7 @@ class MergeOrRename extends Page {
             }
         }
 
-        header('Location: ' . Wicked::url($new_name, true));
-        exit;
+        Wicked::url($new_name, true)->redirect();
     }
 
 }

@@ -23,8 +23,7 @@ if (!$perms->hasAppPermission('allow_rules')) {
         $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, $GLOBALS['registry']->getCharset());
     }
     $notification->push($message, 'horde.error', array('content.raw'));
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::applicationUrl('filters.php', true)->redirect();
 }
 
 /* Load the Ingo_Script:: driver. */
@@ -34,8 +33,7 @@ $ingo_script = Ingo::loadIngoScript();
 $availActions = $ingo_script->availableActions();
 if (empty($availActions)) {
     $notification->push(_("Individual rules are not supported in the current filtering driver."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::applicationUrl('filters.php', true)->redirect();
 }
 
 /* This provides the $ingo_fields array. */

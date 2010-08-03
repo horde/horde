@@ -83,8 +83,7 @@ class EditPage extends Page {
     function preDisplay()
     {
         if (!$this->allows(WICKED_MODE_EDIT)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+            Wicked::url($this->referrer(), true)->redirect();
         }
         if ($this->allows(WICKED_MODE_LOCKING)) {
             $page = Page::getPage($this->referrer());
@@ -193,8 +192,7 @@ class EditPage extends Page {
         }
 
         // Show the newly saved page.
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

@@ -14,8 +14,7 @@ require_once NAG_BASE . '/lib/Forms/CreateTaskList.php';
 // Exit if this isn't an authenticated user or if the user can't
 // create new task lists (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_tasklist')) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -30,8 +29,7 @@ if ($form->validate($vars)) {
         $notification->push($e, 'horde.error');
     }
 
-    header('Location: ' . Horde::applicationUrl('tasklists/', true));
-    exit;
+    Horde::applicationUrl('tasklists/', true)->redirect();
 }
 
 $title = $form->getTitle();

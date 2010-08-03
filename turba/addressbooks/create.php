@@ -31,8 +31,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("The address book \"%s\" has been created."), $vars->get('name')), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
 $title = $form->getTitle();

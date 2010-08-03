@@ -17,10 +17,9 @@ $v2 = Horde_Util::getFormData('v2');
 /* Bail out if we didn't get any versions - at least one of these has
  * to be non-empty. */
 if (!$v1 && !$v2) {
-    $url = Horde::applicationUrl('history.php', true);
-    $url = Horde_Util::addParameter($url, 'page', Horde_Util::getFormData('page'));
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('history.php', true)
+        ->add('page', Horde_Util::getFormData('page'))
+        ->redirect();
 }
 
 /* Make sure that $v2 is a higher version than $v1. Empty string is
@@ -35,8 +34,7 @@ if (!$v1 || ($v2 && version_compare($v1, $v2) > 0) || $v2 == '?') {
 $page = Page::getPage(Horde_Util::getFormData('page'), $v2);
 if (is_a($page, 'PEAR_Error')) {
     $notification->push(sprintf(_("Internal error viewing requested page: %s"), $page->getMessage()), 'horde.error');
-    header('Location: ' . Wicked::url('WikiHome', true));
-    exit;
+    Wicked::url('WikiHome', true)->redirect();
 }
 
 if ($v1 == '?') {
@@ -46,9 +44,9 @@ if ($v1 == '?') {
 /* Kick back to the display page if we're not allowed to diff this
  * page. */
 if (!$page->allows(WICKED_MODE_DIFF)) {
-    $url = Horde_Util::addParameter(Wicked::url($page->pageName(), true), 'actionID', 'diff');
-    header('Location: ' . $url);
-    exit;
+    Wicked::url($page->pageName(), true)
+        ->add('actionID', 'diff')
+        ->redirect();
 }
 
 $title = sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version());

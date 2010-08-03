@@ -195,8 +195,7 @@ case 'clonetypeform':
         $notification->push(sprintf(_("Successfully Cloned %s to %s."),
                                     $type['name'], $vars->get('name')),
                             'horde.success');
-        header('Location: ' . Horde::applicationUrl('admin/?action=type', true));
-        exit;
+        Horde::applicationUrl('admin/?action=type', true)->redirect();
     } else {
         _open();
         $form->renderActive($renderer, $vars, $adminurl, 'post');

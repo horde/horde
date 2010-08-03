@@ -19,8 +19,6 @@ $curaccount = $_SESSION['shout']['curaccount'];
 $menus = $shout->storage->getMenus($curaccount['code']);
 
 if (empty($menus)) {
-    header('Location: ' . Horde::applicationUrl('wizard.php', true));
-} else {
-    header('Location: ' . Horde::applicationUrl('dialplan.php', true));
-    exit;
+    Horde::applicationUrl('wizard.php', true)->redirect();
 }
+Horde::applicationUrl('dialplan.php', true)->redirect();

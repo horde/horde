@@ -28,9 +28,7 @@ $news = Jonah_News::factory();
 $channel = $news->isChannelEditable($channel_id);
 if (is_a($channel, 'PEAR_Error')) {
     $notification->push(sprintf(_("Story editing failed: %s"), $channel->getMessage()), 'horde.error');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 
 /* Check permissions. */
@@ -42,9 +40,7 @@ if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Ho
 $story = $news->getStory($channel_id, $story_id);
 if (is_a($story, 'PEAR_Error')) {
     $notification->push(_("No valid story requested for deletion."), 'horde.message');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 
 /* If not yet submitted set up the form vars from the fetched story. */
@@ -69,18 +65,16 @@ if ($form_submit == _("Delete")) {
             $notification->push(sprintf(_("There was an error deleting the story: %s"), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("The story has been deleted."), 'horde.success');
-            $url = Horde::applicationUrl('stories/index.php', true);
-            $url = Horde_Util::addParameter($url, 'channel_id', $channel_id, false);
-            header('Location: ' . $url);
-            exit;
+            Horde::applicationUrl('stories/index.php', true)
+                ->add('channel_id', $channel_id)
+                ->redirect();
         }
     }
 } elseif (!empty($form_submit)) {
     $notification->push(_("Story has not been deleted."), 'horde.message');
-    $url = Horde::applicationUrl('stories/index.php', true);
-    $url = Horde_Util::addParameter($url, 'channel_id', $channel_id, false);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('stories/index.php', true)
+        ->add('channel_id', $channel_id)
+        ->redirect();
 }
 
 $template = new Horde_Template();

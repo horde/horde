@@ -37,8 +37,7 @@ while ($task = &$tasks->each()) {
 $search_results->reset();
 if ($search_results->count() == 1) {
     $task = $search_results->each();
-    header('Location: ' . Horde::url($task->view_link, true));
-    exit;
+    Horde::url($task->view_link, true)->redirect();
 }
 
 $tasks = $search_results;

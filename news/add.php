@@ -106,8 +106,7 @@ if ($id && Horde_Util::getFormData('submitbutton') == _("Delete existing picture
         $notification->push($sources);
     } else {
         News::deleteImage($id);
-        header('Location: ' . News::getUrlFor('news', $id));
-        exit;
+        News::getUrlFor('news', $id)->redirect();
     }
 }
 
@@ -335,8 +334,7 @@ if ($form->validate()) {
         $id = $news->write_db->nextID($news->prefix);
         if ($id instanceof PEAR_Error) {
             $notification->push($id);
-            header('Location: ' . Horde::applicationUrl('browse.php'));
-            exit;
+            Horde::applicationUrl('browse.php')->redirect();
         }
 
         $query = 'INSERT INTO ' . $news->prefix
@@ -396,8 +394,7 @@ if ($form->validate()) {
     $result = $news->write_db->query($query, $data);
     if ($result instanceof PEAR_Error) {
         $notification->push($result->getDebugInfo(), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('edit.php'));
-        exit;
+        Horde::applicationUrl('edit.php')->redirect();
     }
 
     // Picture
@@ -553,8 +550,7 @@ if ($form->validate()) {
         $notification->push(_("News updated."), 'horde.success');
     }
 
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 
 } elseif ($id && !$form->isSubmitted()) {
 

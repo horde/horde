@@ -295,7 +295,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         if (!empty($url)) {
             $url = new Horde_Url($url);
-            header('Location: ' . strval($url->unique()->setRaw(true)));
+            $url->unique()->redirect();
         }
     }
 

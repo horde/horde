@@ -165,8 +165,7 @@ class Beatnik_Driver {
             $zonedata = $this->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
-            header('Location:' . Horde::applicationUrl('listzones.php'));
-            exit;
+            Horde::applicationUrl('listzones.php')->redirect);
         }
 
         if (isset($zonedata[$rectype])) {

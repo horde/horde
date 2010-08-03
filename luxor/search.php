@@ -14,15 +14,13 @@ Horde_Registry::appInit('luxor');
 
 $symbol = Horde_Util::getFormData('s');
 if (!$symbol) {
-    header('Location: ' . Horde::applicationUrl('source.php', true));
-    exit;
+    Horde::applicationUrl('source.php', true)->redirect();
 }
 
 $ids = $index->searchSymbols($symbol);
 if (count($ids) == 1) {
     $id = current($ids);
-    header('Location: ' . Horde::applicationUrl('symbol.php?i=' . $id, true));
-    exit;
+    Horde::applicationUrl('symbol.php', true)->add('i', $id)->redirect();
 }
 
 // If there are multiple search results, display some info for all of them.

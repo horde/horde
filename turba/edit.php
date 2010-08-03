@@ -20,14 +20,13 @@ $original_source = $vars->get('original_source');
 $key = $vars->get('key');
 $groupedit = $vars->get('actionID') == 'groupedit';
 $objectkeys = $vars->get('objectkeys');
-$url = Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true));
+$url = new Horde_Url(Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true));
 
 /* Edit the first of a list of contacts? */
 if ($groupedit && (!$key || $key == '**search')) {
     if (!count($objectkeys)) {
         $notification->push(_("You must select at least one contact first."), 'horde.warning');
-        header('Location: ' . $url);
-        exit;
+        $url->redirect();
     }
     if ($key == '**search') {
         $original_source = $key;
@@ -43,8 +42,7 @@ if ($groupedit && (!$key || $key == '**search')) {
 
 if ($source === null || !isset($cfgSources[$source])) {
     $notification->push(_("Not found"), 'horde.error');
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $driver = Turba_Driver::singleton($source);
@@ -53,20 +51,17 @@ $driver = Turba_Driver::singleton($source);
 $contact = $driver->getObject($key);
 if (is_a($contact, 'PEAR_Error')) {
     $notification->push($contact, 'horde.error');
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 /* Check permissions on this contact. */
 if (!$contact->hasPermission(Horde_Perms::EDIT)) {
     if (!$contact->hasPermission(Horde_Perms::READ)) {
         $notification->push(_("You do not have permission to view this contact."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+        $url->redirect();
     } else {
         $notification->push(_("You only have permission to view this contact."), 'horde.error');
-        header('Location: ' . $contact->url('Contact', true));
-        exit;
+        $contact->url('Contact', true)->redirect();
     }
 }
 
@@ -86,8 +81,7 @@ if (!is_a($edited, 'PEAR_Error')) {
     } else {
         $url = new Horde_Url($url, true);
     }
-    header('Location: ' . $url->unique());
-    exit;
+    $url->unique()->redirect();
 }
 
 $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));

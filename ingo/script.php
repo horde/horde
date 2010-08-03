@@ -13,8 +13,7 @@ Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
 if (!$_SESSION['ingo']['script_generate']) {
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::applicationUrl('filters.php', true)->redirect();
 }
 
 $script = '';

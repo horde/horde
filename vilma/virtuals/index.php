@@ -27,7 +27,7 @@ if (!empty($user)) {
 
 if (is_a($virtuals, 'PEAR_Error')) {
     $notification->push($virtuals);
-    header('Location: ' . Horde::applicationUrl('index.php'));
+    Horde::applicationUrl('index.php')->redirect();
 }
 
 foreach ($virtuals as $id => $virtual) {

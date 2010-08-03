@@ -20,22 +20,19 @@ if ($conf['documents']['type'] == 'none') {
 $source = Horde_Util::getPost('source');
 if ($source === null || !isset($cfgSources[$source])) {
     $notification->push(_("Not found"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $driver = Turba_Driver::singleton($source);
 $contact = $driver->getObject(Horde_Util::getPost('key'));
 if (is_a($contact, 'PEAR_Error')) {
     $notification->push($contact, 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 if (!$contact->isEditable()) {
     $notification->push(_("Permission denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $file = Horde_Util::getPost('file');
@@ -45,4 +42,4 @@ if (is_a($result, 'PEAR_Error')) {
 } else {
     $notification->push(sprintf(_("The file \"%s\" has been deleted."), $file), 'horde.success');
 }
-$url = header('Location: ' . $contact->url('Contact', true));
+$contact->url('Contact', true)->redirect();

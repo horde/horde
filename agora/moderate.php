@@ -43,8 +43,7 @@ case _("Delete"):
 $messages_list = $messages->getModerateList($sort_by, $sort_dir);
 if ($messages_list instanceof PEAR_Error) {
     $notification->push($messages_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 } elseif (empty($messages_list)) {
     $messages_count = 0;
     $notification->push(_("No messages are waiting for moderation."), 'horde.message');

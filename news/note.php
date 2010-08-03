@@ -19,8 +19,7 @@ $id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    header('Location: ' . Horde::applicationUrl('browse.php'));
-    exit;
+    Horde::applicationUrl('browse.php')->redirect();
 }
 
 $body = $row['title'] . "\n\n"
@@ -40,5 +39,5 @@ try {
     header('Location: ' . $registry->getInitialPage('mnemo'));
 } catch (Horde_Exception $e) {
     $notification->push($e);
-    header('Location: ' . News::getUrlFor('news', $id));
+    News::getUrlFor('news', $id)->redirect();
 }

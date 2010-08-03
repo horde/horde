@@ -19,8 +19,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $allowed_cats = $news_cat->getAllowed(Horde_Perms::DELETE);
 if (empty($allowed_cats)) {
     $notification->push(_("You have not editor permission on any category."));
-    header('Location: ' . Horde::applicationUrl('add.php'));
-    exit;
+    Horde::applicationUrl('add.php')->redirect();
 }
 
 $id = (int)Horde_Util::getFormData('id', 0);
@@ -57,8 +56,7 @@ case 'deletepicture';
         $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("picture deleted")), 'horde.success');
     }
 
-    header('Location: ' . $browse_url);
-    exit;
+    $browse_url->redirect();
 
 break;
 
@@ -70,8 +68,7 @@ case 'deactivate';
     }
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("deactivated")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
+    $browse_url->redirect();
 
 break;
 case 'activate';
@@ -82,8 +79,7 @@ case 'activate';
     }
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("activated")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
+    $browse_url->redirect();
 
 break;
 case 'lock';
@@ -94,8 +90,7 @@ case 'lock';
     }
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("locked")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
+    $browse_url->redirect();
 
 break;
 case 'unlock';
@@ -106,8 +101,8 @@ case 'unlock';
     }
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("unlocked")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
+    $browse_url->redirect();
+
 
 break;
 case 'renew';
@@ -145,10 +140,7 @@ case 'renew';
                                 array($id, $version, $GLOBALS['registry']->getAuth(), serialize($new_version)));
 
     $notification->push(sprintf(_("News \"%s\" (%s): %s"), $article['title'], $id, _("renewed")), 'horde.success');
-    header('Location: ' . $browse_url);
-    exit;
-
-break;
+    $browse_url->redirect();
 }
 
 $title = _("Edit");

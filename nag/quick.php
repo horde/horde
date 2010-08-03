@@ -11,9 +11,7 @@ if ($quickText = Horde_Util::getPost('quickText')) {
         } else {
             $notification->push(sprintf(_("Added %s tasks"), count($result)), 'horde.success');
         }
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit(0);
-    } else {
-        Horde::fatal($result);
+        Horde::applicationUrl('list.php', true)->redirect();
     }
+    Horde::fatal($result);
 }

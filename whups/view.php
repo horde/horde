@@ -24,10 +24,9 @@ $details = $whups_driver->getTicketDetails($id);
 if (is_a($details, 'PEAR_Error')) {
     if ($details->code === 0) {
         // No permissions to this ticket.
-        $url = Horde::url($registry->get('webroot', 'horde') . '/login.php', true);
-        $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true));
-        header('Location: ' . $url);
-        exit;
+        Horde::url($registry->get('webroot', 'horde') . '/login.php', true)
+            ->add('url', Horde::selfUrl(true))
+            ->redirect();
     } else {
         Horde::fatal($details->getMessage(), __FILE__, __LINE__);
     }

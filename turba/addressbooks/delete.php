@@ -23,23 +23,20 @@ $vars = Horde_Variables::getDefaultVariables();
 $addressbook_id = $vars->get('a');
 if ($addressbook_id == $GLOBALS['registry']->getAuth()) {
     $notification->push(_("This addressbook cannot be deleted"), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
 try {
     $addressbook = $turba_shares->getShare($addressbook_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 if (!$GLOBALS['registry']->getAuth() ||
     $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to delete this addressbook."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
 $form = new Turba_Form_DeleteAddressBook($vars, $addressbook);
@@ -53,8 +50,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $notification->push(sprintf(_("The addressbook \"%s\" has been deleted."), $addressbook->get('name')), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
 $title = $form->getTitle();

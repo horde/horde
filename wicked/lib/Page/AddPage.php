@@ -49,8 +49,7 @@ class AddPage extends Page {
     {
         if (!strlen($this->referrer())) {
             $GLOBALS['notification']->push(_("Page name must not be empty"));
-            header('Location: ' . Wicked::url('', true));
-            exit;
+            Wicked::url('', true)->redirect();
         }
     }
 

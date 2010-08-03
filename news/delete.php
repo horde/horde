@@ -17,8 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!$registry->isAdmin(array('permission' => 'news:admin'))) {
     $notification->push(_("Only admin can delete a news."));
-    header('Location: ' . Horde::applicationUrl('edit.php'));
-    exit;
+    Horde::applicationUrl('edit.php')->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -86,13 +85,10 @@ if ($form->validate()) {
         $notification->push(sprintf(_("News %s: %s"), $id, _("not deleted")), 'horde.warning');
     }
 
-    header('Location: ' . Horde::applicationUrl('edit.php'));
-    exit;
+    Horde::applicationUrl('edit.php')->redirect();
 }
 
 require NEWS_TEMPLATES . '/common-header.inc';
 require NEWS_TEMPLATES . '/menu.inc';
-
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

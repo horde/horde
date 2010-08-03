@@ -18,8 +18,7 @@ Horde_Registry::appInit('chora');
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
-    header('Location: ' . Chora::url('browsefile', $where));
-    exit;
+    Chora::url('browsefile', $where)->redirect();
 }
 
 $ps_opts = array();

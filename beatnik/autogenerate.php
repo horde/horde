@@ -26,15 +26,13 @@ if ($form->validate($vars)) {
             $result = Beatnik::autogenerate($vars);
         } catch (Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
-            header('Location:' . Horde::applicationUrl('listzones.php'));
-            exit;
+            Horde::applicationUrl('listzones.php')->redirect();
         }
     } else {
         $notification->push(_("Autogeneration not performed"), 'horde.warning');
     }
 
-    header('Location: ' . $viewurl);
-    exit;
+    $viewurl->redirect();
 }
 
 $title = _("Autogenerate");

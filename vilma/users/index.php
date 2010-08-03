@@ -31,7 +31,7 @@ $tabs = Vilma::getUserMgrTabs($vars);
 $addresses = $vilma->driver->getAddresses($curdomain['domain_name'], $section);
 if (is_a($addresses, 'PEAR_Error')) {
     $notification->push($addresses);
-    header('Location: ' . Horde::applicationUrl('index.php'));
+    Horde::applicationUrl('index.php')->redirect();
 }
 
 // Page results

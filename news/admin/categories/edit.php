@@ -44,9 +44,7 @@ if ($form->validate()) {
         $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
     } else {
         $notification->push(sprintf(_("Category succesfully saved.")));
-        $url = Horde::applicationUrl('admin/categories/index.php', true);
-        header('Location: ' . $url);
-        exit;
+        Horde::applicationUrl('admin/categories/index.php', true)->redirect();
     }
 }
 

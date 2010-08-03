@@ -54,8 +54,7 @@ if ($app == false || $registry->get('status', $app) == 'inactive' || !$registry-
 /* Redirect to create a new class if we don't have access to any class */
 if (count(Skoli::listClasses()) == 0 && $GLOBALS['registry']->getAuth()) {
     $notification->push(_("Please create a new Class first."), 'horde.message');
-    header('Location: ' . Horde::applicationUrl('classes/create.php', true));
-    exit;
+    Horde::applicationUrl('classes/create.php', true)->redirect();
 }
 
 switch ($actionID) {

@@ -12,16 +12,14 @@ require_once SKOLI_BASE . '/lib/Forms/CreateClass.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 // Exit if we don't have access to addressbooks.
 require_once SKOLI_BASE . '/lib/School.php';
 if (!count(Skoli_School::listAddressBooks())) {
     $notification->push(_("You don't have access to any valid addressbook."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('classes/', true));
-    exit;
+    Horde::applicationUrl('classes/', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -38,8 +36,7 @@ if ($form->validate($vars)) {
         $prefs->setValue('display_classes', serialize($GLOBALS['display_classes']));
     }
 
-    header('Location: ' . Horde::applicationUrl('classes/', true));
-    exit;
+    Horde::applicationUrl('classes/', true)->redirect();
 }
 
 $title = $form->getTitle();

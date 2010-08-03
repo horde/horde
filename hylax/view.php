@@ -27,9 +27,10 @@ if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
     if (empty($url)) {
         $url = Horde::applicationUrl('folder.php', true);
+    } else {
+        $url = new Horde_Url($url);
     }
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $title = _("View Fax");

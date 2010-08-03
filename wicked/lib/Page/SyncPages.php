@@ -291,8 +291,7 @@ class SyncPages extends Page {
                 $GLOBALS['prefs']->setValue('sync_data', serialize($data));
                 $GLOBALS['notification']->push(_("Sync login info was stored"), 'horde.success');
 
-                header('Location: ' . Wicked::url('SyncPages', true));
-                exit;
+                Wicked::url('SyncPages', true)->redirect();
 
             case _("Remove login info"):
                 $data = unserialize($GLOBALS['prefs']->getValue('sync_data'));
@@ -301,8 +300,7 @@ class SyncPages extends Page {
                 $GLOBALS['prefs']->setValue('sync_data', serialize($data));
                 $GLOBALS['notification']->push(_("Sync login info was removed."), 'horde.success');
 
-                header('Location: ' . Wicked::url('SyncPages', true));
-                exit;
+                Wicked::url('SyncPages', true)->redirect();
             }
         }
 
@@ -394,8 +392,7 @@ class SyncPages extends Page {
         $GLOBALS['notification']->push(sprintf(_("Page \"%s\" was sucessfuly downloaded from remote to local wiki."), $pageName), 'horde.success');
 
         // Show the newly saved page.
-        header('Location: ' . Wicked::url($pageName, true));
-        exit;
+        Wicked::url($pageName, true)->redirect();
     }
 
     /**
@@ -424,8 +421,7 @@ class SyncPages extends Page {
         $GLOBALS['notification']->push(sprintf(_("Page \"%s\" was sucessfully uploaded from local to remote wiki."), $pageName), 'horde.success');
 
         // Show the newly updated page.
-        header('Location: ' . Wicked::url($pageName, true));
-        exit;
+        Wicked::url($pageName, true)->redirect();
     }
 
     /**

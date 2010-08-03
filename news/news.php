@@ -21,8 +21,7 @@ $row = $news->get($id);
 // check if the news exists
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    header('Location: ' . Horde::applicationUrl('index.php'));
-    exit;
+    Horde::applicationUrl('index.php')->redirect();
 }
 
 // check if the news exists

@@ -219,8 +219,9 @@ class Folks_Hooks
                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
                 exit;
             } else {
-                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'PaidFiles')));
-                exit;
+                $GLOBALS['registry']
+                    ->link('wiki/show', array('page' => 'PaidFiles'))
+                    ->redirect();
             }
             break;
 

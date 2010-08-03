@@ -25,6 +25,6 @@ try {
     }
 
     if (isset($registry)) {
-        header('Location: ' . $registry->get('webroot', 'koward'));
+        $registry->get('webroot', 'koward')->redirect();
     }
 }

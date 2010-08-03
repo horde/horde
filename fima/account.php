@@ -14,8 +14,7 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Redirect to the account list if no action has been requested. */
 $actionID = $vars->get('actionID');
 if (is_null($actionID)) {
-    header('Location: ' . Horde::applicationUrl('accounts.php', true));
-    exit;
+    Horde::applicationUrl('accounts.php', true)->redirect();
 }
 
 /* Get ledger. */
@@ -23,8 +22,7 @@ $ledger = Fima::getActiveLedger();
 $share = &$GLOBALS['fima_shares']->getShare($ledger);
 if (is_a($share, 'PEAR_Error')) {
     $notification->push(sprintf(_("Access denied on account: %s"), $share->getMessage()), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('accounts.php', true));
-    exit;
+    Horde::applicationUrl('accounts.php', true)->redirect();
 }
 $ledger_name = $share->get('name');
 
@@ -83,8 +81,7 @@ case 'modify_account':
     }
 
     /* Return to the accounts. */
-    header('Location: ' . Horde::applicationUrl('accounts.php', true));
-    exit;
+    Horde::applicationUrl('accounts.php', true)->redirect();
 
 case 'save_account':
     if ($vars->get('submitbutton') == _("Delete this account")) {
@@ -102,8 +99,7 @@ case 'save_account':
     $form->getInfo($vars, $info);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving account to %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('accounts.php', true));
-        exit;
+        Horde::applicationUrl('accounts.php', true)->redirect();
     }
 
     $storage = &Fima_Driver::singleton($ledger);
@@ -159,10 +155,9 @@ case 'save_account':
         /* Return to the accounts. */
         if ($vars->get('submitbutton') == _("Save and New")) {
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $vars->get('parent_id'), 'actionID' => 'add_account'), null, false));
-        } else {
-            header('Location: ' . Horde::applicationUrl('accounts.php', true));
+            exit;
         }
-        exit;
+        Horde::applicationUrl('accounts.php', true)->redirect();
     }
 
     break;
@@ -186,8 +181,7 @@ case 'delete_account':
     }
 
     /* Return to the accounts. */
-    header('Location: ' . Horde::applicationUrl('accounts.php', true));
-    exit;
+    Horde::applicationUrl('accounts.php', true)->redirect();
 
 case 'purge_account':
     if ($vars->get('submitbutton') == _("Edit this account")) {
@@ -205,8 +199,7 @@ case 'purge_account':
     $form->getInfo($vars, $info);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(sprintf(_("Access denied deleting account from %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('accounts.php', true));
-        exit;
+        Horde::applicationUrl('accounts.php', true)->redirect();
     }
 
     $storage = &Fima_Driver::singleton($ledger);
@@ -220,15 +213,13 @@ case 'purge_account':
     } else {
         $notification->push(sprintf(_("Deleted %s."), trim($info['number_new'] . ' ' . $info['name'])), 'horde.success');
         /* Return to the accounts. */
-        header('Location: ' . Horde::applicationUrl('accounts.php', true));
-        exit;
+        Horde::applicationUrl('accounts.php', true)->redirect();
     }
 
     break;
 
 default:
-    header('Location: ' . Horde::applicationUrl('accounts.php', true));
-    exit;
+    Horde::applicationUrl('accounts.php', true)->redirect();
 }
 
 $title = $form->getTitle();

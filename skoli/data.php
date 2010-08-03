@@ -11,8 +11,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!$conf['menu']['export']) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $classes = Skoli::listClasses();

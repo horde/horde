@@ -130,8 +130,9 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
             }
         }
         $_SESSION['whups']['query'] = serialize($whups_query);
-        header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('query/index.php', 'action', 'save'), true));
-        exit;
+        Horde::applicationUrl('query/index.php', true)
+            ->add('action', 'save')
+            ->redirect();
     }
     $tickets = $whups_driver->getTicketsByProperties($info);
     if (is_a($tickets, 'PEAR_Error')) {

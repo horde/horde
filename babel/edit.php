@@ -66,10 +66,7 @@ if ($app && Horde_Util::getFormData('submitbutton') == _("Save")) {
 	$po->save($pofile);
 
 	if (Horde_Util::getFormData('url') == 'view') {
-	    $url = Horde::applicationUrl('view.php');
-	    $url = Horde_Util::addParameter($url, array('module' => $app));
-	    header('Location: ' . $url);
-	    exit;
+	    Horde::applicationUrl('view.php')->add('module' => $app)->redirect();
 	}
     }
 }

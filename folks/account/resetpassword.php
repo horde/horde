@@ -30,8 +30,7 @@ function _getCAPTCHA($new = false)
 
 // We are already logged
 if ($registry->isAuthenticated()) {
-    header('Location: ' . Folks::getUrlFor('user', $GLOBALS['registry']->getAuth()));
-    exit;
+    Folks::getUrlFor('user', $GLOBALS['registry']->getAuth())->redirect();
 }
 
 // Make sure auth backend allows passwords to be reset.

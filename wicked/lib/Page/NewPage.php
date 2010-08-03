@@ -68,13 +68,11 @@ class NewPage extends Page {
     {
         if (!strlen($this->referrer())) {
             $GLOBALS['notification']->push(_("Page name must not be empty"));
-            header('Location: ' . Wicked::url('', true));
-            exit;
+            Wicked::url('', true)->redirect();
         }
 
         if (!$this->allows(WICKED_MODE_EDIT)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
@@ -139,8 +137,7 @@ class NewPage extends Page {
         }
 
         // Show the newly created page.
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

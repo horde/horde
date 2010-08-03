@@ -42,15 +42,13 @@ case 'rule_disable':
 case 'rule_enable':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('filters.php', true));
-        exit;
+        Horde::applicationUrl('filters.php', true)->redirect();
     }
     switch ($vars->actionID) {
     case 'rule_delete':
         if (!$delete_allowed) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('filters.php', true));
-            exit;
+            Horde::applicationUrl('filters.php', true)->redirect();
         }
 
         $tmp = $filters->getFilter($vars->rulenumber);
@@ -116,8 +114,7 @@ case 'rule_enable':
 case 'settings_save':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('filters.php', true));
-        exit;
+        Horde::applicationUrl('filters.php', true)->redirect();
     }
     $prefs->setValue('show_filter_msg', $vars->show_filter_msg);
     $prefs->setValue('filter_seen', $vars->filter_seen);
@@ -127,8 +124,7 @@ case 'settings_save':
 case 'apply_filters':
     if (!$edit_allowed) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('filters.php', true));
-        exit;
+        Horde::applicationUrl('filters.php', true)->redirect();
     }
     $ingo_script->apply();
     break;

@@ -24,15 +24,13 @@ try {
     $addressbook = $turba_shares->getShare($vars->get('a'));
 } catch (Horde_Share_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 if (!$GLOBALS['registry']->getAuth() ||
     $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 $form = new Turba_Form_EditAddressBook($vars, $addressbook);
 
@@ -50,8 +48,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::applicationUrl('addressbooks/', true)->redirect();
 }
 
 $vars->set('name', $addressbook->get('name'));

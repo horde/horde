@@ -38,8 +38,9 @@ $ids = preg_split('/:/', $channel['channel_url'], -1, PREG_SPLIT_NO_EMPTY);
 $channel_type = $channel['channel_type'];
 if ($channel_type != Jonah::AGGREGATED_CHANNEL) {
     $notification->push(_("This is no aggregated channel."), 'horde.error');
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('channels/edit.php', true), 'channel_id', $channel_id));
-    exit;
+    Horde::applicationUrl('channels/edit.php', true)
+        ->add('channel_id', $channel_id)
+        ->redirect();
 }
 
 /* Check permissions and deny if not allowed. */
@@ -82,8 +83,9 @@ if ($form->validate($vars)) {
             }
         }
 
-        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('channels/aggregate.php', true), 'channel_id', $channel_id));
-        exit;
+        Horde::applicationUrl('channels/aggregate.php', true)
+            ->add('channel_id', $channel_id)
+            ->redirect();
     }
 } elseif ($vars->get('action') == 'delete') {
     $subchannel = $news->getChannel($vars->get('subchannel_id'));
@@ -102,8 +104,9 @@ if ($form->validate($vars)) {
         }
     }
 
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('channels/aggregate.php', true), 'channel_id', $channel_id));
-    exit;
+    Horde::applicationUrl('channels/aggregate.php', true)
+        ->add('channel_id', $channel_id)
+        ->redirect();
 } elseif ($vars->get('action') == 'edit') {
     $form->addHidden('', 'subchannel_id', 'int', false);
     $form->setButtons(_("Update"));

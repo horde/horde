@@ -20,8 +20,7 @@ $title = _("Edit my profile");
 $profile = $folks_driver->getRawProfile($GLOBALS['registry']->getAuth());
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $form = new Horde_Form($vars, $title, 'editprofile');
@@ -69,8 +68,7 @@ if ($form->validate()) {
             } else {
                 $folks_driver->logActivity(_("Updated his/her profile picture."));
             }
-            header('Location: ' . Horde::applicationUrl('edit/edit.php'));
-            exit;
+            Horde::applicationUrl('edit/edit.php')->redirect();
         }
     break;
 

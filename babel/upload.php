@@ -46,10 +46,8 @@ if (Horde_Util::getFormData('submitbutton') == _("Upload")) {
 		$cmd = "cp $po_file_path " . HORDE_BASE . "/$mod/po/$lang.po";
 		system($cmd);
 		
-		$url = Horde::applicationUrl('upload.php');
 		// Redirect to page URL
-		header('Location: ' . $url);
-		exit;
+		Horde::applicationUrl('upload.php')->redirect();
 	    }
 	}
     }

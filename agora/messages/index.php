@@ -18,17 +18,14 @@ list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Check if we must show bodies */
@@ -127,8 +124,7 @@ if ($messages->hasPermission(Horde_Perms::DELETE)) {
 $threads_list = $messages->getThreads($message['message_thread'], true, $sort_by, $sort_dir, ($view_bodies ? 1 : 0), '', null, $thread_start, $thread_per_page);
 if ($threads_list instanceof PEAR_Error) {
     $notification->push($threads_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Set up pager. */

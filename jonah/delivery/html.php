@@ -39,9 +39,7 @@ $channel = $news->getChannel($criteria['channel_id']);
 if (is_a($channel, 'PEAR_Error')) {
     Horde::logMessage($channel, 'ERR');
     $notification->push(_("Invalid channel."), 'horde.error');
-    $url = Horde::applicationUrl('delivery/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('delivery/index.php', true)->redirect();
 }
 
 $title = sprintf(_("HTML Delivery for \"%s\""), $channel['channel_name']);

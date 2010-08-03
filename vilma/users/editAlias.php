@@ -23,36 +23,37 @@ $vars = Variables::getDefaultVariables();
 
 /* If the form is submitted, $vars['mode'] will be set. Catch this and process the submission so that the displayed form accurately indicates the result of the transaction. */
 if ($vars->exists('mode')) {
-  Horde::logMessage("Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
-  $form = &new EditAliasForm($vars);
+    Horde::logMessage("Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
+    $form = &new EditAliasForm($vars);
 
-  if ($form->validate($vars)) {
-      $form->getInfo($vars, $info);
-      $alias_id = $vilma->driver->saveAlias($info);
-      if (is_a($alias_id, 'PEAR_Error')) {
-          Horde::logMessage($user_id, 'ERR');
-          $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
-          // remove the mode, and rearrange the alias information to clean up the form.
-          $vars->remove('mode');
-          $vars->add('retry', true);
-          if ($vars->exists('alias')) {
-            $vars->remove('alias_address');
-          } elseif ($vars->exists('address')) {
-            $vars->remove('alias_address');
-            $vars->remove('alias');
-          }
-      } else {
-          $notification->push(_("Alias saved."), 'horde.success');
-          $url = Util::addParameter(Horde::applicationUrl('users/index.php'), 'domain_id', $domain['id'], false);
-          header('Location: ' . $url);
-          exit;
-      }
-  }
-} // if
+    if ($form->validate($vars)) {
+        $form->getInfo($vars, $info);
+        $alias_id = $vilma->driver->saveAlias($info);
+        if (is_a($alias_id, 'PEAR_Error')) {
+            Horde::logMessage($user_id, 'ERR');
+            $notification->push(sprintf(_("Error saving alias. %s"), $alias_id->getMessage()), 'horde.error');
+            // remove the mode, and rearrange the alias information to clean
+            // up the form.
+            $vars->remove('mode');
+            $vars->add('retry', true);
+            if ($vars->exists('alias')) {
+                $vars->remove('alias_address');
+            } elseif ($vars->exists('address')) {
+                $vars->remove('alias_address');
+                $vars->remove('alias');
+            }
+        } else {
+            $notification->push(_("Alias saved."), 'horde.success');
+            Horde::applicationUrl('users/index.php')
+                ->add('domain_id', $domain['id'])
+                ->redirect();
+        }
+    }
+}
 
 /* Check if a form is being edited. */
 if (!$vars->exists('mode') || $vars->getExists('retry')) {
-  Horde::logMessage("No-Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
+    Horde::logMessage("No-Submit Detected: " . print_r(serialize($vars), true), 'DEBUG');
     if ($vars->exists("alias")) {
         $alias = $vars->get("alias");
         Horde::logMessage("Alias Detected: $alias", 'DEBUG');

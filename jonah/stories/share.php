@@ -56,10 +56,9 @@ $channel_id = $vars->get('channel_id');
 $story_id = $vars->get('story_id');
 
 if (!$conf['sharing']['allow']) {
-    $url = Horde::applicationUrl('stories/view.php', true);
-    $url = Horde_Util::addParameter($url, array('story_id' => $story_id, 'channel_id' => $channel_id));
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('stories/view.php', true)
+        ->add(array('story_id' => $story_id, 'channel_id' => $channel_id))
+        ->redirect();
 }
 
 $story = $news->getStory($channel_id, $story_id);

@@ -19,8 +19,7 @@ $storage = Mnemo_Driver::singleton();
 if ($uid = Horde_Util::getFormData('uid')) {
     $memo = $storage->getByUID($uid, $passphrase);
     if (is_a($memo, 'PEAR_Error')) {
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit;
+        Horde::applicationUrl('list.php', true)->redirect();
     }
 
     $memo_id = $memo['memo_id'];
@@ -31,8 +30,7 @@ if ($uid = Horde_Util::getFormData('uid')) {
     $memo_id = Horde_Util::getFormData('memo');
     $memolist_id = Horde_Util::getFormData('memolist');
     if (!isset($memo_id) || !$memolist_id) {
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit;
+        Horde::applicationUrl('list.php', true)->redirect();
     }
 
     /* Get the current memo. */
@@ -42,20 +40,17 @@ try {
     $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push(sprintf(_("There was an error viewing this notepad: %s"), $e->getMessage()), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 /* If the requested note doesn't exist, display an error message. */
 if (!$memo || !isset($memo['memo_id'])) {
     $notification->push(_("Note not found."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 /* Get the note's history. */

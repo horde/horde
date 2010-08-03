@@ -88,8 +88,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
             }
         }
 
-        header('Location: ' . $next_page->setRaw(true));
-        exit;
+        $next_page->redirect();
     }
 
 }

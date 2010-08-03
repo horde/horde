@@ -30,15 +30,12 @@ if ($vars->get('submitbutton') == _("Delete")) {
             $notification->push(sprintf(_("Error deleting domain. %s."), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Domain deleted."), 'horde.success');
-            $url = Horde::applicationUrl('domains/index.php', true);
-            header('Location: ' . $url);
-            exit;
+            Horde::applicationUrl('domains/index.php', true)->redirect();
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("Domain not deleted."), 'horde.message');
-    header('Location: ' . Horde::applicationUrl('domains/index.php'));
-    exit;
+    Horde::applicationUrl('domains/index.php', true)->redirect();
 }
 
 /* Render the form. */

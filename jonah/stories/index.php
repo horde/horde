@@ -17,9 +17,7 @@ $news = Jonah_News::factory();
 $channel_id = Horde_Util::getFormData('channel_id');
 if (empty($channel_id)) {
     $notification->push(_("No channel requested."), 'horde.error');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 
 $channel = $news->getChannel($channel_id);
@@ -37,9 +35,7 @@ $url = Horde_Util::getFormData('url');
 $stories = $news->getStories($channel_id, null, 0, !empty($refresh), null, true);
 if (is_a($stories, 'PEAR_Error')) {
     $notification->push(sprintf(_("Invalid channel requested. %s"), $stories->getMessage()), 'horde.error');
-    $url = Horde::applicationUrl('channels/index.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('channels/index.php', true)->redirect();
 }
 
 /* Do some state tests. */

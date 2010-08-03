@@ -44,5 +44,7 @@ if (Horde_Util::getFormData('partial')) {
 if (!is_null($url = Horde_Util::getFormData('nu'))) {
     header('Location: ' . $url);
 } else {
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('browse.php', true), 'f', $bookmark->folder));
+    Horde::applicationUrl('browse.php', true)
+        ->add('f', $bookmark->folder)
+        ->redirect();
 }

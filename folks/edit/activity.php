@@ -26,8 +26,7 @@ if ($activity_scope && $activity_date) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully deleted"), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('edit/activity.php'));
-        exit;
+        Horde::applicationUrl('edit/activity.php')->redirect();
     }
 }
 
@@ -38,16 +37,14 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully posted"), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('edit/activity.php'));
-        exit;
+        Horde::applicationUrl('edit/activity.php')->redirect();
     }
 }
 
 $activities = $folks_driver->getActivity($GLOBALS['registry']->getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $delete_url = Horde::applicationUrl('edit/activity.php');

@@ -25,12 +25,11 @@ $vars->set('forum_id', $forum_id);
 /* Check permissions */
 if ($forum_id && !$registry->isAdmin(array('permission' => 'agora:admin'))) {
     $notification->push(sprintf(_("You don't have permissions to edit forum %s"), $registry->get('name', $scope)), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
-} elseif (!$registry->isAdmin(array('permission' => 'agora:admin'))) {
+    Horde::applicationUrl('forums.php', true)->redirect();
+}
+if (!$registry->isAdmin(array('permission' => 'agora:admin'))) {
     $notification->push(sprintf(_("You don't have permissions to create a new forum in %s"), $registry->get('name', $scope)), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 $form = new ForumForm($vars, $title);
@@ -38,11 +37,10 @@ if ($form->validate()) {
     $forum_id = $form->execute($vars);
     if ($forum_id instanceof PEAR_Error) {
         $notification->push(sprintf(_("Could not create the forum. %s"), $forum_id->message), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('forums.php', true));
-    } else {
-        $notification->push($vars->get('forum_id') ? _("Forum Modified") : _("Forum created."), 'horde.success');
-        header('Location: ' . Agora::setAgoraId($forum_id, null, Horde::applicationUrl('threads.php', true)));
+        Horde::applicationUrl('forums.php', true)->redirect();
     }
+    $notification->push($vars->get('forum_id') ? _("Forum Modified") : _("Forum created."), 'horde.success');
+    header('Location: ' . Agora::setAgoraId($forum_id, null, Horde::applicationUrl('threads.php', true)));
     exit;
 }
 

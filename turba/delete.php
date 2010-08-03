@@ -21,13 +21,11 @@ if ($conf['documents']['type'] != 'none') {
     $object = $driver->getObject($key);
     if (is_a($object, 'PEAR_Error')) {
         $notification->push($object->getMessage(), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
     if (is_a($deleted = $object->deleteFiles(), 'PEAR_Error')) {
         $notification->push($deleted, 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+        Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 

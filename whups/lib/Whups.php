@@ -261,8 +261,8 @@ class Whups {
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
-            header('Location: ' . Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true));
-            exit;
+            Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+                ->redirect();
         }
 
         $ticket = Whups_Ticket::makeTicket($id);
@@ -270,14 +270,11 @@ class Whups {
             if ($ticket->code === 0) {
                 // No permissions to this ticket.
                 $GLOBALS['notification']->push($ticket->getMessage(), 'horde.warning');
-                $url = Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
             } else {
                 $GLOBALS['notification']->push($ticket->getMessage(), 'horde.error');
-                $url = Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
             }
-
-            header('Location: ' . $url);
-            exit;
+            Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+                ->redirect();
         }
 
         return $ticket;

@@ -30,8 +30,7 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was removed from your blacklist."), $user), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/friends/blacklist.php'));
-            exit;
+            Horde::applicationUrl('edit/friends/blacklist.php')->redirect();
         }
     } else {
         $result = $friends->addBlacklisted($user);
@@ -39,8 +38,7 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was added to your blacklist."), $user), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/friends/blacklist.php'));
-            exit;
+            Horde::applicationUrl('edit/friends/blacklist.php')->redirect();
         }
     }
 }

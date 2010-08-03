@@ -169,9 +169,9 @@ case 'save_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving postings to %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
-    } elseif ($postingset !== null) {
+        Horde::applicationUrl('postings.php', true)->redirect();
+    }
+    if ($postingset !== null) {
         $pageOb['mode'] = 'edit';
         $title = _("Edit Postings");
         $posting_owner = $ledger;
@@ -267,13 +267,11 @@ case 'save_postings':
             $notification->push(sprintf(_("%d postings not saved."), count($postings)), 'horde.error');
         } else {
             /* Return to the posting list. */
-            header('Location: ' . Horde::applicationUrl('postings.php', true));
-            exit;
+            Horde::applicationUrl('postings.php', true)->redirect();
         }
     } else {
         /* Return to the posting list. */
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
+        Horde::applicationUrl('postings.php', true)->redirect();
     }
     break;
 
@@ -284,9 +282,9 @@ case 'delete_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
         $notification->push(sprintf(_("Access denied deleting postings from %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
-    } elseif ($postingset !== null) {
+        Horde::applicationUrl('postings.php', true)->redirect();
+    }
+    if ($postingset !== null) {
         $storage = &Fima_Driver::singleton($ledger);
         $delcount = 0;
         foreach($postingset as $index => $posting_id) {
@@ -304,9 +302,7 @@ case 'delete_postings':
     }
 
     /* Return to the posting list. */
-    header('Location: ' . Horde::applicationUrl('postings.php', true));
-    exit;
-    break;
+    Horde::applicationUrl('postings.php', true)->redirect();
 
 case 'update_postings':
     /* Get the form values. */
@@ -315,9 +311,9 @@ case 'update_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied shifting postings in %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
-    } elseif ($postingset !== null) {
+        Horde::applicationUrl('postings.php', true)->redirect();
+    }
+    if ($postingset !== null) {
         $posting_type = Horde_Util::getFormData('type');
         $posting_asset = Horde_Util::getFormData('asset');
         $posting_account = Horde_Util::getFormData('account');
@@ -342,161 +338,155 @@ case 'update_postings':
     }
 
     /* Return to the posting list. */
-    header('Location: ' . Horde::applicationUrl('postings.php', true));
-    exit;
-    break;
+    Horde::applicationUrl('postings.php', true)->redirect();
 
 case 'copymove_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
-    } elseif (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
+        Horde::applicationUrl('postings.php', true)->redirect();
+    }
+    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
-        header('Location: ' . Horde::applicationUrl('postings.php', true));
-        exit;
-    } else {
-        $type_from = Horde_Util::getFormData('type_from');
-        $period_from = Horde_Util::getFormData('period_from');
-        $keep = Horde_Util::getFormData('keep');
-        $summarize = Horde_Util::getFormData('summarize');
-        $summarize_account = Horde_Util::getFormData('summarize_post_account');
-        $type_to = Horde_Util::getFormData('type_to');
-        $period_to = Horde_Util::getFormData('period_to');
-        $delete = Horde_Util::getFormData('delete');
+        Horde::applicationUrl('postings.php', true)->redirect();
+    }
+    $type_from = Horde_Util::getFormData('type_from');
+    $period_from = Horde_Util::getFormData('period_from');
+    $keep = Horde_Util::getFormData('keep');
+    $summarize = Horde_Util::getFormData('summarize');
+    $summarize_account = Horde_Util::getFormData('summarize_post_account');
+    $type_to = Horde_Util::getFormData('type_to');
+    $period_to = Horde_Util::getFormData('period_to');
+    $delete = Horde_Util::getFormData('delete');
 
-        $period_from_start = mktime(0, 0, 0, ($period_from['month'] === '') ? 1 : $period_from['month'], 1, (int)$period_from['year']);
-        $period_from_end = mktime(0, 0, 0, ($period_from['month'] === '') ? 12 : $period_from['month'] + 1, ($period_from['month'] === '') ? 31 : 0, (int)$period_from['year']);
-        $period_to_start = mktime(0, 0, 0, ($period_to['month'] === '') ? 1 : $period_to['month'], 1, (int)$period_to['year']);
-        $period_to_end = mktime(0, 0, 0, ($period_to['month'] === '') ? 12 : $period_to['month'] + 1, ($period_to['month'] === '') ? 31 : 0, (int)$period_to['year']);
+    $period_from_start = mktime(0, 0, 0, ($period_from['month'] === '') ? 1 : $period_from['month'], 1, (int)$period_from['year']);
+    $period_from_end = mktime(0, 0, 0, ($period_from['month'] === '') ? 12 : $period_from['month'] + 1, ($period_from['month'] === '') ? 31 : 0, (int)$period_from['year']);
+    $period_to_start = mktime(0, 0, 0, ($period_to['month'] === '') ? 1 : $period_to['month'], 1, (int)$period_to['year']);
+    $period_to_end = mktime(0, 0, 0, ($period_to['month'] === '') ? 12 : $period_to['month'] + 1, ($period_to['month'] === '') ? 31 : 0, (int)$period_to['year']);
 
-        $storage = &Fima_Driver::singleton($ledger);
+    $storage = &Fima_Driver::singleton($ledger);
 
-        /* Delete existing. */
-        if ($delete) {
-            $transferfilters = array(array('type', $type_to),
-                               array('date', $period_to_start, '>='),
-                               array('date', $period_to_end, '<='));
-            $postings = Fima::listPostings($transferfilters);
-            $delcount = 0;
-            foreach ($postings as $postingId => $posting) {
-                $result = $storage->deletePosting($postingId);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was a problem deleting an existing posting: %s"),
-                                                $result->getMessage()), 'horde.error');
-                } else {
-                    $delcount++;
-                }
-            }
-            if ($delcount > 0) {
-                $notification->push(sprintf(_("Deleted %d existing postings."), $delcount), 'horde.success');
-            }
-        }
-
-        /* Copy postings. */
-        $transferfilters = array(array('type', $type_from),
-                                 array('date', $period_from_start, '>='),
-                                 array('date', $period_from_end, '<='));
+    /* Delete existing. */
+    if ($delete) {
+        $transferfilters = array(array('type', $type_to),
+                                 array('date', $period_to_start, '>='),
+                                 array('date', $period_to_end, '<='));
         $postings = Fima::listPostings($transferfilters);
-
-        if ($summarize != 'none') {
-            $accounts = Fima::listAccounts();
-            $postingscopy = array();
-
-            foreach ($postings as $postingId => $posting) {
-                $asset = (isset($accounts[$posting['asset']]))
-                         ? (($accounts[$posting['asset']]['parent_id'] !== null) ? $accounts[$posting['asset']]['parent_id'] : $accounts[$posting['asset']]['account_id'])
-                         : $posting['asset'];
-                $account = (isset($accounts[$posting['account']]))
-                           ? (($accounts[$posting['account']]['parent_id'] !== null) ? $accounts[$posting['account']]['parent_id'] : $accounts[$posting['account']]['account_id'])
-                           : $posting['account'];
-
-                if ($summarize == 'combine') {
-                    $copyId = $asset . '_' . $account . '_' . strftime('%Y%m', $posting['date']);
-
-                    if (isset($postingscopy[$copyId])) {
-                        $postingscopy[$copyId]['amount'] += $posting['amount'];
-                    } else {
-                        $postingscopy[$copyId] = $posting;
-                        $postingscopy[$copyId]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
-                        $postingscopy[$copyId]['asset'] = $asset;
-                        $postingscopy[$copyId]['account'] = $account;
-                        $postingscopy[$copyId]['eo'] = 0;
-                        $postingscopy[$copyId]['desc'] = _("Summarized");
-                    }
-                } elseif ($summarize == 'post') {
-                    $copyIdAsset = $asset . '_' . strftime('%Y%m', $posting['date']);
-                    $copyIdAccount = $account . '_' . strftime('%Y%m', $posting['date']);
-
-                    if (isset($postingscopy[$copyIdAsset])) {
-                        $postingscopy[$copyIdAsset]['amount'] += $posting['amount'];
-                    } else {
-                        $postingscopy[$copyIdAsset] = $posting;
-                        $postingscopy[$copyIdAsset]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
-                        $postingscopy[$copyIdAsset]['asset'] = $asset;
-                        $postingscopy[$copyIdAsset]['account'] = $summarize_account;
-                        $postingscopy[$copyIdAsset]['eo'] = 0;
-                        $postingscopy[$copyIdAsset]['desc'] = _("Summarized");
-                    }
-
-                    if (isset($postingscopy[$copyIdAccount])) {
-                        $postingscopy[$copyIdAccount]['amount'] += $posting['amount'];
-                    } else {
-                        $postingscopy[$copyIdAccount] = $posting;
-                        $postingscopy[$copyIdAccount]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
-                        $postingscopy[$copyIdAccount]['asset'] = $summarize_account;
-                        $postingscopy[$copyIdAccount]['account'] = $account;
-                        $postingscopy[$copyIdAccount]['eo'] = 0;
-                        $postingscopy[$copyIdAccount]['desc'] = _("Summarized");
-                    }
-                }
-            }
-        } else {
-            $postingscopy = &$postings;
-            foreach ($postingscopy as $postingId => $posting) {
-                $postingscopy[$postingId]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], strftime('%d', $posting['date']), (int)$period_to['year']);
-            }
-        }
-
-        $addcount = 0;
-        foreach ($postingscopy as $postingId => $posting) {
-            $result = $storage->addPosting($type_to, $posting['date'], $posting['asset'], $posting['account'],
-                                           $posting['eo'], $posting['amount'], $posting['desc']);
-
-            // Check our results.
+        $delcount = 0;
+        foreach ($postings as $postingId => $posting) {
+            $result = $storage->deletePosting($postingId);
             if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("There was a problem saving the posting: %s."), $result->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("There was a problem deleting an existing posting: %s"),
+                                            $result->getMessage()), 'horde.error');
             } else {
-                $addcount++;
+                $delcount++;
             }
         }
-        if ($addcount > 0) {
-            $notification->push(sprintf($summarize ? _("Summarized %d postings.") : _("Transfered %d postings."), $addcount), 'horde.success');
+        if ($delcount > 0) {
+            $notification->push(sprintf(_("Deleted %d existing postings."), $delcount), 'horde.success');
         }
+    }
 
-        /* Delete original postings. */
-        if (!$keep) {
-            $delcount = 0;
-            foreach ($postings as $postingId => $posting) {
-                $result = $storage->deletePosting($postingId);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was a problem deleting an original posting: %s"),
-                                                $result->getMessage()), 'horde.error');
+    /* Copy postings. */
+    $transferfilters = array(array('type', $type_from),
+                             array('date', $period_from_start, '>='),
+                             array('date', $period_from_end, '<='));
+    $postings = Fima::listPostings($transferfilters);
+
+    if ($summarize != 'none') {
+        $accounts = Fima::listAccounts();
+        $postingscopy = array();
+
+        foreach ($postings as $postingId => $posting) {
+            $asset = (isset($accounts[$posting['asset']]))
+                ? (($accounts[$posting['asset']]['parent_id'] !== null) ? $accounts[$posting['asset']]['parent_id'] : $accounts[$posting['asset']]['account_id'])
+                : $posting['asset'];
+            $account = (isset($accounts[$posting['account']]))
+                ? (($accounts[$posting['account']]['parent_id'] !== null) ? $accounts[$posting['account']]['parent_id'] : $accounts[$posting['account']]['account_id'])
+                : $posting['account'];
+
+            if ($summarize == 'combine') {
+                $copyId = $asset . '_' . $account . '_' . strftime('%Y%m', $posting['date']);
+
+                if (isset($postingscopy[$copyId])) {
+                    $postingscopy[$copyId]['amount'] += $posting['amount'];
                 } else {
-                    $delcount++;
+                    $postingscopy[$copyId] = $posting;
+                    $postingscopy[$copyId]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
+                    $postingscopy[$copyId]['asset'] = $asset;
+                    $postingscopy[$copyId]['account'] = $account;
+                    $postingscopy[$copyId]['eo'] = 0;
+                    $postingscopy[$copyId]['desc'] = _("Summarized");
+                }
+            } elseif ($summarize == 'post') {
+                $copyIdAsset = $asset . '_' . strftime('%Y%m', $posting['date']);
+                $copyIdAccount = $account . '_' . strftime('%Y%m', $posting['date']);
+
+                if (isset($postingscopy[$copyIdAsset])) {
+                    $postingscopy[$copyIdAsset]['amount'] += $posting['amount'];
+                } else {
+                    $postingscopy[$copyIdAsset] = $posting;
+                    $postingscopy[$copyIdAsset]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
+                    $postingscopy[$copyIdAsset]['asset'] = $asset;
+                    $postingscopy[$copyIdAsset]['account'] = $summarize_account;
+                    $postingscopy[$copyIdAsset]['eo'] = 0;
+                    $postingscopy[$copyIdAsset]['desc'] = _("Summarized");
+                }
+
+                if (isset($postingscopy[$copyIdAccount])) {
+                    $postingscopy[$copyIdAccount]['amount'] += $posting['amount'];
+                } else {
+                    $postingscopy[$copyIdAccount] = $posting;
+                    $postingscopy[$copyIdAccount]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], 1, (int)$period_to['year']);
+                    $postingscopy[$copyIdAccount]['asset'] = $summarize_account;
+                    $postingscopy[$copyIdAccount]['account'] = $account;
+                    $postingscopy[$copyIdAccount]['eo'] = 0;
+                    $postingscopy[$copyIdAccount]['desc'] = _("Summarized");
                 }
             }
-            if ($delcount > 0) {
-                $notification->push(sprintf(_("Deleted %d original postings."), $delcount), 'horde.success');
+        }
+    } else {
+        $postingscopy = &$postings;
+        foreach ($postingscopy as $postingId => $posting) {
+            $postingscopy[$postingId]['date'] = mktime(0, 0, 0, ($period_to['month'] === '') ? strftime('%m', $posting['date']) : $period_to['month'], strftime('%d', $posting['date']), (int)$period_to['year']);
+        }
+    }
+
+    $addcount = 0;
+    foreach ($postingscopy as $postingId => $posting) {
+        $result = $storage->addPosting($type_to, $posting['date'], $posting['asset'], $posting['account'],
+                                       $posting['eo'], $posting['amount'], $posting['desc']);
+
+        // Check our results.
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push(sprintf(_("There was a problem saving the posting: %s."), $result->getMessage()), 'horde.error');
+        } else {
+            $addcount++;
+        }
+    }
+    if ($addcount > 0) {
+        $notification->push(sprintf($summarize ? _("Summarized %d postings.") : _("Transfered %d postings."), $addcount), 'horde.success');
+    }
+
+    /* Delete original postings. */
+    if (!$keep) {
+        $delcount = 0;
+        foreach ($postings as $postingId => $posting) {
+            $result = $storage->deletePosting($postingId);
+            if (is_a($result, 'PEAR_Error')) {
+                $notification->push(sprintf(_("There was a problem deleting an original posting: %s"),
+                                            $result->getMessage()), 'horde.error');
+            } else {
+                $delcount++;
             }
+        }
+        if ($delcount > 0) {
+            $notification->push(sprintf(_("Deleted %d original postings."), $delcount), 'horde.success');
         }
     }
 
     /* Return to the posting list. */
-    header('Location: ' . Horde::applicationUrl('postings.php', true));
-    exit;
-    break;
+    Horde::applicationUrl('postings.php', true)->redirect();
 
 default:
     break;

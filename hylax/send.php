@@ -21,14 +21,10 @@ $url = $vars->get('url', 'folder.php');
 $fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
-    $url = Horde::applicationUrl($url, true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl($url, true)->redirect();
 } elseif (!empty($fax['fax_number'])) {
     $notification->push(sprintf(_("Fax ID \"%s\" already has a fax number set."), $fax_id), 'horde.error');
-    $url = Horde::applicationUrl($url, true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl($url, true)->redirect();
 }
 
 $title = _("Send Fax");
@@ -48,9 +44,7 @@ if ($form->validate($vars)) {
     } else {
         $notification->push(sprintf(_("Fax ID \"%s\" submitted successfully."), $info['fax_id']), 'horde.success');
     }
-    $url = Horde::applicationUrl($url, true);
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl($url, true)->redirect();
 }
 
 /* Get the preview pages. */

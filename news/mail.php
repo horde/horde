@@ -19,16 +19,14 @@ $id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
-    header('Location: ' . Horde::applicationUrl('browse.php'));
-    exit;
+    Horde::applicationUrl('browse.php')->redirect();
 }
 
 /* Error handler */
 function _error($msg)
 {
     $GLOBALS['notification']->push($msg, 'horde.error');
-    header('Location: ' . News::getUrlFor('news', $GLOBALS['id']));
-    exit;
+    News::getUrlFor('news', $GLOBALS['id'])->redirect();
 }
 
 if (!$registry->isAuthenticated()) {
@@ -61,5 +59,4 @@ try {
     $notification->push($e);
 }
 
-header('Location: ' . News::getUrlFor('news', $id));
-exit;
+News::getUrlFor('news', $id)->redirect();

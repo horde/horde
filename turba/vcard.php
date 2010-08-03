@@ -16,8 +16,7 @@ Horde_Registry::appInit('turba');
 $source = Horde_Util::getFormData('source');
 if (!isset($cfgSources[$source])) {
     $notification->push(_("The contact you requested does not exist."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $driver = Turba_Driver::singleton($source);
@@ -27,15 +26,13 @@ $key = Horde_Util::getFormData('key');
 $object = $driver->getObject($key);
 if (is_a($object, 'PEAR_Error')) {
     $notification->push($object->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 /* Check permissions on this contact. */
 if (!$object->hasPermission(Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this object."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $filename = str_replace(' ', '_', $object->getValue('name'));

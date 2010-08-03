@@ -124,12 +124,9 @@ class Gollem_Auth
                 } else {
                     $url = Horde_Auth::addLogoutParameters(self::logoutUrl());
                 }
-                $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true, true, true), false);
-                header('Location: ' . $url);
-                exit;
-            } else {
-                return false;
+                $url->add('url', Horde::selfUrl(true, true, true))->redirect();
             }
+            return false;
         }
 
         return true;

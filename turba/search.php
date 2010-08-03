@@ -141,8 +141,7 @@ if (is_a($driver, 'PEAR_Error')) {
             $vname = Horde_Util::getFormData('vbook_name');
             if (empty($vname)) {
                 $notification->push(_("You must provide a name for virtual address books."), 'horde.error');
-                header('Location: ' . Horde::applicationUrl('search.php', true));
-                exit;
+                Horde::applicationUrl('search.php', true)->redirect();
             }
 
             /* Create the vbook. */
@@ -154,14 +153,13 @@ if (is_a($driver, 'PEAR_Error')) {
             $vid = _createVBook($params);
             if (is_a($vid, 'PEAR_Error')) {
                 $notification->push(sprintf(_("There was a problem creating the virtual address book: %s"), $vid->getMessage()), 'horde.error');
-                header('Location: ' . Horde::applicationUrl('search.php', true));
-                exit;
+                Horde::applicationUrl('search.php', true)->redirect();
             }
             $notification->push(sprintf(_("Successfully created virtual address book \"%s\""), $vname), 'horde.success');
 
-            $url = Horde::applicationURL('browse.php', true)->add('source', $vid);;
-            header('Location: ' . $url->setRaw(true));
-            exit;
+            Horde::applicationUrl('browse.php', true)
+                ->add('source', $vid)
+                ->redirect();
         }
 
         /* Perform a search. */

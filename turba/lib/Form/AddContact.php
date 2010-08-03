@@ -80,8 +80,10 @@ class Turba_Form_AddContact extends Turba_Form_Contact
                 $ob = $driver->getObject($key);
                 if (!is_a($ob, 'PEAR_Error')) {
                     $notification->push(sprintf(_("%s added."), $ob->getValue('name')), 'horde.success');
-                    header('Location: ' . (!empty($info['url']) ? $info['url'] : $ob->url('Contact', true)));
-                    exit;
+                    $url = empty($info['url'])
+                        ? $ob->url('Contact', true)
+                        : new Horde_Url($info['url']);
+                    $url->redirect();
                 }
                 sleep(1);
             }

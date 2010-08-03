@@ -46,8 +46,7 @@ if ($rows instanceof PEAR_Error) {
 
 // If we have only one row redirect ot it
 if ($count == 1 && sizeof($cats) < 2 && $page < 1) {
-    header('Location: '. News::getUrlFor('news', $rows[0]['id']));
-    exit;
+    News::getUrlFor('news', $rows[0]['id'])->redirect();
 }
 
 // Get pager

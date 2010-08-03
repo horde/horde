@@ -30,8 +30,7 @@ if ($user) {
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("User \"%s\" was removed from your friend list."), $user), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-            exit;
+            Horde::applicationUrl('edit/friends/index.php')->redirect();
         }
     } else {
         $result = $friends->addFriend($user);
@@ -53,12 +52,10 @@ if ($user) {
             } else {
                 $notification->push(sprintf(_("A confirmation was send to \"%s\"."), $user), 'horde.warning');
             }
-            header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-            exit;
+            Horde::applicationUrl('edit/friends/index.php')->redirect();
         } else {
             $notification->push(sprintf(_("User \"%s\" was added as your friend."), $user), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-            exit;
+            Horde::applicationUrl('edit/friends/index.php')->redirect();
         }
     }
 }
@@ -66,13 +63,10 @@ if ($user) {
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
 Horde::addScriptFile('tables.js', 'horde');
-
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
-
 echo $tabs->render('add');
 require FOLKS_TEMPLATES . '/edit/header.php';
 require FOLKS_TEMPLATES . '/edit/add.php';
 require FOLKS_TEMPLATES . '/edit/footer.php';
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

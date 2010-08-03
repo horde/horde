@@ -13,8 +13,7 @@ try {
     $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location:' . Horde::applicationUrl('listzones.php'));
-    exit;
+    Horde::applicationUrl('listzones.php')->redirect();
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];

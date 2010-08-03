@@ -13,8 +13,7 @@ require_once SKOLI_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -22,16 +21,16 @@ $driver = &Skoli_Driver::singleton();
 $entry = $driver->getEntry($vars->get('entry'));
 if (is_a($entry, 'PEAR_Error') || !count($entry)) {
     $notification->push(_("Entry not found."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('search.php', true));
-    exit;
+    Horde::applicationUrl('search.php', true)->redirect();
 }
 $share = $GLOBALS['skoli_shares']->getShare($entry['class_id']);
 
 // Check permissions
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You are not allowed to view this entry."), 'horde.error');
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
-    exit;
+    Horde::applicationUrl('search.php', true)
+        ->add('actionID', 'search')
+        ->redirect();
 }
 
 $studentdetails = Skoli::getStudent($share->get('address_book'), $entry['student_id']);
@@ -60,8 +59,9 @@ if ($viewName != 'DeleteEntry') {
                 $notification->push(sprintf(_("Couldn't update this entry: %s"), $result->getMessage()), 'horde.error');
             } else {
                 $notification->push(sprintf(_("The entry for \"%s\" has been saved."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-                header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
-                exit;
+                Horde::applicationUrl('search.php', true)
+                    ->add('actionID', 'search')
+                    ->redirect();
             }
         }
     }
@@ -74,8 +74,9 @@ if ($actionID == 'delete') {
         $notification->push(sprintf(_("There was an error deleting this entry: %s"), $deleted->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("The entry for \"%s\" has been deleted."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
-        exit;
+        Horde::applicationUrl('search.php', true)
+            ->add('actionID', 'search')
+            ->redirect();
     }
 }
 

@@ -19,8 +19,7 @@ $title = _("Comments");
 $profile = $folks_driver->getProfile();
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $comments = array(

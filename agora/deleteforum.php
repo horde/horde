@@ -17,13 +17,11 @@ Horde_Registry::appInit('agora');
 /* Set up the forums object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
 $forums = &Agora_Messages::singleton($scope);
-$url = Horde::applicationUrl('forums.php');
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permissions to delete forums in %s"), $registry->get('name', $scope)), 'horde.warning');
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Get forum. */
@@ -31,8 +29,7 @@ list($forum_id) = Agora::getAgoraId();
 $forum = $forums->getForum($forum_id);
 if ($forum instanceof PEAR_Error) {
     $notification->push($forum->message, 'horde.error');
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Prepare forum. */
@@ -67,8 +64,7 @@ if ($form->validate()) {
     } else {
         $notification->push(_("Forum not deleted."), 'horde.message');
     }
-    header('Location: ' . $url);
-    exit;
+    Horde::applicationUrl('forums.php', true)->redirect();
 }
 
 /* Set up template variables. */

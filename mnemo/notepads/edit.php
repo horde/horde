@@ -16,8 +16,7 @@ require_once MNEMO_BASE . '/lib/Forms/EditNotepad.php';
 
 // Exit if this isn't an authenticated user.
 if (!$GLOBALS['registry']->getAuth()) {
-    header('Location: ' . Horde::applicationUrl('list.php', true));
-    exit;
+    Horde::applicationUrl('list.php', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,15 +24,13 @@ try {
     $notepad = $mnemo_shares->getShare($vars->get('n'));
 } catch (Horde_Share_Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 if (!$GLOBALS['registry']->getAuth() ||
     $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
 
     $notification->push(_("You are not allowed to change this notepad."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 $form = new Mnemo_EditNotepadForm($vars, $notepad);
 
@@ -51,8 +48,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    header('Location: ' . Horde::applicationUrl('notepads/', true));
-    exit;
+    Horde::applicationUrl('notepads/', true)->redirect();
 }
 
 $vars->set('name', $notepad->get('name'));
