@@ -1307,7 +1307,7 @@ class Horde_Mime_Part
     {
         if (is_null($this->_contentid)) {
             $this->_contentid = is_null($cid)
-                ? (Horde_Mime::generateRandomId() . '@' . $_SERVER['SERVER_NAME'])
+                ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
                 : $cid;
         }
 
@@ -1402,7 +1402,7 @@ class Horde_Mime_Part
     protected function _generateBoundary()
     {
         if (is_null($this->_boundary)) {
-            $this->_boundary = '=_' . Horde_Mime::generateRandomId();
+            $this->_boundary = '=_' . strval(new Horde_Support_Randomid());
         }
         return $this->_boundary;
     }

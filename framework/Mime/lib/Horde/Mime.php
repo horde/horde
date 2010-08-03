@@ -579,18 +579,7 @@ class Horde_Mime
      */
     static public function generateMessageId()
     {
-        return '<' . date('YmdHis') . '.Horde.' . self::generateRandomId() . '@' . $_SERVER['SERVER_NAME'] . '>';
-    }
-
-    /**
-     * Generates a Random-ID string suitable for use with MIME features that
-     * require a random string.
-     *
-     * @return string  A random string.
-     */
-    static public function generateRandomId($length = 16)
-    {
-        return substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . strtr(uniqid(mt_rand(), true), array('.' => '')), 16, 36), 0, $length);
+        return '<' . strval(new Horde_Support_Guid(array('prefix' => 'Horde'))) . '>';
     }
 
     /**
