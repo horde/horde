@@ -70,7 +70,7 @@ class Horde_Core_Factory_TextFilter
      *
      * @return string  The transformed text.
      */
-    public function filter($text, $filters = array(), array $params = array())
+    public function filter($text, $filters = array(), $params = array())
     {
         if (!is_array($filters)) {
             $filters = array($filters);
