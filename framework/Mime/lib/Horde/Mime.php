@@ -59,6 +59,13 @@
 class Horde_Mime
 {
     /**
+     * The RFC defined EOL string.
+     *
+     * @var string
+     */
+    const EOL = "\r\n";
+
+    /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
      * a RFC 2047-like parameter name and also the correct RFC 2231
      * parameter.  See:
@@ -145,7 +152,7 @@ class Horde_Mime
         $c_size = strlen($charset) + 7;
 
         if ((strlen($encoded) + $c_size) > 75) {
-            $parts = explode("\r\n", rtrim(chunk_split($encoded, intval((75 - $c_size) / 4) * 4)));
+            $parts = explode(self::EOL, rtrim(chunk_split($encoded, intval((75 - $c_size) / 4) * 4)));
         } else {
             $parts[] = $encoded;
         }
@@ -159,7 +166,7 @@ class Horde_Mime
                 /* RFC 2047 [2]: no encoded word can be more than 75
                  * characters long. If longer, you must split the word with
                  * CRLF SPACE. */
-                $out .= "\r\n ";
+                $out .= self::EOL . ' ';
             }
         }
 
@@ -175,7 +182,8 @@ class Horde_Mime
      *
      * @return string  The quoted-printable encoded string.
      */
-    static public function quotedPrintableEncode($text, $eol, $wrap = 76)
+    static public function quotedPrintableEncode($text, $eol = self::EOL,
+                                                 $wrap = 76)
     {
         $line = $output = '';
         $curr_length = 0;
