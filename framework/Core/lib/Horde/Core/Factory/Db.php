@@ -56,8 +56,9 @@ class Horde_Core_Factory_Db
     /**
      * Return the DB instance.
      *
-     * @param string $app   The application.
-     * @param string $type  The type.
+     * @param string $app  The application.
+     * @param mixed $type  The type. If this is an array, this is used as
+     *                     the configuration array.
      *
      * @return Horde_Db_Adapter_Base  The singleton instance.
      * @throws Horde_Exception
@@ -65,7 +66,7 @@ class Horde_Core_Factory_Db
      */
     public function getDb($app = 'horde', $type = null)
     {
-        $sig = $app . '|' . $type;
+        $sig = hash('md5', serialize($app . '|' . $type));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -75,7 +76,9 @@ class Horde_Core_Factory_Db
             ? false
             : $GLOBALS['registry']->pushApp($app);
 
-        $config = Horde::getDriverConfig($type, 'sql');
+        $config = is_array($type)
+            ? $type
+            : $this->getConfig($type);
 
         /* Determine if we are using the base SQL config. */
         if (isset($config['driverconfig']) &&
