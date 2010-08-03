@@ -29,8 +29,10 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
     } catch(Exception $e) {
         if (($url = Horde_Util::getFormData('url')) === null) {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
+        } else {
+            $url = new Horde_Url($url);
         }
-        (new Horde_Url($url))->redirect();
+        $url->redirect();
     }
     if ($driver != 'Resource') {
         $share = $kronolith_shares->getShare($event->calendar);
