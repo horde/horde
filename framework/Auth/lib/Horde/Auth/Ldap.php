@@ -43,16 +43,15 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  Required parameters:
-     *                       - basedn (string): The base DN for the LDAP server.
-     *                       - ldap (Horde_Ldap): Horde LDAP object.
-     *                       - uid (string): The username search key.
-     *                       Optional parameters:
-     *                       - filter (string): The LDAP formatted search filter
-     *                         to search for users. This setting overrides the
-     *                         'objectclass' method below.
-     *                       - objectclass (string|array): The objectclass
-     *                         filter used to search for users. Either a single
-     *                         or an array of objectclasses.
+     * <pre>
+     * 'basedn' - (string) [REQUIRED] The base DN for the LDAP server.
+     * 'filter' - (string) The LDAP formatted search filter to search for
+     *            users. This setting overrides the 'objectclass' parameter.
+     * 'ldap' - (Horde_Ldap) [REQUIRED] Horde LDAP object.
+     * 'objectclass - (string|array): The objectclass filter used to search
+     *                for users. Either a single or an array of objectclasses.
+     * 'uid' - (string) [REQUIRED] The username search key.
+     * </pre>
      *
      * @throws Horde_Auth_Exception
      * @throws InvalidArgumentException

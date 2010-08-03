@@ -2,43 +2,6 @@
 /**
  * Preferences storage implementation for PHP's LDAP extension.
  *
- * Required parameters:
- * - basedn:   The base DN for the LDAP server.
- * - hostspec: The hostname of the LDAP server.
- * - uid:      The username search key.
- * - writeas:  One of "user", "admin", or "search"
- *
- * Optional parameters:
- * - binddn:   The DN of the administrative account to bind for write
- *             operations.
- * - bindpw:   'binddn's password for bind authentication.
- * - port:     The port of the LDAP server. DEFAULT: 389
- * - searchdn: The DN of a user with search permissions on the directory
- * - searchpw: 'searchdn's password for binding
- * - tls:      Whether to use TLS connections. DEFAULT: false
- * - version:  The version of the LDAP protocol to use.
- *             DEFAULT: NONE (system default will be used)
- *
- * If setting up as the Horde preference handler in conf.php, the following
- * is an example configuration.
- * The schemas needed for ldap are in horde/scripts/ldap.
- *
- * <code>
- * $conf['prefs']['driver'] = 'ldap';
- * $conf['prefs']['params']['hostspec'] = 'localhost';
- * $conf['prefs']['params']['port'] = '389';
- * $conf['prefs']['params']['basedn'] = 'dc=example,dc=org';
- * $conf['prefs']['params']['uid'] = 'mail';
- * </code>
- *
- * The following is valid but would only be necessary if users do NOT have
- * permission to modify their own LDAP accounts.
- *
- * <code>
- * $conf['prefs']['params']['binddn'] = 'cn=Manager,dc=example,dc=org';
- * $conf['prefs']['params']['bindpw'] = 'password';
- * </code>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -77,8 +40,27 @@ class Horde_Prefs_Ldap extends Horde_Prefs
      *
      * @param string $scope  The scope for this set of preferences.
      * @param array $opts    See factory() for list of options.
-     * @param array $params  A hash containing any additional configuration
-     *                       or connection parameters a subclass might need.
+     * @param array $params  Additional configuration options:
+     * <pre>
+     * basedn - (string) [REQUIRED] The base DN for the LDAP server.
+     * hostspec - (string) [REQUIRED] The hostname of the LDAP server.
+     * uid - (string) [REQUIRED] The username search key.
+     * writeas - (string) [REQUIRED] One of "user", "admin", or "search"
+     *
+     * Optional parameters:
+     * binddn - (string) The DN of the administrative account to bind for
+     *          write operations.
+     * bindpw - (string) binddn's password for bind authentication.
+     * port - (integer) The port of the LDAP server.
+     *        DEFAULT: 389
+     * searchdn - (string) The DN of a user with search permissions on the
+     *            directory.
+     * searchpw - (string) searchdn's password for binding.
+     * tls - (boolean) Whether to use TLS connections.
+     *       DEFAULT: false
+     * version - (integer) The version of the LDAP protocol to use.
+     *           DEFAULT: NONE (system default will be used)
+     * </pre>
      */
     protected function __construct($scope, $opts, $params);
     {
