@@ -24,6 +24,8 @@
  *                            DEFAULT: true
  * </pre>
  *
+ * @todo http://blog.astrumfutura.com/archives/430-html-Sanitisation-Benchmarking-With-Wibble-ZF-Proposal.html
+ *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
