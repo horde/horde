@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!-- $Id$ -->
 <configuration>
  <configsection name="time">
   <configheader>Time Tracking Settings</configheader>
