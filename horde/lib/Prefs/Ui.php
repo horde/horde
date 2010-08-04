@@ -410,40 +410,54 @@ class Horde_Prefs_Ui
      */
     protected function _activesyncManagement($ui)
     {
-        if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
-            $state_params = $GLOBALS['conf']['activesync']['state']['params'];
-            $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base');
-            $stateMachine = new Horde_ActiveSync_State_History($state_params);
-        } else {
+        if (empty($GLOBALS['conf']['activesync']['enabled'])) {
             return _("ActiveSync not activated.");
         }
+
+        $state_params = array_merge($GLOBALS['conf']['activesync']['state']['params'], array(
+            'db' => $GLOBALS['injector']->getInstance('Horde_Db_Adapter_Base')
+        ));
+        $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+
         Horde::addScriptFile('activesyncprefs.js', 'horde');
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+
         $selfurl = $ui->selfUrl();
         $t->set('reset', $selfurl->copy()->add('reset', 1));
-        $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
         $devs = array();
-        $i = 1;
-        foreach ($devices as $device) {
-            $device['class'] = fmod($i++, 2) ? 'rowOdd' : 'rowEven';
+
+        foreach ($devices as $key => $device) {
+            $device['class'] = fmod($key, 2) ? 'rowOdd' : 'rowEven';
+            $device['key'] = $key;
+
             $stateMachine->loadDeviceInfo($device['device_id'], $GLOBALS['registry']->getAuth());
             $ts = $stateMachine->getLastSyncTimestamp();
             $device['ts'] = empty($ts) ? _("None") : strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $ts);
+
             switch ($device['device_rwstatus']) {
             case Horde_ActiveSync::RWSTATUS_PENDING:
                 $status = '<span class="notice">' . _("Wipe is pending") . '</span>';
                 $device['ispending'] = true;
                 break;
+
             case Horde_ActiveSync::RWSTATUS_WIPED:
                 $status = '<span class="notice">' . _("Device is wiped") . '</span>';
                 break;
+
             default:
-                $status = $device['device_policykey'] ?_("Provisioned") : _("Not Provisioned");
+                $status = $device['device_policykey']
+                    ? _("Provisioned")
+                    : _("Not Provisioned");
+                break;
             }
-            $device['wipe'] = $selfurl->copy()->add(array('wipe' => $device['device_id']));
-            $device['remove'] = $selfurl->copy()->add(array('remove' => $device['device_id']));
+
+            $device['wipe'] = $selfurl->copy()->add('wipe', $device['device_id']);
+            $device['remove'] = $selfurl->copy()->add('remove', $device['device_id']);
             $device['status'] = $status . '<br />' . _("Device id:") . $device['device_id'] . '<br />' . _("Policy Key:") . $device['device_policykey'] . '<br />' . _("User Agent:") . $device['device_agent'];
+
             $devs[] = $device;
         }
 

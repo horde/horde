@@ -1,26 +1,40 @@
 /**
- * Provides the javascript for managing activesync partner devices.
+ * Provides the javascript for managing ActiveSync partner devices.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */
 var HordeActiveSyncPrefs = {
 
-    requestRemoteWipe: function(device) {
-        $('wipeid').setValue(device);
-        document.forms.prefs.actionID = 'update_special';
-        document.forms.prefs.submit();
+    // Set in lib/Prefs/Ui.php: devices
+
+    clickHandler: function(e)
+    {
+        var elt = e.element(),
+            id = elt.readAttribute('id') || '';
+
+        if (id.startsWith('wipe_')) {
+            $('wipeid').setValue(this.devices[id.substr(5)].id);
+            $('actionID').setValue('update_special');
+            $('prefs').submit();
+            e.stop();
+        } else if (id.startsWith('cancel_')) {
+            $('cancelwipe').setValue(this.devices[id.substr(7)].id);
+            $('actionID').setValue('update_special');
+            $('prefs').submit();
+            e.stop();
+        } else if (id.startsWith('remove_')) {
+            $('removedevice').setValue(this.devices[id.substr(7)].id);
+            $('actionID').setValue('update_special');
+            $('prefs').submit();
+            e.stop();
+        }
     },
 
-    cancelRemoteWipe: function(device) {
-        $('cancelwipe').setValue(device);
-        document.forms.prefs.actionID = 'update_special';
-        document.forms.prefs.submit();
-    },
-
-    removeDevice: function(device) {
-        $('removedevice').setValue(device);
-        document.forms.prefs.actionID = 'update_special';
-        document.forms.prefs.submit();
+    onDomLoad: function()
+    {
+        $('prefs').observe('click', this.clickHandler.bindAsEventListener(this));
     }
 }
+
+document.observe('dom:loaded', HordeActiveSyncPrefs.onDomLoad.bind(HordeActiveSyncPrefs));

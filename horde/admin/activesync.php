@@ -1,26 +1,30 @@
 <?php
 /**
- * Administrative management of activesync devices.
+ * Administrative management of ActiveSync devices.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('admin' => true));
 
-if (!empty($conf['activesync']['enabled'])) {
-    $state_params = $conf['activesync']['state']['params'];
-    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter_Base');
-    $stateMachine = new Horde_ActiveSync_State_History($state_params);
-    $stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
-} else {
+if (empty($conf['activesync']['enabled'])) {
     throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
 }
+
+$state_params = array_merge($conf['activesync']['state']['params'], array(
+    'db' => $injector->getInstance('Horde_Db_Adapter_Base')
+));
+$stateMachine = new Horde_ActiveSync_State_History($state_params);
+$stateMachine->setLogger($injector->getInstance('Horde_Log_Logger'));
 
 /** Check for any actions **/
 if ($actionID = Horde_Util::getPost('actionID')) {
@@ -50,18 +54,31 @@ if ($actionID = Horde_Util::getPost('actionID')) {
     Horde::selfUrl()->redirect();
 }
 
-Horde::addScriptFile('activesyncadmin.js');
 $devices = $stateMachine->listDevices();
+$js = array();
+foreach ($devices as $key => $val) {
+    $js[$key] = array(
+        'id' => $val['device_id'],
+        'user' => $val['device_user']
+    );
+}
+
+Horde::addScriptFile('activesyncadmin.js');
+Horde::addInlineScript(array(
+    'HordeActiveSyncAdmin.devices = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $registry->getCharset())
+));
 
 $title = _("ActiveSync Device Administration");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
+
 ?>
-<form name="activesyncadmin" action="<?php echo Horde::selfUrl()?>" method="post">
+<form id="activesyncadmin" name="activesyncadmin" action="<?php echo Horde::selfUrl()?>" method="post">
 <input type="hidden" name="actionID" id="actionID" />
 <input type="hidden" name="deviceID" id="deviceID" />
 <input type="hidden" name="uid" id="uid" />
 <?php
+
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
 $icondir = array('icondir' => Horde_Themes::img());
 $base_node_params = $icondir + array('icon' => 'administration.png');
@@ -93,15 +110,8 @@ $tree->addNode('root',
                $base_node_params,
                array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' ));
 
-/* To hold the inline javascript */
-$js = array();
-$i = 0;
-
-/* Observe the reprovision button */
-$js[] = '$("reset").observe("click", function() {HordeActiveSyncAdmin.reprovision();});';
-
 /* Build the device entry */
-foreach ($devices as $device) {
+foreach ($devices as $key => $device) {
     $node_params = array();
     if (array_search($device['device_user'], $users) === false) {
         $users[] = $device['device_user'];
@@ -117,11 +127,14 @@ foreach ($devices as $device) {
         $status = '<span class="notice">' . _("Wipe is pending") . '</span>';
         $device['ispending'] = true;
         break;
+
     case Horde_ActiveSync::RWSTATUS_WIPED:
         $status = '<span class="notice">' . _("Device is wiped") . '</span>';
         break;
+
     default:
         $status = $device['device_policykey'] ?_("Provisioned") : _("Not Provisioned");
+        break;
     }
 
     /* Last sync time */
@@ -130,15 +143,11 @@ foreach ($devices as $device) {
     /* Build the action links */
     $actions = '';
     if ($device['device_policykey']) {
-        $actions .= '<input class="button" type="button" value="' . _("Wipe") . '" id="wipe' . $i . '" />';
-        $js[] = '$("wipe' . $i . '").observe("click", function() {HordeActiveSyncAdmin.requestRemoteWipe("' . $device['device_id'] . '");});';
+        $actions .= '<input class="button" type="button" value="' . _("Wipe") . '" id="wipe_' . $key . '" . />';
     } elseif ($device['device_rwstatus'] == Horde_ActiveSync::RWSTATUS_PENDING) {
-        $actions .= '<input class="button" type="button" value="' . _("Cancel Wipe") . '" id="cancel' . $i . '" />';
-        $js[] = '$("cancel' . $i . '").observe("click", function() {HordeActiveSyncAdmin.cancelRemoteWipe("' . $device['device_id'] . '");});';
+        $actions .= '<input class="button" type="button" value="' . _("Cancel Wipe") . '" id="cancel_' . $key . '" />';
     }
-    $i++;
-    $actions .= '&nbsp;<input class="button" type="button" value="' . _("Remove") . '" id="delete' . $i . '" />';
-    $js[] = '$("delete' . $i . '").observe("click", function() {HordeActiveSyncAdmin.removeDevice("' . $device['device_id'] . '", "' . $device['device_user'] . '");});';
+    $actions .= '&nbsp;<input class="button removeDevice" type="button" value="' . _("Remove") . '" id="remove_' . $key . '" />';
 
     /* Add it */
     $tree->addNode($device['device_id'],
@@ -153,5 +162,4 @@ foreach ($devices as $device) {
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("ActiveSync Devices") . '</h1>';
 $tree->renderTree();
 echo '</form>';
-Horde::addInlineScript($js, 'load');
 require HORDE_TEMPLATES . '/common-footer.inc';

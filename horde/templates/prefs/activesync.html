@@ -1,7 +1,12 @@
 <div class="smallheader">
  <gettext>State Management</gettext>
 </div>
-<p><gettext>Reset all device state. This will cause your devices to resyncronize all items.</gettext><input class="button" type="submit" value="Reset" name="reset" />
+
+<p>
+ <gettext>Reset all device state. This will cause your devices to resyncronize all items.</gettext>
+ <input class="button" type="submit" value="Reset" name="reset" />
+</p>
+
 <div class="smallheader">
  <gettext>Device Management</gettext>
 </div>
@@ -20,12 +25,12 @@
  <tr class="<tag:devices.class />">
   <td>
    <if:devices.device_policykey>
-    <input class="button" type="button" value="<gettext>Wipe</gettext>" onclick="HordeActiveSyncPrefs.requestRemoteWipe('<tag:devices.device_id />');" />
+    <input class="button" type="button" value="<gettext>Wipe</gettext>" id="wipe_<tag:devices.key />" />
    </if:devices.device_policykey>
    <if:devices.ispending>
-    <input class="button" type="button" value="<gettext>Cancel Wipe</gettext>" onclick="HordeActiveSyncPrefs.cancelRemoteWipe('<tag:devices.device_id />');" />
+    <input class="button" type="button" value="<gettext>Cancel Wipe</gettext>" id="cancel_<tag:devices.key />" />
    </if:devices.ispending>
-   <input class="button" type="button" value="<gettext>Remove</gettext>" onclick="HordeActiveSyncPrefs.removeDevice('<tag:devices.device_id />', '<tag:devices.device_user />');" />
+   <input class="button" type="button" value="<gettext>Remove</gettext>" id="remove_<tag:devices.key />" />
   </td>
   <td><tag:devices.device_type /></td>
   <td><tag:devices.ts /></td>
@@ -38,4 +43,7 @@
  <em><gettext>None</gettext></em>
 </p>
 </else:devices></if:devices>
-<p><strong>NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE</strong></p>
+
+<p>
+ <strong>NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE</strong>
+</p>

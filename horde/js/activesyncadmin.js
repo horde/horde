@@ -1,33 +1,51 @@
 /**
- * Provides the javascript for managing activesync partner devices.
+ * Provides the javascript for administering ActiveSync partner devices.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */
 var HordeActiveSyncAdmin = {
 
-    requestRemoteWipe: function(device) {
-        document.forms.activesyncadmin.deviceID.value = device;
-        document.forms.activesyncadmin.actionID.value = 'wipe';
-        document.forms.activesyncadmin.submit();
+    // Set in admin/activesync.php: devices
+
+    clickHandler: function(e)
+    {
+        var elt = e.element(),
+            id = elt.readAttribute('id') || '';
+
+        switch (id) {
+        case 'reset':
+            $('actionID').setValue('reset');
+            $('activesyncadmin').submit();
+            e.stop();
+            break;
+
+        default:
+            if (id.startsWith('wipe_')) {
+                $('deviceID').setValue(this.devices[id.substr(5)].id);
+                $('actionID').setValue('wipe');
+                $('activesyncadmin').submit();
+                e.stop();
+            } else if (id.startsWith('cancel_')) {
+                $('deviceID').setValue(this.devices[id.substr(7)].id);
+                $('actionID').setValue('cancelwipe');
+                $('activesyncadmin').submit();
+                e.stop();
+            } else if (id.startsWith('remove_')) {
+                $('deviceID').setValue(this.devices[id.substr(7)].id);
+                $('actionID').setValue('delete');
+                $('uid').setValue(this.devices[id.substr(7)].user);
+                $('activesyncadmin').submit();
+                e.stop();
+            }
+            break;
+        }
     },
 
-    cancelRemoteWipe: function(device) {
-        document.forms.activesyncadmin.deviceID.value = device;
-        document.forms.activesyncadmin.actionID.value = 'cancelwipe';
-        document.forms.activesyncadmin.submit();
-    },
-
-    removeDevice: function(device, user) {
-        document.forms.activesyncadmin.deviceID.value = device;
-        document.forms.activesyncadmin.uid.value = user;
-        document.forms.activesyncadmin.actionID.value = 'delete';
-        document.forms.activesyncadmin.submit();
-    },
-
-    reprovision: function() {
-        document.forms.activesyncadmin.actionID.value = 'reset';
-        document.forms.activesyncadmin.submit();
+    onDomLoad: function()
+    {
+        $('activesyncadmin').observe('click', this.clickHandler.bindAsEventListener(this));
     }
-
 }
+
+document.observe('dom:loaded', HordeActiveSyncAdmin.onDomLoad.bind(HordeActiveSyncAdmin));
