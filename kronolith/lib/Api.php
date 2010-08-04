@@ -648,10 +648,10 @@ class Kronolith_Api extends Horde_Registry_Api
                     // Need to ensure that the original recurring event is
                     // added before any of the instance exceptions. Easiest way
                     // to do that is just add all the recurrence-id entries last
-                    $recurrenceId = $content->getAttribute('RECURRENCE-ID');
-                    if (!($recurrenceId instanceof PEAR_Error)) {
+                    try {
+                        $recurrenceId = $content->getAttribute('RECURRENCE-ID');
                         $recurrences[] = $content;
-                    } else {
+                    } catch (Horde_Icalendar_Exception $e) {
                         $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
                     }
                 }

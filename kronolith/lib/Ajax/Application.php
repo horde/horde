@@ -826,14 +826,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $driver->open($this->_vars->url);
             $ical = $driver->getRemoteCalendar(false);
             $result->success = true;
-            $name = $ical->getAttribute('X-WR-CALNAME');
-            if (!($name instanceof PEAR_Error)) {
+            try {
+                $name = $ical->getAttribute('X-WR-CALNAME');
                 $result->name = $name;
-            }
-            $desc = $ical->getAttribute('X-WR-CALDESC');
-            if (!($desc instanceof PEAR_Error)) {
+            } catch (Horde_Icalendar_Exception $e) {}
+            try {
+                $desc = $ical->getAttribute('X-WR-CALDESC');
                 $result->desc = $desc;
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
         } catch (Exception $e) {
             if ($e->getCode() == 401) {
                 $result->auth = true;

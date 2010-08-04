@@ -127,12 +127,14 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
                 /* Catch RECURRENCE-ID attributes which mark single recurrence
                  * instances. */
-                $recurrence_id = $component->getAttribute('RECURRENCE-ID');
-                if (is_int($recurrence_id) &&
-                    is_string($uid = $component->getAttribute('UID')) &&
-                    is_int($seq = $component->getAttribute('SEQUENCE'))) {
-                    $exceptions[$uid][$seq] = $recurrence_id;
-                }
+                try {
+                    $recurrence_id = $component->getAttribute('RECURRENCE-ID');
+                    if (is_int($recurrence_id) &&
+                        is_string($uid = $component->getAttribute('UID')) &&
+                        is_int($seq = $component->getAttribute('SEQUENCE'))) {
+                        $exceptions[$uid][$seq] = $recurrence_id;
+                    }
+                } catch (Horde_Icalendar_Exception $e) {}
 
                 /* Ignore events out of the period. */
                 if (
@@ -199,7 +201,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @param boolean $cache  Whether to return data from the session cache.
      *
-     * @return Horde_Icalendar  The calendar data, or an error on failure.
+     * @return Horde_Icalendar  The calendar data.
      * @throws Kronolith_Exception
      */
     public function getRemoteCalendar($cache = true)
@@ -253,12 +255,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $data = $response->getBody();
         $ical = new Horde_Icalendar();
-        $result = $ical->parsevCalendar($data);
+        try {
+            $result = $ical->parsevCalendar($data);
+        } catch (Horde_Icalendar_Exception $e) {
+            if ($cache) {
+                $cacheOb->set($signature, serialize($e->getMessage()));
+            }
+            throw new Kronolith_Exception($e);
+        }
+
         if ($cache) {
             $cacheOb->set($signature, serialize($ical));
-        }
-        if ($result instanceof PEAR_Error) {
-            throw new Kronolith_Exception($result);
         }
 
         return $ical;
