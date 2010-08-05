@@ -823,7 +823,25 @@ class Horde_Date
     }
 
     /**
-     * Format time using the specifiers available in date() or in the DateTime
+     * Formats date and time to the RFC 2445 iCalendar DATE-TIME format.
+     *
+     * @param boolean $floating  Whether to return a floating date-time
+     *                           (without time zone information).
+     *
+     * @return string  Date and time.
+     */
+    public function toiCalendar($floating = false)
+    {
+        if ($floating) {
+            return $this->format('Ymd\THis');
+        }
+        $dateTime = $this->toDateTime();
+        $dateTime->setTimezone(new DateTimeZone('UTC'));
+        return $dateTime->format('Ymd\THis\Z');
+    }
+
+    /**
+     * Formats time using the specifiers available in date() or in the DateTime
      * class' format() method.
      *
      * To format in languages other than English, use strftime() instead.
