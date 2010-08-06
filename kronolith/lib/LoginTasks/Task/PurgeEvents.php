@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Kronolith
  */
 class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
 {
