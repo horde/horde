@@ -1943,7 +1943,7 @@ class IMP_Compose
         if ($GLOBALS['conf']['compose']['use_vfs']) {
             try {
                 $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
-                $cacheID = strval(new Horde_Support_Uuid());
+                $cacheID = strval(new Horde_Support_Randomid());
 
                 if ($vfs_file) {
                     $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true);

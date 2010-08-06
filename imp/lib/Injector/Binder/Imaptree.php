@@ -25,7 +25,7 @@ class IMP_Injector_Binder_Imaptree implements Horde_Injector_Binder
 
         if (empty($_SESSION['imp']['cache']['tree'])) {
             if (!($cache instanceof Horde_Cache_Null)) {
-                $_SESSION['imp']['cache']['tree'] = strval(new Horde_Support_Uuid());
+                $_SESSION['imp']['cache']['tree'] = strval(new Horde_Support_Randomid());
             }
         } else {
             $instance = @unserialize($cache->get($_SESSION['imp']['cache']['tree'], 86400));
