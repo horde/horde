@@ -467,7 +467,7 @@ HTML;
 
         switch ($type) {
         case 'ajax':
-            return self::url($webroot . '/services/ajax.php/' . $app . '/');
+            return self::url($webroot . '/services/ajax.php/' . $app . '/')->remove('ajaxui');
 
         case 'cache':
             return self::url($webroot . '/services/cache.php', false, -1);
