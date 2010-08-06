@@ -80,7 +80,7 @@ foreach ($tasklist as $key => $ob) {
 
 $template->setOption('gettext', true);
 $template->set('tasks', $display_tasks, true);
-$template->set('logintasks_url', htmlspecialchars($tasks->getLoginTasksUrl()));
+$template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
