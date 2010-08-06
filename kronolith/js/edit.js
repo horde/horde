@@ -464,23 +464,23 @@ var KronolithEdit =
 
         switch (id) {
         case 'recur_daily_interval':
-            KronolithEventForm.clearFields(1);
+            KronolithEdit.clearFields(1);
             break;
 
         case 'recur_weekly_interval':
-            KronolithEventForm.clearFields(2);
+            KronolithEdit.clearFields(2);
             break;
 
         case 'recur_day_of_month_interval':
-            KronolithEventForm.clearFields(3);
+            KronolithEdit.clearFields(3);
             break;
 
         case 'recur_week_of_month_interval':
-            KronolithEventForm.clearFields(4);
+            KronolithEdit.clearFields(4);
             break;
 
         case 'recur_yearly_interval':
-            KronolithEventForm.clearFields(5);
+            KronolithEdit.clearFields(5);
             break;
         }
     },
@@ -488,7 +488,7 @@ var KronolithEdit =
     setRecur: function(index)
     {
         document.eventform.recur[index].checked = true;
-        KronolithEventForm.clearFields(index);
+        KronolithEdit.clearFields(index);
     },
 
     clearFields: function(index)
