@@ -27,7 +27,7 @@ if (empty($args[0])) {
 }
 
 $app = $args[0];
-if (!in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active')))) {
+if (!in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
     $cli->fatal("$app is not a configured Horde application");
 }
 
