@@ -53,21 +53,28 @@ $db = $injector->getInstance('Horde_Db_Adapter_Base');
 $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
 $migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
 
+$cli->message('Current schema version: ' . $migrator->getCurrentVersion());
+
 try {
     switch ($action) {
     case 'up':
+        $cli->message('Migrating DB up.');
         $migrator->up();
         break;
 
     case 'down':
+        $cli->message('Migrating DB down.');
         $migrator->down();
         break;
 
     case 'migrate':
+        $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
         $migrator->migrate($targetVersion);
         break;
     }
 } catch (Exception $e) {
-    echo $e->getMessage();
+    echo $e->getMessage() . "\n";
     exit(1);
 }
+
+$cli->message('Ending schema version: ' . $migrator->getCurrentVersion());
