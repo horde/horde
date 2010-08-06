@@ -863,7 +863,7 @@ abstract class Kronolith_Event
 
         try {
             $geolocation = $vEvent->getAttribute('GEO');
-            $this->geolocation = array(
+            $this->geoLocation = array(
                 'lat' => $geolocation['latitude'],
                 'lon' => $geolocation['longitude']
             );
