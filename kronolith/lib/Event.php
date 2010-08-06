@@ -324,6 +324,7 @@ abstract class Kronolith_Event
         case 'indent':
         case 'span':
         case 'rowspan':
+        case 'geoLocation':
             $this->{'_' . $name} = $value;
             return;
         }
