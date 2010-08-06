@@ -227,11 +227,11 @@ abstract class Horde_Data_Base
                list($time, $day) = explode(' ', $date, 2);
                break;
             }
-            $date = $this->mapDate($day, 'date',
+            $date = $this->_mapDate($day, 'date',
                                    array('delimiter' => $params['day_delimiter'],
                                          'format' => $params['day_format']),
                                    $key);
-            $time = $this->mapDate($time, 'time',
+            $time = $this->_mapDate($time, 'time',
                                    array('delimiter' => $params['time_delimiter'],
                                          'format' => $params['time_format']),
                                    $key);
@@ -338,7 +338,7 @@ abstract class Horde_Data_Base
                             !empty($val) &&
                             isset($param['time_fields']) &&
                             isset($param['time_fields'][$mapped_key])) {
-                            $val = $this->mapDate($val, $param['time_fields'][$mapped_key], $params, $key);
+                            $val = $this->_mapDate($val, $param['time_fields'][$mapped_key], $params, $key);
                         }
                         $data_row[$_SESSION['import_data']['map'][$key]] = $val;
                     }
