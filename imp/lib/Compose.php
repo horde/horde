@@ -2653,8 +2653,10 @@ class IMP_Compose
 
     /**
      * Store draft compose data if session expires.
+     *
+     * @param Horde_Variables $vars  Object with the form data.
      */
-    public function sessionExpireDraft()
+    public function sessionExpireDraft($vars)
     {
         if (empty($GLOBALS['conf']['compose']['use_vfs'])) {
             return;
@@ -2664,18 +2666,18 @@ class IMP_Compose
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            $headers[$val] = $imp_ui->getAddressList(Horde_Util::getFormData($val));
+            $headers[$val] = $imp_ui->getAddressList($vars->$val);
         }
 
         try {
-            $body = $this->_saveDraftMsg($headers, Horde_Util::getFormData('message', ''), Horde_Util::getFormData('charset'), Horde_Util::getFormData('rtemode'), false);
+            $body = $this->_saveDraftMsg($headers, $vars->message, $vars->charset, $vars->rtemode, false);
         } catch (IMP_Compose_Exception $e) {
             return;
         }
 
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
-            $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
+            $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
 
             $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
         } catch (VFS_Exception $e) {}
