@@ -10,7 +10,7 @@
  * @author  Matt Weyland <mathias@weyland.ch>
  * @package Ingo
  */
-class Maildrop_Variable
+class Ingo_Script_Maildrop_Variable
 {
     /**
      */
