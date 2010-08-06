@@ -580,33 +580,37 @@ class IMP_Compose
         $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
 
         /* Send the messages out now. */
+        if (!($reply_type = $this->getMetadata('reply_type'))) {
+            $reply_type = 'new';
+        }
+
         foreach ($send_msgs as $val) {
             try {
                 $this->sendMessage($val['to'], $headers, $val['msg']);
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 Horde::logMessage($e, 'ERR');
-                $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], false);
+                $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], false);
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
-            $sentmail->log($this->getMetadata('reply_type') || 'new', $headers->getValue('message-id'), $val['recipients'], true);
+            $sentmail->log($reply_type, $headers->getValue('message-id'), $val['recipients'], true);
         }
 
         $sent_saved = true;
 
-        if ($this->getMetadata('reply_type')) {
+        if ($reply_type != 'new') {
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($this->getMetadata('reply_type'), $this->getMetadata('in_reply_to'), $recipients);
+                IMP_Maillog::log($reply_type, $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
-            switch ($this->getMetadata('reply_type')) {
+            switch ($reply_type) {
             case 'forward':
                 /* Set the '$Forwarded' flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
