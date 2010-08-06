@@ -18,7 +18,9 @@ function _cleanupData()
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
-if (Kronolith::showAjaxView()) {
+if (Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax')) &&
+    (!Horde_Util::getFormData('actionID') == 'export')) {
+
     Horde::applicationUrl('', true)->redirect();
 }
 
