@@ -216,7 +216,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         $cacheOb = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $cacheVersion = 1;
+        $cacheVersion = 2;
         $signature = 'kronolith_remote_'  . $cacheVersion . '_' . $url . '_' . serialize($this->_params);
         if ($cache) {
             $calendar = $cacheOb->get($signature, 3600);
