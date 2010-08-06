@@ -67,7 +67,7 @@ abstract class Horde_Core_Ajax_Imple
         }
 
         $url = Horde::getServiceLink('imple');
-        return Horde::url($url->url . '?' . $qstring, $full);
+        return Horde::url($url->url . '?' . $qstring, $full)->setRaw(true);
     }
 
     /**
