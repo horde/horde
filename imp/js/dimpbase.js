@@ -2423,7 +2423,7 @@ var DimpBase = {
 
         if (DIMP.conf.mbox_expand) {
             if (collapse.size()) {
-                DimpCore.doAction('collapseMailboxes', { mboxes: collapse.toJSON() });
+                DimpCore.doAction('collapseMailboxes', { mboxes: Object.toJSON(collapse) });
             } else if (mode == 'colall') {
                 DimpCore.doAction('collapseMailboxes', { all: 1 });
             }
