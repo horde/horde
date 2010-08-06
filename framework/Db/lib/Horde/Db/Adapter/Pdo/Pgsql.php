@@ -149,7 +149,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         if ($this->supportsInsertWithReturning()) {
             if (!$pk) list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
             if ($pk) {
-                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk));
+                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk), $arg1, $arg2);
                 return $id;
             }
         }
