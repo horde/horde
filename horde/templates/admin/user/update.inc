@@ -1,28 +1,4 @@
-<script type="text/javascript">
-<!--
-
-function validate_update()
-{
-    if (document.updateuser.user_name.value == "") {
-        document.updateuser.user_name.focus();
-        alert('<?php echo addslashes(_("You must specify the username to add.")) ?>');
-        return false;
-    } else if (document.updateuser.user_pass_1 &&
-               document.updateuser.user_pass_1.value != document.updateuser.user_pass_2.value) {
-        document.updateuser.user_pass_1.value = "";
-        document.updateuser.user_pass_2.value = "";
-        document.updateuser.user_pass_1.focus();
-        alert('<?php echo addslashes(_("Passwords must match.")) ?>');
-        return false;
-    }
-
-    return true;
-}
-
-//-->
-</script>
-
-<form name="updateuser" method="post" action="user.php">
+<form id="updateuser" name="updateuser" method="post" action="user.php">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="form" value="update" />
 <input type="hidden" name="user_name" value="<?php echo htmlspecialchars($f_user_name) ?>" />
@@ -74,7 +50,7 @@ function validate_update()
  </tr>
  <tr>
   <td class="control leftAlign" colspan="2">
-   <input type="submit" class="button" name="submit" onclick="return validate_update();" value="<?php echo _("Update user") ?>" />
+   <input type="submit" class="button" name="submit" value="<?php echo _("Update user") ?>" />
    <input type="reset" class="button" name="reset" value="<?php echo _("Reset") ?>" />
   </td>
  </tr>
