@@ -2025,4 +2025,18 @@ HTML;
         self::$_metaTags = array();
     }
 
+    /**
+     * Is an AJAX view supported/available on the current browser?
+     *
+     * return boolean  True if the AJAX view can be displayed.
+     */
+    static public function ajaxAvailable()
+    {
+        global $browser;
+
+        return $browser->hasFeature('xmlhttpreq') &&
+            (!$browser->isBrowser('msie') || $browser->getMajor() >= 7) &&
+            (!$browser->hasFeature('issafari') || $browser->getMajor() >= 2);
+    }
+
 }

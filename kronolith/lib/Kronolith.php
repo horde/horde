@@ -2921,11 +2921,7 @@ class Kronolith
     public static function showAjaxView()
     {
         return $GLOBALS['prefs']->getValue('dynamic_view') &&
-            $GLOBALS['browser']->hasFeature('xmlhttpreq') &&
-            (!$GLOBALS['browser']->isBrowser('msie') ||
-             $GLOBALS['browser']->getMajor() >= 7) &&
-            (!$GLOBALS['browser']->hasFeature('issafari') ||
-             $GLOBALS['browser']->getMajor() >= 2);
+            Horde::ajaxAvailable();
     }
 
     /**

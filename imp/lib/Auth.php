@@ -467,11 +467,7 @@ class IMP_Auth
 
         /* Enforce minimum browser standards for DIMP.
          * No IE < 7; Safari < 3 */
-        if (($sess['view'] == 'dimp') &&
-            (($GLOBALS['browser']->isBrowser('msie') &&
-              ($GLOBALS['browser']->getMajor() < 7)) ||
-             ($GLOBALS['browser']->hasFeature('issafari') &&
-              ($GLOBALS['browser']->getMajor() < 2)))) {
+        if (($sess['view'] == 'dimp') && !Horde::ajaxAvailable()) {
             $sess['view'] = 'imp';
             $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
         }
