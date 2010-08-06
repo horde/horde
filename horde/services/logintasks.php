@@ -30,7 +30,6 @@ $tasks->runTasks(Horde_Util::getPost('logintasks_page'));
 
 /* Create the Horde_Template item. */
 $template = $injector->createInstance('Horde_Template');
-$template->set('javascript', $browser->hasFeature('javascript'), true);
 
 /* Have the maintenance module do all necessary processing. */
 $tasklist = $tasks->displayTasks();
@@ -85,6 +84,8 @@ $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
+
+Horde::addScriptFile('logintasks.js', 'horde');
 
 $bodyId = 'services_logintasks';
 require HORDE_TEMPLATES . '/common-header.inc';
