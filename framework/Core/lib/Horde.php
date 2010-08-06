@@ -467,7 +467,8 @@ HTML;
 
         switch ($type) {
         case 'ajax':
-            return self::url($webroot . '/services/ajax.php/' . $app . '/')->remove('ajaxui');
+            return self::url($webroot . '/services/ajax.php/' . $app . '/')
+                ->remove('ajaxui');
 
         case 'cache':
             return self::url($webroot . '/services/cache.php', false, -1);
@@ -480,21 +481,26 @@ HTML;
             return self::url($webroot . '/services/confirm.php');
 
         case 'go':
-            return self::url($webroot . '/services/go.php');
+            return self::url($webroot . '/services/go.php')
+                ->remove('ajaxui');
 
         case 'help':
-            return self::url($webroot . '/services/help/')->add('module', $app);
+            return self::url($webroot . '/services/help/')
+                ->add('module', $app);
 
         case 'imple':
-            return self::url($webroot . '/services/imple.php');
+            return self::url($webroot . '/services/imple.php')->
+                remove('ajaxui');
 
         case 'login':
             return self::url($webroot . '/login.php');
 
         case 'logintasks':
-            return self::url($webroot . '/services/logintasks.php')->add('app', $app);
+            return self::url($webroot . '/services/logintasks.php')
+                ->add('app', $app);
+
         case 'logout':
-            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT))->setRaw(false);
+            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
         case 'options':
         case 'prefsapi':
@@ -985,8 +991,7 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
-        if (($append_session == 0 || $append_session == 1) &&
-            Horde_Util::getFormData('ajaxui')) {
+        if (($append_session >= 0) && Horde_Util::getFormData('ajaxui')) {
             $ob->add('ajaxui', 1);
         }
 
