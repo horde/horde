@@ -420,7 +420,18 @@ class Horde_Prefs_Ui
         $stateMachine = new Horde_ActiveSync_State_History($state_params);
         $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
 
+        $js = array();
+        foreach ($devices as $key => $val) {
+            $js[$key] = array(
+                'id' => $val['device_id'],
+                'user' => $val['device_user']
+            );
+        }
+
         Horde::addScriptFile('activesyncprefs.js', 'horde');
+        Horde::addInlineScript(array(
+            'HordeActiveSyncPrefs.devices = ' . Horde_Serialize::serialize($js, Horde_Serialize::JSON, $GLOBALS['registry']->getCharset())
+        ));
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
