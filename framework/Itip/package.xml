@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Itip</name>
+ <channel>pear.horde.org</channel>
+ <summary>iTip invitation response handling.</summary>
+ <description>This package allows to generate MIME encapsuled
+ responses to iCalender invitations.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-08-06</date>
+ <time>21:15:38</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <notes>
+* Extracted package from Kolab_Resource.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Itip">
+      <dir name="Event">
+       <file name="Vevent.php" role="php" />
+      </dir> <!-- /lib/Horde/Itip/Event -->
+      <dir name="Resource">
+       <file name="Base.php" role="php" />
+      </dir> <!-- /lib/Horde/Itip/Resource -->
+      <dir name="Response">
+       <dir name="Type">
+        <file name="Accept.php" role="php" />
+        <file name="Base.php" role="php" />
+        <file name="Decline.php" role="php" />
+        <file name="Tentative.php" role="php" />
+       </dir> <!-- /lib/Horde/Itip/Response/Type -->
+       <file name="Type.php" role="php" />
+      </dir> <!-- /lib/Horde/Itip/Response -->
+      <file name="Event.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Resource.php" role="php" />
+      <file name="Response.php" role="php" />
+     </dir> <!-- /lib/Horde/Itip -->
+     <file name="Itip.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Itip">
+      <dir name="Integration">
+       <file name="ItipTest.php" role="test" />
+      </dir> <!-- /test/Horde/Itip/Integration -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Itip -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <file name="TODO" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Icalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>0.2.0</min>
+   </package>
+   <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>0.1.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Itip.php" name="lib/Horde/Itip.php" />
+   <install as="Horde/Itip/Event.php" name="lib/Horde/Itip/Event.php" />
+   <install as="Horde/Itip/Exception.php" name="lib/Horde/Itip/Exception.php" />
+   <install as="Horde/Itip/Resource.php" name="lib/Horde/Itip/Resource.php" />
+   <install as="Horde/Itip/Response.php" name="lib/Horde/Itip/Response.php" />
+   <install as="Horde/Itip/Event/Vevent.php" name="lib/Horde/Itip/Event/Vevent.php" />
+   <install as="Horde/Itip/Resource/Base.php" name="lib/Horde/Itip/Resource/Base.php" />
+   <install as="Horde/Itip/Response/Type.php" name="lib/Horde/Itip/Response/Type.php" />
+   <install as="Horde/Itip/Response/Type/Accept.php" name="lib/Horde/Itip/Response/Type/Accept.php" />
+   <install as="Horde/Itip/Response/Type/Base.php" name="lib/Horde/Itip/Response/Type/Base.php" />
+   <install as="Horde/Itip/Response/Type/Decline.php" name="lib/Horde/Itip/Response/Type/Decline.php" />
+   <install as="Horde/Itip/Response/Type/Tentative.php" name="lib/Horde/Itip/Response/Type/Tentative.php" />
+   <install as="Horde/Itip/AllTests.php" name="test/Horde/Itip/AllTests.php" />
+   <install as="Horde/Itip/Autoload.php" name="test/Horde/Itip/Autoload.php" />
+   <install as="Horde/Itip/phpunit.xml" name="test/Horde/Itip/phpunit.xml" />
+   <install as="Horde/Itip/Integration/ItipTest.php" name="test/Horde/Itip/Integration/ItipTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-08-06</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* Extracted package from Kolab_Resource.
+   </notes>
+  </release>
+ </changelog>
+</package>

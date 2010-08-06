@@ -6,6 +6,8 @@
  *
  * @category Horde
  * @package  Itip
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
@@ -15,6 +17,7 @@
 /**
  * Handles Itip response data.
  *
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
@@ -23,6 +26,8 @@
  *
  * @category Horde
  * @package  Itip
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
@@ -54,11 +59,9 @@ class Horde_Itip_Response
     /**
      * Constructor.
      *
-     * @param Horde_Itip_Event    $request  The request this
-     *                                                     instance will respond
-     *                                                     to.
-     * @param Horde_Itip_Resource $resource The requested
-     *                                                     resource.
+     * @param Horde_Itip_Event    $request  The request this instance will
+     *                                      respond to.
+     * @param Horde_Itip_Resource $resource The requested resource.
      */
     public function __construct(
         Horde_Itip_Event $request,
@@ -69,7 +72,7 @@ class Horde_Itip_Response
     }
 
     /**
-     * Return the response as an iCalendar vveEnt object.
+     * Return the response as an iCalendar vEvent object.
      *
      * @param Horde_Itip_Response_Type $type The response type.
      * @param Horde_iCalendar|boolean  $vCal The parent container or false if not
@@ -99,12 +102,9 @@ class Horde_Itip_Response
     /**
      * Return the response as an iCalendar object.
      *
-     * @param Horde_Itip_Response_Type $type       The response
-     *                                                            type.
-     * @param string                                  $product_id The ID that
-     *                                                            should be set
-     *                                                            as the iCalendar
-     *                                                            product id.
+     * @param Horde_Itip_Response_Type $type       The response type.
+     * @param string                   $product_id The ID that should be set as
+     *                                             the iCalendar product id.
      *
      * @return Horde_iCalendar The response object.
      */
@@ -122,13 +122,12 @@ class Horde_Itip_Response
     /**
      * Return the response as a MIME message.
      *
-     * @param Horde_Itip_Response_Type $type       The response
-     *                                                            type.
-     * @param string                                  $product_id The ID that
-     *                                                            should be set
-     *                                                            as the iCalendar
-     *                                                            product id.
-     * @param string                                  $subject_comment An optional comment on the subject line.
+     * @param Horde_Itip_Response_Type $type            The response type.
+     * @param string                   $product_id      The ID that should be set
+     *                                                  as the iCalendar product
+     *                                                  id.
+     * @param string                   $subject_comment An optional comment on
+     *                                                  the subject line.
      *
      * @return array A list of two object: The mime headers and the mime
      *               message.
@@ -138,10 +137,11 @@ class Horde_Itip_Response
         $product_id,
         $subject_comment = null
     ) {
-        $ics = new MIME_Part(
-            'text/calendar',
-            $this->getIcalendar($type, $product_id)->exportvCalendar(),
-            'UTF-8'
+        $ics = new Horde_Mime_Part();
+        $ics->setType('text/calendar');
+        $ics->setCharset('UTF-8');
+        $ics->setContents(
+            $this->getIcalendar($type, $product_id)->exportvCalendar()
         );
         $ics->setContentTypeParameter('method', 'REPLY');
 
@@ -153,7 +153,7 @@ class Horde_Itip_Response
         // is so that Outlook interprets the messages as it does Outlook-generated
         // responses, i.e. double-clicking a reply will automatically update your
         // meetings, showing different status icons in the UI, etc.
-        $message = MIME_Message::convertMimePart($ics);
+        //$message = Horde_Mime_Message::convertMimePart($ics);
         $message->setCharset('UTF-8');
         $message->setTransferEncoding('quoted-printable');
         $message->transferEncodeContents();

@@ -14,7 +14,8 @@
 /**
  * A wrapper for vEvent iCalender data.
  *
- * Copyright 2010 Klarälvdalens Datakonsult AB
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -388,7 +389,8 @@ implements Horde_Itip_Event
      */
     public function getStartParameters()
     {
-        return array_pop($this->_vevent->getAttribute('DTSTART', true));
+        $parameters = $this->_vevent->getAttribute('DTSTART', true);
+        return array_pop($parameters);
     }
 
     /**
@@ -415,23 +417,14 @@ implements Horde_Itip_Event
     }
 
     /**
-     * Does the event have an end?
-     *
-     * @return boolean True if it has an end, false otherwise.
-     */
-    private function hasEnd()
-    {
-        return !($this->_vevent->getAttribute('DTEND') instanceOf PEAR_Error);
-    }
-
-    /**
      * Return the end parameters of the iTip event.
      *
      * @return array The end parameters of the event.
      */
     private function getEndParameters()
     {
-        return array_pop($this->_vevent->getAttribute('DTEND', true));
+        $parameters = $this->_vevent->getAttribute('DTEND', true);
+        return array_pop($parameters);
     }
 
     /**
@@ -464,7 +457,8 @@ implements Horde_Itip_Event
      */
     private function getDurationParameters()
     {
-        return array_pop($this->_vevent->getAttribute('DURATION', true));
+        $parameters = $this->_vevent->getAttribute('DURATION', true);
+        return array_pop($parameters);
     }
 
     /**
@@ -488,9 +482,9 @@ implements Horde_Itip_Event
      */
     private function copyEndOrDuration(Horde_Itip_Event $itip)
     {
-        if ($this->hasEnd()) {
+        try {
             $itip->setEnd($this->getEnd(), $this->getEndParameters());
-        } else {
+        } catch (Horde_Icalendar_Exception $e) {
             $itip->setDuration($this->getDuration(), $this->getDurationParameters());
         }
     }
@@ -527,16 +521,6 @@ implements Horde_Itip_Event
     }
 
     /**
-     * Does the event have a location?
-     *
-     * @return boolean True if it has a location, false otherwise.
-     */
-    private function hasLocation()
-    {
-        return !($this->_vevent->getAttribute('LOCATION') instanceOf PEAR_Error);
-    }
-
-    /**
      * Return the location for the event.
      *
      * @return string|PEAR_Error The location.
@@ -565,8 +549,9 @@ implements Horde_Itip_Event
      */
     private function copyLocation(Horde_Itip_Event $itip)
     {
-        if ($this->hasLocation()) {
+        try {
             $itip->setLocation($this->getLocation());
+        } catch (Horde_Icalendar_Exception $e) {
         }
     }
 
@@ -587,7 +572,8 @@ implements Horde_Itip_Event
      */
     private function getOrganizerParameters()
     {
-        return array_pop($this->_vevent->getAttribute('ORGANIZER', true));
+        $parameters = $this->_vevent->getAttribute('ORGANIZER', true);
+        return array_pop($parameters);
     }
 
     /**
