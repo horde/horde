@@ -549,9 +549,17 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $default = isset($options['default']) ? $options['default'] : null;
 
         if ($autoincrement) {
-            $seq_name = $this->quoteSequenceName($this->defaultSequenceName($tableName, $columnName));
+            $seq_name = $this->defaultSequenceName($tableName, $columnName);
+            if ($this->table($seq_name)) {
+                $this->execute('DROP SEQUENCE ' . $seq_name . ' CASCADE');
+            }
             $this->execute('CREATE SEQUENCE ' . $seq_name);
-            $this->changeColumnDefault($tableName, $columnName, 'NEXTVAL(' . $seq_name . ')');
+
+            /* Can't use changeColumnDefault() since it quotes the
+             * default value (NEXTVAL is a postgres keyword, not a text
+             * value). */
+            $this->_clearTableCache($tableName);
+            $this->execute('ALTER TABLE ' . $this->quoteTableName($tableName) . ' ALTER COLUMN ' . $this->quoteColumnName($columnName) . ' SET DEFAULT NEXTVAL(' . $this->quoteSequenceName($seq_name) . ')');
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
         }
