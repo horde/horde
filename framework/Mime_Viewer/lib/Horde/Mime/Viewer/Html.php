@@ -120,7 +120,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
             array(
-                'charset' => isset($options['charset']) ? $options['charset'] : $this->_mimepart->getCharset()
+                'charset' => $charset
             ),
             array(
                 'noprefetch' => !empty($options['noprefetch']),
