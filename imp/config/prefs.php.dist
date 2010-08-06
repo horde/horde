@@ -1713,7 +1713,14 @@ $prefGroups['dimp'] = array(
     'column' => _("Other Options"),
     'label' => _("Dynamic View Options"),
     'desc' => _("Configure options for the dynamic view."),
-    'members' => array('dimp_login_view')
+    'members' => array('dynamic_view', 'dimp_login_view')
+);
+
+// Show dynamic view?
+$_prefs['dynamic_view'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Show the dynamic view by default, if the browser supports it?")
 );
 
 // Login preferences (dimp)

@@ -25,13 +25,14 @@
    will be a 'Message Source' link in the parts list of every message, allowing
    the user to view the entire raw message, or to download it and save it to
    disk.">true</configboolean>
-   <configswitch name="select_view" desc="If either DIMP or MIMP is available,
-   allow user to select the application view on login?">true
+   <configswitch name="select_view" desc="Allow user to select the application
+   view mode on login?">false
     <case name="true" desc="Yes"/>
     <case name="false" desc="No">
-     <configenum name="force_view" desc="Which application view should be used
-     for all users?">imp
+     <configenum name="force_view" desc="Force an application view to be used
+     for all users?">
       <values>
+       <value desc="None (use user's browser and 'dynamic_view' preference)"></value>
        <value desc="IMP">imp</value>
        <value desc="DIMP">dimp</value>
        <value desc="MIMP">mimp</value>

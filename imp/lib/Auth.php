@@ -460,24 +460,33 @@ class IMP_Auth
         $editor = $GLOBALS['injector']->getInstance('Horde_Editor')->getEditor('Ckeditor', array('no_notify' => true));
         $sess['rteavail'] = $editor->supportedByBrowser();
 
-        /* Set view in session/cookie. */
-        $sess['view'] = empty($conf['user']['select_view'])
-            ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
-            : (empty($sess['cache']['select_view']) ? 'imp' : $sess['cache']['select_view']);
+        /* Determine view. */
+        $setcookie = false;
+        if (empty($conf['user']['force_view'])) {
+            if (empty($conf['user']['select_view']) ||
+                empty($sess['cache']['select_view'])) {
+                $sess['view'] = $GLOBALS['browser']->isMobile()
+                    ? 'mimp'
+                    : ($GLOBALS['prefs']->getValue('dynamic_view') ? 'dimp' : 'imp');
+            } else {
+                $setcookie = true;
+                $sess['view'] = $sess['cache']['select_view'];
+            }
+        } else {
+            $sess['view'] = $conf['user']['force_view'];
+        }
 
-        /* Enforce minimum browser standards for DIMP.
-         * No IE < 7; Safari < 3 */
+        /* Enforce minimum browser standards for DIMP. */
         if (($sess['view'] == 'dimp') && !Horde::ajaxAvailable()) {
             $sess['view'] = 'imp';
             $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
         }
 
-        setcookie('default_imp_view', $sess['view'], time() + 30 * 86400,
-                  $conf['cookie']['path'],
-                  $conf['cookie']['domain']);
+        if ($setcookie) {
+            setcookie('default_imp_view', $sess['view'], time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);
+        }
 
-        /* Suppress menus in options screen and indicate that notifications
-         * should use the ajax mode. */
+        /* Indicate that notifications should use AJAX mode. */
         if ($sess['view'] == 'dimp') {
             $_SESSION['horde_notification']['override'] = array(
                 IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',

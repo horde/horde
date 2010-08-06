@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Automatically determine view based on browser and 'dynamic_view'
+      preference (Request #9159).
 [mms] Add preference to define default font family/size for the HTML compose
       editor.
 [mms] Honor nav_expanded preference (DIMP).
