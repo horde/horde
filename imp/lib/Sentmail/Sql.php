@@ -91,7 +91,9 @@ class IMP_Sentmail_Sql extends IMP_Sentmail_Driver
         );
 
         /* Execute the query. */
-        $this->_db->insert($query, $values);
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {}
     }
 
     /**
