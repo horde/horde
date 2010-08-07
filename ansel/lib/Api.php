@@ -650,28 +650,28 @@ class Ansel_Api extends Horde_Registry_Api
     /**
      * Returns a list of all galleries.
      *
-    * @param array $params  Optional parameters:
-    *   <pre>
-     *    (string)scope      The application scope, if not default.
-    *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-    *     (mixed)filter      Restrict the galleries returned to those matching
-    *                        the filters. Can be an array of attribute/values
-    *                        pairs or a gallery owner username.
-    *     (integer)parent    The parent share to start listing at.
-    *     (boolean)allLevels If set, return all levels below parent, not just
-    *                        direct children [TRUE]
-    *     (integer)from      The gallery to start listing at.
-    *     (integer)count     The number of galleries to return.
-    *     (string)sort_by    Attribute to sort by
-    *     (integer)direction The direction to sort by [Ansel::SORT_ASCENDING]
-    *   </pre>
+     * @param array $params  Optional parameters:
+     *   <pre>
+     *     (string)scope      The application scope, if not default.
+     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
+     *     (mixed)filter      Restrict the galleries returned to those matching
+     *                        the filters. Can be an array of attribute/values
+     *                        pairs or a gallery owner username.
+     *     (integer)parent    The parent share to start listing at.
+     *     (boolean)allLevels If set, return all levels below parent, not just
+     *                        direct children [TRUE]
+     *     (integer)from      The gallery to start listing at.
+     *     (integer)count     The number of galleries to return.
+     *     (string)sort_by    Attribute to sort by
+     *     (integer)direction The direction to sort by [Ansel::SORT_ASCENDING]
+     *   </pre>
      *
      * @return array  An array of gallery information.
      */
     public function listGalleries($params = array())
     {
-        /* If no app is given use Ansel's own gallery which is initialized in
-        base.php */
+        // If no app is given use Ansel's own gallery which is initialized in
+        // base.php
         if (!empty($params['scope'])) {
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $params['scope']);
         }
@@ -709,8 +709,8 @@ class Ansel_Api extends Horde_Registry_Api
             $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGalleries($ids);
         }
 
-        /* We can't just return the results of the getGalleries call - we need to
-        ensure the caller has at least Horde_Perms::READ on the galleries. */
+        // We can't just return the results of the getGalleries call - we need
+        // to ensure the caller has at least Horde_Perms::READ on the galleries.
         $galleries = array();
         foreach ($results as $gallery) {
             if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
@@ -777,8 +777,8 @@ class Ansel_Api extends Horde_Registry_Api
             $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         }
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope();
-        /* Determine the default gallery when none is given. The first gallery in
-        the list is the default gallery. */
+        // Determine the default gallery when none is given. The first gallery
+        // in the list is the default gallery.
         if (is_null($gallery_id) && empty($slug)) {
             $galleries = $storage->listGalleries(array('perm' => $perm));
             if (!count($galleries)) {
@@ -928,7 +928,7 @@ class Ansel_Api extends Horde_Registry_Api
         $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
         $results = Ansel_Tags::searchTags($names, $max, $from,  $resource_type, $user);
 
-        /* Check for error or if we requested the raw data array */
+        // Check for error or if we requested the raw data array.
         if ($raw) {
             return $results;
         }
@@ -1032,7 +1032,5 @@ class Ansel_Api extends Horde_Registry_Api
         $return['crumbs'] = $trail;
 
         return $return;
-
     }
-
 }
