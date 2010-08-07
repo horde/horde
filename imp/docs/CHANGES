@@ -2458,6 +2458,8 @@ OLD DIMP CHANGELOG
 v1.1.5-cvs
 ----------
 
+[jan] Fix notices with certain output buffer configurations
+      (Valentin.Vidic@CARNet.hr, Bug #7851).
 [mms] Turn DNS prefetching off when displaying untrusted message content
       (Ticket #8836).
 
