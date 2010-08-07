@@ -270,6 +270,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)
     {
         $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
+        $adds = array();
+
         switch ($folderId) {
         case self::APPOINTMENTS_FOLDER:
             if ($from_ts == 0) {
@@ -347,6 +349,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
         /* Build the changes array */
         $changes = array();
+
         /* Server additions */
         foreach ($adds as $add) {
             $changes[] = array(
