@@ -10,6 +10,8 @@ v2.0-git
 v1.2.5-cvs
 ----------
 
+[jan] Fix procmail vacation rule if no dates are set (Gaudenz Steinlin
+      <gaudenz@debian.org>, Bug #8982).
 [jan] Fix filtering only unseen message if rule should filter all messages in
       IMAP driver (Jan Kuipers <jrkuipers@lauwerscollege.nl>, Bug #9077).
 

@@ -139,9 +139,9 @@ class Ingo_Script_Procmail_Recipe
                     $this->_action[] = '    :0 Whc: ${VACATION_DIR:-.}/vacation.lock';
                     if ($timed) {
                         $this->_action[] = '    * ? test $DATE -gt $START && test $END -gt $DATE';
-			$this->_action[] = '    {';
-                        $this->_action[] = '      :0 Wh';
                     }
+		    $this->_action[] = '    {';
+                    $this->_action[] = '      :0 Wh';
                     $this->_action[] = '      * ^TO_' . $address;
                     $this->_action[] = '      * !^X-Loop: ' . $address;
                     $this->_action[] = '      * !^X-Spam-Flag: YES';
@@ -172,9 +172,7 @@ class Ingo_Script_Procmail_Recipe
                     $reason = addcslashes($reason, "\\\n\r\t\"`");
                     $this->_action[] = '       ' . $this->_params['echo'] . ' -e "' . $reason . '" \\';
                     $this->_action[] = '      ) | $SENDMAIL -f' . $address . ' -oi -t';
-                    if ($timed) {
-                        $this->_action[] = '    }';
-                    }
+                    $this->_action[] = '    }';
                     $this->_action[] = '  }';
                 }
             }
