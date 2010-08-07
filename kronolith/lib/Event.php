@@ -1326,7 +1326,10 @@ abstract class Kronolith_Event
                         $e->setLocation(Horde_String::convertCharset($exception->location, $charset, 'utf-8'));
                         $e->setBody(Horde_String::convertCharset($exception->description, $charset, 'utf-8'));
 
-                        $e->setSensitivity($exception->private ? 'private' : 'normal');
+                        $e->setSensitivity($exception->private ?
+                            Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
+                            Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
+
                         $e->setReminder($exception->alarm);
                         $e->setDTStamp($_SERVER['REQUEST_TIME']);
                         /* Response Status */
