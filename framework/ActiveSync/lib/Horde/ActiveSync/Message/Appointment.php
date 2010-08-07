@@ -391,10 +391,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $r->interval = $recurrence->recurInterval;
         }
 
-        /* AS messages can only have one or the other, not both */
+        /* AS messages can only have one or the other (or none), not both */
         if ($recurrence->hasRecurCount()) {
             $r->occurrences = $recurrence->getRecurCount();
-        } else {
+        } elseif ($recurrence->hasRecurEnd()) {
             $r->until = $recurrence->getRecurEnd();
         }
 
