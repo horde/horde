@@ -43,7 +43,7 @@ class Horde_Routes_Utils
      * @param  Horde_Routes_Mapper  $mapper    Mapper for these utilities
      * @param  callback             $redirect  Redirect callback for redirectTo()
      */
-    public function __construct($mapper, $redirect = null)
+    public function __construct(Horde_Routes_Mapper $mapper, $redirect = null)
     {
         $this->mapper   = $mapper;
         $this->redirect = $redirect;
