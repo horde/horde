@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface for filers to be run before the controller is executed
+ * Interface for filters to be run before the controller is executed
  *
  * @category Horde
  * @package  Horde_Controller
