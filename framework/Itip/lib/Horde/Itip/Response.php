@@ -78,7 +78,7 @@ class Horde_Itip_Response
      * @param Horde_iCalendar|boolean  $vCal The parent container or false if not
      *                                       provided.
      *
-     * @return Horde_iCalendar_vevent The response object.
+     * @return Horde_Icalendar_Vevent The response object.
      */
     public function getVevent(
         Horde_Itip_Response_Type $type,
@@ -154,19 +154,20 @@ class Horde_Itip_Response
         // responses, i.e. double-clicking a reply will automatically update your
         // meetings, showing different status icons in the UI, etc.
         //$message = Horde_Mime_Message::convertMimePart($ics);
+        $message = new Horde_Mime_Part();
         $message->setCharset('UTF-8');
         $message->setTransferEncoding('quoted-printable');
-        $message->transferEncodeContents();
+        //$message->transferEncodeContents();
 
         // Build the reply headers.
-        $headers = new MIME_Headers();
+        $headers = new Horde_Mime_Headers();
         $headers->addHeader('Date', date('r'));
         $headers->addHeader('From', $this->_resource->getFrom());
         $headers->addHeader('To', $this->_request->getOrganizer());
         $headers->addHeader(
             'Subject', $type->getSubject($subject_comment)
         );
-        $headers->addMIMEHeaders($message);
+        //$headers->addMimeHeaders($message);
         return array($headers, $message);
     }
 }

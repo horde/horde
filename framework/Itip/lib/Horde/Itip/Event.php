@@ -96,8 +96,4 @@ interface Horde_Itip_Event
      * @return NULL
      */
     public function setAttendee($attendee, $common_name, $status);
-
-    public function getKolabObject();
-
-    public function setAccepted($resource);
 }

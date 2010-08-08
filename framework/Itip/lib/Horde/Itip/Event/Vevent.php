@@ -33,17 +33,17 @@ implements Horde_Itip_Event
     /**
      * The wrapped vEvent.
      *
-     * @var Horde_iCalendar_vevent
+     * @var Horde_Icalendar_Vevent
      */
     private $_vevent;
 
     /**
      * Constructor.
      *
-     * @param Horde_iCalendar_vevent $vevent The iCalendar object that will be
+     * @param Horde_Icalendar_Vevent $vevent The iCalendar object that will be
      *                                       wrapped by this instance.
      */
-    public function __construct(Horde_iCalendar_vevent $vevent)
+    public function __construct(Horde_Icalendar_Vevent $vevent)
     {
         $this->_vevent = $vevent;
     }
@@ -51,7 +51,7 @@ implements Horde_Itip_Event
     /**
      * Returns the wrapped vEvent.
      *
-     * @return Horde_iCalendar_vevent The wrapped event.
+     * @return Horde_Icalendar_Vevent The wrapped event.
      */
     public function getVevent()
     {
@@ -81,7 +81,7 @@ implements Horde_Itip_Event
     /**
      * Return the summary for the event.
      *
-     * @return string|PEAR_Error The summary.
+     * @return string The summary.
      */
     public function getSummary()
     {
@@ -158,142 +158,6 @@ implements Horde_Itip_Event
         );
     }
 
-    public function getKolabObject()
-    {
-        $object = array();
-        $object['uid'] = $this->getUid();
-
-        $org_params = $this->_vevent->getAttribute('ORGANIZER', true);
-        if (!is_a( $org_params, 'PEAR_Error')) {
-            if (!empty($org_params[0]['CN'])) {
-                $object['organizer']['display-name'] = $org_params[0]['CN'];
-            }
-            $orgemail = $this->_vevent->getAttributeDefault('ORGANIZER', '');
-            if (preg_match('/mailto:(.*)/i', $orgemail, $regs )) {
-                $orgemail = $regs[1];
-            }
-            $object['organizer']['smtp-address'] = $orgemail;
-        }
-        $object['summary'] = $this->_vevent->getAttributeDefault('SUMMARY', '');
-        $object['location'] = $this->_vevent->getAttributeDefault('LOCATION', '');
-        $object['body'] = $this->_vevent->getAttributeDefault('DESCRIPTION', '');
-        $dtend = $this->_vevent->getAttributeDefault('DTEND', '');
-        if (is_array($dtend)) {
-            $object['_is_all_day'] = true;
-        }
-        $start = new Horde_Kolab_Resource_Epoch($this->getStart());
-        $object['start-date'] = $start->getEpoch();
-        $end = new Horde_Kolab_Resource_Epoch($dtend);
-        $object['end-date'] = $end->getEpoch();
-
-        $attendees = $this->_vevent->getAttribute('ATTENDEE');
-        if (!is_a( $attendees, 'PEAR_Error')) {
-            $attendees_params = $this->_vevent->getAttribute('ATTENDEE', true);
-            if (!is_array($attendees)) {
-                $attendees = array($attendees);
-            }
-            if (!is_array($attendees_params)) {
-                $attendees_params = array($attendees_params);
-            }
-
-            $object['attendee'] = array();
-            for ($i = 0; $i < count($attendees); $i++) {
-                $attendee = array();
-                if (isset($attendees_params[$i]['CN'])) {
-                    $attendee['display-name'] = $attendees_params[$i]['CN'];
-                }
-
-                $attendeeemail = $attendees[$i];
-                if (preg_match('/mailto:(.*)/i', $attendeeemail, $regs)) {
-                    $attendeeemail = $regs[1];
-                }
-                $attendee['smtp-address'] = $attendeeemail;
-
-                if (!isset($attendees_params[$i]['RSVP'])
-                    || $attendees_params[$i]['RSVP'] == 'FALSE') {
-                    $attendee['request-response'] = false;
-                } else {
-                    $attendee['request-response'] = true;
-                }
-
-                if (isset($attendees_params[$i]['ROLE'])) {
-                    $attendee['role'] = $attendees_params[$i]['ROLE'];
-                }
-
-                if (isset($attendees_params[$i]['PARTSTAT'])) {
-                    $status = strtolower($attendees_params[$i]['PARTSTAT']);
-                    switch ($status) {
-                    case 'needs-action':
-                    case 'delegated':
-                        $attendee['status'] = 'none';
-                        break;
-                    default:
-                        $attendee['status'] = $status;
-                        break;
-                    }
-                }
-
-                $object['attendee'][] = $attendee;
-            }
-        }
-
-        // Alarm
-        $valarm = $this->_vevent->findComponent('VALARM');
-        if ($valarm) {
-            $trigger = $valarm->getAttribute('TRIGGER');
-            if (!is_a($trigger, 'PEAR_Error')) {
-                $p = $valarm->getAttribute('TRIGGER', true);
-                if ($trigger < 0) {
-                    // All OK, enter the alarm into the XML
-                    // NOTE: The Kolab XML format seems underspecified
-                    // wrt. alarms currently...
-                    $object['alarm'] = -$trigger / 60;
-                }
-            }
-        }
-
-        // Recurrence
-        $rrule_str = $this->_vevent->getAttribute('RRULE');
-        if (!is_a($rrule_str, 'PEAR_Error')) {
-            require_once 'Horde/Date/Recurrence.php';
-            $recurrence = new Horde_Date_Recurrence(time());
-            $recurrence->fromRRule20($rrule_str);
-            $object['recurrence'] = $recurrence->toHash();
-        }
-
-        return $object;
-    }
-
-    public function setAccepted($resource)
-    {
-        // Update our status within the iTip request and send the reply
-        $this->_vevent->setAttribute('STATUS', 'CONFIRMED', array(), false);
-        $attendees = $this->_vevent->getAttribute('ATTENDEE');
-        if (!is_array($attendees)) {
-            $attendees = array($attendees);
-        }
-        $attparams = $this->_vevent->getAttribute('ATTENDEE', true);
-        foreach ($attendees as $i => $attendee) {
-            $attendee = preg_replace('/^mailto:\s*/i', '', $attendee);
-            if ($attendee != $resource) {
-                continue;
-            }
-
-            $attparams[$i]['PARTSTAT'] = 'ACCEPTED';
-            if (array_key_exists('RSVP', $attparams[$i])) {
-                unset($attparams[$i]['RSVP']);
-            }
-        }
-
-        // Re-add all the attendees to the event, using our updates status info
-        $firstatt = array_pop($attendees);
-        $firstattparams = array_pop($attparams);
-        $this->_vevent->setAttribute('ATTENDEE', $firstatt, $firstattparams, false);
-        foreach ($attendees as $i => $attendee) {
-            $this->_vevent->setAttribute('ATTENDEE', $attendee, $attparams[$i]);
-        }
-    }
-
     /**
      * Set the uid of the iTip event.
      *
@@ -339,19 +203,9 @@ implements Horde_Itip_Event
     }
 
     /**
-     * Does the event have a description?
-     *
-     * @return boolean True if it has a description, false otherwise.
-     */
-    private function hasDescription()
-    {
-        return !($this->_vevent->getAttribute('DESCRIPTION') instanceOf PEAR_Error);
-    }
-
-    /**
      * Return the description for the event.
      *
-     * @return string|PEAR_Error The description.
+     * @return string The description.
      */
     private function getDescription()
     {
@@ -377,8 +231,9 @@ implements Horde_Itip_Event
      */
     private function copyDescription(Horde_Itip_Event $itip)
     {
-        if ($this->hasDescription()) {
+        try {
             $itip->setDescription($this->getDescription());
+        } catch (Horde_Icalendar_Exception $e) {
         }
     }
 
@@ -443,7 +298,7 @@ implements Horde_Itip_Event
     /**
      * Return the duration for the event.
      *
-     * @return string|PEAR_Error The duration of the event.
+     * @return string The duration of the event.
      */
     private function getDuration()
     {
@@ -492,7 +347,7 @@ implements Horde_Itip_Event
     /**
      * Return the sequence for the event.
      *
-     * @return string|PEAR_Error The sequence.
+     * @return string The sequence.
      */
     private function getSequence()
     {
@@ -523,7 +378,7 @@ implements Horde_Itip_Event
     /**
      * Return the location for the event.
      *
-     * @return string|PEAR_Error The location.
+     * @return string The location.
      */
     private function getLocation()
     {
@@ -558,7 +413,7 @@ implements Horde_Itip_Event
     /**
      * Return the organizer for the event.
      *
-     * @return string|PEAR_Error The organizer of the event.
+     * @return string The organizer of the event.
      */
     private function getRawOrganizer()
     {

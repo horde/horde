@@ -71,7 +71,7 @@ extends PHPUnit_Framework_TestCase
         $reply = $iTip->getVeventResponse(
             new Horde_Itip_Response_Type_Accept()
         );
-        $this->assertSame($reply->getAttribute('DTSTART'), array('20080926T110000'));
+        $this->assertEquals(1222419600, $reply->getAttribute('DTSTART'));
     }
 
     public function testForCopiedEndTimeFromRequestToResponse()
@@ -80,7 +80,7 @@ extends PHPUnit_Framework_TestCase
         $reply = $iTip->getVeventResponse(
             new Horde_Itip_Response_Type_Accept()
         );
-        $this->assertSame($reply->getAttribute('DTEND'), array('20080926T120000'));
+        $this->assertEquals(1222423200, $reply->getAttribute('DTEND'));
     }
 
     public function testForCopiedDurationFromRequestToResponse()
@@ -108,6 +108,24 @@ extends PHPUnit_Framework_TestCase
             new Horde_Itip_Response_Type_Accept()
         );
         $this->assertSame($reply->getAttribute('ORGANIZER'), 'orga@example.org');
+    }
+
+    public function testForCopiedLocationFromRequestToResponse()
+    {
+        $iTip = $this->_getItip();
+        $reply = $iTip->getVeventResponse(
+            new Horde_Itip_Response_Type_Accept()
+        );
+        $this->assertSame($reply->getAttribute('LOCATION'), 'Somewhere');
+    }
+
+    public function testForCopiedDescriptionFromRequestToResponse()
+    {
+        $iTip = $this->_getItip();
+        $reply = $iTip->getVeventResponse(
+            new Horde_Itip_Response_Type_Accept()
+        );
+        $this->assertSame($reply->getAttribute('DESCRIPTION'), 'You are invited');
     }
 
     public function testForCopiedUidFromRequestToResponse()
@@ -159,12 +177,28 @@ extends PHPUnit_Framework_TestCase
         $this->assertContains('To: orga@example.org', $reply[0]->toString());
     }
 
-    public function testMessageResponseHasSubjectAddress()
+    public function testMessageAcceptResponseHasAcceptSubject()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
         $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Accept(), '');
         $this->assertContains('Subject: Accepted: Test', $reply[0]->toString());
+    }
+
+    public function testMessageDeclineResponseHasDeclineSubject()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Decline(), '');
+        $this->assertContains('Subject: Declined: Test', $reply[0]->toString());
+    }
+
+    public function testMessageTentativeResponseHasTentativeSubject()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Tentative(), '');
+        $this->assertContains('Subject: Tentative: Test', $reply[0]->toString());
     }
 
     public function testMessageResponseAllowsAddingCommentsToTheSubject()
@@ -203,21 +237,6 @@ extends PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * Test the basic iTip handling method.
-     */
-    /* public function testBasic() */
-    /* { */
-    /*     $iTip = new Horde_Itip( */
-    /*         $request, $resource */
-    /*     ); */
-    /*     $reply = $itip->setResponseType($responseType) */
-    /*         ->setSubjectComment('text') */
-    /*         ->setMessageComment('text') */
-    /*         ->setUpdate(true) */
-    /*         ->getMimeMessage(); */
-    /* } */
-
     private function _getItip($invitation = null)
     {
         if ($invitation === null) {
@@ -231,15 +250,18 @@ extends PHPUnit_Framework_TestCase
 
     private function _getInvitation()
     {
+        $start = new Horde_Date('20080926T110000');
+        $end = new Horde_Date('20080926T120000');
         $vCal = new Horde_Icalendar();
         $inv = Horde_Icalendar::newComponent('VEVENT', $vCal);
         $inv->setAttribute('METHOD', 'REQUEST');
         $inv->setAttribute('UID', '1');
         $inv->setAttribute('SUMMARY', 'Test Invitation');
         $inv->setAttribute('DESCRIPTION', 'You are invited');
+        $inv->setAttribute('LOCATION', 'Somewhere');
         $inv->setAttribute('ORGANIZER', 'orga@example.org');
-        $inv->setAttribute('DTSTART', array('20080926T110000'));
-        $inv->setAttribute('DTEND', array('20080926T120000'));
+        $inv->setAttribute('DTSTART', $start->timestamp());
+        $inv->setAttribute('DTEND', $end->timestamp());
         return $inv;
     }
 

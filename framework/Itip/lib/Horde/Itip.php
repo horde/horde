@@ -51,7 +51,7 @@ class Horde_Itip
      *
      * @param Horde_Itip_Response_Type $type The response type.
      *
-     * @return Horde_iCalendar_vevent The response object.
+     * @return Horde_Icalendar_Vevent The response object.
      */
     public function getVeventResponse(
         Horde_Itip_Response_Type $type
@@ -105,13 +105,13 @@ class Horde_Itip
     /**
      * Factory for generating a response object for an iCalendar invitation.
      *
-     * @param Horde_iCalendar_vevent $vevent   The iCalendar request.
+     * @param Horde_Icalendar_Vevent $vevent   The iCalendar request.
      * @param Horde_Itip_Resource    $resource The invited resource.
      *
      * @return Horde_Itip_Response The prepared response.
      */
     static public function prepareResponse(
-        Horde_iCalendar_vevent $vevent,
+        Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
     ) {
         return new Horde_Itip_Response(
@@ -125,13 +125,13 @@ class Horde_Itip
     /**
      * Factory for generating an iTip handler for an iCalendar invitation.
      *
-     * @param Horde_iCalendar_vevent $vevent   The iCalendar request.
+     * @param Horde_Icalendar_Vevent $vevent   The iCalendar request.
      * @param Horde_Itip_Resource    $resource The invited resource.
      *
      * @return Horde_Itip The iTip handler.
      */
     static public function factory(
-        Horde_iCalendar_vevent $vevent,
+        Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
     ) {
         return new Horde_Itip(
