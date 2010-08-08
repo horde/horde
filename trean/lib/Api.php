@@ -26,12 +26,10 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function getFolders($folderId)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if ($folderId == -1) {
             $folder = null;
         } else {
-            $folder = &$GLOBALS['trean_shares']->getFolder($folderId);
+            $folder = $GLOBALS['trean_shares']->getFolder($folderId);
         }
         if ($folder && is_a($folder, 'PEAR_Error')) {
             return $folder;
@@ -57,7 +55,6 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function addObjects($data)
     {
-        require_once dirname(__FILE__) . '/base.php';
         $return_map = array();
 
         foreach ($data as $props) {
@@ -71,7 +68,7 @@ class Trean_Api extends Horde_Registry_Api
             unset($props['return_key']);
 
             if (isset($props['name'])) {
-                $parentFolder = &$GLOBALS['trean_shares']->getFolder($props['folder_id']);
+                $parentFolder = $GLOBALS['trean_shares']->getFolder($props['folder_id']);
                 unset($props['folder_id']);
                 if (isset($props['child_objects'])) {
                     $children = $props['child_objects'];
@@ -115,13 +112,11 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function updateObjects($data)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         foreach ($data as $props) {
             if (isset($props['bookmark_id'])) {
-                $obj = &$GLOBALS['trean_shares']->getBookmark($props['bookmark_id']);
+                $obj = $GLOBALS['trean_shares']->getBookmark($props['bookmark_id']);
             } else if (isset($props['folder_id'])) {
-                $obj = &$GLOBALS['trean_shares']->getFolder($props['folder_id']);
+                $obj = $GLOBALS['trean_shares']->getFolder($props['folder_id']);
             } else {
                 $obj = new PEAR_Error("each inner associative array must have a (bookmark|folder)id key");
             }
@@ -166,9 +161,7 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function listBookmarks($folderId, $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
-        $folder = &$GLOBALS['trean_shares']->getFolder($folderId);
+        $folder = $GLOBALS['trean_shares']->getFolder($folderId);
         if (is_a($folder, 'PEAR_Error')) {
             return $folder;
         }
@@ -185,9 +178,7 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function deleteFolder($folderId, $force)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
-        $folder = &$GLOBALS['trean_shares']->getFolder($folderId);
+        $folder = $GLOBALS['trean_shares']->getFolder($folderId);
         if (is_a($folder, 'PEAR_Error')) {
             return $folder;
         }
@@ -227,9 +218,7 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function deleteBookmark($bookmarkId)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
-        $result = &$GLOBALS['trean_shares']->removeBookmark($bookmarkId);
+        $result = $GLOBALS['trean_shares']->removeBookmark($bookmarkId);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -269,8 +258,6 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function syncBookmarks($folderId, $bookmarkIds)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $rawbookmarks = listBookmarks($folderId);
         if (is_a($rawbookmarks, 'PEAR_Error')) {
             return $rawbookmarks;
@@ -309,8 +296,6 @@ class Trean_Api extends Horde_Registry_Api
      */
     public function syncFolders($folderId, $folderIds)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $rawfolders = getFolders($folderId);
         if (is_a($rawfolders, 'PEAR_Error')) {
             return $rawfolders;
@@ -345,10 +330,9 @@ class Trean_Api extends Horde_Registry_Api
     public function getAddUrl($params = array())
     {
         $GLOBALS['no_compress'] = true;
-        require_once dirname(__FILE__) . '/base.php';
-        $browser = Horde_Browser::singleton();
 
-        if ($GLOBALS['browser']->hasFeature('javascript')) {
+        $browser = $GLOBALS['injector']->getInstance('Horde_Browser');
+        if ($browser->hasFeature('javascript')) {
             if ($browser->hasFeature('dom')) {
                 $addurl = Horde_Util::addParameter(Horde::applicationUrl('add.php', true, -1), 'iframe', 1);
                 $url = "javascript:(function(){o=document.createElement('div');o.id='overlay';o.style.background='#000';o.style.position='absolute';o.style.top=0;o.style.left=0;o.style.width='100%';o.style.height='100%';o.style.zIndex=5000;o.style.opacity=.8;document.body.appendChild(o);i=document.createElement('iframe');i.id='frame';i.style.zIndex=5001;i.style.border='thin solid #000';i.src='$addurl'+'&title=' + encodeURIComponent(document.title) + '&url=' + encodeURIComponent(location.href);i.style.position='absolute';i.style.width='350px';i.style.height='150px';i.style.left='100px';i.style.top='100px';document.body.appendChild(i);l=document.createElement('a');l.style.position='absolute';l.style.background='#ccc';l.style.color='#000';l.style.border='thin solid #000';l.style.display='block';l.style.top='250px';l.style.left='100px';l.style.zIndex=5001;l.style.padding='5px';l.appendChild(document.createTextNode('" . _("Close") . "'));l.onclick=function(){var o=document.getElementById('overlay');o.parentNode.removeChild(o);var i=document.getElementById('frame');i.parentNode.removeChild(i);this.parentNode.removeChild(this);};document.body.appendChild(l);})()";
