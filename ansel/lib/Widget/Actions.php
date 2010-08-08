@@ -121,8 +121,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 'title' => $this->_view->gallery->get('name'));
 
             try {
-                $url = $registry->bookmarks->getAddUrl($api_params);
-                $url = new Horde_Url($url);
+                $url = new Horde_Url($registry->bookmarks->getAddUrl($api_params));
                 $html .= '<li>' . $url->link(array('class' => 'widget')) . Horde::img(Horde_Themes::img('trean.png', 'trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
             } catch (Horde_Exception $e) {}
         }
