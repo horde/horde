@@ -79,10 +79,10 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         }
 
         $query = 'SELECT DISTINCT s.* '
-                 . $this->getShareCriteria($userid, $perm, $attributes,
-                                            $parent, $allLevels, $ignorePerms)
-                 . ' ORDER BY ' . $sortfield
-                 . (($direction == 0) ? ' ASC' : ' DESC');
+            . $this->getShareCriteria($userid, $perm, $attributes,
+                                      $parent, $allLevels, $ignorePerms)
+            . ' ORDER BY ' . $sortfield
+            . (($direction == 0) ? ' ASC' : ' DESC');
         if ($from > 0 || $count > 0) {
             $this->_db->setLimit($count, $from);
         }
@@ -175,18 +175,18 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      * @throws Horde_Share_Exception
      */
     public function getShareCriteria($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                                         $parent = null, $allLevels = true,
-                                         $ignorePerms = false)
+                                     $parent = null, $allLevels = true,
+                                     $ignorePerms = false)
     {
-        static $criteria;
+        static $criteria = array();
 
         if ($parent instanceof Horde_Share_Object) {
             $parent_id = $parent->getId();
         } else {
             $parent_id = $parent;
         }
-        $key = $userid . $perm . $parent_id . $allLevels
-               . (is_array($attributes) ? serialize($attributes) : $attributes);
+
+        $key = hash('sha1', serialize(array($userid, $perm, $parent_id, $allLevels, $attributes, $ignorePerms)));
         if (isset($criteria[$key])) {
             return $criteria[$key];
         }
@@ -270,7 +270,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
             $parents = $parent->get('parents') . ':' . $parent->getId();
             if ($allLevels) {
                 $where_parent = '(share_parents = ' . $this->_db->quote($parents)
-                        . ' OR share_parents LIKE ' . $this->_db->quote($parents . ':%') . ')';
+                    . ' OR share_parents LIKE ' . $this->_db->quote($parents . ':%') . ')';
             } else {
                 $where_parent = 's.share_parents = ' . $this->_db->quote($parents);
             }
@@ -310,8 +310,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                $from = 0, $count = 0)
     {
         $sql = 'SELECT DISTINCT(s.share_owner) '
-                . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null,
-                                           $parent, $allLevels);
+            . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null,
+                                      $parent, $allLevels);
 
         if ($count) {
             $this->_db->setLimit($count, $from);
@@ -319,15 +319,13 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
 
         $allowners = $this->_db->queryCol($sql);
         if ($allowners instanceof PEAR_Error) {
-             Horde::logMessage($allowners, 'ERR');
-             throw new Horde_Share_Exception($allowners->getMessage());
+            Horde::logMessage($allowners, 'ERR');
+            throw new Horde_Share_Exception($allowners->getMessage());
         }
 
         $owners = array();
         foreach ($allowners as $owner) {
-            if ($this->countShares($GLOBALS['registry']->getAuth(), $perm, $owner, $parent,
-                                   $allLevels)) {
-
+            if ($this->countShares($GLOBALS['registry']->getAuth(), $perm, $owner, $parent, $allLevels)) {
                 $owners[] = $owner;
             }
         }
@@ -350,8 +348,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     public function countOwners($perm = Horde_Perms::SHOW, $parent = null, $allLevels = true)
     {
         $sql = 'SELECT COUNT(DISTINCT(s.share_owner)) '
-               . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null, $parent,
-                                          $allLevels);
+            . $this->getShareCriteria($GLOBALS['registry']->getAuth(), $perm, null, $parent,
+                                      $allLevels);
 
         return $this->_db->queryOne($sql);
     }
@@ -569,10 +567,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                          $parent = null, $allLevels = true)
     {
         $query = 'SELECT COUNT(DISTINCT s.share_id) '
-                 . $this->getShareCriteria($userid, $perm, $attributes,
-                                            $parent, $allLevels);
-
+            . $this->getShareCriteria($userid, $perm, $attributes,
+                                      $parent, $allLevels);
         return $this->_db->queryOne($query);
     }
-
 }
