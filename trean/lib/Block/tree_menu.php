@@ -13,8 +13,6 @@ class Horde_Block_trean_tree_menu extends Horde_Block
     {
         global $registry;
 
-        require_once  dirname(__FILE__) . '/../../lib/base.php';
-
         $browse = Horde::applicationUrl('browse.php');
 
         $tree->addNode($parent . '__new',
@@ -23,7 +21,7 @@ class Horde_Block_trean_tree_menu extends Horde_Block
                        $indent + 1,
                        false,
                        array('icon' => 'add.png',
-                             'icondir' => $registry->getImageDir(),
+                             'icondir' => (string)Horde_Themes::img(),
                              'url' => Horde::applicationUrl('add.php')));
 
         $tree->addNode($parent . '__search',
@@ -32,7 +30,7 @@ class Horde_Block_trean_tree_menu extends Horde_Block
                        $indent + 1,
                        false,
                        array('icon' => 'search.png',
-                             'icondir' => $registry->getImageDir('horde'),
+                             'icondir' => (string)Horde_Themes::img('horde'),
                              'url' => Horde::applicationUrl('search.php')));
 
         $folders = Trean::listFolders();
@@ -45,7 +43,7 @@ class Horde_Block_trean_tree_menu extends Horde_Block
                                $indent + substr_count($folder->getName(), ':') + 1,
                                false,
                                array('icon' => 'folder.png',
-                                     'icondir' => $registry->getImageDir('horde') . '/tree',
+                                     'icondir' => (string)Horde_Themes::img('horde') . '/tree',
                                      'url' => Horde_Util::addParameter($browse, 'f', $folder->getId())));
             }
         }
