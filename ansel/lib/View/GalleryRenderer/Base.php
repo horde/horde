@@ -22,10 +22,11 @@ abstract class Ansel_View_GalleryRenderer_Base
     /**
      * The gallery id for this view's gallery
      * (Convienience instead of $this->view->gallery->id)
-     * 
+     *
      * @var integer
      */
     public $galleryId;
+
     /**
      * Gallery slug for current gallery.
      *

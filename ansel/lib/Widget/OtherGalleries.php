@@ -37,12 +37,11 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-          // The cache breaks this block for some reason, disable until figured
-          // out.
+        // The cache breaks this block for some reason, disable until figured
+        // out.
 //        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
 //            $widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'));
 //            if ($widget !== false) {
-//                //var_dump($widget);
 //                return $widget;
 //            }
 //        }
@@ -68,7 +67,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
-            $gals = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
                     ->getScope()
                     ->listGalleries(array('filter' => $owner));
         } catch (Ansel_Exception $e) {
@@ -81,8 +80,8 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             . ';background:' . $this->_style['background']
             . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
-        foreach($gals as $gal) {
-            $parents = $gal->get('parents');
+        foreach ($galleries as $gallery) {
+            $parents = $gallery->get('parents');
             if (empty($parents)) {
                 $parent = null;
             } else {
@@ -90,16 +89,17 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gal->getKeyImage('ansel_default'), 'mini', true);
-            $link = Ansel::getUrlFor('view', array('gallery' => $gal->id,
-                                                   'slug' => $gal->get('slug'),
+            $img = (string)Ansel::getImageUrl($gallery->getKeyImage('ansel_default'), 'mini', true);
+            $link = Ansel::getUrlFor('view', array('gallery' => $gallery->id,
+                                                   'slug' => $gallery->get('slug'),
                                                    'view' => 'Gallery'),
                                      true);
 
-            $tree->addNode($gal->id, $parent, $gal->get('name'), null,
-                           ($gal->id == $this->_view->gallery->id),
+            $tree->addNode($gallery->id, $parent, $gallery->get('name'), null,
+                           ($gallery->id == $this->_view->gallery->id),
                            array('icon' => $img, 'icondir' => '', 'url' => $link));
         }
+
         Horde::startBuffer();
         $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('ansel', 'ToggleOtherGalleries'), array(
             'bindTo' => 'othergalleries'
@@ -110,7 +110,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $html .= Horde::endBuffer();
         $html .= '</div>';
         $selfurl = Horde::selfUrl(true, true);
-        $html .=  '<div class="control">'
+        $html .= '<div class="control">'
               . $selfurl->add('actionID', 'show_actions')->link(
                         array('id' => 'othergalleries-toggle',
                               'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))

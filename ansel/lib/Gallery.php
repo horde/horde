@@ -573,7 +573,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         /* Get the available styles */
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
-       /* Check for explicitly requested style */
+        /* Check for explicitly requested style */
         if (!is_null($style)) {
             $gal_style = Ansel::getStyleDefinition($style);
         } else {
@@ -618,7 +618,6 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                 $this->set('default_prettythumb', $prettyData, true);
 
                 return $newImg->id;
-
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
@@ -627,13 +626,10 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                     return $this->getKeyImage('ansel_default');
                 }
             }
-
         } else {
             /* We are just using an image thumbnail. */
             if ($this->countImages()) {
-                if (!empty($this->data['attribute_default']) &&
-                    $this->data['attribute_default'] > 0) {
-
+                if (!empty($this->data['attribute_default'])) {
                     return $this->data['attribute_default'];
                 }
                 $keys = $this->listImages();
@@ -650,15 +646,14 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                         ->getInstance('Ansel_Storage')
                         ->getScope()
                         ->listGalleries(array('parent' => $this, 'allLevels' => false));
-                } catch (Horde_Exception $e) {
-                    return false;
-                }
-                if ($galleries) {
+
                     foreach ($galleries as $galleryId => $gallery) {
                         if ($default_img = $gallery->getKeyImage($style)) {
                             return $default_img;
                         }
                     }
+                } catch (Horde_Exception $e) {
+                    return false;
                 }
             }
         }

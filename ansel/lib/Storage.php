@@ -837,6 +837,7 @@ class Ansel_Storage
     public function listGalleries($params = array())
     {
         $params = new Horde_Support_Array($params);
+
         try {
             $shares = $this->_shares->listShares(
                 $GLOBALS['registry']->getAuth(),
