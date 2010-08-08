@@ -8,8 +8,8 @@ if ($group == $GLOBALS['registry']->getAuth()) {
         'user' => $group
     ));
     $custom = $uprefs->getValue('grouptitle');
-    $identity = new Horde_Prefs_Identity(array('prefs' => $GLOBALS['prefs'], 'user' => $group));
-    $fullname = $identity->getValue('fullname');
+    $identity = new Horde_Prefs_Identity(array('prefs' => $uprefs, 'user' => $group));
+    $fullname = $identity->getName();
     if (!$fullname) {
         $fullname = $group;
     }
@@ -27,7 +27,7 @@ $link = Horde::link(Ansel::getUrlFor('view', array('groupby' => $groupby,
                                                    'view' => 'List')));
 
 $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW,
-                                                $group, null, false);
+                                                                                                $group, null, false);
 if ($num_galleries < 5) {
     $mini_galleries = $GLOBALS['injector']->
         getInstance('Ansel_Storage')->
