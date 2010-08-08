@@ -301,15 +301,14 @@ class Ansel
                 if (empty($data['groupby'])) {
                     $data['groupby'] = $prefs->getValue('groupby');
                 }
-
                 if ($data['groupby'] == 'owner') {
                     $url = 'user/';
-                }
-                if ($data['groupby'] == 'none') {
+                } elseif ($data['groupby'] == 'none') {
                     $url = 'all/';
                 }
                 unset($data['groupby']);
-                Horde::applicationUrl($url, $full, $append_session);
+
+                $url = Horde::applicationUrl($url, $full, $append_session);
                 if (count($data)) {
                     $url->add($data);
                 }
