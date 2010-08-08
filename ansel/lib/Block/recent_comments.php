@@ -60,9 +60,7 @@ class Horde_Block_ansel_recent_comments extends Horde_Block
             try {
                 $gallery = $this->_getGallery();
             } catch (Horde_Exception $e) {
-                return Horde::link(
-                    Ansel::getUrlFor('view', array('view' => 'List'), true))
-                    . _("Gallery") . '</a>';
+                return Ansel::getUrlFor('view', array('view' => 'List'), true)->link() . _("Gallery") . '</a>';
             }
             // Build the gallery name.
             if (isset($this->_params['gallery'])) {

@@ -2,6 +2,13 @@
 /**
  * Ansel_Widget_Actions:: class to wrap the display of gallery actions
  *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @TODO: Use Horde_View for html template output.
+ * 
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
@@ -34,14 +41,14 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         if ($this->_view->gallery->hasFeature('upload')) {
             $uploadurl = Horde::applicationUrl('img/upload.php')->add(
                 array('gallery' => $id,
-                      'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0)
-                );
+                      'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
         }
 
         $html .= '<ul style="list-style-type:none;">';
         if (empty($this->_params['hide_slideshow']) &&
             $this->_view->gallery->hasFeature('slideshow') &&
             $this->_view->gallery->countImages()) {
+
             /* Slideshow link */
             if (!empty($this->_params['slideshow_link'])) {
                 $slideshow_url = str_replace(array('%i', '%g'),
@@ -58,6 +65,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
             $html .= '<li>' . $slideshow_url->link(array('class' => 'widget')) . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") . '</a></li>';
         }
+        
+        /* Upload and new subgallery Urls */
         if (!empty($uploadurl) && $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $html .= '<li>' . $uploadurl->link(array('class' => 'widget')) . Horde::img('image_add.png') . ' ' . _("Upload photos") . '</a></li>';
 
@@ -176,7 +185,8 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         if ($GLOBALS['registry']->getAuth() &&
             $this->_view->gallery->get('owner') == $GLOBALS['registry']->getAuth()) {
-            $html .= '<li>' . Horde::link('#', '', 'popup widget', '', Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;') . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
+             $url = new Horde_Url('#');
+             $html .= '<li>' . $url->link(array('class' => 'popup widget', 'onclick' => Horde::popupJs(Horde::applicationUrl('perms.php'), array('params' => array('cid' => $this->_view->gallery->id), 'urlencode' => true)) . 'return false;')) . Horde::img('perms.png') . ' ' . _("Set permissions") . '</a></li>';
         } elseif (!empty($conf['report_content']['driver']) &&
             (($conf['report_content']['allow'] == 'authenticated' &&
             $registry->isAuthenticated()) ||

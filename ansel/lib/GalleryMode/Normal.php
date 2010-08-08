@@ -216,7 +216,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
         } catch (VFS_Exception $e) {}
 
         /* Delete from storage */
-        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->deleteImage($image->id);
+        $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->removeImage($image->id);
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
         }

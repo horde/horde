@@ -22,9 +22,9 @@ if ($group == $GLOBALS['registry']->getAuth()) {
     $owner_title = sprintf(_("%s's Galleries"), $group);
 }
 
-$link = Horde::link(Ansel::getUrlFor('view', array('groupby' => $groupby,
-                                                   'owner' => $group,
-                                                   'view' => 'List')));
+$link = Ansel::getUrlFor('view', array('groupby' => $groupby,
+                                       'owner' => $group,
+                                       'view' => 'List'))->link();
 
 $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW,
                                                                                                 $group, null, false);

@@ -147,9 +147,9 @@ Slide.prototype = {
         }
         if ($('image_delete_link')) {
             //TODO : Guess we should have PHP save the localized text for this...
-            var deleteAction = function() {return window.confirm("Do you want to permanently delete " +  SlideController.photos[SlideController.photoId][1])};
+            var deleteAction = function() { SlideController.pause(); if (!window.confirm("Do you want to permanently delete " +  SlideController.photos[SlideController.photoId][1])) { alert("blah"); return false; } return true;};
             $('image_delete_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=delete';
-            $('image_delete_link').observe('click', deleteAction);
+            $('image_delete_link').observe('click', function(e) { return deleteAction(); e.stop(); });
         }
         $('image_download_link').href = SlideController.baseUrl + '/img/download.php?image=' + SlideController.photos[SlideController.photoId][3];
         $('image_download_link').observe('click', function() {SlideController.pause();});

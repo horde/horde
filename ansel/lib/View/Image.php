@@ -147,7 +147,7 @@ class Ansel_View_Image extends Ansel_View_Base
             $this->_geometry = $this->resource->getDimensions('screen');
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            $this->_geometry = $conf['screen'];
+            $this->_geometry = $GLOBALS['conf']['screen'];
         }
 
         /* Get the image lists */

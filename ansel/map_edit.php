@@ -82,7 +82,8 @@ if (count($imgs) > 0) {
             } else {
                 $title = _point2Deg($data['image_latitude'], true) . ' ' . _point2Deg($data['image_longitude']);
             }
-            $other_images .= Horde::link('#', $title, '', '', "mapEdit.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "', '" . $data['image_location'] . "');return false") . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[thumbnail]" /></a>';
+            $tempurl = new Horde_Url('#');
+            $other_images .= $tempurl->link(array('title' => $title, 'onclick' => "mapEdit.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "', '" . $data['image_location'] . "');return false")) . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[thumbnail]" /></a>';
         }
     }
     $other_images .= '</div>';

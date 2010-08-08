@@ -128,10 +128,11 @@ function downloadSelected()
     <?php endif; ?>
     <?php if (!empty($option_select) && $this->numTiles): ?>
     <table class="anselActions" cellspacing="0" width="100%"><tr><td>
-    <?php echo '<span class="widget">' . _("Select:") . '</span> '
-              . Horde::link('#', '', 'widget', '', 'selectAll(); return false;')
+    <?php   $tempurl = new Horde_Url('#');
+            echo '<span class="widget">' . _("Select:") . '</span> '
+              . $tempurl->link(array('class' => 'widget', 'onclick' => 'selectAll(); return false;'))
               . _("All") . '</a> | '
-              . Horde::link('#', '', 'widget', '', 'selectNone(); return false;')
+              . $tempurl->link(array('class' => 'widget', 'onclick' => 'selectNone(); return false;'))
               . _("None") . '</a>'; ?>
     </td>
     <td align="right">

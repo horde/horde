@@ -144,25 +144,26 @@ function downloadSelected()
     <?php endif; ?>
     <?php if (!empty($option_select) && $this->numTiles): ?>
         <table class="anselActions" cellspacing="0" width="100%"><tr><td>
-        <?php printf(_("Select: %s, %s"),
-                       Horde::link('#', _("Select All"), '', '', 'selectAll(); return false;') . _("All") . '</a>',
-                       Horde::link('#', _("Select None"), '', '', 'selectNone(); return false;') . _("None") . '</a>');?>
+        <?php   $tempurl = new Horde_Url('#');
+                printf(_("Select: %s, %s"),
+                       $tempurl->link(array('title' => _("Select All"), 'onclick' => 'selectAll(); return false;')) . _("All") . '</a>',
+                       $tempurl->link(array('title' => _("Select None"), 'onclick' => 'selectNone(); return false;')) . _("None") . '</a>');?>
        </td><td align="right">
         <?php if ($option_delete || $option_move || $option_copy) echo _("Actions: ") ?>
           <?php if ($GLOBALS['conf']['gallery']['downloadzip']): ?>
-            <?php echo Horde::link('#', '', 'widget', '', 'downloadSelected(); return false;') . _("Download selected photos")?></a> |
+            <?php echo $tempurl->link(array('class' => 'widget', 'onclick' => 'downloadSelected(); return false;')) . _("Download selected photos")?></a> |
           <?php endif; ?>
           <?php if ($option_edit): ?>
-           <?php echo Horde::link('#', _("Edit Dates"), 'widget', '', 'editDates(); return false;') . _("Edit Dates"); ?></a> |
+           <?php echo $tempurl->link(array('title' => _("Edit Dates"), 'class' => 'widget', 'onclick' => 'editDates(); return false;')) . _("Edit Dates"); ?></a> |
           <?php endif; ?>
           <?php if ($option_delete): ?>
-            <?php echo Horde::link('#', _("Delete"), 'widget', '', 'deleteSelected(); return false;') . _("Delete"); ?></a>
+            <?php echo $tempurl->link(array('title' => _("Delete"), 'class' => 'widget', 'onclick' => 'deleteSelected(); return false;')) . _("Delete"); ?></a>
           <?php endif; ?>
           <?php if ($option_move): ?>
-          | <?php echo Horde::link('#', _("Move"), 'widget', '', 'moveSelected(); return false;') . _("Move"); ?></a>
+          | <?php echo $tempurl->link(array('title' => _("Move"), 'class' => 'widget', 'onclick' => 'moveSelected(); return false;')) . _("Move"); ?></a>
           <?php endif; ?>
           <?php if ($option_copy): ?>
-     |      <?php echo Horde::link('#', _("Copy"), 'widget', '', 'copySelected(); return false;') . _("Copy"); ?></a>
+     |      <?php echo $tempurl->link(array('title' => _("Copy"), 'class' => 'widget', 'onclick' => 'copySelected(); return false;')) . _("Copy"); ?></a>
           <?php endif; ?>
           <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(array('selected' => $this->galleryId, 'perm' => Horde_Perms::EDIT)) ?></select>
           </td></tr></table>

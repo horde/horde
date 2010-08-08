@@ -52,21 +52,22 @@ function arrowHandler(e)
  <tr>
   <td valign="top" style="background-color:<?php echo $this->_style['background']; ?>;">
     <?php
+        $tempurl = new Horde_Url('#');
         $needSeperator = false;
         $actionHTML = '';
         if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) && empty($this->_params['api'])) {
             $needSeperator = true;
-            $actionHTML .= Horde::link('#', '', '', '_blank', $this->_urls['prop_popup'] . 'return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") . '</a>';
-            $actionHTML .= ' | ' . Horde::link($this->_urls['edit'], '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") . '</a>';
+            $actionHTML .= $tempurl->link(array('target' => '_blank', 'onclick' => $this->_urls['prop_popup'] . 'return false;', 'id' => 'image_properties_link')) . _("Properties") . '</a>';
+            $actionHTML .= ' | ' . $this->_urls['edit']->link(array('id' => 'image_edit_link')) . _("Edit") . '</a>';
         }
         if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && empty($this->_params['api'])) {
-            $actionHTML .= ' | ' . Horde::link($this->_urls['delete'], '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") . '</a>';
+            $actionHTML .= ' | ' . $this->_urls['delete']->link(array('onclick' => 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->filename)) . '\');', 'id' => 'image_delete_link')) . _("Delete") . '</a>';
         }
         if (!empty($conf['ecard']['enable']) && !empty($this->_urls['ecard'])) {
-            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . Horde::link($this->_urls['ecard'], '', '', '_blank', '', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard"); $needSeperator = true . '</a>';
+            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['ecard']->link(array('target' => '_blank', 'id' => 'image_ecard_link')) . _("Send an Ecard"); $needSeperator = true . '</a>';
         }
         if ($this->gallery->canDownload()) {
-            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . Horde::link($this->_urls['download'], '', '', '', '', '', '', array('id' => 'image_download_link')) . _("Download Original Photo"); $needSeperator = true . '</a>';
+            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['download']->link(array('id' => 'image_download_link')) . _("Download Original Photo"); $needSeperator = true . '</a>';
         }
         if (empty($this->_params['api']) &&
             (!$GLOBALS['registry']->getAuth() ||
@@ -76,7 +77,7 @@ function arrowHandler(e)
               $GLOBALS['registry']->isAuthenticated()) ||
              $conf['report_content']['allow'] == 'all')) {
 
-            $actionHTML .=  ($needSeperator ? ' | ' : '' ) . Horde::link($this->_urls['report']) . _("Report") . '</a>';
+            $actionHTML .=  ($needSeperator ? ' | ' : '' ) . $this->_urls['report']->link() . _("Report") . '</a>';
         }
         if (strlen($actionHTML)) {
             echo '<div class="control anselActions" style="text-align:center;">' . $actionHTML . '</div>';

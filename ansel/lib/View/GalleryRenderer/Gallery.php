@@ -107,21 +107,21 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
         $action_links = array();
+        $url = new Horde_Url('#');
         if ($GLOBALS['conf']['gallery']['downloadzip']) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'downloadSelected(); return false;') . _("Download selected images") . '</a>';
-
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'downloadSelected(); return false;')) . _("Download selected images") . '</a>';
         }
         if (!empty($option_edit)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'editDates(); return false;') . _("Edit Dates") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'editDates(); return false;')) . _("Edit Dates") . '</a>';
         }
         if (!empty($option_delete)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'deleteSelected(); return false;') . _("Delete") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'deleteSelected(); return false;')) . _("Delete") . '</a>';
         }
         if (!empty($option_move)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'moveSelected(); return false;') . _("Move") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' =>'moveSelected(); return false;')) . _("Move") . '</a>';
         }
         if (!empty($option_copy)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'copySelected(); return false;') . _("Copy") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'copySelected(); return false;')) . _("Copy") . '</a>';
         }
         Horde::addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';

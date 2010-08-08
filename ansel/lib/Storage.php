@@ -1125,7 +1125,7 @@ class Ansel_Storage
     public function removeImage($image_id)
     {
         $this->_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image_id);
-        $this->_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$imageid);
+        $this->_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
     }
 
     /**
