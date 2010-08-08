@@ -370,17 +370,20 @@ class Ansel_Tagger
             throw new Ansel_Exception($e);
         }
 
+        if (count($ids) == 0) {
+            return array();
+        }
+
         try {
             $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImages(array('ids' => array_keys($ids)));
         } catch (Horde_Exception_NotFound $e) {
             $images = array();
         }
+
         $results = array();
         foreach ($images as $key => $image) {
             $results[] = array('image' => $image, 'rank' => $ids[$key]);
         }
-
         return $results;
     }
-
 }

@@ -605,7 +605,7 @@ class Ansel_Storage
                 $sql .= (int)$id . (($i++ < $cnt) ? ',' : ');');
             }
         } else {
-            throw new Ansel_Exception('Ansel_Storage::getImages requires either a gallery_id or an array of images_ids');
+            throw new Ansel_Exception('Ansel_Storage::getImages requires either a gallery_id or an array of image ids');
         }
 
         /* Limit the query? */
