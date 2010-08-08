@@ -122,8 +122,9 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
             try {
                 $url = $registry->bookmarks->getAddUrl($api_params);
+                $url = new Horde_Url($url);
+                $html .= '<li>' . $url->link(array('class' => 'widget')) . Horde::img(Horde_Themes::img('trean.png', 'trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
             } catch (Horde_Exception $e) {}
-            $html .= '<li>' . $url->link(array('class' => 'widget')) . Horde::img(Horde_Themes::img('trean.png', 'trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
         }
 
         /* Download as ZIP link */
