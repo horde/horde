@@ -155,7 +155,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
 
             /* Search for inlined images that we can display
-             * (multipart/related parts). */
+             * (multipart/related parts) - see RFC 2392. */
             if (isset($this->_params['related_id'])) {
                 $cid_replace = array();
 

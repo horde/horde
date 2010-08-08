@@ -131,6 +131,9 @@ RFC 2231
 RFC 2387
     - The MIME Multipart/Related Content-type
 
+RFC 2392
+    - Content-ID and Message-ID Uniform Resource Locators
+
 RFC 2633
     - S/MIME Version 3 Message Specification
 
