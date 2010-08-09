@@ -381,6 +381,41 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
+     * Deletes an event.
+     *
+     * @param string $eventId  The ID of the event to delete.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
+     */
+    public function deleteEvent($eventId, $silent = false)
+    {
+        if (!$this->isCalDAV()) {
+            throw new Kronolith_Exception(_("Deleting events is not supported with this remote calendar."));
+        }
+
+        if (preg_match('/(.*)-(\d+)$/', $eventId, $matches)) {
+            throw new Kronolith_Exception(_("Cannot delete exceptions (yet)."));
+        }
+
+        $url = trim($this->_getUrl(), '/') . '/' . $eventId;
+        try {
+            $response = $this->_getClient()->delete($url);
+        } catch (Horde_Http_Exception $e) {
+            Horde::logMessage($e, 'INFO');
+            throw new Kronolith_Exception($e);
+        }
+        if (!in_array($response->code, array(200, 202, 204))) {
+            Horde::logMessage(sprintf('Failed to delete event from remote calendar: url = "%s", status = %s',
+                                      $url, $response->code), 'INFO');
+            throw new Kronolith_Exception(_("The event could not be deleted from the remote server."));
+        }
+    }
+
+    /**
      * Fetches a remote calendar into the session and return the data.
      *
      * @param boolean $cache  Whether to return data from the session cache.

@@ -19,7 +19,7 @@ if (Kronolith::showAjaxView()) {
 if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
     $driver = 'Resource';
 } else {
-    $driver = null;
+    $driver = Horde_Util::getFormData('type');
 }
 
 $kronolith_driver = Kronolith::getDriver($driver, $c);
@@ -35,11 +35,16 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         $url->redirect();
     }
     if ($driver != 'Resource') {
-        $share = $kronolith_shares->getShare($event->calendar);
-        if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE, $event->creator)) {
-            $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
-        } else {
+        if ($driver == 'remote') {
+            /* The remote server is doing the permission checks for us. */
             $have_perms = true;
+        } else {
+            $share = $kronolith_shares->getShare($event->calendar);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE, $event->creator)) {
+                $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+            } else {
+                $have_perms = true;
+            }
         }
     } else {
         if (!$registry->isAdmin()) {

@@ -12,6 +12,7 @@ if (empty($url)) {
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->id) ?>" />
 <input type="hidden" name="calendar" value="<?php echo htmlspecialchars(Horde_Util::getFormData('calendar')) ?>" />
+<input type="hidden" name="type" value="<?php echo htmlspecialchars($this->event->calendarType) ?>" />
 
 <div class="headerbox">
 <?php if (!empty($this->event->attendees)): ?>
