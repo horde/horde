@@ -293,12 +293,12 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 /* Ignore events out of the period. */
                 if (
                     /* Starts after the period. */
-                    $event->start->compareDateTime($endDate) > 0 ||
+                    ($endDate && $event->start->compareDateTime($endDate) > 0) ||
                     /* End before the period and doesn't recur. */
-                    (!$event->recurs() &&
+                    ($startDate && !$event->recurs() &&
                      $event->end->compareDateTime($startDate) < 0) ||
                     /* Recurs and ... */
-                    ($event->recurs() &&
+                    ($startDate && $event->recurs() &&
                       /* ... has a recurrence end before the period. */
                       ($event->recurrence->hasRecurEnd() &&
                        $event->recurrence->recurEnd->compareDateTime($startDate) < 0))) {
@@ -331,10 +331,35 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         if (!$eventId) {
             return new Kronolith_Event_Ical($this);
         }
-        $eventId = str_replace('ical', '', $eventId);
-        $iCal = $this->getRemoteCalendar();
 
-        $components = $iCal->getComponents();
+        if ($this->isCalDAV()) {
+            if (preg_match('/(.*)-(\d+)$/', $eventId, $matches)) {
+                $eventId = $matches[1];
+                $recurrenceId = $matches[2];
+            }
+            $url = trim($this->_getUrl(), '/') . '/' . $eventId;
+            $response = $this->_getClient()->get($url);
+            if ($response->code == 200) {
+                $ical = new Horde_Icalendar();
+                try {
+                    $ical->parsevCalendar($response->getBody());
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Kronolith_Exception($e);
+                }
+                $results = array();
+                $this->_processComponents($results, $ical, null, null, false,
+                                          false, false, $eventId);
+                $event = reset(reset($results));
+                if (!$event) {
+                    throw new Horde_Exception_NotFound(_("Event not found"));
+                }
+                return $event;
+            }
+        }
+
+        $eventId = str_replace('ical', '', $eventId);
+        $ical = $this->getRemoteCalendar();
+        $components = $ical->getComponents();
         if (isset($components[$eventId]) &&
             $components[$eventId]->getType() == 'vEvent') {
             $event = new Kronolith_Event_Ical($this);
