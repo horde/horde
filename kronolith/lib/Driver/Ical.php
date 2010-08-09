@@ -28,21 +28,28 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @var array
      */
-    private $_cache = array();
+    protected $_cache = array();
 
     /**
      * HTTP client object.
      *
      * @var Horde_Http_Client
      */
-    private $_client;
+    protected $_client;
 
     /**
      * A list of DAV support levels.
      *
      * @var array
      */
-    private $_davSupport;
+    protected $_davSupport;
+
+    /**
+     * The Horde_Perms permissions mask matching the CalDAV ACL.
+     *
+     * @var integer
+     */
+    protected $_permission;
 
     /**
      * Selects a calendar as the currently opened calendar.
@@ -274,6 +281,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             if ($component->getType() == 'vEvent') {
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
+                $event->permission = $this->_permission;
                 $event->fromiCalendar($component);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = $id ? $id : 'ical' . $i;
@@ -490,11 +498,32 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $xml->writeAttribute('xmlns', 'DAV:');
             $xml->startElement('prop');
             $xml->writeElement('resourcetype');
+            $xml->writeElement('current-user-privilege-set');
             $xml->endDocument();
             list(, $properties) = $this->_request('PROPFIND', $url, $xml,
                                                   array('Depth' => 0));
             if (!$properties->response->propstat->prop->resourcetype->collection) {
                 throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
+            }
+
+            /* Read ACLs. */
+            if ($properties->response->propstat->prop->{'current-user-privilege-set'}) {
+                foreach ($properties->response->propstat->prop->{'current-user-privilege-set'}->privilege as $privilege) {
+                    if ($privilege->all) {
+                        $this->_permission = Horde_Perms::ALL;
+                        break;
+                    } elseif ($privilege->read) {
+                        /* GET access. */
+                        $this->_permission |= Horde_Perms::SHOW;
+                        $this->_permission |= Horde_Perms::READ;
+                    } elseif ($privilege->write || $privilege->{'write-content'}) {
+                        /* PUT access. */
+                        $this->_permission |= Horde_Perms::EDIT;
+                    } elseif ($privilege->unbind) {
+                        /* DELETE access. */
+                        $this->_permission |= Horde_Perms::DELETE;
+                    }
+                }
             }
 
             return true;

@@ -19,6 +19,14 @@ class Kronolith_Event_Ical extends Kronolith_Event
     public $calendarType = 'remote';
 
     /**
+     * The Horde_Perms permissions mask matching the CalDAV ACL of this event's
+     * calendar.
+     *
+     * @var integer
+     */
+    public $permission;
+
+    /**
      * Imports a backend specific event object.
      *
      * @param Horde_Icalendar_Vevent  Backend specific event object that this
@@ -42,6 +50,8 @@ class Kronolith_Event_Ical extends Kronolith_Event
     /**
      * Encapsulates permissions checking.
      *
+     * $user is being ignored.
+     *
      * @param integer $permission  The permission to check for.
      * @param string $user         The user to check permissions for.
      *
@@ -49,6 +59,10 @@ class Kronolith_Event_Ical extends Kronolith_Event
      */
     public function hasPermission($permission, $user = null)
     {
+        if (!is_null($this->permission)) {
+            return $this->permission & $permission;
+        }
+
         switch ($permission) {
         case Horde_Perms::SHOW:
         case Horde_Perms::READ:
