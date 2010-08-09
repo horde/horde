@@ -63,6 +63,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="ResponseWriter.php" role="php" />
       <file name="Runner.php" role="php" />
       <file name="SettingsExporter.php" role="php" />
+      <file name="UrlWriter.php" role="php" />
      </dir> <!-- /lib/Horde/Controller -->
      <file name="Controller.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -104,6 +105,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Controller/Runner.php" as="Horde/Controller/Runner.php" />
    <install name="lib/Horde/Controller/SettingsExporter/Default.php" as="Horde/Controller/SettingsExporter/Default.php" />
    <install name="lib/Horde/Controller/SettingsExporter.php" as="Horde/Controller/SettingsExporter.php" />
+   <install name="lib/Horde/Controller/UrlWriter.php" as="Horde/Controller/UrlWriter.php" />
    <install name="lib/Horde/Controller.php" as="Horde/Controller.php" />
   </filelist>
  </phprelease>
