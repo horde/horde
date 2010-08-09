@@ -36,7 +36,6 @@ class Horde_Routes_Utils
      */
     public $redirect;
 
-
     /**
      * Constructor
      *
@@ -102,7 +101,7 @@ class Horde_Routes_Utils
             // urlFor('named_route')
             // urlFor('named_route', array('id' => 3, ...))
             // urlFor('static_path')
-            $routeName = $first;
+            $routeName = (string)$first;
             $kargs = $second;
         }
 
@@ -131,7 +130,6 @@ class Horde_Routes_Utils
         $url = '';
 
         if (isset($routeName)) {
-
             if (isset($kargs['format']) && isset($this->mapper->routeNames['formatted_' . $routeName])) {
                 $route = $this->mapper->routeNames['formatted_' . $routeName];
             } elseif (isset($this->mapper->routeNames[$routeName])) {
