@@ -391,7 +391,7 @@ class Horde_Date_Recurrence
             $week = $after->format('W');
             if ($week == 1 && $after->month == 12) {
                 $theYear = $after->year + 1;
-            } elseif ($week == 52 && $after->month == 1) {
+            } elseif ($week >= 52 && $after->month == 1) {
                 $theYear = $after->year - 1;
             } else {
                 $theYear = $after->year;
