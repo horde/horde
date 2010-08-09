@@ -386,6 +386,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
                                       $url, $response->code), 'INFO');
             $error = sprintf(_("Could not open %s."), $url);
+            $body = $response->getBody();
+            if ($body) {
+                $error .= ' ' . _("This is what the server said:")
+                    . ' ' . Horde_String::truncate($body);
+            }
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
             }
