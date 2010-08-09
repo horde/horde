@@ -775,7 +775,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         try {
             $sum = $vevent->getAttribute('SUMMARY');
             $html .= '<p><strong>' . _("Summary") . ':</strong> ' . htmlspecialchars($sum) . '</p>';
-        } else {
+        } catch (Horde_Icalendar_Exception $e) {
             $html .= '<p><strong>' . _("Summary") . ':</strong> <em>' . _("None") . '</em></p>';
         }
 
