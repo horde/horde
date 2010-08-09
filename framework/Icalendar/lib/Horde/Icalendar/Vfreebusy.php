@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Icalendar
  */
-class Horde_ICalendar_Vfreebusy extends Horde_Icalendar
+class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
 {
     /**
      * The component type of this class.
