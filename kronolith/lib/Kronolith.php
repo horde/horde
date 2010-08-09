@@ -1946,11 +1946,11 @@ class Kronolith
             throw new Kronolith_Exception(_("You must specify a name and a URL."));
         }
 
-        if (!empty($info['username']) || !empty($info['password'])) {
+        if (!empty($info['user']) || !empty($info['password'])) {
             $key = $GLOBALS['registry']->getAuthCredential('password');
             if ($key) {
                 $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                $info['username'] = base64_encode($secret->write($key, $info['username']));
+                $info['user'] = base64_encode($secret->write($key, $info['user']));
                 $info['password'] = base64_encode($secret->write($key, $info['password']));
             }
         }
@@ -2722,6 +2722,7 @@ class Kronolith
                 $key = $GLOBALS['registry']->getAuthCredential('password');
                 if ($key && $password) {
                     $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+                    $user = $secret->read($key, base64_decode($user));
                     $password = $secret->read($key, base64_decode($password));
                 }
                 if (!empty($user)) {

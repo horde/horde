@@ -812,7 +812,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     public function getRemoteInfo()
     {
         $params = array('timeout' => 15);
-        if ($user = $this->_vars->username) {
+        if ($user = $this->_vars->user) {
             $params['user'] = $user;
             $params['password'] = $this->_vars->password;
         }

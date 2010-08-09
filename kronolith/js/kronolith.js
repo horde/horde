@@ -4482,7 +4482,7 @@ KronolithCore = {
                     }
                     if (i == 2) {
                         if ($F('kronolithCalendarremoteUsername')) {
-                            params.username = $F('kronolithCalendarremoteUsername');
+                            params.user = $F('kronolithCalendarremoteUsername');
                             params.password =  $F('kronolithCalendarremotePassword');
                         }
                         this.doAction('getRemoteInfo',
