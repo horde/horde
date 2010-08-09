@@ -315,6 +315,19 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                             $recurrences);
     }
 
+    public function testWeeklyISOWeek53()
+    {
+        $r = new Horde_Date_Recurrence('2009-06-09 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_TUESDAY);
+        $r->setRecurInterval(1);
+
+        $recurrences = array();
+        $after = new Horde_Date('1/1/2010');
+        $after = (string)$r->nextRecurrence($after);
+        $this->assertEquals('2010-01-05 10:00:00', $after);
+    }
+
     public function testMonthlyEnd()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
