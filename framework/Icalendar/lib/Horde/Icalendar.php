@@ -1290,12 +1290,7 @@ class Horde_Icalendar
     public function _exportDateTime($value)
     {
         $date = new Horde_Date($value);
-        $date->setTimezone('UTC');
-        $time = array('hour' => $date->hour,
-                      'minute' => $date->min,
-                      'second' => $date->sec,
-                      'zone' => 'UTC');
-        return $this->_exportDate($date) . 'T' . $this->_exportTime($time);
+        return $date->toICalendar();
     }
 
     /**
