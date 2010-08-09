@@ -1315,24 +1315,6 @@ class Horde_Icalendar
     }
 
     /**
-     * Exports a Time field.
-     *
-     * @param array $value An array of time parts.
-     *
-     * @return string  hhmmss[Z] representation of the time
-     */
-    protected function _exportTime($value)
-    {
-        $time = sprintf('%02d%02d%02d',
-                        $value['hour'], $value['minute'], $value['second']);
-        if ($value['zone'] == 'UTC') {
-            $time .= 'Z';
-        }
-
-        return $time;
-    }
-
-    /**
      * Parses a Date field.
      *
      * @param $text TODO
