@@ -39,6 +39,13 @@ abstract class Horde_Controller_Base implements Horde_Controller
     private $_view;
 
     /**
+     * Private on purpose so you have to use getUrlWriter().
+     *
+     * @var Horde_Controller_UrlWriter
+     */
+    private $_urlWriter;
+
+    /**
      * Set the injector for this controller
      *
      * @inject
@@ -58,10 +65,10 @@ abstract class Horde_Controller_Base implements Horde_Controller
      */
     public function getInjector()
     {
-        if ($this->_injector) {
-            return $this->_injector;
+        if (!$this->_injector) {
+            $this->_injector = new Horde_Injector_TopLevel();
         }
-        return new Horde_Injector_TopLevel();
+        return $this->_injector;
     }
 
     /**
@@ -83,10 +90,10 @@ abstract class Horde_Controller_Base implements Horde_Controller
      */
     public function getLogger()
     {
-        if ($this->_logger) {
-            return $this->_logger;
+        if (!$this->_logger) {
+            $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }
-        return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+        return $this->_logger;
     }
 
     /**
@@ -99,6 +106,7 @@ abstract class Horde_Controller_Base implements Horde_Controller
     public function setView(Horde_View_Base $view)
     {
         $this->_view = $view;
+        $this->_view->controller = $this;
     }
 
     /**
@@ -111,9 +119,41 @@ abstract class Horde_Controller_Base implements Horde_Controller
      */
     public function getView()
     {
-        if ($this->_view) {
-            return $this->_view;
+        if (!$this->_view) {
+            $this->setView($this->getInjector()->getInstance('Horde_View_Base'));
         }
-        return new Horde_View();
+        return $this->_view;
+    }
+
+    /**
+     * Get the current request
+     */
+    public function getRequest()
+    {
+        return $this->getInjector()->getInstance('Horde_Controller_Request');
+    }
+
+    /**
+     * Get the current response
+     */
+    public function getResponse()
+    {
+        return $this->getInjector()->getInstance('Horde_Controller_Response');
+    }
+
+    /**
+     * Get an instance of UrlWriter for this controller.
+     *
+     * @return Horde_Controller_UrlWriter
+     */
+    public function getUrlWriter()
+    {
+        // instantiate UrlWriter that will generate URLs for this controller
+        if (!$this->_urlWriter) {
+            // Need a reasonable way to get the :controller match from the URL - reverse route?
+            // $defaults = array('controller' => $this->getControllerName());
+            $this->_urlWriter = $this->getInjector()->getInstance('Horde_Controller_UrlWriter');
+        }
+        return $this->_urlWriter;
     }
 }
