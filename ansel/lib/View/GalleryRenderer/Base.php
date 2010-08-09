@@ -21,7 +21,7 @@ abstract class Ansel_View_GalleryRenderer_Base
 
     /**
      * The gallery id for this view's gallery
-     * (Convienience instead of $this->view->gallery->id)
+     * (Convenience instead of $this->view->gallery->id)
      *
      * @var integer
      */
@@ -128,8 +128,12 @@ abstract class Ansel_View_GalleryRenderer_Base
         $this->page = $this->view->page;
 
         /* Number perpage from prefs or config */
-        $this->perpage = min($prefs->getValue('tilesperpage'),
-                             $conf['thumbnail']['perpage']);
+        if ($this->view->tilesperpage) {
+            $this->perpage = $this->view->tilesperpage;
+        } else {
+            $this->perpage = min($prefs->getValue('tilesperpage'),
+                                 $conf['thumbnail']['perpage']);
+        }
 
         /* Calculate the starting and ending images on this page */
         $this->pagestart = ($this->page * $this->perpage) + 1;

@@ -61,7 +61,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         }
 
         /* Don't bother if we are being called from the api */
-        if (empty($this->view->api)) {
+        if (!$this->view->api) {
             $option_edit = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
                                                          Horde_Perms::EDIT);
             $option_select = $option_delete = $this->view->gallery->hasPermission(
@@ -91,11 +91,9 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
             $pagerurl->add($date_params)->setRaw(true);
         } else {
-            /*
-             * Build the pager url. Add the needed variables directly to the
-             * url instead of passing it as a preserved variable to the pager
-             * since the logic to build the URL is already in getUrlFor()
-             */
+            // Build the pager url. Add the needed variables directly to the
+            // url instead of passing it as a preserved variable to the pager
+            // since the logic to build the URL is already in getUrlFor()
             $pager_params =  array_merge(
                 array('gallery' => $this->galleryId,
                       'view' => 'Gallery',
@@ -129,7 +127,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $jsvars['gallery_url'] = $pagerurl . '&';
         }
         /* Output js/css here if we are calling via the api */
-        if (!empty($this->view->api)) {
+        if ($this->view->api) {
             Ansel::attachStylesheet('lightbox.css', true);
             $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
             $includes->add('accesskeys.js', 'horde', true, true);
@@ -139,7 +137,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         }
 
         /* Needed in the template files */
-        $tilesperrow = $prefs->getValue('tilesperrow');
+        $tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $prefs->getValue('tilesperrow');
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
 
