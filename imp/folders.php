@@ -387,7 +387,10 @@ $refresh_title = Horde::stripAccessKey($refresh_title);
 if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
-$head_template->set('refresh', Horde::link($folders_url_ob, $refresh_title, '', '', '', $refresh_title, $refresh_ak));
+$head_template->set('refresh', $folder_url_ob->link(array(
+    'accesskey' => $refresh_ak,
+    'title' => $refresh_title
+)));
 $head_template->set('folders_token', $folders_token);
 
 /* Prepare the actions template. */
@@ -439,8 +442,8 @@ foreach ($raw_rows as $key => $val) {
     $val['nocheckbox'] = !empty($val['vfolder']);
     if (!empty($val['vfolder']) && $val['editvfolder']) {
         $imp_search = $injector->getInstance('IMP_Search');
-        $val['delvfolder'] = Horde::link($imp_search->deleteUrl($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
-        $val['editvfolder'] = Horde::link($imp_search->editUrl($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
+        $val['delvfolder'] = $imp_search->deleteUrl($val['value'])->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>';
+        $val['editvfolder'] = $imp_search->editUrl($val['value'])->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>';
     }
 
     $val['cname'] = (++$rowct % 2) ? 'item0' : 'item1';
@@ -457,7 +460,7 @@ foreach ($raw_rows as $key => $val) {
         if (!empty($val['unseen'])) {
             $val['name'] = '<strong>' . $val['name'] . '</strong>';
         }
-        $val['name'] = Horde::link($name_url->copy()->add('mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
+        $val['name'] = $name_url->copy()->add('mailbox', $val['value'])->link(array('title' => $val['vfolder'] ? $val['base_elt']['l'] : $val['display'])) . $val['name'] . '</a>';
     }
 
     $val['line'] = $tree_imgs[$key];

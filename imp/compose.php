@@ -696,6 +696,8 @@ $t->setOption('gettext', true);
 $t->set('post_action', Horde::applicationUrl('compose.php')->unique());
 $t->set('allow_compose', !$compose_disable);
 
+$blank_url = new Horde_Url('#');
+
 if ($redirect) {
     /* Prepare the redirect template. */
     $t->set('cacheid', $composeCacheID);
@@ -707,8 +709,11 @@ if ($redirect) {
     $t->set('status', Horde::endBuffer());
 
     if ($registry->hasMethod('contacts/search')) {
-        $t->set('has_search', true);
-        $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
+        $t->set('abook', $blank_url->copy()->link(array(
+            'class' => 'widget',
+            'onclick.raw' => 'window.open("' . Horde::applicationUrl('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '", "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;',
+            'title' => _("Address Book")
+        )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
     }
 
     $t->set('to', Horde::label('to', _("To")));
@@ -856,20 +861,28 @@ if ($redirect) {
     $compose_options = array();
     if ($registry->hasMethod('contacts/search')) {
         $compose_options[] = array(
-            'url' => Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;'),
+            'url' => $blank_url->copy()->link(array(
+                'class' => 'widget',
+                'onclick.raw' => 'window.open("' . Horde::applicationUrl('contacts.php') . '","contacts","toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;'
+            )),
             'img' => Horde::img('addressbook_browse.png'),
             'label' => $show_text ? _("Address Book") : ''
         );
     }
     if ($spellcheck) {
         $compose_options[] = array(
-            'url' => Horde::link('#', '', 'widget', '', 'return false', '', '',
-                                 array('id' => 'spellcheck')),
-            'img' => '', 'label' => '');
+            'url' => $blank_url->copy()->link(array(
+                'class' => 'widget',
+                'id' => 'spellcheck'
+            )),
+            'img' => '',
+            'label' => ''
+        );
     }
     if ($_SESSION['imp']['file_upload']) {
+        $url = new Horde_Url('#attachments');
         $compose_options[] = array(
-            'url' => Horde::link('#attachments', '', 'widget'),
+            'url' => $url->link(array('class' => 'widget')),
             'img' => Horde::img('manage_attachments.png'),
             'label' => $show_text ? _("Attachments") : ''
         );
@@ -922,7 +935,10 @@ if ($redirect) {
     $t->set('compose_html', (!is_null($rtemode) && !$prefs->isLocked('compose_html')));
     if ($t->get('compose_html')) {
         $t->set('html_img', Horde::img('compose.png', _("Switch Composition Method")));
-        $t->set('html_switch', Horde::link('#', _("Switch Composition Method"), '', '', "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';ImpCompose.uniqSubmit('toggle_editor');return false;"));
+        $t->set('html_switch', $blank_url->copy()->link(array(
+            'onclick.raw' => "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';ImpCompose.uniqSubmit('toggle_editor');return false;",
+            'title' => _("Switch Composition Method")
+        )));
         $t->set('rtemode', $rtemode);
     }
 
@@ -1006,7 +1022,11 @@ if ($redirect) {
                         'composeCache' => $composeCacheID,
                         'id' => $atc_num
                     ));
-                    $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
+                    $entry['name'] = $preview_url->link(array(
+                        'class' => 'link',
+                        'target' => 'compose_preview_window',
+                        'title' => _("Preview")
+                    )) . $entry['name'] . '</a>';
                 }
 
                 $atc[] = $entry;
