@@ -1235,8 +1235,9 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param array $calendar  Calendar description hash, with required 'type'
      *                         parameter. Currently supports 'http' and
-     *                         'webcal' for remote calendars.  @throws
-     *                         Kronolith_Exception
+     *                         'webcal' for remote calendars.
+     *
+     * @throws Kronolith_Exception
      */
     public function subscribe($calendar)
     {
@@ -1247,26 +1248,7 @@ class Kronolith_Api extends Horde_Registry_Api
         switch ($calendar['type']) {
         case 'http':
         case 'webcal':
-            $username = isset($calendar['username']) ? $calendar['username'] : null;
-            $password = isset($calendar['password']) ? $calendar['password'] : null;
-
-            $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-            if (!is_array($cals)) {
-                $cals = array();
-            }
-            $array_key = count($cals);
-            foreach ($cals as $key => $cal) {
-                if ($cal['url'] == $calendar['url']) {
-                    $array_key = $key;
-                    break;
-                }
-            }
-
-            $cals[$array_key] = array('name' => $calendar['name'],
-                'url'  => $calendar['url'],
-                'user' => $username,
-                'password' => $password);
-            $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
+            Kronolith::subscribeRemoteCalendar($calendar);
             break;
 
         case 'external':
@@ -1286,8 +1268,9 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @param array $calendar  Calendar description array, with required 'type'
      *                         parameter. Currently supports 'http' and
-     *                         'webcal' for remote calendars.  @throws
-     *                         Kronolith_Exception
+     *                         'webcal' for remote calendars.
+     *
+     * @throws Kronolith_Exception
      */
     public function unsubscribe($calendar)
     {
@@ -1298,15 +1281,7 @@ class Kronolith_Api extends Horde_Registry_Api
         switch ($calendar['type']) {
         case 'http':
         case 'webcal':
-            $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-            foreach ($cals as $key => $cal) {
-                if ($cal['url'] == $calendar['url']) {
-                    unset($cals[$key]);
-                    break;
-                }
-            }
-
-            $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
+            Kronolith::subscribeRemoteCalendar($calendar['url']);
             break;
 
         case 'external':
