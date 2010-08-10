@@ -515,8 +515,9 @@ var KronolithEdit =
     {
         this.updateWday('start');
         this.updateWday('end');
-        this.updateWday('recur_end');
-
+        if ($('recur_end_wday')) {
+            this.updateWday('recur_end');
+        }
         $('eventform').observe('click', this.clickHandler.bindAsEventListener(this));
         $('eventform').observe('change', this.changeHandler.bindAsEventListener(this));
         $('eventform').observe('keypress', this.keypressHandler.bindAsEventListener(this));
