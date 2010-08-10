@@ -157,7 +157,7 @@ case 'copy_messages':
             $targetMbox = $vars->targetMbox;
             $newMbox = false;
         }
-        $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, $newMbox);
+        $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $indices, array('create' => $newMbox));
     }
     break;
 

@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Add preference to allow for automatic spam reporting when explicitly
+      moving messages to the Spam mailbox (Request #6455).
 [mms] Automatically determine view based on browser and 'dynamic_view'
       preference (Request #9159).
 [mms] Add preference to define default font family/size for the HTML compose

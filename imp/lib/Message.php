@@ -46,12 +46,15 @@ class IMP_Message
      *                              (UTF7-IMAP).
      * @param string $action        Either 'copy' or 'move'.
      * @param IMP_Indices $indices  An indices object.
-     * @param boolean $new          Whether the target mailbox has to be
-     *                              created.
+     * @param array $opts           Additional options:
+     * <pre>
+     * 'create' - (boolean) Should the target mailbox be created?
+     *            DEFAULT: false
+     * </pre>
      *
      * @return boolean  True if successful, false if not.
      */
-    public function copy($targetMbox, $action, $indices, $new = false)
+    public function copy($targetMbox, $action, $indices, array $opts = array())
     {
         global $conf, $notification, $prefs;
 
@@ -73,13 +76,18 @@ class IMP_Message
             return true;
         }
 
-        if ($new) {
+        if (!empty($opts['create'])) {
             $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
             if (!$imp_folder->exists($targetMbox) &&
                 !$imp_folder->create($targetMbox, $prefs->getValue('subscribe'))) {
                 return false;
             }
         }
+
+        /* Determine if report on move to Spam mailbox is active. */
+        $spam_report =
+            $prefs->getValue('move_spam_report') &&
+            ($targetMbox == IMP::folderPref($prefs->getValue('spam_folder'), true));
 
         $imap_move = false;
         $return_value = true;
@@ -126,6 +134,10 @@ class IMP_Message
                     $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Mailbox')->getOb($mbox);
                     if (($action == 'move') && $imp_mailbox->isBuilt()) {
                         $imp_mailbox->removeMsgs(new IMP_Indices($mbox, $msgIndices));
+                    }
+
+                    if ($spam_report) {
+                        IMP_Spam::reportSpam(new IMP_Indices($mbox, $msgIndices), 'spam', array('noaction' => true));
                     }
                 } catch (Horde_Imap_Client_Exception $e) {
                     $error = $e->getMessage();

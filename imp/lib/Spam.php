@@ -21,11 +21,16 @@ class IMP_Spam
      *
      * @param IMP_Indices $indices  An indices object.
      * @param string $action        Either 'spam' or 'notspam'.
+     * @param array $opts           Additional options:
+     * <pre>
+     * 'noaction' - (boolean) Don't perform any action after reporting?
+     *              DEFAULT: false
+     * </pre>
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    static public function reportSpam($indices, $action)
+    static public function reportSpam($indices, $action, array $opts = array())
     {
         global $notification;
 
@@ -181,7 +186,8 @@ class IMP_Spam
         /* Delete/move message after report. */
         switch ($action) {
         case 'spam':
-            if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
+            if (empty($opts['noaction']) &&
+                ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report'))) {
                 $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 switch ($result) {
                 case 1:
@@ -200,7 +206,7 @@ class IMP_Spam
                 case 2:
                     $targetMbox = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
                     if ($targetMbox) {
-                        if (!$imp_message->copy($targetMbox, 'move', $indices, true)) {
+                        if (!$imp_message->copy($targetMbox, 'move', $indices, array('create' => true))) {
                             $result = 0;
                         }
                     } else {
@@ -213,7 +219,8 @@ class IMP_Spam
             break;
 
         case 'notspam':
-            if ($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) {
+            if (empty($opts['noaction']) &&
+                ($result = $GLOBALS['prefs']->getValue('move_ham_after_report'))) {
                 $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 if (!$imp_message->copy('INBOX', 'move', $indices)) {
                     $result = 0;

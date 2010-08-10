@@ -112,7 +112,7 @@ case 'copy_message':
         } else {
             $newMbox = false;
         }
-        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, $vars->newMbox);
+        $imp_message->copy($vars->targetMbox, ($vars->actionID == 'move_message') ? 'move' : 'copy', $indices, array('create' => $newMbox));
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
