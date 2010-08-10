@@ -483,10 +483,11 @@ abstract class Horde_ActiveSync_State_Base
      * @param string $type     The type of change (change, delete, flags)
      * @param array $change    A stat/change hash describing the change
      * @param integer $origin  Flag to indicate the origin of the change.
+     * @param string $user     The current synch user
      *
      * @return void
      */
-    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA);
+    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null);
 
     /**
      * Save folder data for a specific device. This is needed for BC with older

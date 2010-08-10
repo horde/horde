@@ -243,15 +243,17 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * @param string $type     The type of change (change, delete, flags)
      * @param array $change    A stat/change hash describing the change
      * @param integer $origin  Flag to indicate the origin of the change.
+     * @param string $user     The current sync user, only needed if change
+     *                         origin is CHANGE_ORIGIN_PIM
      *
      * @return void
      */
-    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA)
+    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null)
     {
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
-            $sql = 'INSERT INTO ' . $this->_syncMapTable . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid) VALUES (?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO ' . $this->_syncMapTable . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user) VALUES (?, ?, ?, ?, ?, ?)';
             try {
-               $this->_db->insert($sql, array($change['id'], $change['mod'], $this->_syncKey, $this->_devId, $change['parent']));
+               $this->_db->insert($sql, array($change['id'], $change['mod'], $this->_syncKey, $this->_devId, $change['parent'], $user));
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err($e->getMessage());
                throw new Horde_ActiveSync_Exception($e);

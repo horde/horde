@@ -175,7 +175,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA)
+    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null)
     {
         if (empty($this->_stateCache)) {
             $this->_stateCache = array();

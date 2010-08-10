@@ -114,7 +114,7 @@ class Horde_ActiveSync_Connector_Importer
             $change['id'] = $id;
             // mod is 0 to force a re-synch in the case of server failure. This
             // is updated after the change succeeds in the next updateState()
-            $change['mod'] = 0; 
+            $change['mod'] = 0;
             $change['parent'] = $this->_folderId;
             $change['flags'] = (isset($message->read)) ? $message->read : 0;
             $this->_state->updateState('change', $change, Horde_ActiveSync::CHANGE_ORIGIN_NA);
@@ -133,7 +133,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         /* Record the state of the message */
-        $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM);
+        $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
 
         return $stat['id'];
     }
@@ -161,7 +161,7 @@ class Horde_ActiveSync_Connector_Importer
         $change['id'] = $id;
         $change['mod'] = time();
         $change['parent'] = $this->_folderId;
-        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_folderId);
+        $this->_state->updateState('delete', $change, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
 
         /* If server wins the conflict, don't import change - it will be
          * detected on next sync and sent back to PIM (since we updated the PIM
