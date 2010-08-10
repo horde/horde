@@ -103,11 +103,18 @@ case 'export':
     if (!is_array($calendars)) {
         $calendars = array($calendars);
     }
+    $exportID = Horde_Util::getFormData('exportID');
     foreach ($calendars as $cal) {
         if ($kronolith_driver->calendar != $cal) {
             $kronolith_driver->open($cal);
         }
-        $events[$cal] = $kronolith_driver->listEvents($start, $end, false, false, false, false);
+        $events[$cal] = $kronolith_driver->listEvents($start, // Start date
+                                                      $end,   // End date
+                                                      false,  // Only return recurrences once
+                                                      false,  // Don't limit to alarms
+                                                      false,  // Don't cache json
+                                                      false,  // Don't add events to all days
+                                                      ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false);  // Don't return exception events
     }
 
     if (!$events) {
@@ -116,7 +123,6 @@ case 'export':
         break;
     }
 
-    $exportID = Horde_Util::getFormData('exportID');
     switch ($exportID) {
     case Horde_Data::EXPORT_CSV:
         $data = array();
