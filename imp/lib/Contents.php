@@ -826,6 +826,11 @@ class IMP_Contents
      */
     public function isAttachment($mime_type)
     {
+        switch ($mime_type) {
+        case 'application/ms-tnef':
+            return false;
+        }
+
         list($ptype,) = explode('/', $mime_type, 2);
 
         switch ($ptype) {

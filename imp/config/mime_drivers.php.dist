@@ -239,17 +239,5 @@ $mime_drivers = array(
             'message/rfc822',
             'x-extension/eml'
         )
-    ),
-
-    /* MS-TNEF Attachment display.
-     * YOU SHOULD NOT NORMALLY ALTER THIS SETTING. */
-    'tnef' => array(
-        'inline' => false,
-        'handles' => array(
-            'application/ms-tnef'
-        ),
-        'icons' => array(
-            'default' => 'binary.png'
-        )
     )
 );

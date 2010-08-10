@@ -22,8 +22,8 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
-        'info' => true,
+        'full' => false,
+        'info' => false,
         'inline' => false,
         'raw' => false
     );
@@ -35,8 +35,8 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
      */
     protected $_metadata = array(
         'compressed' => true,
-        'embedded' => false,
-        'forceinline' => false
+        'embedded' => true,
+        'forceinline' => true
     );
 
     /**
@@ -57,44 +57,47 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
     }
 
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
      *
-     * @return array  See parent::render().
-     * @throws Horde_Exception
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
-    protected function _render()
+    protected function _getEmbeddedMimeParts()
     {
-        return $this->_renderFullReturn($this->_renderInfo());
-    }
-
-    /**
-     * Return the rendered information about the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
-     * @throws Horde_Exception
-     */
-    protected function _renderInfo()
-    {
-        if (!$this->getConfigParam('tnef')) {
-            $this->setConfigParam('tnef', Horde_Compress::factory('Tnef'));
+        /* Get the data from the attachment. */
+        if (!($tnef = $this->getConfigParam('tnef'))) {
+            $tnef = Horde_Compress::factory('Tnef');
+            $this->setConfigParam('tnef', $tnef);
         }
-        $info = $this->getConfigParam('tnef')->decompress($this->_mimepart->getContents());
+        $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
-        $data = '<table border="1">';
-        if (empty($info)) {
-            $data .= '<tr><td>' . _("MS-TNEF Attachment contained no data.") . '</td></tr>';
-        } else {
-            $data .= '<tr><td>' . _("Name") . '</td><td>' . _("Mime Type") . '</td></tr>';
-            foreach ($info as $part) {
-                $data .= '<tr><td>' . $part['name'] . '</td><td>' . $part['type'] . '/' . $part['subtype'] . '</td></tr>';
+        if (!count($tnefData)) {
+            return null;
+        }
+
+        $mixed = new Horde_Mime_Part();
+        $mixed->setType('multipart/mixed');
+
+        reset($tnefData);
+        while (list($key, $data) = each($tnefData)) {
+            $temp_part = new Horde_Mime_Part();
+            $temp_part->setName($data['name']);
+            $temp_part->setDescription($data['name']);
+            $temp_part->setContents($data['stream']);
+
+            /* Short-circuit MIME-type guessing for winmail.dat parts;
+             * we're showing enough entries for them already. */
+            $type = $data['type'] . '/' . $data['subtype'];
+            if (in_array($type, array('application/octet-stream', 'application/base64'))) {
+                $type = Horde_Mime_Magic::filenameToMIME($data['name']);
             }
-        }
-        $data .= '</table>';
+            $temp_part->setType($type);
 
-        return $this->_renderReturn(
-            $data,
-            'text/html; charset=' . $this->getConfigParam('charset')
-        );
+            $mixed->addPart($temp_part);
+        }
+
+        return $mixed;
     }
 
 }
