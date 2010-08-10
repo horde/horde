@@ -103,6 +103,7 @@ case 'export':
     if (!is_array($calendars)) {
         $calendars = array($calendars);
     }
+
     $exportID = Horde_Util::getFormData('exportID');
     foreach ($calendars as $cal) {
         if ($kronolith_driver->calendar != $cal) {
@@ -129,7 +130,6 @@ case 'export':
         foreach ($events as $cal => $calevents) {
             foreach ($calevents as $dayevents) {
                 foreach ($dayevents as $event) {
-//@TODO Tags
                     $row = array();
                     $row['title'] = $event->getTitle();
                     $row['location'] = $event->location;
@@ -154,6 +154,8 @@ case 'export':
                         $row['recur_interval'] = null;
                         $row['recur_data'] = null;
                     }
+                    $tags = $event->getTags();
+                    $row['tags'] = $tags ? implode(', ', $tags) : '';
                     $data[] = $row;
                 }
             }
