@@ -744,31 +744,6 @@ $_prefs['strip_attachments'] = array(
     'type' => 'checkbox',
     'desc' => _("Show an icon to allow stripping of attachments from messages?"));
 
-// What should we do with spam messages after reporting them?
-$_prefs['delete_spam_after_report'] = array(
-    'value' => 0,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("Nothing"),
-        1 => _("Delete message"),
-        2 => _("Move to spam folder")
-    ),
-    'desc' => _("What should we do with spam messages after they have been reported as spam?"),
-    'help' => 'prefs-delete_spam_after_report'
-);
-
-// What should we do with spam messages after reporting them as innocent?
-$_prefs['move_ham_after_report'] = array(
-    'value' => 0,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("Nothing"),
-        1 => _("Move to Inbox")
-    ),
-    'desc' => _("What should we do with spam messages after they have been reported as innocent?"),
-    'help' => 'prefs-move_ham_after_report'
-);
-
 // Replace image tags in inline viewed HTML messages with blank images?
 $_prefs['html_image_replacement'] = array(
     'value' => 1,
@@ -901,6 +876,31 @@ $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+);
+
+// What should we do with spam messages after reporting them?
+$_prefs['delete_spam_after_report'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Nothing"),
+        1 => _("Delete message"),
+        2 => _("Move to spam folder")
+    ),
+    'desc' => _("What should we do with spam messages after they have been reported as spam?"),
+    'help' => 'prefs-delete_spam_after_report'
+);
+
+// What should we do with spam messages after reporting them as innocent?
+$_prefs['move_ham_after_report'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Nothing"),
+        1 => _("Move to Inbox")
+    ),
+    'desc' => _("What should we do with spam messages after they have been reported as innocent?"),
+    'help' => 'prefs-move_ham_after_report'
 );
 
 // should we move messages to a trash folder instead of just marking
