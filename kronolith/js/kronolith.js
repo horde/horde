@@ -1225,7 +1225,12 @@ KronolithCore = {
                                 }
                             });
                         });
-                        allEvents.invoke('remove');
+                        allEvents.each(function(el) {
+                            if (el.retrieve('calendar').startsWith('holiday|')) {
+                                this.holidays = this.holidays.without(el.retrieve('eventid'));
+                            }
+                            el.remove();
+                        }, this);
                         for (var date = dates[0]; !date.isAfter(dates[1]); date.add(1).days()) {
                             day = this.monthDays['kronolithMonthDay' + date.dateString()];
                             more = day.select('.kronolithMore');
