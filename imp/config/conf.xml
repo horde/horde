@@ -11,9 +11,9 @@
    restricting the user to their INBOX.">true
     <case name="true" desc="Yes">
      <configboolean name="select_sentmail_folder" desc="If this is true, then
-     users will be given a drop down menu in the compose window allowing them to
-     choose which folder to save their sent messages to. If this is false, then
-     messages will be saved to the folder defined in their
+     users will be given a drop down menu in the compose window allowing them
+     to choose which folder to save their sent messages to. If this is false,
+     then messages will be saved to the folder defined in their
      preferences.">false</configboolean>
     </case>
     <case name="false" desc="No" />
@@ -32,7 +32,8 @@
      <configenum name="force_view" desc="Force an application view to be used
      for all users?">
       <values>
-       <value desc="None (use user's browser and 'dynamic_view' preference)"></value>
+       <value desc="None (use user's browser and 'dynamic_view'
+       preference)"></value>
        <value desc="IMP">imp</value>
        <value desc="DIMP">dimp</value>
        <value desc="MIMP">mimp</value>
@@ -87,8 +88,8 @@
    <configswitch name="reporting" desc="Should we display a 'report this
    message as spam' link?">false
     <case name="true" desc="Yes">
-     <configboolean name="spamfolder" desc="Should the link also appear in the user's
-     spam folder?">false</configboolean>
+     <configboolean name="spamfolder" desc="Should the link also appear in the
+     user's spam folder?">false</configboolean>
      <configstring name="email" required="false" desc="Should we report spam
      messages via email? The messages will be sent to this address in a single
      multipart/digest message (useful for reporting to an admin user, for
@@ -96,12 +97,13 @@
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
      spam_email hook instead."/>
-     <configstring name="program" required="false" desc="Should we report the spam
-     message via an external program (e.g. /usr/local/bin/spamassassin -r)? If you
-     include the placeholder %u in this string, it will be replaced with the
-     current username. If you include the placeholder %l in this string, it will be
-     replaced with the current short username. If you include the placeholder %d in
-     this string, it will be replaced with the current domain name."/>
+     <configstring name="program" required="false" desc="Should we report the
+     spam message via an external program (e.g. /usr/local/bin/spamassassin
+     -r)? If you include the placeholder %u in this string, it will be replaced
+     with the current username. If you include the placeholder %l in this
+     string, it will be replaced with the current short username. If you
+     include the placeholder %d in this string, it will be replaced with the
+     current domain name."/>
     </case>
     <case name="false" desc="No" />
    </configswitch>
@@ -111,8 +113,8 @@
    <configswitch name="reporting" desc="Should we display a 'report this
    message as innocent' link?">false
     <case name="true" desc="Yes">
-     <configboolean name="spamfolder" desc="Should the link only appear in the user's
-     spam folder?">true</configboolean>
+     <configboolean name="spamfolder" desc="Should the link only appear in the
+     user's spam folder?">true</configboolean>
      <configstring name="email" required="false" desc="Should we report innocent
      messages via email? The messages will be sent to this address in a single
      multipart/digest message (useful for reporting to an admin user, for
@@ -120,10 +122,10 @@
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
      spam_email hook instead."/>
-     <configstring name="program" required="false" desc="Should we report the innocent
-     message via an external program (e.g. /usr/local/bin/spamassassin -k)? If you
-     include the placeholder %u in this string, it will be replaced with the
-     current username."/>
+     <configstring name="program" required="false" desc="Should we report the
+     innocent message via an external program (e.g. /usr/local/bin/spamassassin
+     -k)? If you include the placeholder %u in this string, it will be replaced
+     with the current username."/>
     </case>
     <case name="false" desc="No" />
    </configswitch>
