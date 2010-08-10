@@ -672,7 +672,7 @@ class IMP_Prefs_Ui
         try {
             $curr_acl = $acl->getACL($folder);
         } catch (IMP_Exception $e) {
-            $GLOBALS['notification']->notify($e);
+            $GLOBALS['notification']->push($e);
             return '';
         }
         $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
