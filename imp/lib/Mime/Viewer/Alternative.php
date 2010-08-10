@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Alternative class renders out messages from
+ * The IMP_Mime_Viewer_Alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
+class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -85,7 +85,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         foreach ($subparts as $mime_id => $type) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
-                $this->_params['contents']->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL)) {
+                $this->getConfigParam('imp_contents')->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL)) {
                 if (!$is_mimp ||
                     !$prefer_plain ||
                     ($type == 'text/plain')) {
@@ -107,7 +107,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
                         'type' => 'info'
                     )
                 ),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             );
             return $ret;
         }
@@ -128,7 +128,7 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         $render_part = $this->_mimepart->getPart($disp_id);
         foreach (array_keys($render_part->contentTypeMap()) as $val) {
             if (isset($display_ids[$val])) {
-                $render = $this->_params['contents']->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => $this->_params));
+                $render = $this->getConfigParam('imp_contents')->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
                 foreach (array_keys($render) as $id) {
                     unset($display_ids[$id]);
                     if (!$inline) {
@@ -155,4 +155,5 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
             ? $ret
             : null;
     }
+
 }

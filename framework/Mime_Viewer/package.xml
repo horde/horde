@@ -74,7 +74,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Srchighlite.php" role="php" />
        <file name="Tgz.php" role="php" />
        <file name="Tnef.php" role="php" />
-       <file name="Vcard.php" role="php" />
        <file name="Wordperfect.php" role="php" />
        <file name="Zip.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Viewer -->
@@ -103,7 +102,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Compress</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -115,6 +118,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Text_Filter</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Text_Flowed</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -122,24 +133,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>gettext</name>
    </extension>
   </required>
-  <optional>
-   <package>
-    <name>Browser</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Compress</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Icalendar</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Text_Filter</name>
-    <channel>pear.horde.org</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -183,7 +176,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Viewer/Srchighlite.php" as="Horde/Mime/Viewer/Srchighlite.php" />
    <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
    <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
-   <install name="lib/Horde/Mime/Viewer/Vcard.php" as="Horde/Mime/Viewer/Vcard.php" />
    <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
    <install name="lib/Horde/Mime/Viewer/Zip.php" as="Horde/Mime/Viewer/Zip.php" />
    <install name="lib/Horde/Mime/Viewer.php" as="Horde/Mime/Viewer.php" />

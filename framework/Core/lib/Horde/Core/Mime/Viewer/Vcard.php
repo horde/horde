@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Mime_Viewer_Vcard class renders out vCards in HTML format.
+ * The Horde_Core_Mime_Viewer_Vcard class renders out vCards in HTML format.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,9 +10,9 @@
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @package  Mime_Viewer
+ * @package  Core
  */
-class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
+class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -34,6 +34,33 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
     protected $_imageUrl;
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'browser' - (Horde_Browser) Browser object.
+     * 'notification' - (Horde_Notification_Base) Notification object.
+     * 'prefs' - (Horde_Prefs) Prefs object.
+     * 'registry' - (Horde_Registry) Registry object.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'browser',
+            'notification',
+            'prefs',
+            'registry'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -43,11 +70,13 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $ret = $this->_renderInline();
 
         if (!empty($ret)) {
+            $templates = $this->getConfigParam('registry')->get('templates', 'horde');
+
             reset($ret);
             Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+            include $templates . '/common-header.inc';
             echo $ret[key($ret)]['data'];
-            include $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+            include $templates . '/common-footer.inc';
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
 
@@ -61,7 +90,10 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
      */
     protected function _renderInline()
     {
-        global $registry, $prefs, $notification;
+        $browser = $this->getConfigParam('browser');
+        $notification = $this->getConfigParam('notification');
+        $prefs = $this->getConfigParam('prefs');
+        $registry = $this->getConfigParam('registry');
 
         $app = false;
         $data = $this->_mimepart->getContents();
@@ -116,17 +148,17 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 $html .= $this->_row(_("Name"), $n);
             }
 
-            $aliases = $vc->getAttributeValues('ALIAS');
-            if (!is_a($aliases, 'PEAR_Error')) {
-                $html .= $this->_row(_("Alias"), implode("\n", $aliases));
-            }
-            $birthdays = $vc->getAttributeValues('BDAY');
-            if (!is_a($birthdays, 'PEAR_Error')) {
+            try {
+                $html .= $this->_row(_("Alias"), implode("\n", $vc->getAttributeValues('ALIAS'));
+            } catch (Horde_Icalendar_Exception $e) {}
+
+            try {
+                $birthdays = $vc->getAttributeValues('BDAY');
                 $birthday = new Horde_Date($birthdays[0]);
                 $html .= $this->_row(
                     _("Birthday"),
                     $birthday->strftime($prefs->getValue('date_format')));
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
 
             $photos = $vc->getAllAttributes('PHOTO');
             foreach ($photos as $p => $photo) {
@@ -138,8 +170,8 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 } elseif (isset($photo['params']['ENCODING']) &&
                           Horde_String::upper($photo['params']['ENCODING']) == 'B' &&
                           isset($photo['params']['TYPE'])) {
-                    if ($GLOBALS['browser']->hasFeature('datauri') === true ||
-                        $GLOBALS['browser']->hasFeature('datauri') >= strlen($photo['value'])) {
+                    if ($browser->hasFeature('datauri') === true ||
+                        $browser->hasFeature('datauri') >= strlen($photo['value'])) {
                         $html .= $this->_row(_("Photo"),
                                              '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
                                              false);
@@ -323,38 +355,38 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 $html .= $this->_row(_("Email"), implode("\n", $emails), false);
             }
 
-            $title = $vc->getAttributeValues('TITLE');
-            if (!is_a($title, 'PEAR_Error')) {
+            try {
+                $title = $vc->getAttributeValues('TITLE');
                 $html .= $this->_row(_("Title"), $title[0]);
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
 
-            $role = $vc->getAttributeValues('ROLE');
-            if (!is_a($role, 'PEAR_Error')) {
+            try {
+                $role = $vc->getAttributeValues('ROLE');
                 $html .= $this->_row(_("Role"), $role[0]);
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
 
-            $org = $vc->getAttributeValues('ORG');
-            if (!is_a($org, 'PEAR_Error')) {
+            try {
+                $org = $vc->getAttributeValues('ORG');
                 $html .= $this->_row(_("Company"), $org[0]);
                 if (isset($org[1])) {
                     $html .= $this->_row(_("Department"), $org[1]);
                 }
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
 
-            $notes = $vc->getAttributeValues('NOTE');
-            if (!is_a($notes, 'PEAR_Error')) {
+            try {
+                $notes = $vc->getAttributeValues('NOTE');
                 $html .= $this->_row(_("Notes"), $notes[0]);
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
 
-            $url = $vc->getAttributeValues('URL');
-            if (!is_a($url, 'PEAR_Error')) {
+            try {
+                $url = $vc->getAttributeValues('URL');
                 $html .= $this->_row(
                     _("URL"),
                     '<a href="' . htmlspecialchars($url[0])
                         . '" target="_blank">' . htmlspecialchars($url[0])
                         . '</a>',
                     false);
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
         }
 
         if ($registry->hasMethod('contacts/import') &&
@@ -401,7 +433,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             Horde::endBuffer() . $html,
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

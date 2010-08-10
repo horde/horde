@@ -70,17 +70,7 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
-
-        // Need Horde headers for CSS tags.
-        reset($ret);
-        Horde::startBuffer();
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo $ret[key($ret)]['data'];
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
-        $ret[key($ret)]['data'] = Horde::endBuffer();
-
-        return $ret;
+        return $this->_renderFullReturn($this->_renderInline());
     }
 
     /**

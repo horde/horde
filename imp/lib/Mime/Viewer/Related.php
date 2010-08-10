@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Related class handles multipart/related
+ * The IMP_Mime_Viewer_Related class handles multipart/related
  * (RFC 2387) messages.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
+class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -98,11 +98,14 @@ class IMP_Horde_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
         if ($inline &&
-            !$this->_params['contents']->canDisplay($id, IMP_Contents::RENDER_INLINE)) {
+            !$this->getConfigParam('imp_contents')->canDisplay($id, IMP_Contents::RENDER_INLINE)) {
             return array();
         }
 
-        $render = $this->_params['contents']->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL, array('params' => array_merge($this->_params, array('related_id' => $related_id, 'related_cids' => $cids))));
+        /* Set related information in message metadata. */
+        $this->_mimepart->setMetadata('related_cids', $cids);
+
+        $render = $this->getConfigParam('imp_contents')->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
 
         if (!$inline) {
             foreach (array_keys($render) as $key) {

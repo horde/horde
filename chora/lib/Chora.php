@@ -243,7 +243,7 @@ class Chora
         $mime->setType($mime_type);
         $mime->setContents($lns);
 
-        return Horde_Mime_Viewer::factory($mime);
+        return $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime);
     }
 
     /**

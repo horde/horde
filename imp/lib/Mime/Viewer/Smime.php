@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Smime class allows viewing/decrypting of S/MIME
+ * The IMP_Mime_Viewer_Smime class allows viewing/decrypting of S/MIME
  * messages (RFC 2633).
  *
  * This class handles the following MIME types:
@@ -24,7 +24,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
+class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -118,7 +118,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     $id => array(
                         'data' => null,
                         'status' => self::$_cache[$id]['status'],
-                        'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset(),
+                        'type' => 'text/plain; charset=' . $this->getConfigParam('charset'),
                         'wrap' => self::$_cache[$id]['wrap']
                     )
                 );
@@ -205,8 +205,8 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         }
 
         $raw_text = $this->_mimepart->getMimeId()
-            ? $this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
-            : $this->_params['contents']->fullMessageText();
+            ? $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
+            : $this->getConfigParam('imp_contents')->fullMessageText();
 
         try {
             $decrypted_data = $this->_impsmime->decryptMessage($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
@@ -219,7 +219,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         $new_part = Horde_Mime_Part::parseMessage($decrypted_data, array('forcemime' => true));
 
-        $hdrs = $this->_params['contents']->getHeaderOb();
+        $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
         $new_part->setMetadata('imp-smime-from', $hdrs->getValue('from'));
 
         return $new_part;
@@ -256,14 +256,14 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        if ($this->_params['contents']->isEmbedded($base_id)) {
+        if ($this->getConfigParam('imp_contents')->isEmbedded($base_id)) {
             $hdrs = new Horde_Mime_Headers();
             $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
             $stream = $this->_mimepart->toString(array('headers' => $hdrs, 'stream' => true));
         } else {
             $stream = $base_id
-                ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
-                : $this->_params['contents']->fullMessageText(array('stream' => true));
+                ? $this->getConfigParam('imp_contents')->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
+                : $this->getConfigParam('imp_contents')->fullMessageText(array('stream' => true));
         }
 
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
@@ -300,7 +300,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     isset($sig_result->email) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status[] = '[' . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
+                    $status[] = '[' . $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View Certificate"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '] [' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->getConfigParam('imp_contents')->getUid(), $sig_id) . ' return false;') . _("Save Certificate in your Address Book") . '</a>]';
                 }
             } catch (Horde_Exception $e) {
                 self::$_cache[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
@@ -325,7 +325,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return;
         }
 
-        $subpart = $this->_params['contents']->getMIMEPart($sig_id);
+        $subpart = $this->getConfigParam('imp_contents')->getMIMEPart($sig_id);
         if (empty($subpart)) {
             try {
                 $msg_data = $this->_impsmime->extractSignedContents($raw_text);
@@ -351,8 +351,8 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         }
 
         $raw_text = $this->_mimepart->getMimeId()
-            ? $this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
-            : $this->_params['contents']->fullMessageText();
+            ? $this->getConfigParam('imp_contents')->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
+            : $this->getConfigParam('imp_contents')->fullMessageText();
 
         try {
             $sig_result = $this->_impsmime->verifySignature($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
@@ -364,7 +364,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             $this->_mimepart->getMimeId() => array(
                 'data' => $this->_impsmime->certToHTML($sig_result->cert),
                 'status' => array(),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }

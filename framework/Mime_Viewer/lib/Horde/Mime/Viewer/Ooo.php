@@ -42,6 +42,21 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
     );
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'zip' - (Horde_Compress_Zip) A zip object.
+     * </pre>
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -64,8 +79,10 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
             'table:number-columns-spanned=' => 'colspan='
         );
 
-        $zip = Horde_Compress::factory('zip');
-        $list = $zip->decompress($this->_mimepart->getContents(), array('action' => Horde_Compress_Zip::ZIP_LIST));
+        if (!$this->getConfigParam('zip')) {
+            $this->setConfigParam('zip', Horde_Compress::factory('Zip'));
+        }
+        $list = $this->getConfigParam('zip')->decompress($this->_mimepart->getContents(), array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         foreach ($list as $key => $file) {
             if (in_array($file['name'], $fnames)) {
@@ -102,8 +119,8 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
             $result = @$xslt->process($dom, array(
                 'metaFileURL' => $tmpdir . 'meta.xml',
                 'stylesFileURL' => $tmpdir . 'styles.xml',
-                'disableJava' => true)
-            );
+                'disableJava' => true
+            ));
             $result = $xslt->result_dump_mem($result);
         } else {
             // Use XSLT
@@ -111,8 +128,8 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
             $result = @xslt_process($xslt, $tmpdir . 'content.xml', $xsl_file, null, null, array(
                 'metaFileURL' => $tmpdir . 'meta.xml',
                 'stylesFileURL' => $tmpdir . 'styles.xml',
-                'disableJava' => true)
-            );
+                'disableJava' => true
+            ));
             if (!$result) {
                 $result = xslt_error($xslt);
             }
@@ -127,4 +144,5 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
             )
         );
     }
+
 }

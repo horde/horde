@@ -210,7 +210,7 @@ class News {
             $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'download_zip'), sprintf(_("Compress and dowload %s"), $file['file_name'])) . $dowload_zip . '</a> ' . "\n";
             $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'download_file'), sprintf(_("Dowload %s"), $file['file_name'])) . $dowload_img . '</a> ' . "\n";
             $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'view_file'), sprintf(_("Preview %s"), $file['file_name']), '', '_file_view');
-            $html .= Horde::img(Horde_Mime_Viewer::getIcon($file['file_type']), $file['file_name'], 'width="16" height="16"', '') . ' ';
+            $html .= Horde::img($GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon($file['file_type']), $file['file_name'], 'width="16" height="16"', '') . ' ';
             if ($GLOBALS['registry']->isAdmin(array('permission' => 'news:admin'))) {
                 $html .= Horde::link(Horde_Util::addParameter($delete_url, $file), sprintf(_("Delete %s"), $file['file_name'])) . $delete_img . '</a> ' . "\n";
             }

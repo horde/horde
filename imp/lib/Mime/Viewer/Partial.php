@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Partial class allows message/partial messages
+ * The IMP_Mime_Viewer_Partial class allows message/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
+class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -59,7 +59,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
                 $id => array(
                     'data' => null,
                     'status' => array(self::$_statuscache[$id]),
-                    'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
+                    'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
                 )
             );
         } else {
@@ -87,7 +87,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
         /* Perform the search to find the other parts of the message. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->headerText('Content-Type', $id);
-        $indices = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $this->_params['contents']->getMailbox());
+        $indices = $GLOBALS['injector']->getInstance('IMP_Search')->runSearchQuery($query, $this->getConfigParam('imp_contents')->getMailbox());
 
         /* If not able to find the other parts of the message, prepare a
          * status message. */

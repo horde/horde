@@ -64,9 +64,8 @@ case 'view_file':
     $mime_part->setContents($data);
     $mime_part->setName($filename);
     $mime_part->buildMimeIds();
-    $viewer = Horde_Mime_Viewer::factory($mime_part);
 
-    $content = $viewer->render('full');
+    $content = $injector->getInstance('Horde_Mime_Viewer')->getViewer($mime_part)->render('full');
     $body = $content[1]['data'];
 
     $browser->downloadHeaders($filename, $content[1]['type'], true, strlen($body));

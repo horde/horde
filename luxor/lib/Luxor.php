@@ -157,7 +157,7 @@ class Luxor
                 if (preg_match('/^.*\.[oa]$|^core$|^00-INDEX$/', $node)) {
                     continue;
                 }
-                $icon = Horde::img(Horde_Mime_Viewer::getIcon(Horde_Mime_Magic::filenameToMime($node)), '', '', '');
+                $icon = Horde::img($GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon(Horde_Mime_Magic::filenameToMime($node)), '', '', '');
                 $filesize = $files->getFilesize($dir . $node);
                 if ($filesize < 1 << 10) {
                     $bytes = _("bytes");
@@ -206,8 +206,10 @@ class Luxor
 
             $mime_part = new Horde_Mime_Part('text/plain', $contents);
             $mime_part->setName('README');
-            $viewer = Horde_Mime_Viewer::factory($mime_part);
-            return $table_head . $viewer->render() . $table_foot;
+
+            return $table_head .
+                $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime_part)->render() .
+                $table_foot;
         }
     }
 

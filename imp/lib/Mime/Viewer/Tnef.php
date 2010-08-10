@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Tnef class allows MS-TNEF attachments to be
+ * The IMP_Mime_Viewer_Tnef class allows MS-TNEF attachments to be
  * displayed.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
+class IMP_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
 {
     /**
      * This driver's display capabilities.
@@ -51,7 +51,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
      */
     protected function _render()
     {
-        if (!Horde_Util::getFormData('tnef_attachment')) {
+        if (!($tnef_atc = Horde_Util::getFormData('tnef_attachment'))) {
             $ret = $this->_renderInfo();
             reset($ret);
             $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
@@ -59,12 +59,15 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
         }
 
         /* Get the data from the attachment. */
-        $tnef = Horde_Compress::factory('tnef');
+        if (!($tnef = $this->getConfigParam('tnef'))) {
+            $tnef = Horde_Compress::factory('Tnef');
+            $this->setConfigParam('tnef', $tnef);
+        }
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
         /* Display the requested file. Its position in the $tnefData
          * array can be found in 'tnef_attachment'. */
-        $tnefKey = Horde_Util::getFormData('tnef_attachment') - 1;
+        $tnefKey = $tnef_atc - 1;
 
         /* Verify that the requested file exists. */
         if (isset($tnefData[$tnefKey])) {
@@ -94,7 +97,10 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
     protected function _renderInfo()
     {
         /* Get the data from the attachment. */
-        $tnef = Horde_Compress::factory('tnef');
+        if (!($tnef = $this->getConfigParam('tnef'))) {
+            $tnef = Horde_Compress::factory('Tnef');
+            $this->setConfigParam('tnef', $tnef);
+        }
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
         if (!count($tnefData)) {
@@ -120,7 +126,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
             }
             $temp_part->setType($type);
 
-            $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
+            $link = $this->getConfigParam('imp_contents')->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
             $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
         }
 
@@ -132,7 +138,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
                         'text' => array(_("The following files were attached to this part:"))
                     )
                 ),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }

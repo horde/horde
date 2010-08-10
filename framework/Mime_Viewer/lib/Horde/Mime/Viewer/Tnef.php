@@ -40,6 +40,23 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
     );
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'tnef' - (Horde_Compress_Tnef) TNEF object.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -58,8 +75,10 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
      */
     protected function _renderInfo()
     {
-        $tnef = Horde_Compress::factory('tnef');
-        $info = $tnef->decompress($this->_mimepart->getContents());
+        if (!$this->getConfigParam('tnef')) {
+            $this->setConfigParam('tnef', Horde_Compress::factory('Tnef'));
+        }
+        $info = $this->getConfigParam('tnef')->decompress($this->_mimepart->getContents());
 
         $data = '<table border="1">';
         if (empty($info)) {
@@ -74,7 +93,7 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $data,
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

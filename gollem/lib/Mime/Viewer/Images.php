@@ -1,6 +1,6 @@
 <?php
 /**
- * The Gollem_Horde_Mime_Viewer_Images class allows images to be displayed
+ * The Gollem_Mime_Viewer_Images class allows images to be displayed
  * inline from file data.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_Mime
  */
-class Gollem_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
+class Gollem_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {
     /**
      * Can this driver render various views?

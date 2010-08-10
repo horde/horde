@@ -47,6 +47,25 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
     protected $_callback = null;
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'monospace' - (string) A class to use to display monospace text inline.
+     *               DEFAULT: Uses style="font-family:monospace"
+     * 'zip' - (Horde_Compress_Zip) Zip object.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -76,10 +95,15 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
      */
     protected function _toHTML()
     {
+        $charset = $this->getConfigParam('charset');
         $contents = $this->_mimepart->getContents();
 
-        $zip = Horde_Compress::factory('zip');
-        $zipInfo = $zip->decompress($contents, array('action' => Horde_Compress_Zip::ZIP_LIST));
+        if (!$this->getConfigParam('zip')) {
+            $this->setConfigParam('zip', Horde_Compress::factory('Zip'));
+        }
+        $zipInfo = $this->getConfigParam('zip')->decompress($contents, array(
+            'action' => Horde_Compress_Zip::ZIP_LIST
+        ));
 
         $fileCount = count($zipInfo);
 
@@ -95,9 +119,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
             $name = _("unnamed");
         }
 
+        $monospace = $this->getConfigParam('monospace');
+
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><span style="font-family:monospace">' .
-            Horde_Text_Filter::filter(
+            '<table><tr><td align="left"><span ' .
+            ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
+            $this->_textFilter(
                 _("Archive Name") . ': ' . $name . "\n" .
                 _("Archive File Size") . ': ' . strlen($contents) .
                 " bytes\n" .
@@ -110,8 +137,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
                 Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
                 "\n",
-                'space2html',
-                array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true)
+                'Space2html',
+                array(
+                    'charset' => $charset,
+                    'encode' => true,
+                    'encode_all' => true
+                )
             ) . str_repeat('-', 59 + $maxlen) . "\n";
 
         foreach ($zipInfo as $key => $val) {
@@ -119,16 +150,20 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
                 ? 0
                 : 100 * ($val['csize'] / $val['size']);
 
-            $val['name']   = Horde_String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
-            $val['attr']   = Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT);
-            $val['size']   = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
-            $val['date']   = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
+            $val['name'] = Horde_String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
+            $val['attr'] = Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT);
+            $val['size'] = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
+            $val['date'] = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
             $val['method'] = Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
-            $val['ratio']  = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
+            $val['ratio'] = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
 
             reset($val);
             while (list($k, $v) = each($val)) {
-                $val[$k] = Horde_Text_Filter::filter($v, 'space2html', array('charset' => $GLOBALS['registry']->getCharset(), 'encode' => true, 'encode_all' => true));
+                $val[$k] = $this->_textFilter($v, 'Space2html', array(
+                    'charset' => $charset,
+                    'encode' => true,
+                    'encode_all' => true
+                ));
             }
 
             if (!is_null($this->_callback)) {
@@ -142,7 +177,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             nl2br($text . str_repeat('-', 59 + $maxlen) . "\n</span></td></tr></table>"),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $charset
         );
     }
 

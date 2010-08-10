@@ -821,8 +821,8 @@ class Whups {
         // Can we view the attachment online?
         $mime_part = new Horde_Mime_Part();
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
-        $viewer = Horde_Mime_Viewer::factory($mime_part);
-        if ($viewer && !is_a($viewer, 'Horde_Mime_Viewer_Default')) {
+        $viewer = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime_part);
+        if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
             $url = Horde_Util::addParameter(Horde::applicationUrl('view.php'),
                                       array('actionID' => 'view_file',
                                             'type' => $file['type'],

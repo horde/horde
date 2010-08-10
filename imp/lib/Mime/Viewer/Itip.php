@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Itip class displays vCalendar/iCalendar data
+ * The IMP_Mime_Viewer_Itip class displays vCalendar/iCalendar data
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
+class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -49,11 +49,13 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     {
         $ret = $this->_renderInline(true);
         if (!empty($ret)) {
+            $templates = $GLOBALS['registry']->get('templates', 'horde');
+
             reset($ret);
             Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
+            include $templates . '/common-header.inc';
             echo $ret[key($ret)]['data'];
-            include $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+            include $templates . '/common-footer.inc';
 
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
@@ -75,7 +77,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     {
         global $registry;
 
-        $charset = $GLOBALS['registry']->getCharset();
+        $charset = $this->getConfigParam('charset');
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -94,7 +96,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         // Check if we got vcard data with the wrong vcalendar mime type.
         $c = $vCal->getComponentClasses();
         if ((count($c) == 1) && !empty($c['horde_icalendar_vcard'])) {
-            return $this->_params['contents']->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE, array('type' => 'text/x-vcard'));
+            return $this->getConfigParam('imp_contents')->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE, array('type' => 'text/x-vcard'));
         }
 
         // Get the method type.
@@ -138,7 +140,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        $hdrs = $this->_params['contents']->getHeaderOb();
+                        $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
                         $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $hdrs->getValue('From')));
                         $msgs[] = array('success', _("Respondent Status Updated."));
                     } catch (Horde_Exception $e) {
@@ -498,7 +500,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             }
             return array(
                 $mime_id => array(
-                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $GLOBALS['registry']->getCharset())), $GLOBALS['registry']->getCharset(), 'UTF-8'),
+                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
                     'status' => array(),
                     'name' => null,
                     'type' => 'application/json'
@@ -508,7 +510,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         // Create the HTML to display the iCal file.
         if ($_SESSION['imp']['view'] != 'imp' && !$full) {
-            $url = $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
+            $url = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
             $onsubmit = ' onsubmit="DimpCore.submitForm(\'impMimeViewerItip\');return false"';
         } else {
             $url = IMP::selfUrl();
@@ -567,7 +569,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REQUEST':
-            $hdrs = $this->_params['contents']->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
             $sender = $hdrs->getValue('From');
             $desc = _("%s requests your free/busy information.");
             break;
@@ -717,7 +719,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
 
         case 'REPLY':
-            $hdrs = $this->_params['contents']->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {

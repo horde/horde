@@ -43,7 +43,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
             $text = $this->_formatFlowed($text, $this->_mimepart->getContentTypeParameter('delsp'));
         }
 
-        $text = '<html><body><tt>' . Horde_Text_Filter::filter($text, 'text2html', array(
+        $text = '<html><body><tt>' . $this->_textFilter($text, 'Text2html', array(
             'charset' => $charset,
             'parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL
         )) . '</tt></body></html>';
@@ -61,7 +61,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
      */
     protected function _renderInline()
     {
-        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), $this->getConfigParam('charset'));
 
         /* Check for 'flowed' text data. */
         $data = ($this->_mimepart->getContentTypeParameter('format') == 'flowed')
@@ -70,7 +70,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $data,
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

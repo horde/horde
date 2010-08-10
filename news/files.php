@@ -60,7 +60,7 @@ case 'view_file':
     $mime_part->setType($file_type);
     $mime_part->setContents($data);
 
-    $viewer = Horde_Mime_Viewer::factory($mime_part);
+    $viewer = $injector->getInstance('Horde_Mime_Viewer')->getViewer($mime_part);
     if ($viewer) {
         $render = $viewer->render('full');
         if (!empty($render)) {

@@ -32,6 +32,27 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
     );
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'location' - (string) Location of the source-highlight binary.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'location'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -49,14 +70,13 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
     protected function _renderInline()
     {
         /* Check to make sure the viewer program exists. */
-        if (!isset($this->_conf['location']) ||
-            !file_exists($this->_conf['location'])) {
+        if (!($location = $this->getConfigParam('location')) ||
+            !file_exists($location)) {
             return array();
         }
 
-        /* Create temporary files for Webcpp. */
-        $tmpin  = Horde::getTempFile('SrcIn');
-        $tmpout = Horde::getTempFile('SrcOut');
+        $tmpin = $this->_getTempFile();
+        $tmpout = $this->_getTempFile();
 
         /* Write the contents of our buffer to the temporary input file. */
         file_put_contents($tmpin, $this->_mimepart->getContents());
@@ -65,13 +85,13 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
         $lang = $this->_typeToLang($this->_mimepart->getType());
 
         /* Execute Source-Highlite. */
-        exec($this->_conf['location'] . " --src-lang $lang --out-format html --input $tmpin --output $tmpout");
+        exec($location . ' --src-lang ' . escapeshellarg($lang) . ' --out-format html --input ' . $tmpin . ' --output ' . $tmpout);
         $results = file_get_contents($tmpout);
         unlink($tmpout);
 
         return $this->_renderReturn(
             $results,
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

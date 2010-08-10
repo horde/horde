@@ -124,7 +124,7 @@ foreach ($attachments as $attachment) {
                               array('page' => $this->pageName(),
                                     'file' => $attachment['attachment_name'],
                                     'version' => $attachment['attachment_majorversion'] . '.' . $attachment['attachment_minorversion']));
-    $icon = Horde_Mime_Viewer::getIcon(Horde_Mime_Magic::filenameToMime($attachment['attachment_name']));
+    $icon = $injector->getInstance('Horde_Mime_Viewer')->getIcon(Horde_Mime_Magic::filenameToMime($attachment['attachment_name']));
     echo Horde::link($url) .
         '<img src="' . $icon . '" width="16" height="16" alt="" />&nbsp;' .
         htmlspecialchars($attachment['attachment_name']) . '</a><br />';

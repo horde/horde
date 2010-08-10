@@ -70,8 +70,8 @@ class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Base
     protected function _renderInline()
     {
         return $this->_renderReturn(
-            Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset(), $this->getConfigParam('charset')),
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

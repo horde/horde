@@ -38,6 +38,29 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Base
         'forceinline' => false
     );
 
+   /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'location' - (string) The location of the rpm binary [REQUIRED].
+     * 'monospace' - (string) A class to use to display monospace text inline.
+     *               DEFAULT: Uses style="font-family:monospace"
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'location'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
@@ -56,25 +79,29 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Base
     protected function _renderInfo()
     {
         /* Check to make sure the viewer program exists. */
-        if (!isset($this->_conf['location']) ||
-            !file_exists($this->_conf['location'])) {
+        if (!($location = $this->getConfigParam('location')) ||
+            !file_exists($location)) {
             return array();
         }
 
         $data = '';
 
-        $tmp_rpm = Horde::getTempFile('horde_rpm');
+        $tmp_rpm = $this->_getTempFile();
         file_put_contents($tmp_rpm, $this->_mimepart->getContents());
 
-        $fh = popen($this->_conf['location'] . " -qip $tmp_rpm 2>&1", 'r');
+        $fh = popen($location . ' -qip ' . $tmp_rpm . ' 2>&1', 'r');
         while (($rc = fgets($fh, 8192))) {
             $data .= $rc;
         }
         pclose($fh);
 
+        $monospace = $this->getConfigParam('monospace');
+
         return $this->_renderReturn(
-            '<pre>' . htmlspecialchars($data) . '</pre>',
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            '<span ' .
+            ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
+            htmlspecialchars($data) . '</span>',
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

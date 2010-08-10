@@ -16,12 +16,35 @@
 class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Base
 {
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'viewer_callback' - (callback) A callback to a factory that will
+     *                     return the appropriate viewer for the embedded
+     *                     MIME type. Is passed three parameters: the
+     *                     current driver object, the MIME part object, and
+     *                     the MIME type to use.
+     * </pre>
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the underlying MIME Viewer for this part.
      *
      * @return mixed  A Horde_Mime_Viewer object, or false if not found.
      */
     protected function _getViewer()
     {
+        if (!($callback = $this->getConfigParam('viewer_callback'))) {
+            return false;
+        }
+
         if (!($type = $this->_mimepart->getContentTypeParameter('report-type'))) {
             /* This is a broken RFC 3462 message, since 'report-type' is
              * mandatory. Try to determine the report-type by looking at the
@@ -33,12 +56,7 @@ class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Base
             $type = $parts[1]->getSubType();
         }
 
-        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, 'message/' . Horde_String::lower($type));
-        if ($viewer) {
-            $viewer->setParams($this->_params);
-        }
-
-        return $viewer;
+        return call_user_func($callback, $this, $this->_mimepart, 'message/' . Horde_String::lower($type));
     }
 
 }

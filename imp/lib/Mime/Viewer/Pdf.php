@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Pdf class enables generation of thumbnails for
+ * The IMP_Mime_Viewer_Pdf class enables generation of thumbnails for
  * PDF attachments.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
+class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 {
     /**
      * This driver's display capabilities.
@@ -81,9 +81,9 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         $status = array(_("This is a thumbnail of a PDF file attached to this message."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);
+            $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>';
+            $status[] = Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>';
         }
 
         return array(
@@ -95,7 +95,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }
@@ -149,7 +149,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _outputImgTag()
     {
-        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $GLOBALS['registry']->getCharset()) . '" />';
+        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
     }
 
 }

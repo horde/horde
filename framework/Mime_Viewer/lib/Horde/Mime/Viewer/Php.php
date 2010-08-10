@@ -52,7 +52,7 @@ class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
 
         return $this->_renderReturn(
             $this->_lineNumber(trim(str_replace(array("\n", '<br />'), array('', "\n"), $text))),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

@@ -39,6 +39,8 @@ The following hooks have changed:
     * username_tobackend, username_frombackend (combined and renamed to
       authusername).
 
+The format for the config/mime_drivers.php configuration files has changed.
+
 Horde_Alarm is using UTC dates now.
 
 Crypt_Blowfish is required.

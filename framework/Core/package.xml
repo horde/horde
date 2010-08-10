@@ -116,6 +116,7 @@ Application Framework.</description>
        <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Memcache.php" role="php" />
+       <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
@@ -151,6 +152,7 @@ Application Framework.</description>
        <file name="KolabStorage.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="LoginTasks.php" role="php" />
+       <file name="MimeViewer.php" role="php" />
        <file name="Prefs.php" role="php" />
        <file name="Request.php" role="php" />
        <file name="Share.php" role="php" />
@@ -166,6 +168,12 @@ Application Framework.</description>
         <file name="Horde.php" role="php" />
        </dir> <!-- /lib/Horde/Core/LoginTasks/Backend -->
       </dir> <!-- /lib/Horde/Core/LoginTasks -->
+      <dir name="Mime">
+       <dir name="Viewer">
+        <file name="Css.php" role="php" />
+        <file name="Vcard.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Mime/Viewer -->
+      </dir> <!-- /lib/Horde/Core/Mime -->
       <dir name="Notification">
        <file name="Hordelog.php" role="php" />
        <file name="Status.php" role="php" />
@@ -289,6 +297,10 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -328,6 +340,10 @@ Application Framework.</description>
    </package>
    <package>
     <name>Http</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Icalendar</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -403,6 +419,7 @@ Application Framework.</description>
    <install as="Horde/Core/Binder/LoginTasks.php" name="lib/Horde/Core/Binder/LoginTasks.php" />
    <install as="Horde/Core/Binder/Mail.php" name="lib/Horde/Core/Binder/Mail.php" />
    <install as="Horde/Core/Binder/Memcache.php" name="lib/Horde/Core/Binder/Memcache.php" />
+   <install as="Horde/Core/Binder/MimeViewer.php" name="lib/Horde/Core/Binder/MimeViewer.php" />
    <install as="Horde/Core/Binder/Notification.php" name="lib/Horde/Core/Binder/Notification.php" />
    <install as="Horde/Core/Binder/Perms.php" name="lib/Horde/Core/Binder/Perms.php" />
    <install as="Horde/Core/Binder/Prefs.php" name="lib/Horde/Core/Binder/Prefs.php" />
@@ -434,6 +451,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
    <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
+   <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Prefs.php" name="lib/Horde/Core/Factory/Prefs.php" />
    <install as="Horde/Core/Factory/Request.php" name="lib/Horde/Core/Factory/Request.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
@@ -442,6 +460,8 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
+   <install as="Horde/Core/Mime/Viewer/Css.php" name="lib/Horde/Core/Mime/Viewer/Css.php" />
+   <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
    <install as="Horde/Core/Notification/Hordelog.php" name="lib/Horde/Core/Notification/Hordelog.php" />
    <install as="Horde/Core/Notification/Status.php" name="lib/Horde/Core/Notification/Status.php" />
    <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />

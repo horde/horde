@@ -17,22 +17,37 @@
 class Horde_Mime_Viewer_Security extends Horde_Mime_Viewer_Base
 {
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'viewer_callback' - (callback) A callback to a factory that will
+     *                     return the appropriate viewer for the embedded
+     *                     MIME type. Is passed three parameters: the
+     *                     current driver object, the MIME part object, and
+     *                     the MIME type to use.
+     * </pre>
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the underlying MIME Viewer for this part.
      *
      * @return mixed  A Horde_Mime_Viewer object, or false if not found.
      */
     protected function _getViewer()
     {
-        if (!($protocol = $this->_mimepart->getContentTypeParameter('protocol'))) {
-            return false;
+        if (($callback = $this->getConfigParam('viewer_callback')) &&
+            ($protocol = $this->_mimepart->getContentTypeParameter('protocol'))) {
+            return call_user_func($callback, $this, $this->_mimepart, $protocol);
         }
 
-        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, $protocol);
-        if ($viewer) {
-            $viewer->setParams($this->_params);
-        }
-
-        return $viewer;
+        return false;
     }
 
 }

@@ -29,14 +29,13 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  Reference to an object with the
-     *                                    information to be rendered.
-     * @param array $conf                 Configuration specific to the
-     *                                    driver.
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration.
      */
-    public function __construct($mime_part, $conf = array())
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
-        parent::__construct($mime_part, $conf);
+        parent::__construct($part, $conf);
 
         /* TODO: Are there other image types that are compressed? */
         $this->_metadata['compressed'] = in_array($this->_getType(), array('image/gif', 'image/jpeg', 'image/png'));

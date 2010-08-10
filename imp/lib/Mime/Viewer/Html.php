@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Html class renders out HTML text with an effort
+ * The IMP_Mime_Viewer_Html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
+class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
      * Temp array for storing data when parsing the HTML document.
@@ -57,7 +57,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         /* Non-javascript browsers can't handle IFRAME resizing, so it isn't
          * possible to view inline. */
-        if (!$GLOBALS['browser']->hasFeature('javascript')) {
+        if (!$this->getConfigParam('browser')->hasFeature('javascript')) {
             return array(
                 $this->_mimepart->getMimeId() => array(
                     'data' => '',
@@ -66,11 +66,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                             'icon' => Horde::img('mime/html.png'),
                             'text' => array(
                                 _("This message part contains HTML data, but this data can not be displayed inline."),
-                                $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
+                                $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
                             )
                         )
                     ),
-                    'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                    'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                 )
             );
         }
@@ -113,12 +113,12 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         'icon' => Horde::img('mime/html.png', _("HTML data")),
                         'text' => array(
                             _("This message part contains HTML data, but inline HTML display is disabled."),
-                            $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
-                            $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
+                            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
+                            $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
                         )
                     )
                 ),
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }
@@ -156,10 +156,10 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             /* Search for inlined images that we can display
              * (multipart/related parts) - see RFC 2392. */
-            if (isset($this->_params['related_id'])) {
+            if ($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) {
                 $cid_replace = array();
 
-                foreach ($this->_params['related_cids'] as $mime_id => $cid) {
+                foreach ($related_part->getMetadata('related_cids') as $mime_id => $cid) {
                     if ($cid = trim($cid, '<>')) {
                         $cid_replace['cid:' . $cid] = $mime_id;
                     }
@@ -191,13 +191,15 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* We are done processing if in mimp mode, or we are converting to
          * text. */
         if (is_null($this->_imptmp)) {
-            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, 'Html2text', array('wrap' => false));
+            $data = $this->_textFilter($data, 'Html2text', array(
+                'wrap' => false
+            ));
 
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
                 'status' => array(),
-                'type' => 'text/plain; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
             );
         }
 
@@ -223,7 +225,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if (!empty($filters)) {
-            $data = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($data, array_keys($filters), array(array_values($filters)));
+            $data = $this->_textFilter($data, array_keys($filters), array(array_values($filters)));
         }
 
         /* Filter bad language. */
@@ -243,11 +245,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _inAddressBook()
     {
-        if (empty($this->_params['contents'])) {
+        if (!$this->getConfigParam('imp_contents')) {
             return false;
         }
 
-        $from = Horde_Mime_Address::bareAddress($this->_params['contents']->getHeaderOb()->getValue('from'));
+        $from = Horde_Mime_Address::bareAddress($this->getConfigParam('imp_contents')->getHeaderOb()->getValue('from'));
 
         if ($GLOBALS['prefs']->getValue('html_image_addrbook') &&
             $GLOBALS['registry']->hasMethod('contacts/getField')) {
@@ -305,9 +307,9 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     if (($tag == 'img') &&
                         $this->_imptmp['cid'] &&
                         isset($this->_imptmp['cid'][$val])) {
-                        $val = $this->_params['contents']->urlView(null, 'view_attach', array('params' => array(
+                        $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
-                            'related_data' => 1
+                            'imp_img_view' => 'data'
                         )));
                         $node->setAttribute('src', $val);
                     }

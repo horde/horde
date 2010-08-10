@@ -272,7 +272,7 @@ class IMP_Prefs_Ui
 
             $mock_part = new Horde_Mime_Part();
             $mock_part->setType('text/html');
-            $v = Horde_Mime_Viewer::factory($mock_part);
+            $v = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mock_part);
 
             if (!$v->canRender('inline')) {
                 $ui->suppress[] = 'html_image_replacement';

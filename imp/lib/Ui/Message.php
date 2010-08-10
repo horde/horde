@@ -429,7 +429,7 @@ class IMP_Ui_Message
      * Prints out a MIME status message (in HTML).
      *
      * @param array $data  An array of information (as returned from
-                           Horde_Mime_Viewer::render()).
+                           Horde_Mime_Viewer_Base::render()).
      *
      * @return string  The formatted status message string.
      */

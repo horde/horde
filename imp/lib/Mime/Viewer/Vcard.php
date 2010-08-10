@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Vcard class renders out the contents of vCard
+ * The IMP_Mime_Viewer_Vcard class renders out the contents of vCard
  * files in HTML format and allows inline display of embedded photos.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Vcard
+class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 {
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -30,7 +30,7 @@ class IMP_Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Vcard
     protected function _render()
     {
         if (is_null(Horde_Util::getFormData('p'))) {
-            $this->_imageUrl = $this->_params['contents']->urlView($this->_mimepart, 'download_render');
+            $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render');
             return parent::_render();
         }
 

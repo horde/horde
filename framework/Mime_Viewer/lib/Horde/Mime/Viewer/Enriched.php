@@ -60,8 +60,8 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Base
     protected function _renderInline()
     {
         return $this->_renderReturn(
-            Horde_String::convertCharset($this->_toHTML(true), $this->_mimepart->getCharset()),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            Horde_String::convertCharset($this->_toHTML(true), $this->_mimepart->getCharset(), $this->getConfigParam('charset')),
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 
@@ -168,9 +168,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Base
         $text = preg_replace('/^ (.*) $/s', '\1', $text);
 
         // Make URLs clickable.
-        $text = Horde_Text_Filter::filter($text, 'linkurls', array(
-            'callback' => 'Horde::externalUrl'
-        ));
+        $text = $this->_textFilter($text, 'linkurls');
 
         /* Wordwrap -- note this could impact on our above RFC compliance *IF*
          * we honored nofill tags (which we don't yet). */

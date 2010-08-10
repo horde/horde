@@ -280,6 +280,7 @@ class Horde_Registry
             'Horde_LoginTasks' => new Horde_Core_Binder_LoginTasks(),
             'Horde_Mail' => new Horde_Core_Binder_Mail(),
             'Horde_Memcache' => new Horde_Core_Binder_Memcache(),
+            'Horde_Mime_Viewer' => new Horde_Core_Binder_MimeViewer(),
             'Horde_Notification' => new Horde_Core_Binder_Notification(),
             'Horde_Perms' => new Horde_Core_Binder_Perms(),
             'Horde_Prefs' => new Horde_Core_Binder_Prefs(),

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Enriched class renders out plain text from
+ * The IMP_Mime_Viewer_Enriched class renders out plain text from
  * enriched content tags, ala RFC 1896
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
+class IMP_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
 {
     /**
      * Return the full rendered version of the Horde_Mime_Part object.

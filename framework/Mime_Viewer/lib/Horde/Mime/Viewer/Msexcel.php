@@ -29,6 +29,27 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
     );
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'location' - (string) Location of the gnumeric binary.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'location'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -36,22 +57,21 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
     protected function _render()
     {
         /* Check to make sure the viewer program exists. */
-        if (!isset($this->_conf['location']) ||
-            !file_exists($this->_conf['location'])) {
+        if (!($location = $this->getConfigParam('location')) ||
+            !file_exists($location)) {
             return array();
         }
 
-        $tmp_in = Horde::getTempFile('horde_msexcel');
-        $tmp_out = Horde::getTempFile('horde_msexcel');
+        $tmp_in = $this->_getTempFile();
+        $tmp_out = $this->_getTempFile();
 
         file_put_contents($tmp_in, $this->_mimepart->getContents());
-        $args = ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_in . ' ' . $tmp_out;
 
-        exec($this->_conf['location'] . $args);
+        exec($location . ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_in . ' ' . $tmp_out);
 
         return $this->_renderReturn(
             file_get_contents($tmp_out),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

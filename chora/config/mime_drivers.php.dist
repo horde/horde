@@ -1,25 +1,13 @@
 <?php
 /**
+ * MIME Viewer configuration for Chora.
+ *
+ * Settings in this file override settings in horde/config/mime_drivers.php.
+ * All drivers configured in that file, but not configured here, will also
+ * be used to display MIME content.
+ *
  * $Id$
- *
- * Decide which output drivers you want to activate for the Chora application.
- *
- * The avilable drivers are:
- * -------------------------
- * NO CHORA SPECIFIC DRIVERS
  */
-$mime_drivers_map['chora']['registered'] = array();
 
-/**
- * If you want to specifically override any MIME type to be handled by
- * a specific driver, then enter it here. Normally, this is safe to
- * leave, but it's useful when multiple drivers handle the same MIME
- * type, and you want to specify exactly which one should handle it.
- */
-$mime_drivers_map['chora']['overrides'] = array();
-
-/**
- * Driver specific settings. See horde/config/mime_drivers.php for
- * the format.
- */
-$mime_drivers['horde']['enscript']['handles'][] = 'text/html';
+/* By default, Chora uses the default Horde-wide settings contained in
+ * horde/config/mime_drivers.php. */

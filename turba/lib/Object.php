@@ -423,7 +423,7 @@ class Turba_Object {
 
         $mime_part = new Horde_Mime_Part();
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
-        $viewer = Horde_Mime_Viewer::factory($mime_part);
+        $viewer = $GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getViewer($mime_part);
 
         // We can always download files.
         $url_params = array('actionID' => 'download_file',
@@ -434,7 +434,7 @@ class Turba_Object {
         $dl = Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Let's see if we can view this one, too.
-        if ($viewer && !is_a($viewer, 'Horde_Mime_Viewer_default')) {
+        if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
             $url = Horde::applicationUrl('view.php')->add('actionID', 'view_file');
             $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
         } else {

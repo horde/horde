@@ -30,11 +30,13 @@ class Horde_Mime_Viewer_Base
     protected $_mimepart = null;
 
     /**
-     * Viewer parameters.
+     * Required configuration parameters.
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_required = array(
+        'charset'
+    );
 
     /**
      * This driver's display capabilities.
@@ -67,13 +69,28 @@ class Horde_Mime_Viewer_Base
      *
      * @param Horde_Mime_Part $mime_part  The object with the data to be
      *                                    rendered.
-     * @param array $conf                 Configuration specific to the
-     *                                    driver.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'charset' - (string) The local UI charset. [REQUIRED]
+     * 'temp_file' - (callback) A callback function that returns a temporary
+     *               filename.  Is passed one parameter: a prefix string.
+     *                DEFAULT: Uses Horde_Util::getTempFile().
+     * 'text_filter' - (callback) A callback function used to filter text.
+     *                 Is called the same as Horde_Text_Filter::filter().
+     *                 DEFAULT: Uses Horde_Text_Filter::filter().
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct(Horde_Mime_Part $mime_part,
-                                array $conf = array())
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
-        $this->_mimepart = $mime_part;
+        foreach ($this->_required as $val) {
+            if (!isset($conf[$val])) {
+                throw new InvalidArgumentException(__CLASS__ . ': Missing configuration value (' . $val . ')');
+            }
+        }
+
+        $this->_mimepart = $part;
         $this->_conf = $conf;
     }
 
@@ -86,17 +103,6 @@ class Horde_Mime_Viewer_Base
     public function setMimePart(Horde_Mime_Part $mime_part)
     {
         $this->_mimepart = $mime_part;
-    }
-
-    /**
-     * Set parameters for use with this object.
-     *
-     * @param array $params  An array of params to add to the internal
-     *                       params list.
-     */
-    public function setParams(array $params = array())
-    {
-        $this->_params = array_merge($this->_params, $params);
     }
 
     /**
@@ -313,7 +319,20 @@ class Horde_Mime_Viewer_Base
      */
     public function getConfigParam($param)
     {
-        return isset($this->_conf[$param]) ? $this->_conf[$param] : null;
+        return isset($this->_conf[$param])
+            ? $this->_conf[$param]
+            : null;
+    }
+
+    /**
+     * Sets a configuration parameter for the current viewer.
+     *
+     * @param string $param  The parameter name.
+     * @param mixed $value   The parameter value.
+     */
+    public function setConfigParam($param, $value)
+    {
+        $this->_conf[$param] = $value;
     }
 
     /**
@@ -323,7 +342,7 @@ class Horde_Mime_Viewer_Base
      */
     public function getDriver()
     {
-        return $this->_conf['_driver'];
+        return $this->getConfigParam('_driver');
     }
 
     /**
@@ -389,6 +408,34 @@ class Horde_Mime_Viewer_Base
         }
 
         return $data;
+    }
+
+    /**
+     * Returns a temporary file name.
+     *
+     * @return string  A temp filename.
+     */
+    protected function _getTempFile()
+    {
+        return ($temp_file = $this->getConfigParam('temp_file'))
+            ? call_user_func($temp_file, __CLASS__)
+            : Horde_Util::getTempFile(__CLASS__);
+    }
+
+    /**
+     * Filter text.
+     *
+     * @param string $text    TODO
+     * @param mixed  $driver  TODO
+     * @param array  $params  TODO
+     *
+     * @return string  The filtered text.
+     */
+    protected function _textFilter($text, $driver, array $params = array())
+    {
+        return ($text_filter = $this->getConfigParam('text_filter'))
+            ? call_user_func($text_filter, $text, $driver, $params)
+            : Horde_Text_Filter::filter($text, $driver, $params);
     }
 
 }

@@ -107,7 +107,7 @@ if ($fileList) {
         $realname = $currFile->queryName();
         $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
 
-        $icon = Horde_Mime_Viewer::getIcon($mimeType);
+        $icon = $injector->getInstance('Horde_Mime_Viewer')->getIcon($mimeType);
 
         $author = Chora::showAuthorName($lg->queryAuthor());
         $filerev = $lg->queryRevision();

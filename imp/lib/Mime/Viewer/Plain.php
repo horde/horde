@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Plain class renders out text/plain MIME parts
+ * The IMP_Mime_Viewer_Plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
+class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
      * Cached data.
@@ -78,8 +78,8 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         // Convert to the local charset.
         if ($inline) {
-            $text = Horde_String::convertCharset($text, $charset);
-            $charset = $GLOBALS['registry']->getCharset();
+            $text = Horde_String::convertCharset($text, $charset, $this->getConfigParam('charset'));
+            $charset = $this->getConfigParam('charset');
         }
         $type = 'text/html; charset=' . $charset;
 
@@ -124,7 +124,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 (($show == 'hidden') ||
                  (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
             if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
-                $header = $this->_params['contents']->getHeaderOb();
+                $header = $this->getConfigParam('imp_contents')->getHeaderOb();
                 $imp_ui = new IMP_Ui_Message();
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
@@ -147,7 +147,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Run filters.
-        $text = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($text, array_keys($filters), array_values($filters));
+        $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
 
         // Wordwrap.
         $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);
@@ -317,7 +317,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');
-        $text_part->setCharset($GLOBALS['registry']->getCharset());
+        $text_part->setCharset($this->getConfigParam('charset'));
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 
@@ -353,7 +353,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         );
 
         return '<div class="fixed">' .
-            $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset()), array_keys($filters), array_values($filters)) .
+            $this->_textFilter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset(), $this->getConfigParam('charset')), array_keys($filters), array_values($filters)) .
             ' [...]</div>';
     }
 

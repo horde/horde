@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Smil renders SMIL documents to very basic HTML.
+ * The IMP_Mime_Viewer_Smil renders SMIL documents to very basic HTML.
  *
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
+class IMP_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
 {
     /**
      * User-defined function callback for start elements.
@@ -28,7 +28,7 @@ class IMP_Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
         case 'IMG':
             if (isset($attrs['SRC']) &&
                 (($rp = $this->_getRelatedLink($attrs['SRC'])) !== false)) {
-                $this->_content .= '<img src="' . $this->_params['contents']->urlView($rp, 'view_attach') . '" alt="" /><br />';
+                $this->_content .= '<img src="' . $this->getConfigParam('imp_contents')->urlView($rp, 'view_attach') . '" alt="" /><br />';
             }
             break;
 
@@ -50,11 +50,12 @@ class IMP_Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
      */
     protected function _getRelatedLink($cid)
     {
-        if (isset($this->_params['related_id']) &&
-            (($key = array_search(trim($cid, '<>', $this->_params['related_cids']))) !== false)) {
-            return $this->_param['contents']->getMIMEPart($key);
+        if ($related_part = $this->findMimeType($this->_mimepart->getMimeId(), 'multipart/related') &&
+            (($key = array_search(trim($cid, '<>', $related_part->getMetadata('related_cids')))) !== false)) {
+            return $this->getConfigParam('imp_contents')->getMIMEPart($key);
         }
 
         return false;
     }
+
 }

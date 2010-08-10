@@ -29,6 +29,27 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
     );
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'location' - (string) Location of the abiword binary.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'location'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -36,21 +57,20 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
     protected function _render()
     {
         /* Check to make sure the viewer program exists. */
-        if (!isset($this->_conf['location']) ||
-            !file_exists($this->_conf['location'])) {
+        if (!($location = $this->getConfigParam('location')) ||
+            !file_exists($location)) {
             return array();
         }
 
-        $tmp_in = Horde::getTempFile('msword');
-        $tmp_out = Horde::getTempFile('msword');
+        $tmp_in = $this->_getTempFile();
+        $tmp_out = $this->_getTempFile();
 
         file_put_contents($tmp_in, $this->_mimepart->getContents());
-        $args = ' --to=html --to-name=' . $tmp_out . ' ' . $tmp_in;
 
-        exec($this->_conf['location'] . $args);
+        exec($location . ' --to=html --to-name=' . $tmp_out . ' ' . $tmp_in);
 
-        if (file_exists($tmp_output)) {
-            $data = file_get_contents($tmp_output);
+        if (file_exists($tmp_out)) {
+            $data = file_get_contents($tmp_out);
             $type = 'text/html';
         } else {
             $data = _("Unable to translate this Word document");
@@ -59,7 +79,7 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
 
         return $this->_renderReturn(
             $data,
-            $type . '; charset=' . $GLOBALS['registry']->getCharset()
+            $type . '; charset=' . $this->getConfigParam('charset')
         );
     }
 

@@ -1003,13 +1003,14 @@ if ($redirect) {
         $t->set('numberattach', $imp_compose->numberOfAttachments());
         if ($t->get('numberattach')) {
             $atc = array();
+            $v = $injector->getInstance('Horde_Mime_Viewer');
             foreach ($imp_compose->getAttachments() as $atc_num => $data) {
                 $mime = $data['part'];
                 $type = $mime->getType();
 
                 $entry = array(
                     'name' => $mime->getName(true),
-                    'icon' => Horde_Mime_Viewer::getIcon($type),
+                    'icon' => $v->getIcon($type),
                     'number' => $atc_num,
                     'type' => $type,
                     'size' => $mime->getSize(),

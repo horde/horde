@@ -36,7 +36,7 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
     {
         return $this->_renderReturn(
             null,
-            'text/plain; charset=' . $GLOBALS['registry']->getCharset()
+            'text/plain; charset=' . $this->getConfigParam('charset')
         );
     }
 
@@ -81,8 +81,8 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
         }
 
         return $this->_renderReturn(
-            (empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . Horde_Text_Filter::filter(implode("<br />\n", $header_output), 'emails') . '</div>')),
-            'text/html; charset=' . $GLOBALS['registry']->getCharset()
+            (empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . $this->_textFilter(implode("<br />\n", $header_output), 'emails') . '</div>')),
+            'text/html; charset=' . $this->getConfigParam('charset')
         );
     }
 

@@ -1,37 +1,13 @@
 <?php
-// $Horde: luxor/config/mime_drivers.php.dist,v 1.2 2003/01/30 10:40:23 mikec Exp $
-
 /**
- * Decide which output drivers you want to activate for the Luxor
- * module.
+ * MIME Viewer configuration for Luxor.
  *
- * Right now, the choices are:
+ * Settings in this file override settings in horde/config/mime_drivers.php.
+ * All drivers configured in that file, but not configured here, will also
+ * be used to display MIME content.
  *
+ * $Id$
  */
-$mime_drivers_map['luxor']['registered'] = array();
 
-/**
- * If you want to specifically override any MIME type to be handled by
- * a specific driver, then enter it here. Normally, this is safe to
- * leave, but it's useful when multiple drivers handle the same MIME
- * type, and you want to specify exactly which one should handle it.
- */
-$mime_drivers_map['luxor']['overrides'] = array();
-
-/**
- * Driver specific settings. Here, you have to configure each driver
- * which you chose to activate above. Default settings have been
- * filled in for them, and if you haven't activated it, then just
- * leave it as it is - it won't get loaded.
- *
- * The 'handles' setting below shouldn't be changed in most
- * circumstances. It registers a set of MIME type that the driver can
- * handle. The 'x-extension' MIME type is a special one to Horde that
- * maps a file extension to a MIME type. It's useful when you know
- * that all files ending in '.c' are C files, for example.
- *
- * The 'icons' entry is for the driver to register various icons for
- * the MIME types it handles. The array consists of a 'default' icon
- * for that driver, and can also include specific MIME-types which can
- * have their own icons.
- */
+/* By default, Luxor uses the default Horde-wide settings contained in
+ * horde/config/mime_drivers.php. */

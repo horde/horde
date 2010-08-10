@@ -41,16 +41,21 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  Reference to an object with the
-     *                                    information to be rendered.
-     * @param array $conf                 Configuration specific to the
-     *                                    driver.
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'gzip' - (Horde_Compress_Gzip) A gzip object.
+     * 'monospace' - (string) A class to use to display monospace text inline.
+     *               DEFAULT: Uses style="font-family:monospace"
+     * 'tar' - (Horde_Compress_Tar) A tar object.
+     * </pre>
      */
-    public function __construct($mime_part, $conf = array())
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
-        parent::__construct($mime_part, $conf);
+        parent::__construct($part, $conf);
 
-        $this->_metadata['compressed'] = in_array($mime_part->getSubType(), $this->_gzipSubtypes);
+        $this->_metadata['compressed'] = in_array($part->getSubType(), $this->_gzipSubtypes);
     }
 
     /**
@@ -78,19 +83,23 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
             return array();
         }
 
+        $charset = $this->getConfigParam('charset');
         $contents = $this->_mimepart->getContents();
 
         /* Decompress gzipped files. */
         if (in_array($subtype, $this->_gzipSubtypes)) {
-            $gzip = Horde_Compress::factory('gzip');
-            $contents = $gzip->decompress($contents);
+            if (!$this->getConfigParam('gzip')) {
+                $this->setConfigParam('gzip', Horde_Compress::factory('Gzip'));
+            }
+            $contents = $this->getConfigParam('gzip')->decompress($contents);
         }
 
         /* Obtain the list of files/data in the tar file. */
-        $tar = Horde_Compress::factory('tar');
-        $tarData = $tar->decompress($contents);
+        if (!$this->getConfigParam('tar')) {
+            $this->setConfigParam('tar', Horde_Compress::factory('Tar'));
+        }
+        $tarData = $this->getConfigParam('tar')->decompress($contents);
 
-        $charset = $GLOBALS['registry']->getCharset();
         $fileCount = count($tarData);
 
         $name = $this->_mimepart->getName(true);
@@ -98,35 +107,58 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
             $name = _("unnamed");
         }
 
+        $monospace = $this->getConfigParam('monospace');
+
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><pre>' .
-            Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
-            Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
-            Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
+            '<table><tr><td align="left"><span ' .
+            ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
+            $this->_textFilter(_("Archive Name") . ':  ' . $name, 'Space2html', array(
+                'charset' => $charset,
+                'encode' => true,
+                'encode_all' => true
+            )) . "\n" .
+            $this->_textFilter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'Space2html', array(
+                'charset' => $charset,
+                'encode' => true,
+                'encode_all' => true
+            )) . "\n" .
+            $this->_textFilter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'Space2html', array(
+                'charset' => $charset,
+                'encode' => true,
+                'encode_all' => true
+            )) .
             "\n\n" .
-            Horde_Text_Filter::filter(
+            $this->_textFilter(
                 str_pad(_("File Name"), 62, ' ', STR_PAD_RIGHT) .
                 str_pad(_("Attributes"), 15, ' ', STR_PAD_LEFT) .
                 str_pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
                 str_pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT),
-                'space2html',
-                array('charset' => $charset, 'encode' => true, 'encode_all' => true)
+                'Space2html',
+                array(
+                    'charset' => $charset,
+                    'encode' => true,
+                    'encode_all' => true
+                )
             ) . "\n" .
             str_repeat('-', 106) . "\n";
 
         foreach ($tarData as $val) {
-            $text .= Horde_Text_Filter::filter(
+            $text .= $this->_textFilter(
                 str_pad($val['name'], 62, ' ', STR_PAD_RIGHT) .
                 str_pad($val['attr'], 15, ' ', STR_PAD_LEFT) .
                 str_pad($val['size'], 10, ' ', STR_PAD_LEFT) .
                 str_pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT),
-                'space2html',
-                array('charset' => $charset, 'encode' => true, 'encode_all' => true)
+                'Space2html',
+                array(
+                    'charset' => $charset,
+                    'encode' => true,
+                    'encode_all' => true
+                )
             ) . "\n";
         }
 
         return $this->_renderReturn(
-            nl2br($text . str_repeat('-', 106) . "\n</pre></td></tr></table>"),
+            nl2br($text . str_repeat('-', 106) . "\n</span></td></tr></table>"),
             'text/html; charset=' . $charset
         );
     }

@@ -38,6 +38,7 @@ class IMP_Contents
     const RENDER_INFO = 8;
     const RENDER_INLINE_AUTO = 16;
     const RENDER_RAW = 32;
+    const RENDER_RAW_FALLBACK = 64;
 
     /**
      * Flag to indicate whether the last call to getBodypart() returned
@@ -348,9 +349,6 @@ class IMP_Contents
      * @param array $options   Additional options:
      * <pre>
      * 'mime_part' - (Horde_Mime_Part) The MIME part to render.
-     * 'params' - (array) Additional params to set. Special params:
-     *            'raw' - The calling code wants display of the raw data,
-     *            without any additional formatting.
      * 'type' - (string) Use this MIME type instead of the MIME type
      *          identified in the MIME part.
      * </pre>
@@ -375,14 +373,10 @@ class IMP_Contents
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
         $type = empty($options['type'])
-            ? $mime_part->getType()
+            ? null
             : $options['type'];
 
-        $viewer = Horde_Mime_Viewer::factory($mime_part, $type);
-        $viewer->setParams(array('contents' => $this));
-        if (!empty($options['params'])) {
-            $viewer->setParams($options['params']);
-        }
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this, $type);
 
         switch ($mode) {
         case self::RENDER_FULL:
@@ -429,6 +423,12 @@ class IMP_Contents
 
         case self::RENDER_RAW:
             $textmode = 'raw';
+            break;
+
+        case self::RENDER_RAW_FALLBACK:
+            $textmode = $viewer->canRender('raw')
+                ? 'raw'
+                : 'full';
             break;
         }
 
@@ -625,7 +625,7 @@ class IMP_Contents
         }
 
         /* Get part's icon. */
-        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img(Horde_Mime_Viewer::getIcon($mime_type), '', array('title' => $mime_type), '') : null;
+        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Mime_Viewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
 
         /* Get part's description. */
         $description = $mime_part->getDescription(true);
@@ -658,7 +658,7 @@ class IMP_Contents
         if ($is_atc &&
             $download_zip &&
             ($part['bytes'] > 204800)) {
-            $viewer = Horde_Mime_Viewer::factory($mime_part, $mime_type);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
                 $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
             }
@@ -871,11 +871,10 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = Horde_Mime_Viewer::factory($mime_part);
+            $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($mime_part, $this);
             if ($viewer->embeddedMimeParts()) {
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
-                $viewer->setParams(array('contents' => $this));
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
                     $this->_embedded[] = $id;
@@ -907,7 +906,7 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
-        $viewer = Horde_Mime_Viewer::factory($part, $type);
+        $viewer = $GLOBALS['injector']->getInstance('IMP_Mime_Viewer')->getViewer($part, $this, $type);
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;
@@ -1016,6 +1015,29 @@ class IMP_Contents
         }
 
         return false;
+    }
+
+    /**
+     * Find a MIME type in parent parts.
+     *
+     * @param string $id    The MIME ID to begin the search at.
+     * @param string $type  The MIME type to search for.
+     *
+     * @return mixed  Either the requested MIME part, or null if not found.
+     */
+    public function findMimeType($id, $type)
+    {
+        $id = Horde_Mime::mimeIdArithmetic($id, 'up');
+
+        while (!is_null($id)) {
+            if (($part = $this->getMIMEPart($id, array('nocontents' => true))) &&
+                ($part->getType() == $type)) {
+                return $part;
+            }
+            $id = Horde_Mime::mimeIdArithmetic($id, 'up');
+        }
+
+        return null;
     }
 
 }

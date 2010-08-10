@@ -66,8 +66,7 @@ if ($command) {
     $part->setType('application/x-httpd-phps');
     $part->buildMimeIds();
 
-    $viewer = Horde_Mime_Viewer::factory($part);
-    $pretty = $viewer->render('inline');
+    $pretty = $injector->getInstance('Horde_Mime_Viewer')->getViewer($part)->render('inline');
 
     echo '<h1 class="header">' . _("PHP Code") . '</h1>' .
         $pretty[1]['data'] .

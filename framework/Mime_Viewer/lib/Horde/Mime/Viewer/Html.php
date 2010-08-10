@@ -51,6 +51,27 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
     protected $_tmp = array();
 
     /**
+     * Constructor.
+     *
+     * @param Horde_Mime_Part $mime_part  The object with the data to be
+     *                                    rendered.
+     * @param array $conf                 Configuration:
+     * <pre>
+     * 'browser' - (Horde_Browser) A browser object.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Horde_Mime_Part $part, array $conf = array())
+    {
+        $this->_required = array_merge($this->_required, array(
+            'browser'
+        ));
+
+        parent::__construct($part, $conf);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
@@ -76,9 +97,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => Horde_String::convertCharset($html['data'], $this->_mimepart->getCharset()),
+                'data' => Horde_String::convertCharset($html['data'], $this->_mimepart->getCharset(), $this->getConfigParam('charset')),
                 'status' => $html['status'],
-                'type' => 'text/html; charset=' . $GLOBALS['registry']->getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }
@@ -108,17 +129,17 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
      */
     protected function _cleanHTML($data, $options = array())
     {
-        global $browser;
-
+        $browser = $this->getConfigParam('browser');
         $charset = isset($options['charset'])
             ? $options['charset']
             : $this->_mimepart->getCharset();
-        $strip_style_attributes = (!empty($options['inline']) &&
-                                   (($browser->isBrowser('mozilla') &&
-                                    ($browser->getMajor() == 4)) ||
-                                    $browser->isBrowser('msie')));
+        $strip_style_attributes =
+            (!empty($options['inline']) &&
+             (($browser->isBrowser('mozilla') &&
+              ($browser->getMajor() == 4)) ||
+              $browser->isBrowser('msie')));
 
-        $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
+        $data = $this->_textFilter($data, array('cleanhtml', 'xss'), array(
             array(
                 'charset' => $charset
             ),
