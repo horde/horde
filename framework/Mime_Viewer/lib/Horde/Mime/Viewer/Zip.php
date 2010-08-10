@@ -22,7 +22,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
+        'full' => false,
         'info' => true,
         'inline' => false,
         'raw' => false
@@ -66,34 +66,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
     }
 
     /**
-     * Return the full rendered version of the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
-     * @throws Horde_Exception
-     */
-    protected function _render()
-    {
-        return $this->_renderFullReturn($this->_toHTML());
-    }
-
-    /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _renderInfo()
-    {
-        return $this->_toHTML();
-    }
-
-    /**
-     * Converts the ZIP file to an HTML display.
-     *
-     * @return array  See parent::render().
-     * @throws Horde_Exception
-     */
-    protected function _toHTML()
     {
         $charset = $this->getConfigParam('charset');
         $contents = $this->_mimepart->getContents();

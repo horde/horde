@@ -22,7 +22,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
+        'full' => false,
         'info' => true,
         'inline' => false,
         'raw' => false
@@ -56,17 +56,6 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
         parent::__construct($part, $conf);
 
         $this->_metadata['compressed'] = in_array($part->getSubType(), $this->_gzipSubtypes);
-    }
-
-    /**
-     * Return the full rendered version of the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
-     * @throws Horde_Exception
-     */
-    protected function _render()
-    {
-        return $this->_renderFullReturn($this->_renderInfo());
     }
 
     /**

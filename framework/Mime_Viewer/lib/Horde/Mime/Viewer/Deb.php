@@ -21,7 +21,7 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
+        'full' => false,
         'info' => true,
         'inline' => false,
         'raw' => false
@@ -59,16 +59,6 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
         ));
 
         parent::__construct($part, $conf);
-    }
-
-    /**
-     * Return the full rendered version of the Horde_Mime_Part object.
-     *
-     * @return array  See parent::render().
-     */
-    protected function _render()
-    {
-        return $this->_renderFullReturn($this->_renderInfo());
     }
 
     /**

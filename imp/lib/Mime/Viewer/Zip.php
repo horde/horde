@@ -30,8 +30,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
     protected function _render()
     {
         if (!($zip_atc = Horde_Util::getFormData('zip_attachment'))) {
-            $this->_callback = array($this, '_IMPcallback');
-            return parent::_render();
+            return array();
         }
 
         /* Send the requested file. Its position in the zip archive is located
@@ -82,7 +81,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
     }
 
     /**
-     * The function to use as a callback to _toHTML().
+     * The function to use as a callback to _renderInfo().
      *
      * @param integer $key  The position of the file in the zip archive.
      * @param array $val    The information array for the archived file.
