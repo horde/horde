@@ -279,7 +279,7 @@ case _("Send"):
         );
 
         try {
-            if ($imp_compose->buildAndSendMessage($message, $header, $GLOBALS['registry']->getEmailCharset(), false, $options)) {
+            if ($imp_compose->buildAndSendMessage($message, $header, $registry->getEmailCharset(), false, $options)) {
                 $imp_compose->destroy('send');
 
                 $notification->push(_("Message sent successfully."), 'horde.success');
