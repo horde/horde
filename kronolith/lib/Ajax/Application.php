@@ -666,7 +666,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                         return $result;
                     }
                     $tasklist = $tasklists[$tasklistId];
-                    $_SESSION['all_external_calendars']['tasks'][$tasklistId] = $tasklist->get('name');
+                    $_SESSION['all_external_calendars']['tasks/' . $tasklistId] = new Kronolith_Calendar_External(array('api' => 'tasks', 'name' => $tasklist->get('name')));
                     $GLOBALS['display_external_calendars'][] = 'tasks/' . $tasklistId;
                     $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
                     Kronolith::readPermsForm($tasklist);
@@ -794,15 +794,15 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $calendar = $GLOBALS['all_calendars'][$this->_vars->cal];
         $tagger = Kronolith::getTagger();
         $result->calendar = array(
-            'name' => (!$calendar->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . '] ') . $calendar->get('name'),
-            'desc' => $calendar->get('desc'),
+            'name' => (!$calendar->owner() ? '' : '[' . $GLOBALS['registry']->convertUsername($calendar->owner(), false) . '] ') . $calendar->name(),
+            'desc' => $calendar->description(),
             'owner' => false,
-            'fg' => Kronolith::foregroundColor($calendar),
-            'bg' => Kronolith::backgroundColor($calendar),
+            'fg' => $calendar->foreground(),
+            'bg' => $calendar->background(),
             'show' => false,
-            'perms' => Kronolith::permissionToJson($calendar->getPermission()),
-            'edit' => $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
-            'tg' => array_values($tagger->getTags($calendar->getName(), 'calendar')));
+            'perms' => Kronolith::permissionToJson($calendar->permission()),
+            'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
+            'tg' => array_values($tagger->getTags($this->_vars->cal, 'calendar')));
         return $result;
     }
 
@@ -865,7 +865,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         list($driver, $calendar) = explode('|', $cal);
         if ($driver == 'internal' &&
             !array_key_exists($calendar,
-                              Kronolith::listCalendars(false, Horde_Perms::SHOW))) {
+                              Kronolith::listInternalCalendars(false, Horde_Perms::SHOW))) {
             $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
             return false;
         }

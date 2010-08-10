@@ -16,7 +16,7 @@ $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class'
 $current_user = $GLOBALS['registry']->getAuth();
 $my_calendars = array();
 $shared_calendars = array();
-foreach (Kronolith::listCalendars() as $id => $cal) {
+foreach (Kronolith::listInternalCalendars() as $id => $cal) {
     if ($cal->get('owner') && $cal->get('owner') == $current_user) {
         $my_calendars[$id] = $cal;
     } else {
@@ -29,18 +29,13 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
 }
 
 $externals = array();
-foreach ($all_external_calendars as $api => $categories) {
-    if (count($categories)) {
-        $app = $registry->get('name', $registry->hasInterface($api));
-        $externals[$app] = array();
-        foreach ($categories as $id => $name) {
-            if (!empty($conf['share']['hidden']) &&
-                !in_array($api . '/' . $id, $display_external_calendars)) {
-                continue;
-            }
-            $externals[$app][$api . '/' . $id] = $name;
-        }
+foreach ($all_external_calendars as $id => $calendar) {
+    $app = $registry->get('name', $registry->hasInterface($calendar->api()));
+    if (!empty($conf['share']['hidden']) &&
+        !in_array($id, $display_external_calendars)) {
+        continue;
     }
+    $externals[$app][$id] = $calendar->name();
 }
 
 $tagger = Kronolith::getTagger();
@@ -152,7 +147,7 @@ $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith
  <h4><?php echo _("Remote Calendars:") ?></h4>
  <ul id="remotecalendars">
 <?php foreach ($all_remote_calendars as $id => $cal): ?>
-  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal['url']) ?>"<?php echo (in_array($cal['url'], $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal['name']) ?></label> <?php echo $info_img ?></li>
+  <li<?php echo $cal->css() ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="remote_<?php echo htmlspecialchars($cal->url()) ?>"<?php echo (in_array($cal->url(), $display_remote_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->name()) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
@@ -160,8 +155,8 @@ $GLOBALS['injector']->getInstance('Horde_Ajax_Imple')->getImple(array('kronolith
 <?php if (!empty($conf['holidays']['enable'])): ?>
  <h4><?php echo _("Holidays:") ?></h4>
  <ul id="holidays">
-<?php foreach ($all_holidays as $holiday): ?>
-  <li<?php echo Kronolith::getCSSColors($holiday) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="holiday_<?php echo htmlspecialchars($holiday['id']) ?>"<?php echo (in_array($holiday['id'], $display_holidays) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($holiday['title']) ?></label></li>
+<?php foreach ($all_holidays as $id => $holiday): ?>
+  <li<?php echo $holiday->css() ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="holiday_<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_holidays) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($holiday->name()) ?></label></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

@@ -46,43 +46,74 @@ if (Kronolith::showAjaxView()) {
     Horde::applicationUrl('', true)->redirect();
 }
 
-$kronolith_driver = Kronolith::getDriver();
+do {
+    if ($exception = Horde_Util::getFormData('del_exception')) {
+        /* Deleting recurrence exceptions. */
+        list($type, $calendar) = explode('_', Horde_Util::getFormData('calendar'), 2);
+        try {
+            $kronolith_driver = Kronolith::getDriver($type, $calendar);
+            switch ($type) {
+            case 'internal':
+                $kronolith_calendar = $all_calendars[$calendar];
+                break;
+            case 'remote':
+                $kronolith_calendar = $all_remote_calendars[$calendar];
+                break;
+            }
 
-if ($exception = Horde_Util::getFormData('del_exception')) {
-    $calendar = Horde_Util::getFormData('calendar');
-    try {
-        $share = Kronolith::getInternalCalendar($calendar);
-        $kronolith_driver->open($calendar);
-        $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
-        $result = sscanf($exception, '%04d%02d%02d', $year, $month, $day);
-        if ($result == 3 && $event->recurs()) {
-            $event->recurrence->deleteException($year, $month, $day);
-            _save($event);
+            $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
+            if (!$kronolith_calendar->hasPermission($registry->getAuth(), Horde_Perms::EDIT, $event->creator)) {
+                $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+                break;
+            }
+            $result = sscanf($exception, '%04d%02d%02d', $year, $month, $day);
+            if ($result == 3 && $event->recurs()) {
+                $event->recurrence->deleteException($year, $month, $day);
+                _save($event);
+            }
+        } catch (Exception $e) {
+            $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
         }
-    } catch (Exception $e) {
-        $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
+        break;
     }
-} elseif (!Horde_Util::getFormData('cancel')) {
-    $source = Horde_Util::getFormData('existingcalendar');
-    $targetcalendar = Horde_Util::getFormData('targetcalendar');
+
+    if (Horde_Util::getFormData('cancel')) {
+        break;
+    }
+
+    list($sourceType, $source) = explode('_', Horde_Util::getFormData('existingcalendar'), 2);
+    list($targetType, $targetcalendar) = explode('_', Horde_Util::getFormData('targetcalendar'), 2);
     if (strpos($targetcalendar, ':')) {
         list($target, $user) = explode(':', $targetcalendar, 2);
     } else {
         $target = $targetcalendar;
         $user = $GLOBALS['registry']->getAuth();
     }
+
     try {
-        $share = Kronolith::getInternalCalendar($target);
         $event = false;
         if (($edit_recur = Horde_Util::getFormData('edit_recur')) &&
             $edit_recur != 'all' && $edit_recur != 'copy' &&
-            _check_max()) {
+            ($targetType != 'internal' || _check_max())) {
+            /* Edit a recurring exception. */
 
             /* Get event details. */
-            $kronolith_driver->open($source);
+            $kronolith_driver = Kronolith::getDriver($sourceType, $source);
+            switch ($sourceType) {
+            case 'internal':
+                $kronolith_calendar = $all_calendars[$source];
+                break;
+            case 'remote':
+                $kronolith_calendar = $all_remote_calendars[$source];
+                break;
+            }
             $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
-            $recur_ex = Horde_Util::getFormData('recur_ex');
-            $exception = new Horde_Date($recur_ex);
+            if (!$event->hasPermission(Horde_Perms::EDIT)) {
+                $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+                break;
+            }
+
+            $exception = new Horde_Date(Horde_Util::getFormData('recur_ex'));
 
             switch ($edit_recur) {
             case 'current':
@@ -95,7 +126,6 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 $originaltime = $event->start->strftime('%T');
 
                 /* Create one-time event. */
-                $kronolith_driver->open($target);
                 $event = $kronolith_driver->getEvent();
                 $event->readForm();
                 $event->baseid = $uid;
@@ -106,7 +136,8 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
             case 'future':
                 /* Set recurrence end. */
                 $exception->mday--;
-                if ($event->end->compareDate($exception) > 0) {
+                if ($event->end->compareDate($exception) > 0 &&
+                    $event->hasPermission(Horde_Perms::DELETE)) {
                     try {
                         $kronolith_driver->deleteEvent($event->id);
                     } catch (Exception $e) {
@@ -118,7 +149,6 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
                 }
 
                 /* Create new event. */
-                $kronolith_driver->open($target);
                 $event = $kronolith_driver->getEvent();
                 $event->readForm();
 
@@ -127,61 +157,78 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
 
             $event->uid = null;
             _save($event);
-            $event = null;
-        } elseif (Horde_Util::getFormData('saveAsNew') ||
-                  $edit_recur == 'copy') {
-            if (_check_max()) {
-                $kronolith_driver->open($target);
-                $event = $kronolith_driver->getEvent();
+            break;
+        }
+
+        /* Permission checks on the target calendar . */
+        switch ($targetType) {
+        case 'internal':
+            $kronolith_calendar = $all_calendars[$target];
+            break;
+        case 'remote':
+            $kronolith_calendar = $all_remote_calendars[$target];
+            break;
+        default:
+            break 2;
+        }
+        if ($user == $GLOBALS['registry']->getAuth() &&
+            !$kronolith_calendar->hasPermission(Horde_Perms::EDIT)) {
+            $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
+            break;
+        }
+        if ($user != $GLOBALS['registry']->getAuth() &&
+            !$kronolith_calendar->hasPermission(Kronolith::PERMS_DELEGATE)) {
+            $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
+            break;
+        }
+
+        if (Horde_Util::getFormData('saveAsNew') || $edit_recur == 'copy') {
+            /* Creating a copy of the event. */
+            if ($targetType == 'internal' && !_check_max()) {
+                break;
             }
+            $kronolith_driver = Kronolith::getDriver($targetType, $target);
+            $event = $kronolith_driver->getEvent();
         } else {
-            $event_load_from = $source;
+            /* Regular saving of event. */
+            $eventId = Horde_Util::getFormData('eventID');
+            $kronolith_driver = Kronolith::getDriver($sourceType, $source);
+            $event = $kronolith_driver->getEvent($eventId);
 
             if ($target != $source) {
-                // Only delete the event from the source calendar if this user
-                // has permissions to do so.
-                try {
-                    $sourceShare = Kronolith::getInternalCalendar($source);
-                    if ($sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) &&
-                        (($user == $GLOBALS['registry']->getAuth() &&
-                          $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) ||
-                         ($user != $GLOBALS['registry']->getAuth() &&
-                          $share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE)))) {
-                        $kronolith_driver->open($source);
+                /* Moving the event to a different calendar. Only delete the
+                 * event from the source calendar if this user has permissions
+                 * to do so. */
+                if (!$event->hasPermission(Horde_Perms::DELETE)) {
+                    $notification->push(_("You do not have permission to move this event."), 'horde.warning');
+                } else {
+                    if ($sourceType == 'internal' &&
+                        $targetType == 'internal') {
                         try {
-                            $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
-                            $event_load_from = $target;
+                            // TODO: abstract this out.
+                            $kronolith_driver->move($eventId, $target);
+                            $kronolith_driver->open($target);
+                            $event = $kronolith_driver->getEvent($eventId);
                         } catch (Exception $e) {
                             $notification->push(sprintf(_("There was an error moving the event: %s"), $e->getMessage()), 'horde.error');
                         }
+                    } else {
+                        $kronolith_driver->deleteEvent($eventId);
+                        $kronolith_driver = Kronolith::getDriver($targetType, $target);
+                        $event = $kronolith_driver->getEvent();
                     }
-                } catch (Exception $e) {
                 }
             }
-
-            $kronolith_driver->open($event_load_from);
-            $event = $kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         }
 
         if ($event) {
-            if (isset($sourceShare)
-                && !$sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-                $notification->push(_("You do not have permission to move this event."), 'horde.warning');
-            } elseif ($user != $GLOBALS['registry']->getAuth() &&
-                      !$share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE, $event->creator)) {
-                $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
-            } elseif ($user == $GLOBALS['registry']->getAuth() &&
-                      !$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $event->creator)) {
-                $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
-            } else {
-                $event->readForm();
-                _save($event);
-            }
+            $event->readForm();
+            _save($event);
         }
     } catch (Exception $e) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
     }
-}
+} while (false);
 
 $url = Horde_Util::getFormData('url');
 if (!empty($url)) {
@@ -192,5 +239,5 @@ if (!empty($url)) {
                     'year' => Horde_Util::getFormData('year')));
 }
 
-// Make sure URL is unique.
+/* Make sure URL is unique. */
 $url->unique()->redirect();

@@ -43,7 +43,7 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
 
         /* Need to have Horde_Perms::DELETE on a calendar to delete events
          * from it */
-        $calendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
+        $calendars = Kronolith::listInternalCalendars(true, Horde_Perms::DELETE);
 
         /* Start building the search */
         $kronolith_driver = Kronolith::getDriver();

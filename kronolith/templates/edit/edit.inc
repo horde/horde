@@ -15,7 +15,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
 <?php endif; ?>
 <?php if ($event->initialized && $event->hasPermission(Horde_Perms::EDIT)): ?>
 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($event->id) ?>" />
-<input type="hidden" name="existingcalendar" value="<?php echo htmlspecialchars($event->calendar) ?>" />
+<input type="hidden" name="existingcalendar" value="<?php echo htmlspecialchars($event->calendarType . '_' . $event->calendar) ?>" />
 <?php endif; ?>
 <?php if (!$showCalSelect): ?>
 <input type="hidden" name="targetcalendar" value="<?php echo htmlspecialchars($calendar_id) ?>" />
@@ -84,10 +84,10 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
         // Normal view
         foreach ($calendars as $id => $cal) {
             $delegates = array();
-            if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $event->creator)) {
-                $delegates[$id] = htmlspecialchars($cal->get('name'));
+            if ($cal->hasPermission(Horde_Perms::EDIT)) {
+                $delegates[$id] = htmlspecialchars($cal->name());
             } else {
-                $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');
+                $delegates[$id . ':' . $cal->owner()] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
             }
             foreach ($delegates as $delegate_id => $cal_name) {
                 $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';

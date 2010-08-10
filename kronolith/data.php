@@ -81,7 +81,6 @@ $param         = array('time_fields' => $time_fields,
                        'file_types'  => $file_types);
 $import_format = Horde_Util::getFormData('import_format', '');
 $error         = false;
-$kronolith_driver = Kronolith::getDriver();
 
 /* Loop through the action handlers. */
 switch ($actionID) {
@@ -105,17 +104,17 @@ case 'export':
     }
 
     $exportID = Horde_Util::getFormData('exportID');
-    foreach ($calendars as $cal) {
-        if ($kronolith_driver->calendar != $cal) {
-            $kronolith_driver->open($cal);
-        }
-        $events[$cal] = $kronolith_driver->listEvents($start, // Start date
-                                                      $end,   // End date
-                                                      false,  // Only return recurrences once
-                                                      false,  // Don't limit to alarms
-                                                      false,  // Don't cache json
-                                                      false,  // Don't add events to all days
-                                                      ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false);  // Don't return exception events
+    foreach ($calendars as $calendar) {
+        list($type, $cal) = explode('_', $calendar, 2);
+        $kronolith_driver = Kronolith::getDriver($type, $cal);
+        $events[$calendar] = $kronolith_driver->listEvents(
+            $start, // Start date
+            $end,   // End date
+            false,  // Only return recurrences once
+            false,  // Don't limit to alarms
+            false,  // Don't cache json
+            false,  // Don't add events to all days
+            ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false);  // Don't return exception events
     }
 
     if (!$events) {
@@ -127,7 +126,7 @@ case 'export':
     switch ($exportID) {
     case Horde_Data::EXPORT_CSV:
         $data = array();
-        foreach ($events as $cal => $calevents) {
+        foreach ($events as $calevents) {
             foreach ($calevents as $dayevents) {
                 foreach ($dayevents as $event) {
                     $row = array();
@@ -168,7 +167,7 @@ case 'export':
         $iCal = new Horde_Icalendar();
 
         $calIds = array();
-        foreach ($events as $cal => $calevents) {
+        foreach ($events as $calevents) {
             foreach ($calevents as $dayevents) {
                 foreach ($dayevents as $event) {
                     $calIds[$event->calendar] = true;
@@ -205,8 +204,7 @@ if (!$error && $import_format) {
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;
             try {
-                $share = $kronolith_shares->getShare($_SESSION['import_data']['import_cal']);
-                if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                if (!in_array($_SESSION['import_data']['import_cal'], Kronolith::listCalendars(Horde_Perms::EDIT))) {
                     $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
@@ -241,7 +239,8 @@ if (is_array($next_step)) {
     if ($max_events !== true) {
         $num_events = Kronolith::countEvents();
     }
-    $kronolith_driver->open($_SESSION['import_data']['import_cal']);
+    list($type, $calendar) = explode('_', $_SESSION['import_data']['import_cal'], 2);
+    $kronolith_driver = Kronolith::getDriver($type, $calendar);
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any events."),
@@ -251,7 +250,7 @@ if (is_array($next_step)) {
         /* Purge old calendar if requested. */
         if ($_SESSION['import_data']['purge']) {
             try {
-                $kronolith_driver->delete($_SESSION['import_data']['import_cal']);
+                $kronolith_driver->delete($calendar);
                 $notification->push(_("Calendar successfully purged."), 'horde.success');
             } catch (Exception $e) {
                 $notification->push(sprintf(_("The calendar could not be purged: %s"), $e->getMessage()), 'horde.error');
@@ -332,7 +331,7 @@ if (is_array($next_step)) {
         $notification->push(sprintf(_("%s file successfully imported"),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.success');
         if (Horde_Util::getFormData('import_ajax')) {
-            Horde::addInlineScript('window.parent.KronolithCore.loadCalendar(\'internal\', \'' . $_SESSION['import_data']['import_cal'] . '\');');
+            Horde::addInlineScript('window.parent.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');');
         }
     }
     $next_step = $data->cleanup();
@@ -350,25 +349,9 @@ if (Horde_Util::getFormData('import_ajax')) {
 
 $import_calendars = $export_calendars = array();
 if ($GLOBALS['registry']->getAuth()) {
-    $calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);
-    foreach ($calendars as $id => $calendar) {
-        if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-            !empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
-            continue;
-        }
-        $import_calendars[$id] = $calendar;
-    }
+    $import_calendars = Kronolith::listCalendars(Horde_Perms::EDIT, true);
 }
-$calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
-foreach ($calendars as $id => $calendar) {
-    if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-        !empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
-        continue;
-    }
-    $export_calendars[$id] = $calendar;
-}
+$export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
 $title = _("Import/Export Calendar");
 require KRONOLITH_TEMPLATES . '/common-header.inc';

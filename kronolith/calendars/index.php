@@ -49,7 +49,7 @@ $subscribe_url_base = Horde::url($subscribe_url_base, true, -1);
 
 $calendars = array();
 $sorted_calendars = array();
-$my_calendars = Kronolith::listCalendars(true);
+$my_calendars = Kronolith::listInternalCalendars(true);
 foreach ($my_calendars as $calendar) {
     $calendars[$calendar->getName()] = $calendar;
     $sorted_calendars[$calendar->getName()] = $calendar->get('name');

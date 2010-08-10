@@ -60,7 +60,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     {
         parent::open($calendar);
         $this->_client = null;
-        unset($this->_davSupport);
+        unset($this->_davSupport, $this->_permission);
     }
 
     /**
@@ -70,14 +70,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function backgroundColor()
     {
-        foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
-            if ($calendar['url'] == $this->calendar) {
-                return empty($calendar['color'])
-                    ? '#dddddd'
-                    : $calendar['color'];
-            }
-        }
-        return '#dddddd';
+        return empty($GLOBALS['all_remote_calendars'][$this->calendar])
+            ? '#dddddd'
+            : $GLOBALS['all_remote_calendars'][$this->calendar]->background();
     }
 
     public function listAlarms($date, $fullevent = false)
@@ -281,7 +276,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             if ($component->getType() == 'vEvent') {
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
-                $event->permission = $this->_permission;
+                $event->permission = $this->getPermission();
                 $event->fromiCalendar($component);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = $id ? $id : 'ical' . $i;
@@ -372,6 +367,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $components[$eventId]->getType() == 'vEvent') {
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
+            $event->permission = $this->getPermission();
             $event->fromiCalendar($components[$eventId]);
             $event->id = 'ical' . $eventId;
             return $event;
@@ -566,6 +562,19 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $this->_davSupport = false;
         return false;
+    }
+
+    /**
+     * Returns the permissions for the current calendar.
+     *
+     * @return integer  A Horde_Perms permission bit mask.
+     */
+    public function getPermission()
+    {
+        if ($this->isCalDAV()) {
+            return $this->_permission;
+        }
+        return Horde_Perms::SHOW | Horde_Perms::READ;
     }
 
     /**

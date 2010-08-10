@@ -43,12 +43,8 @@ class Kronolith_Event_Sql extends Kronolith_Event
 
         if (!empty($this->calendar) &&
             isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $backgroundColor = $share->get('color');
-            if (!empty($backgroundColor)) {
-                $this->_backgroundColor = $backgroundColor;
-                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
-            }
+            $this->_backgroundColor = $GLOBALS['all_calendars'][$this->calendar]->background();
+            $this->_foregroundColor = $GLOBALS['all_calendars'][$this->calendar]->foreground();
         }
     }
 

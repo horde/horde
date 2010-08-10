@@ -124,16 +124,13 @@ class Kronolith_Application extends Horde_Registry_Application
                 foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
                     $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->get('name'));
                 }
-                foreach ($GLOBALS['all_remote_calendars'] as $cal) {
-                    $fb_list['remote_' . htmlspecialchars($cal['url'])] = $cal['name'];
-                }
                 $ui->override['fb_cals'] = $fb_list;
             }
             break;
 
        case 'share':
             if (!$prefs->isLocked('default_share')) {
-                $all_shares = Kronolith::listCalendars();
+                $all_shares = Kronolith::listInternalCalendars();
                 $sharelist = array();
 
                 foreach ($all_shares as $id => $share) {

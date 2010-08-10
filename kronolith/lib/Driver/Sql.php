@@ -55,11 +55,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function backgroundColor()
     {
         if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $color = $share->get('color');
-            if (!empty($color)) {
-                return $color;
-            }
+            return $GLOBALS['all_calendars'][$this->calendar]->background();
         }
         return '#dddddd';
     }
@@ -512,7 +508,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         /* First try the user's own calendars. */
-        $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::READ);
+        $ownerCalendars = Kronolith::listInternalCalendars(true, Horde_Perms::READ);
         $event = null;
         foreach ($eventArray as $ev) {
             if (isset($ownerCalendars[$ev->calendar])) {
@@ -523,7 +519,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* If not successful, try all calendars the user has access too. */
         if (empty($event)) {
-            $readableCalendars = Kronolith::listCalendars(false, Horde_Perms::READ);
+            $readableCalendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
             foreach ($eventArray as $ev) {
                 if (isset($readableCalendars[$ev->calendar])) {
                     $event = $ev;

@@ -392,7 +392,7 @@ abstract class Kronolith_Event
     public function getShare()
     {
         if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            return $GLOBALS['all_calendars'][$this->calendar];
+            return $GLOBALS['all_calendars'][$this->calendar]->share();
         }
         throw new Kronolith_Exception('Share not found');
     }

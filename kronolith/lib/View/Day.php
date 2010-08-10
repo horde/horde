@@ -27,9 +27,9 @@ class Kronolith_View_Day extends Kronolith_Day {
 
         $this->_sidebyside = $GLOBALS['prefs']->getValue('show_shared_side_by_side');
         if ($this->_sidebyside) {
-            $allCalendars = Kronolith::listCalendars();
+            $allCalendars = Kronolith::listInternalCalendars();
             foreach ($GLOBALS['display_calendars'] as $cid) {
-                 $this->_currentCalendars[$cid] = &$allCalendars[$cid];
+                 $this->_currentCalendars[$cid] = $allCalendars[$cid];
                  $this->_all_day_events[$cid] = array();
             }
         } else {
@@ -43,7 +43,8 @@ class Kronolith_View_Day extends Kronolith_Day {
                     new Horde_Date(array('year' => $this->year,
                                          'month' => $this->month,
                                          'mday' => $this->mday)),
-                    $GLOBALS['display_calendars']);
+                    $GLOBALS['display_calendars'],
+                    true, false, false);
                 $this->_events = array_shift($events);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
@@ -112,7 +113,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         $rowspan = ($this->_all_day_maxrowspan) ? ' rowspan="' . $this->_all_day_maxrowspan . '"' : '';
         for ($k = 0; $k < $this->_all_day_maxrowspan; ++$k) {
             $row = '';
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 if (count($this->_all_day_events[$cid]) === $k) {
                     // There are no events or all events for this calendar
                     // have already been printed.
@@ -168,7 +169,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                 $row .= '<td>&nbsp;</td>';
             }
 
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 $hspan = 0;
                 foreach ($this->_event_matrix[$cid][$i] as $key) {
                     $event = &$this->_events[$key];
@@ -295,7 +296,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
         // Separate out all day events and do some initialization/prep
         // for parsing.
-        foreach ($this->_currentCalendars as $cid => $cal) {
+        foreach (array_keys($this->_currentCalendars) as $cid) {
             $this->_all_day_events[$cid] = array();
             $this->_all_day_rowspan[$cid] = 0;
         }
@@ -340,7 +341,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         // that we have here.
         for ($i = 0; $i < $this->_slotsPerDay; ++$i) {
             // Initialize this slot in the event matrix.
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 $this->_event_matrix[$cid][$i] = array();
             }
 

@@ -24,7 +24,7 @@ class Kronolith_Event_Ical extends Kronolith_Event
      *
      * @var integer
      */
-    public $permission;
+    public $permission = 0;
 
     /**
      * Imports a backend specific event object.
@@ -59,18 +59,7 @@ class Kronolith_Event_Ical extends Kronolith_Event
      */
     public function hasPermission($permission, $user = null)
     {
-        if (!is_null($this->permission)) {
-            return $this->permission & $permission;
-        }
-
-        switch ($permission) {
-        case Horde_Perms::SHOW:
-        case Horde_Perms::READ:
-            return true;
-
-        default:
-            return false;
-        }
+        return $this->permission & $permission;
     }
 
     /**

@@ -45,23 +45,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block
                                           'type' => 'checkbox',
                                           'default' => 0));
         $params['calendar']['values']['__all'] = _("All Visible");
-        foreach (Kronolith::listCalendars() as $id => $cal) {
-            if ($cal->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
-                continue;
-            }
-            $params['calendar']['values'][$id] = $cal->get('name');
-        }
-
-        foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
-            if (count($categories)) {
-                $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
-                $externals[$app] = array();
-                foreach ($categories as $id => $name) {
-                    $params['calendar']['values'][$api . '/' . $id] = $name;
-                }
-            }
+        foreach (Kronolith::listCalendars(Horde_Perms::SHOW, true) as $id => $cal) {
+            $params['calendar']['values'][$id] = $cal->name();
         }
 
         return $params;
@@ -101,28 +86,18 @@ class Horde_Block_Kronolith_summary extends Horde_Block
         try {
             if (isset($this->_params['calendar']) &&
                 $this->_params['calendar'] != '__all') {
-
-                if (strpos($this->_params['calendar'], '/') !== false) {
-                    /* listTimeObjects */
-                    $driver = Kronolith::getDriver('Horde');
-                    $driver->open($this->_params['calendar']);
-                    $all_events = $driver->listEvents($startDate, $endDate, true, false, false, true);
-                } else {
-                    try {
-                        $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-                        if (!$calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
-                            return _("Permission Denied");
-                        }
-                    } catch (Exception $e) {
-                    }
-                    $all_events = Kronolith::listEvents($startDate,
-                                                        $endDate,
-                                                        array($this->_params['calendar']),
-                                                        true, false, false);
+                $calendars = Kronolith::listCalendars();
+                if (!isset($calendars[$this->_params['calendar']])) {
+                    return _("Calendar not found");
                 }
+                if (!$calendars[$this->_params['calendar']]->hasPermission(Horde_Perms::READ)) {
+                    return _("Permission Denied");
+                }
+                list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
+                $driver = Kronolith::getDriver($type, $calendar);
+                $all_events = $driver->listEvents($startDate, $endDate, true);
             } else {
-                $all_events = Kronolith::listEvents($startDate,
-                                                    $endDate,
+                $all_events = Kronolith::listEvents($startDate, $endDate,
                                                     $GLOBALS['display_calendars']);
             }
         } catch (Exception $e) {

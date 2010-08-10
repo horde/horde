@@ -92,13 +92,13 @@ class Kronolith_View_Month {
                                         'mday' => $this->_startOfView + $this->_daysInView));
 
         if ($prefs->getValue('show_shared_side_by_side')) {
-            $allCalendars = Kronolith::listCalendars();
+            $allCalendars = Kronolith::listInternalCalendars();
             $this->_currentCalendars = array();
             foreach ($GLOBALS['display_calendars'] as $id) {
-                $this->_currentCalendars[$id] = &$allCalendars[$id];
+                $this->_currentCalendars[$id] = $allCalendars[$id];
             }
         } else {
-            $this->_currentCalendars = array(true);
+            $this->_currentCalendars = array('internal_0' => true);
         }
 
         try {

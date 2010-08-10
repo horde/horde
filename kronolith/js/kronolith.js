@@ -2888,7 +2888,7 @@ KronolithCore = {
             switch (type) {
             case 'internal':
                 this.calendarTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
-                $('kronolithCalendar' + type + 'ImportCal').setValue(calendar);
+                $('kronolithCalendar' + type + 'ImportCal').setValue('internal_' + calendar);
                 if (info.edit) {
                     $('kronolithCalendar' + type + 'LinkImport').up('li').show();
                 } else {
@@ -2901,7 +2901,7 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkExport').up('span').show();
                 $('kronolithCalendar' + type + 'Export').href = type == 'internal'
-                    ? Kronolith.conf.URI_CALENDAR_EXPORT + '=' + calendar
+                    ? Kronolith.conf.URI_CALENDAR_EXPORT + calendar
                     : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
                 $('kronolithCalendar' + type + 'UrlSub').setValue(info.sub);

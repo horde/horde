@@ -48,9 +48,9 @@ class Kronolith_View_EditEvent {
         $identity = $GLOBALS['injector']->getInstance('Horde_Prefs_Identity')->getIdentity();
 
         if ($this->event->hasPermission(Horde_Perms::EDIT)) {
-            $calendar_id = $this->event->calendar;
+            $calendar_id = $this->event->calendarType . '_' . $this->event->calendar;
         } else {
-            $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+            $calendar_id = 'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
         if (!$this->event->hasPermission(Horde_Perms::EDIT)) {
             try {
@@ -74,16 +74,7 @@ class Kronolith_View_EditEvent {
         if ($this->event->creator == $GLOBALS['registry']->getAuth()) {
             $perms |= Kronolith::PERMS_DELEGATE;
         }
-        $all_calendars = Kronolith::listCalendars(false, $perms);
-        $calendars = array();
-        foreach ($all_calendars as $id => $calendar) {
-            if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
-                continue;
-            }
-            $calendars[$id] = $calendar;
-        }
+        $calendars = Kronolith::listCalendars($perms, true);
 
         $buttons = array();
         if (!$this->event->hasPermission(Horde_Perms::EDIT) &&

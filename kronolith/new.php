@@ -32,8 +32,8 @@ if ($perms->hasAppPermission('max_events') !== true &&
     $url->redirect();
 }
 
-$calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
-if (!$calendar_id) {
+$calendar_id = Horde_Util::getFormData('calendar', 'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
+if ($calendar_id == 'internal_') {
     $url->redirect();
 }
 
@@ -67,16 +67,7 @@ if (isset($url)) {
     $cancelurl = Horde::applicationUrl('month.php', true)->add('month', $month);
 }
 
-$all_calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
-$calendars = array();
-foreach ($all_calendars as $id => $calendar) {
-    if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-        !empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($calendar->getName(), $GLOBALS['display_calendars'])) {
-        continue;
-    }
-    $calendars[$id] = $calendar;
-}
+$calendars = Kronolith::listCalendars(Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE, true);
 
 Horde_Core_Ui_JsCalendar::init(array(
     'full_weekdays' => true

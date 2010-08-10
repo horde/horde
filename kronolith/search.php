@@ -71,7 +71,7 @@ if ($search_mode == 'basic') {
     $optgroup = $GLOBALS['browser']->hasFeature('optgroup');
     $current_user = $GLOBALS['registry']->getAuth();
     $calendars = array();
-    foreach (Kronolith::listCalendars(false, Horde_Perms::READ) as $id => $cal) {
+    foreach (Kronolith::listInternalCalendars(false, Horde_Perms::READ) as $id => $cal) {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
@@ -82,21 +82,19 @@ if ($search_mode == 'basic') {
             $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
         }
     }
-    foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
-        $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
-        foreach ($categories as $id => $name) {
-            if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($api . '/' . $id, $GLOBALS['display_external_calendars'])) {
-                continue;
-            }
-            $calendars[$app . ':']['Horde|external_' . $api . '/' . $id] = $name;
+    foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
+        $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
+        if (!empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($id, $GLOBALS['display_external_calendars'])) {
+            continue;
         }
+        $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_remote_calendars'] as $cal) {
-        $calendars[_("Remote Calendars:")]['Ical|' . $cal['url']] = $cal['name'];
+    foreach ($GLOBALS['all_remote_calendars'] as $id => $cal) {
+        $calendars[_("Remote Calendars:")]['Ical|' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_holidays'] as $holiday) {
-        $calendars[_("Holidays:")]['Holidays|' . $holiday['id']] = $holiday['title'];
+    foreach ($GLOBALS['all_holidays'] as $id => $holiday) {
+        $calendars[_("Holidays:")]['Holidays|' . $id] = $holiday->name();
     }
 }
 

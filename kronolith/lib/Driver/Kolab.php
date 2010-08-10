@@ -80,11 +80,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function backgroundColor()
     {
         if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $color = $share->get('color');
-            if (!empty($color)) {
-                return $color;
-            }
+            return $GLOBALS['all_calendars'][$this->calendar]->background();
         }
         return '#dddddd';
     }
@@ -305,7 +301,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
-            $calendars = array_keys(Kronolith::listCalendars(true, Horde_Perms::READ));
+            $calendars = array_keys(Kronolith::listInternalCalendars(true, Horde_Perms::READ));
         }
 
         foreach ($calendars as $calendar) {
