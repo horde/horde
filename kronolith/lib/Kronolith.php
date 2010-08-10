@@ -1562,7 +1562,7 @@ class Kronolith
     public static function addShare($info)
     {
         try {
-            $calendar = $GLOBALS['kronolith_shares']->newShare(strval(new Horde_String_Uuid()));
+            $calendar = $GLOBALS['kronolith_shares']->newShare(strval(new Horde_Support_Uuid()));
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
