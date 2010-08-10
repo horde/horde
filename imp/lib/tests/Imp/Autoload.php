@@ -23,6 +23,8 @@ if (!spl_autoload_functions()) {
             . '} else if (substr($filename, 0, 4) == "IMP/") {'
             . '  $filename = substr($filename, 4);'
             . '  $filename = dirname(__FILE__) . "/../../$filename";'
+            . '} else if ($filename == "IMP") {'
+            . '  $filename = dirname(__FILE__) . "/../../$filename";'
             . '}'
             . '$err_mask = E_ALL ^ E_WARNING;'
             . '$oldErrorReporting = error_reporting($err_mask);'
@@ -34,3 +36,10 @@ if (!spl_autoload_functions()) {
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
+
+/** Load stubs */
+require_once 'Stub/Browser.php';
+require_once 'Stub/Identity.php';
+require_once 'Stub/Injector.php';
+require_once 'Stub/Prefs.php';
+require_once 'Stub/Registry.php';
