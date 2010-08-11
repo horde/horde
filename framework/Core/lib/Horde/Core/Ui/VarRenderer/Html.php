@@ -1330,7 +1330,7 @@ EOT;
             return '';
         }
         return '<pre>' .
-            $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypr('Pgp', $var->type->getPGPParams())->pgpPrettyKey($key) .
+            $GLOBALS['injector']->getInstance('Horde_Crypt')->getCrypt('Pgp', $var->type->getPGPParams())->pgpPrettyKey($key) .
             '</pre>';
     }
 
