@@ -718,7 +718,10 @@ class Horde_Icalendar
                     preg_match_all('/,([^,]*)/', ',' . $value, $values);
 
                     foreach ($values[1] as $value) {
-                        $dates[] = $this->_parseDate($value);
+                        $stamp = $this->_parseDateTime($value);
+                        $dates[] = array('year' => date('Y', $stamp),
+                                         'month' => date('m', $stamp),
+                                         'mday' => date('d', $stamp));
                     }
                     $this->setAttribute($tag, isset($dates[0]) ? $dates[0] : null, $params, true, $dates);
                     break;
