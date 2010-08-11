@@ -695,6 +695,10 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
     }
 
+    /**
+     * Wrapper for sending notifications, so that we can overwrite this action
+     * in Kronolith_Driver_Resource.
+     */
     protected function _handleNotifications($event, $action)
     {
         Kronolith::sendNotification($event, $action);
