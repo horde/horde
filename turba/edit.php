@@ -20,7 +20,7 @@ $original_source = $vars->get('original_source');
 $key = $vars->get('key');
 $groupedit = $vars->get('actionID') == 'groupedit';
 $objectkeys = $vars->get('objectkeys');
-$url = new Horde_Url(Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true));
+$url = new Horde_Url(Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true)));
 
 /* Edit the first of a list of contacts? */
 if ($groupedit && (!$key || $key == '**search')) {

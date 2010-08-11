@@ -10,7 +10,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
         $this->addHidden('', 'original_source', 'text', false);
         $this->addHidden('', 'actionID', 'text', false);
 
-        parent::Turba_Form_EditContact($vars, $contact);
+        parent::__construct($vars, $contact);
         $vars->set('actionID', 'groupedit');
 
         $objectkeys = $vars->get('objectkeys');
@@ -59,7 +59,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
             'objectkeys' => $info['objectkeys'],
             'url' => $info['url'],
             'actionID' => 'groupedit'
-        );
+        ));
 
         $objectkey = array_search($info['source'] . ':' . $info['key'], $info['objectkeys']);
 
