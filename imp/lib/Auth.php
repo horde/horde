@@ -500,9 +500,7 @@ class IMP_Auth
         /* If the user wants to run filters on login, make sure they get
            run. */
         if ($GLOBALS['prefs']->getValue('filter_on_login')) {
-            /* Run filters. */
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter('INBOX');
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
         }
 
         /* Check for drafts due to session timeouts. */

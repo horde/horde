@@ -29,8 +29,7 @@ class IMP_Ui_Block
     {
         /* Filter on INBOX display, if requested. */
         if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter('INBOX');
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();

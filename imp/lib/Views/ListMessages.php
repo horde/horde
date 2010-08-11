@@ -85,8 +85,7 @@ class IMP_Views_ListMessages
             !empty($args['applyfilter']) ||
             (($mbox == 'INBOX') &&
              $GLOBALS['prefs']->getValue('filter_on_display'))) {
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter($mbox);
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($mbox);
         }
 
         /* Generate the sorted mailbox list now. */

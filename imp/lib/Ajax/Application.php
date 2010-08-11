@@ -817,14 +817,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $imp_filter = new IMP_Filter();
         $result = false;
 
         if ($this->_vars->blacklist) {
             $change = $this->_changed(false);
             if (!is_null($change)) {
                 try {
-                    if ($imp_filter->blacklistMessage($indices, false)) {
+                    if ($GLOBALS['injector']->getInstance('IMP_Filter')->blacklistMessage($indices, false)) {
                         $result = $this->_generateDeleteResult($indices, $change);
                     }
                 } catch (Horde_Exception $e) {
@@ -833,7 +832,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         } else {
             try {
-                $imp_filter->whitelistMessage($indices, false);
+                $GLOBALS['injector']->getInstance('IMP_Filter')->whitelistMessage($indices, false);
             } catch (Horde_Exception $e) {
                 $result = $this->_checkUidvalidity();
             }

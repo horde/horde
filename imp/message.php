@@ -78,11 +78,10 @@ $imp_ui = new IMP_Ui_Message();
 switch ($vars->actionID) {
 case 'blacklist':
 case 'whitelist':
-    $imp_filter = new IMP_Filter();
     if ($vars->actionID == 'blacklist') {
-        $imp_filter->blacklistMessage($indices);
+        $injector->getInstance('IMP_Filter')->blacklistMessage($indices);
     } else {
-        $imp_filter->whitelistMessage($indices);
+        $injector->getInstance('IMP_Filter')->whitelistMessage($indices);
     }
     break;
 

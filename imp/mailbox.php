@@ -101,13 +101,11 @@ case 'change_sort':
     break;
 
 case 'blacklist':
-    $imp_filter = new IMP_Filter();
-    $imp_filter->blacklistMessage($indices);
+    $injector->getInstance('IMP_Filter')->blacklistMessage($indices);
     break;
 
 case 'whitelist':
-    $imp_filter = new IMP_Filter();
-    $imp_filter->whitelistMessage($indices);
+    $injector->getInstance('IMP_Filter')->whitelistMessage($indices);
     break;
 
 case 'spam_report':
@@ -207,8 +205,7 @@ if (!$readonly && !empty($_SESSION['imp']['filteravail'])) {
 
 /* Run filters now. */
 if ($do_filter) {
-    $imp_filter = new IMP_Filter();
-    $imp_filter->filter(IMP::$mailbox);
+    $injector->getInstance('IMP_Filter')->filter(IMP::$mailbox);
 }
 
 /* Generate folder options list. */
