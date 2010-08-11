@@ -651,7 +651,9 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 $encrypt_options = $prefs->isLocked('default_encrypt')
       ? $prefs->getValue('default_encrypt')
       : $vars->encrypt_options;
-if ($prefs->getValue('use_pgp') && !$prefs->isLocked('default_encrypt')) {
+if ($prefs->getValue('use_pgp') &&
+    !$prefs->isLocked('default_encrypt') &&
+    $prefs->getValue('pgp_reply_pubkey')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
     if (!$vars->compose_formToken &&
         in_array($default_encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC))) {

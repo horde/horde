@@ -210,6 +210,7 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'pgp_attach_pubkey';
                 $ui->suppress[] = 'pgp_scan_body';
                 $ui->suppress[] = 'pgp_verify';
+                $ui->suppress[] = 'pgp_reply_pubkey';
                 $ui->suppress[] = 'pgppublickey';
                 $ui->suppress[] = 'pgpprivatekey';
             }

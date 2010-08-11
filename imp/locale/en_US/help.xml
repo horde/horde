@@ -347,6 +347,14 @@
     </para>
 </entry>
 
+<entry id="pgp-option-reply-pubkey">
+    <title>PGP: Validate PGP Public Keys When Replying</title>
+    <heading>Validate PGP Public Keys When Replying</heading>
+    <para>
+    If set, and PGP encryption is used by default for composing messages, IMP will verify that it can access all recipients' public keys when the reply is first created. This has the disadvantage that it may cause a delay in opening the reply window. However, it has the advantage of informing you immediately if you will be able to correctly send the encrypted message to all recipients immediately.
+    </para>
+</entry>
+
 <entry id="compose-options-encrypt">
     <title>Message Composition: Encryption Options</title>
     <heading>No Encryption</heading>

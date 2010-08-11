@@ -1512,7 +1512,7 @@ $prefGroups['pgp'] = array(
     'desc' => sprintf(_("Control PGP support for %s."), $GLOBALS['registry']->get('name')),
     'members' => array(
         'use_pgp', 'use_pgp_text', 'pgp_attach_pubkey', 'pgp_scan_body',
-        'pgp_verify', 'pgppublickey', 'pgpprivatekey'
+        'pgp_verify', 'pgp_reply_pubkey', 'pgppublickey', 'pgpprivatekey'
     )
 );
 
@@ -1548,6 +1548,14 @@ $_prefs['pgp_verify'] = array(
     'type' => 'checkbox',
     'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
     'help' => 'pgp-option-verify'
+);
+
+$_prefs['pgp_reply_pubkey'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Check for valid recipient PGP public keys while replying?"),
+    'help' => 'pgp-option-reply-pubkey'
 );
 
 $_prefs['pgppublickey'] = array(
