@@ -22,7 +22,7 @@ class Horde_Ui_Sidebar
      */
     public function getTree()
     {
-        global $conf, $injector, $prefs, $registry;
+        global $conf, $injector, $prefs, $registry, $notification;
 
         $apps = $cache = $children = $menu = array();
 
