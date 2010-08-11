@@ -763,7 +763,7 @@ abstract class Kronolith_Event
                     // Need to change the UID so it links to the original
                     // recurring event.
                     $exceptionEvent->uid = $this->uid;
-                    $vEventException = $exceptionEvent->toIcalendar($calendar);
+                    $vEventException = $exceptionEvent->toiCalendar($calendar);
                     // This should never happen, but protect against it anyway.
                     if (count($vEventException) > 1) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
@@ -1742,7 +1742,7 @@ abstract class Kronolith_Event
                 return false;
             }
         } catch (Exception $e) {
-            return $false;
+            return false;
         }
         $this->id = $eventID;
         return true;
