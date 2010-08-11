@@ -1970,7 +1970,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if (!empty($changes['d'])) {
-            $result['d'] = array_reverse($changes['d']);
+            $result['d'] = array_map('strval', array_reverse($changes['d']));
         }
 
         return $result;
