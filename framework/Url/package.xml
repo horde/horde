@@ -29,7 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Url::redirect().
+ <notes>* Add Horde_Url_Exception::.
+ * Add Horde_Url::redirect().
  * Add Horde_Url::unique().
  * Add support for callback function for toString conversion.
  * Add support for URL anchors.
@@ -40,6 +41,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Url">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Url -->
      <file name="Url.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -57,6 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Url/Exception.php" as="Horde/Url/Exception.php" />
    <install name="lib/Horde/Url.php" as="Horde/Url.php" />
   </filelist>
  </phprelease>
