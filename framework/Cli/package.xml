@@ -60,6 +60,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <extension>
     <name>gettext</name>
    </extension>
+   <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>

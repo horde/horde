@@ -305,6 +305,12 @@ class Horde_Cli
      */
     public function fatal($error)
     {
+        if ($error instanceof Exception) {
+            $trace = $error;
+        } else {
+            $trace = debug_backtrace();
+        }
+        $backtrace = new Horde_Support_Backtrace($trace);
         if (is_object($error) && method_exists($error, 'getMessage')) {
             $error = $error->getMessage();
         }
@@ -313,6 +319,7 @@ class Horde_Cli
         $this->writeln($this->red(_("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
+        $this->writeln($backtrace->getMap());
         $this->writeln($this->red('===================='));
         exit(1);
     }
