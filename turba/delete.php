@@ -7,7 +7,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
@@ -19,19 +22,24 @@ $driver = Turba_Driver::singleton($source);
 
 if ($conf['documents']['type'] != 'none') {
     $object = $driver->getObject($key);
-    if (is_a($object, 'PEAR_Error')) {
+    if ($object instanceof PEAR_Error) {
         $notification->push($object->getMessage(), 'horde.error');
         Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
-    if (is_a($deleted = $object->deleteFiles(), 'PEAR_Error')) {
+
+    $deleted = $object->deleteFiles();
+    if ($deleted instanceof PEAR_Error) {
         $notification->push($deleted, 'horde.error');
         Horde::applicationUrl($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 
-if (!is_a($result = $driver->delete($key), 'PEAR_Error')) {
-    header('Location: ' . Horde_Util::getFormData('url', Horde::url($prefs->getValue('initial_page'), true)));
-    exit;
+$result = $driver->delete($key);
+if (!($result instanceof PEAR_Error)) {
+    $url = ($url = Horde_Util::getFormData('url'))
+        ? new Horde_Url($url)
+        : Horde::applicationUrl($prefs->getValue('initial_page'), true);
+    $url->redirect();
 }
 
 $notification->push(sprintf(_("There was an error deleting this contact: %s"), $result->getMessage()), 'horde.error');
