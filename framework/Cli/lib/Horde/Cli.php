@@ -300,10 +300,14 @@ class Horde_Cli
     /**
      * Displays a fatal error message.
      *
-     * @param string $error  The error text to display.
+     * @param mixed $error  The error text to display, an exception or an
+     *                      object with a getMessage() method.
      */
     public function fatal($error)
     {
+        if (is_object($error) && method_exists($error, 'getMessage')) {
+            $error = $error->getMessage();
+        }
         $this->writeln($this->red('===================='));
         $this->writeln();
         $this->writeln($this->red(_("Fatal Error:")));
