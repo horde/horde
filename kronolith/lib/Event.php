@@ -474,7 +474,6 @@ abstract class Kronolith_Event
         }
 
         /* Save */
-        $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
 
         /* Now that the event is definitely commited to storage, we can add
@@ -508,13 +507,6 @@ abstract class Kronolith_Event
      *                            object will represent.
      */
     public function fromDriver($event)
-    {
-    }
-
-    /**
-     * Prepares this event to be saved to the backend.
-     */
-    public function toDriver()
     {
     }
 

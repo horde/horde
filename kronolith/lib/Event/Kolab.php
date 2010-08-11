@@ -167,7 +167,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     /**
      * Prepares this event to be saved to the backend.
      */
-    public function toDriver()
+    public function toKolab()
     {
         $event = array();
         $event['uid'] = $this->uid;

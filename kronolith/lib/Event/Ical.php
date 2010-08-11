@@ -40,14 +40,6 @@ class Kronolith_Event_Ical extends Kronolith_Event
     }
 
     /**
-     * Prepares this event to be saved to the backend.
-     */
-    public function toDriver()
-    {
-        return $this->toiCalendar();
-    }
-
-    /**
      * Encapsulates permissions checking.
      *
      * $user is being ignored.

@@ -548,7 +548,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $values = array();
         $query = 'UPDATE ' . $this->_params['table'] . ' SET ';
-        foreach ($event->getProperties() as $key => $val) {
+        foreach ($event->toProperties() as $key => $val) {
             $query .= " $key = ?,";
             $values[] = $val;
         }
@@ -610,7 +610,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $cols_name = ' (event_id, event_uid,';
         $cols_values = ' VALUES (?, ?,';
         $values = array($event->id, $event->uid);
-        foreach ($event->getProperties() as $key => $val) {
+        foreach ($event->toProperties() as $key => $val) {
             $cols_name .= " $key,";
             $cols_values .= ' ?,';
             $values[] = $val;
