@@ -39,8 +39,6 @@ class Horde_Support_Guid
      * 'prefix' - (string) A prefix to add between the date string and the
      *            random string.
      *            DEFAULT: NONE
-     * 'rlength' - (integer) The length of the random string.
-     *             DEFAULT: 16
      * 'server' - (string) The server name.
      *            DEFAULT: $_SERVER['SERVER_NAME'] (or 'localhost')
      * </pre>
@@ -58,8 +56,6 @@ class Horde_Support_Guid
      * 'prefix' - (string) A prefix to add between the date string and the
      *            random string.
      *            DEFAULT: NONE
-     * 'rlength' - (integer) The length of the random string.
-     *             DEFAULT: 16
      * 'server' - (string) The server name.
      *            DEFAULT: $_SERVER['SERVER_NAME'] (or 'localhost')
      * </pre>
@@ -69,7 +65,7 @@ class Horde_Support_Guid
         $this->_guid = date('YmdHis')
             . '.'
             . (isset($opts['prefix']) ? $opts['prefix'] . '.' : '')
-            . strval(new Horde_Support_Randomid(isset($opts['rlength']) ? $opts['rlength'] : 16))
+            . strval(new Horde_Support_Randomid())
             . '@'
             . (isset($opts['server']) ? $opts['server'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
     }
