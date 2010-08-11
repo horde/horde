@@ -293,11 +293,47 @@ class Kronolith_Driver
     }
 
     /**
+     * Saves an event in the backend.
+     *
+     * If it is a new event, it is added, otherwise the event is updated.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    public function saveEvent($event)
+    {
+        if ($event->stored || $event->exists()) {
+            return $this->_updateEvent($event);
+        }
+
+        if (!$event->id) {
+            $event->id = (string)new Horde_Support_Randomid;
+        }
+        if (!$event->uid) {
+            $event->uid = (string)new Horde_Support_Guid;
+        }
+        return $this->_addEvent($event);
+    }
+
+    /**
      * Stub to be overridden in the child class.
      *
      * @throws Kronolith_Exception
      */
-    public function saveEvent()
+    protected function _addEvent()
+    {
+        throw new Kronolith_Exception($this->_errormsg);
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _updateEvent()
     {
         throw new Kronolith_Exception($this->_errormsg);
     }

@@ -328,39 +328,51 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Saves an event in the backend.
-     * If it is a new event, it is added, otherwise the event is updated.
+     * Updates an existing event in the backend.
      *
      * @param Kronolith_Event $event  The event to save.
      *
-     * @return integer  The event id.
+     * @return string  The event id.
      * @throws Horde_Mime_Exception
      */
-    public function saveEvent($event)
+    protected function _updateEvent($event)
     {
-        $result = $this->synchronize();
+        return $this->_saveEvent($event, true);
+    }
 
-        $uid = $event->uid;
-        if ($uid == null) {
-            $event->uid = $this->_store->generateUID();
-        }
+    /**
+     * Adds an event to the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     */
+    protected function _addEvent($event)
+    {
+        return $this->_saveEvent($event, false);
+    }
 
-        $attributes = $event->toDriver();
+    /**
+     * Saves an event in the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     */
+    protected function _saveEvent($event, $edit)
+    {
+        $this->synchronize();
 
-        $edit = false;
-        $stored_uid = null;
-        if ($event->stored || $event->exists()) {
-            $stored_uid = $attributes['uid'];
-            $action = array('action' => 'modify');
-            $edit = true;
-        } else {
-            $action = array('action' => 'add');
-        }
+        $action = $edit
+            ? array('action' => 'modify')
+            : array('action' => 'add');
 
-        $result = $this->_store->save($attributes, $stored_uid);
+        $this->_store->save($event->toDriver(), $edit ? $event->uid : null);
 
         /* Deal with tags */
-        if (!empty($edit)) {
+        if ($edit) {
             Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
         } else {
             Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
