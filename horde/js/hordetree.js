@@ -41,6 +41,8 @@ var Horde_Tree = Class.create({
         this.rootNodes.each(this.buildTree.bind(this));
 
         $(this.opts.target).update(this.output.join(''));
+        delete this.output;
+
         this._correctWidthForScrollbar();
 
         // If using alternating row shading, work out correct shade.
