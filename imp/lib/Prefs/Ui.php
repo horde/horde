@@ -935,13 +935,13 @@ class IMP_Prefs_Ui
             $tmp['colorid'] = $bgid;
             $tmp['color'] = $color;
 
+            $tmp['flag_del'] = !empty($val['d']);
+
             $out[] = $tmp;
         }
         $t->set('flags', $out);
 
         $t->set('picker_img', Horde::img('colorpicker.png', _("Color Picker")));
-        $t->set('flag_del', !empty($val['d']));
-
         $t->set('userflags_notlocked', !$userflags_locked);
 
         return $t->fetch(IMP_TEMPLATES . '/prefs/flags.html');
