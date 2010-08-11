@@ -37,5 +37,5 @@ if ($form->validate($vars)) {
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, 'create.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::applicationUrl('create.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

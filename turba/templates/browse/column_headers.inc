@@ -1,4 +1,4 @@
-<form method="post" name="contacts" id="contacts" action="browse.php">
+<form method="post" name="contacts" id="contacts" action="<?php echo Horde::applicationUrl('browse.php') ?>">
 <input type="hidden" name="source" value="<?php echo htmlspecialchars($GLOBALS['default_source']) ?>" />
 <?php echo Horde_Util::formInput() ?>
 <table cellspacing="0" width="100%" class="linedRow">

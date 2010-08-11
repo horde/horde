@@ -454,7 +454,10 @@ class Turba_Object {
      */
     function vfsEditUrl($file)
     {
-        $delform = '<form action="deletefile.php" style="display:inline" method="post">' . Horde_Util::formInput() .
+        $delform = '<form action="' .
+            Horde::applicationUrl('deletefile.php') .
+            '" style="display:inline" method="post">' .
+            Horde_Util::formInput() .
             '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .
             '<input type="hidden" name="source" value="' . htmlspecialchars($this->driver->name) . '" />' .
             '<input type="hidden" name="key" value="' . htmlspecialchars($this->getValue('__key')) . '" />' .

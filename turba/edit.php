@@ -88,5 +88,5 @@ $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'edit.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::applicationUrl('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
