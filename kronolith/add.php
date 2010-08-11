@@ -13,45 +13,73 @@ if (Kronolith::showAjaxView()) {
     Horde::applicationUrl('', true)->redirect();
 }
 
-if (!Horde_Util::getFormData('cancel')) {
-    $targetcalendar = Horde_Util::getFormData('targetcalendar');
+do {
+    if (Horde_Util::getFormData('cancel')) {
+        break;
+    }
+
+    list($targetType, $targetcalendar) = explode('_', Horde_Util::getFormData('targetcalendar'), 2);
     if (strpos($targetcalendar, ':')) {
         list($calendar_id, $user) = explode(':', $targetcalendar, 2);
     } else {
         $calendar_id = $targetcalendar;
         $user = $GLOBALS['registry']->getAuth();
     }
+
     try {
-        $share = Kronolith::getInternalCalendar($calendar_id);
+        /* Permission checks on the target calendar . */
+        switch ($targetType) {
+        case 'internal':
+            $kronolith_calendar = $all_calendars[$calendar_id];
+            break;
+        case 'remote':
+            $kronolith_calendar = $all_remote_calendars[$calendar_id];
+            break;
+        default:
+            break 2;
+        }
+        if ($user == $GLOBALS['registry']->getAuth() &&
+            !$kronolith_calendar->hasPermission(Horde_Perms::EDIT)) {
+            $notification->push(sprintf(_("You do not have permission to add events to %s."), $kronolith_calendar->name()), 'horde.warning');
+            break;
+        }
         if ($user != $GLOBALS['registry']->getAuth() &&
-            !$share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE, $GLOBALS['registry']->getAuth())) {
+            !$kronolith_calendar->hasPermission(Kronolith::PERMS_DELEGATE)) {
             $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
-        } elseif ($user == $GLOBALS['registry']->getAuth() &&
-                  !$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, $GLOBALS['registry']->getAuth())) {
-            $notification->push(sprintf(_("You do not have permission to add events to %s."), $share->get('name')), 'horde.warning');
-        } elseif ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
-                  $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents()) {
-            $event = Kronolith::getDriver(null, $calendar_id)->getEvent();
-            $event->readForm();
+            break;
+        }
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        if ($perms->hasAppPermission('max_events') !== true &&
+            $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
             try {
-                $result = $event->save();
-                Kronolith::notifyOfResourceRejection($event);
-                if (Horde_Util::getFormData('sendupdates', false)) {
-                    try {
-                        $event = Kronolith::getDriver()->getEvent($result);
-                        Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
-                    } catch (Exception $e) {
-                        $notification->push($e, 'horde.error');
-                    }
-                }
-            } catch (Exception $e) {
-                $notification->push(sprintf(_("There was an error adding the event: %s"), $e->getMessage()), 'horde.error');
+                $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')), ENT_COMPAT, $GLOBALS['registry']->getCharset());
             }
+            $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
+            break;
+        }
+
+        $event = Kronolith::getDriver($targetType, $calendar_id)->getEvent();
+        $event->readForm();
+        try {
+            $event->save();
+            Kronolith::notifyOfResourceRejection($event);
+            if (Horde_Util::getFormData('sendupdates', false)) {
+                try {
+                    $event = Kronolith::getDriver()->getEvent($result);
+                    Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
+                } catch (Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
+            }
+        } catch (Exception $e) {
+            $notification->push(sprintf(_("There was an error adding the event: %s"), $e->getMessage()), 'horde.error');
         }
     } catch (Exception $e) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
     }
-}
+} while (false);
 
 $url = Horde_Util::getFormData('url');
 if (!empty($url)) {
