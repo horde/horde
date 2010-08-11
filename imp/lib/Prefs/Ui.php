@@ -222,18 +222,18 @@ class IMP_Prefs_Ui
             if ($prefs->isLocked('drafts_folder')) {
                 $ui->suppress[] = 'draftsselect';
             } else {
-                $code['drafts'] = _("Enter the name for your new drafts folder");
+                $code['drafts'] = _("Enter the name for your new drafts folder.");
             }
 
             if ($prefs->isLocked('spam_folder')) {
                 $ui->suppress[] = 'spamselect';
             } else {
-                $code['spam'] = _("Enter the name for your new spam folder");
+                $code['spam'] = _("Enter the name for your new spam folder.");
             }
 
             if (!$prefs->isLocked('trash_folder') &&
                 !$prefs->isLocked('use_vtrash')) {
-                $code['trash'] = _("Enter the name for your new trash folder");
+                $code['trash'] = _("Enter the name for your new trash folder.");
             } else {
                 $ui->suppress[] = 'trashselect';
             }
@@ -1740,29 +1740,25 @@ class IMP_Prefs_Ui
         global $prefs;
 
         if (!$GLOBALS['conf']['user']['allow_folders'] ||
-            (strlen($folder) == 0) ||
             $prefs->isLocked($pref)) {
             return false;
         }
 
-        $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
-
         if ($folder == IMP::PREF_NO_FOLDER) {
-            $prefs->setValue($pref, '');
-        } else {
-            if (!empty($new)) {
-                $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
-                if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'))) {
-                    $folder = null;
-                }
-            }
+            return $prefs->setValue($pref, '');
+        }
 
-            if (strlen($folder)) {
-                return $prefs->setValue($pref, IMP::folderPref($folder, false));
+        if (!empty($new)) {
+            $new = Horde_String::convertCharset($new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP');
+            $folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($new);
+            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->create($folder, $prefs->getValue('subscribe'))) {
+                $folder = null;
             }
         }
 
-        return false;
+        return strlen($folder)
+            ? $prefs->setValue($pref, IMP::folderPref($folder, false))
+            : false;
     }
 
 }
