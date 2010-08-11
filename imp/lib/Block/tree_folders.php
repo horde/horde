@@ -20,29 +20,45 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 {
     protected $_app = 'imp';
 
-    protected function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree($tree, $indent = 0, $parent = null)
     {
+        global $injector, $prefs, $registry;
+
         /* Run filters now */
-        if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
+        if ($prefs->getValue('filter_on_display')) {
+            $injector->getInstance('IMP_Filter')->filter('INBOX');
         }
 
         /* Cache some additional values. */
-        $image_dir = (string)Horde_Themes::img();
+        $image_dir = strval(Horde_Themes::img());
 
-        $tree->addNode($parent . 'compose', $parent, _("New Message"),
-                       $indent, false,
-                       array('icon' => 'compose.png',
-                             'icondir' => $image_dir,
-                             'url' => strval(IMP::composeLink()),
-                             'target' => $GLOBALS['prefs']->getValue('compose_popup') ? 'horde_menu' : 'horde_main'));
+        $tree->addNode(
+            $parent . 'compose',
+            $parent,
+            _("New Message"),
+            $indent,
+            false,
+            array(
+                'icon' => 'compose.png',
+                'icondir' => $image_dir,
+                'url' => strval(IMP::composeLink()),
+                'target' => $prefs->getValue('compose_popup') ? 'horde_menu' : 'horde_main'
+            )
+        );
 
         /* Add link to the search page. */
-        $tree->addNode($parent . 'search', $parent, _("Search"),
-                       $indent, false,
-                       array('icon' => 'search.png',
-                             'icondir' => $image_dir,
-                             'url' => Horde::applicationUrl('search.php')));
+        $tree->addNode(
+            $parent . 'search',
+            $parent,
+            _("Search"),
+            $indent,
+            false,
+            array(
+                'icon' => 'search.png',
+                'icondir' => $image_dir,
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
 
         if ($_SESSION['imp']['protocol'] == 'pop') {
             return;
@@ -51,9 +67,9 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         $name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
 
         /* Initialize the IMP_Tree object. */
-        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree = $injector->getInstance('IMP_Imap_Tree');
         $mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
-        if ($GLOBALS['prefs']->getValue('subscribe')) {
+        if ($prefs->getValue('subscribe')) {
             $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
         }
 
@@ -74,41 +90,52 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                 $inbox = $val;
             }
 
-            $node_params = array(
-                'icon' => $val['icon'],
-                'icondir' => (string)$val['icondir'],
-                'iconopen' => $val['iconopen'],
-                'url' => ($val['container']) ? null : $name_url->add('mailbox', $val['value']),
+            $tree->addNode(
+                $parent . $val['value'],
+                ($val['level']) ? $parent . $val['parent'] : $parent,
+                $label,
+                $indent + $val['level'],
+                $imaptree->isOpen($val['value']),
+                array(
+                    'icon' => $val['icon'],
+                    'icondir' => (string)$val['icondir'],
+                    'iconopen' => $val['iconopen'],
+                    'url' => ($val['container']) ? null : $name_url->add('mailbox', $val['value']),
+                )
             );
-            $tree->addNode($parent . $val['value'],
-                           ($val['level']) ? $parent . $val['parent'] : $parent,
-                           $label, $indent + $val['level'], $imaptree->isOpen($val['value']), $node_params);
         }
 
         /* We want to rewrite the parent node of the INBOX to include new mail
          * notification. */
         if ($inbox) {
-            $url = $GLOBALS['registry']->get('url', $parent);
+            $url = $registry->get('url', $parent);
             if (empty($url)) {
-                if (($GLOBALS['registry']->get('status', $parent) == 'heading') ||
-                    !$GLOBALS['registry']->get('webroot')) {
-                    $url = null;
-                } else {
-                    $url = Horde::url($GLOBALS['registry']->getInitialPage($parent));
-                }
+                $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
+                    ? null
+                    : $registry->getInitialPage($parent);
             }
 
-            $node_params = array('url' => $url,
-                                 'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
-                                 'icondir' => '');
-            $menu_parent = $GLOBALS['registry']->get('menu_parent', $parent);
-            $name = $GLOBALS['registry']->get('name', $parent);
+            $node_params = array(
+                'icon' => strval($registry->get('icon', $parent)),
+                'icondir' => '',
+                'url' => $url
+            );
+            $name = $registry->get('name', $parent);
+
             if ($unseen) {
                 $node_params['icon'] = 'newmail.png';
                 $node_params['icondir'] = $image_dir;
                 $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
             }
-            $tree->addNode($parent, $menu_parent, $name, $indent - 1, $imaptree->isOpen($parent), $node_params);
+
+            $tree->addNode(
+                $parent,
+                $registry->get('menu_parent', $parent),
+                $name,
+                $indent - 1,
+                $imaptree->isOpen($parent),
+                $node_params
+            );
         }
     }
 
