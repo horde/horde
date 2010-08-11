@@ -44,6 +44,7 @@ framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 /horde/static/gc_*
 
 # Ignore locally defined config
+*/config/*.old
 */config/*.php
 */config/*.txt
 framework/bin/*.conf
