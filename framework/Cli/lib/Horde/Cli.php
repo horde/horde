@@ -439,6 +439,7 @@ class Horde_Cli
         @set_time_limit(0);
         ob_implicit_flush(true);
         ini_set('html_errors', false);
+        set_exception_handler(array($cli, 'fatal'));
         $_SERVER['HTTP_HOST'] = '127.0.0.1';
         $_SERVER['SERVER_NAME'] = '127.0.0.1';
         $_SERVER['SERVER_PORT'] = '';
