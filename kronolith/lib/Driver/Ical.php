@@ -277,7 +277,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->permission = $this->getPermission();
-                $event->fromiCalendar($component);
+                $event->fromDriver($component);
                 // Force string so JSON encoding is consistent across drivers.
                 $event->id = $id ? $id : 'ical' . $i;
 
@@ -368,12 +368,76 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event = new Kronolith_Event_Ical($this);
             $event->status = Kronolith::STATUS_FREE;
             $event->permission = $this->getPermission();
-            $event->fromiCalendar($components[$eventId]);
+            $event->fromDriver($components[$eventId]);
             $event->id = 'ical' . $eventId;
             return $event;
         }
 
         throw new Horde_Exception_NotFound(_("Event not found"));
+    }
+
+    /**
+     * Updates an existing event in the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    protected function _updateEvent($event)
+    {
+        $response = $this->_saveEvent($event);
+        if (!in_array($response->code, array(200, 204))) {
+            Horde::logMessage(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
+                                      $url, $response->code), 'INFO');
+            throw new Kronolith_Exception(_("The event could not be updated on the remote server."));
+        }
+        return $event->id;
+    }
+
+    /**
+     * Adds an event to the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    protected function _addEvent($event)
+    {
+        $response = $this->_saveEvent($event);
+        if (!in_array($response->code, array(200, 201, 204))) {
+            Horde::logMessage(sprintf('Failed to create event on remote calendar: url = "%s", status = %s',
+                                      $url, $response->code), 'INFO');
+            throw new Kronolith_Exception(_("The event could not be added to the remote server."));
+        }
+        return $event->id;
+    }
+
+    /**
+     * Updates an existing event in the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    protected function _saveEvent($event)
+    {
+        $ical = new Horde_Icalendar();
+        $ical->addComponent($event->toiCalendar($ical));
+
+        $url = trim($this->_getUrl(), '/') . '/' . $event->id;
+        try {
+            $response = $this->_getClient()->put($url, $ical->exportvCalendar());
+        } catch (Horde_Http_Exception $e) {
+            Horde::logMessage($e, 'INFO');
+            throw new Kronolith_Exception($e);
+        }
+        return $response;
     }
 
     /**
