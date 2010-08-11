@@ -57,6 +57,8 @@ class Horde_Tree_Select extends Horde_Tree
      */
     public function addNodeParams($id, $params = array())
     {
+        $id = $this->_nodeId($id);
+
         if (!is_array($params)) {
             $params = array($params);
         }

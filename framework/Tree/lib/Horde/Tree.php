@@ -270,25 +270,27 @@ class Horde_Tree
                             $expanded = true, $params = array(),
                             $extra_right = array(), $extra_left = array())
     {
+        $nodeid = $this->_nodeId($id);
+
         if (!empty($this->_options['session'])) {
             $sess = &$_SESSION[$this->_options['session']][$this->_instance];
             $toggle_id = Horde_Util::getFormData(self::TOGGLE . $this->_instance);
 
-            if ($id == $toggle_id) {
+            if ($nodeid == $toggle_id) {
                 /* We have a URL toggle request for this node. */
-                $expanded = $sess['expanded'][$id] = isset($sess['expanded'][$id])
+                $expanded = $sess['expanded'][$nodeid] = isset($sess['expanded'][$id])
                     /* Use session state if it is set. */
-                    ? (!$sess['expanded'][$id])
+                    ? (!$sess['expanded'][$nodeid])
                     /* Otherwise use what was passed through the function. */
                     : (!$expanded);
-            } elseif (isset($sess['expanded'][$id])) {
+            } elseif (isset($sess['expanded'][$nodeid])) {
                 /* If we have a saved session state use it. */
-                $expanded = $sess['expanded'][$id];
+                $expanded = $sess['expanded'][$nodeid];
             }
         }
 
-        $this->_nodes[$id]['label'] = $label;
-        $this->_nodes[$id]['expanded'] = $expanded;
+        $this->_nodes[$nodeid]['label'] = $label;
+        $this->_nodes[$nodeid]['expanded'] = $expanded;
 
         /* If any params included here add them now. */
         if (!empty($params)) {
@@ -304,15 +306,16 @@ class Horde_Tree
         }
 
         if (is_null($parent)) {
-            if (!in_array($id, $this->_root_nodes)) {
-                $this->_root_nodes[] = $id;
+            if (!in_array($nodeid, $this->_root_nodes)) {
+                $this->_root_nodes[] = $nodeid;
             }
         } else {
+            $parent = $this->_nodeId($parent);
             if (empty($this->_nodes[$parent]['children'])) {
                 $this->_nodes[$parent]['children'] = array();
             }
-            if (!in_array($id, $this->_nodes[$parent]['children'])) {
-                $this->_nodes[$parent]['children'][] = $id;
+            if (!in_array($nodeid, $this->_nodes[$parent]['children'])) {
+                $this->_nodes[$parent]['children'][] = $nodeid;
             }
         }
     }
@@ -337,6 +340,8 @@ class Horde_Tree
      */
     public function addNodeParams($id, $params = array())
     {
+        $id = $this->_nodeId($id);
+
         if (!is_array($params)) {
             $params = array($params);
         }
@@ -349,11 +354,9 @@ class Horde_Tree
         foreach ($params as $param_id => $param_val) {
             // Set only allowed and non-null params.
             if (in_array($param_id, $allowed) && !is_null($param_val)) {
-                // Cast Horde_Url objects
-                if ($param_id == 'url' || $param_id == 'icondir') {
-                    $param_val = (string)$param_val;
-                }
-                $this->_nodes[$id][$param_id] = $param_val;
+                $this->_nodes[$id][$param_id] = is_object($param_val)
+                    ? strval($param_val)
+                    : $param_val;
             }
         }
     }
@@ -367,6 +370,8 @@ class Horde_Tree
      */
     public function addNodeExtra($id, $side, $extra)
     {
+        $id = $this->_nodeId($id);
+
         if (!is_array($extra)) {
             $extra = array($extra);
         }
@@ -440,6 +445,8 @@ class Horde_Tree
      */
     public function isExpanded($id)
     {
+        $id = $this->_nodeId($id);
+
         return isset($this->_nodes[$id])
             ? $this->_nodes[$id]['expanded']
             : false;
@@ -486,6 +493,18 @@ class Horde_Tree
     public function isSupported()
     {
         return true;
+    }
+
+    /**
+     * Returns the escaped node ID.
+     *
+     * @param string $id  Node ID.
+     *
+     * @return string  Escaped node ID.
+     */
+    protected function _nodeId($id)
+    {
+        return rawurlencode($id);
     }
 
 }
