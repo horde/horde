@@ -75,7 +75,8 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block
                 if (!$calendars[$this->_params['calendar']]->hasPermission(Horde_Perms::READ)) {
                     return _("Permission Denied");
                 }
-                list($type, $calendar) = explode('_', $this->_params['calendar']                $driver = Kronolith::getDriver($type, $calendar);
+                list($type, $calendar) = explode('_', $this->_params['calendar']);
+                $driver = Kronolith::getDriver($type, $calendar);
                 $all_events = $driver->listEvents($startDate, $endDate, true);
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
