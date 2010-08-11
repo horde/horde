@@ -3,7 +3,7 @@
  <tag:forminput />
  <div class="header">
   <span class="smallheader rightFloat">
-   <select id="app" name="app" onchange="document.appswitch.submit();">
+   <select id="app" name="app">
     <option value=""><gettext>Edit Options for</gettext>:</option>
 <if:horde>
     <option value="" disabled="disabled">- - - - - - - - -</option>
@@ -14,7 +14,7 @@
     <option value="<tag:apps.v />"><tag:apps.l /></option>
 </loop:apps>
    </select>
-   <input class="button" type="submit" onclick="return document.appswitch.app.selectedIndex != 0;" value="<gettext>Go</gettext>" />
+   <input class="button" type="submit" id="appsubmit" value="<gettext>Go</gettext>" />
   </span>
   <span class="rightFloat prefsAdvanced">
 <if:advanced>

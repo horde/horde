@@ -386,6 +386,7 @@ class Horde_Core_Prefs_Ui
          * do things like add javascript to the page output. This should all
          * be combined and served in the page HEAD. */
         Horde::startBuffer();
+        Horde::addScriptFile('prefs.js', 'horde');
 
         if ($this->group) {
             if ($identities) {
