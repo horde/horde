@@ -1,47 +1,47 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: passwd/locale/de_DE/help.xml,v 1.1.2.1 2008/10/09 17:12:07 jan Exp $ -->
 <help>
   <entry id="passwd-username" md5="2890a9812d76074ffb3e35957eea967d" state="uptodate">
     <title>Benutzername</title>
     <para>Geben Sie hier Ihren Benutzernamen an, falls er nicht bereits
     eingetragen ist. Dieses Feld steht nicht auf allen Systemen zur
-    Verfügung.</para>
+    VerfÃ¼gung.</para>
   </entry>
   <entry id="passwd-old-password" md5="ec1429987f88cbd404d0efb2fd57df2c" state="uptodate">
     <title>Altes Passwort</title>
     <para>Geben Sie hier Ihr aktuelles, funktionierendes Passwort an. Sie
-    müssen Ihr Passwort korrekt angeben, um es ändern zu können.</para>
+    mÃ¼ssen Ihr Passwort korrekt angeben, um es Ã¤ndern zu kÃ¶nnen.</para>
   </entry>
   <entry id="passwd-new-password" md5="8fe6f2254a9d10984fa8ba876f148b53" state="uptodate">
     <title>Neues Passwort</title>
     <para>Geben Sie hier Ihr neues Passwort an, also den Wert, in den Sie Ihr
-    Passwort ändern möchten. Beachten Sie, dass Ihr Passwort minimalen
-    Voraussetzungen entsprechen muss, z.B. genügend lang sein muss, aus
+    Passwort Ã¤ndern mÃ¶chten. Beachten Sie, dass Ihr Passwort minimalen
+    Voraussetzungen entsprechen muss, z.B. genÃ¼gend lang sein muss, aus
     Kombinationen von Buchstaben und anderen Zeichen bestehen muss, nicht
     Ihrem Benutzernamen entsprechen darf usw. Anderenfalls erhalten Sie eine
     Fehlermeldung.</para>
   </entry>
   <entry id="passwd-confirm-password" md5="38caae4b775cceda60bbc3c183a78fcb" state="uptodate">
-    <title>Neues Passwort betätigen</title>
+    <title>Neues Passwort betÃ¤tigen</title>
     <para>Geben Sie hier Ihr neue Passwort ein zweites Mal an. Damit wird
     verhindert, dass Sie sich vertippen und dadurch selbst von Ihrem Konto
-    ausschließen.</para>
+    ausschlieÃŸen.</para>
   </entry>
   <entry id="passwd-server" md5="164edb880db7297eb259816ea42c0f8f" state="uptodate">
-    <title>Passwort ändern auf</title>
-    <para>Wählen Sie den Server oder die Anwendung aus, für die Sie Ihr
-    Passwort ändern möchten. Dieses Feld steht nicht auf allen Systemen zur
-    Verfügung.</para>
+    <title>Passwort Ã¤ndern auf</title>
+    <para>WÃ¤hlen Sie den Server oder die Anwendung aus, fÃ¼r die Sie Ihr
+    Passwort Ã¤ndern mÃ¶chten. Dieses Feld steht nicht auf allen Systemen zur
+    VerfÃ¼gung.</para>
   </entry>
   <entry id="Change-your-password" md5="186993a347a9ad4d9cd2cbeead7f6e4e" state="uptodate">
-    <title>Passwort ändern</title>
-    <para>Drücken Sie den "Passwort ändern"-Knopf am Ende des Formulars, um
-    das Passwort wie angegeben zu ändern.</para>
+    <title>Passwort Ã¤ndern</title>
+    <para>DrÃ¼cken Sie den "Passwort Ã¤ndern"-Knopf am Ende des Formulars, um
+    das Passwort wie angegeben zu Ã¤ndern.</para>
   </entry>
   <entry id="reset" md5="87302fbc89b897c8d78445eb3e624d5e" state="uptodate">
-    <title>Zurücksetzen</title>
-    <para>Drücken Sie den "Zurücksetzen"-Knopf am Ende des Formulars, um alle
-    Formulardaten, die Sie bisher eingegeben haben zu löschen und von vorne zu
+    <title>ZurÃ¼cksetzen</title>
+    <para>DrÃ¼cken Sie den "ZurÃ¼cksetzen"-Knopf am Ende des Formulars, um alle
+    Formulardaten, die Sie bisher eingegeben haben zu lÃ¶schen und von vorne zu
     beginnen.</para>
   </entry>
 </help>

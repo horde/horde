@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,16 +26,16 @@
 
 </entry>
   <entry id="compose-buttons" state="unknown">
-    <title>Rédaction de message: Actions</title>
+    <title>RÃ©daction de message: Actions</title>
     <heading>Actions</heading>
     <para>
-Le bouton 'Envoyer message' fera parvenir votre message au(x) destinataire(s) de ce dernier. Assurez-vous de bien vérifier le contenu, ainsi que les récipiendaires de votre message avant de cliquer sur ce bouton, puisqu'une fois le message envoyé, vous ne pouvez pas canceller l'opération.
+Le bouton 'Envoyer message' fera parvenir votre message au(x) destinataire(s) de ce dernier. Assurez-vous de bien vÃ©rifier le contenu, ainsi que les rÃ©cipiendaires de votre message avant de cliquer sur ce bouton, puisqu'une fois le message envoyÃ©, vous ne pouvez pas canceller l'opÃ©ration.
     </para>
     <para>
-Le bouton 'Sauvegarder brouillon' permet de placer un message non-terminé en attente dans un dossier brouillon (Options -&gt; Rédaction de message), accessible directement via l'option 'Dossiers' du menu principal. Vous pouvez terminer ces messages en tout temps a accédant à ce dossier. Assurez-vous de spécifier un sujet à vos messages brouillons pour pouvoir les identifier plus facilement par la suite. Après avoir sauvergarder un message comme brouillon, vous êtes automatiquement redirigé vers le dernier dossier ouvert.
+Le bouton 'Sauvegarder brouillon' permet de placer un message non-terminÃ© en attente dans un dossier brouillon (Options -&gt; RÃ©daction de message), accessible directement via l'option 'Dossiers' du menu principal. Vous pouvez terminer ces messages en tout temps a accÃ©dant Ã  ce dossier. Assurez-vous de spÃ©cifier un sujet Ã  vos messages brouillons pour pouvoir les identifier plus facilement par la suite. AprÃ¨s avoir sauvergarder un message comme brouillon, vous Ãªtes automatiquement redirigÃ© vers le dernier dossier ouvert.
     </para>
     <para>
-Le bouton 'Annuler message' abandonne la rédaction de votre message, et vous redirige vers le dernier dossier ouvert.
+Le bouton 'Annuler message' abandonne la rÃ©daction de votre message, et vous redirige vers le dernier dossier ouvert.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -60,10 +60,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-from" state="unknown">
-    <title>Rédaction de message: De</title>
+    <title>RÃ©daction de message: De</title>
     <heading>"De"</heading>
     <para>
-Insérez ici votre adresse courriel exact. Par défaut, votre adresse est générée automatiquement par le programme, mais vous pouvez spécifier autrement.
+InsÃ©rez ici votre adresse courriel exact. Par dÃ©faut, votre adresse est gÃ©nÃ©rÃ©e automatiquement par le programme, mais vous pouvez spÃ©cifier autrement.
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -74,10 +74,10 @@ Insérez ici votre adresse courriel exact. Par défaut, votre adresse est générée 
     </para>
 </entry>--></entry>
   <entry id="compose-to" state="unknown">
-    <title>Rédaction de message: A</title>
+    <title>RÃ©daction de message: A</title>
     <heading>"A"</heading>
     <para>
-Entrez les adresses courriels de ceux et celles qui doivent recevoir votre message. Vous devez séparer chaque adresse par une virgule.
+Entrez les adresses courriels de ceux et celles qui doivent recevoir votre message. Vous devez sÃ©parer chaque adresse par une virgule.
     </para>
 <!-- English entry:
 <entry id="compose-to">
@@ -88,10 +88,10 @@ Entrez les adresses courriels de ceux et celles qui doivent recevoir votre messa
     </para>
 </entry>--></entry>
   <entry id="compose-cc" state="unknown">
-    <title>Rédaction de message: Cc</title>
+    <title>RÃ©daction de message: Cc</title>
     <heading>"Cc"</heading>
     <para>
-Entrez ici le ou les adresse(s) de ceux qui doivent recevoir une copie conforme de votre message. Assurez-vous de séparer chaque adresses par une virgule. Les copies conformes sont générallement envoyées à des gens autres que ceux directement inscrit dans le champs 'A', mais qui sont peut-être indirectement concernés par la sujet de votre message. Tout les gens qui recevront votre message, qu'ils soient inscrit dans le champ 'A:' ou 'Cc:', peuvent consulter la liste entière dans deux types de récipiendaires.
+Entrez ici le ou les adresse(s) de ceux qui doivent recevoir une copie conforme de votre message. Assurez-vous de sÃ©parer chaque adresses par une virgule. Les copies conformes sont gÃ©nÃ©rallement envoyÃ©es Ã  des gens autres que ceux directement inscrit dans le champs 'A', mais qui sont peut-Ãªtre indirectement concernÃ©s par la sujet de votre message. Tout les gens qui recevront votre message, qu'ils soient inscrit dans le champ 'A:' ou 'Cc:', peuvent consulter la liste entiÃ¨re dans deux types de rÃ©cipiendaires.
     </para>
 <!-- English entry:
 <entry id="compose-cc">
@@ -102,11 +102,11 @@ Entrez ici le ou les adresse(s) de ceux qui doivent recevoir une copie conforme 
     </para>
 </entry>--></entry>
   <entry id="compose-bcc" state="unknown">
-    <title>Rédaction de message: Bcc</title>
+    <title>RÃ©daction de message: Bcc</title>
     <heading>"Bcc"</heading>
     <para>
-Entrez ici le ou les adresse(s) de ceux qui doivent recevoir une copie conforme invisible.  Assurez-vous de séparer chaque adr
-esses par une virgule. Les copies conformes invisibles sont générallement envoyées à des gens autres que ceux qui sont directement concernés par le sujet du message, qui doivent prendre connaissance dudit message, SANS que les autres sachent que ce message leur a été envoyé. Ainsi, seul vous et la personne qui a été destinée à recevoir cette copie en mode invisible savent qu'il a reçu de message.
+Entrez ici le ou les adresse(s) de ceux qui doivent recevoir une copie conforme invisible.  Assurez-vous de sÃ©parer chaque adr
+esses par une virgule. Les copies conformes invisibles sont gÃ©nÃ©rallement envoyÃ©es Ã  des gens autres que ceux qui sont directement concernÃ©s par le sujet du message, qui doivent prendre connaissance dudit message, SANS que les autres sachent que ce message leur a Ã©tÃ© envoyÃ©. Ainsi, seul vous et la personne qui a Ã©tÃ© destinÃ©e Ã  recevoir cette copie en mode invisible savent qu'il a reÃ§u de message.
     </para>
 <!-- English entry:
 <entry id="compose-bcc">
@@ -117,10 +117,10 @@ esses par une virgule. Les copies conformes invisibles sont générallement envoyé
     </para>
 </entry>--></entry>
   <entry id="compose-subject" state="unknown">
-    <title>Rédaction de message: Sujet</title>
+    <title>RÃ©daction de message: Sujet</title>
     <heading>"Sujet"</heading>
     <para>
-Entrez le sujet de votre message. Gardez-le court, simple et descriptif. Le sujet est le seul moyen simple, pour vous et vos correspondants, à vous souvenir quel était le contenu de ce message. Aussi, lorsque vous répondez, ou que vous faites suivre un message, la ligne `Sujet` est copiée. Ceci permet de faire un suivit organisé d'une conversation. Par contre, si une réponse comprend de nouvelles idées, vous pouvez ajouter de simples modifications à ce même sujet pour que les récipiendaires de votre message puissent suivre la progression du message.
+Entrez le sujet de votre message. Gardez-le court, simple et descriptif. Le sujet est le seul moyen simple, pour vous et vos correspondants, Ã  vous souvenir quel Ã©tait le contenu de ce message. Aussi, lorsque vous rÃ©pondez, ou que vous faites suivre un message, la ligne `Sujet` est copiÃ©e. Ceci permet de faire un suivit organisÃ© d'une conversation. Par contre, si une rÃ©ponse comprend de nouvelles idÃ©es, vous pouvez ajouter de simples modifications Ã  ce mÃªme sujet pour que les rÃ©cipiendaires de votre message puissent suivre la progression du message.
     </para>
 <!-- English entry:
 <entry id="compose-subject">
@@ -138,22 +138,22 @@ Entrez le sujet de votre message. Gardez-le court, simple et descriptif. Le suje
     </para>
 </entry>
   <entry id="compose-options" state="unknown">
-    <title>Rédaction de message: Options</title>
+    <title>RÃ©daction de message: Options</title>
     <heading>"Options"</heading>
     <para>
-Ces options peuvent vous aider à préparer votre message.
+Ces options peuvent vous aider Ã  prÃ©parer votre message.
     </para>
     <para>
-Cliquez sur "Developper les noms" pour associer automatiquement les noms partiels de vos récipients (que vous devez entrer au préalable, soit dans le champs A:, CC: ou Bcc:), à leur adresse de courrier personnelle. Pour utiliser cette option, vous devez avoir au moins une entré dans votre carnet d'adresse.
+Cliquez sur "Developper les noms" pour associer automatiquement les noms partiels de vos rÃ©cipients (que vous devez entrer au prÃ©alable, soit dans le champs A:, CC: ou Bcc:), Ã  leur adresse de courrier personnelle. Pour utiliser cette option, vous devez avoir au moins une entrÃ© dans votre carnet d'adresse.
     </para>
     <para>
-Cliquez sur "Vérification de l'orthographe" pour en faire la verification.
+Cliquez sur "VÃ©rification de l'orthographe" pour en faire la verification.
     </para>
     <para>
-Cliquez sur "Pièces Jointes" pour visulaliser, au bas de la page, la liste de fichiers attachés à votre message, ou encore pour y joindre une pièce.
+Cliquez sur "PiÃ¨ces Jointes" pour visulaliser, au bas de la page, la liste de fichiers attachÃ©s Ã  votre message, ou encore pour y joindre une piÃ¨ce.
     </para>
     <para>
-Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier de messages envoyés. Il est toujours intéressant de procéder de la sorte, ainsi, vous pouvez vous référer à ce dossier plus tard pour avoir une meilleure idée de ce qui a été fait, et ce qui a éét dit. Nous ne suggérons toutefois pas de sauvergarder tout vos courriels de cette façon, puisqu'il est fort probable que votre quota personnel dans peut de temps, et vous serez alors incapable de recevoir de nous messages. Vous pouvez, toutefois, ectiver cette option par défaut dans les Options (Options -&gt; Rédaction de message). Encore une fois, prenez garde à cette option, et nous vous conseillons par le fait même à faire le ménage de votre dossier de messages envoyés sur une base régulière.
+Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier de messages envoyÃ©s. Il est toujours intÃ©ressant de procÃ©der de la sorte, ainsi, vous pouvez vous rÃ©fÃ©rer Ã  ce dossier plus tard pour avoir une meilleure idÃ©e de ce qui a Ã©tÃ© fait, et ce qui a Ã©Ã©t dit. Nous ne suggÃ©rons toutefois pas de sauvergarder tout vos courriels de cette faÃ§on, puisqu'il est fort probable que votre quota personnel dans peut de temps, et vous serez alors incapable de recevoir de nous messages. Vous pouvez, toutefois, ectiver cette option par dÃ©faut dans les Options (Options -&gt; RÃ©daction de message). Encore une fois, prenez garde Ã  cette option, et nous vous conseillons par le fait mÃªme Ã  faire le mÃ©nage de votre dossier de messages envoyÃ©s sur une base rÃ©guliÃ¨re.
     </para>
 <!-- English entry:
 <entry id="compose-options">
@@ -173,14 +173,14 @@ Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier d
     </para>
 </entry>--></entry>
   <entry id="compose-attachments" state="unknown">
-    <title>Rédaction de message: Pièces Jointes</title>
-    <heading>"Pièces Jointes"</heading>
+    <title>RÃ©daction de message: PiÃ¨ces Jointes</title>
+    <heading>"PiÃ¨ces Jointes"</heading>
     <para>
-    Cette section montre la liste des fichiers attachés à votre message. Pour effacer un fichier attaché:
+    Cette section montre la liste des fichiers attachÃ©s Ã  votre message. Pour effacer un fichier attachÃ©:
     </para>
-    <para>Étape 1: Activez la case à côté du nom du fichier que vous voulez effacer.
+    <para>Ã‰tape 1: Activez la case Ã  cÃ´tÃ© du nom du fichier que vous voulez effacer.
     </para>
-    <para>Étape 2: Cliquez sur "Supprimer pièce(s) jointe(s)".
+    <para>Ã‰tape 2: Cliquez sur "Supprimer piÃ¨ce(s) jointe(s)".
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -252,9 +252,9 @@ Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier d
 </entry>
   <entry id="search" state="unknown">
     <title>Recherche</title>
-    <heading>Critères de recherche</heading>
+    <heading>CritÃ¨res de recherche</heading>
     <para>
-        Texte à écrire ...
+        Texte Ã  Ã©crire ...
     </para>
 <!-- English entry:
 <entry id="search">
@@ -279,10 +279,10 @@ Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier d
     <title>Gestion des dossiers</title>
     <heading>Options des dossiers</heading>
     <para>
-	Vous pouvez sélectionner un dossier en utilisant les boutons dans la colone de gauche. Une fois ceci complété, sélectionnez l'option que vous voulez attribuer au(x) dossier(s) sélectionné(s) en utilisant le menu déroulant au haut ou au bas de l'écran.
+	Vous pouvez sÃ©lectionner un dossier en utilisant les boutons dans la colone de gauche. Une fois ceci complÃ©tÃ©, sÃ©lectionnez l'option que vous voulez attribuer au(x) dossier(s) sÃ©lectionnÃ©(s) en utilisant le menu dÃ©roulant au haut ou au bas de l'Ã©cran.
     </para>
     <para>
-	Vous vous verez alors demander des options supplémentaires. Soyez très prudent avec l'option de destruction de dossier(s), puisqu'une fois un dossier effecé, son contenu est irrécupérable.
+	Vous vous verez alors demander des options supplÃ©mentaires. Soyez trÃ¨s prudent avec l'option de destruction de dossier(s), puisqu'une fois un dossier effecÃ©, son contenu est irrÃ©cupÃ©rable.
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -301,9 +301,9 @@ Activez la case "Copie dans..." pour sauvegarder ce message dans votre dossier d
 </entry>--></entry>
   <entry id="filters" state="unknown">
     <title>Filtres: Appliquer</title>
-    <heading>Appliquer des règles de filtre</heading>
+    <heading>Appliquer des rÃ¨gles de filtre</heading>
     <para>
-	Cliquez sur l'icône "Appliquer les Filtres sur [...]" à droite du nom du dossier présent afin d'appliquer les règles de filtre que vous avez spécifiez (Options -&gt; Editer mes règles de filtre -&gt; Règles de filtres). Alternativement, vous pouvez cliquer sur le bouton "Appliquer toutes le régles", se retrouvant dans le menu principal des filtre (Options -&gt; Editer mes règles de filtre -&gt; Règles de filtres).
+	Cliquez sur l'icÃ´ne "Appliquer les Filtres sur [...]" Ã  droite du nom du dossier prÃ©sent afin d'appliquer les rÃ¨gles de filtre que vous avez spÃ©cifiez (Options -&gt; Editer mes rÃ¨gles de filtre -&gt; RÃ¨gles de filtres). Alternativement, vous pouvez cliquer sur le bouton "Appliquer toutes le rÃ©gles", se retrouvant dans le menu principal des filtre (Options -&gt; Editer mes rÃ¨gles de filtre -&gt; RÃ¨gles de filtres).
     </para>
 <!-- English entry:
 <entry id="filters">

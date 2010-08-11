@@ -1,39 +1,39 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="summary" state="uptodate" md5="68ca33f7f0c9aae4c103eb47492cdc15">
-<title>Portál</title>
+<title>PortĂĄl</title>
  <para>
-  Stránka Portálu poskytuje stručný přehled všech důležitých informací.
-  Například může zobrazovat počet emailů, informaci o schůzkách ve Vaěem kalendáři,
-  úkolech, atd. Většina těchto informcí poskytují linky k běžným funkcím,
-  jako například vytvoření nové emailové zprávy, vytvořenmí nové schůzky, atd.
+  StrĂĄnka PortĂĄlu poskytuje struÄnĂ˝ pĹehled vĹĄech dĹŻleĹžitĂ˝ch informacĂ­.
+  NapĹĂ­klad mĹŻĹže zobrazovat poÄet emailĹŻ, informaci o schĹŻzkĂĄch ve VaÄem kalendĂĄĹi,
+  Ăşkolech, atd. VÄtĹĄina tÄchto informcĂ­ poskytujĂ­ linky k bÄĹžnĂ˝m funkcĂ­m,
+  jako napĹĂ­klad vytvoĹenĂ­ novĂŠ emailovĂŠ zprĂĄvy, vytvoĹenmĂ­ novĂŠ schĹŻzky, atd.
  </para>
  <para>
-  Rozvržení této stránky portálu lze nastavit pomocí tlačítka Rozložení.
-  Například, můžete si vybrat, které prvky si přejete zobrazit a také v jakém
-  pořadí.
+  RozvrĹženĂ­ tĂŠto strĂĄnky portĂĄlu lze nastavit pomocĂ­ tlaÄĂ­tka RozloĹženĂ­.
+  NapĹĂ­klad, mĹŻĹžete si vybrat, kterĂŠ prvky si pĹejete zobrazit a takĂŠ v jakĂŠm
+  poĹadĂ­.
  </para>
 </entry>
   <entry id="navbar" state="uptodate" md5="b8cf0ae19e57dfa0c2b962e516782f47">
-<title>Navigační Lišta pro Aplikace</title>
+<title>NavigaÄnĂ­ LiĹĄta pro Aplikace</title>
  <para>
-  Navigační lišta je umístněna vlevo na webstránce. Klikněte na ikonky
-  této lišty poskytující přehlednější a rychlejší přepínání mezi aplikacemi.
+  NavigaÄnĂ­ liĹĄta je umĂ­stnÄna vlevo na webstrĂĄnce. KliknÄte na ikonky
+  tĂŠto liĹĄty poskytujĂ­cĂ­ pĹehlednÄjĹĄĂ­ a rychlejĹĄĂ­ pĹepĂ­nĂĄnĂ­ mezi aplikacemi.
  </para>
 </entry>
   <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
-    <title>Nastavení: Údržba: Provést Údržbu</title>
+    <title>NastavenĂ­: ĂdrĹžba: ProvĂŠst ĂdrĹžbu</title>
     <para>
-    Označte tento rámeček, pokud si přejete provést operace údržby při
-    přihlášení do sytému.
+    OznaÄte tento rĂĄmeÄek, pokud si pĹejete provĂŠst operace ĂşdrĹžby pĹi
+    pĹihlĂĄĹĄenĂ­ do sytĂŠmu.
     </para>
 </entry>
   <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
-    <title>Nastavení: Údržba: Potvrdit Údržbu</title>
+    <title>NastavenĂ­: ĂdrĹžba: Potvrdit ĂdrĹžbu</title>
     <para>
-    Označte tento rámeček, pokud si přejete potvrdit všechny operace údržby
-    než se provedou. Pokud tento rámeček zůstane neoznačený, potřebné operace
-    se provedou automaticky bez možnosti storna.
+    OznaÄte tento rĂĄmeÄek, pokud si pĹejete potvrdit vĹĄechny operace ĂşdrĹžby
+    neĹž se provedou. Pokud tento rĂĄmeÄek zĹŻstane neoznaÄenĂ˝, potĹebnĂŠ operace
+    se provedou automaticky bez moĹžnosti storna.
     </para>
 </entry>
 </help>

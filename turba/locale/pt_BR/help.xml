@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="unknown">
-    <title>Kronolith: Visão Geral</title>
-    <heading>O que é kronolith?</heading>
+    <title>Kronolith: VisÃ£o Geral</title>
+    <heading>O que Ã© kronolith?</heading>
     <para>
-Kronolith é um calendário de interface Web. Em adição as funções necessárias de criação, modificação e remoção de eventos, ele atualmente suporta repetição de eventos (com excessões e várias opções de remoção), alarmes, funções de importação e exportação, visualização da Lista de Tarefas (Nag, se estiver instalado), e a possibilidade de mostrar os eventos na tela de sumário do Horde.
+Kronolith Ã© um calendÃ¡rio de interface Web. Em adiÃ§Ã£o as funÃ§Ãµes necessÃ¡rias de criaÃ§Ã£o, modificaÃ§Ã£o e remoÃ§Ã£o de eventos, ele atualmente suporta repetiÃ§Ã£o de eventos (com excessÃµes e vÃ¡rias opÃ§Ãµes de remoÃ§Ã£o), alarmes, funÃ§Ãµes de importaÃ§Ã£o e exportaÃ§Ã£o, visualizaÃ§Ã£o da Lista de Tarefas (Nag, se estiver instalado), e a possibilidade de mostrar os eventos na tela de sumÃ¡rio do Horde.
     </para>
 <!-- English entry:
 <entry id="Overview">

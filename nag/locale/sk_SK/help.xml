@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="unknown">
-    <title>Prehľad</title>
-    <heading>Úvod</heading>
+    <title>PrehÄžad</title>
+    <heading>Ăvod</heading>
     <para>
-    Aplikácia Úlohy je správca "to-do" zoznamov s mnohými funkciami. Podporuje súkromné a zdieľané zoznamy úloh, integráciu s Kalendárom, kategórie, priority, termíny úloh, vyhľadávanie, tlač a funkcie pre import/export.
+    AplikĂĄcia Ălohy je sprĂĄvca "to-do" zoznamov s mnohĂ˝mi funkciami. Podporuje sĂşkromnĂŠ a zdieÄžanĂŠ zoznamy Ăşloh, integrĂĄciu s KalendĂĄrom, kategĂłrie, priority, termĂ­ny Ăşloh, vyhÄžadĂĄvanie, tlaÄ a funkcie pre import/export.
     </para>
 <!-- English entry:
 <entry id="Overview">
@@ -18,10 +18,10 @@
     </para>
   </entry>--></entry>
   <entry id="sorting" state="unknown">
-    <title>Triedenie položiek</title>
-    <heading>Triedenie položiek</heading>
+    <title>Triedenie poloĹžiek</title>
+    <heading>Triedenie poloĹžiek</heading>
     <para>
-    Počas zobrazovania zoznamu si môžete nechať položky zoradiť podľa ľubovoľného stĺpca jednoduchým kliknutím na jeho názov. Ak chcete zmeniť smer triedenia (vzostupne resp. zostupne), kliknite na ikonu šípky v mene stĺpca.
+    PoÄas zobrazovania zoznamu si mĂ´Ĺžete nechaĹĽ poloĹžky zoradiĹĽ podÄža ÄžubovoÄžnĂŠho stÄşpca jednoduchĂ˝m kliknutĂ­m na jeho nĂĄzov. Ak chcete zmeniĹĽ smer triedenia (vzostupne resp. zostupne), kliknite na ikonu ĹĄĂ­pky v mene stÄşpca.
     </para>
 <!-- English entry:
 <entry id="sorting">

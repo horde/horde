@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview">
-    <title>Skoli Übersicht</title>
+    <title>Skoli Ãœbersicht</title>
     <heading>Was ist Skoli?</heading>
     <para>
-      Skoli ist ein einfaches Verwaltungsmodul für Lehrpersonen. Mehrere
+      Skoli ist ein einfaches Verwaltungsmodul fÃ¼r Lehrpersonen. Mehrere
       Kontakte (Studierende) werden zu einer Klasse zusammengefasst. Zu
-      jedem Studierenden können anschliessend Noten, Beobachtungen, Lernziele
+      jedem Studierenden kÃ¶nnen anschliessend Noten, Beobachtungen, Lernziele
       und Absenzen eingetragen werden. Neben einer Suchfunktion bietet Skoli
-      auch eine Exportmöglichkeit im CSV und TSV Format.
+      auch eine ExportmÃ¶glichkeit im CSV und TSV Format.
     </para>
   </entry>
 </help>

@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="Big5"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="file-actions" md5="a422465ce502865cd4625fbbb8d9a4dc" state="changed">
-    <title>�ɮ��`��: �@�Τ覡</title>
-    <heading>�@�Τ覡</heading>
+    <title>檔案總管: 作用方式</title>
+    <heading>作用方式</heading>
     <para>
-    �A�{��ؿ��U�إߤ@�ӥؿ�, �A�u�n�q�@�Τ覡�\�������ܫإߥؿ��Y�i. ��L���@�Τ覡�A����e��������ܦܤ֤@�Ӷ���. �p�G�A�Q�R���ؿ�,�нT�w�ؿ��O�Ū��_�h�L
-�k�R��. �Ϊ̧A�i�H��"�ﶵ-&gt;�]�w-&gt;�p�G�n�R�����ؿ����٦��l�ؿ��A�O�_�@��
-�R�� ?"�Ŀ�O. �H���j���覡�R���ؿ�.
+    再現行目錄下建立一個目錄, 你只要從作用方式功能表中選擇建立目錄即可. 其他的作用方式再執行前必須先選擇至少一個項目. 如果你想刪除目錄,請確定目錄是空的否則無
+法刪除. 或者你可以由"選項-&gt;設定-&gt;如果要刪除的目錄中還有子目錄，是否一併
+刪除 ?"勾選是. 以遞迴的方式刪除目錄.
     </para>
 <!-- English entry:
 <entry id="file-actions">
@@ -124,11 +124,11 @@
     </para>
 </entry>--></entry>
   <entry id="file-upload" md5="90de3164e835816348ab7659f7bf28a7" state="changed">
-    <title>�ɮ��`��: �W���ɮ�</title>
-    <heading>�W���ɮ�</heading>
+    <title>檔案總管: 上傳檔案</title>
+    <heading>上傳檔案</heading>
     <para>
-    �I���s�����s�����ɮ׳̫�A�I��W���ɮ�, �i�N�ɮפW�Ǩ�{��ؿ���. �A�i�H
-�@�����[�ƭ��ɮ�.
+    點選瀏覽按鈕後選取檔案最後再點選上傳檔案, 可將檔案上傳到現行目錄中. 你可以
+一次附加數個檔案.
     </para>
 <!-- English entry:
 <entry id="file-upload">
@@ -168,10 +168,10 @@
 </para>
 </entry>--></entry>
   <entry id="sorting" md5="7bbea5e84fddaffa02edae9e705f7fb1" state="changed">
-    <title>�ƦC����</title>
-    <heading>�ƦC����</heading>
+    <title>排列項目</title>
+    <heading>排列項目</heading>
     <para>
-    �ǥ��I�������D�W��, �i�۰ʨ̸����ƦC��K�A�˵��ɮײM��. �Y�n�ܧ�ƦC��V���I�����W�ٮ��䪺�b�Y�ϥ�.
+    藉由點選欄位標題名稱, 可自動依該欄位排列方便你檢視檔案清單. 若要變更排列方向請點選欄位名稱旁邊的箭頭圖示.
     </para>
 <!-- English entry:
 <entry id="sorting">

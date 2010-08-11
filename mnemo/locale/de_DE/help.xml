@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: mnemo/locale/de_DE/help.xml,v 1.3 2004/12/03 02:03:16 jan Exp $ -->
 <help>
   <entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
-    <title>Übersicht</title>
-    <heading>Einführung</heading>
+    <title>Ãœbersicht</title>
+    <heading>EinfÃ¼hrung</heading>
     <para>
-      <i>Notizen</i> ist so etwas wie ein Notizblock im Computer. Sie können
-      Notizen erstellen, bearbeiten, löschen und drucken. Sie können Ihre
-      Notizen außerdem durchsuchen, um Informationen wiederzufinden. Außerdem
-      können Sie Ihre Notizen im- und exportieren.
+      <i>Notizen</i> ist so etwas wie ein Notizblock im Computer. Sie kÃ¶nnen
+      Notizen erstellen, bearbeiten, lÃ¶schen und drucken. Sie kÃ¶nnen Ihre
+      Notizen auÃŸerdem durchsuchen, um Informationen wiederzufinden. AuÃŸerdem
+      kÃ¶nnen Sie Ihre Notizen im- und exportieren.
     </para>
     <para>
-      Anders als bei einem echten Notizblock können Sie Ihre Notizen mit
-      anderen Personen an anderen Orten teilen. Notizen können in Notizblöcken
+      Anders als bei einem echten Notizblock kÃ¶nnen Sie Ihre Notizen mit
+      anderen Personen an anderen Orten teilen. Notizen kÃ¶nnen in NotizblÃ¶cken
       zusammengefasst und Kategorien zugeordnet werden.
     </para>
   </entry>
@@ -20,50 +20,50 @@
     <title>Notizblock: Aktionen</title>
     <heading>Aktionen</heading>
     <para>
-      <i>Notiz löschen</i> löscht die ausgewählte Notiz endgültig.
+      <i>Notiz lÃ¶schen</i> lÃ¶scht die ausgewÃ¤hlte Notiz endgÃ¼ltig.
     </para>
     <para>
-      Mit <i>Notiz bearbeiten</i> können Sie eine bestehende Notiz bearbeiten.
+      Mit <i>Notiz bearbeiten</i> kÃ¶nnen Sie eine bestehende Notiz bearbeiten.
     </para>
     <para>
-      <i>Zurück zum Notizblock</i> führt Sie von der Notizansicht zurück zum
+      <i>ZurÃ¼ck zum Notizblock</i> fÃ¼hrt Sie von der Notizansicht zurÃ¼ck zum
       Notizblock.
     </para>
   </entry>
   <entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
-    <title>Menüpunkte</title>
-    <heading>Menüpunkte</heading>
+    <title>MenÃ¼punkte</title>
+    <heading>MenÃ¼punkte</heading>
     <para>
       <i>Notizen anzeigen</i> zeigt eine Liste aller Notizen an.
     </para>
     <para>
-      Mit <i>Neue Notiz</i> können Sie neue Notizen im Notizblock erstellen.
+      Mit <i>Neue Notiz</i> kÃ¶nnen Sie neue Notizen im Notizblock erstellen.
     </para>
     <para>
-      Unter <i>Suche</i> können Sie Ihre Notizen nach einem Text
-      durchsuchen. Sie können im Beschreibungsfeld oder im gesamten Text der
+      Unter <i>Suche</i> kÃ¶nnen Sie Ihre Notizen nach einem Text
+      durchsuchen. Sie kÃ¶nnen im Beschreibungsfeld oder im gesamten Text der
       Notizen suchen.
     </para>
     <para>
       <i>Import/Export</i> erlaubt Ihnen das Im- und Exportieren von
       Notizen. Zur Zeit werden kommagetrennte (CSV) und vNote-Dateien
-      unterstützt.
+      unterstÃ¼tzt.
     </para>
     <para>
-      <i>Drucken</i> öffnet ein neues Fenster, mit dem Sie eine Notiz
-      ausdrucken können. Der <i>Drucken</i>-Eintrag wird nur in der
+      <i>Drucken</i> Ã¶ffnet ein neues Fenster, mit dem Sie eine Notiz
+      ausdrucken kÃ¶nnen. Der <i>Drucken</i>-Eintrag wird nur in der
       Notizenansicht angezeigt.
     </para>
   </entry>
   <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
-    <title>Einträge sortieren</title>
-    <heading>Einträge sortieren</heading>
+    <title>EintrÃ¤ge sortieren</title>
+    <heading>EintrÃ¤ge sortieren</heading>
     <para>
-      Wenn Sie sich eine Liste mit Einträgen anzeigen lassen, können Sie die
-      Einträge nach jeder beliebigen Spalte sortieren, indem Sie auf die
-      jeweilige Spaltenüberschrift klicken. Wenn Sie die Sortierreihenfolge
-      umschalten möchten, klicken Sie auf das Pfeilsymbol in der
-      Spaltenüberschrift.
+      Wenn Sie sich eine Liste mit EintrÃ¤gen anzeigen lassen, kÃ¶nnen Sie die
+      EintrÃ¤ge nach jeder beliebigen Spalte sortieren, indem Sie auf die
+      jeweilige SpaltenÃ¼berschrift klicken. Wenn Sie die Sortierreihenfolge
+      umschalten mÃ¶chten, klicken Sie auf das Pfeilsymbol in der
+      SpaltenÃ¼berschrift.
     </para>
   </entry>
 </help>

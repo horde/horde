@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="cp1257"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: trean/locale/lv_LV/help.xml,v 1.2 2008/11/11 10:14:49 jan Exp $ -->
 <help>
 
 <entry id="">
     <title>Apskats</title>
-    <heading>Par aplikāciju</heading>
+    <heading>Par aplikÄciju</heading>
     <para>
-Grāmatzīmju aplikācija ļauj Jums glabāt, kārtot un piekļūt tīmekļa grāmatzīmēm no jebkuras vietas pasaulē, izmantojot jebkuru grafisko tīmekļa pārlūku.
+GrÄmatzÄ«mju aplikÄcija Ä¼auj Jums glabÄt, kÄrtot un piekÄ¼Å«t tÄ«mekÄ¼a grÄmatzÄ«mÄ“m no jebkuras vietas pasaulÄ“, izmantojot jebkuru grafisko tÄ«mekÄ¼a pÄrlÅ«ku.
     </para>
     <para>
-Glabājot grāmatzīmes šeit, Jūs varat tām piekļūt no jebkuras vietas pasaulē un izmantot jebkuru grafisko tīmekļa pārlūku. Ja Jums ir nepieciešams mainīti pārlūku, testēt jaunu utml., Jums nav jāuztraucas par saglabāto grāmatzīmju likteni vai arī kā tās importēt jaunajā pārlūkā.
+GlabÄjot grÄmatzÄ«mes Å¡eit, JÅ«s varat tÄm piekÄ¼Å«t no jebkuras vietas pasaulÄ“ un izmantot jebkuru grafisko tÄ«mekÄ¼a pÄrlÅ«ku. Ja Jums ir nepiecieÅ¡ams mainÄ«ti pÄrlÅ«ku, testÄ“t jaunu utml., Jums nav jÄuztraucas par saglabÄto grÄmatzÄ«mju likteni vai arÄ« kÄ tÄs importÄ“t jaunajÄ pÄrlÅ«kÄ.
     </para>
 </entry>
 

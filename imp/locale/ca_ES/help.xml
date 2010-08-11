@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -30,16 +30,16 @@
     <title>Redacta: Accions</title>
     <heading>Accions</heading>
     <para>
-    El botó "Enviar Missatge" tramet el missatge el/els destinatari(s) previst(s). Assegureu-vos de verificar el contingut del missatge i del/s destinatari(s) abans de prémer aquest botó perquè un cop executat no podreu cancel·lar l'operació.
+    El botÃ³ "Enviar Missatge" tramet el missatge el/els destinatari(s) previst(s). Assegureu-vos de verificar el contingut del missatge i del/s destinatari(s) abans de prÃ©mer aquest botÃ³ perquÃ¨ un cop executat no podreu cancelÂ·lar l'operaciÃ³.
     </para>
     <para>
-    "Desar esborrany" col·loca un missatge sense acabar a la carpeta 'Esborranys', a la que podeu accedir des de la casella del menú desplegable en la part superior dreta de la barra blava de navegació. Podeu acabar el missatge més tard canviant-lo a la carpeta 'Esborranys', fent click al damunt del missatge desat per obrir-lo i fent click més tard a "Rependre".  Assegureu-vos de posar l'assumpte al missatge abans de desar l'esborrany de manera que pugui identificar fàcilment el missatge a la carpeta Drafts. Després de desar un Esborrany, sereu retornats a la carpeta 'Safata d'entrada' o a la darrera que estava visualizant.
+    "Desar esborrany" colÂ·loca un missatge sense acabar a la carpeta 'Esborranys', a la que podeu accedir des de la casella del menÃº desplegable en la part superior dreta de la barra blava de navegaciÃ³. Podeu acabar el missatge mÃ©s tard canviant-lo a la carpeta 'Esborranys', fent click al damunt del missatge desat per obrir-lo i fent click mÃ©s tard a "Rependre".  Assegureu-vos de posar l'assumpte al missatge abans de desar l'esborrany de manera que pugui identificar fÃ cilment el missatge a la carpeta Drafts. DesprÃ©s de desar un Esborrany, sereu retornats a la carpeta 'Safata d'entrada' o a la darrera que estava visualizant.
     </para>
 	<tip>
-    Depenent de la instalació, podeu canviar en les preferències si, després de guardar un missatge com esborrany, torneu a la darrera carpeta que estaveu visualitzant o si seguiu en la finestra de redacció de missatges.
+    Depenent de la instalaciÃ³, podeu canviar en les preferÃ¨ncies si, desprÃ©s de guardar un missatge com esborrany, torneu a la darrera carpeta que estaveu visualitzant o si seguiu en la finestra de redacciÃ³ de missatges.
     </tip>
     <para>
-    El botó "Cancel·lar Missatge" interromp el missatge en progrés i el retorna a la safata d'entrada o la darrera carpeta que estava visualizant.
+    El botÃ³ "CancelÂ·lar Missatge" interromp el missatge en progrÃ©s i el retorna a la safata d'entrada o la darrera carpeta que estava visualizant.
     </para>
 </entry>
   <entry id="compose-identity" state="new">
@@ -50,10 +50,10 @@
     </para>
 </entry>
   <entry id="compose-from" md5="82cf24d31a667a5b94e481cd5179c529" state="changed">
-    <title>Redacció del missatge: Identitat</title>
+    <title>RedacciÃ³ del missatge: Identitat</title>
     <heading>Identitat</heading>
     <para>
-    Si està habilitat podeu elegir mitjançant una llista desplegable una de les identitats introduides a <qt>Opcions &gt; Informació personal</qt>, o podreu introduir en un camp de text l'adreça de correu que desitgeu utilitzar com remitent del missatge.
+    Si estÃ  habilitat podeu elegir mitjanÃ§ant una llista desplegable una de les identitats introduides a <qt>Opcions &gt; InformaciÃ³ personal</qt>, o podreu introduir en un camp de text l'adreÃ§a de correu que desitgeu utilitzar com remitent del missatge.
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -92,40 +92,40 @@
     </para>
 </entry>--></entry>
   <entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="uptodate">
-    <title>Redacció del missatge: Per a</title>
+    <title>RedacciÃ³ del missatge: Per a</title>
     <heading>Per a</heading>
     <para>
-    Introdueixi l'adreça de correu vàlida del destinatari del missatge. Per a introduir diversos destinataris, separeu les adreces mitjançant comes. L'ús de qualsevol altre signe de puntuació per separar diverses adreces de correu provocarà un error.
+    Introdueixi l'adreÃ§a de correu vÃ lida del destinatari del missatge. Per a introduir diversos destinataris, separeu les adreces mitjanÃ§ant comes. L'Ãºs de qualsevol altre signe de puntuaciÃ³ per separar diverses adreces de correu provocarÃ  un error.
     </para>
 </entry>
   <entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="uptodate">
-    <title>Redacció del missatge: Cc</title>
+    <title>RedacciÃ³ del missatge: Cc</title>
     <heading>Cc</heading>
     <para>
-    Introdueixi l'adreça de correu vàlida del destinatari addicional del missatge. Per a introduir diversos destinataris, separeu les adreces mitjançant comes. L'ús de qualsevol altre signe de puntuació per separar diverses adreces de correu provocarà un error.
+    Introdueixi l'adreÃ§a de correu vÃ lida del destinatari addicional del missatge. Per a introduir diversos destinataris, separeu les adreces mitjanÃ§ant comes. L'Ãºs de qualsevol altre signe de puntuaciÃ³ per separar diverses adreces de correu provocarÃ  un error.
     </para>
     <para>
-    Les còpies s'acostumen a enviar a destinataris que no tenen perquè ser els destinataris directes del missatge, però que precisen rebre'ls com informació, generalment per què estan indirectament interessats en l'assumpte del correu. Tots els destinataris "Per a" i "Cc" poden veure la llista completa d'ambdós tipus de destinataris.
+    Les cÃ²pies s'acostumen a enviar a destinataris que no tenen perquÃ¨ ser els destinataris directes del missatge, perÃ² que precisen rebre'ls com informaciÃ³, generalment per quÃ¨ estan indirectament interessats en l'assumpte del correu. Tots els destinataris "Per a" i "Cc" poden veure la llista completa d'ambdÃ³s tipus de destinataris.
     </para>
 </entry>
   <entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="uptodate">
-    <title>Redacció del misstge: Bcc</title>
+    <title>RedacciÃ³ del misstge: Bcc</title>
     <heading>Bcc</heading>
     <para>
-    Introdueixi l'adreça de correu vàlida del destinatari addicional ocult del missatge. Per a introduir diversos destinataris, separeu les adreces mitjançant comes. L'ús de qualsevol altre signe de puntuació per separar diverses adreces de correu provocarà un error.
+    Introdueixi l'adreÃ§a de correu vÃ lida del destinatari addicional ocult del missatge. Per a introduir diversos destinataris, separeu les adreces mitjanÃ§ant comes. L'Ãºs de qualsevol altre signe de puntuaciÃ³ per separar diverses adreces de correu provocarÃ  un error.
     </para>
     <para>
-    Lae còpies ocultes s'acostumen a enviar a destinataris que poden necessitar llegir el que s'hagi escrit SENSE que la resta de destinataris sàpiguen que també han rebut el missatge. Així "Ocult" significa significa que la identitat d'aquests destinataris se'ls oculta la resta de destinataris de correu. Només el remitent i els destinataris "Bcc" sabran que han rebut una còpia.
+    Lae cÃ²pies ocultes s'acostumen a enviar a destinataris que poden necessitar llegir el que s'hagi escrit SENSE que la resta de destinataris sÃ piguen que tambÃ© han rebut el missatge. AixÃ­ "Ocult" significa significa que la identitat d'aquests destinataris se'ls oculta la resta de destinataris de correu. NomÃ©s el remitent i els destinataris "Bcc" sabran que han rebut una cÃ²pia.
     </para>
 </entry>
   <entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="uptodate">
-    <title>Redacció del missatge: Assumpte</title>
+    <title>RedacciÃ³ del missatge: Assumpte</title>
     <heading>Assumpte</heading>
     <para>
-    Introdueixi l'assumpte del missatge. Es convenient que sigui curt, simple i descriptiu. La línia de l'assumpte és la forma senzilla de recordar el contingut d'un missatge pel que és molt important en la organització del missatge i per posterior localització dels missatges importants.
+    Introdueixi l'assumpte del missatge. Es convenient que sigui curt, simple i descriptiu. La lÃ­nia de l'assumpte Ã©s la forma senzilla de recordar el contingut d'un missatge pel que Ã©s molt important en la organitzaciÃ³ del missatge i per posterior localitzaciÃ³ dels missatges importants.
     </para>
     <para>
-    A més a més, si "Respon" o "Reenvia" un missatge, la línia de l'assumpte es còpia en el nou missatge de forma que es converteix en una valuosa forma d'identificar quins missatges s'agrupen per formar una "seqüencia" d'una conversa per correu. Com a suggerència, si una resposta o missatge reenviat conté idees noves, pot ser convenient alterar lleugerament la línia de "Assumpte" de forma que els destinataris puguin seguir la progressió de la "seqüencia".
+    A mÃ©s a mÃ©s, si "Respon" o "Reenvia" un missatge, la lÃ­nia de l'assumpte es cÃ²pia en el nou missatge de forma que es converteix en una valuosa forma d'identificar quins missatges s'agrupen per formar una "seqÃ¼encia" d'una conversa per correu. Com a suggerÃ¨ncia, si una resposta o missatge reenviat contÃ© idees noves, pot ser convenient alterar lleugerament la lÃ­nia de "Assumpte" de forma que els destinataris puguin seguir la progressiÃ³ de la "seqÃ¼encia".
     </para>
 </entry>
   <entry id="compose-charset" state="new">
@@ -136,32 +136,32 @@
     </para>
 </entry>
   <entry id="compose-options" md5="5f1d50a733c8b7e46aecece28822ff70" state="uptodate">
-    <title>Redacció del missatge: Opcions</title>
+    <title>RedacciÃ³ del missatge: Opcions</title>
     <heading>Opcions</heading>
     <para>
     Aquestes opcions l'ajudaran a preparar el missatge.
     </para>
     <para>
-    Premi "Correcció ortogràfica" per a comprovar la ortografia.
+    Premi "CorrecciÃ³ ortogrÃ fica" per a comprovar la ortografia.
     </para>
     <para>
-    Premi "Adjunts" per anar a la part inferior de la plana on podrà adjuntar arxius als missatge.
+    Premi "Adjunts" per anar a la part inferior de la plana on podrÃ  adjuntar arxius als missatge.
     </para>
     <para>
-    Si l'administrador ha habilitat la conservació del correo enviat, podrà activar la casella juntament a "Guardar una còpia" per a conservar una còpia del missatge que va a enviar. La carpeta de destí serà la carpeta per omisió o aquella que hagi seleccionat per a aquest proposit a "Opcions-&gt;Informació personal-&gt;Identitat". Si l'administrador ha habilitat la selecció de destí del correu enviat, podrà elegir una carpeta d'una llista desplegable juntament a aquesta opció.
+    Si l'administrador ha habilitat la conservaciÃ³ del correo enviat, podrÃ  activar la casella juntament a "Guardar una cÃ²pia" per a conservar una cÃ²pia del missatge que va a enviar. La carpeta de destÃ­ serÃ  la carpeta per omisiÃ³ o aquella que hagi seleccionat per a aquest proposit a "Opcions-&gt;InformaciÃ³ personal-&gt;Identitat". Si l'administrador ha habilitat la selecciÃ³ de destÃ­ del correu enviat, podrÃ  elegir una carpeta d'una llista desplegable juntament a aquesta opciÃ³.
     </para>
     <para>
-    Enmagatzemar còpies dels missatges importants que envia pot resultat útil per mantenir-se al corrent del que s'ha dit. Pot, no obstant "activar" aquesta opció per omisió per a la seva identitat a "Opcions-&gt;Informació personal-&gt;Modificar identitat". En les opcions també es poden establir tasques de manteniment que buidin o renombrinr aquestes carpetes de forma periòdica.
+    Enmagatzemar cÃ²pies dels missatges importants que envia pot resultat Ãºtil per mantenir-se al corrent del que s'ha dit. Pot, no obstant "activar" aquesta opciÃ³ per omisiÃ³ per a la seva identitat a "Opcions-&gt;InformaciÃ³ personal-&gt;Modificar identitat". En les opcions tambÃ© es poden establir tasques de manteniment que buidin o renombrinr aquestes carpetes de forma periÃ²dica.
     </para>
     <warn>
-    Pot ser que no desitgi enmagatzemanr tots i cadascun  dels missatges de correu que envia ja que podria tenir problemes amb el ràpid esgotament de l'espai assignat en disc, sobretot a l'enviar adjunts de gran grandària. Una bústia que hagi esgotat l'espai assignat en disc no podrà rebre correu nou. 
+    Pot ser que no desitgi enmagatzemanr tots i cadascun  dels missatges de correu que envia ja que podria tenir problemes amb el rÃ pid esgotament de l'espai assignat en disc, sobretot a l'enviar adjunts de gran grandÃ ria. Una bÃºstia que hagi esgotat l'espai assignat en disc no podrÃ  rebre correu nou. 
     </warn>
 </entry>
   <entry id="compose-attachments" md5="b0d28bb946919a0c13c45721aa5d3f67" state="changed">
-    <title>Redacció del missatge: Adjunts</title>
+    <title>RedacciÃ³ del missatge: Adjunts</title>
     <heading>Adjunts</heading>
     <para>
-    Aquesta secció mostra un llistat d'arxius ja adjuntats al missatge.
+    Aquesta secciÃ³ mostra un llistat d'arxius ja adjuntats al missatge.
     </para>
     <heading>Eliminar arxius adjunts</heading>
     <para>
@@ -171,27 +171,27 @@
      Pas 1: Activi la casella "Eliminar" de l'arxiu adjunt que desitja eliminar.
     </para>
     <para>
-    Paso 2: Premi "Actualitzar informació d'ajunts"
+    Paso 2: Premi "Actualitzar informaciÃ³ d'ajunts"
     </para>
-    <heading>Canviar la disposició dels adjunts</heading>
+    <heading>Canviar la disposiciÃ³ dels adjunts</heading>
     <para>
-    Per a canviar la disposició dels adjunts:
-    </para>
-    <para>
-     Pas 1: Canviï la disposició de cada adjunt al valor desitjat: "En línia" o "Adjunt".
+    Per a canviar la disposiciÃ³ dels adjunts:
     </para>
     <para>
-    Pas 2: Premi "Actualitzar informació d'adjunts".
-    </para>
-    <heading>Canviar la descripció dels adjunts</heading>
-    <para>
-    Per a canviar la descripció dels adjunts (el text que veurà el destinatari descrivint l'adjunt): 
+     Pas 1: CanviÃ¯ la disposiciÃ³ de cada adjunt al valor desitjat: "En lÃ­nia" o "Adjunt".
     </para>
     <para>
-     Pas 1: Introdueixi una descripció en el camp de Descripció. 
+    Pas 2: Premi "Actualitzar informaciÃ³ d'adjunts".
+    </para>
+    <heading>Canviar la descripciÃ³ dels adjunts</heading>
+    <para>
+    Per a canviar la descripciÃ³ dels adjunts (el text que veurÃ  el destinatari descrivint l'adjunt): 
     </para>
     <para>
-    Pas 2: Premi "Actualitzar informació dels adjunts".
+     Pas 1: Introdueixi una descripciÃ³ en el camp de DescripciÃ³. 
+    </para>
+    <para>
+    Pas 2: Premi "Actualitzar informaciÃ³ dels adjunts".
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -268,16 +268,16 @@
     </para>
 </entry>
   <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
-    <title>Redacció del missatge: Prioritat</title>
+    <title>RedacciÃ³ del missatge: Prioritat</title>
     <heading>Prioritat</heading>
     <para>
-això estableix la capçalera "X-Priority" del missatge a enviar. L'etiqueta "X-Priority" és un tipus de "pseudo estàndard" que la majoria dels clients de correu accepten (Netscape, Mozilla, Opera, Outlook). Qualsevol client de correu que no la gestioni simplement la ignorarà.
+aixÃ² estableix la capÃ§alera "X-Priority" del missatge a enviar. L'etiqueta "X-Priority" Ã©s un tipus de "pseudo estÃ ndard" que la majoria dels clients de correu accepten (Netscape, Mozilla, Opera, Outlook). Qualsevol client de correu que no la gestioni simplement la ignorarÃ .
     </para>
 </entry>
   <entry id="compose-save-attachments" md5="db89972c4ebb0b41ab691b6a7744a81d" state="uptodate">
-    <title>Redacció del missatge: Guardar adjunts</title>
+    <title>RedacciÃ³ del missatge: Guardar adjunts</title>
     <para>
-Determina si els adjunts del missatge es guardaran amb el mateix en la carpeta de correu enviat. Si se selecciona "Si", es guardaran les dades dels adjunts. Si se selecciona "No", les dades dels adjunts s'eliminaran del missatge després d'enviar-lo als destinataris. Seleccionar "No" li ajudarà a conservar l'espai de disc a l'eliminar la informació dels adjunts (potencialment gran) dels missatges emmagatzemats. 
+Determina si els adjunts del missatge es guardaran amb el mateix en la carpeta de correu enviat. Si se selecciona "Si", es guardaran les dades dels adjunts. Si se selecciona "No", les dades dels adjunts s'eliminaran del missatge desprÃ©s d'enviar-lo als destinataris. Seleccionar "No" li ajudarÃ  a conservar l'espai de disc a l'eliminar la informaciÃ³ dels adjunts (potencialment gran) dels missatges emmagatzemats. 
     </para>
 </entry>
   <entry id="compose-link-attachments" state="new">
@@ -290,7 +290,7 @@ Determina si els adjunts del missatge es guardaran amb el mateix en la carpeta d
     <title>Cerca de missatges</title>
     <heading>Criteri de cerca</heading>
     <para>
-    Pot cercer missatges en les carpetes mitjançant criteris de cerca.
+    Pot cercer missatges en les carpetes mitjanÃ§ant criteris de cerca.
     </para>
     <para>
         Pas 1: Introdueixi text en els camps que desitgi afegir al criteri de cerca.
@@ -331,24 +331,24 @@ Determina si els adjunts del missatge es guardaran amb el mateix en la carpeta d
     </para>
 </entry>--></entry>
   <entry id="folder-options" md5="08ee3e450a82431727763b9db082ec08" state="uptodate">
-    <title>Gestió de carpetes: Opcions</title>
+    <title>GestiÃ³ de carpetes: Opcions</title>
     <heading>Opcions de carpetes</heading>
     <para>
-     Pot seleccionar una carpeta mitjançant el botó de selecció de l'esquerra. Una vegada ho hagi fet, trii l'opció que desitgi realitzar en la carpeta mitjançant la llista desplegable d'opcions. 
+     Pot seleccionar una carpeta mitjanÃ§ant el botÃ³ de selecciÃ³ de l'esquerra. Una vegada ho hagi fet, trii l'opciÃ³ que desitgi realitzar en la carpeta mitjanÃ§ant la llista desplegable d'opcions. 
     </para>
     <para>
-      Se li demanaran altres dades. Vagi amb compte amb l'opció Eliminar ja que pot perdre tots els missatges d'una carpeta si l'esborra per error! 
+      Se li demanaran altres dades. Vagi amb compte amb l'opciÃ³ Eliminar ja que pot perdre tots els missatges d'una carpeta si l'esborra per error! 
     </para>
     <heading>Importar arxiu mbox</heading>
     <para>
-      Aquesta opció importarà a la carpeta de la seva elecció un arxiu de format mbox. Seleccioni 1 (uneixi) carpeta a la qual importar els missatges i trii aquesta opció. Se li mostrarà una plana que li demanarà que indiqui l'arxiu mbox que desitgi importar. 
+      Aquesta opciÃ³ importarÃ  a la carpeta de la seva elecciÃ³ un arxiu de format mbox. Seleccioni 1 (uneixi) carpeta a la qual importar els missatges i trii aquesta opciÃ³. Se li mostrarÃ  una plana que li demanarÃ  que indiqui l'arxiu mbox que desitgi importar. 
     </para>
 </entry>
   <entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
     <title>Filtres: Aplicar</title>
     <heading>Aplica regles de filtratge</heading>
     <para>
-    Premi la icona "Aplicar filtres" juntament al nom de la bústia d'ENTRADA en la vista de bústies per filtrar tots els missatges conforme a les regles específicades.
+    Premi la icona "Aplicar filtres" juntament al nom de la bÃºstia d'ENTRADA en la vista de bÃºsties per filtrar tots els missatges conforme a les regles especÃ­ficades.
     </para>
 </entry>
   <entry id="filter-edit-rules" md5="5baa5708ac9449e797f967313a9e1a27" state="uptodate">
@@ -362,70 +362,70 @@ Determina si els adjunts del missatge es guardaran amb el mateix en la carpeta d
     <title>Filtres: Modificar la llista negra</title>
     <heading>Modificar la llista negra</heading>
     <para>
-    Premit "Modificar la llista negra" per passar a la pàgina en la que pot afegir, eliminar i modificar la llista d'adreces de correu de les que SEMPRE rebutjaran els enviats .
+    Premit "Modificar la llista negra" per passar a la pÃ gina en la que pot afegir, eliminar i modificar la llista d'adreces de correu de les que SEMPRE rebutjaran els enviats .
     </para>
 </entry>
   <entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="uptodate">
     <title>Filtres: Modificar la llista blanca</title>
     <heading>Modificar la llista blanca</heading>
     <para>
-    Premi "Modificar la llista blanca" per a passar a la pàgina en la que pot afegir, eliminar, i modificar la llista d'adreces de correu de las que SEMPRE acceptarà els enviats.
+    Premi "Modificar la llista blanca" per a passar a la pÃ gina en la que pot afegir, eliminar, i modificar la llista d'adreces de correu de las que SEMPRE acceptarÃ  els enviats.
     </para>
 </entry>
   <entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="uptodate">
     <title>Filtres: Filtrar a l'iniciar</title>
-    <heading>Aplicar regles de filtratge a l'iniciar sessió?</heading>
+    <heading>Aplicar regles de filtratge a l'iniciar sessiÃ³?</heading>
     <para>
-    Activi aquesta opció per aplicar sempre els filtres a l'iniciar sessió a IMP.
+    Activi aquesta opciÃ³ per aplicar sempre els filtres a l'iniciar sessiÃ³ a IMP.
     </para>
 </entry>
   <entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="uptodate">
     <title>Filtres: Filtrar al refrescar</title>
     <heading>Aplicar regles de filtratge al visualitzar la carpeta d'ENTRADA?</heading>
     <para>
-    Activi aquesta opció per aplicar sempre els filtres que vegi la carpeta d'Entrada.
+    Activi aquesta opciÃ³ per aplicar sempre els filtres que vegi la carpeta d'Entrada.
     </para>
 </entry>
   <entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="uptodate">
-    <title>Filtres: Filtrar qualsevol bústia</title>
-    <heading>Aplicar regles de filtratge a qualsevol bústia?</heading>
+    <title>Filtres: Filtrar qualsevol bÃºstia</title>
+    <heading>Aplicar regles de filtratge a qualsevol bÃºstia?</heading>
     <para>
-    Activi aquesta opció si desitja aplicar les regles de filtrat a qualsevol bústia. Normalment les regles de filtrat s'apliquen només al correu nou que arriba a la carpeta d'ENTRADA. Si s'activa aquesta opció, apareixerà una icona a totes les pàgines de bústies que li permetrà aplicar les regles de filtrat als missatges de la bústia actual. OBSERVACIÓ: Filtrar altres bústies diferents a la d'ENTRADA pot produir resultats estranys (p.e. el filtre pot fer que s'enviï una còpia a la mateixa bústia dels missatges a enviar) i/o no desitjats (p.e. pot ocasionar que es traslladin o eliminin missatges si s'han afegit noves regles de filtrat després que un missatge ja s'havia enviat a la bústia actual). 
+    Activi aquesta opciÃ³ si desitja aplicar les regles de filtrat a qualsevol bÃºstia. Normalment les regles de filtrat s'apliquen nomÃ©s al correu nou que arriba a la carpeta d'ENTRADA. Si s'activa aquesta opciÃ³, apareixerÃ  una icona a totes les pÃ gines de bÃºsties que li permetrÃ  aplicar les regles de filtrat als missatges de la bÃºstia actual. OBSERVACIÃ“: Filtrar altres bÃºsties diferents a la d'ENTRADA pot produir resultats estranys (p.e. el filtre pot fer que s'enviÃ¯ una cÃ²pia a la mateixa bÃºstia dels missatges a enviar) i/o no desitjats (p.e. pot ocasionar que es traslladin o eliminin missatges si s'han afegit noves regles de filtrat desprÃ©s que un missatge ja s'havia enviat a la bÃºstia actual). 
     </para>
 </entry>
   <entry id="pgp-compose-attach-pubkey" md5="97446dbbb27616b4fa39be801e10df2d" state="uptodate">
-    <title>PGP: Adjuntar clau pública</title>
-    <heading>Adjuntar clau pública</heading>
+    <title>PGP: Adjuntar clau pÃºblica</title>
+    <heading>Adjuntar clau pÃºblica</heading>
     <para>
-    Si se selecciona, s'adjuntarà al missatge una còpia de la clau PGP pública, si existeix. Es pot configurar el comportament per omissió mitjançant la pantalla d'opcions PGP. 
+    Si se selecciona, s'adjuntarÃ  al missatge una cÃ²pia de la clau PGP pÃºblica, si existeix. Es pot configurar el comportament per omissiÃ³ mitjanÃ§ant la pantalla d'opcions PGP. 
     </para>
 </entry>
   <entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="uptodate">
     <title>PGP: Analitzar text del cos</title>
     <heading>Analitzar text del cos</heading>
     <para>
-    Si se selecciona, IMP buscarà dades PGP en el cos dels missatges de text i mostrarà els resultats si els troba. Observi que això pot ralentitzar el sistema ja que cada missatge ha de comprovar-se en la seva totalitat.
+    Si se selecciona, IMP buscarÃ  dades PGP en el cos dels missatges de text i mostrarÃ  els resultats si els troba. Observi que aixÃ² pot ralentitzar el sistema ja que cada missatge ha de comprovar-se en la seva totalitat.
 
     </para>
 </entry>
   <entry id="compose-options-encrypt" md5="feb178fb6351e6775fb75fc9729ea567" state="changed">
-    <title>Redacció: Opcions de xifrat</title>
+    <title>RedacciÃ³: Opcions de xifrat</title>
     <heading>Sense xifrar</heading>
     <para>
     Envia el missatge sense xifrar (text pla).
     </para>
     <heading>Xifrar missatge amb PGP</heading>
     <para>
-Aquesta opció xifrarà el missatge mitjançant PGP i la clau personal pública del destinatari i ho enviarà. Mitjançant aquesta opció només es pot enviar el missatge a un únic destinatari. Ha de DISPOSAR de la clau pública del destinatari emmagatzemada en la llibreta d'adreces o l'opció fallarà. Si disposa de la clau pública del destinatari en la llibreta d'adreces i segueix tenint errors, comprovi que l'adreça de correu electrònic del destinatari coincideix amb l'adreça en la qual està emmagatzemada la clau pública, Les dades xifrades s'adjuntaran al missatge de sortida. 
+Aquesta opciÃ³ xifrarÃ  el missatge mitjanÃ§ant PGP i la clau personal pÃºblica del destinatari i ho enviarÃ . MitjanÃ§ant aquesta opciÃ³ nomÃ©s es pot enviar el missatge a un Ãºnic destinatari. Ha de DISPOSAR de la clau pÃºblica del destinatari emmagatzemada en la llibreta d'adreces o l'opciÃ³ fallarÃ . Si disposa de la clau pÃºblica del destinatari en la llibreta d'adreces i segueix tenint errors, comprovi que l'adreÃ§a de correu electrÃ²nic del destinatari coincideix amb l'adreÃ§a en la qual estÃ  emmagatzemada la clau pÃºblica, Les dades xifrades s'adjuntaran al missatge de sortida. 
     </para>
     <heading>Meissatge amb signatura PGP</heading>
     <para>
-    Aquesta opció signarà digitalment el missatge actual mitjançant PGP i el seu clau personal privada. Si encara no havia introduït la frase clau de la seva clau personal privada durant la sessió actual, se li demanarà. El destinatari ha de tenir una còpia de la seva clau pública per a verificar digitalment la signatura.
+    Aquesta opciÃ³ signarÃ  digitalment el missatge actual mitjanÃ§ant PGP i el seu clau personal privada. Si encara no havia introduÃ¯t la frase clau de la seva clau personal privada durant la sessiÃ³ actual, se li demanarÃ . El destinatari ha de tenir una cÃ²pia de la seva clau pÃºblica per a verificar digitalment la signatura.
 
     </para>
     <heading>Missatge signat/xifrat amb PGP</heading>
     <para>
-    Aquesta opció signarà digitalment el missatge en primer lloc i després xifrarà el resultat. Consulti els apartats "Xifrar missatge amb PGP" i "Missatge amb signatura PGP" per a més informació.
+    Aquesta opciÃ³ signarÃ  digitalment el missatge en primer lloc i desprÃ©s xifrarÃ  el resultat. Consulti els apartats "Xifrar missatge amb PGP" i "Missatge amb signatura PGP" per a mÃ©s informaciÃ³.
     </para>
     <heading>Missatge xifrat amb S/MIME</heading>
     <para>
@@ -636,89 +636,89 @@ Aquesta opció xifrarà el missatge mitjançant PGP i la clau personal pública del 
     </para>
 </entry>--></entry>
   <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
-    <title>PGP: Introducció</title>
-    <heading>Que és PGP?</heading>
+    <title>PGP: IntroducciÃ³</title>
+    <heading>Que Ã©s PGP?</heading>
     <para>
-PGP és una eina per a comunicacions i emmagatzematge de dades segures, especialment per al seu ús amb el correu electrònic. Es pot utilitzar per a xifrar dades i per a crear signatures digitals. IMP utilitza GnuPG (GNU Privacy Guard/Guardià de Privadesa GNU) per a proporcionar aquesta funcionalitat.   
+PGP Ã©s una eina per a comunicacions i emmagatzematge de dades segures, especialment per al seu Ãºs amb el correu electrÃ²nic. Es pot utilitzar per a xifrar dades i per a crear signatures digitals. IMP utilitza GnuPG (GNU Privacy Guard/GuardiÃ  de Privadesa GNU) per a proporcionar aquesta funcionalitat.   
     </para>
     <heading>Activar la funcionalitat PGP?</heading>
     <para>
-    Si se selecciona aquesta opció, podrà crear/veure la seva clau PGP personal, afegir/eliminar claus públiques d'altres persones, llegir correu xifrat, comprovar correu signat digitalment i xifrar/signar el correu que enviï.
+    Si se selecciona aquesta opciÃ³, podrÃ  crear/veure la seva clau PGP personal, afegir/eliminar claus pÃºbliques d'altres persones, llegir correu xifrat, comprovar correu signat digitalment i xifrar/signar el correu que enviÃ¯.
     </para>
 </entry>
   <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
-    <title>PGP: Opcions - Adjuntar clau pública</title>
-    <heading>Opcions - Adjuntar clau pública</heading>
+    <title>PGP: Opcions - Adjuntar clau pÃºblica</title>
+    <heading>Opcions - Adjuntar clau pÃºblica</heading>
     <para>
-    Si  Si se selecciona, per omissió s'adjuntarà als missatges una còpia de la seva clau PGP pública si la té.
+    Si  Si se selecciona, per omissiÃ³ s'adjuntarÃ  als missatges una cÃ²pia de la seva clau PGP pÃºblica si la tÃ©.
     </para>
 </entry>
   <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
-    <title>PGP: Gestionar clau públiques</title>
-    <heading>Introducció</heading>
+    <title>PGP: Gestionar clau pÃºbliques</title>
+    <heading>IntroducciÃ³</heading>
     <para>
-    Aquesta pantalla enumera tots els usuaris actuals de la seva llibreta d'adreces que tenen claus PGP públiques. Aquests usuaris són els ÚNICS als quals pot enviar un missatge xifrat o dels quals pot comprovar la signatura digital. 
+    Aquesta pantalla enumera tots els usuaris actuals de la seva llibreta d'adreces que tenen claus PGP pÃºbliques. Aquests usuaris sÃ³n els ÃšNICS als quals pot enviar un missatge xifrat o dels quals pot comprovar la signatura digital. 
     </para>
     <heading>Ver</heading>
     <para>
-    Obre una finestra per a visualitzar la clau PGP pública.
+    Obre una finestra per a visualitzar la clau PGP pÃºblica.
     </para>
     <heading>Detalls</heading>
     <para>
-    Mostra diversos detalls sobre la clau PGP pública.
+    Mostra diversos detalls sobre la clau PGP pÃºblica.
     </para>
     <heading>Eliminar</heading>
     <para>
-    Elimina la clau pública de la llibreta d'adreces.
+    Elimina la clau pÃºblica de la llibreta d'adreces.
     </para>
 </entry>
   <entry id="pgp-import-pubkey" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382" state="uptodate">
-    <title>PGP: Gestionar claus públiques - Importar</title>
-    <heading>Importar claus públiques</heading>
+    <title>PGP: Gestionar claus pÃºbliques - Importar</title>
+    <heading>Importar claus pÃºbliques</heading>
     <para>
-    Aquest botó obrirà una finestra en la qual pot importar de forma manual una clau PGP pública. La clau es pot enganxar en un camp de text o, si es troba en un arxiu en l'ordinador local, pot importar-la. Si la clau és vàlida s'inserirà en la llibreta d'adreces i la finestra es tancarà; si no és vàlida es mostrarà un missatge d'error explicant la raó. 
+    Aquest botÃ³ obrirÃ  una finestra en la qual pot importar de forma manual una clau PGP pÃºblica. La clau es pot enganxar en un camp de text o, si es troba en un arxiu en l'ordinador local, pot importar-la. Si la clau Ã©s vÃ lida s'inserirÃ  en la llibreta d'adreces i la finestra es tancarÃ ; si no Ã©s vÃ lida es mostrarÃ  un missatge d'error explicant la raÃ³. 
     </para>
 </entry>
   <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
     <title>PGP: Gestionar claus personals</title>
-    <heading>Introducció</heading>
+    <heading>IntroducciÃ³</heading>
     <para>
-    Si desitja signar digitalment missatges o permetre que uns altres li enviïn missatges xifrats, ha de disposar dels seus pròpies claus PGP pública/privada.
+    Si desitja signar digitalment missatges o permetre que uns altres li enviÃ¯n missatges xifrats, ha de disposar dels seus prÃ²pies claus PGP pÃºblica/privada.
 
     </para>
-    <heading>La clau pública</heading>
+    <heading>La clau pÃºblica</heading>
     <para>
-La clau pública ha de posar-la a la disposició de qualsevol persona que desitgi que pugui enviar-li missatges xifrats que només VOSTÈ podrà desxifrar (mitjançant la seva clau privada). A més, la clau pública ha d'estar disponible per a tot aquell al que vulgui enviar un missatge signat digitalment - la clau pública  és necessària per a comprovar la signatura digital.
+La clau pÃºblica ha de posar-la a la disposiciÃ³ de qualsevol persona que desitgi que pugui enviar-li missatges xifrats que nomÃ©s VOSTÃˆ podrÃ  desxifrar (mitjanÃ§ant la seva clau privada). A mÃ©s, la clau pÃºblica ha d'estar disponible per a tot aquell al que vulgui enviar un missatge signat digitalment - la clau pÃºblica  Ã©s necessÃ ria per a comprovar la signatura digital.
     </para>
     <heading>La clau privada</heading>
     <para>
-    La clau privada  és necessària per a desxifrar qualsevol missatge xifrat mitjançant la seva clau pública. A més la clau privada és necessària si vol signar digitalment un missatge. La clau privada es protegirà mitjançant una frase clau creada al generar les claus pel que, per a realitzar qualsevol activitat que precisi la clau privada, IMP li demanarà la frase clau. Només haurà d'introduir-la una vegada per sessió - IMP l'emmagatzemarà fins que surti de la sessió (Pel que asseguri's de sortir de la sessió!).
+    La clau privada  Ã©s necessÃ ria per a desxifrar qualsevol missatge xifrat mitjanÃ§ant la seva clau pÃºblica. A mÃ©s la clau privada Ã©s necessÃ ria si vol signar digitalment un missatge. La clau privada es protegirÃ  mitjanÃ§ant una frase clau creada al generar les claus pel que, per a realitzar qualsevol activitat que precisi la clau privada, IMP li demanarÃ  la frase clau. NomÃ©s haurÃ  d'introduir-la una vegada per sessiÃ³ - IMP l'emmagatzemarÃ  fins que surti de la sessiÃ³ (Pel que asseguri's de sortir de la sessiÃ³!).
     </para>
 </entry>
   <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
-    <title>PGP: Gestionar claus personals - Clau pública</title>
+    <title>PGP: Gestionar claus personals - Clau pÃºblica</title>
     <heading>Ver</heading>
     <para>
-    Obre una finestra per a visualitzar la clau PGP pública.
+    Obre una finestra per a visualitzar la clau PGP pÃºblica.
     </para>
     <heading>Detalls</heading>
     <para>
-    Mostra diversos detalls sobre la clau PGP pública.
+    Mostra diversos detalls sobre la clau PGP pÃºblica.
     </para>
 </entry>
   <entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
     <title>PGP: Gestionar claus personals - Clau privada</title>
     <heading>Introdueixi la frase clau</heading>
     <para>
-    O Obre el quadre de diàleg de frase clau. Si la frase clau introduïda és correcta s'emmagatzemarà fins que s'acabi la sessió. 
+    O Obre el quadre de diÃ leg de frase clau. Si la frase clau introduÃ¯da Ã©s correcta s'emmagatzemarÃ  fins que s'acabi la sessiÃ³. 
     </para>
     <heading>Oblidar frase clau</heading>
     <para>
-    Elimina la frase clau emmagatzemada - qualsevol ús addicional de la clau privada precisarà la reintroducció de la frase clau. 
+    Elimina la frase clau emmagatzemada - qualsevol Ãºs addicional de la clau privada precisarÃ  la reintroducciÃ³ de la frase clau. 
     </para>
     <heading>Ver</heading>
     <para>
-    Obre una finestra per a visualitzar la clau PGP privada. NO ENVÍI AQUESTA CLAU A NINGÚ - aquesta opció és estrictament només per a exportar la seva clau personal privada de IMP per a usar-la en altre programa.
+    Obre una finestra per a visualitzar la clau PGP privada. NO ENVÃI AQUESTA CLAU A NINGÃš - aquesta opciÃ³ Ã©s estrictament nomÃ©s per a exportar la seva clau personal privada de IMP per a usar-la en altre programa.
 
     </para>
     <heading>Detalls</heading>
@@ -730,147 +730,147 @@ La clau pública ha de posar-la a la disposició de qualsevol persona que desitgi 
     <title>PGP: Gestionar claus personals - Eliminar</title>
     <heading>Eliminar claus personals</heading>
     <para>
-    Aquest botí eliminarà les claus personals pública/privada de les preferències de IMP.
+    Aquest botÃ­ eliminarÃ  les claus personals pÃºblica/privada de les preferÃ¨ncies de IMP.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
     <title>PGP: Crear claus personals - Nom</title>
     <heading>El seu nom</heading>
     <para>
-    És el nom que desitja que s'inclogui en les seves claus personals. És un camp necessari. 
+    Ã‰s el nom que desitja que s'inclogui en les seves claus personals. Ã‰s un camp necessari. 
     </para>
 </entry>
   <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
     <title>PGP: Crear claus personals - Comentari</title>
     <heading>Comentari</heading>
     <para>
-    Un comentari que desitji que s'afegeixi en les seves claus personals. És un camp opcional.
+    Un comentari que desitji que s'afegeixi en les seves claus personals. Ã‰s un camp opcional.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
-    <title>PGP: Crear claus personals - Correu electrònic</title>
-    <heading>Correu electrònic</heading>
+    <title>PGP: Crear claus personals - Correu electrÃ²nic</title>
+    <heading>Correu electrÃ²nic</heading>
     <para>
-    L'adreça de correu que vol associar a les seves claus personals. És un camp necessari.
+    L'adreÃ§a de correu que vol associar a les seves claus personals. Ã‰s un camp necessari.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-keylength" md5="24ca641c63fb5ff310a39ee0d3b1ee55" state="uptodate">
     <title>PGP: Crear claus personals - Mida de la clau</title>
     <heading>Mida de la clau</heading>
     <para>
-    La mida, en bytes, de la clau generada. Com més gran sigui el valor, major serà la protecció (i també major serà el temps de generació i de xifrat). 1024 bytes és la opció per omissió - aquest valor oferix una protección excel·lent.
+    La mida, en bytes, de la clau generada. Com mÃ©s gran sigui el valor, major serÃ  la protecciÃ³ (i tambÃ© major serÃ  el temps de generaciÃ³ i de xifrat). 1024 bytes Ã©s la opciÃ³ per omissiÃ³ - aquest valor oferix una protecciÃ³n excelÂ·lent.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
     <title>PGP: Crear claus personales - Frase clau</title>
     <heading>Frase clau</heading>
     <para>
-La frase clau utilitzada per a protegir/xifrar el seu clau personal privada. Hauria de tenir ALMENYS 6 caràcters, NO hauria de ser igual a la seva contrasenya d'accés, NO ha de basar-se en una paraula inclosa en el diccionari i hauria de contenir tant nombres com lletres. Haurà d'introduir la frase clau dues vegades a fi de verificar-la. És un camp necessari. 
+La frase clau utilitzada per a protegir/xifrar el seu clau personal privada. Hauria de tenir ALMENYS 6 carÃ cters, NO hauria de ser igual a la seva contrasenya d'accÃ©s, NO ha de basar-se en una paraula inclosa en el diccionari i hauria de contenir tant nombres com lletres. HaurÃ  d'introduir la frase clau dues vegades a fi de verificar-la. Ã‰s un camp necessari. 
     </para>
 </entry>
   <entry id="pgp-personalkey-create-actions" md5="0f8234935b964c83533b4ec4c15eb712" state="uptodate">
     <title>PGP: Crear claus personals - Accions</title>
     <heading>Crear claus</heading>
     <para>
-    Crea i enmagatzema les seves claus personals pública/privada.
+    Crea i enmagatzema les seves claus personals pÃºblica/privada.
     </para>
     <heading>Importar claus</heading>
     <para>
-    Importa unes claus personals pública/privada. Aquest botó obre una finestra en la qual pot importar de forma manual les seves claus personals pública/privada existents. Les claus es poden enganxar en un camp de text o, si estan disponibles en un arxiu en l'ordinador local, pot importar-les des del mateix. Si les claus són vàlides s'inseriran en les preferències i la finestra es tancarà; si no són vàlides es mostrarà un missatge d'error indicant la raó. 
+    Importa unes claus personals pÃºblica/privada. Aquest botÃ³ obre una finestra en la qual pot importar de forma manual les seves claus personals pÃºblica/privada existents. Les claus es poden enganxar en un camp de text o, si estan disponibles en un arxiu en l'ordinador local, pot importar-les des del mateix. Si les claus sÃ³n vÃ lides s'inseriran en les preferÃ¨ncies i la finestra es tancarÃ ; si no sÃ³n vÃ lides es mostrarÃ  un missatge d'error indicant la raÃ³. 
     </para>
 </entry>
   <entry id="smime-overview" md5="d3c752b1345fb2eccfe575c07461963f" state="uptodate">
-    <title>S/MIME: Introducción</title>
-    <heading>¿Qué es S/MIME?</heading>
+    <title>S/MIME: IntroducciÃ³n</title>
+    <heading>Â¿QuÃ© es S/MIME?</heading>
     <para>
-S/MIME és un sistema de claus privada/pública que proporciona signatures digitals, privadesa de missatges i detección de falsificació d'una forma oberta i interoperable. S/MIME pot proporcionar privadesa als missatges xifrant-los de forma que només el remitent i els destinataris previstos puguin desxifrar-los. Li permet identificar al remitent d'un missatge mitjançant una signatura digital. En conjunt, aquesta ajuda de xifrat i signatura digital proporciona detecció de falsificació, permetent als destinataris determinar si un missatge s'ha modificat después d'haver estat enviat. 
+S/MIME Ã©s un sistema de claus privada/pÃºblica que proporciona signatures digitals, privadesa de missatges i detecciÃ³n de falsificaciÃ³ d'una forma oberta i interoperable. S/MIME pot proporcionar privadesa als missatges xifrant-los de forma que nomÃ©s el remitent i els destinataris previstos puguin desxifrar-los. Li permet identificar al remitent d'un missatge mitjanÃ§ant una signatura digital. En conjunt, aquesta ajuda de xifrat i signatura digital proporciona detecciÃ³ de falsificaciÃ³, permetent als destinataris determinar si un missatge s'ha modificat despuÃ©s d'haver estat enviat. 
     </para>
     <heading>Activar capacitat S/MIME?</heading>
     <para>
-Si se selecciona aquesta opción, podrá importar les seves claus personals S/MIME, llegir correu xifrat, comprovar correu signat digitalment i xifrar/signar el correu que envíi.
+Si se selecciona aquesta opciÃ³n, podrÃ¡ importar les seves claus personals S/MIME, llegir correu xifrat, comprovar correu signat digitalment i xifrar/signar el correu que envÃ­i.
     </para>
 </entry>
   <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
     <title>S/MIME: Claus personals</title>
-    <heading>Introducció</heading>
+    <heading>IntroducciÃ³</heading>
     <para>
-    Si desitja signar digitalment o xifrar els missatges, ha de disposar de les seves pròpies claus S/MIME pública/privada.
+    Si desitja signar digitalment o xifrar els missatges, ha de disposar de les seves prÃ²pies claus S/MIME pÃºblica/privada.
     </para>
 </entry>
   <entry id="smime-import-personal-certs" md5="cf0ed2e3e24d30dedf8cfef2c2645759" state="uptodate">
     <title>S/MIME: Importar certificats personals</title>
     <heading>Importar certificats personals</heading>
     <para>
-Importa els certificats personals des d'un arxiu de format PKCS #12. A l'exportar una clau des d'un navegador (p.i. Internet Explorer, Firefox) o a l'exportar un certificat emmagatzemat pel sistema Operatiu (p.i. Windows XP) se sol generar un arxiu de tipus PKCS #12. Si les claus són vàlides, s'inserirán en les preferències i es tancará la finestra; si no són válidas es mostrará un missatge d'error explicant la raó. 
+Importa els certificats personals des d'un arxiu de format PKCS #12. A l'exportar una clau des d'un navegador (p.i. Internet Explorer, Firefox) o a l'exportar un certificat emmagatzemat pel sistema Operatiu (p.i. Windows XP) se sol generar un arxiu de tipus PKCS #12. Si les claus sÃ³n vÃ lides, s'inserirÃ¡n en les preferÃ¨ncies i es tancarÃ¡ la finestra; si no sÃ³n vÃ¡lidas es mostrarÃ¡ un missatge d'error explicant la raÃ³. 
     </para>
 </entry>
   <entry id="smime-delete-personal-certs" md5="018bb6b61a7e416892de288ad1c880f4" state="uptodate">
     <title>S/MIME: Eliminar certificats personals</title>
     <heading>Eliminar certificats personals</heading>
     <para>
-    Elimina els seus certificats personales de las preferències. No podrà tornar a signar missatges en S/MIME ni veure cap missatge xifrat en S/MIME que li envíi.
+    Elimina els seus certificats personales de las preferÃ¨ncies. No podrÃ  tornar a signar missatges en S/MIME ni veure cap missatge xifrat en S/MIME que li envÃ­i.
     </para>
 </entry>
   <entry id="smime-manage-pubkey" md5="8b6c63684d3d73b3d084025a78fe7e88" state="uptodate">
-    <title>S/MIME: Gestionar claus públiques</title>
-    <heading>S/MIME: Gestionar claus públiques</heading>
+    <title>S/MIME: Gestionar claus pÃºbliques</title>
+    <heading>S/MIME: Gestionar claus pÃºbliques</heading>
     <para>
-     Gestiona el seu llistat de claus S/MIME públicas.
+     Gestiona el seu llistat de claus S/MIME pÃºblicas.
     </para>
     <heading>Veure</heading>
     <para>
-    Veure el text en brut d'una clau pública.
+    Veure el text en brut d'una clau pÃºblica.
     </para>
     <heading>Detalles</heading>
     <para>
-    Veure dades tècnics d'una clau pública.
+    Veure dades tÃ¨cnics d'una clau pÃºblica.
     </para>
     <heading>Eliminar</heading>
     <para>
-    Elimina de l'emmagatzematge la clau pública seleccionada. Eliminar la clau pública d'un usuari li impedirá enviar-li missatges xifrats a dita usuària. 
+    Elimina de l'emmagatzematge la clau pÃºblica seleccionada. Eliminar la clau pÃºblica d'un usuari li impedirÃ¡ enviar-li missatges xifrats a dita usuÃ ria. 
     </para>
 </entry>
   <entry id="printing" md5="f233c11b6b4a6bedeb68f1d5a2a976db" state="uptodate">
-    <title>Impressió</title>
+    <title>ImpressiÃ³</title>
     <heading>Imprimir un missatge</heading>
     <para>
-    Per a imprimir un missatge que està visualitzant, premi qualsevol dels vincles "Imprimir" de la part superior o inferior del missatge. El missatge s'obrirà en una nova finestra amb un format preparat per a la impressió. Depenent del navegador i sistema operatiu que està utilitzant, pot obrir-se el quadre de diàleg d'impressió. Si no s'obre, desplegui el menú "Arxiu" del navegador i seleccioni "Imprimir" per a obrir el quadre d'impressió. 
+    Per a imprimir un missatge que estÃ  visualitzant, premi qualsevol dels vincles "Imprimir" de la part superior o inferior del missatge. El missatge s'obrirÃ  en una nova finestra amb un format preparat per a la impressiÃ³. Depenent del navegador i sistema operatiu que estÃ  utilitzant, pot obrir-se el quadre de diÃ leg d'impressiÃ³. Si no s'obre, desplegui el menÃº "Arxiu" del navegador i seleccioni "Imprimir" per a obrir el quadre d'impressiÃ³. 
     </para>
 </entry>
   <entry id="sorting" md5="18cdeac38027fe5c42bab693f2a4260a" state="uptodate">
-    <title>Ordenació i seqüències</title>
-    <heading>Ordenació d'entrades</heading>
+    <title>OrdenaciÃ³ i seqÃ¼Ã¨ncies</title>
+    <heading>OrdenaciÃ³ d'entrades</heading>
     <para>
-Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les columnes prement sobre la capçalera de la columna corresponent. Per a commutar el sentit de la clasificació de les columnes entre ascendent i descendent, premi la icona de fletxa de la capçalera de la columna.
+Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les columnes prement sobre la capÃ§alera de la columna corresponent. Per a commutar el sentit de la clasificaciÃ³ de les columnes entre ascendent i descendent, premi la icona de fletxa de la capÃ§alera de la columna.
     </para>
-    <heading>Seqüències</heading>
+    <heading>SeqÃ¼Ã¨ncies</heading>
     <para>
-    Per a agrupar els missatges per seqüències (assumptes), de manera que cada missatge s'agrupi amb totes les seves respostes, premi el vincle %[Seqüència] de la capçalera de la columna assumpte. Per a tornar a la ordenació normal per assumptes, premi el vincle %[Assumpte] de la capçalera de la columna assumpte. 
+    Per a agrupar els missatges per seqÃ¼Ã¨ncies (assumptes), de manera que cada missatge s'agrupi amb totes les seves respostes, premi el vincle %[SeqÃ¼Ã¨ncia] de la capÃ§alera de la columna assumpte. Per a tornar a la ordenaciÃ³ normal per assumptes, premi el vincle %[Assumpte] de la capÃ§alera de la columna assumpte. 
     </para>
 </entry>
   <entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
     <title>Mensajes Multipart/Alternative</title>
     <para>
-  Els remitents envien en ocasions missatges de tipus "multipart/alternative". Aquests missatges tenen diverses parts, totes mostrant EL MATEIX CONTINGUT però en FORMATS DIFERENTS. L'agent de correu mostrarà la darrera part de la llista que pugui visualitzar-se correctament en línea en el navegador, si hi ha. La resta dels formats aparèixerán sota el epígrafe "Parts alternatives d'aquesta secció" i es podran visualitzar o descarregar de forma separada. És important tenir en compte que totes les parts alternatives tenen EL MATEIX CONTINGUT que la part mostrada - simplement están en formats diferents (p.e. text enfront d'HTML). 
+  Els remitents envien en ocasions missatges de tipus "multipart/alternative". Aquests missatges tenen diverses parts, totes mostrant EL MATEIX CONTINGUT perÃ² en FORMATS DIFERENTS. L'agent de correu mostrarÃ  la darrera part de la llista que pugui visualitzar-se correctament en lÃ­nea en el navegador, si hi ha. La resta dels formats aparÃ¨ixerÃ¡n sota el epÃ­grafe "Parts alternatives d'aquesta secciÃ³" i es podran visualitzar o descarregar de forma separada. Ã‰s important tenir en compte que totes les parts alternatives tenen EL MATEIX CONTINGUT que la part mostrada - simplement estÃ¡n en formats diferents (p.e. text enfront d'HTML). 
     </para>
 </entry>
   <entry id="prefs-rename_sentmail_monthly" md5="530fa20e0afbc25ffd40877948832899" state="uptodate">
-    <title>referències: Manteniment: Renombrar la carpeta sent-mail mensualment </title>
+    <title>referÃ¨ncies: Manteniment: Renombrar la carpeta sent-mail mensualment </title>
     <para>
-    Activi aquesta opció si vol renombrar la carpeta sent-mail al començament de cada mes. La carpeta es renombrarà (amb un nom que contingui el mes i l'any) i es crearà una nova carpeta sent-mail.
+    Activi aquesta opciÃ³ si vol renombrar la carpeta sent-mail al comenÃ§ament de cada mes. La carpeta es renombrarÃ  (amb un nom que contingui el mes i l'any) i es crearÃ  una nova carpeta sent-mail.
 
     </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly" md5="0beed16dfd68e2f25e0c66871fd546df" state="uptodate">
-    <title>Preferències: Manteniment: Eliminar carpetes sent-mail mensualment</title>
+    <title>PreferÃ¨ncies: Manteniment: Eliminar carpetes sent-mail mensualment</title>
     <para>
-    Activi aquesta opció si vol eliminar les carpetes sent-mail antigues al començament de cada mes. Pot ser d'utilitat, per exemple, si té un límit d'espai de disc assignat. 
+    Activi aquesta opciÃ³ si vol eliminar les carpetes sent-mail antigues al comenÃ§ament de cada mes. Pot ser d'utilitat, per exemple, si tÃ© un lÃ­mit d'espai de disc assignat. 
     </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
-    <title>Preferències: Manteniment: Eliminar carpetes sent-mail mensualment - # carpetes conservades</title>
+    <title>PreferÃ¨ncies: Manteniment: Eliminar carpetes sent-mail mensualment - # carpetes conservades</title>
     <para>
-    Si está esborrant mensualment les carpetes sent-mail antigues, quants mesos de correu antic vol conservar? Qualsevol carpeta más antiga que aquest número de mesos s'eliminarà.
+    Si estÃ¡ esborrant mensualment les carpetes sent-mail antigues, quants mesos de correu antic vol conservar? Qualsevol carpeta mÃ¡s antiga que aquest nÃºmero de mesos s'eliminarÃ .
     </para>
 </entry>
   <entry id="prefs-purge_sentmail" state="new">
@@ -892,34 +892,34 @@ Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les colu
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly" md5="373ea02ede6df5fc345caf632e19a75f" state="uptodate">
-    <title>Preferències: Manteniment: Eliminar adjunts vinculats mensualment </title>
+    <title>PreferÃ¨ncies: Manteniment: Eliminar adjunts vinculats mensualment </title>
     <para>
-    Activi aquesta opció si desitja eliminar adjunts vinculats antics al començament de cada mes. Pot ser d'utilitat, per exemple, si té un límit d'espai de disc assignat. 
+    Activi aquesta opciÃ³ si desitja eliminar adjunts vinculats antics al comenÃ§ament de cada mes. Pot ser d'utilitat, per exemple, si tÃ© un lÃ­mit d'espai de disc assignat. 
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly_keep" md5="1b340a60214dffd04aec02cc1127df5d" state="uptodate">
-    <title>Preferències: Manteniment: Eliminar adjunts vinculats mensualment - # mesos conservats
+    <title>PreferÃ¨ncies: Manteniment: Eliminar adjunts vinculats mensualment - # mesos conservats
 </title>
     <para>
-    Si està eliminant mensualment els adjunts vinculats antics, quants mesos d'adjunts antics desitja conservar? Qualsevol adjunt más antic que aquest número de mesos s'eliminarà. 
+    Si estÃ  eliminant mensualment els adjunts vinculats antics, quants mesos d'adjunts antics desitja conservar? Qualsevol adjunt mÃ¡s antic que aquest nÃºmero de mesos s'eliminarÃ . 
     </para>
 </entry>
   <entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
-    <title>Preferències: Mantenimient: Buidar paperera</title>
+    <title>PreferÃ¨ncies: Mantenimient: Buidar paperera</title>
     <para>
     Desitja buidar la paperera sovint
     </para>
 </entry>
   <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
-    <title>Preferències: Manteniment: Interval de buidatge de la paperera </title>
+    <title>PreferÃ¨ncies: Manteniment: Interval de buidatge de la paperera </title>
     <para>
-    Si està buidant la paperera, amb quina freqüència fer-ho? 
+    Si estÃ  buidant la paperera, amb quina freqÃ¼Ã¨ncia fer-ho? 
     </para>
 </entry>
   <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
-    <title>Preferències: Manteniment: Conservació de buidatge de la paperera </title>
+    <title>PreferÃ¨ncies: Manteniment: ConservaciÃ³ de buidatge de la paperera </title>
     <para>
-    Si está buidant la paperera, antiguitat mínima dels missatges a eliminar? 
+    Si estÃ¡ buidant la paperera, antiguitat mÃ­nima dels missatges a eliminar? 
     </para>
 </entry>
   <entry id="prefs-purge_spam" state="new">
@@ -941,26 +941,26 @@ Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les colu
     </para>
 </entry>
   <entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="uptodate">
-     <title>Preferències: Redacció del missatge: Text d'assignació</title>
+     <title>PreferÃ¨ncies: RedacciÃ³ del missatge: Text d'assignaciÃ³</title>
      <para>
-     Aquí es pot introduir la frase que vol que aparegui abans de qualsevol text citat en la resposta que envíi. 
+     AquÃ­ es pot introduir la frase que vol que aparegui abans de qualsevol text citat en la resposta que envÃ­i. 
      </para>
      <para>
-     Pot incloure un o més comodins per a inserir informació sobre el missatge al que està responent. Els comodins es componen d'un '%' seguit d'una única lletra. Es disposa dels següents:
+     Pot incloure un o mÃ©s comodins per a inserir informaciÃ³ sobre el missatge al que estÃ  responent. Els comodins es componen d'un '%' seguit d'una Ãºnica lletra. Es disposa dels segÃ¼ents:
 
      </para>
 
-     <para> %f : Nom i direcció de correu del remitent</para>
-     <para> %a : Adreça de correu del remitent</para>
+     <para> %f : Nom i direcciÃ³ de correu del remitent</para>
+     <para> %a : AdreÃ§a de correu del remitent</para>
      <para> %p : Nom del remitent</para>
-     <para> %r : Data i zona horària en estil RFC 2822 complet</para>
+     <para> %r : Data i zona horÃ ria en estil RFC 2822 complet</para>
      <para> %d : Data com www, dd mmm AAAA</para>
-     <para> %x : Data en format local per omissió</para>
-     <para> %c : Data i hora local por omissió</para>
+     <para> %x : Data en format local per omissiÃ³</para>
+     <para> %c : Data i hora local por omissiÃ³</para>
      <para> %m : ID del missatge</para>
      <para> %s : Assumpte del missatge</para>
-     <para> %n : Una nova línia</para>
-     <para> %% : El caràcter '%'</para>
+     <para> %n : Una nova lÃ­nia</para>
+     <para> %% : El carÃ cter '%'</para>
 
 </entry>
   <entry id="prefs-default_msg_charset" state="new">
@@ -970,21 +970,21 @@ Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les colu
     </para>
 </entry>
   <entry id="prefs-disposition_request_read" md5="89e92c4d68224b2345b59959878a7174" state="uptodate">
-    <title>Preferències: Sol·licitar justificants de recepció </title>
+    <title>PreferÃ¨ncies: SolÂ·licitar justificants de recepciÃ³ </title>
     <para>
-    "Sol·licitar justificants de recepció" envia als destinataris del missatge la petició que li informin quan obrin el missatge. No tots els clients suporten / tenen en compte això. 
+    "SolÂ·licitar justificants de recepciÃ³" envia als destinataris del missatge la peticiÃ³ que li informin quan obrin el missatge. No tots els clients suporten / tenen en compte aixÃ². 
     </para>
 </entry>
   <entry id="prefs-disposition_send_mdn" md5="1fe04e5dc3de68d172da284895973ea9" state="uptodate">
-    <title>Preferències: Enviar NCM</title>
+    <title>PreferÃ¨ncies: Enviar NCM</title>
     <para>
-    "Enviar NCM si ho sol·licita el remitent" envia una Notificació de Consulta del Missatge (també coneguda com una confirmació de lectura) quan llegeixi un missatge en el qual l'usuari ha sol·licitat rebre una notificació que ho ha llegit. En la majoria dels casos això es realitzarà de forma automàtica sense preguntar-li. En alguns casos aïllats pot haver de decidir enviar la notificació prement un vincle.
+    "Enviar NCM si ho solÂ·licita el remitent" envia una NotificaciÃ³ de Consulta del Missatge (tambÃ© coneguda com una confirmaciÃ³ de lectura) quan llegeixi un missatge en el qual l'usuari ha solÂ·licitat rebre una notificaciÃ³ que ho ha llegit. En la majoria dels casos aixÃ² es realitzarÃ  de forma automÃ tica sense preguntar-li. En alguns casos aÃ¯llats pot haver de decidir enviar la notificaciÃ³ prement un vincle.
     </para>
 </entry>
   <entry id="prefs-disposition_request_delivery" md5="26598e29af05a07de5e13644669be712" state="uptodate">
-    <title>Preferències: Sol·licitar confirmació del enviament</title>
+    <title>PreferÃ¨ncies: SolÂ·licitar confirmaciÃ³ del enviament</title>
     <para>
-	"Sol·licitar confirmació de l'enviament" envia una sol·licitud al servidor del destinatari que li informi quan hagi distribuït el missatge a la bústia de destinació. No significa que el missatge hagi estat llegit, simplement que ha arribat a una bústia en alguna part. No tots els servidors de correu suporten això. 
+	"SolÂ·licitar confirmaciÃ³ de l'enviament" envia una solÂ·licitud al servidor del destinatari que li informi quan hagi distribuÃ¯t el missatge a la bÃºstia de destinaciÃ³. No significa que el missatge hagi estat llegit, simplement que ha arribat a una bÃºstia en alguna part. No tots els servidors de correu suporten aixÃ². 
     </para>
 </entry>
   <entry id="prefs-delete_spam_after_report" state="new">
@@ -1003,49 +1003,49 @@ Al visualitzar un llistat de missatges, pot ordenar-lo per qualsevol de les colu
     </para>
 </entry>
   <entry id="prefs-html_image_replacement" md5="28e1cf08e328345a8e7274c853492d4f" state="uptodate">
-    <title>Preferències: Substitució de imatges HTML</title>
+    <title>PreferÃ¨ncies: SubstituciÃ³ de imatges HTML</title>
     <para>
-    En el cas de missatges HTML mostrats en línia, caldria bloquejar totes les etiquetes d'imatges fins que decideixi explícitament veure-les? Tingui en compte que si està visualitzant un adjunt HTML les imatges es veuran sempre.
+    En el cas de missatges HTML mostrats en lÃ­nia, caldria bloquejar totes les etiquetes d'imatges fins que decideixi explÃ­citament veure-les? Tingui en compte que si estÃ  visualitzant un adjunt HTML les imatges es veuran sempre.
 
     </para>
 </entry>
   <entry id="prefs-html_image_addrbook" md5="759fa3df24e0a3cd89f320102252f91a" state="uptodate">
-    <title>Preferències: Sustitució de imatges HTML/Mostrar si a Llibreta d'adreces</title>
+    <title>PreferÃ¨ncies: SustituciÃ³ de imatges HTML/Mostrar si a Llibreta d'adreces</title>
     <para>
-    Si s'estan bloquejant les imatges dels missatges HTML en línia, caldria mostrar-les automàticament si el remitent apareix en la llibreta d'adreces? 
+    Si s'estan bloquejant les imatges dels missatges HTML en lÃ­nia, caldria mostrar-les automÃ ticament si el remitent apareix en la llibreta d'adreces? 
     </para>
 </entry>
   <entry id="prefs-mailbox_start" md5="62fcc38a15f54dae7eb8bdafa93ed341" state="uptodate">
-    <title>Preferències: Pàgina d'inici de la bústia</title>
+    <title>PreferÃ¨ncies: PÃ gina d'inici de la bÃºstia</title>
     <para>
-    Decideix quina pàgina del llistat de la bústia es mostrarà quan accedeixi a la bústia per primera vegada. Tingui en compte que les opcions de missatges "sense llegir" no funcionen amb l'opció d'ordenació per "Seqüència" - en aquest cas se li enviarà a l'última pàgina. 
+    Decideix quina pÃ gina del llistat de la bÃºstia es mostrarÃ  quan accedeixi a la bÃºstia per primera vegada. Tingui en compte que les opcions de missatges "sense llegir" no funcionen amb l'opciÃ³ d'ordenaciÃ³ per "SeqÃ¼Ã¨ncia" - en aquest cas se li enviarÃ  a l'Ãºltima pÃ gina. 
     </para>
 </entry>
   <entry id="prefs-save_attachments" md5="35b46334cdcc7fa416b9f9fca5874e80" state="uptodate">
-    <title>Preferències: Guardar adjunts de missatges enviats</title>
+    <title>PreferÃ¨ncies: Guardar adjunts de missatges enviats</title>
     <para>
-    Si s'està guardant un missatge en una carpeta sent-mail, decideix si es guarden tots les dades d'adjunts. Es disposa de les opcions següents:
+    Si s'estÃ  guardant un missatge en una carpeta sent-mail, decideix si es guarden tots les dades d'adjunts. Es disposa de les opcions segÃ¼ents:
 
     </para>
 
-    <para>* "Guardar sempre els adjunts" - MAI consultar l'emmagatzematge dels adjunts en la finestra de redacció; els adjunts es guardaran SEMPRE amb el missatge.
+    <para>* "Guardar sempre els adjunts" - MAI consultar l'emmagatzematge dels adjunts en la finestra de redacciÃ³; els adjunts es guardaran SEMPRE amb el missatge.
 </para>
-     <para>* "Consultar cada vegada que s'enviï un adjunt; SÍ per omissió" - Consultar SEMPRE l'emmagatzematge dels adjunts en la finestra de redacció; per omissió es guardaran els adjunts.
+     <para>* "Consultar cada vegada que s'enviÃ¯ un adjunt; SÃ per omissiÃ³" - Consultar SEMPRE l'emmagatzematge dels adjunts en la finestra de redacciÃ³; per omissiÃ³ es guardaran els adjunts.
 </para>
-     <para>* "Consultar cada vegada que s'enviï un adjunt; NO per omissió" - Consultar SEMPRE l'emmagatzematge dels adjunts en la finestra de redacció; per omissió els adjunts no es guardaran.
+     <para>* "Consultar cada vegada que s'enviÃ¯ un adjunt; NO per omissiÃ³" - Consultar SEMPRE l'emmagatzematge dels adjunts en la finestra de redacciÃ³; per omissiÃ³ els adjunts no es guardaran.
 </para>
-     <para>* "Mai guardar adjunts" - MAI consultar l'emmagatzematge dels adjunts en la finestra de redacció; els adjunts no es guardaran MAI amb el missatge.</para>
+     <para>* "Mai guardar adjunts" - MAI consultar l'emmagatzematge dels adjunts en la finestra de redacciÃ³; els adjunts no es guardaran MAI amb el missatge.</para>
 </entry>
   <entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
     <title>Carpetes Virtuals: Entrada virtual</title>
     <para>
-L'Entrada virtual és una búsqueda emmagatzemada que evita la necessitat de buscar manualment en cada bústia els missatges marcats com nous. En el seu lloc, es busquen automàticament els nous missatges en totes les bústies subscrites actualment i els resultats es mostren en una única bústia.  
+L'Entrada virtual Ã©s una bÃºsqueda emmagatzemada que evita la necessitat de buscar manualment en cada bÃºstia els missatges marcats com nous. En el seu lloc, es busquen automÃ ticament els nous missatges en totes les bÃºsties subscrites actualment i els resultats es mostren en una Ãºnica bÃºstia.  
     </para>
 </entry>
   <entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
     <title>Carpetes Virtuals: Paperera virtual</title>
     <para>
-La Paperera virtual és una búsqueda emmagatzemada que evita la necessitat de disposar d'una carpeta Paperera independent. En lloc de traslladar els missatges a una carpeta paperera centralitzada, simplement es marquen com esborrats en la carpeta en la qual es trobin. Si 'Mostrar els missatges eliminats' está desactivat, això es traduïx que aquests missatges no apareixen en la vista de la bústia. Quan un usuari prem la Paperera virtual, es busquen els missatges marcats com esborrats en *totes* les bústies i es mostren en una única bústia.
+La Paperera virtual Ã©s una bÃºsqueda emmagatzemada que evita la necessitat de disposar d'una carpeta Paperera independent. En lloc de traslladar els missatges a una carpeta paperera centralitzada, simplement es marquen com esborrats en la carpeta en la qual es trobin. Si 'Mostrar els missatges eliminats' estÃ¡ desactivat, aixÃ² es traduÃ¯x que aquests missatges no apareixen en la vista de la bÃºstia. Quan un usuari prem la Paperera virtual, es busquen els missatges marcats com esborrats en *totes* les bÃºsties i es mostren en una Ãºnica bÃºstia.
     </para>
 </entry>
 </help>

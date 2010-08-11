@@ -1,88 +1,88 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
-<title>Kronolith: Genel Bakış</title>
+<title>Kronolith: Genel BakÄ±ÅŸ</title>
 <heading>Kronolith nedir?</heading>
 <para>
-Kronolith ağ tabanlı takvim uygulamasıdır.İçerisinde, ihtiyaç duydugunuz yaratma,değiştirme ve silme işlemlerini barındırır.Ayrıca tekrar eden olayları (istisna ve çeşitli silme seçenekleri), hatırlatmaları,alma ve verme seçeneklerini (elektronik takvim ve csv formunda), elektronik takvim davetiyeleri, çok seçenekli takvim olayları , paylaştırılmış takvimler , görev listesinin görüntülenmesi (görev listesi yüklenmişse), ve de anasayfa ekranında olayları görüntüleme yeteneğine sahiptir.
+Kronolith aÄŸ tabanlÄ± takvim uygulamasÄ±dÄ±r.Ä°Ã§erisinde, ihtiyaÃ§ duydugunuz yaratma,deÄŸiÅŸtirme ve silme iÅŸlemlerini barÄ±ndÄ±rÄ±r.AyrÄ±ca tekrar eden olaylarÄ± (istisna ve Ã§eÅŸitli silme seÃ§enekleri), hatÄ±rlatmalarÄ±,alma ve verme seÃ§eneklerini (elektronik takvim ve csv formunda), elektronik takvim davetiyeleri, Ã§ok seÃ§enekli takvim olaylarÄ± , paylaÅŸtÄ±rÄ±lmÄ±ÅŸ takvimler , gÃ¶rev listesinin gÃ¶rÃ¼ntÃ¼lenmesi (gÃ¶rev listesi yÃ¼klenmiÅŸse), ve de anasayfa ekranÄ±nda olaylarÄ± gÃ¶rÃ¼ntÃ¼leme yeteneÄŸine sahiptir.
 </para>
 </entry>
   <entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
-<title>Menü: Bugün</title>
+<title>MenÃ¼: BugÃ¼n</title>
 <para>
-Bugün menü seçeneği,şu anki geçerli tarihte sizin varsayılan olarak atamış olduğunuz ayarları (Ay,Hafta,Gün vs.. seçenek düzenini) görüntüler.
+BugÃ¼n menÃ¼ seÃ§eneÄŸi,ÅŸu anki geÃ§erli tarihte sizin varsayÄ±lan olarak atamÄ±ÅŸ olduÄŸunuz ayarlarÄ± (Ay,Hafta,GÃ¼n vs.. seÃ§enek dÃ¼zenini) gÃ¶rÃ¼ntÃ¼ler.
 </para>
 </entry>
   <entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
-<title>Menü: Git</title>
+<title>MenÃ¼: Git</title>
 <para>
-Git menü seçeneği,küçük bir pencerecik açar.Ve çok hızlı bir şekilde seçtiğiniz yılın herhangi bir ay veya haftasına, yada ayın herhangi bir gününe gitmenizi saglar.Bu seçenek takvim içerisinde hareket etmenin en hızlı ve en sık tercih edilen yoludur.
+Git menÃ¼ seÃ§eneÄŸi,kÃ¼Ã§Ã¼k bir pencerecik aÃ§ar.Ve Ã§ok hÄ±zlÄ± bir ÅŸekilde seÃ§tiÄŸiniz yÄ±lÄ±n herhangi bir ay veya haftasÄ±na, yada ayÄ±n herhangi bir gÃ¼nÃ¼ne gitmenizi saglar.Bu seÃ§enek takvim iÃ§erisinde hareket etmenin en hÄ±zlÄ± ve en sÄ±k tercih edilen yoludur.
 </para>
 </entry>
   <entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
-<title>Menü: Gün</title>
+<title>MenÃ¼: GÃ¼n</title>
 <para>
-Gün sekmesi,şu anki geçerli seçilmiş günden başlayarak o günü görüntüler.
+GÃ¼n sekmesi,ÅŸu anki geÃ§erli seÃ§ilmiÅŸ gÃ¼nden baÅŸlayarak o gÃ¼nÃ¼ gÃ¶rÃ¼ntÃ¼ler.
 </para>
 </entry>
   <entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
-<title>Menü: Çalışma Haftası</title>
+<title>MenÃ¼: Ã‡alÄ±ÅŸma HaftasÄ±</title>
 <para>
-Çalışma Haftası sekmesi,şu anki geçerli seçilmiş güne en yakın çalışma haftasını (pazartesi-Cuma) görüntüler.
+Ã‡alÄ±ÅŸma HaftasÄ± sekmesi,ÅŸu anki geÃ§erli seÃ§ilmiÅŸ gÃ¼ne en yakÄ±n Ã§alÄ±ÅŸma haftasÄ±nÄ± (pazartesi-Cuma) gÃ¶rÃ¼ntÃ¼ler.
 </para>
 </entry>
   <entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
-<title>Menü: Hafta</title>
+<title>MenÃ¼: Hafta</title>
 <para>
-Hafta sekmesi,şu anki geçerli seçilmiş günden başlayarak tüm haftayı (7 gün) görüntüler.
+Hafta sekmesi,ÅŸu anki geÃ§erli seÃ§ilmiÅŸ gÃ¼nden baÅŸlayarak tÃ¼m haftayÄ± (7 gÃ¼n) gÃ¶rÃ¼ntÃ¼ler.
 </para>
 </entry>
   <entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
-<title>Menü: Ay</title>
+<title>MenÃ¼: Ay</title>
 <para>
-Ay sekmesi,şu anki geçerli seçilmiş günden başlayarak tüm ay'ı görüntüler.
+Ay sekmesi,ÅŸu anki geÃ§erli seÃ§ilmiÅŸ gÃ¼nden baÅŸlayarak tÃ¼m ay'Ä± gÃ¶rÃ¼ntÃ¼ler.
 </para>
 </entry>
   <entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
 <title>Menu:Yeni olay</title>
 <para>
-Yeni olay menüsü seçenekleri takvimde yeni olaylar oluşturmamıza izin verir.
+Yeni olay menÃ¼sÃ¼ seÃ§enekleri takvimde yeni olaylar oluÅŸturmamÄ±za izin verir.
 </para>
 </entry>
   <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
-<title>Menu:seçenekler</title>
+<title>Menu:seÃ§enekler</title>
 <para>
-Seçenekler menüsü seçenekleri çoklu ve paylaşılan takvimleri yönetir ve Horde ve diğer Horde uygulamalarıyla etkileşim içindedir ve bize Kronolithin bakışını ve yorumlayışını kontrol etmemize izin verir.
+SeÃ§enekler menÃ¼sÃ¼ seÃ§enekleri Ã§oklu ve paylaÅŸÄ±lan takvimleri yÃ¶netir ve Horde ve diÄŸer Horde uygulamalarÄ±yla etkileÅŸim iÃ§indedir ve bize Kronolithin bakÄ±ÅŸÄ±nÄ± ve yorumlayÄ±ÅŸÄ±nÄ± kontrol etmemize izin verir.
 </para>
 </entry>
   <entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
-<title>Menu:Alım ve Gönderim</title>
+<title>Menu:AlÄ±m ve GÃ¶nderim</title>
 <para>
-Alım/Gönderim menü seçeneği takvim olaylarını almana veya göndermene izin verir. Şu an CSV, Microsoft Outlook ve vCalendar/iCalendar formatındaki dosyaları alabilirsin. Sadece CSV ve iCalender formatındaki dosyaları gönderebilirsin.
+AlÄ±m/GÃ¶nderim menÃ¼ seÃ§eneÄŸi takvim olaylarÄ±nÄ± almana veya gÃ¶ndermene izin verir. Åu an CSV, Microsoft Outlook ve vCalendar/iCalendar formatÄ±ndaki dosyalarÄ± alabilirsin. Sadece CSV ve iCalender formatÄ±ndaki dosyalarÄ± gÃ¶nderebilirsin.
 </para>
 </entry>
   <entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
 <title>Alarmlar</title>
 <para>
-Kronolith olaylar için bir takvimde alarmlar oluşturabilir. Otomatik olarak, ilk alarm toplantının başlamasından 15 dakika önceye oluşturulur ama bu alarm olayın başlamasından önce olan herhangi bir aralık olarakta ayarlanabilir.
+Kronolith olaylar iÃ§in bir takvimde alarmlar oluÅŸturabilir. Otomatik olarak, ilk alarm toplantÄ±nÄ±n baÅŸlamasÄ±ndan 15 dakika Ã¶nceye oluÅŸturulur ama bu alarm olayÄ±n baÅŸlamasÄ±ndan Ã¶nce olan herhangi bir aralÄ±k olarakta ayarlanabilir.
 </para>
 </entry>
   <entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
 <title>Tekrarlayan Olaylar</title>
 <para>
-Olayın son tekrarlanma tarihini belirleyerek tekrarlanmasını sonlandırabilirsiniz.
+OlayÄ±n son tekrarlanma tarihini belirleyerek tekrarlanmasÄ±nÄ± sonlandÄ±rabilirsiniz.
 </para>
 <para>
-Olaylar değişik şekillerde tekrarlanacak şekilde yapılmış olabilir. Bir çok olay belli aralıklarla tekrarlar. Örneğin, aylık olarak tekrarlayan tip seçilirse her ay tekrarlarlar ve haftalık tekrarlayan tip seçilirse seçilen öğe her hafta kendini tekrarlayacaktır. Bunlar karmaşık yönlerle gösterilen olaylar yapılabilir: Örneğin, bir öğe her ayın üçüncü cuması oluyor, veya bir öğe haftanın Pazartesi, Çarşamba, ve Cuma günleri oluşuyor.
-Aynı zamanda bir olayın ne kar sürede ne kadar tekrarlayacağını olayın sonlandırma tarihini seçerek ayarlayabiliriz.
-Normalde, tekrarlayan bir olayın değişimi bu olayın bütün oluşumlarına uygulanır.Tekrarla menüsünden yapılan pek çok ayarına ardından Yeni şekliyle kaydet’i seçerek değişiklikler yapılabilir. Seçilen olay diğer olaylardan bağımsız olarak değiştirilecektir.
+Olaylar deÄŸiÅŸik ÅŸekillerde tekrarlanacak ÅŸekilde yapÄ±lmÄ±ÅŸ olabilir. Bir Ã§ok olay belli aralÄ±klarla tekrarlar. Ã–rneÄŸin, aylÄ±k olarak tekrarlayan tip seÃ§ilirse her ay tekrarlarlar ve haftalÄ±k tekrarlayan tip seÃ§ilirse seÃ§ilen Ã¶ÄŸe her hafta kendini tekrarlayacaktÄ±r. Bunlar karmaÅŸÄ±k yÃ¶nlerle gÃ¶sterilen olaylar yapÄ±labilir: Ã–rneÄŸin, bir Ã¶ÄŸe her ayÄ±n Ã¼Ã§Ã¼ncÃ¼ cumasÄ± oluyor, veya bir Ã¶ÄŸe haftanÄ±n Pazartesi, Ã‡arÅŸamba, ve Cuma gÃ¼nleri oluÅŸuyor.
+AynÄ± zamanda bir olayÄ±n ne kar sÃ¼rede ne kadar tekrarlayacaÄŸÄ±nÄ± olayÄ±n sonlandÄ±rma tarihini seÃ§erek ayarlayabiliriz.
+Normalde, tekrarlayan bir olayÄ±n deÄŸiÅŸimi bu olayÄ±n bÃ¼tÃ¼n oluÅŸumlarÄ±na uygulanÄ±r.Tekrarla menÃ¼sÃ¼nden yapÄ±lan pek Ã§ok ayarÄ±na ardÄ±ndan Yeni ÅŸekliyle kaydetÂ’i seÃ§erek deÄŸiÅŸiklikler yapÄ±labilir. SeÃ§ilen olay diÄŸer olaylardan baÄŸÄ±msÄ±z olarak deÄŸiÅŸtirilecektir.
 </para>
 </entry>
   <entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
-<title>Çıktı Alma</title>
-<heading>Olayları ve Takvimlerin Çıktısı</heading>
+<title>Ã‡Ä±ktÄ± Alma</title>
+<heading>OlaylarÄ± ve Takvimlerin Ã‡Ä±ktÄ±sÄ±</heading>
 <para>
-Sayfanın düzgün olarak çıktısının alınabilinmesini sağlayan görüntüleme mekanizması bulunmaktadır. Bu mekanizmanın çalışması sonucunda sayfada gözükecek olan yazıcı ikonuna tıklayarak çıktı alabilirsiniz.
+SayfanÄ±n dÃ¼zgÃ¼n olarak Ã§Ä±ktÄ±sÄ±nÄ±n alÄ±nabilinmesini saÄŸlayan gÃ¶rÃ¼ntÃ¼leme mekanizmasÄ± bulunmaktadÄ±r. Bu mekanizmanÄ±n Ã§alÄ±ÅŸmasÄ± sonucunda sayfada gÃ¶zÃ¼kecek olan yazÄ±cÄ± ikonuna tÄ±klayarak Ã§Ä±ktÄ± alabilirsiniz.
 </para>
 </entry>
   <entry id="shares" state="uptodate" md5="bf3a44d08a824979ba8dd8fd0e661eee">

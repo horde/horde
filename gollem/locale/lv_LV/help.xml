@@ -1,56 +1,56 @@
-<?xml version='1.0' encoding='cp1257'?>
+<?xml version='1.0' encoding="UTF-8"?>
 <help>
 
 <entry id="file-actions">
-    <title>Failu pārvaldnieks: Darbības</title>
-    <heading>Mapju izveidošana</heading>
+    <title>Failu pÄrvaldnieks: DarbÄ«bas</title>
+    <heading>Mapju izveidoÅ¡ana</heading>
     <para>
-    Lai izveidotu mapi aktuālajā katalogā, uzklikšķiniet ikonai <b>Izveidot mapi</b> Failu pārvaldnieka rīkjoslā.
+    Lai izveidotu mapi aktuÄlajÄ katalogÄ, uzklikÅ¡Ä·iniet ikonai <b>Izveidot mapi</b> Failu pÄrvaldnieka rÄ«kjoslÄ.
     </para>
-    <heading>Failu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
+    <heading>Failu dzÄ“Å¡ana, izgrieÅ¡ana, kopÄ“Å¡ana, ielÄ«mÄ“Å¡ana</heading>
     <para>
-    Lai dzēstu, izgrieztu vai nokopētu failu(s), ir jāizvēlas vismaz viens fails, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no faila nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami faili, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie faili tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos failus jebkurā Failu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot failu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) failu(s) rūtiņā(s) pa kreisi no faila nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības faili tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
+    Lai dzÄ“stu, izgrieztu vai nokopÄ“tu failu(s), ir jÄizvÄ“las vismaz viens fails, atzÄ«mÄ“jot to(s) izvÄ“les rÅ«tiÅ†Ä(s) pa kreisi no faila nosaukuma. PÄ“c tam, kad ir atzÄ«mÄ“ti nepiecieÅ¡ami faili, no izkrÄ«toÅ¡Äs komandkartes <b>DarbÄ«bas</b> izvÄ“lieties nepiecieÅ¡amo darbÄ«bu. Ja izvÄ“lÄ“jÄties <b>KopÄ“t</b> vai <b>Izgriezt</b>, atzÄ«mÄ“tie faili tiks nokopÄ“ti vai pÄrvietoti uz Starpliktuvi un lietotÄja saskarnÄ“ parÄdÄ«sies jauna ikona <b>SkatÄ«t starpliktuvi</b>. No Starpliktuves Jums ir iespÄ“ja ielÄ«mÄ“t atbilstoÅ¡os failus jebkurÄ Failu pÄrvaldnieka vietÄ. PÄrejiet uz vietu direktoriju kokÄ, kurÄ nepiecieÅ¡ams novietot failu(s), atveriet Starpliktuvi, atzÄ«mÄ“jiet nepiecieÅ¡amo(s) failu(s) rÅ«tiÅ†Ä(s) pa kreisi no faila nosaukuma un uzklikÅ¡Ä·iniet uz <b>IelÄ«mÄ“t</b>. PÄ“c Å¡Ä«s darbÄ«bas faili tiks ielÄ«mÄ“ti aktuÄlajÄ katalogÄ un Starpliktuve ā€“ attÄ«rÄ«ta.
     </para>
-    <heading>Katalogu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
+    <heading>Katalogu dzÄ“Å¡ana, izgrieÅ¡ana, kopÄ“Å¡ana, ielÄ«mÄ“Å¡ana</heading>
     <para>
-Pēc noklusēšanas, izdzēst katalogu iespējams tikai gadījumā, ja tajā nav failu. Ja vēlaties dzēst katalogus ar visu to saturu, varat ieslēgt rekursīvu katalogu dzēšanu. Lai to ieslēgtu, uzklikšķiniet ikonai <b>Opcijas</b>, izvēlieties <b>Iestatījumi</b> un  no izkrītošajā komandkartē piedāvātajām iespējām - Jums vēlamo variantu.
-Ja mēģināsiet dzēst katalogu ar failiem, neieslēdzot minēto opciju, dzēšanas mēģinājums beigsies ar kļūdu.
+PÄ“c noklusÄ“Å¡anas, izdzÄ“st katalogu iespÄ“jams tikai gadÄ«jumÄ, ja tajÄ nav failu. Ja vÄ“laties dzÄ“st katalogus ar visu to saturu, varat ieslÄ“gt rekursÄ«vu katalogu dzÄ“Å¡anu. Lai to ieslÄ“gtu, uzklikÅ¡Ä·iniet ikonai <b>Opcijas</b>, izvÄ“lieties <b>IestatÄ«jumi</b> un  no izkrÄ«toÅ¡ajÄ komandkartÄ“ piedÄvÄtajÄm iespÄ“jÄm - Jums vÄ“lamo variantu.
+Ja mÄ“Ä£inÄsiet dzÄ“st katalogu ar failiem, neieslÄ“dzot minÄ“to opciju, dzÄ“Å¡anas mÄ“Ä£inÄjums beigsies ar kÄ¼Å«du.
 
-Lai dzēstu, izgrieztu vai nokopētu katalogu(s), ir jāizvēlas vismaz viens katalogs, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no kataloga nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami katalogi, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie katalogi tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos katalogus jebkurā katalogu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot katalogu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) katalogu(s) rūtiņā(s) pa kreisi no kataloga nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības katalogi tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
+Lai dzÄ“stu, izgrieztu vai nokopÄ“tu katalogu(s), ir jÄizvÄ“las vismaz viens katalogs, atzÄ«mÄ“jot to(s) izvÄ“les rÅ«tiÅ†Ä(s) pa kreisi no kataloga nosaukuma. PÄ“c tam, kad ir atzÄ«mÄ“ti nepiecieÅ¡ami katalogi, no izkrÄ«toÅ¡Äs komandkartes <b>DarbÄ«bas</b> izvÄ“lieties nepiecieÅ¡amo darbÄ«bu. Ja izvÄ“lÄ“jÄties <b>KopÄ“t</b> vai <b>Izgriezt</b>, atzÄ«mÄ“tie katalogi tiks nokopÄ“ti vai pÄrvietoti uz Starpliktuvi un lietotÄja saskarnÄ“ parÄdÄ«sies jauna ikona <b>SkatÄ«t starpliktuvi</b>. No Starpliktuves Jums ir iespÄ“ja ielÄ«mÄ“t atbilstoÅ¡os katalogus jebkurÄ katalogu pÄrvaldnieka vietÄ. PÄrejiet uz vietu direktoriju kokÄ, kurÄ nepiecieÅ¡ams novietot katalogu(s), atveriet Starpliktuvi, atzÄ«mÄ“jiet nepiecieÅ¡amo(s) katalogu(s) rÅ«tiÅ†Ä(s) pa kreisi no kataloga nosaukuma un uzklikÅ¡Ä·iniet uz <b>IelÄ«mÄ“t</b>. PÄ“c Å¡Ä«s darbÄ«bas katalogi tiks ielÄ«mÄ“ti aktuÄlajÄ katalogÄ un Starpliktuve ā€“ attÄ«rÄ«ta.
 
     </para>
     <heading>Darbs ar starpliktuvi</heading>
     <para>
-Ja Jūs kopējat vai izgreižat failu vai katalogu, tas tiek novietots starpliktuvē, kuras saturu varat apskatīt, uzklikšķinot ikonai <b>Starpliktuve</b>, kas atrodas virs failu un katalogu saraksta pa labio no <b>Atsvaidzināt skatu</b> ikonas.
-Šī ikona parādās lietotāja saskarnē tikai tad, kad starpliktuvē atrodas kāds objekts.Pēc tam, kad kāds fails vai katalogs ir nokopēts vai izgriezts, blakus tā tā nosaukumam Failu pārvaldnieka galvenajā logā vairs nebūs izvēles rūtiņa.
+Ja JÅ«s kopÄ“jat vai izgreiÅ¾at failu vai katalogu, tas tiek novietots starpliktuvÄ“, kuras saturu varat apskatÄ«t, uzklikÅ¡Ä·inot ikonai <b>Starpliktuve</b>, kas atrodas virs failu un katalogu saraksta pa labio no <b>AtsvaidzinÄt skatu</b> ikonas.
+Å Ä« ikona parÄdÄs lietotÄja saskarnÄ“ tikai tad, kad starpliktuvÄ“ atrodas kÄds objekts.PÄ“c tam, kad kÄds fails vai katalogs ir nokopÄ“ts vai izgriezts, blakus tÄ tÄ nosaukumam Failu pÄrvaldnieka galvenajÄ logÄ vairs nebÅ«s izvÄ“les rÅ«tiÅ†a.
 </para>
 <para>
-Kad atvērsiet Starpliktuves pārlūku, redzēsiet uz starpliktuvi kopēto vai izgriezto objektu sarakstu, kur katram objektam blakus ir attēlota iepriekš veikto darbību atainojoša piktogramma. No šejienes Jūs varat ielīmēt objektus aktuālajā katalogā, kas parādīts virs objektu saraksta – atzīmējiet ielīmējamos failus un nospiediet pogu <b>Ielīmēt</b>, objekti tiks ievietoti aktuālajā katalogā un notīrīti no starpliktuves. Pēc objektu ielīmēšanas Failu pārvaldnieks atgriezīsies aktuālajā katalogā. Ja vēlaties vienkārši notīrīt kādu objektu no starpliktuves, atzīmējiet to un nospiediet pogu <b>Notīrīt</b>. Objekts(-i) tiks notīrīti no starpliktuves un Failu  pārvaldnieks atgriezīsies aktuālajā katalogā.
+Kad atvÄ“rsiet Starpliktuves pÄrlÅ«ku, redzÄ“siet uz starpliktuvi kopÄ“to vai izgriezto objektu sarakstu, kur katram objektam blakus ir attÄ“lota iepriekÅ¡ veikto darbÄ«bu atainojoÅ¡a piktogramma. No Å¡ejienes JÅ«s varat ielÄ«mÄ“t objektus aktuÄlajÄ katalogÄ, kas parÄdÄ«ts virs objektu saraksta ā€“ atzÄ«mÄ“jiet ielÄ«mÄ“jamos failus un nospiediet pogu <b>IelÄ«mÄ“t</b>, objekti tiks ievietoti aktuÄlajÄ katalogÄ un notÄ«rÄ«ti no starpliktuves. PÄ“c objektu ielÄ«mÄ“Å¡anas Failu pÄrvaldnieks atgriezÄ«sies aktuÄlajÄ katalogÄ. Ja vÄ“laties vienkÄrÅ¡i notÄ«rÄ«t kÄdu objektu no starpliktuves, atzÄ«mÄ“jiet to un nospiediet pogu <b>NotÄ«rÄ«t</b>. Objekts(-i) tiks notÄ«rÄ«ti no starpliktuves un Failu  pÄrvaldnieks atgriezÄ«sies aktuÄlajÄ katalogÄ.
 </para>
 <para>
-Piezīme: ja objekts tika izgriezts uz starpliktuvi, pēc notīrīšanas no starpliktuves objekts paliek savā iepriekšējā vietā.
+PiezÄ«me: ja objekts tika izgriezts uz starpliktuvi, pÄ“c notÄ«rÄ«Å¡anas no starpliktuves objekts paliek savÄ iepriekÅ¡Ä“jÄ vietÄ.
     </para>
 </entry>
 
 <entry id="file-upload">
-    <title>Failu pārvaldnieks: Augšupielādēšana</title>
-    <heading>Failu augšupielādēšana</heading>
+    <title>Failu pÄrvaldnieks: AugÅ¡upielÄdÄ“Å¡ana</title>
+    <heading>Failu augÅ¡upielÄdÄ“Å¡ana</heading>
     <para>
-Piezīme: failu augšupielādēšana darbojas tikai gadījumā, ja ir pareizi konfigurētas VFS palīgmoduļa pieejas tiesības. To var izdarīt tikai sistēmas administrators.
+PiezÄ«me: failu augÅ¡upielÄdÄ“Å¡ana darbojas tikai gadÄ«jumÄ, ja ir pareizi konfigurÄ“tas VFS palÄ«gmoduÄ¼a pieejas tiesÄ«bas. To var izdarÄ«t tikai sistÄ“mas administrators.
     </para>
     <para>
-     Lai augšupielādētu failus, pārejiet uz vietu katalogu kokā, kurā vēlaties tos novietot. Tas būs aktuālais katalogs. Kad esat atvēruši vajadzīgo katalogu, Failu pārvaldnieka loga apakšā nospiediet pogu <b>Browse...</b> (pārlūkot). Tas atvērs <b>File Upload</b> logu, kurā Jums jāsameklē augšupielādējamais fails, jāuzklikšķina tā nosaukumam un <b>OK</b> pogai.
+     Lai augÅ¡upielÄdÄ“tu failus, pÄrejiet uz vietu katalogu kokÄ, kurÄ vÄ“laties tos novietot. Tas bÅ«s aktuÄlais katalogs. Kad esat atvÄ“ruÅ¡i vajadzÄ«go katalogu, Failu pÄrvaldnieka loga apakÅ¡Ä nospiediet pogu <b>Browse...</b> (pÄrlÅ«kot). Tas atvÄ“rs <b>File Upload</b> logu, kurÄ Jums jÄsameklÄ“ augÅ¡upielÄdÄ“jamais fails, jÄuzklikÅ¡Ä·ina tÄ nosaukumam un <b>OK</b> pogai.
 </para>
 <para>
-Vienlaikus ir iespējams augšupielādēt vairākus failus – Failu pārvaldnieks automātiski pievienos jaunu <b>Browse...</b> pogu pēc katra faila izvēles. Kad ir sameklēti visi faili, nospiediet pogu <b>Augšupielādēt failu(s)</b> un tie tiks augšupielādēti aktuālajā Failu pārvaldnieka katalogā.
+Vienlaikus ir iespÄ“jams augÅ¡upielÄdÄ“t vairÄkus failus ā€“ Failu pÄrvaldnieks automÄtiski pievienos jaunu <b>Browse...</b> pogu pÄ“c katra faila izvÄ“les. Kad ir sameklÄ“ti visi faili, nospiediet pogu <b>AugÅ¡upielÄdÄ“t failu(s)</b> un tie tiks augÅ¡upielÄdÄ“ti aktuÄlajÄ Failu pÄrvaldnieka katalogÄ.
 </para>
 </entry>
 
 <entry id="sorting">
-    <title>Šķirošana</title>
-    <heading>Šķirošana</heading>
+    <title>Å Ä·iroÅ¡ana</title>
+    <heading>Å Ä·iroÅ¡ana</heading>
     <para>
-    Apskatot failu vai katalogu sarakstus, Jūs varat to sakārtot pēc jebkuras slejas. Lai to izdarītu, uzklikšķiniet atbilstošās slejas virsrakstam un saraksts tiks atsvaidzināts, sakārtojot objektus atbilstoši Jūsu izvēlētajai slejai. Lai mainītu kārtošanas secību no augošas uz dilstošu un otrādi, uzklikšķiniet slejas virsrakstam blakus esošajai bultiņai.
+    Apskatot failu vai katalogu sarakstus, JÅ«s varat to sakÄrtot pÄ“c jebkuras slejas. Lai to izdarÄ«tu, uzklikÅ¡Ä·iniet atbilstoÅ¡Äs slejas virsrakstam un saraksts tiks atsvaidzinÄts, sakÄrtojot objektus atbilstoÅ¡i JÅ«su izvÄ“lÄ“tajai slejai. Lai mainÄ«tu kÄrtoÅ¡anas secÄ«bu no augoÅ¡as uz dilstoÅ¡u un otrÄdi, uzklikÅ¡Ä·iniet slejas virsrakstam blakus esoÅ¡ajai bultiÅ†ai.
     </para>
 </entry>
 </help>

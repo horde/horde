@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,16 +26,16 @@
 
 </entry>
   <entry id="compose-buttons" state="changed" md5="3259ba00a198559c7faa76e7867600d9">
-    <title>Composição de Mensagem: Ações</title>
-    <heading>Ações</heading>
+    <title>ComposiÃ§Ã£o de Mensagem: AÃ§Ãµes</title>
+    <heading>AÃ§Ãµes</heading>
     <para>
-    Enviar Mensagem encaminha sua mensagem para o(s) destinatário(s) desejados. Certifique-se que você realmente quer enviar a mensagem antes de clicar aqui, pois uma vez enviado não se pode voltar atrás.
+    Enviar Mensagem encaminha sua mensagem para o(s) destinatÃ¡rio(s) desejados. Certifique-se que vocÃª realmente quer enviar a mensagem antes de clicar aqui, pois uma vez enviado nÃ£o se pode voltar atrÃ¡s.
     </para>
     <para>
-    Salvar Rascunho grava uma mensagem não finalizada em uma pasta chamada 'Rascunhos' acessível através da caixa seleção ao lado direito da barra de navegação ao topo. Você pode finalizar a mensagem mais tarde selecionando a pasta 'Rascunhos', clicando na mensagem gravada para abri-la, e então clicando em 'Continuar'. Certifique-se de atribuir um título para a mensagem antes de gravar o rascunho para facilitar a identificação da mesma dentro da pasta 'Rascunhos'. Após gravar como um rascunho, você é enviado de volta para a Caixa de Entrada ou para a última pasta visualizada.
+    Salvar Rascunho grava uma mensagem nÃ£o finalizada em uma pasta chamada 'Rascunhos' acessÃ­vel atravÃ©s da caixa seleÃ§Ã£o ao lado direito da barra de navegaÃ§Ã£o ao topo. VocÃª pode finalizar a mensagem mais tarde selecionando a pasta 'Rascunhos', clicando na mensagem gravada para abri-la, e entÃ£o clicando em 'Continuar'. Certifique-se de atribuir um tÃ­tulo para a mensagem antes de gravar o rascunho para facilitar a identificaÃ§Ã£o da mesma dentro da pasta 'Rascunhos'. ApÃ³s gravar como um rascunho, vocÃª Ã© enviado de volta para a Caixa de Entrada ou para a Ãºltima pasta visualizada.
     </para>
     <para>
-    Cancelar Mensagem descarta a composição da mensagem em progresso e simplesmente retorna para a Caixa de Entrada ou para a última pasta visualizada.
+    Cancelar Mensagem descarta a composiÃ§Ã£o da mensagem em progresso e simplesmente retorna para a Caixa de Entrada ou para a Ãºltima pasta visualizada.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -238,10 +238,10 @@
     </para>
 </entry>
   <entry id="compose-from" state="changed" md5="82cf24d31a667a5b94e481cd5179c529">
-    <title>Composição de Mensagem: De</title>
+    <title>ComposiÃ§Ã£o de Mensagem: De</title>
     <heading>"De"</heading>
     <para>
-    Preencha corretamente seu endereço de e-mail. Seu endereço de e-mail é automaticamente preenchido para você constando do campo "From:" na mensagem a ser enviada.
+    Preencha corretamente seu endereÃ§o de e-mail. Seu endereÃ§o de e-mail Ã© automaticamente preenchido para vocÃª constando do campo "From:" na mensagem a ser enviada.
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -280,31 +280,31 @@
     </para>
 </entry>--></entry>
   <entry id="compose-to" state="uptodate" md5="31cba17f169572c367aa8014831eb8f8">
-    <title>Composição de Mensagem: Para</title>
+    <title>ComposiÃ§Ã£o de Mensagem: Para</title>
     <heading>"Para"</heading>
     <para>
-    Preencha corretamente o(s) endereço(s) do(s) destinatário(s) para sua mensagem. Você deve separar cada endereço com uma vírgula. Outro tipo de pontuação resultará em erro. O(s) endereço(s) preenchido(s) constará(ão) do campo "To:" na mensagem a ser enviada.
+    Preencha corretamente o(s) endereÃ§o(s) do(s) destinatÃ¡rio(s) para sua mensagem. VocÃª deve separar cada endereÃ§o com uma vÃ­rgula. Outro tipo de pontuaÃ§Ã£o resultarÃ¡ em erro. O(s) endereÃ§o(s) preenchido(s) constarÃ¡(Ã£o) do campo "To:" na mensagem a ser enviada.
     </para>
 </entry>
   <entry id="compose-cc" state="uptodate" md5="97571433ab037ef9c4d101a56bf74e25">
-    <title>Composição de Mensagem: Cc</title>
+    <title>ComposiÃ§Ã£o de Mensagem: Cc</title>
     <heading>"Cc"</heading>
     <para>
-    Preencha corretamente o(s) endereço(s) do(s) destinatário(s) que receberão uma cópia carbono de sua mensagem. Separe cada endereço com uma vírgula. O(s) endereço(s) preenchido(s) constará(ão) do campo "Cc:" na mensagem a ser enviada. Cópias Carbono são geralmente enviadas para outras pessoas que não as contatadas diretamente mas também são importantes destinatários para a mensagem, geralmente alguém indiretamente envolvido no assunto da mensagem. Ambos tipos de destinatários, "Para:" e "Cc:", podem ver toda a lista de endereços de ambos os tipos.
+    Preencha corretamente o(s) endereÃ§o(s) do(s) destinatÃ¡rio(s) que receberÃ£o uma cÃ³pia carbono de sua mensagem. Separe cada endereÃ§o com uma vÃ­rgula. O(s) endereÃ§o(s) preenchido(s) constarÃ¡(Ã£o) do campo "Cc:" na mensagem a ser enviada. CÃ³pias Carbono sÃ£o geralmente enviadas para outras pessoas que nÃ£o as contatadas diretamente mas tambÃ©m sÃ£o importantes destinatÃ¡rios para a mensagem, geralmente alguÃ©m indiretamente envolvido no assunto da mensagem. Ambos tipos de destinatÃ¡rios, "Para:" e "Cc:", podem ver toda a lista de endereÃ§os de ambos os tipos.
     </para>
 </entry>
   <entry id="compose-bcc" state="uptodate" md5="aa8f9e2d44fdb74def0fa15240ff687b">
-    <title>Composição de Mensagem: Cco</title>
+    <title>ComposiÃ§Ã£o de Mensagem: Cco</title>
     <heading>"Cco"</heading>
     <para>
-    Preencha corretamente o(s) endereço(s) daqueles que receberão uma cópia carbono oculta de sua mensagem. Você deve separar cada endereço com uma vírgula, outro tipo de pontuação resultará em erro. O(s) endereço(s) preenchido(s) constará(ão) do campo "Bcc:" na mensagem a ser enviada. Cópias carbono ocultas são geralmente enviadas para pessoas que não os destinatários diretos e indiretos ("Para:" e "Cc:") que precisam ler o que está sendo escrito mas sem o conhecimento dos outros destinatários da mensagem. Somente eles e você saberão que eles receberam uma cópia da mensagem. Você geralmente usa esta opção para informar um superior que você está dizendo algo para uma pessoa, porém sem alarmá-la.
+    Preencha corretamente o(s) endereÃ§o(s) daqueles que receberÃ£o uma cÃ³pia carbono oculta de sua mensagem. VocÃª deve separar cada endereÃ§o com uma vÃ­rgula, outro tipo de pontuaÃ§Ã£o resultarÃ¡ em erro. O(s) endereÃ§o(s) preenchido(s) constarÃ¡(Ã£o) do campo "Bcc:" na mensagem a ser enviada. CÃ³pias carbono ocultas sÃ£o geralmente enviadas para pessoas que nÃ£o os destinatÃ¡rios diretos e indiretos ("Para:" e "Cc:") que precisam ler o que estÃ¡ sendo escrito mas sem o conhecimento dos outros destinatÃ¡rios da mensagem. Somente eles e vocÃª saberÃ£o que eles receberam uma cÃ³pia da mensagem. VocÃª geralmente usa esta opÃ§Ã£o para informar um superior que vocÃª estÃ¡ dizendo algo para uma pessoa, porÃ©m sem alarmÃ¡-la.
     </para>
 </entry>
   <entry id="compose-subject" state="uptodate" md5="0639a8790e306acc9e19b4d1ce342d53">
-    <title>Composição de Mensagem: Título</title>
+    <title>ComposiÃ§Ã£o de Mensagem: TÃ­tulo</title>
     <heading>"Assunto"</heading>
     <para>
-    Preencha o assunto de sua mensagem. O texto preenchido constará do campo "Subject:" na mensagem a ser enviada. Seja breve, simples e descritivo. A linha Assunto é a forma mais fácil de você e seus correspondentes se lembrarem do que se tratava a mensagem e é muito importante para organizar suas mensagens e encontrar as importantes mais tarde. Também, quando você 'Responder' ou 'Encaminhar' esta mensagem, o Assunto será copiado para a nova mensagem e esta é uma forma de dizer quais mensagens formam a "discussão" de uma conversação. Entretando, se sua resposta ou encaminhamento contém novas idéias, você pode querer adicionar pequenas modificaçõs ao assunto, assim os destinatários podem seguir o progresso da "discussão".
+    Preencha o assunto de sua mensagem. O texto preenchido constarÃ¡ do campo "Subject:" na mensagem a ser enviada. Seja breve, simples e descritivo. A linha Assunto Ã© a forma mais fÃ¡cil de vocÃª e seus correspondentes se lembrarem do que se tratava a mensagem e Ã© muito importante para organizar suas mensagens e encontrar as importantes mais tarde. TambÃ©m, quando vocÃª 'Responder' ou 'Encaminhar' esta mensagem, o Assunto serÃ¡ copiado para a nova mensagem e esta Ã© uma forma de dizer quais mensagens formam a "discussÃ£o" de uma conversaÃ§Ã£o. Entretando, se sua resposta ou encaminhamento contÃ©m novas idÃ©ias, vocÃª pode querer adicionar pequenas modificaÃ§Ãµs ao assunto, assim os destinatÃ¡rios podem seguir o progresso da "discussÃ£o".
     </para>
 </entry>
   <entry id="compose-charset" state="new">
@@ -315,30 +315,30 @@
     </para>
 </entry>
   <entry id="compose-options" state="uptodate" md5="5f1d50a733c8b7e46aecece28822ff70">
-    <title>Composição de Mensagem: Opções</title>
-    <heading>"Opções"</heading>
+    <title>ComposiÃ§Ã£o de Mensagem: OpÃ§Ãµes</title>
+    <heading>"OpÃ§Ãµes"</heading>
     <para>
-    Estas Opções ajudam você a preparar sua mensagem.
+    Estas OpÃ§Ãµes ajudam vocÃª a preparar sua mensagem.
     </para>
     <para>
     Clique em "Verificar Ortografia" para checar sua ortografia.
     </para>
     <para>
-    Clique em "Anexos" para ver, no rodapé da página, a lista de arquivos anexados a mensagem.
+    Clique em "Anexos" para ver, no rodapÃ© da pÃ¡gina, a lista de arquivos anexados a mensagem.
     </para>
     <para>
-    Ative o botão ao lado de "Salvar uma cópia em" para salvar uma cópia desta mensagem na sua pasta "Enviados". Salve cópias de mensagens importantes que você envia para você ter referências posteriores e para você ter um registro preciso do que você disse. Nós não recomendamos você gravar todas as mensagens, pois sua caixa-postal encherá rapidamente (especialmente quando você envia anexos) o deixando inapto a receber novas mensagens. Você pode, entretanto, deixar esta opcção sempre ligada utilizando 'Opções' na na barra de navegação ao topo. Tome cuidado ao utilizar esta opção, pois você terá que periodicamente limpar a pasta de mensagens enviadas ou isto deixará sua caixa-postal cheia e inutilizável.
+    Ative o botÃ£o ao lado de "Salvar uma cÃ³pia em" para salvar uma cÃ³pia desta mensagem na sua pasta "Enviados". Salve cÃ³pias de mensagens importantes que vocÃª envia para vocÃª ter referÃªncias posteriores e para vocÃª ter um registro preciso do que vocÃª disse. NÃ³s nÃ£o recomendamos vocÃª gravar todas as mensagens, pois sua caixa-postal encherÃ¡ rapidamente (especialmente quando vocÃª envia anexos) o deixando inapto a receber novas mensagens. VocÃª pode, entretanto, deixar esta opcÃ§Ã£o sempre ligada utilizando 'OpÃ§Ãµes' na na barra de navegaÃ§Ã£o ao topo. Tome cuidado ao utilizar esta opÃ§Ã£o, pois vocÃª terÃ¡ que periodicamente limpar a pasta de mensagens enviadas ou isto deixarÃ¡ sua caixa-postal cheia e inutilizÃ¡vel.
     </para>
 </entry>
   <entry id="compose-attachments" state="changed" md5="8ac032c4ac182f3f0d6446c20f0089dd">
-    <title>Composição de Mensagem: Anexos</title>
+    <title>ComposiÃ§Ã£o de Mensagem: Anexos</title>
     <heading>"Anexos"</heading>
     <para>
-    Esta seção mostra uma lista de arquivos já anexados a sua mensagem. Para remover um arquivo anexado:
+    Esta seÃ§Ã£o mostra uma lista de arquivos jÃ¡ anexados a sua mensagem. Para remover um arquivo anexado:
     </para>
-    <para>Passo 1: Ative a caixa de checagem ao lado do nome do arquivo anexado que você quer remover.
+    <para>Passo 1: Ative a caixa de checagem ao lado do nome do arquivo anexado que vocÃª quer remover.
     </para> 
-    <para>Passo 2: Clique em "Atualizar Informação de Anexos".
+    <para>Passo 2: Clique em "Atualizar InformaÃ§Ã£o de Anexos".
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -711,16 +711,16 @@
     </para>
 </entry>
   <entry id="compose-priority" state="uptodate" md5="b023367c36de3ce1567d27ccaa45640c">
-    <title>Composição de Mensagem: Prioridade</title>
+    <title>ComposiÃ§Ã£o de Mensagem: Prioridade</title>
     <heading>Prioridade</heading>
     <para>
-    Inseri o cabeçalho "X-Priority" nas mensagens a serem enviadas. O cabeçalho "X-Priority" é um tipo de "pseudo padrão" ao qual os clientes de correio Netscape, Mozilla, Opera e Outlook parecem estar de acordo. Qualquer cliente de correio que não lida com este cabeçalho simplesmente o ignorará.
+    Inseri o cabeÃ§alho "X-Priority" nas mensagens a serem enviadas. O cabeÃ§alho "X-Priority" Ã© um tipo de "pseudo padrÃ£o" ao qual os clientes de correio Netscape, Mozilla, Opera e Outlook parecem estar de acordo. Qualquer cliente de correio que nÃ£o lida com este cabeÃ§alho simplesmente o ignorarÃ¡.
     </para>
 </entry>
   <entry id="compose-save-attachments" state="uptodate" md5="db89972c4ebb0b41ab691b6a7744a81d">
-    <title>Composição de Mensagens: Salvar Anexos</title>
+    <title>ComposiÃ§Ã£o de Mensagens: Salvar Anexos</title>
     <para>
-    Determina se os anexos em sua composição são salvos com a mensagem quando armazenados na pasta "Enviados". Se "SIM", os dados do anexo serão salvos. Se "NÃO", os dados do anexo serão removidos da mensagem após ela ser enviada para todos os destinatários. Escolhendo "Não" ajudará  a conservar espaço em disco ao remover anexos (potencialmente grandes) de suas mensagens.
+    Determina se os anexos em sua composiÃ§Ã£o sÃ£o salvos com a mensagem quando armazenados na pasta "Enviados". Se "SIM", os dados do anexo serÃ£o salvos. Se "NÃƒO", os dados do anexo serÃ£o removidos da mensagem apÃ³s ela ser enviada para todos os destinatÃ¡rios. Escolhendo "NÃ£o" ajudarÃ¡  a conservar espaÃ§o em disco ao remover anexos (potencialmente grandes) de suas mensagens.
     </para>
 </entry>
   <entry id="compose-link-attachments" state="new">
@@ -731,20 +731,20 @@
 </entry>
   <entry id="search" state="changed" md5="86b2ef57b1194890833d9dd49ebc9b32">
     <title>Procurar</title>
-    <heading>Critérios da Procura</heading>
+    <heading>CritÃ©rios da Procura</heading>
     <para>
-    Você pode procurar por mensagens em suas pastas utilizando diferentes critérios de busca.
+    VocÃª pode procurar por mensagens em suas pastas utilizando diferentes critÃ©rios de busca.
     </para>
-    <para>Passo 1: Preencha o texto para os campos que você quer adicionar ao critério de busca.
+    <para>Passo 1: Preencha o texto para os campos que vocÃª quer adicionar ao critÃ©rio de busca.
     </para>
-    <para>Passo 2: Escolha o(s) marcador(es) da(s) mensagem(ns) que você quer adicionar ao critério de busca.
+    <para>Passo 2: Escolha o(s) marcador(es) da(s) mensagem(ns) que vocÃª quer adicionar ao critÃ©rio de busca.
     </para>
     <para>Passo 3: Escolha a(s) pasta(s) onde procurar as mensagens.
     </para>
     <para>Passo 4: Clique em "Enviar".
     </para>
     <para>
-    Se alguma mensagem for encontrada, os assuntos destas mensagens serão exibidos em "Resultados da Procura".
+    Se alguma mensagem for encontrada, os assuntos destas mensagens serÃ£o exibidos em "Resultados da Procura".
     </para>
 <!-- English entry:
 <entry id="search">
@@ -773,10 +773,10 @@
     <title>Gerenciamento de Pastas</title>
     <heading>Navegador de Pastas</heading>
     <para>
-      Você pode selecionar uma pasta clicando na caixa de checagem ao lado esquerdo da janela. Feito isto, selecione a opção que você deseja executar na pasta utilizando a caixa de seleção "Escolha a Ação".
+      VocÃª pode selecionar uma pasta clicando na caixa de checagem ao lado esquerdo da janela. Feito isto, selecione a opÃ§Ã£o que vocÃª deseja executar na pasta utilizando a caixa de seleÃ§Ã£o "Escolha a AÃ§Ã£o".
     </para>
     <para>
-      Você poderá ser requisitado a escolher outras opções complementares. Tome cuidado com a opção "Excluir Pasta(s)", pois você pode perder todas as suas mensagens nesta pasta se você escolher esta opção por engano!
+      VocÃª poderÃ¡ ser requisitado a escolher outras opÃ§Ãµes complementares. Tome cuidado com a opÃ§Ã£o "Excluir Pasta(s)", pois vocÃª pode perder todas as suas mensagens nesta pasta se vocÃª escolher esta opÃ§Ã£o por engano!
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -1768,94 +1768,94 @@
     <title>Filtros: Aplicar</title>
     <heading>Aplicar Filtros</heading>
     <para>
-    Clique no ícone "Aplicar Filtro em" ao lado do nome da pasta na visualização da caixa postal para filtrar todas as mensagens não excluídas de acordo com as regras especificadas.
+    Clique no Ã­cone "Aplicar Filtro em" ao lado do nome da pasta na visualizaÃ§Ã£o da caixa postal para filtrar todas as mensagens nÃ£o excluÃ­das de acordo com as regras especificadas.
     </para>
 </entry>
   <entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
     <title>Filtros: Editar Regras de Filtro</title>
     <heading>Editar Suas Regras de Filtros</heading>
     <para>
-    Clique em "Editar suas regras de filtro" para ir para a página onde você pode adicionar, excluir e editar o conjunto de regras de filtro que estejam ativas.
+    Clique em "Editar suas regras de filtro" para ir para a pÃ¡gina onde vocÃª pode adicionar, excluir e editar o conjunto de regras de filtro que estejam ativas.
     </para>
 </entry>
   <entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
     <title>Filtros: Editar Lista Negra</title>
     <heading>Editar Sua Lista Negra</heading>
     <para>
-    Clique em "Editar sua lista negra" para ir para a página onde você pode adicionar, excluir e editar a lista de endereços de e-mail de remetentes de quem você SEMPRE vai recusar mensagens.
+    Clique em "Editar sua lista negra" para ir para a pÃ¡gina onde vocÃª pode adicionar, excluir e editar a lista de endereÃ§os de e-mail de remetentes de quem vocÃª SEMPRE vai recusar mensagens.
     </para>
 </entry>
   <entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
     <title>Filtros: Editar Lista Branca</title>
     <heading>Editar Sua Lista Branca</heading>
     <para>
-    Clique em "Editar sua lista branca" para ser encaminhado para a página onde você pode adicionar, excluir e editar a lista de endereços de remetentes de quem você SEMPRE vai aceitar mensagens.
+    Clique em "Editar sua lista branca" para ser encaminhado para a pÃ¡gina onde vocÃª pode adicionar, excluir e editar a lista de endereÃ§os de remetentes de quem vocÃª SEMPRE vai aceitar mensagens.
     </para>
 </entry>
   <entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
     <title>Filtros: Filtrar ao conectar</title>
     <heading>Aplicar Regras de Filtro ao Conectar?</heading>
     <para>
-    Ative esta opção para sempre aplicar filtros quando conectar ao IMP.
+    Ative esta opÃ§Ã£o para sempre aplicar filtros quando conectar ao IMP.
     </para>
 </entry>
   <entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
     <title>Filtros: Filtrar ao Atualizar</title>
     <heading>Aplicar regras de filtro sempre que a Caixa de Entrada for exibida?</heading>
     <para>
-    Ative esta opção para sempre aplicar filtros ao exibir a Caixa de Entrada.
+    Ative esta opÃ§Ã£o para sempre aplicar filtros ao exibir a Caixa de Entrada.
     </para>
 </entry>
   <entry id="filter-any-mailbox" state="uptodate" md5="71c51e83909f9d0bd440d220772ee3c6">
     <title>Filtros: Filtrar qualquer Caixa Postal</title>
     <heading>Aplicar regras de filtro em qualquer caixa postal?</heading>
     <para>
-    Ative esta opção se você deseja permitir aplicar regras de filtro em qualquer caixa postal. Normalmente, regras de filtro se aplicam somente a novas mensagens que são entregues em sua Caixa de Entrada. Se esta opção estiver ativa, um ícone aparecerá em todas as páginas da caixa postal permitindo você aplicar regras de filtro em todas as mensagens na caixa postal atual. NOTA: Filtrar em outras caixas postais que não a Caixa de Entrada pode produzir resultados estranhos (ex.: o filtro pode fazer com que uma cópia da mensagem seja entregue para a mesma caixa postal) e/ou indesejados (ex.: isto pode fazer com que mensagens sejam movidas/excluídas se uma nova regra de filtro foi implementada desde a mensagem ter sido entregue na caixa postal atual).
+    Ative esta opÃ§Ã£o se vocÃª deseja permitir aplicar regras de filtro em qualquer caixa postal. Normalmente, regras de filtro se aplicam somente a novas mensagens que sÃ£o entregues em sua Caixa de Entrada. Se esta opÃ§Ã£o estiver ativa, um Ã­cone aparecerÃ¡ em todas as pÃ¡ginas da caixa postal permitindo vocÃª aplicar regras de filtro em todas as mensagens na caixa postal atual. NOTA: Filtrar em outras caixas postais que nÃ£o a Caixa de Entrada pode produzir resultados estranhos (ex.: o filtro pode fazer com que uma cÃ³pia da mensagem seja entregue para a mesma caixa postal) e/ou indesejados (ex.: isto pode fazer com que mensagens sejam movidas/excluÃ­das se uma nova regra de filtro foi implementada desde a mensagem ter sido entregue na caixa postal atual).
     </para>
 </entry>
   <entry id="pgp-compose-attach-pubkey" state="uptodate" md5="97446dbbb27616b4fa39be801e10df2d">
-    <title>PGP: Anexar Chave Pública</title>
-    <heading>Anexar Chave Pública</heading>
+    <title>PGP: Anexar Chave PÃºblica</title>
+    <heading>Anexar Chave PÃºblica</heading>
     <para>
-    Se selecionado, uma cópia de sua chave publica PGP, se existir, será anexada nas mensagens que você enviar. Você pode configurar um comportamento padrão na tela de Opções de PGP.
+    Se selecionado, uma cÃ³pia de sua chave publica PGP, se existir, serÃ¡ anexada nas mensagens que vocÃª enviar. VocÃª pode configurar um comportamento padrÃ£o na tela de OpÃ§Ãµes de PGP.
     </para>
 </entry>
   <entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
     <title>PGP: Examinar Corpo das Mensagens</title>
     <heading>Examinar Corpo das Mensagens</heading>
     <para>
-    Se selecionado, IMP examinará o corpo de todas as mensagens texto procurando por informações PGP, e mostrará os resultados caso seja encontrado. Note que isto pode degradar o sistema já que toda mensagem será examinada por completo a procura de informações PGP.
+    Se selecionado, IMP examinarÃ¡ o corpo de todas as mensagens texto procurando por informaÃ§Ãµes PGP, e mostrarÃ¡ os resultados caso seja encontrado. Note que isto pode degradar o sistema jÃ¡ que toda mensagem serÃ¡ examinada por completo a procura de informaÃ§Ãµes PGP.
     </para>
 </entry>
   <entry id="compose-options-encrypt" state="changed" md5="1012144f749f19f5a24cef38601daa71">
-    <title>Composição de Mensagem: Opções de Criptografia</title>
+    <title>ComposiÃ§Ã£o de Mensagem: OpÃ§Ãµes de Criptografia</title>
     <heading>Sem Criptografia</heading>
     <para>
     Envia a mensagem sem criptografar (texto puro).
     </para>
     <heading>Mensagem Criptografada com PGP</heading>
     <para>
-    Esta opção vai criptografar a mensagem atual, utilizando PGP e a chave pública do destinatário, e então enviá-la. Você pode somente enviar mensagens para um único destinátario utilizando esta opção. Você DEVE ter a chave publica do destinatário armazenada no seu catálogo de endereços ou esta opção falhará. Se você tem a chave pública do destinatário em seu catálogo de endereços e você mesmo assim continuar recebendo mensagens de erro, verifique se o endereço de e-mail no campo "Para:" corresponde ao endereço de e-mail onde a chave pública está armazenada. Os dados criptografados serão anexados a mensagem a ser enviada.
+    Esta opÃ§Ã£o vai criptografar a mensagem atual, utilizando PGP e a chave pÃºblica do destinatÃ¡rio, e entÃ£o enviÃ¡-la. VocÃª pode somente enviar mensagens para um Ãºnico destinÃ¡tario utilizando esta opÃ§Ã£o. VocÃª DEVE ter a chave publica do destinatÃ¡rio armazenada no seu catÃ¡logo de endereÃ§os ou esta opÃ§Ã£o falharÃ¡. Se vocÃª tem a chave pÃºblica do destinatÃ¡rio em seu catÃ¡logo de endereÃ§os e vocÃª mesmo assim continuar recebendo mensagens de erro, verifique se o endereÃ§o de e-mail no campo "Para:" corresponde ao endereÃ§o de e-mail onde a chave pÃºblica estÃ¡ armazenada. Os dados criptografados serÃ£o anexados a mensagem a ser enviada.
     </para>
     <heading>Mensagem Assinada com PGP</heading>
     <para>
-    Esta opção assinará digitalmente a mensagem atual utilizando PGP e sua chave privada pessoal. Se você ainda não forneceu a senha para sua chave privada nesta sessão você será solicitado a fornecê-la. O destinatário deve ter uma cópia de sua chave pública para verificar digitalmente sua assinatura.
+    Esta opÃ§Ã£o assinarÃ¡ digitalmente a mensagem atual utilizando PGP e sua chave privada pessoal. Se vocÃª ainda nÃ£o forneceu a senha para sua chave privada nesta sessÃ£o vocÃª serÃ¡ solicitado a fornecÃª-la. O destinatÃ¡rio deve ter uma cÃ³pia de sua chave pÃºblica para verificar digitalmente sua assinatura.
     </para>
     <heading>Mensagem Assinada e Criptografada com PGP</heading>
     <para>
-    Esta opção primeiramente assinará digitalmente sua mensagem e então criptografará o resultado. Veja as sessões "Mensagem Criptografada com PGP" e "Mensagem Assinada com PGP" para maiores informações.
+    Esta opÃ§Ã£o primeiramente assinarÃ¡ digitalmente sua mensagem e entÃ£o criptografarÃ¡ o resultado. Veja as sessÃµes "Mensagem Criptografada com PGP" e "Mensagem Assinada com PGP" para maiores informaÃ§Ãµes.
     </para>
     <heading>Mensagem Criptografada com S/MIME</heading>
     <para>
-    À concluir.
+    Ã€ concluir.
     </para>
     <heading>Mensagem Assinada com S/MIME</heading>
     <para>
-    À concluir.
+    Ã€ concluir.
     </para>
     <heading>Mensagem Assinada e Criptografada com S/MIME</heading>
     <para>
-    À concluir.
+    Ã€ concluir.
     </para>
 <!-- English entry:
 <entry id="compose-options-encrypt">
@@ -2150,88 +2150,88 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
-    <title>PGP: Visão Geral</title>
-    <heading>O que é PGP?</heading>
+    <title>PGP: VisÃ£o Geral</title>
+    <heading>O que Ã© PGP?</heading>
     <para>
-    PGP é uma ferramenta para comunicação e armanezamento de dados seguros, especialmente para usar com e-mail. Ele pode ser utilizado para criptografar dados e criar assinaturas digitais. O IMP utiliza GnuPG (GNU Privacy Guard) para oferecer esta funcionalidade.
+    PGP Ã© uma ferramenta para comunicaÃ§Ã£o e armanezamento de dados seguros, especialmente para usar com e-mail. Ele pode ser utilizado para criptografar dados e criar assinaturas digitais. O IMP utiliza GnuPG (GNU Privacy Guard) para oferecer esta funcionalidade.
     </para>
     <heading>Habilitar Funcionalidade PGP?</heading>
     <para>
-    Se esta opção estiver selecionada, você será apto a criar/visualizar suas chaves pessoais PGP, adicionar/excluir chaves públicas de outras pessoas, ler mensagens criptografadas, verificar mensagens assinadas digitalmente e criptografar/assinar suas mensagens ao enviar.
+    Se esta opÃ§Ã£o estiver selecionada, vocÃª serÃ¡ apto a criar/visualizar suas chaves pessoais PGP, adicionar/excluir chaves pÃºblicas de outras pessoas, ler mensagens criptografadas, verificar mensagens assinadas digitalmente e criptografar/assinar suas mensagens ao enviar.
     </para>
 </entry>
   <entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
-    <title>PGP: Opções - Anexar Chave Pública</title>
-    <heading>Opções - Anexar Chave Pública</heading>
+    <title>PGP: OpÃ§Ãµes - Anexar Chave PÃºblica</title>
+    <heading>OpÃ§Ãµes - Anexar Chave PÃºblica</heading>
     <para>
-    Se selecionado, uma cópia de sua chave publica PGP, se existir, será por padrão anexada a todas as mensagens enviadas.
+    Se selecionado, uma cÃ³pia de sua chave publica PGP, se existir, serÃ¡ por padrÃ£o anexada a todas as mensagens enviadas.
     </para>
 </entry>
   <entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
-    <title>PGP: Gerenciando Chaves Públicas</title>
-    <heading>Visão Geral</heading>
+    <title>PGP: Gerenciando Chaves PÃºblicas</title>
+    <heading>VisÃ£o Geral</heading>
     <para>
-    Esta tela lista todos os usuários atualmente em seu catálogo de endereços que têm chaves públicas PGP. Estes são os ÚNICOS usuários para quem você pode 1) enviar uma mensagem encriptada -OU- 2) verificar uma assinatura digital.
+    Esta tela lista todos os usuÃ¡rios atualmente em seu catÃ¡logo de endereÃ§os que tÃªm chaves pÃºblicas PGP. Estes sÃ£o os ÃšNICOS usuÃ¡rios para quem vocÃª pode 1) enviar uma mensagem encriptada -OU- 2) verificar uma assinatura digital.
     </para>
     <heading>Ver</heading>
     <para>
-    Abre uma janela para exibir a chave pública PGP.
+    Abre uma janela para exibir a chave pÃºblica PGP.
     </para>
     <heading>Detalhes</heading>
     <para>
-    Mostra alguns detalhes sobre a chave pública PGP.
+    Mostra alguns detalhes sobre a chave pÃºblica PGP.
     </para>
     <heading>Excluir</heading>
     <para>
-    Exclui a chave pública de seu catálogo de endereços.
+    Exclui a chave pÃºblica de seu catÃ¡logo de endereÃ§os.
     </para>
 </entry>
   <entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
-    <title>PGP: Gerenciando Chaves Públicas - Importar</title>
-    <heading>Importar Chave Pública</heading>
+    <title>PGP: Gerenciando Chaves PÃºblicas - Importar</title>
+    <heading>Importar Chave PÃºblica</heading>
     <para>
-    Este botão abrirá uma janela onde você pode manualmente importar uma chave pública PGP. A chave pode ser colada dentro do campo texto ou, se a chave pública estiver em um arquivo no seu computador, você pode importá-la. Se a chave pública for válida ela será inserida em seu catálogo de endereços e a janela fechará; se não for válida, uma mensagem de erro será retornada explicando o porquê.
+    Este botÃ£o abrirÃ¡ uma janela onde vocÃª pode manualmente importar uma chave pÃºblica PGP. A chave pode ser colada dentro do campo texto ou, se a chave pÃºblica estiver em um arquivo no seu computador, vocÃª pode importÃ¡-la. Se a chave pÃºblica for vÃ¡lida ela serÃ¡ inserida em seu catÃ¡logo de endereÃ§os e a janela fecharÃ¡; se nÃ£o for vÃ¡lida, uma mensagem de erro serÃ¡ retornada explicando o porquÃª.
     </para>
 </entry>
   <entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
     <title>PGP: Gerenciando Chaves Pessoais</title>
-    <heading>Visão Geral</heading>
+    <heading>VisÃ£o Geral</heading>
     <para>
-    Se você quer assinar digitalmente mensagens ou permitir que outros lhes enviem mensagens criptografadas, você deve possuir seu próprio par de chaves pública/privada PGP.
+    Se vocÃª quer assinar digitalmente mensagens ou permitir que outros lhes enviem mensagens criptografadas, vocÃª deve possuir seu prÃ³prio par de chaves pÃºblica/privada PGP.
     </para>
-    <heading>Sua Chave Pública</heading>
+    <heading>Sua Chave PÃºblica</heading>
     <para>
-    Sua chave pública deve estar disponível para qualquer pessoa que você quer que seja apto a enviá-lo mensagens criptografadas que somente VOCÊ pode descriptografar (usando sua chave privada). Adicionalmente, sua chave pública precisa estar disponível para qualquer um que você tenha enviado uma mensagem assinada digitalmente - a chave pública é necessária para verificar a assinatura digital.
+    Sua chave pÃºblica deve estar disponÃ­vel para qualquer pessoa que vocÃª quer que seja apto a enviÃ¡-lo mensagens criptografadas que somente VOCÃŠ pode descriptografar (usando sua chave privada). Adicionalmente, sua chave pÃºblica precisa estar disponÃ­vel para qualquer um que vocÃª tenha enviado uma mensagem assinada digitalmente - a chave pÃºblica Ã© necessÃ¡ria para verificar a assinatura digital.
     </para>
     <heading>Sua Chave Privada</heading>
     <para>
-    Sua chave privada é necessária para descriptografar uma mensagem criptografada utilizando sua chave pública. Adicionalmente, sua chave privada é necessária se você deseja assinar digitalmente uma mensagem. Sua chave privada será protegida por uma senha criada quando a chave foi gerada. Assim, para executar qualquer atividade que requeira sua chave privada, o IMP lhe solicitará sua senha. Você necessita inserir sua senha somente uma vez por sessão - o IMP armazenará sua senha até você desconectar (Certifique-se de desconectar!).
+    Sua chave privada Ã© necessÃ¡ria para descriptografar uma mensagem criptografada utilizando sua chave pÃºblica. Adicionalmente, sua chave privada Ã© necessÃ¡ria se vocÃª deseja assinar digitalmente uma mensagem. Sua chave privada serÃ¡ protegida por uma senha criada quando a chave foi gerada. Assim, para executar qualquer atividade que requeira sua chave privada, o IMP lhe solicitarÃ¡ sua senha. VocÃª necessita inserir sua senha somente uma vez por sessÃ£o - o IMP armazenarÃ¡ sua senha atÃ© vocÃª desconectar (Certifique-se de desconectar!).
     </para>
 </entry>
   <entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
-    <title>PGP: Gerenciando Chaves Privadas - Chaves Públicas</title>
+    <title>PGP: Gerenciando Chaves Privadas - Chaves PÃºblicas</title>
     <heading>Ver</heading>
     <para>
-    Abre uma janela para exibir a chave pública PGP.
+    Abre uma janela para exibir a chave pÃºblica PGP.
     </para>
     <heading>Detalhes</heading>
     <para>
-    Exibe alguns detalhes sobre sua chave pública PGP.
+    Exibe alguns detalhes sobre sua chave pÃºblica PGP.
     </para>
 </entry>
   <entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
     <title>PGP: Gerenciando Chaves Pessoais - Chaves Privadas</title>
-    <heading>Forneça a Senha</heading>
+    <heading>ForneÃ§a a Senha</heading>
     <para>
-    Abre uma janela de diálogo para a senha. A senha fornecida, se correta, será armazenada pelo IMP até sua sessão finalizar.
+    Abre uma janela de diÃ¡logo para a senha. A senha fornecida, se correta, serÃ¡ armazenada pelo IMP atÃ© sua sessÃ£o finalizar.
     </para>
     <heading>Descarregar Senha</heading>
     <para>
-    Remove a senha armazenada no IMP - qualquer uso posterior de sua chave privada necessitará que você forneça novamente a senha.
+    Remove a senha armazenada no IMP - qualquer uso posterior de sua chave privada necessitarÃ¡ que vocÃª forneÃ§a novamente a senha.
     </para>
     <heading>Ver</heading>
     <para>
-    Abre uma janela para exibir a chave privada PGP. NÃO ENVIE ESTA CHAVE A NINGUÉM - esta opção é estritamente para permitir que você possa exportar sua chave privada para usar em outro programa.
+    Abre uma janela para exibir a chave privada PGP. NÃƒO ENVIE ESTA CHAVE A NINGUÃ‰M - esta opÃ§Ã£o Ã© estritamente para permitir que vocÃª possa exportar sua chave privada para usar em outro programa.
     </para>
     <heading>Detalhes</heading>
     <para>
@@ -2242,35 +2242,35 @@
     <title>PGP: Gerenciando Chaves Pessoais - Excluir</title>
     <heading>Excluir Chaves Atuais</heading>
     <para>
-    Este botão excluirá seu par pessoal de chaves pública/privada das preferências do IMP.
+    Este botÃ£o excluirÃ¡ seu par pessoal de chaves pÃºblica/privada das preferÃªncias do IMP.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
     <title>PGP: Criar Chave Pessoal - Nome</title>
     <heading>Nome</heading>
     <para>
-    O nome que você quer associar às suas chaves pessoais. Campo obrigatório.
+    O nome que vocÃª quer associar Ã s suas chaves pessoais. Campo obrigatÃ³rio.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
-    <title>PGP: Criar Chave Pessoal - Comentário</title>
-    <heading>Comentário</heading>
+    <title>PGP: Criar Chave Pessoal - ComentÃ¡rio</title>
+    <heading>ComentÃ¡rio</heading>
     <para>
-    Um comentário a ser associado às suas chaves privadas. Campo opcional.
+    Um comentÃ¡rio a ser associado Ã s suas chaves privadas. Campo opcional.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
-    <title>PGP: Criar Chave Pessoal - Endereço de E-mail</title>
-    <heading>Endereço de E-mail</heading>
+    <title>PGP: Criar Chave Pessoal - EndereÃ§o de E-mail</title>
+    <heading>EndereÃ§o de E-mail</heading>
     <para>
-    O endereço de e-mail que você quer associar a suas chaves pessoais. Campo obrigatório.
+    O endereÃ§o de e-mail que vocÃª quer associar a suas chaves pessoais. Campo obrigatÃ³rio.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-keylength" state="changed" md5="546a087650cada2d1d4a01b478311bb9">
     <title>PGP: Criar Chave Pessoal - Tamanho da Chave</title>
     <heading>Tamanho da Chave</heading>
     <para>
-    O tamanho da chave, em bytes, de sua chave gerada. Quanto maior o valor, maior a proteção (e também maior o tempo de geração e criptografia). 1024 bytes é o padrão - este valor oferece uma excelente proteção.
+    O tamanho da chave, em bytes, de sua chave gerada. Quanto maior o valor, maior a proteÃ§Ã£o (e tambÃ©m maior o tempo de geraÃ§Ã£o e criptografia). 1024 bytes Ã© o padrÃ£o - este valor oferece uma excelente proteÃ§Ã£o.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-keylength">
@@ -2410,19 +2410,19 @@
     <title>PGP: Criar Chave Pessoal - Senha</title>
     <heading>SEnha</heading>
     <para>
-    A senha usada para proteger/criptografar sua chave pessoal privada. Ela deve conter PELO MENOS 6 caracteres, NÃO deve ser igual a senha de login, NÃO deve
-    ser baseada em uma palavra do dicionário e deve incluir ambos números e letras. Você deve fornecer esta senha duas vezes para propósitos de verificação. Campo obrigatório.
+    A senha usada para proteger/criptografar sua chave pessoal privada. Ela deve conter PELO MENOS 6 caracteres, NÃƒO deve ser igual a senha de login, NÃƒO deve
+    ser baseada em uma palavra do dicionÃ¡rio e deve incluir ambos nÃºmeros e letras. VocÃª deve fornecer esta senha duas vezes para propÃ³sitos de verificaÃ§Ã£o. Campo obrigatÃ³rio.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
-    <title>PGP: Criar Chave Pessoal - Ações</title>
+    <title>PGP: Criar Chave Pessoal - AÃ§Ãµes</title>
     <heading>Criar Chave</heading>
     <para>
-    Cria e armazena seu par pessoal de chaves pública/privada.
+    Cria e armazena seu par pessoal de chaves pÃºblica/privada.
     </para>
     <heading>Importar Chave</heading>
     <para>
-    Importa um par de chaves pública/privada. Este botão abre uma janela onde você pode manualmente importar seu par existente de chaves pública/privada. As chaves podem ser coladas no campo texto ou, se a chave estiver em um arquivo em seu computador, você pode importá-lo. Se as chaves forem válidas elas serão inseridas em suas preferências e a janela fechará; se não forem válidas, uma mensagem de erro será retornada explicando o porquê.
+    Importa um par de chaves pÃºblica/privada. Este botÃ£o abre uma janela onde vocÃª pode manualmente importar seu par existente de chaves pÃºblica/privada. As chaves podem ser coladas no campo texto ou, se a chave estiver em um arquivo em seu computador, vocÃª pode importÃ¡-lo. Se as chaves forem vÃ¡lidas elas serÃ£o inseridas em suas preferÃªncias e a janela fecharÃ¡; se nÃ£o forem vÃ¡lidas, uma mensagem de erro serÃ¡ retornada explicando o porquÃª.
     </para>
 <!--<entry id="pgp-personalkey-create-actions" state="new">
     <title>PGP: Create Personal Key - Actions</title>
@@ -2436,96 +2436,96 @@
     </para>
 </entry>--></entry>
   <entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
-    <title>S/MIME: Visão Geral</title>
-    <heading>O que é S/MIME?</heading>
+    <title>S/MIME: VisÃ£o Geral</title>
+    <heading>O que Ã© S/MIME?</heading>
     <para>
-    S/MIME é um sistema de chaves privada/pública que oferece assinaturas digitais, privacidade em mensagens, e detecção de alterações não autorizadas de forma aberta e interoperável. S/MIME pode oferecer privacidade de mensagens criptografando-as de forma que somente o remetente e os destinatários legítimos possam decodificá-las. Ele permite você identificar o remetente de uma mensagem através de sua assinatura digital. Juntas, a criptografia e a assinatura digital ajudam a oferecer deteccção de alterações não autorizadas, permitindo os destinatários determinarem se a mensagem foi alterada após ser enviada.
+    S/MIME Ã© um sistema de chaves privada/pÃºblica que oferece assinaturas digitais, privacidade em mensagens, e detecÃ§Ã£o de alteraÃ§Ãµes nÃ£o autorizadas de forma aberta e interoperÃ¡vel. S/MIME pode oferecer privacidade de mensagens criptografando-as de forma que somente o remetente e os destinatÃ¡rios legÃ­timos possam decodificÃ¡-las. Ele permite vocÃª identificar o remetente de uma mensagem atravÃ©s de sua assinatura digital. Juntas, a criptografia e a assinatura digital ajudam a oferecer deteccÃ§Ã£o de alteraÃ§Ãµes nÃ£o autorizadas, permitindo os destinatÃ¡rios determinarem se a mensagem foi alterada apÃ³s ser enviada.
     </para>
     <heading>Habilitar S/MIME?</heading>
     <para>
-    Se esta opção for selecionada, você estará apto a importar seu par pessoal de chaves S/MIME, ler mensagens criptografadas, verificar mensagens assinadas digitalmente, e criptografar/assinar as mensagens que enviar.
+    Se esta opÃ§Ã£o for selecionada, vocÃª estarÃ¡ apto a importar seu par pessoal de chaves S/MIME, ler mensagens criptografadas, verificar mensagens assinadas digitalmente, e criptografar/assinar as mensagens que enviar.
     </para>
 </entry>
   <entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
     <title>S/MIME: Chaves Pessoais</title>
-    <heading>Visão Geral</heading>
+    <heading>VisÃ£o Geral</heading>
     <para>
-    Se você quiser assinar digitalmente ou criptografar mensagens você deve possuir seu próprio par de chaves pública/privada S/MIME.
+    Se vocÃª quiser assinar digitalmente ou criptografar mensagens vocÃª deve possuir seu prÃ³prio par de chaves pÃºblica/privada S/MIME.
     </para>
 </entry>
   <entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
     <title>S/MIME: Importar Certificados Pessoais</title>
     <heading>Importar Certificados Pessoais</heading>
     <para>
-    Importa certificados pessoais de um arquivo em formato PKCS #12. PKCS #12 é um arquivo geralmente gerado quando se exporta uma chave a partir de um navegador (ex.: Internet Explorer, Firefox) ou a partir de um certificado armazenado e mantido pelo Sistema Operacional (ex.: Windows XP). Se suas chaves forem válidas elas serão inseridas em suas preferências e a janela se fechará; se não forem válidas, uma mensagem de erro será retornada explicando o porquê.
+    Importa certificados pessoais de um arquivo em formato PKCS #12. PKCS #12 Ã© um arquivo geralmente gerado quando se exporta uma chave a partir de um navegador (ex.: Internet Explorer, Firefox) ou a partir de um certificado armazenado e mantido pelo Sistema Operacional (ex.: Windows XP). Se suas chaves forem vÃ¡lidas elas serÃ£o inseridas em suas preferÃªncias e a janela se fecharÃ¡; se nÃ£o forem vÃ¡lidas, uma mensagem de erro serÃ¡ retornada explicando o porquÃª.
     </para>
 </entry>
   <entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
     <title>S/MIME: Excluir Certificados Pessoais</title>
     <heading>Excluir Certificados Pessoais</heading>
     <para>
-    Exclui seus certificados pessoais de suas preferências. Você não será mais apto a assinar mensagens com S/MIME ou visualizar qualquer mensagem criptografada com S/MIME enviada a você.
+    Exclui seus certificados pessoais de suas preferÃªncias. VocÃª nÃ£o serÃ¡ mais apto a assinar mensagens com S/MIME ou visualizar qualquer mensagem criptografada com S/MIME enviada a vocÃª.
     </para>
 </entry>
   <entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
-    <title>S/MIME: Gerenciar Chaves Públicas</title>
-    <heading>S/MIME: Gerenciar Chaves Públicas</heading>
+    <title>S/MIME: Gerenciar Chaves PÃºblicas</title>
+    <heading>S/MIME: Gerenciar Chaves PÃºblicas</heading>
     <para>
-    Gerencia sua lista de chaves públicas do tipo S/MIME.
+    Gerencia sua lista de chaves pÃºblicas do tipo S/MIME.
     </para>
     <heading>Ver</heading>
     <para>
-    Visualiza sua chave pública em texto puro.
+    Visualiza sua chave pÃºblica em texto puro.
     </para>
     <heading>Detalhes</heading>
     <para>
-    Visualiza os detalhes técnicos de sua chave pública.
+    Visualiza os detalhes tÃ©cnicos de sua chave pÃºblica.
     </para>
     <heading>Excluir</heading>
     <para>
-    Exclui do repositório a chave pública selecionada. Excluir uma chave pública previnirá você de criptografar uma mensagem para o usuário em questão.
+    Exclui do repositÃ³rio a chave pÃºblica selecionada. Excluir uma chave pÃºblica previnirÃ¡ vocÃª de criptografar uma mensagem para o usuÃ¡rio em questÃ£o.
     </para>
 </entry>
   <entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
     <title>Imprimindo</title>
     <heading>Imprimir a Mensagem</heading>
     <para>
-    Para imprimir uma mensagem que você estiver visualizando, clique no link "Imprimir" no topo ou no rodapé da mensagem. A mensagem será aberta em uma nova janela formatada para impressão. Dependendo do seu navegador e sistema operacional, uma caixa de diálogo se abrirá para você. Se ela não se abrir, então selecione o menu "Arquivo" de seu navegador e escolha "Imprimir" para abrir a caixa de diálogo de impressão.
+    Para imprimir uma mensagem que vocÃª estiver visualizando, clique no link "Imprimir" no topo ou no rodapÃ© da mensagem. A mensagem serÃ¡ aberta em uma nova janela formatada para impressÃ£o. Dependendo do seu navegador e sistema operacional, uma caixa de diÃ¡logo se abrirÃ¡ para vocÃª. Se ela nÃ£o se abrir, entÃ£o selecione o menu "Arquivo" de seu navegador e escolha "Imprimir" para abrir a caixa de diÃ¡logo de impressÃ£o.
     </para>
 </entry>
   <entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
-    <title>Ordenando e Agrupando por Discussão</title>
+    <title>Ordenando e Agrupando por DiscussÃ£o</title>
     <heading>Ordenar Registros</heading>
     <para>
-    Ao visualizar uma lista de mensagens, você pode ordenar as mensagens clicando no cabeçalho apropriado da coluna. Para inverter as colunas entre ordem ascendente ou descendente clique no ícone em forma de flecha no cabeçalho da coluna.
+    Ao visualizar uma lista de mensagens, vocÃª pode ordenar as mensagens clicando no cabeÃ§alho apropriado da coluna. Para inverter as colunas entre ordem ascendente ou descendente clique no Ã­cone em forma de flecha no cabeÃ§alho da coluna.
     </para>
-    <heading>Agrupar por Discussão</heading>
+    <heading>Agrupar por DiscussÃ£o</heading>
     <para>
-    Agrupa mensagens por discussão (assunto), com isto todas as mensagens serão agrupadas com suas respostas, clicando no link [Discussão] no cabeçalho da coluna assunto.
+    Agrupa mensagens por discussÃ£o (assunto), com isto todas as mensagens serÃ£o agrupadas com suas respostas, clicando no link [DiscussÃ£o] no cabeÃ§alho da coluna assunto.
     </para>
 </entry>
   <entry id="alternative-msg" state="uptodate" md5="4978073f76977b6af6b69810e4d22a65">
     <title>Mensagens do tipo Multipart/Alternative</title>
     <para>
-    Alguma mensagem foi enviada como sendo do tipo "multipart/alternative". Estas mensagens possuem diversas partes, todas mostrando o MESMO CONTEÚDO mas em DIFERENTES FORMATOS. O cliente de correio mostrará a última parte da lista que possa ser visualizada corretamente no navegador, caso haja alguma. Todos os outros formatos aparecerão abaixo do título "Partes alternativas para esta seção" e podem ser visualizados e baixados separadamente. É importante notar que estas partes alternativas possuem o MESMO CONTEÚDO que a parte que está sendo mostrada - eles estão simplesmente em outros formatos (ex.: texto vs. HTML).
+    Alguma mensagem foi enviada como sendo do tipo "multipart/alternative". Estas mensagens possuem diversas partes, todas mostrando o MESMO CONTEÃšDO mas em DIFERENTES FORMATOS. O cliente de correio mostrarÃ¡ a Ãºltima parte da lista que possa ser visualizada corretamente no navegador, caso haja alguma. Todos os outros formatos aparecerÃ£o abaixo do tÃ­tulo "Partes alternativas para esta seÃ§Ã£o" e podem ser visualizados e baixados separadamente. Ã‰ importante notar que estas partes alternativas possuem o MESMO CONTEÃšDO que a parte que estÃ¡ sendo mostrada - eles estÃ£o simplesmente em outros formatos (ex.: texto vs. HTML).
     </para>
 </entry>
   <entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="530fa20e0afbc25ffd40877948832899">
-    <title>Preferências: Manutenção: Renomear "Enviados" mensalmente</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Renomear "Enviados" mensalmente</title>
     <para>
-    Ative esta opção se você gostaria de renomear sua pasta "Enviados" ao início de cada mês. A pasta será renomeada (para um nome que contenha mês e ano) e uma nova pasta "Enviados" será criada.
+    Ative esta opÃ§Ã£o se vocÃª gostaria de renomear sua pasta "Enviados" ao inÃ­cio de cada mÃªs. A pasta serÃ¡ renomeada (para um nome que contenha mÃªs e ano) e uma nova pasta "Enviados" serÃ¡ criada.
     </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly" state="uptodate" md5="0beed16dfd68e2f25e0c66871fd546df">
-    <title>Preferências: Manutenção: Excluir mensalmente pastas "Enviados" antigas</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Excluir mensalmente pastas "Enviados" antigas</title>
     <para>
-    Ative esta opção que se você gostaria de excluir pastas "Enviados" antigas ao início de cada mês. Isto pode ser útil se você possui quota, por exemplo.
+    Ative esta opÃ§Ã£o que se vocÃª gostaria de excluir pastas "Enviados" antigas ao inÃ­cio de cada mÃªs. Isto pode ser Ãºtil se vocÃª possui quota, por exemplo.
     </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="71ed1c2eab48b91a25b5bcd4b14ccea9">
-    <title>Preferências: Manutenção: Excluir Pasta "Enviados" Mensalmente - Número de Pastas a Manter</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Excluir Pasta "Enviados" Mensalmente - NÃºmero de Pastas a Manter</title>
     <para>
-    Se você estiver excluindo pastas "Enviados" todo mês, quantos meses de pastas antigas você gostaria de manter? Qualquer pasta mais antiga que o número de meses especificados será excluída.
+    Se vocÃª estiver excluindo pastas "Enviados" todo mÃªs, quantos meses de pastas antigas vocÃª gostaria de manter? Qualquer pasta mais antiga que o nÃºmero de meses especificados serÃ¡ excluÃ­da.
     </para>
 </entry>
   <entry id="prefs-purge_sentmail" state="new">
@@ -2547,33 +2547,33 @@
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly" state="uptodate" md5="373ea02ede6df5fc345caf632e19a75f">
-    <title>Preferências: Manutenção: Excluir Mensalmente Anexos Ligados</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Excluir Mensalmente Anexos Ligados</title>
     <para>
-    Ative esta opção se você gostaria de excluir antigos anexos ligados ao início de cada mês. Isto pode ser útil se você possui quota, por exemplo.
+    Ative esta opÃ§Ã£o se vocÃª gostaria de excluir antigos anexos ligados ao inÃ­cio de cada mÃªs. Isto pode ser Ãºtil se vocÃª possui quota, por exemplo.
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
-    <title>Preferências: Manutenção: Excluir Mensalmente Anexos Ligados - Número de Meses a Manter</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Excluir Mensalmente Anexos Ligados - NÃºmero de Meses a Manter</title>
     <para>
-    Se você está excluindo antigos anexos ligado todo mês, quantos meses de de antigos anexos você gostaria de manter? Qualquer anexo mais antigo que o número de meses especificados será excluído.
+    Se vocÃª estÃ¡ excluindo antigos anexos ligado todo mÃªs, quantos meses de de antigos anexos vocÃª gostaria de manter? Qualquer anexo mais antigo que o nÃºmero de meses especificados serÃ¡ excluÃ­do.
     </para>
 </entry>
   <entry id="prefs-purge_trash" state="uptodate" md5="dc71871146be3e46ade0087a8cf18273">
-    <title>Preferências: Manutenção: Esvaziar Lixeira</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Esvaziar Lixeira</title>
     <para>
-    Você gostaria de esvaziar sua pasta Lixeira freqüentemente?
+    VocÃª gostaria de esvaziar sua pasta Lixeira freqÃ¼entemente?
     </para>
 </entry>
   <entry id="prefs-purge_trash_interval" state="uptodate" md5="7be91fbeb05b2d87289d4c5602d5a32f">
-    <title>Preferências: Manutenção: Freqüência para Esvaziar Lixeira</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: FreqÃ¼Ãªncia para Esvaziar Lixeira</title>
     <para>
-    Se você está esvaziando sua pasta Lixeira, em que freqüência ela deveria ser esvaziada?
+    Se vocÃª estÃ¡ esvaziando sua pasta Lixeira, em que freqÃ¼Ãªncia ela deveria ser esvaziada?
     </para>
 </entry>
   <entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
-    <title>Preferências: Manutenção: Mensagens Mantidas ao Esvaziar Lixeira</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Mensagens Mantidas ao Esvaziar Lixeira</title>
     <para>
-    Se você está esvaziando sua pasta Lixeira, mensagens mais velhas que quantos dias deverão ser apagadas?
+    Se vocÃª estÃ¡ esvaziando sua pasta Lixeira, mensagens mais velhas que quantos dias deverÃ£o ser apagadas?
     </para>
 </entry>
   <entry id="prefs-purge_spam" state="new">
@@ -2595,23 +2595,23 @@
     </para>
 </entry>
   <entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
-     <title>Preferências: Composição de Mensagem: Texto de Atribuição</title>
+     <title>PreferÃªncias: ComposiÃ§Ã£o de Mensagem: Texto de AtribuiÃ§Ã£o</title>
      <para>
-     Aqui você pode fornecer a frase que você deseja que apareça antes de qualquer citação de texto em uma resposta que você enviou.
+     Aqui vocÃª pode fornecer a frase que vocÃª deseja que apareÃ§a antes de qualquer citaÃ§Ã£o de texto em uma resposta que vocÃª enviou.
      </para>
      <para>
-     Você pode incluir uma ou mais variáveis para inserir informações sobre a mensagem que você está respondendo. Variáveis consistem em um sinal '%' seguido de uma letra. As seguintes variáveis estão disponíveis:
+     VocÃª pode incluir uma ou mais variÃ¡veis para inserir informaÃ§Ãµes sobre a mensagem que vocÃª estÃ¡ respondendo. VariÃ¡veis consistem em um sinal '%' seguido de uma letra. As seguintes variÃ¡veis estÃ£o disponÃ­veis:
      </para>
 
-     <para> %f : O nome do remetente e endereço de e-mail</para>
-     <para> %a : O endereço de e-mail do remetente</para>
+     <para> %f : O nome do remetente e endereÃ§o de e-mail</para>
+     <para> %a : O endereÃ§o de e-mail do remetente</para>
      <para> %p : O nome do remetente</para>
-     <para> %r : A data e fuso horário em formato concordante a RFC 2822</para>
+     <para> %r : A data e fuso horÃ¡rio em formato concordante a RFC 2822</para>
      <para> %d : A data em formato sss, dd mmm YYYY</para>
-     <para> %x : A data no padrão local</para>
-     <para> %c : A data e hora no padrão local</para>
-     <para> %m : A identificação da mensagen (Message-ID)</para>
-     <para> %s : O título</para>
+     <para> %x : A data no padrÃ£o local</para>
+     <para> %c : A data e hora no padrÃ£o local</para>
+     <para> %m : A identificaÃ§Ã£o da mensagen (Message-ID)</para>
+     <para> %s : O tÃ­tulo</para>
      <para> %n : Uma nova linha</para>
      <para> %% : O sinal '%'</para>
 
@@ -2623,21 +2623,21 @@
     </para>
 </entry>
   <entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
-    <title>Preferências: Solicitar Confirmação de Leitura</title>
+    <title>PreferÃªncias: Solicitar ConfirmaÃ§Ã£o de Leitura</title>
     <para>
-    "Solicitar Confirmação de Leitura" envia uma solicitação aos destinatários desta mensagem para notificar você quando esta mensagem for aberta por eles. Nem todos os clientes de correio suportam/honram isto.
+    "Solicitar ConfirmaÃ§Ã£o de Leitura" envia uma solicitaÃ§Ã£o aos destinatÃ¡rios desta mensagem para notificar vocÃª quando esta mensagem for aberta por eles. Nem todos os clientes de correio suportam/honram isto.
     </para>
 </entry>
   <entry id="prefs-disposition_send_mdn" state="uptodate" md5="1fe04e5dc3de68d172da284895973ea9">
-    <title>Preferências: Enviar NDM</title>
+    <title>PreferÃªncias: Enviar NDM</title>
     <para>
-    "Enviar NDM" envia uma Notificação de Disposição da Mensagem (também conhecida como Confirmação de Leitura) quando você visualizar uma mensagem na qual o usuário solicitou que ele receba uma notificação que você leu a mensagem. Em muitos casos, isto acontecerá automaticamente sem perguntar a você. Em certos casos isolados, você pode ter que manualmente decidir em enviar a notificação ao clicar em um link.
+    "Enviar NDM" envia uma NotificaÃ§Ã£o de DisposiÃ§Ã£o da Mensagem (tambÃ©m conhecida como ConfirmaÃ§Ã£o de Leitura) quando vocÃª visualizar uma mensagem na qual o usuÃ¡rio solicitou que ele receba uma notificaÃ§Ã£o que vocÃª leu a mensagem. Em muitos casos, isto acontecerÃ¡ automaticamente sem perguntar a vocÃª. Em certos casos isolados, vocÃª pode ter que manualmente decidir em enviar a notificaÃ§Ã£o ao clicar em um link.
     </para>
 </entry>
   <entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
-    <title>Preferências: Solicitar Confirmação de Entrega</title>
+    <title>PreferÃªncias: Solicitar ConfirmaÃ§Ã£o de Entrega</title>
     <para>
-    "Solicitar Confirmação de Entrega" envia ao servidor de e-mail do destinatário uma solicitação de notificação quando a mensagem for entregue na caixa postal do destinatário. Isto não significa que a mensagem foi lida, simplesmente ela está em uma caixa postal em algum lugar. Nem todos os servidores de e-mail suportam isto.
+    "Solicitar ConfirmaÃ§Ã£o de Entrega" envia ao servidor de e-mail do destinatÃ¡rio uma solicitaÃ§Ã£o de notificaÃ§Ã£o quando a mensagem for entregue na caixa postal do destinatÃ¡rio. Isto nÃ£o significa que a mensagem foi lida, simplesmente ela estÃ¡ em uma caixa postal em algum lugar. Nem todos os servidores de e-mail suportam isto.
     </para>
 </entry>
   <entry id="prefs-delete_spam_after_report" state="new">
@@ -2656,21 +2656,21 @@
     </para>
 </entry>
   <entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
-    <title>Preferências: Substituição de Imagem HTML</title>
+    <title>PreferÃªncias: SubstituiÃ§Ã£o de Imagem HTML</title>
     <para>
-    Para mensagens HTML exibidas incorporadas, deverão todas as imagens serem bloqueadas até você especificamente decidir em ver estas imagens? Note que ao visualizar um anexo HTML, as imagens sempre serão mostradas.
+    Para mensagens HTML exibidas incorporadas, deverÃ£o todas as imagens serem bloqueadas atÃ© vocÃª especificamente decidir em ver estas imagens? Note que ao visualizar um anexo HTML, as imagens sempre serÃ£o mostradas.
     </para>
 </entry>
   <entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
-    <title>Preferências: Substituição de Imagem HTML/Exibir Catálogo de Endereços</title>
+    <title>PreferÃªncias: SubstituiÃ§Ã£o de Imagem HTML/Exibir CatÃ¡logo de EndereÃ§os</title>
     <para>
-    Ao bloquear imagens HTML, deveríamos mostrá-las automaticamente se o remetente estiver em seu catálogo de endereços?
+    Ao bloquear imagens HTML, deverÃ­amos mostrÃ¡-las automaticamente se o remetente estiver em seu catÃ¡logo de endereÃ§os?
     </para>
 </entry>
   <entry id="prefs-mailbox_start" state="changed" md5="3d1196f265d8b7cc465ebf21512acc05">
-    <title>Preferências: Página Inicial da Caixa Postal</title>
+    <title>PreferÃªncias: PÃ¡gina Inicial da Caixa Postal</title>
     <para>
-    Determina qual página na caixa postal será mostrada quando você acessar a caixa postal pela primeira vez. Note que as opções de mensagens "Não Lidas" não funcionarão com a opção de ordenar por "Discussão" - ao invés disto, você será enviado para a última página vista.
+    Determina qual pÃ¡gina na caixa postal serÃ¡ mostrada quando vocÃª acessar a caixa postal pela primeira vez. Note que as opÃ§Ãµes de mensagens "NÃ£o Lidas" nÃ£o funcionarÃ£o com a opÃ§Ã£o de ordenar por "DiscussÃ£o" - ao invÃ©s disto, vocÃª serÃ¡ enviado para a Ãºltima pÃ¡gina vista.
     </para>
 <!-- English entry:
 <entry id="prefs-mailbox_start">
@@ -2740,15 +2740,15 @@
     </para>
 </entry>--></entry>
   <entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
-    <title>Preferências: Salvar anexos nas Mensagens Enviadas</title>
+    <title>PreferÃªncias: Salvar anexos nas Mensagens Enviadas</title>
     <para>
-    Ao salvar mensagem na pasta "Enviados", determina se todos os dados serão salvos. As seguintes opções estão disponíveis:
+    Ao salvar mensagem na pasta "Enviados", determina se todos os dados serÃ£o salvos. As seguintes opÃ§Ãµes estÃ£o disponÃ­veis:
     </para>
 
-    <para>* "Sempre salvar anexos" - NUNCA perguntar para salvar anexos na tela de composição; os anexos serão SEMPRE salvos com a mensagem.</para>
-     <para>* "Perguntar sempre que um anexo for enviado; padrão SIM" - SEMPRE pergunta se salvará anexos na janela de composição; o padrão é salvar os anexos.</para>
-     <para>* "Perguntar sempre que um anexo for enviado; padrão NÃO" - SEMPRE pergunta se salvará anexos na janela de composição; o padrão é não salvar os anexos.</para>
-     <para>* "Nunca salvar anexos" - NUNCA perguntar, na tela de composição de mensagem, se salvará anexos; os anexos NUNCA são salvos com a mensagem.</para>
+    <para>* "Sempre salvar anexos" - NUNCA perguntar para salvar anexos na tela de composiÃ§Ã£o; os anexos serÃ£o SEMPRE salvos com a mensagem.</para>
+     <para>* "Perguntar sempre que um anexo for enviado; padrÃ£o SIM" - SEMPRE pergunta se salvarÃ¡ anexos na janela de composiÃ§Ã£o; o padrÃ£o Ã© salvar os anexos.</para>
+     <para>* "Perguntar sempre que um anexo for enviado; padrÃ£o NÃƒO" - SEMPRE pergunta se salvarÃ¡ anexos na janela de composiÃ§Ã£o; o padrÃ£o Ã© nÃ£o salvar os anexos.</para>
+     <para>* "Nunca salvar anexos" - NUNCA perguntar, na tela de composiÃ§Ã£o de mensagem, se salvarÃ¡ anexos; os anexos NUNCA sÃ£o salvos com a mensagem.</para>
 </entry>
   <entry id="virtual_inbox" state="new">
     <title>Virtual Folders: Virtual Inbox</title>

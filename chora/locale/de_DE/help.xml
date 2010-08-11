@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
   <entry id="Overview" md5="6c904e7e17dea0fc75802e2c1a534b03" state="uptodate">
-    <title>Chora Überblick</title>
+    <title>Chora Ãœberblick</title>
     <para>
       Bei Chora handelt es sich um ein Werkzeug zum Betrachten von
       Repositories, die durch Systeme zur Versionskontrolle verwaltet
-      werden. Es stellt verschiedene Ansichten für Verzeichnisübersichten, die
+      werden. Es stellt verschiedene Ansichten fÃ¼r VerzeichnisÃ¼bersichten, die
       Log-Geschichte, Unterschiede zwischen Versionen, grafische
-      Branchdarstellungen und kommentierte Dateien zur Verfügung.
+      Branchdarstellungen und kommentierte Dateien zur VerfÃ¼gung.
     </para>
   </entry>
 
   <entry id="chora-button" md5="23ab7e475dc04b66c91b98f6b0f1d743" state="uptodate">
-    <title>Menü: Liste</title>
+    <title>MenÃ¼: Liste</title>
     <para>
       Mit dem Liste-Symbol gelangen Sie zur Hauptansicht
-      (Verzeichnisübersicht) des Standard-Repositories zurück.
+      (VerzeichnisÃ¼bersicht) des Standard-Repositories zurÃ¼ck.
     </para>
   </entry>
 
   <entry id="options-button" md5="51f095602bb3e62703e72e7fe7fef996" state="uptodate">
-    <title>Menü: Einstellungen</title>
+    <title>MenÃ¼: Einstellungen</title>
     <para>
-      Über das Einstellungen-Symbol gelangt man zu den persönlichen
-      Einstellungen, die festlegen, wie sich Chora verhält.
+      Ãœber das Einstellungen-Symbol gelangt man zu den persÃ¶nlichen
+      Einstellungen, die festlegen, wie sich Chora verhÃ¤lt.
     </para>
   </entry>
 
   <entry id="help-button" md5="11b68a5e1f6cb8f5c2a885c2d65db322" state="uptodate">
-    <title>Menü: Hilfe</title>
+    <title>MenÃ¼: Hilfe</title>
     <para>
-      Das Hilfe-Symbol öffnet diese Hilfe.
+      Das Hilfe-Symbol Ã¶ffnet diese Hilfe.
     </para>
   </entry>
 
@@ -47,7 +47,7 @@
     <title>Kommentierte Ansicht</title>
     <para>
       Die Kommentierte Ansicht zeigt den Inhalt einer Datei zusammen mit den
-      Namen der Autoren, die für die einzelnen Abschnitte verantwortlich sind.
+      Namen der Autoren, die fÃ¼r die einzelnen Abschnitte verantwortlich sind.
     </para>
   </entry>
 
@@ -64,7 +64,7 @@
     <title>Log-Ansicht</title>
     <para>
       Die Log-Ansicht zeigt die Geschichte einer Datei, indem alle
-      Log-Einträge aufgelistet werden, wie sie beim Einchecken der Versionen
+      Log-EintrÃ¤ge aufgelistet werden, wie sie beim Einchecken der Versionen
       angegeben wurden.
     </para>
   </entry>
@@ -73,22 +73,22 @@
     <title>Ansicht der Unterschiede</title>
     <para>
       Die Ansicht der Unterschiede zeigt die Unterschiede zwischen zwei
-      Versionen einer Datei an. So lässt sich leicht erkennen, wie eine Datei
-      verändert wurde. Es stehen verschiedene Anzeigeformate zur Verfügung.
+      Versionen einer Datei an. So lÃ¤sst sich leicht erkennen, wie eine Datei
+      verÃ¤ndert wurde. Es stehen verschiedene Anzeigeformate zur VerfÃ¼gung.
     </para>
   </entry>
 
   <entry id="show-deleted-files" md5="96c17a1efe41cd0e1de5c4f37d1e68f2" state="uptodate">
-    <title>Gelöschte Dateien anzeigen/verstecken</title>
+    <title>GelÃ¶schte Dateien anzeigen/verstecken</title>
     <para>
-      Sie können auswählen, ob gelöschte Dateien (aus dem Attic) in der
+      Sie kÃ¶nnen auswÃ¤hlen, ob gelÃ¶schte Dateien (aus dem Attic) in der
       Verzeichnisansicht angezeigt oder versteckt werden sollen. Wenn Sie sich
-      gelöschte Dateien anzeigen lassen, werden die entsprechenden Zeilen in
+      gelÃ¶schte Dateien anzeigen lassen, werden die entsprechenden Zeilen in
       einer anderen Darstellung und mit einem <i>Papierkorb</i>-Symbol
       angezeigt.
     </para>
     <para>
-      Standardmäßig werden gelöschte Dateien nicht angezeigt.
+      StandardmÃ¤ÃŸig werden gelÃ¶schte Dateien nicht angezeigt.
     </para>
   </entry>
 

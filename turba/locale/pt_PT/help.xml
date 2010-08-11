@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="uptodate" md5="290506ade4e6f749246f77bbe5d48835">
-    <title>Apresentação</title>
-    <heading>Introdução</heading>
+    <title>ApresentaÃ§Ã£o</title>
+    <heading>IntroduÃ§Ã£o</heading>
     <para>
-    A Lista de Contactos fornece um método e local conveniente para guardar informação de contactos para uma utilização fácil. Pode fornecer acesso a um livro de endereços privado bem como acesso a serviços públicos de endereçamentos. Também suporta listas de distribuição para que possa criar a suas próprias listas distribuídas.
+    A Lista de Contactos fornece um mÃ©todo e local conveniente para guardar informaÃ§Ã£o de contactos para uma utilizaÃ§Ã£o fÃ¡cil. Pode fornecer acesso a um livro de endereÃ§os privado bem como acesso a serviÃ§os pÃºblicos de endereÃ§amentos. TambÃ©m suporta listas de distribuiÃ§Ã£o para que possa criar a suas prÃ³prias listas distribuÃ­das.
     </para>
 </entry>
   <entry id="menu-add" state="uptodate" md5="3c1f92eb1a82839404d11d9b0a20b3ce">
     <title>Menu: Adicionar</title>
     <heading>Adicionar</heading>
     <para>
-    Adicionar um utilizador no livro de endereços.
+    Adicionar um utilizador no livro de endereÃ§os.
     </para>
 </entry>
   <entry id="menu-search" state="uptodate" md5="8daf81ab28602d772358a174571f9ad2">
     <title>Menu: Pesquisar</title>
     <heading>Pesquisar</heading>
     <para>
-    Pesquise um livro de endereços para encontrar informação. Esta pesquisa permite apenas utilizar alguns campos básicos. Veja "Pesquisa Avançada" para utilizar outros campos.
+    Pesquise um livro de endereÃ§os para encontrar informaÃ§Ã£o. Esta pesquisa permite apenas utilizar alguns campos bÃ¡sicos. Veja "Pesquisa AvanÃ§ada" para utilizar outros campos.
     </para>
 </entry>
   <entry id="menu-advanced-search" state="uptodate" md5="6be703ffeba614f6ada151749fa44ab5">
-    <title>Menu: Pesquisa Avançada</title>
-    <heading>Pesquisa Avançada</heading>
+    <title>Menu: Pesquisa AvanÃ§ada</title>
+    <heading>Pesquisa AvanÃ§ada</heading>
     <para>
-    Pesquise um livro de endereços para encontrar informação. Esta pesquisa permite utilizar vários campos. Os campos disponíveis para a pesquisa dependem do livro de endereços a ser utilizado.
+    Pesquise um livro de endereÃ§os para encontrar informaÃ§Ã£o. Esta pesquisa permite utilizar vÃ¡rios campos. Os campos disponÃ­veis para a pesquisa dependem do livro de endereÃ§os a ser utilizado.
     </para>
 </entry>
   <entry id="menu-import" state="uptodate" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4">
@@ -33,28 +33,28 @@
     <heading>Importar/Exportar</heading>
     <para>
     Este menu permite importar para ou exportar  do seu livro pessoal de
-endereços ("My Address Book"). Suporta os formatos CSV (Comma Seperated
-Variable), Outlook, e vCard, bem como outros formatos populares. Para importar um livro de endereços, terá que ter um ficheiro com a informação no computador onde está a aceder ao webmail.
+endereÃ§os ("My Address Book"). Suporta os formatos CSV (Comma Seperated
+Variable), Outlook, e vCard, bem como outros formatos populares. Para importar um livro de endereÃ§os, terÃ¡ que ter um ficheiro com a informaÃ§Ã£o no computador onde estÃ¡ a aceder ao webmail.
     </para>
     <para>
-    Para importar um livro de endereços, abra o livro de endereços da Lista de Contactos. Prima o ícone "Importar/Exportar". Seleccione o tipo de informação que tem para importar da lista apresentada. Prima no botão "Browse" e navegue até ao ficheiro a importar. Seleccione esse ficheiro, e prima o botão de Importar. A informação no ficheiro será importada para o seu livro de endereços. Deverá sempre verificar a informação após uma importação já que poderá haver informação mais complexa que não tenha sido importada correctamente.
+    Para importar um livro de endereÃ§os, abra o livro de endereÃ§os da Lista de Contactos. Prima o Ã­cone "Importar/Exportar". Seleccione o tipo de informaÃ§Ã£o que tem para importar da lista apresentada. Prima no botÃ£o "Browse" e navegue atÃ© ao ficheiro a importar. Seleccione esse ficheiro, e prima o botÃ£o de Importar. A informaÃ§Ã£o no ficheiro serÃ¡ importada para o seu livro de endereÃ§os. DeverÃ¡ sempre verificar a informaÃ§Ã£o apÃ³s uma importaÃ§Ã£o jÃ¡ que poderÃ¡ haver informaÃ§Ã£o mais complexa que nÃ£o tenha sido importada correctamente.
     </para>
 </entry>
   <entry id="searching-search_results" state="uptodate" md5="ffed8d72fa3b710df8e902c2493b254f">
     <title>Pesquisa: Resultados da Pesquisa</title>
     <heading>Resultados da Pesquisa</heading>
     <para>
-Se a Pesquisa for bem sucedida, os resultados aparecerão na área de "Resultados da Pesquisa".
+Se a Pesquisa for bem sucedida, os resultados aparecerÃ£o na Ã¡rea de "Resultados da Pesquisa".
     </para>
     <para>
-Clicando no campo de correio electrónico de um contacto abrirá uma janela de escrita de nova mensagem para o envio de mensagem para esse contacto. Clicando em "Nome" irá mostrar a informação desse contacto, permitindo editar ou apagar o contacto.
+Clicando no campo de correio electrÃ³nico de um contacto abrirÃ¡ uma janela de escrita de nova mensagem para o envio de mensagem para esse contacto. Clicando em "Nome" irÃ¡ mostrar a informaÃ§Ã£o desse contacto, permitindo editar ou apagar o contacto.
     </para>
     <para>
-Dependendo de como o sistema estiver configurado pelo administrador, os resultados de pesquisas podem ser cumulativos. Cada pesquisa irá adicionar novos resultados aos resultados já existentes. Isto é útil para a construção de listas. Para remover os resultados de pesquisas acumuladas e começar uma nova pesquisa, clicar no link "Limpar Pesquisa".
+Dependendo de como o sistema estiver configurado pelo administrador, os resultados de pesquisas podem ser cumulativos. Cada pesquisa irÃ¡ adicionar novos resultados aos resultados jÃ¡ existentes. Isto Ã© Ãºtil para a construÃ§Ã£o de listas. Para remover os resultados de pesquisas acumuladas e comeÃ§ar uma nova pesquisa, clicar no link "Limpar Pesquisa".
     </para>
 
     <tip>
-Quando se visualiza uma lista com entradas, pode-se ordenar as entradas por cada campo mostrado clicando no cabeçalho da coluna apropriada. Para ordenar os campos de forma ascendente ou descendente, clicar nas setas nos cabeçalhos de cada coluna.
+Quando se visualiza uma lista com entradas, pode-se ordenar as entradas por cada campo mostrado clicando no cabeÃ§alho da coluna apropriada. Para ordenar os campos de forma ascendente ou descendente, clicar nas setas nos cabeÃ§alhos de cada coluna.
     </tip>
 </entry>
 </help>

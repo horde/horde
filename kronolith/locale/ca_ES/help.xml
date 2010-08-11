@@ -1,80 +1,80 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
-    <title>Kronolith: Introducció</title>
-    <heading>Que és kronolith?</heading>
+    <title>Kronolith: IntroducciÃ³</title>
+    <heading>Que Ã©s kronolith?</heading>
     <para>
-Kronolith és una aplicació d'agenda basada en web. A més de les funcions habituals de creació, modificació i eliminació d'esdeveniments, suporta esdeveniments recurrents (amb excepcions i diverses opcions d'eliminació), alarmes, funcions d'importació i exportació (en formats iCalendar i Palm DataBook (PDB)), invitacions iCalendar, múltiples vistes, agendes compartides, visualizació de tasques de Nag (si les Tasques están instal·lades) i la capacitat de mostrar esdeveniments en la pantalla de resum de Horde.
+Kronolith Ã©s una aplicaciÃ³ d'agenda basada en web. A mÃ©s de les funcions habituals de creaciÃ³, modificaciÃ³ i eliminaciÃ³ d'esdeveniments, suporta esdeveniments recurrents (amb excepcions i diverses opcions d'eliminaciÃ³), alarmes, funcions d'importaciÃ³ i exportaciÃ³ (en formats iCalendar i Palm DataBook (PDB)), invitacions iCalendar, mÃºltiples vistes, agendes compartides, visualizaciÃ³ de tasques de Nag (si les Tasques estÃ¡n instalÂ·lades) i la capacitat de mostrar esdeveniments en la pantalla de resum de Horde.
     </para>
 </entry>
   <entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
-    <title>Menú: Avui</title>
+    <title>MenÃº: Avui</title>
     <heading>Avui</heading>
     <para>
-    L'element <i>Avui</i> del menú mostrarà la vista por omisió (mensual, setmanal, diària, etc. segons s'hagi configurat en les Opcions) de la data actual.
+    L'element <i>Avui</i> del menÃº mostrarÃ  la vista por omisiÃ³ (mensual, setmanal, diÃ ria, etc. segons s'hagi configurat en les Opcions) de la data actual.
     </para>
 </entry>
   <entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
-    <title>Menú: Anar a</title>
+    <title>MenÃº: Anar a</title>
     <heading>Anar a</heading>
     <para>
-     L'element <i>Anar a</i> del menú mostrarà una petita finestra desplegable en la qual podrà seleccionar ràpidament un any, mes, setmana o día al que <i>Anar a</i>. Sol ser la forma més ràpida de desplaçar-se dintre de l'agenda.
+     L'element <i>Anar a</i> del menÃº mostrarÃ  una petita finestra desplegable en la qual podrÃ  seleccionar rÃ pidament un any, mes, setmana o dÃ­a al que <i>Anar a</i>. Sol ser la forma mÃ©s rÃ pida de desplaÃ§ar-se dintre de l'agenda.
     </para>
 </entry>
   <entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
-    <title>Menú: Día</title>
+    <title>MenÃº: DÃ­a</title>
     <heading>Vista diaria</heading>
     <para>
-    L'element <i>Día</i> del menú mostrarà una vista diària del día seleccionat actualment.
+    L'element <i>DÃ­a</i> del menÃº mostrarÃ  una vista diÃ ria del dÃ­a seleccionat actualment.
     </para>
 </entry>
   <entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
-    <title>Menú: Setmana laboral</title>
+    <title>MenÃº: Setmana laboral</title>
     <heading>Vista de setmana laboral</heading>
     <para>
-    L'element <i>Setmana laboral</i> del menú mostrarà la vista de setmana laboral (de dilluns a divendres) més adequada del día seleccionat actualment. 
+    L'element <i>Setmana laboral</i> del menÃº mostrarÃ  la vista de setmana laboral (de dilluns a divendres) mÃ©s adequada del dÃ­a seleccionat actualment. 
     </para>
 </entry>
   <entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
-    <title>Menú: Setmana</title>
+    <title>MenÃº: Setmana</title>
     <heading>Vista setmanal</heading>
     <para>
-    L'element <i>Setmana</i> del menú mostrarà una vista setmanal (de 7 dies) de la setmana que contingui el dia seleccionat actualment.
+    L'element <i>Setmana</i> del menÃº mostrarÃ  una vista setmanal (de 7 dies) de la setmana que contingui el dia seleccionat actualment.
     </para>
 </entry>
   <entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
-    <title>Menú: Mes</title>
+    <title>MenÃº: Mes</title>
     <heading>Vista mensual</heading>
     <para>
-    L'element <i>Mes</i> del menú mostrarà la vista mensual del mes que contingui el dia seleccionat actualment.
+    L'element <i>Mes</i> del menÃº mostrarÃ  la vista mensual del mes que contingui el dia seleccionat actualment.
     </para>
 </entry>
   <entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
-    <title>Menú: Afegir</title>
+    <title>MenÃº: Afegir</title>
     <heading>Afegir un esdeveniment</heading>
     <para>
-    L'element <i>Afegir</i> del menú li permetrà afegir un esdeveniment a l'agenda.
+    L'element <i>Afegir</i> del menÃº li permetrÃ  afegir un esdeveniment a l'agenda.
     </para>
 </entry>
   <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
-    <title>Menú: Opcions</title>
+    <title>MenÃº: Opcions</title>
     <heading>Opcions</heading>
     <para>
-    L'element <i>Opcions</i> del menú li permet configurar <i>Opcions</i> (o preferències) que controlen l'aspecte i comportament de kronolith, la seva interacció amb Horde i amb la resta de les aplicacions, gestionar diverses agendes y compartir-les, així com, gestionar codis de categories per als esdeveniments.  
+    L'element <i>Opcions</i> del menÃº li permet configurar <i>Opcions</i> (o preferÃ¨ncies) que controlen l'aspecte i comportament de kronolith, la seva interacciÃ³ amb Horde i amb la resta de les aplicacions, gestionar diverses agendes y compartir-les, aixÃ­ com, gestionar codis de categories per als esdeveniments.  
     </para>
 </entry>
   <entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
-    <title>Menú: Importar/Exportar</title>
+    <title>MenÃº: Importar/Exportar</title>
     <heading>Importar/Exportar</heading>
     <para>
-    L'element <i>Importar/Exportar</i> del menú li permet importar o exportar esdeveniments de l'agenda. Actualment es poden importar arxius en format CSV, Outlook de Microsoft, Palm DateBook i vCalendar/iCalendar. Només pot exportar a formats CSV i iCalendar. 
+    L'element <i>Importar/Exportar</i> del menÃº li permet importar o exportar esdeveniments de l'agenda. Actualment es poden importar arxius en format CSV, Outlook de Microsoft, Palm DateBook i vCalendar/iCalendar. NomÃ©s pot exportar a formats CSV i iCalendar. 
     </para>
 </entry>
   <entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
     <title>Alarmes</title>
     <heading>Alarmes</heading>
     <para>
-    Kronolith pot generar alarmes per als esdeveniments d'una agenda. Per omisió la primera alarma es produirà 15 minuts abans de l'hora prevista d'inici de l'esdeveniment, però es pot configurar (per a cada esdeveniment) perquè es produeixi pràcticamente a qualsevol interval abans de l'hora i data previstes.
+    Kronolith pot generar alarmes per als esdeveniments d'una agenda. Per omisiÃ³ la primera alarma es produirÃ  15 minuts abans de l'hora prevista d'inici de l'esdeveniment, perÃ² es pot configurar (per a cada esdeveniment) perquÃ¨ es produeixi prÃ cticamente a qualsevol interval abans de l'hora i data previstes.
 
     </para>
 </entry>
@@ -82,21 +82,21 @@ Kronolith és una aplicació d'agenda basada en web. A més de les funcions habitua
     <title>Esdeveniments recurrents</title>
     <heading>Esdeveniments recurrents</heading>
     <para>
-Els esdeveniments es poden fer recurrents de diverses formes. La majoría dels esdeveniments es repeteixen de certes formes habituals. Per exemple, el tipus de recurrència Mensual provoca que l'element seleccionat es repeteixi cada mes i el tipus Setmanal que ho faci cada setmana. Es poden utilitzar per a reflectir esdeveniments que es repeteixin de formes complexes: per exemple, un element que succeeixi cada últim divendres de cada mes o els dilluns, el dimecres i divendres de cada setmana. 
+Els esdeveniments es poden fer recurrents de diverses formes. La majorÃ­a dels esdeveniments es repeteixen de certes formes habituals. Per exemple, el tipus de recurrÃ¨ncia Mensual provoca que l'element seleccionat es repeteixi cada mes i el tipus Setmanal que ho faci cada setmana. Es poden utilitzar per a reflectir esdeveniments que es repeteixin de formes complexes: per exemple, un element que succeeixi cada Ãºltim divendres de cada mes o els dilluns, el dimecres i divendres de cada setmana. 
     </para>
     <para>
-També és pot limitar la durada de les repeticions d'un esdeveniment seleccionant una <i>data
+TambÃ© Ã©s pot limitar la durada de les repeticions d'un esdeveniment seleccionant una <i>data
 final</i>.
     </para>
     <para>
-Normalment, la modificació d'un esdeveniment recurrent s'aplicarà a totes les repeticions del mateix. Es pot modificar una repetició individual d'un esdeveniment recurrent modificant la repetició, eliminant la informació de recurrència i seleccionant l'opció Guardar com nou del menú de recurrència. L'esdeveniment seleccionat es podrà modificar llavors de forma independent a les altres repeticions del mateix. 
+Normalment, la modificaciÃ³ d'un esdeveniment recurrent s'aplicarÃ  a totes les repeticions del mateix. Es pot modificar una repeticiÃ³ individual d'un esdeveniment recurrent modificant la repeticiÃ³, eliminant la informaciÃ³ de recurrÃ¨ncia i seleccionant l'opciÃ³ Guardar com nou del menÃº de recurrÃ¨ncia. L'esdeveniment seleccionat es podrÃ  modificar llavors de forma independent a les altres repeticions del mateix. 
     </para>
 </entry>
   <entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
-    <title>Impressió</title>
-    <heading>Impressió d'agendes i esdeveniments</heading>
+    <title>ImpressiÃ³</title>
+    <heading>ImpressiÃ³ d'agendes i esdeveniments</heading>
     <para>
-   Determinades vistes s'han dissenyat amb l'objectiu de poder imprimir-se. Si està en una d'elles, apareixerá la icona Imprimir en la barra de menú superior. Utilitzi aquesta icona per a imprimir la vista actual. 
+   Determinades vistes s'han dissenyat amb l'objectiu de poder imprimir-se. Si estÃ  en una d'elles, apareixerÃ¡ la icona Imprimir en la barra de menÃº superior. Utilitzi aquesta icona per a imprimir la vista actual. 
     </para>
 </entry>
   <entry id="shares" state="uptodate" md5="bf3a44d08a824979ba8dd8fd0e661eee">

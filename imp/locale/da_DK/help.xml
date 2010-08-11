@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -29,13 +29,13 @@
     <title>Ny meddelelse: Handlinger</title>
     <heading>Handlinger</heading>
     <para>
-    'Send meddelelse' sender din besked til de modtagere du har angivet. Vær sikker på du vil sende før du klikker, for når du har klikket kan du ikke ændre noget.
+    'Send meddelelse' sender din besked til de modtagere du har angivet. VÃ¦r sikker pÃ¥ du vil sende fÃ¸r du klikker, for nÃ¥r du har klikket kan du ikke Ã¦ndre noget.
     </para>
     <para>
-    'Gem kladde' placerer en ufærdig meddelelse i den mappe du har valgt i  'Indstillinger-&gt;Skriv meddelelse'. Du kan så færdiggøre meddelelsen senere ved at gå til 'Kladde' mappen, klikke på den gemte meddelelse og så klikke på 'fortsæt'. Sørg for at skrive en 'Emne:' linie før du gemmer den så du nemt kan finde den igen i 'Kladde' mappen. Efter du har gemt meddelelsen i 'Kladde' mappen returneres du til din INDBAKKE eller den mappe du sidst befandt dig i.
+    'Gem kladde' placerer en ufÃ¦rdig meddelelse i den mappe du har valgt i  'Indstillinger-&gt;Skriv meddelelse'. Du kan sÃ¥ fÃ¦rdiggÃ¸re meddelelsen senere ved at gÃ¥ til 'Kladde' mappen, klikke pÃ¥ den gemte meddelelse og sÃ¥ klikke pÃ¥ 'fortsÃ¦t'. SÃ¸rg for at skrive en 'Emne:' linie fÃ¸r du gemmer den sÃ¥ du nemt kan finde den igen i 'Kladde' mappen. Efter du har gemt meddelelsen i 'Kladde' mappen returneres du til din INDBAKKE eller den mappe du sidst befandt dig i.
     </para>
     <para>
-    'Annuller meddelelse' smider meddelelsen væk og returnerer dig til din INDBAKKE eller den mappe du sidst befandt dig i.
+    'Annuller meddelelse' smider meddelelsen vÃ¦k og returnerer dig til din INDBAKKE eller den mappe du sidst befandt dig i.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -63,10 +63,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <title>Ny meddelelse: Fra</title>
     <heading>"Fra"</heading>
     <para>
-    Dette felt bruges til at ændre din afsenderadresse. Feltet er kun tilgængeligt hvis din system administrator ikke har spærret det.
+    Dette felt bruges til at Ã¦ndre din afsenderadresse. Feltet er kun tilgÃ¦ngeligt hvis din system administrator ikke har spÃ¦rret det.
     </para>
     <para>
-    Hvis du i "Indstillinger&gt;Profiler" har flere profiler kan du vælge i listen hvilken profil der vil fremstå som afsender. Hvis du vil angive en helt ny afsender kan du benytte tekstfeltet. 
+    Hvis du i "Indstillinger&gt;Profiler" har flere profiler kan du vÃ¦lge i listen hvilken profil der vil fremstÃ¥ som afsender. Hvis du vil angive en helt ny afsender kan du benytte tekstfeltet. 
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -80,7 +80,7 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <title>Ny meddelelse: Til</title>
     <heading>"Til"</heading>
     <para>
-    Her kan du skrive adressen på personer der skal modtage din meddelelse. Hvis du vil sende til flere modtagere skal deres adresser adskilles med komma, ellers opstår der en fejl.
+    Her kan du skrive adressen pÃ¥ personer der skal modtage din meddelelse. Hvis du vil sende til flere modtagere skal deres adresser adskilles med komma, ellers opstÃ¥r der en fejl.
     </para>
 <!-- English entry:
 <entry id="compose-to">
@@ -94,7 +94,7 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <title>Ny meddelelse: Kopi til (Cc:)</title>
     <heading>"Kopi til (Cc:)"</heading>
     <para>
-    Her kan du skrive adressen på personer du ønsker skal modtage en kopi (Cc: = Carbon Copy) af din meddelelse. Adskil modtagerne med et komma. Kopier er som regel sendt til personer som er kun indirekte berørt af indholdet af meddelelsen. Alle modtagere i 'Til:' og 'Cc:' kan se alle andre modtagere i disse felter.
+    Her kan du skrive adressen pÃ¥ personer du Ã¸nsker skal modtage en kopi (Cc: = Carbon Copy) af din meddelelse. Adskil modtagerne med et komma. Kopier er som regel sendt til personer som er kun indirekte berÃ¸rt af indholdet af meddelelsen. Alle modtagere i 'Til:' og 'Cc:' kan se alle andre modtagere i disse felter.
     </para>
 <!-- English entry:
 <entry id="compose-cc">
@@ -108,7 +108,7 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <title>Ny meddelelse: Skjult kopi til (Bcc:)</title>
     <heading>"Skjult kopi"</heading>
     <para>
-    Her kan du skrive adresserne på personer du ønsker skal modtage en skjult kopi (Bcc = Blind Carbon Copy) af beskeden. "Skjult kopi" meddelelser er som regel sendt til personer andre end de direkte og indirekte modtagere (Til: og Cc:) som har behov for at læse meddelelsen UDEN at de andre modtagere ved at de får meddelelsen. Dvs. 'Skjult' betyder at identiteten af disse modtagere er skjult fra alle andre modtagere af meddelelsen, og at kun du og de ved at de modtog en kopi. Dette er typisk brugt i situationer hvor du ønsker at fortælle en autoritet noget uden at personen som du sender meddelelsen til bliver alarmeret.
+    Her kan du skrive adresserne pÃ¥ personer du Ã¸nsker skal modtage en skjult kopi (Bcc = Blind Carbon Copy) af beskeden. "Skjult kopi" meddelelser er som regel sendt til personer andre end de direkte og indirekte modtagere (Til: og Cc:) som har behov for at lÃ¦se meddelelsen UDEN at de andre modtagere ved at de fÃ¥r meddelelsen. Dvs. 'Skjult' betyder at identiteten af disse modtagere er skjult fra alle andre modtagere af meddelelsen, og at kun du og de ved at de modtog en kopi. Dette er typisk brugt i situationer hvor du Ã¸nsker at fortÃ¦lle en autoritet noget uden at personen som du sender meddelelsen til bliver alarmeret.
     </para>
 <!-- English entry:
 <entry id="compose-bcc">
@@ -122,7 +122,7 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <title>Ny meddelelse: Emne</title>
     <heading>"Emne"</heading>
     <para>
-    Skriv emnet på din meddelelse. Lav den kort, simpel og informativ. Emnelinien er den nemmeste måde for dig og dine korrespondancepartnere at huske hvad der var i eMailen og gør det lettere at for dig at holde styr på din post. Når du "Besvarer" eller "Videresender" eMailen bliver emne linien kopieret og på denne måde er det nemt at følge en tråd i konversationen. Men hvis din besvarelse eller videresending indeholder nye idéer kan du ændre i emnelinien så modtagerne kan følge med i hvornår diskussionsforløbet ændrer sig.
+    Skriv emnet pÃ¥ din meddelelse. Lav den kort, simpel og informativ. Emnelinien er den nemmeste mÃ¥de for dig og dine korrespondancepartnere at huske hvad der var i eMailen og gÃ¸r det lettere at for dig at holde styr pÃ¥ din post. NÃ¥r du "Besvarer" eller "Videresender" eMailen bliver emne linien kopieret og pÃ¥ denne mÃ¥de er det nemt at fÃ¸lge en trÃ¥d i konversationen. Men hvis din besvarelse eller videresending indeholder nye idÃ©er kan du Ã¦ndre i emnelinien sÃ¥ modtagerne kan fÃ¸lge med i hvornÃ¥r diskussionsforlÃ¸bet Ã¦ndrer sig.
     </para>
 <!-- English entry:
 <entry id="compose-subject">
@@ -145,20 +145,20 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     <para>
     Disse indstillinger giver dig ekstra funktioner til oprettelse af din meddelelse.
     </para>
-    Når du klikker på "Lav et opslag på navnene" vil de adresserne på de navne, du har indtastet i Til:, Cc: og Bcc: blive søgt i adressekartoteket. 
+    NÃ¥r du klikker pÃ¥ "Lav et opslag pÃ¥ navnene" vil de adresserne pÃ¥ de navne, du har indtastet i Til:, Cc: og Bcc: blive sÃ¸gt i adressekartoteket. 
     <para>
     </para>
     <para>
-    Klik på "Stavekontrol" for at udføre stavekontrol.
+    Klik pÃ¥ "Stavekontrol" for at udfÃ¸re stavekontrol.
     </para>
     <para>
-    Klik på "Vedhæftelser" for at se en liste af filer vedhæftet til meddelelsen.
+    Klik pÃ¥ "VedhÃ¦ftelser" for at se en liste af filer vedhÃ¦ftet til meddelelsen.
     </para>
     <para>
-    Klik på check-knappen ved siden af "Gem kopi" for at gemme en kopi af denne meddelelse i din folder for "Sendte meddelelser". Gem kopier af vigtige eMails du sender, så du har noget at referere til senere og for at vedligeholde et arkiv over hvad der blev sendt. Vi anbefaler ikke at du gemmer alle eMails da din diskkvota vil blive brugt hurtigt (specielt hvis du sender vedhæftelser med) og din postkasse vil blive fyldt og ude af stand til at modtage ny post. Men, du kan slå denne mulighed til som standard via "Profiler" i "Indstillinger". 
+    Klik pÃ¥ check-knappen ved siden af "Gem kopi" for at gemme en kopi af denne meddelelse i din folder for "Sendte meddelelser". Gem kopier af vigtige eMails du sender, sÃ¥ du har noget at referere til senere og for at vedligeholde et arkiv over hvad der blev sendt. Vi anbefaler ikke at du gemmer alle eMails da din diskkvota vil blive brugt hurtigt (specielt hvis du sender vedhÃ¦ftelser med) og din postkasse vil blive fyldt og ude af stand til at modtage ny post. Men, du kan slÃ¥ denne mulighed til som standard via "Profiler" i "Indstillinger". 
     </para>
     <para>
-    Klik på check-knappen ved siden af "Anmod om kvittering for modtagelse" for at få en kvittering, når din meddelelse er modtaget af den som du sender den til.
+    Klik pÃ¥ check-knappen ved siden af "Anmod om kvittering for modtagelse" for at fÃ¥ en kvittering, nÃ¥r din meddelelse er modtaget af den som du sender den til.
     </para>
 <!-- English entry:
 <entry id="compose-options">
@@ -178,14 +178,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-attachments" state="unknown">
-    <title>Ny meddelelse: Vedhæftelsesliste</title>
-    <heading>"Vedhæftelsesliste"</heading>
+    <title>Ny meddelelse: VedhÃ¦ftelsesliste</title>
+    <heading>"VedhÃ¦ftelsesliste"</heading>
     <para>
-    Denne liste viser de vedhæftelser du har foretaget til den aktuelle meddelelse. For at slette en vedhæftet fil skal du:
+    Denne liste viser de vedhÃ¦ftelser du har foretaget til den aktuelle meddelelse. For at slette en vedhÃ¦ftet fil skal du:
     </para>
-    <para>1: Aktivere "check-knappen" ved siden af den vedhæftede fil du ønsker at slette.
+    <para>1: Aktivere "check-knappen" ved siden af den vedhÃ¦ftede fil du Ã¸nsker at slette.
     </para> 
-    <para>2: Klik på "Fjern markerede".
+    <para>2: Klik pÃ¥ "Fjern markerede".
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -256,10 +256,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="search" state="unknown">
-    <title>Søgning</title>
-    <heading>Søgekriterier</heading>
+    <title>SÃ¸gning</title>
+    <heading>SÃ¸gekriterier</heading>
     <para>
-         Ingen hjælpetekst til rådighed.
+         Ingen hjÃ¦lpetekst til rÃ¥dighed.
     </para>
 <!-- English entry:
 <entry id="search">
@@ -282,12 +282,12 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
 </entry>--></entry>
   <entry id="folder-options" state="unknown">
     <title>Foldernavigator</title>
-    <heading>Håndtering af foldere</heading>
+    <heading>HÃ¥ndtering af foldere</heading>
     <para>
-    Du kan vælge en folder ved at klikke på en af radioknapperne i venstre søjle. Når du har gjort det kan du vælge den handling du ønsker udført på mappen via "Vælg handling" pulldown-menuen foroven til venstre.
+    Du kan vÃ¦lge en folder ved at klikke pÃ¥ en af radioknapperne i venstre sÃ¸jle. NÃ¥r du har gjort det kan du vÃ¦lge den handling du Ã¸nsker udfÃ¸rt pÃ¥ mappen via "VÃ¦lg handling" pulldown-menuen foroven til venstre.
     </para>
     <para>
-    Her har du så yderligere muligheder. Vær forsigtig med "Slet folder(e)" funktionen, da den kan medføre at du mister alle meddelelser i en folder, hvis du sletter folderen ved en fejl !
+    Her har du sÃ¥ yderligere muligheder. VÃ¦r forsigtig med "Slet folder(e)" funktionen, da den kan medfÃ¸re at du mister alle meddelelser i en folder, hvis du sletter folderen ved en fejl !
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -305,10 +305,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="filters" state="unknown">
-    <title>Filterregler: Udfør</title>
-    <heading>Udfør filterregler</heading>
+    <title>Filterregler: UdfÃ¸r</title>
+    <heading>UdfÃ¸r filterregler</heading>
     <para>
-    Klik på "Udfør filtre" ikonet ved siden af foldernavnet i postkassevinduet for at filtrere alle meddelelser i overensstemmelse med den specificerede regel. Eller klik på "Udfør alle regler" i menuen for filtre under "Indstillinger". Bemærk at udførelse af filterregler ikke sker automatisk, medmindre du har aktiveret de muligheder, der er, i menuen for filtre.
+    Klik pÃ¥ "UdfÃ¸r filtre" ikonet ved siden af foldernavnet i postkassevinduet for at filtrere alle meddelelser i overensstemmelse med den specificerede regel. Eller klik pÃ¥ "UdfÃ¸r alle regler" i menuen for filtre under "Indstillinger". BemÃ¦rk at udfÃ¸relse af filterregler ikke sker automatisk, medmindre du har aktiveret de muligheder, der er, i menuen for filtre.
     </para>
 <!-- English entry:
 <entry id="filters">

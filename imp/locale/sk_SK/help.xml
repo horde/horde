@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,24 +26,24 @@
 
 </entry>
   <entry id="compose-buttons" state="unknown">
-    <title>Písanie správy: Akcie</title>
+    <title>PĂ­sanie sprĂĄvy: Akcie</title>
     <heading>Akcie</heading>
     <para>
-    Kliknutím na tlačidlo "Poslať správu" pošlete Váš e-mail. Pred kliknutím
-si, prosím, uvedomte, že odoslanie mailu už nemožno vrátiť späť.
+    KliknutĂ­m na tlaÄidlo "PoslaĹĽ sprĂĄvu" poĹĄlete VĂĄĹĄ e-mail. Pred kliknutĂ­m
+si, prosĂ­m, uvedomte, Ĺže odoslanie mailu uĹž nemoĹžno vrĂĄtiĹĽ spĂ¤ĹĽ.
     </para>
     <para>
-    "Uložiť koncept" uloží správu v aktuálnom stave ako koncept do priečinka
-"Drafts", ktorý si môžete zobraziť pomocou výberového tlačidla pre priečinky v
-pravej hornej časti navigačného panelu. Neskôr sa môžete k písaniu správy
-vrátiť otvorením priečinka "Drafts", kliknutím na uloženú správu a potom na
-tlačidlo "Obnoviť". Pred uložením konceptu nastavte predmet, aby ste ho
-neskôr mohli jednoducho rozlíšiť od ostatných konceptov. Po uložení konceptu
-sa automaticky dostanete do priečinku, ktorý ste prezerali ako posledný.
+    "UloĹžiĹĽ koncept" uloĹžĂ­ sprĂĄvu v aktuĂĄlnom stave ako koncept do prieÄinka
+"Drafts", ktorĂ˝ si mĂ´Ĺžete zobraziĹĽ pomocou vĂ˝berovĂŠho tlaÄidla pre prieÄinky v
+pravej hornej Äasti navigaÄnĂŠho panelu. NeskĂ´r sa mĂ´Ĺžete k pĂ­saniu sprĂĄvy
+vrĂĄtiĹĽ otvorenĂ­m prieÄinka "Drafts", kliknutĂ­m na uloĹženĂş sprĂĄvu a potom na
+tlaÄidlo "ObnoviĹĽ". Pred uloĹženĂ­m konceptu nastavte predmet, aby ste ho
+neskĂ´r mohli jednoducho rozlĂ­ĹĄiĹĽ od ostatnĂ˝ch konceptov. Po uloĹženĂ­ konceptu
+sa automaticky dostanete do prieÄinku, ktorĂ˝ ste prezerali ako poslednĂ˝.
     </para>
     <para>
-    "Zrušiť správu" zruší písanie správy a automaticky Vás vráti do
-priečinku, ktorý ste prezerali ako posledný.
+    "ZruĹĄiĹĽ sprĂĄvu" zruĹĄĂ­ pĂ­sanie sprĂĄvy a automaticky VĂĄs vrĂĄti do
+prieÄinku, ktorĂ˝ ste prezerali ako poslednĂ˝.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -68,11 +68,11 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-from" state="unknown">
-    <title>Písanie správy: Od</title>
+    <title>PĂ­sanie sprĂĄvy: Od</title>
     <heading>"Od"</heading>
     <para>
-    Zadajte Vašu e-mailovú adresu, ktorá sa bude automaticky zobrazovať v
-odchádzajúcich e-mailoch v hlavičke "Od:".
+    Zadajte VaĹĄu e-mailovĂş adresu, ktorĂĄ sa bude automaticky zobrazovaĹĽ v
+odchĂĄdzajĂşcich e-mailoch v hlaviÄke "Od:".
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -83,11 +83,11 @@ odchádzajúcich e-mailoch v hlavičke "Od:".
     </para>
 </entry>--></entry>
   <entry id="compose-to" state="unknown">
-    <title>Písanie správy: Pre</title>
+    <title>PĂ­sanie sprĂĄvy: Pre</title>
     <heading>"Pre"</heading>
     <para>
-    Zadajte e-mailovú adresu príjemcu(ov). Oddeľujte adresy čiarkou, použitie
-iného znaku spôsobí chybu. Zadaná hodnota sa zobrazuje v e-mailovej hlavičke
+    Zadajte e-mailovĂş adresu prĂ­jemcu(ov). OddeÄžujte adresy Äiarkou, pouĹžitie
+inĂŠho znaku spĂ´sobĂ­ chybu. ZadanĂĄ hodnota sa zobrazuje v e-mailovej hlaviÄke
 "Pre:".
     </para>
 <!-- English entry:
@@ -99,14 +99,14 @@ iného znaku spôsobí chybu. Zadaná hodnota sa zobrazuje v e-mailovej hlavičke
     </para>
 </entry>--></entry>
   <entry id="compose-cc" state="unknown">
-    <title>Písanie správy: Cc</title>
+    <title>PĂ­sanie sprĂĄvy: Cc</title>
     <heading>"Cc"</heading>
     <para>
-    Zadajte e-mailovú adresu príjemcu(ov) kópie správy. Oddeľujte adresy
-čiarkou, použitie iného znaku spôsobí chybu. Zadaná hodnota sa zobrazuje v
-e-mailovej hlavičke "Cc:". Kópie e-mailov sa obyčajne posielajú ľuďom, ktorí
-súvisia s danou správou, i keď nie sú jej priamymi príjemcami (napríklad keď
-dávate niekomu niečo na vedomie). Všetci príjemcovia uvedení v "Pre:" a
+    Zadajte e-mailovĂş adresu prĂ­jemcu(ov) kĂłpie sprĂĄvy. OddeÄžujte adresy
+Äiarkou, pouĹžitie inĂŠho znaku spĂ´sobĂ­ chybu. ZadanĂĄ hodnota sa zobrazuje v
+e-mailovej hlaviÄke "Cc:". KĂłpie e-mailov sa obyÄajne posielajĂş ÄžuÄom, ktorĂ­
+sĂşvisia s danou sprĂĄvou, i keÄ nie sĂş jej priamymi prĂ­jemcami (naprĂ­klad keÄ
+dĂĄvate niekomu nieÄo na vedomie). VĹĄetci prĂ­jemcovia uvedenĂ­ v "Pre:" a
 "Cc:" vidia oba zoznamy adries.
     </para>
 <!-- English entry:
@@ -118,14 +118,14 @@ dávate niekomu niečo na vedomie). Všetci príjemcovia uvedení v "Pre:" a
     </para>
 </entry>--></entry>
   <entry id="compose-bcc" state="unknown">
-    <title>Písanie správy: Bcc</title>
+    <title>PĂ­sanie sprĂĄvy: Bcc</title>
     <heading>"Bcc"</heading>
     <para>
-    Zadajte e-mailovú adresu príjemcu(ov) skrytej kópie správy. Oddeľujte
-adresy čiarkou, použitie iného znaku spôsobí chybu. Zadaná hodnota sa
-zobrazuje v e-mailovej hlavičke "Bcc:". Skryté kópie sa obyčajne posielajú
-ľuďom, ktorí potrebujú čítať správu BEZ TOHO, aby o tom priami ("Pre:") alebo
-nepriami ("Cc:") príjemcovia vedeli.
+    Zadajte e-mailovĂş adresu prĂ­jemcu(ov) skrytej kĂłpie sprĂĄvy. OddeÄžujte
+adresy Äiarkou, pouĹžitie inĂŠho znaku spĂ´sobĂ­ chybu. ZadanĂĄ hodnota sa
+zobrazuje v e-mailovej hlaviÄke "Bcc:". SkrytĂŠ kĂłpie sa obyÄajne posielajĂş
+ÄžuÄom, ktorĂ­ potrebujĂş ÄĂ­taĹĽ sprĂĄvu BEZ TOHO, aby o tom priami ("Pre:") alebo
+nepriami ("Cc:") prĂ­jemcovia vedeli.
     </para>
 <!-- English entry:
 <entry id="compose-bcc">
@@ -136,17 +136,17 @@ nepriami ("Cc:") príjemcovia vedeli.
     </para>
 </entry>--></entry>
   <entry id="compose-subject" state="unknown">
-    <title>Písanie správy: Predmet</title>
+    <title>PĂ­sanie sprĂĄvy: Predmet</title>
     <heading>"Predmet"</heading>
     <para>
-    Zadajte predmet správy. Zadaná hodnota sa zobrazuje v e-mailovej hlavičke
-"Predmet:". Predmet správy by mal byť čo najkratší text vystihujúci podstatu
-e-mailu, ktorý Vám a príjemcom Vášho e-mailu pomôže v organizovaní a triedení
-pošty. Ak odpoviete na e-mail, alebo ho pošlete ďalej, predmet správy sa
-skopíruje do predmetu novej správy a správy vytvárajú "vlákno" (thread)
-diskusie. Ak však e-mail, ktorým odpovedáte, alebo ktorý preposielate,
-obsahuje nové myšlienky, môžete predmet správy ľubovoľne meniť, aby príjemca
-videl vývoj "vlákna".
+    Zadajte predmet sprĂĄvy. ZadanĂĄ hodnota sa zobrazuje v e-mailovej hlaviÄke
+"Predmet:". Predmet sprĂĄvy by mal byĹĽ Äo najkratĹĄĂ­ text vystihujĂşci podstatu
+e-mailu, ktorĂ˝ VĂĄm a prĂ­jemcom VĂĄĹĄho e-mailu pomĂ´Ĺže v organizovanĂ­ a triedenĂ­
+poĹĄty. Ak odpoviete na e-mail, alebo ho poĹĄlete Äalej, predmet sprĂĄvy sa
+skopĂ­ruje do predmetu novej sprĂĄvy a sprĂĄvy vytvĂĄrajĂş "vlĂĄkno" (thread)
+diskusie. Ak vĹĄak e-mail, ktorĂ˝m odpovedĂĄte, alebo ktorĂ˝ preposielate,
+obsahuje novĂŠ myĹĄlienky, mĂ´Ĺžete predmet sprĂĄvy ÄžubovoÄžne meniĹĽ, aby prĂ­jemca
+videl vĂ˝voj "vlĂĄkna".
     </para>
 <!-- English entry:
 <entry id="compose-subject">
@@ -164,28 +164,28 @@ videl vývoj "vlákna".
     </para>
 </entry>
   <entry id="compose-options" state="unknown">
-    <title>Písanie správy: Možnosti</title>
-    <heading>"Možnosti"</heading>
+    <title>PĂ­sanie sprĂĄvy: MoĹžnosti</title>
+    <heading>"MoĹžnosti"</heading>
     <para>
-    Tieto nastavenia Vám pomôžu pri písaní správy.
+    Tieto nastavenia VĂĄm pomĂ´Ĺžu pri pĂ­sanĂ­ sprĂĄvy.
     </para>
     <para>
-    Kliknutím na "Kontrola pravopisu" aktivujete kontrolu pravopisu v aktuálnom
-jazyku. (Poznámka: kontroluje sa pravopis, nie gramatika.)
+    KliknutĂ­m na "Kontrola pravopisu" aktivujete kontrolu pravopisu v aktuĂĄlnom
+jazyku. (PoznĂĄmka: kontroluje sa pravopis, nie gramatika.)
     </para>
     <para>
-    Kliknutím na "Zobraziť prílohy" sa v dolnej časti stránky zobrazí zoznam
-súborov (príloh) pripojených k tomuto e-mailu.
+    KliknutĂ­m na "ZobraziĹĽ prĂ­lohy" sa v dolnej Äasti strĂĄnky zobrazĂ­ zoznam
+sĂşborov (prĂ­loh) pripojenĂ˝ch k tomuto e-mailu.
     </para>
     <para>
-    Zaškrtnite políčko vedľa textu "Uložiť odoslanú poštu", ak chcete uložiť
-kópiu tejto správy v priečinku s odoslanou poštou. Uložením dôležitých
-e-mailov sa vždy môžete dozvedieť, čo ste napísali. Neodporúčame Vám ukladať
-každý e-mail, pretože Váš limit (kvóta) na súbory sa rýchlo vyčerpá (zvlášť
-pri posielaní e-mailov s prílohami) a môžete mať problémy s prijímaním pošty.
-Na druhej strane môžete zapnúť túto možnosť ako prednastavenú v rámci svojej
-Identity: Možnosti-&gt;Osobné informácie-&gt;Upraviť Vaše identity. V takom prípade
-však pravidelne vyprázdňujte priečinok s odoslanou poštou!
+    ZaĹĄkrtnite polĂ­Äko vedÄža textu "UloĹžiĹĽ odoslanĂş poĹĄtu", ak chcete uloĹžiĹĽ
+kĂłpiu tejto sprĂĄvy v prieÄinku s odoslanou poĹĄtou. UloĹženĂ­m dĂ´leĹžitĂ˝ch
+e-mailov sa vĹždy mĂ´Ĺžete dozvedieĹĽ, Äo ste napĂ­sali. NeodporĂşÄame VĂĄm ukladaĹĽ
+kaĹždĂ˝ e-mail, pretoĹže VĂĄĹĄ limit (kvĂłta) na sĂşbory sa rĂ˝chlo vyÄerpĂĄ (zvlĂĄĹĄĹĽ
+pri posielanĂ­ e-mailov s prĂ­lohami) a mĂ´Ĺžete maĹĽ problĂŠmy s prijĂ­manĂ­m poĹĄty.
+Na druhej strane mĂ´Ĺžete zapnĂşĹĽ tĂşto moĹžnosĹĽ ako prednastavenĂş v rĂĄmci svojej
+Identity: MoĹžnosti-&gt;OsobnĂŠ informĂĄcie-&gt;UpraviĹĽ VaĹĄe identity. V takom prĂ­pade
+vĹĄak pravidelne vyprĂĄzdĹujte prieÄinok s odoslanou poĹĄtou!
     </para>
 <!-- English entry:
 <entry id="compose-options">
@@ -205,15 +205,15 @@ však pravidelne vyprázdňujte priečinok s odoslanou poštou!
     </para>
 </entry>--></entry>
   <entry id="compose-attachments" state="unknown">
-    <title>Písanie správy: Prílohy</title>
+    <title>PĂ­sanie sprĂĄvy: PrĂ­lohy</title>
     <heading>"Attachments"</heading>
     <para>
-    Tu sa zobrazuje zoznam súborov, ktoré už sú pripojení k Vašej správe. Na
-vymazanie prílohy:
+    Tu sa zobrazuje zoznam sĂşborov, ktorĂŠ uĹž sĂş pripojenĂ­ k VaĹĄej sprĂĄve. Na
+vymazanie prĂ­lohy:
     </para>
-    <para>Krok 1: Zaškrtnite políčko vedľa prílohy, ktorú chcete odstrániť.
+    <para>Krok 1: ZaĹĄkrtnite polĂ­Äko vedÄža prĂ­lohy, ktorĂş chcete odstrĂĄniĹĽ.
     </para> 
-    <para>Krok 2: Kliknite na "Vymazať".
+    <para>Krok 2: Kliknite na "VymazaĹĽ".
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -284,10 +284,10 @@ vymazanie prílohy:
     </para>
 </entry>
   <entry id="search" state="unknown">
-    <title>Vyhľadávanie správy</title>
-    <heading>Kritérium hľadania</heading>
+    <title>VyhÄžadĂĄvanie sprĂĄvy</title>
+    <heading>KritĂŠrium hÄžadania</heading>
     <para>
-        Zadajte platné kritérium hľadania.
+        Zadajte platnĂŠ kritĂŠrium hÄžadania.
     </para>
 <!-- English entry:
 <entry id="search">
@@ -309,17 +309,17 @@ vymazanie prílohy:
     </para>
 </entry>--></entry>
   <entry id="folder-options" state="unknown">
-    <title>Správa priečinkov</title>
-    <heading>Možnosti priečinka</heading>
+    <title>SprĂĄva prieÄinkov</title>
+    <heading>MoĹžnosti prieÄinka</heading>
     <para>
-      Pomocou prepínača poľa v ľavom stĺpci môžete vybrať priečinok. Potom
-si môžete vybrať operáciu, ktorú chcete s priečinkom vykonať. pomocou
-výberového poľa v ľavej časti.
+      Pomocou prepĂ­naÄa poÄža v Äžavom stÄşpci mĂ´Ĺžete vybraĹĽ prieÄinok. Potom
+si mĂ´Ĺžete vybraĹĽ operĂĄciu, ktorĂş chcete s prieÄinkom vykonaĹĽ. pomocou
+vĂ˝berovĂŠho poÄža v Äžavej Äasti.
     </para>
     <para>
-      Systém sa Vás spýta na ďalšie možnosti. Buďte opatrní pri používaní
-operácie vymazávania, pretože vymazanie priečinku spôsobí vymazanie všetkých
-správ v tomto priečinku!
+      SystĂŠm sa VĂĄs spĂ˝ta na ÄalĹĄie moĹžnosti. BuÄte opatrnĂ­ pri pouĹžĂ­vanĂ­
+operĂĄcie vymazĂĄvania, pretoĹže vymazanie prieÄinku spĂ´sobĂ­ vymazanie vĹĄetkĂ˝ch
+sprĂĄv v tomto prieÄinku!
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -337,13 +337,13 @@ správ v tomto priečinku!
     </para>
 </entry>--></entry>
   <entry id="filters" state="unknown">
-    <title>Filtre: Aplikovať</title>
-    <heading>Aplikovať filtrovacie pravidlá</heading>
+    <title>Filtre: AplikovaĹĽ</title>
+    <heading>AplikovaĹĽ filtrovacie pravidlĂĄ</heading>
     <para>
-    Kliknutím na ikonu "Aplikovať filter" vedľa mena INBOX v zobrazení
-priečinka, alebo tlačidla "Aplikovať všetky pravidlá" v menu pre nastavenie
-filtrov, sa aplikujú filtrovacie pravidlá na všetky nevymazané správy.
-Filtrovanie sa nespúšťa automaticky.
+    KliknutĂ­m na ikonu "AplikovaĹĽ filter" vedÄža mena INBOX v zobrazenĂ­
+prieÄinka, alebo tlaÄidla "AplikovaĹĽ vĹĄetky pravidlĂĄ" v menu pre nastavenie
+filtrov, sa aplikujĂş filtrovacie pravidlĂĄ na vĹĄetky nevymazanĂŠ sprĂĄvy.
+Filtrovanie sa nespĂşĹĄĹĽa automaticky.
     </para>
 <!-- English entry:
 <entry id="filters">

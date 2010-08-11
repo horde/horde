@@ -1,136 +1,136 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="uptodate" md5="1585927d48e4627c792fe0332c41fd39">
-    <title>Kronolith: áttekintés</title>
-    <heading>Mire jó a Kronolith?</heading>
+    <title>Kronolith: ĂĄttekintĂŠs</title>
+    <heading>Mire jĂł a Kronolith?</heading>
     <para>
-A Kronolith egy web alapú naptárprogram. Azon túl, hogy elfoglaltságokat
-lehet létrehozni, változtatni és törölni, egy sor egyéb dolgot is támogat:
-ismétlődő eseményeket (kivételekkel és törlési lehetőségekkel), alarm, import
-és export funkciókat, mutatja a feladatok (Nag) listáját (amennyiben ez a
-program installálva van), továbbá az elfoglaltságok listáját a Horde 
-összefoglaló képernyőn is meg tudja jeleníteni.
+A Kronolith egy web alapĂş naptĂĄrprogram. Azon tĂşl, hogy elfoglaltsĂĄgokat
+lehet lĂŠtrehozni, vĂĄltoztatni ĂŠs tĂśrĂślni, egy sor egyĂŠb dolgot is tĂĄmogat:
+ismĂŠtlĹdĹ esemĂŠnyeket (kivĂŠtelekkel ĂŠs tĂśrlĂŠsi lehetĹsĂŠgekkel), alarm, import
+ĂŠs export funkciĂłkat, mutatja a feladatok (Nag) listĂĄjĂĄt (amennyiben ez a
+program installĂĄlva van), tovĂĄbbĂĄ az elfoglaltsĂĄgok listĂĄjĂĄt a Horde 
+ĂśsszefoglalĂł kĂŠpernyĹn is meg tudja jelenĂ­teni.
     </para>
 </entry>
   <entry id="menu-today" state="uptodate" md5="c6d0c0f366175a38d0655ed9969ed4a6">
-    <title>Menü: Ma</title>
+    <title>MenĂź: Ma</title>
     <heading>Ma</heading>
     <para>
-    A <i>Ma</i> menüpont az alapértelmezett módon (havi, heti, napi stb. 
-nézetben, ahogy az Opciókban be van állítva) jeleníti meg az aznapi dátumot.
+    A <i>Ma</i> menĂźpont az alapĂŠrtelmezett mĂłdon (havi, heti, napi stb. 
+nĂŠzetben, ahogy az OpciĂłkban be van ĂĄllĂ­tva) jelenĂ­ti meg az aznapi dĂĄtumot.
     </para>
 </entry>
   <entry id="menu-Goto" state="uptodate" md5="566191775ba90b769f2e3f7cdf24cbfa">
-    <title>Menü: Ugrás</title>
-    <heading>Ugrás</heading>
+    <title>MenĂź: UgrĂĄs</title>
+    <heading>UgrĂĄs</heading>
     <para>
-    Az <i>Ugrás</i> menüpont egy kis felbukkanó ablakot jelenít meg, melyben
-gyorsan kiválasztható, hogy melyik dátumra ugorjunk (pl. megadható az év,
-a hónap, az év valahányadik hete, a hónap adott napja). Rendszerint ez a 
-a naptárban való dátumválasztás leggyorsabb módja.
+    Az <i>UgrĂĄs</i> menĂźpont egy kis felbukkanĂł ablakot jelenĂ­t meg, melyben
+gyorsan kivĂĄlaszthatĂł, hogy melyik dĂĄtumra ugorjunk (pl. megadhatĂł az ĂŠv,
+a hĂłnap, az ĂŠv valahĂĄnyadik hete, a hĂłnap adott napja). Rendszerint ez a 
+a naptĂĄrban valĂł dĂĄtumvĂĄlasztĂĄs leggyorsabb mĂłdja.
     </para>
 </entry>
   <entry id="menu-Day" state="uptodate" md5="3cd62e10116058db52a15fecd7ddbcb0">
-    <title>Menü: Nap</title>
-    <heading>Napi nézet</heading>
+    <title>MenĂź: Nap</title>
+    <heading>Napi nĂŠzet</heading>
     <para>
-    A <i>Nap</i> menüpont a kiválasztott dátum napi nézetét jeleníti meg.
+    A <i>Nap</i> menĂźpont a kivĂĄlasztott dĂĄtum napi nĂŠzetĂŠt jelenĂ­ti meg.
     </para>
 </entry>
   <entry id="menu-work-week" state="uptodate" md5="f9a63585c81dca63887e130dbbea91de">
-    <title>Menü: Munkahét</title>
-    <heading>Munkahét nézet</heading>
+    <title>MenĂź: MunkahĂŠt</title>
+    <heading>MunkahĂŠt nĂŠzet</heading>
     <para>
-    A <i>Munkahét</i> menüpont a kiválasztott dátumhoz legközelebb eső
-munkahetet jeleníti meg (hétfőtől péntekig).
+    A <i>MunkahĂŠt</i> menĂźpont a kivĂĄlasztott dĂĄtumhoz legkĂśzelebb esĹ
+munkahetet jelenĂ­ti meg (hĂŠtfĹtĹl pĂŠntekig).
     </para>
 </entry>
   <entry id="menu-week" state="uptodate" md5="3d8a3bfda629bb6e09819b2e660546e5">
-    <title>Menü: Hét</title>
-    <heading>Heti nézet</heading>
+    <title>MenĂź: HĂŠt</title>
+    <heading>Heti nĂŠzet</heading>
     <para>
-    A <i>Hét</i> menüpont a kiválasztott dátumot tartalmazó hét adatait
-jeleníti meg (7 napos nézet).
+    A <i>HĂŠt</i> menĂźpont a kivĂĄlasztott dĂĄtumot tartalmazĂł hĂŠt adatait
+jelenĂ­ti meg (7 napos nĂŠzet).
     </para>
 </entry>
   <entry id="menu-month" state="uptodate" md5="4be2056875775ec1f5b0f920a1dab608">
-    <title>Menü: Hónap</title>
-    <heading>Hónap nézet</heading>
+    <title>MenĂź: HĂłnap</title>
+    <heading>HĂłnap nĂŠzet</heading>
     <para>
-    A <i>Hónap</i> menüpont a kiválasztott dátumot tartalmazó hónap adatait
-jeleníti meg.
+    A <i>HĂłnap</i> menĂźpont a kivĂĄlasztott dĂĄtumot tartalmazĂł hĂłnap adatait
+jelenĂ­ti meg.
     </para>
 </entry>
   <entry id="menu-new-event" state="uptodate" md5="37406cc2ee51040862df1eaa2f645d4e">
-    <title>Menü: Új elfoglaltság</title>
-    <heading>Új elfoglaltság létrehozása</heading>
+    <title>MenĂź: Ăj elfoglaltsĂĄg</title>
+    <heading>Ăj elfoglaltsĂĄg lĂŠtrehozĂĄsa</heading>
     <para>
-    Az <i>Új elfoglaltság</i> menüpont segítségével új eseményt rögzíthet
-a naptárban.
+    Az <i>Ăj elfoglaltsĂĄg</i> menĂźpont segĂ­tsĂŠgĂŠvel Ăşj esemĂŠnyt rĂśgzĂ­thet
+a naptĂĄrban.
     </para>
 </entry>
   <entry id="menu-options" state="uptodate" md5="d7df2c0cda84c89c638d9d6e59307976">
-    <title>Menü: Opciók</title>
-    <heading>Opciók</heading>
+    <title>MenĂź: OpciĂłk</title>
+    <heading>OpciĂłk</heading>
     <para>
-    Az <i>Opciók</i> menüpont segítségével személyes igényeinek megfelelően
-állíthatja be a program tulajdonságait, más Horde programmodulokkal való 
-együttműködését, több ill. másokkal közös naptárakat használhat, továbbá
-személyes igényeinek megfelelően alakíthatja elfoglaltságainak kategorizálását.
+    Az <i>OpciĂłk</i> menĂźpont segĂ­tsĂŠgĂŠvel szemĂŠlyes igĂŠnyeinek megfelelĹen
+ĂĄllĂ­thatja be a program tulajdonsĂĄgait, mĂĄs Horde programmodulokkal valĂł 
+egyĂźttmĹąkĂśdĂŠsĂŠt, tĂśbb ill. mĂĄsokkal kĂśzĂśs naptĂĄrakat hasznĂĄlhat, tovĂĄbbĂĄ
+szemĂŠlyes igĂŠnyeinek megfelelĹen alakĂ­thatja elfoglaltsĂĄgainak kategorizĂĄlĂĄsĂĄt.
     </para>
 </entry>
   <entry id="menu-import-export" state="uptodate" md5="34bc9dfc4d6302fc1011696a1b8d1ca8">
-    <title>Menü: Import/Export</title>
+    <title>MenĂź: Import/Export</title>
     <heading>Import/Export</heading>
     <para>
-    Az <i>Import/Export</i> menüpont segítségével importálhatók ill.
-exportálhatók a naptári elfoglaltságok. Jelenleg CSV (comma separated value:
-vesszővel elválasztott adatformátum) és Microsoft Outlook formátumú adatok
-importálhatók. Exportálni csak CSV formátumban lehet.
+    Az <i>Import/Export</i> menĂźpont segĂ­tsĂŠgĂŠvel importĂĄlhatĂłk ill.
+exportĂĄlhatĂłk a naptĂĄri elfoglaltsĂĄgok. Jelenleg CSV (comma separated value:
+vesszĹvel elvĂĄlasztott adatformĂĄtum) ĂŠs Microsoft Outlook formĂĄtumĂş adatok
+importĂĄlhatĂłk. ExportĂĄlni csak CSV formĂĄtumban lehet.
     </para>
 </entry>
   <entry id="alarms" state="uptodate" md5="4c1c6f3eb13a416031ffbee4fce99ea1">
-    <title>Figyelmeztetés (alarm)</title>
-    <heading>Figyelmeztetések</heading>
+    <title>FigyelmeztetĂŠs (alarm)</title>
+    <heading>FigyelmeztetĂŠsek</heading>
     <para>
-    A program ébresztőóraszerűen figyelmeztetni tudja a számítógép 
-felhasználóját az egyes elfoglaltságokra. Alapértelmezés szerint az
-első figyelmeztetést 15 perccel az esemény kezdete előtt kapja
-a felhasználó, de ez szabadon állítható be, külön-külön az egyes 
-elfoglaltságokra.
+    A program ĂŠbresztĹĂłraszerĹąen figyelmeztetni tudja a szĂĄmĂ­tĂłgĂŠp 
+felhasznĂĄlĂłjĂĄt az egyes elfoglaltsĂĄgokra. AlapĂŠrtelmezĂŠs szerint az
+elsĹ figyelmeztetĂŠst 15 perccel az esemĂŠny kezdete elĹtt kapja
+a felhasznĂĄlĂł, de ez szabadon ĂĄllĂ­thatĂł be, kĂźlĂśn-kĂźlĂśn az egyes 
+elfoglaltsĂĄgokra.
     </para>
 </entry>
   <entry id="recurring-events" state="uptodate" md5="8ea7be1fb6cee0b4131c9a548e25d92f">
-    <title>Ismétlődő elfoglaltságok</title>
-    <heading>Ismétlődő elfoglaltságok</heading>
+    <title>IsmĂŠtlĹdĹ elfoglaltsĂĄgok</title>
+    <heading>IsmĂŠtlĹdĹ elfoglaltsĂĄgok</heading>
     <para>
-    Az egyes eseményekhez többféle módon állítható be az ismétlődés. Az
-elfoglaltságok gyakran egyszerű módon ismétlődnek, pl. a <i>havi</i>
-vagy <i>heti</i> ismétlődés a kiválasztott eseményt havi ill. heti
-ismétődésűvé teszi. Az ismétlődések bonyolultabban is megadhatók: pl.
-minden hónap utolsó péntekén, vagy minden héten hétfőn, szerdán és
-pénteken.
+    Az egyes esemĂŠnyekhez tĂśbbfĂŠle mĂłdon ĂĄllĂ­thatĂł be az ismĂŠtlĹdĂŠs. Az
+elfoglaltsĂĄgok gyakran egyszerĹą mĂłdon ismĂŠtlĹdnek, pl. a <i>havi</i>
+vagy <i>heti</i> ismĂŠtlĹdĂŠs a kivĂĄlasztott esemĂŠnyt havi ill. heti
+ismĂŠtĹdĂŠsĹąvĂŠ teszi. Az ismĂŠtlĹdĂŠsek bonyolultabban is megadhatĂłk: pl.
+minden hĂłnap utolsĂł pĂŠntekĂŠn, vagy minden hĂŠten hĂŠtfĹn, szerdĂĄn ĂŠs
+pĂŠnteken.
     </para>
     <para>
-    Az ismétlődés időtartama behatárolható az ismétlődést végét jelző
-dátum megadásával.
+    Az ismĂŠtlĹdĂŠs idĹtartama behatĂĄrolhatĂł az ismĂŠtlĹdĂŠst vĂŠgĂŠt jelzĹ
+dĂĄtum megadĂĄsĂĄval.
     </para>
     <para>
-    Amennyiben módosítunk egy ismétlődő eseményt, akkor a módosítás
-az esemény összes előfordulására érvényes lesz. Amennyiben egy ismétlődő
-elfoglaltság egyetlen előfordulását kívánjuk megváltoztatni, akkor szüntessük
-meg az ismétlődését, majd az <i>Újként mentsük el</i> gombra kattintva
-mentsük el. Ezt követően az eseménynek ez az előfordulása a többi 
-ismétlődéstől függetlenül módosítható.
+    Amennyiben mĂłdosĂ­tunk egy ismĂŠtlĹdĹ esemĂŠnyt, akkor a mĂłdosĂ­tĂĄs
+az esemĂŠny Ăśsszes elĹfordulĂĄsĂĄra ĂŠrvĂŠnyes lesz. Amennyiben egy ismĂŠtlĹdĹ
+elfoglaltsĂĄg egyetlen elĹfordulĂĄsĂĄt kĂ­vĂĄnjuk megvĂĄltoztatni, akkor szĂźntessĂźk
+meg az ismĂŠtlĹdĂŠsĂŠt, majd az <i>ĂjkĂŠnt mentsĂźk el</i> gombra kattintva
+mentsĂźk el. Ezt kĂśvetĹen az esemĂŠnynek ez az elĹfordulĂĄsa a tĂśbbi 
+ismĂŠtlĹdĂŠstĹl fĂźggetlenĂźl mĂłdosĂ­thatĂł.
     </para>
 </entry>
   <entry id="Printing" state="uptodate" md5="2f90d14e34b715a054fb52bb919ac5f8">
-    <title>Nyomtatás</title>
-    <heading>A naptár és az elfoglaltságok kinyomtatása</heading>
+    <title>NyomtatĂĄs</title>
+    <heading>A naptĂĄr ĂŠs az elfoglaltsĂĄgok kinyomtatĂĄsa</heading>
     <para>
-    A naptár bizonyos megjelenítési módjait ki lehet nyomtatni. Ezekben
-az esetekben a felső menüsorban megjelenik a <i>Nyomtatás</i> ikon. Erre
-az ikonra kattintva kinyomtatható a képernyő tartalma.
+    A naptĂĄr bizonyos megjelenĂ­tĂŠsi mĂłdjait ki lehet nyomtatni. Ezekben
+az esetekben a felsĹ menĂźsorban megjelenik a <i>NyomtatĂĄs</i> ikon. Erre
+az ikonra kattintva kinyomtathatĂł a kĂŠpernyĹ tartalma.
     </para>
 </entry>
   <entry id="shares" state="uptodate" md5="bf3a44d08a824979ba8dd8fd0e661eee">

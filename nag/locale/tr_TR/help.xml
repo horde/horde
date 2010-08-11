@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <!-- English entry:
@@ -15,10 +15,10 @@
 -->
 
 <entry id="Overview" md5="67c67240d4ec4a037b8ae76f371c5ad3" state="uptodate">
-<title>Genel Bakış</title>
-<heading>Başlangıç</heading>
+<title>Genel BakÄ±ÅŸ</title>
+<heading>BaÅŸlangÄ±Ã§</heading>
 <para>
-Özel ve paylaşımlı görev listeleri, Takvim fonksiyonuyla bütünlük,kategoriler,öncelikler,randevular,aramalar,yazdırma,al/ver fonksiyonlarını sağlayan tam donanımlı bir "yapılacaklar" listesi yöneticisidir.
+Ã–zel ve paylaÅŸÄ±mlÄ± gÃ¶rev listeleri, Takvim fonksiyonuyla bÃ¼tÃ¼nlÃ¼k,kategoriler,Ã¶ncelikler,randevular,aramalar,yazdÄ±rma,al/ver fonksiyonlarÄ±nÄ± saÄŸlayan tam donanÄ±mlÄ± bir "yapÄ±lacaklar" listesi yÃ¶neticisidir.
 </para>
 </entry>
 
@@ -36,10 +36,10 @@
 -->
 
 <entry id="sorting" md5="275a51456e8b440a5bf7afe2af24c777" state="uptodate">
-<title>Girişlerin Sınıflandırılması</title>
-<heading>Girişlerin Sınıflandırılması</heading>
+<title>GiriÅŸlerin SÄ±nÄ±flandÄ±rÄ±lmasÄ±</title>
+<heading>GiriÅŸlerin SÄ±nÄ±flandÄ±rÄ±lmasÄ±</heading>
 <para>
-Girişlerin listesini görüntülerken, girişleri herhangi bir sütuna göre o sütunun başlığına tıklayarak sınıflandırabilirsiniz. Sütunu yükselen ve alçalan sınıflandırma arasında değiştirmek için, sütun başlığındaki ok simgesini tıklayın.
+GiriÅŸlerin listesini gÃ¶rÃ¼ntÃ¼lerken, giriÅŸleri herhangi bir sÃ¼tuna gÃ¶re o sÃ¼tunun baÅŸlÄ±ÄŸÄ±na tÄ±klayarak sÄ±nÄ±flandÄ±rabilirsiniz. SÃ¼tunu yÃ¼kselen ve alÃ§alan sÄ±nÄ±flandÄ±rma arasÄ±nda deÄŸiÅŸtirmek iÃ§in, sÃ¼tun baÅŸlÄ±ÄŸÄ±ndaki ok simgesini tÄ±klayÄ±n.
 </para>
 </entry>
 

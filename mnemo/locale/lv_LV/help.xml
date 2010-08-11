@@ -1,52 +1,52 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: mnemo/locale/lv_LV/help.xml,v 1.2 2004/11/24 15:28:29 jan Exp $ -->
 <help>
 
 <entry id="Overview" md5="16d3b188ccff84364f6f1514de6655b0" state="uptodate">
-    <title>Pârskats</title>
+    <title>PÃ¢rskats</title>
     <heading>Ievads</heading>
     <para>
-    [Piezîmes] ir aplikâcija, kas ïauj radît lîmlapiòu datorizçtu ekvivalentu. Piezîmes var ierakstît, labot, dzçst un drukât. Bez tam ir iespçjams meklçt piezîmçs nepiecieðamo informâciju un klasificçt tâs.
+    [PiezÃ®mes] ir aplikÃ¢cija, kas Ã¯auj radÃ®t lÃ®mlapiÃ²u datorizÃ§tu ekvivalentu. PiezÃ®mes var ierakstÃ®t, labot, dzÃ§st un drukÃ¢t. Bez tam ir iespÃ§jams meklÃ§t piezÃ®mÃ§s nepiecieÃ°amo informÃ¢ciju un klasificÃ§t tÃ¢s.
     </para>
 </entry>
 
 <entry id="list-actions" md5="c2a38907c08e1f9794a6e3c92b5a03f1" state="uptodate">
-    <title>Piezîmju saraksts: Darbîbas</title>
-    <heading>Darbîbas</heading>
+    <title>PiezÃ®mju saraksts: DarbÃ®bas</title>
+    <heading>DarbÃ®bas</heading>
     <para>
-    [Dzçst] ïauj izdzçst izvçlçto piezîmi.
+    [DzÃ§st] Ã¯auj izdzÃ§st izvÃ§lÃ§to piezÃ®mi.
     </para>
     <para>
-    [Labot] ïauj labot izvçlçto piezîmi.
+    [Labot] Ã¯auj labot izvÃ§lÃ§to piezÃ®mi.
     </para>
     <para>
-    [Atgriezties Grâmatâ] ïauj atgriezties no piezîmes apskates Piezîmju grâmatâ.
+    [Atgriezties GrÃ¢matÃ¢] Ã¯auj atgriezties no piezÃ®mes apskates PiezÃ®mju grÃ¢matÃ¢.
     </para>
 </entry>
 
 <entry id="menu-actions" md5="b8b85dd42f833ae172805eddf237dd12" state="uptodate">
-    <title>Rîku josla</title>
-    <heading>Rîku josla</heading>
+    <title>RÃ®ku josla</title>
+    <heading>RÃ®ku josla</heading>
     <para>
-    [Parâdît] parâda visas piezîmes piezîmju grâmatâ.
+    [ParÃ¢dÃ®t] parÃ¢da visas piezÃ®mes piezÃ®mju grÃ¢matÃ¢.
     </para>
     <para>
-    [Rakstît] ïauj ierakstît jaunas piezîmes piezîmju grâmatâ.
+    [RakstÃ®t] Ã¯auj ierakstÃ®t jaunas piezÃ®mes piezÃ®mju grÃ¢matÃ¢.
     </para>
     <para>
-    [Meklçt] ïauj meklçt tekstu piezîmçs. Ir iespçjams meklçt tikai apraksta laukâ vai arî izdarît pilno meklçðanu piezîmju tekstâ.
+    [MeklÃ§t] Ã¯auj meklÃ§t tekstu piezÃ®mÃ§s. Ir iespÃ§jams meklÃ§t tikai apraksta laukÃ¢ vai arÃ® izdarÃ®t pilno meklÃ§Ã°anu piezÃ®mju tekstÃ¢.
     </para>
     <para>
-    [Drukât] ïauj izdrukât piezîmi. [Drukât] ikona ir redzama rîku joslâ tikai piezîmes apskates laikâ.
+    [DrukÃ¢t] Ã¯auj izdrukÃ¢t piezÃ®mi. [DrukÃ¢t] ikona ir redzama rÃ®ku joslÃ¢ tikai piezÃ®mes apskates laikÃ¢.
     </para>
 </entry>
 
 
 <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
-    <title>Ierakstu ðíiroðana</title>
-    <heading>Ierakstu ðíiroðana</heading>
+    <title>Ierakstu Ã°Ã­iroÃ°ana</title>
+    <heading>Ierakstu Ã°Ã­iroÃ°ana</heading>
     <para>
-    Apskatot ierakstu uzskaitîjumu ir iespçjams ðíirot ierakstus pçc jebkuras kolonnas, uzklikðíinot atbilstoðâ stabiòa nosaukumam. Lai pârslçgtos no augoðâs uz dilstoðo ðíiroðanas kârtîbu, uzklikðíiniet bultas ikonai blakus atbilstoðâ stabiòa nosaukumam.
+    Apskatot ierakstu uzskaitÃ®jumu ir iespÃ§jams Ã°Ã­irot ierakstus pÃ§c jebkuras kolonnas, uzklikÃ°Ã­inot atbilstoÃ°Ã¢ stabiÃ²a nosaukumam. Lai pÃ¢rslÃ§gtos no augoÃ°Ã¢s uz dilstoÃ°o Ã°Ã­iroÃ°anas kÃ¢rtÃ®bu, uzklikÃ°Ã­iniet bultas ikonai blakus atbilstoÃ°Ã¢ stabiÃ²a nosaukumam.
     </para>
 </entry>
 </help>

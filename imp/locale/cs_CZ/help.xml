@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,16 +26,16 @@
 
 </entry>
   <entry id="compose-buttons" state="unknown">
-    <title>Vytvoření Zprávy: Úkony</title>
-    <heading>Úkony</heading>
+    <title>VytvoĹenĂ­ ZprĂĄvy: Ăkony</title>
+    <heading>Ăkony</heading>
     <para>
-	Zaslat Zprávu zašle Váš email všem příjemcům. Jakmile kliknete na Zaslat Zprávu, Váš email je ihned poslán a nelze jít zpět.
+	Zaslat ZprĂĄvu zaĹĄle VĂĄĹĄ email vĹĄem pĹĂ­jemcĹŻm. Jakmile kliknete na Zaslat ZprĂĄvu, VĂĄĹĄ email je ihned poslĂĄn a nelze jĂ­t zpÄt.
     </para>
     <para>
-	Uložit Draft uloží nedokončenou zprávu do schránky s názvem 'Drafty', do které se lze přepnout pomocí roletového menui v levé části modrého navigačního panelu v horní části Vaší relace. Tuto zprávu lze dokončit později, přepnutím se do schránky 'Drafty', klinutím na danou uloženou zprávu, a pak kliknutím na 'Pokračovat'. Aby se Vám zpráva lépe vyhledávala v Draftech je vhodné napsat Předmět zprávy před uložením zprávy do Draftů. Po uložení zprávy budete navráceni do Příchozí Zpráv nebo do schránky ve které jste byli naposledy.
+	UloĹžit Draft uloĹžĂ­ nedokonÄenou zprĂĄvu do schrĂĄnky s nĂĄzvem 'Drafty', do kterĂŠ se lze pĹepnout pomocĂ­ roletovĂŠho menui v levĂŠ ÄĂĄsti modrĂŠho navigaÄnĂ­ho panelu v hornĂ­ ÄĂĄsti VaĹĄĂ­ relace. Tuto zprĂĄvu lze dokonÄit pozdÄji, pĹepnutĂ­m se do schrĂĄnky 'Drafty', klinutĂ­m na danou uloĹženou zprĂĄvu, a pak kliknutĂ­m na 'PokraÄovat'. Aby se VĂĄm zprĂĄva lĂŠpe vyhledĂĄvala v Draftech je vhodnĂŠ napsat PĹedmÄt zprĂĄvy pĹed uloĹženĂ­m zprĂĄvy do DraftĹŻ. Po uloĹženĂ­ zprĂĄvy budete navrĂĄceni do PĹĂ­chozĂ­ ZprĂĄv nebo do schrĂĄnky ve kterĂŠ jste byli naposledy.
     </para>
     <para>
-	Zrušit Zprávu jednoduše zruší zprávu a navrátí Vás do Příchozí Zpráv nebo do schránky ve které jste byli naposledy.
+	ZruĹĄit ZprĂĄvu jednoduĹĄe zruĹĄĂ­ zprĂĄvu a navrĂĄtĂ­ VĂĄs do PĹĂ­chozĂ­ ZprĂĄv nebo do schrĂĄnky ve kterĂŠ jste byli naposledy.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -60,10 +60,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-from" state="unknown">
-    <title>Vytvoření Zprávy: Od</title>
+    <title>VytvoĹenĂ­ ZprĂĄvy: Od</title>
     <heading>"Od"</heading>
     <para>
-	Vložte zde Vaši správnou emailovou adresu. Vaše emailová adresa bude použita při odesílání zpravy v kolonce "Od:".
+	VloĹžte zde VaĹĄi sprĂĄvnou emailovou adresu. VaĹĄe emailovĂĄ adresa bude pouĹžita pĹi odesĂ­lĂĄnĂ­ zpravy v kolonce "Od:".
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -74,10 +74,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-to" state="unknown">
-    <title>Vytvoření Zprávy: Komu</title>
+    <title>VytvoĹenĂ­ ZprĂĄvy: Komu</title>
     <heading>"Komu"</heading>
     <para>
-	Zde vložte emailovou(é) adresu(y) těch co by měli obdržet Váš email. Použijte čárku k oddělení emailových adres, jíné interpunkční znaky způsobý chybové hlášení. Tyto adresy se objeví v kolonce "Komu:" v odeslané zprávě.
+	Zde vloĹžte emailovou(ĂŠ) adresu(y) tÄch co by mÄli obdrĹžet VĂĄĹĄ email. PouĹžijte ÄĂĄrku k oddÄlenĂ­ emailovĂ˝ch adres, jĂ­nĂŠ interpunkÄnĂ­ znaky zpĹŻsobĂ˝ chybovĂŠ hlĂĄĹĄenĂ­. Tyto adresy se objevĂ­ v kolonce "Komu:" v odeslanĂŠ zprĂĄvÄ.
     </para>
 <!-- English entry:
 <entry id="compose-to">
@@ -88,10 +88,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-cc" state="unknown">
-    <title>Vytvoření Zprávy: Kopie</title>
+    <title>VytvoĹenĂ­ ZprĂĄvy: Kopie</title>
     <heading>"Kopie"</heading>
     <para>
-	Zde vložte emailovou(é) adresu(y) těch co by měli obdržet kopii Vášeho emailu. Použijte čárku k oddělení emailových adres. Tyto adresy se objeví v kolonce "Kopie:" v odeslané zprávě. Kopie se obyčejně posílá lidem s nepřímým zájmem, jen pro informaci. Všichni adresáti zahrnutí v "Komu:" a v "Kopie:" se budou vidět kdo byl zahrnut v obou kolonkách.
+	Zde vloĹžte emailovou(ĂŠ) adresu(y) tÄch co by mÄli obdrĹžet kopii VĂĄĹĄeho emailu. PouĹžijte ÄĂĄrku k oddÄlenĂ­ emailovĂ˝ch adres. Tyto adresy se objevĂ­ v kolonce "Kopie:" v odeslanĂŠ zprĂĄvÄ. Kopie se obyÄejnÄ posĂ­lĂĄ lidem s nepĹĂ­mĂ˝m zĂĄjmem, jen pro informaci. VĹĄichni adresĂĄti zahrnutĂ­ v "Komu:" a v "Kopie:" se budou vidÄt kdo byl zahrnut v obou kolonkĂĄch.
     </para>
 <!-- English entry:
 <entry id="compose-cc">
@@ -102,10 +102,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-bcc" state="unknown">
-    <title>Vytvoření Zprávy: Skrytá Kopie</title>
-    <heading>"Skrytá Kopie"</heading>
+    <title>VytvoĹenĂ­ ZprĂĄvy: SkrytĂĄ Kopie</title>
+    <heading>"SkrytĂĄ Kopie"</heading>
     <para>
-	Zde vložte emailovou(é) adresu(y) těch co by měli obdržet skrytou kopii Vášeho emailu. Použijte čárku k oddělení emailových adres, jíné interpunkční znaky způsobý chybové hlášení. Tyto adresy se objeví v kolonce "Skrytá Kopie:" v odeslané zprávě. Skryté kopie jsou zaslány lidem, kteří by si tuto zprávu měli přečíst BEZ VĚDOMÍ ostatních adresátů (zahrnutých v "Komu:" a v "Kopie:"). Pouze Vy a adresáti ve "Skryté Kopii" ví o Skryté kopii tohoto emailu. Toto se běžně používá pro informování Vašich nadřízeních o komunikaci s jinými, aniž byjiná strana o tom věděla.
+	Zde vloĹžte emailovou(ĂŠ) adresu(y) tÄch co by mÄli obdrĹžet skrytou kopii VĂĄĹĄeho emailu. PouĹžijte ÄĂĄrku k oddÄlenĂ­ emailovĂ˝ch adres, jĂ­nĂŠ interpunkÄnĂ­ znaky zpĹŻsobĂ˝ chybovĂŠ hlĂĄĹĄenĂ­. Tyto adresy se objevĂ­ v kolonce "SkrytĂĄ Kopie:" v odeslanĂŠ zprĂĄvÄ. SkrytĂŠ kopie jsou zaslĂĄny lidem, kteĹĂ­ by si tuto zprĂĄvu mÄli pĹeÄĂ­st BEZ VÄDOMĂ ostatnĂ­ch adresĂĄtĹŻ (zahrnutĂ˝ch v "Komu:" a v "Kopie:"). Pouze Vy a adresĂĄti ve "SkrytĂŠ Kopii" vĂ­ o SkrytĂŠ kopii tohoto emailu. Toto se bÄĹžnÄ pouĹžĂ­vĂĄ pro informovĂĄnĂ­ VaĹĄich nadĹĂ­zenĂ­ch o komunikaci s jinĂ˝mi, aniĹž byjinĂĄ strana o tom vÄdÄla.
     </para>
 <!-- English entry:
 <entry id="compose-bcc">
@@ -116,10 +116,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-subject" state="unknown">
-    <title>Vytvoření Zprávy: Předmět</title>
-    <heading>"Předmět"</heading>
+    <title>VytvoĹenĂ­ ZprĂĄvy: PĹedmÄt</title>
+    <heading>"PĹedmÄt"</heading>
     <para>
-	Zde vložte předmět Vaší zprávy. Tento text se objeví v kolonce "Předmět:" v odeslané zprávě. Snažte se být struční a výstižní. Předmět Vaší zprávy je nejednoduší si zapamatovat jak pro Vás tak pro příjemce a také ho lze později využít pro třídění zpráv či vyhledávání informací. Pokud použijete "Odpovědět" či "Přeposlat", předmět toho to emailu se nemění a je kopírován do dalších odpovědí, ale vy stále můžete přidávat nějaké poznámky do "Předmětu". Toto je velmi důležité pro využívání "Souvislosti", založené na "Předmětu" pro třídění Vašich zpráv.
+	Zde vloĹžte pĹedmÄt VaĹĄĂ­ zprĂĄvy. Tento text se objevĂ­ v kolonce "PĹedmÄt:" v odeslanĂŠ zprĂĄvÄ. SnaĹžte se bĂ˝t struÄnĂ­ a vĂ˝stiĹžnĂ­. PĹedmÄt VaĹĄĂ­ zprĂĄvy je nejednoduĹĄĂ­ si zapamatovat jak pro VĂĄs tak pro pĹĂ­jemce a takĂŠ ho lze pozdÄji vyuĹžĂ­t pro tĹĂ­dÄnĂ­ zprĂĄv Äi vyhledĂĄvĂĄnĂ­ informacĂ­. Pokud pouĹžijete "OdpovÄdÄt" Äi "PĹeposlat", pĹedmÄt toho to emailu se nemÄnĂ­ a je kopĂ­rovĂĄn do dalĹĄĂ­ch odpovÄdĂ­, ale vy stĂĄle mĹŻĹžete pĹidĂĄvat nÄjakĂŠ poznĂĄmky do "PĹedmÄtu". Toto je velmi dĹŻleĹžitĂŠ pro vyuĹžĂ­vĂĄnĂ­ "Souvislosti", zaloĹženĂŠ na "PĹedmÄtu" pro tĹĂ­dÄnĂ­ VaĹĄich zprĂĄv.
     </para>
 <!-- English entry:
 <entry id="compose-subject">
@@ -137,19 +137,19 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-options" state="unknown">
-    <title>Vytvoření Zprávy: Možnosti</title>
-    <heading>"Možnosti"</heading>
+    <title>VytvoĹenĂ­ ZprĂĄvy: MoĹžnosti</title>
+    <heading>"MoĹžnosti"</heading>
     <para>
-    	Tyto možnosti Vám pomohout vytvořit zprávu.
+    	Tyto moĹžnosti VĂĄm pomohout vytvoĹit zprĂĄvu.
     </para>
     <para>
-	Pokud si přejete zkontrolovat pravopis, klikněte na "Kontrola Pravopisu".
+	Pokud si pĹejete zkontrolovat pravopis, kliknÄte na "Kontrola Pravopisu".
     </para>
     <para>
-	Pokud si přejete vidět seznam příloh ke zprávě, klikněte na "Přílohy".
+	Pokud si pĹejete vidÄt seznam pĹĂ­loh ke zprĂĄvÄ, kliknÄte na "PĹĂ­lohy".
     </para>
     <para>
-	Pokud si přejete uložit kopii Vaší zprávy do schránky "Poslané Zprávy" zatrhněte rámeček vedle "Uložit Kopii". Uložte si kopie důležitých zpráv, budou se Vám hodit v budoucnu, pokud budete chtít zjistit kdo co řekl. Není doporučeno ukládat každou zprávu, jelikož lze velmi jednoduše přesáhnout Váš limit na disku (obzvláště pokud sposíláte přílohy s obrázky a videm), a tím znemožnit příjem dových zpráv. Pokud si přejete ukládat každou poslanou zprávu, lze tuto fukci aktivovat v nastavení Vaší Identity (Možnosti -&gt; Osobní Informace -&gt; Upravit Identitu). Dbej te na periodické vyprazdňování této schránky ("Poslané Zprávy"), jinak Vaše scránka bude nepoužitelná, jakmile se velkým množstvím zpráv zaplní.
+	Pokud si pĹejete uloĹžit kopii VaĹĄĂ­ zprĂĄvy do schrĂĄnky "PoslanĂŠ ZprĂĄvy" zatrhnÄte rĂĄmeÄek vedle "UloĹžit Kopii". UloĹžte si kopie dĹŻleĹžitĂ˝ch zprĂĄv, budou se VĂĄm hodit v budoucnu, pokud budete chtĂ­t zjistit kdo co Ĺekl. NenĂ­ doporuÄeno uklĂĄdat kaĹždou zprĂĄvu, jelikoĹž lze velmi jednoduĹĄe pĹesĂĄhnout VĂĄĹĄ limit na disku (obzvlĂĄĹĄtÄ pokud sposĂ­lĂĄte pĹĂ­lohy s obrĂĄzky a videm), a tĂ­m znemoĹžnit pĹĂ­jem dovĂ˝ch zprĂĄv. Pokud si pĹejete uklĂĄdat kaĹždou poslanou zprĂĄvu, lze tuto fukci aktivovat v nastavenĂ­ VaĹĄĂ­ Identity (MoĹžnosti -&gt; OsobnĂ­ Informace -&gt; Upravit Identitu). Dbej te na periodickĂŠ vyprazdĹovĂĄnĂ­ tĂŠto schrĂĄnky ("PoslanĂŠ ZprĂĄvy"), jinak VaĹĄe scrĂĄnka bude nepouĹžitelnĂĄ, jakmile se velkĂ˝m mnoĹžstvĂ­m zprĂĄv zaplnĂ­.
     </para>
 <!-- English entry:
 <entry id="compose-options">
@@ -169,14 +169,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-attachments" state="unknown">
-    <title>Vytvoření Zprávy: Přílohy</title>
-    <heading>"Přílohy"</heading>
+    <title>VytvoĹenĂ­ ZprĂĄvy: PĹĂ­lohy</title>
+    <heading>"PĹĂ­lohy"</heading>
     <para>
-	Tato sekce zobrazí seznam všech příloh ve Vaší zprávě. Pokud si přejete odstranit příložený soubor:
+	Tato sekce zobrazĂ­ seznam vĹĄech pĹĂ­loh ve VaĹĄĂ­ zprĂĄvÄ. Pokud si pĹejete odstranit pĹĂ­loĹženĂ˝ soubor:
     </para>
-    <para>Krok 1: Zatrhněte rámeček veldle souboru, který si přejete odstranit.
+    <para>Krok 1: ZatrhnÄte rĂĄmeÄek veldle souboru, kterĂ˝ si pĹejete odstranit.
     </para>
-    <para>Krok 2: Klikněte na "Odstranit Přílohu(y)"
+    <para>Krok 2: KliknÄte na "Odstranit PĹĂ­lohu(y)"
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -228,10 +228,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-priority" state="unknown">
-    <title>Vytvoření Zprávy: Priorita</title>
+    <title>VytvoĹenĂ­ ZprĂĄvy: Priorita</title>
     <heading>"Priorita"</heading>
     <para>
-	Tato možnost nastaví "X-Priority" hlavičku ve Vámy poslané zprávě. "X-Priority" je "pseudo standard" který je používán emailovými programy jako Netscape, Mozilla, Opera a Outlook pro udání priority či urgentnosti zprávy. Emailové programy, které toto nepoužívají, bude tuto část ignorovat.
+	Tato moĹžnost nastavĂ­ "X-Priority" hlaviÄku ve VĂĄmy poslanĂŠ zprĂĄvÄ. "X-Priority" je "pseudo standard" kterĂ˝ je pouĹžĂ­vĂĄn emailovĂ˝mi programy jako Netscape, Mozilla, Opera a Outlook pro udĂĄnĂ­ priority Äi urgentnosti zprĂĄvy. EmailovĂŠ programy, kterĂŠ toto nepouĹžĂ­vajĂ­, bude tuto ÄĂĄst ignorovat.
     </para>
 <!-- English entry:
 <entry id="compose-priority">
@@ -254,21 +254,21 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="search" state="unknown">
-    <title>Vyhledávání Zprávy</title>
-    <heading>Vyhledávací Kritéria</heading>
+    <title>VyhledĂĄvĂĄnĂ­ ZprĂĄvy</title>
+    <heading>VyhledĂĄvacĂ­ KritĂŠria</heading>
     <para>
-	Vyhledávání zpráv ve Vašich schránkách lze provést několika různýmy způsoby vyhledávání.
+	VyhledĂĄvĂĄnĂ­ zprĂĄv ve VaĹĄich schrĂĄnkĂĄch lze provĂŠst nÄkolika rĹŻznĂ˝my zpĹŻsoby vyhledĂĄvĂĄnĂ­.
     </para>
-    <para>Krok 1: Vložte text do políček, které si přejete zahrnout do vyhledávacích kritérií.
+    <para>Krok 1: VloĹžte text do polĂ­Äek, kterĂŠ si pĹejete zahrnout do vyhledĂĄvacĂ­ch kritĂŠriĂ­.
     </para>
-    <para>Krok 2: Vyberte typ(y) zprávy, které si přejete zahrnout do vyhledávacích kritérií.
+    <para>Krok 2: Vyberte typ(y) zprĂĄvy, kterĂŠ si pĹejete zahrnout do vyhledĂĄvacĂ­ch kritĂŠriĂ­.
     </para>
-    <para>Krok 3: Vyberte schránku(y) které si přejete zahrnout do vyhledávacích kritérií.
+    <para>Krok 3: Vyberte schrĂĄnku(y) kterĂŠ si pĹejete zahrnout do vyhledĂĄvacĂ­ch kritĂŠriĂ­.
     </para>
-    <para>Krok 4: Klikněte "Vyhledat".
+    <para>Krok 4: KliknÄte "Vyhledat".
     </para>
     <para>
-	Pokud nějaká ze zpráv odpovídá vyhladávacím kritériím, pak předmět této zprávy bude zobrazen ve "Výsledcích Vyhledávání".
+	Pokud nÄjakĂĄ ze zprĂĄv odpovĂ­dĂĄ vyhladĂĄvacĂ­m kritĂŠriĂ­m, pak pĹedmÄt tĂŠto zprĂĄvy bude zobrazen ve "VĂ˝sledcĂ­ch VyhledĂĄvĂĄnĂ­".
     </para>
 <!-- English entry:
 <entry id="search">
@@ -290,17 +290,17 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="folder-options" state="unknown">
-    <title>Správa Schránek</title>
-    <heading>Možnosti scránky</heading>
+    <title>SprĂĄva SchrĂĄnek</title>
+    <heading>MoĹžnosti scrĂĄnky</heading>
     <para>
-	Levý sloupec obsahuje tlačítka pro výběr schránek, poté co jste vybrali schránku je možno provést dané vyhledávání.
+	LevĂ˝ sloupec obsahuje tlaÄĂ­tka pro vĂ˝bÄr schrĂĄnek, potĂŠ co jste vybrali schrĂĄnku je moĹžno provĂŠst danĂŠ vyhledĂĄvĂĄnĂ­.
     </para>
     <para>
-	Systém Vám nabíddne další možnosti. Buďte obzvláště opatrní s možností pro mazání zpráv, pokud chybně užijete této možnosti, přijdete o Vaše zprávy, které budou odpovídat kritériu!
+	SystĂŠm VĂĄm nabĂ­ddne dalĹĄĂ­ moĹžnosti. BuÄte obzvlĂĄĹĄtÄ opatrnĂ­ s moĹžnostĂ­ pro mazĂĄnĂ­ zprĂĄv, pokud chybnÄ uĹžijete tĂŠto moĹžnosti, pĹijdete o VaĹĄe zprĂĄvy, kterĂŠ budou odpovĂ­dat kritĂŠriu!
     </para>
     <heading>Importovat mbox Soubor</heading>
     <para>
-	Tato možnost provede import souboru (formátu mbox) do zvolené schránky. Vyberte 1 (jednu) schránku, do které bude importovat zprávy, a pak vybertye tuto možnost. System se zeptá, který mbox soubor si přejete importovat.
+	Tato moĹžnost provede import souboru (formĂĄtu mbox) do zvolenĂŠ schrĂĄnky. Vyberte 1 (jednu) schrĂĄnku, do kterĂŠ bude importovat zprĂĄvy, a pak vybertye tuto moĹžnost. System se zeptĂĄ, kterĂ˝ mbox soubor si pĹejete importovat.
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -318,10 +318,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="filters" state="unknown">
-    <title>Filtry: Použití</title>
-    <heading>Používání Filtrovacích Pravidel</heading>
+    <title>Filtry: PouĹžitĂ­</title>
+    <heading>PouĹžĂ­vĂĄnĂ­ FiltrovacĂ­ch Pravidel</heading>
     <para>
-	Klikněte na ikonku "Použít Filtr" vedle názvu "Příchozí Zprávy" v zobrazení schránky s Příchozími zprávami, aby jste odfiltrovali zprávy v souladu s Vašimi filtrovacími pravidly. Nebo také klikněte na "Použít Všechny Pravidla" ve filtrovacím menu. Filtrování není prováděno automaticky.
+	KliknÄte na ikonku "PouĹžĂ­t Filtr" vedle nĂĄzvu "PĹĂ­chozĂ­ ZprĂĄvy" v zobrazenĂ­ schrĂĄnky s PĹĂ­chozĂ­mi zprĂĄvami, aby jste odfiltrovali zprĂĄvy v souladu s VaĹĄimi filtrovacĂ­mi pravidly. Nebo takĂŠ kliknÄte na "PouĹžĂ­t VĹĄechny Pravidla" ve filtrovacĂ­m menu. FiltrovĂĄnĂ­ nenĂ­ provĂĄdÄno automaticky.
     </para>
 <!-- English entry:
 <entry id="filters">
@@ -374,10 +374,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="pgp-compose-attach-pubkey" state="unknown">
-    <title>PGP: Přiložit Veřejný Klíč</title>
-    <heading>Přiložit Veřejný Klíč</heading>
+    <title>PGP: PĹiloĹžit VeĹejnĂ˝ KlĂ­Ä</title>
+    <heading>PĹiloĹžit VeĹejnĂ˝ KlĂ­Ä</heading>
     <para>
-	Pokud si vyberete tuto možnost, Váš PGP veřejný klíč bude přiložen k Vaší odesílané zprávě (pokud tento klíč existuje). Implicitní chování lze nastavit v PGP možnostech.
+	Pokud si vyberete tuto moĹžnost, VĂĄĹĄ PGP veĹejnĂ˝ klĂ­Ä bude pĹiloĹžen k VaĹĄĂ­ odesĂ­lanĂŠ zprĂĄvÄ (pokud tento klĂ­Ä existuje). ImplicitnĂ­ chovĂĄnĂ­ lze nastavit v PGP moĹžnostech.
     </para>
 <!-- English entry:
 <entry id="pgp-compose-attach-pubkey">
@@ -388,10 +388,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-option-scan-body" state="unknown">
-    <title>PGP: Vyhledávání v Textu Zprávy</title>
-    <heading>Vyhledávání v Textu Zprávy</heading>
+    <title>PGP: VyhledĂĄvĂĄnĂ­ v Textu ZprĂĄvy</title>
+    <heading>VyhledĂĄvĂĄnĂ­ v Textu ZprĂĄvy</heading>
     <para>
-	Pokud je tato volba vybrána, IMP bude vyhledávat PGP data v textu zprávy a budou zobrazeny v případě nálezu. Tento proces může zpomalit celý systém, protože každá zpráva bude kompletně prohledána, zdali obsahule PGP data.
+	Pokud je tato volba vybrĂĄna, IMP bude vyhledĂĄvat PGP data v textu zprĂĄvy a budou zobrazeny v pĹĂ­padÄ nĂĄlezu. Tento proces mĹŻĹže zpomalit celĂ˝ systĂŠm, protoĹže kaĹždĂĄ zprĂĄva bude kompletnÄ prohledĂĄna, zdali obsahule PGP data.
     </para>
 <!-- English entry:
 <entry id="pgp-option-scan-body">
@@ -434,14 +434,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="pgp-overview" state="unknown">
-    <title>PGP: Přehled</title>
+    <title>PGP: PĹehled</title>
     <heading>Co je PGP?</heading>
     <para>
-	PGP je nástroj umožňující bezpečnou komunikaci a uskladnění dat obzvláště v oblasti emailů. Může být použito pro kódování dat či vytvoření digitálního signatury. IMP používá GnuPG (GNU Privacy Guard) k zajištění těchto funkcí.
+	PGP je nĂĄstroj umoĹžĹujĂ­cĂ­ bezpeÄnou komunikaci a uskladnÄnĂ­ dat obzvlĂĄĹĄtÄ v oblasti emailĹŻ. MĹŻĹže bĂ˝t pouĹžito pro kĂłdovĂĄnĂ­ dat Äi vytvoĹenĂ­ digitĂĄlnĂ­ho signatury. IMP pouĹžĂ­vĂĄ GnuPG (GNU Privacy Guard) k zajiĹĄtÄnĂ­ tÄchto funkcĂ­.
     </para>
-    <heading>Umožnit funkci PGP?</heading>
+    <heading>UmoĹžnit funkci PGP?</heading>
     <para>
-	Tato možnost Vám umožní vytvořit/prohlédnout Váše osobní PGP klíče, přidat či vymazat veřejné klíče jiných lidí, číst kódované emaily, ověřit digitální označené emaily a také kódovat/označit Váše emaily.
+	Tato moĹžnost VĂĄm umoĹžnĂ­ vytvoĹit/prohlĂŠdnout VĂĄĹĄe osobnĂ­ PGP klĂ­Äe, pĹidat Äi vymazat veĹejnĂŠ klĂ­Äe jinĂ˝ch lidĂ­, ÄĂ­st kĂłdovanĂŠ emaily, ovÄĹit digitĂĄlnĂ­ oznaÄenĂŠ emaily a takĂŠ kĂłdovat/oznaÄit VĂĄĹĄe emaily.
     </para>
 <!-- English entry:
 <entry id="pgp-overview">
@@ -456,10 +456,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-option-attach-pubkey" state="unknown">
-    <title>PGP: Možnosti - Přiložit Veřejný Klíč</title>
-    <heading>Možnosti - Přiložit Veřejný Klíč</heading>
+    <title>PGP: MoĹžnosti - PĹiloĹžit VeĹejnĂ˝ KlĂ­Ä</title>
+    <heading>MoĹžnosti - PĹiloĹžit VeĹejnĂ˝ KlĂ­Ä</heading>
     <para>
-	Pokud vyberete tuto možnost, každá odeslaná zpráva bude obsahovat Váš PGP Veřejný Klíč.
+	Pokud vyberete tuto moĹžnost, kaĹždĂĄ odeslanĂĄ zprĂĄva bude obsahovat VĂĄĹĄ PGP VeĹejnĂ˝ KlĂ­Ä.
     </para>
 <!-- English entry:
 <entry id="pgp-option-attach-pubkey">
@@ -470,22 +470,22 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-manage-pubkey" state="unknown">
-    <title>PGP: Správa Veřejných Klíčů</title>
-    <heading>Přehled</heading>
+    <title>PGP: SprĂĄva VeĹejnĂ˝ch KlĂ­ÄĹŻ</title>
+    <heading>PĹehled</heading>
     <para>
-	Toto zobrazí všechny kontakty ve Vašich Kontaktech, které maji PGP veřejné klíče. Toto Vám umožní 1) zasílat kódované emaily těmto lidem -nebo- 2) ověřovat digitílní signatury těchto lidí.
+	Toto zobrazĂ­ vĹĄechny kontakty ve VaĹĄich Kontaktech, kterĂŠ maji PGP veĹejnĂŠ klĂ­Äe. Toto VĂĄm umoĹžnĂ­ 1) zasĂ­lat kĂłdovanĂŠ emaily tÄmto lidem -nebo- 2) ovÄĹovat digitĂ­lnĂ­ signatury tÄchto lidĂ­.
     </para>
-    <heading>Zobrazení</heading>
+    <heading>ZobrazenĂ­</heading>
     <para>
-	Otevře okno a zobrazí v něm PGP veřejný klíč.
+	OtevĹe okno a zobrazĂ­ v nÄm PGP veĹejnĂ˝ klĂ­Ä.
     </para>
     <heading>Detaily</heading>
     <para>
-	Zobrazí detaily ohledně PGP veřejného klíče.
+	ZobrazĂ­ detaily ohlednÄ PGP veĹejnĂŠho klĂ­Äe.
     </para>
     <heading>Vymazat</heading>
     <para>
-	Vymaže PGP veřejný klíč z Vašich Kontaktů.
+	VymaĹže PGP veĹejnĂ˝ klĂ­Ä z VaĹĄich KontaktĹŻ.
     </para>
 <!-- English entry:
 <entry id="pgp-manage-pubkey">
@@ -508,10 +508,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-import-pubkey" state="unknown">
-    <title>PGP: Správa Veřejných Klíčů - Import</title>
-    <heading>Import Veřejných Klíčů</heading>
+    <title>PGP: SprĂĄva VeĹejnĂ˝ch KlĂ­ÄĹŻ - Import</title>
+    <heading>Import VeĹejnĂ˝ch KlĂ­ÄĹŻ</heading>
     <para>
-	Toto tlačítko Vám umožní vložit PGP veřejný klíč manuálně do nově otevřeného okna. Klíč tam může být zkopírován do textového pole, nebo pokud je uložen v souboru na Vašem lokálním počítači, lze ho importovat jako soubor. Pokud je klíč platný bude uložen do Vašich Kontaktů a okno se uzavře. Pokud klíč není platný objeví se chybové hlášení s vysvětlením.
+	Toto tlaÄĂ­tko VĂĄm umoĹžnĂ­ vloĹžit PGP veĹejnĂ˝ klĂ­Ä manuĂĄlnÄ do novÄ otevĹenĂŠho okna. KlĂ­Ä tam mĹŻĹže bĂ˝t zkopĂ­rovĂĄn do textovĂŠho pole, nebo pokud je uloĹžen v souboru na VaĹĄem lokĂĄlnĂ­m poÄĂ­taÄi, lze ho importovat jako soubor. Pokud je klĂ­Ä platnĂ˝ bude uloĹžen do VaĹĄich KontaktĹŻ a okno se uzavĹe. Pokud klĂ­Ä nenĂ­ platnĂ˝ objevĂ­ se chybovĂŠ hlĂĄĹĄenĂ­ s vysvÄtlenĂ­m.
     </para>
 <!-- English entry:
 <entry id="pgp-import-pubkey">
@@ -522,18 +522,18 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-overview-personalkey" state="unknown">
-    <title>PGP: Správa Veřejných Klíčů</title>
-    <heading>Přehled</heading>
+    <title>PGP: SprĂĄva VeĹejnĂ˝ch KlĂ­ÄĹŻ</title>
+    <heading>PĹehled</heading>
     <para>
-	Pokus si přejete digitálně označit zprávy nebo umožnit ostatním posílání kódovaných zpráv, musíte mít Váš osobní Veřejný/Osobní PGP klíčový pár.
+	Pokus si pĹejete digitĂĄlnÄ oznaÄit zprĂĄvy nebo umoĹžnit ostatnĂ­m posĂ­lĂĄnĂ­ kĂłdovanĂ˝ch zprĂĄv, musĂ­te mĂ­t VĂĄĹĄ osobnĂ­ VeĹejnĂ˝/OsobnĂ­ PGP klĂ­ÄovĂ˝ pĂĄr.
     </para>
-    <heading>Váš Veřejný Klíč</heading>
+    <heading>VĂĄĹĄ VeĹejnĂ˝ KlĂ­Ä</heading>
     <para>
-	Váš veřejný klíč by měl být k dispozici komukoliv kdo Vám chce posílat kódované zprávy, které pouze VY můžete dekódovat (použitím Vašeho osobního klíče). A také, Váš veřejný klíč by měl být k dispozici komukoliv kdo přijímá Vaše zprávy, které jsou digitálně označené - veřejný klíč je potřeba k ověření digitálního označení.
+	VĂĄĹĄ veĹejnĂ˝ klĂ­Ä by mÄl bĂ˝t k dispozici komukoliv kdo VĂĄm chce posĂ­lat kĂłdovanĂŠ zprĂĄvy, kterĂŠ pouze VY mĹŻĹžete dekĂłdovat (pouĹžitĂ­m VaĹĄeho osobnĂ­ho klĂ­Äe). A takĂŠ, VĂĄĹĄ veĹejnĂ˝ klĂ­Ä by mÄl bĂ˝t k dispozici komukoliv kdo pĹijĂ­mĂĄ VaĹĄe zprĂĄvy, kterĂŠ jsou digitĂĄlnÄ oznaÄenĂŠ - veĹejnĂ˝ klĂ­Ä je potĹeba k ovÄĹenĂ­ digitĂĄlnĂ­ho oznaÄenĂ­.
     </para>
-    <heading>Váš Osobní Klíč</heading>
+    <heading>VĂĄĹĄ OsobnĂ­ KlĂ­Ä</heading>
     <para>
-	Váš osobní klíč je potřeba k dekódování zpráv kódovaných Vaším veřejným klíčem. A také, Váš osobní klíč je potřeba k digitálnímu označení zpráv. Váš osobní klíč je chráněn heslem, které bylo zadáno při vytvoření tohoto klíče. Při jakékoliv manipulaci s Vaším osobním klíčem budete požádáni o heslo k Vašemu osobnímu klíči. IMP si zapamatuje toto heslo bo dobu Vaší relace (dokud se neodhlásíte ze systému), takže se nezapomeňte odhlásit.
+	VĂĄĹĄ osobnĂ­ klĂ­Ä je potĹeba k dekĂłdovĂĄnĂ­ zprĂĄv kĂłdovanĂ˝ch VaĹĄĂ­m veĹejnĂ˝m klĂ­Äem. A takĂŠ, VĂĄĹĄ osobnĂ­ klĂ­Ä je potĹeba k digitĂĄlnĂ­mu oznaÄenĂ­ zprĂĄv. VĂĄĹĄ osobnĂ­ klĂ­Ä je chrĂĄnÄn heslem, kterĂŠ bylo zadĂĄno pĹi vytvoĹenĂ­ tohoto klĂ­Äe. PĹi jakĂŠkoliv manipulaci s VaĹĄĂ­m osobnĂ­m klĂ­Äem budete poĹžĂĄdĂĄni o heslo k VaĹĄemu osobnĂ­mu klĂ­Äi. IMP si zapamatuje toto heslo bo dobu VaĹĄĂ­ relace (dokud se neodhlĂĄsĂ­te ze systĂŠmu), takĹže se nezapomeĹte odhlĂĄsit.
     </para>
 <!-- English entry:
 <entry id="pgp-overview-personalkey">
@@ -552,14 +552,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-public" state="unknown">
-    <title>PGP: Správa Osobních Klíčů - Veřejný Klíč</title>
-    <heading>Zobrazení</heading>
+    <title>PGP: SprĂĄva OsobnĂ­ch KlĂ­ÄĹŻ - VeĹejnĂ˝ KlĂ­Ä</title>
+    <heading>ZobrazenĂ­</heading>
     <para>
-	Otevře okno a zobrazí v něm PGP veřejný klíč.
+	OtevĹe okno a zobrazĂ­ v nÄm PGP veĹejnĂ˝ klĂ­Ä.
     </para>
     <heading>Detaily</heading>
     <para>
-        Zobrazí detaily ohledně PGP veřejného klíče.
+        ZobrazĂ­ detaily ohlednÄ PGP veĹejnĂŠho klĂ­Äe.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-public">
@@ -574,22 +574,22 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-private" state="unknown">
-    <title>PGP: Správa Osobních Klíčů - Osobní Klíč</title>
-    <heading>Vložit heslo</heading>
+    <title>PGP: SprĂĄva OsobnĂ­ch KlĂ­ÄĹŻ - OsobnĂ­ KlĂ­Ä</title>
+    <heading>VloĹžit heslo</heading>
     <para>
-	Otevře okno pro zadání hesla. Po úspěšném zadání hesla si IMP toto heslo zapamatuje po dobu trvání relace.
+	OtevĹe okno pro zadĂĄnĂ­ hesla. Po ĂşspÄĹĄnĂŠm zadĂĄnĂ­ hesla si IMP toto heslo zapamatuje po dobu trvĂĄnĂ­ relace.
     </para>
     <heading>Zbavit se Hesla</heading>
     <para>
-	IMP se zbaví zapamatovaného hesla, při jakékoliv další manipulaci s osobním klíčem IMP požádá o znovu vložení hesla.
+	IMP se zbavĂ­ zapamatovanĂŠho hesla, pĹi jakĂŠkoliv dalĹĄĂ­ manipulaci s osobnĂ­m klĂ­Äem IMP poĹžĂĄdĂĄ o znovu vloĹženĂ­ hesla.
     </para>
-    <heading>Zobrazení</heading>
+    <heading>ZobrazenĂ­</heading>
     <para>
-	Zobrazí PGP osobní klíč. NEPOSÍLEJTE TENTO KLÍČ NIKOMU - tato fukce je zde pouze pro umožnění exportu toho to klíče do jiných programů či aplikací.
+	ZobrazĂ­ PGP osobnĂ­ klĂ­Ä. NEPOSĂLEJTE TENTO KLĂÄ NIKOMU - tato fukce je zde pouze pro umoĹžnÄnĂ­ exportu toho to klĂ­Äe do jinĂ˝ch programĹŻ Äi aplikacĂ­.
     </para>
     <heading>Detaily</heading>
     <para>
-	Zobrazí detaily Vašeho PGP osobního klíče.
+	ZobrazĂ­ detaily VaĹĄeho PGP osobnĂ­ho klĂ­Äe.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-private">
@@ -612,10 +612,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-delete" state="unknown">
-    <title>PGP: Správa Osobních Klíčů - Vymazání</title>
-    <heading>Vymazat Osobní Klíče</heading>
+    <title>PGP: SprĂĄva OsobnĂ­ch KlĂ­ÄĹŻ - VymazĂĄnĂ­</title>
+    <heading>Vymazat OsobnĂ­ KlĂ­Äe</heading>
     <para>
-	Toto tlačítko vymaže veřejný/osobního klíčového páru z nastavení v IMPu.
+	Toto tlaÄĂ­tko vymaĹže veĹejnĂ˝/osobnĂ­ho klĂ­ÄovĂŠho pĂĄru z nastavenĂ­ v IMPu.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-delete">
@@ -626,10 +626,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-name" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Jméno</title>
-    <heading>Jméno</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - JmĂŠno</title>
+    <heading>JmĂŠno</heading>
     <para>
-	Jméno, které si přejete zahrnout do Vašich osobních klíčů. Požadované pole.
+	JmĂŠno, kterĂŠ si pĹejete zahrnout do VaĹĄich osobnĂ­ch klĂ­ÄĹŻ. PoĹžadovanĂŠ pole.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-name">
@@ -640,10 +640,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-comment" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Poznámka</title>
-    <heading>Poznámka</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - PoznĂĄmka</title>
+    <heading>PoznĂĄmka</heading>
     <para>
-	Poznámka, kterou si přejete zahrnout do Vašich osobních klíčů. Nevyžadované pole.
+	PoznĂĄmka, kterou si pĹejete zahrnout do VaĹĄich osobnĂ­ch klĂ­ÄĹŻ. NevyĹžadovanĂŠ pole.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-comment">
@@ -654,10 +654,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-email" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Emailová Adresa</title>
-    <heading>Emailová Adresa</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - EmailovĂĄ Adresa</title>
+    <heading>EmailovĂĄ Adresa</heading>
     <para>
-	Emailová adresa, kterou si přejete spojit s Vašimi osobními klíči. Požadované pole.
+	EmailovĂĄ adresa, kterou si pĹejete spojit s VaĹĄimi osobnĂ­mi klĂ­Äi. PoĹžadovanĂŠ pole.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-email">
@@ -668,10 +668,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-keylength" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Délka Klíče</title>
-    <heading>Délka Klíče</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - DĂŠlka KlĂ­Äe</title>
+    <heading>DĂŠlka KlĂ­Äe</heading>
     <para>
-	Zadejte délku Vašeho klíče v Bytech. Čím větší hodnota, tím větší ochrana (také delší čas generování a kódování). Implicitní hodnota je 1024 bytů, tato hodnota poskytuje výbornou ochranu.
+	Zadejte dĂŠlku VaĹĄeho klĂ­Äe v Bytech. ÄĂ­m vÄtĹĄĂ­ hodnota, tĂ­m vÄtĹĄĂ­ ochrana (takĂŠ delĹĄĂ­ Äas generovĂĄnĂ­ a kĂłdovĂĄnĂ­). ImplicitnĂ­ hodnota je 1024 bytĹŻ, tato hodnota poskytuje vĂ˝bornou ochranu.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-keylength">
@@ -682,10 +682,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-passphrase" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Heslo</title>
-    <heading>Název</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - Heslo</title>
+    <heading>NĂĄzev</heading>
     <para>
-	Heslo slouží k ochraně/kódování Vašeho osobního klíče. Mělo by být NEJMÉNĚ 6 znaků dlouhé, nemělo by být stejné jako Vaše heslo k účtu, nemělo by být založeno na slově ze slovníku a mělo by obsahovat jak číslice tak písmena. Toto heslo musí být poskytnuto dvakrát (ověření proti překlepům). Požadované pole.
+	Heslo slouĹžĂ­ k ochranÄ/kĂłdovĂĄnĂ­ VaĹĄeho osobnĂ­ho klĂ­Äe. MÄlo by bĂ˝t NEJMĂNÄ 6 znakĹŻ dlouhĂŠ, nemÄlo by bĂ˝t stejnĂŠ jako VaĹĄe heslo k ĂşÄtu, nemÄlo by bĂ˝t zaloĹženo na slovÄ ze slovnĂ­ku a mÄlo by obsahovat jak ÄĂ­slice tak pĂ­smena. Toto heslo musĂ­ bĂ˝t poskytnuto dvakrĂĄt (ovÄĹenĂ­ proti pĹeklepĹŻm). PoĹžadovanĂŠ pole.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-passphrase">
@@ -696,14 +696,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-actions" state="unknown">
-    <title>PGP: Vytvoření Osobního Klíče - Akce</title>
-    <heading>Vytvoření Klíčů</heading>
+    <title>PGP: VytvoĹenĂ­ OsobnĂ­ho KlĂ­Äe - Akce</title>
+    <heading>VytvoĹenĂ­ KlĂ­ÄĹŻ</heading>
     <para>
-	Vytvořit a uložit osobní/veřejný pár klíčů.
+	VytvoĹit a uloĹžit osobnĂ­/veĹejnĂ˝ pĂĄr klĂ­ÄĹŻ.
     </para>
-    <heading>Importovat Klíčový Pár</heading>
+    <heading>Importovat KlĂ­ÄovĂ˝ PĂĄr</heading>
     <para>
-	Importovat osobní/veřejný klíčový pár. Toto tlačítko otevře okno a a pak lze manuálně importovat exitující PGP osobní/veřejný klíčový pár. Klíče mohou být zkopírovány do textového pole, pokud klíče se nachází v souboru na Vašem lokálním počítači, tak je můžete importovat z něho. Pokud jsou klíče platné budou uloženy ve Vašich možnostech nastavení a okno se zavře, pokud nebudou platné objeví se chybová hláška s vysvětlením.
+	Importovat osobnĂ­/veĹejnĂ˝ klĂ­ÄovĂ˝ pĂĄr. Toto tlaÄĂ­tko otevĹe okno a a pak lze manuĂĄlnÄ importovat exitujĂ­cĂ­ PGP osobnĂ­/veĹejnĂ˝ klĂ­ÄovĂ˝ pĂĄr. KlĂ­Äe mohou bĂ˝t zkopĂ­rovĂĄny do textovĂŠho pole, pokud klĂ­Äe se nachĂĄzĂ­ v souboru na VaĹĄem lokĂĄlnĂ­m poÄĂ­taÄi, tak je mĹŻĹžete importovat z nÄho. Pokud jsou klĂ­Äe platnĂŠ budou uloĹženy ve VaĹĄich moĹžnostech nastavenĂ­ a okno se zavĹe, pokud nebudou platnĂŠ objevĂ­ se chybovĂĄ hlĂĄĹĄka s vysvÄtlenĂ­m.
     </para>
 <!-- English entry:
 <entry id="pgp-personalkey-create-actions">
@@ -718,14 +718,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="smime-overview" state="unknown">
-    <title>S/MIME: Přehled</title>
+    <title>S/MIME: PĹehled</title>
     <heading>Co je S/MIME?</heading>
     <para>
-	S/MIME je systém pro osobní/veřejný klíčový pár, který umožňuje použít digtální signatury, soukromé zprávy, detekci falšování. S/MIME poskytuje ochranu utajení zprávy pomocí kódu, který pouze příjemci a odesilatel mohou dekódovat. Toto umožňuje identifikaci odesílatele pomocí jeho digitální signatury. Tyto možnosti poskytují příjemci detekci zda zpráva byla obměněna poté co byla zaslána.
+	S/MIME je systĂŠm pro osobnĂ­/veĹejnĂ˝ klĂ­ÄovĂ˝ pĂĄr, kterĂ˝ umoĹžĹuje pouĹžĂ­t digtĂĄlnĂ­ signatury, soukromĂŠ zprĂĄvy, detekci falĹĄovĂĄnĂ­. S/MIME poskytuje ochranu utajenĂ­ zprĂĄvy pomocĂ­ kĂłdu, kterĂ˝ pouze pĹĂ­jemci a odesilatel mohou dekĂłdovat. Toto umoĹžĹuje identifikaci odesĂ­latele pomocĂ­ jeho digitĂĄlnĂ­ signatury. Tyto moĹžnosti poskytujĂ­ pĹĂ­jemci detekci zda zprĂĄva byla obmÄnÄna potĂŠ co byla zaslĂĄna.
     </para>
-    <heading>Umožnit funkci S/MIME?</heading>
+    <heading>UmoĹžnit funkci S/MIME?</heading>
     <para>
-	Tato funkce Vám umožní importovat S/MIME klíče, číst kódované zprávy, ověřit digitálně označenou zprávu, kódovat/označit Vami zasílané zprávy.
+	Tato funkce VĂĄm umoĹžnĂ­ importovat S/MIME klĂ­Äe, ÄĂ­st kĂłdovanĂŠ zprĂĄvy, ovÄĹit digitĂĄlnÄ oznaÄenou zprĂĄvu, kĂłdovat/oznaÄit Vami zasĂ­lanĂŠ zprĂĄvy.
     </para>
 <!-- English entry:
 <entry id="smime-overview">
@@ -740,10 +740,10 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="smime-overview-personalkey" state="unknown">
-    <title>S/MIME: Osobní Klíče</title>
-    <heading>Přehled</heading>
+    <title>S/MIME: OsobnĂ­ KlĂ­Äe</title>
+    <heading>PĹehled</heading>
     <para>
-	Pokud si přejete označit či zakódovat zprávy, musíte mít vlastní veřejný/osobní S/MIME klíčový pár.
+	Pokud si pĹejete oznaÄit Äi zakĂłdovat zprĂĄvy, musĂ­te mĂ­t vlastnĂ­ veĹejnĂ˝/osobnĂ­ S/MIME klĂ­ÄovĂ˝ pĂĄr.
     </para>
 <!-- English entry:
 <entry id="smime-overview-personalkey">
@@ -788,9 +788,9 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
 </entry>
   <entry id="printing" state="unknown">
     <title>Tisk</title>
-    <heading>Tisknout Zprávu</heading>
+    <heading>Tisknout ZprĂĄvu</heading>
     <para>
-	Pokud si přejete vytisknout právě prohlíženou zprávu, klikněte na linku "Tisk" ve vrchní nebo spodní části zprávy. Otevře se nové okno formátované pro tisk. Zdali se otevře dialog pro tisk záleží na typu Vašeho operačního systému a typu Vašeho prohlížeče internetu. Pokud se dialog neotevře, použijte nabítkovou lištu vyberte "Soubor" -&gt; "Tisk" k otevření dialogu pro tisk.
+	Pokud si pĹejete vytisknout prĂĄvÄ prohlĂ­Ĺženou zprĂĄvu, kliknÄte na linku "Tisk" ve vrchnĂ­ nebo spodnĂ­ ÄĂĄsti zprĂĄvy. OtevĹe se novĂŠ okno formĂĄtovanĂŠ pro tisk. Zdali se otevĹe dialog pro tisk zĂĄleĹžĂ­ na typu VaĹĄeho operaÄnĂ­ho systĂŠmu a typu VaĹĄeho prohlĂ­ĹžeÄe internetu. Pokud se dialog neotevĹe, pouĹžijte nabĂ­tkovou liĹĄtu vyberte "Soubor" -&gt; "Tisk" k otevĹenĂ­ dialogu pro tisk.
     </para>
 <!-- English entry:
 <entry id="printing">
@@ -801,14 +801,14 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="sorting" state="unknown">
-    <title>Třídění a Souvislosti</title>
-    <heading>Typy Třídění</heading>
+    <title>TĹĂ­dÄnĂ­ a Souvislosti</title>
+    <heading>Typy TĹĂ­dÄnĂ­</heading>
     <para>
-	Při prohlížení Vašich zpráv lze použít třídění, podle jakehokoliv sloupce, kliknutím na hlavičku danného sloupce. Přepínání mezi vzestupným a sestupným tříděním lze dosáhnout pomocí kliknutí na malou ikonku šipky v hlavičce danného sloupce.
+	PĹi prohlĂ­ĹženĂ­ VaĹĄich zprĂĄv lze pouĹžĂ­t tĹĂ­dÄnĂ­, podle jakehokoliv sloupce, kliknutĂ­m na hlaviÄku dannĂŠho sloupce. PĹepĂ­nĂĄnĂ­ mezi vzestupnĂ˝m a sestupnĂ˝m tĹĂ­dÄnĂ­m lze dosĂĄhnout pomocĂ­ kliknutĂ­ na malou ikonku ĹĄipky v hlaviÄce dannĂŠho sloupce.
     </para>
     <heading>Souvislosti</heading>
     <para>
-	Pokud si přejete seřazení zpráv podle souvislosti předmětů, což znamená že každá zpráva je zařazena do skupiny zpráv obsahující všechny odpovědi, klikněte na linku [Souvislost] v hlavičce slouce předmět. Navrácení do normálního pořadí lze provést kliknutím na linku [Předmět] v hlavičce slouce předmět.
+	Pokud si pĹejete seĹazenĂ­ zprĂĄv podle souvislosti pĹedmÄtĹŻ, coĹž znamenĂĄ Ĺže kaĹždĂĄ zprĂĄva je zaĹazena do skupiny zprĂĄv obsahujĂ­cĂ­ vĹĄechny odpovÄdi, kliknÄte na linku [Souvislost] v hlaviÄce slouce pĹedmÄt. NavrĂĄcenĂ­ do normĂĄlnĂ­ho poĹadĂ­ lze provĂŠst kliknutĂ­m na linku [PĹedmÄt] v hlaviÄce slouce pĹedmÄt.
     </para>
 <!-- English entry:
 <entry id="sorting">

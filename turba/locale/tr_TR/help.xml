@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <!-- English entry:
@@ -12,10 +12,10 @@
 -->
 
 <entry id="Overview" md5="290506ade4e6f749246f77bbe5d48835" state="uptodate">
-<title>Genel Bakış</title>
-<heading>Tanıtım</heading>
+<title>Genel BakÄ±ÅŸ</title>
+<heading>TanÄ±tÄ±m</heading>
 <para>
-Adres Defteri erişim listenizi saklamak ve hızlı sorgulamak için ideal bir yapıdır. Sistem yöneticinizin ayarlamasına bağlı olarak herkese açık veya gizli listeler yapılabilir. Ayrıca dağıtım listeleri ile kendi e-posta listenizi yaratabilirsiniz.
+Adres Defteri eriÅŸim listenizi saklamak ve hÄ±zlÄ± sorgulamak iÃ§in ideal bir yapÄ±dÄ±r. Sistem yÃ¶neticinizin ayarlamasÄ±na baÄŸlÄ± olarak herkese aÃ§Ä±k veya gizli listeler yapÄ±labilir. AyrÄ±ca daÄŸÄ±tÄ±m listeleri ile kendi e-posta listenizi yaratabilirsiniz.
 </para>
 </entry>
 
@@ -30,10 +30,10 @@ Adres Defteri erişim listenizi saklamak ve hızlı sorgulamak için ideal bir yapıd
 -->
 
 <entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
-<title>Menü: Ekle</title>
+<title>MenÃ¼: Ekle</title>
 <heading>Ekle</heading>
 <para>
-Adres defterinize kullanıcıları ekleyebilirsiniz. Yazma izniniz olan defterlere ekleme yapabilirsiniz. Ortak kullanılan veya herkese açık defterler için sadece okuma izni olduğundan buralara kaydedemezsiniz.
+Adres defterinize kullanÄ±cÄ±larÄ± ekleyebilirsiniz. Yazma izniniz olan defterlere ekleme yapabilirsiniz. Ortak kullanÄ±lan veya herkese aÃ§Ä±k defterler iÃ§in sadece okuma izni olduÄŸundan buralara kaydedemezsiniz.
 </para>
 </entry>
 
@@ -54,10 +54,10 @@ Adres defterinize kullanıcıları ekleyebilirsiniz. Yazma izniniz olan defterlere 
 <title>Menu: Arama</title>
 <heading>Arama</heading>
 <para>
-Arama özelliği bir bilginin yerini bulmak içindir.İsim,e-posta adresi gibi temel özellikler hakkında hızlıca arama yapabilirken , başka özelliklere göre arama yapabilip yapamamanız yöneticinin ayarlamasına bağlıdır.
+Arama Ã¶zelliÄŸi bir bilginin yerini bulmak iÃ§indir.Ä°sim,e-posta adresi gibi temel Ã¶zellikler hakkÄ±nda hÄ±zlÄ±ca arama yapabilirken , baÅŸka Ã¶zelliklere gÃ¶re arama yapabilip yapamamanÄ±z yÃ¶neticinin ayarlamasÄ±na baÄŸlÄ±dÄ±r.
 </para>
 <para>
-Daha gelişkin özellikleri sorgulayabilmek için "<ref module="turba" entry="menu-advanced-search">Gelişmiş Arama</ref>" menüsünü kullanmanız gerekmektedir.
+Daha geliÅŸkin Ã¶zellikleri sorgulayabilmek iÃ§in "<ref module="turba" entry="menu-advanced-search">GeliÅŸmiÅŸ Arama</ref>" menÃ¼sÃ¼nÃ¼ kullanmanÄ±z gerekmektedir.
 </para>
 </entry>
 
@@ -72,10 +72,10 @@ Daha gelişkin özellikleri sorgulayabilmek için "<ref module="turba" entry="menu-
 -->
 
 <entry id="menu-advanced-search" md5="6be703ffeba614f6ada151749fa44ab5" state="uptodate">
-<title>Menü: Gelişmiş Arama</title>
-<heading>Gelişmiş Arama</heading>
+<title>MenÃ¼: GeliÅŸmiÅŸ Arama</title>
+<heading>GeliÅŸmiÅŸ Arama</heading>
 <para>
-Burada birden fazla alan hakkında arama yapılabilir.Hangi alanlar üzerinde arama yapılabileceği hangi adres defterinin hangi alanları içerdiğine bağlıdır.
+Burada birden fazla alan hakkÄ±nda arama yapÄ±labilir.Hangi alanlar Ã¼zerinde arama yapÄ±labileceÄŸi hangi adres defterinin hangi alanlarÄ± iÃ§erdiÄŸine baÄŸlÄ±dÄ±r.
 </para>
 </entry>
 
@@ -129,42 +129,42 @@ Burada birden fazla alan hakkında arama yapılabilir.Hangi alanlar üzerinde arama
 -->
 
 <entry id="menu-import" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4" state="uptodate">
-<title>Menu:Alım ve Gönderim</title>
-<heading>Alım ve Gönderim</heading>
+<title>Menu:AlÄ±m ve GÃ¶nderim</title>
+<heading>AlÄ±m ve GÃ¶nderim</heading>
 <para>
-Bu menü aracılığıyla adres defterinizi başka bir kaynağa alabilir veya başka bir kaynaktan adres defterinize dahil edebilirsiniz.CSV,Outlook, ve vCard gibi daha pek çok popüler biçimler desteklenmektedir.
+Bu menÃ¼ aracÄ±lÄ±ÄŸÄ±yla adres defterinizi baÅŸka bir kaynaÄŸa alabilir veya baÅŸka bir kaynaktan adres defterinize dahil edebilirsiniz.CSV,Outlook, ve vCard gibi daha pek Ã§ok popÃ¼ler biÃ§imler desteklenmektedir.
 </para>
-<heading>Alım</heading>
+<heading>AlÄ±m</heading>
 <para>
-Başka bir kaynaktan liste alımı öncesinde , almak istediğiniz liste bilgisini bulunduğu e-posta istemcisinden ayrı bir dosyaya çıkarmalısınız.
+BaÅŸka bir kaynaktan liste alÄ±mÄ± Ã¶ncesinde , almak istediÄŸiniz liste bilgisini bulunduÄŸu e-posta istemcisinden ayrÄ± bir dosyaya Ã§Ä±karmalÄ±sÄ±nÄ±z.
 </para>
-Outlook Express kullanıyorsanız;
+Outlook Express kullanÄ±yorsanÄ±z;
 <para>
-"File &gt; Export &gt; Address Book" menüsüne tıklayınız.
-</para>
-<para>
-"Address Book Export Tool" dan "Text File" (Comma Separated Values) i seçiniz.Burada da "Export" i seçiniz.
+"File &gt; Export &gt; Address Book" menÃ¼sÃ¼ne tÄ±klayÄ±nÄ±z.
 </para>
 <para>
-"Save exported files as"  alanına çıkarılacak liste dosyasının kaydedileceği adı giriniz ve "Next" a basınız.
+"Address Book Export Tool" dan "Text File" (Comma Separated Values) i seÃ§iniz.Burada da "Export" i seÃ§iniz.
 </para>
 <para>
-Çıkarılmasını istediğiniz alanları seçmek için sol yanlarındaki kutucukları işaretleyip "Finish" a basınız.
+"Save exported files as"  alanÄ±na Ã§Ä±karÄ±lacak liste dosyasÄ±nÄ±n kaydedileceÄŸi adÄ± giriniz ve "Next" a basÄ±nÄ±z.
 </para>
 <para>
-İşlem bitince 'Address book export process has completed' mesajı alacaksınız.Burada 'OK' diyerek işlemi bitirebilirsiniz.
+Ã‡Ä±karÄ±lmasÄ±nÄ± istediÄŸiniz alanlarÄ± seÃ§mek iÃ§in sol yanlarÄ±ndaki kutucuklarÄ± iÅŸaretleyip "Finish" a basÄ±nÄ±z.
 </para>
 <para>
-'Address Book Export Tool' menüsünü kapatınız sonra da Outlook Express ten çıkınız.
+Ä°ÅŸlem bitince 'Address book export process has completed' mesajÄ± alacaksÄ±nÄ±z.Burada 'OK' diyerek iÅŸlemi bitirebilirsiniz.
 </para>
 <para>
-Çıkarılan dosyayı bulamamanız durumunda Windows işletim sistemi kullanıyorsanız Start &gt; Find menüsünden Search &gt; Files or Folders i seçerek yukarda girdiğiniz dosya adını aratıp bunu not etmeniz tavsiye edilir.
+'Address Book Export Tool' menÃ¼sÃ¼nÃ¼ kapatÄ±nÄ±z sonra da Outlook Express ten Ã§Ä±kÄ±nÄ±z.
+</para>
+<para>
+Ã‡Ä±karÄ±lan dosyayÄ± bulamamanÄ±z durumunda Windows iÅŸletim sistemi kullanÄ±yorsanÄ±z Start &gt; Find menÃ¼sÃ¼nden Search &gt; Files or Folders i seÃ§erek yukarda girdiÄŸiniz dosya adÄ±nÄ± aratÄ±p bunu not etmeniz tavsiye edilir.
 </para>
 <tip>
-Çıkarılan dosyayı yüklemek için "Alım/Çıkarım" menüsüne giriniz."gözat" ile dosyanızı bulduktan sonra "Alım" seçeneği ile dosyanızı listenize dahil edebilirsiniz.
+Ã‡Ä±karÄ±lan dosyayÄ± yÃ¼klemek iÃ§in "AlÄ±m/Ã‡Ä±karÄ±m" menÃ¼sÃ¼ne giriniz."gÃ¶zat" ile dosyanÄ±zÄ± bulduktan sonra "AlÄ±m" seÃ§eneÄŸi ile dosyanÄ±zÄ± listenize dahil edebilirsiniz.
 </tip>
 <tip>
-Eklenen dosya içindeki kimi alan bilgileri mevcut adres defterinden farklılık gösteriyorsa vb.. karmaşık durumlarda ekleme sonucunda sorunlar oluşabilir. Bu nedenle işlemin ardından adres defterinizi kontrol etmeniz tavsiye olunur.
+Eklenen dosya iÃ§indeki kimi alan bilgileri mevcut adres defterinden farklÄ±lÄ±k gÃ¶steriyorsa vb.. karmaÅŸÄ±k durumlarda ekleme sonucunda sorunlar oluÅŸabilir. Bu nedenle iÅŸlemin ardÄ±ndan adres defterinizi kontrol etmeniz tavsiye olunur.
 </tip>
 </entry>
 
@@ -190,19 +190,19 @@ Eklenen dosya içindeki kimi alan bilgileri mevcut adres defterinden farklılık gö
 -->
 
 <entry id="searching-search_results" md5="ffed8d72fa3b710df8e902c2493b254f" state="uptodate">
-<title>Arama: Arama Sonuçları</title>
-<heading>Arama Sonuçları</heading>
+<title>Arama: Arama SonuÃ§larÄ±</title>
+<heading>Arama SonuÃ§larÄ±</heading>
 <para>
-Başarılı arama sonuçlarının listesi "Arama Sonuçları" menüsünden görüntülenebilecektir.
+BaÅŸarÄ±lÄ± arama sonuÃ§larÄ±nÄ±n listesi "Arama SonuÃ§larÄ±" menÃ¼sÃ¼nden gÃ¶rÃ¼ntÃ¼lenebilecektir.
 </para>
 <para>
-"Eposta" menüsünün seçimi ile bulunan sonuç adrese e-posta atılabilir."İsim" alanından arama sonucundaki isim alanı düzenlenebilir.
+"Eposta" menÃ¼sÃ¼nÃ¼n seÃ§imi ile bulunan sonuÃ§ adrese e-posta atÄ±labilir."Ä°sim" alanÄ±ndan arama sonucundaki isim alanÄ± dÃ¼zenlenebilir.
 </para>
 <para>
-Arama sonuçları önceki arama sonuçlarına ilaveten gösteriliyor olabilir.Bu sistem yöneticisinin ayarına bağlıdır.Bu durumda önceki arama sonuçlarını "Aramayı Sil" menüsü ile silebilirsiniz.
+Arama sonuÃ§larÄ± Ã¶nceki arama sonuÃ§larÄ±na ilaveten gÃ¶steriliyor olabilir.Bu sistem yÃ¶neticisinin ayarÄ±na baÄŸlÄ±dÄ±r.Bu durumda Ã¶nceki arama sonuÃ§larÄ±nÄ± "AramayÄ± Sil" menÃ¼sÃ¼ ile silebilirsiniz.
 </para>
 <tip>
-Girişlerin listesini görüntülerken, girişleri herhangi bir sütuna göre o sütunun başlığına tıklayarak sınıflandırabilirsiniz. Sütunu yükselen ve alçalan sınıflandırma arasında değiştirmek için, sütun başlığındaki ok simgesini tıklayın.
+GiriÅŸlerin listesini gÃ¶rÃ¼ntÃ¼lerken, giriÅŸleri herhangi bir sÃ¼tuna gÃ¶re o sÃ¼tunun baÅŸlÄ±ÄŸÄ±na tÄ±klayarak sÄ±nÄ±flandÄ±rabilirsiniz. SÃ¼tunu yÃ¼kselen ve alÃ§alan sÄ±nÄ±flandÄ±rma arasÄ±nda deÄŸiÅŸtirmek iÃ§in, sÃ¼tun baÅŸlÄ±ÄŸÄ±ndaki ok simgesini tÄ±klayÄ±n.
 </tip>
 </entry>
 

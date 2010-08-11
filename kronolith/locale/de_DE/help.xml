@@ -1,84 +1,84 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
-    <title>Kronolith: Überblick</title>
+    <title>Kronolith: Ãœberblick</title>
     <para>
       Bei Kronolith handelt es sich um einen webbasierten Kalender. Neben den
-      üblichen Funktionen wie Eintragen, Bearbeiten und Löschen von Terminen
-      werden außerdem sich wiederholende Termine (mit Ausnahmen und
-      verschiedenen Löschmöglichkeiten), Alarme, Im- und Export (iCalendar,
+      Ã¼blichen Funktionen wie Eintragen, Bearbeiten und LÃ¶schen von Terminen
+      werden auÃŸerdem sich wiederholende Termine (mit Ausnahmen und
+      verschiedenen LÃ¶schmÃ¶glichkeiten), Alarme, Im- und Export (iCalendar,
       Textdateien und Palm), iCalendar-Einladungen, verschiedene
       Kalenderansichten, gemeinsame Kalender, Anzeige von Aufgaben (wenn
       die Aufgabenlistenanwendung Nag installiert ist) und die Anzeige von
-      Terminen im Horde-Portal unterstützt.
+      Terminen im Horde-Portal unterstÃ¼tzt.
     </para>
   </entry>
   <entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
-    <title>Menü: Heute</title>
+    <title>MenÃ¼: Heute</title>
     <para>
-      Ein Klick auf den <i>Heute</i>-Menüeintrag zeigt Ihre Standardansicht
-      (Monat, Woche, Tag usw. wie in den Einstellungen festgelegt) für das
+      Ein Klick auf den <i>Heute</i>-MenÃ¼eintrag zeigt Ihre Standardansicht
+      (Monat, Woche, Tag usw. wie in den Einstellungen festgelegt) fÃ¼r das
       aktuelle Datum an.
     </para>
   </entry>
   <entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
-    <title>Menü: Gehe zu</title>
+    <title>MenÃ¼: Gehe zu</title>
     <para>
-      Ein Klick auf den <i>Gehe zu</i>-Menüeintrag zeigt ein kleines
-      Popupfenster an, über das Sie schnell zu einen bestimmten Monat, Woche
-      oder Tag gelangen können. Dies ist für gewöhnlich die schnellste Art, im
+      Ein Klick auf den <i>Gehe zu</i>-MenÃ¼eintrag zeigt ein kleines
+      Popupfenster an, Ã¼ber das Sie schnell zu einen bestimmten Monat, Woche
+      oder Tag gelangen kÃ¶nnen. Dies ist fÃ¼r gewÃ¶hnlich die schnellste Art, im
       Kalender zu navigieren.
     </para>
   </entry>
   <entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
-    <title>Menü: Tag</title>
+    <title>MenÃ¼: Tag</title>
     <para>
       Ein Klick auf den <i>Tag</i>-Tabreiter zeigt die Tagesansicht des
-      ausgewählten Tages an.
+      ausgewÃ¤hlten Tages an.
     </para>
   </entry>
   <entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
-    <title>Menü: Arbeitswoche</title>
+    <title>MenÃ¼: Arbeitswoche</title>
     <para>
       Ein Klick auf den <i>Arbeitswoche</i>-Tabreiter zeigt die
-      Arbeitswochenansicht (Montag bis Freitag) des ausgewählten Tages an.
+      Arbeitswochenansicht (Montag bis Freitag) des ausgewÃ¤hlten Tages an.
     </para>
   </entry>
   <entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
-    <title>Menü: Woche</title>
+    <title>MenÃ¼: Woche</title>
     <para>
       Ein Klick auf den <i>Woche</i>-Tabreiter zeigt die Wochenansicht
-      (7-Tage-Woche) des ausgewählten Tages an.
+      (7-Tage-Woche) des ausgewÃ¤hlten Tages an.
     </para>
   </entry>
   <entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
-    <title>Menü: Monat</title>
+    <title>MenÃ¼: Monat</title>
     <para>
       Ein Klick auf den <i>Monat</i>-Tabreiter zeigt die Monatsansicht des
-      ausgewählten Tages an.
+      ausgewÃ¤hlten Tages an.
     </para>
   </entry>
   <entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
-    <title>Menü: Neuer Termin</title>
+    <title>MenÃ¼: Neuer Termin</title>
     <para>
-      Der <i>Gehe zu</i>-Menüeintrag erlaubt das Hinzufügen neuer Termine zum
+      Der <i>Gehe zu</i>-MenÃ¼eintrag erlaubt das HinzufÃ¼gen neuer Termine zum
       Kalender.
     </para>
   </entry>
   <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
-    <title>Menü: Einstellungen</title>
+    <title>MenÃ¼: Einstellungen</title>
     <para>
-      Über den <i>Einstellungen</i>-Menüeintrag können Sie die Einstellungen
+      Ãœber den <i>Einstellungen</i>-MenÃ¼eintrag kÃ¶nnen Sie die Einstellungen
       bearbeiten, die das Aussehen Kronoliths und das Zusammenspiel Kronoliths
       mit Horde und und anderen Horde-Anwendungen beeinflussen und mehrere,
       auch gemeinsame, Kalender verwalten.
     </para>
   </entry>
   <entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
-    <title>Menü: Import/Export</title>
+    <title>MenÃ¼: Import/Export</title>
     <para>
-      Mit dem <i>Import/Export</i>-Menüeintrag können Sie Termine im- und
-      exportieren. Zur Zeit können Sie kommagetrennte Textdateien, z.B. von
+      Mit dem <i>Import/Export</i>-MenÃ¼eintrag kÃ¶nnen Sie Termine im- und
+      exportieren. Zur Zeit kÃ¶nnen Sie kommagetrennte Textdateien, z.B. von
       Microsoft Outlook und Dateien im vCalender/iCalendar-Format im- und
       exportieren.
     </para>
@@ -86,38 +86,38 @@
   <entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
     <title>Alarme</title>
     <para>
-      Kronolith kann Alarme für Termine erzeugen. Als Standard wird der Alarm
-      15 Minuten vor dem Terminbeginn ausgelöst, Sie können die Alarmzeit aber
-      für jeden Termin frei festlegen.
+      Kronolith kann Alarme fÃ¼r Termine erzeugen. Als Standard wird der Alarm
+      15 Minuten vor dem Terminbeginn ausgelÃ¶st, Sie kÃ¶nnen die Alarmzeit aber
+      fÃ¼r jeden Termin frei festlegen.
     </para>
   </entry>
   <entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
     <title>Wiederkehrende Termine</title>
     <para>
-      Termine können auf verschiedene Weise wiederholt werden, z.B. monatlich
-      oder wöchentlich. Aber auch komplexere Wiederholrhythmen sind möglich,
+      Termine kÃ¶nnen auf verschiedene Weise wiederholt werden, z.B. monatlich
+      oder wÃ¶chentlich. Aber auch komplexere Wiederholrhythmen sind mÃ¶glich,
       z.B. jeden dritten Freitag eines Monats oder jede Woche Montags,
       Mittwochs und Freitags.
     </para>
     <para>
-      Sie können ebenfalls festlegen, wie lange ein Termin wiederholt wird,
-      indem Sie ein <i>Enddatum</i> für die Wiederholungen einstellen.
+      Sie kÃ¶nnen ebenfalls festlegen, wie lange ein Termin wiederholt wird,
+      indem Sie ein <i>Enddatum</i> fÃ¼r die Wiederholungen einstellen.
     </para>
     <para>
-      Normalerweise wirken sich Änderungen an einem wiederkehrenden Termin auf
-      alle Wiederholungen dieses Termins aus. Sie können aber eine einzelne
+      Normalerweise wirken sich Ã„nderungen an einem wiederkehrenden Termin auf
+      alle Wiederholungen dieses Termins aus. Sie kÃ¶nnen aber eine einzelne
       Wiederholung bearbeiten, indem Sie beim Bearbeiten den Wiederholrhythmus
-      zurücksetzen und die Bearbeitung mit "Als Kopie speichern"
+      zurÃ¼cksetzen und die Bearbeitung mit "Als Kopie speichern"
       beenden. Danach haben Sie einen einzelnen Termin, den Sie getrennt von
-      den anderen bearbeiten können.
+      den anderen bearbeiten kÃ¶nnen.
     </para>
   </entry>
   <entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
     <title>Drucken</title>
     <heading>Drucken von Kalendern und Terminen</heading>
     <para>
-      Verschiedene Ansichten können ausgedruckt werden. Wenn Sie sich in einer
-      dieser Ansichten befinden, wird ein <i>Drucken</i>-Symbol im Menü
+      Verschiedene Ansichten kÃ¶nnen ausgedruckt werden. Wenn Sie sich in einer
+      dieser Ansichten befinden, wird ein <i>Drucken</i>-Symbol im MenÃ¼
       angezeigt. Wenn Sie auf diesen Eintrag klicken, wird die aktuelle
       Ansicht ausgedruckt.
     </para>
@@ -125,11 +125,11 @@
   <entry id="embed" state="uptodate" md5="f62876bee3350ab0066d4f90feeef297">
   <title>Einbetten</title>
   <para>
-    Sie können kleine Ansichten Ihrer Kalender in externe Webseite einbetten.
-    Dafür stehen Ihnen die gleichen Ansichten zur Verfügung, die auch als
-    Blöcke in Horde's Portal benutzt werden können. Es folgen Code-Beispiele,
-    die Sie verwenden können, um die jeweiligen Ansichten in Ihren Blog oder
-    Ihre Webseite einzubinden. Sie müssen in dem Code natürlich die richtige
+    Sie kÃ¶nnen kleine Ansichten Ihrer Kalender in externe Webseite einbetten.
+    DafÃ¼r stehen Ihnen die gleichen Ansichten zur VerfÃ¼gung, die auch als
+    BlÃ¶cke in Horde's Portal benutzt werden kÃ¶nnen. Es folgen Code-Beispiele,
+    die Sie verwenden kÃ¶nnen, um die jeweiligen Ansichten in Ihren Blog oder
+    Ihre Webseite einzubinden. Sie mÃ¼ssen in dem Code natÃ¼rlich die richtige
     Serveradresse und die richtigen Kalendernamen einsetzen. Der
     'container'-Parameter kann einen beliebigen Wert haben, muss aber der
     DOM-Id eines DIV-Elements entsprechen und darf nur einmal auf der ganzen
@@ -151,7 +151,7 @@
     /view=monthlist/calendar=calendar_name/container=kronolist/months=2/
     maxevents=10" type="text/javascript"&gt;&lt;/script&gt;</i>
   <para>
-    Um eine Terminübersicht einzubetten:
+    Um eine TerminÃ¼bersicht einzubetten:
   </para>
     <i>&lt;div id="kronosummary"&gt;
     &lt;/div&gt;&lt;script type="text/javascript"

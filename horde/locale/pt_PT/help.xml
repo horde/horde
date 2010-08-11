@@ -1,39 +1,39 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="summary" state="uptodate" md5="68ca33f7f0c9aae4c103eb47492cdc15">
-<title>A Página do Portal</title>
+<title>A PÃ¡gina do Portal</title>
  <para>
-Esta página fornece um breve sumário de toda a sua informação importante.
+Esta pÃ¡gina fornece um breve sumÃ¡rio de toda a sua informaÃ§Ã£o importante.
 Por exemplo, pode mostrar quantas mensagens novas de e-mail existem na sua INBOX,
-os eventos agendados no seu calendário, tarefas na sua lista de afazeres,os cabeçalhos dos
-serviços de notícias seleccionados, e muito mais.
-Muitos destes sumários contêm atalhos rápidos para as funções mais comuns, como composição
-de uma nova mensagem de e-mail, criação de um novo calendário de eventos ou tarefas, etc.
+os eventos agendados no seu calendÃ¡rio, tarefas na sua lista de afazeres,os cabeÃ§alhos dos
+serviÃ§os de notÃ­cias seleccionados, e muito mais.
+Muitos destes sumÃ¡rios contÃªm atalhos rÃ¡pidos para as funÃ§Ãµes mais comuns, como composiÃ§Ã£o
+de uma nova mensagem de e-mail, criaÃ§Ã£o de um novo calendÃ¡rio de eventos ou tarefas, etc.
    </para>
  <para>
-Os conteúdos deste portal são personalizáveis através de um botão de Layout.
-Por exemplo, pode escolher quais os items a incluir neste portal e a sua ordem de apresentação
+Os conteÃºdos deste portal sÃ£o personalizÃ¡veis atravÃ©s de um botÃ£o de Layout.
+Por exemplo, pode escolher quais os items a incluir neste portal e a sua ordem de apresentaÃ§Ã£o
  </para>
 </entry>
   <entry id="navbar" state="uptodate" md5="b8cf0ae19e57dfa0c2b962e516782f47">
 <title>The Application Navigation Bar</title>
  <para>
-No lado esquerdo da página web está a barra de navegação.
-Clique nos ícones desta barra de navegação para rápida e fácilmente escolher
-as aplicações disponíveis.
+No lado esquerdo da pÃ¡gina web estÃ¡ a barra de navegaÃ§Ã£o.
+Clique nos Ã­cones desta barra de navegaÃ§Ã£o para rÃ¡pida e fÃ¡cilmente escolher
+as aplicaÃ§Ãµes disponÃ­veis.
  </para>
 </entry>
   <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
     <title>Preferences: Maintenance: Do Maintenance</title>
     <para>
-Se pretender realizar operações de manutenção no login, seleccione esta caixa.
+Se pretender realizar operaÃ§Ãµes de manutenÃ§Ã£o no login, seleccione esta caixa.
  </para>
 </entry>
   <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
-    <title>Preferências: Manutenção: Confirmar Manutenção</title>
+    <title>PreferÃªncias: ManutenÃ§Ã£o: Confirmar ManutenÃ§Ã£o</title>
     <para>
-Se pretender confirmar todas as tarefas de manutenção antes de serem aplicadas, seleccione esta caixa.
-Se não seleccionar esta caixa, todas as operações de manutenção serão realizadas automáticamente sem a opção de
+Se pretender confirmar todas as tarefas de manutenÃ§Ã£o antes de serem aplicadas, seleccione esta caixa.
+Se nÃ£o seleccionar esta caixa, todas as operaÃ§Ãµes de manutenÃ§Ã£o serÃ£o realizadas automÃ¡ticamente sem a opÃ§Ã£o de
 cancelar no login.
     </para>
 </entry>

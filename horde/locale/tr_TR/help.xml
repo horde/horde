@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <!-- English entry:
@@ -20,12 +20,12 @@
 </entry>
 -->
 <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
-<title>Giriş Sayfası</title>
+<title>GiriÅŸ SayfasÄ±</title>
 <para>
-Giriş sayfası size önemli bilgilerinizin kısa özetini verir. Örneğin, gelen kutunuzda kaç tane yeni elektronik posta olduğunu, takviminizdeki yaklaşan olayları, yapılacaklar listesindeki işlerinizi, seçili haber servisindeki başlıkları vs. gösterir. Bu özetlerin çoğu genel fonksiyonlar için kısayollar içerecektir,  yeni posta oluşturmak, yeni takvim olayı ya da işi oluşturmak gibi.
+GiriÅŸ sayfasÄ± size Ã¶nemli bilgilerinizin kÄ±sa Ã¶zetini verir. Ã–rneÄŸin, gelen kutunuzda kaÃ§ tane yeni elektronik posta olduÄŸunu, takviminizdeki yaklaÅŸan olaylarÄ±, yapÄ±lacaklar listesindeki iÅŸlerinizi, seÃ§ili haber servisindeki baÅŸlÄ±klarÄ± vs. gÃ¶sterir. Bu Ã¶zetlerin Ã§oÄŸu genel fonksiyonlar iÃ§in kÄ±sayollar iÃ§erecektir,  yeni posta oluÅŸturmak, yeni takvim olayÄ± ya da iÅŸi oluÅŸturmak gibi.
 </para>
 <para>
-Giriş sayfasının içeriği düzenleme tuşu ile isteğe uyarlanabilir. "Örneğin, giriş sayfasının hangi öğeleri içereceğinin yanında bu öğelerin gösterilme sıraları da seçilebilir.
+GiriÅŸ sayfasÄ±nÄ±n iÃ§eriÄŸi dÃ¼zenleme tuÅŸu ile isteÄŸe uyarlanabilir. "Ã–rneÄŸin, giriÅŸ sayfasÄ±nÄ±n hangi Ã¶ÄŸeleri iÃ§ereceÄŸinin yanÄ±nda bu Ã¶ÄŸelerin gÃ¶sterilme sÄ±ralarÄ± da seÃ§ilebilir.
 </para>
 </entry>
 
@@ -42,9 +42,9 @@ Giriş sayfasının içeriği düzenleme tuşu ile isteğe uyarlanabilir. "Örneğin, giri
 -->
 
 <entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
-<title>Uygulama Dolaşım Çubuğu</title>
+<title>Uygulama DolaÅŸÄ±m Ã‡ubuÄŸu</title>
 <para>
-Uygulama dolaşım çubuğu web sayfasının sol kenarıdır. Mevcut uygulamalar arasında  hızlı ve kolayca gezinebilmek için ulaşım çubuğundaki simgeleri tıklayınız.
+Uygulama dolaÅŸÄ±m Ã§ubuÄŸu web sayfasÄ±nÄ±n sol kenarÄ±dÄ±r. Mevcut uygulamalar arasÄ±nda  hÄ±zlÄ± ve kolayca gezinebilmek iÃ§in ulaÅŸÄ±m Ã§ubuÄŸundaki simgeleri tÄ±klayÄ±nÄ±z.
 </para>
 </entry>
 
@@ -59,9 +59,9 @@ Uygulama dolaşım çubuğu web sayfasının sol kenarıdır. Mevcut uygulamalar arasınd
 -->
 
 <entry id="prefs-do_maintenance" md5="dd95df07a03031232baea919288b2d00" state="uptodate">
-<title>Tercihler: Bakım: Bakım Yapma</title>
+<title>Tercihler: BakÄ±m: BakÄ±m Yapma</title>
 <para>
-Sisteme girerken bakım işlemleri yapmak isterseniz bu kutuyu işaretleyiniz.
+Sisteme girerken bakÄ±m iÅŸlemleri yapmak isterseniz bu kutuyu iÅŸaretleyiniz.
 </para>
 </entry>
 
@@ -75,9 +75,9 @@ Sisteme girerken bakım işlemleri yapmak isterseniz bu kutuyu işaretleyiniz.
 -->
 
 <entry id="prefs-confirm_maintenance" md5="a21162cdff3b1d8faeadb7296240036e" state="uptodate">
-<title>Tercihler: Bakım: Bakım Doğrulama</title>
+<title>Tercihler: BakÄ±m: BakÄ±m DoÄŸrulama</title>
 <para>
-Bakım görevlerini çalışmaya başlamadan önce doğrulamak istiyorsanız bu kutuyu işaretleyiniz. Eğer kutu işaretlenmemiş ise çalışması gereken bütün bakım işlemleriniz sisteme girerken ,iptal etme şansınız olmadan otomatik olarak gerçekleşecektir.
+BakÄ±m gÃ¶revlerini Ã§alÄ±ÅŸmaya baÅŸlamadan Ã¶nce doÄŸrulamak istiyorsanÄ±z bu kutuyu iÅŸaretleyiniz. EÄŸer kutu iÅŸaretlenmemiÅŸ ise Ã§alÄ±ÅŸmasÄ± gereken bÃ¼tÃ¼n bakÄ±m iÅŸlemleriniz sisteme girerken ,iptal etme ÅŸansÄ±nÄ±z olmadan otomatik olarak gerÃ§ekleÅŸecektir.
 </para>
 </entry>
 

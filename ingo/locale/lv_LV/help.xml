@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="blacklist" md5="74bee567c19947a8c9de526f92137256" state="changed">
     <title>Melnais saraksts</title>
     <heading>Melnais saraksts</heading>
     <para>
-    [Melnais saraksts] ir E-pasta adreðu saraksts, no kurâm saòemtâs vçstules Jûs nevçlaties redzçt savâ pastkastîtç (INBOX).
+    [Melnais saraksts] ir E-pasta adreÃ°u saraksts, no kurÃ¢m saÃ²emtÃ¢s vÃ§stules JÃ»s nevÃ§laties redzÃ§t savÃ¢ pastkastÃ®tÃ§ (INBOX).
     </para>
 <!-- English entry:
 <entry id="blacklist">
@@ -33,9 +33,9 @@
     you do not wish to see in your INBOX.</para>
   </entry>--></entry>
   <entry id="blacklist-action" md5="d11ed07f0671f3a374d3307ecd71b6f2" state="changed">
-    <title> Melnais saraksts: Darbîba</title>
+    <title> Melnais saraksts: DarbÃ®ba</title>
     <para>
-    Ðî darbîba nosaka rîcîbu, ja ir saòemta vçstule no Melnajâ sarakstâ uzskaitîtajiem nosûtîtâjiem. Iespçjamâs darbîbas ir [Dzçst] vai [Pârcelt uz]. Ja ir izvçlçts [Dzçst], vçstules tiks izdzçstas vçl pirms nonâkðanas Jûsu INBOX. Ja Jûsu izvçle ir [Pârvietot uz], ienâkusî vçstule tiks pârvietota uz norâdîto mapi.
+    ÃÃ® darbÃ®ba nosaka rÃ®cÃ®bu, ja ir saÃ²emta vÃ§stule no MelnajÃ¢ sarakstÃ¢ uzskaitÃ®tajiem nosÃ»tÃ®tÃ¢jiem. IespÃ§jamÃ¢s darbÃ®bas ir [DzÃ§st] vai [PÃ¢rcelt uz]. Ja ir izvÃ§lÃ§ts [DzÃ§st], vÃ§stules tiks izdzÃ§stas vÃ§l pirms nonÃ¢kÃ°anas JÃ»su INBOX. Ja JÃ»su izvÃ§le ir [PÃ¢rvietot uz], ienÃ¢kusÃ® vÃ§stule tiks pÃ¢rvietota uz norÃ¢dÃ®to mapi.
     </para>
 <!-- English entry:
 <entry id="blacklist-action">
@@ -81,7 +81,7 @@
   <entry id="blacklist-addresses" md5="1cbd05d7cb651fdbccc9181be6a789d8" state="changed">
     <title>Melnais saraksts: Adreses</title>
     <para>
-    E-pasta adreses, no kurâm Jûs noteikti nevçlaties saòemt vçstules. Katru adresi ir jâievada atseviðíâ rindâ.
+    E-pasta adreses, no kurÃ¢m JÃ»s noteikti nevÃ§laties saÃ²emt vÃ§stules. Katru adresi ir jÃ¢ievada atseviÃ°Ã­Ã¢ rindÃ¢.
     </para>
 <!-- English entry:
 <entry id="blacklist-addresses">
@@ -112,7 +112,7 @@
   <entry id="filters_rules" md5="6683bfda1a3eb627ac02b4ec1c486c87" state="changed">
     <title>Likumi: Filtru likumi</title>
     <para>
-    Tas ir galvenais likumu ekrâns. No ðejienes Jûs varat radît jaunu likumu, uzklikðíinot pogai "Jauns likums"; mainît pielietojamo filtru secîbu, uzklikðíinot bultiòu ikonâm stabiòâ "Pârvietot"; ieslçgt vai izslçgt atseviðíus likumus, uzklikðíinot ikonai stabiòâ "Ieslçgts"; labot atseviðíus likumus, uzklikðíinot ikonai stabiòâ "Labot" vai likuma nosaukumam.
+    Tas ir galvenais likumu ekrÃ¢ns. No Ã°ejienes JÃ»s varat radÃ®t jaunu likumu, uzklikÃ°Ã­inot pogai "Jauns likums"; mainÃ®t pielietojamo filtru secÃ®bu, uzklikÃ°Ã­inot bultiÃ²u ikonÃ¢m stabiÃ²Ã¢ "PÃ¢rvietot"; ieslÃ§gt vai izslÃ§gt atseviÃ°Ã­us likumus, uzklikÃ°Ã­inot ikonai stabiÃ²Ã¢ "IeslÃ§gts"; labot atseviÃ°Ã­us likumus, uzklikÃ°Ã­inot ikonai stabiÃ²Ã¢ "Labot" vai likuma nosaukumam.
     </para>
 <!-- English entry:
 <entry id="filters_rules">
@@ -186,10 +186,10 @@
     </para>
   </entry>--></entry>
   <entry id="forward" md5="876cd0cf20642eab9a06d58a2eaad95c" state="changed">
-    <title>Pârsûtît</title>
-    <heading>Pârsûtît</heading>
+    <title>PÃ¢rsÃ»tÃ®t</title>
+    <heading>PÃ¢rsÃ»tÃ®t</heading>
     <para>
-    Jûs varat noradît E-pasta adresi(-es), kurp automâtiski pârsûtît jaunpienâkuðâs vçstules.
+    JÃ»s varat noradÃ®t E-pasta adresi(-es), kurp automÃ¢tiski pÃ¢rsÃ»tÃ®t jaunpienÃ¢kuÃ°Ã¢s vÃ§stules.
     </para>
 <!-- English entry:
 <entry id="forward">
@@ -218,10 +218,10 @@
     number of other mail addresses.</para>
   </entry>--></entry>
   <entry id="forward-addresses" md5="ab4033b99005075d3d099ca8c879c7d1" state="changed">
-    <title>Pârsûtît: Adreses</title>
-    <heading>Pârsûtît: Adreses</heading>
+    <title>PÃ¢rsÃ»tÃ®t: Adreses</title>
+    <heading>PÃ¢rsÃ»tÃ®t: Adreses</heading>
     <para>
-    Jûs varat izvçlçties pârsûtît jaunpienâkuðâs vçstules uz citu E-pasta adresi. Jûs varat norâdît neierobeþotu adreðu skaitu, katru adresi ievadot atseviðíâ rindâ.
+    JÃ»s varat izvÃ§lÃ§ties pÃ¢rsÃ»tÃ®t jaunpienÃ¢kuÃ°Ã¢s vÃ§stules uz citu E-pasta adresi. JÃ»s varat norÃ¢dÃ®t neierobeÃ¾otu adreÃ°u skaitu, katru adresi ievadot atseviÃ°Ã­Ã¢ rindÃ¢.
     </para>
 <!-- English entry:
 <entry id="forward-addresses">
@@ -255,10 +255,10 @@
     a new line.</para>
   </entry>--></entry>
   <entry id="forward-keepcopy" md5="3b755b6dc934d2a5e75c74d577ae3a8f" state="changed">
-    <title>Pârsûtît: Saglabât kopiju</title>
-    <heading>Pârsûtît: Saglabât kopiju</heading>
+    <title>PÃ¢rsÃ»tÃ®t: SaglabÃ¢t kopiju</title>
+    <heading>PÃ¢rsÃ»tÃ®t: SaglabÃ¢t kopiju</heading>
     <para>
-    Ja Jûs izvçlçsieties ðo opciju, jaunpienâkuðo vçstuïu kopijas tiks saglabâtas ðajâ pastkastîtç, kâ arî tiks pârsûtîtas uz Jûsu norâdîtajâm pârsûtîðanas adresçm.
+    Ja JÃ»s izvÃ§lÃ§sieties Ã°o opciju, jaunpienÃ¢kuÃ°o vÃ§stuÃ¯u kopijas tiks saglabÃ¢tas Ã°ajÃ¢ pastkastÃ®tÃ§, kÃ¢ arÃ® tiks pÃ¢rsÃ»tÃ®tas uz JÃ»su norÃ¢dÃ®tajÃ¢m pÃ¢rsÃ»tÃ®Ã°anas adresÃ§m.
     </para>
 <!-- English entry:
 <entry id="forward-keepcopy">
@@ -292,9 +292,9 @@
     have your mail forwarded.</para>
   </entry>--></entry>
   <entry id="pref-show_filter_msg" md5="8ae1c08eeabece935b2b4f212c42361a" state="changed">
-    <title>Izvçle: Râdît detalizçtus filtru statusa paziòojumus?</title>
+    <title>IzvÃ§le: RÃ¢dÃ®t detalizÃ§tus filtru statusa paziÃ²ojumus?</title>
     <para>
-    Ja tiek lietots IMAP filtrçðanas dzinis, ðî izvçle nosaka, cik pïâpîgs ir filtrçðanas process. Ja ir uzstâdîts "Jâ", katra caur filtriem izgâjusî vçstule izsauks uz ekrâna atseviðíu informatîvo paziòojumu uzreiz pçc vçstules apstrâdes. Ja ir uzstâdîts "Nç", tiks parâdîts tikai filtru darbîbas kopsavilkums.
+    Ja tiek lietots IMAP filtrÃ§Ã°anas dzinis, Ã°Ã® izvÃ§le nosaka, cik pÃ¯Ã¢pÃ®gs ir filtrÃ§Ã°anas process. Ja ir uzstÃ¢dÃ®ts "JÃ¢", katra caur filtriem izgÃ¢jusÃ® vÃ§stule izsauks uz ekrÃ¢na atseviÃ°Ã­u informatÃ®vo paziÃ²ojumu uzreiz pÃ§c vÃ§stules apstrÃ¢des. Ja ir uzstÃ¢dÃ®ts "NÃ§", tiks parÃ¢dÃ®ts tikai filtru darbÃ®bas kopsavilkums.
     </para>
 <!-- English entry:
 <entry id="pref-show_filter_msg">
@@ -338,9 +338,9 @@
     filter actions will be output to the screen.</para>
   </entry>--></entry>
   <entry id="pref-filter_seen" md5="d8ed2a21acac08d50d0c0e2e27ae5d54" state="changed">
-    <title>Izvçle: Filtrçt tikai [ne]lasîtâs vçstules?</title>
+    <title>IzvÃ§le: FiltrÃ§t tikai [ne]lasÃ®tÃ¢s vÃ§stules?</title>
     <para>
-    Ðî izvçle nosaka, kad IMAP filtrçðanas dzinis apstrâdâs INBOX esoðâs vçstules. Jûs varat apstrâdât visas INBOX esoðâs vçstules vai TIKAI tâs, kas atzîmçtas kâ nelasîtas vai arî TIKAI tâs, kas atzîmçtas kâ lasîtas.
+    ÃÃ® izvÃ§le nosaka, kad IMAP filtrÃ§Ã°anas dzinis apstrÃ¢dÃ¢s INBOX esoÃ°Ã¢s vÃ§stules. JÃ»s varat apstrÃ¢dÃ¢t visas INBOX esoÃ°Ã¢s vÃ§stules vai TIKAI tÃ¢s, kas atzÃ®mÃ§tas kÃ¢ nelasÃ®tas vai arÃ® TIKAI tÃ¢s, kas atzÃ®mÃ§tas kÃ¢ lasÃ®tas.
     </para>
 <!-- English entry:
 <entry id="pref-filter_seen">
@@ -382,7 +382,7 @@
     <title>Filtra likumi</title>
     <heading>Filtra likumi</heading>
     <para>
-    Likums ir Jûsu pasta filtru uzbûves stûrakmens. Tas sastâv no viena vai vairâkiem nosacîjumiem un vienas vai vairâkâm darbîbâm. Kad jums pienâk jauna vçstule, tâ tiek apstrâdâta atbilstoði Jûsu filtru nosacîjumiem. Ja tiek konstatçta atbilstîba filtra nosacîjumiem, vçstule tiek apstrâdâta atbilstoði likumâ noteiktajâm darbîbâm. Filtri ir ïoti noderîgi, lai atbrîvotos no nevçlamâm vçstulçm vai organizçtu Jûsu pastkastîti, uzglabâjot vçstules tematiskâs mapçs.
+    Likums ir JÃ»su pasta filtru uzbÃ»ves stÃ»rakmens. Tas sastÃ¢v no viena vai vairÃ¢kiem nosacÃ®jumiem un vienas vai vairÃ¢kÃ¢m darbÃ®bÃ¢m. Kad jums pienÃ¢k jauna vÃ§stule, tÃ¢ tiek apstrÃ¢dÃ¢ta atbilstoÃ°i JÃ»su filtru nosacÃ®jumiem. Ja tiek konstatÃ§ta atbilstÃ®ba filtra nosacÃ®jumiem, vÃ§stule tiek apstrÃ¢dÃ¢ta atbilstoÃ°i likumÃ¢ noteiktajÃ¢m darbÃ®bÃ¢m. Filtri ir Ã¯oti noderÃ®gi, lai atbrÃ®votos no nevÃ§lamÃ¢m vÃ§stulÃ§m vai organizÃ§tu JÃ»su pastkastÃ®ti, uzglabÃ¢jot vÃ§stules tematiskÃ¢s mapÃ§s.
     </para>
 <!-- English entry:
 <entry id="rule">
@@ -436,33 +436,33 @@
     storing related messages into different folders.</para>
   </entry>--></entry>
   <entry id="rule-action" md5="774acc549f6ddfd52871f957de2deee5" state="changed">
-    <title>Filtra likums: Darbîba</title>
+    <title>Filtra likums: DarbÃ®ba</title>
     <para>
-    Ir iespçjamas vairâkas darbîbas, ja pienâkusî vçstule atbilst filtra likuma nosacîjumiem. Ievçrojiet, ka visas zemâk uzskaitîtâs darbîbas var nebût Jums pieejamas, darbîbu sarakstâ parâdîsies tikai sistçmas filtrçjoðâs programmatûras atbalstîtâs.
+    Ir iespÃ§jamas vairÃ¢kas darbÃ®bas, ja pienÃ¢kusÃ® vÃ§stule atbilst filtra likuma nosacÃ®jumiem. IevÃ§rojiet, ka visas zemÃ¢k uzskaitÃ®tÃ¢s darbÃ®bas var nebÃ»t Jums pieejamas, darbÃ®bu sarakstÃ¢ parÃ¢dÃ®sies tikai sistÃ§mas filtrÃ§joÃ°Ã¢s programmatÃ»ras atbalstÃ®tÃ¢s.
     </para>
-    <heading>Nogâdât manâ INBOX</heading>
+    <heading>NogÃ¢dÃ¢t manÃ¢ INBOX</heading>
     <para>
-    Vçstule tiks saglabâta Jûsu INBOX. Tâ ir noklusçtâ opcija.
+    VÃ§stule tiks saglabÃ¢ta JÃ»su INBOX. TÃ¢ ir noklusÃ§tÃ¢ opcija.
     </para>
-    <heading>Nogâdât ðajâ mapç</heading>
+    <heading>NogÃ¢dÃ¢t Ã°ajÃ¢ mapÃ§</heading>
     <para>
-    Vçstule tiks nogâdâta norâdîtajâ mapç.
+    VÃ§stule tiks nogÃ¢dÃ¢ta norÃ¢dÃ®tajÃ¢ mapÃ§.
     </para>
-    <heading>Atmest vçstuli</heading>
+    <heading>Atmest vÃ§stuli</heading>
     <para>
-    Vçstule tiks klusîtçm izdzçsta. Nedz Jûs, nedz nosûtîtâjs nesaòems paziòojumu par notikuðo.
+    VÃ§stule tiks klusÃ®tÃ§m izdzÃ§sta. Nedz JÃ»s, nedz nosÃ»tÃ®tÃ¢js nesaÃ²ems paziÃ²ojumu par notikuÃ°o.
     </para>
-    <heading>Pâradresçt vçstuli</heading>
+    <heading>PÃ¢radresÃ§t vÃ§stuli</heading>
     <para>
-    Vçstule tiks pârsûtîta uz Jûsu norâdîto E-pasta adresi, nesaglabâjot vçstules kopiju Jûsu pastkastîtç.
+    VÃ§stule tiks pÃ¢rsÃ»tÃ®ta uz JÃ»su norÃ¢dÃ®to E-pasta adresi, nesaglabÃ¢jot vÃ§stules kopiju JÃ»su pastkastÃ®tÃ§.
     </para>
-    <heading>Piegâdât manâ INBOX un pâradresçt</heading>
+    <heading>PiegÃ¢dÃ¢t manÃ¢ INBOX un pÃ¢radresÃ§t</heading>
     <para>
-    Vçstule tiks pârsûtîta uz Jûsu norâdîto E-pasta adresi, saglabâjot vçstules kopiju Jûsu pastkastîtç.
+    VÃ§stule tiks pÃ¢rsÃ»tÃ®ta uz JÃ»su norÃ¢dÃ®to E-pasta adresi, saglabÃ¢jot vÃ§stules kopiju JÃ»su pastkastÃ®tÃ§.
     </para>
-    <heading>Noraidît vçstuli ar pamatojumu</heading>
+    <heading>NoraidÃ®t vÃ§stuli ar pamatojumu</heading>
     <para>
-    Oriìinâlâ vçstule tiks klusîtçm izdzçsta, nosûtot tâs autoram jaunu vçstuli ar Jûsu norâdîto tekstu.
+    OriÃ¬inÃ¢lÃ¢ vÃ§stule tiks klusÃ®tÃ§m izdzÃ§sta, nosÃ»tot tÃ¢s autoram jaunu vÃ§stuli ar JÃ»su norÃ¢dÃ®to tekstu.
     </para>
 <!-- English entry:
 <entry id="rule-action">
@@ -586,17 +586,17 @@
     sent to the sender with the text that you specify.</para>
   </entry>--></entry>
   <entry id="rule-combine" md5="15a1cee3a778b72560a03aea738c4b28" state="changed">
-    <title>Filtra likums: Kombinçt opcijas</title>
+    <title>Filtra likums: KombinÃ§t opcijas</title>
     <para>
-    Ir iespçjams norâdît vairâkus nosacîjumus viena likuma ietvaros, tos loìiski grupçjot (un/vai). Nav iespçjams radît kompleksus filtrus, izmantojot vienlaicîgi abus loìiskos nosacîjumus.
+    Ir iespÃ§jams norÃ¢dÃ®t vairÃ¢kus nosacÃ®jumus viena likuma ietvaros, tos loÃ¬iski grupÃ§jot (un/vai). Nav iespÃ§jams radÃ®t kompleksus filtrus, izmantojot vienlaicÃ®gi abus loÃ¬iskos nosacÃ®jumus.
     </para>
     <heading>Un</heading>
     <para>
-    Ja izvçlçsieties UN, ienâkoðai vçstulei ir jâatbilst visiem norâdîtajiem nosacîjumiem, lai izpildîtos Jûsu norâdîtâs darbîbas. 
+    Ja izvÃ§lÃ§sieties UN, ienÃ¢koÃ°ai vÃ§stulei ir jÃ¢atbilst visiem norÃ¢dÃ®tajiem nosacÃ®jumiem, lai izpildÃ®tos JÃ»su norÃ¢dÃ®tÃ¢s darbÃ®bas. 
     </para>
     <heading>Vai</heading>
     <para>
-    Ja izvçlçsieties VAI, filtrâ norâdîtâs darbîbas tiks izpildîtas, ja tiks konstatçta atbilstîba vismaz vienam filtra nosacîjumam.
+    Ja izvÃ§lÃ§sieties VAI, filtrÃ¢ norÃ¢dÃ®tÃ¢s darbÃ®bas tiks izpildÃ®tas, ja tiks konstatÃ§ta atbilstÃ®ba vismaz vienam filtra nosacÃ®jumam.
     </para>
 <!-- English entry:
 <entry id="rule-combine">
@@ -660,9 +660,9 @@
     one of the conditions is met.</para>
   </entry>--></entry>
   <entry id="rule-mark" md5="ecabf7aaede106b7dd32a2aee05cee57" state="changed">
-    <title>Filtra likums: Atzîmçt vçstuli</title>
+    <title>Filtra likums: AtzÃ®mÃ§t vÃ§stuli</title>
     <para>
-    Ir iespçjams kâ vienu no filtra darbîbâm norâdît vçstules atzîmçðanu ar vienu vai vairâkiem IMAP karodziòiem. Iespçjamâs vçrtîbas ir Lasîts, Svarîgs, Atbildçts un Dzçsts.
+    Ir iespÃ§jams kÃ¢ vienu no filtra darbÃ®bÃ¢m norÃ¢dÃ®t vÃ§stules atzÃ®mÃ§Ã°anu ar vienu vai vairÃ¢kiem IMAP karodziÃ²iem. IespÃ§jamÃ¢s vÃ§rtÃ®bas ir LasÃ®ts, SvarÃ®gs, AtbildÃ§ts un DzÃ§sts.
     </para>
 <!-- English entry:
 <entry id="rule-mark">
@@ -696,81 +696,81 @@
     Answered, and Deleted.</para>
   </entry>--></entry>
   <entry id="rule-matches" md5="2fe0ccfd87fca17aea372e9829ca0e21" state="changed">
-    <title>Filtra likums: Atbilstîbas</title>
+    <title>Filtra likums: AtbilstÃ®bas</title>
     <para>
-    Ikviens likuma nosacîjums sastâv no 3 komponentiem: pirmais ir pârbaudâmais lauks, otrais - veicamâs salîdzinâðanas veids, treðais - informâcija, atbilstîba kurai ir jâpârbauda.
-    Ir vairâki atðíirîgi veicamâs salîdzinâðanas veidi. Izmantojamie veidi ikvienam laukam ir atkarîgi no lauka tipa un filtrçjoðâs programmatûras spçjâm. Tâdçjâdi, visas zemâk uzskaitîtâs atbilstîbas opcijas var neparâdîties laukam piemçrojamo veidu sarakstâ. </para>
+    Ikviens likuma nosacÃ®jums sastÃ¢v no 3 komponentiem: pirmais ir pÃ¢rbaudÃ¢mais lauks, otrais - veicamÃ¢s salÃ®dzinÃ¢Ã°anas veids, treÃ°ais - informÃ¢cija, atbilstÃ®ba kurai ir jÃ¢pÃ¢rbauda.
+    Ir vairÃ¢ki atÃ°Ã­irÃ®gi veicamÃ¢s salÃ®dzinÃ¢Ã°anas veidi. Izmantojamie veidi ikvienam laukam ir atkarÃ®gi no lauka tipa un filtrÃ§joÃ°Ã¢s programmatÃ»ras spÃ§jÃ¢m. TÃ¢dÃ§jÃ¢di, visas zemÃ¢k uzskaitÃ®tÃ¢s atbilstÃ®bas opcijas var neparÃ¢dÃ®ties laukam piemÃ§rojamo veidu sarakstÃ¢. </para>
     <heading>Satur</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts tiks atrasts jebkur laukâ. Piemçram: user@example bûs patiess joe_user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts tiks atrasts jebkur laukÃ¢. PiemÃ§ram: user@example bÃ»s patiess joe_user@example.com gadÃ®jumÃ¢.
     </para>
     <heading>Nesatur</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts netiks atrasts jebkur laukâ. Piemçram: user@example bûs patiess user_joe@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts netiks atrasts jebkur laukÃ¢. PiemÃ§ram: user@example bÃ»s patiess user_joe@example.com gadÃ®jumÃ¢.
     </para>
     <heading>Ir</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts precîzi atbildîs lauka saturam. Piemçram: user@example.com ir patiess tikai user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts precÃ®zi atbildÃ®s lauka saturam. PiemÃ§ram: user@example.com ir patiess tikai user@example.com gadÃ®jumÃ¢.
     </para>
     <heading>Nav</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts precîzi neatbildîs lauka saturam. Piemçram: user@example nav user@example.com.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts precÃ®zi neatbildÃ®s lauka saturam. PiemÃ§ram: user@example nav user@example.com.
     </para>
-    <heading>Sâkas ar</heading>
+    <heading>SÃ¢kas ar</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts atradîsies lauka sâkumâ. Piemçram: user@example ir patiess user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts atradÃ®sies lauka sÃ¢kumÃ¢. PiemÃ§ram: user@example ir patiess user@example.com gadÃ®jumÃ¢.
     </para>
-    <heading>Nesâkas ar</heading>
+    <heading>NesÃ¢kas ar</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts neatradîsies lauka sâkumâ. Piemçram: @example.com ir patiess user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts neatradÃ®sies lauka sÃ¢kumÃ¢. PiemÃ§ram: @example.com ir patiess user@example.com gadÃ®jumÃ¢.
     </para>
     <heading>Beidzas ar</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts atradîsies lauka beigâs. Piemçram: @example.com ir patiess user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts atradÃ®sies lauka beigÃ¢s. PiemÃ§ram: @example.com ir patiess user@example.com gadÃ®jumÃ¢.
     </para>
     <heading>Nebeidzas ar</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtais teksts neatradîsies lauka beigâs. Piemçram: @horde.org ir patiess user@example.com gadîjumâ.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tais teksts neatradÃ®sies lauka beigÃ¢s. PiemÃ§ram: @horde.org ir patiess user@example.com gadÃ®jumÃ¢.
     </para>
-    <heading>Eksistç</heading>
+    <heading>EksistÃ§</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtâ galvene (header) vçstulç eksistç, neatkarîgi no tâ satura.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tÃ¢ galvene (header) vÃ§stulÃ§ eksistÃ§, neatkarÃ®gi no tÃ¢ satura.
     </para>
-    <heading>Neeksistç</heading>
+    <heading>NeeksistÃ§</heading>
     <para>
-    Tiks uzskatîts par patiesu, ja norâdîtâ galvene (header) vçstulç neeksistç.
+    Tiks uzskatÃ®ts par patiesu, ja norÃ¢dÃ®tÃ¢ galvene (header) vÃ§stulÃ§ neeksistÃ§.
     </para>
     <heading>Regex</heading>
     <para>
-    Regex ïauj lietot kompleksas POSIX savietojamas loìiskâs izteiksmes vçstuïu galveòu salîdzinâðanai. Piemçram: "Received from [*\.*\.*\.*] by (hosta|hostb).example.com*" atbilst "Received from [172.16.100.1] by hosta.example.com on Tuesday"
+    Regex Ã¯auj lietot kompleksas POSIX savietojamas loÃ¬iskÃ¢s izteiksmes vÃ§stuÃ¯u galveÃ²u salÃ®dzinÃ¢Ã°anai. PiemÃ§ram: "Received from [*\.*\.*\.*] by (hosta|hostb).example.com*" atbilst "Received from [172.16.100.1] by hosta.example.com on Tuesday"
     </para>
-    <heading>Atbilstîba</heading>
+    <heading>AtbilstÃ®ba</heading>
     <para>
-    [Atbilstîba] ir lîdzîga [Satur], izòemot iespçju lietot "*" un "?" kâ aizstâjçjzîmes. "*" aizstâj jebkuru zîmju skaitu, "?" aizvieto tikai vienu zîmi. Piemçram, "*user?@example.com" atbildîs gan "user1@example.com" gan "otheruser2@example.com"
+    [AtbilstÃ®ba] ir lÃ®dzÃ®ga [Satur], izÃ²emot iespÃ§ju lietot "*" un "?" kÃ¢ aizstÃ¢jÃ§jzÃ®mes. "*" aizstÃ¢j jebkuru zÃ®mju skaitu, "?" aizvieto tikai vienu zÃ®mi. PiemÃ§ram, "*user?@example.com" atbildÃ®s gan "user1@example.com" gan "otheruser2@example.com"
     </para>
     <heading>Neatbilst</heading>
     <para>
-    [Neatbilst] ir lîdzîgs [Atbilst], tikai tas iegûs noliedzoðu vçrtîbu, ja norâdîtais teksts atbildîs galvenes lauka saturam.
+    [Neatbilst] ir lÃ®dzÃ®gs [Atbilst], tikai tas iegÃ»s noliedzoÃ°u vÃ§rtÃ®bu, ja norÃ¢dÃ®tais teksts atbildÃ®s galvenes lauka saturam.
     </para>
-    <heading>Mazâks</heading>
+    <heading>MazÃ¢ks</heading>
     <para>
-    Ðî pârbaude ïauj salîdzinât Jûsu norâdîto skaitlisko lielumu ar vçrtîbu vçstules galvenes laukâ.
+    ÃÃ® pÃ¢rbaude Ã¯auj salÃ®dzinÃ¢t JÃ»su norÃ¢dÃ®to skaitlisko lielumu ar vÃ§rtÃ®bu vÃ§stules galvenes laukÃ¢.
     </para>
-    <heading>Mazâks vai vienâds</heading>
+    <heading>MazÃ¢ks vai vienÃ¢ds</heading>
     <para>
-    Ðî pârbaude ïauj salîdzinât Jûsu norâdîto skaitlisko lielumu ar vçrtîbu vçstules galvenes laukâ.
+    ÃÃ® pÃ¢rbaude Ã¯auj salÃ®dzinÃ¢t JÃ»su norÃ¢dÃ®to skaitlisko lielumu ar vÃ§rtÃ®bu vÃ§stules galvenes laukÃ¢.
     </para>
-    <heading>Vienâds</heading>
+    <heading>VienÃ¢ds</heading>
     <para>
-    Ðî pârbaude ïauj salîdzinât Jûsu norâdîto skaitlisko lielumu ar vçrtîbu vçstules galvenes laukâ.
+    ÃÃ® pÃ¢rbaude Ã¯auj salÃ®dzinÃ¢t JÃ»su norÃ¢dÃ®to skaitlisko lielumu ar vÃ§rtÃ®bu vÃ§stules galvenes laukÃ¢.
     </para>
-    <heading>Lielâks vai vienâds</heading>
+    <heading>LielÃ¢ks vai vienÃ¢ds</heading>
     <para>
-    Ðî pârbaude ïauj salîdzinât Jûsu norâdîto skaitlisko lielumu ar vçrtîbu vçstules galvenes laukâ.
+    ÃÃ® pÃ¢rbaude Ã¯auj salÃ®dzinÃ¢t JÃ»su norÃ¢dÃ®to skaitlisko lielumu ar vÃ§rtÃ®bu vÃ§stules galvenes laukÃ¢.
     </para>
-    <heading>Lielâks</heading>
+    <heading>LielÃ¢ks</heading>
     <para>
-    Ðî pârbaude ïauj salîdzinât Jûsu norâdîto skaitlisko lielumu ar vçrtîbu vçstules galvenes laukâ.
+    ÃÃ® pÃ¢rbaude Ã¯auj salÃ®dzinÃ¢t JÃ»su norÃ¢dÃ®to skaitlisko lielumu ar vÃ§rtÃ®bu vÃ§stules galvenes laukÃ¢.
     </para>
 <!-- English entry:
 <entry id="rule-matches">
@@ -1150,7 +1150,7 @@
   <entry id="rule-name" md5="ed8e3b8044b7e1a681b259fa605dc9ee" state="changed">
     <title>Filtra likums: Nosaukums</title>
     <para>
-    Filtra likuma nosaukums. To var lietot, lai identificçtu likumu filtru sarakstâ.
+    Filtra likuma nosaukums. To var lietot, lai identificÃ§tu likumu filtru sarakstÃ¢.
     </para>
 <!-- English entry:
 <entry id="rule-name">
@@ -1179,9 +1179,9 @@
     rule in your filter listing.</para>
   </entry>--></entry>
   <entry id="rule-stop" md5="042f935941275ddff92d53259118a2d2" state="changed">
-    <title>Filtra likums: Beigt pârbaudi</title>
+    <title>Filtra likums: Beigt pÃ¢rbaudi</title>
     <para>
-    Ja ir atzîmçta ðî opcija un vçstule atbilst ðim likumam, pârçjie filtri netiks pielietoti. 
+    Ja ir atzÃ®mÃ§ta Ã°Ã® opcija un vÃ§stule atbilst Ã°im likumam, pÃ¢rÃ§jie filtri netiks pielietoti. 
     </para>
 <!-- English entry:
 <entry id="rule-stop">
@@ -1210,10 +1210,10 @@
     remaining filters will not be processed.</para>
   </entry>--></entry>
   <entry id="vacation" md5="330bb029e3e07392bc1c127bb1d9b94c" state="changed">
-    <title>Brîvdienas</title>
-    <heading>Brîvdienas</heading>
+    <title>BrÃ®vdienas</title>
+    <heading>BrÃ®vdienas</heading>
     <para>
-    Brîvdienu ziòas ir automâtiski nosûtîtas atbildes cilvçkiem, kas ir rakstîjuði Jums. Tâs parasti lieto, ja atrodaties ilgstoðâ prombûtnç. 
+    BrÃ®vdienu ziÃ²as ir automÃ¢tiski nosÃ»tÃ®tas atbildes cilvÃ§kiem, kas ir rakstÃ®juÃ°i Jums. TÃ¢s parasti lieto, ja atrodaties ilgstoÃ°Ã¢ prombÃ»tnÃ§. 
     </para>
 <!-- English entry:
 <entry id="vacation">
@@ -1251,9 +1251,9 @@
      <para>Vacation messages will only be sent during the period of time that you are on vacation.</para>
   </entry>
   <entry id="vacation-bulk" md5="a92a7ab8ec7be826f90e544fe64e9d3a" state="changed">
-    <title>Brîvdienas: Neatbildçt uz vairumvestulçm</title>
+    <title>BrÃ®vdienas: NeatbildÃ§t uz vairumvestulÃ§m</title>
     <para>
-    Ðî opcija ïauj izvairîties no Brîvdienu paziòojuma nosûtîðanu, ja vçstule nâk no vçstkopâm vai arî ir identificçta kâ vairumvçstule (bulk mail).
+    ÃÃ® opcija Ã¯auj izvairÃ®ties no BrÃ®vdienu paziÃ²ojuma nosÃ»tÃ®Ã°anu, ja vÃ§stule nÃ¢k no vÃ§stkopÃ¢m vai arÃ® ir identificÃ§ta kÃ¢ vairumvÃ§stule (bulk mail).
     </para>
 <!-- English entry:
 <entry id="vacation-bulk">
@@ -1287,9 +1287,9 @@
     mail.</para>
   </entry>--></entry>
   <entry id="vacation-days" md5="2a24527a223d1e1338e4f739826d2e2b" state="changed">
-    <title>Brîvdienas: Atbildes intervâls</title>
+    <title>BrÃ®vdienas: Atbildes intervÃ¢ls</title>
     <para>
-    Nosaka, cik dienas jâgaida lîdz atkârtota Brîvdienu paziòojuma nosûtîðanai adresâtam, kas tâdu jau ir saòçmis.
+    Nosaka, cik dienas jÃ¢gaida lÃ®dz atkÃ¢rtota BrÃ®vdienu paziÃ²ojuma nosÃ»tÃ®Ã°anai adresÃ¢tam, kas tÃ¢du jau ir saÃ²Ã§mis.
     </para>
 <!-- English entry:
 <entry id="vacation-days">
@@ -1318,9 +1318,9 @@
     an address that has already received one.</para>
   </entry>--></entry>
   <entry id="vacation-myemail" md5="23c118b29b383ba5abf70269cc7d7227" state="changed">
-    <title>Brîvdienas: Manas adreses</title>
+    <title>BrÃ®vdienas: Manas adreses</title>
     <para>
-    Ja uz Jûsu pastkastîti pienâk vçstules vairâk nekâ vienai adresei, norâdiet tâs ðeit. Piemçram, Jums ir E-pasta adreses user@server1.net un user@server2.com, kurâm adresçtâs vçstules pienâk ðajâ pastkastîtç.
+    Ja uz JÃ»su pastkastÃ®ti pienÃ¢k vÃ§stules vairÃ¢k nekÃ¢ vienai adresei, norÃ¢diet tÃ¢s Ã°eit. PiemÃ§ram, Jums ir E-pasta adreses user@server1.net un user@server2.com, kurÃ¢m adresÃ§tÃ¢s vÃ§stules pienÃ¢k Ã°ajÃ¢ pastkastÃ®tÃ§.
     </para>
 <!-- English entry:
 <entry id="vacation-myemail">
@@ -1349,9 +1349,9 @@
     specify them here.</para>
   </entry>--></entry>
   <entry id="vacation-noresponse" md5="9e7ace4ab8394b8d6e70bb399bee4022" state="changed">
-    <title>Brîvdienas: Nesûtît</title>
+    <title>BrÃ®vdienas: NesÃ»tÃ®t</title>
     <para>
-    Nesûtît Brîvdienu paziòojumu ðeit norâdîtajiem adresâtiem. Katru adresi jânorâda jaunaâ rindâ.
+    NesÃ»tÃ®t BrÃ®vdienu paziÃ²ojumu Ã°eit norÃ¢dÃ®tajiem adresÃ¢tiem. Katru adresi jÃ¢norÃ¢da jaunaÃ¢ rindÃ¢.
     </para>
 <!-- English entry:
 <entry id="vacation-noresponse">
@@ -1380,9 +1380,9 @@
     should be on its own line.</para>
   </entry>--></entry>
   <entry id="vacation-reason" md5="0c9d695636f409eb71c217e299bf2edc" state="changed">
-    <title>Brîvdienas: Iemesls</title>
+    <title>BrÃ®vdienas: Iemesls</title>
     <para>
-    Ðeit ievadîtais teksts tiks nosûtîts Jûsu Brîvdienu paziòojumâ.
+    Ãeit ievadÃ®tais teksts tiks nosÃ»tÃ®ts JÃ»su BrÃ®vdienu paziÃ²ojumÃ¢.
     </para>
 <!-- English entry:
 <entry id="vacation-reason">
@@ -1406,9 +1406,9 @@
     <para>This is the text that will be sent in your vacation responses.</para>
   </entry>--></entry>
   <entry id="vacation-subject" md5="7333282ece05b30157750357a399ec09" state="changed">
-    <title>Brîvdienas: Temats</title>
+    <title>BrÃ®vdienas: Temats</title>
     <para>
-    Ðeit ievadîtais teksts tiks izmantots kâ Jûsu Brîvdienu paziòojuma temats.
+    Ãeit ievadÃ®tais teksts tiks izmantots kÃ¢ JÃ»su BrÃ®vdienu paziÃ²ojuma temats.
     </para>
 <!-- English entry:
 <entry id="vacation-subject">
@@ -1435,7 +1435,7 @@
     <title>Baltais saraksts</title>
     <heading>Baltais saraksts</heading>
     <para>
-    [Baltais saraksts] ir E-pasta adreðu saraksts, no kurâm saòemtâs vçstules Jûs noteikti vçlaties redzçt savâ pastkastîtç (INBOX). Katru adresi ir jâievada atseviðíâ rindâ.
+    [Baltais saraksts] ir E-pasta adreÃ°u saraksts, no kurÃ¢m saÃ²emtÃ¢s vÃ§stules JÃ»s noteikti vÃ§laties redzÃ§t savÃ¢ pastkastÃ®tÃ§ (INBOX). Katru adresi ir jÃ¢ievada atseviÃ°Ã­Ã¢ rindÃ¢.
     </para>
 <!-- English entry:
 <entry id="whitelist">
@@ -1471,7 +1471,7 @@
   <entry id="whitelist-addresses" md5="22fc837888f4e6b1e97f860eaee256e9" state="changed">
     <title> Baltais saraksts: Adreses</title>
     <para>
-    (Darbs turpinâs) Katra adrese ir jâievada atseviðíâ rindâ.
+    (Darbs turpinÃ¢s) Katra adrese ir jÃ¢ievada atseviÃ°Ã­Ã¢ rindÃ¢.
     </para>
 <!-- English entry:
 <entry id="whitelist-addresses">

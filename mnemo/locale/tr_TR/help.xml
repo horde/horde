@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: mnemo/locale/tr_TR/help.xml,v 1.1 2005/04/13 21:20:23 jan Exp $ -->
 <help>
 
@@ -16,10 +16,10 @@
 -->
 
 <entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
-<title>Genel Bakış</title>
-<heading>Tanıtım</heading>
+<title>Genel BakÄ±ÅŸ</title>
+<heading>TanÄ±tÄ±m</heading>
 <para>
-Notlar yönetimi zor olan notlarınızı bilgisayarınızda oluşturmanızı sağlayan bir uygulamadır. Notlar oluşturulabilir, değiştirilebilir, silinebilir, ve yazdırılabilir. Ayrıca bilgi yerleştirmek için notlarınızda arama da yapabilirsiniz. Dışardan not almak ve dışarıya not vermek de desteklenmektedir.
+Notlar yÃ¶netimi zor olan notlarÄ±nÄ±zÄ± bilgisayarÄ±nÄ±zda oluÅŸturmanÄ±zÄ± saÄŸlayan bir uygulamadÄ±r. Notlar oluÅŸturulabilir, deÄŸiÅŸtirilebilir, silinebilir, ve yazdÄ±rÄ±labilir. AyrÄ±ca bilgi yerleÅŸtirmek iÃ§in notlarÄ±nÄ±zda arama da yapabilirsiniz. DÄ±ÅŸardan not almak ve dÄ±ÅŸarÄ±ya not vermek de desteklenmektedir.
 </para>
 </entry>
 
@@ -40,16 +40,16 @@ Notlar yönetimi zor olan notlarınızı bilgisayarınızda oluşturmanızı sağlayan bir
 -->
 
 <entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
-<title>Notlar Listesi: İşlemler</title>
-<heading>İşlemler</heading>
+<title>Notlar Listesi: Ä°ÅŸlemler</title>
+<heading>Ä°ÅŸlemler</heading>
 <para>
-Notu Sil seçili notu sürekli siler.
+Notu Sil seÃ§ili notu sÃ¼rekli siler.
 </para>
 <para>
-Notu Değiştir varolan bir notta değişiklik yapmanızı sağlar.
+Notu DeÄŸiÅŸtir varolan bir notta deÄŸiÅŸiklik yapmanÄ±zÄ± saÄŸlar.
 </para>
 <para>
-Notdefterine Dönüş sizi not gösteriminden alıp o notun olduğu notdefterine götürür.
+Notdefterine DÃ¶nÃ¼ÅŸ sizi not gÃ¶steriminden alÄ±p o notun olduÄŸu notdefterine gÃ¶tÃ¼rÃ¼r.
 </para>
 </entry>
 
@@ -77,22 +77,22 @@ Notdefterine Dönüş sizi not gösteriminden alıp o notun olduğu notdefterine götür
 -->
 
 <entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
-<title>Menü Öğeleri</title>
-<heading>Menü Öğeleri</heading>
+<title>MenÃ¼ Ã–ÄŸeleri</title>
+<heading>MenÃ¼ Ã–ÄŸeleri</heading>
 <para>
-Notları Listele kullanılan not defterindeki bütün notları gösterir
+NotlarÄ± Listele kullanÄ±lan not defterindeki bÃ¼tÃ¼n notlarÄ± gÃ¶sterir
 </para>
 <para>
-Yeni Not not defterinde yeni not oluşturmanızı sağlar
+Yeni Not not defterinde yeni not oluÅŸturmanÄ±zÄ± saÄŸlar
 </para>
 <para>
-Arama özelliği ,notlarınızda metin araması yapmanızı sağlar. Sadece açıklama alanını, ya da tüm metni notlarda arayabilirsiniz.
+Arama Ã¶zelliÄŸi ,notlarÄ±nÄ±zda metin aramasÄ± yapmanÄ±zÄ± saÄŸlar. Sadece aÃ§Ä±klama alanÄ±nÄ±, ya da tÃ¼m metni notlarda arayabilirsiniz.
 </para>
 <para>
-Al/Ver notlarınızı dışardan alıp dışarıya vermeyi sağlar. Kullanılan CSV biçimindeki ve vNote dosyaları desteklenir.
+Al/Ver notlarÄ±nÄ±zÄ± dÄ±ÅŸardan alÄ±p dÄ±ÅŸarÄ±ya vermeyi saÄŸlar. KullanÄ±lan CSV biÃ§imindeki ve vNote dosyalarÄ± desteklenir.
 </para>
 <para>
-Yazdır notları yazdırır. Yazdır simgesi sadece bir not görüntülendiğinde menü çubuğunda belirir.
+YazdÄ±r notlarÄ± yazdÄ±rÄ±r. YazdÄ±r simgesi sadece bir not gÃ¶rÃ¼ntÃ¼lendiÄŸinde menÃ¼ Ã§ubuÄŸunda belirir.
 </para>
 </entry>
 
@@ -109,10 +109,10 @@ Yazdır notları yazdırır. Yazdır simgesi sadece bir not görüntülendiğinde menü çu
 -->
 
 <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
-<title>Girişlerin Sınıflandırılması</title>
-<heading>Girişlerin Sınıflandırılması</heading>
+<title>GiriÅŸlerin SÄ±nÄ±flandÄ±rÄ±lmasÄ±</title>
+<heading>GiriÅŸlerin SÄ±nÄ±flandÄ±rÄ±lmasÄ±</heading>
 <para>
-Girişlerin listesini görüntülerken, girişleri herhangi bir sütuna göre o sütunun başlığına tıklayarak sınıflandırabilirsiniz. Sütunu yükselen ve alçalan sınıflandırma arasında değiştirmek için, sütun başlığındaki ok simgesini tıklayın.
+GiriÅŸlerin listesini gÃ¶rÃ¼ntÃ¼lerken, giriÅŸleri herhangi bir sÃ¼tuna gÃ¶re o sÃ¼tunun baÅŸlÄ±ÄŸÄ±na tÄ±klayarak sÄ±nÄ±flandÄ±rabilirsiniz. SÃ¼tunu yÃ¼kselen ve alÃ§alan sÄ±nÄ±flandÄ±rma arasÄ±nda deÄŸiÅŸtirmek iÃ§in, sÃ¼tun baÅŸlÄ±ÄŸÄ±ndaki ok simgesini tÄ±klayÄ±n.
 </para>
 </entry>
 

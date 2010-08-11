@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="84ebb3e1b58d0462886ec5fe7ea0d82e" state="changed">
-    <title>Pârskats</title>
+    <title>PÃ¢rskats</title>
     <heading>Ievads</heading>
     <para>
-    [Uzdevumi] ir pietiekoði plaði funkcionâls laika organizators, kas atbalsta personîgo uzdevumu sarakstus, integrâciju ar kalendâra funkcijâm, klasifikatoriem, prioritâtçm, izpildes termiòiem, meklçðanu, drukâðanu un importa/eksporta funkcijâm.
+    [Uzdevumi] ir pietiekoÃ°i plaÃ°i funkcionÃ¢ls laika organizators, kas atbalsta personÃ®go uzdevumu sarakstus, integrÃ¢ciju ar kalendÃ¢ra funkcijÃ¢m, klasifikatoriem, prioritÃ¢tÃ§m, izpildes termiÃ²iem, meklÃ§Ã°anu, drukÃ¢Ã°anu un importa/eksporta funkcijÃ¢m.
     </para>
 <!-- English entry:
 <entry id="Overview">
@@ -98,10 +98,10 @@
     </para>
   </entry>--></entry>
   <entry id="sorting" md5="57699a6f7694cea8df57e314ade3c907" state="changed">
-    <title>Ðíiroðana</title>
-    <heading>Ðíiroðana</heading>
+    <title>ÃÃ­iroÃ°ana</title>
+    <heading>ÃÃ­iroÃ°ana</heading>
     <para>
-    Apskatot ierakstu uzskaitîjumu ir iespçjams ðíirot ierakstus pçc jebkuras kolonnas, uzklikðíinot atbilstoðâ stabiòa nosaukumam. Lai pârslçgtos no augoðâs uz dilstoðo ðíiroðanas kârtîbu, uzklikðíiniet bultas ikonai blakus atbilstoðâ stabiòa nosaukumam.
+    Apskatot ierakstu uzskaitÃ®jumu ir iespÃ§jams Ã°Ã­irot ierakstus pÃ§c jebkuras kolonnas, uzklikÃ°Ã­inot atbilstoÃ°Ã¢ stabiÃ²a nosaukumam. Lai pÃ¢rslÃ§gtos no augoÃ°Ã¢s uz dilstoÃ°o Ã°Ã­iroÃ°anas kÃ¢rtÃ®bu, uzklikÃ°Ã­iniet bultas ikonai blakus atbilstoÃ°Ã¢ stabiÃ²a nosaukumam.
     </para>
 <!-- English entry:
 <entry id="sorting">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="new">
     <title>Overview</title>
@@ -11,12 +11,12 @@
     </para>
   </entry>
   <entry id="sorting" state="unknown">
-    <title>Sorbarendezés</title>
-    <heading>Sorbarendezés</heading>
+    <title>SorbarendezĂŠs</title>
+    <heading>SorbarendezĂŠs</heading>
     <para>
-    A tennivalók kilistázásakor bármely oszlop szerint sorba rendezhetjük
-az adatokat, ha a kérdéses oszlop fejlécére kattintunk. Ha a sorbarendezés
-irányát akarjuk átállítani, akkor a fejlécben levő kis nyílra kell
+    A tennivalĂłk kilistĂĄzĂĄsakor bĂĄrmely oszlop szerint sorba rendezhetjĂźk
+az adatokat, ha a kĂŠrdĂŠses oszlop fejlĂŠcĂŠre kattintunk. Ha a sorbarendezĂŠs
+irĂĄnyĂĄt akarjuk ĂĄtĂĄllĂ­tani, akkor a fejlĂŠcben levĹ kis nyĂ­lra kell
 kattintani.
     </para>
 <!-- English entry:

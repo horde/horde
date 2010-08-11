@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" state="unknown">
-    <title>Prehľad</title>
-    <heading>Úvod</heading>
+    <title>PrehÄžad</title>
+    <heading>Ăvod</heading>
     <para>
-    Kniha adries umožňuje uchovávať kontaktné informácie, ktoré možno jednoduch sprístupniť a použiť. Ponúka možnosť vytvorenia súkromnej knihy adries ako aj využitia verejných adresárových služieb. Okrem jednoduchých kontaktov môžete uchovávať aj zoznamy adries a tak si môžete vytvárať vlastné "mailing listy".
+    Kniha adries umoĹžĹuje uchovĂĄvaĹĽ kontaktnĂŠ informĂĄcie, ktorĂŠ moĹžno jednoduch sprĂ­stupniĹĽ a pouĹžiĹĽ. PonĂşka moĹžnosĹĽ vytvorenia sĂşkromnej knihy adries ako aj vyuĹžitia verejnĂ˝ch adresĂĄrovĂ˝ch sluĹžieb. Okrem jednoduchĂ˝ch kontaktov mĂ´Ĺžete uchovĂĄvaĹĽ aj zoznamy adries a tak si mĂ´Ĺžete vytvĂĄraĹĽ vlastnĂŠ "mailing listy".
     </para>
 <!-- English entry:
 <entry id="Overview">
@@ -15,10 +15,10 @@
     </para>
 </entry>--></entry>
   <entry id="menu-add" state="unknown">
-    <title>Menu: Pridať</title>
-    <heading>Pridať</heading>
+    <title>Menu: PridaĹĽ</title>
+    <heading>PridaĹĽ</heading>
     <para>
-    Umožní pridať používateľa do knihy adries. Používateľov môžete pridávať iba do knihy adries s menom "Moja kniha adries", pretože ostatné sú prístupné iba na čítanie.
+    UmoĹžnĂ­ pridaĹĽ pouĹžĂ­vateÄža do knihy adries. PouĹžĂ­vateÄžov mĂ´Ĺžete pridĂĄvaĹĽ iba do knihy adries s menom "Moja kniha adries", pretoĹže ostatnĂŠ sĂş prĂ­stupnĂŠ iba na ÄĂ­tanie.
     </para>
 <!-- English entry:
 <entry id="menu-add">
@@ -29,10 +29,10 @@
     </para>
 </entry>--></entry>
   <entry id="menu-search" state="unknown">
-    <title>Menu: Hľadať</title>
-    <heading>Hľadať</heading>
+    <title>Menu: HÄžadaĹĽ</title>
+    <heading>HÄžadaĹĽ</heading>
     <para>
-    Umožní prehľadávať knihu adries a nájsť požadované informácie. Toto hľadanie podporuje iba niekoľko základných polí - ak chcete hľadať aj v ostatných, použíte "Rozšírené vyhľadávanie".
+    UmoĹžnĂ­ prehÄžadĂĄvaĹĽ knihu adries a nĂĄjsĹĽ poĹžadovanĂŠ informĂĄcie. Toto hÄžadanie podporuje iba niekoÄžko zĂĄkladnĂ˝ch polĂ­ - ak chcete hÄžadaĹĽ aj v ostatnĂ˝ch, pouĹžĂ­te "RozĹĄĂ­renĂŠ vyhÄžadĂĄvanie".
     </para>
 <!-- English entry:
 <entry id="menu-search">
@@ -43,10 +43,10 @@
     </para>
 </entry>--></entry>
   <entry id="menu-advanced-search" state="unknown">
-    <title>Menu: Rozšírené vyhľadávanie</title>
-    <heading>Rozšírené vyhľadávanie</heading>
+    <title>Menu: RozĹĄĂ­renĂŠ vyhÄžadĂĄvanie</title>
+    <heading>RozĹĄĂ­renĂŠ vyhÄžadĂĄvanie</heading>
     <para>
-    Umožní prehľadať knihu adries a nájsť požadované informácie. Toto hľadanie umožňuje hľadať vo viacerých poliach. Dostupnosť polí závisí od konkrétnej knihy adries.
+    UmoĹžnĂ­ prehÄžadaĹĽ knihu adries a nĂĄjsĹĽ poĹžadovanĂŠ informĂĄcie. Toto hÄžadanie umoĹžĹuje hÄžadaĹĽ vo viacerĂ˝ch poliach. DostupnosĹĽ polĂ­ zĂĄvisĂ­ od konkrĂŠtnej knihy adries.
     </para>
 <!-- English entry:
 <entry id="menu-advanced-search">
@@ -60,10 +60,10 @@
     <title>Menu: Import/Export</title>
     <heading>Import/Export</heading>
     <para>
-    Pomocou tohto menu môžete importovať alebo exportovať údaje do/z Vašej súkromnej knihy adries (Moja kniha adries). Podporované sú formáty CSV (údaje oddelené čiarkou), Outlook, vCard ako aj niektoré ďalšie populárne formáty. Pre import knihy adries musíte mať údaje uložené na počítači, z ktorého ste spustili prehliadač stránok.
+    Pomocou tohto menu mĂ´Ĺžete importovaĹĽ alebo exportovaĹĽ Ăşdaje do/z VaĹĄej sĂşkromnej knihy adries (Moja kniha adries). PodporovanĂŠ sĂş formĂĄty CSV (Ăşdaje oddelenĂŠ Äiarkou), Outlook, vCard ako aj niektorĂŠ ÄalĹĄie populĂĄrne formĂĄty. Pre import knihy adries musĂ­te maĹĽ Ăşdaje uloĹženĂŠ na poÄĂ­taÄi, z ktorĂŠho ste spustili prehliadaÄ strĂĄnok.
     </para>
     <para>
-    Ak chcete importovať knihu adries, otvorte Knihu adries, do ktorej chcete uložiť importované údaje. Kliknite na ikonu Export/Import, vyberte formát zdrojovej knihy adries a vyberte súbor s údajmi knihy adries. Potom kliknite na tlačidlo Import. Informácie z knihy adries budú importované do Vašej knihy adries. Niektoré zložitejšie položky alebo položky s poľami, ktoré nesúhlasia s poľami Knihy adries Turba, sa môžu importovať nesprávne, preto by ste po importe mali údaje v Knihe adries skontrolovať.
+    Ak chcete importovaĹĽ knihu adries, otvorte Knihu adries, do ktorej chcete uloĹžiĹĽ importovanĂŠ Ăşdaje. Kliknite na ikonu Export/Import, vyberte formĂĄt zdrojovej knihy adries a vyberte sĂşbor s Ăşdajmi knihy adries. Potom kliknite na tlaÄidlo Import. InformĂĄcie z knihy adries budĂş importovanĂŠ do VaĹĄej knihy adries. NiektorĂŠ zloĹžitejĹĄie poloĹžky alebo poloĹžky s poÄžami, ktorĂŠ nesĂşhlasia s poÄžami Knihy adries Turba, sa mĂ´Ĺžu importovaĹĽ nesprĂĄvne, preto by ste po importe mali Ăşdaje v Knihe adries skontrolovaĹĽ.
     </para>
 <!-- English entry:
 <entry id="menu-import">

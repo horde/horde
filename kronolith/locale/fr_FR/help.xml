@@ -1,99 +1,99 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
     <title>Kronolith: Introduction</title>
     <heading>Qu'est-ce que kronolith?</heading>
     <para>
-Kronolith est une application internet de calendrier.  En plus des fonctions habituelles d'ajout, de modification et de suppression d'événements, il supporte également les événements récurrents, les alarmes, l'importation et l'exportation des données, une liste de tâches et la possibilité d'afficher des événements dans le sommaire de Horde.
+Kronolith est une application internet de calendrier.  En plus des fonctions habituelles d'ajout, de modification et de suppression d'Ã©vÃ©nements, il supporte Ã©galement les Ã©vÃ©nements rÃ©currents, les alarmes, l'importation et l'exportation des donnÃ©es, une liste de tÃ¢ches et la possibilitÃ© d'afficher des Ã©vÃ©nements dans le sommaire de Horde.
     </para>
 </entry>
   <entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
     <title>Menu: Aujourd'hui</title>
     <heading>Aujourd'hui</heading>
     <para>
-	Le menu <i>Aujourd'hui</i> affichera votre vue par défaut (mois, semaine, jour, etc) pour la date courante.
+	Le menu <i>Aujourd'hui</i> affichera votre vue par dÃ©faut (mois, semaine, jour, etc) pour la date courante.
       </para>
 </entry>
   <entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
-    <title>Menu: Aller à</title>
-    <heading>Aller à</heading>
+    <title>Menu: Aller Ã </title>
+    <heading>Aller Ã </heading>
     <para>
-	Le menu <i>Aller à</i> affichera une petit fenêtre dans laquelle vous pourrez rapidement sélectionner une année, un mois, une semaine ou une journée.  Ceci est la façon la plus rapide de naviguer dans le calendrier.
+	Le menu <i>Aller Ã </i> affichera une petit fenÃªtre dans laquelle vous pourrez rapidement sÃ©lectionner une annÃ©e, un mois, une semaine ou une journÃ©e.  Ceci est la faÃ§on la plus rapide de naviguer dans le calendrier.
     </para>
 </entry>
   <entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
     <title>Menu: Jour</title>
     <heading>Vue jour</heading>
     <para>
-	Le menu <i>Jour</i> affichera le contenu de la journée sélectionnée.
+	Le menu <i>Jour</i> affichera le contenu de la journÃ©e sÃ©lectionnÃ©e.
    </para>
 </entry>
   <entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
     <title>Menu: Semaine ouvrable</title>
     <heading>Vue semaine ouvrable</heading>
     <para>
-	Le menu <i>Semaine ouvrable</i> affichera le contenu de la semaine ouvrable (du lundi au vendredi) la plus près de la journée sélectionnée.
+	Le menu <i>Semaine ouvrable</i> affichera le contenu de la semaine ouvrable (du lundi au vendredi) la plus prÃ¨s de la journÃ©e sÃ©lectionnÃ©e.
     </para>
 </entry>
   <entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
     <title>Menu: Semaine</title>
     <heading>Vue semaine</heading>
     <para>
-	Le menu <i>Semaine</i> affichera la semaine de 7 jours contenant la journée sélectionnée.
+	Le menu <i>Semaine</i> affichera la semaine de 7 jours contenant la journÃ©e sÃ©lectionnÃ©e.
     </para>
 </entry>
   <entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
     <title>Menu: Mois</title>
     <heading>Vue mois</heading>
     <para>
-	Le menu <i>Mois</i> affichera le mois contenant la journée sélectionnée.
+	Le menu <i>Mois</i> affichera le mois contenant la journÃ©e sÃ©lectionnÃ©e.
     </para>
 </entry>
   <entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
-    <title>Menu: Nouvel événement</title>
-    <heading>Ajouter un nouvel événement</heading>
+    <title>Menu: Nouvel Ã©vÃ©nement</title>
+    <heading>Ajouter un nouvel Ã©vÃ©nement</heading>
     <para>
-	Le menu <I>Nouvel événement</I> vous permet de créer un événement à ajouter dans le calendrier.
+	Le menu <I>Nouvel Ã©vÃ©nement</I> vous permet de crÃ©er un Ã©vÃ©nement Ã  ajouter dans le calendrier.
     </para>
 </entry>
   <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
     <title>Menu: Options</title>
     <heading>Options</heading>
     <para>
-	Le menu <I>Options</I> vous permet de choisir vos préférences pour le calendrier.
+	Le menu <I>Options</I> vous permet de choisir vos prÃ©fÃ©rences pour le calendrier.
     </para>
 </entry>
   <entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
     <title>Menu: Importer/Exporter</title>
     <heading>Importer/Exporter</heading>
     <para>
-    Le menu <i>Importer/Exporter</i> vous permet d'importer et d'exporter les événements de votre calendier (les fichiers CSV et le format de Microsoft Outlook). L'exportation est possible seulement en format CSV.</para>
+    Le menu <i>Importer/Exporter</i> vous permet d'importer et d'exporter les Ã©vÃ©nements de votre calendier (les fichiers CSV et le format de Microsoft Outlook). L'exportation est possible seulement en format CSV.</para>
 </entry>
   <entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
     <title>Alarme</title>
     <heading>Alarme</heading>
     <para>
-Kronolith peut vous alerter pour un événement dans le calendrier.  Par défaut, la première alarme est générée quinze minute avant l'événement, mais l'alarme peut être ajustée selon vos besoin.
+Kronolith peut vous alerter pour un Ã©vÃ©nement dans le calendrier.  Par dÃ©faut, la premiÃ¨re alarme est gÃ©nÃ©rÃ©e quinze minute avant l'Ã©vÃ©nement, mais l'alarme peut Ãªtre ajustÃ©e selon vos besoin.
        </para>
 </entry>
   <entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
-    <title>Événement récurrent</title>
-    <heading>Événement récurrent</heading>
+    <title>Ã‰vÃ©nement rÃ©current</title>
+    <heading>Ã‰vÃ©nement rÃ©current</heading>
     <para>
-	Vous pouvez insérer des événements récurrents selon différentes fréquences (à tous les mois, le dernier vendredi de chaque semaine, etc).
+	Vous pouvez insÃ©rer des Ã©vÃ©nements rÃ©currents selon diffÃ©rentes frÃ©quences (Ã  tous les mois, le dernier vendredi de chaque semaine, etc).
         </para>
     <para>
-	Vous pouvez également choisir la durée de la répétition en sélectionnant la date de fin pour l'événement.
+	Vous pouvez Ã©galement choisir la durÃ©e de la rÃ©pÃ©tition en sÃ©lectionnant la date de fin pour l'Ã©vÃ©nement.
     </para>
     <para>
-	Normallement, une modification à un événement récurrent est aussi réalisée sur les autres événements de la même récurrence.  Un des événements d'une série peut être modifié seul en lui enlevant sa récurence lorsque vous l'éditez.
+	Normallement, une modification Ã  un Ã©vÃ©nement rÃ©current est aussi rÃ©alisÃ©e sur les autres Ã©vÃ©nements de la mÃªme rÃ©currence.  Un des Ã©vÃ©nements d'une sÃ©rie peut Ãªtre modifiÃ© seul en lui enlevant sa rÃ©curence lorsque vous l'Ã©ditez.
     </para>
 </entry>
   <entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
     <title>Imprimer</title>
     <heading>Imprimer</heading>
     <para>
-	Certaines vues sont conçues pour être imprimées (un icône apparait dans la barre de menu lorsque c'est le cas).
+	Certaines vues sont conÃ§ues pour Ãªtre imprimÃ©es (un icÃ´ne apparait dans la barre de menu lorsque c'est le cas).
     </para>
 </entry>
   <entry id="shares" state="uptodate" md5="bf3a44d08a824979ba8dd8fd0e661eee">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- based on $Horde: mnemo/locale/hu_HU/help.xml,v 1.3 2009/01/06 18:01:16 jan Exp $ -->
 <!-- Mnemo help file, Hungarian translation -->
 <!-- Copyright 2004 Laszlo L. Tornoci -->
@@ -8,59 +8,59 @@
 <help>
 
 <entry id="Overview">
-    <title>Áttekintés</title>
-    <heading>Bevezetés</heading>
+    <title>ĂttekintĂŠs</title>
+    <heading>BevezetĂŠs</heading>
     <para>
-    A <i>Notes (Feljegyzések)</i> program lehetővé teszi, hogy számítógépünkön
-a kiragasztható papírlapokra írtakhoz hasonló módon készítsünk feljegyzéseket.
-A jegyzetek tárolhatók, módosíthatók, törölhetők és kinyomtathatók. Keresni
-is lehet a feljegyzések tartalmában, melyek kategóriákba is rendezhetők.
+    A <i>Notes (FeljegyzĂŠsek)</i> program lehetĹvĂŠ teszi, hogy szĂĄmĂ­tĂłgĂŠpĂźnkĂśn
+a kiragaszthatĂł papĂ­rlapokra Ă­rtakhoz hasonlĂł mĂłdon kĂŠszĂ­tsĂźnk feljegyzĂŠseket.
+A jegyzetek tĂĄrolhatĂłk, mĂłdosĂ­thatĂłk, tĂśrĂślhetĹk ĂŠs kinyomtathatĂłk. Keresni
+is lehet a feljegyzĂŠsek tartalmĂĄban, melyek kategĂłriĂĄkba is rendezhetĹk.
     </para>
 </entry>
 
 <entry id="list-actions">
-    <title>Funkciólista</title>
-    <heading>Funkciók</heading>
+    <title>FunkciĂłlista</title>
+    <heading>FunkciĂłk</heading>
     <para>
-    <i>A feljegyzés törlése</i>. Végleg törli a kiválasztott feljegyzést.
+    <i>A feljegyzĂŠs tĂśrlĂŠse</i>. VĂŠgleg tĂśrli a kivĂĄlasztott feljegyzĂŠst.
     </para>
     <para>
-    <i>A feljegyzés módosítása</i>. Lehetővé teszi egy korábban írt feljegyzés
-módosítását.
+    <i>A feljegyzĂŠs mĂłdosĂ­tĂĄsa</i>. LehetĹvĂŠ teszi egy korĂĄbban Ă­rt feljegyzĂŠs
+mĂłdosĂ­tĂĄsĂĄt.
     </para>
     <para>
-    <i>Vissza a feljegyzések listájához</i>. A feljegyzés megtekintésétől 
-visszavisz az áttekintő oldalra.
+    <i>Vissza a feljegyzĂŠsek listĂĄjĂĄhoz</i>. A feljegyzĂŠs megtekintĂŠsĂŠtĹl 
+visszavisz az ĂĄttekintĹ oldalra.
     </para>
 </entry>
 
 <entry id="menu-actions">
-    <title>A menüpontok</title>
-    <heading>A menüpontok</heading>
+    <title>A menĂźpontok</title>
+    <heading>A menĂźpontok</heading>
     <para>
-    <i>Lista</i>. Felsorolja a feljegyzéseinket.
+    <i>Lista</i>. Felsorolja a feljegyzĂŠseinket.
     </para>
     <para>
-    <i>Új feljegyzés</i>. Ezzel készíthetünk új feljegyzést.
+    <i>Ăj feljegyzĂŠs</i>. Ezzel kĂŠszĂ­thetĂźnk Ăşj feljegyzĂŠst.
     </para>
     <para>
-    <i>Keresés</i>. Lehetővé teszi a feljegyzések közötti keresést. Kereshetünk
-a leíró mezők tartalmában, vagy a teljes szövegben is.
+    <i>KeresĂŠs</i>. LehetĹvĂŠ teszi a feljegyzĂŠsek kĂśzĂśtti keresĂŠst. KereshetĂźnk
+a leĂ­rĂł mezĹk tartalmĂĄban, vagy a teljes szĂśvegben is.
     </para>
     <para>
-    <i>Nyomtatás</i>. Lehetővé teszi a feljegyzés kinyomtatását. A 
-<i>Nyomtatás</i> ikon csak egy adott feljegyzés megtekintésekor jelenik meg 
-a menüsorban.
+    <i>NyomtatĂĄs</i>. LehetĹvĂŠ teszi a feljegyzĂŠs kinyomtatĂĄsĂĄt. A 
+<i>NyomtatĂĄs</i> ikon csak egy adott feljegyzĂŠs megtekintĂŠsekor jelenik meg 
+a menĂźsorban.
     </para>
 </entry>
 
 <entry id="sorting">
-    <title>Sorbarendezés</title>
-    <heading>Sorbarendezés</heading>
+    <title>SorbarendezĂŠs</title>
+    <heading>SorbarendezĂŠs</heading>
     <para>
-    Feljegyzések kilistázásakor bármely oszlop szerint sorba rendezhetjük
-az adatokat, ha a kérdéses oszlop fejlécére kattintunk. Ha a sorbarendezés
-irányát akarjuk átállítani, akkor a fejlécben levő kis nyílra kell
+    FeljegyzĂŠsek kilistĂĄzĂĄsakor bĂĄrmely oszlop szerint sorba rendezhetjĂźk
+az adatokat, ha a kĂŠrdĂŠses oszlop fejlĂŠcĂŠre kattintunk. Ha a sorbarendezĂŠs
+irĂĄnyĂĄt akarjuk ĂĄtĂĄllĂ­tani, akkor a fejlĂŠcben levĹ kis nyĂ­lra kell
 kattintani.
     </para>
 </entry>

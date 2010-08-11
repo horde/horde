@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="file-actions" state="unknown">
-    <title>Fájl menedzser: Műveletek</title>
-    <heading>Mappák létrehozása</heading>
+    <title>FĂĄjl menedzser: MĹąveletek</title>
+    <heading>MappĂĄk lĂŠtrehozĂĄsa</heading>
     <para>
-    Ha új almappát kívánunk létrehozni a jelenlegi mappán belül, válasszuk az 'Új mappa
-    létrehozása' funkciót a 'Műveletek' legördülő menüből.
+    Ha Ăşj almappĂĄt kĂ­vĂĄnunk lĂŠtrehozni a jelenlegi mappĂĄn belĂźl, vĂĄlasszuk az 'Ăj mappa
+    lĂŠtrehozĂĄsa' funkciĂłt a 'MĹąveletek' legĂśrdĂźlĹ menĂźbĹl.
     </para>
-    <heading>Fájlok törlése, vágóasztalra való áthelyezése, másolása ill. onnan történő
-    beillesztése</heading>
+    <heading>FĂĄjlok tĂśrlĂŠse, vĂĄgĂłasztalra valĂł ĂĄthelyezĂŠse, mĂĄsolĂĄsa ill. onnan tĂśrtĂŠnĹ
+    beillesztĂŠse</heading>
     <para>
-    Ezekhez a műveletekhez először ki kell jelölnie legalább egy fájlt. Miután a fájlok
-    bal oldalán levő kis négyzetekben megjelölte a megfelelőket, válassza ki a megfelelő
-    funkciót a 'Műveletek' legördülő menüből. Ha az 'Áthelyezés a vágóasztalra' vagy a
-    'Másolás a vágóasztalra' műveletet választotta, akkor megjelenik a
-    'Beillesztés a vágóasztalról' funkció. Keresse meg azt a mappát ahova be kívánja
-    illeszteni a fájlokat, majd válassza ki a 'Beillesztés a vágóasztalról' funkciót
-    a 'Műveletek' legördülő menüből. A korábban kiválasztott fájlok vagy átkerülnek
-    (áthelyzezés esetén) vagy átmásolódnak (másolás esetén) az új mappába.
+    Ezekhez a mĹąveletekhez elĹszĂśr ki kell jelĂślnie legalĂĄbb egy fĂĄjlt. MiutĂĄn a fĂĄjlok
+    bal oldalĂĄn levĹ kis nĂŠgyzetekben megjelĂślte a megfelelĹket, vĂĄlassza ki a megfelelĹ
+    funkciĂłt a 'MĹąveletek' legĂśrdĂźlĹ menĂźbĹl. Ha az 'ĂthelyezĂŠs a vĂĄgĂłasztalra' vagy a
+    'MĂĄsolĂĄs a vĂĄgĂłasztalra' mĹąveletet vĂĄlasztotta, akkor megjelenik a
+    'BeillesztĂŠs a vĂĄgĂłasztalrĂłl' funkciĂł. Keresse meg azt a mappĂĄt ahova be kĂ­vĂĄnja
+    illeszteni a fĂĄjlokat, majd vĂĄlassza ki a 'BeillesztĂŠs a vĂĄgĂłasztalrĂłl' funkciĂłt
+    a 'MĹąveletek' legĂśrdĂźlĹ menĂźbĹl. A korĂĄbban kivĂĄlasztott fĂĄjlok vagy ĂĄtkerĂźlnek
+    (ĂĄthelyzezĂŠs esetĂŠn) vagy ĂĄtmĂĄsolĂłdnak (mĂĄsolĂĄs esetĂŠn) az Ăşj mappĂĄba.
     </para>
-    <heading>Mappák törlése, vágóasztalra való áthelyezése, másolása ill. onnan történő
-    beillesztése</heading>
+    <heading>MappĂĄk tĂśrlĂŠse, vĂĄgĂłasztalra valĂł ĂĄthelyezĂŠse, mĂĄsolĂĄsa ill. onnan tĂśrtĂŠnĹ
+    beillesztĂŠse</heading>
     <para>
-    Alapértelmezett beállítás esetén csak olyan mappákat törölhet, melyek üresek, bár
-    az opciókban beállíthatja a nemüres mappák (rekurzív) törölhetőségét. Enélkül viszont
-    ha megkísérel kitörölni egy nemüres mappát, akkor ez nem fog sikerülni, hibajelzést
-    kap. A nemüres mappák rekurzív törléséhez kattintson az Opciókra, majd itt a
-    Beállítások pontra, ahol már beállítható a kívánt lehetőség.
-    Ha mappákat kíván törölni, áthelyezni, vagy másolni, akkor először válasszon ki
-    legalább egy mappát. Miután a mappák bal oldalán levő kis négyzetekben megjelölte
-    a megfelelőket, válassza ki a megfelelő funkciót a 'Műveletek' legördülő menüből.
-    Ha az 'Áthelyezés a vágóasztalra' vagy a 'Másolás a vágóasztalra' műveletet
-    választotta, akkor megjelenik a 'Beillesztés a vágóasztalról' funkció. Keresse meg
-    azt a mappát ahova be kívánja illeszteni a mappákat, majd válassza ki a
-    'Beillesztés a vágóasztalról' funkciót a 'Műveletek' legördülő menüből.
-    A korábban kiválasztott mappák vagy átkerülnek (áthelyzezés esetén) vagy
-    átmásolódnak (másolás esetén) az új mappába.
+    AlapĂŠrtelmezett beĂĄllĂ­tĂĄs esetĂŠn csak olyan mappĂĄkat tĂśrĂślhet, melyek Ăźresek, bĂĄr
+    az opciĂłkban beĂĄllĂ­thatja a nemĂźres mappĂĄk (rekurzĂ­v) tĂśrĂślhetĹsĂŠgĂŠt. EnĂŠlkĂźl viszont
+    ha megkĂ­sĂŠrel kitĂśrĂślni egy nemĂźres mappĂĄt, akkor ez nem fog sikerĂźlni, hibajelzĂŠst
+    kap. A nemĂźres mappĂĄk rekurzĂ­v tĂśrlĂŠsĂŠhez kattintson az OpciĂłkra, majd itt a
+    BeĂĄllĂ­tĂĄsok pontra, ahol mĂĄr beĂĄllĂ­thatĂł a kĂ­vĂĄnt lehetĹsĂŠg.
+    Ha mappĂĄkat kĂ­vĂĄn tĂśrĂślni, ĂĄthelyezni, vagy mĂĄsolni, akkor elĹszĂśr vĂĄlasszon ki
+    legalĂĄbb egy mappĂĄt. MiutĂĄn a mappĂĄk bal oldalĂĄn levĹ kis nĂŠgyzetekben megjelĂślte
+    a megfelelĹket, vĂĄlassza ki a megfelelĹ funkciĂłt a 'MĹąveletek' legĂśrdĂźlĹ menĂźbĹl.
+    Ha az 'ĂthelyezĂŠs a vĂĄgĂłasztalra' vagy a 'MĂĄsolĂĄs a vĂĄgĂłasztalra' mĹąveletet
+    vĂĄlasztotta, akkor megjelenik a 'BeillesztĂŠs a vĂĄgĂłasztalrĂłl' funkciĂł. Keresse meg
+    azt a mappĂĄt ahova be kĂ­vĂĄnja illeszteni a mappĂĄkat, majd vĂĄlassza ki a
+    'BeillesztĂŠs a vĂĄgĂłasztalrĂłl' funkciĂłt a 'MĹąveletek' legĂśrdĂźlĹ menĂźbĹl.
+    A korĂĄbban kivĂĄlasztott mappĂĄk vagy ĂĄtkerĂźlnek (ĂĄthelyzezĂŠs esetĂŠn) vagy
+    ĂĄtmĂĄsolĂłdnak (mĂĄsolĂĄs esetĂŠn) az Ăşj mappĂĄba.
     </para>
 <!-- English entry:
 <entry id="file-actions">
@@ -81,19 +81,19 @@
     </para>
 </entry>--></entry>
   <entry id="file-upload" state="unknown">
-    <title>Fájl menedzser: Feltöltés</title>
-    <heading>Fájlok feltöltése</heading>
+    <title>FĂĄjl menedzser: FeltĂśltĂŠs</title>
+    <heading>FĂĄjlok feltĂśltĂŠse</heading>
     <para>
-    Ha egy vagy több fájlt kíván a szerverre feltölteni, először keresse meg a Fájl
-    menedzserben azt a mappát, ahova az állományokat el kívánja helyezni. Ez lesz az
-    éppen érvényes alkönyvtár. Ezután kattintson a 'Böngészés' (Browse) gombra, majd
-    a felbukkanó Fájlfeltöltés (File upload) ablakban keresse meg és jelölje ki
-    (a saját gépén) a feltöltendő fájlt és kattintson az OK (esetleg Megnyitás/Open)
-    gombra. Egyszerre több fájlt is feltölthet. Minden fájlkiválasztás után a Fájl
-    menedzser egy újabb sorban új 'Böngészés' (Browse) gombot jelenít meg. Ezt használva
-    több fájl is kijelölhető feltöltésre. Miután kijelölte a feltöltendő fájl(oka)t,
-    kattintson a Fájlfeltöltés gombra. Erre a kijelölt állományok a szerverre fognak
-    kerülni, a Fájl menedzserben korábban kiválasztott mappába.
+    Ha egy vagy tĂśbb fĂĄjlt kĂ­vĂĄn a szerverre feltĂślteni, elĹszĂśr keresse meg a FĂĄjl
+    menedzserben azt a mappĂĄt, ahova az ĂĄllomĂĄnyokat el kĂ­vĂĄnja helyezni. Ez lesz az
+    ĂŠppen ĂŠrvĂŠnyes alkĂśnyvtĂĄr. EzutĂĄn kattintson a 'BĂśngĂŠszĂŠs' (Browse) gombra, majd
+    a felbukkanĂł FĂĄjlfeltĂśltĂŠs (File upload) ablakban keresse meg ĂŠs jelĂślje ki
+    (a sajĂĄt gĂŠpĂŠn) a feltĂśltendĹ fĂĄjlt ĂŠs kattintson az OK (esetleg MegnyitĂĄs/Open)
+    gombra. Egyszerre tĂśbb fĂĄjlt is feltĂślthet. Minden fĂĄjlkivĂĄlasztĂĄs utĂĄn a FĂĄjl
+    menedzser egy Ăşjabb sorban Ăşj 'BĂśngĂŠszĂŠs' (Browse) gombot jelenĂ­t meg. Ezt hasznĂĄlva
+    tĂśbb fĂĄjl is kijelĂślhetĹ feltĂśltĂŠsre. MiutĂĄn kijelĂślte a feltĂśltendĹ fĂĄjl(oka)t,
+    kattintson a FĂĄjlfeltĂśltĂŠs gombra. Erre a kijelĂślt ĂĄllomĂĄnyok a szerverre fognak
+    kerĂźlni, a FĂĄjl menedzserben korĂĄbban kivĂĄlasztott mappĂĄba.
 </para>
 <!-- English entry:
 <entry id="file-upload">
@@ -109,13 +109,13 @@
 </para>
 </entry>--></entry>
   <entry id="sorting" state="unknown">
-    <title>Sorbarendezés</title>
-    <heading>Sorbarendezés</heading>
+    <title>SorbarendezĂŠs</title>
+    <heading>SorbarendezĂŠs</heading>
     <para>
-    Az állományok listázáskor bármely oszlop szerint sorbarendezhetők. Ehhez mindössze
-    a megfelelő oszlop fejlécére kell kattintania. Erre a lista újra megjelenik, mégpedig
-    a kívánt oszlop szerinti sorrendben. Ha a sorbarendezés irányát kívánja megváltoztatni,
-    akkor kattintson a fejlécben levő kis háromszög alakú nyílra.
+    Az ĂĄllomĂĄnyok listĂĄzĂĄskor bĂĄrmely oszlop szerint sorbarendezhetĹk. Ehhez mindĂśssze
+    a megfelelĹ oszlop fejlĂŠcĂŠre kell kattintania. Erre a lista Ăşjra megjelenik, mĂŠgpedig
+    a kĂ­vĂĄnt oszlop szerinti sorrendben. Ha a sorbarendezĂŠs irĂĄnyĂĄt kĂ­vĂĄnja megvĂĄltoztatni,
+    akkor kattintson a fejlĂŠcben levĹ kis hĂĄromszĂśg alakĂş nyĂ­lra.
     </para>
 <!-- English entry:
 <entry id="sorting">

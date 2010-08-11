@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Big5"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,21 +26,21 @@
 
 </entry>
   <entry id="compose-buttons" md5="301453c3a273ec0ba95b84aeb8661cca" state="changed">
-    <title>�l��g�@: �@�Τ覡</title>
-    <heading>�@�Τ覡</heading>
+    <title>郵件寫作: 作用方式</title>
+    <heading>作用方式</heading>
     <para>
-    �ǰe�l���U�W��q�N�O�N�A���l��뻼�X�h���A�ҧƱ榬�쪺�H�C
-    �b�A�������s���e�нT�{�����H�A�]���l��@���e�X��N�L�k���^�C
+    傳送郵件顧名思義就是將你的郵件投遞出去給你所希望收到的人。
+    在你按此按鈕之前請確認收件對象，因為郵件一但送出後就無法取回。
     </para>
     <para>
-    �s����Z�N���������l��s���H��X 'Drafts' ���A
-    ����A�i�H�g�ѥk�W�誺�H��X�U�ԥ\����i�J��Z�X 'Drafts'
-    ���I�� '�~��s�g' �H�����Ӷl��C
-    ���O�b�A�N�l��s����Z�e�Ь��Ӷl���g�D���H��K�����ѡC
-    �l��@���s����Z��A�A�i�^�����ҥ��b�˵����H��X���C
+    存為草稿將未完成的郵件存放於信件匣 'Drafts' 中，
+    爾後你可以經由右上方的信件匣下拉功能表進入草稿匣 'Drafts'
+    並點選 '繼續編寫' 以完成該郵件。
+    切記在你將郵件存為草稿前請為該郵件填寫主旨以方便日後辨識。
+    郵件一但存為草稿後，你可回到原先所正在檢視的信件匣中。
     </para>
     <para>
-    �����l���U�W��q�N�O���ثe�ҥ��b�s�g���l��æ^�����ҥ��b�˵����H��X���C
+    取消郵件顧名思義就是放棄目前所正在編寫的郵件並回到原先所正在檢視的信件匣中。
     </para>
   <!-- English entry:
 <entry id="compose-buttons">
@@ -403,11 +403,11 @@
     </para>
 </entry>
   <entry id="compose-from" md5="26bcca134b528a540e070ef96a4d5038" state="changed">
-    <title>�l��g�@: �H��H</title>
-    <heading>"�H��H"</heading>
+    <title>郵件寫作: 寄件人</title>
+    <heading>"寄件人"</heading>
     <para>
-    �����p�A�i�H�ѤU�ԥ\�����ܤ@�ӥ�"�ﶵ-&gt;�ӤH��T"�ҫإߪ������ѧO�A�Ϊ�
-    �A�]�i�H�b��줤������J�A���l��a�}�C
+    視狀況你可以由下拉功能表選擇一個由"選項-&gt;個人資訊"所建立的身分識別，或者
+    你也可以在欄位中直接輸入你的郵件地址。
     </para>
   <!-- English entry:
 <entry id="compose-from">
@@ -572,12 +572,12 @@
     </para>
 </entry>--></entry>
   <entry id="compose-to" md5="e1d101c96b942693818c7daf072f92c3" state="changed">
-    <title>�l��g�@: ����H</title>
-    <heading>"����H"</heading>
+    <title>郵件寫作: 收件人</title>
+    <heading>"收件人"</heading>
     <para>
-    ��J�����H���q�l�l����}�C
-    ���קK���~�o�ͧA�����ϥΤ@�ӳr���A�ӰϹj���P���q�l�l����}�C
-    �A�ҿ�J�������H�q�l�l����}�N�۰ʦ����e�X�l��"����H:"���}�C
+    輸入收件對象的電子郵件住址。
+    為避免錯誤發生你必須使用一個逗號，來區隔不同的電子郵件住址。
+    你所輸入的收件對象電子郵件住址將自動成為送出郵件的"收件人:"住址。
     </para>
   <!-- English entry:
 <entry id="compose-to">
@@ -735,15 +735,15 @@
     </para>
 </entry>--></entry>
   <entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
-    <title>�l��g�@: �ƥ�</title>
-    <heading>"�ƥ�"</heading>
+    <title>郵件寫作: 副本</title>
+    <heading>"副本"</heading>
     <para>
-    ��J�ƥ������H���q�l�l����}�C
-    ���קK���~�o�ͧA�����ϥΤ@�ӳr���A�ӰϹj���P���q�l�l����}�C
-    �A�ҿ�J���ƥ��q�l�l����}�N�۰ʦ����e�X�l��"�ƥ�:"���}�C
-    �ƥ��q�`�ϥΦb�P�l��ëD������H���o�����n���Y���ɭԡC
-    �Ҧ���'����H'�����H�P'�ƥ�'�����H���i�H�b�L�̩Ҧ��쪺�H��
-    �ݨ��������q�l�l��C
+    輸入副本收件對象的電子郵件住址。
+    為避免錯誤發生你必須使用一個逗號，來區隔不同的電子郵件住址。
+    你所輸入的副本電子郵件住址將自動成為送出郵件的"副本:"住址。
+    副本通常使用在與郵件並非直接對象但卻有重要關係的時候。
+    所有的'收件人'收件對象與'副本'收件對象都可以在他們所收到的信件中
+    看見彼此的電子郵件。
     </para>
   <!-- English entry:
 <entry id="compose-cc">
@@ -967,15 +967,15 @@
     </para>
 </entry>--></entry>
   <entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
-    <title>�l��g�@: ����ƥ�</title>
-    <heading>"����ƥ�"</heading>
+    <title>郵件寫作: 秘件副本</title>
+    <heading>"秘件副本"</heading>
     <para>
-    ��J����ƥ������H���q�l�l����}�C
-    ���קK���~�o�ͧA�����ϥγr���A�ӰϹj���P���q�l�l����}�C
-    �A�ҿ�J������ƥ��q�l�l����}�N�۰ʦ����e�X�l��"����ƥ�:"���}�C
-    �q�`����ƥ��b�ϥΤW���O��l�󪺪����ζ������Y(�Ҧp"����H"��"�ƥ�")�A
-    �ӵۭ������Ϊ��ĪG�C
-    ���󪺷N�q�b��A�H�X���l��W�N���ï���ƥ���H����ơC
+    輸入秘件副本收件對象的電子郵件住址。
+    為避免錯誤發生你必須使用逗號，來區隔不同的電子郵件住址。
+    你所輸入的秘件副本電子郵件住址將自動成為送出郵件的"秘件副本:"住址。
+    通常秘件副本在使用上有別於郵件的直接或間接關係(例如"收件人"及"副本")，
+    而著重於隱匿的效果。
+    秘件的意義在於，寄出的郵件上將隱藏秘件副本對象的資料。
     </para>
   <!-- English entry:
 <entry id="compose-bcc">
@@ -1199,19 +1199,19 @@
     </para>
 </entry>--></entry>
   <entry id="compose-subject" md5="607b6415ea1f6d0cf25e3cf57a2584cc" state="changed">
-    <title>�l��g�@: �D��</title>
-    <heading>"�D��"</heading>
+    <title>郵件寫作: 主旨</title>
+    <heading>"主旨"</heading>
     <para>
-    ��J�l�󪺥D���C
-    �A�ҿ�J���D���N�����e�X�l��"�D��:"�C
-    �ɥi��H²���n���y�z�ӻ����D���C
-    �D���O�̮e�����H����b���^�Q�_�o�ʶl�󤺮e����k�A
-    �]���b�s�g�l��ɥD���O�۷����n���C
-    �ӥB�A���A'�^��'��'��H'�l��ɥD���]�N�|�@�֩�i�s�l�󤤡A
-    �p���@�Ӷl�󤧶��~�૬���@�����p�C
-    �M�ӡA�p�G�A��'�^��'��'��H'���l�󤺮e�����F�ǳ\�����ܡA
-    �γ\�A�i�H�Ҽ{�b'�D��'�W�W�[²�檺�ܰʳq���A
-    �p���Ҧ������H��H�~���~��̴`���@"���p"�C
+    輸入郵件的主旨。
+    你所輸入的主旨將成為送出郵件的"主旨:"。
+    盡可能以簡單扼要的描述來說明主旨。
+    主旨是最容易讓人能夠在日後回想起這封郵件內容的方法，
+    因此在編寫郵件時主旨是相當重要的。
+    而且，當你'回覆'或'轉寄'郵件時主旨也將會一併放進新郵件中，
+    如此一來郵件之間才能型成一種關聯。
+    然而，如果你對'回覆'或'轉寄'的郵件內容中做了些許的改變，
+    或許你可以考慮在'主旨'上增加簡單的變動通知，
+    如此所有的收信對象才能繼續依循此一"關聯"。
     </para>
   <!-- English entry:
 <entry id="compose-subject">
@@ -1442,29 +1442,29 @@
     </para>
 </entry>
   <entry id="compose-options" md5="700a6844af3c7e6582da15929b5dd173" state="changed">
-    <title>�l��g�@: �ﶵ</title>
-    <heading>"�ﶵ"</heading>
+    <title>郵件寫作: 選項</title>
+    <heading>"選項"</heading>
     <para>
-    �o�ǿﶵ�Ψӻ��U�A�s�g�l��C
+    這些選項用來輔助你編寫郵件。
     </para>
     <para>
-    �I��"���g�ˬd"�A�ˬd�l�󤺮e�������g�O�_���~�C
+    點選"拼寫檢查"，檢查郵件內容的單文拼寫是否有誤。
     </para>
     <para>
-    �I��"����"�A�ֳt�����쭶���U�誺�ɮת��[���s�A���A���[�ɮר�l�󤤡C
+    點選"附件"，快速切換到頁面下方的檔案附加按鈕，讓你附加檔案到郵件中。
     </para>
     <para>
-    �Ŀ�"�H��Ƥ�"�A�x�s�H���A�b"�ﶵ -&gt;�ӤH��T -&gt;�����ѧO"�ҫ��w
-    ���H��h�C�ƦܧA�]�i�H�z�L�U�ԥ\�����ܨ�L���H��h�ƥ��C
+    勾選"寄件備分"，儲存寄件到你在"選項 -&gt;個人資訊 -&gt;身份識別"所指定
+    的信件閘。甚至你也可以透過下拉功能表選擇其他的信件閘備份。
     </para>
     <para>
-    �����n���H��Ƥ��H�Ѥ��ѦҨåB�@���@�ذO���C
-    �ѩ�ϺЪŶ�����Ҷq�A�O�d�ƥ�N�y���l��ֳt�����A
-    �]���ڭ̨ä����y�A���C�@�ʱH�󰵳ƥ�(�S�O�O���A�H��]�t���[�ɮת����p)�A
-    �H�קK�A���l�c�B���L�k�����s���l��C
-    �M�ӡA�A�٬O�i�H�ǥѰ���ﶵ-&gt;�ӤH��T-&gt;�s��A�������ѧO��ơA
-    �N�w�]�ȳ]�w��'�ҥ�'�C�P�ɦb�ﶵ���A�]�i�H�]�w�@�Ǻ��@�u�@
-    (�ﶵ-&gt;�n�J�u�@)�A���t�ί�w�ɲM�ũΧ�W�o�ǫH��h�H�ѬٺϺЪŶ��C
+    為重要的寄件備分以供日後參考並且作為一種記錄。
+    由於磁碟空間限制的考量，保留複件將造成郵件快速成長，
+    因此我們並不鼓勵你為每一封寄件做備份(特別是當你寄件包含附加檔案的狀況)，
+    以避免你的郵箱額滿無法收取新的郵件。
+    然而，你還是可以藉由執行選項-&gt;個人資訊-&gt;編輯你的身份識別資料，
+    將預設值設定為'啟用'。同時在選項中你也可以設定一些維護工作
+    (選項-&gt;登入工作)，讓系統能定時清空或更名這些信件閘以解省磁碟空間。
     </para>
   <!-- English entry:
 <entry id="compose-options">
@@ -1952,40 +1952,40 @@
     </warn>
 </entry>--></entry>
   <entry id="compose-attachments" md5="5b62669ca09fe858b091c2221947cb87" state="changed">
-    <title>�l��g�@: ����</title>
-    <heading>����</heading>
+    <title>郵件寫作: 附件</title>
+    <heading>附件</heading>
     <para>
-    ���ϰ���ܶl�󤤩Ҧ����[�ɮײM��C
+    此區域顯示郵件中所有附加檔案清單。
     </para>
-    <heading>�R���w���[�ɮ�</heading>
+    <heading>刪除已附加檔案</heading>
     <para>
-    ���R���w���[�ɮת��B�J�p�U:
-    </para>
-    <para>
-    �B�J 1: �Ŀ�w���[�ɮ׮��䪺�R������C
+    欲刪除已附加檔案的步驟如下:
     </para>
     <para>
-    �B�J 2: �I�� "�ܧ�����T"�C
-    </para>
-    <heading>�ܧ����t�m�覡</heading>
-    <para>
-    ���ܧ����t�m�覡���B�J�p�U:
+    步驟 1: 勾選已附加檔案旁邊的刪除方塊。
     </para>
     <para>
-    �B�J 1: �ܧ�C�Ӫ��󪺰t�m�覡�� '������ܩ󥻤��' �� '����'�C
+    步驟 2: 點選 "變更附件資訊"。
+    </para>
+    <heading>變更附件配置方式</heading>
+    <para>
+    欲變更附件配置方式的步驟如下:
     </para>
     <para>
-    �B�J 2: �I�� "�ܧ�����T"�C
-    </para>
-    <heading>�ܧ����y�z</heading>
-    <para>
-    �ܧ����y�z���B�J�p�U (�Ҧ������H�N�|�ݨ즹�@�y�z):
+    步驟 1: 變更每個附件的配置方式為 '直接顯示於本文區' 或 '附件'。
     </para>
     <para>
-    �B�J 1: ��y�z����J²�u�ԭz�C
+    步驟 2: 點選 "變更附件資訊"。
+    </para>
+    <heading>變更附件描述</heading>
+    <para>
+    變更附件描述的步驟如下 (所有收件對象將會看到此一描述):
     </para>
     <para>
-    �B�J 2: �I�� "�ܧ�����T"�C
+    步驟 1: 於描述欄位輸入簡短敘述。
+    </para>
+    <para>
+    步驟 2: 點選 "變更附件資訊"。
     </para>
   <!-- English entry:
 <entry id="compose-attachments">
@@ -2802,21 +2802,21 @@
     </para>
 </entry>
   <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
-    <title>�l��g�@: �u������</title>
-    <heading>"�u������"</heading>
+    <title>郵件寫作: 優先順序</title>
+    <heading>"優先順序"</heading>
     <para>
-    ���ﶵ�Ψӳ]�w�H�e�l�� "X-Priority" ���Y�C
-    "X-Priority" �O Netscape�A Mozilla�A Operar�� Outlook
-    ���l��\Ū�n��һ{�i���@�� "����" ���ҡC
-    �ѩ��L���l��\Ū�n��ä��䴩�o�ت��Y�ҥH�N�|�����l�󤤪��u�����ǡC
+    此選項用來設定寄送郵件的 "X-Priority" 表頭。
+    "X-Priority" 是 Netscape， Mozilla， Operar及 Outlook
+    等郵件閱讀軟體所認可的一種 "虛擬" 標籤。
+    由於其他的郵件閱讀軟體並不支援這種表頭所以將會忽略郵件中的優先順序。
     </para>
   </entry>
   <entry id="compose-save-attachments" state="changed" md5="5353905ce9ba89d4b8b7ca56e37b4678">
-    <title>�l��g�@: �x�s����</title>
+    <title>郵件寫作: 儲存附件</title>
     <para>
-    �M�w�x�s�H��ƥ��ɡA�O�_�]�n�@���x�s�H�󤤪����[�ɮסC �p�G"�O"�A���[�ɮ�
-    �N�|�Q�x�s�C �p�G"�_"�A���[�ɮױN��l��H�X��h���Ӥ��|�Q�x�s�b�H��ƥ�
-    �h���C ���"�_"�i�ǥѥh��(�j������)����A���U��`�ٶl�c�ϺЪŶ��C
+    決定儲存寄件備份時，是否也要一併儲存寄件中的附加檔案。 如果"是"，附加檔案
+    將會被儲存。 如果"否"，附加檔案將於郵件寄出後去除而不會被儲存在寄件備份
+    閘中。 選擇"否"可藉由去除(大型潛藏)附件，有助於節省郵箱磁碟空間。
     </para>
   <!-- English entry:
 <entry id="compose-save-attachments">
@@ -2958,22 +2958,22 @@
     </para>
 </entry>
   <entry id="search" md5="21b917f954ab9af23d96a6ad60409fe1" state="changed">
-    <title>�l��j�M</title>
-    <heading>�j�M����</heading>
+    <title>郵件搜尋</title>
+    <heading>搜尋條件</heading>
     <para>
-    �ǥѤ��P���j�M����A�i�H�j�M�Ҧ��H��X�����l��C
+    藉由不同的搜尋條件你可以搜尋所有信件匣中的郵件。
     </para>
-    <para>�B�J 1: ����j�M������줤��J�����r�C
+    <para>步驟 1: 於欲搜尋條件的欄位中輸入關鍵文字。
     </para>
-    <para>�B�J 2: ��ܶl����ѥH�[�J��j�M���󤤡C
+    <para>步驟 2: 選擇郵件標識以加入到搜尋條件中。
     </para>
-    <para>�B�J 3: ��ܭn�j�M���H��X�C
+    <para>步驟 3: 選擇要搜尋的信件匣。
     </para>
-    <para>�B�J 4: �I�� "�j�M"�C
+    <para>步驟 4: 點選 "搜尋"。
     </para>
     <para>
-    �p�G�����󪺶l��P�A���j�M����۲šA
-    �Ӷl�󪺥D���N��ܩ� "�j�M" ���G���e�����C
+    如果有任何的郵件與你的搜尋條件相符，
+    該郵件的主旨將顯示於 "搜尋" 結果的畫面中。
     </para>
   <!-- English entry:
 <entry id="search">
@@ -3461,23 +3461,23 @@
     </para>
 </entry>--></entry>
   <entry id="folder-options" md5="b45a4dedf0c4a684064cdf6ae98d1b54" state="changed">
-    <title>�H��X�޲z</title>
-    <heading>�H��X�ﶵ</heading>
+    <title>信件匣管理</title>
+    <heading>信件匣選項</heading>
     <para>
-      �A�i�H�Ŀ索����줤���@�ӫH��X�C
-      �M��A�U��"��ܧ@�Τ覡"�\����A�ÿ�ܤ@�ӧ@�Τ覡
-      �ӹ�W�z���H��X�i��޲z�C
+      你可以勾選左方欄位中的一個信件匣。
+      然後再下拉"選擇作用方式"功能表，並選擇一個作用方式
+      來對上述的信件匣進行管理。
     </para>
     <para>
-      �A�N�|�Q�n�D��J�ǳ\�������ާ@��ơC
-      �Фp�ߪ����� "�R���H��X" �� "�M�ūH��X" �o�G�ؾާ@�A
-      �]���H��X�@���D�R���βM�šA�䤤���l��]�N�@�֮����C
+      你將會被要求輸入些許的相關操作資料。
+      請小心的執行 "刪除信件匣" 及 "清空信件匣" 這二種操作，
+      因為信件匣一旦遭刪除或清空，其中的郵件也將一併消失。
     </para>
-    <heading>�פJ mbox ���A�q�l�l���ɮ�</heading>
+    <heading>匯入 mbox 型態電子郵件檔案</heading>
     <para>
-      �o�ӿﶵ�N�פJ�@�� mbox ���A�q�l�l���ɮר�A�ҿ�w���H��X���C
-      ��ܤ@�ӭn�פJ�l�󪺫H��X�M��A��ܳo�ӿﶵ�C
-      ����A�N�Q�޾ɨ�t�@�ӭ������}�l����פJ�ʧ@�C
+      這個選項將匯入一個 mbox 型態電子郵件檔案到你所選定的信件匣中。
+      選擇一個要匯入郵件的信件匣然後再選擇這個選項。
+      之後你將被引導到另一個頁面中開始執行匯入動作。
     </para>
   <!-- English entry:
 <entry id="folder-options">
@@ -4494,60 +4494,60 @@
     </para>
 </entry>--></entry>
   <entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
-    <title>�l��L�o: �M��</title>
-    <heading>�M�ΩҦ��W�h</heading>
+    <title>郵件過濾: 套用</title>
+    <heading>套用所有規則</heading>
     <para>
-    �b�l�c�˵��e�����I�怜��h���䪺"�l��L�o"�ϥܡA�H�M�Ϋ��w���W�h��
-    �Ҧ��l��W�C
+    在郵箱檢視畫面中點選收件閘旁邊的"郵件過濾"圖示，以套用指定的規則到
+    所有郵件上。
     </para>
   </entry>
   <entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
-    <title>�l��L�o: �s��L�o�W�h</title>
-    <heading>�s��A���L�o�W�h</heading>
+    <title>郵件過濾: 編輯過濾規則</title>
+    <heading>編輯你的過濾規則</heading>
     <para>
-    �I��"�s��A���L�o�W�h"���A�s�W�A�R���H�νs��ثe�w�Ұʪ��W�h�C
+    點選"編輯你的過濾規則"讓你新增，刪除以及編輯目前已啟動的規則。
     </para>
   </entry>
   <entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
-    <title>�l��L�o: �s��¦W��</title>
-    <heading>�s��A���¦W��</heading>
+    <title>郵件過濾: 編輯黑名單</title>
+    <heading>編輯你的黑名單</heading>
     <para>
-    �I��"�s��A���¦W��"���A�s�W�A�R���H�νs��@���A�û����Q���H���q�l�l��W��C
+    點選"編輯你的黑名單"讓你新增，刪除以及編輯一份你永遠不想收信的電子郵件名單。
     </para>
   </entry>
   <entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
-    <title>�l��L�o: �s��͵��W��</title>
-    <heading>�s��A���͵��W��</heading>
+    <title>郵件過濾: 編輯友善名單</title>
+    <heading>編輯你的友善名單</heading>
     <para>
-    �I��"�s��A���͵��W��"���A�s�W�A�R���H�νs��@���A�Q���H���q�l�l��W��C
-    �͵��W�檺�ت��b��G�ѩ�͵��W��֦���������L�o�u���v�A�i�קK�l��D
-    ��L�W�h�m���M�γy���򥢵���G�A�T�O���H��|�Q�e�F����h���C
+    點選"編輯你的友善名單"讓你新增，刪除以及編輯一份你想收信的電子郵件名單。
+    友善名單的目的在於：由於友善名單擁有比較高的過濾優先權，可避免郵件遭
+    其他規則搶先套用造成遺失等後果，確保對方信件會被送達收件閘中。
     </para>
   </entry>
   <entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
-    <title>�l��L�o: �n�J�ɮM��</title>
-    <heading>��n�J�ɮM�ΩҦ��L�o�W�h ?</heading>
+    <title>郵件過濾: 登入時套用</title>
+    <heading>於登入時套用所有過濾規則 ?</heading>
     <para>
-    �Ŀ�o�ӿﶵ�A�H�K���C���n�J�����l���ɡA�M�ΩҦ��W�h�C
+    勾選這個選項，以便日後每次登入網路郵局時，套用所有規則。
     </para>
   </entry>
   <entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
-    <title>�l��L�o: ���s��z�ɤ@�֮M��</title>
-    <heading>�C���}�Ҧ���h�ɡA�@�ֱN�Ҧ��L�o�W�h�M�Ψ�W�C</heading>
+    <title>郵件過濾: 重新整理時一併套用</title>
+    <heading>每次開啟收件閘時，一併將所有過濾規則套用其上。</heading>
     <para>
-    �Ŀ�o�ӿﶵ�A�H��C���}�Ҧ���h���P�ɡA�]�N�Ҧ��L�o�W�h�M�Ω󦬥�h ?
+    勾選這個選項，以後每次開啟收件閘的同時，也將所有過濾規則套用於收件閘 ?
     </para>
   </entry>
   <entry id="filter-any-mailbox" state="changed" md5="db1e4261ffcfc6d33e2a8cf806683f12">
-    <title>�l��L�o: �M�Ω���@�ӫH��h</title>
-    <heading>�N�L�o�W�h�M�Ω���@�ӫH��h ?</heading>
+    <title>郵件過濾: 套用於任一個信件閘</title>
+    <heading>將過濾規則套用於任一個信件閘 ?</heading>
     <para>
-    �p�G�A�Ʊ�L�o�W�h��M�Ω���@�ӫH��h���A�ФĿ�o�ӿﶵ�C
-    �q�`�L�o�W�h�u�M�Ω󦬥�h�����s�l��C�p�G�Ŀ�o�ӿﶵ�A�b�Ҧ��H��h���l�c
-    �˵��e�����N�X�{�@�ӹϥܡA�I��ӹϥܥi�N�L�o�W�h�M�Ψ�ثe���H��h�C��:
-    �M�Ω�"���@�H��h"��_�M�Ω�"����h"���ڸ��h���ϺЪŶ�(�Ҧp�C�W�h�Q�M�Ϋ�
-    �H��S�Q���ƻ��e��P�@�ӫH��h��)�B/�εo�͵L�k�w�������G(�Ҧp�C��ӫإߪ�
-    �s�W�h�P�ϥثe�H��h�����H��Q�h��/�R��)�C
+    如果你希望過濾規則能套用於任一個信件閘中，請勾選這個選項。
+    通常過濾規則只套用於收件閘中的新郵件。如果勾選這個選項，在所有信件閘的郵箱
+    檢視畫面中將出現一個圖示，點選該圖示可將過濾規則套用到目前的信件閘。註:
+    套用於"任一信件閘"比起套用於"收件閘"佔據較多的磁碟空間(例如。規則被套用後
+    信件又被重複遞送到同一個信件閘中)且/或發生無法預期的結果(例如。後來建立的
+    新規則致使目前信件閘中的信件被搬移/刪除)。
     </para>
   <!-- English entry:
 <entry id="filter-any-mailbox">
@@ -4705,12 +4705,12 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-compose-attach-pubkey" md5="426b99481a5ab2dbe8c00f0e8597e296" state="changed">
-    <title>PGP: ���W���}���_</title>
-    <heading>���W���}���_</heading>
+    <title>PGP: 附上公開金鑰</title>
+    <heading>附上公開金鑰</heading>
     <para>
-    �p�G�Ŀ惡�@���ءA�B�A�� PGP ���}���_�]�s�b���ܡA�h�H�X���H�󤤱N���W
-    �A�� PGP ���}���_�C
-    �A�i�H�g�Ѧb PGP �ﶵ���e�����]�w���@�w�]�欰�C
+    如果勾選此一項目，且你的 PGP 公開金鑰也存在的話，則寄出的信件中將附上
+    你的 PGP 公開金鑰。
+    你可以經由在 PGP 選項的畫面中設定此一預設行為。
     </para>
   <!-- English entry:
 <entry id="pgp-compose-attach-pubkey">
@@ -4868,12 +4868,12 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
-    <title>PGP: ���y�l�󤺮e</title>
-    <heading>���y�l�󤺮e</heading>
+    <title>PGP: 掃描郵件內容</title>
+    <heading>掃描郵件內容</heading>
     <para>
-    �p�G�Ŀ惡�@���ءA�����l���N�۰ʦb�C�@�ʯ¤�r�榡�l�󤤱��y PGP ��ơA
-    �p�G�����y�� PGP ��ƫh��ܸӸ�ơC�Ъ`�N�A�ѩ�C�@�ʯ¤�r�榡�l��
-    ���Q���y�H�M�� PGP ��ơA�]���o���\��N�ɭP�t�γt���ܺC�C
+    如果勾選此一項目，網路郵局將自動在每一封純文字格式郵件中掃描 PGP 資料，
+    如果有掃描到 PGP 資料則顯示該資料。請注意，由於每一封純文字格式郵件
+    都被掃描以尋找 PGP 資料，因此這項功能將導致系統速度變慢。
     </para>
   <!-- English entry:
 <entry id="pgp-option-scan-body">
@@ -5031,41 +5031,41 @@
     </para>
 </entry>--></entry>
   <entry id="compose-options-encrypt" md5="d1473a3e8905d603ef33f9d58506aac5" state="changed">
-    <title>�l��g�@: �[�K�ﶵ</title>
-    <heading>�l�󤣥[�K</heading>
+    <title>郵件寫作: 加密選項</title>
+    <heading>郵件不加密</heading>
     <para>
-    ���[�K�l��Ӫ����ǰe (����)�C
+    不加密郵件而直接傳送 (明文)。
     </para>
-    <heading>PGP �l��[�K</heading>
+    <heading>PGP 郵件加密</heading>
     <para>
-    �o�ӿﶵ�N�ϥΦ����H�� PGP �ӤH���}���_�A���ثe�s�g���l��[�K�C
-    �ϥγo�ӿﶵ�s�g�l��ɡA�����H�ȥu�঳�@��C
-    �b�A���q�T���������s���o�즬���H�� PGP ���}���_�A�_�h�N�|�X�{���~�����p�C
-    �p�G�A���q�T�����T��w�s�b�o�즬���H�� PGP ���}���_�A
-    �����M������~���T���ɡA���ˬd�@�U�����H���q�l�l����}�O�_�P�q�T����
-    �ӵ� PGP ���}���_���q�l�l����}�ۧk�X�C
-    �[�K��ƱN���[��l�󤤤@�ֱH�X�C
+    這個選項將使用收件對象的 PGP 個人公開金鑰，為目前編寫的郵件加密。
+    使用這個選項編寫郵件時，收件對象僅只能有一位。
+    在你的通訊錄中必須存有這位收件對象的 PGP 公開金鑰，否則將會出現錯誤的狀況。
+    如果你的通訊錄中確實已存在這位收件對象的 PGP 公開金鑰，
+    但仍然收到錯誤的訊息時，請檢查一下收件對象的電子郵件住址是否與通訊錄中
+    該筆 PGP 公開金鑰的電子郵件住址相吻合。
+    加密資料將附加於郵件中一併寄出。
     </para>
-    <heading>PGP �l��ñ��</heading>
+    <heading>PGP 郵件簽章</heading>
     <para>
-    �o�ӿﶵ�N�ϥΧA���ӤH�p�K���_���ثe�s�g���l��I�H PGP �Ʀ�ñ���C
-    �p�G�A�|���b�o�ӵn�J�䶡����J�A���ӤH�p�K���_�K�X�A���A�N�|�Q�n�D��J�C
-    �����H�����n�֦��A���ӤH���}���_�H�i��Ʀ����ҧA��ñ���C
+    這個選項將使用你的個人私密金鑰為目前編寫的郵件施以 PGP 數位簽章。
+    如果你尚未在這個登入其間中輸入你的個人私密金鑰密碼，那你將會被要求輸入。
+    收件對象必須要擁有你的個人公開金鑰以進行數位驗證你的簽章。
     </para>
-    <heading>PGP �l��ñ��/�l��[�K</heading>
+    <heading>PGP 郵件簽章/郵件加密</heading>
     <para>
-    �o�ӿﶵ�N����l�����Ʀ�ñ�����ʧ@�M��A����l��[�K�C
-    ��i�@�B����T�аѦ� 'PGP �l��[�K' �� 'PGP �l��ñ��'�C
+    這個選項將先對郵件執行數位簽章的動作然後再執行郵件加密。
+    更進一步的資訊請參考 'PGP 郵件加密' 及 'PGP 郵件簽章'。
     </para>
-    <heading>S/MIME �l��[�K</heading>
-    <para>
-    TODO
-    </para>
-    <heading>S/MIME �l��ñ��</heading>
+    <heading>S/MIME 郵件加密</heading>
     <para>
     TODO
     </para>
-    <heading>S/MIME �l��ñ��/�l��[�K</heading>
+    <heading>S/MIME 郵件簽章</heading>
+    <para>
+    TODO
+    </para>
+    <heading>S/MIME 郵件簽章/郵件加密</heading>
     <para>
     TODO
     </para>
@@ -5810,57 +5810,57 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
-    <title>PGP: ���z</title>
-    <heading>����O PGP?</heading>
+    <title>PGP: 概述</title>
+    <heading>什麼是 PGP?</heading>
     <para>
-    PGP �O�@�إΩ�q�T�H�θ�ƪ��[�K�u��A�S�O�O�Ω�q�l�l��C
-    PGP �i�Ω��ƪ��[�K�B�إ߼Ʀ�ñ���C
-    �����l�� IMP �ϥ� GnuPG (GNU Privacy Guard) �H���Ѧ����\��C
+    PGP 是一種用於通訊以及資料的加密工具，特別是用於電子郵件。
+    PGP 可用於資料的加密、建立數位簽章。
+    網路郵局 IMP 使用 GnuPG (GNU Privacy Guard) 以提供此項功能。
     </para>
-    <heading>�ҥ� PGP ?</heading>
+    <heading>啟用 PGP ?</heading>
     <para>
-    �Ŀ�o�Ӷ��ث�A�A�N��� �إ�/�˵� �A�� PGP �ӤH���_��A�s�W/�R�� �ӦۥL�H
-    �Ҫ��e�����}���_�AŪ���[�K�l��A���ҼƦ�ñ���l��A�H�ά��A�n�H�o���l��I�H
-    �[�K/ñ�����\��C
+    勾選這個項目後，你將能夠 建立/檢視 你的 PGP 個人金鑰對，新增/刪除 來自他人
+    所附送的公開金鑰，讀取加密郵件，驗證數位簽章郵件，以及為你要寄發的郵件施以
+    加密/簽章的功能。
     </para>
   </entry>
   <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
-    <title>PGP: �ﶵ - ���W���}���_</title>
-    <heading>�ﶵ - ���W���}���_</heading>
+    <title>PGP: 選項 - 附上公開金鑰</title>
+    <heading>選項 - 附上公開金鑰</heading>
     <para>
-    �p�G�Ŀ惡�@���ءA�B�A�� PGP ���}���_�]�s�b���ܡA�h�H�X���H�󤤱N���W
-    �A�� PGP ���}���_�C
+    如果勾選此一項目，且你的 PGP 公開金鑰也存在的話，則寄出的信件中將附上
+    你的 PGP 公開金鑰。
     </para>
   </entry>
   <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
-    <title>PGP: �޲z���}���_</title>
-    <heading>���z</heading>
+    <title>PGP: 管理公開金鑰</title>
+    <heading>概述</heading>
     <para>
-    �o�ӵe���C�X�ثe�b�A���q�T�����֦����}���_���Ҧ��ϥΪ̡C
-    �u���o�ǨϥΪ̥i�H 1)���A�ǰe�@�ʥ[�K���l�� -��-
-    2)���A���ҥL�ұH�o���Ʀ�ñ���C
+    這個畫面列出目前在你的通訊錄中擁有公開金鑰的所有使用者。
+    只有這些使用者可以 1)讓你傳送一封加密的郵件 -或-
+    2)讓你驗證他所寄發的數位簽章。
     </para>
-    <heading>�˵�</heading>
+    <heading>檢視</heading>
     <para>
-    �}�Ҥ@�ӵ����H�˵� PGP ���}���_�C
+    開啟一個視窗以檢視 PGP 公開金鑰。
     </para>
-    <heading>�Ӹ`</heading>
+    <heading>細節</heading>
     <para>
-    ������� PGP ���}���_�������Ӹ`�C
+    顯示關於此 PGP 公開金鑰的部分細節。
     </para>
-    <heading>�R��</heading>
+    <heading>刪除</heading>
     <para>
-    �ۧA���q�T�����R�����@���}���_�C
+    自你的通訊錄中刪除此一公開金鑰。
     </para>
   </entry>
   <entry id="pgp-import-pubkey" md5="a0bb34a07de288201d27ba5e891257a9" state="changed">
-    <title>PGP: �޲z���}���_ - �פJ</title>
-    <heading>�פJ���}���_</heading>
+    <title>PGP: 管理公開金鑰 - 匯入</title>
+    <heading>匯入公開金鑰</heading>
     <para>
-    �o�ӫ��s�N�}�Ҥ@�ӵ����H�ѧA��ʦa�פJ�@�� PGP ���}���_�C
-    �A�i�H�N���_�K�J���r��줤�A�Ϊ̦ۧA���ӤH�q���N���}���_�����פJ�C
-    �p�G�Ӫ��_�O�X�k�����N�|�Q�s��b�A���ӤH�q�T�����A�H��o�ӵ����N�@�������C
-    �p�G���O�X�k�����_�A�h�A�N�|�ݨ����~����]�C
+    這個按鈕將開啟一個視窗以供你手動地匯入一個 PGP 公開金鑰。
+    你可以將金鑰貼入到文字欄位中，或者自你的個人電腦將公開金鑰直接匯入。
+    如果該金鑰是合法的它將會被存放在你的個人通訊錄中，隨後這個視窗將一併關閉。
+    如果不是合法的金鑰，則你將會看見錯誤的原因。
     </para>
   <!-- English entry:
 <entry id="pgp-import-pubkey">
@@ -6018,104 +6018,104 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
-    <title>PGP: �޲z�ӤH���_</title>
-    <heading>���z</heading>
+    <title>PGP: 管理個人金鑰</title>
+    <heading>概述</heading>
     <para>
-    �p�G�A�Q�n��l��I�H�Ʀ�ñ���Ϊ����L�H����H���A�[�K���l��A
-    ���A�����n���֦��ݩ�ۤv�����}/�p�KPGP���_��C
+    如果你想要對郵件施以數位簽章或者讓他人能夠寄給你加密的郵件，
+    那你必須要先擁有屬於自己的公開/私密PGP金鑰對。
     </para>
-    <heading>�A�����}���_</heading>
+    <heading>你的公開金鑰</heading>
     <para>
-    �A�����}���_�i�H�H�����ǡA�A�Ʊ���|�H�o�[�K�l�󵹧A���H�C
-    �[�K�᪺�l��u���A��ѱK(�ϥΧA���p�K���_)�C
-    �t�~�A�A�����}���_�i�H�H������@��A�A���H�o���L�Ʀ�ñ���l�󪺤H -
-    �]���Ʀ�ñ�������һݭn�A�����}���_�C
+    你的公開金鑰可以寄給那些，你希望對方會寄發加密郵件給你的人。
+    加密後的郵件只有你能解密(使用你的私密金鑰)。
+    另外，你的公開金鑰可以寄給任何一位，你曾寄發給他數位簽章郵件的人 -
+    因為數位簽章的驗證需要你的公開金鑰。
     </para>
-    <heading>�A���p�K���_</heading>
+    <heading>你的私密金鑰</heading>
     <para>
-    �A���p�K���_�Q�ΨӡA�ѱK�Ҧ��H�A���}���_�[�K���l��C
-    �t�~�A�p�G�A�Q�n��H�o���l��I�H�Ʀ�ñ���A�o�]�ݭn�A���p�K���_�C
-    �A���p�K���_�N�Q������_�إ߮ɩҲ��ͪ��@�ձK�X�ҫO�@�C
-    �]����������ݭn�A���p�K���_���X�ɡA
-    �����l���N�|���ܧA��J�K�X�C
-    �A�u�ݭn�b�C�ӵn�J������J�A���K�X�Y�i -
-    �����l���N�|�۰��x�s�A���K�X����A�n�X����
-    (�ҥH�����ϥκ����l�����ɭԡA�O�o�n�T��n�X�@�I)
+    你的私密金鑰被用來，解密所有以你公開金鑰加密的郵件。
+    另外，如果你想要對寄發的郵件施以數位簽章，這也需要你的私密金鑰。
+    你的私密金鑰將被當初金鑰建立時所產生的一組密碼所保護。
+    因此當有任何需要你的私密金鑰場合時，
+    網路郵局將會提示你輸入密碼。
+    你只需要在每個登入期間輸入你的密碼即可 -
+    網路郵局將會自動儲存你的密碼直到你登出為止
+    (所以當不使用網路郵局的時候，記得要確實登出哦！)
     </para>
   </entry>
   <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
-    <title>PGP: �޲z�ӤH���_ - ���}���_</title>
-    <heading>�˵�</heading>
+    <title>PGP: 管理個人金鑰 - 公開金鑰</title>
+    <heading>檢視</heading>
     <para>
-    �}�Ҥ@�ӵ����H�˵� PGP ���}���_�C
+    開啟一個視窗以檢視 PGP 公開金鑰。
     </para>
-    <heading>�Ӹ`</heading>
+    <heading>細節</heading>
     <para>
-    ������� PGP ���}���_�������Ӹ`�C
+    顯示關於此 PGP 公開金鑰的部分細節。
     </para>
   </entry>
   <entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
-    <title>PGP: �޲z�ӤH���_ - �p�K���_</title>
-    <heading>��J�K�X</heading>
+    <title>PGP: 管理個人金鑰 - 私密金鑰</title>
+    <heading>輸入密碼</heading>
     <para>
-    �}�ұK�X��ܵ����C�p�G��J���T���K�X�A�K�X�N�Q�����l�� IMP �x�s
-    �A����A���n�J������������C
+    開啟密碼對話視窗。如果輸入正確的密碼，密碼將被網路郵局 IMP 儲存
+    ，直到你的登入期間結束為止。
     </para>
-    <heading>�����K�X</heading>
+    <heading>卸載密碼</heading>
     <para>
-    �ۺ����l�������w�x�s���K�X - ������򪺨p�K���_�B�z
-    �������A���s��J���K�X�C
+    自網路郵局移除已儲存的密碼 - 任何後續的私密金鑰處理
+    都必須再重新輸入此密碼。
     </para>
-    <heading>�˵�</heading>
+    <heading>檢視</heading>
     <para>
-    �}�Ҥ@�ӵ����H�˵� PGP �p�K���_�C "���n�N���p�K���_�ǰe������H" -
-    ���ﶵ�O�Y�Ԧa�A�p���@�ӧA�i�H�N�A�������l���p�K���_�ץX�Ѩ�L
-    �{���ϥΡC
+    開啟一個視窗以檢視 PGP 私密金鑰。 "不要將此私密金鑰傳送給任何人" -
+    此選項是嚴謹地，如此一來你可以將你的網路郵局私密金鑰匯出供其他
+    程式使用。
     </para>
-    <heading>�Ӹ`</heading>
+    <heading>細節</heading>
     <para>
-    ������� PGP �p�K���_�������Ӹ`�C
+    顯示關於此 PGP 私密金鑰的部分細節。
     </para>
   </entry>
   <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
-    <title>PGP: �޲z�ӤH���_ - �R��</title>
-    <heading>�R���ӤH���_</heading>
+    <title>PGP: 管理個人金鑰 - 刪除</title>
+    <heading>刪除個人金鑰</heading>
     <para>
-    �I��o�ӫ��s�A�|�N�A�x�s�b�����l�����n�]�w�����ӤH���}/�p�K���_��R���C
-    �Ъ`�N�G�ѩ�ӤH�p�K���_�P�ӤH���}���_�O���諸�A�@�����_��إߧ����ϥΪ�
-    ���Ӻɥi���קK�h�R�����C�]���p�G�S�A�����s�إߪ��_��A���e�Ҧ��H�o���B�ͨìy
-    �q�b�~�����}���_�N�L�k�P�s�ت��p�K���_�k�X�C(���D�A�N�s�ت����}���_���s�H�o)
+    點選這個按鈕，會將你儲存在網路郵局偏好設定中的個人公開/私密金鑰對刪除。
+    請注意：由於個人私密金鑰與個人公開金鑰是成對的，一但金鑰對建立完成使用者
+    應該盡可能避免去刪除它。因為如果又再次重新建立金鑰對，之前所有寄發給朋友並流
+    通在外的公開金鑰將無法與新建的私密金鑰吻合。(除非你將新建的公開金鑰重新寄發)
     </para>
   </entry>
   <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
-    <title>PGP: �إ߭ӤH���_ - �W��</title>
-    <heading>�W��</heading>
+    <title>PGP: 建立個人金鑰 - 名稱</title>
+    <heading>名稱</heading>
     <para>
-    �o�ӦW�ٱN�O�J��A���ӤH���_���C�o�O�������C
+    這個名稱將嵌入到你的個人金鑰中。這是必須欄位。
     </para>
   </entry>
   <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
-    <title>PGP: �إ߭ӤH���_ - ����</title>
-    <heading>����</heading>
+    <title>PGP: 建立個人金鑰 - 註解</title>
+    <heading>註解</heading>
     <para>
-    �A�Ʊ欰���ӤH���_���Ѫ������A�o�ǵ��ѱN�O�J��A���ӤH���_���C
-    �o�O��ܩ����C
+    你希望為此個人金鑰提供的說明，這些註解將嵌入到你的個人金鑰中。
+    這是選擇性欄位。
     </para>
   </entry>
   <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
-    <title>PGP: �إ߭ӤH���_ - �q�l�l��a�}</title>
-    <heading>�q�l�l��a�}</heading>
+    <title>PGP: 建立個人金鑰 - 電子郵件地址</title>
+    <heading>電子郵件地址</heading>
     <para>
-    �A�ҧƱ�P�ӤH���_���X���q�l�l��a�}�C�o�O�������C
+    你所希望與個人金鑰結合的電子郵件地址。這是必須欄位。
     </para>
   </entry>
   <entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
-    <title>PGP: �إ߭ӤH���_ - ���_����</title>
-    <heading>���_����</heading>
+    <title>PGP: 建立個人金鑰 - 金鑰長度</title>
+    <heading>金鑰長度</heading>
     <para>
-    �A�Ҳ��ͪ����_�A����׬O�H�줸�լ����C���׶V���A�O�@�ʶV�� (�۹諸�A����
-    �����_�ݭn���h���ɶ��Ӳ��͡A�H�Υ[�K)�C1024 �줸�լO�w�]���� - �o�Ӫ���
-    ���ѵ��Ϊ��O�@�ʡC
+    你所產生的金鑰，其長度是以位元組為單位。長度越長，保護性越佳 (相對的，較長
+    的金鑰需要較多的時間來產生，以及加密)。1024 位元組是預設長度 - 這個長度
+    提供絕佳的保護性。
     </para>
   <!-- English entry:
 <entry id="pgp-personalkey-create-keylength">
@@ -6252,28 +6252,28 @@
     </para>
 </entry>--></entry>
   <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
-    <title>PGP: �إ߭ӤH���_ - �K�X</title>
-    <heading>�K�X</heading>
+    <title>PGP: 建立個人金鑰 - 密碼</title>
+    <heading>密碼</heading>
     <para>
-    �K�X�ΨӫO�@/�[�K�A���ӤH�p�K���_�C�K�X���]�w���X�ӭ�h�G
-    1) �ܤ� 6 �Ӧr(�^��μƦr)�C 2) ���n�M�n�J�K�X�ۦP�C 3) �b�r�夤�䤣��C
-    4) �^��r�P�Ʀr�����ϥΡC
-    �A������J�G���K�X�A�H�T�O�A�S���~�]�C�o�O�������C
+    密碼用來保護/加密你的個人私密金鑰。密碼的設定有幾個原則：
+    1) 至少 6 個字(英文或數字)。 2) 不要和登入密碼相同。 3) 在字典中找不到。
+    4) 英文字與數字交雜使用。
+    你必須輸入二次密碼，以確保你沒有誤設。這是必須欄位。
     </para>
   </entry>
   <entry id="pgp-personalkey-create-actions" md5="8b34a7b76424db822724a60271a33096" state="changed">
-    <title>PGP: �إ߭ӤH���_ - �ʧ@</title>
-    <heading>�إߪ��_</heading>
+    <title>PGP: 建立個人金鑰 - 動作</title>
+    <heading>建立金鑰</heading>
     <para>
-    �إߨ��x�s�A���ӤH���}/�p�K���_��C
+    建立並儲存你的個人公開/私密金鑰對。
     </para>
-    <heading>�פJ���_��</heading>
+    <heading>匯入金鑰對</heading>
     <para>
-    �פJ�@�խӤH ���}/�p�K ���_��C
-    �o�ӫ��s�N�}�Ҥ@�ӵ����A�ѧA�פJ�A��PGP�ӤH���}/�p�K���_��C
-    �A�i�H�N���_�K�J���r��줤�A�Ϊ̪����ѧA���q���N���}���_�פJ�C
-    �p�G�Ӫ��_�O���Ī����N�|�Q�s��b�A���]�w���A�H��o�ӵ����N�@�������C
-    �p�G���O���Ī����_�A�h�A�N�|�ݨ����~����]�C
+    匯入一組個人 公開/私密 金鑰對。
+    這個按鈕將開啟一個視窗，供你匯入你的PGP個人公開/私密金鑰對。
+    你可以將金鑰貼入到文字欄位中，或者直接由你的電腦將公開金鑰匯入。
+    如果該金鑰是有效的它將會被存放在你的設定中，隨後這個視窗將一併關閉。
+    如果不是有效的金鑰，則你將會看見錯誤的原因。
     </para>
   <!-- English entry:
 <entry id="pgp-personalkey-create-actions">
@@ -6519,22 +6519,22 @@
     </para>
 </entry>--></entry>
   <entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
-    <title>S/MIME: ���z</title>
-    <heading>����O S/MIME?</heading>
+    <title>S/MIME: 概述</title>
+    <heading>什麼是 S/MIME?</heading>
     <para>
-    PGP �O�@�إΩ�q�T�H�θ�ƪ��[�K�u��A�S�O�O�Ω�q�l�l��C 
-    PGP �i�Ω��ƪ��[�K�B�إ߼Ʀ�ñ���C �����l���ϥ� GnuPG (GNU Privacy Guard)
-    �H���ѤW�z���A�ȡC
-    S/MIME �O�t�@�بp�K/���}���_��t�ΡC�Өt�δ��ѽѦp�G�Ʀ�ñ���A�l��[�K�A�H��
-    �b�}��@�ΤW����«�ﰻ�����޳N�C S/MIME �i�H���Ѷl��[�K���\��A�[�K�᪺�l
-    ��u���H�e�̤Φ���̥i�H�ѱK�CS/MIME �٥i�H�g�ѼƦ�ñ���ӿ��ѱH�e�̪��l��C
-    �[�K�P�Ʀ�ñ���@�_�ϥΧ�i�H����«�ﰻ�����\��A�n���Ҧ������H�P�w�l��b
-    �H�o��O�_���Q«��C
+    PGP 是一種用於通訊以及資料的加密工具，特別是用於電子郵件。 
+    PGP 可用於資料的加密、建立數位簽章。 網路郵局使用 GnuPG (GNU Privacy Guard)
+    以提供上述的服務。
+    S/MIME 是另一種私密/公開金鑰對系統。該系統提供諸如：數位簽章，郵件加密，以及
+    在開放共用上提供竄改偵測的技術。 S/MIME 可以提供郵件加密的功能，加密後的郵
+    件只有寄送者及收件者可以解密。S/MIME 還可以經由數位簽章來辨識寄送者的郵件。
+    加密與數位簽章一起使用更可以提供竄改偵測的功能，好讓所有收件對象判定郵件在
+    寄發後是否曾被竄改。
     </para>
-    <heading>�Ұ� S/MIME ?</heading>
+    <heading>啟動 S/MIME ?</heading>
     <para>
-    �Ŀ�o�Ӷ��ث�A�A�N����פJ�A���ӤH S/MIME ���_�AŪ���[�K�l��A���ҼƦ�ñ
-    ���l��A�H�ά��A�n�H�o���l��I�H�[�K/ñ�����\��C
+    勾選這個項目後，你將能夠匯入你的個人 S/MIME 金鑰，讀取加密郵件，驗證數位簽
+    章郵件，以及為你要寄發的郵件施以加密/簽章的功能。
     </para>
   <!-- English entry:
 <entry id="smime-overview">
@@ -6780,11 +6780,11 @@
     </para>
 </entry>--></entry>
   <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
-    <title>S/MIME: �ӤH���_</title>
-    <heading>���z</heading>
+    <title>S/MIME: 個人金鑰</title>
+    <heading>概述</heading>
     <para>
-    �p�G�A�Q�n��l��I�H�Ʀ�ñ���Ϊ̥[�K�A���A�����n���֦��ݩ�
-    �ۤv�����}/�p�KS/MIME���_��C
+    如果你想要對郵件施以數位簽章或者加密，那你必須要先擁有屬於
+    自己的公開/私密S/MIME金鑰對。
     </para>
   </entry>
   <entry id="smime-import-personal-certs" state="new">
@@ -6821,13 +6821,13 @@
     </para>
 </entry>
   <entry id="printing" md5="d678fcc02ec59acaaa2ac24dff4123a8" state="changed">
-    <title>�C�L</title>
-    <heading>�C�L�@�ʶl��</heading>
+    <title>列印</title>
+    <heading>列印一封郵件</heading>
     <para>
-    ���C�@�ʥ��b�˵����l��A ���I��l�󭶭��W��ΤU�誺"�͵��C�L"�C �榡�ƫ�
-    ���l��N�}�ҩ�s���������ݦC�L�C ���A���s�����P�@�~�t�Φөw�A���ɬO�_�}
-    �Ҥ@�ӦC�L��͵����C �p�G�S���}�ҡA���I���s������"�ɮ�"��A�I��"�C�L"
-    �w�}�ҦC�L��͵����C
+    欲列一封正在檢視的郵件， 請點選郵件頁面上方或下方的"友善列印"。 格式化後
+    的郵件將開啟於新視窗中等待列印。 視你的瀏覽器與作業系統而定，此時是否開
+    啟一個列印交談視窗。 如果沒有開啟，請點選瀏覽器的"檔案"後再點選"列印"
+    已開啟列印交談視窗。
     </para>
   <!-- English entry:
 <entry id="printing">
@@ -6985,16 +6985,16 @@
     </para>
 </entry>--></entry>
   <entry id="sorting" md5="149f1b5caf65e8b93bb3ef0491bfee26" state="changed">
-    <title>�ƧǻP���p</title>
-    <heading>�Ƨ�</heading>
+    <title>排序與關聯</title>
+    <heading>排序</heading>
     <para>
-    �˵��l��M��ɡA�ǥ��I��W�誺���@�����W�ٹF��l��ƧǪ��ت��C
-    �I�����W�ٮǪ��b�Y�ϥܥi�H�ܧ�ƧǪ���V�C
+    檢視郵件清單時，藉由點選上方的任一個欄位名稱達到郵件排序的目的。
+    點選欄位名稱旁的箭頭圖示可以變更排序的方向。
     </para>
-    <heading>���p</heading>
+    <heading>關聯</heading>
     <para>
-    �ǥ��I��D����줤�� [���p] �s���A�϶l��̩������p�� (�D��)�ƦC�Ӳ���
-    �s�E�ĪG�C�p�G�n�^��@�륿�`���D���ƧǡA���I��D����줤�� [�D��] �s���C
+    藉由點選主旨欄位中的 [關聯] 連結，使郵件依彼此關聯性 (主旨)排列而產生
+    群聚效果。如果要回到一般正常的主旨排序，請點選主旨欄位中的 [主旨] 連結。
     </para>
   <!-- English entry:
 <entry id="sorting">
@@ -7240,23 +7240,23 @@
     </para>
 </entry>--></entry>
   <entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
-    <title>�h���զ�/�i���N ���l�� (Multipart/Alternative Message)</title>
+    <title>多重組成/可替代 型郵件 (Multipart/Alternative Message)</title>
     <para>
-    �b�����W���@�Ƕl��O�H�@�ةҿת� "multipart/alternative" ���A�Q�ǰe�A
-    �ҿ�"�h���զ�"���N��O���o�ʶl��]�t�ƭӲզ��A�Ҧ��զ������e���O�@�˪��A
-    �u���L�O�H���P���榡�x�s�C
-    �q�l�l��\Ū�n��J��o�������l�󪺳B�z�覡�O�A�b�s�������H���媽�����
-    �̫�@�Ӳզ��C�ܩ�l�󤤨�l���զ��A�h�æC��ܦb "���l�󪺨�L�榡" �U
-    ��A�ѭӧO�˵��ΤU���C
-    ���԰O�b�ߡA�o�ǲզ����� "�ۦP" �����e - �u�O�榡���P�Ӥw�C
+    在網路上有一些郵件是以一種所謂的 "multipart/alternative" 型態被傳送，
+    所謂"多重組成"的意思是指這封郵件包含數個組成，所有組成的內容其實是一樣的，
+    只不過是以不同的格式儲存。
+    電子郵件閱讀軟體遇到這種類型郵件的處理方式是，在瀏覽器中以內文直接顯示
+    最後一個組成。至於郵件中其餘的組成，則並列顯示在 "此郵件的其他格式" 下
+    方，供個別檢視或下載。
+    請謹記在心，這些組成有著 "相同" 的內容 - 只是格式不同而已。
     </para>
   </entry>
   <entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
-    <title>���n�]�w: ���@: ��C�����H��ƥ��h���W��</title>
+    <title>偏好設定: 維護: 於每月初更改寄件備份閘的名稱</title>
     <para>
-    �p�G�A�Ʊ�����l���A��C�Ӥ����A���H��ƥ��h�W�١A�ФĿ�C
-    �H��ƥ��h���F��W���ª��H��ƥ��h�~(��W�᪺�W�٥]�t��Φ~��)�A
-    �æb��W��إߥt�@�ӷs���ťձH��ƥ��h�C
+    如果你希望網路郵局，於每個月初更改你的寄件備份閘名稱，請勾選。
+    寄件備份閘除了更名為舊的寄件備份閘外(更名後的名稱包含月及年份)，
+    並在更名後建立另一個新的空白寄件備份閘。
     </para>
   <!-- English entry:
 <entry id="prefs-rename_sentmail_monthly">
@@ -7392,11 +7392,11 @@
     </para>
 </entry>--></entry>
   <entry id="prefs-delete_sentmail_monthly" md5="bd65c23ed7a137e2d5f6f17b50df4e8b" state="changed">
-    <title>���n�]�w: ���@: ��C���R���ª��H��ƥ��h</title>
+    <title>偏好設定: 維護: 於每月初刪除舊的寄件備份閘</title>
     <para>
-    �p�G�A�Ʊ�����l���A��C�Ӥ��R���ª��H��ƥ��h�A�ФĿ�C
-    �p�G�����l���w��ϥΪ̳]�w�ϺЪŶ��t�B�A�o�ӿﶵ�N���U���קK�Ϻ�
-    �Ŷ��������o�͡C
+    如果你希望網路郵局，於每個月初刪除舊的寄件備份閘，請勾選。
+    如果網路郵局針對使用者設定磁碟空間配額，這個選項將有助於避免磁碟
+    空間不足的發生。
     </para>
   <!-- English entry:
 <entry id="prefs-delete_sentmail_monthly">
@@ -7532,10 +7532,10 @@
     </para>
 </entry>--></entry>
   <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
-    <title>���n�]�w: ���@: �p�G�C��R���@���A�h�֤�����±H��ƥ��h�N�Q�O�s</title>
+    <title>偏好設定: 維護: 如果每月刪除一次，多少月份的舊寄件備份閘將被保存</title>
     <para>
-    �p�G�A�w�Ŀ� "��C���R���ª��H��ƥ��h" �o�ӿﶵ���ܡA�A�i�H�b����J�@��
-    �O�d����ƭȡC�O�d����ƭȤ��e�Ҧ��ª��H��ƥ��h�N�@�ߧR���C
+    如果你已勾選 "於每月初刪除舊的寄件備份閘" 這個選項的話，你可以在此輸入一個
+    保留月份數值。保留月份數值之前所有舊的寄件備份閘將一律刪除。
     </para>
   </entry>
   <entry id="prefs-purge_sentmail" state="new">
@@ -7557,11 +7557,11 @@
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly" state="changed" md5="a9033d67e4a859740cc98092e022ae57">
-    <title>���n�]�w: ���@: ��C���R���w��s�����}������</title>
+    <title>偏好設定: 維護: 於每月初刪除已轉存為網址的附件</title>
     <para>
-    �p�G�A�Ʊ�����l���A��C�Ӥ��R���w��s�����}���ª���A�ФĿ�C
-    �p�G�����l���w��ϥΪ̳]�w�ϺЪŶ��t�B�A�o�ӿﶵ�N���U���קK�ϺЪŶ�
-    �������o�͡C
+    如果你希望網路郵局，於每個月初刪除已轉存為網址的舊附件，請勾選。
+    如果網路郵局針對使用者設定磁碟空間配額，這個選項將有助於避免磁碟空間
+    不足的發生。
     </para>
   <!-- English entry:
 <entry id="prefs-delete_attachments_monthly">
@@ -7697,29 +7697,29 @@
     </para>
 </entry>--></entry>
   <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
-    <title>���n�]�w: ���@: �p�G�C��R���@���A�h�֤���w��s�����}���ª���N�Q�O�s</title>
+    <title>偏好設定: 維護: 如果每月刪除一次，多少月份已轉存為網址的舊附件將被保存</title>
     <para>
-    �p�G�A�w�Ŀ� "��C���R���w��s�����}������" �o�ӿﶵ���ܡA�A�i�H�b����
-    �J�@�ӫO�d����ƭȡC�O�d����ƭȤ��e�Ҧ���s�����}���ª���N�@�ߧR���C
+    如果你已勾選 "於每月初刪除已轉存為網址的附件" 這個選項的話，你可以在此輸
+    入一個保留月份數值。保留月份數值之前所有轉存為網址的舊附件將一律刪除。
     </para>
   </entry>
   <entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
-    <title>���n�]�w: ���@: �M���U���c�����¶l��</title>
+    <title>偏好設定: 維護: 清除垃圾箱中的舊郵件</title>
     <para>
-    �A�O�_�Ʊ�g�`�M���U���c�����¶l��C
+    你是否希望經常清除垃圾箱中的舊郵件。
     </para>
   </entry>
   <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
-    <title>���n�]�w: ���@: �U���c�h�[�M���@��</title>
+    <title>偏好設定: 維護: 垃圾箱多久清除一次</title>
     <para>
-    �p�G�A�w�Ŀ� "�M���U���c�����¶l��" �o�ӿﶵ���ܡA�A�Ʊ�h�[�M���@���H
+    如果你已勾選 "清除垃圾箱中的舊郵件" 這個選項的話，你希望多久清除一次？
     </para>
   </entry>
   <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
-    <title>���n�]�w: ���@: �C����z�U���c�ɡA�M���h�֤ѼƥH�e���l��</title>
+    <title>偏好設定: 維護: 每次整理垃圾箱時，清除多少天數以前的郵件</title>
     <para>
-    �p�G�A�w�Ŀ� "�M���U���c�����¶l��" �o�ӿﶵ���ܡA�A�Ʊ�M���h�֤Ѽ�
-    �H�e���l��H
+    如果你已勾選 "清除垃圾箱中的舊郵件" 這個選項的話，你希望清除多少天數
+    以前的郵件？
     </para>
   </entry>
   <entry id="prefs-purge_spam" state="new">
@@ -7741,26 +7741,26 @@
     </para>
 </entry>
   <entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
-     <title>���n�]�w: �l��g�@: ��r�ݩ�</title>
+     <title>偏好設定: 郵件寫作: 文字屬性</title>
      <para>
-     �A�i�H�b���w�q�^�Ф�󪺤ޭz�C�C
+     你可以在此定義回覆文件的引述列。
      </para>
      <para>
-     �A�i�H���A�ҭn�^�Ъ��H�󴡤J�@���ܼơC �ܼƪ����A�O�H '%'�᭱�A�[�W
-     �@�Ӧr���Ҳզ��C �H�U�C�X�i�ѷf�t�ϥΪ��ܼ�:
+     你可以為你所要回覆的信件插入一些變數。 變數的型態是以 '%'後面再加上
+     一個字元所組成。 以下列出可供搭配使用的變數:
      </para>
 
-     <para> %f : �H��̪��W�٤ιq�l�l����}</para>
-     <para> %a : �H��̪��q�l�l����}</para>
-     <para> %p : �H��̪��W��</para>
-     <para> %r : ���㪺 RFC 2822 ����榡�ήɰ�</para>
-     <para> %d : ���(�P���A�� �� �褸�~)</para>
-     <para> %x : ���a�w�]�榡�����</para>
-     <para> %c : ���a�w�]�榡������ήɶ�</para>
-     <para> %m : �l��s��</para>
-     <para> %s : �l��D��</para>
-     <para> %n : �@�C�ťզ�</para>
-     <para> %% : '%' �r��</para>
+     <para> %f : 寄件者的名稱及電子郵件住址</para>
+     <para> %a : 寄件者的電子郵件住址</para>
+     <para> %p : 寄件者的名稱</para>
+     <para> %r : 完整的 RFC 2822 日期格式及時區</para>
+     <para> %d : 日期(星期，日 月 西元年)</para>
+     <para> %x : 當地預設格式的日期</para>
+     <para> %c : 當地預設格式的日期及時間</para>
+     <para> %m : 郵件編號</para>
+     <para> %s : 郵件主旨</para>
+     <para> %n : 一列空白行</para>
+     <para> %% : '%' 字元</para>
 
   </entry>
   <entry id="prefs-default_msg_charset" state="new">
@@ -7770,11 +7770,11 @@
     </para>
 </entry>
   <entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
-    <title>���n�]�w: �Ц���H�ǰeŪ���^��</title>
+    <title>偏好設定: 請收件人傳送讀取回條</title>
     <para>
-    "�Ц���H�ǰeŪ���^��" �Ψӭn�D�����H�A�}�ҫH���
-    ���K�ǰe�^�����H�H�H�A�����ӫH�w����C�Ъ`�N�ä��O�Ҧ����l��\Ū�n
-    �鳣�䴩�o���\��C
+    "請收件人傳送讀取回條" 用來要求收件對象，開啟信件時
+    順便傳送回條給寄信人，表明來信已收到。請注意並不是所有的郵件閱讀軟
+    體都支援這項功能。
     </para>
   </entry>
   <entry id="prefs-disposition_send_mdn" state="new">
@@ -7784,12 +7784,12 @@
     </para>
 </entry>
   <entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
-    <title>���n�]�w: �Ц�����A���ǻ��e�F�T�{</title>
+    <title>偏好設定: 請收件伺服器傳遞送達確認</title>
     <para>
-    "�Ц�����A���ǻ��e�F�T�{" �n�D�����H���ݪ��l��
-    ���A���@������H���ߧY�ǰe�T�{�T�����H�H�H�C�Ъ`�N�A�l��H�F��誺���A��
-    �ä����ܦ����H�w�g�ݹL�A���H��C�ȯ��Ū���G�H�O�H��F�A�����S���H�h�ݫh��
-    �o�Ӫ��C�ëD�Ҧ����l����A�������䴩�o���\��C
+    "請收件伺服器傳遞送達確認" 要求收件對象所屬的郵件
+    伺服器一旦收到信件後立即傳送確認訊息給寄信人。請注意，郵件寄達對方的伺服器
+    並不表示收件對象已經看過你的信件。僅能解讀為：信是寄到了，但有沒有人去看則不
+    得而知。並非所有的郵件伺服器都有支援這項功能。
     </para>
   </entry>
   <entry id="prefs-delete_spam_after_report" state="new">
@@ -7808,31 +7808,31 @@
     </para>
 </entry>
   <entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
-    <title>���n�]�w: ���� HTML �l�󤤪��Ϥ�</title>
+    <title>偏好設定: 隱藏 HTML 郵件中的圖片</title>
     <para>
-    HTML �l�󤤡A�Ҧ��ઽ����ܪ��Ϥ��A�O�_�������èåH����ХܥN�� �H
+    HTML 郵件中，所有能直接顯示的圖片，是否應該隱藏並以紅色標示代替 ？
     </para>
-    <para>���ǩU���l��b�}�Ҫ��P�ɡA�H�Y�ҰʻP�Ϥ��۳s�����u�l�ܸ˸m�v�A�ХB
-    �����i�D�U���l��H�e�̡G�o�ʼs�i�H�w�Q���}�ӥB�o�ӫH�c�O���Ī��H�c�A���ӧA
-    ���H�c�·|�������_������U���H�C
+    <para>有些垃圾郵件在開啟的同時，隨即啟動與圖片相連結的「追蹤裝置」，請且
+    直接告訴垃圾郵件寄送者：這封廣告信已被打開而且這個信箱是有效的信箱，未來你
+    的信箱舊會源源不斷的收到垃圾信。
     </para>
-    <para>���ùϤ��i�H�O�@�A�u�ݨ�A�Q�n�ݪ��Ϥ��A�åB�]�P�ɪ��פF�u�l�ܸ˸m�v
-    ���B�@�C�u�n�A�T�w�o�ʫH���O�s�i�H�A�I��u��ܹϤ��v�A�N�i�H�ݨ�o�ʫH��
-    �����Ϥ��F�C
+    <para>隱藏圖片可以保護你只看到你想要看的圖片，並且也同時阻擋了「追蹤裝置」
+    的運作。只要你確定這封信不是廣告信，點選「顯示圖片」，就可以看到這封信裡
+    面的圖片了。
     </para>
   </entry>
   <entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
-    <title>���n�]�w: �۰���� HTML �l�󤤪��Ҧ��Ϥ�</title>
+    <title>偏好設定: 自動顯示 HTML 郵件中的所有圖片</title>
     <para>
-    �p�G�ҥ�"���� HTML �l�󤤪��Ϥ�"�o���\��A�ӥB�H��H�X�{�b�ڪ��q�T�����A
-    �O�_�۰���ܸӫH�󤤪��Ϥ��H 
+    如果啟用"隱藏 HTML 郵件中的圖片"這項功能，而且寄件人出現在我的通訊錄中，
+    是否自動顯示該信件中的圖片？ 
     </para>
   </entry>
   <entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
-    <title>���n�]�w: �l�c�_�l����</title>
+    <title>偏好設定: 郵箱起始頁面</title>
     <para>
-    ���@�Ӷl�c�Ĥ@���Q�s���ɡA�M�w���˵��e���n����ܭ��@�ӭ����C�Ƶ��G���ݹL
-    �H��ﶵ�b���p�ƧǤ��L�k�@�ΡA�åB�N�H�H�c��"�̫�@���N��"�C
+    當一個郵箱第一次被存取時，決定其檢視畫面要先顯示哪一個頁面。備註：未看過
+    信件選項在關聯排序中無法作用，並且將以信箱的"最後一頁代替"。
     </para>
   <!-- English entry:
 <entry id="prefs-mailbox_start">
@@ -7968,19 +7968,19 @@
     </para>
 </entry>--></entry>
   <entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
-    <title>���n�]�w: �����H�H��@�_�ƥ�</title>
+    <title>偏好設定: 附件隨寄件一起備份</title>
     <para>
-    �p�G�x�s�H��ƥ��ɡA�M�w�O�_�]�n�@���x�s���[�ɮסC�U�C�ﶵ�i�ѰѦҡG
+    如果儲存寄件備份時，決定是否也要一併儲存附加檔案。下列選項可供參考：
     </para>
 
-    <para>* "�û��x�s���[�ɮ�" - �b�l��s�g�e�����û����n�����x�s���[�ɮסF
-    �ӥB���[�ɮץû��H�۫H��@�_�Ƥ��C</para>
-    <para>* "���ܧڡA�C�@�ʥ]�t���[�ɮת��H��H�X��; �w�]���n" - �b�l��s�g�e
-     �����û������x�s���[�ɮסF�w�]���x�s�C</para>
-    <para>* "���ܧڡA�C�@�ʥ]�t���[�ɮת��H��H�X��; �w�]�����n" - �b�l��s�g�e
-     �����û������x�s���[�ɮסF�w�]�����x�s�C</para>
-    <para>* "�ä��x�s���[�ɮ�" - �b�l��s�g�e�����û����n�����x�s���[�ɮסF
-     �ӥB���[�ɮץû����|�H�۫H��@�_�Ƥ��C</para>
+    <para>* "永遠儲存附加檔案" - 在郵件編寫畫面中永遠不要提示儲存附加檔案；
+    而且附加檔案永遠隨著信件一起備分。</para>
+    <para>* "提示我，每一封包含附加檔案的信件寄出後; 預設為要" - 在郵件編寫畫
+     面中永遠提示儲存附加檔案；預設為儲存。</para>
+    <para>* "提示我，每一封包含附加檔案的信件寄出後; 預設為不要" - 在郵件編寫畫
+     面中永遠提示儲存附加檔案；預設為不儲存。</para>
+    <para>* "永不儲存附加檔案" - 在郵件編寫畫面中永遠不要提示儲存附加檔案；
+     而且附加檔案永遠不會隨著信件一起備分。</para>
   </entry>
   <entry id="virtual_inbox" state="new">
     <title>Virtual Folders: Virtual Inbox</title>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,31 +26,31 @@
 
 </entry>
   <entry id="compose-buttons" state="unknown">
-    <title>Levélírás: funkciógombok</title>
-    <heading>Funkciógombok</heading>
+    <title>LevĂŠlĂ­rĂĄs: funkciĂłgombok</title>
+    <heading>FunkciĂłgombok</heading>
     <para>
-    A 'Levél elküldése' elküldi a levelet a kívánt címzett(ek)nek. Erre
-    a gombra csak akkor kattintson, amikor a levél már teljesen kész, mert
-    ezt követően a levélküldés már nem állítható le, a levél nem hívható 
+    A 'LevĂŠl elkĂźldĂŠse' elkĂźldi a levelet a kĂ­vĂĄnt cĂ­mzett(ek)nek. Erre
+    a gombra csak akkor kattintson, amikor a levĂŠl mĂĄr teljesen kĂŠsz, mert
+    ezt kĂśvetĹen a levĂŠlkĂźldĂŠs mĂĄr nem ĂĄllĂ­thatĂł le, a levĂŠl nem hĂ­vhatĂł 
     vissza.
     </para>
     <para>
-    Ha félbe kell hagyjuk a levélírást, kattintsunk a 
-    'Mentsük el munkapéldányként' gombra. Ez a 'Drafts' nevű mappában 
-    helyezi el a levelet. Ezt a mappát úgy érhetjük el, ha a levéllista 
-    ablak felső kék menüsorának jobb szélén levő legördülő menüjéből 
-    kiválasztjuk. A félbehagyott levelet később úgy fejezhetjük be,
-    hogy kinyitjuk a 'Drafts' mappát, rákattintunk a kérdéses levélre,
-    majd a 'Folytatás' szövegre. Érdemes a levél tárgyát megadni a 
-    munkapéldányként való elmentés előtt, hogy később a 'Drafts' mappában
-    könnyen kiválasztható legyen a kívánt levél. A munkapéldányként
-    való mentés után az INBOX-ba vagy abba a mappába kerül vissza
-    ami utoljára nyitva volt.
+    Ha fĂŠlbe kell hagyjuk a levĂŠlĂ­rĂĄst, kattintsunk a 
+    'MentsĂźk el munkapĂŠldĂĄnykĂŠnt' gombra. Ez a 'Drafts' nevĹą mappĂĄban 
+    helyezi el a levelet. Ezt a mappĂĄt Ăşgy ĂŠrhetjĂźk el, ha a levĂŠllista 
+    ablak felsĹ kĂŠk menĂźsorĂĄnak jobb szĂŠlĂŠn levĹ legĂśrdĂźlĹ menĂźjĂŠbĹl 
+    kivĂĄlasztjuk. A fĂŠlbehagyott levelet kĂŠsĹbb Ăşgy fejezhetjĂźk be,
+    hogy kinyitjuk a 'Drafts' mappĂĄt, rĂĄkattintunk a kĂŠrdĂŠses levĂŠlre,
+    majd a 'FolytatĂĄs' szĂśvegre. Ărdemes a levĂŠl tĂĄrgyĂĄt megadni a 
+    munkapĂŠldĂĄnykĂŠnt valĂł elmentĂŠs elĹtt, hogy kĂŠsĹbb a 'Drafts' mappĂĄban
+    kĂśnnyen kivĂĄlaszthatĂł legyen a kĂ­vĂĄnt levĂŠl. A munkapĂŠldĂĄnykĂŠnt
+    valĂł mentĂŠs utĂĄn az INBOX-ba vagy abba a mappĂĄba kerĂźl vissza
+    ami utoljĂĄra nyitva volt.
     </para>
     <para>
-    A 'Mégsem kell ez a levél' gombra kattintva visszakerülünk az INBOX-ba 
-    vagy abba a mappába, ami utoljára nyitva volt, anélkül, hogy készülő
-    levelünket elküldenénk vagy elmentenénk.
+    A 'MĂŠgsem kell ez a levĂŠl' gombra kattintva visszakerĂźlĂźnk az INBOX-ba 
+    vagy abba a mappĂĄba, ami utoljĂĄra nyitva volt, anĂŠlkĂźl, hogy kĂŠszĂźlĹ
+    levelĂźnket elkĂźldenĂŠnk vagy elmentenĂŠnk.
     </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -75,12 +75,12 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-from" state="unknown">
-    <title>Levélírás: A feladó azonosítója</title>
-    <heading>"A feladó azonosítója"</heading>
+    <title>LevĂŠlĂ­rĂĄs: A feladĂł azonosĂ­tĂłja</title>
+    <heading>"A feladĂł azonosĂ­tĂłja"</heading>
     <para>
-    Válassza ki azt az azonosítót, melynek megfelelő szerepben kívánja
-    a levelet írni. Küldéskor a levél 'From:' mezejébe (a feladó címeként)
-    a kiválasztott azonosítónak megfelelő cím kerül majd.
+    VĂĄlassza ki azt az azonosĂ­tĂłt, melynek megfelelĹ szerepben kĂ­vĂĄnja
+    a levelet Ă­rni. KĂźldĂŠskor a levĂŠl 'From:' mezejĂŠbe (a feladĂł cĂ­mekĂŠnt)
+    a kivĂĄlasztott azonosĂ­tĂłnak megfelelĹ cĂ­m kerĂźl majd.
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -91,12 +91,12 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-to" state="unknown">
-    <title>Levélírás: Címzett</title>
-    <heading>"Címzett"</heading>
+    <title>LevĂŠlĂ­rĂĄs: CĂ­mzett</title>
+    <heading>"CĂ­mzett"</heading>
     <para>
-    Írja be a levél címzettjének/címzettjeinek pontos email címét. Az egyes
-    címeket vesszővel kell elválasztani, más karakter használata hibát okoz.
-    Az ide írt címek az elküldendő levél 'To:' mezejébe kerülnek.
+    Ărja be a levĂŠl cĂ­mzettjĂŠnek/cĂ­mzettjeinek pontos email cĂ­mĂŠt. Az egyes
+    cĂ­meket vesszĹvel kell elvĂĄlasztani, mĂĄs karakter hasznĂĄlata hibĂĄt okoz.
+    Az ide Ă­rt cĂ­mek az elkĂźldendĹ levĂŠl 'To:' mezejĂŠbe kerĂźlnek.
     </para>
 <!-- English entry:
 <entry id="compose-to">
@@ -107,17 +107,17 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-cc" state="unknown">
-    <title>Levélírás: Cc</title>
-    <heading>"Cc (carbon copy, másolat)"</heading>
+    <title>LevĂŠlĂ­rĂĄs: Cc</title>
+    <heading>"Cc (carbon copy, mĂĄsolat)"</heading>
     <para>
-    Ide írja be azoknak a pontos email címét, akiknek másolatot kíván 
-    küldeni a készülő levélből. Az egyes
-    címeket vesszővel kell elválasztani, más karakter használata hibát okoz.
-    Az ide írt címek az elküldendő levél 'Cc:' mezejébe kerülnek. Azoknak
-    szokás ilyen módon másolatot küldeni a levélből, akik nem közvetlen módon, 
-    de érdekeltek abban, hogy tudjanak a levélről. A 'To:' és 'Cc:' címzettek
-    mindegyike látja mindkét mező teljes tartalmát, így mindannyian pontosan 
-    tudják, hogy ki kapta meg a levelet.
+    Ide Ă­rja be azoknak a pontos email cĂ­mĂŠt, akiknek mĂĄsolatot kĂ­vĂĄn 
+    kĂźldeni a kĂŠszĂźlĹ levĂŠlbĹl. Az egyes
+    cĂ­meket vesszĹvel kell elvĂĄlasztani, mĂĄs karakter hasznĂĄlata hibĂĄt okoz.
+    Az ide Ă­rt cĂ­mek az elkĂźldendĹ levĂŠl 'Cc:' mezejĂŠbe kerĂźlnek. Azoknak
+    szokĂĄs ilyen mĂłdon mĂĄsolatot kĂźldeni a levĂŠlbĹl, akik nem kĂśzvetlen mĂłdon, 
+    de ĂŠrdekeltek abban, hogy tudjanak a levĂŠlrĹl. A 'To:' ĂŠs 'Cc:' cĂ­mzettek
+    mindegyike lĂĄtja mindkĂŠt mezĹ teljes tartalmĂĄt, Ă­gy mindannyian pontosan 
+    tudjĂĄk, hogy ki kapta meg a levelet.
     </para>
 <!-- English entry:
 <entry id="compose-cc">
@@ -131,22 +131,22 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-bcc" state="unknown">
-    <title>Levélírás: Bcc</title>
-    <heading>"Bcc (blind carbon copy, titkos másolat)"</heading>
+    <title>LevĂŠlĂ­rĂĄs: Bcc</title>
+    <heading>"Bcc (blind carbon copy, titkos mĂĄsolat)"</heading>
     <para>
-    Ide írja be azoknak a pontos email címét, akiknek titkos másolatot kíván 
-    küldeni a készülő levélből. Az egyes címeket vesszővel kell elválasztani, 
-    más karakter használata hibát okoz. Az ide írt címek az elküldendő levél 
-    'Bcc:' mezejébe kerülnek. Ezek a címzettek ugyanúgy kapnak egy példányt
-    a levélből, és látják a 'To:' és 'Cc:' címzettek teljes listáját is.
-    Ez utóbbi címzettek előtt viszont teljesen rejtve marad az a tény, hogy 
-    még a 'Bcc:' mezőben szereplő személyek is kaptak a levélből egy példányt.
-    A 'blind copy' tehát arra utal, hogy a 'Bcc:' címzettekről semmilyen
-    módon nem szerezhetnek tudomást a normál (To: és Cc:) címzettek.
-    Ezt a másolatküldési módszert akkor szokás használni, ha bizonyítani 
-    akarjuk valakinek (rendszerint valami főnök), hogy egy harmadik személy
-    tudomására hoztuk a levélben leírtakat, de anélkül, hogy az illető tudjon
-    róla. 
+    Ide Ă­rja be azoknak a pontos email cĂ­mĂŠt, akiknek titkos mĂĄsolatot kĂ­vĂĄn 
+    kĂźldeni a kĂŠszĂźlĹ levĂŠlbĹl. Az egyes cĂ­meket vesszĹvel kell elvĂĄlasztani, 
+    mĂĄs karakter hasznĂĄlata hibĂĄt okoz. Az ide Ă­rt cĂ­mek az elkĂźldendĹ levĂŠl 
+    'Bcc:' mezejĂŠbe kerĂźlnek. Ezek a cĂ­mzettek ugyanĂşgy kapnak egy pĂŠldĂĄnyt
+    a levĂŠlbĹl, ĂŠs lĂĄtjĂĄk a 'To:' ĂŠs 'Cc:' cĂ­mzettek teljes listĂĄjĂĄt is.
+    Ez utĂłbbi cĂ­mzettek elĹtt viszont teljesen rejtve marad az a tĂŠny, hogy 
+    mĂŠg a 'Bcc:' mezĹben szereplĹ szemĂŠlyek is kaptak a levĂŠlbĹl egy pĂŠldĂĄnyt.
+    A 'blind copy' tehĂĄt arra utal, hogy a 'Bcc:' cĂ­mzettekrĹl semmilyen
+    mĂłdon nem szerezhetnek tudomĂĄst a normĂĄl (To: ĂŠs Cc:) cĂ­mzettek.
+    Ezt a mĂĄsolatkĂźldĂŠsi mĂłdszert akkor szokĂĄs hasznĂĄlni, ha bizonyĂ­tani 
+    akarjuk valakinek (rendszerint valami fĹnĂśk), hogy egy harmadik szemĂŠly
+    tudomĂĄsĂĄra hoztuk a levĂŠlben leĂ­rtakat, de anĂŠlkĂźl, hogy az illetĹ tudjon
+    rĂłla. 
     </para>
 <!-- English entry:
 <entry id="compose-bcc">
@@ -160,26 +160,26 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-subject" state="unknown">
-    <title>Levélírás: Tárgy</title>
-    <heading>"Tárgy"</heading>
+    <title>LevĂŠlĂ­rĂĄs: TĂĄrgy</title>
+    <heading>"TĂĄrgy"</heading>
     <para>
-    Ide írja be a levél tárgyát. Ez kerül az elküldött levél 'Subject:' 
-    mezejébe. Keressünk rövid, egyszerű, de informatív megfogalmazást.
-    A levél tárgya (a 'Subject:' mező tartalma) a legegyszerűbb módszer
-    arra, hogy a levél címzettjét (de a feladóját is!) emlékeztesse
-    a levél tartalmára, így egy alkalmasan megválasztott tárgy nagyban
-    segíti az embert leveleit rendben tartani, ill. egy fontos
-    levelet később megtalálni. 
+    Ide Ă­rja be a levĂŠl tĂĄrgyĂĄt. Ez kerĂźl az elkĂźldĂśtt levĂŠl 'Subject:' 
+    mezejĂŠbe. KeressĂźnk rĂśvid, egyszerĹą, de informatĂ­v megfogalmazĂĄst.
+    A levĂŠl tĂĄrgya (a 'Subject:' mezĹ tartalma) a legegyszerĹąbb mĂłdszer
+    arra, hogy a levĂŠl cĂ­mzettjĂŠt (de a feladĂłjĂĄt is!) emlĂŠkeztesse
+    a levĂŠl tartalmĂĄra, Ă­gy egy alkalmasan megvĂĄlasztott tĂĄrgy nagyban
+    segĂ­ti az embert leveleit rendben tartani, ill. egy fontos
+    levelet kĂŠsĹbb megtalĂĄlni. 
     </para>
     <para>
-    Amikor a 'Válasz' (Reply), vagy 'Továbbítás' (Forward) funkció 
-    segítségével válaszol egy levélre ill. továbbít egy levelet, akkor
-    a tárgy (a 'Re:' ill. '(fwd)' beszúrásával) bemásolódik a küldött
-    levél tárgy mezejébe. Ez segít a levelezés résztvevőinek abban, 
-    hogy lássák, mi a beszélgetés "fonala". Ezért akkor, ha a válasz
-    vagy továbbküldés új témákat vet fel, érdemes a tárgyat értelemszerűen 
-    megváltoztatni egy kissé, ezzel jelezve, hogy a beszélgetés fonalában 
-    új irányt kezdtünk.
+    Amikor a 'VĂĄlasz' (Reply), vagy 'TovĂĄbbĂ­tĂĄs' (Forward) funkciĂł 
+    segĂ­tsĂŠgĂŠvel vĂĄlaszol egy levĂŠlre ill. tovĂĄbbĂ­t egy levelet, akkor
+    a tĂĄrgy (a 'Re:' ill. '(fwd)' beszĂşrĂĄsĂĄval) bemĂĄsolĂłdik a kĂźldĂśtt
+    levĂŠl tĂĄrgy mezejĂŠbe. Ez segĂ­t a levelezĂŠs rĂŠsztvevĹinek abban, 
+    hogy lĂĄssĂĄk, mi a beszĂŠlgetĂŠs "fonala". EzĂŠrt akkor, ha a vĂĄlasz
+    vagy tovĂĄbbkĂźldĂŠs Ăşj tĂŠmĂĄkat vet fel, ĂŠrdemes a tĂĄrgyat ĂŠrtelemszerĹąen 
+    megvĂĄltoztatni egy kissĂŠ, ezzel jelezve, hogy a beszĂŠlgetĂŠs fonalĂĄban 
+    Ăşj irĂĄnyt kezdtĂźnk.
     </para>
 <!-- English entry:
 <entry id="compose-subject">
@@ -200,58 +200,58 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="compose-options" state="unknown">
-    <title>Levélírás: Opciók</title>
-    <heading>"Opciók"</heading>
+    <title>LevĂŠlĂ­rĂĄs: OpciĂłk</title>
+    <heading>"OpciĂłk"</heading>
     <para>
-    Ezek az opciók a levél címzésében, megírásában, elmentésében vannak
-    segítségünkre.
+    Ezek az opciĂłk a levĂŠl cĂ­mzĂŠsĂŠben, megĂ­rĂĄsĂĄban, elmentĂŠsĂŠben vannak
+    segĂ­tsĂŠgĂźnkre.
     </para>
     <para>
-    Amennyiben megjelenik a "Címjegyzék" felirat, akkor telepítésre került
-    a hasonló (eredetileg "Turba") nevű programmodul. Ebben az esetben
-    a feliratra kattintva kiválaszthatjuk a címjegyzékeinkből a kívánt
-    email címe(ke)t. Hasonló "A címrészlet teljessé egészítése" lehetőség.
-    Ehhez írjunk be a megfelelő mezőbe (címzett, Cc, Bcc) a kívánt személy
-    nevének első néhány karakterét, majd kattintsunk a 
-    "A címrészlet teljessé egészítése" szövegre. Amennyiben a 
-    címjegyzékünkben egyetlen ember neve kezdődik a beírt karakterekkel,
-    akkor ez az email cím bemásolódik a megfelelő mezőbe. Ha több személy
-    neve is a megadott karakterekkel kezdődik, akkor a program egy legördülő
-    menüben felkínálja a lehetőségeket, ezek közül kiválaszthatjuk azt, 
+    Amennyiben megjelenik a "CĂ­mjegyzĂŠk" felirat, akkor telepĂ­tĂŠsre kerĂźlt
+    a hasonlĂł (eredetileg "Turba") nevĹą programmodul. Ebben az esetben
+    a feliratra kattintva kivĂĄlaszthatjuk a cĂ­mjegyzĂŠkeinkbĹl a kĂ­vĂĄnt
+    email cĂ­me(ke)t. HasonlĂł "A cĂ­mrĂŠszlet teljessĂŠ egĂŠszĂ­tĂŠse" lehetĹsĂŠg.
+    Ehhez Ă­rjunk be a megfelelĹ mezĹbe (cĂ­mzett, Cc, Bcc) a kĂ­vĂĄnt szemĂŠly
+    nevĂŠnek elsĹ nĂŠhĂĄny karakterĂŠt, majd kattintsunk a 
+    "A cĂ­mrĂŠszlet teljessĂŠ egĂŠszĂ­tĂŠse" szĂśvegre. Amennyiben a 
+    cĂ­mjegyzĂŠkĂźnkben egyetlen ember neve kezdĹdik a beĂ­rt karakterekkel,
+    akkor ez az email cĂ­m bemĂĄsolĂłdik a megfelelĹ mezĹbe. Ha tĂśbb szemĂŠly
+    neve is a megadott karakterekkel kezdĹdik, akkor a program egy legĂśrdĂźlĹ
+    menĂźben felkĂ­nĂĄlja a lehetĹsĂŠgeket, ezek kĂśzĂźl kivĂĄlaszthatjuk azt, 
     amelyikre gondoltunk.
     </para>
     <para>
-    Amennyiben megjelenik a "Helyesírásellenőrzés" szöveg, akkor erre 
-    kattintva ellenőrizhetjük a már megírt szöveg helyesírását. Az 
-    ellenőrzés azon a nyelven történik, amilyen nyelven éppen használjuk 
-    a levelezést (feltéve, hogy a kérdéses nyelv helyesírásellenőrzéséhez
-    szükséges állományokat a rendszergazda telepítette a szerverre).
+    Amennyiben megjelenik a "HelyesĂ­rĂĄsellenĹrzĂŠs" szĂśveg, akkor erre 
+    kattintva ellenĹrizhetjĂźk a mĂĄr megĂ­rt szĂśveg helyesĂ­rĂĄsĂĄt. Az 
+    ellenĹrzĂŠs azon a nyelven tĂśrtĂŠnik, amilyen nyelven ĂŠppen hasznĂĄljuk 
+    a levelezĂŠst (feltĂŠve, hogy a kĂŠrdĂŠses nyelv helyesĂ­rĂĄsellenĹrzĂŠsĂŠhez
+    szĂźksĂŠges ĂĄllomĂĄnyokat a rendszergazda telepĂ­tette a szerverre).
     </para>
     <para>
-    A "Speciális karakterek" szövegre kattintva olyan karaktereket is 
-    beírhatunk a készülő levélbe, amik nincsenek egyetlen billentyűhöz sem
-    hozzárendelve. A kiválasztott karaktereket "cut and paste" módszerrel
-    vihetjük át a levelet tartalmazó ablakba.
+    A "SpeciĂĄlis karakterek" szĂśvegre kattintva olyan karaktereket is 
+    beĂ­rhatunk a kĂŠszĂźlĹ levĂŠlbe, amik nincsenek egyetlen billentyĹąhĂśz sem
+    hozzĂĄrendelve. A kivĂĄlasztott karaktereket "cut and paste" mĂłdszerrel
+    vihetjĂźk ĂĄt a levelet tartalmazĂł ablakba.
     </para>
     <para>
-    A "Mellékletek" szövegre kattintva láthatóvá válik a levélíró ablak alján 
-    levő rész, mely a mellékletek csatolására szolgál. Ha a képernyő elég 
-    nagy ahhoz, hogy ez a rész eredetileg is látható volt, akkor semmi sem
-    történik.
+    A "MellĂŠkletek" szĂśvegre kattintva lĂĄthatĂłvĂĄ vĂĄlik a levĂŠlĂ­rĂł ablak aljĂĄn 
+    levĹ rĂŠsz, mely a mellĂŠkletek csatolĂĄsĂĄra szolgĂĄl. Ha a kĂŠpernyĹ elĂŠg 
+    nagy ahhoz, hogy ez a rĂŠsz eredetileg is lĂĄthatĂł volt, akkor semmi sem
+    tĂśrtĂŠnik.
     </para>
     <para>
-    Amennyiben a "Mentsünk el egy példány itt:" szöveg ki van pipálva, akkor
-    a levél elküldésekor egy másolat kerül a jelzett mappába (alapértelmezett
-    esetben a "Sent" mappa). Ez nagyon hasznos lehet, ha később valamilyen 
-    okból pontosan vissza akarjuk idézni, hogy mit írtunk. Attól függően, 
-    hogy a szerveren mekkora a személyes rendelkezésünkre álló lemezterület 
-    (ún. kvóta), dönthetünk úgy, hogy minden elküldött levelünket 
-    archiváljuk ily módon (ehhez nagy kvóta kell, különösen, ha gyakran 
-    küldünk mellékleteket), vagy csak a fontosabbakat. A kvóta teljes 
-    kitöltése azzal jár, hogy nem tudunk új leveleket fogadni! Új azonosítók
-    létrehozásával (Opciók-&gt;Személyes adatok-&gt;Az Ön azonosítóinak módosítása)
-    beállítható, hogy történjen-e automatikus archiválás, és melyik mappába 
-    kerüljenek a kérdéses azonosítóval írt levelek. 
+    Amennyiben a "MentsĂźnk el egy pĂŠldĂĄny itt:" szĂśveg ki van pipĂĄlva, akkor
+    a levĂŠl elkĂźldĂŠsekor egy mĂĄsolat kerĂźl a jelzett mappĂĄba (alapĂŠrtelmezett
+    esetben a "Sent" mappa). Ez nagyon hasznos lehet, ha kĂŠsĹbb valamilyen 
+    okbĂłl pontosan vissza akarjuk idĂŠzni, hogy mit Ă­rtunk. AttĂłl fĂźggĹen, 
+    hogy a szerveren mekkora a szemĂŠlyes rendelkezĂŠsĂźnkre ĂĄllĂł lemezterĂźlet 
+    (Ăşn. kvĂłta), dĂśnthetĂźnk Ăşgy, hogy minden elkĂźldĂśtt levelĂźnket 
+    archivĂĄljuk ily mĂłdon (ehhez nagy kvĂłta kell, kĂźlĂśnĂśsen, ha gyakran 
+    kĂźldĂźnk mellĂŠkleteket), vagy csak a fontosabbakat. A kvĂłta teljes 
+    kitĂśltĂŠse azzal jĂĄr, hogy nem tudunk Ăşj leveleket fogadni! Ăj azonosĂ­tĂłk
+    lĂŠtrehozĂĄsĂĄval (OpciĂłk-&gt;SzemĂŠlyes adatok-&gt;Az Ăn azonosĂ­tĂłinak mĂłdosĂ­tĂĄsa)
+    beĂĄllĂ­thatĂł, hogy tĂśrtĂŠnjen-e automatikus archivĂĄlĂĄs, ĂŠs melyik mappĂĄba 
+    kerĂźljenek a kĂŠrdĂŠses azonosĂ­tĂłval Ă­rt levelek. 
     </para>
 <!-- English entry:
 <entry id="compose-options">
@@ -274,17 +274,17 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="compose-attachments" state="unknown">
-    <title>Levélírás: Mellékletek</title>
-    <heading>"Mellékletek"</heading>
+    <title>LevĂŠlĂ­rĂĄs: MellĂŠkletek</title>
+    <heading>"MellĂŠkletek"</heading>
     <para>
-    Itt a levélhez csatolt fájlok listáját látjuk. Egy már csatolt állományt
-    a következőképpen távolíthatunk el a listából:
+    Itt a levĂŠlhez csatolt fĂĄjlok listĂĄjĂĄt lĂĄtjuk. Egy mĂĄr csatolt ĂĄllomĂĄnyt
+    a kĂśvetkezĹkĂŠppen tĂĄvolĂ­thatunk el a listĂĄbĂłl:
     </para>
-    <para>1. lépés: 
-    Pipáljuk ki az eltávolítandó állomány(ok)at.
+    <para>1. lĂŠpĂŠs: 
+    PipĂĄljuk ki az eltĂĄvolĂ­tandĂł ĂĄllomĂĄny(ok)at.
     </para> 
-    <para>2. lépés: 
-    Kattintsunk a "Vegyük ki a kijelöltet" szövegre.
+    <para>2. lĂŠpĂŠs: 
+    Kattintsunk a "VegyĂźk ki a kijelĂśltet" szĂśvegre.
     </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -381,29 +381,29 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>
   <entry id="search" state="unknown">
-    <title>Keresés a levelek között</title>
-    <heading>A keresés módja</heading>
+    <title>KeresĂŠs a levelek kĂśzĂśtt</title>
+    <heading>A keresĂŠs mĂłdja</heading>
     <para>
-    A levelei között többféle szempont szerint is végezhet keresést.
+    A levelei kĂśzĂśtt tĂśbbfĂŠle szempont szerint is vĂŠgezhet keresĂŠst.
     </para>
-    <para>1. lépés:
-    Írjuk be a megfelelő mezőbe a keresési kritériumot. A 'Feladó', 
-    'Címzett', 'Cc' mezőkbe az email cím egy részlete is írható, a tárgy
-    ill. levéltörzs részbe pedig egy szó vagy szórészlet írható. 
+    <para>1. lĂŠpĂŠs:
+    Ărjuk be a megfelelĹ mezĹbe a keresĂŠsi kritĂŠriumot. A 'FeladĂł', 
+    'CĂ­mzett', 'Cc' mezĹkbe az email cĂ­m egy rĂŠszlete is Ă­rhatĂł, a tĂĄrgy
+    ill. levĂŠltĂśrzs rĂŠszbe pedig egy szĂł vagy szĂłrĂŠszlet Ă­rhatĂł. 
     </para>
-    <para>2. lépés: 
-    Ha szükséges, adja meg, hogy milyen jelzetű levelekre kívánja a keresést
-    leszűkíteni.
+    <para>2. lĂŠpĂŠs: 
+    Ha szĂźksĂŠges, adja meg, hogy milyen jelzetĹą levelekre kĂ­vĂĄnja a keresĂŠst
+    leszĹąkĂ­teni.
     </para>
-    <para>3. lépés: 
-    Adja meg, hogy melyik mappákra kívánja a keresést leszűkíteni.
+    <para>3. lĂŠpĂŠs: 
+    Adja meg, hogy melyik mappĂĄkra kĂ­vĂĄnja a keresĂŠst leszĹąkĂ­teni.
     </para>
-    <para>4. lépés: 
-    Kattintson a "Keresés" gombra.
+    <para>4. lĂŠpĂŠs: 
+    Kattintson a "KeresĂŠs" gombra.
     </para>
     <para>
-    Amennyiben eredményes volt a keresés, a talált levelek tárgyai 
-    kilistázódnak a "Keresés eredménye" c. ablakban.
+    Amennyiben eredmĂŠnyes volt a keresĂŠs, a talĂĄlt levelek tĂĄrgyai 
+    kilistĂĄzĂłdnak a "KeresĂŠs eredmĂŠnye" c. ablakban.
     </para>
 <!-- English entry:
 <entry id="search">
@@ -425,16 +425,16 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="folder-options" state="unknown">
-    <title>Mappák</title>
-    <heading>Mappákkal végzett műveletek</heading>
+    <title>MappĂĄk</title>
+    <heading>MappĂĄkkal vĂŠgzett mĹąveletek</heading>
     <para>
-      Először jelölje ki a megfelelő mappákat, majd válassza ki a legördülő
-      menüből az a műveletet, amit végre kíván hajtani.    
+      ElĹszĂśr jelĂślje ki a megfelelĹ mappĂĄkat, majd vĂĄlassza ki a legĂśrdĂźlĹ
+      menĂźbĹl az a mĹąveletet, amit vĂŠgre kĂ­vĂĄn hajtani.    
     </para>
     <para>
-      Előfordulhat, hogy további kérdésekre kell majd válaszolnia.
-      A mappák törlésével érdemes óvatosnak lenni, amennyiben véletlenül
-      kitöröl egy mappát, a benne levő összes levél elveszik!
+      ElĹfordulhat, hogy tovĂĄbbi kĂŠrdĂŠsekre kell majd vĂĄlaszolnia.
+      A mappĂĄk tĂśrlĂŠsĂŠvel ĂŠrdemes Ăłvatosnak lenni, amennyiben vĂŠletlenĂźl
+      kitĂśrĂśl egy mappĂĄt, a benne levĹ Ăśsszes levĂŠl elveszik!
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -452,19 +452,19 @@ accessible by the pop-down box on the right side of the blue navigation bar at t
     </para>
 </entry>--></entry>
   <entry id="filters" state="unknown">
-    <title>Szűrők: Alkalmazás</title>
-    <heading>A szűrők bekapcsolása</heading>
+    <title>SzĹąrĹk: AlkalmazĂĄs</title>
+    <heading>A szĹąrĹk bekapcsolĂĄsa</heading>
     <para>
-    Kattintson a "Kapcsoljuk be a szűrőket:" ikonra (egy kis
-    tölcsérszerű ábra), mely az INBOX felirattól és a frissítési ikontól 
-    jobbra található az új levelek áttekintő ablakában. Ennek hatására
-    a szűrőfeltételeknek megfelelően a beérkezett levelek közül a 
-    kiszűrendő levelek törlődnek ill. más mappába helyeződnek. 
-    Ez nem történik meg automatikusan, hacsak nem állítjuk be
-    az Opciók-&gt;Szűrők lehetőségek között.
-    A szűrőfeltételek aktiválhatók az 
-    Opciók-&gt;Szűrők-&gt;A szűrőfeltételek módosítása-&gt;Érvényesítsük az 
-    összes szabályt alkalmazásával is.
+    Kattintson a "Kapcsoljuk be a szĹąrĹket:" ikonra (egy kis
+    tĂślcsĂŠrszerĹą ĂĄbra), mely az INBOX felirattĂłl ĂŠs a frissĂ­tĂŠsi ikontĂłl 
+    jobbra talĂĄlhatĂł az Ăşj levelek ĂĄttekintĹ ablakĂĄban. Ennek hatĂĄsĂĄra
+    a szĹąrĹfeltĂŠteleknek megfelelĹen a beĂŠrkezett levelek kĂśzĂźl a 
+    kiszĹąrendĹ levelek tĂśrlĹdnek ill. mĂĄs mappĂĄba helyezĹdnek. 
+    Ez nem tĂśrtĂŠnik meg automatikusan, hacsak nem ĂĄllĂ­tjuk be
+    az OpciĂłk-&gt;SzĹąrĹk lehetĹsĂŠgek kĂśzĂśtt.
+    A szĹąrĹfeltĂŠtelek aktivĂĄlhatĂłk az 
+    OpciĂłk-&gt;SzĹąrĹk-&gt;A szĹąrĹfeltĂŠtelek mĂłdosĂ­tĂĄsa-&gt;ĂrvĂŠnyesĂ­tsĂźk az 
+    Ăśsszes szabĂĄlyt alkalmazĂĄsĂĄval is.
     </para>
 <!-- English entry:
 <entry id="filters">

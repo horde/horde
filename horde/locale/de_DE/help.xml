@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
     <title>Die Portalseite</title>
     <para>
-      Die Portalseite erlaubt eine kurze Übersicht über alle Ihre wichtigen
+      Die Portalseite erlaubt eine kurze Ãœbersicht Ã¼ber alle Ihre wichtigen
       Informationen. Sie kann zum Beispiel anzeigen, wie viele neue Emails Sie
-      haben, welche Termine demnächst anstehen, welche Aufgaben Sie noch zu
+      haben, welche Termine demnÃ¤chst anstehen, welche Aufgaben Sie noch zu
       erledigen haben oder auch die neuesten Nachrichten. Viele dieser
-      Übersichten enthalten schnelle Zugriffe auf häufig benötigte Funktionen,
-      wie das Schreiben neuer Emails oder dem Anlegen neuer Kalendereinträge
+      Ãœbersichten enthalten schnelle Zugriffe auf hÃ¤ufig benÃ¶tigte Funktionen,
+      wie das Schreiben neuer Emails oder dem Anlegen neuer KalendereintrÃ¤ge
       oder Aufgaben.
     </para>
     <para>
-      Der Inhalt dieser Portalseite kann über den "Anpassen"-Link
-      verändert werden. Sie können zum Beispiel auswählen, welche Übersichten
+      Der Inhalt dieser Portalseite kann Ã¼ber den "Anpassen"-Link
+      verÃ¤ndert werden. Sie kÃ¶nnen zum Beispiel auswÃ¤hlen, welche Ãœbersichten
       in die Portalseite aufgenommen werden sollen, und festlegen, in welcher
       Reihenfolge sie angezeigt werden.
     </para>
@@ -23,26 +23,26 @@
     <title>Die Anwendungs-Navigationsleiste</title>
     <para>
       Auf der linken Seite des Fensters befindet sich die Navigationsleiste
-      für die Anwendungen. Klicken Sie auf die Symbole oder Namen der
+      fÃ¼r die Anwendungen. Klicken Sie auf die Symbole oder Namen der
       Anwendungen, um schnell und einfach zwischen diesen hin- und
       herzuschalten.
     </para>
   </entry>
   <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
     <title>Einstellungen: Anmeldeaufgaben: Wartungsarbeiten
-      durchführen</title>
+      durchfÃ¼hren</title>
     <para>
-      Wenn Sie möchten, dass nach der Anmeldung Wartungsarbeiten durchgeführt
+      Wenn Sie mÃ¶chten, dass nach der Anmeldung Wartungsarbeiten durchgefÃ¼hrt
       werden, markieren Sie dieses Auswahlfeld.
     </para>
   </entry>
   <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
-    <title>Einstellungen: Anmeldeaufgaben: Wartungsarbeiten bestätigen</title>
+    <title>Einstellungen: Anmeldeaufgaben: Wartungsarbeiten bestÃ¤tigen</title>
     <para>
-      Wenn Sie alle Wartungsarbeiten bestätigen möchten, bevor diese
-      ausgeführt werden, markieren Sie dieses Auswahlfeld. Wenn Sie das Feld
+      Wenn Sie alle Wartungsarbeiten bestÃ¤tigen mÃ¶chten, bevor diese
+      ausgefÃ¼hrt werden, markieren Sie dieses Auswahlfeld. Wenn Sie das Feld
       deaktiviert lassen, werden alle Wartungsarbeiten automatisch
-      durchgeführt, ohne dass Sie bei der Anmeldung die Gelegenheit haben,
+      durchgefÃ¼hrt, ohne dass Sie bei der Anmeldung die Gelegenheit haben,
       diese abzubrechen.
     </para>
   </entry>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-9"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -26,16 +26,16 @@
 
 </entry>
   <entry id="compose-buttons" md5="3259ba00a198559c7faa76e7867600d9" state="changed">
-    <title>Mesaj Düzenlenmesi: İşlemler</title>
-    <heading>İşlemler</heading>
+    <title>Mesaj DÃ¼zenlenmesi: Ä°ÅŸlemler</title>
+    <heading>Ä°ÅŸlemler</heading>
     <para>
-    Mesaj Gönder" e-posta mesajınızı alıcı(ları)nıza gönderir. Bu işlem geri alınamayacağından işlem bitmeden mesajınızı göndermek istediğinizden emin olunuz.  
+    Mesaj GÃ¶nder" e-posta mesajÄ±nÄ±zÄ± alÄ±cÄ±(larÄ±)nÄ±za gÃ¶nderir. Bu iÅŸlem geri alÄ±namayacaÄŸÄ±ndan iÅŸlem bitmeden mesajÄ±nÄ±zÄ± gÃ¶ndermek istediÄŸinizden emin olunuz.  
 </para>
     <para>
-    Taslağı Kaydet" bitirilmemiş bir mesajı ekranınızın sağ üst köşesinde bulunan aşağı doğru açılan kutudaki "Taslaklar" klasörüne koyar. Mesajınızı daha sonra "Taslaklar" klasöründeki kaydedilmiş halinden açarak ve "Devam Etme" tuşuna tıklayarak bitirebilirsiniz. Mesajınızı taslak olarak kaydetmeden önce konusunu yazmış olmanız Taslaklar klasöründe mesajınızı kolaylıkla bulmanızı sağlayacaktır." 
+    TaslaÄŸÄ± Kaydet" bitirilmemiÅŸ bir mesajÄ± ekranÄ±nÄ±zÄ±n saÄŸ Ã¼st kÃ¶ÅŸesinde bulunan aÅŸaÄŸÄ± doÄŸru aÃ§Ä±lan kutudaki "Taslaklar" klasÃ¶rÃ¼ne koyar. MesajÄ±nÄ±zÄ± daha sonra "Taslaklar" klasÃ¶rÃ¼ndeki kaydedilmiÅŸ halinden aÃ§arak ve "Devam Etme" tuÅŸuna tÄ±klayarak bitirebilirsiniz. MesajÄ±nÄ±zÄ± taslak olarak kaydetmeden Ã¶nce konusunu yazmÄ±ÅŸ olmanÄ±z Taslaklar klasÃ¶rÃ¼nde mesajÄ±nÄ±zÄ± kolaylÄ±kla bulmanÄ±zÄ± saÄŸlayacaktÄ±r." 
 </para>
     <para>
-     Mesajı İptal Et" sözkonusu mesajı iptal eder ve en son görüntülemekte olduğunuz klasöre döner."
+     MesajÄ± Ä°ptal Et" sÃ¶zkonusu mesajÄ± iptal eder ve en son gÃ¶rÃ¼ntÃ¼lemekte olduÄŸunuz klasÃ¶re dÃ¶ner."
 </para>
 <!-- English entry:
 <entry id="compose-buttons">
@@ -238,10 +238,10 @@
     </para>
 </entry>
   <entry id="compose-from" md5="82cf24d31a667a5b94e481cd5179c529" state="changed">
-    <title>Mesaj Düzenlenmesi: Kimden</title>
+    <title>Mesaj DÃ¼zenlenmesi: Kimden</title>
     <heading>"Kimden"</heading>
     <para>
-    Kurulumunuza bağlı olarak, aşağı akan bir listeden Seçenekler-&gt;Kişisel Bilgiler kısmına girdiğiniz bir kimliği seçebilir, veya mesajın gönderildiği adres olarak gözükmesini istediğiniz mail adresini metin alanına girebilirsiniz."
+    Kurulumunuza baÄŸlÄ± olarak, aÅŸaÄŸÄ± akan bir listeden SeÃ§enekler-&gt;KiÅŸisel Bilgiler kÄ±smÄ±na girdiÄŸiniz bir kimliÄŸi seÃ§ebilir, veya mesajÄ±n gÃ¶nderildiÄŸi adres olarak gÃ¶zÃ¼kmesini istediÄŸiniz mail adresini metin alanÄ±na girebilirsiniz."
     </para>
 <!-- English entry:
 <entry id="compose-from">
@@ -280,40 +280,40 @@
     </para>
 </entry>--></entry>
   <entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Kime</title>
+    <title>Mesaj DÃ¼zenlenmesi: Kime</title>
     <heading>Kime</heading>
     <para>
-    Mesajınızın alıcısı için doğru email adresini girin. Fazla alıcı girmek için, email adreslerini virgüllerle ayırın. Herhangi diğer noktalama işaretlerinin email adreslerini ayırmak için kullanımı hataya sebep olur."
+    MesajÄ±nÄ±zÄ±n alÄ±cÄ±sÄ± iÃ§in doÄŸru email adresini girin. Fazla alÄ±cÄ± girmek iÃ§in, email adreslerini virgÃ¼llerle ayÄ±rÄ±n. Herhangi diÄŸer noktalama iÅŸaretlerinin email adreslerini ayÄ±rmak iÃ§in kullanÄ±mÄ± hataya sebep olur."
     </para>
 </entry>
   <entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Kopya</title>
+    <title>Mesaj DÃ¼zenlenmesi: Kopya</title>
     <heading>Kopya</heading>
     <para>
-Mesajınızın karbon kopya alıcısı için doğru email adresini girin. Fazla alıcı girmek için, email adreslerini virgüllerle ayırın.
+MesajÄ±nÄ±zÄ±n karbon kopya alÄ±cÄ±sÄ± iÃ§in doÄŸru email adresini girin. Fazla alÄ±cÄ± girmek iÃ§in, email adreslerini virgÃ¼llerle ayÄ±rÄ±n.
      </para>
     <para>
-Karbon Kopyalar genellikle mesajın direkt alıcısı olmayan kişilere gönderilir, ama bilgilenmek açısından mesajı almaya gereksinim duyabilirler, genellikle emailin konusu ile dolaylı olarak ilgilidirler. Bütün "Kime:" alıcıları ve "Kopya:" alıcıları her iki tür alıcı listesinin tamamını görebilirler."
+Karbon Kopyalar genellikle mesajÄ±n direkt alÄ±cÄ±sÄ± olmayan kiÅŸilere gÃ¶nderilir, ama bilgilenmek aÃ§Ä±sÄ±ndan mesajÄ± almaya gereksinim duyabilirler, genellikle emailin konusu ile dolaylÄ± olarak ilgilidirler. BÃ¼tÃ¼n "Kime:" alÄ±cÄ±larÄ± ve "Kopya:" alÄ±cÄ±larÄ± her iki tÃ¼r alÄ±cÄ± listesinin tamamÄ±nÄ± gÃ¶rebilirler."
     </para>
 </entry>
   <entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Gizli Kopya</title>
+    <title>Mesaj DÃ¼zenlenmesi: Gizli Kopya</title>
     <heading>"Gizli Kopya"</heading>
     <para>
-Mesajınızın görünmez karbon kopya alıcısı için doğru email adresini girin. Fazla alıcı girmek için, email adreslerini virgüllerle ayırın.  Herhangi diğer noktalama işretlerinin email adreslerini ayırmak için kullanımı hataya sebep olur."  
+MesajÄ±nÄ±zÄ±n gÃ¶rÃ¼nmez karbon kopya alÄ±cÄ±sÄ± iÃ§in doÄŸru email adresini girin. Fazla alÄ±cÄ± girmek iÃ§in, email adreslerini virgÃ¼llerle ayÄ±rÄ±n.  Herhangi diÄŸer noktalama iÅŸretlerinin email adreslerini ayÄ±rmak iÃ§in kullanÄ±mÄ± hataya sebep olur."  
       </para>
     <para>
-Görünmez karbon kopyalar genellikle diğer alıcıların da o emaili aldığını BİLMEDEN yazılanı okuması gereken alıcılara gönderilir. Böylece "görünmez" bu alıcıların kimliğinin emailin bütün diğer alıcılarından saklandığı anlamına gelir. Sadece siz gönderen ve "Gizli Kopya" alıcıları bir kopya aldıklarını bilecekler."
+GÃ¶rÃ¼nmez karbon kopyalar genellikle diÄŸer alÄ±cÄ±larÄ±n da o emaili aldÄ±ÄŸÄ±nÄ± BÄ°LMEDEN yazÄ±lanÄ± okumasÄ± gereken alÄ±cÄ±lara gÃ¶nderilir. BÃ¶ylece "gÃ¶rÃ¼nmez" bu alÄ±cÄ±larÄ±n kimliÄŸinin emailin bÃ¼tÃ¼n diÄŸer alÄ±cÄ±larÄ±ndan saklandÄ±ÄŸÄ± anlamÄ±na gelir. Sadece siz gÃ¶nderen ve "Gizli Kopya" alÄ±cÄ±larÄ± bir kopya aldÄ±klarÄ±nÄ± bilecekler."
      </para>
 </entry>
   <entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Konu</title>
+    <title>Mesaj DÃ¼zenlenmesi: Konu</title>
     <heading>"Konu"</heading>
     <para>
-   Mesajınızın konusunu girin. Konuyu kısa, yalın ve açıklayıcı tutmak iyidir. Konu satırı sizin ve yazıştığınız kişi için emailin içinde ne olduğunu en kolay şekilde hatırlatır, bu yüzden emaillerinizi düzenlemede ve sonradan önemli olanlarını bulmanızı sağlamada önemlidir."
+   MesajÄ±nÄ±zÄ±n konusunu girin. Konuyu kÄ±sa, yalÄ±n ve aÃ§Ä±klayÄ±cÄ± tutmak iyidir. Konu satÄ±rÄ± sizin ve yazÄ±ÅŸtÄ±ÄŸÄ±nÄ±z kiÅŸi iÃ§in emailin iÃ§inde ne olduÄŸunu en kolay ÅŸekilde hatÄ±rlatÄ±r, bu yÃ¼zden emaillerinizi dÃ¼zenlemede ve sonradan Ã¶nemli olanlarÄ±nÄ± bulmanÄ±zÄ± saÄŸlamada Ã¶nemlidir."
      </para>
     <para>
-   Ayrıca , bir emaili "Reply" veya "Forward" ederken, bu konu satırı yeni mesajınkine kopyalanır bu email konuşmasında hangi mesajların birlikte giderek bir "akıcılık" oluşturduğunu fark etmek açısından çok yararlı bir yoldur. Bir öneri olarak, eğer replied veya forwarded mesajlar yeni fikirler içeriyorsa, "Konu" satırını alıcıların "akıcılık" ilerlemesini takip edebilmeleri için biraz değiştirmek isteyebilirsiniz."
+   AyrÄ±ca , bir emaili "Reply" veya "Forward" ederken, bu konu satÄ±rÄ± yeni mesajÄ±nkine kopyalanÄ±r bu email konuÅŸmasÄ±nda hangi mesajlarÄ±n birlikte giderek bir "akÄ±cÄ±lÄ±k" oluÅŸturduÄŸunu fark etmek aÃ§Ä±sÄ±ndan Ã§ok yararlÄ± bir yoldur. Bir Ã¶neri olarak, eÄŸer replied veya forwarded mesajlar yeni fikirler iÃ§eriyorsa, "Konu" satÄ±rÄ±nÄ± alÄ±cÄ±larÄ±n "akÄ±cÄ±lÄ±k" ilerlemesini takip edebilmeleri iÃ§in biraz deÄŸiÅŸtirmek isteyebilirsiniz."
      </para>
 </entry>
   <entry id="compose-charset" state="new">
@@ -324,59 +324,59 @@ Görünmez karbon kopyalar genellikle diğer alıcıların da o emaili aldığını BİLMED
     </para>
 </entry>
   <entry id="compose-options" md5="5f1d50a733c8b7e46aecece28822ff70" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Seçenekler</title>
-    <heading>Seçenekler</heading>
+    <title>Mesaj DÃ¼zenlenmesi: SeÃ§enekler</title>
+    <heading>SeÃ§enekler</heading>
     <para>
-Bu Seçenekler mesajınızı hazırlamak için size yardım eder."
+Bu SeÃ§enekler mesajÄ±nÄ±zÄ± hazÄ±rlamak iÃ§in size yardÄ±m eder."
       </para>
     <para>
-İmlanızı kontrol etmek için "Spell Check" e tıklayın."
+Ä°mlanÄ±zÄ± kontrol etmek iÃ§in "Spell Check" e tÄ±klayÄ±n."
      </para>
     <para>
-Mesaja dosya ekleyebileceğiniz sayfanın alt kısmına gitmek için "Ekler" e tıklayın.
+Mesaja dosya ekleyebileceÄŸiniz sayfanÄ±n alt kÄ±smÄ±na gitmek iÃ§in "Ekler" e tÄ±klayÄ±n.
     </para>
 <para>
-Eğer gönderilmiş postanın saklanmasına yöneticiniz tarafından izin verilmişse, "Kopyasını al" nin yanındaki kutuyu işaretleyerek gönderdiğiniz mesajın bir kopyasını saklamayı aktif duruma getirmiş olursunuz. Bu hedef klasör kendi hazır klasörü de olabilir veya sizin bu amaç için "Seçenekler-&gt;Kişisel Bilgiler-&gt;Kimlikler". Eğer yöneticiniz gönderilen maillerin gönderileceği yeri seçmeyi aktif ettiyse, klasörünüzü bu seçeneğin yanındaki aşağı akan bir listeden seçebiliyor olacaksınız." 
+EÄŸer gÃ¶nderilmiÅŸ postanÄ±n saklanmasÄ±na yÃ¶neticiniz tarafÄ±ndan izin verilmiÅŸse, "KopyasÄ±nÄ± al" nin yanÄ±ndaki kutuyu iÅŸaretleyerek gÃ¶nderdiÄŸiniz mesajÄ±n bir kopyasÄ±nÄ± saklamayÄ± aktif duruma getirmiÅŸ olursunuz. Bu hedef klasÃ¶r kendi hazÄ±r klasÃ¶rÃ¼ de olabilir veya sizin bu amaÃ§ iÃ§in "SeÃ§enekler-&gt;KiÅŸisel Bilgiler-&gt;Kimlikler". EÄŸer yÃ¶neticiniz gÃ¶nderilen maillerin gÃ¶nderileceÄŸi yeri seÃ§meyi aktif ettiyse, klasÃ¶rÃ¼nÃ¼zÃ¼ bu seÃ§eneÄŸin yanÄ±ndaki aÅŸaÄŸÄ± akan bir listeden seÃ§ebiliyor olacaksÄ±nÄ±z." 
 </para>
 <para>
-Gönderdiğiniz önemli e-postaların kopyalarını saklamak ne görüşüldüğünü kaydetmek için önemlidir. Bununla birlikte, "Seçenekler-&gt;Kişisel Bilgiler-&gt;Kimliği düzenle"a giderek, bu özelliği sizin kimliğiniz içinde otomatik olarak "açık" yapın. Seçeneklerinizde ayrıca bakım görevleri olan klasörleri periyodik olarak boşaltma veya yeniden adlandırmayı düzenleyebilirsiniz."
+GÃ¶nderdiÄŸiniz Ã¶nemli e-postalarÄ±n kopyalarÄ±nÄ± saklamak ne gÃ¶rÃ¼ÅŸÃ¼ldÃ¼ÄŸÃ¼nÃ¼ kaydetmek iÃ§in Ã¶nemlidir. Bununla birlikte, "SeÃ§enekler-&gt;KiÅŸisel Bilgiler-&gt;KimliÄŸi dÃ¼zenle"a giderek, bu Ã¶zelliÄŸi sizin kimliÄŸiniz iÃ§inde otomatik olarak "aÃ§Ä±k" yapÄ±n. SeÃ§eneklerinizde ayrÄ±ca bakÄ±m gÃ¶revleri olan klasÃ¶rleri periyodik olarak boÅŸaltma veya yeniden adlandÄ±rmayÄ± dÃ¼zenleyebilirsiniz."
 </para>
 </entry>
   <entry id="compose-attachments" md5="8ac032c4ac182f3f0d6446c20f0089dd" state="changed">
-    <title>Mesaj Düzenlenmesi: Ekler</title>
+    <title>Mesaj DÃ¼zenlenmesi: Ekler</title>
     <heading>"Ekler"</heading>
 <para>
-Bu bölüm mesaja önceden eklenmiş olan dosyaların listesini gösterir."
+Bu bÃ¶lÃ¼m mesaja Ã¶nceden eklenmiÅŸ olan dosyalarÄ±n listesini gÃ¶sterir."
      </para>
-<heading>Eklenmiş dosyayı/dosyaları silme</heading>
+<heading>EklenmiÅŸ dosyayÄ±/dosyalarÄ± silme</heading>
 <para>
-Eklenmiş dosyayı/dosyaları silmek için:
+EklenmiÅŸ dosyayÄ±/dosyalarÄ± silmek iÃ§in:
     </para>
 <para>
-Adım 1: Silmek istediğiniz eklenmiş dosya(lar)ın yanındaki işaretleme düğmesini aktive edin.
+AdÄ±m 1: Silmek istediÄŸiniz eklenmiÅŸ dosya(lar)Ä±n yanÄ±ndaki iÅŸaretleme dÃ¼ÄŸmesini aktive edin.
     </para>
 <para>
-Adım 2: "Eklenti Bilgisini Sil" i tıkla."
+AdÄ±m 2: "Eklenti Bilgisini Sil" i tÄ±kla."
     </para>
-<heading>Ekin Yapısını Değiştirme</heading>
+<heading>Ekin YapÄ±sÄ±nÄ± DeÄŸiÅŸtirme</heading>
 <para>
-Ekinizin yapısını değiştirmek için:
-    </para>
-<para>
-Adım 1: Her ekin yapısını değiştirin - "satıriçi" veya "ek" olarak - istenilen değere."
+Ekinizin yapÄ±sÄ±nÄ± deÄŸiÅŸtirmek iÃ§in:
     </para>
 <para>
-Adım 2: "Eklenti Bilgisini Yenile" yi tıkla.
-    </para>
-<heading>Ekin Açıklamasını Değiştirmek</heading>
-<para>
-Eklerinizin açıklamasını değiştirmek için (alıcının göreceği eki açıklayan metin):
+AdÄ±m 1: Her ekin yapÄ±sÄ±nÄ± deÄŸiÅŸtirin - "satÄ±riÃ§i" veya "ek" olarak - istenilen deÄŸere."
     </para>
 <para>
-Adım 1: Açıklama alanına bir açıklama girin.
+AdÄ±m 2: "Eklenti Bilgisini Yenile" yi tÄ±kla.
+    </para>
+<heading>Ekin AÃ§Ä±klamasÄ±nÄ± DeÄŸiÅŸtirmek</heading>
+<para>
+Eklerinizin aÃ§Ä±klamasÄ±nÄ± deÄŸiÅŸtirmek iÃ§in (alÄ±cÄ±nÄ±n gÃ¶receÄŸi eki aÃ§Ä±klayan metin):
+    </para>
+<para>
+AdÄ±m 1: AÃ§Ä±klama alanÄ±na bir aÃ§Ä±klama girin.
    </para>
 <para>
-Adım 2: "Eklenti Bilgisini Yenile" yi tıkla."
+AdÄ±m 2: "Eklenti Bilgisini Yenile" yi tÄ±kla."
    </para>
 <!-- English entry:
 <entry id="compose-attachments">
@@ -749,16 +749,16 @@ Adım 2: "Eklenti Bilgisini Yenile" yi tıkla."
     </para>
 </entry>
   <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
-    <title>Mesaj Düzenlenmesi: Öncelik</title>
-    <heading>Öncelik</heading>
+    <title>Mesaj DÃ¼zenlenmesi: Ã–ncelik</title>
+    <heading>Ã–ncelik</heading>
     <para>
-  Bu giden mesajlarınıza "X-Priority" başlığı koyar. "X-Priority" etiketi Netscape, Mozilla, Opera, ve Outlook mail istemcilerinin kabul ettiği bir tür "yalancı standart"tır. Bu başlığı kullanmayan bütün mail istemcileri önemsemeyecektir."
+  Bu giden mesajlarÄ±nÄ±za "X-Priority" baÅŸlÄ±ÄŸÄ± koyar. "X-Priority" etiketi Netscape, Mozilla, Opera, ve Outlook mail istemcilerinin kabul ettiÄŸi bir tÃ¼r "yalancÄ± standart"tÄ±r. Bu baÅŸlÄ±ÄŸÄ± kullanmayan bÃ¼tÃ¼n mail istemcileri Ã¶nemsemeyecektir."
       </para>    
 </entry>
   <entry id="compose-save-attachments" md5="db89972c4ebb0b41ab691b6a7744a81d" state="uptodate">
-    <title>Mesaj Düzenlemesi: Ekleri Kaydet</title>
+    <title>Mesaj DÃ¼zenlemesi: Ekleri Kaydet</title>
     <para>
-Düzenlemenizdeki eklerin mesajlarla birlikte  gönderilmiş-posta klasörüne kaydedilip kaydedilmedigine karar verir."Evet" ise,ekli veri kaydedilecektir. "Hayır" ise, ekli veritüm alıcılara gönderildikten sonra mesajdan çıkartılır."Hayır" ı seçmek, kaydedilmiş mesajlardan ekli bilgileri (genelde büyük olur) kaldırarak disk alanınızdan tasarruf sağlar."
+DÃ¼zenlemenizdeki eklerin mesajlarla birlikte  gÃ¶nderilmiÅŸ-posta klasÃ¶rÃ¼ne kaydedilip kaydedilmedigine karar verir."Evet" ise,ekli veri kaydedilecektir. "HayÄ±r" ise, ekli veritÃ¼m alÄ±cÄ±lara gÃ¶nderildikten sonra mesajdan Ã§Ä±kartÄ±lÄ±r."HayÄ±r" Ä± seÃ§mek, kaydedilmiÅŸ mesajlardan ekli bilgileri (genelde bÃ¼yÃ¼k olur) kaldÄ±rarak disk alanÄ±nÄ±zdan tasarruf saÄŸlar."
       </para>
 </entry>
   <entry id="compose-link-attachments" state="new">
@@ -768,25 +768,25 @@ Düzenlemenizdeki eklerin mesajlarla birlikte  gönderilmiş-posta klasörüne kayded
     </para>
 </entry>
   <entry id="search" md5="86b2ef57b1194890833d9dd49ebc9b32" state="changed">
-    <title>Mesaj Düzenlemesi: Mesaj Arama</title>
+    <title>Mesaj DÃ¼zenlemesi: Mesaj Arama</title>
     <heading>Arama Kriteri</heading>
     <para>
-   Farklı arama kriterleri kullanarak klasörlerinizde mesajlarınızı arayabilirsiniz
+   FarklÄ± arama kriterleri kullanarak klasÃ¶rlerinizde mesajlarÄ±nÄ±zÄ± arayabilirsiniz
       </para>
     <para>
-   Adım 1: Arama kriterinize eklemek istediğiniz alanlara metin giriniz.
+   AdÄ±m 1: Arama kriterinize eklemek istediÄŸiniz alanlara metin giriniz.
      </para>
     <para>
-  Adım 2: Arama kriterinize eklemek istediğiniz mesaj bayraklarını seçiniz.
+  AdÄ±m 2: Arama kriterinize eklemek istediÄŸiniz mesaj bayraklarÄ±nÄ± seÃ§iniz.
     </para>
 <para>
-  Adım 3: Mesaj aramak istediğiniz klasörü seçiniz.
+  AdÄ±m 3: Mesaj aramak istediÄŸiniz klasÃ¶rÃ¼ seÃ§iniz.
     </para>
 <para>
-  Adım 4: "Ara" yı tıklayınız.
+  AdÄ±m 4: "Ara" yÄ± tÄ±klayÄ±nÄ±z.
     </para>
 <para>
-  Eğer herhangi bir mesaj arama kriterinize uyuyorsa, bu mesajların konuları "Arama Sonuçları" ekranında görüntülenecektir.
+  EÄŸer herhangi bir mesaj arama kriterinize uyuyorsa, bu mesajlarÄ±n konularÄ± "Arama SonuÃ§larÄ±" ekranÄ±nda gÃ¶rÃ¼ntÃ¼lenecektir.
     </para>
 <!-- English entry:
 <entry id="search">
@@ -812,17 +812,17 @@ Düzenlemenizdeki eklerin mesajlarla birlikte  gönderilmiş-posta klasörüne kayded
     </para>
 </entry>--></entry>
   <entry id="folder-options" md5="30687ec475765ba4467d2ef6dcec40c3" state="changed">
-    <title>Klasör Yönetimi: Seçenekler</title>
-    <heading>Klasör Seçenekleri</heading>
+    <title>KlasÃ¶r YÃ¶netimi: SeÃ§enekler</title>
+    <heading>KlasÃ¶r SeÃ§enekleri</heading>
     <para>
-Sol sütundaki butonları kullanarak bir klasör seçebilirsiniz.Bunu bir kez yaptıktan sonra,klasör üzerinde gerçekleştirmek istediğiniz tercihi soldaki seçenek kutusu ile seçiniz  " 
+Sol sÃ¼tundaki butonlarÄ± kullanarak bir klasÃ¶r seÃ§ebilirsiniz.Bunu bir kez yaptÄ±ktan sonra,klasÃ¶r Ã¼zerinde gerÃ§ekleÅŸtirmek istediÄŸiniz tercihi soldaki seÃ§enek kutusu ile seÃ§iniz  " 
       </para>
     <para>
-Sonraki seçenekler için uyarılacaksınız.Silme seçeneği konusunda dikkatli olunuz, yanlışlıkla silerek klasördeki tüm mesajlarınızı kaybedebilirsiniz!"
+Sonraki seÃ§enekler iÃ§in uyarÄ±lacaksÄ±nÄ±z.Silme seÃ§eneÄŸi konusunda dikkatli olunuz, yanlÄ±ÅŸlÄ±kla silerek klasÃ¶rdeki tÃ¼m mesajlarÄ±nÄ±zÄ± kaybedebilirsiniz!"
      </para>
-<heading>mbox Dosyası Almak</heading>
+<heading>mbox DosyasÄ± Almak</heading>
     <para>
-Bu seçenek seçtiğiniz bir klasöre mbox formatında dosya almanızı sağlar. Mesajları almak için 1(bir) klasör seçiniz ve daha sonra bu tercihi seçiniz.Daha sonra mbox dosyasını almak için uyaran bir sayfaya yönlendirileceksiniz. "
+Bu seÃ§enek seÃ§tiÄŸiniz bir klasÃ¶re mbox formatÄ±nda dosya almanÄ±zÄ± saÄŸlar. MesajlarÄ± almak iÃ§in 1(bir) klasÃ¶r seÃ§iniz ve daha sonra bu tercihi seÃ§iniz.Daha sonra mbox dosyasÄ±nÄ± almak iÃ§in uyaran bir sayfaya yÃ¶nlendirileceksiniz. "
     </para>
 <!-- English entry:
 <entry id="folder-options">
@@ -1728,9 +1728,9 @@ Bu seçenek seçtiğiniz bir klasöre mbox formatında dosya almanızı sağlar. Mesajla
 </entry>--></entry>
   <entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
     <title>Filtreler: Uygula</title>
-    <heading>Filtre Kurallarını Uygula</heading>
+    <heading>Filtre KurallarÄ±nÄ± Uygula</heading>
     <para>
-Tüm mesajlarınızı belirlenmiş kurallara göre filtrelemek için posta kutusu görünümündeyken GELEN KUTUSU adının yanındaki "Filtre Uygula" ikonunu tıklayınız."
+TÃ¼m mesajlarÄ±nÄ±zÄ± belirlenmiÅŸ kurallara gÃ¶re filtrelemek iÃ§in posta kutusu gÃ¶rÃ¼nÃ¼mÃ¼ndeyken GELEN KUTUSU adÄ±nÄ±n yanÄ±ndaki "Filtre Uygula" ikonunu tÄ±klayÄ±nÄ±z."
     </para>
 </entry>
   <entry id="filter-edit-rules" state="new">
@@ -1741,83 +1741,83 @@ Tüm mesajlarınızı belirlenmiş kurallara göre filtrelemek için posta kutusu görün
     </para>
 </entry>
   <entry id="filter-edit-blacklist" md5="80ff7803c66599c7035f7f8811d218cc" state="uptodate">
-    <title>Filtreler: Karalisteyi düzenle</title>
-    <heading>Karalistenizi düzenleyiniz</heading>
+    <title>Filtreler: Karalisteyi dÃ¼zenle</title>
+    <heading>Karalistenizi dÃ¼zenleyiniz</heading>
     <para>
-   ASLA posta almak istemediğiniz e-posta adreslerini ekleyebileceğiniz, silebileceğiniz, düzenleyebileceginiz sayfaya yönlendirilmek için "Karalistenizi düzenleyiniz" i tıklayınız."
+   ASLA posta almak istemediÄŸiniz e-posta adreslerini ekleyebileceÄŸiniz, silebileceÄŸiniz, dÃ¼zenleyebileceginiz sayfaya yÃ¶nlendirilmek iÃ§in "Karalistenizi dÃ¼zenleyiniz" i tÄ±klayÄ±nÄ±z."
     </para>
 </entry>
   <entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="uptodate">
-    <title>Filtreler: Beyazlisteyi düzenle</title>
-    <heading>Beyazlistenizi düzenleyiniz</heading>
+    <title>Filtreler: Beyazlisteyi dÃ¼zenle</title>
+    <heading>Beyazlistenizi dÃ¼zenleyiniz</heading>
     <para>
-    HER ZAMAN posta almak istediğiniz e-posta adreslerini ekleyebileceğiniz, silebileceğiniz, düzenleyebileceginiz sayfaya yönlendirilmek için "Beyazlistenizi düzenleyiniz" i tıklayınız."
+    HER ZAMAN posta almak istediÄŸiniz e-posta adreslerini ekleyebileceÄŸiniz, silebileceÄŸiniz, dÃ¼zenleyebileceginiz sayfaya yÃ¶nlendirilmek iÃ§in "Beyazlistenizi dÃ¼zenleyiniz" i tÄ±klayÄ±nÄ±z."
      </para>
 </entry>
   <entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="uptodate">
-    <title>Filtreler: Oturum Açarken Filtrelemek</title>
-    <heading>Filtre Kurallarını Oturum Açarken Uygula</heading>
+    <title>Filtreler: Oturum AÃ§arken Filtrelemek</title>
+    <heading>Filtre KurallarÄ±nÄ± Oturum AÃ§arken Uygula</heading>
     <para>
-     Her zaman IMP de ilk oturum açılırken filtreleri uygulamak için bu seçeneği işaretle.
+     Her zaman IMP de ilk oturum aÃ§Ä±lÄ±rken filtreleri uygulamak iÃ§in bu seÃ§eneÄŸi iÅŸaretle.
      </para>
 </entry>
   <entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="uptodate">
-    <title>Fİltreler: Yenilerken filtrele</title>
-    <heading>GELEN KUTUSU'nu her görüntülemede filtreleri uygula</heading>
+    <title>FÄ°ltreler: Yenilerken filtrele</title>
+    <heading>GELEN KUTUSU'nu her gÃ¶rÃ¼ntÃ¼lemede filtreleri uygula</heading>
     <para>
-    GELEN KUTUSU'nu her görüntülemede filtreleri uygulamak için bu seçeneği işaretle.
+    GELEN KUTUSU'nu her gÃ¶rÃ¼ntÃ¼lemede filtreleri uygulamak iÃ§in bu seÃ§eneÄŸi iÅŸaretle.
     </para>
 </entry>
   <entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="uptodate">
     <title>Filtreler: Herhangi Bir Posta Kutusunu Fitrelemek</title>
-    <heading>Filtre kurallarını herhangi bir posta kutusuna uygulamak</heading>
+    <heading>Filtre kurallarÄ±nÄ± herhangi bir posta kutusuna uygulamak</heading>
     <para>
-    Herhangi bir posta kutusu için filtre kurallarnı uygulayabilmek içim bu seçeneği işaretleyiniz.Aslında,filtre kuralları sadece GELEN KUTUNUZA gelen yeni postalara uygulanır. Eğer bu seçenek işaretliyse, tüm posta kutularınızın sayfalarında o kutudaki mesajlara filtre kurallarını uygulamanızı sağlayacak ikonlar yer alacaktır.NOT: GELEN KUTUSU dışındaki posta kutularında filtrelemek garip (örnek: Filtre mesajın bir kopyasının daha bu kutuya gelmesine sebep olabilir) ve/veya istenmeyen sonuçlar üretebilir(örnek: Mesaj bu kutuya geldikten sonra yeni filtre kuralları üretilirse mesajların silinmesine/taşınmasına sebep olabilir)."
+    Herhangi bir posta kutusu iÃ§in filtre kurallarnÄ± uygulayabilmek iÃ§im bu seÃ§eneÄŸi iÅŸaretleyiniz.AslÄ±nda,filtre kurallarÄ± sadece GELEN KUTUNUZA gelen yeni postalara uygulanÄ±r. EÄŸer bu seÃ§enek iÅŸaretliyse, tÃ¼m posta kutularÄ±nÄ±zÄ±n sayfalarÄ±nda o kutudaki mesajlara filtre kurallarÄ±nÄ± uygulamanÄ±zÄ± saÄŸlayacak ikonlar yer alacaktÄ±r.NOT: GELEN KUTUSU dÄ±ÅŸÄ±ndaki posta kutularÄ±nda filtrelemek garip (Ã¶rnek: Filtre mesajÄ±n bir kopyasÄ±nÄ±n daha bu kutuya gelmesine sebep olabilir) ve/veya istenmeyen sonuÃ§lar Ã¼retebilir(Ã¶rnek: Mesaj bu kutuya geldikten sonra yeni filtre kurallarÄ± Ã¼retilirse mesajlarÄ±n silinmesine/taÅŸÄ±nmasÄ±na sebep olabilir)."
     </para>
 </entry>
   <entry id="pgp-compose-attach-pubkey" md5="97446dbbb27616b4fa39be801e10df2d" state="uptodate">
     <title>PGP: Yerel Anahtar Ekle</title>
     <heading>Yerel Anahtar Ekle</heading>
     <para>
-   Eğer seçiliyse PGP yerel anahtarınızın bir kopyası, eğer mevcutsa, gönderilen mesaja eklenecektir. PGP Ayarları ekranından varsayılan hareketi ayarlayabilirsiniz.
+   EÄŸer seÃ§iliyse PGP yerel anahtarÄ±nÄ±zÄ±n bir kopyasÄ±, eÄŸer mevcutsa, gÃ¶nderilen mesaja eklenecektir. PGP AyarlarÄ± ekranÄ±ndan varsayÄ±lan hareketi ayarlayabilirsiniz.
     </para>
 </entry>
   <entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="uptodate">
-    <title>PGP: Metin gövdelerini tara</title>
-    <heading>Metin gövdelerini tara</heading>
+    <title>PGP: Metin gÃ¶vdelerini tara</title>
+    <heading>Metin gÃ¶vdelerini tara</heading>
     <para>
-   Eğer IMP seçildiyse, metin mesajlarının gövdelerini PGP bilgisi için arayacaktır ve herhangi bir bilgi bulunduğunda görüntüleyecektir. Bu işlem tüm metin mesajları içeriğinde PGP bilgisi olup olmadığı kontrol edileceği için sistemi 
-   yavaşlatabilir.
+   EÄŸer IMP seÃ§ildiyse, metin mesajlarÄ±nÄ±n gÃ¶vdelerini PGP bilgisi iÃ§in arayacaktÄ±r ve herhangi bir bilgi bulunduÄŸunda gÃ¶rÃ¼ntÃ¼leyecektir. Bu iÅŸlem tÃ¼m metin mesajlarÄ± iÃ§eriÄŸinde PGP bilgisi olup olmadÄ±ÄŸÄ± kontrol edileceÄŸi iÃ§in sistemi 
+   yavaÅŸlatabilir.
       </para>
 </entry>
   <entry id="compose-options-encrypt" md5="1012144f749f19f5a24cef38601daa71" state="changed">
-    <title>Oluştur: Şifreleme Seçenekleri</title>
-    <heading>Şifreleme yok</heading>
+    <title>OluÅŸtur: Åifreleme SeÃ§enekleri</title>
+    <heading>Åifreleme yok</heading>
     <para>
-    Mesajı şifreleme olmadan yolla (sade metin).
+    MesajÄ± ÅŸifreleme olmadan yolla (sade metin).
       </para>
-    <heading>PGP Mesajı Şifrele</heading>
+    <heading>PGP MesajÄ± Åifrele</heading>
     <para>
-    Bu seçenek aktif mesajı, PGP ve alıcıların kişisel genel anahtarlarını kullanarak şifreler ve yollar. Bu seçeneği kullanarak sadece bir kişiye mesaj yollayabilirsiniz. Alıcının genel anahtarının adres defterinizde olması gerekir aksi takdirde bu 
-    seçenek çalışmayacaktır. Alıcının genel anahtarı adres defterinizde olduğu halde hala hatalar alıyorsanız, alıcı alanındaki e-posta adresiyle genel anahtarın tutulduğu yerdeki e-posta adresinin eşleştiğini kontrol ediniz."
+    Bu seÃ§enek aktif mesajÄ±, PGP ve alÄ±cÄ±larÄ±n kiÅŸisel genel anahtarlarÄ±nÄ± kullanarak ÅŸifreler ve yollar. Bu seÃ§eneÄŸi kullanarak sadece bir kiÅŸiye mesaj yollayabilirsiniz. AlÄ±cÄ±nÄ±n genel anahtarÄ±nÄ±n adres defterinizde olmasÄ± gerekir aksi takdirde bu 
+    seÃ§enek Ã§alÄ±ÅŸmayacaktÄ±r. AlÄ±cÄ±nÄ±n genel anahtarÄ± adres defterinizde olduÄŸu halde hala hatalar alÄ±yorsanÄ±z, alÄ±cÄ± alanÄ±ndaki e-posta adresiyle genel anahtarÄ±n tutulduÄŸu yerdeki e-posta adresinin eÅŸleÅŸtiÄŸini kontrol ediniz."
     </para>
-    <heading>PGP Mesajı İmzala</heading>
+    <heading>PGP MesajÄ± Ä°mzala</heading>
     <para>
-    Bu seçenek aktif mesajı ve kişisel genel anahtarınızı PGP kullanarak dijital olarak imzalayacaktır. Bu devrede genel anahtarınız için şifre girmediyseniz, sizden şifre girmeniz istenecektir. Alıcının sizin imzanızı dijital olarak doğrulaması 
-    için genel anahtarınızın bir kopyasına sahip olmalıdır.
+    Bu seÃ§enek aktif mesajÄ± ve kiÅŸisel genel anahtarÄ±nÄ±zÄ± PGP kullanarak dijital olarak imzalayacaktÄ±r. Bu devrede genel anahtarÄ±nÄ±z iÃ§in ÅŸifre girmediyseniz, sizden ÅŸifre girmeniz istenecektir. AlÄ±cÄ±nÄ±n sizin imzanÄ±zÄ± dijital olarak doÄŸrulamasÄ± 
+    iÃ§in genel anahtarÄ±nÄ±zÄ±n bir kopyasÄ±na sahip olmalÄ±dÄ±r.
     </para>
-    <heading>PGP İmzalama/Şifreleme Mesajı</heading>
-    <para>Bu seçenek ilk olarak mesajınızı dijital olarak imzalayacak ve sonra çıktıyı şifreleyecektir. Daha fazla bilgi için "PGP Mesajı Şifrele" ve "PGP Mesajı İmzala" başlıklarına bakınız."
+    <heading>PGP Ä°mzalama/Åifreleme MesajÄ±</heading>
+    <para>Bu seÃ§enek ilk olarak mesajÄ±nÄ±zÄ± dijital olarak imzalayacak ve sonra Ã§Ä±ktÄ±yÄ± ÅŸifreleyecektir. Daha fazla bilgi iÃ§in "PGP MesajÄ± Åifrele" ve "PGP MesajÄ± Ä°mzala" baÅŸlÄ±klarÄ±na bakÄ±nÄ±z."
     </para>
-    <heading>S/MIME Mesajı Şifrele</heading>
-    <para>
-     TODO
-    </para>
-   <heading>S/MIME Mesajı İmzala</heading>
+    <heading>S/MIME MesajÄ± Åifrele</heading>
     <para>
      TODO
     </para>
-   <heading>S/MIME Mesajı İmzala/Şifrele</heading>
+   <heading>S/MIME MesajÄ± Ä°mzala</heading>
+    <para>
+     TODO
+    </para>
+   <heading>S/MIME MesajÄ± Ä°mzala/Åifrele</heading>
     <para>
      TODO
     </para>
@@ -2114,73 +2114,73 @@ Tüm mesajlarınızı belirlenmiş kurallara göre filtrelemek için posta kutusu görün
     </para>
 </entry>--></entry>
   <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
-    <title>PGP: Genel Bakış</title>
+    <title>PGP: Genel BakÄ±ÅŸ</title>
     <heading>PGP nedir?</heading>
     <para>
-    PGP güvenli bağlantı ve bilgi depolama için bir araçtır özellikle e-posta ile kullanmak için. Bilgiyi şifrelemek ve dijital imzalar hazırlamak için kullanılabilir. IMP bu özelliği sağlamak için GNU Güvenlik Bekçisini kullanır.
+    PGP gÃ¼venli baÄŸlantÄ± ve bilgi depolama iÃ§in bir araÃ§tÄ±r Ã¶zellikle e-posta ile kullanmak iÃ§in. Bilgiyi ÅŸifrelemek ve dijital imzalar hazÄ±rlamak iÃ§in kullanÄ±labilir. IMP bu Ã¶zelliÄŸi saÄŸlamak iÃ§in GNU GÃ¼venlik BekÃ§isini kullanÄ±r.
       </para>
-    <heading>PGP özelliğini aktif et?</heading>
+    <heading>PGP Ã¶zelliÄŸini aktif et?</heading>
     <para>
-    Eğer bu seçenek seçilirse, kişisel PGP anahtarları yaratabilir/görüntüleyebilir, diğer bireylerden genel anahtarlar ekleyebilr/silebilir, şifreli postaları okuyabilir, dijital olarak imzalanmış mailleri doğrulayabilir, ve giden maillerinizi şifreleyebilir/imzalayabilirsiniz.
+    EÄŸer bu seÃ§enek seÃ§ilirse, kiÅŸisel PGP anahtarlarÄ± yaratabilir/gÃ¶rÃ¼ntÃ¼leyebilir, diÄŸer bireylerden genel anahtarlar ekleyebilr/silebilir, ÅŸifreli postalarÄ± okuyabilir, dijital olarak imzalanmÄ±ÅŸ mailleri doÄŸrulayabilir, ve giden maillerinizi ÅŸifreleyebilir/imzalayabilirsiniz.
      </para>
 </entry>
   <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
-    <title>PGP: Seçenekler - Genel Anahtar Ekle</title>
-    <heading>Seçenekler - Genel Anahtar Ekle</heading>
+    <title>PGP: SeÃ§enekler - Genel Anahtar Ekle</title>
+    <heading>SeÃ§enekler - Genel Anahtar Ekle</heading>
     <para>
-    Eğer seçilirse PGP genel anahtarınızın bir kopyası, eğer varsa, varsayılan olarak tüm giden postalarınıza eklenecektir.
+    EÄŸer seÃ§ilirse PGP genel anahtarÄ±nÄ±zÄ±n bir kopyasÄ±, eÄŸer varsa, varsayÄ±lan olarak tÃ¼m giden postalarÄ±nÄ±za eklenecektir.
     </para>
 </entry>
   <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
-    <title>PGP: Genel Anahtarları Yönet</title>
-    <heading>Ganel Bakış</heading>
+    <title>PGP: Genel AnahtarlarÄ± YÃ¶net</title>
+    <heading>Ganel BakÄ±ÅŸ</heading>
     <para>
-    Bu ekran adres defterinizde PGP genel anahtarı olan aktif kullanıcıları listeler. Bu kullanıcılar ya 1) şifreli mesaj yolladığınız ya da 2) dijital imza doğruladığınız kullanıcılardır.
+    Bu ekran adres defterinizde PGP genel anahtarÄ± olan aktif kullanÄ±cÄ±larÄ± listeler. Bu kullanÄ±cÄ±lar ya 1) ÅŸifreli mesaj yolladÄ±ÄŸÄ±nÄ±z ya da 2) dijital imza doÄŸruladÄ±ÄŸÄ±nÄ±z kullanÄ±cÄ±lardÄ±r.
       </para>
-    <heading>Görüntüle</heading>
+    <heading>GÃ¶rÃ¼ntÃ¼le</heading>
     <para>
-    PGP genel anahtarını görüntülemek için bir pencere açar.
+    PGP genel anahtarÄ±nÄ± gÃ¶rÃ¼ntÃ¼lemek iÃ§in bir pencere aÃ§ar.
     </para>
-    <heading>Ayrıntılar</heading>
+    <heading>AyrÄ±ntÄ±lar</heading>
     <para>
-    PGP genel anahtarı hakkında bazı ayrıntılar gösterir.
+    PGP genel anahtarÄ± hakkÄ±nda bazÄ± ayrÄ±ntÄ±lar gÃ¶sterir.
     </para>
     <heading>Sil</heading>
     <para>
-    Adres defterinizden genel anahtarı siler.
+    Adres defterinizden genel anahtarÄ± siler.
     </para>
 </entry>
   <entry id="pgp-import-pubkey" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382" state="uptodate">
-    <title>PGP: Genel Anahtarları Yönet - Dışalım</title>
-    <heading>Genel anahtarları al</heading>
+    <title>PGP: Genel AnahtarlarÄ± YÃ¶net - DÄ±ÅŸalÄ±m</title>
+    <heading>Genel anahtarlarÄ± al</heading>
     <para>
-    Bu tuş manuel olarak PGP genel anahtarı alabileceğiniz bir pencere açar. Anahtar metin alanına kopyalanmış olabilir yada bilgisayarınızda bir dosyada ise, dışarıdan alım yapabilirsiniz. Anahtar geçerliyse adres defterinize girilcek ve pencere kapanacak; eğer geçerli değilse, nedenini açıklayan bir hata mesajı dönecektir.
+    Bu tuÅŸ manuel olarak PGP genel anahtarÄ± alabileceÄŸiniz bir pencere aÃ§ar. Anahtar metin alanÄ±na kopyalanmÄ±ÅŸ olabilir yada bilgisayarÄ±nÄ±zda bir dosyada ise, dÄ±ÅŸarÄ±dan alÄ±m yapabilirsiniz. Anahtar geÃ§erliyse adres defterinize girilcek ve pencere kapanacak; eÄŸer geÃ§erli deÄŸilse, nedenini aÃ§Ä±klayan bir hata mesajÄ± dÃ¶necektir.
      </para>
 </entry>
   <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
-    <title>PGP: Kişisel Anahtarları Yönet</title>
-    <heading>Genel Bakış</heading>
+    <title>PGP: KiÅŸisel AnahtarlarÄ± YÃ¶net</title>
+    <heading>Genel BakÄ±ÅŸ</heading>
     <para>
-Eğer mesajları dijital olarak imzalamak istiyorsanız veya diğerlerinin size şifreli mesaj göndermesini aktif etmek istiyorsanız, kişisel genel/özel PGP anahtar çiftine sahip olmalısınız."
+EÄŸer mesajlarÄ± dijital olarak imzalamak istiyorsanÄ±z veya diÄŸerlerinin size ÅŸifreli mesaj gÃ¶ndermesini aktif etmek istiyorsanÄ±z, kiÅŸisel genel/Ã¶zel PGP anahtar Ã§iftine sahip olmalÄ±sÄ±nÄ±z."
       </para>
-    <heading>Genel Anahtarınız</heading>
+    <heading>Genel AnahtarÄ±nÄ±z</heading>
     <para>
-    Genel anahtarınız size şifreli mesaj gödermesini istediğiniz kişliere açık olmalıdır ki bu mesajı sadece siz çözebilirsiniz(özel anahtarınızı kullanarak.) Ek olarak genel anahtarınız dijital mesaj yolladığınız kişilere açık olmalıdır - genel anahtar dijital imzayı doğrulamak için gereklidir.
+    Genel anahtarÄ±nÄ±z size ÅŸifreli mesaj gÃ¶dermesini istediÄŸiniz kiÅŸliere aÃ§Ä±k olmalÄ±dÄ±r ki bu mesajÄ± sadece siz Ã§Ã¶zebilirsiniz(Ã¶zel anahtarÄ±nÄ±zÄ± kullanarak.) Ek olarak genel anahtarÄ±nÄ±z dijital mesaj yolladÄ±ÄŸÄ±nÄ±z kiÅŸilere aÃ§Ä±k olmalÄ±dÄ±r - genel anahtar dijital imzayÄ± doÄŸrulamak iÃ§in gereklidir.
      </para>
-     <heading>Özel Anahtarınız</heading>
+     <heading>Ã–zel AnahtarÄ±nÄ±z</heading>
     <para>
-    Özel anahtarınız genel şifrenizi kullanarak şifrelenmiş mesajları çözmek için gereklidir. Ek olarak, özel anahtarınız dijital olarak mesaj imzalamak istiyorsanız gereklidir. Özel anahtarınız anahtarlar oluşturulduğunda bir şifreyle korunacaktır. Bu yüzden özel anahtarınızı gerektirensbir aktivite olduğunda, IMP şifrenizi soracaktır. Her oturumda şifrenizi bir kere girmeniz gerekmektedir - IMP oturumu kapatana kadar şifrenizi saklar.
+    Ã–zel anahtarÄ±nÄ±z genel ÅŸifrenizi kullanarak ÅŸifrelenmiÅŸ mesajlarÄ± Ã§Ã¶zmek iÃ§in gereklidir. Ek olarak, Ã¶zel anahtarÄ±nÄ±z dijital olarak mesaj imzalamak istiyorsanÄ±z gereklidir. Ã–zel anahtarÄ±nÄ±z anahtarlar oluÅŸturulduÄŸunda bir ÅŸifreyle korunacaktÄ±r. Bu yÃ¼zden Ã¶zel anahtarÄ±nÄ±zÄ± gerektirensbir aktivite olduÄŸunda, IMP ÅŸifrenizi soracaktÄ±r. Her oturumda ÅŸifrenizi bir kere girmeniz gerekmektedir - IMP oturumu kapatana kadar ÅŸifrenizi saklar.
     </para>
 </entry>
   <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
-    <title>PGP: Kişisel Anahtarları Yönet - Genel Anahtar</title>
-    <heading>Görüntüle</heading>
+    <title>PGP: KiÅŸisel AnahtarlarÄ± YÃ¶net - Genel Anahtar</title>
+    <heading>GÃ¶rÃ¼ntÃ¼le</heading>
     <para>
-    PGP genel anahtarı görüntülemek için bir pencere açar.
+    PGP genel anahtarÄ± gÃ¶rÃ¼ntÃ¼lemek iÃ§in bir pencere aÃ§ar.
       </para>
-    <heading>Ayrıntılar</heading>
+    <heading>AyrÄ±ntÄ±lar</heading>
     <para>
-    PGP genel anahtarı ile ilgili bazı ayrıntılar görüntüler.
+    PGP genel anahtarÄ± ile ilgili bazÄ± ayrÄ±ntÄ±lar gÃ¶rÃ¼ntÃ¼ler.
      </para>
 </entry>
   <entry id="pgp-personalkey-private" state="new">
@@ -2203,73 +2203,73 @@ Eğer mesajları dijital olarak imzalamak istiyorsanız veya diğerlerinin size şifr
     </para>
 </entry>
   <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
-    <title>PGP: Kişisel Anahtarları Yönetin - Sil</title>
-    <heading>Kişisel Anahtarları sil</heading>
+    <title>PGP: KiÅŸisel AnahtarlarÄ± YÃ¶netin - Sil</title>
+    <heading>KiÅŸisel AnahtarlarÄ± sil</heading>
     <para>
-    Bu tuş kişisel genel/özel anahtar çiftinizi IMP seçeneklerinden siler.
+    Bu tuÅŸ kiÅŸisel genel/Ã¶zel anahtar Ã§iftinizi IMP seÃ§eneklerinden siler.
      </para>
 </entry>
   <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - İsim</title>
-    <heading>İsim</heading>
+    <title>PGP: KiÅŸisel Anahtar yarat - Ä°sim</title>
+    <heading>Ä°sim</heading>
     <para>
-    Kişisel anahtarlarınıza eklemek istediğiniz isim. Gerekli bir alan.
+    KiÅŸisel anahtarlarÄ±nÄ±za eklemek istediÄŸiniz isim. Gerekli bir alan.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - Yorum</title>
+    <title>PGP: KiÅŸisel Anahtar yarat - Yorum</title>
     <heading>Yorum</heading>
     <para>
-    Kişisel anahtarlarınıza eklemek istediğiniz karakter dizisi. Opsiyonel bir alan.
+    KiÅŸisel anahtarlarÄ±nÄ±za eklemek istediÄŸiniz karakter dizisi. Opsiyonel bir alan.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - E-posta adresi</title>
+    <title>PGP: KiÅŸisel Anahtar yarat - E-posta adresi</title>
     <heading>E-posta adresi</heading>
     <para>
-     Kişisel Anantarınızla eşleştirmek istediğiniz e-posta adresi. Gerekli bir alan.
+     KiÅŸisel AnantarÄ±nÄ±zla eÅŸleÅŸtirmek istediÄŸiniz e-posta adresi. Gerekli bir alan.
       </para>
 </entry>
   <entry id="pgp-personalkey-create-keylength" md5="24ca641c63fb5ff310a39ee0d3b1ee55" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - Anahtar Uzunluğu</title>
-    <heading>Anahtar Uzunluğu</heading>
+    <title>PGP: KiÅŸisel Anahtar yarat - Anahtar UzunluÄŸu</title>
+    <heading>Anahtar UzunluÄŸu</heading>
     <para>
-Üretilen anahtarınızın anahtar Uzunluğu (byte olarak). Değer ne kadar yüksekse koruma o kadar yüksektir (ve ayrıca yüksek üretim ve şifreleme süresi). Varsayılan 1024 byte - bu değer mükemmmel koruma sağlar.
+Ãœretilen anahtarÄ±nÄ±zÄ±n anahtar UzunluÄŸu (byte olarak). DeÄŸer ne kadar yÃ¼ksekse koruma o kadar yÃ¼ksektir (ve ayrÄ±ca yÃ¼ksek Ã¼retim ve ÅŸifreleme sÃ¼resi). VarsayÄ±lan 1024 byte - bu deÄŸer mÃ¼kemmmel koruma saÄŸlar.
       </para>
 </entry>
   <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - Şifre</title>
-    <heading>Şifre</heading>
+    <title>PGP: KiÅŸisel Anahtar yarat - Åifre</title>
+    <heading>Åifre</heading>
     <para>
-    Kişisel özel anahtarınızı şifrelemek ve korumak için kullanılan şifre. Bu en az 6 karakter olmalı, oturum açma şifrenizle aynı olmamalı, anlamlı bir sözcük içermemeli, ayrıca hem numara hem harf içermeli. Onaylama süreci için bu şifreyi iki kez girmeniz gerekir. Gerekli bir alan.
+    KiÅŸisel Ã¶zel anahtarÄ±nÄ±zÄ± ÅŸifrelemek ve korumak iÃ§in kullanÄ±lan ÅŸifre. Bu en az 6 karakter olmalÄ±, oturum aÃ§ma ÅŸifrenizle aynÄ± olmamalÄ±, anlamlÄ± bir sÃ¶zcÃ¼k iÃ§ermemeli, ayrÄ±ca hem numara hem harf iÃ§ermeli. Onaylama sÃ¼reci iÃ§in bu ÅŸifreyi iki kez girmeniz gerekir. Gerekli bir alan.
     </para>
 </entry>
   <entry id="pgp-personalkey-create-actions" md5="0f8234935b964c83533b4ec4c15eb712" state="uptodate">
-    <title>PGP: Kişisel Anahtar yarat - Aksiyon</title>
+    <title>PGP: KiÅŸisel Anahtar yarat - Aksiyon</title>
     <heading>Anahtarlar Yarat</heading>
     <para>
-    Kişisel Genel/özel anahtar çiftinizi yaratın ve saklayın.
+    KiÅŸisel Genel/Ã¶zel anahtar Ã§iftinizi yaratÄ±n ve saklayÄ±n.
       </para>
-    <heading>Anahtar Çifti Al</heading>
+    <heading>Anahtar Ã‡ifti Al</heading>
     <para>
-    Kişisel/özel anahtar çifti al. Bu tuş varolan PGP kişisel genel/özel anahtar çiftinizi almanız için bir pencere açar. Anahtarlar metin alanına yapıştırılmış veya lokal bilgisayarınızda bir dosyada olabilir, onları alabilirsiniz. Anahtarlar geçerli ise seçeneklerinize eklenir ve pencere kapanır; eğer geçersizse neden geçersiz olduğunu açıklayan bir mesaj döner."
+    KiÅŸisel/Ã¶zel anahtar Ã§ifti al. Bu tuÅŸ varolan PGP kiÅŸisel genel/Ã¶zel anahtar Ã§iftinizi almanÄ±z iÃ§in bir pencere aÃ§ar. Anahtarlar metin alanÄ±na yapÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸ veya lokal bilgisayarÄ±nÄ±zda bir dosyada olabilir, onlarÄ± alabilirsiniz. Anahtarlar geÃ§erli ise seÃ§eneklerinize eklenir ve pencere kapanÄ±r; eÄŸer geÃ§ersizse neden geÃ§ersiz olduÄŸunu aÃ§Ä±klayan bir mesaj dÃ¶ner."
      </para>
 </entry>
   <entry id="smime-overview" md5="d3c752b1345fb2eccfe575c07461963f" state="uptodate">
-    <title>S/MIME: Genel Bakış</title>
+    <title>S/MIME: Genel BakÄ±ÅŸ</title>
     <heading>S/MIME Nedir?</heading>
     <para>
-S/MIME bir açık ve kontrol edilebilir bir yolla dijital imzalar, mesaj gizliliği ve izinsiz erişim kontrolcüsü sağlayan özel/genel anahtar çifti sistemidir. S/MIME sadece yollayan ve istenen alıcıların çözebileceği şifreleme sağlar. Mesajı yollayan kişiyi dijital imza aracılığıyla tanımanızı sağlar. Bu şifreleme ve dijital imzalama, alıcıların mesajın yollandıktan sonra değiştirilip değiştirilmediğini kontrol etmelerini sağlar."
+S/MIME bir aÃ§Ä±k ve kontrol edilebilir bir yolla dijital imzalar, mesaj gizliliÄŸi ve izinsiz eriÅŸim kontrolcÃ¼sÃ¼ saÄŸlayan Ã¶zel/genel anahtar Ã§ifti sistemidir. S/MIME sadece yollayan ve istenen alÄ±cÄ±larÄ±n Ã§Ã¶zebileceÄŸi ÅŸifreleme saÄŸlar. MesajÄ± yollayan kiÅŸiyi dijital imza aracÄ±lÄ±ÄŸÄ±yla tanÄ±manÄ±zÄ± saÄŸlar. Bu ÅŸifreleme ve dijital imzalama, alÄ±cÄ±larÄ±n mesajÄ±n yollandÄ±ktan sonra deÄŸiÅŸtirilip deÄŸiÅŸtirilmediÄŸini kontrol etmelerini saÄŸlar."
       </para>
-    <heading>S/MIME özelliklerini aktif et?</heading>
+    <heading>S/MIME Ã¶zelliklerini aktif et?</heading>
     <para>
-Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş posta okumaya, dijital olarak imzalanmış postları doğrulamaya ve giden postalarınızı şifreleme/imzalamanıza olanak verir."
+EÄŸer bu seÃ§enek seÃ§ilirse, kiÅŸisel S/MIME anahtarlarÄ±nÄ±zÄ± almaya, ÅŸifrelenmiÅŸ posta okumaya, dijital olarak imzalanmÄ±ÅŸ postlarÄ± doÄŸrulamaya ve giden postalarÄ±nÄ±zÄ± ÅŸifreleme/imzalamanÄ±za olanak verir."
      </para>
 </entry>
   <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
-    <title>S/MIME: Kişisel Anahtarlar</title>
-    <heading>Genel Bakış</heading>
-    <para>Eğer mesajları dijital olarak imzalamak veya şifrelemek istiyorsanız, kendi kişisel genel/özel S/MIME anahtar çiftine sahip olmalısınız."
+    <title>S/MIME: KiÅŸisel Anahtarlar</title>
+    <heading>Genel BakÄ±ÅŸ</heading>
+    <para>EÄŸer mesajlarÄ± dijital olarak imzalamak veya ÅŸifrelemek istiyorsanÄ±z, kendi kiÅŸisel genel/Ã¶zel S/MIME anahtar Ã§iftine sahip olmalÄ±sÄ±nÄ±z."
       </para>
 </entry>
   <entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
@@ -2280,24 +2280,24 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="smime-delete-personal-certs" md5="018bb6b61a7e416892de288ad1c880f4" state="uptodate">
-    <title>S/MIME: Kişisel Sertifikaları Sil</title>
-    <heading>Kişisel Sertifikaları Sil</heading>
-    <para>Kişisel Sertifikalarınızı seçeneklerinizden silin. Bundan sonra S/MIME mesajlarınızı onaylayamaz veya size göderilen S/MIME ile şifrelenmiş postaları göremezsiniz."
+    <title>S/MIME: KiÅŸisel SertifikalarÄ± Sil</title>
+    <heading>KiÅŸisel SertifikalarÄ± Sil</heading>
+    <para>KiÅŸisel SertifikalarÄ±nÄ±zÄ± seÃ§eneklerinizden silin. Bundan sonra S/MIME mesajlarÄ±nÄ±zÄ± onaylayamaz veya size gÃ¶derilen S/MIME ile ÅŸifrelenmiÅŸ postalarÄ± gÃ¶remezsiniz."
       </para>
 </entry>
   <entry id="smime-manage-pubkey" md5="8b6c63684d3d73b3d084025a78fe7e88" state="uptodate">
-    <title>S/MIME: Genel Anahtarları Yönet</title>
-    <heading>S/MIME: Genel Anahtarları Yönet</heading>
-    <para>S/MIME genel anahtar listesini yönet.
+    <title>S/MIME: Genel AnahtarlarÄ± YÃ¶net</title>
+    <heading>S/MIME: Genel AnahtarlarÄ± YÃ¶net</heading>
+    <para>S/MIME genel anahtar listesini yÃ¶net.
       </para>
-     <heading>Görünüm</heading>
-    <para>Genel Anahtarın yalın metnini gör.
+     <heading>GÃ¶rÃ¼nÃ¼m</heading>
+    <para>Genel AnahtarÄ±n yalÄ±n metnini gÃ¶r.
       </para>
-<heading>Ayrıntılar</heading>
-    <para>Genel anahtarın teknik ayrıntılarını görüntüle.
+<heading>AyrÄ±ntÄ±lar</heading>
+    <para>Genel anahtarÄ±n teknik ayrÄ±ntÄ±larÄ±nÄ± gÃ¶rÃ¼ntÃ¼le.
       </para>
 <heading>Sil</heading>
-    <para>Seçili genel anahtarı kayıttan sil. Bir kullanıcı için genel anahtarı silmek, o kişiye şifrelenmiş posta göndermenizi engeller.
+    <para>SeÃ§ili genel anahtarÄ± kayÄ±ttan sil. Bir kullanÄ±cÄ± iÃ§in genel anahtarÄ± silmek, o kiÅŸiye ÅŸifrelenmiÅŸ posta gÃ¶ndermenizi engeller.
       </para>
 </entry>
   <entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
@@ -2308,32 +2308,32 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="sorting" md5="18cdeac38027fe5c42bab693f2a4260a" state="uptodate">
-    <title>Sınıflandırma ve Gruplama</title>
-    <heading>Girişleri Sınıflandırma</heading>
-    <para>Bir mesaj listesi görüntülerken,mesajlarınızı uygun sütun başlığına tıklayarak her sütun için sınıflandırabilirsiniz. Sütunları azalan ve artan sıra arasında değiştirmek için sütun başlığıdaki ok simgesine tıklayın."
+    <title>SÄ±nÄ±flandÄ±rma ve Gruplama</title>
+    <heading>GiriÅŸleri SÄ±nÄ±flandÄ±rma</heading>
+    <para>Bir mesaj listesi gÃ¶rÃ¼ntÃ¼lerken,mesajlarÄ±nÄ±zÄ± uygun sÃ¼tun baÅŸlÄ±ÄŸÄ±na tÄ±klayarak her sÃ¼tun iÃ§in sÄ±nÄ±flandÄ±rabilirsiniz. SÃ¼tunlarÄ± azalan ve artan sÄ±ra arasÄ±nda deÄŸiÅŸtirmek iÃ§in sÃ¼tun baÅŸlÄ±ÄŸÄ±daki ok simgesine tÄ±klayÄ±n."
       </para>
     <heading>Gruplama</heading>
-    <para>Mesajları kendi cevaplarıyla birlikte konularına göre gruplamak için konu sütununun başındaki [Thread] bağlantısına tıklayın. Normal konu sıralamasına dönmek için konu sütununun başındaki [Subject] bağlantısına tıklayın."
+    <para>MesajlarÄ± kendi cevaplarÄ±yla birlikte konularÄ±na gÃ¶re gruplamak iÃ§in konu sÃ¼tununun baÅŸÄ±ndaki [Thread] baÄŸlantÄ±sÄ±na tÄ±klayÄ±n. Normal konu sÄ±ralamasÄ±na dÃ¶nmek iÃ§in konu sÃ¼tununun baÅŸÄ±ndaki [Subject] baÄŸlantÄ±sÄ±na tÄ±klayÄ±n."
     </para>
 </entry>
   <entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
-    <title>Çokparçalı/Alternatif mesajlar</title>
-    <para>Kullanıcılar bazı mesajları çokparçalı/alternatif olarak yollayabilirler.Bu mesajlar,AYNI içeriği DEĞİŞİK formatlarda gösterirler.
+    <title>Ã‡okparÃ§alÄ±/Alternatif mesajlar</title>
+    <para>KullanÄ±cÄ±lar bazÄ± mesajlarÄ± Ã§okparÃ§alÄ±/alternatif olarak yollayabilirler.Bu mesajlar,AYNI iÃ§eriÄŸi DEÄÄ°ÅÄ°K formatlarda gÃ¶sterirler.
     </para>
 </entry>
   <entry id="prefs-rename_sentmail_monthly" md5="530fa20e0afbc25ffd40877948832899" state="uptodate">
-    <title>Seçenekler: Bakım: Gönderilmiş-postalar klasörünü aylık olarak yeniden adlandır</title>
-    <para>Bu seçeneği her ayın başında göderilmiş-postalar klasörünü yeniden adlandırmak istiyorsanız seçin. Klasör yeniden adlandırılacak ve yeni gönderilmiş-postalar klasörü yaratılacaktır."
+    <title>SeÃ§enekler: BakÄ±m: GÃ¶nderilmiÅŸ-postalar klasÃ¶rÃ¼nÃ¼ aylÄ±k olarak yeniden adlandÄ±r</title>
+    <para>Bu seÃ§eneÄŸi her ayÄ±n baÅŸÄ±nda gÃ¶derilmiÅŸ-postalar klasÃ¶rÃ¼nÃ¼ yeniden adlandÄ±rmak istiyorsanÄ±z seÃ§in. KlasÃ¶r yeniden adlandÄ±rÄ±lacak ve yeni gÃ¶nderilmiÅŸ-postalar klasÃ¶rÃ¼ yaratÄ±lacaktÄ±r."
       </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly" md5="0beed16dfd68e2f25e0c66871fd546df" state="uptodate">
-    <title>Seçenekler: Bakım: Gönderilmiş-postalar klasörünü aylık olarak sil</title>
-    <para>Bu seçeneği her ayın başında göderilmiş-postalar klasörünü silmek istiyorsanız seçin. Bu kotanız varsa kullanışlı olabilir.
+    <title>SeÃ§enekler: BakÄ±m: GÃ¶nderilmiÅŸ-postalar klasÃ¶rÃ¼nÃ¼ aylÄ±k olarak sil</title>
+    <para>Bu seÃ§eneÄŸi her ayÄ±n baÅŸÄ±nda gÃ¶derilmiÅŸ-postalar klasÃ¶rÃ¼nÃ¼ silmek istiyorsanÄ±z seÃ§in. Bu kotanÄ±z varsa kullanÄ±ÅŸlÄ± olabilir.
     </para>
 </entry>
   <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
-    <title>Seçenekler: Bakım: Gönderilmiş-postalar klasörünü aylık olarak sil - saklanacak klasör sayısı</title>
-    <para>eğer eski-gönderilmiş postalar klasörünü her ay siliyorsanız, bu dosyaları kaç ay daha saklamak istiyorsunuz? Bu süreden daha eski klasörleriniz silinecektir."
+    <title>SeÃ§enekler: BakÄ±m: GÃ¶nderilmiÅŸ-postalar klasÃ¶rÃ¼nÃ¼ aylÄ±k olarak sil - saklanacak klasÃ¶r sayÄ±sÄ±</title>
+    <para>eÄŸer eski-gÃ¶nderilmiÅŸ postalar klasÃ¶rÃ¼nÃ¼ her ay siliyorsanÄ±z, bu dosyalarÄ± kaÃ§ ay daha saklamak istiyorsunuz? Bu sÃ¼reden daha eski klasÃ¶rleriniz silinecektir."
     </para>
 </entry>
   <entry id="prefs-purge_sentmail" state="new">
@@ -2355,8 +2355,8 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly" md5="373ea02ede6df5fc345caf632e19a75f" state="uptodate">
-    <title>"Seçenekler: Bakım: Bağlı eklentileri aylık olarak sil</title>
-    <para>Bu seçeneği her ay başında eski eklentilerinizi silmek istiyorsanız seçin. Bu kotanız varsa kullanışlı olabilir.
+    <title>"SeÃ§enekler: BakÄ±m: BaÄŸlÄ± eklentileri aylÄ±k olarak sil</title>
+    <para>Bu seÃ§eneÄŸi her ay baÅŸÄ±nda eski eklentilerinizi silmek istiyorsanÄ±z seÃ§in. Bu kotanÄ±z varsa kullanÄ±ÅŸlÄ± olabilir.
     </para>
 </entry>
   <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
@@ -2366,18 +2366,18 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
-    <title>Seçenekler: Bakım: Çöp kutusunu temizle</title>
-    <para>Çöp kutunuzu bu kadar sık temizlemek istiyor musunuz?
+    <title>SeÃ§enekler: BakÄ±m: Ã‡Ã¶p kutusunu temizle</title>
+    <para>Ã‡Ã¶p kutunuzu bu kadar sÄ±k temizlemek istiyor musunuz?
     </para>
 </entry>
   <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
-    <title>Seçenekler: Bakım: Çöp kutusunu temizleme aralığı</title>
-    <para>Çöp kutunuzu ne kadar sıklıkla temizliyorsunuz?
+    <title>SeÃ§enekler: BakÄ±m: Ã‡Ã¶p kutusunu temizleme aralÄ±ÄŸÄ±</title>
+    <para>Ã‡Ã¶p kutunuzu ne kadar sÄ±klÄ±kla temizliyorsunuz?
     </para>
 </entry>
   <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
-    <title>Seçenekler: Bakım: Çöp kutusunu temizlerken tut</title>
-    <para>Çöp kutunuzu temizlerken kaç günlük mailler silinmelidir.
+    <title>SeÃ§enekler: BakÄ±m: Ã‡Ã¶p kutusunu temizlerken tut</title>
+    <para>Ã‡Ã¶p kutunuzu temizlerken kaÃ§ gÃ¼nlÃ¼k mailler silinmelidir.
     </para>
 </entry>
   <entry id="prefs-purge_spam" state="new">
@@ -2399,30 +2399,30 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="uptodate">
-    <title>Seçenekler: Mesaj Kompozisyonu : simgesel Metin</title>
-    <para>Burda postalara cevap verirken görünmesini istediğiniz sözcüğü yazın.
+    <title>SeÃ§enekler: Mesaj Kompozisyonu : simgesel Metin</title>
+    <para>Burda postalara cevap verirken gÃ¶rÃ¼nmesini istediÄŸiniz sÃ¶zcÃ¼ÄŸÃ¼ yazÄ±n.
       </para>
-    <para>Cevap verdiğiniz postada mesajla ilgili bilgiler vermek için yertutucular kullanabilirsiniz. yertutucular '%' ve takip eden bir karakterden oluşur. bazı yer tutucular şunlardır:"
+    <para>Cevap verdiÄŸiniz postada mesajla ilgili bilgiler vermek iÃ§in yertutucular kullanabilirsiniz. yertutucular '%' ve takip eden bir karakterden oluÅŸur. bazÄ± yer tutucular ÅŸunlardÄ±r:"
      </para>
-    <para>%f : Gönderenin adı ve e-posta adresi
+    <para>%f : GÃ¶nderenin adÄ± ve e-posta adresi
     </para>
-<para>%a : Gönderenin e-posta adresi
+<para>%a : GÃ¶nderenin e-posta adresi
     </para>
-<para>%p : Gönderenin adı
+<para>%p : GÃ¶nderenin adÄ±
     </para>
-<para>%r : tüm RFC 2822 stili tarih ve zaman dilimi
+<para>%r : tÃ¼m RFC 2822 stili tarih ve zaman dilimi
     </para>
 <para>%d : Tarih www, gg aaa yyyy
     </para>
-<para>%x : Varsayılan yerel tarih
+<para>%x : VarsayÄ±lan yerel tarih
     </para>
-<para>%c : Varsayılan yerel tarih ve zaman
+<para>%c : VarsayÄ±lan yerel tarih ve zaman
     </para>
-<para>%m : Mesaj-kimliği
+<para>%m : Mesaj-kimliÄŸi
     </para>
 <para>%s : Konu
     </para>
-<para>%n : Yeni Bir satır
+<para>%n : Yeni Bir satÄ±r
     </para>
 <para>%% : '%' karakteri
     </para>
@@ -2434,13 +2434,13 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="prefs-disposition_request_read" md5="89e92c4d68224b2345b59959878a7174" state="uptodate">
-    <title>Seçenekler: Okundu bilgisi isteği</title>
-    <para>'Okundu Bilgisi İstegi' Alıcılardan mailin okunduğuna dair bilgi dönmesi. Her zaman desteklenmez.
+    <title>SeÃ§enekler: Okundu bilgisi isteÄŸi</title>
+    <para>'Okundu Bilgisi Ä°stegi' AlÄ±cÄ±lardan mailin okunduÄŸuna dair bilgi dÃ¶nmesi. Her zaman desteklenmez.
     </para>
 </entry>
   <entry id="prefs-disposition_send_mdn" md5="1fe04e5dc3de68d172da284895973ea9" state="uptodate">
-    <title>Seçenekler: MDN yolla</title>
-    <para>'MDN yolla' Mesaj Ulaşım Uyarısı (Message Disposition Notification), bir mesaj okuduğunuzda yollanan mesajı okuduğunuza dair bir uyarı iletisi, mesajı yolayan kişiye, yollayan kişi okundu bilgisi almak istediyse, iletilir. Çoğu durumda bu işlem size bir uyarı verilmeden yapılır. Bazı özel durumlarda ise uyarı mailini bir linke tıklayarak  yollamayı tercih edebilirsiniz."
+    <title>SeÃ§enekler: MDN yolla</title>
+    <para>'MDN yolla' Mesaj UlaÅŸÄ±m UyarÄ±sÄ± (Message Disposition Notification), bir mesaj okuduÄŸunuzda yollanan mesajÄ± okuduÄŸunuza dair bir uyarÄ± iletisi, mesajÄ± yolayan kiÅŸiye, yollayan kiÅŸi okundu bilgisi almak istediyse, iletilir. Ã‡oÄŸu durumda bu iÅŸlem size bir uyarÄ± verilmeden yapÄ±lÄ±r. BazÄ± Ã¶zel durumlarda ise uyarÄ± mailini bir linke tÄ±klayarak  yollamayÄ± tercih edebilirsiniz."
     </para>
 </entry>
   <entry id="prefs-disposition_request_delivery" state="new">
@@ -2465,18 +2465,18 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>
   <entry id="prefs-html_image_replacement" md5="28e1cf08e328345a8e7274c853492d4f" state="uptodate">
-    <title>Seçenekler: HTML Resim Engelleme</title>
-    <para>HTML olarak atılan mesajlardaki resimlerin görüntülenmesi, siz aksini belirtene kadar engellenir. Unutmayın ki eklenti olarak gönderilen HTML dosyalarındaki resimler herzaman görüntülenir."
+    <title>SeÃ§enekler: HTML Resim Engelleme</title>
+    <para>HTML olarak atÄ±lan mesajlardaki resimlerin gÃ¶rÃ¼ntÃ¼lenmesi, siz aksini belirtene kadar engellenir. UnutmayÄ±n ki eklenti olarak gÃ¶nderilen HTML dosyalarÄ±ndaki resimler herzaman gÃ¶rÃ¼ntÃ¼lenir."
     </para>
 </entry>
   <entry id="prefs-html_image_addrbook" md5="759fa3df24e0a3cd89f320102252f91a" state="uptodate">
-    <title>Seçenekler: Adres Defterinde Değilse HTML Resim Engelleme</title>
-    <para>Gönderen kişi adres defterinizde yer alıyorsa, HTML biçiminde gönderdiği mesajlardaki resimler görüntülensin mi?"
+    <title>SeÃ§enekler: Adres Defterinde DeÄŸilse HTML Resim Engelleme</title>
+    <para>GÃ¶nderen kiÅŸi adres defterinizde yer alÄ±yorsa, HTML biÃ§iminde gÃ¶nderdiÄŸi mesajlardaki resimler gÃ¶rÃ¼ntÃ¼lensin mi?"
     </para>
 </entry>
   <entry id="prefs-mailbox_start" md5="3d1196f265d8b7cc465ebf21512acc05" state="changed">
-    <title>Seçenekler: Posta Kutusu Başlangıç Safyası</title>
-    <para>Posta kutunuza ilk eriştiğinizde görüntülenmesini istediğiniz sayfayı belirler. Unutmayın ki okunmamış mesaj seçeneği, konuya göre sıralama seçeneği ile birlikte çalışmaz." 
+    <title>SeÃ§enekler: Posta Kutusu BaÅŸlangÄ±Ã§ SafyasÄ±</title>
+    <para>Posta kutunuza ilk eriÅŸtiÄŸinizde gÃ¶rÃ¼ntÃ¼lenmesini istediÄŸiniz sayfayÄ± belirler. UnutmayÄ±n ki okunmamÄ±ÅŸ mesaj seÃ§eneÄŸi, konuya gÃ¶re sÄ±ralama seÃ§eneÄŸi ile birlikte Ã§alÄ±ÅŸmaz." 
     </para>
 <!-- English entry:
 <entry id="prefs-mailbox_start">
@@ -2546,16 +2546,16 @@ Eğer bu seçenek seçilirse, kişisel S/MIME anahtarlarınızı almaya, şifrelenmiş po
     </para>
 </entry>--></entry>
   <entry id="prefs-save_attachments" md5="35b46334cdcc7fa416b9f9fca5874e80" state="uptodate">
-    <title>Seçenekler: Gönderilmiş Mesajlardaki Eklentileri Kaydet.</title>
-    <para>Eğer gönderdiğiniz mesajı kaydedecekseniz aşağıdaki seçenekleri kullanabilirsiniz:
+    <title>SeÃ§enekler: GÃ¶nderilmiÅŸ Mesajlardaki Eklentileri Kaydet.</title>
+    <para>EÄŸer gÃ¶nderdiÄŸiniz mesajÄ± kaydedecekseniz aÅŸaÄŸÄ±daki seÃ§enekleri kullanabilirsiniz:
       </para>
-    <para>* 'Her zaman eklentileri kaydet' - Asla mesaj gönderme ekranında sizden bilgi istenmez. Eklentiler her zaman mesajla birlikte kaydedilir." 
+    <para>* 'Her zaman eklentileri kaydet' - Asla mesaj gÃ¶nderme ekranÄ±nda sizden bilgi istenmez. Eklentiler her zaman mesajla birlikte kaydedilir." 
      </para>
-    <para>* 'Her eklenti gönderildiğinde sizden bilgi istenir' - Her zaman mesaj gönderme ekranında sizden bilgi istenir; Aksi belirtilmedikçe eklentiler kaydedilir."
+    <para>* 'Her eklenti gÃ¶nderildiÄŸinde sizden bilgi istenir' - Her zaman mesaj gÃ¶nderme ekranÄ±nda sizden bilgi istenir; Aksi belirtilmedikÃ§e eklentiler kaydedilir."
     </para>
-    <para>* 'Her eklenti gönderildiğinde sizden bilgi istenir' - Her zaman mesaj gönderme ekranında sizden bilgi istenir; Aksi belirtilmedikçe eklentiler kaydedilmez."
+    <para>* 'Her eklenti gÃ¶nderildiÄŸinde sizden bilgi istenir' - Her zaman mesaj gÃ¶nderme ekranÄ±nda sizden bilgi istenir; Aksi belirtilmedikÃ§e eklentiler kaydedilmez."
     </para>
-    <para>* 'Hiçbir zaman eklentileri kaydetme' - Asla mesaj gönderme ekranında sizden bilgi istenmez. Eklentiler hiçbir zaman mesajla birlikte kaydedilmez."  
+    <para>* 'HiÃ§bir zaman eklentileri kaydetme' - Asla mesaj gÃ¶nderme ekranÄ±nda sizden bilgi istenmez. Eklentiler hiÃ§bir zaman mesajla birlikte kaydedilmez."  
 </para>
 </entry>
   <entry id="virtual_inbox" state="new">

@@ -1,53 +1,53 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: mnemo/locale/sk_SK/help.xml,v 1.3 2006/01/30 15:57:36 jan Exp $ -->
 <!-- (C) 2002, Ivan Noris, <vix@vazka.sk> -->
 <help>
 
 <entry id="Overview">
-    <title>Prehľad</title>
-    <heading>Úvod</heading>
+    <title>PrehÄžad</title>
+    <heading>Ăvod</heading>
     <para>
-    Aplikácia <i>Poznámky</i> vám umožní vytvárať počítačové ekvivalenty papierových poznámok. Poznámky môžete vytvárať, upravovať, vymazávať a tlačiť. Okrem toho môžete v poznámkach vyhľadávať text a priraďovať poznámky do kategórií pre lepšiu organizáciu a prehľad.
+    AplikĂĄcia <i>PoznĂĄmky</i> vĂĄm umoĹžnĂ­ vytvĂĄraĹĽ poÄĂ­taÄovĂŠ ekvivalenty papierovĂ˝ch poznĂĄmok. PoznĂĄmky mĂ´Ĺžete vytvĂĄraĹĽ, upravovaĹĽ, vymazĂĄvaĹĽ a tlaÄiĹĽ. Okrem toho mĂ´Ĺžete v poznĂĄmkach vyhÄžadĂĄvaĹĽ text a priraÄovaĹĽ poznĂĄmky do kategĂłriĂ­ pre lepĹĄiu organizĂĄciu a prehÄžad.
     </para>
 </entry>
 
 <entry id="list-actions">
-    <title>Zoznam poznámok: Akcie</title>
+    <title>Zoznam poznĂĄmok: Akcie</title>
     <heading>Akcie</heading>
     <para>
-    Kliknutím na <i>Vymazať poznámku</i> vymažete vybranú poznámku.
+    KliknutĂ­m na <i>VymazaĹĽ poznĂĄmku</i> vymaĹžete vybranĂş poznĂĄmku.
     </para>
     <para>
-    Kliknutie na <i>Upraviť poznámku</i> vám umožní upraviť existujúcu poznámku.
+    Kliknutie na <i>UpraviĹĽ poznĂĄmku</i> vĂĄm umoĹžnĂ­ upraviĹĽ existujĂşcu poznĂĄmku.
     </para>
     <para>
-    Tlačidlom <i>Naspäť do zoznamu poznámok</i> sa dostanete naspäť do zoznamu poznámok.
+    TlaÄidlom <i>NaspĂ¤ĹĽ do zoznamu poznĂĄmok</i> sa dostanete naspĂ¤ĹĽ do zoznamu poznĂĄmok.
     </para>
 </entry>
 
 <entry id="menu-actions">
-    <title>Položky menu</title>
-    <heading>Položky menu</heading>
+    <title>PoloĹžky menu</title>
+    <heading>PoloĹžky menu</heading>
     <para>
-    <i>Zoznam poznámok</i> zobrazí všetky poznámky.
+    <i>Zoznam poznĂĄmok</i> zobrazĂ­ vĹĄetky poznĂĄmky.
     </para>
     <para>
-    <i>Pridať poznámku</i> vám umožní vytvoriť novú poznámku.
+    <i>PridaĹĽ poznĂĄmku</i> vĂĄm umoĹžnĂ­ vytvoriĹĽ novĂş poznĂĄmku.
     </para>
     <para>
-    <i>Hľadať</i> vám umožní hľadať poznámku obsahujúcu zadaný text. Text môžete hľadať buď iba v popise poznámky alebo v celom texte poznámky.
+    <i>HÄžadaĹĽ</i> vĂĄm umoĹžnĂ­ hÄžadaĹĽ poznĂĄmku obsahujĂşcu zadanĂ˝ text. Text mĂ´Ĺžete hÄžadaĹĽ buÄ iba v popise poznĂĄmky alebo v celom texte poznĂĄmky.
     </para>
     <para>
-    <i>Tlačiť</i> vám umožní vytlačiť poznámku. Ikona <i>Tlačiť</i> sa zobrazuje v menu iba pri zobrazovaní poznámky.
+    <i>TlaÄiĹĽ</i> vĂĄm umoĹžnĂ­ vytlaÄiĹĽ poznĂĄmku. Ikona <i>TlaÄiĹĽ</i> sa zobrazuje v menu iba pri zobrazovanĂ­ poznĂĄmky.
     </para>
 </entry>
 
 
 <entry id="sorting">
-    <title>Triedenie položiek</title>
-    <heading>Triedenie položiek</heading>
+    <title>Triedenie poloĹžiek</title>
+    <heading>Triedenie poloĹžiek</heading>
     <para>
-    Počas zobrazovania zoznamu si môžete nechať položky zoradiť podľa ľubovoľného stĺpca jednoduchým kliknutím na jeho názov. Ak chcete zmeniť smer triedenia (vzostupne resp. zostupne), kliknite na ikonu šípky v mene stĺpca.
+    PoÄas zobrazovania zoznamu si mĂ´Ĺžete nechaĹĽ poloĹžky zoradiĹĽ podÄža ÄžubovoÄžnĂŠho stÄşpca jednoduchĂ˝m kliknutĂ­m na jeho nĂĄzov. Ak chcete zmeniĹĽ smer triedenia (vzostupne resp. zostupne), kliknite na ikonu ĹĄĂ­pky v mene stÄşpca.
     </para>
 </entry>
 </help>

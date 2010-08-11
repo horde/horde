@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
@@ -30,7 +30,7 @@
     <heading>Azioni</heading>
     <para>
     Invia Messaggio manda la mail al destinatario(i) desiderato(i). Prima di cliccare qui devi essere sicuro di volerlo inviare perc
-hé l'azione è irreversibile.
+hÃ© l'azione Ã¨ irreversibile.
     </para>
     <para>
     Salva Bozza colloca un messaggio non completato in una cartella chiamata 'Bozze' accessibile dal menu a tendina sulla destra in
@@ -84,7 +84,7 @@ a.
     <heading>"A"</heading>
     <para>
     Scrive l'indirizzo(i) e-mail corretto(i) dei destinatari del tuo messaggio. Devi separare ciascun indirizzo con una virgola; alt
-ra punteggiatura darebbe errore. Ciò che scrivi segue "A:" nella posta in uscita.
+ra punteggiatura darebbe errore. CiÃ² che scrivi segue "A:" nella posta in uscita.
     </para>
 <!-- English entry:
 <entry id="compose-to">
@@ -99,7 +99,7 @@ ra punteggiatura darebbe errore. Ciò che scrivi segue "A:" nella posta in uscita
     <heading>"Cc"</heading>
     <para>
     Scrive l'indirizzo(i) e-mail corretto(i) di coloro i quali riceveranno per conoscenza il messaggio. Devi separare ogni indirizzo
- con una virgola. Ciò che scrivi segue "Cc:" nella posta in uscita. Le copie per conoscenza in genere sono inviate ai destinatari in
+ con una virgola. CiÃ² che scrivi segue "Cc:" nella posta in uscita. Le copie per conoscenza in genere sono inviate ai destinatari in
  aggiunta a quelli cui si scrive direttamente ma sono ugualmente destinatari importanti del messaggio, in genere qualcuno interessat
 o indirettamente all'oggetto della mail. Tutti i destinatari 'A:' e 'Cc:' possono vedere tutta la lista di entrambe i tipi di destin
 atari.
@@ -117,9 +117,9 @@ atari.
     <heading>"Bcc"</heading>
     <para>
     Scrive l'indirizzo(i) e-mail corretto(i) di coloro i quali riceveranno per conoscenza nascosta il messaggio. Devi separare ogni
-indirizzo con una virgola. Ciò che scrivi segue "Bcc:" nella posta in uscita. Le copie per conoscenza nascosta sono inviate ai desti
+indirizzo con una virgola. CiÃ² che scrivi segue "Bcc:" nella posta in uscita. Le copie per conoscenza nascosta sono inviate ai desti
 natari in aggiunta a quelli diretti e indiretti (destinatari del tipo "A:" and "Cc:") che devono leggere il messaggio SENZA che gli
-altri destinatari lo sappiamo. Quindi 'nascosto' significa che l'indirizzo di quei destinatari è nascosto a tutti gli altri destinat
+altri destinatari lo sappiamo. Quindi 'nascosto' significa che l'indirizzo di quei destinatari Ã¨ nascosto a tutti gli altri destinat
 ari del messaggio, e solo tu e loro sanno che hanno ricevuto una copia. In genere usi Bcc per dire ad una persona autorizzata che st
 ai dicendo qualcosa a qualcuno senza interessare il destinatario diretto della mail.
     </para>
@@ -135,10 +135,10 @@ ai dicendo qualcosa a qualcuno senza interessare il destinatario diretto della m
     <title>Composizione Messaggio: Oggetto</title>
     <heading>"Oggetto"</heading>
     <para>
-    Scrive l'oggetto del messaggio. Ciò che scrivi segue "Oggetto:" nella posta in uscita. Scrivi un Oggetto breve, semplice e descr
-ittivo.  L'Oggetto è il modo più semplice per te i tuoi destinatari di ricordare il contenuto del messaggio e quindi è molto importa
+    Scrive l'oggetto del messaggio. CiÃ² che scrivi segue "Oggetto:" nella posta in uscita. Scrivi un Oggetto breve, semplice e descr
+ittivo.  L'Oggetto Ã¨ il modo piÃ¹ semplice per te i tuoi destinatari di ricordare il contenuto del messaggio e quindi Ã¨ molto importa
 nte per organizzare i messaggi e trovare in seguito quelli importanti.  Inoltre, quando 'Rispondi' o 'Inoltri' un messaggio questo o
-ggetto viene copiato nei nuovi messaggi e così è un buon modo per dire quali messaggi vanno assieme per dare un "filo" alla conversa
+ggetto viene copiato nei nuovi messaggi e cosÃ¬ Ã¨ un buon modo per dire quali messaggi vanno assieme per dare un "filo" alla conversa
 zione.  Comunque, se 'Risposta' e 'Inoltra' contengono nuovi concetti, puoi aggiungere piccole modifiche allo 'Oggetto' cosi il dest
 inario(i) possono seguire il "filo".
     </para>
@@ -172,10 +172,10 @@ inario(i) possono seguire il "filo".
     <para>
     Attiva il bottone di spunta vicino a "Salva copia" per salvare una copia di questo messaggio nella tua cartella "Posta Inviata".
  Salva copie dei messaggi importanti che invii in modo da aver qualcosa cui far riferimento in seguito e tenere un archivio di cosa
-si è detto. Non diciamo di salvare ogni messaggio altrimenti lo spazio del tuo disco si ridurrebbe rapidamente (soprattutto inviando
+si Ã¨ detto. Non diciamo di salvare ogni messaggio altrimenti lo spazio del tuo disco si ridurrebbe rapidamente (soprattutto inviando
  allegati) e la tua casella sarebbe piena e impossibilitata a ricevere nuova posta in entrata. Puoi comunque attivare questa caratte
-ristica come default con le 'Preferenze' sulla barra di navigazione blu in alto. Attenzione ad utilizzare questo default perchè dovr
-ai di tanto in tanto svuotare la tua cartella "Posta Inviata" altrimenti in qualche momento riempirà la tua casella di posta rendend
+ristica come default con le 'Preferenze' sulla barra di navigazione blu in alto. Attenzione ad utilizzare questo default perchÃ¨ dovr
+ai di tanto in tanto svuotare la tua cartella "Posta Inviata" altrimenti in qualche momento riempirÃ  la tua casella di posta rendend
 ola inutilizzabile.
     </para>
 <!-- English entry:
@@ -199,7 +199,7 @@ ola inutilizzabile.
     <title>Composizione Messaggio : Allegati</title>
     <heading>"Allegati"</heading>
     <para>
-    Questa sezione mostra una lista di files già allegati al tuo messaggio. Per eliminare un file allegato:
+    Questa sezione mostra una lista di files giÃ  allegati al tuo messaggio. Per eliminare un file allegato:
     </para>
     <para>Passo 1: Spunta il check box vicino al nome del file allegato che vuoi eliminare.
     </para>
@@ -306,7 +306,7 @@ ola inutilizzabile.
 zione a sinistra la opzione che vuoi attivare sulla cartella.
     </para>
     <para>
-      Potrai scegliere altre opzioni. Attenzione con le opzioni eliminate, perché potresti perdere tutti i messaggi in una cartella
+      Potrai scegliere altre opzioni. Attenzione con le opzioni eliminate, perchÃ© potresti perdere tutti i messaggi in una cartella
 se la cancellassi per errore!
     </para>
 <!-- English entry:
@@ -329,7 +329,7 @@ se la cancellassi per errore!
     <heading>Applica Regole di Filtro</heading>
     <para>
     Clicca sulla icona "Applica Filtro" vicino ad INBOX nella casella di posta per filtrare tutti i messaggi non eliminati in base a
-lle regole specificate. O, in alternativa, clicca su "Applica tutte le regole" nel menù del filtro. Nota che i filtri non vengono ap
+lle regole specificate. O, in alternativa, clicca su "Applica tutte le regole" nel menÃ¹ del filtro. Nota che i filtri non vengono ap
 plicati automaticamente.
     </para>
 <!-- English entry:

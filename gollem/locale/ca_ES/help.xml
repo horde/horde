@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <entry id="file-actions" md5="b0de5fc9b7cc30fea350fc3900737896" state="uptodate">
     <title>Administrador d'arxius: Accions</title>
-    <heading>Creació de carpetes</heading>
+    <heading>CreaciÃ³ de carpetes</heading>
     <para>
-    Per a crear una carpeta en el directori actual, trii Crear carpeta en la barra de menú.
+    Per a crear una carpeta en el directori actual, trii Crear carpeta en la barra de menÃº.
     </para>
     <heading>Eliminar, tallar, copiar i pegar arxius</heading>
     <para>
-Per a eliminar, tallar o copiar un o diversos arxius, primer ha de seleccionar almenys un. Després de seleccionar un o más arxius mitjançant les caselles a l'esquerra dels elements, seleccioni bé Tallar elements, Copiar elements o Eliminar elements del menú desplegable Accions. Si selecciona Tallar o Copiar elements tindrà la possibilitat de pegar aquests arxius en qualsevol lloc del Gestor d'arxius. Navegui fins a la ubicació en la qual vulgui pegar els elements i seleccioni Pegar elements del menú desplegable Accions. Els elements es traslladaran (Tallar elements) o es copiaran (Copiar elements) a la ubicació que hagi triat.
+Per a eliminar, tallar o copiar un o diversos arxius, primer ha de seleccionar almenys un. DesprÃ©s de seleccionar un o mÃ¡s arxius mitjanÃ§ant les caselles a l'esquerra dels elements, seleccioni bÃ© Tallar elements, Copiar elements o Eliminar elements del menÃº desplegable Accions. Si selecciona Tallar o Copiar elements tindrÃ  la possibilitat de pegar aquests arxius en qualsevol lloc del Gestor d'arxius. Navegui fins a la ubicaciÃ³ en la qual vulgui pegar els elements i seleccioni Pegar elements del menÃº desplegable Accions. Els elements es traslladaran (Tallar elements) o es copiaran (Copiar elements) a la ubicaciÃ³ que hagi triat.
     </para>
     <heading>Eliminar, tallar, copiar i pegar carpetes</heading>
     <para>
-Per omissió, només es poden eliminar les carpetes que estiguin buides, no obstant això és pot activar l'eliminació de carpetes que no estiguin buides (esborrat recursiu). Si intenta eliminar una carpeta que no estigui buida sense activar aquesta opció, l'eliminació fallarà i és mostrarà un missatge d'error. Per a activar l'eliminació de carpetes que no estiguin buides, premi Opcions, Configuració i trii Sí en el menú desplegable de l'opció Eliminar carpetes de forma recursiva?. Això activarà l'opció d'eliminació recursiva. 
+Per omissiÃ³, nomÃ©s es poden eliminar les carpetes que estiguin buides, no obstant aixÃ² Ã©s pot activar l'eliminaciÃ³ de carpetes que no estiguin buides (esborrat recursiu). Si intenta eliminar una carpeta que no estigui buida sense activar aquesta opciÃ³, l'eliminaciÃ³ fallarÃ  i Ã©s mostrarÃ  un missatge d'error. Per a activar l'eliminaciÃ³ de carpetes que no estiguin buides, premi Opcions, ConfiguraciÃ³ i trii SÃ­ en el menÃº desplegable de l'opciÃ³ Eliminar carpetes de forma recursiva?. AixÃ² activarÃ  l'opciÃ³ d'eliminaciÃ³ recursiva. 
 
-Per a eliminar, tallar o copiar una o diverses carpetes, ha de seleccionar almenys una. Després de seleccionar una o més carpetes mitjançant les caselles a l'esquerra dels elements, seleccioni bé Tallar elements, Copiar elements o Eliminar elements del menú desplegable Accions. Si selecciona Tallar o Copiar elements tindrà la possibilitat de pegar aquestes carpetes en qualsevol lloc del Gestor d'arxius. Navegui fins a la ubicació en la qual vulgui enganxar els elements i seleccioni Enganxar elements del menú desplegable Accions. Els elements es traslladaran (Tallar elements) o es copiaran (Copiar elements) a la ubicació que hagi triat.
+Per a eliminar, tallar o copiar una o diverses carpetes, ha de seleccionar almenys una. DesprÃ©s de seleccionar una o mÃ©s carpetes mitjanÃ§ant les caselles a l'esquerra dels elements, seleccioni bÃ© Tallar elements, Copiar elements o Eliminar elements del menÃº desplegable Accions. Si selecciona Tallar o Copiar elements tindrÃ  la possibilitat de pegar aquestes carpetes en qualsevol lloc del Gestor d'arxius. Navegui fins a la ubicaciÃ³ en la qual vulgui enganxar els elements i seleccioni Enganxar elements del menÃº desplegable Accions. Els elements es traslladaran (Tallar elements) o es copiaran (Copiar elements) a la ubicaciÃ³ que hagi triat.
     </para>
     <heading>Treballant amb el Portapapers</heading>
     <para>
-Una vegada hagi copiat o tallat un arxiu o carpeta, es situarà en el portapapers. Pot veure el contingut del portapapers prement la seva icona, que està sobre el llistat de carpetes a la dreta de la icona Actualitzar. La icona no és mostrarà tret que existeixi algun element en el portapapers. Els elements tallats o copiats no disposaran d'una casella a la seva esquerra, el qual significa que estan en el portapapers. Quan premi en la icona del portapapers, veurà un llistat dels elements que hagi copiat o tallat. Seleccioni els elements que desitgi pegar i premi pegar. Aquests elements es pegaran en la carpeta actual i s'eliminaran del portapapers. Després de completar l'operació de pegat, regressará a la carpeta actual. Si desitgés eliminar un element del portapapers, només l'ha de seleccionar i prémer Netejar. Aquests elements s'eliminaran del portapapers i es mostrarà de nou la carpeta actual. 
+Una vegada hagi copiat o tallat un arxiu o carpeta, es situarÃ  en el portapapers. Pot veure el contingut del portapapers prement la seva icona, que estÃ  sobre el llistat de carpetes a la dreta de la icona Actualitzar. La icona no Ã©s mostrarÃ  tret que existeixi algun element en el portapapers. Els elements tallats o copiats no disposaran d'una casella a la seva esquerra, el qual significa que estan en el portapapers. Quan premi en la icona del portapapers, veurÃ  un llistat dels elements que hagi copiat o tallat. Seleccioni els elements que desitgi pegar i premi pegar. Aquests elements es pegaran en la carpeta actual i s'eliminaran del portapapers. DesprÃ©s de completar l'operaciÃ³ de pegat, regressarÃ¡ a la carpeta actual. Si desitgÃ©s eliminar un element del portapapers, nomÃ©s l'ha de seleccionar i prÃ©mer Netejar. Aquests elements s'eliminaran del portapapers i es mostrarÃ  de nou la carpeta actual. 
   </para>
 </entry>
 
 <entry id="file-upload" md5="f07834ebb15641cdc4e349ed8d304d75" state="uptodate">
-    <title>Administrador d'arxius: Càrrega</title>
-    <heading>Càrrega d'arxius</heading>
+    <title>Administrador d'arxius: CÃ rrega</title>
+    <heading>CÃ rrega d'arxius</heading>
     <para>
-Per a carregar un o diversos arxius, navegui fins a la carpeta de l'Administrador d'arxius en la qual desitgi carregar-los. Se la coneix com la carpeta actual. Una vegada en la carpeta adequada de l'Administrador d'arxius, premi el botón Examinar. S'obrirà una finestra de Càrrega d'Arxius. Amb aquesta finestra oberta, navegui fins a l'arxiu que desitgi carregar, seleccioni'l i premi Acceptar/Obrir. Pot carregar diversos arxius alhora. L'Administrador d'arxius afegirà automàticament un altre botó Examinar després de cada arxiu que seleccioni. Una vegada hagi seleccionat tots els arxius que desitgi carregar, premi el botón Carregar arxiu i l'arxiu o arxius que había seleccionat es carregarán en la carpeta actual de l'Administrador d'arxius. 
+Per a carregar un o diversos arxius, navegui fins a la carpeta de l'Administrador d'arxius en la qual desitgi carregar-los. Se la coneix com la carpeta actual. Una vegada en la carpeta adequada de l'Administrador d'arxius, premi el botÃ³n Examinar. S'obrirÃ  una finestra de CÃ rrega d'Arxius. Amb aquesta finestra oberta, navegui fins a l'arxiu que desitgi carregar, seleccioni'l i premi Acceptar/Obrir. Pot carregar diversos arxius alhora. L'Administrador d'arxius afegirÃ  automÃ ticament un altre botÃ³ Examinar desprÃ©s de cada arxiu que seleccioni. Una vegada hagi seleccionat tots els arxius que desitgi carregar, premi el botÃ³n Carregar arxiu i l'arxiu o arxius que habÃ­a seleccionat es carregarÃ¡n en la carpeta actual de l'Administrador d'arxius. 
 </para>
 </entry>
 
 <entry id="sorting" md5="0ce2080b01acce2e9affc2191fc0386c" state="uptodate">
-    <title>Ordenació d'entrades</title>
-    <heading>Ordenació d'entrades</heading>
+    <title>OrdenaciÃ³ d'entrades</title>
+    <heading>OrdenaciÃ³ d'entrades</heading>
     <para>
-AL veure un llistat d'arxius o carpetes, pot ordenar-lo per qualsevol columna. Per a això, premi la capçalera de la columna per la qual desitgi realitzar la ordenació i el llistat s'actualitzarà, ordenat per la columna que hagi seleccionat. Per a commutar entre ordenació ascendent o descendent, premi en la icona de fletxa de la capçalera de la columna. 
+AL veure un llistat d'arxius o carpetes, pot ordenar-lo per qualsevol columna. Per a aixÃ², premi la capÃ§alera de la columna per la qual desitgi realitzar la ordenaciÃ³ i el llistat s'actualitzarÃ , ordenat per la columna que hagi seleccionat. Per a commutar entre ordenaciÃ³ ascendent o descendent, premi en la icona de fletxa de la capÃ§alera de la columna. 
     </para>
 </entry>
 </help>

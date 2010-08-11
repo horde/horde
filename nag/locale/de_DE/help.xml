@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="Overview" md5="67c67240d4ec4a037b8ae76f371c5ad3" state="uptodate">
-    <title>Übersicht</title>
-    <heading>Einführung</heading>
+    <title>Ãœbersicht</title>
+    <heading>EinfÃ¼hrung</heading>
     <para>
-      Diese Anwendung ist ein vollständiger Aufgabenlisten-Manager, der
+      Diese Anwendung ist ein vollstÃ¤ndiger Aufgabenlisten-Manager, der
       private und gemeinsame Aufgabenlisten, Kalenderfunktionen, Kategorien,
-      Prioritäten, Fälligkeitsdaten, Suchen, Drucken sowie Im- und Export
-      unterstützt.
+      PrioritÃ¤ten, FÃ¤lligkeitsdaten, Suchen, Drucken sowie Im- und Export
+      unterstÃ¼tzt.
     </para>
   </entry>
   <entry id="sorting" md5="275a51456e8b440a5bf7afe2af24c777" state="uptodate">
-    <title>Einträge Sortieren</title>
-    <heading>Einträge Sortieren</heading>
+    <title>EintrÃ¤ge Sortieren</title>
+    <heading>EintrÃ¤ge Sortieren</heading>
     <para>
-      Wenn Sie sich eine Liste mit Einträgen anzeigen lassen, können Sie die
-      Einträge nach jeder beliebigen Spalte sortieren, indem Sie auf die
-      jeweilige Spaltenüberschrift klicken. Wenn Sie die Sortierreihenfolge
-      umschalten möchten, klicken Sie auf das Pfeilsymbol in der
-      Spaltenüberschrift.
+      Wenn Sie sich eine Liste mit EintrÃ¤gen anzeigen lassen, kÃ¶nnen Sie die
+      EintrÃ¤ge nach jeder beliebigen Spalte sortieren, indem Sie auf die
+      jeweilige SpaltenÃ¼berschrift klicken. Wenn Sie die Sortierreihenfolge
+      umschalten mÃ¶chten, klicken Sie auf das Pfeilsymbol in der
+      SpaltenÃ¼berschrift.
     </para>
   </entry>
 </help>

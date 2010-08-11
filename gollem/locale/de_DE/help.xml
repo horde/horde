@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: gollem/locale/de_DE/help.xml,v 1.1.2.1 2010/05/19 21:51:06 jan Exp $ -->
 <help>
   <entry id="file-actions" md5="c14ca47840aeb8ea2868faf362679fdc" state="uptodate">
@@ -7,43 +7,43 @@
     <para>Um einen Ordner im aktuellen Verzeichnis zu erstellen, klicken Sie
     auf das Symbol "Verzeichnis erstellen".</para>
 
-    <heading>Löschen, Ausschneiden, Kopieren und Einfügen von
+    <heading>LÃ¶schen, Ausschneiden, Kopieren und EinfÃ¼gen von
     Dateien</heading>
-    <para>Um Dateien zu löschen, auszuschneiden oder zu kopieren, muss
-    mindestens eine Datei ausgewählt sein. Nachdem eine oder mehrere Dateien
-    mit Hilfe der Checkboxen links ausgewählt wurden, können Sie im Menüpunkt
-    "Aktionen:" Kopieren, Ausschneiden, Löschen oder Umbenennen
-    auswählen. Wenn Sie Kopieren oder Ausschneiden gewählt haben, haben Sie
-    nun die Möglichkeit diese Dateien irgendwo im Dateimanager einzufügen.
-    Navigieren Sie in das Verzeichnis, in dem die Dateien eingefügt werden
-    sollen und wählen Sie unter "Aktionen:" Einfügen. Die Dateien werden dann
+    <para>Um Dateien zu lÃ¶schen, auszuschneiden oder zu kopieren, muss
+    mindestens eine Datei ausgewÃ¤hlt sein. Nachdem eine oder mehrere Dateien
+    mit Hilfe der Checkboxen links ausgewÃ¤hlt wurden, kÃ¶nnen Sie im MenÃ¼punkt
+    "Aktionen:" Kopieren, Ausschneiden, LÃ¶schen oder Umbenennen
+    auswÃ¤hlen. Wenn Sie Kopieren oder Ausschneiden gewÃ¤hlt haben, haben Sie
+    nun die MÃ¶glichkeit diese Dateien irgendwo im Dateimanager einzufÃ¼gen.
+    Navigieren Sie in das Verzeichnis, in dem die Dateien eingefÃ¼gt werden
+    sollen und wÃ¤hlen Sie unter "Aktionen:" EinfÃ¼gen. Die Dateien werden dann
     dorthin verschoben oder kopiert.</para>
 
-    <heading>Löschen, Ausschneiden, Kopieren und Einfügen von
+    <heading>LÃ¶schen, Ausschneiden, Kopieren und EinfÃ¼gen von
     Verzeichnissen</heading>
-    <para>Um Verzeichnisse zu löschen, auszuschneiden oder zu kopieren, muss
-    mindestens ein Verzeichnis ausgewählt sein.  Nachdem ein oder mehrere
-    Verzeichnisse mit Hilfe der Checkboxen links ausgewählt wurden, können Sie
-    im Menüpunkt "Aktionen:" Kopieren, Ausschneiden, Löschen oder Umbenennen
-    auswählen. Wenn Sie Kopieren oder Ausschneiden gewählt haben, haben Sie
-    nun die Möglichkeit diese Verzeichnisse irgendwo im Dateimanager
-    einzufügen. Navigieren Sie in das Verzeichnis, in dem die Verzeichnisse
-    eingefügt werden sollen und wählen Sie unter "Aktionen:" Einfügen. Die
+    <para>Um Verzeichnisse zu lÃ¶schen, auszuschneiden oder zu kopieren, muss
+    mindestens ein Verzeichnis ausgewÃ¤hlt sein.  Nachdem ein oder mehrere
+    Verzeichnisse mit Hilfe der Checkboxen links ausgewÃ¤hlt wurden, kÃ¶nnen Sie
+    im MenÃ¼punkt "Aktionen:" Kopieren, Ausschneiden, LÃ¶schen oder Umbenennen
+    auswÃ¤hlen. Wenn Sie Kopieren oder Ausschneiden gewÃ¤hlt haben, haben Sie
+    nun die MÃ¶glichkeit diese Verzeichnisse irgendwo im Dateimanager
+    einzufÃ¼gen. Navigieren Sie in das Verzeichnis, in dem die Verzeichnisse
+    eingefÃ¼gt werden sollen und wÃ¤hlen Sie unter "Aktionen:" EinfÃ¼gen. Die
     Verzeichnisse werden dann dorthin verschoben oder kopiert.</para>
 
     <heading>Mit der Zwischenablage arbeiten</heading>
     <para>Wenn Sie eine Datei oder ein Verzeichnis kopiert oder ausgeschnitten
     haben, finden Sie dieses Element in der Zwischenablage. Dateien oder
-    Verzeichnisse, die ausgeschnitten oder kopiert wurden, können nicht mehr
-    über eine Checkbox ausgewählt werden. Eine fehlende Checkbox zeigt an,
+    Verzeichnisse, die ausgeschnitten oder kopiert wurden, kÃ¶nnen nicht mehr
+    Ã¼ber eine Checkbox ausgewÃ¤hlt werden. Eine fehlende Checkbox zeigt an,
     dass sich eine Datei oder ein Verzeichnis in der Zwischenablage
-    befindet. Durch Klick auf das Symbol "Zwischenablage anzeigen", erhält man
+    befindet. Durch Klick auf das Symbol "Zwischenablage anzeigen", erhÃ¤lt man
     eine Liste der Elemente, die kopiert oder ausgeschnitten wurden. Dieses
     Symbol erscheint jedoch erst, wenn Dateien oder Verzeichnisse kopiert oder
     ausgeschnitten wurden. Von dort aus kann man diese Dateien oder
-    Verzeichnisse in das aktuelle Verzeichnis einfügen. Wählen Sie dazu
-    einfach das entsprechende Element aus und wählen Einfügen. Um ein Element
-    aus der Zwischenablage zu entfernen, wählen Sie es aus und klicken dann
+    Verzeichnisse in das aktuelle Verzeichnis einfÃ¼gen. WÃ¤hlen Sie dazu
+    einfach das entsprechende Element aus und wÃ¤hlen EinfÃ¼gen. Um ein Element
+    aus der Zwischenablage zu entfernen, wÃ¤hlen Sie es aus und klicken dann
     auf Entfernen.</para>
   </entry>
 
@@ -53,20 +53,20 @@
     <para>Um Dateien hochzuladen, wechseln Sie in das entsprechende
     Verzeichnis, in dem die Dateien platziert werden sollen. Wenn Sie sich im
     entsprechenden Verzeichnis befinden, klicken Sie auf
-    "Durchsuchen...". Damit öffnen Sie einen Dialog, in dem Sie eine Datei
-    auswählen können, die hochgeladen werden soll. Anschließend können Sie
-    noch weitere Dateien auswählen oder Sie klicken auf "Datei(en) hochladen",
+    "Durchsuchen...". Damit Ã¶ffnen Sie einen Dialog, in dem Sie eine Datei
+    auswÃ¤hlen kÃ¶nnen, die hochgeladen werden soll. AnschlieÃŸend kÃ¶nnen Sie
+    noch weitere Dateien auswÃ¤hlen oder Sie klicken auf "Datei(en) hochladen",
     um die Datei(en) im aktuellen Verzeichnis zu speichern.</para>
   </entry>
 
   <entry id="sorting" md5="88619f7e18cf0485fdc4a09cdc4e9b72" state="uptodate">
-    <title>Einträge sortieren</title>
-    <heading>Einträge sortieren</heading>
+    <title>EintrÃ¤ge sortieren</title>
+    <heading>EintrÃ¤ge sortieren</heading>
     <para>Wenn Sie sich eine Liste von Dateien oder Verzeichnissen ansehen,
-    können Sie diese nach verschiedenen Kriterien sortieren. Klicken Sie dazu
-    auf die entsprechende Spaltenüberschrift, nach der sortiert werden
-    soll. Anschließend wird die Liste aktualisiert und neu sortiert
+    kÃ¶nnen Sie diese nach verschiedenen Kriterien sortieren. Klicken Sie dazu
+    auf die entsprechende SpaltenÃ¼berschrift, nach der sortiert werden
+    soll. AnschlieÃŸend wird die Liste aktualisiert und neu sortiert
     angezeigt. Um zwischen aufsteigender und absteigender Sortierung zu
-    wechseln, klicken Sie erneut auf die Spaltenüberschrift.</para>
+    wechseln, klicken Sie erneut auf die SpaltenÃ¼berschrift.</para>
   </entry>
 </help>
