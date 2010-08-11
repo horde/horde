@@ -775,14 +775,7 @@ abstract class Kronolith_Event
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
-                    $exdate = new Horde_Date(array(
-                        'year' => $year,
-                        'month' => $month,
-                        'mday' => $mday,
-                        'hour' => $this->start->hour,
-                        'min' => $this->start->min,
-                        'sec' => $this->start->sec,
-                    ));
+                    $exdate = new Horde_Date($year, $month, $mday);
                     $vEvent->setAttribute('EXDATE', array($exdate));
                 }
             }
@@ -1074,7 +1067,8 @@ abstract class Kronolith_Event
                 if (is_array($exdates)) {
                     foreach ($exdates as $exdate) {
                         if (is_array($exdate)) {
-                            $this->recurrence->addException((int)$exdate['year'],
+                            $this->recurrence->addException(
+                                (int)$exdate['year'],
                                 (int)$exdate['month'],
                                 (int)$exdate['mday']);
                         }
