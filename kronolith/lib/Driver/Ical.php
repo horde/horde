@@ -411,7 +411,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $event->uid = (string)new Horde_Support_Uuid;
         }
         if (!$event->id) {
-            $event->id = $event->id . '.ics';
+            $event->id = $event->uid . '.ics';
         }
 
         $response = $this->_saveEvent($event);
