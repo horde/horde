@@ -1258,7 +1258,7 @@ function update_help()
                 }
                 $entries_new[] = $entry_new;
             }
-            $doc_new->appendChild($doc_new->create_comment(' $' . 'Horde$ '));
+            $doc_new->appendChild($doc_new->createComment(' $' . 'Horde$ '));
             foreach ($entries_new as $entry) {
                 $help_new->appendChild($entry);
             }
