@@ -357,16 +357,19 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 }
 
 /* Build the folder tree. */
-list($raw_rows, $newmsgs) = $imaptree->build();
+$mask = IMP_Imap_Tree::FLIST_CONTAINER |
+    IMP_Imap_Tree::FLIST_VFOLDER |
+    IMP_Imap_Tree::FLIST_ELT |
+    IMP_Imap_Tree::FLIST_EXPANDED;
+$raw_rows = $imaptree->folderList($mask);
 
 /* Build the list of display names. */
-reset($raw_rows);
 $displayNames = $fullNames = array();
-while (list($k, $r) = each($raw_rows)) {
-    $displayNames[] = $r['display'];
+foreach ($raw_rows as $k => $r) {
+    $displayNames[] = $r->display;
 
-    $tmp = IMP::displayFolder($r['value'], true);
-    if ($tmp != $r['display']) {
+    $tmp = IMP::displayFolder($r->value, true);
+    if ($tmp != $r->display) {
         $fullNames[$k] = $tmp;
     }
 }
@@ -418,6 +421,63 @@ $a_template->set('help', Horde_Help::link('imp', 'folder-options'));
 $a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
 $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
+/* Get the tree images. */
+$imp_ui_folder = new IMP_Ui_Folder();
+$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url_ob));
+
+/* Add some further information to the $raw_rows array. */
+$newmsgs = $rows = array();
+$name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
+$rowct = 0;
+
+foreach ($raw_rows as $key => $val) {
+    $row = array();
+
+    $row['nocheckbox'] = !empty($val->vfolder);
+    if (!empty($val->vfolder) && $val->editvfolder) {
+        $imp_search = $injector->getInstance('IMP_Search');
+        $row['delvfolder'] = $imp_search->deleteUrl($val->value)->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>';
+        $row['editvfolder'] = $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>';
+    }
+
+    $row['cname'] = (++$rowct % 2)
+        ? 'item0'
+        : 'item1';
+
+    if ($val->container) {
+        $row['name'] = $val->name;
+    } else {
+        /* Highlight line differently if folder/mailbox is unsubscribed. */
+        if ($showAll && $subscribe && !$val->sub) {
+            $row['cname'] .= ' folderunsub';
+        }
+
+        $row['name'] = $val->name;
+
+        if ($val->polled) {
+            $row['polled'] = true;
+
+            $poll_info = $val->poll_info;
+            if ($poll_info->recent) {
+                $newmsgs[$val->value] = $poll_info->recent;
+            }
+
+            if ($poll_info->unseen) {
+                $row['name'] = '<strong>' . $val->name . '</strong>';
+            }
+
+            $row['msgs'] = $poll_info->msgs;
+            $row['unseen'] = $poll_info->unseen;
+        }
+
+        $row['name'] = $name_url->copy()->add('mailbox', $val->value)->link(array('title' => $val->vfolder ? $val->label : $val->display)) . $row['name'] . '</a>';
+    }
+
+    $row['line'] = $tree_imgs[$key];
+
+    $rows[] = $row;
+}
+
 /* Check to see if user wants new mail notification */
 if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
@@ -427,45 +487,6 @@ if (!empty($newmsgs)) {
     }
 
     IMP::newmailAlerts($newmsgs);
-}
-
-/* Get the tree images. */
-$imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url_ob));
-
-/* Add some further information to the $raw_rows array. */
-$rows = array();
-$name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
-$rowct = 0;
-
-foreach ($raw_rows as $key => $val) {
-    $val['nocheckbox'] = !empty($val['vfolder']);
-    if (!empty($val['vfolder']) && $val['editvfolder']) {
-        $imp_search = $injector->getInstance('IMP_Search');
-        $val['delvfolder'] = $imp_search->deleteUrl($val['value'])->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>';
-        $val['editvfolder'] = $imp_search->editUrl($val['value'])->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>';
-    }
-
-    $val['cname'] = (++$rowct % 2) ? 'item0' : 'item1';
-
-    /* Highlight line differently if folder/mailbox is unsubscribed. */
-    if ($showAll &&
-        $subscribe &&
-        !$val['container'] &&
-        !$imaptree->isSubscribed($val['base_elt'])) {
-        $val['cname'] .= ' folderunsub';
-    }
-
-    if (!$val['container']) {
-        if (!empty($val['unseen'])) {
-            $val['name'] = '<strong>' . $val['name'] . '</strong>';
-        }
-        $val['name'] = $name_url->copy()->add('mailbox', $val['value'])->link(array('title' => $val['vfolder'] ? $val['base_elt']['l'] : $val['display'])) . $val['name'] . '</a>';
-    }
-
-    $val['line'] = $tree_imgs[$key];
-
-    $rows[] = $val;
 }
 
 /* Render the rows now. */

@@ -103,20 +103,22 @@ class IMP_Folder
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
-        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_OB;
+        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_ELT;
         if (!$sub) {
             $list_mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
-        $flist = $imaptree->folderList($list_mask);
 
-        reset($flist);
-        while (list(,$ob) = each($flist)) {
-            if (in_array($ob['v'], $filter)) {
+        foreach ($imaptree->folderList($list_mask) as $ob) {
+            if (in_array($ob->value, $filter)) {
                 continue;
             }
 
-            $label = str_repeat(' ', 2 * $ob['c']) . $ob['l'];
-            $list[$ob['v']] = array('val' => $imaptree->isContainer($ob) ? '' : $ob['v'], 'label' => $label, 'abbrev' => Horde_String::abbreviate($label, 30));
+            $label = str_repeat(' ', 2 * $ob->level) . $ob->label;
+            $list[$ob->value] = array(
+                'abbrev' => Horde_String::abbreviate($label, 30),
+                'label' => $label,
+                'val' => $ob->container ? '' : $ob->value
+            );
         }
 
         /* Add the INBOX on top of list if not in the filter list. */
@@ -325,7 +327,6 @@ class IMP_Folder
 
         /* Get list of any folders that are underneath this one. */
         $all_folders = array_merge(array($old), $imaptree->folderList(IMP_Imap_Tree::FLIST_UNSUB, $old));
-        $sub_folders = $imaptree->folderList();
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->renameMailbox($old, $new);

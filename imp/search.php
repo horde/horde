@@ -91,13 +91,14 @@ if (!empty($criteria)) {
 
 /* Generate master folder list. */
 $imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
-$mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
+$mask = IMP_Imap_Tree::FLIST_ELT;
+
 $subscribe = $prefs->getValue('subscribe');
-if ($subscribe || !Horde_Util::getFormData('show_unsub')) {
-    $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
+if (!$subscribe || Horde_Util::getFormData('show_unsub')) {
+    $mask |= IMP_Imap_Tree::FLIST_UNSUB;
 }
 
-list($raw_rows,) = $imp_imap_tree->build($mask);
+$raw_rows = $imp_imap_tree->folderList($mask);
 
 $imp_ui_folder = new IMP_Ui_Folder();
 $tree_imgs = $imp_ui_folder->getTreeImages($raw_rows);
@@ -105,9 +106,9 @@ $tree_imgs = $imp_ui_folder->getTreeImages($raw_rows);
 $folders = array();
 foreach ($raw_rows as $key => $val) {
     $folders[] = array(
-        'c' => intval($val['container']),
-        'l' => $tree_imgs[$key] . ' ' . $val['name'],
-        'v' => $val['value']
+        'c' => intval($val->container),
+        'l' => $tree_imgs[$key] . ' ' . $val->name,
+        'v' => $val->value
     );
 }
 

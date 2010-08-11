@@ -33,14 +33,16 @@ $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
-$mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
+$mask = IMP_Imap_Tree::FLIST_ELT;
 
 /* Toggle subscribed view, if necessary. */
 if ($subscribe && Horde_Util::getFormData('ts')) {
     $showAll = !$showAll;
     $_SESSION['imp']['showunsub'] = $showAll;
     $imptree->showUnsubscribed($showAll);
-    $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
+    if ($showAll) {
+        $mask |= IMP_Imap_Tree::FLIST_UNSUB;
+    }
 }
 
 /* Initialize Horde_Template. */
@@ -48,13 +50,13 @@ $t = $injector->createInstance('Horde_Template');
 
 /* Start iterating through the list of mailboxes, displaying them. */
 $rows = array();
-$tree_ob = $imptree->build($mask);
-foreach ($tree_ob[0] as $val) {
+foreach ($imptree->folderList($mask) as $val) {
+    $poll_info = $val->poll_info;
     $rows[] = array(
-        'level' => str_repeat('&nbsp;', $val['level'] * 2),
-        'label' => htmlspecialchars(Horde_String::abbreviate($val['base_elt']['l'], 30 - ($val['level'] * 2))),
-        'link' => (empty($val['container']) ? IMP::generateIMPUrl('mailbox-mimp.php', $val['value']) : null),
-        'msgs' => (isset($val['msgs']) ? ($val['unseen'] . '/' . $val['msgs']) : null)
+        'level' => str_repeat('&nbsp;', $val->level * 2),
+        'label' => htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2))),
+        'link' => ($val->container ? null : IMP::generateIMPUrl('mailbox-mimp.php', $val->value)),
+        'msgs' => (isset($poll_info->msgs) ? ($poll_info->unseen . '/' . $poll_info->msgs) : null)
     );
 }
 $t->set('rows', $rows);

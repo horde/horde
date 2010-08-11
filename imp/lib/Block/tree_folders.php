@@ -68,39 +68,42 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
         /* Initialize the IMP_Tree object. */
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
-        $mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
-        if ($prefs->getValue('subscribe')) {
-            $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
-        }
+        $mask = IMP_Imap_Tree::FLIST_CONTAINER |
+            IMP_Imap_Tree::FLIST_VFOLDER |
+            IMP_Imap_Tree::FLIST_ELT;
 
         $unseen = 0;
         $inbox = null;
-        $tree_ob = $imaptree->build($mask, null, null, false);
 
-        foreach ($tree_ob[0] as $val) {
-            $label = $val['name'];
-            if (!empty($val['unseen'])) {
-                $unseen += $val['unseen'];
-                $label = '<span dir="ltr"><strong>' . $label . '</strong> (' . $val['unseen'] . '/' . $val['msgs'] . ')</span>';
+        foreach ($imaptree->folderList($mask) as $val) {
+            $label = $val->name;
+
+            if ($val->polled) {
+                $poll_info = $val->poll_info;
+                if (!empty($poll_info->unseen)) {
+                    $unseen += $poll_info->unseen;
+                    $label = '<span dir="ltr"><strong>' . $label . '</strong> (' . $poll_info->unseen . '/' . $poll_info->msgs . ')</span>';
+                }
             }
 
             /* If this is the INBOX, save it to later rewrite our parent node
              * to include new mail notification. */
-            if ($val['value'] == 'INBOX') {
+            if ($val->value == 'INBOX') {
                 $inbox = $val;
             }
 
+            $icon = $val->icon;
             $tree->addNode(
-                $parent . $val['value'],
-                ($val['level']) ? $parent . $val['parent'] : $parent,
+                $parent . $val->value,
+                ($val->level) ? $parent . $val->parent : $parent,
                 $label,
-                $indent + $val['level'],
-                $imaptree->isOpen($val['value']),
+                $indent + $val->level,
+                $val->is_open,
                 array(
-                    'icon' => $val['icon'],
-                    'icondir' => (string)$val['icondir'],
-                    'iconopen' => $val['iconopen'],
-                    'url' => ($val['container']) ? null : $name_url->add('mailbox', $val['value']),
+                    'icon' => $icon->icon,
+                    'icondir' => strval($icon->icondir),
+                    'iconopen' => $icon->iconopen,
+                    'url' => ($val->container) ? null : $name_url->add('mailbox', $val->value),
                 )
             );
         }
