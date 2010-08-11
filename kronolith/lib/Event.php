@@ -2380,9 +2380,12 @@ abstract class Kronolith_Event
         $this->_tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
-        $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
-                                    'lon' => Horde_Util::getFormData('lon'),
-                                    'zoom' => Horde_Util::getFormData('zoom')));
+        if (Horde_Util::getFormData('lat') && Horde_Util::getFormData('lon')) {
+            $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
+                                        'lon' => Horde_Util::getFormData('lon'),
+                                        'zoom' => Horde_Util::getFormData('zoom')));
+        }
+
         $this->initialized = true;
     }
 
@@ -2846,7 +2849,8 @@ abstract class Kronolith_Event
     public function getGeolocation()
     {
         /* Get geolocation data */
-        if (($gDriver = Kronolith::getGeoDriver()) && !isset($this->_geoLocation)) {
+        if (!isset($this->_geoLocation) &&
+            ($gDriver = Kronolith::getGeoDriver())) {
             try {
                 $this->_geoLocation = $gDriver->getLocation($this->id);
             } catch (Exception $e) {}
