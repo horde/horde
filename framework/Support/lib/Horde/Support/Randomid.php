@@ -8,12 +8,12 @@
 
 /**
  * Class for generating a random ID string. This string uses all characters
- * in the class [0-9a-z].
+ * in the class [0-9a-zA-Z].
  *
  * <code>
  *  <?php
  *
- *  $rid = (string)new Horde_Support_Randomid([$length = 16]);
+ *  $rid = (string)new Horde_Support_Randomid();
  *
  *  ?>
  * </code>
@@ -35,22 +35,18 @@ class Horde_Support_Randomid
 
     /**
      * New random ID.
-     *
-     * @param integer $length  The length of the ID.
      */
-    public function __construct($length = 16)
+    public function __construct()
     {
-        $this->generate($length);
+        $this->generate();
     }
 
     /**
      * Generate a random ID.
-     *
-     * @param integer $length  The length of the ID.
      */
-    public function generate($length = 16)
+    public function generate()
     {
-        $this->_rid = substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . strtr(uniqid(mt_rand(), true), array('.' => '')), 16, 36), 0, $length);
+        $this->_rid = rtrim(base64_encode(pack('H*', strtr(uniqid(mt_rand(), true), array('.' => '')) . dechex(getmypid()))), '=');
     }
 
     /**
