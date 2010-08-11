@@ -387,7 +387,7 @@ $refresh_title = Horde::stripAccessKey($refresh_title);
 if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
-$head_template->set('refresh', $folder_url_ob->link(array(
+$head_template->set('refresh', $folders_url_ob->link(array(
     'accesskey' => $refresh_ak,
     'title' => $refresh_title
 )));
