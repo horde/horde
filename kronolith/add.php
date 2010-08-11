@@ -19,8 +19,8 @@ do {
     }
 
     list($targetType, $targetcalendar) = explode('_', Horde_Util::getFormData('targetcalendar'), 2);
-    if (strpos($targetcalendar, ':')) {
-        list($calendar_id, $user) = explode(':', $targetcalendar, 2);
+    if (strpos($targetcalendar, '\\')) {
+        list($calendar_id, $user) = explode('\\', $targetcalendar, 2);
     } else {
         $calendar_id = $targetcalendar;
         $user = $GLOBALS['registry']->getAuth();

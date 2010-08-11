@@ -1988,8 +1988,8 @@ abstract class Kronolith_Event
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
-        if (strpos($targetcalendar, ':')) {
-            list(, $this->creator) = explode(':', $targetcalendar, 2);
+        if (strpos($targetcalendar, '\\')) {
+            list(, $this->creator) = explode('\\', $targetcalendar, 2);
         } elseif (!isset($this->id)) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }

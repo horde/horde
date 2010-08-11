@@ -87,7 +87,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
             if ($cal->hasPermission(Horde_Perms::EDIT)) {
                 $delegates[$id] = htmlspecialchars($cal->name());
             } else {
-                $delegates[$id . ':' . $cal->owner()] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
+                $delegates[$cal->owner() . '\\' . $id] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
             }
             foreach ($delegates as $delegate_id => $cal_name) {
                 $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
