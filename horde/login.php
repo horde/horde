@@ -145,7 +145,13 @@ if ($vars->url) {
 $error_reason = $vars->logout_reason;
 if ($error_reason) {
     if ($is_auth) {
-        Horde::checkRequestToken('horde.logout', $vars->horde_logout_token);
+        try {
+            Horde::checkRequestToken('horde.logout', $vars->horde_logout_token);
+        } catch (Horde_Exception $e) {
+            $notification->push($e, 'horde.error');
+            require HORDE_BASE . '/index.php';
+            exit;
+        }
         $is_auth = null;
     }
 
