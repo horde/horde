@@ -1,6 +1,8 @@
 /**
  * Provides the javascript class to create dynamic trees.
  *
+ * Optionally uses the Horde_Tooltip class (tooltips.js).
+ *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -32,16 +34,20 @@ var Horde_Tree = Class.create({
         this.renderStatic = renderStatic;
         this.dropline = [];
         this.node_pos = [];
-        this.output = [];
+        this.output = document.createDocumentFragment();
 
-        if (!this.opts.options.hideHeaders) {
-            this.output.push(this._buildHeader());
+        if (!this.div_temp) {
+            this.div_temp = new Element('DIV').setStyle({ cssFloat: this.opts.floatDir });
         }
 
-        this.rootNodes.each(this.buildTree.bind(this));
+        this._buildHeader();
 
-        $(this.opts.target).update(this.output.join(''));
-        delete this.output;
+        this.rootNodes.each(function(r) {
+            this.buildTree(r, this.output);
+        }, this);
+
+        $(this.opts.target).update('');
+        $(this.opts.target).appendChild(this.output);
 
         this._correctWidthForScrollbar();
 
@@ -55,247 +61,178 @@ var Horde_Tree = Class.create({
         }
     },
 
-    /**
-     * Returns the HTML code for a header row, if necessary.
-     *
-     * @access private
-     *
-     * @return string  The HTML code of the header row or an empty string.
-     */
     _buildHeader: function()
     {
-        if (!this.opts.header.length) {
-            return '';
+        if (this.opts.options.hideHeaders ||
+            !this.opts.header.size()) {
+            return;
         }
 
-        var html = [ '<div>' ],
-            i = 0;
+        var div = new Element('DIV');
 
-        for (i = 0; i < this.opts.header.length; ++i) {
-            html.push('<div');
-            if (this.opts.header[i]['class']) {
-                html.push(' class="' + this.opts.header[i]['class'] + '"');
+        this.opts.header.each(function(h) {
+            var tmp = this.div_temp.clone().insert(h.html ? h.html : '&nbsp;');
+
+            if (h['class']) {
+                tmp.addClassName(h['class']);
             }
 
-            html.push(' style="' + this.opts.floatDir);
-
-            if (this.opts.header[i].width) {
-                html.push('width:' + this.opts.header[i].width + ';');
-            }
-            if (this.opts.header[i].align) {
-                html.push('text-align:' + this.opts.header[i].align + ';');
+            if (h.width) {
+                tmp.setStyle({ width: h.width });
             }
 
-            html.push('">' + (this.opts.header[i].html ? this.opts.header[i].html : '&nbsp;') + '</div>');
-        }
+            if (h.align) {
+                tmp.setStyle({ textAlign: h.align });
+            }
+        }, this);
 
-        html.push('</div>');
-
-        return html.join('');
+        this.output.appendChild(div);
     },
 
-    /**
-     * Recursive function to walk through the tree array and build
-     * the output.
-     */
-    buildTree: function(nodeId)
+    // Recursive function to walk through the tree array and build
+    // the output.
+    buildTree: function(nodeId, p)
     {
-        var c, cId, numSubnodes, rowStyle;
+        var numSubnodes, tmp,
+            n = 0;
 
-        this.buildLine(nodeId);
+        this.buildLine(nodeId, p);
 
-        if (!Object.isUndefined(this.nodes[nodeId].children)) {
-            numSubnodes = this.nodes[nodeId].children.length;
-            if (numSubnodes > 0) {
-                rowStyle = this.nodes[nodeId].expanded
-                    ? 'display:block;'
-                    : 'display:none;';
-                this.output.push('<div id="nodeChildren_' + nodeId + '" style="' + rowStyle + '">');
+        if (!Object.isUndefined(this.nodes[nodeId].children) &&
+            (numSubnodes = this.nodes[nodeId].children.size())) {
+            tmp = new Element('DIV', { id: 'nodeChildren_' + nodeId });
+            [ tmp ] .invoke(this.nodes[nodeId].expanded ? 'show' : 'hide');
 
-                for (c = 0; c < numSubnodes; ++c) {
-                    cId = this.nodes[nodeId].children[c];
-                    this.node_pos[cId] = { count: numSubnodes, pos: c + 1 };
-                    this.buildTree(cId);
-                }
+            this.nodes[nodeId].children.each(function(c) {
+                this.node_pos[c] = { count: numSubnodes, pos: ++n };
+                this.buildTree(c, tmp);
+            }, this);
 
-                this.output.push('</div>');
-            }
+            p.appendChild(tmp);
         }
     },
 
-    buildLine: function(nodeId)
+    buildLine: function(nodeId, p)
     {
-        var c, d, extra, i,
+        var div, label, tmp,
             column = 0,
-            node = this.nodes[nodeId],
-            o = this.output;
+            node = this.nodes[nodeId];
 
-        o.push('<div class="treeRow');
+        div = new Element('DIV', { className: 'treeRow' });
         if (node['class']) {
-            o.push(' ' + node['class']);
+            div.addClassName(node['class']);
         }
-        o.push('">');
 
         // If we have headers, track which logical "column" we're in for
         // any given cell of content.
-        if (!Object.isUndefined(node.extra) &&
-            !Object.isUndefined(node.extra[0])) {
-            extra = node.extra[0];
-            for (c = 0; c < extra.length; ++c) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column]['width']) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">' + extra[c] + '</div>');
-                ++column;
-            }
-
-            for (d = c; d < this.opts.extraColsLeft; ++d) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column].width) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">&nbsp;</div>');
-                ++column;
-            }
-        } else {
-            for (c = 0; c < this.opts.extraColsLeft; ++c) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column].width) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">&nbsp;</div>');
-                ++column;
-            }
+        if (node.extra && node.extra[0]) {
+            node.extra[0].each(function(n) {
+                div.insert(this._divWidth(this.div_temp.clone().update(n), column++));
+            }, this);
         }
 
-        o.push('<div style="' + this.opts.floatDir);
-        if (this.opts.header[column] && this.opts.header[column].width) {
-            o.push('width:' + this.opts.header[column]['width'] + ';');
-        }
-        o.push('">');
-
-        if (this.opts.options.multiline) {
-            o.push('<table cellspacing="0"><tr><td>');
+        for (; column < this.opts.extraColsLeft; ++column) {
+            div.insert(this._divWidth(this.div_temp.clone().update('&nbsp;'), column));
         }
 
-        for (i = this.renderStatic ? 1 : 0; i < node.indent; ++i) {
-            o.push('<img src="');
-            if (this.dropline[i] && this.opts.options.lines) {
-                o.push(this.opts.imgLine + '" alt="|');
-            } else {
-                o.push(this.opts.imgBlank + '" alt="');
-            }
-            o.push('&nbsp;&nbsp;&nbsp;" />');
+        div.insert(this._divWidth(this.div_temp.clone(), column));
+
+        tmp = document.createDocumentFragment();
+        for (i = Number(this.renderStatic); i < node.indent; ++i) {
+            tmp.appendChild(new Element('IMG', {
+                src: ((this.dropline[i] && this.opts.options.lines)
+                      ? this.opts.imgLine
+                      : this.opts.imgBlank)
+            }));
         }
 
-        o.push(this._setNodeToggle(nodeId));
-        if (this.opts.options.multiline) {
-            o.push('</td><td>');
-        }
-        o.push(this._setLabel(nodeId));
-
-        if (this.opts.options.multiline) {
-            o.push('</td></tr></table>');
-        }
-
-        o.push('</div>');
-        ++column;
-
-        if (!Object.isUndefined(node.extra) &&
-            !Object.isUndefined(node.extra[1])) {
-            extra = node.extra[1];
-
-            for (c = 0; c < extra.length; ++c) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column].width) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">' + extra[c] + '</div>');
-                ++column;
-            }
-
-            for (d = c; d < this.opts.extraColsRight; ++d) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column].width) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">&nbsp;</div>');
-                ++column;
-            }
-        } else {
-            for (c = 0; c < this.opts.extraColsRight; ++c) {
-                o.push('<div style="' + this.opts.floatDir);
-                if (this.opts.header[column] &&
-                    this.opts.header[column].width) {
-                    o.push('width:' + this.opts.header[column].width + ';');
-                }
-                o.push('">&nbsp;</div>');
-                ++column;
-            }
-        }
-        o.push('</div>');
-    },
-
-    _setLabel: function(nodeId)
-    {
-        var label = [],
-            node = this.nodes[nodeId];
+        tmp.appendChild(this._setNodeToggle(nodeId));
 
         if (node.url) {
-            label.push('<span><a');
+            label = new Element('A', { href: node.url }).insert(
+                this._setNodeIcon(nodeId)
+            ).insert(
+                node.label
+            );
 
             if (node.urlclass) {
-                label.push(' class="' + node.urlclass + '"');
+                label.addClassName(node.urlclass);
             } else if (this.opts.options.urlclass) {
-                label.push(' class="' + this.opts.options.urlclass + '"');
+                label.addClassName(this.opts.options.urlclass);
             }
 
-            label.push(' href="' + node.url + '"');
-
             if (node.title) {
-                label.push(' title="' + node.title + '"');
+                label.writeAttribute('title', node.title);
             }
 
             if (node.target) {
-                label.push(' target="' + node.target + '"');
+                label.writeAttribute('target', node.target);
             } else if (this.opts.options.target) {
-                label.push(' target="' + this.opts.options.target + '"');
+                label.writeAttribute('target', this.opts.options.target);
             }
 
-            if (node.onclick) {
-                label.push(' onclick="' + node.onclick + '"');
-            }
+            //if (node.onclick) {
+            //    label.push(' onclick="' + node.onclick + '"');
+            //}
 
-            label.push('>' + this._setNodeIcon(nodeId) + node.label + '</a></span>');
+            label = label.wrap('SPAN');
         } else {
-            label.push('<span class="toggle">' + this._setNodeIcon(nodeId) + node.label + '</span>');
+            label = new Element('SPAN').addClassName('toggle').insert(
+                this._setNodeIcon(nodeId)
+            ).insert(
+                node.label
+            );
         }
 
-        return label.join('');
+        if (this.opts.options.multiline) {
+            div.insert(new Element('TABLE').insert(
+                new Element('TR').insert(
+                    new Element('TD').appendChild(tmp)
+                ).insert(
+                    new Element('TD').insert(label)
+                )
+            ));
+        } else {
+            div.appendChild(tmp);
+            div.insert(label)
+        }
+
+        ++column;
+
+        if (node.extra && node.extra[1]) {
+            node.extra[1].each(function(n) {
+                div.insert(this._divWidth(this.div_temp.clone().update(n), column++));
+            }, this);
+        }
+
+        for (; column < this.opts.extraColsRight; ++column) {
+            div.insert(this._divWidth(this.div_temp.clone().update('&nbsp;'), column));
+        }
+
+        p.appendChild(div);
+    },
+
+    _divWidth: function(div, c)
+    {
+        if (this.opts.header[c] && this.opts.header[c]['width']) {
+            c.setStyle({ width: this.opts.header[c].width });
+        }
     },
 
     _setNodeToggle: function(nodeId)
     {
-        var img = [],
-            node = this.nodes[nodeId],
-            nodeToggle = this._getNodeToggle(nodeId);
+        var node = this.nodes[nodeId];
 
-        if (node.indent == '0' && !Object.isUndefined(node.children)) {
+        if (node.indent == '0' && node.children) {
             // Top level with children.
             this.dropline[0] = false;
             if (this.renderStatic) {
                 return '';
             }
-        } else if (node.indent != '0' && Object.isUndefined(node.children)) {
+        } else if (node.indent != '0' && !node.children) {
             // Node no children.
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
-        } else if (!Object.isUndefined(node.children)) {
+        } else if (node.children) {
             this.dropline[node.indent] = (this.node_pos[nodeId].pos < this.node_pos[nodeId].count);
         } else {
             // Top level node with no children.
@@ -305,147 +242,106 @@ var Horde_Tree = Class.create({
             this.dropline[0] = false;
         }
 
-        img.push('<img class="treeToggle" id="nodeToggle_' + nodeId + '" src="' + nodeToggle[0] + '" ');
-        if (nodeToggle[1]) {
-            img.push('alt="' + nodeToggle[1] + '" ');
-        }
-        img.push('/>');
-
-        return img.join('');
+        return new Element('IMG', { id: "nodeToggle_" + nodeId, src: this._getNodeToggle(nodeId) }).addClassName('treeToggle');
     },
 
     _getNodeToggle: function(nodeId)
     {
-        var node = this.nodes[nodeId],
-            nodeToggle = ['', ''];
+        var node = this.nodes[nodeId];
 
-        if (node.indent == '0' && !Object.isUndefined(node.children)) {
+        if (node.indent == '0' && node.children) {
             // Top level with children.
             if (this.renderStatic) {
-                return nodeToggle;
+                return '';
             } else if (!this.opts.options.lines) {
-                nodeToggle[0] = this.opts.imgBlank;
-                nodeToggle[1] = '&nbsp;&nbsp;&nbsp;'
+                return this.opts.imgBlank;
             } else if (node.expanded) {
-                nodeToggle[0] = this.opts.imgMinusOnly;
-                nodeToggle[1] = '-';
-            } else {
-                nodeToggle[0] = this.opts.imgPlusOnly;
-                nodeToggle[1] = '+';
+                return this.opts.imgMinusOnly;
             }
-        } else if (node.indent != '0' && Object.isUndefined(node.children)) {
+
+            return this.opts.imgPlusOnly;
+        }
+
+        if (node.indent != '0' && !node.children) {
             // Node no children.
             if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
                 // Not last node.
-                if (this.opts.options.lines) {
-                    nodeToggle[0] = this.opts.imgJoin;
-                    nodeToggle[1] = '|-';
-                } else {
-                    nodeToggle[0] = this.opts.imgBlank;
-                    nodeToggle[1] = '&nbsp;&nbsp;&nbsp;';
-                }
-            } else {
-                // Last node.
-                if (this.opts.options.lines) {
-                    nodeToggle[0] = this.opts.imgJoinBottom;
-                    nodeToggle[1] = '`-';
-                } else {
-                    nodeToggle[0] = this.opts.imgBlank;
-                    nodeToggle[1] = '&nbsp;&nbsp;&nbsp;';
-                }
+                return this.opts.options.lines
+                    ? this.opts.imgJoin
+                    : this.opts.imgBlank;
             }
-        } else if (!Object.isUndefined(node.children)) {
+
+            // Last node.
+            return this.opts.options.lines
+                ? this.opts.imgJoinBottom
+                : this.opts.imgBlank;
+        }
+
+        if (node.children) {
             // Node with children.
             if (this.node_pos[nodeId].pos < this.node_pos[nodeId].count) {
                 // Not last node.
                 if (!this.opts.options.lines) {
-                    nodeToggle[0] = this.opts.imgBlank;
-                    nodeToggle[1] = '&nbsp;&nbsp;&nbsp;';
+                    return this.opts.imgBlank;
                 } else if (this.renderStatic) {
-                    nodeToggle[0] = this.opts.imgJoin;
-                    nodeToggle[1] = '|-';
+                    return this.opts.imgJoin;
                 } else if (node.expanded) {
-                    nodeToggle[0] = this.opts.imgMinus;
-                    nodeToggle[1] = '-';
-                } else {
-                    nodeToggle[0] = this.opts.imgPlus;
-                    nodeToggle[1] = '+';
+                    return this.opts.imgMinus;
                 }
-            } else {
-                // Last node.
-                if (!this.opts.options.lines) {
-                    nodeToggle[0] = this.opts.imgBlank;
-                    nodeToggle[1] = '&nbsp;';
-                } else if (this.renderStatic) {
-                    nodeToggle[0] = this.opts.imgJoinBottom;
-                    nodeToggle[1] = '`-';
-                } else if (node.expanded) {
-                    nodeToggle[0] = this.opts.imgMinusBottom;
-                    nodeToggle[1] = '-';
-                } else {
-                    nodeToggle[0] = this.opts.imgPlusBottom;
-                    nodeToggle[1] = '+';
-                }
+
+                return this.opts.imgPlus;
             }
-        } else {
-            // Top level node with no children.
-            if (this.renderStatic) {
-                return nodeToggle;
+
+            // Last node.
+            if (!this.opts.options.lines) {
+                return this.opts.imgBlank;
+            } else if (this.renderStatic) {
+                return this.opts.imgJoinBottom;
+            } else if (node.expanded) {
+                return this.opts.imgMinusBottom;
             }
-            if (this.opts.options.lines) {
-                nodeToggle[0] = this.opts.imgNullOnly;
-                nodeToggle[1] = '&nbsp;&nbsp;';
-            } else {
-                nodeToggle[0] = this.opts.imgBlank;
-                nodeToggle[1] = '&nbsp;&nbsp;&nbsp;';
-            }
+
+            return this.opts.imgPlusBottom;
         }
 
-        return nodeToggle;
+        // Top level node with no children.
+        if (this.renderStatic) {
+            return '';
+        }
+
+        return this.opts.options.lines
+            ? this.opts.imgNullOnly
+            : this.opts.imgBlank;
     },
 
     _setNodeIcon: function(nodeId)
     {
-        var img = [],
-            node = this.nodes[nodeId];
-
-        img.push('<img class="treeIcon" id="nodeIcon_' + nodeId + '" src="');
+        var node = this.nodes[nodeId],
+            img = new Element('IMG', { id: "nodeIcon_" + nodeId }).addClassName('treeIcon');
 
         // Image.
-        if (!Object.isUndefined(node.icon)) {
+        if (node.icon) {
             // Node has a user defined icon.
-            if (!node.icon) {
-                return '';
-            }
-
-            img.push(!Object.isUndefined(node.iconopen) && node.expanded ? node.iconopen : node.icon);
+            img.writeAttribute('src', node.iconopen && node.expanded ? node.iconopen : node.icon);
+        } else if (node.children) {
+            // Standard icon: node with children.
+            img.writeAttribute('src', node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
         } else {
-            // Use standard icon set.
-            if (!Object.isUndefined(node.children)) {
-                // Node with children.
-                img.push(node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
-            } else {
-                // Node, no children.
-                img.push(this.opts.imgLeaf);
-            }
+            // Standard icon: node, no children.
+            img.writeAttribute('src', this.opts.imgLeaf);
         }
 
-        img.push('"');
-
-        if (!Object.isUndefined(node.iconalt)) {
-            img.push(' alt="' + node.iconalt + '"');
+        if (node.iconalt) {
+            img.writeAttribute('alt', node.iconalt);
         }
 
-        img.push(' />');
-
-        return img.join('');
+        return img;
     },
 
     toggle: function(nodeId)
     {
         var icon, nodeToggle, toggle, children,
-            node = this.nodes[nodeId],
-            src = [];
+            node = this.nodes[nodeId];
 
         node.expanded = !node.expanded;
         if (children = $('nodeChildren_' + nodeId)) {
@@ -456,14 +352,12 @@ var Horde_Tree = Class.create({
         // icons.
         if (icon = $('nodeIcon_' + nodeId)) {
             // Image.
-            if (!Object.isUndefined(node.icon)) {
-                src.push((node.expanded && node.iconopen) ? node.iconopen : node.icon);
+            if (node.icon) {
+                src.writeAttribute('src', (node.expanded && node.iconopen) ? node.iconopen : node.icon);
             } else {
                 // Use standard icon set.
-                src.push(node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
+                src.writeAttribute('src', node.expanded ? this.opts.imgFolderOpen : this.opts.imgFolder);
             }
-
-            icon.src = src.join('');
         }
 
         // If using alternating row shading, work out correct shade.
@@ -471,10 +365,8 @@ var Horde_Tree = Class.create({
             this.stripe();
         }
 
-        nodeToggle = this._getNodeToggle(nodeId);
         if (toggle = $('nodeToggle_' + nodeId)) {
-            toggle.src = nodeToggle[0];
-            toggle.alt = nodeToggle[1];
+            toggle.writeAttribute('src', this._getNodeToggle(nodeId));
         }
 
         this.saveState(nodeId, node.expanded)
@@ -553,9 +445,9 @@ var Horde_Tree = Class.create({
              * works */
             if (document.documentElement.clientHeight == document.documentElement.offsetHeight) {
                 // no scrollbar present, take away extra margin
-                document.body.style.marginRight = 0;
+                $(document.body).setStyle({ marginRight: 0 });
             } else {
-                document.body.style.marginRight = '15px';
+                $(document.body).setStyle({ marginRight: '15px' });
             }
         }
     },
