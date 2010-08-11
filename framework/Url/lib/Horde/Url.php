@@ -312,9 +312,16 @@ class Horde_Url
 
     /**
      * Sends a redirect request to the browser to the URL in this object.
+     *
+     * @throws Horde_Url_Exception
      */
     public function redirect()
     {
+        $url = strval($this->setRaw(true));
+        if (!strlen($url)) {
+            throw new Horde_Url_Exception('Redirect failed: URL is empty.');
+        }
+
         header('Location: ' . strval($this->setRaw(true)));
         exit;
     }
