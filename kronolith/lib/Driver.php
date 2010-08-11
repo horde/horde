@@ -308,13 +308,6 @@ class Kronolith_Driver
         if ($event->stored || $event->exists()) {
             return $this->_updateEvent($event);
         }
-
-        if (!$event->id) {
-            $event->id = (string)new Horde_Support_Randomid;
-        }
-        if (!$event->uid) {
-            $event->uid = (string)new Horde_Support_Guid;
-        }
         return $this->_addEvent($event);
     }
 

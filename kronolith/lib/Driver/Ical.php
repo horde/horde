@@ -407,6 +407,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     protected function _addEvent($event)
     {
+        if (!$event->uid) {
+            $event->uid = (string)new Horde_Support_Uuid;
+        }
+        if (!$event->id) {
+            $event->id = $event->id . '.ics';
+        }
+
         $response = $this->_saveEvent($event);
         if (!in_array($response->code, array(200, 201, 204))) {
             Horde::logMessage(sprintf('Failed to create event on remote calendar: url = "%s", status = %s',

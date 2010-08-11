@@ -606,6 +606,13 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected function _addEvent($event)
     {
+        if (!$event->id) {
+            $event->id = (string)new Horde_Support_Randomid;
+        }
+        if (!$event->uid) {
+            $event->uid = (string)new Horde_Support_Guid;
+        }
+
         $query = 'INSERT INTO ' . $this->_params['table'];
         $cols_name = ' (event_id, event_uid,';
         $cols_values = ' VALUES (?, ?,';

@@ -369,6 +369,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             ? array('action' => 'modify')
             : array('action' => 'add');
 
+        if (!$event->uid) {
+            $event->uid = $this->_store->generateUID();
+        }
         $this->_store->save($event->toKolab(), $edit ? $event->uid : null);
 
         /* Deal with tags */
