@@ -374,8 +374,6 @@ HTML;
         if (($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
             throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
         }
-
-        return true;
     }
 
     /**
