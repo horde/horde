@@ -48,7 +48,7 @@ class Horde_Support_Randomid
     {
         /* Base64 can have /, +, and = characters.  Restrict to just
          * numbers and letters. */
-        $this->_rid = str_replace(array('/', '+', '='), 0, base64_encode(pack('H*', mt_rand() . strtr(uniqid('', true), '.', '') . dechex(getmypid()))));
+        $this->_rid = str_replace(array('/', '+', '='), 0, base64_encode(pack('H*', mt_rand() . str_replace('.', '', uniqid('', true)) . dechex(getmypid()))));
     }
 
     /**
