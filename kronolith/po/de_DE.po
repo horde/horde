@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-11-20 16:34+0100\n"
-"PO-Revision-Date: 2009-11-20 16:35+0100\n"
+"PO-Revision-Date: 2010-08-11 22:40+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2383,7 +2383,7 @@ msgstr "Hier ist eine detailliertere Beschreibung des Termins:"
 #, php-format
 msgid "The following resource has accepted your request: %s"
 msgid_plural "The following resources have accepted your request: %s"
-msgstr[0] "Für die folgende Ressource wurde Ihre Anfrage angenommen: %s<"
+msgstr[0] "Für die folgende Ressource wurde Ihre Anfrage angenommen: %s"
 msgstr[1] "Für die folgenden Ressourcen wurde Ihre Anfrage angenommen: %s"
 
 #: lib/Kronolith.php:1649
@@ -2498,7 +2498,7 @@ msgstr "Beim Hinzufügen des Termins ist ein Fehler aufgetreten: %s."
 #: edit.php:18
 #, php-format
 msgid "There was an error editing the event: %s"
-msgstr "Beim Bearbeiten des Termins ist ein Fehler aufgetreten: %s."
+msgstr "Beim Bearbeiten des Termins ist ein Fehler aufgetreten: %s"
 
 #: lib/Api.php:314 lib/Api.php:594 lib/Api.php:891
 msgid "There was an error importing the iCalendar data."
