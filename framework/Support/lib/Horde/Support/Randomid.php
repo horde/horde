@@ -46,7 +46,9 @@ class Horde_Support_Randomid
      */
     public function generate()
     {
-        $this->_rid = rtrim(base64_encode(pack('H*', strtr(uniqid(mt_rand(), true), array('.' => '')) . dechex(getmypid()))), '=');
+        /* Base64 can have /, +, and = characters.  Restrict to just
+         * numbers and letters. */
+        $this->_rid = str_replace(array('/', '+', '='), 0, base64_encode(pack('H*', mt_rand() . strtr(uniqid('', true), '.', '') . dechex(getmypid()))));
     }
 
     /**
