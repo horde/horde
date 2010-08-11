@@ -692,14 +692,13 @@ var DimpBase = {
     contextOnClick: function(parentfunc, e)
     {
         var flag, tmp,
-            baseelt = e.element(),
             elt = e.memo.elt,
             id = elt.readAttribute('id'),
             menu = e.memo.trigger;
 
         switch (id) {
         case 'ctx_folder_create':
-            this.createSubFolder(baseelt);
+            this.createSubFolder(e.element());
             break;
 
         case 'ctx_container_rename':
@@ -708,7 +707,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folder_empty':
-            tmp = baseelt.up('LI');
+            tmp = e.findElement('LI');
             if (window.confirm(DIMP.text.empty_folder.sub('%s', tmp.readAttribute('title')))) {
                 DimpCore.doAction('emptyMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
             }
@@ -716,7 +715,7 @@ var DimpBase = {
 
         case 'ctx_folder_delete':
         case 'ctx_vfolder_delete':
-            tmp = baseelt.up('LI');
+            tmp = e.findElement('LI');
             if (window.confirm(DIMP.text.delete_folder.sub('%s', tmp.readAttribute('title')))) {
                 DimpCore.doAction('deleteMailbox', { mbox: tmp.retrieve('mbox') }, { callback: this.mailboxCallback.bind(this) });
             }
@@ -724,21 +723,21 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flagAll('\\seen', id == 'ctx_folder_seen', baseelt.up('LI').retrieve('mbox'));
+            this.flagAll('\\seen', id == 'ctx_folder_seen', e.findElement('LI').retrieve('mbox'));
             break;
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPoll(baseelt.up('LI').retrieve('mbox'), id == 'ctx_folder_poll');
+            this.modifyPoll(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_folder_sub':
         case 'ctx_folder_unsub':
-            this.subscribeFolder(baseelt.up('LI').retrieve('mbox'), id == 'ctx_folder_sub');
+            this.subscribeFolder(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_sub');
             break;
 
         case 'ctx_container_create':
-            this.createSubFolder(baseelt);
+            this.createSubFolder(e.element());
             break;
 
         case 'ctx_folderopts_new':
@@ -763,7 +762,7 @@ var DimpBase = {
         case 'ctx_container_collapse':
         case 'ctx_folder_expand':
         case 'ctx_folder_collapse':
-            this._toggleSubFolder(baseelt.up('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'expall' : 'colall', true);
+            this._toggleSubFolder(e.findElement('LI').next(), (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_message_spam':
@@ -841,7 +840,7 @@ var DimpBase = {
             break;
 
         case 'ctx_vfolder_edit':
-            tmp = { edit_query: baseelt.up('LI').retrieve('mbox') };
+            tmp = { edit_query: e.findElement('LI').retrieve('mbox') };
             // Fall through
 
         case 'ctx_qsearchopts_advanced':
@@ -885,14 +884,13 @@ var DimpBase = {
 
     contextOnShow: function(parentfunc, e)
     {
-        var elts, ob, sel, tmp,
-            baseelt = e.element(),
+        var baseelt, elts, ob, sel, tmp,
             ctx_id = e.memo;
 
         switch (ctx_id) {
         case 'ctx_folder':
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
-            baseelt = baseelt.up('LI');
+            baseelt = e.findElement('LI');
 
             if (baseelt.retrieve('mbox') == 'INBOX') {
                 elts.invoke('hide');
