@@ -1268,20 +1268,23 @@ class IMP_Prefs_Ui
         }
 
         $sent_mail_folder = $ui->vars->sent_mail_folder;
-        if (empty($sent_mail_folder)) {
-            $sent_mail_new = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'));
-        } elseif (($sent_mail_folder == '-1') &&
+        if (empty($sent_mail_folder) && $ui->vars->sent_mail_folder_new) {
+            $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, $GLOBALS['registry']->getCharset(), 'UTF7-IMAP'));
+        } elseif (($sent_mail_folder == "\1default") &&
                   ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
+            /* Use \1 as the prefix to differentiate from a IMAP mailbox
+             * potentially named 'default'. \1 is theoretically a valid
+             * IMAP mailbox character, but it is highly unlikely it exists
+             * anywhere (and we can't use \0 in form data). */
             $sent_mail_folder = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->appendNamespace($sm_default);
         }
 
-        if (empty($sent_mail_folder)) {
-            return false;
-        }
-
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-        if (!$imp_folder->exists($sent_mail_folder)) {
-            $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
+        if ($sent_mail_folder) {
+            $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+            if (!$imp_folder->exists($sent_mail_folder) &&
+                !$imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'))) {
+                return false;
+            }
         }
 
         return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail_folder);
