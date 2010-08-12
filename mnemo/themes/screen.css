@@ -12,6 +12,9 @@
     white-space: normal;
     overflow: auto;
 }
+.headerbox .noteBody {
+    border-top-width: 0;
+}
 
 .noteArea {
     padding: 10px;

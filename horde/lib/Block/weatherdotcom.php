@@ -425,7 +425,7 @@ class Horde_Block_Horde_weatherdotcom extends Horde_Block
         // Display a bar at the bottom of the block with the required
         // attribution to weather.com and the logo, both linked to
         // weather.com with the partner ID.
-        return $html . '<div class="rightAlign linedRow">' .
+        return $html . '<div class="rightAlign">' .
             _("Weather data provided by") . ' ' .
             Horde::link(Horde::externalUrl('http://www.weather.com/?prod=xoap&amp;par=' .
                         $weatherDotCom->_partnerID),
