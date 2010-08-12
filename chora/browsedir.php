@@ -59,9 +59,6 @@ foreach ($umap as $key => $val) {
 $branches = array();
 if ($VC->hasFeature('branches')) {
     $branches = $dir->getBranches();
-    if (is_null($onb)) {
-        $onb = $VC->getDefaultBranch();
-    }
 }
 
 /* Print out the directory header. */
