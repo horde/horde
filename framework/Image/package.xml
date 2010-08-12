@@ -47,7 +47,7 @@ Initial Horde 4 package
         <file name="DropShadow.php" role="php" />
         <file name="RoundCorners.php" role="php" />
         <file name="TextWatermark.php" role="php" />
-        <file name="UnsharpMask.php" role="php" />
+        <file name="Unsharpmask.php" role="php" />
        </dir> <!-- /lib/Horde/Image/Effect/Gd -->
        <dir name="Im">
         <file name="Border.php" role="php" />
@@ -153,7 +153,7 @@ Initial Horde 4 package
    <install as="Horde/Image/Effect/Gd/DropShadow.php" name="lib/Horde/Image/Effect/Gd/DropShadow.php" />
    <install as="Horde/Image/Effect/Gd/RoundCorners.php" name="lib/Horde/Image/Effect/Gd/RoundCorners.php" />
    <install as="Horde/Image/Effect/Gd/TextWatermark.php" name="lib/Horde/Image/Effect/Gd/TextWatermark.php" />
-   <install as="Horde/Image/Effect/Gd/UnsharpMask.php" name="lib/Horde/Image/Effect/Gd/UnsharpMask.php" />
+   <install as="Horde/Image/Effect/Gd/Unsharpmask.php" name="lib/Horde/Image/Effect/Gd/Unsharpmask.php" />
    <install as="Horde/Image/Effect/Im/Border.php" name="lib/Horde/Image/Effect/Im/Border.php" />
    <install as="Horde/Image/Effect/Im/Composite.php" name="lib/Horde/Image/Effect/Im/Composite.php" />
    <install as="Horde/Image/Effect/Im/DropShadow.php" name="lib/Horde/Image/Effect/Im/DropShadow.php" />
