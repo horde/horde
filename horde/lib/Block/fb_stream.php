@@ -117,6 +117,13 @@ class Horde_Block_Horde_fb_stream extends Horde_Block
         $endpoint = Horde::url('services/facebook.php', true);
         $html = '';
 
+        /* Init facebook driver, exit early if no prefs exist */
+        $facebook = $this->_facebook;
+        $fbp = $this->_fbp;
+        if (empty($fbp['sid'])) {
+            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+        }
+
         /* Add the client javascript / initialize it */
         Horde::addScriptFile('facebookclient.js');
         $script = <<<EOT
@@ -134,14 +141,6 @@ class Horde_Block_Horde_fb_stream extends Horde_Block
             });
 EOT;
         Horde::addInlineScript($script, 'dom');
-
-        /* Init facebook driver, exit early if no prefs exist */
-        $facebook = $this->_facebook;
-        $fbp = $this->_fbp;
-        if (empty($fbp['sid'])) {
-            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('options', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
-        }
-
         /* Build the UI */
         $html .= '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
         $html .= '<div style="padding-left: 8px;padding-right:8px;">';
@@ -173,7 +172,7 @@ EOT;
             . '<div id="' . $instance . '_currentStatus" class="' . $class . '" style="margin-left:55px;">'
             . $status['status']['message']
             . '</div>';
-        
+
         try {
             if ($facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM)) {
                 $html .= '<input style="width:100%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
