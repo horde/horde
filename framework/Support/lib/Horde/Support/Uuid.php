@@ -31,15 +31,11 @@ class Horde_Support_Uuid
     private $_uuid;
 
     /**
-     * New UUID
+     * New UUID.
      */
     public function __construct()
     {
-        if (extension_loaded('uuid')) {
-            $this->_uuid = uuid_create();
-        } else {
-            $this->generate();
-        }
+        $this->generate();
     }
 
     /**
@@ -47,32 +43,36 @@ class Horde_Support_Uuid
      *
      * @see http://www.ietf.org/rfc/rfc4122.txt
      * @see http://labs.omniti.com/alexandria/trunk/OmniTI/Util/UUID.php
-     *
-     * @return string
      */
     public function generate()
     {
-        list($time_mid, $time_low) = explode(' ', microtime());
-        $time_low = (int)$time_low;
-        $time_mid = (int)substr($time_mid, 2) & 0xffff;
-        $time_high = mt_rand(0, 0x0fff) | 0x4000;
+        if (extension_loaded('uuid')) {
+            $this->_uuid = uuid_create();
+        } else {
+            list($time_mid, $time_low) = explode(' ', microtime());
+            $time_low = (int)$time_low;
+            $time_mid = (int)substr($time_mid, 2) & 0xffff;
+            $time_high = mt_rand(0, 0x0fff) | 0x4000;
 
-        $clock = mt_rand(0, 0x3fff) | 0x8000;
+            $clock = mt_rand(0, 0x3fff) | 0x8000;
 
-        $node_low = function_exists('zend_thread_id') ?
-            zend_thread_id() : getmypid();
-        $node_high = isset($_SERVER['SERVER_ADDR']) ?
-            ip2long($_SERVER['SERVER_ADDR']) : crc32(php_uname());
-        $node = bin2hex(pack('nN', $node_low, $node_high));
+            $node_low = function_exists('zend_thread_id')
+                ? zend_thread_id()
+                : getmypid();
+            $node_high = isset($_SERVER['SERVER_ADDR'])
+                ? ip2long($_SERVER['SERVER_ADDR'])
+                : crc32(php_uname());
+            $node = bin2hex(pack('nN', $node_low, $node_high));
 
-        $this->_uuid = sprintf('%08x-%04x-%04x-%04x-%s',
-            $time_low, $time_mid, $time_high, $clock, $node);
+            $this->_uuid = sprintf('%08x-%04x-%04x-%04x-%s',
+                $time_low, $time_mid, $time_high, $clock, $node);
+        }
     }
 
     /**
-     * Cooerce to string
+     * Cooerce to string.
      *
-     * @return string
+     * @return string  UUID.
      */
     public function __toString()
     {
