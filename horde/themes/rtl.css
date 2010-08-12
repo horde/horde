@@ -4,10 +4,6 @@ body {
     font-family: Tahoma,Koodak,Homa,Nazli,Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
 }
 
-body.scrollbar-quirk {
-    margin-left: 15px;
-}
-
 .header {
     text-align: right;
 }

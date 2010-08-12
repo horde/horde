@@ -15,10 +15,6 @@ body {
     color: #000;
 }
 
-body.scrollbar-quirk {
-    margin-right: 15px;
-}
-
 p {
     margin-bottom: 10px;
 }
