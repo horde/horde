@@ -41,7 +41,7 @@ var Horde_Twitter = Class.create({
         $(this.opts.input).observe('keyup', function() {
             $(this.opts.counter).update(140 - $F(this.opts.input).length);
         }.bind(this));
-        
+
         /* Get the first page */
         this.getNewEntries();
    },
@@ -152,25 +152,26 @@ var Horde_Twitter = Class.create({
     /**
      * Callback for retrieving new entries. Updates the display and remembers
      * the newest id, and possible the older id as well.
-     * 
+     *
      */
     _getNewEntriesCallback: function(response) {
         var content = response.responseJSON.c;
-        var h = $(this.opts.content).scrollHeight
-        $(this.opts.content).insert({ 'top': content });
-        // Don't scroll if it's the first request.
-        if (this.newestId) {
-            $(this.opts.content).scrollTop = h;
-        } else {
-            $(this.opts.content).scrollTop = 0;
-        }
-        this.newestId = response.responseJSON.n;
+        if (response.responseJSON.n != this.newestId) {
+            var h = $(this.opts.content).scrollHeight
+            $(this.opts.content).insert({ 'top': content });
+            // Don't scroll if it's the first request.
+            if (this.newestId) {
+                $(this.opts.content).scrollTop = h;
+            } else {
+                $(this.opts.content).scrollTop = 0;
+            }
+            this.newestId = response.responseJSON.n;
 
-        // First time we've been called, record the oldest one as well.'
-        if (!this.oldestId) {
-            this.oldestId = response.responseJSON.o;
+            // First time we've been called, record the oldest one as well.'
+            if (!this.oldestId) {
+                this.oldestId = response.responseJSON.o;
+            }
         }
-        
         new PeriodicalExecuter(function(pe) { this.getNewEntries(); pe.stop(); }.bind(this), this.opts.refreshrate );
     },
 

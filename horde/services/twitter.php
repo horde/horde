@@ -63,7 +63,12 @@ case 'getPage':
         exit;
     }
     $html = '';
-    $newest = $stream[0]->id;
+    if (count($stream)) {
+        $newest = $stream[0]->id;
+    } else {
+        $newest = $params['since_id'];
+        $oldest = 0;
+    }
     foreach ($stream as $tweet) {
          $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
          $view->addHelper('Tag');
