@@ -39,10 +39,10 @@ var HordeSidebar = {
     {
         var layout, r;
 
-        if (request.responseJSON) {
+        if (response.responseJSON) {
             $('HordeSidebar.tree').update();
 
-            r = request.responseJSON;
+            r = response.responseJSON;
             this.tree.renderTree(r.nodes, r.root_nodes, r.is_static);
 
             this.resizeSidebar();
