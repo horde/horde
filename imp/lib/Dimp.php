@@ -75,7 +75,7 @@ class IMP_Dimp
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:
         // http://developer.yahoo.com/performance/rules.html#flush
-        ob_flush();
+        echo Horde::endBuffer();
         flush();
     }
 
