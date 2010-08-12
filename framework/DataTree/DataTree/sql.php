@@ -1848,61 +1848,21 @@ class DataTree_sql extends DataTree {
     /**
      * Attempts to open a connection to the SQL server.
      *
-     * @return boolean  True.
+     * @return mixed  True or PEAR_Error.
      */
     function _init()
     {
-        Horde::assertDriverConfig($this->_params, 'sql',
-            array('phptype', 'charset'),
-            'DataTree SQL');
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'datatree');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'datatree');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
 
-        $default = array(
-            'database' => '',
-            'username' => '',
-            'password' => '',
-            'hostspec' => '',
+        $this->_params = array_merge(array(
             'table' => 'horde_datatree',
             'table_attributes' => 'horde_datatree_attributes',
-        );
-        $this->_params = array_merge($default, $this->_params);
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
-        }
-
-        // Set DB portability options.
-        $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-        if ($this->_write_db->phptype == 'mssql') {
-            $portability |= DB_PORTABILITY_RTRIM;
-        }
-        $this->_write_db->setOption('portability', $portability);
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
-            }
-
-            // Set DB portability options
-            $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
-            if ($this->_db->phptype == 'mssql') {
-                $portability |= DB_PORTABILITY_RTRIM;
-            }
-            $this->_db->setOption('portability', $portability);
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db = $this->_write_db;
-        }
+        ), $this->_params);
 
         return true;
     }

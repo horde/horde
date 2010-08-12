@@ -2,20 +2,6 @@
 /**
  * Jonah storage implementation for PHP's PEAR database abstraction layer.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'charset'       The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'database'      The name of the database.
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
- *
  * The table structure can be created by the scripts/db/jonah_news.sql
  * script. The needed tables are jonah_channels and jonah_stories.
  *
@@ -998,7 +984,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean    True on success; PEAR_Error on failure.
+     * @return boolean  True on success; PEAR_Error on failure.
      */
     protected function _connect()
     {
@@ -1006,37 +992,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
             return true;
         }
 
-        Horde::assertDriverConfig($this->_params, 'news',
-            array('phptype', 'charset'),
-            'jonah news SQL');
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'jonah', 'news');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         $this->_connected = true;
+
         return true;
     }
 

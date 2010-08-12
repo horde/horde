@@ -373,37 +373,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
 
     function initialise()
     {
-        global $registry;
-
-        Horde::assertDriverConfig($this->_params, 'sql',
-            array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            Horde::fatal($this->_db, __FILE__, __LINE__);
-        }
-
-        // Set DB portability options
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'hylax', 'sql');
 
         return true;
     }

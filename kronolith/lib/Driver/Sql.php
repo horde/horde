@@ -882,79 +882,39 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'calendar',
-            array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'kronolith_events';
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'kronolith', 'calendar');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'kronolith', 'calendar');
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        $this->handleError($this->_write_db);
-        $this->_initConn($this->_write_db);
+        foreach (array($this->_db, $this->_write_db) as $db) {
+            /* Handle any database specific initialization code to run. */
+            switch ($db->dbsyntax) {
+            case 'oci8':
+                $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
 
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            $this->handleError($this->_db);
-            $this->_initConn($this->_db);
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
-        }
-    }
+                /* Log the query at a DEBUG log level. */
+                Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"', $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
 
-    /**
-     */
-    private function _initConn(&$db)
-    {
-        // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+                $db->query($query);
+                break;
+
+            case 'pgsql':
+                $query = "SET datestyle TO 'iso'";
+
+                /* Log the query at a DEBUG log level. */
+                Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"', $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
+
+                $db->query($query);
+                break;
+            }
         }
 
-        /* Handle any database specific initialization code to run. */
-        switch ($db->dbsyntax) {
-        case 'oci8':
-            $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
-
-            $db->query($query);
-            break;
-
-        case 'pgsql':
-            $query = "SET datestyle TO 'iso'";
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      $GLOBALS['registry']->getAuth(), $query), 'DEBUG');
-
-            $db->query($query);
-            break;
-        }
+        $this->_params = array_merge(array(
+            'table' => 'kronolith_events'
+        ), $this->_params);
     }
 
     /**

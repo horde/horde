@@ -55,35 +55,56 @@ class Horde_Core_Factory_DbPear
      * Return the DB instance.
      *
      * @param string $type  Either 'read' or 'rw'.
+     * @param string $app   The application.
+     * @param mixed $type   The type. If this is an array, this is used as
+     *                      the configuration array.
      *
      * @return DB  The singleton DB instance.
      * @throws Horde_Exception
      */
-    public function getDb($type = 'rw')
+    public function getDb($type = 'rw', $app = 'horde', $type = null)
     {
-        if (isset($this->_instances[$type])) {
-            return $this->_instances[$type];
+        global $registry;
+
+        $sig = hash('md5', serialize($type . '|' . $app . '|' . $type));
+
+        if (isset($this->_instances[$sig])) {
+            return $this->_instances[$sig];
         }
 
-        $params = array_merge(array(
-            'database' => '',
-            'hostspec' => '',
-            'password' => '',
-            'username' => ''
-        ), $GLOBALS['conf']['sql']);
+        $pushed = ($app == 'horde')
+            ? false
+            : $registry->pushApp($app);
+
+        $config = is_array($type)
+            ? $type
+            : $this->getConfig($type);
+
+        /* Determine if we we are not using splitread or if we are using the
+         * base SQL config. */
+        if ((($type == 'read') && empty($config['splitread'])) ||
+            (isset($config['driverconfig']) &&
+             ($config['driverconfig'] == 'horde'))) {
+            $this->_instances[$sig] = $this->getDb($type);
+            return $this->_instances[$sig];
+        }
+
         if ($type == 'read') {
-            $params = array_merge($params, $params['read']);
+            $config = array_merge($config, $config['read']);
         }
 
-        Horde::assertDriverConfig($params, 'sql', array('charset', 'phptype'), 'SQL');
+        Horde::assertDriverConfig($config, 'sql', array('charset', 'phptype'));
 
         /* Connect to the SQL server using the supplied parameters. */
-        $db = DB::connect($params, array(
-            'persistent' => !empty($params['persistent']),
-            'ssl' => !empty($params['ssl'])
+        $db = DB::connect($config, array(
+            'persistent' => !empty($config['persistent']),
+            'ssl' => !empty($config['ssl'])
         ));
 
         if ($db instanceof PEAR_Error) {
+            if ($pushed) {
+                $registry->popApp();
+            }
             throw new Horde_Exception($db);
         }
 
@@ -98,9 +119,20 @@ class Horde_Core_Factory_DbPear
             break;
         }
 
-        $this->_instances[$type] = $db;
+        if ($pushed) {
+            $registry->popApp();
+        }
+
+        $this->_instances[$sig] = $db;
 
         return $db;
+    }
+
+    /**
+     */
+    public function getConfig($type)
+    {
+        return Horde::getDriverConfig($type, 'sql');
     }
 
 }

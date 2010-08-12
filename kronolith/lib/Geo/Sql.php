@@ -8,9 +8,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @package Kronolith
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Kronolith
  */
 class Kronolith_Geo_Sql extends Kronolith_Geo
 {
@@ -22,59 +22,14 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
      */
     public function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'calendar', array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'kronolith_events_geo';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Kronolith_Exception($this->_write_db);
-        }
-        $this->_initConn($this->_write_db);
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Kronolith_Exception($this->_db);
-            }
-            $this->_initConn($this->_db);
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'kronolith', 'calendar');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'kronolith', 'calendar');
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         return true;
-    }
-
-    protected function _initConn(&$db)
-    {
-        // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
     }
 
     /**

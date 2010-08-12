@@ -53,7 +53,7 @@ function info($text)
 
 /* Connect to the Bugzilla database. */
 $bugzilla = DB::connect($BUGZILLA_DSN);
-if (is_a($bugzilla, 'PEAR_Error')) {
+if ($bugzilla instanceof PEAR_Error) {
     error('Failed to connect to Bugzilla database', $bugzilla);
     exit;
 }

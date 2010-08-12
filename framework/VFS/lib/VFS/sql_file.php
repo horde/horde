@@ -13,7 +13,7 @@ include_once 'VFS/file.php';
  * layer and local file system for file storage.
  *
  * Required values for $params:<pre>
- * phptype - (string) The database type (ie. 'pgsql', 'mysql', etc.).
+ * db - (DB) The DB object.
  * vfsroot - (string) The root directory of where the files should be
  *           actually stored.</pre>
  *
@@ -21,21 +21,11 @@ include_once 'VFS/file.php';
  * table - (string) The name of the vfs table in 'database'. Defaults to
  *         'horde_vfs'.</pre>
  *
- * Required by some database implementations:<pre>
- * hostspec - (string) The hostname of the database server.
- * protocol - (string) The communication protocol ('tcp', 'unix', etc.).
- * database - (string) The name of the database.
- * username - (string) The username with which to connect to the database.
- * password - (string) The password associated with 'username'.
- * options - (array) Additional options to pass to the database.
- * tty - (string) The TTY on which to connect to the database.
- * port - (integer) The port on which to connect to the database.</pre>
+ * The table structure for the VFS can be found in data/vfs.sql.
  *
- * The table structure for the VFS can be found in
- * data/vfs.sql.
- *
- * @author  Michael Varghese <mike.varghese@ascellatech.com>
- * @package VFS
+ * @author   Michael Varghese <mike.varghese@ascellatech.com>
+ * @category Horde
+ * @package  VFS
  */
 class VFS_sql_file extends VFS_file
 {
@@ -624,11 +614,7 @@ class VFS_sql_file extends VFS_file
             return;
         }
 
-        if (!is_array($this->_params)) {
-            throw new VFS_Exception('No configuration information specified for SQL-File VFS.');
-        }
-
-        $required = array('phptype', 'vfsroot');
+        $required = array('db', 'vfsroot');
         foreach ($required as $val) {
             if (!isset($this->_params[$val])) {
                 throw new VFS_Exception(sprintf('Required "%s" not specified in VFS configuration.', $val));
@@ -636,36 +622,10 @@ class VFS_sql_file extends VFS_file
         }
 
         $this->_params = array_merge(array(
-            'database' => '',
-            'hostspec' => '',
             'table' => 'horde_vfs',
-            'username' => ''
         ), $this->_params);
 
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = DB::connect(
-            $this->_params,
-            array(
-                'persistent' => !empty($this->_params['persistent']),
-                'ssl' => !empty($this->_params['ssl']
-            )
-        ));
-        if ($this->_db instanceof PEAR_Error) {
-            $error = new VFS_Exception($this->_db->getMessage());
-            $this->_db = false;
-            throw $error;
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
+        $this->_db = $this->_params['db'];
     }
 
     /**

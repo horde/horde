@@ -1052,37 +1052,11 @@ class Fima_Driver_sql extends Fima_Driver {
      */
     function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'fima', 'storage');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        $this->_connected = true;
 
         return true;
     }

@@ -50,53 +50,11 @@ class Kronolith_Storage_sql extends Kronolith_Storage
      */
     public function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-            array('phptype'),
-            'kronolith storage SQL');
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        include_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent']),
-                                              'ssl' => !empty($this->_params['ssl'])));
-        $this->handleError($this->_write_db);
-        $this->_initConn($this->_write_db);
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
-            $this->handleError($this->_db);
-            $this->_initConn($this->_db);
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
-    }
-
-    /**
-     */
-    private function _initConn(&$db)
-    {
-        // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'kronolith', 'storage');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'kronolith', 'storage');
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
     }
 

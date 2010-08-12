@@ -39,22 +39,10 @@ $do_email = true;
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 
-/* Grab what we need to steal the DB config */
-require_once HORDE_BASE . '/config/conf.php';
 require_once 'Horde/Form.php';
 
-$config = $GLOBALS['conf']['sql'];
-if (!is_null($db_user)) {
-    $config['username'] = $db_user;
-}
-if (!is_null($db_pass)) {
-    $config['password'] = $db_pass;
-}
-unset($config['charset']);
-$db = DB::connect($config);
-if (is_a($db, 'PEAR_Error')) {
-    throw new Horde_Exception($db);
-}
+$db = $injector->getInstance('Horde_Db_Pear')->getDb();
+
 if (!$for_real) {
     $cli->message('No changes will done to the existing data. Please read the comments in the code, then set the $for_real flag to true before running.', 'cli.message');
 }
@@ -97,15 +85,18 @@ $queries = array(
     'CREATE INDEX turba_firstname_idx ON ' . $db_table . ' (object_firstname)',
     'CREATE INDEX turba_lastname_idx ON ' . $db_table . ' (object_lastname)',
 );
+
 switch ($config['phptype']) {
 case 'mssql':
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_photo VARBINARY(MAX)';
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_logo VARBINARY(MAX)';
     break;
+
 case 'pgsql':
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_photo TEXT';
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_logo TEXT';
     break;
+
 default:
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_photo BLOB';
     $queries[] = 'ALTER TABLE ' . $db_table . ' ADD COLUMN object_logo BLOB';

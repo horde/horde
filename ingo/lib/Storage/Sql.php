@@ -3,20 +3,6 @@
  * Ingo_Storage_Sql implements the Ingo_Storage API to save Ingo data via
  * PHP's PEAR database abstraction layer.
  *
- * Required values for $params:<pre>
- *   'phptype'  - The database type (e.g. 'pgsql', 'mysql', etc.).
- *   'charset'  - The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *   'database' - The name of the database.
- *   'hostspec' - The hostname of the database server.
- *   'protocol' - The communication protocol ('tcp', 'unix', etc.).
- *   'username' - The username with which to connect to the database.
- *   'password' - The password associated with 'username'.
- *   'options'  - Additional options to pass to the database.
- *   'tty'      - The TTY on which to connect to the database.
- *   'port'     - The port on which to connect to the database.</pre>
- *
  * The table structure can be created by the scripts/drivers/sql/ingo.sql
  * script.
  *
@@ -61,64 +47,16 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     public function __construct($params = array())
     {
-        $this->_params = $params;
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'ingo', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'ingo', 'storage');
 
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        $this->_params['table_rules'] = 'ingo_rules';
-        $this->_params['table_lists'] = 'ingo_lists';
-        $this->_params['table_vacations'] = 'ingo_vacations';
-        $this->_params['table_forwards'] = 'ingo_forwards';
-        $this->_params['table_spam'] = 'ingo_spam';
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent']),
-                                              'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            throw new Horde_Exception_Prior($this->_write_db);
-        }
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                throw new Horde_Exception_Prior($this->_db);
-            }
-
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_params = array_merge($params, array(
+            'table_rules' => 'ingo_rules',
+            'table_lists' => 'ingo_lists',
+            'table_vacations' => 'ingo_vacations',
+            'table_forwards' => 'ingo_forwards',
+            'table_spam' => 'ingo_spam'
+        ));
 
         parent::__construct();
     }

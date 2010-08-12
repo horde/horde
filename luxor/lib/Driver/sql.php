@@ -2,20 +2,6 @@
 /**
  * Luxor storage implementation for PHP's PEAR database abstraction layer.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'charset'       The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'database'      The name of the database.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
- *
  * The table structure can be created by the scripts/drivers/luxor.sql
  * script.
  *
@@ -521,40 +507,12 @@ class Luxor_Driver_sql extends Luxor_Driver {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
      */
     function _connect()
     {
         if (!$this->_connected) {
-            Horde::assertDriverConfig($this->_params, 'storage',
-                array('phptype', 'charset'));
-
-            if (!isset($this->_params['database'])) {
-                $this->_params['database'] = '';
-            }
-            if (!isset($this->_params['username'])) {
-                $this->_params['username'] = '';
-            }
-            if (!isset($this->_params['hostspec'])) {
-                $this->_params['hostspec'] = '';
-            }
-
-            /* Connect to the SQL server using the supplied parameters. */
-            $this->_db = &DB::connect($this->_params,
-                                      array('persistent' => !empty($this->_params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'luxor', 'storage');
             $this->_connected = true;
         }
 

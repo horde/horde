@@ -2,27 +2,6 @@
 /**
  * Skoli storage implementation for PHP's PEAR database abstraction layer.
  *
- * Required parameters:<pre>
- *   'phptype'      The database type (e.g. 'pgsql', 'mysql', etc.).
- *   'charset'      The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *   'hostspec'     The hostname of the database server.
- *   'protocol'     The communication protocol ('tcp', 'unix', etc.).
- *   'database'     The name of the database.
- *   'username'     The username with which to connect to the database.
- *   'password'     The password associated with 'username'.
- *   'options'      Additional options to pass to the database.
- *   'tty'          The TTY on which to connect to the database.
- *   'port'         The port on which to connect to the database.</pre>
- *
- * Optional values when using separate reading and writing servers, for example
- * in replication settings:<pre>
- *   'splitread'   Boolean, whether to implement the separation or not.
- *   'read'        Array containing the parameters which are different for
- *                 the read database connection, currently supported
- *                 only 'hostspec' and 'port' parameters.</pre>
- *
  * Optional parameters:<pre>
  *   'objects_table'            The name of the objects table in 'database'.
  *                              Default is 'skoli_objects'.
@@ -75,67 +54,18 @@ class Skoli_Driver_sql extends Skoli_Driver {
      */
     function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-            array('phptype', 'charset'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['objects_table'])) {
-            $this->_params['objects_table'] = 'skoli_objects';
-        }
-        if (!isset($this->_params['object_attributes_table'])) {
-            $this->_params['object_attributes_table'] = 'skoli_object_attributes';
-        }
-        if (!isset($this->_params['students_table'])) {
-            $this->_params['students_table'] = 'skoli_classes_students';
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'skoli', 'storage');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'skoli', 'storage');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
-            }
-
-            /* Set DB portability options. */
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_params = array_merge(array(
+            'objects_table' => 'skoli_objects',
+            'object_attributes_table' => 'skoli_object_attributes',
+            'students_table' => 'skoli_classes_students'
+        ), $this->_params);
 
         return true;
     }

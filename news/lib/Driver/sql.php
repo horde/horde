@@ -376,60 +376,11 @@ class News_Driver_sql extends News_Driver {
      */
     private function _connect()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset'));
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'news', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'news', 'storage');
 
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
         if (isset($this->_params['prefix'])) {
             $this->prefix = $this->_params['prefix'];
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
-        if ($this->write_db instanceof PEAR_Error) {
-            throw new Horde_Exception_Prior($this->write_db);
-        }
-
-        // Set DB portability options.
-        switch ($this->write_db->phptype) {
-        case 'mssql':
-            $this->write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
-            if ($this->db instanceof PEAR_Error) {
-                throw new Horde_Exception_Prior($this->db);
-            }
-
-            // Set DB portability options.
-            switch ($this->db->phptype) {
-            case 'mssql':
-                $this->db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->db =& $this->write_db;
         }
 
         return true;

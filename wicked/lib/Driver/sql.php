@@ -7,21 +7,6 @@
  * Wicked storage implementation for PHP's PEAR database abstraction
  * layer.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'database'      The name of the database.
- *      'table'         The name of the tasks table in 'database'.
- *      'charset'       The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
- *
  * The table structure can be created by the scripts/drivers/wicked_foo.sql
  * script.
  *
@@ -957,47 +942,18 @@ class Wicked_Driver_sql extends Wicked_Driver {
      */
     function connect()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'wicked_pages';
-        }
-        if (!isset($this->_params['historytable'])) {
-            $this->_params['historytable'] = 'wicked_history';
-        }
-        if (!isset($this->_params['attachmenttable'])) {
-            $this->_params['attachmenttable'] = 'wicked_attachments';
-        }
-        if (!isset($this->_params['attachmenthistorytable'])) {
-            $this->_params['attachmenthistorytable'] = 'wicked_attachment_history';
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'wicked', 'storage');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
+        $this->_params = array_merge(array(
+            'table' => 'wicked_pages',
+            'historytable' => 'wicked_history',
+            'attachmenttable' => 'wicked_attachments',
+            'attachmenthistorytable' => 'wicked_attachment_history'
+        ), $this->_params);
 
         return true;
     }

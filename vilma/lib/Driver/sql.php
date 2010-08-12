@@ -588,19 +588,10 @@ class Vilma_Driver_sql extends Vilma_Driver {
      */
     function initialise()
     {
-        global $registry;
-
-        Horde::assertDriverConfig($this->_params, 'storage',
-            array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'vilma', 'storage');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         /* Use default table names if these are not set. */
@@ -612,24 +603,6 @@ class Vilma_Driver_sql extends Vilma_Driver {
         }
         if (!isset($this->_params['tables']['virtuals'])) {
             $this->_params['tables']['virtuals'] = 'vilma_virtuals';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
         }
 
         return true;

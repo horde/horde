@@ -3592,21 +3592,21 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
     function init($dsn, $sql, $prompt = null)
     {
-        require_once 'DB.php';
         $values = array();
         $db = DB::connect($dsn);
-        if (!is_a($db, 'PEAR_Error')) {
+        if (!($db instanceof PEAR_Error)) {
             // Set DB portability options.
             switch ($db->phptype) {
             case 'mssql':
                 $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
                 break;
+
             default:
                 $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
             }
 
             $col = $db->getCol($sql);
-            if (!is_a($col, 'PEAR_Error')) {
+            if (!($col instanceof PEAR_Error)) {
                 $values = array_combine($col, $col);
             }
         }

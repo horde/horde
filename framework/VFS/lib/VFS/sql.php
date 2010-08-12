@@ -3,28 +3,18 @@
  * VFS implementation for PHP's PEAR database abstraction layer.
  *
  * Required values for $params:<pre>
- * phptype - (string) The database type (ie. 'pgsql', 'mysql', etc.).</pre>
+ * db - (DB) A DB object.
+ * </pre>
  *
  * Optional values:<pre>
  * table - (string) The name of the vfs table in 'database'. Defaults to
- *         'horde_vfs'.</pre>
- *
- * Required by some database implementations:<pre>
- * hostspec - (string) The hostname of the database server.
- * protocol - (string) The communication protocol ('tcp', 'unix', etc.).
- * database - (string) The name of the database.
- * username - (string) The username with which to connect to the database.
- * password - (string) The password associated with 'username'.
- * options - (array) Additional options to pass to the database.
- * tty - (string) The TTY on which to connect to the database.
- * port - (integer) The port on which to connect to the database.</pre>
+ *         'horde_vfs'.
+ * </pre>
  *
  * Optional values when using separate reading and writing servers, for example
  * in replication settings:<pre>
- * splitread - (boolean) Whether to implement the separation or not.
- * read - (array) Parameters which are different for the read database
- *                connection, currently supported only 'hostspec' and 'port'
- *                parameters.</pre>
+ * writedb - (DB) A writable DB object
+ * </pre>
  *
  * The table structure for the VFS can be found in data/vfs.sql.
  *
@@ -46,8 +36,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package VFS
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  VFS
  */
 class VFS_sql extends VFS
 {
@@ -701,82 +693,21 @@ class VFS_sql extends VFS
     protected function _connect()
     {
         if ($this->_connected) {
-            return true;
+            return;
         }
 
-        if (!is_array($this->_params)) {
-            throw new VFS_Exception('No configuration information specified for SQL VFS.');
-        }
-
-        $required = array('phptype');
-        foreach ($required as $val) {
-            if (!isset($this->_params[$val])) {
-                throw new VFS_Exception(sprintf('Required "%s" not specified in VFS configuration.', $val));
-            }
+        if (!isset($this->_params['db'])) {
+            throw new VFS_Exception('Required "db" not specified in VFS configuration.');
         }
 
         $this->_params = array_merge(array(
-            'database' => '',
-            'hostspec' => '',
-            'table' => 'horde_vfs',
-            'username' => ''
+            'table' => 'horde_vfs'
         ), $this->_params);
 
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = DB::connect(
-            $this->_params,
-            array(
-                'persistent' => !empty($this->_params['persistent']),
-                'ssl' => !empty($this->_params['ssl']
-            )
-        ));
-
-        if ($this->_write_db instanceof PEAR_Error) {
-            $this->log($this->_write_db, PEAR_LOG_ERR);
-            $error = new VFS_Exception($this->_write_db->getMessage());
-            $this->_write_db = false;
-            throw $error;
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect(
-                $params,
-                array(
-                    'persistent' => !empty($params['persistent']),
-                    'ssl' => !empty($params['ssl']
-                )
-            ));
-
-            if ($this->_db instanceof PEAR_Error) {
-                throw new VFS_Exception($this->_db->getMessage());
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $this->_params['db'];
+        $this->_write_db = isset($this->_params['writedb'])
+            ? $this->_params['writedb']
+            : $this->_params['db'];
 
         $this->_connected = true;
     }

@@ -1264,35 +1264,10 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
     {
         global $registry;
 
-        Horde::assertDriverConfig($this->_sqlparams, 'storage',
-                                  array('phptype'));
-
-        if (!isset($this->_sqlparams['database'])) {
-            $this->_sqlparams['database'] = '';
-        }
-        if (!isset($this->_sqlparams['username'])) {
-            $this->_sqlparams['username'] = '';
-        }
-        if (!isset($this->_sqlparams['hostspec'])) {
-            $this->_sqlparams['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_sqlparams,
-                                  array('persistent' => !empty($this->_sqlparams['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            return $this->_db;
-        }
-
-        // Set DB portability options.
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'vilma', 'storage');
+        } catch (Horde_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
     }
 }

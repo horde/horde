@@ -3,24 +3,6 @@
  * Mnemo storage implementation for PHP's PEAR database abstraction
  * layer.
  *
- * Required parameters:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'charset'       The database's internal charset.</pre>
- *
- * Optional values:<pre>
- *      'table'         The name of the memos table in 'database'. Defaults
- *                      to 'mnemo_memos'</pre>
- *
- * Required by some database implementations:<pre>
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'database'      The name of the database.
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
- *
  * The table structure is defined in scripts/drivers/mnemo_memos.sql.
  *
  * $Horde: mnemo/lib/Driver/sql.php,v 1.53 2009/07/09 08:18:32 slusarz Exp $
@@ -73,68 +55,16 @@ class Mnemo_Driver_sql extends Mnemo_Driver {
     /**
      * Attempts to open a connection to the SQL server.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @return boolean  True on success.
      */
     function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-            array('phptype', 'charset'));
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('read', 'mnemo', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb('rw', 'mnemo', 'storage');
 
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'mnemo_memos';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent']),
-                                              'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_params = array_merge(array(
+            'table' => 'mnemo_memos'
+        ), $this->_params);
 
         return true;
     }

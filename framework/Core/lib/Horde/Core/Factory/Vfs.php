@@ -85,8 +85,19 @@ class Horde_Core_Factory_Vfs
             ? $conf['vfs']
             : $conf[$name];
 
-        if ($vfs['type'] == 'sql') {
-            $vfs['params'] = Horde::getDriverConfig($name, 'sql');
+        switch ($vfs['type']) {
+        case 'sql':
+            $db_pear = $this->_injector->getInstance('Horde_Db_Pear');
+            $vfs['db'] = $db_pear->getDb('read', 'horde', 'vfs');
+            $vfs['writedb'] = $db_pear->getDb('rw', 'horde', 'vfs');
+            $vfs['params'] = $db_pear->getConfig('vfs');
+            break;
+
+        case 'sql_file':
+            $db_pear = $this->_injector->getInstance('Horde_Db_Pear');
+            $vfs['db'] = $db_pear->getDb('rw', 'horde', 'vfs');
+            $vfs['params'] = $db_pear->getConfig('vfs');
+            break;
         }
 
         return $vfs;
