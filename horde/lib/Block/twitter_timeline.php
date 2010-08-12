@@ -159,7 +159,7 @@ EOT;
         $latestStatus = htmlspecialchars($this->_profile->status->text, ENT_COMPAT, $GLOBALS['registry']->getCharset());
 
         /* Build the UI */
-        $html = '<div style="padding-left:8px;padding-right:8px;">'
+        $html = '<div style="padding: 0 8px 8px">'
            . '<div class="fbgreybox"><textarea rows="2" style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" id="' . $instance . '_newStatus" name="' . $instance . '_newStatus">' . $defaultText . '</textarea>'
            . '<a class="button" onclick="Horde.twitter.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Tweet") . '</a><span id="' . $instance . '_counter" style="color: rgb(204, 204, 204);margin-left:6px;">140</span>  <span id="' . $instance . '_inReplyTo"></span>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
@@ -167,7 +167,7 @@ EOT;
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
         $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $html .= '</div>';
-        $html .= '<div class="control fbgetmore"><a href="#" onclick="Horde.twitter.getOlderEntries();return false;">' . _("Get More") . '</a></div>';
+        $html .= '<div class="fbgetmore"><input type="button" class="button" onclick="Horde.twitter.getOlderEntries();return false;" value="' . _("Get More") . '"></div>';
         $html .= '</div>';
 
         return $html;
