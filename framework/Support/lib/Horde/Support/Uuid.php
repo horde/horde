@@ -35,7 +35,11 @@ class Horde_Support_Uuid
      */
     public function __construct()
     {
-        $this->generate();
+        if (extension_loaded('uuid')) {
+            $this->_uuid = uuid_create();
+        } else {
+            $this->generate();
+        }
     }
 
     /**
