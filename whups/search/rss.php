@@ -20,12 +20,12 @@ $form = new SearchForm($vars);
 if ($form->validate($vars, true)) {
     $form->getInfo($vars, $info);
     $tickets = $whups_driver->getTicketsByProperties($info);
-    if (is_a($tickets, 'PEAR_Error')) {
-        Horde::fatal($tickets, __FILE__, __LINE__);
+    if ($tickets instanceof PEAR_Error) {
+        throw new Horde_Exception($tickets);
     }
     Whups::sortTickets($tickets, 'date_updated', 'desc');
 } else {
-    Horde::fatal(_("Invalid search"), __FILE__, __LINE__);
+    throw new Horde_Exception(_("Invalid search"));
 }
 
 $count = 0;

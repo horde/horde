@@ -50,8 +50,8 @@ foreach ($tasklists as $tasklist => $share) {
     while ($task = $tasks->each()) {
         $values = array($owner, $task->id, $task->tasklist);
         $result = $db->execute($sth, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::fatal($result, __FILE__, __LINE__);
+        if ($result instanceof PEAR_Error) {
+            throw new Nag_Exception($result);
         }
     }
 }

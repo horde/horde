@@ -24,9 +24,9 @@ $folderId = Horde_Util::getFormData('f');
 if (empty($folderId) && $registry->getAuth()) {
     $folderId = $trean_shares->getId($registry->getAuth());
     $folder = &$trean_shares->getFolder($folderId);
-    if (is_a($folder, 'PEAR_Error')) {
+    if ($folder instanceof PEAR_Error) {
         /* Can't redirect back to browse since that would set up a loop. */
-        Horde::fatal($folder, __FILE__, __LINE__, true);
+        throw new Horde_Exception($folder);
     }
 } elseif (empty($folderId)) {
     /* We're accessing Trean as a guest, try to get a folder to browse */
@@ -36,9 +36,9 @@ if (empty($folderId) && $registry->getAuth()) {
     }
 } else {
     $folder = &$trean_shares->getFolder($folderId);
-    if (is_a($folder, 'PEAR_Error')) {
+    if ($folder instanceof PEAR_Error) {
         /* Can't redirect back to browse since that would set up a loop. */
-        Horde::fatal($folder, __FILE__, __LINE__, true);
+        throw new Horde_Exception($folder);
     }
 
     /* Make sure user has permission to view this folder. */

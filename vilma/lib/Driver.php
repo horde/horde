@@ -430,6 +430,7 @@ class Vilma_Driver {
      *
      * @return Vilma_Driver  The newly created concrete Vilma_Driver instance,
      *                       or false on error.
+     * @throws Vilma_Exception
      */
     function factory($driver = null, $params = null)
     {
@@ -446,9 +447,9 @@ class Vilma_Driver {
         $class = 'Vilma_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Vilma_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

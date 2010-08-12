@@ -24,7 +24,7 @@ foreach ($_covers as $id => $cover) {
 
 $tpl = Horde_Util::getFormData('template', 'default');
 if (empty($_covers[$tpl])) {
-    Horde::fatal(_("The requested Cover Page does not exist."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("The requested Cover Page does not exist."));
 }
 
 /* Load Form Actions */

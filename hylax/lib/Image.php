@@ -119,6 +119,7 @@ class Hylax_Image {
      *
      * @return Hylax_Image  The newly created concrete Hylax_Image instance, or
      *                      false on an error.
+     * @throws Horde_Exception
      */
     function &factory($driver, $params = array())
     {
@@ -128,8 +129,9 @@ class Hylax_Image {
         if (class_exists($class)) {
             $image = &new $class($params);
             return $image;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
+        }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
         }
     }
 

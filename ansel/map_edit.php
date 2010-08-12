@@ -20,7 +20,7 @@ $image_id = Horde_Util::getFormData('image');
 
 /* Sanity checks, perms etc... */
 if (empty($image_id)) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
+    throw new Ansel_Exception(_("An error has occured retrieving the image. Details have been logged."));
 }
 $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getImage($image_id);
 $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getScope()->getGallery($image->gallery);

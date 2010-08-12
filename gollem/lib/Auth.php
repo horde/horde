@@ -88,7 +88,7 @@ class Gollem_Auth
         // Allocate a global VFS object
         $GLOBALS['gollem_vfs'] = Gollem::getVFSOb($_SESSION['gollem']['backend_key']);
         if (is_a($GLOBALS['gollem_vfs'], 'PEAR_Error')) {
-            Horde::fatal($GLOBALS['gollem_vfs']);
+            throw new Horde_Exception($GLOBALS['gollem_vfs']);
         }
 
         $valid = $GLOBALS['gollem_vfs']->checkCredentials();

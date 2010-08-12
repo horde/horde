@@ -72,7 +72,7 @@ class Trean_Bookmarks {
         global $conf, $registry;
 
         if (empty($conf['datatree']['driver'])) {
-            Horde::fatal('You must configure a DataTree backend to use Trean.', __FILE__, __LINE__);
+            throw new Horde_Exception('You must configure a DataTree backend to use Trean.');
         }
 
         $driver = $conf['datatree']['driver'];

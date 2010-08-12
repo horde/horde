@@ -50,9 +50,9 @@ class Hylax_Driver {
         if (class_exists($class)) {
             $hylax = new $class($params);
             return $hylax;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

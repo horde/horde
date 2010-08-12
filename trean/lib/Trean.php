@@ -25,8 +25,8 @@ class Trean
             }
             $folder = &$GLOBALS['trean_shares']->newFolder($GLOBALS['registry']->getAuth(), array('name' => sprintf(_("%s's Bookmarks"), $name)));
             $result = $GLOBALS['trean_shares']->addFolder($folder);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::fatal($result, __FILE__, __LINE__);
+            if ($result instanceof PEAR_Error) {
+                throw new Horde_Exception($result);
             }
         }
     }

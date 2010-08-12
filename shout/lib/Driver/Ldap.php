@@ -436,7 +436,8 @@ class Shout_Driver_Ldap extends Shout_Driver
     /**
      * Attempts to open a connection to the LDAP server.
      *
-     * @return boolean    True on success; exits (Horde::fatal()) on error.
+     * @return boolean    True on success.
+     * @throws Shout_Exception
      *
      * @access private
      */

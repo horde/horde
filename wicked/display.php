@@ -66,7 +66,7 @@ case 'export':
         $notification->push(_("You don't have permission to view this page."),
                             'horde.error');
         if ($page->pageName() == 'WikiHome') {
-            Horde::fatal(_("You don't have permission to view this page."), __FILE__, __LINE__);
+            throw new Horde_Exception(_("You don't have permission to view this page."));
         }
         Wicked::url('WikiHome', true)->redirect();
     }
@@ -110,7 +110,7 @@ if (!$page->allows(WICKED_MODE_DISPLAY)) {
     $notification->push(_("You don't have permission to view this page."),
                         'horde.error');
     if ($page->pageName() == 'WikiHome') {
-        Horde::fatal(_("You don't have permission to view this page."), __FILE__, __LINE__);
+        throw new Horde_Exception(_("You don't have permission to view this page."));
     }
     Wicked::url('WikiHome', true)->redirect();
 }

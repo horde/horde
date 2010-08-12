@@ -41,18 +41,18 @@ if (!$rss) {
     // Get forum title
     $threads = Agora_Messages::singleton($scope, $forum_id);
     if ($threads instanceof PEAR_Error) {
-        Horde::fatal($threads, __FILE__, __LINE__);
+        throw new Horde_Exception($threads);
     }
     if ($scope == 'agora') {
         $forum_array = $threads->getForum();
         if ($forum_array instanceof PEAR_Error) {
-            Horde::fatal($forum_array, __FILE__, __LINE__);
+            throw new Horde_Exception($forum_array);
         }
         $title = sprintf(_("Threads in %s"), $forum_array['forum_name']);
     } else {
         $title = $registry->callByPackage($scope, 'commentCallback', array($forum_name, 'title'));
         if ($title instanceof PEAR_Error) {
-            Horde::fatal($title, __FILE__, __LINE__);
+            throw new Horde_Exception($title);
         }
         $title = sprintf(_("Comments on %s"), $title);
     }

@@ -20,10 +20,10 @@ if (!$GLOBALS['registry']->getAuth()) {
 $tpl = Horde_Util::getFormData('template');
 
 if (empty($_templates[$tpl])) {
-    Horde::fatal(_("The requested template does not exist."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("The requested template does not exist."));
 }
 if ($_templates[$tpl]['type'] != 'searchresults') {
-    Horde::fatal(_("This is not a search results template."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("This is not a search results template."));
 }
 
 // Fetch all unresolved tickets assigned to the current user.

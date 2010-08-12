@@ -116,6 +116,7 @@ class Passwd_Driver {
      *
      * @return mixed  The newly created concrete Passwd_Driver
      *                instance, or false on an error.
+     * @throws Passwd_Exception
      */
     function factory($driver, $params = array())
     {
@@ -124,9 +125,9 @@ class Passwd_Driver {
         $class = 'Passwd_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found."), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Passwd_Exception(sprintf(_("No such backend \"%s\" found."), $driver));
     }
 
 }

@@ -5,13 +5,15 @@ Horde_Registry::appInit('nag');
 
 if ($quickText = Horde_Util::getPost('quickText')) {
     $result = $registry->tasks->quickAdd($quickText);
-    if ($result) {
-        if (count($result) == 1) {
-            $notification->push(_("Added one task"), 'horde.success');
-        } else {
-            $notification->push(sprintf(_("Added %s tasks"), count($result)), 'horde.success');
-        }
-        Horde::applicationUrl('list.php', true)->redirect();
+    if (!$result) {
+        throw new Nag_Exception($result);
     }
-    Horde::fatal($result);
+
+    if (count($result) == 1) {
+        $notification->push(_("Added one task"), 'horde.success');
+    } else {
+        $notification->push(sprintf(_("Added %s tasks"), count($result)), 'horde.success');
+    }
+
+    Horde::applicationUrl('list.php', true)->redirect();
 }

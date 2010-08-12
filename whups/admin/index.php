@@ -91,8 +91,8 @@ case 'addtypestep1form':
         // First, add the type
         $tid = $whups_driver->addType($vars->get('name'),
                                       $vars->get('description'));
-        if (is_a($tid, 'PEAR_Error')) {
-            Horde::fatal($tid, __FILE__, __LINE__);
+        if ($tid instanceof PEAR_Error) {
+            throw new Horde_Exception($tid);
         }
 
         _open();

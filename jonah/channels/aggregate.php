@@ -28,8 +28,8 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Set up some variables. */
 $channel_id = $vars->get('channel_id');
 $channel = $news->getChannel($channel_id);
-if (is_a($channel, 'PEAR_Error')) {
-    Horde::fatal($channel, __FILE__, __LINE__);
+if ($channel instanceof PEAR_Error) {
+    throw new Jonah_Exception($channel);
 }
 $channel_name = $channel['channel_name'];
 $ids = preg_split('/:/', $channel['channel_url'], -1, PREG_SPLIT_NO_EMPTY);

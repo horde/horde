@@ -2220,7 +2220,8 @@ class Agora_Messages {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     private function _connect()
     {
@@ -2233,14 +2234,14 @@ class Agora_Messages {
 
         $this->_write_db = MDB2::factory($this->_params);
         if ($this->_write_db instanceof PEAR_Error) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
 
         if (!empty($params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
             $this->_db = MDB2::factory($this->_params);
             if ($this->_db instanceof PEAR_Error) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->_db);
             }
         } else {
             /* Default to the same DB handle for the writer too. */
@@ -2249,7 +2250,7 @@ class Agora_Messages {
 
         $this->_db->loadModule('Extended');
         if ($this->_db instanceof PEAR_Error) {
-            Horde::fatal($this->_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_db);
         }
 
         $this->_db->setFetchMode(MDB2_FETCHMODE_ASSOC);

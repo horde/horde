@@ -19,7 +19,7 @@ $ident = Horde_Util::getFormData('i');
 // Change source if the symbol isn't from the current source.
 $symbolSource = $index->getSourceBySymbol($ident);
 if (!$symbolSource) {
-    Horde::fatal(_("Symbol not found"), __FILE__, __LINE__);
+    throw new Horde_Exception(_("Symbol not found"));
 }
 if ($symbolSource != $sourceid) {
     $source = $sources[$symbolSource];

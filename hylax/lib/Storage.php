@@ -28,17 +28,11 @@ class Hylax_Storage {
      * Constructor
      *
      * @param array $params  Any parameters needed for this storage driver.
-     * @throws VFS_Exception
+     * @throws Horde_Exception
      */
     function Hylax_Storage($params)
     {
         $this->_params = $params;
-
-        /* Set up the VFS storage. */
-        if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            Horde::fatal(_("You must configure a VFS backend to use Hylax."), __FILE__, __LINE__);
-        }
-
         $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
     }
 
@@ -145,6 +139,7 @@ class Hylax_Storage {
      *
      * @return Hylax_Storage  The newly created concrete Hylax_Storage
      *                        instance, or false on error.
+     * @throws Horde_Exception
      */
     function &factory($driver, $params = array())
     {
@@ -154,9 +149,9 @@ class Hylax_Storage {
         if (class_exists($class)) {
             $storage = new $class($params);
             return $storage;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

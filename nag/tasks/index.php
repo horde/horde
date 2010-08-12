@@ -21,8 +21,8 @@ $tasks = Nag::listTasks(
     $prefs->getValue('altsortby'),
     null,
     1);
-if (is_a($tasks, 'PEAR_Error')) {
-    Horde::fatal($tasks);
+if ($tasks instanceof PEAR_Error) {
+    throw new Nag_Exception($tasks);
 }
 
 $search_pattern = '/^' . preg_quote($search, '/') . '/i';

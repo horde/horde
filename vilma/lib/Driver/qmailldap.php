@@ -1239,11 +1239,10 @@ class Vilma_Driver_qmailldap extends Vilma_Driver {
 
         $this->_ldap = ldap_connect($this->_ldapparams['ldaphost'], $port);
         if (!$this->_ldap) {
-            Horde::fatal("Unable to connect to LDAP server $hostname on $port",
-                         __FILE__, __LINE__);
-            }
-            $res = ldap_set_option($this->_ldap, LDAP_OPT_PROTOCOL_VERSION,
-                                   $this->_ldapparams['version']);
+            throw new Vilma_Exception("Unable to connect to LDAP server $hostname on $port");
+        }
+        $res = ldap_set_option($this->_ldap, LDAP_OPT_PROTOCOL_VERSION,
+                               $this->_ldapparams['version']);
         if (!$res) {
             return PEAR::raiseError(_("Unable to set LDAP protocol version"));
         }

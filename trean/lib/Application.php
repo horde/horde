@@ -52,8 +52,8 @@ class Trean_Application extends Horde_Registry_Application
 
         // Create db and share instances.
         $GLOBALS['trean_db'] = Trean::getDb();
-        if (is_a($GLOBALS['trean_db'], 'PEAR_Error')) {
-            Horde::fatal($GLOBALS['trean_db'], __FILE__, __LINE__, false);
+        if ($GLOBALS['trean_db'] instanceof PEAR_Error) {
+            throw new Horde_Exception($GLOBALS['trean_db']);
         }
         $GLOBALS['trean_shares'] = new Trean_Bookmarks();
 

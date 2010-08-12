@@ -678,7 +678,7 @@ e. Use `array_key_exists()`_ when you want to check if an array key is defined
 
     // Make sure we have a charset parameter. Value could also be null.
     if (!array_key_exists('charset', $params)) {
-        Horde::fatal('Incomplete configuration.');
+        throw new Horde_Exception('Incomplete configuration');
     }
 
 Please note that `array_key_exists()`_ is a performance hit (25%-100%) and

@@ -69,7 +69,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
     if ($vars->exists('deliverable_id')) {
         $deliverable = $hermes->driver->getDeliverableByID($vars->get('deliverable_id'));
         if (is_a($deliverable, 'PEAR_Error')) {
-            Horde::fatal($deliverable, __FILE__, __LINE__);
+            throw new Hermes_Exception($deliverable);
         }
 
         foreach ($deliverable as $name => $value) {
@@ -85,7 +85,7 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
 
     $deliverables = $hermes->driver->listDeliverables(array('client_id' => $vars->get('client_id')));
     if (is_a($deliverables, 'PEAR_Error')) {
-        Horde::fatal($deliverables, __FILE__, __LINE__);
+        throw new Hermes_Exception($deliverables);
     }
 
     $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('deliverables', 'Javascript');
