@@ -153,7 +153,9 @@ class Horde_Image_Im extends Horde_Image_Base
             $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
             exec($command, $output, $retval);
             if ($retval) {
-                $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));
+                $error = sprintf("Error running command: %s", $command . "\n" . implode("\n", $output));
+                $this->_logErr($error);
+                throw new Horde_Image_Exception($error);
             }
 
             /* Empty the operations queue */
