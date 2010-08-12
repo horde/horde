@@ -40,12 +40,10 @@ var HordeSidebar = {
         var layout, r;
 
         if (response.responseJSON) {
-            $('HordeSidebar.tree').update();
+            $(HordeSidebar.tree.opts.target).update();
 
-            r = response.responseJSON;
+            r = response.responseJSON.response;
             this.tree.renderTree(r.nodes, r.root_nodes, r.is_static);
-
-            this.resizeSidebar();
         }
     },
 
