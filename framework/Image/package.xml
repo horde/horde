@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Image API</summary>
@@ -13,8 +10,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * SVG
 * SWF
 * ImageMagick convert command line tool
-* Imagick Extension
- </description>
+* Imagick Extension</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,8 +23,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2009-05-24</date>
- <time>22:07:11</time>
+ <date>2010-08-12</date>
+ <time>13:15:12</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -38,56 +34,63 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Initial Horde 4 package</notes>
+ <notes>
+Initial Horde 4 package
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Image">
       <dir name="Effect">
-       <file name="Border.php" role="php" />
-       <dir name="Im">
-        <file name="DropShadow.php" role="php" />
-        <file name="RoundCorners.php" role="php" />
-        <file name="TextWatermark.php" role="php" />
-        <file name="PhotoStack.php" role="php" />
-        <file name="PolaroidImage.php" role="php" />
-        <file name="Border.php" role="php" />
-        <file name="Composite.php" role="php" />
-       </dir> <!-- /Horde/Image/Effect/im -->
-       <dir name="Imagick">
-        <file name="DropShadow.php" role="php" />
-        <file name="RoundCorners.php" role="php" />
-        <file name="TextWatermark.php" role="php" />
-        <file name="PhotoStack.php" role="php" />
-        <file name="PolaroidImage.php" role="php" />
-        <file name="Border.php" role="php" />
-        <file name="Composite.php" role="php" />
-       </dir> <!-- /Horde/Image/Effect/Imagick -->
        <dir name="Gd">
         <file name="DropShadow.php" role="php" />
         <file name="RoundCorners.php" role="php" />
         <file name="TextWatermark.php" role="php" />
         <file name="UnsharpMask.php" role="php" />
-       </dir> <!-- /Horde/Image/Effect/gd -->
-      </dir> <!-- /Horde/Image/Effect -->
+       </dir> <!-- /lib/Horde/Image/Effect/Gd -->
+       <dir name="Im">
+        <file name="Border.php" role="php" />
+        <file name="Composite.php" role="php" />
+        <file name="DropShadow.php" role="php" />
+        <file name="PhotoStack.php" role="php" />
+        <file name="PolaroidImage.php" role="php" />
+        <file name="RoundCorners.php" role="php" />
+        <file name="TextWatermark.php" role="php" />
+        <file name="Unsharpmask.php" role="php" />
+       </dir> <!-- /lib/Horde/Image/Effect/Im -->
+       <dir name="Imagick">
+        <file name="Border.php" role="php" />
+        <file name="Composite.php" role="php" />
+        <file name="DropShadow.php" role="php" />
+        <file name="PhotoStack.php" role="php" />
+        <file name="PolaroidImage.php" role="php" />
+        <file name="RoundCorners.php" role="php" />
+        <file name="TextWatermark.php" role="php" />
+        <file name="Unsharpmask.php" role="php" />
+       </dir> <!-- /lib/Horde/Image/Effect/Imagick -->
+       <file name="Border.php" role="php" />
+      </dir> <!-- /lib/Horde/Image/Effect -->
       <dir name="Exif">
-        <dir name="Parser">
-          <file name="Base.php" role="php" />
-          <file name="Canon.php" role="php" />
-          <file name="Fujifilm.php" role="php" />
-          <file name="Gps.php" role="php" />
-          <file name="Nikon.php" role="php" />
-          <file name="Olympus.php" role="php" />
-          <file name="Panasonic.php" role="php" />
-          <file name="Sanyo.php" role="php" />
-        </dir> <!-- /Horde/Image/Exif/Parser -->
+       <dir name="Parser">
         <file name="Base.php" role="php" />
-        <file name="Bundled.php" role="php" />
-        <file name="Php.php" role="php" />
-        <file name="Exiftool.php" role="php" />
-      </dir> <!-- /Horde/Image/Exif -->
+        <file name="Canon.php" role="php" />
+        <file name="Fujifilm.php" role="php" />
+        <file name="Gps.php" role="php" />
+        <file name="Nikon.php" role="php" />
+        <file name="Olympus.php" role="php" />
+        <file name="Panasonic.php" role="php" />
+        <file name="Sanyo.php" role="php" />
+       </dir> <!-- /lib/Horde/Image/Exif/Parser -->
+       <file name="Base.php" role="php" />
+       <file name="Bundled.php" role="php" />
+       <file name="Exiftool.php" role="php" />
+       <file name="Php.php" role="php" />
+      </dir> <!-- /lib/Horde/Image/Exif -->
+      <file name="Base.php" role="php" />
       <file name="Effect.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Exif.php" role="php" />
       <file name="Gd.php" role="php" />
       <file name="Im.php" role="php" />
       <file name="Imagick.php" role="php" />
@@ -95,18 +98,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="rgb.php" role="php" />
       <file name="Svg.php" role="php" />
       <file name="Swf.php" role="php" />
-      <file name="Exif.php" role="php" />
-      <file name="Exception.php" role="php" />
-      <file name="Base.php" role="php" />
-     </dir> <!-- /Horde/Image -->
+     </dir> <!-- /lib/Horde/Image -->
      <file name="Image.php" role="php" />
-    </dir> <!-- /Horde -->
+    </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="tests">
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
+    <file name="img1.jpg" role="data" />
+    <file name="img2.jpg" role="data" />
+    <file name="img3.jpg" role="data" />
+    <file name="runtest.php" role="php" />
     <file name="svg.php" role="test" />
     <file name="swf.php" role="test" />
+    <file name="two_page.tif.tiff" role="data" />
    </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>
@@ -132,49 +137,51 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Image/Exif/Parser/Base.php" as="Horde/Image/Exif/Parser/Base.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Canon.php" as="Horde/Image/Exif/Parser/Canon.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Fujifilm.php" as="Horde/Image/Exif/Parser/Fujifilm.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Gps.php" as="Horde/Image/Exif/Parser/Gps.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Nikon.php" as="Horde/Image/Exif/Parser/Nikon.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Olympus.php" as="Horde/Image/Exif/Parser/Olympus.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Panasonic.php" as="Horde/Image/Exif/Parser/Panasonic.php" />
-   <install name="lib/Horde/Image/Exif/Parser/Sanyo.php" as="Horde/Image/Exif/Parser/Sanyo.php" />
-   <install name="lib/Horde/Image/Exif/Base.php" as="Horde/Image/Exif/Base.php" />
-   <install name="lib/Horde/Image/Exif/Bundled.php" as="Horde/Image/Exif/Bundled.php" />
-   <install name="lib/Horde/Image/Exif/Php.php" as="Horde/Image/Exif/Php.php" />
-   <install name="lib/Horde/Image/Exif/Exiftool.php" as="Horde/Image/Exif/Exiftool.php" />
-   <install name="lib/Horde/Image/Exif.php" as="Horde/Image/Exif.php" />
-   <install name="lib/Horde/Image/Effect/Border.php" as="Horde/Image/Effect/Border.php" />
-   <install name="lib/Horde/Image/Effect/Im/DropShadow.php" as="Horde/Image/Effect/Im/DropShadow.php" />
-   <install name="lib/Horde/Image/Effect/Im/RoundCorners.php" as="Horde/Image/Effect/Im/RoundCorners.php" />
-   <install name="lib/Horde/Image/Effect/Im/TextWatermark.php" as="Horde/Image/Effect/Im/TextWatermark.php" />
-   <install name="lib/Horde/Image/Effect/Im/PhotoStack.php" as="Horde/Image/Effect/Im/PhotoStack.php" />
-   <install name="lib/Horde/Image/Effect/Im/PolaroidImage.php" as="Horde/Image/Effect/Im/PolaroidImage.php" />
-   <install name="lib/Horde/Image/Effect/Im/Border.php" as="Horde/Image/Effect/Im/Border.php" />
-   <install name="lib/Horde/Image/Effect/Im/Composite.php" as="Horde/Image/Effect/Im/Composite.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/DropShadow.php" as="Horde/Image/Effect/Imagick/DropShadow.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/RoundCorners.php" as="Horde/Image/Effect/Imagick/RoundCorners.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" as="Horde/Image/Effect/Imagick/TextWatermark.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/PhotoStack.php" as="Horde/Image/Effect/Imagick/PhotoStack.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/PolaroidImage.php" as="Horde/Image/Effect/Imagick/PolaroidImage.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/Border.php" as="Horde/Image/Effect/Imagick/Border.php" />
-   <install name="lib/Horde/Image/Effect/Imagick/Composite.php" as="Horde/Image/Effect/Imagick/Composite.php" />
-   <install name="lib/Horde/Image/Effect/Gd/DropShadow.php" as="Horde/Image/Effect/Gd/DropShadow.php" />
-   <install name="lib/Horde/Image/Effect/Gd/RoundCorners.php" as="Horde/Image/Effect/Gd/RoundCorners.php" />
-   <install name="lib/Horde/Image/Effect/Gd/TextWatermark.php" as="Horde/Image/Effect/Gd/TextWatermark.php" />
-   <install name="lib/Horde/Image/Effect/Gd/UnsharpMask.php" as="Horde/Image/Effect/Gd/UnsharpMask.php" />
-   <install name="lib/Horde/Image/Effect.php" as="Horde/Image/Effect.php" />
-   <install name="lib/Horde/Image/Gd.php" as="Horde/Image/Gd.php" />
-   <install name="lib/Horde/Image/Im.php" as="Horde/Image/Im.php" />
-   <install name="lib/Horde/Image/Imagick.php" as="Horde/Image/Imagick.php" />
-   <install name="lib/Horde/Image/Png.php" as="Horde/Image/Png.php" />
-   <install name="lib/Horde/Image/rgb.php" as="Horde/Image/rgb.php" />
-   <install name="lib/Horde/Image/Svg.php" as="Horde/Image/Svg.php" />
-   <install name="lib/Horde/Image/Swf.php" as="Horde/Image/Swf.php" />
-   <install name="lib/Horde/Image/Exception.php" as="Horde/Image/Exception.php" />
-   <install name="lib/Horde/Image/Base.php" as="Horde/Image/Base.php" />
-   <install name="lib/Horde/Image.php" as="Horde/Image.php" />
+   <install as="Horde/Image.php" name="lib/Horde/Image.php" />
+   <install as="Horde/Image/Base.php" name="lib/Horde/Image/Base.php" />
+   <install as="Horde/Image/Effect.php" name="lib/Horde/Image/Effect.php" />
+   <install as="Horde/Image/Exception.php" name="lib/Horde/Image/Exception.php" />
+   <install as="Horde/Image/Exif.php" name="lib/Horde/Image/Exif.php" />
+   <install as="Horde/Image/Gd.php" name="lib/Horde/Image/Gd.php" />
+   <install as="Horde/Image/Im.php" name="lib/Horde/Image/Im.php" />
+   <install as="Horde/Image/Imagick.php" name="lib/Horde/Image/Imagick.php" />
+   <install as="Horde/Image/Png.php" name="lib/Horde/Image/Png.php" />
+   <install as="Horde/Image/rgb.php" name="lib/Horde/Image/rgb.php" />
+   <install as="Horde/Image/Svg.php" name="lib/Horde/Image/Svg.php" />
+   <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
+   <install as="Horde/Image/Effect/Border.php" name="lib/Horde/Image/Effect/Border.php" />
+   <install as="Horde/Image/Effect/Gd/DropShadow.php" name="lib/Horde/Image/Effect/Gd/DropShadow.php" />
+   <install as="Horde/Image/Effect/Gd/RoundCorners.php" name="lib/Horde/Image/Effect/Gd/RoundCorners.php" />
+   <install as="Horde/Image/Effect/Gd/TextWatermark.php" name="lib/Horde/Image/Effect/Gd/TextWatermark.php" />
+   <install as="Horde/Image/Effect/Gd/UnsharpMask.php" name="lib/Horde/Image/Effect/Gd/UnsharpMask.php" />
+   <install as="Horde/Image/Effect/Im/Border.php" name="lib/Horde/Image/Effect/Im/Border.php" />
+   <install as="Horde/Image/Effect/Im/Composite.php" name="lib/Horde/Image/Effect/Im/Composite.php" />
+   <install as="Horde/Image/Effect/Im/DropShadow.php" name="lib/Horde/Image/Effect/Im/DropShadow.php" />
+   <install as="Horde/Image/Effect/Im/PhotoStack.php" name="lib/Horde/Image/Effect/Im/PhotoStack.php" />
+   <install as="Horde/Image/Effect/Im/PolaroidImage.php" name="lib/Horde/Image/Effect/Im/PolaroidImage.php" />
+   <install as="Horde/Image/Effect/Im/RoundCorners.php" name="lib/Horde/Image/Effect/Im/RoundCorners.php" />
+   <install as="Horde/Image/Effect/Im/TextWatermark.php" name="lib/Horde/Image/Effect/Im/TextWatermark.php" />
+   <install as="Horde/Image/Effect/Im/Unsharpmask.php" name="lib/Horde/Image/Effect/Im/Unsharpmask.php" />
+   <install as="Horde/Image/Effect/Imagick/Border.php" name="lib/Horde/Image/Effect/Imagick/Border.php" />
+   <install as="Horde/Image/Effect/Imagick/Composite.php" name="lib/Horde/Image/Effect/Imagick/Composite.php" />
+   <install as="Horde/Image/Effect/Imagick/DropShadow.php" name="lib/Horde/Image/Effect/Imagick/DropShadow.php" />
+   <install as="Horde/Image/Effect/Imagick/PhotoStack.php" name="lib/Horde/Image/Effect/Imagick/PhotoStack.php" />
+   <install as="Horde/Image/Effect/Imagick/PolaroidImage.php" name="lib/Horde/Image/Effect/Imagick/PolaroidImage.php" />
+   <install as="Horde/Image/Effect/Imagick/RoundCorners.php" name="lib/Horde/Image/Effect/Imagick/RoundCorners.php" />
+   <install as="Horde/Image/Effect/Imagick/TextWatermark.php" name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" />
+   <install as="Horde/Image/Effect/Imagick/Unsharpmask.php" name="lib/Horde/Image/Effect/Imagick/Unsharpmask.php" />
+   <install as="Horde/Image/Exif/Base.php" name="lib/Horde/Image/Exif/Base.php" />
+   <install as="Horde/Image/Exif/Bundled.php" name="lib/Horde/Image/Exif/Bundled.php" />
+   <install as="Horde/Image/Exif/Exiftool.php" name="lib/Horde/Image/Exif/Exiftool.php" />
+   <install as="Horde/Image/Exif/Php.php" name="lib/Horde/Image/Exif/Php.php" />
+   <install as="Horde/Image/Exif/Parser/Base.php" name="lib/Horde/Image/Exif/Parser/Base.php" />
+   <install as="Horde/Image/Exif/Parser/Canon.php" name="lib/Horde/Image/Exif/Parser/Canon.php" />
+   <install as="Horde/Image/Exif/Parser/Fujifilm.php" name="lib/Horde/Image/Exif/Parser/Fujifilm.php" />
+   <install as="Horde/Image/Exif/Parser/Gps.php" name="lib/Horde/Image/Exif/Parser/Gps.php" />
+   <install as="Horde/Image/Exif/Parser/Nikon.php" name="lib/Horde/Image/Exif/Parser/Nikon.php" />
+   <install as="Horde/Image/Exif/Parser/Olympus.php" name="lib/Horde/Image/Exif/Parser/Olympus.php" />
+   <install as="Horde/Image/Exif/Parser/Panasonic.php" name="lib/Horde/Image/Exif/Parser/Panasonic.php" />
+   <install as="Horde/Image/Exif/Parser/Sanyo.php" name="lib/Horde/Image/Exif/Parser/Sanyo.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -189,7 +196,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2004-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-08-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial Horde 4 package
    </notes>
   </release>
  </changelog>
