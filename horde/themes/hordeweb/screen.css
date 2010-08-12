@@ -6,6 +6,10 @@ body {
     font-size: 80%;
     padding: 8px;
 }
+.body {
+    left: 8px;
+    right: 8px;
+}
 a {
     color: #66a;
     text-decoration: none;
