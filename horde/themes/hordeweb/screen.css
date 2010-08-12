@@ -6,9 +6,6 @@ body {
     font-size: 80%;
     padding: 8px;
 }
-#sidebar-frame body {
-    padding-right: 0;
-}
 a {
     color: #66a;
     text-decoration: none;
@@ -35,9 +32,6 @@ a:hover {
 }
 #menu .rightFloat {
     padding-right: 8px;
-}
-#sidebar-frame #menu {
-    display: none;
 }
 #menuBottom {
     margin-top: -16px;
