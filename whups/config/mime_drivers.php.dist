@@ -12,7 +12,7 @@
 $mime_drivers = array(
     /* Zip File archive viewer. */
     'zip' => array(
-        'handles' = array(
+        'handles' => array(
             'application/x-compressed',
             'application/x-zip-compressed',
             'application/zip',
