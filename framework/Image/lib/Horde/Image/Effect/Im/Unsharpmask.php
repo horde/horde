@@ -38,8 +38,7 @@ class Horde_Image_Effect_Im_Unsharpmask extends Horde_Image_Effect
      */
     protected $_params = array('radius' => 0.5,
                                'amount' => 1,
-                               'threshold' => 0.05,
-                               'channel' => Imagick::CHANNEL_ALL);
+                               'threshold' => 0.05);
 
     public function apply()
     {
