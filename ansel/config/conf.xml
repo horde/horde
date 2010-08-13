@@ -102,6 +102,16 @@
    <configstring name="width" desc="Thumbnail width">150</configstring>
    <configstring name="height" desc="Thumbnail
    height">150</configstring>
+   <configswitch name="unsharp" desc="Should Horde apply an unsharpmask filter
+   to the image after it's resized?">
+    <case name="true" desc="Yes">
+      <configstring name="radius" desc="Radius">0.7</configstring>
+      <configstring name="amount" desc="Amount">1</configstring>
+      <configstring name="threshold" desc="Threshold">0.05</configstring>
+    </case>
+    <case name="false" desc="No" />
+   </configswitch>
+
   </configsection>
  </configtab>
 
@@ -112,6 +122,16 @@
    width">800</configstring>
    <configstring name="height" desc="Screen photo
    height">600</configstring>
+   <configswitch name="unsharp" desc="Should Horde apply an unsharpmask filter
+   to the image after it's resized?">
+    <case name="true" desc="Yes">
+      <configstring name="radius" desc="Radius">0.5</configstring>
+      <configstring name="amount" desc="Amount">1.2</configstring>
+      <configstring name="threshold" desc="Threshold">0.05</configstring>
+    </case>
+    <case name="false" desc="No" />
+   </configswitch>
+
   </configsection>
  </configtab>
 
