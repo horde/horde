@@ -51,7 +51,7 @@ class Horde_Image_Effect_Im_Unsharpmask extends Horde_Image_Effect
         $this->_params['sigma'] = ($this->_params['radius'] < 1) ?
                 $this->_params['radius'] : sqrt($this->_params['radius']);
 
-        $this->_image->addOperation("-unsharp {$this->_params['radius']}x{$this->_params['sigma']}+{$this->_params['amount']}+{$this->_params['threshold']}");
+        $this->_image->addPostSrcOperation("-unsharp {$this->_params['radius']}x{$this->_params['sigma']}+{$this->_params['amount']}+{$this->_params['threshold']}");
 
         return true;
     }
