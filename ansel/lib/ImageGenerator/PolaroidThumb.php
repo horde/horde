@@ -32,7 +32,12 @@ class Ansel_ImageGenerator_PolaroidThumb extends Ansel_ImageGenerator
                 $this->_image->addEffect('PolaroidImage',
                                          array('background' => $styleDef['background'],
                                                'padding' => 5));
-
+                if ($GLOBALS['conf']['thumbnail']['unsharp'] && Ansel::isAvailable('Unsharpmask')) {
+                    $this->_image->addEffect('Unsharpmask',
+                                             array('radius' => $GLOBALS['conf']['thumbnail']['radius'],
+                                                   'threshold' => $GLOBALS['conf']['thumbnail']['threshold'],
+                                                   'amount' => $GLOBALS['conf']['thumbnail']['amount']));
+                }
                 $this->_image->applyEffects();
             } catch (Horde_Image_Exception $e) {
                 throw new Ansel_Exception($e);

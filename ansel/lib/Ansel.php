@@ -447,7 +447,8 @@ class Ansel
     static public function getImageObject($params = array())
     {
         global $conf;
-        $context = array('tmpdir' => Horde::getTempDir());
+        $context = array('tmpdir' => Horde::getTempDir(),
+                         'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if (!empty($conf['image']['convert'])) {
             $context['convert'] = $conf['image']['convert'];
             $context['identify'] = $conf['image']['identify'];
