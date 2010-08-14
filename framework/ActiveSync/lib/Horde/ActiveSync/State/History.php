@@ -22,18 +22,18 @@
  *        sync_devid     - The device id this change was done on.
  *        sync_user      - The user that initiated the change.
  *
- *    syncDeviceTable (horde_activesync_device:
+ *    syncDeviceTable (horde_activesync_device):
  *        device_id      - The unique id for this device
  *        device_type    - The device type the PIM identifies itself with
  *        device_agent   - The user agent string sent by the device
  *        device_policykey  - The current policykey for this device
  *        device_rwstatus   - The current remote wipe status for this device
  *
- *    syncUsersTable (horde_activesync_device_users:
- *        device_user
- *        device_id
- *        device_ping
- *        device_folders
+ *    syncUsersTable (horde_activesync_device_users):
+ *        device_user    - A username attached to the device
+ *        device_id      - The device id
+ *        device_ping    - The account's ping state
+ *        device_folders - Account's folder data
  * </pre>
  *
  * Copyright 2010 The Horde Project (http://www.horde.org)
@@ -846,13 +846,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
             $device_query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
             $values = array($devId);
-            $this->_logger->debug('[' . $devId . '] Removing device state for user ' . $user . '.');
-
+            $this->_logger->debug('[' . $devId . '] Removing all device state for device ' . $devId . '.');
         } else {
             $state_query .= ' sync_key = ?';
             $map_query .= ' sync_key = ?';
             $values = array($synckey);
-            $this->_logger->debug('[' . $this->_devId . '] Removing device state.');
+            $this->_logger->debug('[' . $this->_devId . '] Removing device state for sync_key ' . $synckey . ' only.');
         }
 
         try {
@@ -895,7 +894,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Check for the existence of ANY entries in the map table for this device.
+     * Check for the existence of ANY entries in the map table for this device
+     * and user.
+     *
      * An extra database query for each sync, but the payoff is that we avoid
      * having to stat every message change we send to the PIM if there are no
      * PIM generated changes for this sync period.
@@ -905,9 +906,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     protected function _havePIMChanges()
     {
-        $sql = 'SELECT COUNT(*) FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ?';
+        $sql = 'SELECT COUNT(*) FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_user = ?';
         try {
-            return (bool)$this->_db->selectValue($sql, array($this->_devId));
+            return (bool)$this->_db->selectValue($sql, array($this->_devId, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -984,8 +985,8 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         /* Also clean up the map table since this data is only needed for one
          * SYNC cycle. Keep the same number of old keys for the same reasons as
          * above. */
-        $sql = 'SELECT sync_key FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ?';
-        $maps = $this->_db->selectValues($sql, array($this->_devId));
+        $sql = 'SELECT sync_key FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_user = ?';
+        $maps = $this->_db->selectValues($sql, array($this->_devId, $this->_deviceInfo->user));
         foreach ($maps as $key) {
             if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
                 if ($matches[1] == $guid && $matches[2] < $n) {
