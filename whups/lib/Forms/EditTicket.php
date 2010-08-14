@@ -122,7 +122,16 @@ class EditTicketForm extends Horde_Form {
                                                           'multienum',
                                                           false, false, null,
                                                           array($f_users));
-                            $owners->setDefault($whups_driver->getOwners($vars->get('id')));
+                            $ticketOwners = array();
+                            $ticketGroups = array();
+                            foreach($whups_driver->getOwners($vars->get('id')) as $owner) {
+                                if (strpos($owner, 'user:') !== false) {
+                                    $ticketOwners[] = $owner;
+                                } else {
+                                    $ticketGroups[] = $owner;
+                                }
+                            }
+                            $owners->setDefault($ticketOwners);
                         }
 
                         if (count($f_groups)) {
@@ -133,7 +142,7 @@ class EditTicketForm extends Horde_Form {
                                                                 false, false,
                                                                 null,
                                                                 array($f_groups));
-                            $group_owners->setDefault($whups_driver->getOwners($vars->get('id')));
+                            $group_owners->setDefault($ticketGroups);
                         }
                     }
                     break;
