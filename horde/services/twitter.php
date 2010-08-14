@@ -70,10 +70,16 @@ case 'getPage':
         $oldest = 0;
     }
     foreach ($stream as $tweet) {
-         $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
-         $view->addHelper('Tag');
 
-         $filter = $injector->getInstance('Horde_Text_Filter');
+        /* Don't return the max_id tweet, since we already have it */
+        if (!empty($params['max_id']) && $params['max_id'] == $tweet->id) {
+            continue;
+        }
+
+        $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+        $view->addHelper('Tag');
+
+        $filter = $injector->getInstance('Horde_Text_Filter');
 
          /* links */
         $body = $filter->filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
