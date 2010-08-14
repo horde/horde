@@ -6,7 +6,7 @@ $currentPage = Horde_String::upper($page);
 if ($currentPage == '*') {
     echo '<strong>(' . _("All") . ')</strong>&nbsp;';
 } else {
-    Horde::applicationUrl($viewurl)->add(array('page' => '*', 'show' => $show))->link() . _("All") . '</a>&nbsp;';
+    echo Horde::applicationUrl($viewurl)->add(array('page' => '*', 'show' => $show))->link() . _("All") . '</a>&nbsp;';
 }
 for ($i = 65; $i < 91; $i++) {
     $a = chr($i);
