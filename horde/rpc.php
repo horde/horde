@@ -94,7 +94,7 @@ switch ($serverType) {
 case 'ActiveSync':
     /* Check if we are even enabled for AS */
     if (empty($conf['activesync']['enabled'])) {
-        break;
+        exit;
     }
 
     if ($conf['activesync']['logging']['type'] == 'custom') {
