@@ -25,6 +25,7 @@ var Horde_Twitter = Class.create({
     * opts.strings.inreplyto
     * opts.strings.defaultText
     * opts.strings.justnow
+    * opts.getmore
     */
     initialize: function(opts) {
         this.opts = Object.extend({
@@ -40,6 +41,11 @@ var Horde_Twitter = Class.create({
 
         $(this.opts.input).observe('keyup', function() {
             $(this.opts.counter).update(140 - $F(this.opts.input).length);
+        }.bind(this));
+
+        $(this.opts.getmore).observe('click', function(e) {
+            this.getOlderEntries();
+            e.stop();
         }.bind(this));
 
         /* Get the first page */
