@@ -222,7 +222,7 @@ class Trean_Bookmarks {
         $missing_ids = array();
         foreach ($cids as $cid) {
             if (isset($this->_shareMap[$cid])) {
-                $all_shares[$this->_shareMap[$cid]] = &$this->_cache[$this->_shareMap[$cid]];
+                $all_shares[$this->_shareMap[$cid]] = $this->_cache[$this->_shareMap[$cid]];
             } else {
                 $missing_ids[] = $cid;
             }
@@ -241,8 +241,8 @@ class Trean_Bookmarks {
                 }
 
                 $shares[$key]->setShareOb($this);
-                $all_shares[$key] = &$shares[$key];
-                $this->_cache[$key] = &$shares[$key];
+                $all_shares[$key] = $shares[$key];
+                $this->_cache[$key] = $shares[$key];
                 $this->_shareMap[$shares[$key]->getId()] = $key;
             }
         }
@@ -319,7 +319,7 @@ class Trean_Bookmarks {
         }
 
         /* Make sure getShares() didn't return an error. */
-        $shares = &$this->getShares($folderIds);
+        $shares = $this->getShares($folderIds);
         if (is_a($shares, 'PEAR_Error')) {
             return $shares;
         }
@@ -370,13 +370,13 @@ class Trean_Bookmarks {
     function &getFolder($cid)
     {
         if (isset($this->_shareMap[$cid])) {
-            $share = &$this->_cache[$this->_shareMap[$cid]];
+            $share = $this->_cache[$this->_shareMap[$cid]];
         } else {
             $share = $this->_datatree->getObjectById($cid, 'DataTreeObject_Folder');
             if (!is_a($share, 'PEAR_Error')) {
                 $share->setShareOb($this);
                 $name = $share->getName();
-                $this->_cache[$name] = &$share;
+                $this->_cache[$name] = $share;
                 $this->_shareMap[$cid] = $name;
             }
         }
@@ -440,7 +440,7 @@ class Trean_Bookmarks {
         /* Store new share in the caches. */
         $id = $folder->getId();
         $name = $folder->getName();
-        $this->_cache[$name] = &$folder;
+        $this->_cache[$name] = $folder;
         $this->_shareMap[$id] = $name;
 
         /* Reset caches that depend on unknown criteria. */
@@ -698,9 +698,9 @@ class DataTreeObject_Folder extends DataTreeObject {
      *
      * @param Trean_Bookmarks $shareOb The Trean_Bookmarks object.
      */
-    function setShareOb(&$shareOb)
+    function setShareOb($shareOb)
     {
-        $this->_shareOb = &$shareOb;
+        $this->_shareOb = $shareOb;
     }
 
     /**
@@ -718,7 +718,8 @@ class DataTreeObject_Folder extends DataTreeObject {
             return true;
         }
 
-        return $GLOBALS['perms']->hasPermission($this->getPermission(), $userid, $permission, $creator);
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        return $perms->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**
@@ -729,7 +730,7 @@ class DataTreeObject_Folder extends DataTreeObject {
      *
      * @return TODO
      */
-    function setPermission(&$perm, $update = true)
+    function setPermission($perm, $update = true)
     {
         $this->data['perm'] = $perm->getData();
         if ($update) {
@@ -766,7 +767,7 @@ class DataTreeObject_Folder extends DataTreeObject {
         }
         unset($c_list[$this->getName()]);
 
-        $children = &$this->_shareOb->getShares(array_keys($c_list));
+        $children = $this->_shareOb->getShares(array_keys($c_list));
         if (is_a($children, 'PEAR_Error')) {
             return $children;
         }
@@ -821,7 +822,7 @@ class DataTreeObject_Folder extends DataTreeObject {
      */
     function addFolder($properties)
     {
-        $folder = &$this->_shareOb->newFolder($this->getName() . ':' . strval(new Horde_Support_Uuid()), $properties);
+        $folder = $this->_shareOb->newFolder($this->getName() . ':' . strval(new Horde_Support_Uuid()), $properties);
         $this->_shareOb->addFolder($folder);
         return $this->datatree->getId($folder);
     }
