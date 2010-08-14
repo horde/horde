@@ -789,7 +789,7 @@ class Turba_Driver
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = strval(new Horde_Support_Randomid());
+            $attributes['__uid'] = strval(new Horde_Support_Guid());
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
@@ -2497,10 +2497,9 @@ class Turba_Driver
 
         /* Categories */
         if (count($message->categories)) {
-            $hash['category']['value'] = Horde_String::convertCharset(implode(';', $message->categories), 'utf-8', $charset);
-            $hash['category']['new'] = true;
+            $hash['category'] = Horde_String::convertCharset(implode('|', $message->categories), 'utf-8', $charset);
         } elseif (!$message->isGhosted('categories')) {
-            $hash['category']['value'] = '';
+            $hash['category'] = '';
         }
 
         /* Birthday and Anniversary */
