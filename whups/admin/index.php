@@ -897,7 +897,7 @@ case 'addattributedescform_reload':
             $vars->get('attribute_name'),
             $vars->get('attribute_description'),
             $vars->get('attribute_type'),
-            $vars->get('attribute_params'),
+            $vars->get('attribute_params', array()),
             $vars->get('attribute_required'));
         if (!is_a($result, 'PEAR_Error')) {
             $typename = $whups_driver->getType($vars->get('type'));
@@ -968,7 +968,7 @@ case 'editattributedescstep2form_reload':
             $info['attribute_name'],
             $info['attribute_description'],
             $info['attribute_type'],
-            $info['attribute_params'],
+            !empty($info['attribute_params']) ? $info['attribute_params'] : array(),
             $info['attribute_required']);
         if (!is_a($result, 'PEAR_Error')) {
             $notification->push( _("The attribute has been modified."),
