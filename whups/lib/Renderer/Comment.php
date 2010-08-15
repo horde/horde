@@ -179,7 +179,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
                     . '</a>';
             }
 
-            ob_start();
+            Horde::startBuffer();
             $class = $private ? 'pc' : 'c';
 ?>
 <div id="t<?php echo (int)$transaction ?>">
@@ -202,8 +202,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
 </table>
 </div>
 <?php
-            $html = ob_get_contents();
-            ob_end_clean();
+            $html = Horde::endBuffer();
             return $html;
         }
 
