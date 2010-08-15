@@ -33,7 +33,7 @@ $r = new Horde_Form_Renderer(
     array('varrenderer_driver' => 'whups'));
 
 $valid4 = $form4->validate($vars) &&
-     $vars->get('formname') == 'createstep4form';
+     $formname == 'createstep4form';
 $valid3 = $form3->validate($vars, true);
 $valid2 = $form2->validate($vars, !$form1->isSubmitted());
 $valid1 = $form1->validate($vars, true);
