@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Cli</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Command Line Interface API</summary>
- <description>Horde_Cli:: API for basic command-line functionality/checks
- </description>
+ <description>Horde_Cli:: API for basic command-line functionality/checks</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-06-10</date>
+ <date>2010-08-15</date>
+ <time>15:33:56</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -30,11 +27,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Horde_CLI:: -> Horde_Cli::
+ <notes>
+* Horde_CLI:: -&gt; Horde_Cli::
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
      <dir name="Cli">
@@ -57,33 +55,35 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <extension>
-    <name>gettext</name>
-   </extension>
    <package>
     <name>Support</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Cli.php" as="Horde/Cli.php" />
+   <install as="Horde/Cli/colors.php" name="doc/Horde/Cli/colors.php" />
+   <install as="Horde/Cli.php" name="lib/Horde/Cli.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2006-12-31</date>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
+   <date>2003-07-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Add 'default' parameter to Horde_CLI::prompt().
+   <notes>
+Initial release as a PEAR package
    </notes>
   </release>
   <release>
@@ -97,21 +97,39 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2006-05-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
+   <date>2006-12-31</date>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2003-07-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+Add &apos;default&apos; parameter to Horde_CLI::prompt().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-08-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Horde_CLI:: -&gt; Horde_Cli::
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

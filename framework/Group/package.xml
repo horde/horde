@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Group</name>
  <channel>pear.horde.org</channel>
  <summary>Horde User Groups System</summary>
- <description>Package for managing and accessing the Horde groups system.
- </description>
+ <description>Package for managing and accessing the Horde groups system.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-06-01</date>
+ <date>2010-08-15</date>
+ <time>15:32:50</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -30,11 +27,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Throw exceptions, not PEAR_Errors.
+ <notes>
+* Throw exceptions, not PEAR_Errors.
  * Initial Horde 4 release.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Group">
@@ -50,10 +48,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Mock.php" role="php" />
       <file name="Sql.php" role="php" />
       <file name="SqlObject.php" role="php" />
-     </dir> <!-- /lib/Horde/Group -->
+     </dir> <!-- //lib/Horde/Group -->
      <file name="Group.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -65,7 +63,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-   <name>Core</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -76,11 +74,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
-  </required>
    <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
+  </required>
   <optional>
    <package>
     <name>Auth</name>
@@ -98,22 +96,54 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Group/ContactListObject.php" as="Horde/Group/ContactListObject.php" />
-   <install name="lib/Horde/Group/Contactlists.php" as="Horde/Group/Contactlists.php" />
-   <install name="lib/Horde/Group/DataTreeObject.php" as="Horde/Group/DataTreeObject.php" />
-   <install name="lib/Horde/Group/Exception.php" as="Horde/Group/Exception.php" />
-   <install name="lib/Horde/Group/Hooks.php" as="Horde/Group/Hooks.php" />
-   <install name="lib/Horde/Group/Kolab.php" as="Horde/Group/Kolab.php" />
-   <install name="lib/Horde/Group/KolabObject.php" as="Horde/Group/KolabObject.php" />
-   <install name="lib/Horde/Group/Ldap.php" as="Horde/Group/Ldap.php" />
-   <install name="lib/Horde/Group/LdapObject.php" as="Horde/Group/LdapObject.php" />
-   <install name="lib/Horde/Group/Mock.php" as="Horde/Group/Mock.php" />
-   <install name="lib/Horde/Group/Sql.php" as="Horde/Group/Sql.php" />
-   <install name="lib/Horde/Group/SqlObject.php" as="Horde/Group/SqlObject.php" />
-   <install name="lib/Horde/Group.php" as="Horde/Group.php" />
+   <install as="Horde/Group.php" name="lib/Horde/Group.php" />
+   <install as="Horde/Group/ContactListObject.php" name="lib/Horde/Group/ContactListObject.php" />
+   <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
+   <install as="Horde/Group/DataTreeObject.php" name="lib/Horde/Group/DataTreeObject.php" />
+   <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
+   <install as="Horde/Group/Hooks.php" name="lib/Horde/Group/Hooks.php" />
+   <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
+   <install as="Horde/Group/KolabObject.php" name="lib/Horde/Group/KolabObject.php" />
+   <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
+   <install as="Horde/Group/LdapObject.php" name="lib/Horde/Group/LdapObject.php" />
+   <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
+   <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
+   <install as="Horde/Group/SqlObject.php" name="lib/Horde/Group/SqlObject.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-08</date>
+   <time>21:51:02</time>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Added ldap driver.
+* Converted to package.xml 2.0 for pear.horde.org.
+   </notes>
+  </release>
   <release>
    <date>2008-09-16</date>
    <version>
@@ -125,7 +155,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>beta</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Added a mock driver for installations that don't need groups (Request #6157).
+   <notes>
+* Added a mock driver for installations that don&apos;t need groups (Request #6157).
    * Added a beta SQL Group driver (Request #6175).
    * Removed unused renameGroup() function.
    * Fixed loading subclasses before unserializing session objects (Bug #4650)
@@ -143,32 +174,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </release>
   <release>
    <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2006-05-08</date>
-   <time>21:51:02</time>
+   <date>2010-08-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Added ldap driver.
-* Converted to package.xml 2.0 for pear.horde.org.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Throw exceptions, not PEAR_Errors.
+ * Initial Horde 4 release.
    </notes>
   </release>
  </changelog>
