@@ -205,7 +205,7 @@ class Horde_Registry
         $appob->initParams = $args;
 
         try {
-            $registry->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
+            $registry->pushApp($app, array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks'], 'notransparent' => !empty($args['notransparent'])));
 
             if ($args['admin'] && !$registry->isAdmin()) {
                 throw new Horde_Exception('Not an admin');
@@ -1157,7 +1157,7 @@ class Horde_Registry
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
 
-            if (!$this->hasPermission($app, Horde_Perms::READ)) {
+            if (!$this->hasPermission($app, Horde_Perms::READ, array('notransparent' => !empty($options['notransparent'])))) {
                 if (!$this->isAuthenticated(array('app' => $app))) {
                     throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
                 }
@@ -1281,12 +1281,12 @@ class Horde_Registry
      *
      * @return boolean  Whether access is allowed.
      */
-    public function hasPermission($app, $perms = Horde_Perms::READ)
+    public function hasPermission($app, $perms = Horde_Perms::READ, $params = array())
     {
         /* Always do isAuthenticated() check first. You can be an admin, but
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
-        if (!$this->isAuthenticated(array('app' => $app)) &&
+        if (!$this->isAuthenticated(array('app' => $app, 'notransparent' => !empty($params['notransparent']))) &&
             $GLOBALS['injector']->getInstance('Horde_Auth')->getAuth($app)->requireAuth() &&
             ($perms != Horde_Perms::SHOW)) {
             return false;
