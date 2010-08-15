@@ -1285,7 +1285,7 @@ HTML;
 
         if ($script_params) {
             if ($pathInfo = Horde_Util::getPathInfo()) {
-                $url .= '/' . $pathInfo;
+                $url .= (strrpos($url, '/') !== (strlen($url) - 1) ?  '/' : '')  . $pathInfo;
             }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $url .= '?' . $_SERVER['QUERY_STRING'];
