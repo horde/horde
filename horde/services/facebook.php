@@ -92,7 +92,8 @@ if ($token = Horde_Util::getFormData('auth_token')) {
         foreach ($posts as $post) {
                 $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
                 $postView->actorImgUrl = $profiles[(string)$post['actor_id']]['pic_square'];
-                $postView->actorProfileLink =  Horde::externalUrl($profiles[(string)$post['actor_id']]['url'], true) . $profiles[(string)$post['actor_id']]['name'] . '</a>';
+                $postView->actorProfileLink =  Horde::externalUrl($profiles[(string)$post['actor_id']]['url'], true);
+                $postView->actorName = $profiles[(string)$post['actor_id']]['name'];
                 $postView->message = empty($post['message']) ? '' : $post['message'];
                 $postView->attachment = empty($post['attachment']) ? null : $post['attachment'];
                 $postView->likes = $post['likes'];

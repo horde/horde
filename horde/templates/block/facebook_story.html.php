@@ -12,11 +12,14 @@
  */
 ?>
 <div class="hordeSmStreamstory">
- <div class="fbstreampic"><img style="float:left;" src="<?php echo $this->actorImgUrl ?>" /></div>
- <div class="hodreSmStreambody">
-  <?php echo $this->actorProfileLink ?><br />
+ <div class="hordeSmAvatar"><img width="48px" height="48px" src="<?php echo $this->actorImgUrl ?>" alt="<?php echo $this->actorName ?>" /></div>
+ <div class="hordeSmStreambody">
+  <?php echo $this->actorProfileLink . $this->actorName?></a><br />
   <?php echo empty($this->message) ? '' : $this->message;?>
-  <?php if(!empty($this->attachment)):?>
+  <?php if(!empty($this->attachment) &&
+           (!empty($this->attachment['description']) ||
+            !empty($this->attachment['media']) ||
+            !empty($this->attachment['caption']))):?>
     <div class="fbattachment">
       <?php if (!empty($this->attachment['media']) && count($this->attachment['media'])):?>
         <div class="fbmedia<?php echo count($this->attachment['media']) > 1 ? ' fbmediawide' : ''?>">

@@ -119,8 +119,10 @@
     width: 50px;
 }
 .fbattachment {
-    margin-top: 6px;
+    margin: 6px 6px 0 0;
     overflow: hidden;
+    padding: 4px;
+    border: 1px solid #3B5998;
 }
 .fbattachmenttitle {
     font-weight: bold;
