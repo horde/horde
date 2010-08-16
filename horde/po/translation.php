@@ -964,7 +964,7 @@ function commit($help_only = false)
 {
     global $cmd_options, $apps, $dirs, $debug, $test, $c;
 
-    $docs = $skip = false;
+    $docs = $skip = $lang = false;
     $git = is_dir(BASE . '/.git');
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
