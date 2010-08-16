@@ -28,7 +28,7 @@ class IMP_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
         case 'IMG':
             if (isset($attrs['SRC']) &&
                 (($rp = $this->_getRelatedLink($attrs['SRC'])) !== false)) {
-                $this->_content .= '<img src="' . $this->getConfigParam('imp_contents')->urlView($rp, 'view_attach') . '" alt="" /><br />';
+                $this->_content .= '<img src="' . $this->getConfigParam('imp_contents')->urlView($rp, 'view_attach', array('params' => array('imp_img_view' => 'data'))) . '" /><br />';
             }
             break;
 
@@ -50,9 +50,11 @@ class IMP_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
      */
     protected function _getRelatedLink($cid)
     {
-        if ($related_part = $this->findMimeType($this->_mimepart->getMimeId(), 'multipart/related') &&
-            (($key = array_search(trim($cid, '<>', $related_part->getMetadata('related_cids')))) !== false)) {
-            return $this->getConfigParam('imp_contents')->getMIMEPart($key);
+        if ($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) {
+            $key = array_search('<' . trim($cid, '<>') . '>', $related_part->getMetadata('related_cids'));
+            if ($key !== false) {
+                return $this->getConfigParam('imp_contents')->getMIMEPart($key);
+            }
         }
 
         return false;
