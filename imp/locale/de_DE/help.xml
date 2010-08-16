@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="keyboard-navigation" state="uptodate" md5="885a83e5ce7c455f8d7d40a17ca901df">
+
+<entry id="keyboard-navigation" state="uptodate" md5="885a83e5ce7c455f8d7d40a17ca901df">
     <title>Tastaturbelegung: Navigation</title>
     <para>
       Sie können Ihre Tastatur verwenden, um über die Nachrichten in der
@@ -35,48 +36,8 @@
       um zu der vorherigen bzw. nächsten Nachricht zu gelangen.
     </para>
   </entry>
-  <entry id="message-forward" state="uptodate" md5="54e9d9dcf21964f5f81bc6c23e48cdea">
-    <title>Weiterleitung</title>
-    <para>
-      Um E-Mails weiterzuleiten, haben Sie verschiedene Möglichkeiten.
-    </para>
-    <heading>Weiterleiten aus der Ordneransicht</heading>
-    <para>
-      In der Ordneransicht können Sie mehrere Nachrichten auf einmal
-      weiterleiten. Jede Nachricht, die Sie auswählen, wird unverändert an die
-      Empfänger verschickt. Beim Weiterleiten erscheinen diese Nachrichten im
-      Fenster für neue Nachrichten als Anhänge. Der oder die Empfänger sehen
-      die Nachrichten eingebettet in Ihre E-Mail-Nachricht.
-    </para>
-    <heading>Weiterleiten aus der Nachrichtenansicht</heading>
-    <para>
-      Wenn Sie einzelne Nachrichten aus der Nachrichtenansicht weiterleiten,
-      haben Sie drei Möglichkeiten:
-    </para>
-    <para>
-      <b>1. Gesamte Nachricht</b>: Bei dieser Auswahl wird die gesamte
-      Originalnachricht als Anhang an Ihre Nachricht angehängt. Im
-      Nachrichtenfeld wird kein Text aus der weitergeleiteten Nachricht
-      eingefügt. Dies funktioniert im Prinzip so wie die Weiterleitung aus der
-      Ordneransicht, mit der Ausnahme, das die Betreff-Zeile ausgefüllt wird.
-    </para>
-    <para>
-      <b>2. Nur Nachrichtentext</b>: Wählen Sie diese Möglichkeit, wenn Sie
-      auschließlich den Text der Originalnachricht weiterleiten möchten. Es
-      werden keine Anhänge aus der Orginalnachricht weitergeleitet. Der
-      Nachrichtentext erscheint im Textfeld und kann von Ihnen bearbeitet oder
-      ergänzt werden.
-    </para>
-    <para>
-      <b>3. Nachrichtentext mit Anhängen</b>: Wenn Sie zusätzlich zum
-      Nachrichtentext, wie unter 2. beschrieben, die Anhänge der
-      Originalnachricht weiterleiten möchten, können Sie diese Möglichkeit
-      wählen. Der Nachrichtentext erscheint im Textfeld und kann von Ihnen
-      bearbeitet oder ergänzt werden. Die Originalanhänge werden an Ihre
-      Nachricht angehängt.
-    </para>
-  </entry>
-  <entry id="compose-buttons" state="uptodate" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a">
+
+<entry id="compose-buttons" state="uptodate" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a">
     <title>Neue Nachricht: Aktionen</title>
     <heading>Aktionen</heading>
     <para>
@@ -106,7 +67,8 @@
       zu speichern oder abzuschicken.
     </para>
   </entry>
-  <entry id="compose-identity" state="uptodate" md5="6b2272c5440c753e783d000db88fea07">
+
+<entry id="compose-identity" state="uptodate" md5="6b2272c5440c753e783d000db88fea07">
     <title>Neue Nachricht: Identität</title>
     <heading>Identität</heading>
     <para>
@@ -114,7 +76,8 @@
       "Einstellungen-&gt;Persönliche Angaben" erstellt haben.
     </para>
   </entry>
-  <entry id="compose-from" state="uptodate" md5="4395043c22323cc80d50709c5d20637e">
+
+<entry id="compose-from" state="uptodate" md5="4395043c22323cc80d50709c5d20637e">
     <title>Neue Nachricht: Von</title>
     <heading>Von</heading>
     <para>
@@ -122,7 +85,8 @@
       erscheinen soll.
     </para>
   </entry>
-  <entry id="compose-to" state="uptodate" md5="31cba17f169572c367aa8014831eb8f8">
+
+<entry id="compose-to" state="uptodate" md5="31cba17f169572c367aa8014831eb8f8">
     <title>Neue Nachricht: An</title>
     <heading>An</heading>
     <para>
@@ -131,7 +95,8 @@
       Trennzeichen führen zu Fehlern.
     </para>
   </entry>
-  <entry id="compose-cc" state="uptodate" md5="97571433ab037ef9c4d101a56bf74e25">
+
+<entry id="compose-cc" state="uptodate" md5="97571433ab037ef9c4d101a56bf74e25">
     <title>Neue Nachricht: Cc</title>
     <heading>Cc</heading>
     <para>
@@ -148,7 +113,8 @@
       sehen.
     </para>
   </entry>
-  <entry id="compose-bcc" state="uptodate" md5="aa8f9e2d44fdb74def0fa15240ff687b">
+
+<entry id="compose-bcc" state="uptodate" md5="aa8f9e2d44fdb74def0fa15240ff687b">
     <title>Neue Nachricht: Bcc</title>
     <heading>Bcc</heading>
     <para>
@@ -165,7 +131,8 @@
       Empfänger sehen.
     </para>
   </entry>
-  <entry id="compose-subject" state="uptodate" md5="0639a8790e306acc9e19b4d1ce342d53">
+
+<entry id="compose-subject" state="uptodate" md5="0639a8790e306acc9e19b4d1ce342d53">
     <title>Neue Nachricht: Betreff</title>
     <heading>Betreff</heading>
     <para>
@@ -183,13 +150,15 @@
       entsprechend ändern, wenn sich der Diskussionsverlauf geändert hat.
     </para>
   </entry>
-  <entry id="compose-charset" state="uptodate" md5="c2c878070445af81407da5bfc4083ea3">
+
+<entry id="compose-charset" state="uptodate" md5="c2c878070445af81407da5bfc4083ea3">
     <title>Neue Nachricht: Zeichensatz</title>
     <heading>Zeichensatz</heading>
     <para>Hier können Sie den Zeichensatz auswählen, der für die Nachricht
     verwendet werden soll, die Sie verschicken möchten.</para>
   </entry>
-  <entry id="compose-options" state="uptodate" md5="5f1d50a733c8b7e46aecece28822ff70">
+
+<entry id="compose-options" state="uptodate" md5="5f1d50a733c8b7e46aecece28822ff70">
     <title>Neue Nachricht: Einstellungen</title>
     <heading>Einstellungen</heading>
     <para>
@@ -228,7 +197,8 @@
       keine weiteren Nachrichten mehr empfangen können.
     </warn>
   </entry>
-  <entry id="compose-attachments" state="uptodate" md5="c61d86cfad0842f122278366bb2804b0">
+
+<entry id="compose-attachments" state="uptodate" md5="c61d86cfad0842f122278366bb2804b0">
     <title>Neue Nachricht: Anhänge hinzufügen</title>
     <heading>Anhänge hinzufügen</heading>
     <para>
@@ -265,7 +235,8 @@
       klicken Sie in dieser Zeit auf keine anderen Schaltflächen.
     </tip>
   </entry>
-  <entry id="compose-current-attachments" state="uptodate" md5="1dac09e0dba4d062ec6a4f82718956b7">
+
+<entry id="compose-current-attachments" state="uptodate" md5="1dac09e0dba4d062ec6a4f82718956b7">
     <title>Neue Nachricht: Aktuelle Anhänge</title>
     <heading>Aktuelle Anhänge</heading>
     <para>
@@ -316,7 +287,8 @@
       Nachricht durchgeführt.
     </para>
   </entry>
-  <entry id="compose-priority" state="uptodate" md5="b023367c36de3ce1567d27ccaa45640c">
+
+<entry id="compose-priority" state="uptodate" md5="b023367c36de3ce1567d27ccaa45640c">
     <title>Neue Nachricht: Priorität</title>
     <heading>"Priorität"</heading>
     <para>
@@ -327,7 +299,8 @@
       einfach.
     </para>
   </entry>
-  <entry id="compose-save-attachments" state="uptodate" md5="db89972c4ebb0b41ab691b6a7744a81d">
+
+<entry id="compose-save-attachments" state="uptodate" md5="db89972c4ebb0b41ab691b6a7744a81d">
     <title>Neue Nachricht: Anhänge Speichern</title>
     <para>
       Hiermit können Sie festlegen, ob Anhänge, die Sie der Nachricht
@@ -340,7 +313,8 @@
       gespeichert werden.
     </para>
   </entry>
-  <entry id="compose-link-attachments" state="uptodate" md5="63b3841c95aed31b5372f0fa770ee382">
+
+<entry id="compose-link-attachments" state="uptodate" md5="63b3841c95aed31b5372f0fa770ee382">
     <title>Neue Nachricht: Anhänge Verlinken</title>
     <para>
       Legt fest, ob Anhänge, die Sie beim Schreiben Ihrer Nachricht angeben,
@@ -354,35 +328,8 @@
       nicht in die Nachricht eingebettet sind.
     </para>
   </entry>
-  <entry id="search" state="uptodate" md5="0d9192553331cd63eeb46a3f52ef3db8">
-    <title>Nachrichtensuche</title>
-    <heading>Suchkriterien</heading>
-    <para>
-      Sie können Ihre Ordner nach Nachrichten anhand von unterschiedlichen
-      Suchkriterien durchsuchen.
-    </para>
-    <para>
-      Schritt 1: Legen Sie fest, ob nach <b>allen</b> Kriterien (UND-Suche)
-      oder <b>einem</b> Kriterium (ODER-Suche) suchen möchten.
-    </para>
-    <para>
-      Schritt 2: Wählen Sie die Felder aus, die Sie zu Ihrer Suchabfrage
-      hinzufügen möchten und geben Sie gegebenfalls die richtigen
-      Suchbegriffe oder -parameter ein.
-    </para>
-    <para>
-      Schritt 3: Wählen Sie die Nachrichtenordner aus, in denen Sie nach den
-      Nachrichten suchen wollen.
-    </para>
-    <para>
-      Schritt 4: Klicken Sie auf "Suche".
-    </para>
-    <para>
-      Wenn Nachrichten gefunden werden, die Ihren Suchkriterien entsprechen,
-      werden alle diese Nachrichten in einer Liste angezeigt.
-    </para>
-  </entry>
-  <entry id="folder-options" state="uptodate" md5="08ee3e450a82431727763b9db082ec08">
+
+<entry id="folder-options" state="uptodate" md5="08ee3e450a82431727763b9db082ec08">
     <title>Ordner Navigation: Aktionen</title>
     <para>
       Markieren Sie erst alle Ordner, mit denen Sie eine Aktion durchführen
@@ -492,7 +439,8 @@
       Alle Ordnereinträge, die Unterordner enthalten, werden zugeklappt.
     </para>
   </entry>
-  <entry id="filters" state="uptodate" md5="5ef60786767e638fbf5ba8fc5bd5d9d2">
+
+<entry id="filters" state="uptodate" md5="5ef60786767e638fbf5ba8fc5bd5d9d2">
     <title>Filterregeln: Anwenden</title>
     <para>
       Wenn Sie auf das Filtersymbol neben dem Ordnernamen klicken, während
@@ -500,7 +448,8 @@
       gemäß der Regeln, die Sie festgelegt haben, gefiltert.
     </para>
   </entry>
-  <entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
+
+<entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
     <title>Filterregeln: Filterregeln bearbeiten</title>
     <heading>Filterregeln bearbeiten</heading>
     <para>
@@ -508,7 +457,8 @@
       auf der Sie Filterregeln hinzufügen, löschen und bearbeiten können.
     </para>
   </entry>
-  <entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
+
+<entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
     <title>Filterregeln: Ausschlussliste bearbeiten</title>
     <heading>Ausschlussliste bearbeiten</heading>
     <para>
@@ -517,7 +467,8 @@
       den Sie NIE Nachrichten erhalten möchten.
     </para>
   </entry>
-  <entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
+
+<entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
     <title>Filterregeln: Positivliste bearbeiten</title>
     <heading>Positivliste bearbeiten</heading>
     <para>
@@ -526,7 +477,8 @@
       Nachrichten Sie IMMER annehmen möchten.
     </para>
   </entry>
-  <entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
+
+<entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
     <title>Filterregeln: Filtern bei der Anmeldung</title>
     <heading>Filterregeln bei der Anmeldung anwenden?</heading>
     <para>
@@ -534,7 +486,8 @@
       werden sollen, wenn Sie sich anmelden.
     </para>
   </entry>
-  <entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
+
+<entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
     <title>Filterregeln: Filtern beim Aktualisieren</title>
     <heading>Filterregeln anwenden, wenn der Posteingang angezeigt
       wird?</heading>
@@ -543,7 +496,8 @@
       werden sollen, wenn Sie sich den Posteingang (INBOX) anzeigen lassen.
     </para>
   </entry>
-  <entry id="filter-any-mailbox" state="uptodate" md5="71c51e83909f9d0bd440d220772ee3c6">
+
+<entry id="filter-any-mailbox" state="uptodate" md5="71c51e83909f9d0bd440d220772ee3c6">
     <title>Filterregeln: Alle Ordner filtern</title>
     <heading>Anwendung der Filterregeln in allen Ordnern?</heading>
     <para>
@@ -559,7 +513,8 @@
       die Nachrichten in den Ordner gelangten) führen.
     </para>
   </entry>
-  <entry id="pgp-compose-attach-pubkey" state="uptodate" md5="97446dbbb27616b4fa39be801e10df2d">
+
+<entry id="pgp-compose-attach-pubkey" state="uptodate" md5="97446dbbb27616b4fa39be801e10df2d">
     <title>PGP: Öffentlichen Schlüssel Anhängen</title>
     <heading>Öffentlichen Schlüssel Anhängen</heading>
     <para>
@@ -569,7 +524,8 @@
       festlegen.
     </para>
   </entry>
-  <entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
+
+<entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
     <title>PGP: Im Nachrichteninhalt Suchen</title>
     <heading>Im Nachrichteninhalt Suchen</heading>
     <para>
@@ -579,7 +535,22 @@
       einzelne Nachricht komplett nach den PGP-Daten durchsucht werden muss.
     </para>
   </entry>
-  <entry id="compose-options-encrypt" state="uptodate" md5="78ff9bd91687efb91d2798ca0458b5cb">
+
+<entry id="pgp-option-reply-pubkey" state="new">
+    <title>PGP: Öffentliche Schlüssel Beim Beantworten Überprüfen</title>
+    <heading>Öffentliche Schlüssel Beim Beantworten Überprüfen</heading>
+    <para>
+      Wenn diese Einstellung und die standardmäßige PGP-Verschlüsselung beim
+      Erstellen neuer Nachrichten aktiviert sind, wird schon beim Aufrufen des
+      Antwortformulars nach den öffentlichen Schlüsseln aller Empfänger
+      gesucht. Dies hat den Nachteil, dass sich das Öffnen des Formulars etwas
+      verzögern kann. Es hat aber andererseits den Vorteil, dass Sie schon vor
+      dem Abschicken Ihrer Antwort sehen können, ob die Verschlüsselung der
+      Nachricht für alle Empfänger wie gewünscht erfolgen kann.
+    </para>
+</entry>
+
+<entry id="compose-options-encrypt" state="uptodate" md5="78ff9bd91687efb91d2798ca0458b5cb">
     <title>Neue Nachricht: Verschlüsselungseinstellungen</title>
     <heading>Keine Verschlüsselung</heading>
     <para>
@@ -653,7 +624,8 @@
       Informationen.
     </para>
   </entry>
-  <entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
+
+<entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
     <title>PGP: Übersicht</title>
     <heading>Was ist PGP?</heading>
     <para>
@@ -672,7 +644,8 @@
       verschlüsseln und/oder digital unterschreiben.
     </para>
   </entry>
-  <entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
+
+<entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
     <title>PGP: Einstellungen - Öffentlichen Schlüssel anhängen</title>
     <heading>Einstellungen - Öffentlichen Schlüssel anhängen</heading>
     <para>
@@ -681,7 +654,8 @@
       Nachrichten angehängt.
     </para>
   </entry>
-  <entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
+
+<entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
     <title>PGP: Öffentlicher PGP-Schlüsselbund</title>
     <heading>Übersicht</heading>
     <para>
@@ -703,7 +677,8 @@
       Löscht den öffentlichen PGP-Schlüssel aus Ihrem Adressbuch.
     </para>
   </entry>
-  <entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
+
+<entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
     <title>PGP: Öffentlicher PGP-Schlüsselbund - Importieren</title>
     <heading>Öffentlichen Schlüssel importieren</heading>
     <para>
@@ -717,7 +692,8 @@
       konnte.
     </para>
   </entry>
-  <entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
+
+<entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
     <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel</title>
     <heading>Überblick</heading>
     <para>
@@ -747,7 +723,8 @@
       bleibt. Also Abmelden nicht vergessen!
     </para>
   </entry>
-  <entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
+
+<entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
     <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Öffentlicher
     Schlüssel</title>
     <heading>Anzeigen</heading>
@@ -759,7 +736,8 @@
       Zeigt einige Details zu Ihrem öffentlichen PGP-Schlüssel an.
     </para>
   </entry>
-  <entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
+
+<entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
     <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Privater
     Schlüssel</title>
     <heading>Passwort eingeben</heading>
@@ -785,7 +763,8 @@
       Zeigt einige Details zu Ihrem privaten PGP-Schlüssel an.
     </para>
   </entry>
-  <entry id="pgp-personalkey-delete" state="uptodate" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce">
+
+<entry id="pgp-personalkey-delete" state="uptodate" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce">
     <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Löschen</title>
     <heading>Aktuellen Schlüssel löschen</heading>
     <para>
@@ -793,7 +772,8 @@
       löschen.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
+
+<entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
     <title>PGP: Persönlichen Schlüssel erstellen - Ihr Name</title>
     <heading>Ihr Name</heading>
     <para>
@@ -801,7 +781,8 @@
       Pflichtfeld.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
+
+<entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
     <title>PGP: Persönlichen Schlüssel erstellen - Kommentar</title>
     <heading>Kommentar</heading>
     <para>
@@ -809,7 +790,8 @@
       können. Ein freiwilliges Feld.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
+
+<entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
     <title>PGP: Persönlichen Schlüssel erstellen - Emailadresse</title>
     <heading>Emailadresse</heading>
     <para>
@@ -817,7 +799,8 @@
       soll. Ein Pflichtfeld.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-keylength" state="uptodate" md5="24ca641c63fb5ff310a39ee0d3b1ee55">
+
+<entry id="pgp-personalkey-create-keylength" state="uptodate" md5="24ca641c63fb5ff310a39ee0d3b1ee55">
     <title>PGP: Persönlichen Schlüssel erstellen - Schlüssellänge</title>
     <heading>Schlüssellänge</heading>
     <para>
@@ -828,7 +811,8 @@
       Schutz.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="2fb9372970bf33f51e988ba39dbd7193">
+
+<entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="2fb9372970bf33f51e988ba39dbd7193">
     <title>PGP: Persönlichen Schlüssel erstellen - Passwort</title>
     <heading>Passwort</heading>
     <para>
@@ -839,7 +823,8 @@
       Passwort zur Vorsicht zweimal angeben. Ein Pflichtfeld.
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
+
+<entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
     <title>PGP: Persönlichen Schlüssel erstellen - Aktionen</title>
     <heading>Schlüssel erstellen</heading>
     <para>
@@ -857,7 +842,8 @@
       erläutert, warum der Import nicht geklappt hat.
     </para>
   </entry>
-  <entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
+
+<entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
     <title>S/MIME: Überblick</title>
     <heading>Was ist S/MIME?</heading>
     <para>
@@ -879,7 +865,8 @@
       verschlüsseln und/oder digital unterschreiben.
     </para>
   </entry>
-  <entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
+
+<entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
     <title>S/MIME: Ihre öffentlichen/privaten S/MIME-Zertifikate</title>
     <heading>Überblick</heading>
     <para>
@@ -888,7 +875,8 @@
       eigenes S/MIME-Schlüsselpaar haben.
     </para>
   </entry>
-  <entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
+
+<entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
     <title>S/MIME: Persönliche Zertifikate importieren</title>
     <heading>Persönliche Zertifikate importieren</heading>
     <para>
@@ -903,7 +891,8 @@
       erläutert, warum der Import nicht geklappt hat.
     </para>
   </entry>
-  <entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
+
+<entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
     <title>S/MIME: Persönliche Zertifikate löschen</title>
     <heading>Persönliche Zertifikate löschen</heading>
     <para>
@@ -912,7 +901,8 @@
       gerichtete und mit S/MIME verschlüsselte Nachrichten lesen.
     </para>
   </entry>
-  <entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
+
+<entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
     <title>S/MIME: Öffentlicher S/MIME-Schlüsselbund</title>
     <heading>S/MIME: Öffentlicher S/MIME-Schlüsselbund</heading>
     <para>
@@ -934,7 +924,8 @@
       schreiben.
     </para>
   </entry>
-  <entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
+
+<entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
     <title>Drucken</title>
     <heading>Drucken einer Nachricht</heading>
     <para>
@@ -947,7 +938,8 @@
       "Datei"-&gt;"Drucken" auf.
     </para>
   </entry>
-  <entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
+
+<entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
     <title>Sortieren und Themen</title>
     <heading>Nachrichten Sortieren</heading>
     <para>
@@ -965,7 +957,8 @@
       [Betreff]-Link in der Überschrift der Betreffspalte klicken.
     </para>
   </entry>
-  <entry id="alternative-msg" state="uptodate" md5="4978073f76977b6af6b69810e4d22a65">
+
+<entry id="alternative-msg" state="uptodate" md5="4978073f76977b6af6b69810e4d22a65">
     <title>Multipart/Alternative Nachrichten</title>
     <para>
       Einige Nachrichten werden im "multipart/alternative" Format
@@ -980,7 +973,8 @@
       Stelle von HTML.
     </para>
   </entry>
-  <entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="530fa20e0afbc25ffd40877948832899">
+
+<entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="530fa20e0afbc25ffd40877948832899">
     <title>Einstellungen: Anmeldeaufgaben: Ordner für gesendete Nachrichten am
     Monatsbeginn umbenennen</title>
     <para>
@@ -990,7 +984,8 @@
       enthält, und neue Ordner für gesendete Nachrichten werden angelegt.
     </para>
   </entry>
-  <entry id="prefs-delete_sentmail_monthly" state="uptodate" md5="0beed16dfd68e2f25e0c66871fd546df">
+
+<entry id="prefs-delete_sentmail_monthly" state="uptodate" md5="0beed16dfd68e2f25e0c66871fd546df">
     <title>Einstellungen: Anmeldeaufgaben: Alte Ordner für gesendete
     Nachrichten am Monatsbeginn löschen</title>
     <para>
@@ -1000,7 +995,8 @@
       nicht überschritten werden darf.
     </para>
   </entry>
-  <entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="71ed1c2eab48b91a25b5bcd4b14ccea9">
+
+<entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="71ed1c2eab48b91a25b5bcd4b14ccea9">
     <title>Einstellungen: Anmeldeaufgaben: Anzahl der Ordner für gesendete
     Nachrichten, die bei monatlicher Löschung behalten werden sollen</title>
     <para>
@@ -1009,14 +1005,16 @@
       als die angegebenen Monate werden gelöscht.
     </para>
   </entry>
-  <entry id="prefs-purge_sentmail" state="uptodate" md5="7b37c534aaaec6b43589f15845cf0273">
+
+<entry id="prefs-purge_sentmail" state="uptodate" md5="7b37c534aaaec6b43589f15845cf0273">
     <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten in Ordnern für
     gesendete Nachrichten löschen</title>
     <para>
       Sollen die Ordnern für gesendete Nachrichten regelmäßig geleert werden?
     </para>
   </entry>
-  <entry id="prefs-purge_sentmail_interval" state="uptodate" md5="423f3c1b0645cee1bc58e6e22a6d8b68">
+
+<entry id="prefs-purge_sentmail_interval" state="uptodate" md5="423f3c1b0645cee1bc58e6e22a6d8b68">
     <title>Einstellungen: Anmeldeaufgaben: Wie oft sollen Ordner für gesendete
     Nachrichten geleert werden</title>
     <para>
@@ -1024,7 +1022,8 @@
       wie oft sollen diese geleert werden?
     </para>
   </entry>
-  <entry id="prefs-purge_sentmail_keep" state="uptodate" md5="fcba2b7e5da61a7fdda7970f926f8d8a">
+
+<entry id="prefs-purge_sentmail_keep" state="uptodate" md5="fcba2b7e5da61a7fdda7970f926f8d8a">
     <title>Einstellungen: Anmeldeaufgaben: Nachrichten in Ordnern für
     gesendete Nachrichten nach so vielen Tagen endgültig löschen</title>
     <para>
@@ -1033,7 +1032,8 @@
       verbleiben?
     </para>
   </entry>
-  <entry id="prefs-delete_attachments_monthly" state="uptodate" md5="373ea02ede6df5fc345caf632e19a75f">
+
+<entry id="prefs-delete_attachments_monthly" state="uptodate" md5="373ea02ede6df5fc345caf632e19a75f">
     <title>Einstellungen: Anmeldeaufgaben: Alte verlinkte Anhänge am
     Monatsbeginn löschen</title>
     <para>
@@ -1041,7 +1041,8 @@
       Monatsbeginn löschen möchten.
     </para>
   </entry>
-  <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
+
+<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
     <title>Einstellungen: Anmeldeaufgaben: Anzahl der Monate, für die alte
     verlinkte Anhänge aufgehoben werden sollen, falls diese monatlich gelöscht
     werden</title>
@@ -1051,14 +1052,16 @@
       angegebenen Monate werden gelöscht.
     </para>
   </entry>
-  <entry id="prefs-purge_trash" state="uptodate" md5="dc71871146be3e46ade0087a8cf18273">
+
+<entry id="prefs-purge_trash" state="uptodate" md5="dc71871146be3e46ade0087a8cf18273">
     <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten im Papierkorb
     endgültig löschen?</title>
     <para>
       Soll der Papierkorb regelmäßig geleert werden?
     </para>
   </entry>
-  <entry id="prefs-purge_trash_interval" state="uptodate" md5="7be91fbeb05b2d87289d4c5602d5a32f">
+
+<entry id="prefs-purge_trash_interval" state="uptodate" md5="7be91fbeb05b2d87289d4c5602d5a32f">
     <title>Einstellungen: Anmeldeaufgaben: Wie oft soll der Papierkorb geleert
     werden?</title>
     <para>
@@ -1066,7 +1069,8 @@
       werden?
     </para>
   </entry>
-  <entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
+
+<entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
     <title>Einstellungen: Anmeldeaufgaben: Nachrichten im Papierkorb nach so
     vielen Tagen endgültig löschen</title>
     <para>
@@ -1074,14 +1078,16 @@
       gelöschten Nachrichten sollen im Papierkorb verbleiben?
     </para>
   </entry>
-  <entry id="prefs-purge_spam" state="uptodate" md5="9cabaf3500d3316054db045cf5339f5e">
+
+<entry id="prefs-purge_spam" state="uptodate" md5="9cabaf3500d3316054db045cf5339f5e">
     <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten im Spam-Ordner
     endgültig löschen?</title>
     <para>
       Soll der Spamordner regelmäßig geleert werden?
     </para>
   </entry>
-  <entry id="prefs-purge_spam_interval" state="uptodate" md5="fe0f7289693d19bd386638e25beeb276">
+
+<entry id="prefs-purge_spam_interval" state="uptodate" md5="fe0f7289693d19bd386638e25beeb276">
     <title>Einstellungen: Anmeldeaufgaben: Wie oft soll der Spam-Ordner geleert
     werden?</title>
     <para>
@@ -1089,7 +1095,8 @@
       werden?
     </para>
   </entry>
-  <entry id="prefs-purge_spam_keep" state="uptodate" md5="f4748aba20cf4a9b6ce92822bd185de6">
+
+<entry id="prefs-purge_spam_keep" state="uptodate" md5="f4748aba20cf4a9b6ce92822bd185de6">
     <title>Einstellungen: Anmeldeaufgaben: Nachrichten im Spam-Ordner nach so
     vielen Tagen endgültig löschen</title>
     <para>
@@ -1097,7 +1104,8 @@
       gelöschten Nachrichten sollen im Spam-Ordner verbleiben?
     </para>
   </entry>
-  <entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
+
+<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
      <title>Einstellungen: Neue Nachricht: Wie sollen Zitatantworten markiert
      werden</title>
      <para>
@@ -1123,7 +1131,8 @@
      <para> %n : Ein Zeilenumbruch</para>
      <para> %% : Das "%" Zeichen</para>
   </entry>
-  <entry id="prefs-default_msg_charset" state="uptodate" md5="4ef4fb2090e703f6f8e03f39ab96e717">
+
+<entry id="prefs-default_msg_charset" state="uptodate" md5="4ef4fb2090e703f6f8e03f39ab96e717">
     <title>Einstellungen: Standardzeichensatz für Nachrichten</title>
     <para>
       Hiermit können Sie den Standardzeichensatz angeben, der für Nachrichten
@@ -1137,7 +1146,8 @@
       "Standard", um die Zeichensätze nicht anzupassen.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
+
+<entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
     <title>Einstellungen: Lesebestätigungen anfordern</title>
     <para>
       Mit "Lesebestätigungen anfordern" werden die Empfänger Ihrer Nachrichten
@@ -1146,19 +1156,21 @@
       reagieren darauf.
     </para>
   </entry>
-  <entry id="prefs-disposition_send_mdn" state="uptodate" md5="1fe04e5dc3de68d172da284895973ea9">
+
+<entry id="prefs-disposition_send_mdn" state="changed" md5="1fe04e5dc3de68d172da284895973ea9">
     <title>Einstellungen: Lesebestätigung schicken</title>
     <para>
       Mit "Lesebestätigung schicken" wird eine Message Disposition
       Notification (eine Lesebestätigung) an den Absender einer Nachricht
       geschickt, falls er diese angefordet hat und Sie die Nachricht gelesen
-      haben. In den meisten Fällen geschieht das automatisch, ohne dass Sie
-      eingreifen müssen. In bestimmten Fällen kann es jedoch vorkommen, dass
-      Sie eine Nachfrage erhalten und selber entscheiden müssen, ob Sie diese
-      Bestätigung verschicken möchten, indem Sie auf einen Link klicken.
+      haben. Mit der Standardeinstellung werden Sie vor dem Abschicken einer
+      solchen Bestätigung um Erlaubnis gefragt. Weitere
+      Einstellungsmöglichkeiten erlauben das Ignorieren solcher Anfragen oder
+      das automatische Verschicken der Bestätigungen.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
+
+<entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
     <title>Einstellungen: Empfangsbestätigungen anfordern</title>
     <para>
       Mit "Empfangsbestätigungen anfordern" werden die Emailserver der
@@ -1169,29 +1181,44 @@
       Emailserver unterstützen diese Aufforderungen.
     </para>
   </entry>
-  <entry id="prefs-delete_spam_after_report" state="uptodate" md5="cefa8b52e09b0ada90e0889a3959efea">
-    <title>Einstellungen: Behandlung von Spam</title>
+
+<entry id="prefs-delete_spam_after_report" state="changed" md5="cefa8b52e09b0ada90e0889a3959efea">
+    <title>Einstellungen: Löschen von Spam</title>
     <para>
-      Sie können aus einer von drei Aktionen wählen, die ausgeführt werden
-      soll, wenn Sie eine Nachricht als Spam oder kein Spam gemeldet haben.
+      Sie können eine von drei Aktionen auswählen, die ausgeführt werden
+      soll, wenn Sie eine Nachricht als Spam gemeldet haben.
     </para>
     <para>
-      Erstens, nicht geschieht - die Nachricht wird als Spam oder kein Spam
-      gemeldet, aber bleibt unverändert in Ihrem Ordner.
+      Erstens, nicht geschieht - die Nachricht wird als Spam gemeldet, bleibt
+      aber unverändert in dem Ordner.
     </para>
     <para>
       Zweitens kann die Nachricht, die Sie gerade als Spam gemeldet haben,
-      sofort gelöscht werden. Diese Einstellung hat keinen Einfluß auf
-      Nachrichten die als kein Spam gemeldet wurden.
+      sofort gelöscht werden.
     </para>
     <para>
-      Zweitens kann die Nachricht, die Sie gerade als Spam gemeldet haben, in
-      Ihren Spam-Ordner verschoben werden. Falls Sie eine Nachricht als kein
-      Spam gemeldet haben, wird diese vom aktuellen Ordner in Ihren
-      Posteingang verschoben.
+      Drittens kann die Nachricht, die Sie gerade als Spam gemeldet haben, in
+      Ihren Spam-Ordner verschoben werden.
     </para>
 </entry>
-  <entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
+
+<entry id="prefs-move_ham_after_report" state="new">
+    <title>Einstellungen: Behandlung von Kein Spam</title>
+    <para>
+      Sie können eine von zwei Aktionen auswählen, die ausgeführt werden
+      soll, wenn Sie eine Nachricht als kein Spam gemeldet haben.
+    </para>
+    <para>
+      Erstens, nicht geschieht - die Nachricht wird als kein Spam gemeldet,
+      bleibt aber unverändert in Ihrem Ordner.
+    </para>
+    <para>
+      Zweitens kann die Nachricht, die Sie gerade als kein Spam gemeldet
+      haben, in Ihren Posteingang verschoben werden.
+    </para>
+</entry>
+
+<entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
     <title>Einstellungen: Ersetzen von Bildern in HTML</title>
     <para>
       Wenn HTML-Nachrichten innerhalb des Programms angezeigt werden, sollen
@@ -1200,7 +1227,8 @@
       HTML-Nachrichten in einem neuen Fenster anzeigen lassen.
     </para>
   </entry>
-  <entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
+
+<entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
     <title>Einstellungen: Ersetzen von Bildern in HTML/Adressbuchsuche</title>
     <para>
       Wenn Bilder von HTML-Nachrichten, die innerhalb des Programms angezeigt
@@ -1208,14 +1236,16 @@
       wenn sich der Absender der Nachricht in Ihrem Adressbuch befindet?
     </para>
   </entry>
-  <entry id="prefs-mailbox_start" state="uptodate" md5="62fcc38a15f54dae7eb8bdafa93ed341">
+
+<entry id="prefs-mailbox_start" state="uptodate" md5="62fcc38a15f54dae7eb8bdafa93ed341">
     <title>Einstellungen: Startseite in Ordnern</title>
     <para>
       Legt fest, welche Seite in der Ordneransicht angezeigt wird, wenn Sie
       einen Ordner öffnen.
     </para>
   </entry>
-  <entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
+
+<entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
     <title>Einstellungen: Anhänge mit gesendeten Nachrichten speichern</title>
     <para>
       Wenn eine neue Nachricht im Ordner für gesendete Nachrichten gespeichert
@@ -1237,7 +1267,8 @@
      nachfragen, ob die Anhänge mitgespeichert werden sollen; Die Anhänge
      werden NIE mitgespeichert.</para>
   </entry>
-  <entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
+
+<entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
     <title>Virtuelle Ordner: Virtueller Posteingang</title>
     <para>
       Der Virtuelle Posteingang ist eine gespeicherte Suchabfrage, die es
@@ -1248,7 +1279,8 @@
       einer einzigen Übersicht angezeigt.
     </para>
   </entry>
-  <entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
+
+<entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
     <title>Virtuelle Ordner: Virtueller Papierkorb</title>
     <para>
       Der Virtuelle Papierkorb ist eine gespeicherte Suchabfrage, die einen
@@ -1260,4 +1292,5 @@
       Nachrichten durchsucht und in einer einzigen Übersicht angezeigt.
     </para>
   </entry>
+
 </help>
