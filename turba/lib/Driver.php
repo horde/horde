@@ -423,32 +423,26 @@ class Turba_Driver
     }
 
     /**
-     * Translates an array of hashes from being keyed on driver-specific
-     * fields to being keyed on the generalized Turba attributes. The
-     * translation is based on the contents of $this->map.
+     * Translates a hash from being keyed on driver-specific fields to being
+     * keyed on the generalized Turba attributes. The translation is based on
+     * the contents of $this->map.
      *
-     * @param array $objects  Array of hashes using driver-specific keys.
+     * @param array $entry  A hash using driver-specific keys.
      *
-     * @return array  Translated version of $objects.
+     * @return array  Translated version of $entry.
      */
-    function toTurbaKeys($objects)
+    function toTurbaKeys($entry)
     {
-        $attributes = array();
-        foreach ($objects as $entry) {
-            $new_entry = array();
-
-            foreach ($this->map as $key => $val) {
-                if (!is_array($val)) {
-                    $new_entry[$key] = null;
-                    if (isset($entry[$val]) && strlen($entry[$val])) {
-                        $new_entry[$key] = trim($entry[$val]);
-                    }
+        $new_entry = array();
+        foreach ($this->map as $key => $val) {
+            if (!is_array($val)) {
+                $new_entry[$key] = null;
+                if (isset($entry[$val]) && strlen($entry[$val])) {
+                    $new_entry[$key] = trim($entry[$val]);
                 }
             }
-
-            $attributes[] = $new_entry;
         }
-        return $attributes;
+        return $new_entry;
     }
 
     /**
@@ -557,12 +551,12 @@ class Turba_Driver
      */
     function _toTurbaObjects($objects, $sort_order = null)
     {
-        /* Translate the driver-specific fields in the result back to the more
-         * generalized common Turba attributes using the map. */
-        $objects = $this->toTurbaKeys($objects);
-
         $list = new Turba_List();
         foreach ($objects as $object) {
+            /* Translate the driver-specific fields in the result back to the
+             * more generalized common Turba attributes using the map. */
+            $object = $this->toTurbaKeys($object);
+
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {
@@ -721,8 +715,8 @@ class Turba_Driver
         }
 
         $results = array();
-        $objects = $this->toTurbaKeys($objects);
         foreach ($objects as $object) {
+            $object = $this->toTurbaKeys($object);
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {

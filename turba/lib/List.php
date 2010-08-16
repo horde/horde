@@ -147,7 +147,7 @@ class Turba_List {
      *
      * @return integer  Comparison of the two field values.
      */
-    function cmp($a, $b)
+    function cmp(&$a, &$b)
     {
         require TURBA_BASE . '/config/attributes.php';
         foreach ($this->_usortCriteria as $field) {
@@ -165,8 +165,7 @@ class Turba_List {
             }
 
             $method = 'cmp_' . $usortType;
-            $result = $this->$method($a->getValue($field['field']),
-                                     $b->getValue($field['field']));
+            $result = $this->$method($a, $b, $field['field']);
             if (!$field['ascending']) {
                 $result = -$result;
             }
@@ -177,18 +176,22 @@ class Turba_List {
         return 0;
     }
 
-    function cmp_text($a, $b)
+    function cmp_text(&$a, &$b, $field)
     {
-        $acmp = Horde_String::lower($a, true);
-        $bcmp = Horde_String::lower($b, true);
+        if (!isset($a->sortValue[$field])) {
+            $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true);
+        }
+        if (!isset($b->sortValue[$field])) {
+            $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true);
+        }
 
         // Use strcoll for locale-safe comparisons.
-        return strcoll($acmp, $bcmp);
+        return strcoll($a->sortValue[$field], $b->sortValue[$field]);
     }
 
-    function cmp_int($a, $b)
+    function cmp_int($a, $b, $field)
     {
-        return ($a > $b) ? 1 : -1;
+        return ($a->getValue($field) > $b->getValue($field)) ? 1 : -1;
     }
 
 }
