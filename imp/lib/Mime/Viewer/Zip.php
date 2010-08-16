@@ -95,7 +95,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
         if (!empty($val['size']) && (strstr($val['attr'], 'D') === false) &&
             ((($val['method'] == 0x8) && Horde_Util::extensionExists('zlib')) ||
              ($val['method'] == 0x0))) {
-            $mime_part = $this->_mimepart;
+            $mime_part = clone $this->_mimepart;
             $mime_part->setName(basename($name));
             $val['name'] = str_replace($name, $this->getConfigParam('imp_contents')->linkView($mime_part, 'download_render', $name, array('jstext' => sprintf(_("View %s"), str_replace('&nbsp;', ' ', $name)), 'class' => 'fixed', 'params' => array('zip_attachment' => urlencode($key) + 1))), $val['name']);
         }
