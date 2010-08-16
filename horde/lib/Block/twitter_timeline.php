@@ -144,10 +144,10 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
             var Horde = window.Horde || {};
             Horde.twitter{$instance} = new Horde_Twitter({
                instanceid: '{$instance}',
-               getmore: 'getmore{$instance}',
+               getmore: '{$instance}_getmore',
                input: '{$instance}_newStatus',
                spinner: '{$instance}_loading',
-               content: 'twitter_body{$instance}',
+               content: '{$instance}_twitter_body',
                endpoint: '{$endpoint}',
                inreplyto: '{$inReplyToNode}',
                refreshrate: {$refresh},
@@ -166,10 +166,10 @@ EOT;
            . '<a class="button" onclick="Horde.twitter' . $instance . '.updateStatus($F(\'' . $instance . '_newStatus\'));" href="#">' . _("Tweet") . '</a><span id="' . $instance . '_counter" style="color: rgb(204, 204, 204);margin-left:6px;">140</span>  <span id="' . $instance . '_inReplyTo"></span>'
            . Horde::img('loading.gif', '', array('id' => $instance . '_loading', 'style' => 'display:none;'));
         $html .= '<div id="currentStatus" class="" style="margin: 10px;"><strong>' . _("Latest") . '</strong> ' . $latestStatus . ' - <span class="fbstreaminfo">' . Horde_Date_Utils::relativeDateTime(strtotime($this->_profile->status->created_at), $GLOBALS['prefs']->getValue('date_format'), ($GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M" : "%I:%M %P")) . '</span></div></div>';
-        $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="twitter_body' . $instance . '">';
+        $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="' . $instance . '_twitter_body">';
         $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $html .= '</div>';
-        $html .= '<div class="fbgetmore"><input type="button" class="button" id="getmore' . $instance . '"  value="' . _("Get More") . '"></div>';
+        $html .= '<div class="fbgetmore"><input type="button" class="button" id="' . $instance . '_getmore" value="' . _("Get More") . '"></div>';
         $html .= '</div>';
 
         return $html;
