@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="overview">
+  <title>Übersicht</title>
+  <heading>Einführung</heading>
+    <para>
+      Dies ist ein Ticketsystem. Sein flexibles Design erlaubt den Einsatz für
+      Helpdesk-Anfragen, Software-Verwaltung oder was auch immer die
+      Verwaltung von Anfragen und deren Status erfordert.
+    </para>
+    <para>
+      Diese System hat komplexe Such-, Bericht- und Benachrichtungsfunktionen
+      und eine abgestufte Rechtevergabe.
+    </para>
+</entry>
+
+</help>

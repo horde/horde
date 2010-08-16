@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: gollem/locale/de_DE/help.xml,v 1.1.2.1 2010/05/19 21:51:06 jan Exp $ -->
 <help>
-  <entry id="file-actions" md5="c14ca47840aeb8ea2868faf362679fdc" state="uptodate">
+
+<entry id="file-actions" md5="7f0c4e2ccabb226769d9d42336c9a660" state="uptodate">
     <title>Dateimanager: Aktionen</title>
     <heading>Verzeichnisse erstellen</heading>
     <para>Um einen Ordner im aktuellen Verzeichnis zu erstellen, klicken Sie
@@ -21,6 +21,14 @@
 
     <heading>Löschen, Ausschneiden, Kopieren und Einfügen von
     Verzeichnissen</heading>
+    <para>Standardmäßig können nur Verzeichnisse gelöscht werden, die leer
+    sind. Sie können aber das Löschen von Verzeichnissen mitsamt ihres Inhalts
+    (rekursives Löschen) aktivieren. Wenn Sie versuchen, ein Verzeichnis zu
+    löschen, das nicht leer ist, ohne diese Funktion einzuschalten, wird das
+    Löschen abgebrochen und Sie erhalten eine Fehlermeldung. Um das Löschen
+    von nicht-leeren Verzeichnissen einzuschalten, klicken Sie auf
+    "Einstellungen", noch einmal auf "Einstellungen" und wählen Sie "Ja" in
+    der Auswahlliste.</para>
     <para>Um Verzeichnisse zu löschen, auszuschneiden oder zu kopieren, muss
     mindestens ein Verzeichnis ausgewählt sein.  Nachdem ein oder mehrere
     Verzeichnisse mit Hilfe der Checkboxen links ausgewählt wurden, können Sie
@@ -42,24 +50,26 @@
     Symbol erscheint jedoch erst, wenn Dateien oder Verzeichnisse kopiert oder
     ausgeschnitten wurden. Von dort aus kann man diese Dateien oder
     Verzeichnisse in das aktuelle Verzeichnis einfügen. Wählen Sie dazu
-    einfach das entsprechende Element aus und wählen Einfügen. Um ein Element
-    aus der Zwischenablage zu entfernen, wählen Sie es aus und klicken dann
-    auf Entfernen.</para>
+    einfach das entsprechende Element aus und klicken auf "Einfügen". Um ein
+    Element aus der Zwischenablage zu entfernen, wählen Sie es aus und klicken
+    dann auf "Entfernen".</para>
   </entry>
 
-  <entry id="file-upload" md5="2bddc8d5410639c80cc5db206f4b3fc2" state="uptodate">
+<entry id="file-upload" md5="4bdaf29d2f497ba7a6b53ce378c9badf" state="uptodate">
     <title>Dateimanager: Hochladen</title>
     <heading>Dateien hochladen</heading>
     <para>Um Dateien hochzuladen, wechseln Sie in das entsprechende
-    Verzeichnis, in dem die Dateien platziert werden sollen. Wenn Sie sich im
+    Verzeichnis, in das die Dateien geladen werden sollen. Wenn Sie sich im
     entsprechenden Verzeichnis befinden, klicken Sie auf
     "Durchsuchen...". Damit öffnen Sie einen Dialog, in dem Sie eine Datei
     auswählen können, die hochgeladen werden soll. Anschließend können Sie
-    noch weitere Dateien auswählen oder Sie klicken auf "Datei(en) hochladen",
-    um die Datei(en) im aktuellen Verzeichnis zu speichern.</para>
+    noch weitere Dateien auswählen, der Dateimanager fügt automatische neue
+    "Durschsuchen..."-Felder unter den bereits verwendeten hinzu. Wenn Sie
+    fertig sind, klicken Sie auf "Datei(en) hochladen", um die Datei(en) im
+    aktuellen Verzeichnis zu speichern.</para>
   </entry>
 
-  <entry id="sorting" md5="88619f7e18cf0485fdc4a09cdc4e9b72" state="uptodate">
+<entry id="sorting" md5="37139f2e5d83ce2930f1b6986580c2f0" state="uptodate">
     <title>Einträge sortieren</title>
     <heading>Einträge sortieren</heading>
     <para>Wenn Sie sich eine Liste von Dateien oder Verzeichnissen ansehen,

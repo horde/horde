@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="Overview" md5="290506ade4e6f749246f77bbe5d48835" state="uptodate">
+
+<entry id="Overview" md5="290506ade4e6f749246f77bbe5d48835" state="uptodate">
     <title>Überblick</title>
     <heading>Einführung</heading>
     <para>
@@ -12,7 +13,8 @@
       "Mailinglisten" erstellen können.
     </para>
   </entry>
-  <entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
+
+<entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
     <title>Menü: Hinzufügen</title>
     <heading>Hinzufügen</heading>
     <para>
@@ -23,7 +25,8 @@
       hinzufügen können.
     </para>
   </entry>
-  <entry id="menu-search" md5="8daf81ab28602d772358a174571f9ad2" state="uptodate">
+
+<entry id="menu-search" md5="8daf81ab28602d772358a174571f9ad2" state="uptodate">
     <title>Menü: Suche</title>
     <heading>Suche</heading>
     <para>
@@ -38,7 +41,8 @@
       Suche</ref>" können Sie auch andere Felder durchsuchen.
     </para>
   </entry>
-  <entry id="menu-advanced-search" md5="6be703ffeba614f6ada151749fa44ab5" state="uptodate">
+
+<entry id="menu-advanced-search" md5="6be703ffeba614f6ada151749fa44ab5" state="uptodate">
     <title>Menü: Erweiterte Suche</title>
     <heading>Erweiterte Suche</heading>
     <para>
@@ -48,7 +52,8 @@
       Adressbuch ab.
     </para>
   </entry>
-  <entry id="menu-import" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4" state="uptodate">
+
+<entry id="menu-import" md5="3c6c40f2a6213e9fc1f9a77827bfb5d4" state="uptodate">
     <title>Menü: Import/Export</title>
     <heading>Import/Export</heading>
     <para>
@@ -114,7 +119,8 @@
       Daten nach dem Import überprüfen.
     </tip>
   </entry>
-  <entry id="searching-search_results" state="uptodate" md5="ffed8d72fa3b710df8e902c2493b254f">
+
+<entry id="searching-search_results" state="uptodate" md5="ffed8d72fa3b710df8e902c2493b254f">
     <title>Suche: Suchergebnisse</title>
     <heading>Suchergebnisse</heading>
     <para>
@@ -142,4 +148,5 @@
       Sie auf das Pfeilsymbol in der Spaltenüberschrift.
     </tip>
   </entry>
+
 </help>

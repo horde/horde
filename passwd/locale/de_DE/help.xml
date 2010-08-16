@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: passwd/locale/de_DE/help.xml,v 1.1.2.1 2008/10/09 17:12:07 jan Exp $ -->
+<!-- $Horde: passwd/locale/en_US/help.xml,v 1.7.2.2 2008/10/09 17:12:08 jan Exp $ -->
 <help>
   <entry id="passwd-username" md5="2890a9812d76074ffb3e35957eea967d" state="uptodate">
     <title>Benutzername</title>
@@ -7,10 +7,11 @@
     eingetragen ist. Dieses Feld steht nicht auf allen Systemen zur
     Verfügung.</para>
   </entry>
-  <entry id="passwd-old-password" md5="ec1429987f88cbd404d0efb2fd57df2c" state="uptodate">
+  <entry id="passwd-old-password" md5="5e55cb125b5778caaf1a51afca92ab59" state="uptodate">
     <title>Altes Passwort</title>
     <para>Geben Sie hier Ihr aktuelles, funktionierendes Passwort an. Sie
-    müssen Ihr Passwort korrekt angeben, um es ändern zu können.</para>
+    müssen Ihr aktuelles Passwort korrekt angeben, um es ändern zu
+    können.</para>
   </entry>
   <entry id="passwd-new-password" md5="8fe6f2254a9d10984fa8ba876f148b53" state="uptodate">
     <title>Neues Passwort</title>

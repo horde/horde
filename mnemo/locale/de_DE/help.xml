@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Horde: mnemo/locale/de_DE/help.xml,v 1.3 2004/12/03 02:03:16 jan Exp $ -->
+<!-- $Horde: mnemo/locale/en_US/help.xml,v 1.6 2004/11/30 22:25:43 jan Exp $ -->
 <help>
-  <entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
+
+<entry id="Overview" md5="50ee76138fb08b04b029006053bbadbc" state="uptodate">
     <title>Übersicht</title>
     <heading>Einführung</heading>
     <para>
@@ -16,7 +17,8 @@
       zusammengefasst und Kategorien zugeordnet werden.
     </para>
   </entry>
-  <entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
+
+<entry id="list-actions" md5="6d592f153bfb5c296de5dfebb428e1ba" state="uptodate">
     <title>Notizblock: Aktionen</title>
     <heading>Aktionen</heading>
     <para>
@@ -30,7 +32,8 @@
       Notizblock.
     </para>
   </entry>
-  <entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
+
+<entry id="menu-actions" md5="715a853d93cd3330e4d730b9112c8a82" state="uptodate">
     <title>Menüpunkte</title>
     <heading>Menüpunkte</heading>
     <para>
@@ -55,7 +58,9 @@
       Notizenansicht angezeigt.
     </para>
   </entry>
-  <entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
+
+
+<entry id="sorting" md5="cca3b1d1c9ed0ec5ab385f82469ddc8f" state="uptodate">
     <title>Einträge sortieren</title>
     <heading>Einträge sortieren</heading>
     <para>
