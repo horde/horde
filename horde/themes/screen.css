@@ -1192,26 +1192,34 @@ div.GrowlerNoticeExit:hover {
 }
 
 /* Social Media Related CSS */
-.fbstreamstory {
+.hordeSmStreamstory {
     margin-bottom: 7px;
     padding-top: 7px;
     position: relative;
 }
-.fbstreambody {
+.hordeSmStreambody {
     padding: 0 0 0 70px;
     min-height: 60px;
 }
-.fbstreaminfo {
+.hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;
     font-style: italic;
 }
-.fbgetmore {
+.hordeSmGetmore {
     text-align: center;
 }
-.fbcurrent {
+.hordeSmCurrent {
     font-style: italic;
     color: gray;
+}
+.hordeSmAvatar {
+    float: left;
+    text-align: center;
+    height: 73px;
+    width: 73px;
+    margin-right: 5px;
+    padding-top: 5px;
 }
 
 /* For in place editing */

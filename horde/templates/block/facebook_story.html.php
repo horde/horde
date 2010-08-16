@@ -11,9 +11,9 @@
  * $this->likesInfo          Text to display for the Like info (You and one other person etc...)
  */
 ?>
-<div class="fbstreamstory">
+<div class="hordeSmStreamstory">
  <div class="fbstreampic"><img style="float:left;" src="<?php echo $this->actorImgUrl ?>" /></div>
- <div class="fbstreambody">
+ <div class="hodreSmStreambody">
   <?php echo $this->actorProfileLink ?><br />
   <?php echo empty($this->message) ? '' : $this->message;?>
   <?php if(!empty($this->attachment)):?>
@@ -40,8 +40,8 @@
       <?php endif;?>
     </div>
   <?php endif;?>
-  <div class="fbstreaminfo"><?php echo $this->postInfo?></div>
-  <div class="fbstreaminfo" id="fb<?php echo $this->postId?>"><?php echo $this->likesInfo?></div>
+  <div class="hordeSmStreaminfo"><?php echo $this->postInfo?></div>
+  <div class="hordeSmStreaminfo" id="fb<?php echo $this->postId?>"><?php echo $this->likesInfo?></div>
  </div>
 </div>
 <div class="fbcontentdivider">&nbsp;</div>
