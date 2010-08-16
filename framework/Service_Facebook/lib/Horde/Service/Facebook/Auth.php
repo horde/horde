@@ -436,7 +436,7 @@ class Horde_Service_Facebook_Auth
     public function setUser($user, $sessionKey, $expires = null, $noCookie = false)
     {
         $cookies = $this->_request->getCookieVars();
-        if (!$noCookie && (!$cookies[$this->_facebook->apiKey . '_user'] ||
+        if (!$noCookie && (empty($cookies[$this->_facebook->apiKey . '_user']) ||
                            $cookies[$this->_facebook->apiKey . '_user'] != $user)) {
             $this->setCookies($user, $sessionKey, $expires);
         }
