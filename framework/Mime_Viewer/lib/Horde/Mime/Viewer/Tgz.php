@@ -98,8 +98,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
 
         $monospace = $this->getConfigParam('monospace');
 
-        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><span ' .
+        $text = '<table><tr><td align="left"><span ' .
             ($monospace ? 'class="' . $monospace . '">' : 'style="font-family:monospace">') .
             $this->_textFilter(_("Archive Name") . ':  ' . $name, 'Space2html', array(
                 'charset' => $charset,
