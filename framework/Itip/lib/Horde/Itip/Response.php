@@ -72,6 +72,16 @@ class Horde_Itip_Response
     }
 
     /**
+     * Return the original request.
+     *
+     * @return Horde_Itip_Event The original request.
+     */
+    public function getRequest()
+    {
+        return $this->_request;
+    }
+
+    /**
      * Return the response as an iCalendar vEvent object.
      *
      * @param Horde_Itip_Response_Type $type The response type.
@@ -85,7 +95,7 @@ class Horde_Itip_Response
         $vCal = false
     ) {
         $itip_reply = new Horde_Itip_Event_Vevent(
-            Horde_iCalendar::newComponent('VEVENT', $vCal)
+            Horde_Icalendar::newComponent('VEVENT', $vCal)
         );
         $this->_request->copyEventInto($itip_reply);
 
@@ -103,17 +113,16 @@ class Horde_Itip_Response
      * Return the response as an iCalendar object.
      *
      * @param Horde_Itip_Response_Type $type       The response type.
-     * @param string                   $product_id The ID that should be set as
-     *                                             the iCalendar product id.
+     * @param Horde_Itip_Response_Options $options The options for the response.
      *
-     * @return Horde_iCalendar The response object.
+     * @return Horde_Icalendar The response object.
      */
     public function getIcalendar(
         Horde_Itip_Response_Type $type,
-        $product_id
+        Horde_Itip_Response_Options $options
     ) {
-        $vCal = new Horde_iCalendar();
-        $vCal->setAttribute('PRODID', $product_id);
+        $vCal = new Horde_Icalendar();
+        $options->prepareIcalendar($vCal);
         $vCal->setAttribute('METHOD', 'REPLY');
         $vCal->addComponent($this->getVevent($type, $vCal));
         return $vCal;
@@ -122,52 +131,70 @@ class Horde_Itip_Response
     /**
      * Return the response as a MIME message.
      *
-     * @param Horde_Itip_Response_Type $type            The response type.
-     * @param string                   $product_id      The ID that should be set
-     *                                                  as the iCalendar product
-     *                                                  id.
-     * @param string                   $subject_comment An optional comment on
-     *                                                  the subject line.
+     * @param Horde_Itip_Response_Type    $type    The response type.
+     * @param Horde_Itip_Response_Options $options The options for the response.
      *
      * @return array A list of two object: The mime headers and the mime
      *               message.
      */
     public function getMessage(
         Horde_Itip_Response_Type $type,
-        $product_id,
-        $subject_comment = null
+        Horde_Itip_Response_Options $options
     ) {
-        $ics = new Horde_Mime_Part();
-        $ics->setType('text/calendar');
-        $ics->setCharset('UTF-8');
-        $ics->setContents(
-            $this->getIcalendar($type, $product_id)->exportvCalendar()
-        );
-        $ics->setContentTypeParameter('method', 'REPLY');
-
-        //$mime->addPart($body);
-        //$mime->addPart($ics);
-        // The following was ::convertMimePart($mime). This was removed so that we
-        // send out single-part MIME replies that have the iTip file as the body,
-        // with the correct mime-type header set, etc. The reason we want to do this
-        // is so that Outlook interprets the messages as it does Outlook-generated
-        // responses, i.e. double-clicking a reply will automatically update your
-        // meetings, showing different status icons in the UI, etc.
-        //$message = Horde_Mime_Message::convertMimePart($ics);
         $message = new Horde_Mime_Part();
-        $message->setCharset('UTF-8');
-        $message->setTransferEncoding('quoted-printable');
-        //$message->transferEncodeContents();
+        $message->setType('text/calendar');
+        $options->prepareIcsMimePart($message);
+        $message->setContents(
+            $this->getIcalendar($type, $options)->exportvCalendar()
+        );
+        $message->setName('event-reply.ics');
+        $message->setContentTypeParameter('METHOD', 'REPLY');
 
         // Build the reply headers.
+        $from = $this->_resource->getFrom();
+        $reply_to = $this->_resource->getReplyTo();
         $headers = new Horde_Mime_Headers();
         $headers->addHeader('Date', date('r'));
-        $headers->addHeader('From', $this->_resource->getFrom());
+        $headers->addHeader('From', $from);
         $headers->addHeader('To', $this->_request->getOrganizer());
+        if ($reply_to != $from) {
+            $headers->addHeader('Reply-to', $reply_to);
+        }
         $headers->addHeader(
-            'Subject', $type->getSubject($subject_comment)
+            'Subject', $type->getSubject()
         );
-        //$headers->addMimeHeaders($message);
+
+        $options->prepareResponseMimeHeaders($headers);
+
+        return array($headers, $message);
+    }
+
+    /**
+     * Return the response as a MIME message.
+     *
+     * @param Horde_Itip_Response_Type $type       The response type.
+     * @param Horde_Itip_Response_Options $options The options for the response.
+     *
+     * @return array A list of two object: The mime headers and the mime
+     *               message.
+     */
+    public function getMultiPartMessage(
+        Horde_Itip_Response_Type $type,
+        Horde_Itip_Response_Options $options
+    ) {
+        $message = new Horde_Mime_Part();
+        $message->setType('multipart/alternative');
+
+        list($headers, $ics) = $this->getMessage($type, $options);
+
+        $body = new Horde_Mime_Part();
+        $body->setType('text/plain');
+        $options->prepareMessageMimePart($body);
+        $body->setContents(Horde_String::wrap($type->getMessage(), 76, "\n"));
+
+        $message->addPart($body);
+        $message->addPart($ics);
+
         return array($headers, $message);
     }
 }

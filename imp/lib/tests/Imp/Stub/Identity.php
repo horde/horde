@@ -2,7 +2,7 @@
 
 class IMP_Stub_Identity
 {
-    private $id;
+    private $_id = 'default';
 
     public function getMatchingIdentity($mail)
     {
@@ -13,10 +13,15 @@ class IMP_Stub_Identity
 
     public function setDefault($id)
     {
-        if ($id != 'test' && $id != 'other') {
+        if ($id != 'test' && $id != 'other' && $id != 'default') {
             throw new Exception("Unexpected default $id!");
         }
         $this->_id = $id;
+    }
+
+    public function getDefault()
+    {
+        return $this->_id;
     }
 
     public function getFromAddress()

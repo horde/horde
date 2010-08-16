@@ -66,6 +66,15 @@ implements Horde_Itip_Resource
     }
 
     /**
+     * Retrieve the reply-to address for the resource.
+     *
+     * @return string The reply-to address.
+     */
+    public function getReplyTo()
+    {
+    }
+
+    /**
      * Retrieve the common name of the resource.
      *
      * @return string The common name.

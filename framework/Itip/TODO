@@ -1,3 +1,3 @@
 
- - Merge with Horde Imp
+ - Merge with Horde Imp (Changes [Horde]: Extended message body; improved From, Changes [Kolab]: Do not automatically set the sequence attribute to 0 if it does not exist -> http://bugs.horde.org/ticket/4863; use lower case mailto -> http://bugs.horde.org/ticket/4872; Missing UID in the vEvent causes failure;
  - Complete unit testing

@@ -122,10 +122,8 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $vCal = new Horde_Icalendar();
         $vCal->setAttribute('METHOD', 'REQUEST');
-        $inv = Horde_Icalendar::newComponent('VEVENT', $vCal);
-        $inv->setAttribute('ORGANIZER', 'somebody@example.com');
-        $viewer = $this->_getViewer($inv->exportvCalendar());
-        $this->assertEquals(array(), $viewer->render('inline'));
+        $viewer = $this->_getViewer("BEGIN:VEVENT\nORGANIZER:somebody@example.com\nDTSTAMP:20100816T143648Z\nDTSTART:20100816T143648Z\nEND:VEVENT");
+        $this->assertSame(array(), $viewer->render('inline'));
     }
 
     public function testResultMessageContainsCopiedSummary()
@@ -323,7 +321,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('Mr. Test has accepted.', $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has accepted the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
     }
 
     public function testDenyResultContainsDeclineMimeMessage()
@@ -331,7 +329,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'deny');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('Mr. Test has declined.', $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has declined the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
     }
 
     public function testTentativeResultContainsTentativeMimeMessage()
@@ -339,7 +337,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'tentative');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('Mr. Test has tentatively accepted.', $this->_getMimeMessage()->getPart(1)->getContents());
+        $this->assertEquals("Mr. Test has tentatively accepted the invitation to the following event:\n\nTest Invitation", $this->_getMimeMessage()->getPart(1)->getContents());
     }
 
     public function testResultMimeMessagePartOneHasRegistryCharset()
@@ -357,7 +355,11 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('BIG5', $this->_getMimeMessage()->getPart(2)->getCharset());
+        $ics = $this->_getMimeMessage()->getPart(2);
+        if (!$ics) {
+            $this->fail('Missing second message part!');
+        }
+        $this->assertEquals('BIG5', $ics->getCharset());
     }
 
     public function testResultMimeMessagePartTwoHasFileName()
@@ -365,7 +367,11 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('event-reply.ics', $this->_getMimeMessage()->getPart(2)->getName());
+        $ics = $this->_getMimeMessage()->getPart(2);
+        if (!$ics) {
+            $this->fail('Missing second message part!');
+        }
+        $this->assertEquals('event-reply.ics', $ics->getName());
     }
 
     public function testResultMimeMessagePartTwoHasContentTypeParameter()
@@ -373,7 +379,11 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('REPLY', $this->_getMimeMessage()->getPart(2)->getContentTypeParameter('METHOD'));
+        $ics = $this->_getMimeMessage()->getPart(2);
+        if (!$ics) {
+            $this->fail('Missing second message part!');
+        }
+        $this->assertEquals('REPLY', $ics->getContentTypeParameter('METHOD'));
     }
 
     public function testResultMimeMessageHeadersContainsReceivedHeader()
@@ -406,7 +416,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('test@example.org', $this->_getMailHeaders()->getValue('From'));
+        $this->assertEquals('"Mr. Test" <test@example.org>', $this->_getMailHeaders()->getValue('From'));
     }
 
     public function testResultMimeMessageHeadersContainsTo()
@@ -492,10 +502,16 @@ extends PHPUnit_Framework_TestCase
     private function _getMailHeaders()
     {
         if (isset($GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0])) {
-            return Horde_Mime_Headers::parseHeaders(
+            $headers = Horde_Mime_Headers::parseHeaders(
                 $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['header_text']
             );
+            if (!$headers instanceOf Horde_Mime_Headers) {
+                $this->fail('Failed parsing message headers!');
+                return new Horde_Mime_Headers();
+            }
+            return $headers;
         }
+        $this->fail('No message has been sent!');
     }
 
     private function _getMail()
@@ -520,8 +536,12 @@ extends PHPUnit_Framework_TestCase
     private function _getIcalendar()
     {
         $part = $this->_getMimeMessage();
+        $ics = $part->getPart(2);
+        if (!$ics) {
+            $this->fail('Missing second message part!');
+        }
         $iCal = new Horde_Icalendar();
-        $iCal->parsevCalendar($part->getPart(2)->getContents());
+        $iCal->parsevCalendar($ics->getContents());
         return $iCal;
     }
 

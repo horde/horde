@@ -75,7 +75,7 @@ implements Horde_Itip_Event
      */
     public function getUid()
     {
-        return $this->_vevent->getAttributeDefault('UID', '');
+        return $this->_vevent->getAttribute('UID');
     }
 
     /**
@@ -150,7 +150,7 @@ implements Horde_Itip_Event
     {
         $this->_vevent->setAttribute(
             'ATTENDEE',
-            'MAILTO:' . $attendee,
+            'mailto:' . $attendee,
             array(
                 'CN' => $common_name,
                 'PARTSTAT' => $status
@@ -351,7 +351,7 @@ implements Horde_Itip_Event
      */
     private function getSequence()
     {
-        return $this->_vevent->getAttributeDefault('SEQUENCE', 0);
+        return $this->_vevent->getAttribute('SEQUENCE');
     }
 
     /**
@@ -372,7 +372,10 @@ implements Horde_Itip_Event
      */
     private function copySequence(Horde_Itip_Event $itip)
     {
-        $itip->setSequence($this->getSequence());
+        try {
+            $itip->setSequence($this->getSequence());
+        } catch (Horde_Icalendar_Exception $e) {
+        }
     }
 
     /**

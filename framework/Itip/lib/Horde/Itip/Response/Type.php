@@ -36,30 +36,32 @@ interface Horde_Itip_Response_Type
     public function getStatus();
 
     /**
-     * Return the abbreviated subject of the response.
+     * Return the core subject of the response.
      *
      * @return string The short subject.
      */
     public function getShortSubject();
 
     /**
-     * Return the subject of the response.
-     *
-     * @param string $comment An optional comment that should appear in the
-     *                        response subject.
+     * Return the subject of the response without using the comment.
      *
      * @return string The subject.
      */
-    public function getSubject($comment = null);
+    public function getBriefSubject();
+
+    /**
+     * Return the subject of the response.
+     *
+     * @return string The subject.
+     */
+    public function getSubject();
 
     /**
      * Return an additional message for the response.
      *
      * @param boolean $is_update Indicates if the request was an update.
-     * @param string  $comment   An optional comment that should appear in the
-     *                           response message.
      *
      * @return string The message.
      */
-    public function getMessage($is_update = false, $comment = null);
+    public function getMessage($is_update = false);
 }

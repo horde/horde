@@ -37,11 +37,38 @@ implements Horde_Itip_Response_Type
     private $_request;
 
     /**
+     * The invited resource.
+     *
+     * @var Horde_Itip_Resource
+     */
+    private $_resource;
+
+    /**
+     * An optional comment that should appear in the response subject.
+     *
+     * @var string
+     */
+    private $_comment;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Itip_Resource $resource The invited resource. 
+     * @param string              $comment  A comment for the subject line.
+     */
+    public function __construct(
+        Horde_Itip_Resource $resource,
+        $comment = null
+    ) {
+        $this->_resource = $resource;
+        $this->_comment  = $comment;
+    }
+
+    /**
      * Set the request.
      *
-     * @param Horde_Itip_Event $request  The request this
-     *                                                  instance will respond
-     *                                                    to.
+     * @param Horde_Itip_Event $request The request this instance will respond
+     *                                  to.
      *
      * @return NULL
      */
@@ -71,26 +98,32 @@ implements Horde_Itip_Response_Type
     }
 
     /**
-     * Return the subject of the response.
-     *
-     * @param string $comment An optional comment that should appear in the
-     *                        response subject.
+     * Return the subject of the response without using the comment.
      *
      * @return string The subject.
      */
-    public function getSubject($comment = null)
+    public function getBriefSubject()
     {
-        if ($comment === null) {
-            return sprintf(
-                '%s: %s',
-                $this->getShortSubject(),
-                $this->getRequest()->getSummary()
-            );
+        return sprintf(
+            '%s: %s',
+            $this->getShortSubject(),
+            $this->getRequest()->getSummary()
+        );
+    }
+    /**
+     * Return the subject of the response.
+     *
+     * @return string The subject.
+     */
+    public function getSubject()
+    {
+        if ($this->_comment === null) {
+            return $this->getBriefSubject();
         } else {
             return sprintf(
                 '%s [%s]: %s',
                 $this->getShortSubject(),
-                $comment,
+                $this->_comment,
                 $this->getRequest()->getSummary()
             );
         }
@@ -100,25 +133,25 @@ implements Horde_Itip_Response_Type
      * Return an additional message for the response.
      *
      * @param boolean $is_update Indicates if the request was an update.
-     * @param string  $comment   An optional comment that should appear in the
-     *                           response message.
      *
      * @return string The message.
      */
-    public function getMessage($is_update = false, $comment = null)
+    public function getMessage($is_update = false)
     {
-        if ($comment === null) {
+        if ($this->_comment === null) {
             return sprintf(
                 "%s %s:\n\n%s",
-                $this->getShortMessage($update),
+                $this->_resource->getCommonName(),
+                $this->getShortMessage($is_update),
                 $this->getRequest()->getSummary()
             );
         } else {
             return sprintf(
                 "%s %s:\n\n%s\n\n%s",
-                $this->getShortMessage($update),
+                $this->_resource->getCommonName(),
+                $this->getShortMessage($is_update),
                 $this->getRequest()->getSummary(),
-                $comment
+                $this->_comment
             );
         }
     }

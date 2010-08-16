@@ -47,8 +47,15 @@
       </dir> <!-- /lib/Horde/Itip/Event -->
       <dir name="Resource">
        <file name="Base.php" role="php" />
+       <file name="Identity.php" role="php" />
       </dir> <!-- /lib/Horde/Itip/Resource -->
       <dir name="Response">
+       <dir name="Options">
+        <file name="Base.php" role="php" />
+        <file name="Horde.php" role="php" />
+        <file name="Kolab.php" role="php" />
+       </dir> <!-- /lib/Horde/Itip/Response/Options -->
+       <file name="Options.php" role="php" />
        <dir name="Type">
         <file name="Accept.php" role="php" />
         <file name="Base.php" role="php" />
@@ -109,6 +116,11 @@
    <install as="Horde/Itip/Response.php" name="lib/Horde/Itip/Response.php" />
    <install as="Horde/Itip/Event/Vevent.php" name="lib/Horde/Itip/Event/Vevent.php" />
    <install as="Horde/Itip/Resource/Base.php" name="lib/Horde/Itip/Resource/Base.php" />
+   <install as="Horde/Itip/Resource/Identity.php" name="lib/Horde/Itip/Resource/Identity.php" />
+   <install as="Horde/Itip/Response/Options.php" name="lib/Horde/Itip/Response/Options.php" />
+   <install as="Horde/Itip/Response/Options/Base.php" name="lib/Horde/Itip/Response/Options/Base.php" />
+   <install as="Horde/Itip/Response/Options/Horde.php" name="lib/Horde/Itip/Response/Options/Horde.php" />
+   <install as="Horde/Itip/Response/Options/Kolab.php" name="lib/Horde/Itip/Response/Options/Kolab.php" />
    <install as="Horde/Itip/Response/Type.php" name="lib/Horde/Itip/Response/Type.php" />
    <install as="Horde/Itip/Response/Type/Accept.php" name="lib/Horde/Itip/Response/Type/Accept.php" />
    <install as="Horde/Itip/Response/Type/Base.php" name="lib/Horde/Itip/Response/Type/Base.php" />

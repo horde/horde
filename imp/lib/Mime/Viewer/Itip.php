@@ -245,137 +245,46 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 // vEvent request.
                 if (isset($components[$key]) &&
                     $components[$key]->getType() == 'vEvent') {
+
                     $vEvent = $components[$key];
 
-                    // Get the organizer details.
-                    try {
-                        $organizer = $vEvent->getAttribute('ORGANIZER');
-                    } catch (Horde_Icalendar_Exception $e) {
-                        break;
-                    }
-                    $organizer = parse_url($organizer);
-                    $organizerEmail = $organizer['path'];
-                    $organizer = $vEvent->getAttribute('ORGANIZER', true);
-                    $organizerName = isset($organizer['cn']) ? $organizer['cn'] : '';
-
-                    // Build the reply.
-                    $msg_headers = new Horde_Mime_Headers();
-                    $vCal = new Horde_Icalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
-                    $vCal->setAttribute('METHOD', 'REPLY');
-
-                    $vEvent_reply = Horde_Icalendar::newComponent('vevent', $vCal);
-                    $vEvent_reply->setAttribute('UID', $vEvent->getAttribute('UID'));
-                    try {
-                        $vEvent->getAttribute('SUMMARY');
-                        $vEvent_reply->setAttribute('SUMMARY', $vEvent->getAttribute('SUMMARY'));
-                    } catch (Horde_Icalendar_Exception $e) {}
-                    try {
-                        $vEvent->getAttribute('DESCRIPTION');
-                        $vEvent_reply->setAttribute('DESCRIPTION', $vEvent->getAttribute('DESCRIPTION'));
-                    } catch (Horde_Icalendar_Exception $e) {}
-                    $dtstart = $vEvent->getAttribute('DTSTART', true);
-                    $vEvent_reply->setAttribute('DTSTART', $vEvent->getAttribute('DTSTART'), array_pop($dtstart));
-                    try {
-                        $vEvent->getAttribute('DTEND');
-                        $dtend = $vEvent->getAttribute('DTEND', true);
-                        $vEvent_reply->setAttribute('DTEND', $vEvent->getAttribute('DTEND'), array_pop($dtend));
-                    } catch (Horde_Icalendar_Exception $e) {
-                        $duration = $vEvent->getAttribute('DURATION', true);
-                        $vEvent_reply->setAttribute('DURATION', $vEvent->getAttribute('DURATION'), array_pop($duration));
-                    }
-                    try {
-                        $vEvent->getAttribute('SEQUENCE');
-                        $vEvent_reply->setAttribute('SEQUENCE', $vEvent->getAttribute('SEQUENCE'));
-                    } catch (Horde_Icalendar_Exception $e) {}
-                    $vEvent_reply->setAttribute('ORGANIZER', $vEvent->getAttribute('ORGANIZER'), array_pop($organizer));
-
-                    // Find out who we are and update status.
-                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-                    $attendees = $vEvent->getAttribute('ATTENDEE');
-                    if (!is_array($attendees)) {
-                        $attendees = array($attendees);
-                    }
-                    foreach ($attendees as $attendee) {
-                        $attendee = preg_replace('/mailto:/i', '', $attendee);
-                        if (!is_null($id = $identity->getMatchingIdentity($attendee))) {
-                            $identity->setDefault($id);
-                            break;
-                        }
-                    }
-                    $name = $email = $identity->getFromAddress();
-                    $params = array();
-                    $cn = $identity->getValue('fullname');
-                    if (!empty($cn)) {
-                        $name = $params['CN'] = $cn;
-                    }
+                    $resource = new Horde_Itip_Resource_Identity(
+                        $GLOBALS['injector']->getInstance('IMP_Identity'),
+                        $vEvent->getAttribute('ATTENDEE'),
+                        Horde_Util::getFormData('identity')
+                    );
 
                     switch ($action) {
                     case 'accept':
                     case 'accept-import':
-                        $message = sprintf(_("%s has accepted."), $name);
-                        $subject = _("Accepted: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'ACCEPTED';
+                        $type = new Horde_Itip_Response_Type_Accept($resource);
                         break;
-
                     case 'deny':
-                        $message = sprintf(_("%s has declined."), $name);
-                        $subject = _("Declined: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'DECLINED';
+                        $type = new Horde_Itip_Response_Type_Decline($resource);
                         break;
-
                     case 'tentative':
-                        $message = sprintf(_("%s has tentatively accepted."), $name);
-                        $subject = _("Tentative: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'TENTATIVE';
+                        $type = new Horde_Itip_Response_Type_Tentative($resource);
                         break;
                     }
 
-                    $vEvent_reply->setAttribute('ATTENDEE', 'mailto:' . $email, $params);
-                    $vCal->addComponent($vEvent_reply);
-
-                    $mime = new Horde_Mime_Part();
-                    $mime->setType('multipart/alternative');
-
-                    $body = new Horde_Mime_Part();
-                    $body->setType('text/plain');
-                    $body->setCharset($charset);
-                    $body->setContents(Horde_String::wrap($message, 76, "\n"));
-
-                    $ics = new Horde_Mime_Part();
-                    $ics->setType('text/calendar');
-                    $ics->setCharset($charset);
-                    $ics->setContents($vCal->exportvCalendar());
-                    $ics->setName('event-reply.ics');
-                    $ics->setContentTypeParameter('METHOD', 'REPLY');
-
-                    $mime->addPart($body);
-                    $mime->addPart($ics);
-
-                    // Build the reply headers.
-                    $msg_headers->addReceivedHeader(array(
-                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
-                        'server' => $GLOBALS['conf']['server']['name']
-                    ));
-                    $msg_headers->addMessageIdHeader();
-                    $msg_headers->addHeader('Date', date('r'));
-                    $msg_headers->addHeader('From', $email);
-                    $msg_headers->addHeader('To', $organizerEmail);
-
-                    $identity->setDefault(Horde_Util::getFormData('identity'));
-                    $replyto = $identity->getValue('replyto_addr');
-                    if (!empty($replyto) && ($replyto != $email)) {
-                        $msg_headers->addHeader('Reply-to', $replyto);
-                    }
-                    $msg_headers->addHeader('Subject', Horde_Mime::encode($subject, $charset));
-
-                    // Send the reply.
                     try {
-                        $mime->send($organizerEmail, $msg_headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
+                        Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
+                            $type,
+                            new Horde_Itip_Response_Options_Horde(
+                                $charset,
+                                array(
+                                    'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                                    'server' => $GLOBALS['conf']['server']['name']
+                                )
+                            ),
+                            $GLOBALS['injector']->getInstance('IMP_Mail')
+                        );
                         $msgs[] = array('success', _("Reply Sent."));
-                    } catch (Exception $e) {
+                    } catch (Horde_Itip_Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
+
+                    // Send the reply.
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
                 }

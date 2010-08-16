@@ -40,10 +40,19 @@ class Horde_Itip
      *
      * @param Horde_Itip_Response $response The iTip response.
      */
-    public function __construct(
-        Horde_Itip_Response $response
-    ) {
+    public function __construct(Horde_Itip_Response $response)
+    {
         $this->_response = $response;
+    }
+
+    /**
+     * Return the organizer mail address.
+     *
+     * @return string The mail address of the event organizer
+     */
+    public function getOrganizer()
+    {
+        return $this->_response->getRequest()->getOrganizer();
     }
 
     /**
@@ -86,19 +95,39 @@ class Horde_Itip
      * @param string                   $product_id      The ID that should be set
      *                                                  as the iCalendar product
      *                                                  id.
-     * @param string                   $subject_comment An optional comment on
-     *                                                  the subject line.
-     *
      * @return array A list of two object: The mime headers and the mime
      *               message.
      */
     public function getMessageResponse(
         Horde_Itip_Response_Type $type,
-        $product_id,
-        $subject_comment = null
+        $product_id
     ) {
         return $this->_response->getMessage(
-            $type, $product_id, $subject_comment
+            $type, $product_id
+        );
+    }
+
+    /**
+     * Send the invitation response as a multi part MIME message.
+     *
+     * @param Horde_Itip_Response_Type    $type      The response type.
+     * @param Horde_Itip_Response_Options $options   The options for the response.
+     * @param Horde_Mail_Transport        $transport The mail transport.
+     *
+     * @return NULL
+     */
+    public function sendMultipartResponse(
+        Horde_Itip_Response_Type $type,
+        Horde_Itip_Response_Options $options,
+        Horde_Mail_Transport $transport
+    ) {
+        list($headers, $body) = $this->_response->getMultiPartMessage(
+            $type, $options
+        );
+        $body->send(
+            $this->_response->getRequest()->getOrganizer(),
+            $headers,
+            $transport
         );
     }
 
