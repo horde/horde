@@ -7,6 +7,8 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
+ * @author Michael J. Rubinsky <mrubinsk.horde.org>
+ * @package @horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -56,7 +58,7 @@ case 'getPage':
         } elseif ($since = Horde_Util::getPost('since_id')) {
             $params['since_id'] = $since;
         }
-
+        $instance = Horde_Util::getPost('i');
         $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
     } catch (Horde_Service_Twitter_Exception $e) {
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
@@ -100,6 +102,7 @@ case 'getPage':
         $view->createdAt = $tweetObj->created_at;
         $view->clientText = $filter->filter($tweet->source, 'xss');
         $view->tweet = $tweet;
+        $view->instanceid = $instance;
         $oldest = $tweet->id;
         $html .= $view->render('twitter_tweet');
     }

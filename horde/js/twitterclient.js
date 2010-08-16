@@ -11,6 +11,7 @@ var Horde_Twitter = Class.create({
    inReplyTo: '',
    oldestId: null,
    newestId: null,
+   instanceid: null,
 
    /**
     * Const'r
@@ -26,6 +27,7 @@ var Horde_Twitter = Class.create({
     * opts.strings.defaultText
     * opts.strings.justnow
     * opts.getmore
+    * opts.instanceid
     */
     initialize: function(opts) {
         this.opts = Object.extend({
@@ -48,6 +50,7 @@ var Horde_Twitter = Class.create({
             e.stop();
         }.bind(this));
 
+        this.instanceid = opts.instanceid;
         /* Get the first page */
         this.getNewEntries();
    },
@@ -107,7 +110,11 @@ var Horde_Twitter = Class.create({
      * @param integer page  The page number to retrieve.
      */
     getOlderEntries: function() {
-        var params = { actionID: 'getPage' };
+        var params = {
+            actionID: 'getPage',
+            i: this.instanceid
+        };
+
         if (this.oldestId) {
             params.max_id = this.oldestId;
         }
@@ -126,7 +133,11 @@ var Horde_Twitter = Class.create({
      * request.
      */
     getNewEntries: function() {
-        var params = { actionID: 'getPage' };
+        var params = {
+            actionID: 'getPage',
+            i: this.instanceid
+        };
+
         if (this.newestId) {
             params.since_id = this.newestId;
         } else {

@@ -111,7 +111,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         }
 
         /* Get a unique ID in case we have multiple Twitter blocks. */
-        $instance = md5(mt_rand());
+        $instance = (string)new Horde_Support_Randomid();
 
         /* Latest status */
         if (empty($this->_profile->status)) {
@@ -143,6 +143,7 @@ class Horde_Block_Horde_twitter_timeline extends Horde_Block
         $script = <<<EOT
             var Horde = window.Horde || {};
             Horde.twitter{$instance} = new Horde_Twitter({
+               instanceid: '{$instance}',
                getmore: 'getmore{$instance}',
                input: '{$instance}_newStatus',
                spinner: '{$instance}_loading',

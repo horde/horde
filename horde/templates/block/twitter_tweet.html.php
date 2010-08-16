@@ -11,6 +11,7 @@
  *   ->createdAt
  *   ->clientName
  *   ->tweet
+ *   ->instanceid
  *
  */
 ?>
@@ -30,8 +31,8 @@
     </div>
     <?php endif; ?>
     <div class="fbstreaminfo">
-      <?php echo Horde::link('#', '', '', '', 'Horde.twitter.buildReply(\'' . $this->tweet->id . '\', \'' . $this->tweet->user->screen_name . '\', \'' . $this->tweet->user->name . '\')') .  _("Reply") ?></a>
-      &nbsp;|&nbsp; <?php echo Horde::link('#', '', '', '', 'Horde.twitter.retweet(\'' . $this->tweet->id . '\')') . _("Retweet") ?></a>
+      <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde.' . $this->instanceid . '.buildReply(\'' . $this->tweet->id . '\', \'' . $this->tweet->user->screen_name . '\', \'' . $this->tweet->user->name . '\'); return false;')) .  _("Reply") ?></a>
+      &nbsp;|&nbsp; <?php echo Horde::selfUrl()->link(array('onclick' => 'Horde.twitter' . $this->instanceid . '.retweet(\'' . $this->tweet->id . '\'); return false;')) . _("Retweet") ?></a>
     </div>
     <div class="clear">&nbsp;</div>
   </div>
