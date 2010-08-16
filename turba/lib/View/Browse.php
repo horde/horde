@@ -385,7 +385,7 @@ class Turba_View_Browse {
                         $type_filter = array('__type' => 'Group');
                         break;
                     }
-                    $results = $driver->search($type_filter, $sortorder, 'AND', $columns);
+                    $results = $driver->search($type_filter, $sortorder, 'AND', $columns ? $columns : array('name'));
                     if (!is_object($results)) {
                         $notification->push(_("Failed to browse the directory"), 'horde.error');
                     } elseif (is_a($results, 'PEAR_Error')) {
