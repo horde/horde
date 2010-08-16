@@ -169,7 +169,7 @@ EOT;
         $html .= '<div style="height:' . (empty($this->_params['height']) ? 350 : $this->_params['height']) . 'px;overflow-y:auto;" id="' . $instance . '_twitter_body">';
         $filter = $GLOBALS['injector']->getInstance('Horde_Text_Filter')->getFilter('Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         $html .= '</div>';
-        $html .= '<div class="fbgetmore"><input type="button" class="button" id="' . $instance . '_getmore" value="' . _("Get More") . '"></div>';
+        $html .= '<div class="hordeSmGetmore"><input type="button" class="button" id="' . $instance . '_getmore" value="' . _("Get More") . '"></div>';
         $html .= '</div>';
 
         return $html;
