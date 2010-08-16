@@ -1335,7 +1335,7 @@ function make_help()
                     $entry->setAttribute('state', 'uptodate');
                     $count++;
                 } else {
-                    $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $id), 'cli.warning');
+                    $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $entry->getAttribute('id')), 'cli.warning');
                 }
             }
 
