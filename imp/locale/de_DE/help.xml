@@ -37,6 +37,13 @@
     </para>
   </entry>
 
+<!--
+<entry id="keyboard-shortcuts">
+    <title>Keyboard: Shortcuts</title>
+    <heading>Using Keyboard Shortcuts</heading>
+</entry>
+-->
+
 <entry id="compose-buttons" state="uptodate" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a">
     <title>Neue Nachricht: Aktionen</title>
     <heading>Aktionen</heading>
@@ -536,7 +543,7 @@
     </para>
   </entry>
 
-<entry id="pgp-option-reply-pubkey" state="new">
+<entry id="pgp-option-reply-pubkey" state="uptodate" md5="9eeec8178d39bd61ecbd74d175179587">
     <title>PGP: Öffentliche Schlüssel Beim Beantworten Überprüfen</title>
     <heading>Öffentliche Schlüssel Beim Beantworten Überprüfen</heading>
     <para>
@@ -1157,7 +1164,7 @@
     </para>
   </entry>
 
-<entry id="prefs-disposition_send_mdn" state="changed" md5="1fe04e5dc3de68d172da284895973ea9">
+<entry id="prefs-disposition_send_mdn" state="uptodate" md5="a34111d84fa4ddc3cf19a18fd4765337">
     <title>Einstellungen: Lesebestätigung schicken</title>
     <para>
       Mit "Lesebestätigung schicken" wird eine Message Disposition
@@ -1182,7 +1189,7 @@
     </para>
   </entry>
 
-<entry id="prefs-delete_spam_after_report" state="changed" md5="cefa8b52e09b0ada90e0889a3959efea">
+<entry id="prefs-delete_spam_after_report" state="uptodate" md5="8d1eb1fb6f3c10802d20630a5f5ad132">
     <title>Einstellungen: Löschen von Spam</title>
     <para>
       Sie können eine von drei Aktionen auswählen, die ausgeführt werden
@@ -1202,7 +1209,7 @@
     </para>
 </entry>
 
-<entry id="prefs-move_ham_after_report" state="new">
+<entry id="prefs-move_ham_after_report" state="uptodate" md5="4b971b84ed993e6a6fff8d45a50d03c5">
     <title>Einstellungen: Behandlung von Kein Spam</title>
     <para>
       Sie können eine von zwei Aktionen auswählen, die ausgeführt werden
