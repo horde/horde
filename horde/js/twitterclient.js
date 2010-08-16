@@ -217,8 +217,8 @@ var Horde_Twitter = Class.create({
      * Build adnd display the node for a new tweet.
      */
     buildNewTweet: function(response) {
-        var tweet = new Element('div', {'class':'fbstreamstory'});
-        var tPic = new Element('div', {'style':'float:left'}).update(
+        var tweet = new Element('div', {'class':'hordeSmStreamstory'});
+        var tPic = new Element('div', {'class':'hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )
