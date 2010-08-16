@@ -1192,96 +1192,61 @@ function update_help()
                 continue;
             }
             $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
-            $fp = fopen($file_loc, 'r');
-            $line = fgets($fp);
-            fclose($fp);
-            if (!strstr($line, '<?xml')) {
-                $c->message(sprintf('The help file %s didn\'t start with <?xml', $file_loc), 'cli.warning');
-                $c->writeln();
-                continue;
-            }
-            $encoding = '';
-            if (preg_match('/encoding=(["\'])([^\\1]+)\\1/', $line, $match)) {
-                $encoding = $match[2];
-            }
 
             if (!($doc_en = DOMDocument::load($file_en))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
                 $c->writeln();
                 continue 2;
             }
+            $doc_en->encoding = 'UTF-8';
+            $doc_en->formatOutput = true;
 
             if (!($doc_loc = DOMDocument::load($file_loc))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
-            $doc_new  = new DOMDocument();
-            $help_en  = $doc_en->documentElement;
-            $help_loc = $doc_loc->documentElement;
-            $help_new = $help_loc->cloneNode();
-            $entries_loc = array();
-            $entries_new = array();
-            $count_uptodate = 0;
-            $count_new      = 0;
-            $count_changed  = 0;
-            $count_unknown  = 0;
-            foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
-                $entries_loc[$entry->getAttribute('id')] = $entry;
-            }
+
+            $count_uptodate = $count_new = $count_changed = $count_unknown = 0;
+            $date = date('Y-m-d');
+            $xpath = new DOMXPath($doc_loc);
             foreach ($doc_en->getElementsByTagName('entry') as $entry) {
-                $id = $entry->getAttribute('id');
-                if (array_key_exists($id, $entries_loc)) {
-                    if ($entries_loc[$id]->hasAttribute('md5') &&
-                        md5($entry->textContent) != $entries_loc[$id]->getAttribute('md5')) {
-                        $comment = $doc_loc->create_comment(" English entry:\n" . str_replace('--', '&#45;&#45;', $doc_loc->dump_node($entry)));
-                        $entries_loc[$id]->appendChild($comment);
-                        $entry_new = $entries_loc[$id]->cloneNode(true);
-                        $entry_new->setAttribute('state', 'changed');
+                $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                if ($list->length) {
+                    $entry_loc = $doc_en->importNode($list->item(0), true);
+                    if ($entry_loc->hasAttribute('md5') &&
+                        md5($entry->textContent) != $entry_loc->getAttribute('md5')) {
+                        $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
+                        $entry_loc->appendChild($comment);
+                        $entry_loc->setAttribute('state', 'changed');
                         $count_changed++;
                     } else {
-                        if (!$entries_loc[$id]->hasAttribute('state')) {
-                            $comment = $doc_loc->create_comment(" English entry:\n" . str_replace('--', '&#45;&#45;', $doc_loc->dump_node($entry)));
-                            $entries_loc[$id]->appendChild($comment);
-                            $entry_new = $entries_loc[$id]->cloneNode(true);
-                            $entry_new->setAttribute('state', 'unknown');
+                        if (!$entry_loc->hasAttribute('state')) {
+                            $comment = $doc_en->createComment(" English entry ($date):\n" . str_replace('--', '&#45;&#45;', $doc_en->saveXML($entry)));
+                            $entry_loc->appendChild($comment);
+                            $entry_loc->setAttribute('state', 'unknown');
                             $count_unknown++;
                         } else {
-                            $entry_new = $entries_loc[$id]->cloneNode(true);
                             $count_uptodate++;
                         }
                     }
                 } else {
-                    $entry_new = $entry->cloneNode(true);
-                    $entry_new->setAttribute('state', 'new');
+                    $entry_loc = $doc_en->importNode($entry, true);
+                    $entry_loc->setAttribute('state', 'new');
                     $count_new++;
                 }
-                $entries_new[] = $entry_new;
-            }
-            $doc_new->appendChild($doc_new->createComment(' $' . 'Horde$ '));
-            foreach ($entries_new as $entry) {
-                $help_new->appendChild($entry);
+                $entry->parentNode->replaceChild($entry_loc, $entry);
             }
             $c->writeln(wordwrap(sprintf('Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown',
-                                     $count_uptodate + $count_new + $count_changed + $count_unknown,
-                                     $count_uptodate, $count_new, $count_changed, $count_unknown)));
-            $doc_new->appendChild($help_new);
-
-            $doc_new->formatoutput = true;
-            if ($encoding) {
-                $doc_new->encoding = $encoding;
-            }
-            $output = $doc_new->savexml();
+                                         $count_uptodate + $count_new + $count_changed + $count_unknown,
+                                         $count_uptodate, $count_new, $count_changed, $count_unknown)));
 
             if ($debug || $test) {
                 $c->writeln(wordwrap(sprintf('Writing updated help file to %s.', $file_loc)));
             }
             if (!$test) {
-                $fp = fopen($file_loc, 'w');
-                $line = fwrite($fp, $output);
-                fclose($fp);
+                $doc_en->save($file_loc);
             }
-            $c->writeln(sprintf('%d bytes written.', strlen($output)));
             $c->writeln();
         }
     }
@@ -1324,10 +1289,18 @@ function make_help()
         } else {
             $files = array($dirs[$i] . DS . 'locale' . DS . $lang . DS . 'help.xml');
         }
-        $file_en  = $dirs[$i] . DS . 'locale' . DS . 'en_US' . DS . 'help.xml';
+        $file_en = $dirs[$i] . DS . 'locale' . DS . 'en_US' . DS . 'help.xml';
         if (!file_exists($file_en)) {
             continue;
         }
+
+        if (!($doc_en = DOMDocument::load($file_en))) {
+            $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
+            $c->writeln();
+            continue;
+        }
+        $xpath = new DOMXPath($doc_en);
+
         foreach ($files as $file_loc) {
             if (!file_exists($file_loc)) {
                 $c->writeln('Skipped...');
@@ -1338,37 +1311,16 @@ function make_help()
             $locale = substr($locale, strrpos($locale, DS) + 1);
             if ($locale == 'en_US') continue;
             $c->writeln(sprintf('Updating %s help file for %s.', $c->bold($locale), $c->bold($apps[$i])));
-            $fp = fopen($file_loc, 'r');
-            $line = fgets($fp);
-            fclose($fp);
-            if (!strstr($line, '<?xml')) {
-                $c->message(sprintf('The help file %s didn\'t start with <?xml', $file_loc), 'cli.warning');
-                $c->writeln();
-                continue;
-            }
-            $encoding = '';
-            if (preg_match('/encoding=(["\'])([^\\1]+)\\1/', $line, $match)) {
-                $encoding = $match[2];
-            }
-
-            if (!($doc_en = DOMDocument::load($file_en))) {
-                $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_en), 'cli.warning');
-                $c->writeln();
-                continue 2;
-            }
 
             if (!($doc_loc = DOMDocument::load($file_loc))) {
                 $c->message(sprintf('There was an error opening the file %s. Try running translation.php with the flag -d to see any error messages from the xml parser.', $file_loc), 'cli.warning');
                 $c->writeln();
                 continue;
             }
-            $help_loc  = $doc_loc->documentElement;
-            $md5_en    = array();
-            $count_all = 0;
-            $count     = 0;
-            foreach ($doc_en->getElementsByTagName('entry') as $entry) {
-                $md5_en[$entry->getAttribute('id')] = md5($entry->textContent);
-            }
+            $doc_loc->encoding = 'UTF-8';
+            $doc_loc->formatOutput = true;
+
+            $count_all = $count = 0;
             foreach ($doc_loc->getElementsByTagName('entry') as $entry) {
                 foreach ($entry->childNodes as $child) {
                     if ($child->nodeType == XML_COMMENT_NODE &&
@@ -1377,24 +1329,18 @@ function make_help()
                     }
                 }
                 $count_all++;
-                $id = $entry->getAttribute('id');
-                if (!array_key_exists($id, $md5_en)) {
-                    $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $id), 'cli.warning');
-                } else {
-                    $entry->setAttribute('md5', $md5_en[$id]);
+                $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                if ($list->length) {
+                    $entry->setAttribute('md5', md5($list->item(0)->textContent));
                     $entry->setAttribute('state', 'uptodate');
                     $count++;
+                } else {
+                    $c->message(sprintf('No entry with the id "%s" exists in the original help file.', $id), 'cli.warning');
                 }
             }
 
-            $doc_loc->formatoutput = true;
-            if ($encoding) {
-                $doc_loc->encoding = $encoding;
-            }
-            $output = $doc_loc->savexml();
-
             if (!$test) {
-                file_put_contents($file_loc, $output);
+                $doc_loc->save($file_loc);
             }
             $c->writeln(sprintf('%d of %d entries marked as up-to-date', $count, $count_all));
             $c->writeln();
