@@ -223,8 +223,8 @@ var Horde_Twitter = Class.create({
                 new Element('img', {'src':response.user.profile_image_url})
             )
         );
-        var tBody = new Element('div', {'class':'fbstreambody'}).update(response.text);
-        tBody.appendChild(new Element('div', {'class':'fbstreaminfo'}).update(this.opts.strings.justnow));
+        var tBody = new Element('div', {'class':'hordeSmStreambody'}).update(response.text);
+        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow));
         tweet.appendChild(tPic);
         tweet.appendChild(tBody);
         $(this.opts.content).insert({top:tweet});
