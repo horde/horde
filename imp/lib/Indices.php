@@ -196,8 +196,8 @@ class IMP_Indices implements Iterator
     public function next()
     {
         if ((next($this->_indices[$this->key()]) === false) &&
-            (($key = next($this->_indices)) !== false)) {
-            reset($this->_indices[$key]);
+            (next($this->_indices) !== false)) {
+            reset($this->_indices[$this->key()]);
         }
     }
 
