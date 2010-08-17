@@ -4543,9 +4543,9 @@ KronolithCore = {
                                           !container.childElements().size()) {
                                           noItems.show();
                                       }
-                                      this.deleteCache(null, calendar);
-                                      this.kronolithBody.select('div').findAll(function(el) {
-                                          return el.retrieve('calendar') == calendar;
+                                      this.deleteCache(null, [type, calendar]);
+                                      this.kronolithBody.select('div.kronolithEvent').findAll(function(el) {
+                                          return el.retrieve('calendar') == type + '|' + calendar;
                                       }).invoke('remove');
                                       delete Kronolith.conf.calendars[type][calendar];
                                   }
