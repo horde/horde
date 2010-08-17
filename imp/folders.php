@@ -359,7 +359,6 @@ if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
 /* Build the folder tree. */
 $mask = IMP_Imap_Tree::FLIST_CONTAINER |
     IMP_Imap_Tree::FLIST_VFOLDER |
-    IMP_Imap_Tree::FLIST_ELT |
     IMP_Imap_Tree::FLIST_EXPANDED;
 $raw_rows = $imaptree->folderList($mask);
 

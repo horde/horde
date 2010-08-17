@@ -102,8 +102,7 @@ class IMP_Folder
         }
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
-        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_ELT;
+        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER;
         if (!$sub) {
             $list_mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
@@ -326,7 +325,7 @@ class IMP_Folder
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
         /* Get list of any folders that are underneath this one. */
-        $all_folders = array_merge(array($old), $imaptree->folderList(IMP_Imap_Tree::FLIST_UNSUB, $old));
+        $all_folders = array_merge(array($old), array_keys($imaptree->folderList(IMP_Imap_Tree::FLIST_UNSUB, $old)));
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->renameMailbox($old, $new);

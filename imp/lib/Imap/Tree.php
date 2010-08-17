@@ -51,11 +51,10 @@ class IMP_Imap_Tree
     const FLIST_CONTAINER = 1;
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
-    const FLIST_ELT = 8;
-    const FLIST_NOCHILDREN = 16;
-    const FLIST_ANCESTORS = 32;
-    const FLIST_SAMELEVEL = 64;
-    const FLIST_EXPANDED = 128;
+    const FLIST_NOCHILDREN = 8;
+    const FLIST_ANCESTORS = 16;
+    const FLIST_SAMELEVEL = 32;
+    const FLIST_EXPANDED = 64;
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
@@ -1573,19 +1572,16 @@ class IMP_Imap_Tree
      * IMP_Imap_Tree::FLIST_CONTAINER - Show container elements.
      * IMP_Imap_Tree::FLIST_UNSUB - Show unsubscribed elements.
      * IMP_Imap_Tree::FLIST_VFOLDER - Show Virtual Folders.
-     * IMP_Imap_Tree::FLIST_ELT - Return IMP_Imap_Tree_Element object.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't show child elements.
      * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors.
      * IMP_Imap_Tree::FLIST_SAMELEVEL - Also return mailboxes at the same
      *                                  level as $base.
      * IMP_Imap_Tree::FLIST_EXPANDED - Only included expanded folders.
      * </pre>
-     * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
-     * @return array  Either an array of IMAP mailbox names or an array of
-     *                IMP_Imap_Tree_Elt elements (if FLIST_ELT is specified).
-     *                Keys are the mailbox name.
+     * @return array  Keys are mailbox name, values are IMP_Imap_Tree_Element
+     *                objects.
      */
     public function folderList($mask = 0, $base = null)
     {
@@ -1647,9 +1643,7 @@ class IMP_Imap_Tree
                      !$this->isContainer($mailbox)) &&
                     (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[$mailbox['v']] = ($mask & self::FLIST_ELT)
-                        ? $this->element($mailbox)
-                        : $mailbox['v'];
+                    $ret_array[$mailbox['v']] = $this->element($mailbox);
                 }
             } while (($mailbox = $this->next($nextmask)));
         }
@@ -1662,7 +1656,6 @@ class IMP_Imap_Tree
             ? array_merge($this->folderList($mask, $baseelt['p']), $ret_array)
             : $ret_array;
     }
-
 
     /**
      * Return the list of 'special' mailboxes.

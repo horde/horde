@@ -285,7 +285,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $initreload = ($this->_vars->initial || $this->_vars->reload);
         $result = new stdClass;
 
-        $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_ELT;
+        $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER;
         if ($this->_vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
