@@ -34,8 +34,13 @@ class IMP
     const MAILBOX_START_LASTPAGE = 4;
 
     /* Preferences constants. */
-    const PREF_NO_FOLDER = 'nofolder\0';
-    const PREF_VTRASH = 'vtrash\0';
+    const PREF_DEFAULT = "default\0";
+    const PREF_NO_FOLDER = "nofolder\0";
+    const PREF_VTRASH = "vtrash\0";
+
+    /* Folder list actions. */
+    const NOTEPAD_EDIT = "notepad\0";
+    const TASKLIST_EDIT = "tasklist\0";
 
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
@@ -230,7 +235,7 @@ class IMP
                 $mbox_list[] = array(
                     'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($label, 'space2html', array('encode' => true)),
                     'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
-                    'v' => htmlspecialchars($mbox['val'])
+                    'v' => self::formMbox($mbox['val'], true)
                 );
             }
         }
@@ -247,7 +252,7 @@ class IMP
                     $vfolder_list[] = array(
                         'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
                         'sel' => ($vfolder_sel == $id),
-                        'v' => htmlspecialchars($imp_search->createSearchID($id))
+                        'v' => self::formMbox($imp_search->createSearchID($id), true)
                     );
                 }
                 $t->set('vfolder', $vfolder_list);
@@ -265,7 +270,7 @@ class IMP
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
                             'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
-                            'v' => '\0tasklist_' . $id
+                            'v' => self::formMbox(self::TASKLIST_EDIT . $id, true)
                         );
                     }
                     $t->set('tasklist', $tasklist_list);
@@ -284,7 +289,7 @@ class IMP
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($notepad->get('name'), 'space2html', array('encode' => true)),
-                            'v' => '\0notepad_' . $id
+                            'v' => self::formMbox(self::NOTEPAD_EDIT . $id, true)
                         );
                     }
                     $t->set('notepad', $notepad_list);
@@ -376,39 +381,33 @@ class IMP
     }
 
     /**
-     * Returns the appropriate link to call the message composition screen.
+     * Returns the appropriate link to call the message composition script.
      *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     * @param string $view  The IMP view to create a link for.
+     * @param mixed $args       List of arguments to pass to compose script.
+     *                          If this is passed in as a string, it will be
+     *                          parsed as a toaddress?subject=foo&cc=ccaddress
+     *                          (mailto-style) string.
+     * @param array $extra      Hash of extra, non-standard arguments to pass
+     *                          to compose script.
+     * @param string $simplejs  Use simple JS (instead of Horde.popup() JS
+     *                          function)?
      *
-     * @return Horde_Url  The link to the message composition screen.
+     * @return Horde_Url  The link to the message composition script.
      */
     static public function composeLink($args = array(), $extra = array(),
-                                       $view = null)
+                                       $simplejs = false)
     {
         $args = self::composeLinkArgs($args, $extra);
+        $view = self::getViewMode();
 
-        if (is_null($view)) {
-            $view = self::getViewMode();
-        }
-
-        if ($view == 'dimp') {
+        if ($simplejs || ($view == 'dimp')) {
             $args['popup'] = 1;
 
-            $url = Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add($args);
-            $url->toStringCallback = array(__CLASS__, 'composeLinkDimpCallback');
+            $url = Horde::applicationUrl(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
+            $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif (($view != 'mimp') &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            if (isset($args['to'])) {
-                $args['to'] = addcslashes($args['to'], '\\"');
-            }
-
             $url = Horde::applicationUrl('compose.php')->add($args);
             $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
@@ -419,13 +418,14 @@ class IMP
     }
 
     /**
-     * Callback for Horde_Url when generating DIMP compose links.
+     * Callback for Horde_Url when generating "simple" compose links. Simple
+     * links don't require exterior javascript libraries.
      *
      * @param Horde_Url $url  URL object.
      *
      * @return string  URL string representation.
      */
-    static public function composeLinkDimpCallback($url)
+    static public function composeLinkSimpleCallback($url)
     {
         return "javascript:void(window.open('" . strval($url) . "', '', 'width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
     }
@@ -1065,8 +1065,8 @@ class IMP
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = empty($mbox) ? 'INBOX' : $mbox;
-            self::$thismailbox = Horde_Util::getFormData('thismailbox', $mbox);
+            self::$mailbox = empty($mbox) ? 'INBOX' : self::formMbox($mbox, false);
+            self::$thismailbox = self::formMbox(Horde_Util::getFormData('thismailbox', $mbox), false);
             self::$uid = Horde_Util::getFormData('uid');
         } else {
             self::$mailbox = $mbox;
@@ -1146,9 +1146,9 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
                     'name' => htmlspecialchars(self::displayFolder($mb)),
-                    'new' => (int)$nm,
+                    'new' => intval($nm),
+                    'url' => self::generateIMPUrl('mailbox.php', $mb),
                 );
             }
             $t->set('folders', $folders);
@@ -1156,7 +1156,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -1165,6 +1165,7 @@ class IMP
 
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
+
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
 
@@ -1189,6 +1190,24 @@ class IMP
             'fields' => $fields,
             'sources' => $src
         );
+    }
+
+    /**
+     * Converts a mailbox to/from a valid representation that can be used
+     * in a form element.  Needed because null characters (used for various
+     * internal non-IMAP mailbox representations) will not work in form
+     * elements.
+     *
+     * @param string $mbox  The mailbox name.
+     * @param boolean $to   Convert to the form representation?
+     *
+     * @return string  The converted mailbox.
+     */
+    static public function formMbox($mbox, $to)
+    {
+        return $to
+            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, $GLOBALS['registry']->getCharset())
+            : rawurldecode($mbox);
     }
 
 }

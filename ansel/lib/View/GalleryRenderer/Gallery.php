@@ -108,7 +108,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         $count = 0;
         $action_links = array();
         $url = new Horde_Url('#');
-        if ($GLOBALS['conf']['gallery']['downloadzip']) {
+        if ($GLOBALS['conf']['gallery']['downloadzip'] && $registry->getAuth()) {
             $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'downloadSelected(); return false;')) . _("Download selected images") . '</a>';
         }
         if (!empty($option_edit)) {

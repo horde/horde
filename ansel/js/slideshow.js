@@ -123,13 +123,8 @@ Slide.prototype = {
         // Add caption from gallery array.
         $(this.caption).update(SlideController.photos[SlideController.photoId][2]);
 
-        try {
-            document.title = document.title.replace(SlideController.photos[this.photoId][1],
-                                                    SlideController.photos[SlideController.photoId][1]);
-            if (parent.frames.horde_main) {
-                parent.document.title = document.title;
-            }
-        } catch (e) {}
+        document.title = document.title.replace(SlideController.photos[this.photoId][1],
+                                                SlideController.photos[SlideController.photoId][1]);
     },
     updateLinks: function() {
         var params = '?gallery=' + SlideController.galleryId + '&image=' + SlideController.photos[SlideController.photoId][3] + '&page=' + SlideController.photos[SlideController.photoId][4];

@@ -36,19 +36,8 @@ class Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Base
     protected $_capability = array(
         'full' => true,
         'info' => false,
-        'inline' => false,
+        'inline' => true,
         'raw' => false
-    );
-
-    /**
-     * Metadata for the current viewer/data.
-     *
-     * @var array
-     */
-    protected $_metadata = array(
-        'compressed' => false,
-        'embedded' => false,
-        'forceinline' => true
     );
 
     /**
@@ -57,6 +46,16 @@ class Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Base
      * @return array  See parent::render().
      */
     protected function _render()
+    {
+        return $this->_renderFullReturn($this->_renderInline());
+    }
+
+    /**
+     * Return the rendered inline version of the Horde_Mime_Part object.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _renderInline()
     {
         $this->_content = '';
 

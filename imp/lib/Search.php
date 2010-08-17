@@ -64,7 +64,7 @@
 class IMP_Search
 {
     /* The mailbox search prefix. */
-    const MBOX_PREFIX = 'impsearch\0';
+    const MBOX_PREFIX = "impsearch\0";
 
     /* The special search mailbox names. */
     const BASIC_SEARCH = 'impbsearch';

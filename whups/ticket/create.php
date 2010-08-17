@@ -8,7 +8,12 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('whups');
+if (Horde_Util::getPost('formname') == 'createstep3form') {
+    $params = array('notransparent' => true);
+} else {
+    $params = array();
+}
+Horde_Registry::appInit('whups', $params);
 
 require_once WHUPS_BASE . '/lib/Forms/CreateTicket.php';
 require_once WHUPS_BASE . '/lib/Forms/VarRenderer.php';
@@ -28,7 +33,7 @@ $r = new Horde_Form_Renderer(
     array('varrenderer_driver' => 'whups'));
 
 $valid4 = $form4->validate($vars) &&
-     $vars->get('formname') == 'createstep4form';
+     $formname == 'createstep4form';
 $valid3 = $form3->validate($vars, true);
 $valid2 = $form2->validate($vars, !$form1->isSubmitted());
 $valid1 = $form1->validate($vars, true);

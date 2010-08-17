@@ -189,7 +189,8 @@ EOT;
 
        // Build the stream feed.
         $html .= '<div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;"></div>';
- $html .= '<div class="control fbgetmore"><a href="#" id="' . $instance . '_getmore">' . _("Get More") . '</a></div>';
+        $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="button"  value="' . _("Get More") . '"></div>';
+
         $html .= '</div>'; // fbbody end
 
         return $html;

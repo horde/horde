@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-09-18 11:56+0200\n"
-"PO-Revision-Date: 2009-11-18 18:40+0100\n"
+"PO-Revision-Date: 2010-08-17 17:05+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -5620,11 +5620,11 @@ msgstr "PHP"
 
 #: admin/phpshell.php:82
 msgid "PHP Code"
-msgstr "PHP Code"
+msgstr "PHP-Code"
 
 #: admin/phpshell.php:20 admin/phpshell.php:45
 msgid "PHP Shell"
-msgstr "PHP Shell"
+msgstr "PHP-Shell"
 
 #: framework/Kolab_Storage/lib/Horde/Kolab/Storage/IMAP/cclient.php:569
 #, php-format
@@ -6399,7 +6399,7 @@ msgstr "SMPP-Gateway"
 
 #: admin/sqlshell.php:21 admin/sqlshell.php:28
 msgid "SQL Shell"
-msgstr "SQL Shell"
+msgstr "SQL-Shell"
 
 #: framework/Form/Form.php:4194
 msgid "SQL statement for value lookups"

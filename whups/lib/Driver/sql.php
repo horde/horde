@@ -1218,13 +1218,8 @@ class Whups_Driver_sql extends Whups_Driver {
                 Horde::logMessage($attachments, 'ERR');
                 return $attachments;
             }
-            require_once 'VFS.php';
-            $vfs = &VFS::singleton($GLOBALS['conf']['vfs']['type'],
-                                   Horde::getDriverConfig('vfs'));
-            if (is_a($vfs, 'PEAR_Error')) {
-                return $vfs;
-            }
 
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Vfs')->getVfs();
             while ($attachment = $attachments->fetchRow(DB_FETCHMODE_ASSOC)) {
                 $dir = WHUPS_VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
                 if ($vfs->exists($dir, $attachment['log_value'])) {

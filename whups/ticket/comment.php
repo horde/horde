@@ -8,7 +8,13 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('whups');
+
+if (Horde_Util::getPost('formname') == 'addcommentform') {
+    $params = array('notransparent' => true);
+} else {
+    $params = array();
+}
+Horde_Registry::appInit('whups', $params);
 
 require_once WHUPS_BASE . '/lib/Forms/AddComment.php';
 

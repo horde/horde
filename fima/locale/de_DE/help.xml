@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="fima-overview">
+<entry id="fima-overview" state="uptodate" md5="87c5c25bdb900145515484ea7c6931be">
     <title>Fima: Übersicht</title>
     <heading>Was ist Fima?</heading>
     <para>
@@ -15,12 +15,12 @@
     <para>* grafische Auswertungsdiagramme</para>
 </entry>
 
-<entry id="fima-options">
+<entry id="fima-options" state="uptodate" md5="2b3e6590a64b91c50b73414ee604e2e9">
 	<title>Fima: Einstellungen</title>
 	<heading>Aktive Konfiguration</heading>
 	<para>* Ihr aktives Buch: wählen Sie Ihr aktives Buch</para>
 	<para>* Ihr aktiver Datenkreis: wählen Sie Ihren aktiven <ref module="fima" entry="postings-postingtypes">Datenkreis</ref></para>
-	<para>* Geschlossen mit Zeitraum: wählen Sie das Ende des Zeitraums, innerhalb dessen das Anlegen und Bearbeiten von Buchungen gesperrt ist; wählen Sie &quot;Keine&quot; um alle Buchungen offen zu lassen</para>
+	<para>* Geschlossen mit Zeitraum: wählen Sie das Ende des Zeitraums, innerhalb dessen das Anlegen und Bearbeiten von Buchungen gesperrt ist; wählen Sie "Keine" um alle Buchungen offen zu lassen</para>
 	<heading>Oberflächen-Einstellungen</heading>
 	<para>* Anzahl der Buchungen pro Seite: geben Sie die Anzahl der Buchungen ein, die pro Seite angezeigt werden</para>
 	<para>* Bei der Anzeige von Buchungen, bei welcher Seite möchten Sie beginnen: erste oder letzte Seite</para>
@@ -34,7 +34,7 @@
 	<para>* Wählen Sie die Grafikgröße für Auswertungsdiagramme: die Abmessungen der erstellten Bilder in Pixel</para>
 </entry>
 
-<entry id="accounts-overview">
+<entry id="accounts-overview" state="uptodate" md5="74688e9bd6426f1d1b20667e8b5c32d0">
 	<title>Konten: Übersicht</title>
 	<para>
 	Der Kontenplan ist in drei Ebenen gegliedert:
@@ -64,7 +64,7 @@
 	</tip>
 </entry>	
 
-<entry id="accounts-delete">
+<entry id="accounts-delete" state="uptodate" md5="2b0a15a00e2c535220ed68eadf58e235">
 	<title>Konten: Löschen eines Kontos</title>
 	<para>
 	Beim Löschen eines Kontos müssen Sie angeben, wie Sie Buchungen handhaben wollen:
@@ -79,7 +79,7 @@
 	<para>* Unterkonten löschen und Buchungen umbuchen: alle existierenden Unterkonten löschen und zuvor jegliche existierenden Buchungen auf ein anderes Konto derselben Kategorie verschieben</para>
 </entry>
 
-<entry id="postings-overview">
+<entry id="postings-overview" state="uptodate" md5="d17c7f941da4e303b5f01a91e8bbdd4d">
 	<title>Buchungen: Übersicht</title>
 	<para>
 	Ein Buchungssatz hat folgende Attribute:
@@ -93,7 +93,7 @@
 	<para>* a.o.: Buchungen können als außerordentlich markiert werden (besonders groß, nicht geplant, ...)</para>
 </entry>
 
-<entry id="postings-postingtypes">
+<entry id="postings-postingtypes" state="uptodate" md5="745346005880a238cd2202eeae517a40">
 	<title>Buchungen: Datenkreise</title>
 	<para>
 	Jede Buchung ist einem einziges Datenkreis zugeordnet. Es existieren drei unterschiedliche Datenkreise:
@@ -139,7 +139,7 @@
 	</tip>
 </entry>
 
-<entry id="postings-addedit">
+<entry id="postings-addedit" state="uptodate" md5="c296f959744987f7c0d90a5fbe813f6a">
 	<title>Buchungen: Buchungen erstellen/bearbeiten</title>
 	<para>
 	Für die vereinfachte Eingabe wird bei neuen Buchungen das Datum und Vermögenskonto vom darüberliegenden Eintrag kopiert, kann aber nachträglich geändert werden.
@@ -154,18 +154,18 @@
 	Tipp: Bei der Eingabe neuer Buchungen können Sie mathematische Operationen im Betragsfeld ausführen. Geben Sie einfach den mathematischen Ausdruck (zB. 3+2*5) ein und das Ergebnis wird automatisch berechnet.
 	</tip>
 	<tip>
-	Tipp: Bei der Eingabe neuer Buchungen für <ref module="fima" entry="postings-postingtypes">Budget oder Vorschau</ref> können Sie automatisch einen Satz gleicher Buchungen für jeden Monat eines gezielten Jahres erstellen. In der ersten Zeile geben Sie ein beliebiges Datum des gewünschten Jahres ein, wählen ein Vermögens- und Bewegungskonto und geben eine Anmerkung (optional) und Betrag ein. Drücken Sie anschließend den Knopf &quot;Auto-Füllen&quot;, um die eingegeben Werte für alle Monate zu kopieren.
+	Tipp: Bei der Eingabe neuer Buchungen für <ref module="fima" entry="postings-postingtypes">Budget oder Vorschau</ref> können Sie automatisch einen Satz gleicher Buchungen für jeden Monat eines gezielten Jahres erstellen. In der ersten Zeile geben Sie ein beliebiges Datum des gewünschten Jahres ein, wählen ein Vermögens- und Bewegungskonto und geben eine Anmerkung (optional) und Betrag ein. Drücken Sie anschließend den Knopf "Auto-Füllen", um die eingegeben Werte für alle Monate zu kopieren.
 	</tip>
 </entry>
 
-<entry id="postings-shift">
+<entry id="postings-shift" state="uptodate" md5="5878a02d23d74c67977c1393eb6f5926">
 	<title>Buchungen: Buchungen umbuchen</title>
 	<para>
 	Buchen Sie mehrere Buchungen um, um diese gemeinsam in einen anderen Datenkreis zu verschieben oder deren Vermögens- oder Bewegungskonto zu ändern.
 	</para>
 </entry>
 
-<entry id="postings-transfer">
+<entry id="postings-transfer" state="uptodate" md5="24db527f199a9e86f4520b3dc9093117">
 	<title>Buchungen: Buchungen transferieren</title>
 	<para>
 	Transferieren Sie alle Buchungen eines bestimmten Datenkreise innerhalb eines gezielten Zeitraums in einen anderen Datenkreis mit folgenden Optionen:
@@ -183,11 +183,11 @@
 	Tipp: Sie könnnen das <ref module="fima" entry="postings-postingtypes">Budget (oder die Vorschau)</ref> durch Transfer existiernder Buchungen von der Ist-Abrechnung (oder dem Budget) erstellen. Achten Sie darauf, die ursprünglichen Buchungen zu behalten. Es empfielt sich, die Buchungen für das Budget (oder die Vorschau) zu summieren um lediglich Buchungen auf der Ebene von Hauptkonto zu erhalten. Dies erleichtert später Anpassungen.
 	</tip>
 	<tip>
-	Tipp: Es besteht die Möglichkeit alle Buchungens eines Jahrs auf einmal zu transferieren. Wählen Sie &quot;Alle&quot; als Quell- und Zielmonat, um den Buchungsmonat nicht ändern.
+	Tipp: Es besteht die Möglichkeit alle Buchungens eines Jahrs auf einmal zu transferieren. Wählen Sie "Alle" als Quell- und Zielmonat, um den Buchungsmonat nicht ändern.
 	</tip>
 </entry>
 
-<entry id="postings-search">
+<entry id="postings-search" state="uptodate" md5="258a3ebf5d3f9b7ba42de4da119321d1">
 	<title>Buchungen: Buchungen suchen</title>
 	<para>
 	Bei der Suche von Buchungen können Sie folgende Filter verwenden:
@@ -212,7 +212,7 @@
 	</tip>
 </entry>
 
-<entry id="reports-overview">
+<entry id="reports-overview" state="uptodate" md5="ce8078bd6729c67b34b4b43e11a12ca8">
 	<title>Auswertungen: Übersicht</title>
 	<para>
 	Bei der Erstellung von Auswertungen können Sie folgende Parameter verwenden:
@@ -232,7 +232,7 @@
 	</para>
 </entry>
 
-<entry id="reports-details">
+<entry id="reports-details" state="uptodate" md5="75a481cf5c1c9943c75bb915ba4f1f7f">
 	<title>Auswertungen: Details</title>
 
 	<heading>Gesamtübersicht</heading>
@@ -266,14 +266,14 @@
 	<para>* Diagramm: Liniendiagramm, Besten 5 pro Kontokategorie</para>
 </entry>
 
-<entry id="exemplar-overview">
+<entry id="exemplar-overview" state="uptodate" md5="c5db8c1fac3b92d75490ce2d2842bba5">
 	<title>Musterbeispiel: Übersicht</title>
 	<para>
 	Dieses Musterbeispiel demonstriert die Verwendung der Hauptfunktionalitäten von Fima. Folgen Sie den Anweisungen Schritt für Schritt in der angegebenen Reihenfolge.
 	</para>
 </entry>
 
-<entry id="exemplar-accounts">
+<entry id="exemplar-accounts" state="uptodate" md5="fe4506577ae10ce864f610b3d0ebe287">
 	<title>Musterbeispiel: 1) Konten</title>
 	<heading>Vermögen</heading>
 	<para>* 0100 Bargeld</para>
@@ -309,7 +309,7 @@
 	</tip>
 </entry>
 
-<entry id="exemplar-opening">
+<entry id="exemplar-opening" state="uptodate" md5="029ca344d99a291fb1fe526119bdfb8a">
 	<title>Musterbeispiel: 2) Anfangsbestände</title>
 	<para>
 	Vor der Eingabe regelmäßiger Buchungen erfassen wir unsere Vermögenswerte und buchen sie gegen das Konto 0000 Saldovortrag (zB. mit dem Datum 01.01.2008):
@@ -326,7 +326,7 @@
 	</tip>
 </entry>
 
-<entry id="exemplar-postings">
+<entry id="exemplar-postings" state="uptodate" md5="dc025443c75600a597a16f03c44f0d54">
 	<title>Musterbeispiel: 3) Buchungen</title>
 	<para>
 	Nach der Erfassung unserer <ref module="fima" entry="exemplar-opening">Anfangsbestände</ref> beginnen wir einige Buchungen einzugeben (mit einem Datum nach dem 01.01.2008):
@@ -354,7 +354,7 @@
 	</tip>
 </entry>
 
-<entry id="exemplar-budget">
+<entry id="exemplar-budget" state="uptodate" md5="0824170665f69b40b0d60546cd7b8ed3">
 	<title>Musterbeispiel: 4) Budget</title>
 	<para>
 	Um Einnahmen und Ausgaben zu planen und analysieren erstellen wir ein Budget für 2008 (normalerweise bevor Buchungen eingegeben werden). Es existieren zwei Möglichkeiten ein Budget zu erstellen:
@@ -377,7 +377,7 @@
 	</tip>
 </entry>
 
-<entry id="exemplar-forecast">
+<entry id="exemplar-forecast" state="uptodate" md5="47cfb9a782f6fa2d5dbad844d854e786">
 	<title>Musterbeispiel: 5) Vorschau</title>
 	<para>
 	Da ein Budget normalerweise nach der Erstellung unverändert bleibt, wollen wir eine Vorschau zum Anpassen. Es existieren zwei Möglichkeiten eine Vorschau zu erstellen:

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="Templates" md5="438946cc274c2b4b068380b2fa36f201" state="uptodate">
+ <title>Seitenvorlagen</title>
+ <para>
+   Vorlagen sind spezielle Seiten, deren Namen mit "Template" beginnen oder
+   enden. Sie können dazu benutzt werden, um einen ersten Inhalt oder eine
+   besondere Seitenstruktur für neue Seiten vorzugeben.
+ </para>
+</entry>
+
+</help>

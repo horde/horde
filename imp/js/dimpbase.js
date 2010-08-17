@@ -189,7 +189,7 @@ var DimpBase = {
 
                 // This catches the refresh case - no need to re-add to history
                 if (!Object.isUndefined(this.folder) && !this.search) {
-                    location.hash = encodeURIComponent(loc);
+                    this.setHash(loc);
                 }
             }
 
@@ -209,7 +209,7 @@ var DimpBase = {
                 return;
             }
             this.highlightSidebar('app' + app);
-            location.hash = encodeURIComponent(loc);
+            this.setHash(loc);
             if (data) {
                 this.iframeContent(loc, data);
             } else if (DIMP.conf.app_urls[app]) {
@@ -232,18 +232,23 @@ var DimpBase = {
 
         case 'portal':
             this.highlightSidebar('appportal');
-            location.hash = encodeURIComponent(loc);
+            this.setHash(loc);
             DimpCore.setTitle(DIMP.text.portal);
             DimpCore.doAction('showPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
 
         case 'options':
             this.highlightSidebar('appoptions');
-            location.hash = encodeURIComponent(loc);
+            this.setHash(loc);
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
         }
+    },
+
+    setHash: function(loc)
+    {
+        location.hash = escape(encodeURIComponent(loc));
     },
 
     highlightSidebar: function(id)
@@ -1219,7 +1224,7 @@ var DimpBase = {
             eval(r.js.join(';'));
         }
 
-        location.hash = encodeURIComponent('msg:' + row.view + ':' + row.imapuid);
+        this.setHash('msg:' + row.view + ':' + row.imapuid);
     },
 
     _stripAttachmentCallback: function(r)
@@ -2978,7 +2983,7 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            this.go(decodeURIComponent(tmp));
+            this.go(decodeURIComponent(unescape(tmp)));
         } else if (DIMP.conf.login_view == 'inbox') {
             this.go('folder:INBOX');
         } else {

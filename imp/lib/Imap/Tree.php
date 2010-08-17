@@ -42,29 +42,28 @@ class IMP_Imap_Tree
     const NEXT_SHOWSUB = 2;
     const NEXT_NOCHILDREN = 4;
 
-    /* The string used to indicate the base of the tree. This must be null
-     * since this is the only 7-bit character not allowed in IMAP
+    /* The string used to indicate the base of the tree. This must include
+     * null since this is the only 7-bit character not allowed in IMAP
      * mailboxes. */
-    const BASE_ELT = '\0';
+    const BASE_ELT = "base\0";
 
     /* Defines used with folderList(). */
     const FLIST_CONTAINER = 1;
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
-    const FLIST_OB = 8;
-    const FLIST_ELT = 16;
-    const FLIST_NOCHILDREN = 32;
-    const FLIST_ANCESTORS = 64;
-    const FLIST_SAMELEVEL = 128;
-    const FLIST_EXPANDED = 256;
+    const FLIST_ELT = 8;
+    const FLIST_NOCHILDREN = 16;
+    const FLIST_ANCESTORS = 32;
+    const FLIST_SAMELEVEL = 64;
+    const FLIST_EXPANDED = 128;
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
-    const VFOLDER_KEY = 'vfolder\0';
+    const VFOLDER_KEY = "vfolder\0";
 
     /* Defines used with namespace display. */
-    const SHARED_KEY = 'shared\0';
-    const OTHER_KEY = 'other\0';
+    const SHARED_KEY = "shared\0";
+    const OTHER_KEY = "other\0";
 
     /**
      * Tree changed flag.  Set when something in the tree has been altered.
@@ -177,27 +176,6 @@ class IMP_Imap_Tree
      * @var boolean
      */
     protected $_trackdiff = true;
-
-    /**
-     * See $open parameter in build().
-     *
-     * @var boolean
-     */
-    protected $_forceopen = false;
-
-    /**
-     * Mailbox icons cache.
-     *
-     * @var array
-     */
-    protected $_mboxIcons;
-
-    /**
-     * Element cache for element().
-     *
-     * @var array
-     */
-    protected $_eltCache;
 
     /**
      * Constructor.
@@ -525,7 +503,7 @@ class IMP_Imap_Tree
             $curr = $this->current();
             if ($GLOBALS['prefs']->getValue('tree_view') &&
                 $this->isNamespace($curr) &&
-                !$this->_isNonIMAPElt($curr) &&
+                !$this->isNonImapElt($curr) &&
                 ($this->_tree[$curr['p']] && self::ELT_NOSHOW)) {
                 $this->next($mask);
             }
@@ -588,19 +566,24 @@ class IMP_Imap_Tree
     /**
      * Determines if there are more elements in the current tree level.
      *
+     * @param string $name  The name of the tree element.
+     *
      * @return boolean  True if there are more elements, false if this is the
      *                  last element.
      */
-    public function peek()
+    public function peek($name)
     {
-        for ($i = ($this->_currkey + 1);; ++$i) {
-            if (!isset($this->_parent[$this->_currparent][$i])) {
-                return false;
-            }
-            if ($this->_activeElt($this->_tree[$this->_parent[$this->_currparent][$i]])) {
+        if (!($elt = $this->get($name))) {
+            return false;
+        }
+
+        foreach (array_slice($this->_parent[$elt['p']], array_search($elt['v'], $this->_parent[$elt['p']]) + 1) as $val) {
+            if ($this->_activeElt($this->_tree[$val])) {
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
@@ -613,7 +596,10 @@ class IMP_Imap_Tree
     public function get($name)
     {
         $name = $this->_convertName($name);
-        return isset($this->_tree[$name]) ? $this->_tree[$name] : false;
+
+        return isset($this->_tree[$name])
+            ? $this->_tree[$name]
+            : false;
     }
 
     /**
@@ -1098,7 +1084,7 @@ class IMP_Imap_Tree
      *
      * @return integer  True if the element is a non-IMAP element.
      */
-    protected function _isNonIMAPElt($elt)
+    public function isNonImapElt($elt)
     {
         return $elt['a'] & self::ELT_NONIMAP;
     }
@@ -1397,7 +1383,7 @@ class IMP_Imap_Tree
         $basesort = $othersort = array();
 
         foreach ($mbox as $val) {
-            if ($this->_isNonIMAPElt($this->_tree[$val])) {
+            if ($this->isNonImapElt($this->_tree[$val])) {
                 $othersort[$val] = $this->_tree[$val]['l'];
             } else {
                 $basesort[$val] = $this->_tree[$val]['l'];
@@ -1555,83 +1541,6 @@ class IMP_Imap_Tree
     }
 
     /**
-     * Builds a list of folders, suitable to render a folder tree.
-     *
-     * @param integer $mask  The mask to pass to next().
-     * @param boolean $open  If using the base folder icons, display a
-     *                       different icon whether the folder is opened or
-     *                       closed.
-     *
-     * @return array  An array with two elements: the folder list and the
-     *                total number of new messages.
-     *                The folder list array contains the following added
-     *                entries on top of the entries provided by element():
-     * <pre>
-     * 'display' - The mailbox name run through IMP::displayFolder().
-     * 'peek' - See peek().
-     * </pre>
-     */
-    public function build($mask = 0, $open = true)
-    {
-        $newmsgs = $rows = array();
-        $this->_forceopen = $open;
-
-        /* Start iterating through the list of mailboxes, displaying them. */
-        $mailbox = $this->reset();
-        do {
-            $row = $this->element($mailbox['v']);
-
-            $row['display'] = $this->_isNonIMAPElt($mailbox)
-                ? $mailbox['l']
-                : IMP::displayFolder($mailbox['v']);
-            $row['peek'] = $this->peek();
-
-            if (!empty($row['recent'])) {
-                $newmsgs[$row['value']] = $row['recent'];
-            }
-
-            /* Hide folder prefixes from the user. */
-            if ($row['level'] >= 0) {
-                $rows[] = $row;
-            }
-        } while (($mailbox = $this->next($mask)));
-
-        $this->_forceopen = false;
-
-        return array($rows, $newmsgs);
-    }
-
-    /**
-     * Get any custom icon configured for the given element.
-     *
-     * @param array $elt  A tree element.
-     *
-     * @return array  An array with the 'icon', 'icondir', and 'alt'
-     *                information for the element, or false if no icon
-     *                available.
-     */
-    public function getCustomIcon($elt)
-    {
-        if (!isset($this->_mboxIcons)) {
-            try {
-                $this->_mboxIcons = Horde::callHook('mbox_icons', array(), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {
-                $this->_mboxIcons = array();
-            }
-        }
-
-        if (isset($this->_mboxIcons[$elt['v']])) {
-            return array(
-                'icon' => $this->_mboxIcons[$elt['v']]['icon'],
-                'icondir' => $this->_mboxIcons[$elt['v']]['icondir'],
-                'alt' => $this->_mboxIcons[$elt['v']]['alt']
-            );
-        }
-
-        return false;
-    }
-
-    /**
      * Returns whether this element is a virtual folder.
      *
      * @param array $elt  A tree element.
@@ -1672,8 +1581,7 @@ class IMP_Imap_Tree
      * IMP_Imap_Tree::FLIST_CONTAINER - Show container elements.
      * IMP_Imap_Tree::FLIST_UNSUB - Show unsubscribed elements.
      * IMP_Imap_Tree::FLIST_VFOLDER - Show Virtual Folders.
-     * IMP_Imap_Tree::FLIST_OB - Return full tree object.
-     * IMP_Imap_Tree::FLIST_ELT - Return element object.
+     * IMP_Imap_Tree::FLIST_ELT - Return IMP_Imap_Tree_Element object.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't show child elements.
      * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors.
      * IMP_Imap_Tree::FLIST_SAMELEVEL - Also return mailboxes at the same
@@ -1684,8 +1592,8 @@ class IMP_Imap_Tree
      * @param string $base  Return all mailboxes below this element.
      *
      * @return array  Either an array of IMAP mailbox names or an array of
-     *                objects (if FLIST_OB ot FLIST_ELT is specified). Keys
-     *                are the mailbox name.
+     *                IMP_Imap_Tree_Elt elements (if FLIST_ELT is specified).
+     *                Keys are the mailbox name.
      */
     public function folderList($mask = 0, $base = null)
     {
@@ -1747,9 +1655,9 @@ class IMP_Imap_Tree
                      !$this->isContainer($mailbox)) &&
                     (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[$mailbox['v']] = ($mask & self::FLIST_OB)
-                        ? $mailbox
-                        : (($mask & self::FLIST_ELT) ? $this->element($mailbox['v']) : $mailbox['v']);
+                    $ret_array[$mailbox['v']] = ($mask & self::FLIST_ELT)
+                        ? $this->element($mailbox)
+                        : $mailbox['v'];
                 }
             } while (($mailbox = $this->next($nextmask)));
         }
@@ -1763,16 +1671,6 @@ class IMP_Imap_Tree
             : $ret_array;
     }
 
-    /**
-     * Init frequently used element() data.
-     */
-    protected function _initElement()
-    {
-        if (!isset($this->_eltCache)) {
-            $this->_eltCache = $this->getSpecialMailboxes();
-            $this->_eltCache['image_dir'] = Horde_Themes::img();
-        }
-    }
 
     /**
      * Return the list of 'special' mailboxes.
@@ -1783,12 +1681,15 @@ class IMP_Imap_Tree
      */
     public function getSpecialMailboxes()
     {
+        global $prefs;
+
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+
         return array(
-            'draft' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
+            'draft' => IMP::folderPref($prefs->getValue('drafts_folder'), true),
             'sent' => $identity->getAllSentmailFolders(),
-            'spam' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
-            'trash' => IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true)
+            'spam' => IMP::folderPref($prefs->getValue('spam_folder'), true),
+            'trash' => IMP::folderPref($prefs->getValue('trash_folder'), true)
         );
     }
 
@@ -1797,37 +1698,8 @@ class IMP_Imap_Tree
      *
      * @param mixed $name  The name of the tree element or a tree element.
      *
-     * @return array  Returns the element with extended information, or false
-     *                if not found.  The information returned is as follows:
-     * <pre>
-     * 'alt' - (string) The alt text for the icon.
-     * 'base_elt' - (array) The return from get().
-     * 'children' - (boolean) Does the element have children?
-     * 'class' - (string) The CSS class name.
-     * 'container' - (boolean) Is this a container element?
-     * 'editvfolder' - (boolean) Can this virtual folder be edited?
-     * 'icon' - (string) The name of the icon graphic to use.
-     * 'icondir' - (string) The path of the icon directory.
-     * 'iconopen' - ???
-     * 'level' - (integer) The deepness level of this element.
-     * 'mbox_val' - (string) A html-ized version of 'value'.
-     * 'msgs' - (integer) The number of total messages in the element (if
-     *          polled).
-     * 'name' - (string) A html-ized version of 'label'.
-     * 'nonimap' - (boolean) Is this a non-IMAP element?
-     * 'parent' - (array) The parent element value.
-     * 'polled' - (boolean) Show polled information?
-     * 'recent' - (integer) The number of new messages in the element (if
-     *            polled).
-     * 'sub' - (boolean) Is folder subscribed to?
-     * 'special' - (boolean) Is this is a "special" element?
-     * 'specialvfolder' - (boolean) Is this a "special" virtual folder?
-     * 'unseen' - (integer) The number of unseen messages in the element (if
-     *            polled).
-     * 'user_icon' - (boolean) Use a user defined icon?
-     * 'value' - (string) The value of this element (i.e. element id).
-     * 'vfolder' - (boolean) Is this a virtual folder?
-     * </pre>
+     * @return IMP_Imap_Tree_Element  Returns the mailbox element or false if
+     *                                not found.
      */
     public function element($mailbox)
     {
@@ -1835,157 +1707,9 @@ class IMP_Imap_Tree
             $mailbox = $this->get($mailbox);
         }
 
-        if (!$mailbox) {
-            return false;
-        }
-
-        $this->_initElement();
-
-        $row = array(
-            'base_elt' => $mailbox,
-            'children' => $this->hasChildren($mailbox),
-            'container' => false,
-            'editvfolder' => false,
-            'icondir' => $this->_eltCache['image_dir'],
-            'iconopen' => null,
-            'level' => $mailbox['c'],
-            'mbox_val' => htmlspecialchars($mailbox['v']),
-            'name' => htmlspecialchars($mailbox['l']),
-            'nonimap' => $this->_isNonIMAPElt($mailbox),
-            'parent' => $mailbox['p'],
-            'polled' => false,
-            'recent' => 0,
-            'special' => false,
-            'specialvfolder' => false,
-            'sub' => $this->isSubscribed($mailbox),
-            'user_icon' => false,
-            'value' => $mailbox['v'],
-            'vfolder' => false,
-        );
-
-        $icon = $this->getCustomIcon($mailbox);
-
-        if (!$this->isContainer($mailbox)) {
-            /* We are dealing with mailboxes here.
-             * Determine if we need to poll this mailbox for new messages. */
-            if ($this->isPolled($mailbox)) {
-                /* If we need message information for this folder, update
-                 * it now. */
-                try {
-                    if ($msgs_info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($mailbox['v'], Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
-                        $row['polled'] = true;
-                        if (!empty($msgs_info['recent'])) {
-                            $row['recent'] = $msgs_info['recent'];
-                        }
-                        $row['msgs'] = $msgs_info['messages'];
-                        $row['unseen'] = $msgs_info['unseen'];
-                    }
-                } catch (Horde_Imap_Client_Exception $e) {}
-            }
-
-            switch ($mailbox['v']) {
-            case 'INBOX':
-                $row['icon'] = 'folders/inbox.png';
-                $row['alt'] = _("Inbox");
-                $row['class'] = 'inboxImg';
-                $row['special'] = true;
-                break;
-
-            case $this->_eltCache['trash']:
-                if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
-                    $row['alt'] = _("Mailbox");
-                } else {
-                    $row['icon'] = 'folders/trash.png';
-                    $row['alt'] = _("Trash folder");
-                    $row['class'] = 'trashImg';
-                    $row['special'] = true;
-                }
-                break;
-
-            case $this->_eltCache['draft']:
-                $row['icon'] = 'folders/drafts.png';
-                $row['alt'] = _("Draft folder");
-                $row['class'] = 'draftsImg';
-                $row['special'] = true;
-                break;
-
-            case $this->_eltCache['spam']:
-                $row['icon'] = 'folders/spam.png';
-                $row['alt'] = _("Spam folder");
-                $row['class'] = 'spamImg';
-                $row['special'] = true;
-                break;
-
-            default:
-                if (in_array($mailbox['v'], $this->_eltCache['sent'])) {
-                    $row['icon'] = 'folders/sent.png';
-                    $row['alt'] = _("Sent mail folder");
-                    $row['class'] = 'sentImg';
-                    $row['special'] = true;
-                } else {
-                    if ($this->isOpen($mailbox)) {
-                        $row['icon'] = 'folders/open.png';
-                        $row['class'] = 'folderopenImg';
-                    } else {
-                        $row['icon'] = 'folders/folder.png';
-                        $row['class'] = 'folderImg';
-                    }
-                    $row['alt'] = _("Mailbox");
-                }
-                break;
-            }
-
-            /* Virtual folders. */
-            if ($this->isVFolder($mailbox)) {
-                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-
-                $row['vfolder'] = true;
-                $row['editvfolder'] = $imp_search->isEditableVFolder($mailbox['v']);
-                if ($imp_search->isVTrashFolder($mailbox['v'])) {
-                    $row['specialvfolder'] = true;
-                    $row['icon'] = 'folders/trash.png';
-                    $row['alt'] = _("Virtual Trash Folder");
-                    $row['class'] = 'trashImg';
-                } elseif ($imp_search->isVINBOXFolder($mailbox['v'])) {
-                    $row['specialvfolder'] = true;
-                    $row['icon'] = 'folders/inbox.png';
-                    $row['alt'] = _("Virtual INBOX Folder");
-                    $row['class'] = 'inboxImg';
-                }
-            }
-        } else {
-            /* We are dealing with folders here. */
-            $row['container'] = true;
-            if ($this->_forceopen && $this->isOpen($mailbox)) {
-                $row['icon'] = 'folders/open.png';
-                $row['alt'] = _("Opened Folder");
-                $row['class'] = 'folderopenImg';
-            } else {
-                $row['icon'] = 'folders/folder.png';
-                $row['iconopen'] = 'folders/open.png';
-                $row['alt'] = ($this->_forceopen) ? _("Closed Folder") : _("Folder");
-                $row['class'] = 'folderImg';
-            }
-            if ($this->isVFolder($mailbox)) {
-                $row['vfolder'] = true;
-            }
-        }
-
-        /* Overwrite the icon information now. */
-        if (!empty($icon)) {
-            $row['icon'] = $icon['icon'];
-            $row['icondir'] = $icon['icondir'];
-            if (!empty($icon['alt'])) {
-                $row['alt'] = $icon['alt'];
-            }
-            $row['iconopen'] = isset($icon['iconopen'])
-                ? $icon['iconopen']
-                : null;
-            $row['user_icon'] = true;
-        }
-
-        return $row;
+        return $mailbox
+            ? new IMP_Imap_Tree_Element($mailbox, $this)
+            : false;
     }
 
     /**

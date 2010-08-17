@@ -256,8 +256,16 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
 
         /* Check for case where text is just the domain name. */
         if (!isset($text_url['host'])) {
-            if (!isset($text_url['path']) ||
-                !preg_match("/^[^\.\s\/]+(?:\.[^\.\s]+)+$/", $text_url['path'])) {
+            if (!isset($text_url['path'])) {
+                return false;
+            }
+
+            /* Path info may include path, so remove that. */
+            if (($pos = strpos($text_url['path'], '/')) !== false) {
+                $text_url['path'] = substr($text_url['path'], 0, $pos);
+            }
+
+            if (!preg_match("/^[^\.\s\/]+(?:\.[^\.\s]+)+$/", $text_url['path'])) {
                 return false;
             }
 

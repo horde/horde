@@ -74,7 +74,7 @@ while ($it->valid()) {
             if ($debug) {
                 print "LINKING FILE: " . $web_dir . "/" . $it->getSubPathName() . "\n";
             }
-            symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
+            @symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
         }
     }
     $it->next();

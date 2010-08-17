@@ -1953,7 +1953,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach ($changes['a'] as $val) {
-                $result['a'][] = $this->_createMailboxElt(is_array($val) ? $val : $imptree->element($val));
+                $result['a'][] = $this->_createMailboxElt(is_object($val) ? $val : $imptree->element($val));
             }
         }
 
@@ -1978,7 +1978,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Create an object used by DimpCore to generate the folder tree.
      *
-     * @param array $elt  The output from IMP_Tree::element().
+     * @param IMP_Imap_Tree_Elt $elt  An element object.
      *
      * @return stdClass  The element object. Contains the following items:
      * <pre>
@@ -2003,28 +2003,27 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                 2 = user vfolder [integer] [DEFAULT: 0]
      * </pre>
      */
-    protected function _createMailboxElt($elt)
+    protected function _createMailboxElt(IMP_Imap_Tree_Elt $elt)
     {
         $ob = new stdClass;
 
-        if ($elt['children']) {
+        if ($ob->children) {
             $ob->ch = 1;
         }
-        $ob->cl = $elt['class'];
-        $ob->m = $elt['value'];
-        if ($ob->m != $elt['name']) {
-            $ob->l = $elt['name'];
+        $ob->m = $elt->value;
+        if ($ob->m != $elt->name) {
+            $ob->l = $elt->name;
         }
-        if ($elt['parent'] != IMP_Imap_Tree::BASE_ELT) {
-            $ob->pa = $elt['parent'];
+        if ($elt->parent != IMP_Imap_Tree::BASE_ELT) {
+            $ob->pa = $elt->parent;
         }
-        if ($elt['polled']) {
+        if ($elt->polled) {
             $ob->po = 1;
         }
-        if ($elt['vfolder']) {
-            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($elt['value']) ? 2 : 1;
+        if ($elt->vfolder) {
+            $ob->v = $GLOBALS['injector']->getInstance('IMP_Search')->isEditableVFolder($elt->value) ? 2 : 1;
         }
-        if (!$elt['sub']) {
+        if (!$elt->sub) {
             $ob->un = 1;
         }
 
@@ -2033,32 +2032,36 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->t = $tmp;
         }
 
-        if ($elt['container']) {
+        if ($elt->container) {
             $ob->cl = 'exp';
             $ob->co = 1;
-            if ($elt['nonimap']) {
+            if ($elt->nonimap) {
                 $ob->n = 1;
             }
         } else {
-            if ($elt['polled']) {
-                $ob->u = intval($elt['unseen']);
+            if ($elt->polled) {
+                $poll_info = $elt->poll_info;
+                $ob->u = $poll_info['unseen'];
             }
 
-            if ($elt['special']) {
+            if ($elt->special) {
                 $ob->s = 1;
-            } elseif (!$elt['vfolder'] && $elt['children']) {
+            } elseif (!$elt->vfolder && $elt->children) {
                 $ob->cl = 'exp';
             }
         }
 
-        if ($elt['user_icon']) {
+        $icon = $elt->icon;
+        if ($icon->user_icon) {
             $ob->cl = 'customimg';
-            $dir = empty($elt['icondir'])
+            $dir = empty($icon->icondir)
                 ? Horde_Themes::img()
-                : $elt['icondir'];
+                : $icon->icondir;
             $ob->i = empty($dir)
-                ? $elt['icon']
-                : $dir . '/' . $elt['icon'];
+                ? $icon->icon
+                : $dir . '/' . $icon->icon;
+        } else {
+            $ob->cl = $icon['class'];
         }
 
         return $ob;

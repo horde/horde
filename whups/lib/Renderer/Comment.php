@@ -173,13 +173,13 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
                 $delete_link = Horde::applicationUrl('ticket/delete_history.php')
                     ->add(array('transaction' => $transaction,
                                 'id' => $vars->get('ticket_id'),
-                                'url' => Horde::selfUrl(true, false, true)))
+                                'url' => Whups::urlFor('ticket', $vars->get('ticket_id'), true)))
                     ->link(array('title' => _("Delete entry"), 'onclick' => 'return window.confirm(\'' . addslashes(_("Permanently delete entry?")) . '\');'))
                     . Horde::img('delete.png', _("Delete entry"))
                     . '</a>';
             }
 
-            ob_start();
+            Horde::startBuffer();
             $class = $private ? 'pc' : 'c';
 ?>
 <div id="t<?php echo (int)$transaction ?>">
@@ -202,8 +202,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
 </table>
 </div>
 <?php
-            $html = ob_get_contents();
-            ob_end_clean();
+            $html = Horde::endBuffer();
             return $html;
         }
 

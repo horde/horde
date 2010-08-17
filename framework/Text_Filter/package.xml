@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Text_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Text Filter API</summary>
  <description>The Horde_Text_Filter:: class provides common methods for
- fitering and converting text.
- </description>
+ fitering and converting text.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,7 +23,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2009-06-10</date>
+ <date>2010-08-15</date>
+ <time>15:28:59</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -37,12 +34,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* XSS filter now uses PHP DOM parser to process incoming text.
+ <notes>
+* XSS filter now uses PHP DOM parser to process incoming text.
  * Remove Horde/Core dependency.
  * Add Horde_Text_Filter_Exception::.
  * Html2text converter now uses XML parser to generate output.
  * Add ability to define filters to use with preg_replace_callback().
- * Add 'noprefetch' parameter to XSS filter (Ticket #8836).
+ * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
  * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
  * Add support for Google Closure Compiler in javascript minfiy filter.
  * Fix dimming signatures when mixed with quoted text (Bug #4299).
@@ -51,11 +49,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
+       <dir name="JavascriptMinify">
+        <file name="JsMin.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
        <file name="Base.php" role="php" />
        <file name="Bbcode.php" role="php" />
        <file name="Cleanascii.php" role="php" />
@@ -68,9 +69,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Highlightquotes.php" role="php" />
        <file name="Html2text.php" role="php" />
        <file name="JavascriptMinify.php" role="php" />
-       <dir name="JavascriptMinify">
-        <file name="JsMin.php" role="php" />
-       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
        <file name="Linkurls.php" role="php" />
        <file name="Simplemarkup.php" role="php" />
        <file name="Space2html.php" role="php" />
@@ -89,13 +87,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
-       <file name="Emails.php" role="test" />
+       <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="Space2htmlTest.php" role="test" />
        <file name="Text2htmlTest.php" role="test" />
        <file name="XssTest.php" role="test" />
-       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Text/Filter -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
@@ -134,29 +132,54 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Text/Filter/Base.php" as="Horde/Text/Filter/Base.php" />
-   <install name="lib/Horde/Text/Filter/Bbcode.php" as="Horde/Text/Filter/Bbcode.php" />
-   <install name="lib/Horde/Text/Filter/Cleanascii.php" as="Horde/Text/Filter/Cleanascii.php" />
-   <install name="lib/Horde/Text/Filter/Cleanhtml.php" as="Horde/Text/Filter/Cleanhtml.php" />
-   <install name="lib/Horde/Text/Filter/Dimsignature.php" as="Horde/Text/Filter/Dimsignature.php" />
-   <install name="lib/Horde/Text/Filter/Emails.php" as="Horde/Text/Filter/Emails.php" />
-   <install name="lib/Horde/Text/Filter/Emoticons.php" as="Horde/Text/Filter/Emoticons.php" />
-   <install name="lib/Horde/Text/Filter/Environment.php" as="Horde/Text/Filter/Environment.php" />
-   <install name="lib/Horde/Text/Filter/Highlightquotes.php" as="Horde/Text/Filter/Highlightquotes.php" />
-   <install name="lib/Horde/Text/Filter/Html2text.php" as="Horde/Text/Filter/Html2text.php" />
-   <install name="lib/Horde/Text/Filter/JavascriptMinify.php" as="Horde/Text/Filter/JavascriptMinify.php" />
-   <install name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" as="Horde/Text/Filter/JavascriptMinify/JsMin.php" />
-   <install name="lib/Horde/Text/Filter/Linkurls.php" as="Horde/Text/Filter/Linkurls.php" />
-   <install name="lib/Horde/Text/Filter/Simplemarkup.php" as="Horde/Text/Filter/Simplemarkup.php" />
-   <install name="lib/Horde/Text/Filter/Space2html.php" as="Horde/Text/Filter/Space2html.php" />
-   <install name="lib/Horde/Text/Filter/Tabs2spaces.php" as="Horde/Text/Filter/Tabs2spaces.php" />
-   <install name="lib/Horde/Text/Filter/Text2html.php" as="Horde/Text/Filter/Text2html.php" />
-   <install name="lib/Horde/Text/Filter/Words.php" as="Horde/Text/Filter/Words.php" />
-   <install name="lib/Horde/Text/Filter/Xss.php" as="Horde/Text/Filter/Xss.php" />
-   <install name="lib/Horde/Text/Filter.php" as="Horde/Text/Filter.php" />
+   <install as="Horde/Text/Filter.php" name="lib/Horde/Text/Filter.php" />
+   <install as="Horde/Text/Filter/Base.php" name="lib/Horde/Text/Filter/Base.php" />
+   <install as="Horde/Text/Filter/Bbcode.php" name="lib/Horde/Text/Filter/Bbcode.php" />
+   <install as="Horde/Text/Filter/Cleanascii.php" name="lib/Horde/Text/Filter/Cleanascii.php" />
+   <install as="Horde/Text/Filter/Cleanhtml.php" name="lib/Horde/Text/Filter/Cleanhtml.php" />
+   <install as="Horde/Text/Filter/Dimsignature.php" name="lib/Horde/Text/Filter/Dimsignature.php" />
+   <install as="Horde/Text/Filter/Emails.php" name="lib/Horde/Text/Filter/Emails.php" />
+   <install as="Horde/Text/Filter/Emoticons.php" name="lib/Horde/Text/Filter/Emoticons.php" />
+   <install as="Horde/Text/Filter/Environment.php" name="lib/Horde/Text/Filter/Environment.php" />
+   <install as="Horde/Text/Filter/Exception.php" name="lib/Horde/Text/Filter/Exception.php" />
+   <install as="Horde/Text/Filter/Highlightquotes.php" name="lib/Horde/Text/Filter/Highlightquotes.php" />
+   <install as="Horde/Text/Filter/Html2text.php" name="lib/Horde/Text/Filter/Html2text.php" />
+   <install as="Horde/Text/Filter/JavascriptMinify.php" name="lib/Horde/Text/Filter/JavascriptMinify.php" />
+   <install as="Horde/Text/Filter/Linkurls.php" name="lib/Horde/Text/Filter/Linkurls.php" />
+   <install as="Horde/Text/Filter/Simplemarkup.php" name="lib/Horde/Text/Filter/Simplemarkup.php" />
+   <install as="Horde/Text/Filter/Space2html.php" name="lib/Horde/Text/Filter/Space2html.php" />
+   <install as="Horde/Text/Filter/Tabs2spaces.php" name="lib/Horde/Text/Filter/Tabs2spaces.php" />
+   <install as="Horde/Text/Filter/Text2html.php" name="lib/Horde/Text/Filter/Text2html.php" />
+   <install as="Horde/Text/Filter/Words.php" name="lib/Horde/Text/Filter/Words.php" />
+   <install as="Horde/Text/Filter/Xss.php" name="lib/Horde/Text/Filter/Xss.php" />
+   <install as="Horde/Text/Filter/JavascriptMinify/JsMin.php" name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" />
+   <install as="Horde/Text/Filter/AllTests.php" name="test/Horde/Text/Filter/AllTests.php" />
+   <install as="Horde/Text/Filter/Autoload.php" name="test/Horde/Text/Filter/Autoload.php" />
+   <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
+   <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
+   <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
+   <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
+   <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
+   <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
+   <install as="Horde/Text/Filter/XssTest.php" name="test/Horde/Text/Filter/XssTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-10-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:39:08</time>
@@ -169,26 +192,39 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Don't strip BASE tags when 'strip_styles' is false.
+   <notes>
+* Don&apos;t strip BASE tags when &apos;strip_styles&apos; is false.
    * Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
    * Removed dependency on external javascript file when toggling quoted lines.
    * Converted to package.xml 2.0 for pear.horde.org
-   * Allow the bad words filter to leave the first character of a matching word and replace the rest with '*' (duck@obala.net).
+   * Allow the bad words filter to leave the first character of a matching word and replace the rest with &apos;*&apos; (duck@obala.net).
    * Improved efficiency of the linkurls filter when searching long lines
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2004-10-12</date>
+   <date>2010-08-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* XSS filter now uses PHP DOM parser to process incoming text.
+ * Remove Horde/Core dependency.
+ * Add Horde_Text_Filter_Exception::.
+ * Html2text converter now uses XML parser to generate output.
+ * Add ability to define filters to use with preg_replace_callback().
+ * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
+ * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
+ * Add support for Google Closure Compiler in javascript minfiy filter.
+ * Fix dimming signatures when mixed with quoted text (Bug #4299).
+ * Added javscript minify filter.
+ * Add support for using the tidy extension when filtering HTML data.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

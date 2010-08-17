@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+  <entry id="hermes-job-types" md5="00cf1ad269ebd34007ee18aef29a9c56" state="uptodate">
+    <title>Arbeitsarten</title>
+    <para>Eine Arbeitsart beschreibt, welche Art von Arbeit während eines
+      Zeitabschnitts durchgeführt wurde. Der Administrator hat eine Reihe von
+      Arbeitsarten festgelegt, aus denen ausgewählt werden kann.</para>
+  </entry>
+  <entry id="hermes-cost-objects" md5="a47f9ed45e7657ab7577a75f8c553e65" state="uptodate">
+    <title>Kostenstellen</title>
+    <para>Es können Kostenstellen aus einer Reihe von Quellen angezeigt
+      werden, z.B. bestimmte Ergebnisse, die vom Administrator vorgegeben
+      wurden, Aufgaben aus den Aufgabenlisten oder Tickets aus einem
+      Ticketsystem.</para>
+  </entry>
+  <entry id="hermes-time-format" md5="a5ebafdb0a0c3adadb00184a460d9517" state="uptodate">
+    <title>Zeitformat</title>
+    <para>Das einzutragende Zeitformat bezeichnet nicht Stunden und Minuten
+      sondern Stunden und Dezimalteile von Stunden.</para>
+  </entry>
+  <entry id="hermes-submit-slices" md5="93d4ebd6671b084e492fddbbbedc5f0c" state="uptodate">
+    <title>Zeitabschnitte abschicken</title>
+    <para>Das Abschicken von Zeitabschnitten "markiert" sie als
+      abgeschlossen. Dies ist ein Zeichen für den Administrator oder die
+      Buchhaltung, dass sie weiter verarbeitet z.B. in Rechnung gestellt
+      werden können. Solange Sie Ihre Zeitabschnitte noch nicht abgeschickt
+      haben, gelten diese als vorläufig und können von Ihnen noch bearbeitet
+      werden. Nach dem Abschicken können sie die Zeitabschnitte nicht mehr
+      ändern..</para>
+    <heading>Abschicken Ausgewählter Zeitabschnitte</heading>
+    <para>Dies kann nicht so einfach von der Standardansicht aus erledigt
+      werden, die alle Zeitabschnitte in einer gemeinsamen Liste anzeigt und
+      über die Reiter lediglich die Gruppierung nach verschiedenen Kriterien
+      erlaubt. Sie können dazu aber die Suche verwenden. Setzen Sie im
+      Suchformular das Feld "Abgeschickt?" auf "Nein" und wählen Sie weitere
+      Suchkriterien aus, die den gewünschten Zeitabschnitten entsprechen,
+      z.B. einen bestimmten Kunden oder eine Kostenstelle.</para>
+    <para>Wenn Sie die Suche abschicken, erhalten Sie eine Liste, die ähnlich
+      der Standardansicht aussieht, aber nur die Zeitabschnitte enthält, die
+      Ihren Suchkriterien entsprechen. Alle Einträge sind bereits markiert, so
+      dass Sie nur noch auf "Ausgewählte Zeiteinträge abschicken" klicken
+      müssen.</para>
+  </entry>
+</help>

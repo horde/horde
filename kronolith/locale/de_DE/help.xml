@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
+
+<entry id="Overview" md5="1585927d48e4627c792fe0332c41fd39" state="uptodate">
     <title>Kronolith: Überblick</title>
     <para>
       Bei Kronolith handelt es sich um einen webbasierten Kalender. Neben den
@@ -13,7 +14,8 @@
       Terminen im Horde-Portal unterstützt.
     </para>
   </entry>
-  <entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
+
+<entry id="menu-today" md5="c6d0c0f366175a38d0655ed9969ed4a6" state="uptodate">
     <title>Menü: Heute</title>
     <para>
       Ein Klick auf den <i>Heute</i>-Menüeintrag zeigt Ihre Standardansicht
@@ -21,7 +23,8 @@
       aktuelle Datum an.
     </para>
   </entry>
-  <entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
+
+<entry id="menu-Goto" md5="566191775ba90b769f2e3f7cdf24cbfa" state="uptodate">
     <title>Menü: Gehe zu</title>
     <para>
       Ein Klick auf den <i>Gehe zu</i>-Menüeintrag zeigt ein kleines
@@ -30,42 +33,48 @@
       Kalender zu navigieren.
     </para>
   </entry>
-  <entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
+
+<entry id="menu-Day" md5="3cd62e10116058db52a15fecd7ddbcb0" state="uptodate">
     <title>Menü: Tag</title>
     <para>
       Ein Klick auf den <i>Tag</i>-Tabreiter zeigt die Tagesansicht des
       ausgewählten Tages an.
     </para>
   </entry>
-  <entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
+
+<entry id="menu-work-week" md5="f9a63585c81dca63887e130dbbea91de" state="uptodate">
     <title>Menü: Arbeitswoche</title>
     <para>
       Ein Klick auf den <i>Arbeitswoche</i>-Tabreiter zeigt die
       Arbeitswochenansicht (Montag bis Freitag) des ausgewählten Tages an.
     </para>
   </entry>
-  <entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
+
+<entry id="menu-week" md5="3d8a3bfda629bb6e09819b2e660546e5" state="uptodate">
     <title>Menü: Woche</title>
     <para>
       Ein Klick auf den <i>Woche</i>-Tabreiter zeigt die Wochenansicht
       (7-Tage-Woche) des ausgewählten Tages an.
     </para>
   </entry>
-  <entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
+
+<entry id="menu-month" md5="4be2056875775ec1f5b0f920a1dab608" state="uptodate">
     <title>Menü: Monat</title>
     <para>
       Ein Klick auf den <i>Monat</i>-Tabreiter zeigt die Monatsansicht des
       ausgewählten Tages an.
     </para>
   </entry>
-  <entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
+
+<entry id="menu-new-event" md5="37406cc2ee51040862df1eaa2f645d4e" state="uptodate">
     <title>Menü: Neuer Termin</title>
     <para>
       Der <i>Gehe zu</i>-Menüeintrag erlaubt das Hinzufügen neuer Termine zum
       Kalender.
     </para>
   </entry>
-  <entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
+
+<entry id="menu-options" md5="d7df2c0cda84c89c638d9d6e59307976" state="uptodate">
     <title>Menü: Einstellungen</title>
     <para>
       Über den <i>Einstellungen</i>-Menüeintrag können Sie die Einstellungen
@@ -74,7 +83,8 @@
       auch gemeinsame, Kalender verwalten.
     </para>
   </entry>
-  <entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
+
+<entry id="menu-import-export" md5="34bc9dfc4d6302fc1011696a1b8d1ca8" state="uptodate">
     <title>Menü: Import/Export</title>
     <para>
       Mit dem <i>Import/Export</i>-Menüeintrag können Sie Termine im- und
@@ -83,7 +93,8 @@
       exportieren.
     </para>
   </entry>
-  <entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
+
+<entry id="alarms" md5="4c1c6f3eb13a416031ffbee4fce99ea1" state="uptodate">
     <title>Alarme</title>
     <para>
       Kronolith kann Alarme für Termine erzeugen. Als Standard wird der Alarm
@@ -91,7 +102,8 @@
       für jeden Termin frei festlegen.
     </para>
   </entry>
-  <entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
+
+<entry id="recurring-events" md5="8ea7be1fb6cee0b4131c9a548e25d92f" state="uptodate">
     <title>Wiederkehrende Termine</title>
     <para>
       Termine können auf verschiedene Weise wiederholt werden, z.B. monatlich
@@ -112,7 +124,8 @@
       den anderen bearbeiten können.
     </para>
   </entry>
-  <entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
+
+<entry id="Printing" md5="2f90d14e34b715a054fb52bb919ac5f8" state="uptodate">
     <title>Drucken</title>
     <heading>Drucken von Kalendern und Terminen</heading>
     <para>
@@ -122,7 +135,20 @@
       Ansicht ausgedruckt.
     </para>
   </entry>
-  <entry id="embed" state="uptodate" md5="f62876bee3350ab0066d4f90feeef297">
+
+<entry id="shares" state="uptodate" md5="bf3a44d08a824979ba8dd8fd0e661eee">
+  <title>Kalenderrechte</title>
+  <para>
+    Hier sollten eigentlich einige Erklärungen zu den verschiedenen Benutzern,
+    Gruppen und Rollen stehen, denen Rechte zugewiesen werden können.
+  </para>
+  <para>
+    Hier sollten eigentlich einige Erklärungen stehen zu den verschiedenen
+    Rechtearten und was diese in Bezug auf Termine und Kalender bedeuten.
+  </para>
+</entry>
+
+<entry id="embed" state="uptodate" md5="f62876bee3350ab0066d4f90feeef297">
   <title>Einbetten</title>
   <para>
     Sie können kleine Ansichten Ihrer Kalender in externe Webseite einbetten.

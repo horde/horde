@@ -149,7 +149,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             }
 
             try {
-                $html .= $this->_row(_("Alias"), implode("\n", $vc->getAttributeValues('ALIAS'));
+                $html .= $this->_row(_("Alias"), implode("\n", $vc->getAttributeValues('ALIAS')));
             } catch (Horde_Icalendar_Exception $e) {}
 
             try {

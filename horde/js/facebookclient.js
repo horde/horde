@@ -25,7 +25,7 @@ var Horde_Facebook = Class.create({
      * opts.button
      * opts.instance
      *
-     * 
+     *
      */
     initialize: function(opts)
     {
@@ -34,10 +34,10 @@ var Horde_Facebook = Class.create({
         }, opts);
 
         this.getNewEntries();
-        $(this.opts.getmore).observe('click', function() { this.getOlderEntries(); return false; }.bind(this));
-        $(this.opts.button).observe('click', function() { this.updateStatus(); return false; }.bind(this));
+        $(this.opts.getmore).observe('click', function(e) { this.getOlderEntries(); e.stop(); }.bind(this));
+        $(this.opts.button).observe('click', function(e) { this.updateStatus(); e.stop(); }.bind(this));
     },
-    
+
     /**
      * Update FB status.
      *
@@ -114,7 +114,7 @@ var Horde_Facebook = Class.create({
 
     getNewEntries: function()
     {
-        var params = { 
+        var params = {
             'actionID': 'getStream',
             'notifications': this.opts.notifications,
             'oldest': this.oldest,
@@ -141,5 +141,5 @@ var Horde_Facebook = Class.create({
             this.oldest = response.responseJSON.o;
         }
     }
-    
+
 });

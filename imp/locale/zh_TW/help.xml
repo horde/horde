@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="keyboard-navigation" state="new">
+
+<entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
     <para>You may use your keyboard to move between messages in the mailbox list, to the previous or next messages while viewing a message, and between pages of your mailbox list.</para>
     <heading>Message List Keyboard Navigation</heading>
@@ -11,21 +12,15 @@
     <heading>Message View: Previous/Next Message</heading>
     <para>Use the Left and Right keys on your keyboard to go to the previous message or the next message, respectively.</para>
 </entry>
-  <entry id="message-forward" state="new">
-  <title>Forwarding Email</title>
-  <para>When forwarding an email, you have several choices.</para>
 
-  <heading>Forwarding from the Mailbox View</heading>
-  <para>In the mailbox view, you can forward multiple messages at the same time. Each message that you select will be sent, in its entirety, to your recipients. You will see each message as an attachment in your compose window. On the receiving end, the recipient(s) will see each email as an embedded email.</para>
-
-  <heading>Forwarding from the Message View</heading>
-  <para>When forwarding individual messages in the message view, you can choose three different options:</para>
-  <para><b>1. Entire Message</b>: This option will attach the entire message to your email. The compose area will not contain any text from the forwarded message. This is the same as forwading a single email from the mailbox view, except that the Subject: line will be set for you.</para>
-  <para><b>2. Body Text Only</b>: If you only want to forward the body of the email, choose this option. Any attachments to the original email will not be included in your forward. The text will appear in the compose area, and you can edit it if you wish or add your own comments.</para>
-  <para><b>3. Body Text with Attachments</b>: To forward the attachments of an email along, along with the body as described in #2 Body Text Only, use this option. The body text will be placed in the compose area for you to edit, and all attachments to the original message will be copied to your forward.</para>
-
+<!--
+<entry id="keyboard-shortcuts">
+    <title>Keyboard: Shortcuts</title>
+    <heading>Using Keyboard Shortcuts</heading>
 </entry>
-  <entry id="compose-buttons" md5="301453c3a273ec0ba95b84aeb8661cca" state="changed">
+-->
+
+<entry id="compose-buttons" md5="301453c3a273ec0ba95b84aeb8661cca" state="changed">
     <title>郵件寫作: 作用方式</title>
     <heading>作用方式</heading>
     <para>
@@ -394,15 +389,33 @@
     <para>
     "Cancel Message" drops the message in progress and simply returns you to the last folder you were viewing.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-buttons">
+    <title>Message Composition: Actions</title>
+    <heading>Actions</heading>
+    <para>
+    "Send Message" transmits your email message to the intended recipient(s). Make sure you do want to send your message as this action is final and cannot be reversed.
+    </para>
+    <para>
+    "Save Draft" places an unfinished message in a folder called "Drafts" accessible through the folder drop-down box at the top-right of your screen. You can then finish the message later by switching to the "Drafts" folder, clicking on the saved message to open it, and then clicking on "Resume". Be sure to put a subject on the email before you save the draft so that you can easily identify which message you want within the Drafts folder.
+    </para>
+    <tip>
+    Depending on your installation, you can change in your preferences whether you are returned to the last folder you were viewing or back to the same message after saving a message as a draft.
+    </tip>
+    <para>
+    "Cancel Message" drops the message in progress and simply returns you to the last folder you were viewing.
+    </para>
 </entry>--></entry>
-  <entry id="compose-identity" state="new">
+
+<entry id="compose-identity" state="new">
     <title>Message Composition: Identity</title>
     <heading>Identity</heading>
     <para>
     Choose the identity to send email as from a drop-down list of identities that you entered under <qt>Options-&gt;Personal Information</qt>.
     </para>
 </entry>
-  <entry id="compose-from" md5="26bcca134b528a540e070ef96a4d5038" state="changed">
+
+<entry id="compose-from" md5="26bcca134b528a540e070ef96a4d5038" state="changed">
     <title>郵件寫作: 寄件人</title>
     <heading>"寄件人"</heading>
     <para>
@@ -570,8 +583,16 @@
     <para>
     Enter the email address that you want to send this message as.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-from">
+    <title>Message Composition: From</title>
+    <heading>From</heading>
+    <para>
+    Enter the email address that you want to send this message as.
+    </para>
 </entry>--></entry>
-  <entry id="compose-to" md5="e1d101c96b942693818c7daf072f92c3" state="changed">
+
+<entry id="compose-to" md5="e1d101c96b942693818c7daf072f92c3" state="changed">
     <title>郵件寫作: 收件人</title>
     <heading>"收件人"</heading>
     <para>
@@ -733,8 +754,16 @@
     <para>
     Enter the correct email address for the recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-to">
+    <title>Message Composition: To</title>
+    <heading>To</heading>
+    <para>
+    Enter the correct email address for the recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
 </entry>--></entry>
-  <entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
+
+<entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
     <title>郵件寫作: 副本</title>
     <heading>"副本"</heading>
     <para>
@@ -965,8 +994,19 @@
     <para>
     Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the email. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-cc">
+    <title>Message Composition: Cc</title>
+    <heading>Cc</heading>
+    <para>
+    Enter the correct email address for the carbon copy recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
+    <para>
+    Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the email. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
+    </para>
 </entry>--></entry>
-  <entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
+
+<entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
     <title>郵件寫作: 秘件副本</title>
     <heading>"秘件副本"</heading>
     <para>
@@ -1197,8 +1237,19 @@
     <para>
     Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the email. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the email. Only you the sender and the "Bcc" recipients will know that they received a copy.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-bcc">
+    <title>Message Composition: Bcc</title>
+    <heading>Bcc</heading>
+    <para>
+    Enter the correct email address for the blind carbon copy recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
+    <para>
+    Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the email. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the email. Only you the sender and the "Bcc" recipients will know that they received a copy.
+    </para>
 </entry>--></entry>
-  <entry id="compose-subject" md5="607b6415ea1f6d0cf25e3cf57a2584cc" state="changed">
+
+<entry id="compose-subject" md5="607b6415ea1f6d0cf25e3cf57a2584cc" state="changed">
     <title>郵件寫作: 主旨</title>
     <heading>"主旨"</heading>
     <para>
@@ -1433,15 +1484,27 @@
     <para>
     Also, when you "Reply" or "Forward" an email, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an email conversation. As a suggestion, if a replied or forwarded message contains new ideas, you may want to alter slightly the "Subject" line so that recipients can follow the progression of the "thread".
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-subject">
+    <title>Message Composition: Subject</title>
+    <heading>Subject</heading>
+    <para>
+    Enter the subject of your message. It is best to keep the subject short, simple and descriptive. The subject line is the easiest way for you and your correspondents to remember what was in the email, thus is very important in organizing your email and finding important ones later.
+    </para>
+    <para>
+    Also, when you "Reply" or "Forward" an email, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an email conversation. As a suggestion, if a replied or forwarded message contains new ideas, you may want to alter slightly the "Subject" line so that recipients can follow the progression of the "thread".
+    </para>
 </entry>--></entry>
-  <entry id="compose-charset" state="new">
+
+<entry id="compose-charset" state="new">
     <title>Message Composition: Charset</title>
     <heading>Character Set</heading>
     <para>
     Selects the character set to send the outgoing message with.
     </para>
 </entry>
-  <entry id="compose-options" md5="700a6844af3c7e6582da15929b5dd173" state="changed">
+
+<entry id="compose-options" md5="700a6844af3c7e6582da15929b5dd173" state="changed">
     <title>郵件寫作: 選項</title>
     <heading>"選項"</heading>
     <para>
@@ -1950,8 +2013,31 @@
     <warn>
     You may not want to save every email since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming email.
     </warn>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-options">
+    <title>Message Composition: Options</title>
+    <heading>Options</heading>
+    <para>
+    These Options help you prepare your message.
+    </para>
+    <para>
+    Click "Spell Check" to check your spelling.
+    </para>
+    <para>
+    Click "Attachments" to go to the bottom of the page where you can attach files to this message.
+    </para>
+    <para>
+    If saving of sent mail has been enabled by your administrator, you can activate the checkbox next to "Save a copy" to keep a copy your this message you send. The destination folder will be either the default or the one you selected for this purpose under "Options-&gt;Personal Information-&gt;Identities". If your addminstrator has activated the selection of a sent mail destination, you will be able to choose the folder from a drop-down list next to this option.
+    </para>
+    <para>
+    Saving copies of important emails you send could be useful for record keeping of what was discussed. You can, however, turn this feature "on" as your default within your Identity, by going to "Options-&gt;Personal Information-&gt;Edit your identities". In your options you can also setup maintenance tasks that empty or rename these folders periodically.
+    </para>
+    <warn>
+    You may not want to save every email since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming email.
+    </warn>
 </entry>--></entry>
-  <entry id="compose-attachments" md5="5b62669ca09fe858b091c2221947cb87" state="changed">
+
+<entry id="compose-attachments" md5="5b62669ca09fe858b091c2221947cb87" state="changed">
     <title>郵件寫作: 附件</title>
     <heading>附件</heading>
     <para>
@@ -2763,8 +2849,27 @@
     <tip>
     Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
     </tip>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-attachments">
+    <title>Message Composition: Adding Attachments</title>
+    <heading>Adding Attachments</heading>
+    <para>
+    You may attach files to your message if your browser supports uploading of files. More than 1 file can be uploaded at once.
+    </para>
+    <para>Step 1: Either type the path and name of a file that you want attached to this message or click the "Browse" button and select the file to be attached. The path and name of that file now appears in the Attachment box. If your browser supports JavaScript, you will see an additional upload input now as well, for uploading other files at the same time.
+    </para>
+    <para>Step 2: Decide whether you want the file to be viewed as an attachment or inline with the rest of the message. The recipient's mail reading software must be able to handle the inline display of the file type, otherwise this part will be viewed as an attachment instead.
+    </para>
+    <para>
+    Unless you want to change an attachment's description or specify that it should be shown to the recipient inline, you are done. The attachments will be uploaded when you send your message. If you want to change the description or the attachment disposition, however, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
+    </para>
+
+    <tip>
+    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
+    </tip>
 </entry>--></entry>
-  <entry id="compose-current-attachments" state="new">
+
+<entry id="compose-current-attachments" state="new">
     <title>Message Composition: Current Attachments</title>
     <heading>Current Attachments</heading>
     <para>
@@ -2801,7 +2906,8 @@
     Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
     </para>
 </entry>
-  <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
+
+<entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
     <title>郵件寫作: 優先順序</title>
     <heading>"優先順序"</heading>
     <para>
@@ -2811,7 +2917,8 @@
     由於其他的郵件閱讀軟體並不支援這種表頭所以將會忽略郵件中的優先順序。
     </para>
   </entry>
-  <entry id="compose-save-attachments" state="changed" md5="5353905ce9ba89d4b8b7ca56e37b4678">
+
+<entry id="compose-save-attachments" state="changed" md5="5353905ce9ba89d4b8b7ca56e37b4678">
     <title>郵件寫作: 儲存附件</title>
     <para>
     決定儲存寄件備份時，是否也要一併儲存寄件中的附加檔案。 如果"是"，附加檔案
@@ -2950,517 +3057,22 @@
     <para>
     Determines whether the attachments in your composition are saved with the message when stored in the sent-mail folder. If "Yes", the attachment data will be saved. If "No", the attachment data will be stripped from the message after it is sent to all recipients. Choosing "No" will help conserve disk space by removing (potentially large) attachment information from the saved messages.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-save-attachments">
+    <title>Message Composition: Save Attachments</title>
+    <para>
+    Determines whether the attachments in your composition are saved with the message when stored in the sent-mail folder. If "Yes", the attachment data will be saved. If "No", the attachment data will be stripped from the message after it is sent to all recipients. Choosing "No" will help conserve disk space by removing (potentially large) attachment information from the saved messages.
+    </para>
 </entry>--></entry>
-  <entry id="compose-link-attachments" state="new">
+
+<entry id="compose-link-attachments" state="new">
     <title>Message Composition: Link Attachments</title>
     <para>
     Determines whether the attachments in your composition are sent as a part of the mail message or whether those attachments are kept on a local server.  If attachments are linked, the recipient(s) of your message will be provided a weblink where they can download the attachment(s).  Linking attachments has the advantage of tremendously reducing the size of outgoing messages.  Linking attachments has the disadvantage that the content of the attachments can not be guaranteed to be available in the future since the attachment data is not located within the e-mail message.
     </para>
 </entry>
-  <entry id="search" md5="21b917f954ab9af23d96a6ad60409fe1" state="changed">
-    <title>郵件搜尋</title>
-    <heading>搜尋條件</heading>
-    <para>
-    藉由不同的搜尋條件你可以搜尋所有信件匣中的郵件。
-    </para>
-    <para>步驟 1: 於欲搜尋條件的欄位中輸入關鍵文字。
-    </para>
-    <para>步驟 2: 選擇郵件標識以加入到搜尋條件中。
-    </para>
-    <para>步驟 3: 選擇要搜尋的信件匣。
-    </para>
-    <para>步驟 4: 點選 "搜尋"。
-    </para>
-    <para>
-    如果有任何的郵件與你的搜尋條件相符，
-    該郵件的主旨將顯示於 "搜尋" 結果的畫面中。
-    </para>
-  <!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Select whether you want to match ALL queries (an AND search) or match ANY query (an OR search).
-    </para>
-    <para>
-        Step 2: Choose the fields(s) to add to your search criteria and, if necessary, identify the search parameters for these fields.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--></entry>
-  <entry id="folder-options" md5="b45a4dedf0c4a684064cdf6ae98d1b54" state="changed">
+
+<entry id="folder-options" md5="b45a4dedf0c4a684064cdf6ae98d1b54" state="changed">
     <title>信件匣管理</title>
     <heading>信件匣選項</heading>
     <para>
@@ -4492,8 +4104,78 @@
     <para>
     Collapse all folder entries.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="folder-options">
+    <title>Folders: Folder Actions</title>
+    <para>
+      You can select folders by using the buttons along the left column. Once you have done this, select the action you wish to perform on the folders via the select box to the left.
+    </para>
+    <heading>Create</heading>
+    <para>
+      Create a new folder, if possible. To create a folder in the base level, select 'Create' without selecting a folder in the left column. To create a subfolder in a currently existing folder, select the existing folder in the left column before selecting 'Create'.
+    </para>
+    <heading>Rename</heading>
+    <para>
+      Rename a folder. To rename, select the folders in the left column to rename and click 'Rename'. When renaming, all subfolders will automatically be renamed.
+    </para>
+    <heading>Delete</heading>
+    <para>
+      Delete a folder and all messages inside the folder. To delete, select the folders in the left column to delete and click 'Delete'. When deleting a folder with children, these subfolders will not be automatically deleted. To remove these children, you must manually select all folders to delete using the left column.
+    </para>
+    <heading>Empty</heading>
+    <para>
+       To delete all messages inside a folder, but not delete the folder itself, select the folders in the left column and click 'Empty'.
+    </para>
+    <heading>Purge</heading>
+    <para>
+       To delete all messages inside a folder marked as deleted, but not delete the folder itself, select the folders in the left column and click 'Purge'. This option only appears if not using a trash folder.
+    </para>
+    <heading>Subscribe/Unsubscribe</heading>
+    <para>
+      Flags a folder as either subscribed or unsubscribed. When a folder is subscribed, it will appear in all drop down folder lists. These options only appear if using IMAP folder subscriptions.
+    </para>
+    <para>
+      To subscribe, select the folders in the left column to delete and click 'Subscribe'. To unsubscribe, select the folders in the left column to delete and click 'Unsubscribe'.
+    </para>
+    <heading>Check for New Mail/Do Not Check for New Mail</heading>
+    <para>
+      Flags a folder to be checked for new mail in the Folder Navigator and the sidebar (if activated).
+    </para>
+    <para>
+       To set this flag, select the folders in the left column to check and click 'Check for New Mail'. To unset this flag, select the folders in the left column to check and click 'Do Not Check for New Mail'.
+    </para>
+    <heading>Mark All Messages as Seen/Unseen</heading>
+    <para>
+       To mark all messages in a folder as seen, select the folders in the left column and click 'Mark All Messages as Seen'. To mark all messages in a folder as unseen, select the folders in the left column and click 'Mark All Messages as Unseen'.
+    </para>
+    <heading>Download</heading>
+    <para>
+       To download all messages in a folder in a single file (mbox format), select the folder in the left column and click 'Download'. To download the file in ZIP compressed format, instead select 'Download [.zip format].
+    </para>
+    <heading>Import Messages</heading>
+    <para>
+      This option will import mbox format or .eml files into the folder of your choice. Choose one folder via the left column to import the messages into and then select this option. You will then be taken to a page that will prompt for the mbox or .eml file to import.
+    </para>
+    <heading>Rebuild Folder Tree</heading>
+    <para>
+      Rebuild the graphical representation of the folder tree by requerying the mail server. You should not normally need to do this unless you are simultaneously accessing the mail server with another mail client and that mail client has made changes to the folder structure.
+    </para>
+
+    <heading>Show/Hide Unsubscribed</heading>
+    <para>
+    If using IMAP folder subscriptions, show/hide the unsubscribed folders. To subscribe/unsubscribe to a folder, select the checkbox next to the foldername and use the Subscribe/Unsubscribe action in the Folder Action drop-down menu.
+    </para>
+    <heading>Expand All</heading>
+    <para>
+    Expand all folder entries.
+    </para>
+    <heading>Collapse All</heading>
+    <para>
+    Collapse all folder entries.
+    </para>
 </entry>--></entry>
-  <entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
+
+<entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
     <title>郵件過濾: 套用</title>
     <heading>套用所有規則</heading>
     <para>
@@ -4501,21 +4183,24 @@
     所有郵件上。
     </para>
   </entry>
-  <entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
+
+<entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
     <title>郵件過濾: 編輯過濾規則</title>
     <heading>編輯你的過濾規則</heading>
     <para>
     點選"編輯你的過濾規則"讓你新增，刪除以及編輯目前已啟動的規則。
     </para>
   </entry>
-  <entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
+
+<entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
     <title>郵件過濾: 編輯黑名單</title>
     <heading>編輯你的黑名單</heading>
     <para>
     點選"編輯你的黑名單"讓你新增，刪除以及編輯一份你永遠不想收信的電子郵件名單。
     </para>
   </entry>
-  <entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
+
+<entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
     <title>郵件過濾: 編輯友善名單</title>
     <heading>編輯你的友善名單</heading>
     <para>
@@ -4524,21 +4209,24 @@
     其他規則搶先套用造成遺失等後果，確保對方信件會被送達收件閘中。
     </para>
   </entry>
-  <entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
+
+<entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
     <title>郵件過濾: 登入時套用</title>
     <heading>於登入時套用所有過濾規則 ?</heading>
     <para>
     勾選這個選項，以便日後每次登入網路郵局時，套用所有規則。
     </para>
   </entry>
-  <entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
+
+<entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
     <title>郵件過濾: 重新整理時一併套用</title>
     <heading>每次開啟收件閘時，一併將所有過濾規則套用其上。</heading>
     <para>
     勾選這個選項，以後每次開啟收件閘的同時，也將所有過濾規則套用於收件閘 ?
     </para>
   </entry>
-  <entry id="filter-any-mailbox" state="changed" md5="db1e4261ffcfc6d33e2a8cf806683f12">
+
+<entry id="filter-any-mailbox" state="changed" md5="db1e4261ffcfc6d33e2a8cf806683f12">
     <title>郵件過濾: 套用於任一個信件閘</title>
     <heading>將過濾規則套用於任一個信件閘 ?</heading>
     <para>
@@ -4703,8 +4391,16 @@
     <para>
     Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your INBOX. If this option is checked, an icon will appear on all mailbox pagges that will allow you to apply filter rules to the messages in the current mailbox. NOTE: Filtering in mailboxes other than INBOX may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="filter-any-mailbox">
+    <title>Filters: Filter any Mailbox</title>
+    <heading>Apply filter rules to any mailbox?</heading>
+    <para>
+    Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your INBOX. If this option is checked, an icon will appear on all mailbox pagges that will allow you to apply filter rules to the messages in the current mailbox. NOTE: Filtering in mailboxes other than INBOX may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
+    </para>
 </entry>--></entry>
-  <entry id="pgp-compose-attach-pubkey" md5="426b99481a5ab2dbe8c00f0e8597e296" state="changed">
+
+<entry id="pgp-compose-attach-pubkey" md5="426b99481a5ab2dbe8c00f0e8597e296" state="changed">
     <title>PGP: 附上公開金鑰</title>
     <heading>附上公開金鑰</heading>
     <para>
@@ -4866,8 +4562,16 @@
     <para>
     If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Options screen.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-compose-attach-pubkey">
+    <title>PGP: Attach Public Key</title>
+    <heading>Attach Public Key</heading>
+    <para>
+    If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Options screen.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
+
+<entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
     <title>PGP: 掃描郵件內容</title>
     <heading>掃描郵件內容</heading>
     <para>
@@ -5029,8 +4733,24 @@
     <para>
     If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-option-scan-body">
+    <title>PGP: Scan Text Bodies</title>
+    <heading>Scan Text Bodies</heading>
+    <para>
+    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
+    </para>
 </entry>--></entry>
-  <entry id="compose-options-encrypt" md5="d1473a3e8905d603ef33f9d58506aac5" state="changed">
+
+<entry id="pgp-option-reply-pubkey" state="new">
+    <title>PGP: Validate PGP Public Keys When Replying</title>
+    <heading>Validate PGP Public Keys When Replying</heading>
+    <para>
+    If set, and PGP encryption is used by default for composing messages, IMP will verify that it can access all recipients' public keys when the reply is first created. This has the disadvantage that it may cause a delay in opening the reply window. However, it has the advantage of informing you immediately if you will be able to correctly send the encrypted message to all recipients immediately.
+    </para>
+</entry>
+
+<entry id="compose-options-encrypt" md5="d1473a3e8905d603ef33f9d58506aac5" state="changed">
     <title>郵件寫作: 加密選項</title>
     <heading>郵件不加密</heading>
     <para>
@@ -5808,8 +5528,48 @@
     <para>
     This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-options-encrypt">
+    <title>Message Composition: Encryption Options</title>
+    <heading>No Encryption</heading>
+    <para>
+    Send the message with no encryption (cleartext).
+    </para>
+    <heading>PGP Encrypt Message</heading>
+    <para>
+    This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>PGP Sign Message</heading>
+    <para>
+    This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
+    </para>
+    <heading>PGP Sign/Encrypt Message</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
+    </para>
+    <heading>PGP Encrypt Message with passphrase</heading>
+    <para>
+    This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel e.g. personally, by phone, etc. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>PGP Sign/Encrypt Message with passphrase</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
+    </para>
+    <heading>S/MIME Encrypt Message</heading>
+    <para>
+    This option will encrypt the current message, using S/MIME and the recipients certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>S/MIME Sign Message</heading>
+    <para>
+    This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
+    </para>
+    <heading>S/MIME Sign/Encrypt Message</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
+
+<entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
     <title>PGP: 概述</title>
     <heading>什麼是 PGP?</heading>
     <para>
@@ -5824,7 +5584,8 @@
     加密/簽章的功能。
     </para>
   </entry>
-  <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
+
+<entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
     <title>PGP: 選項 - 附上公開金鑰</title>
     <heading>選項 - 附上公開金鑰</heading>
     <para>
@@ -5832,7 +5593,8 @@
     你的 PGP 公開金鑰。
     </para>
   </entry>
-  <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
+
+<entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
     <title>PGP: 管理公開金鑰</title>
     <heading>概述</heading>
     <para>
@@ -5853,7 +5615,8 @@
     自你的通訊錄中刪除此一公開金鑰。
     </para>
   </entry>
-  <entry id="pgp-import-pubkey" md5="a0bb34a07de288201d27ba5e891257a9" state="changed">
+
+<entry id="pgp-import-pubkey" md5="a0bb34a07de288201d27ba5e891257a9" state="changed">
     <title>PGP: 管理公開金鑰 - 匯入</title>
     <heading>匯入公開金鑰</heading>
     <para>
@@ -6016,8 +5779,16 @@
     <para>
     This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-import-pubkey">
+    <title>PGP: Manage Public Keys - Import</title>
+    <heading>Import Public Keys</heading>
+    <para>
+    This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
+
+<entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
     <title>PGP: 管理個人金鑰</title>
     <heading>概述</heading>
     <para>
@@ -6043,7 +5814,8 @@
     (所以當不使用網路郵局的時候，記得要確實登出哦！)
     </para>
   </entry>
-  <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
+
+<entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
     <title>PGP: 管理個人金鑰 - 公開金鑰</title>
     <heading>檢視</heading>
     <para>
@@ -6054,7 +5826,8 @@
     顯示關於此 PGP 公開金鑰的部分細節。
     </para>
   </entry>
-  <entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
+
+<entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
     <title>PGP: 管理個人金鑰 - 私密金鑰</title>
     <heading>輸入密碼</heading>
     <para>
@@ -6077,7 +5850,8 @@
     顯示關於此 PGP 私密金鑰的部分細節。
     </para>
   </entry>
-  <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
+
+<entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
     <title>PGP: 管理個人金鑰 - 刪除</title>
     <heading>刪除個人金鑰</heading>
     <para>
@@ -6087,14 +5861,16 @@
     通在外的公開金鑰將無法與新建的私密金鑰吻合。(除非你將新建的公開金鑰重新寄發)
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
+
+<entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
     <title>PGP: 建立個人金鑰 - 名稱</title>
     <heading>名稱</heading>
     <para>
     這個名稱將嵌入到你的個人金鑰中。這是必須欄位。
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
+
+<entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
     <title>PGP: 建立個人金鑰 - 註解</title>
     <heading>註解</heading>
     <para>
@@ -6102,14 +5878,16 @@
     這是選擇性欄位。
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
+
+<entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
     <title>PGP: 建立個人金鑰 - 電子郵件地址</title>
     <heading>電子郵件地址</heading>
     <para>
     你所希望與個人金鑰結合的電子郵件地址。這是必須欄位。
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
+
+<entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
     <title>PGP: 建立個人金鑰 - 金鑰長度</title>
     <heading>金鑰長度</heading>
     <para>
@@ -6250,8 +6028,16 @@
     <para>
     The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-personalkey-create-keylength">
+    <title>PGP: Create Personal Key - Keylength</title>
+    <heading>Keylength</heading>
+    <para>
+    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
+
+<entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
     <title>PGP: 建立個人金鑰 - 密碼</title>
     <heading>密碼</heading>
     <para>
@@ -6261,7 +6047,8 @@
     你必須輸入二次密碼，以確保你沒有誤設。這是必須欄位。
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-actions" md5="8b34a7b76424db822724a60271a33096" state="changed">
+
+<entry id="pgp-personalkey-create-actions" md5="8b34a7b76424db822724a60271a33096" state="changed">
     <title>PGP: 建立個人金鑰 - 動作</title>
     <heading>建立金鑰</heading>
     <para>
@@ -6517,8 +6304,20 @@
     <para>
     Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-personalkey-create-actions">
+    <title>PGP: Create Personal Key - Actions</title>
+    <heading>Create Keys</heading>
+    <para>
+    Create and store your personal public/private keypair.
+    </para>
+    <heading>Import Keypair</heading>
+    <para>
+    Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
+    </para>
 </entry>--></entry>
-  <entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
+
+<entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
     <title>S/MIME: 概述</title>
     <heading>什麼是 S/MIME?</heading>
     <para>
@@ -6778,8 +6577,20 @@
     <para>
     If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="smime-overview">
+    <title>S/MIME: Overview</title>
+    <heading>What is S/MIME?</heading>
+    <para>
+    S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in a open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
+    </para>
+    <heading>Enable S/MIME functionality?</heading>
+    <para>
+    If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
+    </para>
 </entry>--></entry>
-  <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
+
+<entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
     <title>S/MIME: 個人金鑰</title>
     <heading>概述</heading>
     <para>
@@ -6787,21 +6598,24 @@
     自己的公開/私密S/MIME金鑰對。
     </para>
   </entry>
-  <entry id="smime-import-personal-certs" state="new">
+
+<entry id="smime-import-personal-certs" state="new">
     <title>S/MIME: Import Personal Certificates</title>
     <heading>Import Personal Certificates</heading>
     <para>
     Import personal certificates from a PKCS #12 format file. PKCS #12 files is the file usually generated when exporting a key from a browser (e.g. Internet Explorer, Firefox) or from a certificate store maintained by an Operating System (e.g. Windows XP). If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
     </para>
 </entry>
-  <entry id="smime-delete-personal-certs" state="new">
+
+<entry id="smime-delete-personal-certs" state="new">
     <title>S/MIME: Delete Personal Certificates</title>
     <heading>Delete Personal Certificates</heading>
     <para>
     Delete your personal certificates from your preferences.  You will no longer be able to sign S/MIME messages or view any S/MIME encrypted messages addressed to you.
     </para>
 </entry>
-  <entry id="smime-manage-pubkey" state="new">
+
+<entry id="smime-manage-pubkey" state="new">
     <title>S/MIME: Manage Public Keys</title>
     <heading>S/MIME: Manage Public Keys</heading>
     <para>
@@ -6820,7 +6634,8 @@
     Deletes the selected public key from storage.  Deleting a public key for a user will prevent your from encrypting a message to that user.
     </para>
 </entry>
-  <entry id="printing" md5="d678fcc02ec59acaaa2ac24dff4123a8" state="changed">
+
+<entry id="printing" md5="d678fcc02ec59acaaa2ac24dff4123a8" state="changed">
     <title>列印</title>
     <heading>列印一封郵件</heading>
     <para>
@@ -6983,8 +6798,16 @@
     <para>
     To print a message you are viewing, click on the "Print" link at either the top or bottom of the message. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="printing">
+    <title>Printing</title>
+    <heading>Print a message</heading>
+    <para>
+    To print a message you are viewing, click on the "Print" link at either the top or bottom of the message. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
+    </para>
 </entry>--></entry>
-  <entry id="sorting" md5="149f1b5caf65e8b93bb3ef0491bfee26" state="changed">
+
+<entry id="sorting" md5="149f1b5caf65e8b93bb3ef0491bfee26" state="changed">
     <title>排序與關聯</title>
     <heading>排序</heading>
     <para>
@@ -7238,8 +7061,20 @@
     <para>
     To group messages by threads (subject), so each message is grouped with all its replies, click the [Thread] link in the subject column heading. To return to normal subject sorting, click on the [Subject] link in the subject column heading.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="sorting">
+    <title>Sorting and Threading</title>
+    <heading>Sorting Entries</heading>
+    <para>
+    When viewing a list of messages, you can sort the messages by any column by clicking on the appropriate column heading. To switch columns between ascending and descending order, click on the arrow icon in the column heading.
+    </para>
+    <heading>Threading</heading>
+    <para>
+    To group messages by threads (subject), so each message is grouped with all its replies, click the [Thread] link in the subject column heading. To return to normal subject sorting, click on the [Subject] link in the subject column heading.
+    </para>
 </entry>--></entry>
-  <entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
+
+<entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
     <title>多重組成/可替代 型郵件 (Multipart/Alternative Message)</title>
     <para>
     在網路上有一些郵件是以一種所謂的 "multipart/alternative" 型態被傳送，
@@ -7251,7 +7086,8 @@
     請謹記在心，這些組成有著 "相同" 的內容 - 只是格式不同而已。
     </para>
   </entry>
-  <entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
+
+<entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
     <title>偏好設定: 維護: 於每月初更改寄件備份閘的名稱</title>
     <para>
     如果你希望網路郵局，於每個月初更改你的寄件備份閘名稱，請勾選。
@@ -7390,8 +7226,15 @@
     <para>
     Turn this option on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-rename_sentmail_monthly">
+    <title>Preferences: Maintenance: Rename Sent-mail Folder Monthly</title>
+    <para>
+    Turn this option on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
+    </para>
 </entry>--></entry>
-  <entry id="prefs-delete_sentmail_monthly" md5="bd65c23ed7a137e2d5f6f17b50df4e8b" state="changed">
+
+<entry id="prefs-delete_sentmail_monthly" md5="bd65c23ed7a137e2d5f6f17b50df4e8b" state="changed">
     <title>偏好設定: 維護: 於每月初刪除舊的寄件備份閘</title>
     <para>
     如果你希望網路郵局，於每個月初刪除舊的寄件備份閘，請勾選。
@@ -7530,33 +7373,44 @@
     <para>
     Turn this option on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-delete_sentmail_monthly">
+    <title>Preferences: Maintenance: Delete Sent-mail Folder Monthly</title>
+    <para>
+    Turn this option on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
+    </para>
 </entry>--></entry>
-  <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
+
+<entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
     <title>偏好設定: 維護: 如果每月刪除一次，多少月份的舊寄件備份閘將被保存</title>
     <para>
     如果你已勾選 "於每月初刪除舊的寄件備份閘" 這個選項的話，你可以在此輸入一個
     保留月份數值。保留月份數值之前所有舊的寄件備份閘將一律刪除。
     </para>
   </entry>
-  <entry id="prefs-purge_sentmail" state="new">
+
+<entry id="prefs-purge_sentmail" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail</title>
     <para>
     Do you want to purge your sent-mail folder(s) every so often.
     </para>
 </entry>
-  <entry id="prefs-purge_sentmail_interval" state="new">
+
+<entry id="prefs-purge_sentmail_interval" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail Interval</title>
     <para>
     If you are purging your sent-mail folder(s), how often should it be purged?
     </para>
 </entry>
-  <entry id="prefs-purge_sentmail_keep" state="new">
+
+<entry id="prefs-purge_sentmail_keep" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail Keep</title>
     <para>
     If you are purging your sent-mail folder(s), message older than how many days should be purged?
     </para>
 </entry>
-  <entry id="prefs-delete_attachments_monthly" state="changed" md5="a9033d67e4a859740cc98092e022ae57">
+
+<entry id="prefs-delete_attachments_monthly" state="changed" md5="a9033d67e4a859740cc98092e022ae57">
     <title>偏好設定: 維護: 於每月初刪除已轉存為網址的附件</title>
     <para>
     如果你希望網路郵局，於每個月初刪除已轉存為網址的舊附件，請勾選。
@@ -7695,52 +7549,66 @@
     <para>
     Turn this option on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-delete_attachments_monthly">
+    <title>Preferences: Maintenance: Delete Linked Attachments Monthly</title>
+    <para>
+    Turn this option on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
+    </para>
 </entry>--></entry>
-  <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
+
+<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
     <title>偏好設定: 維護: 如果每月刪除一次，多少月份已轉存為網址的舊附件將被保存</title>
     <para>
     如果你已勾選 "於每月初刪除已轉存為網址的附件" 這個選項的話，你可以在此輸
     入一個保留月份數值。保留月份數值之前所有轉存為網址的舊附件將一律刪除。
     </para>
   </entry>
-  <entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
+
+<entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
     <title>偏好設定: 維護: 清除垃圾箱中的舊郵件</title>
     <para>
     你是否希望經常清除垃圾箱中的舊郵件。
     </para>
   </entry>
-  <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
+
+<entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
     <title>偏好設定: 維護: 垃圾箱多久清除一次</title>
     <para>
     如果你已勾選 "清除垃圾箱中的舊郵件" 這個選項的話，你希望多久清除一次？
     </para>
   </entry>
-  <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
+
+<entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
     <title>偏好設定: 維護: 每次整理垃圾箱時，清除多少天數以前的郵件</title>
     <para>
     如果你已勾選 "清除垃圾箱中的舊郵件" 這個選項的話，你希望清除多少天數
     以前的郵件？
     </para>
   </entry>
-  <entry id="prefs-purge_spam" state="new">
+
+<entry id="prefs-purge_spam" state="new">
     <title>Preferences: Maintenance: Purge Spam</title>
     <para>
     Do you want to purge your spam folder every so often.
     </para>
 </entry>
-  <entry id="prefs-purge_spam_interval" state="new">
+
+<entry id="prefs-purge_spam_interval" state="new">
     <title>Preferences: Maintenance: Purge Spam Interval</title>
     <para>
     If you are purging your spam folder, how often should it be purged?
     </para>
 </entry>
-  <entry id="prefs-purge_spam_keep" state="new">
+
+<entry id="prefs-purge_spam_keep" state="new">
     <title>Preferences: Maintenance: Purge Spam Keep</title>
     <para>
     If you are purging your spam folder, message older than how many days should be purged?
     </para>
 </entry>
-  <entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
+
+<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
      <title>偏好設定: 郵件寫作: 文字屬性</title>
      <para>
      你可以在此定義回覆文件的引述列。
@@ -7763,13 +7631,15 @@
      <para> %% : '%' 字元</para>
 
   </entry>
-  <entry id="prefs-default_msg_charset" state="new">
+
+<entry id="prefs-default_msg_charset" state="new">
     <title>Preferences: Default Message Character Set</title>
     <para>
     Define the default character set to use for text message parts that do not contain explicit character set information. Per RFC 2045, messages without a character set parameter are displayed using the 'US-ASCII' character set. However, certain badly broken mailers may send out text messages in other character sets without setting the proper parameters in the message header. Set this parameter to the default character set string to use locally. Select "Default" to use the MIME defaults.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
+
+<entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
     <title>偏好設定: 請收件人傳送讀取回條</title>
     <para>
     "請收件人傳送讀取回條" 用來要求收件對象，開啟信件時
@@ -7777,13 +7647,15 @@
     體都支援這項功能。
     </para>
   </entry>
-  <entry id="prefs-disposition_send_mdn" state="new">
+
+<entry id="prefs-disposition_send_mdn" state="new">
     <title>Preferences: Send MDN</title>
     <para>
     "Send a MDN" sends a Message Disposition Notification (also known as a read receipt) when you view a message in which the user has requested that they receive notification that you have read the message. In most cases, this will happen automatically without prompting you. In certain isolated cases, you may have to manually decide to send the notification by clicking on a link.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
+
+<entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
     <title>偏好設定: 請收件伺服器傳遞送達確認</title>
     <para>
     "請收件伺服器傳遞送達確認" 要求收件對象所屬的郵件
@@ -7792,7 +7664,8 @@
     得而知。並非所有的郵件伺服器都有支援這項功能。
     </para>
   </entry>
-  <entry id="prefs-delete_spam_after_report" state="new">
+
+<entry id="prefs-delete_spam_after_report" state="new">
     <title>Preferences: Delete Spam After Reporting</title>
     <para>
     You may elect to do one of three items after reporting a message as either spam or innocent.
@@ -7807,7 +7680,21 @@
     Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.  Alternatively, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your INBOX.
     </para>
 </entry>
-  <entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
+
+<entry id="prefs-move_ham_after_report" state="new">
+    <title>Preferences: Move Spam After Reporting As Innocent</title>
+    <para>
+    You may elect to do one of two items after reporting a message previously maked as spam as innocent.
+    </para>
+    <para>
+    First, you can decide to do nothing - the message will be reported as innocent but will otherwise remain unchanged in your mailbox.
+    </para>
+    <para>
+    Second, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
+    </para>
+</entry>
+
+<entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
     <title>偏好設定: 隱藏 HTML 郵件中的圖片</title>
     <para>
     HTML 郵件中，所有能直接顯示的圖片，是否應該隱藏並以紅色標示代替 ？
@@ -7821,14 +7708,16 @@
     面的圖片了。
     </para>
   </entry>
-  <entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
+
+<entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
     <title>偏好設定: 自動顯示 HTML 郵件中的所有圖片</title>
     <para>
     如果啟用"隱藏 HTML 郵件中的圖片"這項功能，而且寄件人出現在我的通訊錄中，
     是否自動顯示該信件中的圖片？ 
     </para>
   </entry>
-  <entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
+
+<entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
     <title>偏好設定: 郵箱起始頁面</title>
     <para>
     當一個郵箱第一次被存取時，決定其檢視畫面要先顯示哪一個頁面。備註：未看過
@@ -7966,8 +7855,15 @@
     <para>
     Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-mailbox_start">
+    <title>Preferences: Mailbox Start Page</title>
+    <para>
+    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
+    </para>
 </entry>--></entry>
-  <entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
+
+<entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
     <title>偏好設定: 附件隨寄件一起備份</title>
     <para>
     如果儲存寄件備份時，決定是否也要一併儲存附加檔案。下列選項可供參考：
@@ -7982,16 +7878,19 @@
     <para>* "永不儲存附加檔案" - 在郵件編寫畫面中永遠不要提示儲存附加檔案；
      而且附加檔案永遠不會隨著信件一起備分。</para>
   </entry>
-  <entry id="virtual_inbox" state="new">
+
+<entry id="virtual_inbox" state="new">
     <title>Virtual Folders: Virtual Inbox</title>
     <para>
     Virutal Inbox is a saved search that does away with the need to search every mailbox for messages marked as new.  Instead, all currently subscribed mailboxes are searched for new messages and the results are displayed in a single mailbox.
     </para>
 </entry>
-  <entry id="virtual_trash" state="new">
+
+<entry id="virtual_trash" state="new">
     <title>Virtual Folders: Virtual Trash</title>
     <para>
     Virtual Trash is a saved search that does away with the need for a separate Trash folder.  Instead of moving messages to a centralized trash folder, messages are simply marked as deleted in the current folder they live in.  When 'show deleted messages' is turned off, this results in these messages not appearing in a mailbox view.  When a user clicks on Virtual Trash, *all* mailboxes all searched for messages that are flagged deleted and these messages are displayed in a single mailbox.
     </para>
 </entry>
+
 </help>

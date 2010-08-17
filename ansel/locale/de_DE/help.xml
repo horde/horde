@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="overview" md5="df2fe059a57c3b7fb286dd279e155bad" state="uptodate">
+  <title>Übersicht</title>
+  <heading>Einführung</heading>
+
+  <para>
+    Diese Anwendung stellt Ihnen Online-Fotoalben und Bildergalerien zur
+    Verfügung mit verschieden Funktionen für das Speichern, Anzeigen und
+    Bearbeiten Ihrer Fotos. Sie können Fotos verkleinern, beschneiden,
+    rotieren, verwalten, beschriften usw.
+  </para>
+</entry>
+
+<entry id="upload" md5="ca8e50685a92d0dd33690d9a24d23fb9" state="uptodate">
+  <title>Bilder Hochladen: Übersicht</title>
+
+  <para>
+    Sie können die meisten der gebräuchlichen Bildformate hochladen. Falls es
+    Probleme mit einem bestimmten Bild gibt, werden Sie benachrichtigt. Im
+    Zweifelsfall versuchen Sie also einfach das entsprechende Bild
+    hochzuladen. Außerdem gibt es spezielle Methoden, um größere Mengen an
+    Bilder hoczuladen. Sie können z.B. eine ZIP-Datei mit mehreren Bildern
+    hochladen oder ab Windows XP den <ref entry="xppublish" module="ansel">Webpublishing-Assistent</ref> verwenden.
+  </para>
+</entry>
+
+<entry id="xppublish" md5="f4067b7d23111b69a9b69920eb17d794" state="uptodate">
+  <title>Bilder Hochladen: Veröffentlichen von Windows</title>
+  <heading>"Im Web veröffentlichen" unter Windows</heading>
+
+  <para>
+    Seit Windows XP gibt eine hilfreiche Funktion, mit der man Dateien vom PC
+    direkt auf einer Webseite veröffentlichen kann.
+  </para>
+
+  <para><b>1. Einrichtung</b></para>
+
+  <para>
+    Laden Sie die <href url="xppublish.php" app="ansel">Konfigurationsdatei</href> herunter. Speichern Sie diese auf
+    Ihrem Dekstop und achten Sie darauf, dass Sie die Dateiendung .reg
+    besitzt. Falls nicht, benennen Sie die Datei entsprechend um und
+    bestätigen Sie die entsprechene Nachfrage von Windows.
+  </para>
+
+  <para>
+    Doppelklicken Sie auf die install-registry.reg Datei. Windows wird
+    nachfragen, ob Sie diese Informationen zur Registrierung hinzufügen
+    möchten. Klicken Sie auf "Ja". Es wird eine Bestätigung angezeigt, dass
+    die Eintragung erfolgreich war. Bestätigen Sie diese noch einmal mit "OK",
+    und Sie können beginnen, Ihre Dateien hochzuladen.
+  </para>
+
+  <para><b>2. Hochladen</b></para>
+
+  <para>
+    Öffnen Sie mit dem Windows-Explorer den Ordner, den Sie hochladen oder aus
+    dem Sie einzelne Bilder hochladen möchten. Der Explorer muss so
+    eingestellt sein, dass in der linken Spalte "Datei- und Ordneraufgaben"
+    angezeigt werden. Dort sollte sich ein Eintrag "Ordner im Web
+    veröffentlichen" befinden, bzw. ein ähnlicher Eintrag, wenn bereits eine
+    oder mehrere Dateien im dem Ordner markiert sind. Klicken Sie darauf, um
+    den "Webpublishing-Assistenten" zu starten, und folgen Sie den
+    Anweisungen. In einem der Schritte müssen Sie sich dann anmelden und eine
+    Galerie auswählen oder anlegen, zu der Sie Ihre Bilder hinzufügen möchten.
+  </para>
+</entry>
+
+</help>

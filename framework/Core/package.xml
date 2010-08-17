@@ -484,7 +484,6 @@ Application Framework.</description>
    <install as="Horde/Core/Ui/TagCloud.php" name="lib/Horde/Core/Ui/TagCloud.php" />
    <install as="Horde/Core/Ui/VarRenderer.php" name="lib/Horde/Core/Ui/VarRenderer.php" />
    <install as="Horde/Core/Ui/Widget.php" name="lib/Horde/Core/Ui/Widget.php" />
-   <install as="Horde/Core/Autoloader.php" name="lib/Horde/Core/Autoloader.php" />
    <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />

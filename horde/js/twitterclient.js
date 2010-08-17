@@ -11,6 +11,7 @@ var Horde_Twitter = Class.create({
    inReplyTo: '',
    oldestId: null,
    newestId: null,
+   instanceid: null,
 
    /**
     * Const'r
@@ -25,6 +26,8 @@ var Horde_Twitter = Class.create({
     * opts.strings.inreplyto
     * opts.strings.defaultText
     * opts.strings.justnow
+    * opts.getmore
+    * opts.instanceid
     */
     initialize: function(opts) {
         this.opts = Object.extend({
@@ -42,6 +45,12 @@ var Horde_Twitter = Class.create({
             $(this.opts.counter).update(140 - $F(this.opts.input).length);
         }.bind(this));
 
+        $(this.opts.getmore).observe('click', function(e) {
+            this.getOlderEntries();
+            e.stop();
+        }.bind(this));
+
+        this.instanceid = opts.instanceid;
         /* Get the first page */
         this.getNewEntries();
    },
@@ -101,7 +110,11 @@ var Horde_Twitter = Class.create({
      * @param integer page  The page number to retrieve.
      */
     getOlderEntries: function() {
-        var params = { actionID: 'getPage' };
+        var params = {
+            actionID: 'getPage',
+            i: this.instanceid
+        };
+
         if (this.oldestId) {
             params.max_id = this.oldestId;
         }
@@ -120,7 +133,11 @@ var Horde_Twitter = Class.create({
      * request.
      */
     getNewEntries: function() {
-        var params = { actionID: 'getPage' };
+        var params = {
+            actionID: 'getPage',
+            i: this.instanceid
+        };
+
         if (this.newestId) {
             params.since_id = this.newestId;
         } else {
@@ -200,14 +217,14 @@ var Horde_Twitter = Class.create({
      * Build adnd display the node for a new tweet.
      */
     buildNewTweet: function(response) {
-        var tweet = new Element('div', {'class':'fbstreamstory'});
-        var tPic = new Element('div', {'style':'float:left'}).update(
+        var tweet = new Element('div', {'class':'hordeSmStreamstory'});
+        var tPic = new Element('div', {'class':'hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )
         );
-        var tBody = new Element('div', {'class':'fbstreambody'}).update(response.text);
-        tBody.appendChild(new Element('div', {'class':'fbstreaminfo'}).update(this.opts.strings.justnow));
+        var tBody = new Element('div', {'class':'hordeSmStreambody'}).update(response.text);
+        tBody.appendChild(new Element('div', {'class':'hordeSmStreaminfo'}).update(this.opts.strings.justnow));
         tweet.appendChild(tPic);
         tweet.appendChild(tBody);
         $(this.opts.content).insert({top:tweet});

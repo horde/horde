@@ -261,7 +261,7 @@ class Whups {
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
-            Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+            Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
 
@@ -273,7 +273,7 @@ class Whups {
             } else {
                 $GLOBALS['notification']->push($ticket->getMessage(), 'horde.error');
             }
-            Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true)
+            Horde::applicationUrl($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
                 ->redirect();
         }
 

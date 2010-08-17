@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="Overview" md5="f575e035ab729f987b215b836b659cd1" state="uptodate">
+    <title>Übersicht</title>
+    <heading>Einführung</heading>
+    <para>
+      Die SSH-Anwendung ermöglicht einen Shell-Zugang zu Ihrem Konto über ein
+      Java-SSH-Applet.
+    </para>
+</entry>
+
+</help>

@@ -138,6 +138,7 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
             return 'xml';
 
         case 'text/cpp':
+        case 'text/x-c++':
         case 'text/x-c++src':
         case 'text/x-c++hdr':
             return 'cpp';
@@ -151,6 +152,7 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Base
         case 'text/x-patch':
             return 'diff';
 
+        case 'text/x-c':
         case 'text/x-chdr':
         case 'text/x-csrc':
             return 'c';

@@ -25,7 +25,7 @@ class IMP_Ui_Folder
     /**
      * Create the tree images for a list of folder elements.
      *
-     * @param array $rows     Folder rows returned from IMP_Imap_Tree::build().
+     * @param array $rows     A list of IMP_Imap_Tree_Element objects.
      * @param array $options  Additional options:
      * <pre>
      * 'expand_url' - (Horde_Url) The URL to use for expand/collapse links.
@@ -49,8 +49,8 @@ class IMP_Ui_Folder
     /**
      * Create a tree image from a folder element entry.
      *
-     * @param array $elt      An entry returned from IMP_Imap_Tree::element().
-     * @param array $options  See self::getTreeImages().
+     * @param IMP_Imap_Tree_Elt $elt  A mailbox element object.
+     * @param array $options          See self::getTreeImages().
      *
      * @return string  The image string.
      */
@@ -59,27 +59,32 @@ class IMP_Ui_Folder
         global $registry;
 
         $alt = $dir = null;
-        $dir2 = $elt['user_icon']
-            ? Horde::img($elt['icon'], $elt['alt'], null, $elt['icondir'])
-            : '<span class="foldersImg ' . $elt['class'] . '"></span>';
+        $line = '';
 
-        if ($elt['children'] && isset($options['expand_url'])) {
-            $dir = $options['expand_url']->copy()->add('folder', $elt['value']);
+        $icon = $elt->icon;
+        $peek = $elt->peek;
 
-            if ($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->isOpen($elt['base_elt'])) {
+        $dir2 = $icon->user_icon
+            ? Horde::img($icon->icon, $icon->alt, null, $icon->icondir)
+            : '<span class="foldersImg ' . $icon->class . '"></span>';
+
+        if ($elt->children && isset($options['expand_url'])) {
+            $dir = $options['expand_url']->copy()->add('folder', $elt->value);
+
+            if ($elt->is_open) {
                 if (!is_null($dir)) {
                     $dir->add('actionID', 'collapse_folder');
                     $alt = _("Collapse Folder");
                 }
 
                 if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 9
-                        : ($elt['peek'] ? 10 : 11);
+                        : ($peek ? 10 : 11);
                 } else {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 12
-                        : ($elt['peek'] ? 13 : 14);
+                        : ($peek ? 13 : 14);
                 }
             } else {
                 if (!is_null($dir)) {
@@ -88,13 +93,13 @@ class IMP_Ui_Folder
                 }
 
                 if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 15
-                        : ($elt['peek'] ? 16 : 17);
+                        : ($peek ? 16 : 17);
                 } else {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 18
-                        : ($elt['peek'] ? 19 : 20);
+                        : ($peek ? 19 : 20);
                 }
             }
 
@@ -102,30 +107,27 @@ class IMP_Ui_Folder
                 $dir = Horde::link($dir, $alt) . '<span class="treeImg treeImg' . $tree_img . '"></span></a>' . $dir2;
             }
         } else {
-            if (($elt['value'] == 'INBOX') && !$elt['peek']) {
+            if (($elt->value == 'INBOX') && !$peek) {
                 $dir = '<span class="treeImg"></span>' . $dir2;
             } else {
                 if (empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 3
-                        : ($elt['peek'] ? 2 : 4);
+                        : ($peek ? 2 : 4);
                 } else {
-                    $tree_img = ($elt['value'] == 'INBOX')
+                    $tree_img = ($elt->value == 'INBOX')
                         ? 7
-                        : ($elt['peek'] ? 6 : 8);
+                        : ($peek ? 6 : 8);
                 }
                 $dir = '<span class="treeImg treeImg' . $tree_img . '"></span>' . $dir2;
             }
         }
 
-        $line = '';
-        $this->_moreMbox[$elt['level']] = $elt['peek'];
-        for ($i = 0; $i < $elt['level']; $i++) {
-            if ($this->_moreMbox[$i]) {
-                $line .= '<span class="treeImg treeImg' . (empty($registry->nlsconfig['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>';
-            } else {
-                $line .= '<span class="treeImg"></span>';
-            }
+        $this->_moreMbox[$elt->level] = $peek;
+        for ($i = 0; $i < $elt->level; ++$i) {
+            $line .= $this->_moreMbox[$i]
+                ? '<span class="treeImg treeImg' . (empty($registry->nlsconfig['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>'
+                : '<span class="treeImg"></span>';
         }
 
         return $line . $dir;

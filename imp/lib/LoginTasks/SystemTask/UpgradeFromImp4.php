@@ -28,6 +28,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         $this->_upgradeAbookPrefs();
         $this->_upgradeForwardPrefs();
+        $this->_upgradeLoginTasks();
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
     }
@@ -99,6 +100,19 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             $prefs->setValue('forward_default', 'attach');
             $prefs->setDefault('forward_default', true);
             break;
+        }
+    }
+
+    /**
+     * Upgrade to the new login tasks preferences.
+     */
+    protected function _upgradeForwardPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->isDefault('initial_page') &&
+            ($prefs->getValue('initial_page') == 'folders.php')) {
+            $prefs->setValue('initial_page', IMP::PREF_FOLDER_PAGE);
         }
     }
 

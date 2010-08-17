@@ -1,21 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
 
 <entry id="keyboard-navigation" md5="885a83e5ce7c455f8d7d40a17ca901df" state="uptodate">
     <title>Teklatua: nabigazioa</title>
     <para>Teklatua erabil dezakezu postontziko zerrendako mezuen artean mugitzeko, aurreko edo hurrengo mezura joateko mezu bat ikusten ari zaren bitartean, eta postontziko zerrendako orrien artean mugitzeko.</para> <heading>Teklatu bidez nabigatzea mezu-zerrendan</heading> <para>Teklatua erabil dezakezu mezu-zerrendako mezuak hautatzeko eta ikusteko. Mezuen artean mugitzeko, erabili Gora eta Behera gezi-teklak, Kontrol (Ktrl) tekla sakatuta daukazula. Orriaren hasieran hasiko zara (bistaratutako azken mezuan) Gora sakatzen baduzu, eta orriaren amaieran (bistaratutako lehen mezuan) Behera sakatzen baduzu.</para> <para>Uneko mezua nabarmenduta agertuko da, sagua gainean jarrita izango bazenu bezala. Postontziko zerrendan gora eta behera mugitzen ari zaren bitartean, Zuriune-barra saka dezakezu mezua hautatzeko edo desautatzeko, eta Itzuli saka dezakezu mezua ikusteko.</para> <para>Alt tekla sakatuta badaukazu Ktrl teklaren ordez mezu-zerrendan nabigatzen ari zarenean, automatikoki hautatu edo desautatuko dira pasatzen ari zaren mezuak. </para> <heading>Mezu-zerrenda: Aurreko/Hurrengo orria</heading> <para>Erabili Ezkerrera eta Gora teklak, postontziko mezuen aurreko orrira edo hurrengo orria joateko, hurrenez hurren.</para> <heading>Mezu-ikuspegia: Aurreko/Hurrengo mezua</heading> <para>Erabili Ezkerrera eta Gora teklak, aurreko mezura edo hurrengo mezura joateko, hurrenez hurren.</para></entry>
 
-<!-- <entry id="keyboard-shortcuts">     <title>Keyboard: Shortcuts</title>     <heading>Using Keyboard Shortcuts</heading> </entry> -->
-
-<entry id="message-forward">
-  <title>Mezuak birbidaltzea</title>
-  <para>Hainbat aukera dituzu mezuak birbidaltzeko.</para>
-
-  <heading>Postontziaren ikuspegitik birbidaltzea</heading> <para>Postontziaren ikuspegian, hainbat mezu birbidal ditzakezu aldi berean. Hautatzen duzun mezu bakoitza osorik bidaliko zaie hartzaileei. Mezu bakoitza eranskin gisa ikusiko duzu mezuak idazteko leihoan. Mezuak jasotzean, mezu bakoitza mezu kapsulatu gisa jasoko dute hartzaileek.</para>
-
-  <heading>Mezuen ikuspegitik birbidaltzea</heading> <para>Mezuen ikuspegian banaka bidaltzean mezuak, hiru aukera dituzu:</para> <para><b>1. Mezu osoa</b>: Aukera honek mezu osoa erantsiko dio zure mezuari. Mezua idazteko areak ez du edukiko birbidalitako mezuaren testurik. Postontziaren ikuspegitik mezu bakar bat bidaltzearen berdina da, baina Gaia: lerroa jada ezarrita izango duzu.</para> <para><b>2. Gorputz-testua soilik</b>: Mezuaren gorputza bakarrik birbidali nahi baduzu, erabili aukera hau. Jatorrizko mezuaren eranskinak ez dira sartuko birbidalitako mezuan. Testua mezua idazteko arean agertuko da, eta edita dezakezu, edo zeure iruzkinak gehitu ere bai.</para> <para><b>3. Gorputz-testua eranskinekin</b>: Mezu baten eranskinak mezuarekin batera birbidaltzeko, mezuaren gorputzarekin batera #2 Gorputz-testua soilik aukeran azaldutako moduan, erabili aukera hau. Gorputz-testua mezua idazteko arean jarriko da zuk editatu ahal izateko, eta jatorrizko mezuaren eranskin guztiak birbidaltzeko mezuari kopiatuko zaizkio.</para>
-
+<!--
+<entry id="keyboard-shortcuts">
+    <title>Keyboard: Shortcuts</title>
+    <heading>Using Keyboard Shortcuts</heading>
 </entry>
+-->
 
 <entry id="compose-buttons" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a" state="uptodate">
     <title>Mezu-idazketa: Ekintzak</title>
@@ -75,10 +70,6 @@
     <title>Mezu-idazketa: Estekatu eranskinak</title>
     <para>Mezuaren eranskinak bidalitako mezuaren zati gisa bidaliko diren ala eranskin horiek zerbitzari lokal batean gordeko diren zehazten du.  Eranskinak estekatuak badira, mezuaren hartzaileak web-esteka bat izango du eta esteka horretatik eranskinak deskargatu ahal izango ditu.  Estekatutako eranskinen abantaila hauxe da: bidalitako mezuen tamaina ikaragarri gutxitzen dela.  Eranskinak estekatzeak duen desabantaila, berriz, hauxe: eranskinen edukia agian ez dela eskuragarri egongo etorkizunean, eranskineko datuak mezu elektronikoan ez badira gordetzen.</para></entry>
 
-<entry id="search">
-    <title>Mezu-bilaketa</title>
-    <heading>Bilatzeko irizpideak</heading> <para>Mezuak bila ditzakezu karpetetan, bilatzeko irizpide desberdinak erabiliz.</para> <para>1. urratsa: Hautatu kontsulta <b>guztiak</b> (AND bilaketa) ala <b>edozein</b> kontsulta (OR bilaketa) parekatu nahi duzun.</para> <para>2. urratsa: Hautatu bilaketa-irizpideetan gehitu nahi dituzun eremuak, eta, beharrezkoa bada, identifikatu eremu horien bilaketa-parametroak.</para> <para>3. urratsa: Aukeratu mezuak zein karpetatan bilatu nahi dituzun.</para> <para>4. urratsa: Sakatu "Bilatu".</para> <para>Zure irizpidearekin bat badatozen mezuak "Bilaketaren emaitza" koadroan azalduko dira.</para></entry>
-
 <entry id="folder-options" md5="08ee3e450a82431727763b9db082ec08" state="uptodate">
     <title>Karpetak: karpeta-ekintzak</title>
     <para>Ezkerreko zutabeko botoiak erabiliz hauta ditzakezu karpetak. Hori egindakoan, hautatu karptan egin nahi duzun ekintza ezkerreko koadroan.</para> <heading>Sortu</heading> <para>Sortu karpeta berri bat, posible bada. Karpeta bat sortzeko oinarrizko mailan, hautatu 'Sortu' ezkerreko zutabean karpetarik hautatu gabe, Azpikarpeta bat sortzeko lehendik dagoen beste karpeta batean, hautatu karpeta ezkerreko zutabean eta hautatu 'Sortu'.</para> <heading>Aldatu izena</heading> <para>Aldatu izena karpeta bati. Izena aldatzeko, aldatu izena aldatu nahi diezun karpetak ezkerreko zutabean eta egin klik 'Aldatu izena' aukeran. Izena aldatzean, automatikoki izena aldatuko zaie azpikarpeta guztiei.</para> <heading>Ezabatu</heading> <para>Ezabatu karpeta bat eta karpetaren barneko mezu guztiak. Ezabatzeko, aldatu ezabatu nahi dituzun karpetak ezkerreko zutabean eta egin klik 'Ezabatu' aukeran. Umeak dituen karpeta bat ezabatzean, azpikarpetak ez dira automatikoki ezabatuko. Ume horiek kentzeko, ezkerreko zutabean eskuz hautatu behar dituzu ezabatu nahi dituzun karpeta guztiak.</para> <heading>Hustu</heading> <para>Karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Hustu' aukeran.</para> <heading>Borratu betiko</heading> <para>Ezabatutako gisa markatutako karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Borratu betiko' aukeran. Aukera hau erabiltzeko ezinbestekoa da zakarrantzorik ez erabiltzea.</para> <heading>Harpidetu/Harpidetza kendu</heading> <para>Karpeta bat harpidetutako gisa edo harpidetza kendutako gisa markatzen du. Karpeta bat harpidetzen denean, goitibeherako karpeta-zerrenda guztietan agertzen da. Aukera horiek agertzeko ezinbestekoa da IMAP karpeta-harpidetzak erabiltzea.</para> <para>Harpidetzeko, hautatu ezabatzeko karpetak ezkerreko zutabean eta egin klik 'Harpidetu' aukeran. Harpidetza kentzeko, aldatu karpetak ezkerreko zutabean eta egin klik 'Kendu harpidetza' aukeran.</para> <heading>Begiratu mezu berririk dagoen/Ez begiratu mezu berririk dagoen</heading> <para>Mezu berririk dagoen begiratzeko markatzen du karpeta bat karpeta-nabigazioan eta alboko barran (aktibatuta badago).</para> <para>Marka hau ezartzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Begiratu mezu berririk dagoen'. Marka hau kentzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Ez begiratu mezu berririk dagoen'.</para> <heading>Markatu mezu guztiak ikusitako gisa/Markatu mezu guztiak ikusi gabeko gisa</heading> <para>Karpeta bateko mezu guztiak ikusitako gisa markatzeko, hautatu ezkerreko zutabeko karpetak eta hautatu 'Markatu mezu guztiak ikusitako gisa'. Karpeta bateko mezu guztiak ikusi gabeko gisa markatzeko, hautatu ezkerreko zutabeko karpetak eta hautatu 'Markatu mezu guztiak ikusi gabeko gisa'.</para> <heading>Deskargatu</heading> <para>Karpeta bateko fitxategi guztiak deskargatzeko fitxategi bakar batean (mbox formatuko fitxategi batean), hautatu karpeta ezkerreko zutabean eta egin klik 'Deskargatu' botoian. Fitxatategia ZIP formatu konprimatuan deskargatzeko, hautatu 'Deskargatu [.zip formatua]'.</para> <heading>Inportatu mezuak</heading> <para>Aukera honek mbox edo eml fitxategiak aukeratu duzun karpetara inportatzen ditu. Aukeratu mezuak inportatzeko karpeta bat ezkerreko zutabean, eta ondoren hautatu aukera hau. Zein mbox edo eml fitxategi inportatu nahi duzun zehazteko orri batera joango zara.</para> <heading>Berreraiki karpeta-zuhaitza</heading> <para>Berreraiki karpeta-zuhaitzaren irudikapen grafikoa, posta-zerbitzarian berriro kontsulta eginez. Normalean ez zenuke hori egin behar, ez bazara ari aldi berean posta-zerbitzaria atzitzen beste posta-bezero batekin eta posta-bezero horrek aldaketak egin baditu karpeta-egituran.</para>
@@ -120,6 +111,14 @@
 <entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="uptodate">
     <title>PGP: Eskaneatu testu-gorputzak</title>
     <heading>Eskaneatu testu-gorputzak</heading> <para>Hautatzen bada, PGP datuetarako testu-mezu guztien gorputzak eskaneatuko ditu IMPk, eta daturen bat aurkitzen badu, emaitzak bistaratuko ditu. Kontuan izan horrek sistema motelduko duela, testu-mezu guztiak osorik eskaneatu behar baitira PGP datuetarako.</para></entry>
+
+<entry id="pgp-option-reply-pubkey" state="new">
+    <title>PGP: Validate PGP Public Keys When Replying</title>
+    <heading>Validate PGP Public Keys When Replying</heading>
+    <para>
+    If set, and PGP encryption is used by default for composing messages, IMP will verify that it can access all recipients' public keys when the reply is first created. This has the disadvantage that it may cause a delay in opening the reply window. However, it has the advantage of informing you immediately if you will be able to correctly send the encrypted message to all recipients immediately.
+    </para>
+</entry>
 
 <entry id="compose-options-encrypt" md5="78ff9bd91687efb91d2798ca0458b5cb" state="uptodate">
     <title>Mezu-idazketa: Enkriptatze-aukerak</title>
@@ -285,17 +284,51 @@
     <title>Hobespenak: Eskatu irakurragiriak</title>
     <para>"Eskatu irakurragiria?" hautatuz gero, mezuaren hartzaileei eskaera bat bidaltzen zaie, hartzaileek zuri jakinarazteko mezua ireki dutela. Hori ez dute bezero guztiek onartzen/ baliatzen.</para></entry>
 
-<entry id="prefs-disposition_send_mdn" md5="1fe04e5dc3de68d172da284895973ea9" state="uptodate">
+<entry id="prefs-disposition_send_mdn" md5="1fe04e5dc3de68d172da284895973ea9" state="changed">
     <title>Hobespenak: Bidali irakurragiria</title>
-    <para>"Bidali irakurragiria" aukerak irakurragiria bidaltzen du, mezu bat irakurtzen duzunean bidaltzaileak mezua irakurri duzula jakiteko. Kasu askotan, automatikoki egingo da zuri ezer galdetu gabe. Kasu gutxi batzuetan, zuk erabaki beharko duzu jakinarazpena bidaliko duzun ala ez, esteka batean klik eginez.</para></entry>
+    <para>"Bidali irakurragiria" aukerak irakurragiria bidaltzen du, mezu bat irakurtzen duzunean bidaltzaileak mezua irakurri duzula jakiteko. Kasu askotan, automatikoki egingo da zuri ezer galdetu gabe. Kasu gutxi batzuetan, zuk erabaki beharko duzu jakinarazpena bidaliko duzun ala ez, esteka batean klik eginez.</para><!-- English entry (2010-08-16):
+<entry id="prefs-disposition_send_mdn">
+    <title>Preferences: Send Read Receipt</title>
+    <para>
+    "Send a MDN" sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification. Other options include never sending these receipts or sending these receipts automatically without prompt if possible.
+    </para>
+</entry>--></entry>
 
 <entry id="prefs-disposition_request_delivery" md5="26598e29af05a07de5e13644669be712" state="uptodate">
     <title>Hobespenak: Eskatu banaketa-berrespena</title>
     <para>"Erakutsi banaketa-berrespena" hautatuz gero, hartzailearen posta-zerbitzariari eskatzen zaio hartzailearen postontzira mezua noiz iritsi den jakinaraztea zuri. Horrek ez du esan nahi hartzaileak mezua ikusi duenik, baizik eta postontzi batean dagoela. Eskaera hau ez dute posta-zerbitzari guztiek onartzen.</para></entry>
 
-<entry id="prefs-delete_spam_after_report" md5="cefa8b52e09b0ada90e0889a3959efea" state="uptodate">
+<entry id="prefs-delete_spam_after_report" md5="cefa8b52e09b0ada90e0889a3959efea" state="changed">
     <title>Hobespenak: Ezabatu mezu baztergarriak sailkatu ondoren</title>
-    <para>Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.</para> <para>Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri edo seguru gisa sailkatuko da, baina, zure postontzian aldatu gabe geratuko da.</para> <para>Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.  Ezarpen honek ez du eraginik izango mezu bat seguru gisa sailkatzen denean.</para> <para>Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.  Bestela, mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta SARRERAKO ONTZIra eramango da.</para></entry>
+    <para>Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.</para> <para>Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri edo seguru gisa sailkatuko da, baina, zure postontzian aldatu gabe geratuko da.</para> <para>Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.  Ezarpen honek ez du eraginik izango mezu bat seguru gisa sailkatzen denean.</para> <para>Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.  Bestela, mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta SARRERAKO ONTZIra eramango da.</para><!-- English entry (2010-08-16):
+<entry id="prefs-delete_spam_after_report">
+    <title>Preferences: Delete Spam After Reporting</title>
+    <para>
+    You may elect to do one of three items after reporting a message as spam.
+    </para>
+    <para>
+    First, you can decide to do nothing - the message will be reported as spam but will otherwise remain unchanged in your mailbox.
+    </para>
+    <para>
+    Second, if reporting a message as spam, you can instead have the message be immediately deleted.
+    </para>
+    <para>
+    Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
+    </para>
+</entry>--></entry>
+
+<entry id="prefs-move_ham_after_report" state="new">
+    <title>Preferences: Move Spam After Reporting As Innocent</title>
+    <para>
+    You may elect to do one of two items after reporting a message previously maked as spam as innocent.
+    </para>
+    <para>
+    First, you can decide to do nothing - the message will be reported as innocent but will otherwise remain unchanged in your mailbox.
+    </para>
+    <para>
+    Second, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
+    </para>
+</entry>
 
 <entry id="prefs-html_image_replacement" md5="28e1cf08e328345a8e7274c853492d4f" state="uptodate">
     <title>Hobespenak: Blokeatu HTML irudiak</title>

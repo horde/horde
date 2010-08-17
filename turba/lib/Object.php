@@ -31,6 +31,13 @@ class Turba_Object {
     var $_vfs;
 
     /**
+     * Keeps the normalized values of sort columns.
+     *
+     * @var array
+     */
+    var $sortValue = array();
+
+    /**
      * Constructs a new Turba_Object object.
      *
      * @param Turba_Driver $driver  The source that this object came from.
