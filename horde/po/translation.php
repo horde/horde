@@ -439,7 +439,7 @@ function merge()
 {
     global $cmd_options, $apps, $dirs, $debug, $test, $c;
 
-    $compendium = ' --compendium="' . BASE . DS . 'po' . DS . 'compendium.po"';
+    $compendium = ' --compendium="' . HORDE_BASE . DS . 'po' . DS . 'compendium.po"';
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
         case 'h':
@@ -551,7 +551,7 @@ function compendium()
 {
     global $cmd_options, $dirs, $debug, $test, $c, $silence;
 
-    $dir = BASE . DS . 'po' . DS;
+    $dir = HORDE_BASE . DS . 'po' . DS;
     $add = '';
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
@@ -679,7 +679,7 @@ function make()
 {
     global $cmd_options, $apps, $dirs, $debug, $test, $c, $silence, $redir_err;
 
-    $compendium = BASE . DS . 'po' . DS . 'compendium.po';
+    $compendium = HORDE_BASE . DS . 'po' . DS . 'compendium.po';
     $save_stats = false;
     foreach ($cmd_options[0] as $option) {
         switch ($option[0]) {
