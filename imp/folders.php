@@ -259,7 +259,7 @@ case 'folders_empty_mailbox_confirm':
             }
 
             $data = array(
-                'class' => (++$rowct % 2) ? 'item0' : 'item1',
+                'class' => 'item' . (++$rowct % 2),
                 'name' => htmlspecialchars(IMP::displayFolder($val)),
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => htmlspecialchars($val)
@@ -308,7 +308,7 @@ case 'mbox_size':
         foreach ($folder_list as $val) {
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
-                'class' => (++$rowct % 2) ? 'item0' : 'item1',
+                'class' => 'item' . (++$rowct % 2),
                 'name' => htmlspecialchars(IMP::displayFolder($val)),
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
@@ -440,9 +440,7 @@ foreach ($raw_rows as $key => $val) {
         $row['editvfolder'] = $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>';
     }
 
-    $row['cname'] = (++$rowct % 2)
-        ? 'item0'
-        : 'item1';
+    $row['cname'] = 'item' . (++$rowct % 2);
 
     if ($val->container) {
         $row['name'] = $val->name;
