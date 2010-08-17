@@ -282,9 +282,8 @@ class IMP_Folder
     public function exists($folder)
     {
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $elt = $imaptree->get($folder);
-        if ($elt) {
-            return !$imaptree->isContainer($elt);
+        if (isset($imaptree[$folder])) {
+            return !$imaptree[$folder]->container;
         }
 
         try {

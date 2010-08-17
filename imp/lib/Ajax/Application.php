@@ -334,9 +334,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 foreach ($val as $val2) {
-                    if (!isset($folder_list[$val2]) &&
-                        ($elt = $imptree->element($val2))) {
-                        $folder_list[$val2] = $elt;
+                    if (!isset($folder_list[$val2]) && isset($imptree[$val2])) {
+                        $folder_list[$val2] = $imptree[$val2];
                     }
                 }
             }
@@ -1886,21 +1885,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _getPollInformation($mbox)
     {
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $elt = $imptree->get($mbox);
-        if (!$imptree->isPolled($elt)) {
-            return array();
-        }
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
-        try {
-            $count = ($info = $GLOBALS['injector']->getInstance('IMP_Imap')->getOb()->status($mbox, Horde_Imap_Client::STATUS_UNSEEN))
-                ? intval($info['unseen'])
-                : 0;
-        } catch (Horde_Imap_Client_Exception $e) {
-            $count = 0;
-        }
-
-        return array($mbox => $count);
+        return $imaptree[$mbox]->polled
+            ? array($mbox => $imaptree[$mbox]->poll_info->unseen)
+            : array();
     }
 
     /**
@@ -1953,7 +1942,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach ($changes['a'] as $val) {
-                $result['a'][] = $this->_createMailboxElt(is_object($val) ? $val : $imptree->element($val));
+                $result['a'][] = $this->_createMailboxElt(is_object($val) ? $val : $imptree[$val]);
             }
         }
 
@@ -1963,7 +1952,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
                 if ($val != IMP_Imap_Tree::BASE_ELT) {
-                    $result['c'][] = $this->_createMailboxElt($imptree->element($val));
+                    $result['c'][] = $this->_createMailboxElt($imptree[$val]);
                 }
             }
         }

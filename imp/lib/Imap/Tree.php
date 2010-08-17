@@ -18,7 +18,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Imap_Tree
+class IMP_Imap_Tree implements ArrayAccess
 {
     /* Constants for mailboxElt attributes. */
     const ELT_NOSELECT = 1;
@@ -565,33 +565,17 @@ class IMP_Imap_Tree
      */
     public function peek($name)
     {
-        if (!($elt = $this->get($name))) {
+        if (!($elt = $this[$name])) {
             return false;
         }
 
-        foreach (array_slice($this->_parent[$elt['p']], array_search($elt['v'], $this->_parent[$elt['p']]) + 1) as $val) {
+        foreach (array_slice($this->_parent[$elt->parent], array_search($elt->value, $this->_parent[$elt->parent]) + 1) as $val) {
             if ($this->_activeElt($this->_tree[$val])) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * Returns the requested element.
-     *
-     * @param string $name  The name of the tree element.
-     *
-     * @return array  Returns the requested element or false if not found.
-     */
-    public function get($name)
-    {
-        $name = $this->_convertName($name);
-
-        return isset($this->_tree[$name])
-            ? $this->_tree[$name]
-            : false;
     }
 
     /**
@@ -1643,7 +1627,7 @@ class IMP_Imap_Tree
                      !$this->isContainer($mailbox)) &&
                     (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[$mailbox['v']] = $this->element($mailbox);
+                    $ret_array[$mailbox['v']] = $this[$mailbox['v']];
                 }
             } while (($mailbox = $this->next($nextmask)));
         }
@@ -1676,25 +1660,6 @@ class IMP_Imap_Tree
             'spam' => IMP::folderPref($prefs->getValue('spam_folder'), true),
             'trash' => IMP::folderPref($prefs->getValue('trash_folder'), true)
         );
-    }
-
-    /**
-     * Return extended information on an element.
-     *
-     * @param mixed $name  The name of the tree element or a tree element.
-     *
-     * @return IMP_Imap_Tree_Element  Returns the mailbox element or false if
-     *                                not found.
-     */
-    public function element($mailbox)
-    {
-        if (!is_array($mailbox)) {
-            $mailbox = $this->get($mailbox);
-        }
-
-        return $mailbox
-            ? new IMP_Imap_Tree_Element($mailbox, $this)
-            : false;
     }
 
     /**
@@ -1742,6 +1707,28 @@ class IMP_Imap_Tree
             $mbox = rtrim($mbox, $ns_info['delimiter']) . $ns_info['delimiter'];
         }
         return $mbox . $new;
+    }
+
+    /* ArrayAccess methods. */
+
+    public function offsetExists($offset)
+    {
+        return isset($this->_tree[$this->_convertName($offset)]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return new IMP_Imap_Tree_Element($this->_tree[$this->_convertName($offset)], $this);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->insert($offset);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $this->delete($offset);
     }
 
 }
