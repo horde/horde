@@ -143,13 +143,6 @@ class IMP_Imap_Tree
     protected $_fulllist = null;
 
     /**
-     * Have we shown unsubscribed folders previously?
-     *
-     * @var boolean
-     */
-    protected $_unsubview = false;
-
-    /**
      * The string used for the IMAP delimiter.
      *
      * @var string
@@ -200,7 +193,7 @@ class IMP_Imap_Tree
      */
     public function __sleep()
     {
-        return array('_tree', '_showunsub', '_parent', '_unsubview', '_delimiter', '_namespaces');
+        return array('_tree', '_showunsub', '_parent', '_delimiter', '_namespaces');
     }
 
     /**
@@ -216,7 +209,7 @@ class IMP_Imap_Tree
         $this->changed = true;
         $this->_currkey = $this->_currparent = $this->_subscribed = null;
         $this->_currstack = $this->_tree = $this->_parent = array();
-        $this->_showunsub = $this->_unsubview = $unsubmode;
+        $this->_showunsub = $unsubmode;
 
         /* Create a placeholder element to the base of the tree list so we can
          * keep track of whether the base level needs to be sorted. */
@@ -926,7 +919,7 @@ class IMP_Imap_Tree
 
             /* INBOX can never be unsubscribed to. */
             if (isset($this->_tree[$val]) && ($val != 'INBOX')) {
-                $this->changed = $this->_unsubview = true;
+                $this->changed = true;
 
                 $elt = &$this->_tree[$val];
 
@@ -1360,7 +1353,6 @@ class IMP_Imap_Tree
         /* If we are switching from subscribed to unsubscribed, we need
          * to add all unsubscribed elements that live in currently
          * discovered items. */
-        $this->_unsubview = true;
         $this->_trackdiff = false;
         $this->_insert($this->_getList(true), false);
         $this->_trackdiff = true;
