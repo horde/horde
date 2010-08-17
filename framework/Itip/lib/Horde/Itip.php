@@ -46,16 +46,6 @@ class Horde_Itip
     }
 
     /**
-     * Return the organizer mail address.
-     *
-     * @return string The mail address of the event organizer
-     */
-    public function getOrganizer()
-    {
-        return $this->_response->getRequest()->getOrganizer();
-    }
-
-    /**
      * Return the response as an iCalendar vEvent object.
      *
      * @param Horde_Itip_Response_Type $type The response type.
@@ -89,21 +79,27 @@ class Horde_Itip
     }
 
     /**
-     * Return the response as a MIME message.
+     * Send the response as a single part MIME message.
      *
-     * @param Horde_Itip_Response_Type $type            The response type.
-     * @param string                   $product_id      The ID that should be set
-     *                                                  as the iCalendar product
-     *                                                  id.
+     * @param Horde_Itip_Response_Type    $type      The response type.
+     * @param Horde_Itip_Response_Options $options   The options for the response.
+     * @param Horde_Mail_Transport        $transport The mail transport.
+     *
      * @return array A list of two object: The mime headers and the mime
      *               message.
      */
-    public function getMessageResponse(
+    public function sendSinglepartResponse(
         Horde_Itip_Response_Type $type,
-        $product_id
+        Horde_Itip_Response_Options $options,
+        Horde_Mail_Transport $transport
     ) {
-        return $this->_response->getMessage(
-            $type, $product_id
+        list($headers, $body) = $this->_response->getMessage(
+            $type, $options
+        );
+        $body->send(
+            $this->_response->getRequest()->getOrganizer(),
+            $headers,
+            $transport
         );
     }
 

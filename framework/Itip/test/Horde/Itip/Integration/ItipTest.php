@@ -36,22 +36,18 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Itip_Integration_ItipTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->_transport = new Horde_Mail_Transport_Mock();
+    }
+
     public function testMinimalItipHandlingSteps()
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
-        $this->assertEquals($reply->getAttribute('ATTENDEE'), 'MAILTO:test@example.org');
-    }
-
-    public function testDefaultSequenceIdSetToZero()
-    {
-        $iTip = $this->_getItip();
-        $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
-        );
-        $this->assertSame($reply->getAttribute('SEQUENCE'), 0);
+        $this->assertEquals($reply->getAttribute('ATTENDEE'), 'mailto:test@example.org');
     }
 
     public function testForCopiedSequenceIdFromRequestToResponse()
@@ -60,7 +56,7 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('SEQUENCE', 555);
         $iTip = $this->_getItip($inv);
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('SEQUENCE'), 555);
     }
@@ -69,7 +65,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertEquals(1222419600, $reply->getAttribute('DTSTART'));
     }
@@ -78,7 +74,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertEquals(1222423200, $reply->getAttribute('DTEND'));
     }
@@ -96,7 +92,7 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('DURATION', 3600);
         $iTip = $this->_getItip($inv);
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('DURATION'), 3600);
     }
@@ -105,7 +101,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('ORGANIZER'), 'orga@example.org');
     }
@@ -114,7 +110,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('LOCATION'), 'Somewhere');
     }
@@ -123,7 +119,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('DESCRIPTION'), 'You are invited');
     }
@@ -132,7 +128,7 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept()
+            new Horde_Itip_Response_Type_Accept($this->_getResource())
         );
         $this->assertSame($reply->getAttribute('UID'), '1');
     }
@@ -141,90 +137,170 @@ extends PHPUnit_Framework_TestCase
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getIcalendarResponse(
-            new Horde_Itip_Response_Type_Accept(), ''
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab()
         );
         $this->assertEquals($reply->getAttribute('METHOD'), 'REPLY');
-    }
-
-    public function testIcalendarResponseAllowsSettingTheProductId()
-    {
-        $iTip = $this->_getItip();
-        $reply = $iTip->getIcalendarResponse(
-            new Horde_Itip_Response_Type_Accept(), 'My product'
-        );
-        $this->assertEquals($reply->getAttribute('PRODID'), 'My product');
     }
 
     public function testMessageResponseHasFromAddress()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(
-            new Horde_Itip_Response_Type_Accept(), '', ''
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
         );
         
-        $this->assertContains('From: Mister Test <test@example.org>', $reply[0]->toString());
+        $this->assertContains(
+            'From: Mister Test <test@example.org>',
+            $this->_transport->sentMessages[0]['header_text']
+        );
+    }
+
+    public function testMessageResponseWithIdentityResourceHasFromAddress()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $invitation = $this->_getInvitation();
+        $resource = new Horde_Itip_Resource_Identity(
+            new Horde_Itip_Stub_Identity(),
+            'mailto:test@example.org',
+            'test'
+        );
+        $iTip = Horde_Itip::factory(
+            $invitation,
+            $resource
+        );
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($resource),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+
+        $this->assertContains(
+            'From: "Mr. Test" <test@example.org>',
+            $this->_transport->sentMessages[0]['header_text']
+        );
+    }
+
+    public function testMessageResponseWithDefaultIdentityResourceHasDefaultFromAddress()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $invitation = $this->_getInvitation();
+        $resource = new Horde_Itip_Resource_Identity(
+            new Horde_Itip_Stub_Identity(),
+            'mailto:default@example.org',
+            'default'
+        );
+        $iTip = Horde_Itip::factory(
+            $invitation,
+            $resource
+        );
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($resource),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+
+        $this->assertContains(
+            'From: default@example.org',
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testMessageResponseHasToAddress()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(
-            new Horde_Itip_Response_Type_Accept(), '', ''
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
         );
         
-        $this->assertContains('To: orga@example.org', $reply[0]->toString());
+        $this->assertContains(
+            'To: orga@example.org', 
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testMessageAcceptResponseHasAcceptSubject()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Accept(), '');
-        $this->assertContains('Subject: Accepted: Test', $reply[0]->toString());
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Subject: Accepted: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testMessageDeclineResponseHasDeclineSubject()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Decline(), '');
-        $this->assertContains('Subject: Declined: Test', $reply[0]->toString());
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Decline($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Subject: Declined: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testMessageTentativeResponseHasTentativeSubject()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(new Horde_Itip_Response_Type_Tentative(), '');
-        $this->assertContains('Subject: Tentative: Test', $reply[0]->toString());
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Tentative($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Subject: Tentative: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testMessageResponseAllowsAddingCommentsToTheSubject()
     {
         $_SERVER['SERVER_NAME'] = 'localhost';
         $iTip = $this->_getItip();
-        $reply = $iTip->getMessageResponse(
-            new Horde_Itip_Response_Type_Accept(), '', 'info'
+        $reply = $iTip->sendSinglepartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource(), 'info'),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
         );
-        $this->assertContains('Subject: Accepted [info]: Test', $reply[0]->toString());
+        $this->assertContains(
+            'Subject: Accepted [info]: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
     }
 
     public function testAttendeeHoldsInformationAboutMailAddress()
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept(), ''
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab()
         );
-        $this->assertEquals($reply->getAttribute('ATTENDEE'), 'MAILTO:test@example.org');
+        $this->assertEquals($reply->getAttribute('ATTENDEE'), 'mailto:test@example.org');
     }
 
     public function testAttendeeHoldsInformationAboutCommonNameAndStatus()
     {
         $iTip = $this->_getItip();
         $reply = $iTip->getVeventResponse(
-            new Horde_Itip_Response_Type_Accept(), ''
+            new Horde_Itip_Response_Type_Accept($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab()
         );
         $parameters = $reply->getAttribute('ATTENDEE', true);
         $this->assertEquals(
@@ -236,6 +312,70 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMultipartMessageResponseHoldsMultipleParts()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->sendMultipartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource(), 'info'),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $mail = '';
+        $mail .= $this->_transport->sentMessages[0]['header_text'] . "\n\n";
+        $body = $this->_transport->sentMessages[0]['body'];
+        while (!feof($body)) {
+            $mail .= fread($body, 8192);
+        }
+        $part = Horde_Mime_Part::parseMessage($mail);
+        $this->assertEquals(2, count($part->getParts()));
+    }
+
+    public function testMultipartMessageDeclineResponseHasDeclineSubject()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->sendMultipartResponse(
+            new Horde_Itip_Response_Type_Decline($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Subject: Declined: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
+    }
+
+    public function testMultipartMessageTentativeResponseHasTentativeSubject()
+    {
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->sendMultipartResponse(
+            new Horde_Itip_Response_Type_Tentative($this->_getResource()),
+            new Horde_Itip_Response_Options_Kolab(),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Subject: Tentative: Test',
+            $this->_transport->sentMessages[0]['header_text']
+        );
+    }
+
+    public function testMultipartMessageWithHordeOptionsHasMessageId()
+    {
+        $_SERVER['REMOTE_ADDR'] = 'none';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $iTip = $this->_getItip();
+        $reply = $iTip->sendMultipartResponse(
+            new Horde_Itip_Response_Type_Accept($this->_getResource(), 'info'),
+            new Horde_Itip_Response_Options_Horde('UTF-8', array()),
+            $this->_transport
+        );
+        $this->assertContains(
+            'Message-ID:',
+            $this->_transport->sentMessages[0]['header_text']
+        );
+    }
 
     private function _getItip($invitation = null)
     {

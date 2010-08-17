@@ -157,7 +157,7 @@ class Horde_Itip_Response
         $headers->addHeader('Date', date('r'));
         $headers->addHeader('From', $from);
         $headers->addHeader('To', $this->_request->getOrganizer());
-        if ($reply_to != $from) {
+        if (!empty($reply_to) && $reply_to != $from) {
             $headers->addHeader('Reply-to', $reply_to);
         }
         $headers->addHeader(

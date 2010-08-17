@@ -27,3 +27,6 @@ if (!spl_autoload_functions()) {
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
+
+/** Load dependencies from the test suite */
+require_once dirname(__FILE__) . '/Stub/Identity.php';
