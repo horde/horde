@@ -91,7 +91,7 @@ if (!empty($criteria)) {
 
 /* Generate master folder list. */
 $imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
-$mask = IMP_Imap_Tree::FLIST_ELT;
+$mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_ELT;
 
 $subscribe = $prefs->getValue('subscribe');
 if (!$subscribe || Horde_Util::getFormData('show_unsub')) {
