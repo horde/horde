@@ -28,7 +28,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         $this->_upgradeAbookPrefs();
         $this->_upgradeForwardPrefs();
-        $this->_upgradeLoginTasks();
+        $this->_upgradeLoginTasksPrefs();
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
     }
@@ -106,7 +106,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     /**
      * Upgrade to the new login tasks preferences.
      */
-    protected function _upgradeForwardPrefs()
+    protected function _upgradeLoginTasksPrefs()
     {
         global $prefs;
 

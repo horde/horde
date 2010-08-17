@@ -1978,7 +1978,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Create an object used by DimpCore to generate the folder tree.
      *
-     * @param IMP_Imap_Tree_Elt $elt  An element object.
+     * @param IMP_Imap_Tree_Element $elt  An element object.
      *
      * @return stdClass  The element object. Contains the following items:
      * <pre>
@@ -2003,11 +2003,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                 2 = user vfolder [integer] [DEFAULT: 0]
      * </pre>
      */
-    protected function _createMailboxElt(IMP_Imap_Tree_Elt $elt)
+    protected function _createMailboxElt(IMP_Imap_Tree_Element $elt)
     {
         $ob = new stdClass;
 
-        if ($ob->children) {
+        if ($elt->children) {
             $ob->ch = 1;
         }
         $ob->m = $elt->value;
@@ -2041,7 +2041,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             if ($elt->polled) {
                 $poll_info = $elt->poll_info;
-                $ob->u = $poll_info['unseen'];
+                $ob->u = $poll_info->unseen;
             }
 
             if ($elt->special) {
@@ -2061,7 +2061,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 ? $icon->icon
                 : $dir . '/' . $icon->icon;
         } else {
-            $ob->cl = $icon['class'];
+            $ob->cl = $icon->class;
         }
 
         return $ob;
