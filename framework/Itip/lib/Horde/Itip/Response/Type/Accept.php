@@ -14,7 +14,7 @@
 /**
  * Indicates an accepted invitation.
  *
- * Copyright 2010 Klarälvdalens Datakonsult AB
+ * Copyright 2010 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see

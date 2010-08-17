@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the itip response handling.
  *
- * Copyright 2010 Klarälvdalens Datakonsult AB
+ * Copyright 2010 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
