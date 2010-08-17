@@ -3475,6 +3475,7 @@ KronolithCore = {
                 }
                 Kronolith.conf.calendars[type][r.response.calendar] = cal;
                 this.insertCalendarInList(type, r.response.calendar, cal);
+                this.storeCache($H(), [type, r.response.calendar], this.viewDates(this.date, this.view), true);
             }
         }
         form.down('.kronolithCalendarSave').enable();
