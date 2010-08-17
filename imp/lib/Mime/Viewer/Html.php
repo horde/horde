@@ -221,11 +221,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($inline) {
-            $filters['emails'] = array();
+            $filters['emails'] = array(
+                'callback' => array($this, 'emailsCallback')
+            );
         }
 
         if (!empty($filters)) {
-            $data = $this->_textFilter($data, array_keys($filters), array(array_values($filters)));
+            $data = $this->_textFilter($data, array_keys($filters), array_values($filters));
         }
 
         /* Filter bad language. */
@@ -267,6 +269,20 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
+     * Process emails text filter callback.
+     *
+     * @param array $args   List of arguments to pass to the compose script.
+     * @param array $extra  Hash of extra, non-standard arguments to pass to
+     *                      compose script.
+     *
+     * @return Horde_Url  The link to the message composition script.
+     */
+    public function emailsCallback($args, $extra)
+    {
+        return IMP::composeLink($args, $extra, true);
+    }
+
+    /**
      * Process DOM node (callback).
      *
      * @param DOMDocument $doc  Document node.
@@ -290,7 +306,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 if ($node->hasAttribute('href')) {
                     $url = parse_url($node->getAttribute('href'));
                     if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
-                        $node->setAttribute('href', IMP::composeLink($node->getAttribute('href')));
+                        /* We don't include Horde.popup() in IFRAME, so need
+                         * to use 'simple' links. */
+                        $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
                     } elseif (!$node->hasAttribute('target') &&
                               empty($url['fragment'])) {
                         $node->setAttribute('target', $this->_imptmp['target']);
