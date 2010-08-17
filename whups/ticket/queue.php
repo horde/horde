@@ -67,6 +67,7 @@ class SetQueueStep2Form extends Horde_Form {
 
         /* Give the user an opportunity to check that type, version,
          * etc. are still valid. */
+
         $queue = $vars->get('queue');
 
         $info = $whups_driver->getQueue($queue);
@@ -118,8 +119,15 @@ class SetQueueStep3Form extends Horde_Form {
 $ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
+$form = $vars->get('formname');
+if ($form != 'setqueuestep1form') {
+    $q = $vars->get('queue');
+}
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
+}
+if (!empty($q)) {
+    $vars->set('queue', $q);
 }
 
 // Check permissions on this ticket.
@@ -129,7 +137,6 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
         ->redirect();
 }
 
-$form = $vars->get('formname');
 $action = '';
 
 if ($form == 'setqueuestep1form') {
