@@ -41,8 +41,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             array(
                 'icon' => 'compose.png',
                 'icondir' => $image_dir,
-                'url' => strval(IMP::composeLink()),
-                'target' => $prefs->getValue('compose_popup') ? 'horde_menu' : 'horde_main'
+                'url' => strval(IMP::composeLink())
             )
         );
 
