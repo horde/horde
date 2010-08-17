@@ -70,7 +70,7 @@ class IMP_Ui_Block
                 }
 
                 $html .= ($mode == 'imp'
-                          ? Horde::link($mbox_url->add(array('no_newmail_popup' => 1, 'mailbox' => $folder)))
+                          ? Horde::link($mbox_url->add('mailbox', $folder))
                           : '<a>')
                     . IMP::displayFolder($folder) . '</a>';
 

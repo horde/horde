@@ -427,7 +427,7 @@ $tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $fol
 
 /* Add some further information to the $raw_rows array. */
 $newmsgs = $rows = array();
-$name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
+$name_url = Horde::applicationUrl('mailbox.php');
 $rowct = 0;
 
 foreach ($raw_rows as $key => $val) {

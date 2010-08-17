@@ -1141,9 +1141,9 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
                     'name' => htmlspecialchars(self::displayFolder($mb)),
-                    'new' => (int)$nm,
+                    'new' => intval($nm),
+                    'url' => self::generateIMPUrl('mailbox.php', $mb),
                 );
             }
             $t->set('folders', $folders);
@@ -1151,7 +1151,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['injector']->getInstance('IMP_Search')->createSearchID($vinbox_id))));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -1160,6 +1160,7 @@ class IMP
 
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
+
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
 

@@ -63,7 +63,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             return;
         }
 
-        $name_url = Horde::applicationUrl('mailbox.php')->add('no_newmail_popup', 1);
+        $name_url = Horde::applicationUrl('mailbox.php');
 
         /* Initialize the IMP_Tree object. */
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
