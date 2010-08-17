@@ -25,22 +25,21 @@ class IMP_Ui_Folder
     /**
      * Create the tree images for a list of folder elements.
      *
-     * @param array $rows     A list of IMP_Imap_Tree_Element objects.
-     * @param array $options  Additional options:
+     * @param IMP_Imap_Tree $tree  The tree object.
+     * @param array $opts          Additional options:
      * <pre>
      * 'expand_url' - (Horde_Url) The URL to use for expand/collapse links.
      * </pre>
      *
      * @return array  An array of tree image strings.
      */
-    public function getTreeImages($rows, $options = array())
+    public function getTreeImages(IMP_Imap_Tree $tree, $opts = array())
     {
         $this->_moreMbox = array();
         $out = array();
 
-        reset($rows);
-        while (list($key, $elt) = each($rows)) {
-            $out[$key] = $this->_getTreeImage($elt, $options);
+        foreach ($tree as $key => $val) {
+            $out[$key] = $this->_getTreeImage($val, $opts);
         }
 
         return $out;
@@ -49,12 +48,12 @@ class IMP_Ui_Folder
     /**
      * Create a tree image from a folder element entry.
      *
-     * @param IMP_Imap_Tree_Elt $elt  A mailbox element object.
-     * @param array $options          See self::getTreeImages().
+     * @param IMP_Imap_Tree_Element $elt  A mailbox element object.
+     * @param array $opts                 See self::getTreeImages().
      *
      * @return string  The image string.
      */
-    protected function _getTreeImage($elt, $options = array())
+    protected function _getTreeImage($elt, $opts = array())
     {
         global $registry;
 
@@ -62,14 +61,14 @@ class IMP_Ui_Folder
         $line = '';
 
         $icon = $elt->icon;
-        $peek = $elt->peek;
+        $peek = false;
 
         $dir2 = $icon->user_icon
             ? Horde::img($icon->icon, $icon->alt)
             : '<span class="foldersImg ' . $icon->class . '"></span>';
 
-        if ($elt->children && isset($options['expand_url'])) {
-            $dir = $options['expand_url']->copy()->add('folder', $elt->value);
+        if ($elt->children && isset($opts['expand_url'])) {
+            $dir = $opts['expand_url']->copy()->add('folder', $elt->value);
 
             if ($elt->is_open) {
                 if (!is_null($dir)) {

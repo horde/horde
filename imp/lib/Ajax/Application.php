@@ -312,7 +312,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $folder_list = array();
         if (!empty($this->_vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $folder_list += $imptree->folderList($mask, $val);
+                $imptree->setIteratorFilter($mask, $val);
+                $folder_list += iterator_to_array($imptree);
 
                 if (!$initreload) {
                     $imptree->expand($val);
@@ -320,7 +321,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
 
             if ($initreload && empty($folder_list)) {
-                $folder_list = $imptree->folderList($mask, 'INBOX');
+                $imptree->setIteratorFilter($mask, 'INBOX');
+                $folder_list += iterator_to_array($imptree);
             }
         }
 

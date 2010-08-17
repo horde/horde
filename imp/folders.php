@@ -355,26 +355,7 @@ if ($_SESSION['imp']['file_upload'] && ($vars->actionID == 'import_mbox')) {
 }
 
 /* Build the folder tree. */
-$mask = IMP_Imap_Tree::FLIST_CONTAINER |
-    IMP_Imap_Tree::FLIST_VFOLDER |
-    IMP_Imap_Tree::FLIST_EXPANDED;
-$raw_rows = $imaptree->folderList($mask);
-
-/* Build the list of display names. */
-$displayNames = $fullNames = array();
-foreach ($raw_rows as $k => $r) {
-    $displayNames[] = $r->display;
-
-    $tmp = IMP::displayFolder($r->value, true);
-    if ($tmp != $r->display) {
-        $fullNames[$k] = $tmp;
-    }
-}
-
-Horde::addInlineScript(array(
-    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
-    'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset)
-));
+$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_EXPANDED);
 
 /* Prepare the header template. */
 $refresh_title = _("Reload View");
@@ -420,14 +401,20 @@ $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(arra
 
 /* Get the tree images. */
 $imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url_ob));
+$tree_imgs = $imp_ui_folder->getTreeImages($imaptree, array('expand_url' => $folders_url_ob));
 
-/* Add some further information to the $raw_rows array. */
-$newmsgs = $rows = array();
+$displayNames = $fullNames = $newmsgs = $rows = array();
 $name_url = Horde::applicationUrl('mailbox.php');
 $rowct = 0;
 
-foreach ($raw_rows as $key => $val) {
+foreach ($imaptree as $key => $val) {
+    $tmp = $displayNames[] = $val->display;
+
+    $tmp2 = IMP::displayFolder($val->value, true);
+    if ($tmp != $tmp2) {
+        $fullNames[$key] = $tmp2;
+    }
+
     $row = array();
 
     $row['nocheckbox'] = !empty($val->vfolder);
@@ -483,6 +470,11 @@ if (!empty($newmsgs)) {
 
     IMP::newmailAlerts($newmsgs);
 }
+
+Horde::addInlineScript(array(
+    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
+    'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset)
+));
 
 /* Render the rows now. */
 $template = $injector->createInstance('Horde_Template');

@@ -96,13 +96,13 @@ if (!$subscribe || $vars->show_unsub) {
     $mask |= IMP_Imap_Tree::FLIST_UNSUB;
 }
 
-$raw_rows = $imp_imap_tree->folderList($mask);
+$imp_imap_tree->setIteratorFilter($mask);
 
 $imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows);
+$tree_imgs = $imp_ui_folder->getTreeImages($imp_imap_tree);
 
 $folders = array();
-foreach ($raw_rows as $key => $val) {
+foreach ($imp_imap_tree as $key => $val) {
     $folders[] = array(
         'c' => intval($val->container),
         'l' => $tree_imgs[$key] . ' ' . $val->name,

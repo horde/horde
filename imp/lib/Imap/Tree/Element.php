@@ -74,12 +74,13 @@ class IMP_Imap_Tree_Element
      *   'icon' - (Horde_Themes_Image) The icon graphic to use.
      *   'iconopen' - (Horde_Themes_Image) The openicon to use.
      *   'user_icon' - (boolean) Use a user defined icon?
+     * 'invisible' - (boolean) Is element invisible?
      * 'level' - (integer) The deepness level of this element.
      * 'mbox_val' - (string) A html-ized version of 'value'.
      * 'name' - (string) A html-ized version of 'label'.
+     * 'namespace' - (string) Is this a namespace element?
      * 'nonimap' - (boolean) Is this a non-IMAP element?
      * 'parent' - (array) The parent element value.
-     * 'peek' - (boolean) Are there more elements in the current tree level?
      * 'polled' - (boolean) Show polled information?
      * 'poll_info' - (object) Poll information for the mailbox. Properties:
      *   'msgs' - (integer) The number of total messages in the element (if
@@ -124,6 +125,9 @@ class IMP_Imap_Tree_Element
         case 'icon':
             return $this->_getIcon();
 
+        case 'invisible':
+            return $this->_treeob->isInvisible($this->_mbox);
+
         case 'label':
             return $this->_mbox['l'];
 
@@ -136,14 +140,14 @@ class IMP_Imap_Tree_Element
         case 'name':
             return htmlspecialchars($this->label);
 
+        case 'namespace':
+            return $this->_treeob->isNamespace($this->_mbox);
+
         case 'nonimap':
             return $this->_treeob->isNonImapElt($this->_mbox);
 
         case 'parent':
             return $this->_mbox['p'];
-
-        case 'peek':
-            return $this->_treeob->peek($this->_mbox['v']);
 
         case 'poll_info':
             $info = new stdClass;

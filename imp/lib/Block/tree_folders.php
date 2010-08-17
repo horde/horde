@@ -62,12 +62,11 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
         /* Initialize the IMP_Tree object. */
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
-        $mask = IMP_Imap_Tree::FLIST_CONTAINER |
-            IMP_Imap_Tree::FLIST_VFOLDER;
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER);
 
         $unseen = 0;
 
-        foreach ($imaptree->folderList($mask) as $val) {
+        foreach ($imaptree as $val) {
             $label = $val->name;
 
             if ($val->polled) {
