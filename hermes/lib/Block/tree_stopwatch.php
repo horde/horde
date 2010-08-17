@@ -38,8 +38,7 @@ class Horde_Block_hermes_tree_stopwatch extends Horde_Block
                                $indent + 1,
                                false,
                                array('icon' => 'timer-stop.png',
-                                     'url' => Horde_Util::addParameter($entry, 'timer', $i),
-                                     'target' => 'horde_main'));
+                                     'url' => Horde_Util::addParameter($entry, 'timer', $i)));
             }
         }
     }
