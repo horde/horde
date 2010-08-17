@@ -79,13 +79,7 @@ function _ShowView()
 
     var titleDiv = $('view_title');
     if (titleDiv && titleDiv.firstChild && titleDiv.firstChild.nodeValue) {
-        var title = KronolithVar.page_title + titleDiv.firstChild.nodeValue;
-        try {
-            document.title = title;
-            if (parent.frames.horde_main) {
-                parent.document.title = title;
-            }
-        } catch (e) {}
+        document.title = KronolithVar.page_title + titleDiv.firstChild.nodeValue;
     }
 
     var viewVars = $('view_vars');

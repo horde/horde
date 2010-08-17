@@ -501,12 +501,6 @@ class IMP_Prefs_Ui
                     $_SESSION['imp']['maildomain'] = $maildomain;
                 }
             }
-
-            if ($prefs->isDirty('compose_popup')) {
-                Horde::addInlineScript(array(
-                    'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
-                ));
-            }
             break;
 
         case 'delmove':
