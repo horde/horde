@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-06</date>
- <time>21:15:38</time>
+ <date>2010-08-17</date>
+ <time>15:51:54</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -55,13 +55,13 @@
         <file name="Horde.php" role="php" />
         <file name="Kolab.php" role="php" />
        </dir> <!-- /lib/Horde/Itip/Response/Options -->
-       <file name="Options.php" role="php" />
        <dir name="Type">
         <file name="Accept.php" role="php" />
         <file name="Base.php" role="php" />
         <file name="Decline.php" role="php" />
         <file name="Tentative.php" role="php" />
        </dir> <!-- /lib/Horde/Itip/Response/Type -->
+       <file name="Options.php" role="php" />
        <file name="Type.php" role="php" />
       </dir> <!-- /lib/Horde/Itip/Response -->
       <file name="Event.php" role="php" />
@@ -78,6 +78,19 @@
       <dir name="Integration">
        <file name="ItipTest.php" role="test" />
       </dir> <!-- /test/Horde/Itip/Integration -->
+      <dir name="Stub">
+       <file name="Identity.php" role="test" />
+      </dir> <!-- /test/Horde/Itip/Stub -->
+      <dir name="Unit">
+       <dir name="Event">
+        <file name="VeventTest.php" role="test" />
+       </dir> <!-- /test/Horde/Itip/Unit/Event -->
+       <dir name="Response">
+        <dir name="Type">
+         <file name="BaseTest.php" role="test" />
+        </dir> <!-- /test/Horde/Itip/Unit/Response/Type -->
+       </dir> <!-- /test/Horde/Itip/Unit/Response -->
+      </dir> <!-- /test/Horde/Itip/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -118,10 +131,10 @@
    <install as="Horde/Itip/Resource/Base.php" name="lib/Horde/Itip/Resource/Base.php" />
    <install as="Horde/Itip/Resource/Identity.php" name="lib/Horde/Itip/Resource/Identity.php" />
    <install as="Horde/Itip/Response/Options.php" name="lib/Horde/Itip/Response/Options.php" />
+   <install as="Horde/Itip/Response/Type.php" name="lib/Horde/Itip/Response/Type.php" />
    <install as="Horde/Itip/Response/Options/Base.php" name="lib/Horde/Itip/Response/Options/Base.php" />
    <install as="Horde/Itip/Response/Options/Horde.php" name="lib/Horde/Itip/Response/Options/Horde.php" />
    <install as="Horde/Itip/Response/Options/Kolab.php" name="lib/Horde/Itip/Response/Options/Kolab.php" />
-   <install as="Horde/Itip/Response/Type.php" name="lib/Horde/Itip/Response/Type.php" />
    <install as="Horde/Itip/Response/Type/Accept.php" name="lib/Horde/Itip/Response/Type/Accept.php" />
    <install as="Horde/Itip/Response/Type/Base.php" name="lib/Horde/Itip/Response/Type/Base.php" />
    <install as="Horde/Itip/Response/Type/Decline.php" name="lib/Horde/Itip/Response/Type/Decline.php" />
@@ -130,6 +143,9 @@
    <install as="Horde/Itip/Autoload.php" name="test/Horde/Itip/Autoload.php" />
    <install as="Horde/Itip/phpunit.xml" name="test/Horde/Itip/phpunit.xml" />
    <install as="Horde/Itip/Integration/ItipTest.php" name="test/Horde/Itip/Integration/ItipTest.php" />
+   <install as="Horde/Itip/Stub/Identity.php" name="test/Horde/Itip/Stub/Identity.php" />
+   <install as="Horde/Itip/Unit/Event/VeventTest.php" name="test/Horde/Itip/Unit/Event/VeventTest.php" />
+   <install as="Horde/Itip/Unit/Response/Type/BaseTest.php" name="test/Horde/Itip/Unit/Response/Type/BaseTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -142,7 +158,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-08-06</date>
+   <date>2010-08-17</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Extracted package from Kolab_Resource.
