@@ -177,7 +177,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->_gallery->id);
         }
 
-        return true;
+        return count($ids);
     }
 
     /**
