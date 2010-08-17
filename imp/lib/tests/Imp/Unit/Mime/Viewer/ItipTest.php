@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the itip response handling.
  *
- * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -451,8 +451,8 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('Tentative: Test Invitation', $this->_getMailHeaders()->getValue('Subject'));
     }
     public function testResultMimeMessageHeadersContainsReplyToForAlternateIdentity()
-    {
-        $_GET['identity'] = 'other';
+    {  
+      $_GET['identity'] = 'other';
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');

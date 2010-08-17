@@ -11,6 +11,7 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP

@@ -21,7 +21,10 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 /**
  * Prepare the test setup.
+ *
+ * @todo: fix autoloading
  */
+require_once dirname(__FILE__) . '/Autoload.php';
 require_once 'Horde/Test/AllTests.php';
 
 /**
