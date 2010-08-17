@@ -7,7 +7,8 @@
 <if:nofolder>
    <option value="INBOX" selected="selected"><gettext>Inbox</gettext></option>
 <else:nofolder>
-   <option value="folders.php"<if:foldersel> selected="selected"</if:foldersel>><gettext>Folder Navigator</gettext></option>
+   <option value="<tag:folder_page />"<if:foldersel> selected="selected"</if:foldersel>><gettext>Folder Navigator</gettext></option>
+   <option value="" disabled="disabled">- - - - - - - -</option>
    <tag:flist />
 </else:nofolder></if:nofolder>
   </select>

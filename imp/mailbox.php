@@ -480,7 +480,7 @@ if ($pageOb['msgcount']) {
     }
 
     $n_template->set('mailbox_url', $mailbox_url);
-    $n_template->set('mailbox', htmlspecialchars(IMP::$mailbox));
+    $n_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
     if ($pageOb['pagecount'] > 1) {
         $n_template->set('multiple_page', true);
         $n_template->set('pages_first', $pages_first);
@@ -651,7 +651,7 @@ foreach ($headers as $key => $val) {
 
 /* Output the form start. */
 $f_template = $injector->createInstance('Horde_Template');
-$f_template->set('mailbox', htmlspecialchars(IMP::$mailbox));
+$f_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
 $f_template->set('mailbox_token', $mailbox_token);
 $f_template->set('mailbox_url', $mailbox_url);
 $f_template->set('sessiontag', Horde_Util::formInput());

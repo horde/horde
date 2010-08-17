@@ -18,7 +18,7 @@ var ImpFolderPrefs = {
             newfolder = $(id + '_new'),
             sel = $(f[f.selectedIndex]);
 
-        if (sel.value == '\0create' && !newfolder) {
+        if (sel.hasClassName('flistCreate') && !newfolder) {
             folder = window.prompt(txt, '');
             if (!folder.empty()) {
                 if (!newfolder) {
@@ -39,7 +39,7 @@ var ImpFolderPrefs = {
             $('sent_mail_folder').setValue(this.sentmail[e.memo.i]);
             if (this.origtext) {
                 $('sent_mail_folder_new').remove();
-                $('sent_mail_folder').down('[value="\0create"]').update(this.origtext);
+                $('sent_mail_folder').down('.flistCreate').update(this.origtext);
                 this.origtext = null;
             }
             break;

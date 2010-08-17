@@ -42,10 +42,10 @@ class IMP_Imap_Tree
     const NEXT_SHOWSUB = 2;
     const NEXT_NOCHILDREN = 4;
 
-    /* The string used to indicate the base of the tree. This must be null
-     * since this is the only 7-bit character not allowed in IMAP
+    /* The string used to indicate the base of the tree. This must include
+     * null since this is the only 7-bit character not allowed in IMAP
      * mailboxes. */
-    const BASE_ELT = '\0';
+    const BASE_ELT = "base\0";
 
     /* Defines used with folderList(). */
     const FLIST_CONTAINER = 1;
@@ -59,11 +59,11 @@ class IMP_Imap_Tree
 
     /* Add null to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox. */
-    const VFOLDER_KEY = 'vfolder\0';
+    const VFOLDER_KEY = "vfolder\0";
 
     /* Defines used with namespace display. */
-    const SHARED_KEY = 'shared\0';
-    const OTHER_KEY = 'other\0';
+    const SHARED_KEY = "shared\0";
+    const OTHER_KEY = "other\0";
 
     /**
      * Tree changed flag.  Set when something in the tree has been altered.

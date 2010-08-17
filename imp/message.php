@@ -408,7 +408,7 @@ if ($search_mbox) {
 $t_template = $injector->createInstance('Horde_Template');
 $t_template->set('message_url', $message_url);
 $t_template->set('form_input', Horde_Util::formInput());
-$t_template->set('mailbox', htmlspecialchars(IMP::$mailbox));
+$t_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
 $t_template->set('thismailbox', htmlspecialchars($mailbox_name));
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
@@ -425,7 +425,7 @@ $n_template->set('usepop', $use_pop);
 $n_template->set('id', 1);
 
 if (!$use_pop) {
-    $n_template->set('mailbox', IMP::$mailbox);
+    $n_template->set('mailbox', IMP::formMbox(IMP::$mailbox, true));
 
     $tmp = $imp_flags->getFlagList(IMP::$mailbox);
     $n_template->set('flaglist_set', $tmp['set']);

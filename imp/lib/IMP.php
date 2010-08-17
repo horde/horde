@@ -34,8 +34,13 @@ class IMP
     const MAILBOX_START_LASTPAGE = 4;
 
     /* Preferences constants. */
-    const PREF_NO_FOLDER = 'nofolder\0';
-    const PREF_VTRASH = 'vtrash\0';
+    const PREF_DEFAULT = "default\0";
+    const PREF_NO_FOLDER = "nofolder\0";
+    const PREF_VTRASH = "vtrash\0";
+
+    /* Folder list actions. */
+    const NOTEPAD_EDIT = "notepad\0";
+    const TASKLIST_EDIT = "tasklist\0";
 
     /* Sorting constants. */
     const IMAP_SORT_DATE = 100;
@@ -230,7 +235,7 @@ class IMP
                 $mbox_list[] = array(
                     'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($label, 'space2html', array('encode' => true)),
                     'sel' => (!empty($options['selected']) && ($mbox['val'] === $options['selected'])),
-                    'v' => htmlspecialchars($mbox['val'])
+                    'v' => self::formMbox($mbox['val'], true)
                 );
             }
         }
@@ -247,7 +252,7 @@ class IMP
                     $vfolder_list[] = array(
                         'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($val, 'space2html', array('encode' => true)),
                         'sel' => ($vfolder_sel == $id),
-                        'v' => htmlspecialchars($imp_search->createSearchID($id))
+                        'v' => self::formMbox($imp_search->createSearchID($id), true)
                     );
                 }
                 $t->set('vfolder', $vfolder_list);
@@ -265,7 +270,7 @@ class IMP
                     foreach ($tasklists as $id => $tasklist) {
                         $tasklist_list[] = array(
                             'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
-                            'v' => '\0tasklist_' . $id
+                            'v' => self::formMbox(self::TASKLIST_EDIT . $id, true)
                         );
                     }
                     $t->set('tasklist', $tasklist_list);
@@ -284,7 +289,7 @@ class IMP
                     foreach ($notepads as $id => $notepad) {
                         $notepad_list[] = array(
                             'l' => $GLOBALS['injector']->getInstance('Horde_Text_Filter')->filter($notepad->get('name'), 'space2html', array('encode' => true)),
-                            'v' => '\0notepad_' . $id
+                            'v' => self::formMbox(self::NOTEPAD_EDIT . $id, true)
                         );
                     }
                     $t->set('notepad', $notepad_list);
@@ -1060,8 +1065,8 @@ class IMP
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            self::$mailbox = empty($mbox) ? 'INBOX' : $mbox;
-            self::$thismailbox = Horde_Util::getFormData('thismailbox', $mbox);
+            self::$mailbox = empty($mbox) ? 'INBOX' : self::formMbox($mbox, false);
+            self::$thismailbox = self::formMbox(Horde_Util::getFormData('thismailbox', $mbox), false);
             self::$uid = Horde_Util::getFormData('uid');
         } else {
             self::$mailbox = $mbox;
@@ -1185,6 +1190,24 @@ class IMP
             'fields' => $fields,
             'sources' => $src
         );
+    }
+
+    /**
+     * Converts a mailbox to/from a valid representation that can be used
+     * in a form element.  Needed because null characters (used for various
+     * internal non-IMAP mailbox representations) will not work in form
+     * elements.
+     *
+     * @param string $mbox  The mailbox name.
+     * @param boolean $to   Convert to the form representation?
+     *
+     * @return string  The converted mailbox.
+     */
+    static public function formMbox($mbox, $to)
+    {
+        return $to
+            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, $GLOBALS['registry']->getCharset())
+            : rawurldecode($mbox);
     }
 
 }
