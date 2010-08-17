@@ -25,12 +25,16 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
      *                 Only if no mail/compose registry API method exists
      *                 otherwise.
      *                 DEFAULT: false
+     * callback - (callback) Use this callback instead of the mail/compose
+     *            API call.
+     *            DEFAULT: Use mail/compose API call.
      * </pre>
      */
     public function __construct(array $params = array())
     {
         $this->_params = array_merge(array(
-            'always_mailto' => false
+            'always_mailto' => false,
+            'callback' => null
         ), $this->_params, $params);
 
         parent::__construct($params);
@@ -46,7 +50,8 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
     protected function _regexCallback($matches)
     {
         if ($this->_params['always_mailto'] ||
-            !$GLOBALS['registry']->hasMethod('mail/compose')) {
+            (!$this->_params['callback'] &&
+             !$GLOBALS['registry']->hasMethod('mail/compose'))) {
             return parent::_regexCallback($matches);
         }
 
@@ -62,7 +67,9 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
 
         parse_str($args, $extra);
         try {
-            $url = strval($GLOBALS['registry']->call('mail/compose', array(array('to' => $email), $extra)));
+            $url = $this->_params['callback']
+                ? strval(call_user_func($this->_params['callback'], array('to' => $email), $extra))
+                : strval($GLOBALS['registry']->call('mail/compose', array(array('to' => $email), $extra)));
         } catch (Horde_Exception $e) {
             return parent::_regexCallback($matches);
         }
