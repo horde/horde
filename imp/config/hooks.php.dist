@@ -326,7 +326,7 @@ class IMP_Hooks
      * trash folders.)
      *
      * @return array  A list of mailboxes, with the name as keys and the
-     *               values an array with 'icon', 'icondir', and 'alt' entries.
+     *               values an array with 'icon' and 'alt' entries.
      *               If a mailbox name doesn't appear in the list, the default
      *               mailbox icon is displayed.
      */
@@ -349,30 +349,26 @@ class IMP_Hooks
 //            if ((stripos($box, "INBOX/Calendar") !== false) ||
 //                preg_match("!^user/[^/]+/Calendar!", $box)) {
 //                $newmailboxes[$box] = array(
-//                    'icon' => 'kronolith.png',
-//                    'icondir' => Horde_Themes::img(null, 'kronolith')
-//                    'alt' => _("Calendar")
+//                    'alt' => _("Calendar"),
+//                    'icon' => Horde_Themes::img('kronolith.png', 'kronolith')
 //                );
 //            } elseif ((stripos($box, "INBOX/Tasks") !== false) ||
 //                      preg_match("!^user/[^/]+/Tasks!", $box)) {
 //                $newmailboxes[$box] = array(
-//                    'icon' => 'nag.png',
-//                    'icondir' => Horde_Themes::img(null, 'nag')
 //                    'alt' => _("Tasks")
+//                    'icon' => Horde_Themes::img('nag.png', 'nag'),
 //                );
 //            } elseif ((stripos($box, "INBOX/Notes") !== false) ||
 //                      preg_match("!^user/[^/]+/Notes!", $box)) {
 //                $newmailboxes[$box] = array(
-//                    'icon' => 'mnemo.png',
-//                    'icondir' => Horde_Themes::img(null, 'mnemo')
-//                    'alt' => _("Notes")
+//                    'alt' => _("Notes"),
+//                    'icon' => Horde_Themes::img('mnemo.png', 'mnemo')
 //                );
 //            } elseif ((stripos($box, "INBOX/Contacts") !== false) ||
 //                      preg_match("!^user/[^/]+/Contacts!", $box)) {
 //                $newmailboxes[$box] = array(
-//                    'icon' => 'turba.png',
-//                    'icondir' => Horde_Themes::img(null, 'turba')
-//                    'alt' => _("Contacts")
+//                    'alt' => _("Contacts"),
+//                    'icon' => Horde_Themes::img('turba.png', 'turba')
 //                );
 //            }
 //        }
@@ -394,41 +390,36 @@ class IMP_Hooks
 //            switch ($folder[1]) {
 //            case 'event':
 //                $icons[$name] = array(
-//                    'icon' => 'kronolith.png',
-//                    'icondir' => Horde_Themes::img(null, 'kronolith')
-//                    'alt' => _("Calendar")
+//                    'alt' => _("Calendar"),
+//                    'icon' => Horde_Themes::img('kronolith.png', 'kronolith')
 //                );
 //                break;
 //
 //            case 'task':
 //                $icons[$name] = array(
-//                    'icon' => 'nag.png',
-//                    'icondir' => Horde_Themes::img(null, 'nag')
-//                    'alt' => _("Tasks")
+//                    'alt' => _("Tasks"),
+//                    'icon' => Horde_Themes::img('nag.png', 'nag')
 //                );
 //                break;
 //
 //            case 'note':
 //                $icons[$name] = array(
-//                    'icon' => 'mnemo.png',
-//                    'icondir' => Horde_Themes::img(null, 'mnemo')
-//                    'alt' => _("Notes")
+//                    'alt' => _("Notes"),
+//                    'icon' => Horde_Themes::img('mnemo.png', 'mnemo')
 //                );
 //                break;
 //
 //            case 'contact':
 //                $icons[$name] = array(
-//                    'icon' => 'turba.png',
-//                    'icondir' => Horde_Themes::img(null, 'turba')
-//                    'alt' => _("Contacts")
+//                    'alt' => _("Contacts"),
+//                    'icon' => Horde_Themes::img('turba.png', 'turba')
 //                );
 //                break;
 //
 //            case 'prefs':
 //                $icons[$name] = array(
-//                    'icon' => 'prefs.png',
-//                    'icondir' => Horde_Themes::img(null, 'horde')
-//                    'alt' => _("Preferences")
+//                    'alt' => _("Preferences"),
+//                    'icon' => Horde_Themes::img('prefs.png', 'horde')
 //                );
 //                break;
 //            }

@@ -473,8 +473,7 @@ class News_Categories {
     {
         $cats = $this->getCategories(false);
 
-        $params = array('icondir' => Horde_Themes::img(),
-                        'icon' => 'folder_open.png');
+        $params = array('icon' => Horde_Themes::img('folder_open.png'));
 
         // Set up the tree
         $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('news_cats', 'Javascript', array(

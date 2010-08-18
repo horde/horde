@@ -452,7 +452,9 @@ class Horde_Tree_Html extends Horde_Tree
             /* Use standard icon set. */
             if (isset($this->_nodes[$node_id]['children'])) {
                 /* Node with children. */
-                $img = ($this->_nodes[$node_id]['expanded']) ? $this->_images['folderopen'] : $this->_images['folder'];
+                $img = ($this->_nodes[$node_id]['expanded'])
+                    ? $this->_images['folderopen']
+                    : $this->_images['folder'];
             } else {
                 /* Leaf node (no children). */
                 $img = $this->_images['leaf'];

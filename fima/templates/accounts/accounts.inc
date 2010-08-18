@@ -29,11 +29,10 @@ function Submit(action)
 <div id="accountList">
 <?php
 
-$params = array('icondir' => Horde_Themes::img(), 'icon' => '');
 $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree('account_tree', 'Javascript');
 
 foreach ($accounts as $accountId => $account) {
-    $params['icon'] = $account['icon'];
+    $params = array('icon' => Horde_Themes::img($account['icon']));
     $accountLabel = htmlspecialchars(trim($account['number'] . ' ' . $account['name']));
     if ($account['closed']) {
         $accountLabel = '<span class="closed">' . $accountLabel . '</span>';

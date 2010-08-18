@@ -411,11 +411,6 @@ var Horde_Tree = Class.create({
 
         img.push('<img class="treeIcon" id="nodeIcon_' + nodeId + '" src="');
 
-        // Image directory.
-        if (!Object.isUndefined(node.icondir) && node.icondir) {
-            img.push(node.icondir + '/');
-        }
-
         // Image.
         if (!Object.isUndefined(node.icon)) {
             // Node has a user defined icon.
@@ -460,11 +455,6 @@ var Horde_Tree = Class.create({
         // Toggle the node's icon if it has separate open and closed
         // icons.
         if (icon = $('nodeIcon_' + nodeId)) {
-            // Image directory.
-            if (!Object.isUndefined(node.icondir) && node.icondir) {
-                src.push(node.icondir + '/');
-            }
-
             // Image.
             if (!Object.isUndefined(node.icon)) {
                 src.push((node.expanded && node.iconopen) ? node.iconopen : node.icon);

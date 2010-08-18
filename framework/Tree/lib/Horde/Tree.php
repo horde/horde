@@ -329,7 +329,6 @@ class Horde_Tree
      * class - CSS class to use with this node
      * icon - Icon to display next node
      * iconalt - Alt text to use for the icon
-     * icondir - Icon directory
      * iconopen - Icon to indicate this node as expanded
      * onclick - Onclick event attached to this node
      * url - URL to link the node to
@@ -347,7 +346,7 @@ class Horde_Tree
         }
 
         $allowed = array(
-            'class', 'icon', 'iconalt', 'icondir', 'iconopen',
+            'class', 'icon', 'iconalt', 'iconopen',
             'onclick', 'url', 'urlclass', 'title', 'target',
         );
 

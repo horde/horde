@@ -37,15 +37,18 @@ class Horde_Block_nag_tree_alarms extends Horde_Block
             $url = Horde_Util::addParameter(Horde::applicationUrl('view.php'),
                                       array('task' => $task->id,
                                             'tasklist' => $task->tasklist));
-            $tree->addNode($parent . $taskId,
-                           $parent,
-                           $task->name,
-                           $indent + 1,
-                           false,
-                           array('icon' => 'alarm.png',
-                                 'icondir' => (string)Horde_Themes::img(),
-                                 'title' => $title,
-                                 'url' => $url));
+            $tree->addNode(
+                $parent . $taskId,
+                $parent,
+                $task->name,
+                $indent + 1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('alarm.png'),
+                    'title' => $title,
+                    'url' => $url
+                )
+            );
         }
 
         if ($GLOBALS['registry']->get('url', $parent)) {
@@ -56,13 +59,10 @@ class Horde_Block_nag_tree_alarms extends Horde_Block
         } else {
             $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
         }
-        $pnode_params = array('url' => $purl,
-                              'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
-                              'icondir' => '');
-
-        $pnode_params = array('url' => $purl,
-                              'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
-                              'icondir' => '');
+        $pnode_params = array(
+            'url' => $purl,
+            'icon' => (string)$GLOBALS['registry']->get('icon', $parent)
+        );
         $pnode_name = $GLOBALS['registry']->get('name', $parent);
         if ($alarmCount) {
             $pnode_name = '<strong>' . $pnode_name . '</strong>';

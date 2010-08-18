@@ -23,19 +23,21 @@ class Horde_Block_gollem_tree_menu extends Horde_Block
         // TODO
         return;
 
-        $icondir = (string)Horde_Themes::img();
         $login_url = Horde::applicationUrl('login.php');
 
         foreach ($GLOBALS['gollem_backends'] as $key => $val) {
             if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
-                $tree->addNode($parent . $key,
-                               $parent,
-                               $val['name'],
-                               $indent + 1,
-                               false,
-                               array('icon' => 'gollem.png',
-                                     'icondir' => $icondir,
-                                     'url' => Horde_Util::addParameter($login_url, array('backend_key' => $key, 'change_backend' => 1))));
+                $tree->addNode(
+                    $parent . $key,
+                    $parent,
+                    $val['name'],
+                    $indent + 1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('gollem.png'),
+                        'url' => $login_url->copy()->add(array('backend_key' => $key, 'change_backend' => 1))
+                    )
+                );
             }
         }
     }

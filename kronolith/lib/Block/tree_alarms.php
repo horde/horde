@@ -28,14 +28,17 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block
                     continue;
                 }
                 $alarmCount++;
-                $tree->addNode($parent . $calId . $event->id,
-                               $parent,
-                               htmlspecialchars($event->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCharset()),
-                               $indent + 1,
-                               false,
-                               array('icon' => 'alarm.png',
-                                     'icondir' => (string)Horde_Themes::img(),
-                                     'url' => $event->getViewUrl()));
+                $tree->addNode(
+                    $parent . $calId . $event->id,
+                    $parent,
+                    htmlspecialchars($event->getTitle(), ENT_COMPAT, $GLOBALS['registry']->getCharset()),
+                    $indent + 1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('alarm.png'),
+                        'url' => $event->getViewUrl()
+                    )
+                );
             }
         }
 
@@ -47,16 +50,23 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block
         } else {
             $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
         }
-        $pnode_params = array('url' => $purl,
-                              'icon' => (string)$GLOBALS['registry']->get('icon', $parent),
-                              'icondir' => '');
+
         $pnode_name = $GLOBALS['registry']->get('name', $parent);
         if ($alarmCount) {
             $pnode_name = '<strong>' . $pnode_name . '</strong>';
         }
 
-        $tree->addNode($parent, $GLOBALS['registry']->get('menu_parent', $parent),
-                       $pnode_name, $indent, false, $pnode_params);
+        $tree->addNode(
+            $parent,
+            $GLOBALS['registry']->get('menu_parent', $parent),
+            $pnode_name,
+            $indent,
+            false,
+            array(
+                'icon' => $GLOBALS['registry']->get('icon', $parent),
+                'url' => $purl,
+            )
+        );
     }
 
 }

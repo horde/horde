@@ -71,9 +71,8 @@ class IMP_Imap_Tree_Element
      * 'icon' - (object) Icon information for the mailbox. Properties:
      *   'alt' - (string) The alt text for the icon.
      *   'class' - (string) The CSS class name.
-     *   'icon' - (string) The name of the icon graphic to use.
-     *   'icondir' - (string) The path of the icon directory.
-     *   'iconopen' - (string) The name of the openicon to use.
+     *   'icon' - (Horde_Themes_Image) The icon graphic to use.
+     *   'iconopen' - (Horde_Themes_Image) The openicon to use.
      *   'user_icon' - (boolean) Use a user defined icon?
      * 'level' - (integer) The deepness level of this element.
      * 'mbox_val' - (string) A html-ized version of 'value'.
@@ -216,7 +215,6 @@ class IMP_Imap_Tree_Element
         $this->_initCache();
 
         $info = new stdClass;
-        $info->icondir = $this->_eltCache['image_dir'];
         $info->iconopen = null;
         $info->user_icon = false;
 
@@ -230,7 +228,7 @@ class IMP_Imap_Tree_Element
                 $info->alt = _("Folder");
                 $info->class = 'folderImg';
                 $info->icon = 'folders/folder.png';
-                $info->iconopen = 'folders/open.png';
+                $info->iconopen = Horde_Themes::img('folders/open.png');
             }
         } else {
             switch ($this->_mbox['v']) {
@@ -313,9 +311,10 @@ class IMP_Imap_Tree_Element
             if (isset($mi['alt'])) {
                 $info->alt = $mi['alt'];
             }
-            $info->icon = $mi['icon'];
-            $info->icondir = $mi['icondir'];
+            $info->icon = strval($mi['icon']);
             $info->user_icon = true;
+        } elseif ($info->icon) {
+            $info->icon = Horde_Themes::img($info->icon);
         }
 
         return $info;
@@ -328,7 +327,6 @@ class IMP_Imap_Tree_Element
     {
         if (!isset($this->_eltCache)) {
             $this->_eltCache = $this->_treeob->getSpecialMailboxes();
-            $this->_eltCache['image_dir'] = Horde_Themes::img();
         }
     }
 

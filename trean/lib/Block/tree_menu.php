@@ -11,40 +11,47 @@ class Horde_Block_trean_tree_menu extends Horde_Block
 
     protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        global $registry;
+        $tree->addNode(
+            $parent . '__new',
+            $parent,
+            _("Add"),
+            $indent + 1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('add.png'),
+                'url' => Horde::applicationUrl('add.php')
+            )
+        );
 
-        $browse = Horde::applicationUrl('browse.php');
-
-        $tree->addNode($parent . '__new',
-                       $parent,
-                       _("Add"),
-                       $indent + 1,
-                       false,
-                       array('icon' => 'add.png',
-                             'icondir' => (string)Horde_Themes::img(),
-                             'url' => Horde::applicationUrl('add.php')));
-
-        $tree->addNode($parent . '__search',
-                       $parent,
-                       _("Search"),
-                       $indent + 1,
-                       false,
-                       array('icon' => 'search.png',
-                             'icondir' => (string)Horde_Themes::img('horde'),
-                             'url' => Horde::applicationUrl('search.php')));
+        $tree->addNode(
+            $parent . '__search',
+            $parent,
+            _("Search"),
+            $indent + 1,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::applicationUrl('search.php')
+            )
+        );
 
         $folders = Trean::listFolders();
-        if (!is_a($folders, 'PEAR_Error')) {
+        if ($folders instanceof PEAR_Error) {
+            $browse = Horde::applicationUrl('browse.php');
+
             foreach ($folders as $folder) {
                 $parent_id = $folder->getParent();
-                $tree->addNode($parent . $folder->getId(),
-                               $parent . $parent_id,
-                               $folder->get('name'),
-                               $indent + substr_count($folder->getName(), ':') + 1,
-                               false,
-                               array('icon' => 'folder.png',
-                                     'icondir' => (string)Horde_Themes::img('horde') . '/tree',
-                                     'url' => Horde_Util::addParameter($browse, 'f', $folder->getId())));
+                $tree->addNode(
+                    $parent . $folder->getId(),
+                    $parent . $parent_id,
+                    $folder->get('name'),
+                    $indent + substr_count($folder->getName(), ':') + 1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('tree/folder.png'),
+                        'url' => $browse->copy()->add('f', $folder->getId()
+                    )
+                );
             }
         }
     }

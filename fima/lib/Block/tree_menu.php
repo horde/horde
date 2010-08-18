@@ -11,20 +11,23 @@ class Horde_Block_fima_tree_menu extends Horde_Block {
     {
         $menus = array(
             array('add', _("Add Postings"), 'add.png', Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings')),
-            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), (string)Horde_Themes::img(null, 'horde')),
+            array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php')),
             array('accounts', _("Accounts"), 'accounts.png', Horde::applicationUrl('accounts.php')),
-            array('reports', _("Reports"), 'report.png', Horde::applicationUrl('report.php')),
+            array('reports', _("Reports"), 'report.png', Horde::applicationUrl('report.php'))
         );
 
         foreach ($menus as $menu) {
-            $tree->addNode($parent . $menu[0],
-                           $parent,
-                           $menu[1],
-                           $indent + 1,
-                           false,
-                           array('icon' => $menu[2],
-                                 'icondir' => isset($menu[4]) ? $menu[4] : (string)Horde_Themes::img(),
-                                 'url' => $menu[3]));
+            $tree->addNode(
+                $parent . $menu[0],
+                $parent,
+                $menu[1],
+                $indent + 1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img($menu[2]),
+                    'url' => $menu[3]
+                )
+            );
         }
     }
 

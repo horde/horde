@@ -65,8 +65,7 @@ class Horde_Core_Perms_Ui
         /* Get the perms tree. */
         $nodes = $this->_perms->getTree();
 
-        $icondir = array('icondir' => Horde_Themes::img());
-        $perms_node = $icondir + array('icon' => 'perms.png');
+        $perms_node = array('icon' => Horde_Themes::img('perms.png'));
         $add = Horde::applicationUrl('admin/perms/addchild.php');
         $add_img = Horde::img('add_perm.png', _("Add Permission"));
         $edit = Horde::applicationUrl('admin/perms/edit.php');
@@ -88,8 +87,7 @@ class Horde_Core_Perms_Ui
                 : array();
             if ($perm_id == Horde_Perms::ROOT) {
                 $add_link = $add->add('perm_id', $perm_id)->link(array('title' => _("Add New Permission"))) . $add_img . '</a>';
-                $base_node_params = $icondir +
-                    array('icon' => 'administration.png');
+                $base_node_params = array('icon' => Horde_Themes::img('administration.png'));
 
                 $tree->addNode($perm_id, null, _("All Permissions"), 0, true,
                                $base_node_params + $node_class,

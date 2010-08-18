@@ -19,18 +19,19 @@ class Horde_Block_kastalia_tree_menu extends Horde_Block {
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        global $registry;
-
         require_once dirname(__FILE__) . '/../base.php';
 
-        $tree->addNode($parent . '__upload',
-                       $parent,
-                       _("Upload"),
-                       $indent + 1,
-                       false,
-                       array('icon' => 'menu/upload.png',
-                             'icondir' => (string)Horde_Themes::img(null, 'kastalia'),
-                             'url' => Horde::applicationUrl('upload_menu.php')));
+        $tree->addNode(
+            $parent . '__upload',
+            $parent,
+            _("Upload"),
+            $indent + 1,
+            false,
+            array(
+                'icon' => strval(Horde_Themes::img('menu/upload.png')),
+                'url' => Horde::applicationUrl('upload_menu.php')
+            )
+        );
     }
 
 }

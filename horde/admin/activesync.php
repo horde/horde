@@ -80,10 +80,9 @@ require HORDE_TEMPLATES . '/admin/menu.inc';
 <?php
 
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
-$icondir = array('icondir' => Horde_Themes::img());
-$base_node_params = $icondir + array('icon' => 'administration.png');
-$device_node = $icondir + array('icon' => 'mobile.png');
-$user_node = $icondir + array('icon' => 'user.png');
+$base_node_params = array('icon' => strval(Horde_Themes::img('administration.png')));
+$device_node = array('icon' => strval(Horde_Themes::img('mobile.png')));
+$user_node = array('icon' => strval(Horde_Themes::img('user.png')));
 $users = array();
 
 $tree = $injector->getInstance('Horde_Tree')->getTree('admin_devices', 'Javascript');

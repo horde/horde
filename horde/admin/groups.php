@@ -205,8 +205,7 @@ $nodes[Horde_Group::ROOT] = Horde_Group::ROOT;
 
 /* Set up some node params. */
 $spacer = '&nbsp;&nbsp;&nbsp;&nbsp;';
-$icondir = array('icondir' => Horde_Themes::img());
-$group_node = $icondir + array('icon' => 'group.png');
+$group_node = array('icon' => strval(Horde_Themes::img('group.png')));
 $add = Horde::applicationUrl('admin/groups.php?actionID=addchild');
 $add_img = Horde::img('add_group.png');
 $edit = Horde::applicationUrl('admin/groups.php?actionID=edit');
@@ -230,7 +229,7 @@ foreach ($nodes as $id => $node) {
     if ($id == Horde_Group::ROOT) {
         $add_link = Horde::link(Horde_Util::addParameter($add, 'cid', $id), _("Add a new group")) . $add_img . '</a>';
 
-        $base_node_params = $icondir + array('icon' => 'administration.png');
+        $base_node_params = array('icon' => strval(Horde_Themes::img('administration.png')));
         $tree->addNode($id, null, _("All Groups"), 0, true, $base_node_params + $node_params, array($spacer, $add_link));
     } else {
         $name = $groups->getGroupShortName($node);

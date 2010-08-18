@@ -15,39 +15,48 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
         require_once dirname(__FILE__) . '/../base.php';
 
         $add = Horde::applicationUrl('add.php');
-        $icondir = (string)Horde_Themes::img();
+        $add_img = Horde_Themes::img('add.png');
 
         $classes = Skoli::listClasses(false, Horde_Perms::EDIT);
         if (count($classes) > 0) {
-
-            $tree->addNode($parent . '__new',
-                           $parent,
-                           _("New Entry"),
-                           $indent + 1,
-                           false,
-                           array('icon' => 'add.png',
-                                 'icondir' => $icondir,
-                                 'url' => $add));
+            $tree->addNode(
+                $parent . '__new',
+                $parent,
+                _("New Entry"),
+                $indent + 1,
+                false,
+                array(
+                    'icon' => $add_img,
+                    'url' => $add
+                )
+            );
 
             foreach ($classes as $name => $class) {
-                $tree->addNode($parent . $name . '__new',
-                               $parent . '__new',
-                               sprintf(_("in %s"), $class->get('name')),
-                               $indent + 2,
-                               false,
-                               array('icon' => 'add.png',
-                                     'icondir' => $icondir,
-                                     'url' => Horde_Util::addParameter($add, array('class' => $name))));
+                $tree->addNode(
+                    $parent . $name . '__new',
+                    $parent . '__new',
+                    sprintf(_("in %s"), $class->get('name')),
+                    $indent + 2,
+                    false,
+                    array(
+                        'icon' => $add_img,
+                        'url' => $add->copy()->add('class', $name)
+                    )
+                );
             }
-            $tree->addNode($parent . '__search',
-                           $parent,
-                           _("Search"),
-                           $indent + 1,
-                           false,
-                           array('icon' => 'search.png',
-                                 'icondir' => (string)Horde_Themes::img(null, 'horde'),
-                                 'url' => Horde::applicationUrl('search.php')));
-        }
 
+            $tree->addNode(
+                $parent . '__search',
+                $parent,
+                _("Search"),
+                $indent + 1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('search.png'),
+                    'url' => Horde::applicationUrl('search.php')
+                )
+            );
+        }
     }
+
 }

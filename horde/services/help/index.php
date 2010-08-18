@@ -80,9 +80,8 @@ case 'sidebar':
         $topics = $help->topics();
         $added_nodes = array();
         $node_params_master = array(
-            'target' => 'help_main',
-            'icon' => 'help.png',
-            'icondir' => dirname(Horde_Themes::img('help.png'))
+            'icon' => strval(Horde_Themes::img('help.png')),
+            'target' => 'help_main'
         );
 
         foreach ($topics as $id => $title) {

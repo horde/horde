@@ -2043,12 +2043,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $icon = $elt->icon;
         if ($icon->user_icon) {
             $ob->cl = 'customimg';
-            $dir = empty($icon->icondir)
-                ? Horde_Themes::img()
-                : $icon->icondir;
-            $ob->i = empty($dir)
-                ? $icon->icon
-                : $dir . '/' . $icon->icon;
+            $ob->i = strval($icon->icon);
         } else {
             $ob->cl = $icon->class;
         }

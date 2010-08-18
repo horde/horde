@@ -231,7 +231,6 @@ class Horde_Ui_Sidebar
 
                 $node_params = array(
                     'icon' => strval((isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app))),
-                    'icondir' => '',
                     'target' => isset($params['target']) ? $params['target'] : null,
                     'url' => $url
                 );

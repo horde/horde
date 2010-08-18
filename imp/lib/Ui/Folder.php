@@ -65,7 +65,7 @@ class IMP_Ui_Folder
         $peek = $elt->peek;
 
         $dir2 = $icon->user_icon
-            ? Horde::img($icon->icon, $icon->alt, null, $icon->icondir)
+            ? Horde::img($icon->icon, $icon->alt)
             : '<span class="foldersImg ' . $icon->class . '"></span>';
 
         if ($elt->children && isset($options['expand_url'])) {

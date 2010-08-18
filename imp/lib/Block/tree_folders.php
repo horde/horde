@@ -29,9 +29,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             $injector->getInstance('IMP_Filter')->filter('INBOX');
         }
 
-        /* Cache some additional values. */
-        $image_dir = strval(Horde_Themes::img());
-
         $tree->addNode(
             $parent . 'compose',
             $parent,
@@ -39,8 +36,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             $indent,
             false,
             array(
-                'icon' => 'compose.png',
-                'icondir' => $image_dir,
+                'icon' => Horde_Themes::img('compose.png'),
                 'url' => strval(IMP::composeLink())
             )
         );
@@ -53,8 +49,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             $indent,
             false,
             array(
-                'icon' => 'search.png',
-                'icondir' => $image_dir,
+                'icon' => Horde_Themes::img('search.png'),
                 'url' => Horde::applicationUrl('search.php')
             )
         );
@@ -99,7 +94,6 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                 $val->is_open,
                 array(
                     'icon' => $icon->icon,
-                    'icondir' => strval($icon->icondir),
                     'iconopen' => $icon->iconopen,
                     'url' => ($val->container) ? null : $name_url->add('mailbox', $val->value),
                 )
@@ -118,14 +112,12 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
             $node_params = array(
                 'icon' => strval($registry->get('icon', $parent)),
-                'icondir' => '',
                 'url' => $url
             );
             $name = $registry->get('name', $parent);
 
             if ($unseen) {
-                $node_params['icon'] = 'newmail.png';
-                $node_params['icondir'] = $image_dir;
+                $node_params['icon'] = Horde_Themes::img('newmail.png');
                 $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
             }
 
