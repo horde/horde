@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jeta H3 (1.0)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-04-01 14:58+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: 2008-04-01 14:59+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -164,7 +164,7 @@ msgstr "Der Text für den Start-Knopf."
 msgid "The window title of the detached applet."
 msgstr "Fenstertitel des losgelösten Applets."
 
-#: lib/Jeta.php:20
+#: lib/Jeta.php:21
 msgid "_Shell"
 msgstr "_Shell"
 

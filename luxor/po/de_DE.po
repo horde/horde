@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Luxor 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-09-18 11:24+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: 2008-09-18 12:08+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: symbol.php:74
+#: symbol.php:75
 #, php-format
 msgid "%s :: Symbol \"%s\""
 msgstr "%s :: Symbol \"%s\""
@@ -25,10 +25,6 @@ msgstr "%s :: Symbol \"%s\""
 #, php-format
 msgid "%s was already indexed."
 msgstr "%s wurde bereits indiziert."
-
-#: scripts/indexer.php:47
-msgid "Can't be both verbose and quiet"
-msgstr "Ausführlich und Leise ist nicht gleichzeitig möglich"
 
 #: lib/Tagger.php:49 lib/Tagger.php:96
 #, php-format
@@ -40,23 +36,19 @@ msgstr "Kopie von %s konnte nicht erstellt werden."
 msgid "Can't open directory %s"
 msgstr "Verzeichnis %s konnte nicht geöffnet werden"
 
-#: lib/Lang/Generic.php:117
+#: lib/Lang/Generic.php:115
 #, php-format
 msgid "Can't open file %s."
 msgstr "Datei %s konnte nicht geöffnet werden."
 
-#: lib/Lang/Generic.php:75
+#: lib/Lang/Generic.php:73
 msgid "Can't run ectags."
 msgstr "ectags konnte nicht ausgeführt werden."
 
-#: source.php:90
+#: source.php:84
 #, php-format
 msgid "Could not markup file %s."
 msgstr "Die Datei %s konnte nicht ausgezeichnet werden."
-
-#: scripts/indexer.php:88
-msgid "DONE"
-msgstr "FERTIG"
 
 #: templates/directory.html.php:6
 msgid "Date (GMT)"
@@ -66,11 +58,11 @@ msgstr "Datum (GMT)"
 msgid "Declarations"
 msgstr "Definitionen"
 
-#: search.php:57
+#: search.php:53
 msgid "Declared as "
 msgstr "Definiert als "
 
-#: symbol.php:38
+#: symbol.php:39
 #, php-format
 msgid "Declared as a %s"
 msgstr "Definiert als ein(e) %s"
@@ -79,22 +71,17 @@ msgstr "Definiert als ein(e) %s"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: source.php:143
+#: source.php:131
 #, php-format
 msgid "Directory Listing :: %s"
 msgstr "Verzeichnis :: %s"
 
-#: lib/Lang/Generic.php:65
+#: lib/Lang/Generic.php:63
 #, php-format
 msgid "Exuberant ctags version 5 or above required, found version %s"
 msgstr "Exuberant ctags Version 5 oder höher wird benötigt, %s wurde gefunden"
 
-#: scripts/indexer.php:69
-#, php-format
-msgid "Indexing %s"
-msgstr "Indiziere %s"
-
-#: symbol.php:44 symbol.php:68
+#: symbol.php:45 symbol.php:69
 #, php-format
 msgid "Line %s"
 msgstr "Zeile %s"
@@ -103,7 +90,7 @@ msgstr "Zeile %s"
 msgid "Location:"
 msgstr "Position:"
 
-#: source.php:146
+#: source.php:134
 #, php-format
 msgid "Markup of %s"
 msgstr "Auszeichnung von %s"
@@ -112,11 +99,11 @@ msgstr "Auszeichnung von %s"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Luxor.php:60
+#: lib/Luxor.php:78
 msgid "Other Sources"
 msgstr "Andere Quellen"
 
-#: lib/Luxor.php:138
+#: lib/Luxor.php:152
 msgid "Parent Directory"
 msgstr "Verzeichnis hoch"
 
@@ -124,33 +111,24 @@ msgstr "Verzeichnis hoch"
 msgid "Referenced in"
 msgstr "Referenziert in"
 
-#: scripts/indexer.php:74
-#, php-format
-msgid "Referencing %s"
-msgstr "Referenziere %s"
-
 #: templates/directory.html.php:5
 msgid "Size"
 msgstr "Größe"
-
-#: scripts/indexer.php:81
-msgid "Skipped files:"
-msgstr "Übersprungene Dateien:"
 
 #: templates/menu.inc:13
 msgid "Symbol Search"
 msgstr "Symbolsuche"
 
-#: search.php:32
+#: search.php:28
 #, php-format
 msgid "Symbol Search for \"%s\""
 msgstr "Symbolsuche nach \"%s\""
 
-#: symbol.php:21
+#: symbol.php:22
 msgid "Symbol not found"
 msgstr "Symbol nicht gefunden"
 
-#: source.php:84
+#: source.php:78
 #, php-format
 msgid "The file %s can't be opened or doesn't exist."
 msgstr "Die Datei %s konnte nicht geöffnet werden oder existiert nicht."
@@ -159,23 +137,23 @@ msgstr "Die Datei %s konnte nicht geöffnet werden oder existiert nicht."
 msgid "Tracking Branch"
 msgstr "Branch beobachten"
 
-#: lib/Luxor.php:137
+#: lib/Luxor.php:151
 msgid "Up to parent"
 msgstr "Ein Verzeichnis höher"
 
-#: source.php:34
+#: source.php:36
 #, php-format
 msgid "You do not have permission to view %s."
 msgstr "Sie haben nicht genügend Rechte, um %s anzuzeigen."
 
-#: lib/Luxor.php:448
+#: lib/Luxor.php:454
 msgid "_Browse"
 msgstr "_Liste"
 
-#: lib/Luxor.php:149
+#: lib/Luxor.php:163
 msgid "bytes"
 msgstr "Bytes"
 
-#: lib/Luxor.php:151
+#: lib/Luxor.php:165
 msgid "kbytes"
 msgstr "kBytes"

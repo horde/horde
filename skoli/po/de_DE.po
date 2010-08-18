@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Skoli 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2009-04-16 11:04+0200\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
 "PO-Revision-Date: 2009-04-16 11:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,39 +17,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/schools.php.dist:57
+#: config/schools.php.dist:55
 msgid "1. class"
 msgstr "1. Klasse"
 
-#: config/schools.php.dist:66
+#: config/schools.php.dist:64
 msgid "1. term"
 msgstr "1. Halbjahr"
 
-#: config/schools.php.dist:58
+#: config/schools.php.dist:56
 msgid "2. class"
 msgstr "2. Klasse"
 
-#: config/schools.php.dist:71
+#: config/schools.php.dist:69
 msgid "2. term"
 msgstr "2. Halbjahr"
 
-#: config/schools.php.dist:59
+#: config/schools.php.dist:57
 msgid "3. class"
 msgstr "3. Klasse"
 
-#: config/schools.php.dist:60
+#: config/schools.php.dist:58
 msgid "4. class"
 msgstr "4. Klasse"
 
-#: config/schools.php.dist:61
+#: config/schools.php.dist:59
 msgid "5. class"
 msgstr "5. Klasse"
 
-#: config/schools.php.dist:62
+#: config/schools.php.dist:60
 msgid "6. class"
 msgstr "6. Klasse"
 
-#: lib/Skoli.php:315 lib/Forms/Entry.php:106 lib/Forms/Entry.php:156
+#: lib/Skoli.php:314 lib/Forms/Entry.php:106 lib/Forms/Entry.php:156
 msgid "Absence"
 msgstr "Abwesenheit"
 
@@ -57,16 +57,17 @@ msgstr "Abwesenheit"
 msgid "Absence in number of lessons"
 msgstr "Abwesenheit in Anzahl Lektionen"
 
-#: data.php:134 search.php:116 templates/list/headers.inc:68
-#: config/prefs.php.dist:94 config/prefs.php.dist:107
+#: data.php:130 search.php:117 templates/list/headers.inc:68
+#: config/prefs.php.dist:92 config/prefs.php.dist:105
 msgid "Absences"
 msgstr "Abwesenheiten"
 
-#: data.php:73
+#: data.php:69
 msgid "Absences without valid excuse"
 msgstr "Unentschuldigte Abwesenheiten"
 
-#: lib/Driver.php:68
+#: lib/Driver.php:66
+#, php-format
 msgid "Access for class \"%s\" is denied"
 msgstr "Zugriff auf die Klasse \"%s\" wurde verweigert."
 
@@ -74,76 +75,76 @@ msgstr "Zugriff auf die Klasse \"%s\" wurde verweigert."
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: lib/Forms/Entry.php:37
+#: lib/Forms/Entry.php:33
 msgid "Add Entry"
 msgstr "Eintrag hinzufügen"
 
-#: lib/Forms/CreateClass.php:97 lib/Forms/CreateClass.php:100
-#: lib/Forms/EditClass.php:85 lib/Forms/EditClass.php:88
+#: lib/Forms/EditClass.php:79 lib/Forms/EditClass.php:82
+#: lib/Forms/CreateClass.php:92 lib/Forms/CreateClass.php:95
 msgid "Address Book"
 msgstr "Adressbuch"
 
-#: search.php:101
+#: search.php:102
 msgid "All Types"
 msgstr "Alle Typen"
 
-#: search.php:65
+#: search.php:66
 msgid "All classes"
 msgstr "Alle Klassen"
 
-#: search.php:74
+#: search.php:75
 msgid "All students"
 msgstr "Alle Studenten"
 
-#: config/schools.php.dist:90
+#: config/schools.php.dist:88
 msgid "Appliance"
 msgstr "Anwenden"
 
-#: config/prefs.php.dist:81 config/prefs.php.dist:117
+#: config/prefs.php.dist:79 config/prefs.php.dist:115
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: config/prefs.php.dist:137
+#: config/prefs.php.dist:135
 msgid "Ask every time"
 msgstr "Jedes Mal nachfragen"
 
-#: config/prefs.php.dist:139
+#: config/prefs.php.dist:137
 msgid "Automatically create a new contact list"
 msgstr "Erstelle automatisch eine neue Kontaktliste."
 
-#: lib/Forms/DeleteClass.php:45 lib/Forms/DeleteClass.php:51
+#: lib/Forms/DeleteClass.php:39 lib/Forms/DeleteClass.php:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: lib/Forms/CreateClass.php:65 lib/Forms/EditClass.php:67
-#: config/prefs.php.dist:55 config/prefs.php.dist:71
-#: templates/list/headers.inc:84
+#: templates/list/headers.inc:84 lib/Forms/EditClass.php:61
+#: lib/Forms/CreateClass.php:60 config/prefs.php.dist:53
+#: config/prefs.php.dist:69
 msgid "Category"
 msgstr "Kategorie"
 
-#: classes/index.php:32 templates/classes/list.php:28
+#: templates/classes/list.php:28 classes/index.php:29
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
-#: config/prefs.php.dist:18
+#: config/prefs.php.dist:16
 msgid "Change your settings for automatically create contact lists."
 msgstr ""
 "Ändern Sie die Einstellungen zum automatischen Erstellen einer Kontaktliste."
 
-#: config/prefs.php.dist:11
+#: config/prefs.php.dist:9
 msgid "Change your sorting and display options."
 msgstr "Ändern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
 
-#: lib/School.php:94 lib/School.php:101 lib/School.php:130 lib/School.php:144
-#: lib/School.php:150 lib/School.php:166 lib/School.php:169
-#: lib/Forms/CreateClass.php:79 lib/Forms/CreateClass.php:100
-#: lib/Forms/Entry.php:62 lib/Forms/Entry.php:128 lib/Forms/EditClass.php:76
-#: lib/Forms/EditClass.php:88
+#: lib/School.php:92 lib/School.php:99 lib/School.php:128 lib/School.php:142
+#: lib/School.php:148 lib/School.php:164 lib/School.php:167
+#: lib/Forms/EditClass.php:70 lib/Forms/EditClass.php:82
+#: lib/Forms/Entry.php:61 lib/Forms/Entry.php:128 lib/Forms/CreateClass.php:74
+#: lib/Forms/CreateClass.php:95
 msgid "Choose:"
 msgstr "Auswählen:"
 
-#: data.php:66 lib/Forms/Entry.php:62 templates/classes/list.php:16
-#: templates/search/headers.inc:34
+#: data.php:62 templates/classes/list.php:16 templates/search/headers.inc:34
+#: lib/Forms/Entry.php:61
 msgid "Class"
 msgstr "Klasse"
 
@@ -151,11 +152,11 @@ msgstr "Klasse"
 msgid "Class List"
 msgstr "Klassenliste"
 
-#: templates/panel.inc:33 templates/panel.inc:34
+#: templates/panel.inc:32 templates/panel.inc:33
 msgid "Classes"
 msgstr "Klassen"
 
-#: templates/list/header.inc:7 templates/search/header.inc:8
+#: templates/search/header.inc:8 templates/list/header.inc:7
 msgid "Close Search"
 msgstr "Suche beenden"
 
@@ -167,11 +168,11 @@ msgstr "Kommagetrennte Werte (CSV)"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: data.php:129 search.php:159
+#: data.php:125 search.php:162
 msgid "Completed"
 msgstr "Erledigt"
 
-#: data.php:82
+#: data.php:78
 msgid "Completed outcomes"
 msgstr "Erledigte Lernziele"
 
@@ -179,19 +180,19 @@ msgstr "Erledigte Lernziele"
 msgid "Completed?"
 msgstr "Erledigt?"
 
-#: config/schools.php.dist:112
+#: config/schools.php.dist:110
 msgid "Concentration, attention, perseverance"
 msgstr "Konzentration, Aufmerksamkeit, Ausdauer"
 
-#: config/schools.php.dist:96
+#: config/schools.php.dist:94
 msgid "Construct"
 msgstr "Gestalten"
 
-#: lib/Forms/CreateClass.php:144
+#: lib/Forms/CreateClass.php:139
 msgid "Contact List"
 msgstr "Kontaktliste"
 
-#: config/prefs.php.dist:17
+#: config/prefs.php.dist:15
 msgid "Contact Lists"
 msgstr "Kontaktlisten"
 
@@ -199,28 +200,30 @@ msgstr "Kontaktlisten"
 msgid "Couldn't add the new entry."
 msgstr "Ein neuer Eintrag konnte nicht erstellt werden."
 
-#: lib/Forms/CreateClass.php:204 lib/Forms/EditClass.php:166
+#: lib/Forms/EditClass.php:159 lib/Forms/CreateClass.php:200
 msgid "Couldn't add the selected students to the class."
 msgstr ""
 "Die ausgewählten Studenten konnten nicht zur Klasse hinzugefügt werden."
 
-#: lib/Skoli.php:275 lib/Forms/CreateClass.php:228
+#: lib/Skoli.php:276 lib/Forms/CreateClass.php:226
+#, php-format
 msgid "Couldn't create the contact list \"%s\"."
 msgstr "Die Kontaktliste \"%s\" konnte nicht erstellt werden."
 
-#: entry.php:64
+#: entry.php:59
+#, php-format
 msgid "Couldn't update this entry: %s"
 msgstr "Der Eintrag konnte nicht aktualisiert werden. %s"
 
-#: lib/Forms/CreateClass.php:161
+#: lib/Forms/CreateClass.php:156
 msgid "Create"
 msgstr "Erstellen"
 
-#: lib/Forms/CreateClass.php:56
+#: lib/Forms/CreateClass.php:51
 msgid "Create Class"
 msgstr "Klasse erstellen"
 
-#: lib/Forms/CreateClass.php:146
+#: lib/Forms/CreateClass.php:141
 msgid "Create Contact List?"
 msgstr "Kontaktliste erstellen?"
 
@@ -228,64 +231,67 @@ msgstr "Kontaktliste erstellen?"
 msgid "Create a new Class"
 msgstr "Neue Klasse erstellen"
 
-#: lib/School.php:85
+#: lib/School.php:83
 msgid "Custom format:"
 msgstr "Eigenes Format:"
 
-#: config/schools.php.dist:48
+#: config/schools.php.dist:46
 msgid "Custom school"
 msgstr "Eigene Schule"
 
-#: lib/Forms/Entry.php:86 templates/search/headers.inc:40
+#: templates/search/headers.inc:40 lib/Forms/Entry.php:86
 msgid "Date"
 msgstr "Datum"
 
-#: config/prefs.php.dist:25
+#: config/prefs.php.dist:23
 msgid "Define a format for marks"
 msgstr "Formatdefinition für Noten"
 
-#: entry.php:94 classes/index.php:33 lib/Forms/DeleteClass.php:45
-#: templates/classes/list.php:30 templates/entry/delete.inc:8
+#: entry.php:91 templates/classes/list.php:30 templates/entry/delete.inc:8
+#: classes/index.php:30 lib/Forms/DeleteClass.php:39
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Forms/DeleteClass.php:40
+#: lib/Forms/DeleteClass.php:34
+#, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
 
-#: config/prefs.php.dist:82 config/prefs.php.dist:118
+#: config/prefs.php.dist:80 config/prefs.php.dist:116
 msgid "Descending"
 msgstr "Absteigend"
 
-#: lib/Forms/CreateClass.php:63 lib/Forms/EditClass.php:65
+#: lib/Forms/EditClass.php:59 lib/Forms/CreateClass.php:58
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php.dist:10
+#: config/prefs.php.dist:8
 msgid "Display Options"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php.dist:138
+#: config/prefs.php.dist:136
 msgid "Don't create contact lists"
 msgstr "Kein Erstellen von Kontaktlisten"
 
-#: entry.php:91 classes/index.php:31 templates/classes/list.php:26
+#: entry.php:88 templates/classes/list.php:26 classes/index.php:28
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: templates/list/classes.inc:13
+#, php-format
 msgid "Edit \"%s\""
 msgstr "\"%s\" bearbeiten"
 
-#: lib/Forms/EditClass.php:56
+#: lib/Forms/EditClass.php:50
+#, php-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: templates/list/headers.inc:44 templates/search/headers.inc:31
+#: templates/search/headers.inc:31 templates/list/headers.inc:44
 msgid "Edit Class"
 msgstr "Klasse bearbeiten"
 
-#: entry.php:97 templates/search/entries.inc:5
+#: entry.php:94 templates/search/entries.inc:5
 msgid "Edit Entry"
 msgstr "Eintrag bearbeiten"
 
@@ -293,11 +299,11 @@ msgstr "Eintrag bearbeiten"
 msgid "Edit categories and colors"
 msgstr "Kategorien und Farben bearbeiten"
 
-#: config/schools.php.dist:103
+#: config/schools.php.dist:101
 msgid "English"
 msgstr "Englisch"
 
-#: config/prefs.php.dist:149
+#: config/prefs.php.dist:147
 msgid ""
 "Enter a default name for new contact lists.<br />NOTE: You can use %c, %g or "
 "%s as substitution for the class, grade respectively semester name."
@@ -306,7 +312,7 @@ msgstr ""
 "können %c, %g oder %s als Ersatz für die Klasse (class), Stufe (grade) und "
 "Semester (semester) verwenden."
 
-#: config/prefs.php.dist:167
+#: config/prefs.php.dist:165
 msgid ""
 "Enter some custom marks and separate them by comma (best mark first).<br /"
 ">NOTE: You also need to choose \"Custom settings\" above."
@@ -319,23 +325,25 @@ msgstr ""
 msgid "Entry"
 msgstr "Eintrag"
 
-#: entry.php:103
+#: entry.php:100
+#, php-format
 msgid "Entry for \"%s\""
 msgstr "Eintrag für \"%s\""
 
-#: entry.php:28
+#: entry.php:23
 msgid "Entry not found."
 msgstr "Eintrag nicht gefunden."
 
-#: lib/School.php:39
+#: lib/School.php:36
+#, php-format
 msgid "Error loading the school \"%s\" from template."
 msgstr "Fehler beim Laden der Schule \"%s\" aus der Vorlage."
 
-#: data.php:137 search.php:164
+#: data.php:133 search.php:167
 msgid "Excused"
 msgstr "Entschuldigt"
 
-#: data.php:72
+#: data.php:68
 msgid "Excused absences"
 msgstr "Entschuldigte Abwesenheiten"
 
@@ -343,7 +351,7 @@ msgstr "Entschuldigte Abwesenheiten"
 msgid "Excused?"
 msgstr "Entschuldigt?"
 
-#: config/schools.php.dist:113
+#: config/schools.php.dist:111
 msgid "Exercise processing"
 msgstr "Aufgabenbearbeitung"
 
@@ -351,52 +359,52 @@ msgstr "Aufgabenbearbeitung"
 msgid "Export"
 msgstr "Exportieren"
 
-#: data.php:177 templates/data/export.inc:5
+#: data.php:171 templates/data/export.inc:5
 msgid "Export Classes"
 msgstr "Klassen exportieren"
 
-#: data.php:67
+#: data.php:63
 msgid "Firstname"
 msgstr "Vorname"
 
-#: lib/School.php:83
+#: lib/School.php:81
 msgid "Format in numbers"
 msgstr "Format in Zahlen"
 
-#: lib/School.php:84
+#: lib/School.php:82
 msgid "Format in percent"
 msgstr "Format in Prozent"
 
-#: config/schools.php.dist:97
+#: config/schools.php.dist:95
 msgid "French"
 msgstr "Französisch"
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
+#: config/prefs.php.dist:7 config/prefs.php.dist:14 config/prefs.php.dist:21
 msgid "General Options"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/Forms/CreateClass.php:60 lib/Forms/EditClass.php:62
+#: lib/Forms/EditClass.php:56 lib/Forms/CreateClass.php:55
 msgid "General Settings"
 msgstr "Allgemeine Angaben"
 
-#: config/schools.php.dist:82
+#: config/schools.php.dist:80
 msgid "German"
 msgstr "Deutsch"
 
-#: templates/list/headers.inc:72 config/prefs.php.dist:52
-#: config/prefs.php.dist:68
+#: templates/list/headers.inc:72 config/prefs.php.dist:50
+#: config/prefs.php.dist:66
 msgid "Grade"
 msgstr "Stufe"
 
-#: config/schools.php.dist:98 config/schools.php.dist:104
+#: config/schools.php.dist:96 config/schools.php.dist:102
 msgid "Hearing"
 msgstr "Hörverstehen"
 
-#: config/schools.php.dist:83
+#: config/schools.php.dist:81
 msgid "Hearing and Talking"
 msgstr "Hören und Sprechen"
 
-#: config/prefs.php.dist:128
+#: config/prefs.php.dist:126
 msgid ""
 "How many characters of the entry details in search view should we allow to "
 "see?"
@@ -404,52 +412,52 @@ msgstr ""
 "Wieviele Zeichen sollen bei den Eintragdetails in der Suchansicht gezeigt "
 "werden?"
 
-#: config/prefs.php.dist:158
+#: config/prefs.php.dist:156
 msgid "How many decimal digits should we round marks to?"
 msgstr "Auf wieviele Stellen sollen die Noten gerundet werden?"
 
-#: config/schools.php.dist:88
+#: config/schools.php.dist:86
 msgid "Imagination"
 msgstr "Vorstellungsvermögen"
 
-#: lib/School.php:123 lib/School.php:127 lib/School.php:138 lib/School.php:139
-#: lib/School.php:145
+#: lib/School.php:121 lib/School.php:125 lib/School.php:136 lib/School.php:137
+#: lib/School.php:143
 msgid "Interdisciplinary"
 msgstr "Fächerübergreifend"
 
-#: templates/list/headers.inc:60 config/prefs.php.dist:92
-#: config/prefs.php.dist:105
+#: templates/list/headers.inc:60 config/prefs.php.dist:90
+#: config/prefs.php.dist:103
 msgid "Last Entry"
 msgstr "Letzter Eintrag"
 
-#: data.php:68
+#: data.php:64
 msgid "Lastname"
 msgstr "Nachname"
 
-#: lib/Skoli.php:497 config/prefs.php.dist:35
+#: lib/Skoli.php:494 config/prefs.php.dist:33
 msgid "List Classes"
 msgstr "Klassen anzeigen"
 
-#: lib/School.php:104
+#: lib/School.php:102
 msgid "List with custom marks separated by comma (best mark first)"
 msgstr "Kommagetrennte Liste mit eigenen Noten (beste Note zuerst)"
 
-#: templates/list/headers.inc:80 config/prefs.php.dist:54
-#: config/prefs.php.dist:70
+#: templates/list/headers.inc:80 config/prefs.php.dist:52
+#: config/prefs.php.dist:68
 msgid "Location"
 msgstr "Ort"
 
-#: classes/index.php:37 templates/classes/list.php:2
+#: templates/classes/list.php:2 classes/index.php:33
 msgid "Manage Classes"
 msgstr "Klassen-Verwaltung"
 
-#: lib/Skoli.php:312 lib/Forms/Entry.php:97 lib/Forms/Entry.php:119
+#: lib/Skoli.php:311 lib/Forms/Entry.php:97 lib/Forms/Entry.php:119
 #: lib/Forms/Entry.php:123 lib/Forms/Entry.php:128
 msgid "Mark"
 msgstr "Note"
 
-#: templates/list/headers.inc:64 config/prefs.php.dist:93
-#: config/prefs.php.dist:106
+#: templates/list/headers.inc:64 config/prefs.php.dist:91
+#: config/prefs.php.dist:104
 msgid "Mark average"
 msgstr "Notendurchschnitt"
 
@@ -461,11 +469,11 @@ msgstr "Note in Zahlen"
 msgid "Mark in percent"
 msgstr "Note in Prozent"
 
-#: data.php:106 search.php:104 config/prefs.php.dist:24
+#: data.php:102 search.php:105 config/prefs.php.dist:22
 msgid "Marks"
 msgstr "Noten"
 
-#: config/schools.php.dist:87
+#: config/schools.php.dist:85
 msgid "Mathematics"
 msgstr "Mathematik"
 
@@ -473,44 +481,44 @@ msgstr "Mathematik"
 msgid "Menu List"
 msgstr "Menüliste"
 
-#: config/schools.php.dist:111
+#: config/schools.php.dist:109
 msgid "Motivation to learn and dedication"
 msgstr "Lernmotivation und Einsatz"
 
-#: config/schools.php.dist:94
+#: config/schools.php.dist:92
 msgid "Music"
 msgstr "Musik"
 
-#: list.php:16
+#: list.php:14
 msgid "My Classes"
 msgstr "Meine Klassen"
 
-#: templates/panel.inc:54
+#: templates/panel.inc:53
 msgid "My Classes:"
 msgstr "Meine Klassen:"
 
-#: lib/Forms/CreateClass.php:62 lib/Forms/CreateClass.php:151
-#: lib/Forms/EditClass.php:64 templates/list/headers.inc:56
-#: config/prefs.php.dist:67 config/prefs.php.dist:104
+#: templates/list/headers.inc:56 lib/Forms/EditClass.php:58
+#: lib/Forms/CreateClass.php:57 lib/Forms/CreateClass.php:146
+#: config/prefs.php.dist:65 config/prefs.php.dist:102
 msgid "Name"
 msgstr "Name"
 
-#: config/schools.php.dist:93
+#: config/schools.php.dist:91
 msgid "Nature-Human-Environment"
 msgstr "Natur-Mensch-Mitwelt"
 
-#: lib/Block/tree_menu.php:29 templates/list/students.inc:5
-#: templates/list/classes.inc:5 templates/list/headers.inc:41
-#: config/prefs.php.dist:36
+#: templates/list/students.inc:5 templates/list/classes.inc:5
+#: templates/list/headers.inc:41 lib/Block/tree_menu.php:25
+#: config/prefs.php.dist:34
 msgid "New Entry"
 msgstr "Neuer Eintrag"
 
-#: data.php:25
+#: data.php:21
 msgid "No classes are currently available. Export is disabled."
 msgstr ""
 "Zur Zeit sind keine Klassen verfügbar. Export steht nicht zur Verfügung."
 
-#: search.php:19
+#: search.php:17
 msgid "No classes are currently available. Searching is disabled."
 msgstr ""
 "Zur Zeit sind keine Klassen verfügbar. Die Suche steht nicht zur Verfügung."
@@ -523,31 +531,31 @@ msgstr "Keine Treffer"
 msgid "No entries match"
 msgstr "Keine Treffer"
 
-#: data.php:137 search.php:164
+#: data.php:133 search.php:167
 msgid "Not excused"
 msgstr "Unentschuldigt"
 
-#: lib/Skoli.php:313 lib/Forms/Entry.php:100 lib/Forms/Entry.php:146
+#: lib/Skoli.php:312 lib/Forms/Entry.php:100 lib/Forms/Entry.php:146
 msgid "Objective"
 msgstr "Beobachtung"
 
-#: data.php:116 search.php:108
+#: data.php:112 search.php:109
 msgid "Objectives"
 msgstr "Beobachtungen"
 
-#: data.php:129 search.php:159
+#: data.php:125 search.php:162
 msgid "Open"
 msgstr "Offen"
 
-#: data.php:83
+#: data.php:79
 msgid "Open outcomes"
 msgstr "Offene Lernziele"
 
-#: lib/Skoli.php:314 lib/Forms/Entry.php:103 lib/Forms/Entry.php:150
+#: lib/Skoli.php:313 lib/Forms/Entry.php:103 lib/Forms/Entry.php:150
 msgid "Outcome"
 msgstr "Lernziel"
 
-#: data.php:126 search.php:112
+#: data.php:122 search.php:113
 msgid "Outcomes"
 msgstr "Lernziele"
 
@@ -555,28 +563,29 @@ msgstr "Lernziele"
 msgid "Permanently delete this entry?"
 msgstr "Diesen Eintrag unwiederbringlich löschen?"
 
-#: lib/Forms/DeleteClass.php:56
+#: lib/Forms/DeleteClass.php:51
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: list.php:59 add.php:19
+#: list.php:56 add.php:17
 msgid "Please create a new Class first."
 msgstr "Bitte erstellen Sie zuerst eine neue Klasse."
 
-#: config/schools.php.dist:91
+#: config/schools.php.dist:89
 msgid "Problem solving behavior"
 msgstr "Problemlöseverhalten"
 
-#: lib/Forms/CreateClass.php:58 lib/Forms/EditClass.php:60
+#: lib/Forms/EditClass.php:54 lib/Forms/CreateClass.php:53
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: config/schools.php.dist:84 config/schools.php.dist:100
-#: config/schools.php.dist:106
+#: config/schools.php.dist:82 config/schools.php.dist:98
+#: config/schools.php.dist:104
 msgid "Reading"
 msgstr "Lesen"
 
-#: lib/Forms/DeleteClass.php:43
+#: lib/Forms/DeleteClass.php:37
+#, php-format
 msgid ""
 "Really delete the class \"%s\"? This cannot be undone and all data on this "
 "class will be permanently removed."
@@ -588,37 +597,37 @@ msgstr ""
 msgid "Reset to Defaults"
 msgstr "Zurücksetzen"
 
-#: config/schools.php.dist:55
+#: config/schools.php.dist:53
 msgid "Sample school"
 msgstr "Beispiel Schule"
 
-#: lib/Forms/Entry.php:166 lib/Forms/EditClass.php:131 templates/panel.inc:72
+#: templates/panel.inc:71 lib/Forms/EditClass.php:125 lib/Forms/Entry.php:166
 msgid "Save"
 msgstr "Speichern"
 
-#: lib/Forms/EditClass.php:76
+#: lib/Forms/EditClass.php:70
 msgid "School"
 msgstr "Schule"
 
-#: lib/Forms/CreateClass.php:72 lib/Forms/EditClass.php:69
+#: lib/Forms/EditClass.php:63 lib/Forms/CreateClass.php:67
 msgid "School Specific Settings"
 msgstr "Schulabhängige Einstellungen"
 
-#: config/schools.php.dist:77
+#: config/schools.php.dist:75
 msgid "Schoolhouse 1"
 msgstr "Schulhaus 1"
 
-#: config/schools.php.dist:78
+#: config/schools.php.dist:76
 msgid "Schoolhouse 2"
 msgstr "Schulhaus 2"
 
-#: lib/Forms/CreateClass.php:79
+#: lib/Forms/CreateClass.php:74
 msgid "Schools"
 msgstr "Schulen"
 
-#: search.php:119 lib/Block/tree_menu.php:48 templates/list/header.inc:3
-#: templates/search/header.inc:4 templates/search/criteria.inc:38
-#: config/prefs.php.dist:37
+#: search.php:124 templates/search/criteria.inc:38
+#: templates/search/header.inc:4 templates/list/header.inc:3
+#: lib/Block/tree_menu.php:44 config/prefs.php.dist:35
 msgid "Search"
 msgstr "Suche"
 
@@ -630,7 +639,7 @@ msgstr "Suchkriterien"
 msgid "Search Result"
 msgstr "Suchergebnisse"
 
-#: templates/panel.inc:39
+#: templates/panel.inc:38
 msgid "Search for Classes:"
 msgstr "Nach Klassen suchen:"
 
@@ -638,7 +647,8 @@ msgstr "Nach Klassen suchen:"
 msgid "Search in"
 msgstr "Suchen in"
 
-#: list.php:90
+#: list.php:86
+#, php-format
 msgid "Search: Results for \"%s\""
 msgstr "Suche: Ergebnisse für \"%s\""
 
@@ -650,13 +660,13 @@ msgstr "Wählen Sie einen Studenten oder die ganze Klasse zum Exportieren:"
 msgid "Select the class to export from:"
 msgstr "Wählen Sie die Klasse die exportiert werden soll"
 
-#: config/prefs.php.dist:56
+#: config/prefs.php.dist:54
 msgid "Select the columns that should be shown in the class list view:"
 msgstr ""
 "Wählen Sie die Spalten, die in der Listenansicht der Klassen angezeigt "
 "werden sollen:"
 
-#: config/prefs.php.dist:95
+#: config/prefs.php.dist:93
 msgid "Select the columns that should be shown in the student list view:"
 msgstr ""
 "Wählen Sie die Spalten, die in der Listenansicht der Studierenden angezeigt "
@@ -666,50 +676,51 @@ msgstr ""
 msgid "Select the export format:"
 msgstr "Wählen Sie das Exportformat:"
 
-#: config/prefs.php.dist:38
+#: config/prefs.php.dist:36
 msgid "Select the view to display after login:"
 msgstr "Wählen Sie die Ansicht aus, die beim Start angezeigt werden soll:"
 
-#: templates/list/headers.inc:76 config/prefs.php.dist:53
-#: config/prefs.php.dist:69
+#: templates/list/headers.inc:76 config/prefs.php.dist:51
+#: config/prefs.php.dist:67
 msgid "Semester"
 msgstr "Semester"
 
-#: templates/list/headers.inc:52 config/prefs.php.dist:51
-#: config/prefs.php.dist:66
+#: templates/list/headers.inc:52 config/prefs.php.dist:49
+#: config/prefs.php.dist:64
 msgid "Semester End"
 msgstr "Semesterende"
 
-#: templates/list/headers.inc:48 config/prefs.php.dist:50
-#: config/prefs.php.dist:65
+#: templates/list/headers.inc:48 config/prefs.php.dist:48
+#: config/prefs.php.dist:63
 msgid "Semester Start"
 msgstr "Semesterstart"
 
-#: templates/panel.inc:63
+#: templates/panel.inc:62
 msgid "Shared Classes:"
 msgstr "Gemeinsame Klassen:"
 
 #: templates/list/students.inc:13
+#, php-format
 msgid "Show \"%s\""
 msgstr "\"%s\" anzeigen"
 
-#: config/prefs.php.dist:181
+#: config/prefs.php.dist:179
 msgid "Show class list options panel?"
 msgstr "Kasten mit Klassenlisteninstellungen anzeigen?"
 
-#: config/prefs.php.dist:190
+#: config/prefs.php.dist:188
 msgid "Show students in the class list?"
 msgstr "Studierende in der Klassenliste anzeigen?"
 
-#: templates/panel.inc:44
+#: templates/panel.inc:43
 msgid "Show students?"
 msgstr "Studierende anzeigen?"
 
-#: config/schools.php.dist:89
+#: config/schools.php.dist:87
 msgid "Skills"
 msgstr "Kenntnisse, Fertigkeiten"
 
-#: list.php:54
+#: list.php:51
 msgid "Skoli needs an applications who provides contacts (e.g. turba)."
 msgstr "Skoli benötigt eine Applikation mit Kontakten (z.B. turba)."
 
@@ -769,34 +780,34 @@ msgstr "Sortieren nach Studierenden"
 msgid "Sort by Type"
 msgstr "Sortieren nach Typ"
 
-#: config/prefs.php.dist:72
+#: config/prefs.php.dist:70
 msgid "Sort classes by:"
 msgstr "Klassen sortieren nach:"
 
-#: config/prefs.php.dist:83
+#: config/prefs.php.dist:81
 msgid "Sort direction for classes:"
 msgstr "Sortierrichtung für Klassen:"
 
-#: config/prefs.php.dist:119
+#: config/prefs.php.dist:117
 msgid "Sort direction for students:"
 msgstr "Sortierrichtung für Studierende:"
 
-#: config/prefs.php.dist:108
+#: config/prefs.php.dist:106
 msgid "Sort students by:"
 msgstr "Studierende sortieren nach:"
 
-#: config/schools.php.dist:95
+#: config/schools.php.dist:93
 msgid "Sport"
 msgstr "Sport"
 
-#: lib/Forms/Entry.php:78 lib/Forms/Entry.php:80
-#: templates/search/headers.inc:37
+#: templates/search/headers.inc:37 lib/Forms/Entry.php:78
+#: lib/Forms/Entry.php:80
 msgid "Student"
 msgstr "Studierender"
 
-#: lib/Forms/CreateClass.php:95 lib/Forms/CreateClass.php:108
-#: lib/Forms/CreateClass.php:141 lib/Forms/EditClass.php:83
-#: lib/Forms/EditClass.php:96 lib/Forms/EditClass.php:129
+#: lib/Forms/EditClass.php:77 lib/Forms/EditClass.php:90
+#: lib/Forms/EditClass.php:123 lib/Forms/CreateClass.php:90
+#: lib/Forms/CreateClass.php:103 lib/Forms/CreateClass.php:136
 msgid "Students"
 msgstr "Studierende"
 
@@ -804,51 +815,59 @@ msgstr "Studierende"
 msgid "Tab separated values (TSV)"
 msgstr "Tabgetrennte Werte (TSV)"
 
-#: config/schools.php.dist:99 config/schools.php.dist:105
+#: config/schools.php.dist:97 config/schools.php.dist:103
 msgid "Talking"
 msgstr "Sprechen"
 
-#: config/schools.php.dist:114
+#: config/schools.php.dist:112
 msgid "Teamwork and autonomy"
 msgstr "Zusammenarbeit und Selbstständigkeit"
 
-#: lib/Driver.php:38
+#: lib/Driver.php:36
 msgid "The School backend is not currently available."
 msgstr "Der Schuleserver ist zur Zeit nicht verfügbar."
 
-#: lib/Driver.php:87
+#: lib/Driver.php:85
+#, php-format
 msgid "The School backend is not currently available: %s"
 msgstr "Der Schuleserver ist zur Zeit nicht verfügbar: %s"
 
-#: classes/create.php:38
+#: classes/create.php:34
+#, php-format
 msgid "The class \"%s\" has been created."
 msgstr "Die Klasse \"%s\" wurde erstellt."
 
-#: classes/delete.php:43
+#: classes/delete.php:38
+#, php-format
 msgid "The class \"%s\" has been deleted."
 msgstr "Die Klasse \"%s\" wurde gelöscht."
 
-#: classes/edit.php:50
+#: classes/edit.php:45
+#, php-format
 msgid "The class \"%s\" has been renamed to \"%s\"."
 msgstr "Die Klasse \"%s\" wurde nach \"%s\" umbenannt."
 
-#: classes/edit.php:52
+#: classes/edit.php:47
+#, php-format
 msgid "The class \"%s\" has been saved."
 msgstr "Die Klasse \"%s\" wurde gespeichert."
 
-#: entry.php:80
+#: entry.php:76
+#, php-format
 msgid "The entry for \"%s\" has been deleted."
 msgstr "Der Eintrag \"%s\" wurde gelöscht."
 
-#: entry.php:66
+#: entry.php:61
+#, php-format
 msgid "The entry for \"%s\" has been saved."
 msgstr "Der Eintrag für \"%s\" wurde gespeichert."
 
-#: add.php:33
+#: add.php:30
+#, php-format
 msgid "The new entry for \"%s\" has been added."
 msgstr "Der neue Eintrag für \"%s\" wurde hinzugefügt."
 
-#: lib/Forms/CreateClass.php:152
+#: lib/Forms/CreateClass.php:147
 msgid ""
 "The substitutions %c, %g or %s will be replaced automatically by the class, "
 "grade respectively semester name."
@@ -864,56 +883,58 @@ msgstr "Es gibt keine Klassen, die den Suchkriterien entsprechen."
 msgid "There are no entries matching the current criteria."
 msgstr "Es wurden keine passenden Einträge gefunden."
 
-#: entry.php:78
+#: entry.php:74
+#, php-format
 msgid "There was an error deleting this entry: %s"
 msgstr "Beim Löschen des Eintrags ist ein Fehler aufgetreten: %s"
 
-#: data.php:158
+#: data.php:154
 msgid "There were no entries to export."
 msgstr "Es konnten keine Einträge zum Exportieren gefunden werden."
-
-#: index.php:20
-msgid "This file defines templates for new classes."
-msgstr ""
 
 #: lib/Forms/Entry.php:116
 msgid "Title"
 msgstr "Titel"
 
-#: lib/Forms/Entry.php:108 templates/search/headers.inc:43
+#: templates/search/headers.inc:43 lib/Forms/Entry.php:108
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Forms/DeleteClass.php:63
+#: lib/Forms/DeleteClass.php:58
+#, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "\"%s\" kann nicht gelöscht werden: %s"
 
-#: lib/Driver.php:90
+#: lib/Driver.php:88
+#, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Der %s-Treiber konnte nicht geladen werden."
 
-#: lib/Forms/EditClass.php:171
+#: lib/Forms/EditClass.php:164
+#, php-format
 msgid "Unable to save class \"%s\": %s"
 msgstr "Die Klasse \"%s\" kann nicht gespeichert werden: %s"
 
-#: lib/Skoli.php:753 lib/Skoli.php:754 lib/Skoli.php:768 lib/Skoli.php:769
-#: templates/list/classes.inc:46
+#: templates/list/classes.inc:47 lib/Skoli.php:746 lib/Skoli.php:747
+#: lib/Skoli.php:761 lib/Skoli.php:762
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
-#: lib/Forms/Entry.php:37
+#: lib/Forms/Entry.php:33
 msgid "Update Entry"
 msgstr "Eintrag aktualisieren"
 
-#: entry.php:89
+#: entry.php:86
 msgid "View"
 msgstr "Anzeigen"
 
 #: templates/list/students.inc:27
+#, php-format
 msgid "View Entries for \"%s\""
 msgstr "Einträge anzeigen für \"%s\""
 
 #: templates/list/classes.inc:25
+#, php-format
 msgid "View Entries in \"%s\""
 msgstr "Einträge anzeigen in \"%s\""
 
@@ -925,50 +946,50 @@ msgstr "Eintrag anzeigen"
 msgid "Weight"
 msgstr "Gewichtung"
 
-#: config/prefs.php.dist:140
+#: config/prefs.php.dist:138
 msgid "When a new class is created should we also create a new contact list?"
 msgstr ""
 "Soll beim Erstellen einer neuen Klasse auch eine neue Kontaktliste angelegt "
 "werden?"
 
-#: data.php:39
+#: data.php:35
 msgid "Whole class"
 msgstr "Ganze Klasse"
 
-#: config/schools.php.dist:85 config/schools.php.dist:101
-#: config/schools.php.dist:107
+#: config/schools.php.dist:83 config/schools.php.dist:99
+#: config/schools.php.dist:105
 msgid "Writing"
 msgstr "Schreiben"
 
-#: classes/edit.php:28
+#: classes/edit.php:24
 msgid "You are not allowed to change this class."
 msgstr "Sie dürfen diese Klasse nicht ändern."
 
-#: classes/delete.php:30
+#: classes/delete.php:26
 msgid "You are not allowed to delete this class."
 msgstr "Sie dürfen diese Klasse nicht löschen."
 
-#: entry.php:36
+#: entry.php:30
 msgid "You are not allowed to view this entry."
 msgstr "Sie dürfen diesen Eintrag nicht ansehen."
 
-#: classes/create.php:24
+#: classes/create.php:21
 msgid "You don't have access to any valid addressbook."
 msgstr "Sie haben keinen Zugriff auf ein gültiges Adressbuch."
 
-#: templates/panel.inc:49
+#: templates/panel.inc:48
 msgid "[Manage Classes]"
 msgstr "[Klassen verwalten]"
 
-#: lib/Skoli.php:507
+#: lib/Skoli.php:504
 msgid "_Export"
 msgstr "_Exportieren"
 
-#: lib/Skoli.php:499
+#: lib/Skoli.php:496
 msgid "_New Entry"
 msgstr "_Neuer Eintrag"
 
-#: lib/Skoli.php:503
+#: lib/Skoli.php:500
 msgid "_Search"
 msgstr "_Suche"
 
@@ -980,11 +1001,11 @@ msgstr "und"
 msgid "and for Entries with:"
 msgstr "und für Einträge mit:"
 
-#: data.php:165 templates/data/export.inc:1
+#: data.php:160 templates/data/export.inc:1
 msgid "class.csv"
 msgstr "klasse.csv"
 
-#: data.php:170
+#: data.php:164
 msgid "class.tsv"
 msgstr "klasse.tsv"
 
@@ -992,6 +1013,7 @@ msgstr "klasse.tsv"
 msgid "for"
 msgstr "für"
 
-#: lib/Block/tree_menu.php:39
+#: lib/Block/tree_menu.php:35
+#, php-format
 msgid "in %s"
 msgstr "in %s"
