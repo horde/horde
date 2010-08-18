@@ -59,7 +59,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
 
         /* Go through the message list and delete the messages. */
         if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
-            $msgcount = $msg_ids->count();
+            $msgcount = count($msg_ids);
             $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
             return true;
         }

@@ -37,7 +37,7 @@ class IMP_Spam
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
         if (empty($GLOBALS['conf'][$action]['reporting']) ||
-            !$indices->count()) {
+            !count($indices)) {
             return 0;
         }
 

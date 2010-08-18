@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Indices implements Iterator
+class IMP_Indices implements Countable, Iterator
 {
     /**
      * The indices list.

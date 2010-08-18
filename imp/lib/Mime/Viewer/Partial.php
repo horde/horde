@@ -91,7 +91,7 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
 
         /* If not able to find the other parts of the message, prepare a
          * status message. */
-        $msg_count = $indices->count();
+        $msg_count = count($indices);
         if ($msg_count != $total) {
             self::$_statuscache[$this->_mimepart->getMimeId()] = array(
                 'icon' => Horde::img('alerts/error.png', _("Error")),

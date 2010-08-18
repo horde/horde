@@ -61,7 +61,7 @@ if ($new_mail) {
 }
 $ids = $imp_search->runSearchQuery($query, $mailbox, Horde_Imap_Client::SORT_ARRIVAL, 1);
 
-if ($ids->count()) {
+if (count($ids)) {
     $imp_ui = new IMP_Ui_Mailbox(IMP::$mailbox);
 
     $overview = $imp_mailbox->getMailboxArray(array_slice(reset($ids->indices()), 0, 20), array('preview' => $prefs->getValue('preview_enabled')));

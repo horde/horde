@@ -39,7 +39,7 @@ if ($mode == 'thread') {
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
     $imp_indices = new IMP_Indices($vars->msglist);
-    if (!$imp_indices->count()) {
+    if (!count($imp_indices)) {
         $error = true;
     }
 }

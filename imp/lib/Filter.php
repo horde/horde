@@ -106,7 +106,7 @@ class IMP_Filter
      */
     protected function _processBWlist($indices, $descrip, $reg1, $reg2, $link)
     {
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 

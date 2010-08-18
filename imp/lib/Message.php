@@ -58,7 +58,7 @@ class IMP_Message
     {
         global $conf, $notification, $prefs;
 
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 
@@ -175,7 +175,7 @@ class IMP_Message
     {
         global $conf, $notification, $prefs;
 
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 
@@ -591,7 +591,7 @@ class IMP_Message
      */
     public function flag($flags, $indices, $action = true)
     {
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 

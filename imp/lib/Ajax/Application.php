@@ -568,7 +568,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function moveMessages()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if (!$this->_vars->mboxto || !$indices->count()) {
+        if (!$this->_vars->mboxto || !count($indices)) {
             return false;
         }
 
@@ -622,7 +622,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function copyMessages()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if (!$this->_vars->mboxto || !$indices->count()) {
+        if (!$this->_vars->mboxto || !count($indices)) {
             return false;
         }
 
@@ -657,7 +657,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function flagMessages()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if (!$this->_vars->flags || !$indices->count()) {
+        if (!$this->_vars->flags || !count($indices)) {
             return false;
         }
 
@@ -718,7 +718,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function deleteMessages()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 
@@ -812,7 +812,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function blacklist()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 
@@ -1253,7 +1253,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $expunged = $GLOBALS['injector']->getInstance('IMP_Message')->expungeMailbox(array($this->_vars->view => 1), array('list' => true));
 
-        if (!($expunge_count = $expunged->count())) {
+        if (!($expunge_count = count($expunged))) {
             return false;
         }
 
@@ -1326,7 +1326,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function stripAttachment()
     {
         $indices = new IMP_Indices($this->_vars->uid);
-        if ($indices->count() != 1) {
+        if (count($indices) != 1) {
             return false;
         }
 

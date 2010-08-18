@@ -751,7 +751,7 @@ class IMP_Mailbox
             return;
         }
 
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return;
         }
 

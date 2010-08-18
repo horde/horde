@@ -61,7 +61,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
 
             /* Go through the message list and delete the messages. */
             if ($imp_message->delete($msg_ids, array('nuke' => true))) {
-                $msgcount = $msg_ids->count();
+                $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
                     $GLOBALS['notification']->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');
                 } else {

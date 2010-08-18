@@ -121,7 +121,7 @@ case 'message_missing':
     break;
 
 case 'fwd_digest':
-    if ($indices->count()) {
+    if (count($indices)) {
         $options = array_merge(array(
             'actionID' => 'fwd_digest',
             'fwddigest' => strval($indices)
@@ -147,7 +147,7 @@ case 'undelete_messages':
 
 case 'move_messages':
 case 'copy_messages':
-    if (isset($vars->targetMbox) && $indices->count()) {
+    if (isset($vars->targetMbox) && count($indices)) {
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
             $targetMbox = IMP::folderPref($vars->targetMbox, true);
             $newMbox = true;
@@ -161,7 +161,7 @@ case 'copy_messages':
 
 case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
-    if ($flag && $indices->count()) {
+    if ($flag && count($indices)) {
         $flag = $imp_flags->parseFormId($flag);
         $injector->getInstance('IMP_Message')->flag(array($flag['flag']), $indices, $flag['set']);
     }

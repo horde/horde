@@ -138,7 +138,7 @@ case 'notspam_report':
     break;
 
 case 'flag_message':
-    if (isset($vars->flag) && $indices->count()) {
+    if (isset($vars->flag) && count($indices)) {
         $peek = true;
         $flag = $imp_flags->parseFormId($vars->flag);
         $imp_message->flag(array($flag['flag']), $indices, $flag['set']);

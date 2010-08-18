@@ -1712,7 +1712,7 @@ class IMP_Compose
      */
     public function attachIMAPMessage($indices)
     {
-        if (!$indices->count()) {
+        if (!count($indices)) {
             return false;
         }
 
