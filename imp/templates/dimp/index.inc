@@ -137,7 +137,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div class="tabset">
        <ul>
         <li>
-         <a id="hometab"><img src="<?php echo $registry->get('icon', 'horde') ?>" alt="<?php echo _("Home") ?>" /><?php echo _("Home") ?></a>
+         <a id="hometab"><img src="<?php echo $registry->get('icon', 'horde') ?>" alt="<?php echo _("Portal") ?>" /><?php echo _("Portal") ?></a>
         </li>
 <?php foreach ($application_folders as $val): ?>
         <li<?php if ($val['app'] == 'dimp') echo ' class="activeTab"' ?>>
