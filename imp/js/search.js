@@ -10,11 +10,10 @@ var ImpSearch = {
     //   data, text
     criteria: {},
     saved_searches: {},
-    show_unsub: false,
 
     _getAll: function()
     {
-        return $('search_form').getInputs(null, 'search_folders_form[]');
+        return $('search_form').getInputs(null, 'folder_list[]');
     },
 
     selectFolders: function(checked)
@@ -24,22 +23,6 @@ var ImpSearch = {
                 e.checked = Boolean(checked);
             }
         });
-    },
-
-    updateFolderList: function(folders)
-    {
-        var fragment = document.createDocumentFragment(),
-            node = $($('folder_row').clone(true)).writeAttribute('id', false).show(),
-            div = $('search_folders_hdr').next('DIV');
-
-        folders.each(function(f) {
-            var n = $(node.clone(true));
-            n.down().writeAttribute({ disabled: Boolean(f.c), value: (f.co ? null : f.v.escapeHTML()) }).insert({ after: f.l });
-            fragment.appendChild(n);
-        });
-
-        div.update('').appendChild(fragment);
-        Horde.stripeElement(div);
     },
 
     updateRecentSearches: function(searches)
@@ -395,18 +378,6 @@ var ImpSearch = {
                 e.stop();
                 return;
 
-            case 'link_sub':
-                tmp = this._getAll();
-                this.show_unsub = !this.show_unsub;
-                $('search_folders_hdr').next('DIV').update(this.text.loading);
-                new Ajax.Request($('search_form').readAttribute('action'), {
-                    parameters: { show_unsub: Number(this.show_unsub) },
-                    onComplete: this._showFoldersCallback.bind(this, tmp)
-                });
-                elt.childElements().invoke('toggle');
-                e.stop();
-                return;
-
             default:
                 if (elt.hasClassName('arrowExpanded') ||
                     elt.hasClassName('arrowCollapsed')) {
@@ -430,15 +401,12 @@ var ImpSearch = {
     _toggleHeader: function(elt)
     {
         elt.down().toggle().next().toggle().up().next().toggle();
-        if (elt.descendantOf('search_folders_hdr')) {
-            elt.next('SPAN.searchuiFoldersActions').toggle();
+        if (elt.readAttribute('id') == 'search_folders_hdr') {
+            elt.down('SPAN.searchuiFoldersActions').toggle();
+            if (window.imp_search && elt.next().visible()) {
+                window.imp_search.stripe();
+            }
         }
-    },
-
-    _showFoldersCallback: function(flist, r)
-    {
-        this.updateFolderList(r.responseJSON);
-        this.updateSelectedFolders(flist);
     },
 
     calendarSelectHandler: function(e)

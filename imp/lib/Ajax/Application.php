@@ -300,7 +300,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                     $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
                 }
             } else {
-                $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN;
+                $mask |= IMP_Imap_Tree::FLIST_NOCHILDREN | IMP_Imap_Tree::FLIST_NOBASE;
             }
         }
 

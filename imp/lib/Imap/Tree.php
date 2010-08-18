@@ -42,9 +42,10 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
     const FLIST_UNSUB = 2;
     const FLIST_VFOLDER = 4;
     const FLIST_NOCHILDREN = 8;
-    const FLIST_ANCESTORS = 16;
-    const FLIST_SAMELEVEL = 32;
-    const FLIST_EXPANDED = 64;
+    const FLIST_EXPANDED = 16;
+    const FLIST_ANCESTORS = 32;
+    const FLIST_SAMELEVEL = 64;
+    const FLIST_NOBASE = 128;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
@@ -65,6 +66,20 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      * @var boolean
      */
     public $changed = false;
+
+    /**
+     * Recent messages.
+     *
+     * @var array
+     */
+    public $recent = array();
+
+    /**
+     * Unseen count.
+     *
+     * @var array
+     */
+    public $unseen = 0;
 
     /**
      * Array containing the mailbox tree.
@@ -181,7 +196,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         /* Reset class variables to the defaults. */
         $this->changed = true;
         $this->_currkey = $this->_currparent = null;
-        $this->_tree = $this->_parent = array();
+        $this->recent = $this->_tree = $this->_parent = array();
         $this->_showunsub = $unsubmode;
         unset($this->_cache['fulllist'], $this->_cache['subscribed']);
 
@@ -1440,6 +1455,113 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
         return $mbox . $new;
     }
 
+    /**
+     * Creates a Horde_Tree representation of the current tree (respecting
+     * the current iterator filter).
+     *
+     * @param string|Horde_Tree $name  Either the tree name, or a Horde_Tree
+     *                                 object to add nodes to.
+     * @param array $opts              Additional options:
+     * <pre>
+     * 'checkbox' - (boolean) Display checkboxes?
+     *              DEFAULT: false
+     * 'editvfolder' - (boolean) Display vfolder edit links?
+     *                 DEFAULT: false
+     * 'indent' - (integer) The base level to add nodes to.
+     *            DEFAULT: 0
+     * 'parent' - (string) The parent object of the current level.
+     *            DEFAULT: null (add to base level)
+     * 'poll_info' - (boolean) Include poll information?
+     *               DEFAULT: false
+     * </pre>
+     *
+     * @return Horde_Tree  The tree object.
+     */
+    public function createTree($name, array $opts = array())
+    {
+        $this->recent = array();
+        $this->unseen = 0;
+
+        if ($name instanceof Horde_Tree) {
+            $tree = $name;
+            $indent = $opts['indent'];
+            $parent = $opts['parent'];
+        } else {
+            $tree = $GLOBALS['injector']->getInstance('Horde_Tree')->getTree($name, 'Javascript', array(
+                'alternate' => true,
+                'lines' => true,
+                'lines_base' => true
+            ));
+            $indent = 0;
+            $parent = null;
+        }
+        $mailbox_url = Horde::applicationUrl('mailbox.php');
+
+        foreach ($this as $val) {
+            $after = $class = '';
+            $label = $val->name;
+            $url = null;
+
+            if (!empty($opts['poll_info']) && $val->polled) {
+                $poll_info = $val->poll_info;
+
+                if ($poll_info->unseen) {
+                    $this->unseen += $poll_info->unseen;
+                    if ($poll_info->recent) {
+                        $recent[$val->value] = $poll_info->recent;
+                    }
+
+                    $label = '<strong>' . $label . '</strong>';
+                }
+
+                $after = '&nbsp;(' . $poll_info->unseen . '/' . $poll_info->msgs . ')';
+            }
+
+            if (!$val->container) {
+                $url = $mailbox_url->add('mailbox', $val->value);
+
+                if ($this->_showunsub && !$val->sub) {
+                    $class = 'folderunsub';
+                }
+            }
+
+            $checkbox = '<input type="checkbox" class="checkbox" name="folder_list[]" value="' . IMP::formMbox($val->value, true) . '"';
+
+            if ($val->vfolder) {
+                $checkbox .= ' disabled="disabled"';
+
+                if (!empty($opts['editvfolder']) && $val->editvfolder) {
+                    $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                    $after = '&nbsp[' .
+                        $imp_search->deleteUrl($val->value)->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>'.
+                        ']&nbsp;|&nbsp|[' .
+                        $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                        ']';
+                    exit;
+                }
+            }
+
+            $icon = $val->icon;
+            $tree->addNode(
+                strval($parent) . $val->value,
+                ($val->level) ? strval($parent) . $val->parent : $parent,
+                $label,
+                $indent + $val->level,
+                $val->is_open,
+                array(
+                    'class' => $class,
+                    'icon' => $icon->icon,
+                    'iconopen' => $icon->iconopen,
+                    'url' => $url
+                ),
+                $after,
+                empty($opts['checkbox']) ? null : $checkbox . ' />'
+            );
+        }
+
+        return $tree;
+    }
+
     /* ArrayAccess methods. */
 
     public function offsetExists($offset)
@@ -1543,8 +1665,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
 
         /* If showing unsubscribed, toggle subscribed flag to make sure we
          * have subscribed mailbox information. */
-        if (!$this->_showunsub &&
-            $c['mask'] & self::FLIST_UNSUB) {
+        if (!$this->_showunsub && ($c['mask'] & self::FLIST_UNSUB)) {
             $this->showUnsubscribed(true);
             $this->showUnsubscribed(false);
         }
@@ -1559,6 +1680,12 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
                         $c['ancestors'][$parent[0]] = $parent[1];
                         $p = $parent[0];
                     }
+                } elseif ($c['mask'] & self::FLIST_NOBASE) {
+                    $this->_currparent = $tmp->value;
+                    $this->_currkey = isset($this->_parent[$tmp->value])
+                        ? 0
+                        : null;
+                    $c['samelevel'] = $tmp->value;
                 } else {
                     $this->_currparent = $tmp->parent;
                     $this->_currkey = array_search($tmp->value, $this->_parent[$tmp->parent]);
@@ -1591,10 +1718,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator
      * IMP_Imap_Tree::FLIST_UNSUB - Include unsubscribed elements.
      * IMP_Imap_Tree::FLIST_VFOLDER - Include Virtual Folders.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't include child elements.
+     * IMP_Imap_Tree::FLIST_EXPANDED - Only include expanded folders.
+     * ---
+     * These options require that $base be set:
      * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors of $base.
      * IMP_Imap_Tree::FLIST_SAMELEVEL - Include all mailboxes at the same
      *                                  level as $base.
-     * IMP_Imap_Tree::FLIST_EXPANDED - Only include expanded folders.
+     * IMP_Imap_Tree::FLIST_NOBASE - Don't include $base in the return.
      * </pre>
      * @param string $base  Include all mailboxes below this element.
      */

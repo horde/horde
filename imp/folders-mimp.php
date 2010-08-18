@@ -49,7 +49,7 @@ $t = $injector->createInstance('Horde_Template');
 
 /* Start iterating through the list of mailboxes, displaying them. */
 $rows = array();
-foreach ($imptree->folderList($mask) as $val) {
+foreach ($imptree as $val) {
     $poll_info = $val->polled
         ? $val->poll_info
         : null;

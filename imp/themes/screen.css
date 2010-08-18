@@ -199,16 +199,12 @@ div.msgActions, #fmanager div.folderActions {
 #search_form div.item {
     padding: 1px 0 1px 0;
 }
-#search_form .checkbox {
-    vertical-align: middle;
-    margin-right: 2px;
-}
-#search_form .foldersImg {
-    vertical-align: middle;
-}
 #search_form em.join {
     font-style: normal;
     font-weight: bold;
+}
+#search_folders_tree input.checkbox {
+    vertical-align: middle;
 }
 
 .searchuiCalendar {
@@ -226,12 +222,14 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Folder view. */
-#checkAll0, #checkAll1, #fmanager input.checkbox, #fmanager span.folderImg {
+#checkAll0, #checkAll1, #fmanager input.checkbox {
     vertical-align: middle;
 }
+
 #fmanager div.folderChoose {
     padding-left: 5px;
 }
+
 span.folderImg {
     background-image: url("graphics/folders/folder.png");
 }
@@ -504,9 +502,11 @@ span.spellcheckPopdownImg:hover {
 /* Expand/Collapse graphic. */
 span.arrowCollapsed {
     background-image: url("graphics/arrow_collapsed.png");
+    cursor: pointer;
 }
 span.arrowExpanded {
     background-image: url("graphics/arrow_expanded.png");
+    cursor: pointer;
 }
 
 /* Loading graphic */

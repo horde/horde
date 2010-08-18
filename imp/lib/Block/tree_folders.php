@@ -63,34 +63,11 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         /* Initialize the IMP_Tree object. */
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
         $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER);
-
-        $unseen = 0;
-
-        foreach ($imaptree as $val) {
-            $label = $val->name;
-
-            if ($val->polled) {
-                $poll_info = $val->poll_info;
-                if (!empty($poll_info->unseen)) {
-                    $unseen += $poll_info->unseen;
-                    $label = '<span dir="ltr"><strong>' . $label . '</strong> (' . $poll_info->unseen . '/' . $poll_info->msgs . ')</span>';
-                }
-            }
-
-            $icon = $val->icon;
-            $tree->addNode(
-                $parent . $val->value,
-                ($val->level) ? $parent . $val->parent : $parent,
-                $label,
-                $indent + $val->level,
-                $val->is_open,
-                array(
-                    'icon' => $icon->icon,
-                    'iconopen' => $icon->iconopen,
-                    'url' => ($val->container) ? null : $name_url->add('mailbox', $val->value),
-                )
-            );
-        }
+        $imaptree->createTree($tree, array(
+            'indent' => $indent,
+            'parent' => $parent,
+            'poll_info' => true
+        ));
 
         /* We want to rewrite the parent node of the INBOX to include new mail
          * notification. */
@@ -106,9 +83,9 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         );
         $name = $registry->get('name', $parent);
 
-        if ($unseen) {
+        if ($imaptree->unseen) {
             $node_params['icon'] = Horde_Themes::img('newmail.png');
-            $name = sprintf('<strong>%s</strong> (%s)', $name, $unseen);
+            $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
         }
 
         $tree->addNode(

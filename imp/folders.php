@@ -354,9 +354,6 @@ if ($_SESSION['imp']['file_upload'] && ($vars->actionID == 'import_mbox')) {
     exit;
 }
 
-/* Build the folder tree. */
-$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_EXPANDED);
-
 /* Prepare the header template. */
 $refresh_title = _("Reload View");
 $head_template = $injector->createInstance('Horde_Template');
@@ -399,13 +396,18 @@ $a_template->set('file_upload', $_SESSION['imp']['file_upload']);
 $a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
 $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 
-/* Get the tree images. */
-$imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($imaptree, array('expand_url' => $folders_url_ob));
+/* Build the folder tree. */
+// TODO: Javascript JSON loading; save expanded view.
+//$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_EXPANDED);
+$imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER);
 
-$displayNames = $fullNames = $newmsgs = $rows = array();
-$name_url = Horde::applicationUrl('mailbox.php');
-$rowct = 0;
+$tree = $imaptree->createTree('imp_folders', array(
+    'checkbox' => true,
+    'editvfolder' => true,
+    'poll_info' => true
+));
+
+$displayNames = $fullNames = array();
 
 foreach ($imaptree as $key => $val) {
     $tmp = $displayNames[] = $val->display;
@@ -414,72 +416,23 @@ foreach ($imaptree as $key => $val) {
     if ($tmp != $tmp2) {
         $fullNames[$key] = $tmp2;
     }
-
-    $row = array();
-
-    $row['nocheckbox'] = !empty($val->vfolder);
-    if (!empty($val->vfolder) && $val->editvfolder) {
-        $imp_search = $injector->getInstance('IMP_Search');
-        $row['delvfolder'] = $imp_search->deleteUrl($val->value)->link(array('title' => _("Delete Virtual Folder"))) . _("Delete") . '</a>';
-        $row['editvfolder'] = $imp_search->editUrl($val->value)->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>';
-    }
-
-    $row['cname'] = 'item' . (++$rowct % 2);
-
-    if ($val->container) {
-        $row['name'] = $val->name;
-    } else {
-        /* Highlight line differently if folder/mailbox is unsubscribed. */
-        if ($showAll && $subscribe && !$val->sub) {
-            $row['cname'] .= ' folderunsub';
-        }
-
-        $row['name'] = $val->name;
-
-        if ($val->polled) {
-            $row['polled'] = true;
-
-            $poll_info = $val->poll_info;
-            if ($poll_info->recent) {
-                $newmsgs[$val->value] = $poll_info->recent;
-            }
-
-            if ($poll_info->unseen) {
-                $row['name'] = '<strong>' . $val->name . '</strong>';
-            }
-
-            $row['msgs'] = $poll_info->msgs;
-            $row['unseen'] = $poll_info->unseen;
-        }
-
-        $row['name'] = $name_url->copy()->add('mailbox', $val->value)->link(array('title' => $val->vfolder ? $val->label : $val->display)) . $row['name'] . '</a>';
-    }
-
-    $row['line'] = $tree_imgs[$key];
-
-    $rows[] = $row;
 }
 
 /* Check to see if user wants new mail notification */
-if (!empty($newmsgs)) {
+if (!empty($imaptree->recent)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
-    foreach ($newmsgs as $mbox => $nm) {
+    foreach ($imaptree->recent as $mbox => $nm) {
         $injector->getInstance('IMP_Imap')->getOb()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
-    IMP::newmailAlerts($newmsgs);
+    IMP::newmailAlerts($imaptree->recent);
 }
 
 Horde::addInlineScript(array(
     'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
     'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset)
 ));
-
-/* Render the rows now. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('rows', $rows);
 
 $title = _("Folder Navigator");
 IMP::prepareMenu();
@@ -491,8 +444,8 @@ IMP::quota();
 
 echo $head_template->fetch(IMP_TEMPLATES . '/imp/folders/head.html');
 echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
-echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders.html');
-if (count($rows) > 10) {
+$tree->renderTree();
+if (count($tree) > 10) {
     $a_template->set('id', 1);
     echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
 }

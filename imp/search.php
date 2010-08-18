@@ -9,14 +9,12 @@
  * 'criteria_form' - (string) JSON representation of the search query.
  * 'edit_query' - (string) The search query to edit.
  * 'edit_query_vfolder' - (string) The name of the vfolder being edited.
- * 'search_folders_form' - (array) The list of folders to add to the query.
+ * 'folder_list' - (array) The list of folders to add to the query.
  * 'search_label' - (string) The label to use when saving the search.
  * 'search_mailbox' - (string) Use this mailbox as the default value.
  *                    DEFAULT: INBOX
- * 'search_save' - (boolean) If set, save search.
+ * 'search_save' - (integer) If set, save search.
  * 'search_type' - (string) The type of saved search ('vfolder').
- * 'show_unsub' - (integer) If set, return a JSON object with folder
- *                information used to create the folder list.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -64,13 +62,13 @@ if ($vars->criteria_form) {
     if ($vars->search_save) {
         switch ($vars->search_type) {
         case 'vfolder':
-            $id = $imp_search->addVFolder($query, $vars->search_folders_form, $criteria, $vars->search_label, $vars->edit_query_vfolder);
+            $id = $imp_search->addVFolder($query, $vars->folder_list, $criteria, $vars->search_label, $vars->edit_query_vfolder);
             $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $vars->search_label), 'horde.success');
             break;
         }
     } else {
         /* Set the search in the session. */
-        $id = $imp_search->createSearchQuery($query, $vars->search_folders_form, $criteria, _("Search Results"));
+        $id = $imp_search->createSearchQuery($query, $vars->folder_list, $criteria, _("Search Results"));
     }
 
     /* Redirect to the mailbox page. */
@@ -89,34 +87,10 @@ if ($vars->criteria_form) {
 
 /* Generate master folder list. */
 $imp_imap_tree = $injector->getInstance('IMP_Imap_Tree');
-$mask = IMP_Imap_Tree::FLIST_CONTAINER;
-
-$subscribe = $prefs->getValue('subscribe');
-if (!$subscribe || $vars->show_unsub) {
-    $mask |= IMP_Imap_Tree::FLIST_UNSUB;
-}
-
-$imp_imap_tree->setIteratorFilter($mask);
-
-$imp_ui_folder = new IMP_Ui_Folder();
-$tree_imgs = $imp_ui_folder->getTreeImages($imp_imap_tree);
-
-$folders = array();
-foreach ($imp_imap_tree as $key => $val) {
-    $folders[] = array(
-        'c' => intval($val->container),
-        'l' => $tree_imgs[$key] . ' ' . $val->name,
-        'v' => $val->value
-    );
-}
-
-if ($vars->show_unsub) {
-    Horde::sendHTTPResponse($folders, 'json');
-}
-
-$js_load = array(
-    'ImpSearch.updateFolderList(' . Horde_Serialize::serialize($folders, Horde_Serialize::JSON, $charset) . ')'
-);
+$imp_imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_CONTAINER);
+$tree = $imp_imap_tree->createTree('imp_search', array(
+    'checkbox' => true,
+));
 
 /* Process list of recent searches. */
 $recent_searches = $imp_search->listQueries(IMP_Search::LIST_SEARCH | IMP_Search::NO_BASIC_SEARCH, false);
@@ -139,7 +113,6 @@ $js_load[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(arr
 $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('search.php'));
-$t->set('subscribe', $subscribe);
 $t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
 
 /* Determine if we are editing a current search folder. */
@@ -175,6 +148,7 @@ foreach ($imp_search->flagFields() as $key => $val) {
     $types[$key] = 'flag';
 }
 $t->set('f_fields', $f_fields);
+$t->set('tree', $tree->getTree());
 
 Horde_Core_Ui_JsCalendar::init();
 
