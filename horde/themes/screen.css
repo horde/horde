@@ -395,6 +395,74 @@ div.nicetitle {
     cursor: pointer;
 }
 
+span.treeImg {
+    height: 20px;
+    width: 20px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+}
+span.treeImg1 {
+    background-image: url("graphics/tree/line.png");
+}
+span.treeImg2 {
+    background-image: url("graphics/tree/join.png");
+}
+span.treeImg3 {
+    background-image: url("graphics/tree/joinbottom-down.png");
+}
+span.treeImg4 {
+    background-image: url("graphics/tree/joinbottom.png");
+}
+span.treeImg5 {
+    background-image: url("graphics/tree/rev-line.png");
+}
+span.treeImg6 {
+    background-image: url("graphics/tree/rev-join.png");
+}
+span.treeImg7 {
+    background-image: url("graphics/tree/rev-joinbottom-down.png");
+}
+span.treeImg8 {
+    background-image: url("graphics/tree/rev-joinbottom.png");
+}
+span.treeImg9 {
+    background-image: url("graphics/tree/minustop.png");
+}
+span.treeImg10 {
+    background-image: url("graphics/tree/minus.png");
+}
+span.treeImg11 {
+    background-image: url("graphics/tree/minusbottom.png");
+}
+span.treeImg12 {
+    background-image: url("graphics/tree/rev-minustop.png");
+}
+span.treeImg13 {
+    background-image: url("graphics/tree/rev-minus.png");
+}
+span.treeImg14 {
+    background-image: url("graphics/tree/rev-minusbottom.png");
+}
+span.treeImg15 {
+    background-image: url("graphics/tree/plustop.png");
+}
+span.treeImg16 {
+    background-image: url("graphics/tree/plus.png");
+}
+span.treeImg17 {
+    background-image: url("graphics/tree/plusbottom.png");
+}
+span.treeImg18 {
+    background-image: url("graphics/tree/rev-plustop.png");
+}
+span.treeImg19 {
+    background-image: url("graphics/tree/rev-plus.png");
+}
+span.treeImg20 {
+    background-image: url("graphics/tree/rev-plusbottom.png");
+}
+
 /* Menu styles. */
 #menu {
     overflow: hidden;
